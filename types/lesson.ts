@@ -28,4 +28,8 @@ export interface Lesson {
   duration?: string;
   sections?: LessonSection[];
   challenge?: ContentBlock[];
+  practiceFiles?: {
+    name: string;
+    url: string;
+  }[];  
 }

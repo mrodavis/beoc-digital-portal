@@ -326,5 +326,355 @@ export const wordModule1Lessons: Lesson[] = [
     },
   ],
 },
+{
+  slug: "creating-and-opening-documents",
+  title: "Creating and Opening Documents",
+  description:
+    "Learn how to create new documents from templates, open existing files, pin documents, and convert older Word files.",
+  videoUrl: "https://www.youtube.com/embed/PafCMUVH_OA",
+  duration: "8 min",
+
+  practiceFiles: [
+    {
+      name: "Creating and Opening Documents Practice File",
+      url: "/practice/word/module-1/creating-and-opening-documents/word_createopen_practice.doc",
+    },
+  ],
+  sections: [
+    {
+      heading: "Creating a New Document",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To create a new document, click the File tab to open Backstage view, then select New. You can choose Blank document or search for a template.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_template_start.png",
+          alt: "New document screen",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can type a keyword such as flyer in the search bar to find matching templates.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_template_search_.jpg",
+          alt: "Searching for flyer template",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Templates are also organized by category. Select a category such as Flyers to browse available designs.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_template_category_splat.png",
+          alt: "Template categories",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click a template preview, then select Create to open the new document.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_template_create.jpg",
+          alt: "Create template button",
+        },
+      ],
+    },
+
+    {
+      heading: "Opening an Existing Document",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To open an existing file, click File, then select Open. You can choose from Recent documents, OneDrive, or This PC.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/create_open_command.png",
+          alt: "Open command in Backstage view",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Select Browse to locate a file stored on your computer.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_open_browse.png",
+          alt: "Browse option",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_open_select.png",
+          alt: "Selecting a document",
+        },
+      ],
+    },
+
+    {
+      heading: "Pinning and Unpinning Documents",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can pin frequently used documents so they stay at the top of your Recent list.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_pin_start.png",
+          alt: "Pinned document",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click the pushpin icon again to unpin the document.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_pin_unpin.png",
+          alt: "Unpin document",
+        },
+      ],
+    },
+
+    {
+      heading: "Compatibility Mode and Converting Files",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If you open a document created in an older version of Word, it may open in Compatibility Mode. Some features may be limited.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_convert_compare_crop.png",
+          alt: "Compatibility Mode label",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To upgrade the file to the latest format, click File, then select Convert.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_convert_command.png",
+          alt: "Convert command",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click OK to confirm the conversion.",
+        },
+        {
+          type: "image",
+          src: "/images/word/creating-and-opening-documents/new_convert_ok.png",
+          alt: "Convert confirmation dialog",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Create a new document using a flyer template.",
+        "Search for a template using a keyword.",
+        "Open an existing document from This PC.",
+        "Pin a document to the Recent list.",
+        "Unpin the document.",
+        "Open a file in Compatibility Mode (if available).",
+        "Convert the file to the newest format.",
+      ],
+    },
+  ],
+},
+  {
+    slug: "saving-and-sharing-documents",
+    title: "Saving and Sharing Documents",
+    description:
+      "Learn how to save documents, use AutoRecover, change file types, export to PDF, and share documents with others.",
+    videoUrl: "https://www.youtube.com/embed/iHuFzz7Wvt4",
+    duration: "8 min",
+
+    practiceFiles: [
+      {
+        name: "Saving and Sharing Practice File",
+        url: "/practice/word/module-1/saving-and-sharing/word_saveshare_practice.docx",
+      },
+    ],
+
+    sections: [
+      {
+        heading: "Saving a Document",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "To save a document, click the File tab, then select Save or Save As. If it is your first time saving the file, you will be prompted to choose a location.",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_command.png",
+            alt: "Save command in Backstage view",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_dialog.png",
+            alt: "Save dialog box",
+          },
+        ],
+      },
+
+      {
+        heading: "Using AutoRecover",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "Word automatically saves temporary versions of your document using AutoRecover. If Word closes unexpectedly, you may see the Document Recovery pane when you reopen it.",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_autosave_recover.png",
+            alt: "Document Recovery pane",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_autosave_splat.png",
+            alt: "Recover Unsaved Documents option",
+          },
+        ],
+      },
+
+      {
+        heading: "Changing Default Save Options",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "You can change how Word saves documents by going to File → Options → Save. From here, you can adjust AutoRecover timing and default save locations.",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_default_options.png",
+            alt: "Word Save options",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_default_dialog.png",
+            alt: "Default save location dialog",
+          },
+        ],
+      },
+
+      {
+        heading: "Using Save As and Browsing",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "Select Save As to save a copy of your document in a different location or under a different name.",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_saveas.png",
+            alt: "Save As screen",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_browse.png",
+            alt: "Browse option",
+          },
+        ],
+      },
+
+      {
+        heading: "Changing File Types and Exporting",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "You can change the file type by selecting File → Export → Change File Type.",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_export_file_command.png",
+            alt: "Export and Change File Type",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_export_file_splat.png",
+            alt: "Change File Type options",
+          },
+          {
+            type: "paragraph",
+            text:
+              "To create a PDF, choose File → Export → Create PDF/XPS Document.",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_export_pdf_command.png",
+            alt: "Create PDF command",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_export_pdf_dialog.png",
+            alt: "Publish as PDF dialog",
+          },
+        ],
+      },
+
+      {
+        heading: "Sharing a Document",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "You can share documents directly from Word by selecting File → Share.",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/save_share_command.png",
+            alt: "Share command",
+          },
+          {
+            type: "image",
+            src: "/images/word/saving-and-sharing/share_menu.jpg",
+            alt: "Share menu",
+          },
+        ],
+      },
+    ],
+
+    challenge: [
+      {
+        type: "paragraph",
+        text:
+          "Download the practice file and complete the following steps:",
+      },
+      {
+        type: "list",
+        ordered: true,
+        items: [
+          "Open the practice file.",
+          "Use Save As to save a copy to a new location.",
+          "Change the file type to Word 97-2003 Document.",
+          "Export the document as a PDF.",
+          "Recover an unsaved document (if available).",
+          "Open File → Options and review the Save settings.",
+          "Use the Share feature to generate a share link (if signed in).",
+        ],
+      },
+    ],
+  },
 
 ];

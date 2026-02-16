@@ -30,6 +30,7 @@ export default function LessonPage({ params }: Props) {
       videoUrl={lesson.videoUrl}
       sections={lesson.sections ?? []}
       challenge={lesson.challenge ?? []}
+      practiceFiles={lesson.practiceFiles}
       prevLesson={prevLesson}
       nextLesson={nextLesson}
       backHref="/learning-paths/ms-office/word/module-1"

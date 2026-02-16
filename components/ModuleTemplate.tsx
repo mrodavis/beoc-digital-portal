@@ -14,6 +14,10 @@ interface ModuleTemplateProps {
 
   sections?: LessonSection[];
   challenge?: ContentBlock[];
+  practiceFiles?: {
+    name: string;
+    url: string;
+  }[];
 
   prevLesson?: NavLesson;
   nextLesson?: NavLesson;
@@ -28,6 +32,7 @@ export default function ModuleTemplate({
   videoUrl,
   sections = [],
   challenge = [],
+  practiceFiles = [],
   prevLesson,
   nextLesson,
   backHref,
@@ -84,6 +89,8 @@ export default function ModuleTemplate({
           />
         </div>
       </div>
+
+
 
       {/* Lesson Notes */}
       {hasSections && (
@@ -159,6 +166,43 @@ export default function ModuleTemplate({
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+      
+      {/* Practice File */}
+      {practiceFiles.length > 0 && (
+        <div className="mb-12">
+          <SectionHeader
+            title="Practice File"
+            description="Download this file and follow along with the lesson."
+          />
+          <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6">
+            {practiceFiles.map((file, index) => (
+              <a
+                key={index}
+                href={file.url}
+                download
+                className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl border border-gray-200 hover:bg-primary-50 hover:border-primary-200 transition-colors group"
+              >
+                <svg
+                  className="w-6 h-6 text-primary-600 flex-shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                  />
+                </svg>
+                <span className="font-medium text-gray-700 group-hover:text-primary-700">
+                  {file.name}
+                </span>
+              </a>
+            ))}
           </div>
         </div>
       )}
