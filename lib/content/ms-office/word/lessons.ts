@@ -237,4 +237,94 @@ export const wordModule1Lessons: Lesson[] = [
     ]
     ,
   },
+  {
+  slug: "understanding-onedrive",
+  title: "Understanding OneDrive (Word)",
+  description:
+    "Learn how to sign in, save files to OneDrive, and share documents online.",
+  videoUrl: "https://www.youtube.com/embed/OR_RjjqF1qc", // replace later if needed
+  duration: "2 min",
+
+  sections: [
+    {
+      heading: "Introduction",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Many of the features in Microsoft Office are designed for saving and sharing files online. OneDrive is Microsoft’s cloud storage space that allows you to save, edit, and share your documents from any device.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can access OneDrive from your computer, smartphone, or tablet. To get started, you’ll need a free Microsoft account.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once you have a Microsoft account, click Sign in in the upper-right corner of the Word window to connect your account.",
+        },
+        {
+          type: "image",
+          src: "/images/word/understanding-onedrive/onedrive_signin.png", // save the screenshot from page 1
+          alt: "Sign in to Microsoft Account in Word",
+          caption: "Click Sign in in the upper-right corner of Word.",
+        },
+      ],
+    },
+
+    {
+      heading: "Benefits of Using OneDrive",
+      blocks: [
+        {
+          type: "list",
+          ordered: false,
+          items: [
+            "Access your files anywhere – Open documents from any device with an Internet connection.",
+            "Back up your files – Protect your documents even if something happens to your computer.",
+            "Share files – Allow others to view or edit your documents for collaboration.",
+          ],
+        },
+      ],
+    },
+
+    {
+      heading: "Saving and Opening Files",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When signed in, OneDrive appears as a save location whenever you click Save or Save As.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can choose between saving to OneDrive or saving locally to This PC.",
+        },
+        {
+          type: "image",
+          src: "/images/word/understanding-onedrive/onedrive_saveas.png", // save screenshot from page 2
+          alt: "Save As Screen with OneDrive Option",
+          caption:
+            "Choose OneDrive to save online or This PC to save locally.",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Click Sign in in Word.",
+        "Sign in with a Microsoft account.",
+        "Click File → Save As.",
+        "Select OneDrive as the save location.",
+        "Save a document to OneDrive.",
+      ],
+    },
+  ],
+},
+
 ];
