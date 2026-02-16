@@ -1,0 +1,39 @@
+import { notFound } from "next/navigation";
+import { wordModule1Lessons } from "@/lib/content/ms-office/word/lessons";
+import ModuleTemplate from "@/components/ModuleTemplate";
+
+interface Props {
+  params: { slug: string };
+}
+
+export default function LessonPage({ params }: Props) {
+  const lessonIndex = wordModule1Lessons.findIndex(
+    (l) => l.slug === params.slug
+  );
+
+  if (lessonIndex === -1) return notFound();
+
+  const lesson = wordModule1Lessons[lessonIndex];
+
+  const prevLesson =
+    lessonIndex > 0 ? wordModule1Lessons[lessonIndex - 1] : undefined;
+
+  const nextLesson =
+    lessonIndex < wordModule1Lessons.length - 1
+      ? wordModule1Lessons[lessonIndex + 1]
+      : undefined;
+
+  return (
+    <ModuleTemplate
+      title={lesson.title}
+      description={lesson.description}
+      videoUrl={lesson.videoUrl}
+      sections={lesson.sections ?? []}
+      challenge={lesson.challenge ?? []}
+      prevLesson={prevLesson}
+      nextLesson={nextLesson}
+      backHref="/learning-paths/ms-office/word/module-1"
+      backLabel="Module 1"
+    />
+  );
+}
