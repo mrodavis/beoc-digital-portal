@@ -2,13 +2,15 @@ import { notFound } from "next/navigation";
 import { wordModule1Lessons } from "@/lib/content/ms-office/word/lessons";
 import ModuleTemplate from "@/components/ModuleTemplate";
 
-interface Props {
-  params: { slug: string };
-}
+export default async function LessonPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
 
-export default function LessonPage({ params }: Props) {
   const lessonIndex = wordModule1Lessons.findIndex(
-    (l) => l.slug === params.slug
+    (l) => l.slug === slug
   );
 
   if (lessonIndex === -1) return notFound();
