@@ -6,8 +6,16 @@ export const wordModule2Lessons: Lesson[] = [
     title: "Text Basics",
     description:
       "Learn how to insert, delete, select, cut, copy, paste, and move text efficiently in Word.",
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
     duration: "9 min",
+    videoUrl:
+      "https://www.youtube.com/embed/vmEzxQfVj5c?si=FydXQ8y--1kuD0b1",
+
+    practiceFiles: [
+      {
+        name: "Word Text Basics Practice File",
+        url: "/practice/word/module-2/text-basics/word_textbasics_practice.docx",
+      },
+    ],
 
     sections: [
       {
@@ -16,35 +24,107 @@ export const wordModule2Lessons: Lesson[] = [
           {
             type: "paragraph",
             text:
-              "Before you can format or move text, you must select it. Click and drag your mouse across text to highlight it.",
+              "Before editing text, you must first select it. You can click and drag your mouse across text, double-click to select a word, triple-click to select a paragraph, or press Ctrl + A to select the entire document.",
           },
           {
-            type: "list",
-            ordered: true,
-            items: [
-              "Double-click to select a word.",
-              "Triple-click to select a paragraph.",
-              "Press Ctrl + A to select the entire document.",
-            ],
+            type: "image",
+            src: "/images/word/text-basics/text_select.png",
+            alt: "Selecting text in Word",
           },
         ],
       },
+
       {
         heading: "Cut, Copy, and Paste",
         blocks: [
           {
             type: "paragraph",
             text:
-              "Use Cut to remove text and move it elsewhere. Use Copy to duplicate text.",
+              "The Cut command removes selected text and places it on the clipboard. The Copy command duplicates selected text. Paste inserts the content from the clipboard.",
           },
           {
-            type: "list",
-            ordered: false,
-            items: [
-              "Cut: Ctrl + X",
-              "Copy: Ctrl + C",
-              "Paste: Ctrl + V",
-            ],
+            type: "image",
+            src: "/images/word/text-basics/text_copy_command.png",
+            alt: "Copy command",
+          },
+          {
+            type: "image",
+            src: "/images/word/text-basics/text_copy_done.png",
+            alt: "Copy result",
+          },
+          {
+            type: "image",
+            src: "/images/word/text-basics/text_cut_command.png",
+            alt: "Cut command",
+          },
+        ],
+      },
+
+      {
+        heading: "Moving Text",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "To move text, select it, cut it, then paste it in the desired location.",
+          },
+          {
+            type: "image",
+            src: "/images/word/text-basics/text_cut_destination.png",
+            alt: "Cut destination",
+          },
+          {
+            type: "image",
+            src: "/images/word/text-basics/text_cut_done.png",
+            alt: "Cut complete",
+          },
+        ],
+      },
+
+      {
+        heading: "Insertion Point",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "The insertion point is the blinking vertical line that shows where text will appear when you type.",
+          },
+          {
+            type: "image",
+            src: "/images/word/text-basics/text_insertion_point.png",
+            alt: "Insertion point",
+          },
+        ],
+      },
+
+      {
+        heading: "Using Symbols",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "You can insert special symbols like ™ from the Insert tab by selecting Symbol.",
+          },
+          {
+            type: "image",
+            src: "/images/word/text-basics/text_symbol_command.png",
+            alt: "Insert symbol command",
+          },
+          {
+            type: "image",
+            src: "/images/word/text-basics/text_symbol_done.png",
+            alt: "Symbol inserted",
+          },
+        ],
+      },
+
+      {
+        heading: "Real-World Example",
+        blocks: [
+          {
+            type: "image",
+            src: "/images/word/text-basics/word2016_textbasics2_img.png",
+            alt: "Completed auto detailing flyer",
           },
         ],
       },
@@ -52,13 +132,17 @@ export const wordModule2Lessons: Lesson[] = [
 
     challenge: [
       {
+        type: "paragraph",
+        text: "Using the provided practice file, complete the following tasks:",
+      },
+      {
         type: "list",
         ordered: true,
         items: [
-          "Type a short paragraph about your career goals.",
-          "Copy the paragraph and paste it below.",
-          "Cut the second paragraph and move it above the first.",
-          "Use Ctrl + A to select all text.",
+          "Select and copy the 'H2O Signature Wash' section.",
+          "Paste it below the 'Signature Interior' section.",
+          "Cut the pricing line and move it to the correct section.",
+          "Insert the ™ symbol after 'H2O Mobile Wash & Valet'.",
         ],
       },
     ],
@@ -69,9 +153,8 @@ export const wordModule2Lessons: Lesson[] = [
     title: "Formatting Text",
     description:
       "Learn how to change font, size, color, bold, italic, underline, and alignment.",
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
     duration: "9 min",
-
+    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
     sections: [
       {
         heading: "Font and Size",
@@ -100,19 +183,6 @@ export const wordModule2Lessons: Lesson[] = [
         ],
       },
     ],
-
-    challenge: [
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Create a document titled 'Professional Summary'.",
-          "Make the title 20pt and bold.",
-          "Change the font color.",
-          "Center-align the title.",
-        ],
-      },
-    ],
   },
 
   {
@@ -120,9 +190,8 @@ export const wordModule2Lessons: Lesson[] = [
     title: "Paragraph Formatting",
     description:
       "Control spacing, indentation, alignment, and paragraph layout.",
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
     duration: "10 min",
-
+    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
     sections: [
       {
         heading: "Alignment",
@@ -139,29 +208,6 @@ export const wordModule2Lessons: Lesson[] = [
           },
         ],
       },
-      {
-        heading: "Indentation",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Use the ruler or Paragraph dialog box to adjust indentation.",
-          },
-        ],
-      },
-    ],
-
-    challenge: [
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Write two paragraphs.",
-          "Justify the first paragraph.",
-          "Add a first-line indent to the second.",
-          "Increase spacing between paragraphs.",
-        ],
-      },
     ],
   },
 
@@ -170,9 +216,8 @@ export const wordModule2Lessons: Lesson[] = [
     title: "Styles and Themes",
     description:
       "Use built-in styles and themes for consistent professional formatting.",
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
     duration: "12 min",
-
+    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
     sections: [
       {
         heading: "Using Styles",
@@ -182,29 +227,6 @@ export const wordModule2Lessons: Lesson[] = [
             text:
               "Styles apply consistent formatting to headings and text.",
           },
-        ],
-      },
-      {
-        heading: "Applying Themes",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Themes change fonts, colors, and effects across the entire document.",
-          },
-        ],
-      },
-    ],
-
-    challenge: [
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Apply Heading 1 to a title.",
-          "Apply Heading 2 to a subtitle.",
-          "Change the document theme.",
-          "Modify a style and observe changes.",
         ],
       },
     ],

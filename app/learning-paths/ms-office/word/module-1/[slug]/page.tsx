@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { wordModule1Lessons } from "@/lib/content/ms-office/word/lessons";
-import ModuleTemplate from "@/components/ModuleTemplate";
+import ModuleTemplate from "@/components/LessonTemplate";
 
 export default async function LessonPage({
   params,
