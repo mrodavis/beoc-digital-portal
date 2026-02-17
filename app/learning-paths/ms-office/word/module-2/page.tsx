@@ -65,13 +65,13 @@ export default function Module2Page() {
         description="Complete each lesson in order. Watch the video, review the notes, and finish the challenge."
       />
 
-      <div className="space-y-4 mb-12">
+      <div className="space-y-8 mb-16">
         {wordModule2Lessons.map((lesson, index) => (
           <Link
             key={lesson.slug}
             href={`/learning-paths/ms-office/word/module-2/${lesson.slug}`}
           >
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
