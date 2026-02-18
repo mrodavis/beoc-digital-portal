@@ -532,207 +532,339 @@ export const wordModule2Lessons: Lesson[] = [
         },
     ],
     },
+  
+{
+  slug: "lists",
+  title: "Lists (Bulleted, Numbered & Multilevel)",
+  description:
+    "Learn how to create, customize, and manage bulleted, numbered, and multilevel lists in Microsoft Word.",
+  duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/tyXahko-tX8",
 
-   {
-    slug: "indents-and-tabs",
-    title: "Indents and Tabs",
-    description:
-        "Learn how to use the ruler, tab selector, and indentation tools to control paragraph layout in Microsoft Word.",
-    duration: "8 min",
-    videoUrl: "https://www.youtube.com/embed/vJGYWVe52T4?si=P2fE667vh32d5DfJ",
+  practiceFiles: [
+    {
+      name: "Word Lists Practice File",
+      url: "/practice/word/module-2/lists/word_lists_practice.docx",
+    },
+  ],
 
-    practiceFiles: [
+  sections: [
+
+    {
+      heading: "Creating a Bulleted List",
+      blocks: [
         {
-        name: "Word Indents & Tabs Practice File",
-        url: "/practice/word/module-2/indents-tabs/word_indentstabs_practice.docx",
-        },
-    ],
-
-    sections: [
-
-        // ---------------- SHOW RULER ----------------
-        {
-        heading: "Using the Ruler",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "The ruler allows you to visually control indents and tab stops. If it is not visible, go to the View tab and check Ruler.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/2016-01-05_15-15-13.png",
-            alt: "Enabling the ruler in Word",
-            },
-        ],
-        },
-
-        // ---------------- INDENTS ----------------
-        {
-        heading: "Adjusting Indents",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "Indentation moves text inward from the margin. You can adjust the left indent, right indent, first-line indent, or hanging indent using the ruler or the Layout tab.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/indent_commands_before.png",
-            alt: "Indent controls before adjustment",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/indent_commands_after.png",
-            alt: "Indent controls after adjustment",
-            },
-        ],
-        },
-
-        // ---------------- FIRST LINE INDENT ----------------
-        {
-        heading: "First-Line Indent",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "A first-line indent moves only the first line of a paragraph inward. This is commonly used in essays and formal writing.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/tabs_inline_first.png",
-            alt: "First line indent example",
-            },
-        ],
-        },
-
-        // ---------------- HANGING INDENT ----------------
-        {
-        heading: "Hanging Indent",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "A hanging indent moves all lines except the first inward. This format is commonly used for Works Cited or reference pages.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/indent_hanging_example2.png",
-            alt: "Hanging indent example",
-            },
-        ],
-        },
-
-        // ---------------- TABS ----------------
-        {
-        heading: "Using Tab Stops",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "Tab stops allow you to align text precisely. You can set left, center, right, or decimal tabs using the tab selector and ruler.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/tabs_inline_center.png",
-            alt: "Center tab example",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/tabs_inline_left_indent.png",
-            alt: "Left tab example",
-            },
-        ],
-        },
-
-        // ---------------- FINAL EXAMPLE ----------------
-        {
-        heading: "Real-World Example",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "Below is an example of a professionally formatted resume section using indents and tab stops.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/word2016_indents2_img1.png",
-            alt: "Completed resume example",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/word2016_indents2_img2.png",
-            alt: "Completed resume layout",
-            },
-        ],
-        },
-    ],
-
-    challenge: [
-        {
-        type: "paragraph",
-        text: "Using the provided practice file, complete the following tasks:",
+          type: "paragraph",
+          text:
+            "Bulleted lists are useful when order does not matter. Select your text, then click the Bullets button in the Paragraph group on the Home tab.",
         },
         {
-        type: "list",
-        ordered: true,
-        items: [
-            "Enable the ruler.",
-            "Apply a first-line indent to the body paragraph.",
-            "Create a hanging indent for the Works Cited section.",
-            "Use tab stops to align dates to the right margin.",
-            "Adjust left and right indents for the Skills section.",
-        ],
+          type: "image",
+          src: "/images/word/lists/lists_create_bulleted_select.png",
+          alt: "Selecting text before applying bullets",
         },
-    ],
+        {
+          type: "image",
+          src: "/images/word/lists/lists_create_bulleted_command.png",
+          alt: "Bullets command button",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_create_bulleted_result2.png",
+          alt: "Bulleted list result",
+        },
+      ],
     },
 
+    {
+      heading: "Customizing Bullets",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can customize bullets using symbols, fonts, or colors by selecting Define New Bullet from the dropdown menu.",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_bullet_symbol_define2.png",
+          alt: "Define new bullet dialog",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_bullet_symbol_wingdings.png",
+          alt: "Wingdings symbol selection",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_bullet_symbol_result.png",
+          alt: "Custom bullet result",
+        },
+      ],
+    },
 
-  {
-    slug: "paragraph-formatting",
-    title: "Paragraph Formatting",
-    description:
-      "Control spacing, indentation, alignment, and paragraph layout.",
-    duration: "10 min",
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
-    sections: [
-      {
-        heading: "Alignment",
-        blocks: [
-          {
-            type: "list",
-            ordered: false,
-            items: [
-              "Left Align",
-              "Center Align",
-              "Right Align",
-              "Justify",
-            ],
-          },
-        ],
-      },
-    ],
-  },
+    {
+      heading: "Changing Bullet Color",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Bullet colors can be changed independently from text color using the Font option inside Define New Bullet.",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_bullet_color_menu.png",
+          alt: "Bullet color menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_bullet_color_result.png",
+          alt: "Green bullet result",
+        },
+      ],
+    },
 
-  {
-    slug: "styles-and-themes",
-    title: "Styles and Themes",
-    description:
-      "Use built-in styles and themes for consistent professional formatting.",
-    duration: "12 min",
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
-    sections: [
-      {
-        heading: "Using Styles",
+    {
+      heading: "Creating a Numbered List",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Numbered lists are used when order matters. Select your text and click the Numbering button in the Paragraph group.",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_create_numbered_select.png",
+          alt: "Selecting text for numbering",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_create_numbered_result.png",
+          alt: "Numbered list result",
+        },
+      ],
+    },
+
+    {
+      heading: "Restarting or Continuing Numbering",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Right-click a numbered list to restart numbering at 1 or continue numbering from a previous list.",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_restart_numbering_menu.png",
+          alt: "Restart numbering menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_restart_numbering_result.png",
+          alt: "Restart numbering result",
+        },
+      ],
+    },
+
+    {
+      heading: "Multilevel Lists",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Multilevel lists allow sub-items under main items. Use the Increase Indent and Decrease Indent buttons to change levels.",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_multilevel_create_select2.png",
+          alt: "Multilevel list dropdown",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_multilevel_level_increase2.png",
+          alt: "Increase indent",
+        },
+        {
+          type: "image",
+          src: "/images/word/lists/lists_multilevel_level_style.png",
+          alt: "Multilevel result",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Using the provided practice file, complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Create a bulleted list.",
+        "Customize the bullet symbol.",
+        "Change the bullet color.",
+        "Create a numbered list.",
+        "Restart numbering.",
+        "Create a multilevel list with at least two levels.",
+      ],
+    },
+  ],
+},
+
+{
+  slug: "hyperlinks",
+  title: "Links (Hyperlinks)",
+  description:
+    "Learn how to insert, edit, follow, and remove hyperlinks in Microsoft Word.",
+  duration: "10 min",
+  videoUrl: "https://www.youtube.com/embed/mNJZo8ESMp0",
+
+  practiceFiles: [
+    {
+      name: "Word Hyperlinks Practice File",
+      url: "/practice/word/module-2/hyperlinks/word_hyperlinks_practice.docx",
+    },
+  ],
+
+  sections: [
+
+    // ---------------- INSERTING A HYPERLINK ----------------
+    {
+      heading: "Inserting a Hyperlink",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To insert a hyperlink, select the text you want to turn into a link. Then go to the Insert tab and click the Link button.",
+        },
+        {
+          type: "image",
+          src: "/images/word/hyperlinks/hyperlinks_format_select.png",
+          alt: "Selecting text before inserting hyperlink",
+        },
+        {
+          type: "image",
+          src: "/images/word/hyperlinks/hyperlinks_format_insert.png",
+          alt: "Insert hyperlink command",
+        },
+        {
+          type: "image",
+          src: "/images/word/hyperlinks/hyperlinks_format_result.png",
+          alt: "Hyperlink result in document",
+        },
+      ],
+    },
+
+    // ---------------- FOLLOWING A HYPERLINK ----------------
+    {
+      heading: "Following a Hyperlink",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To follow a hyperlink in Word, hold the Ctrl key and click the link. This opens the webpage in your browser.",
+        },
+        {
+          type: "image",
+          src: "/images/word/hyperlinks/hyperlinks_understanding_ctrl_follow.png",
+          alt: "Ctrl + Click to follow link",
+        },
+        {
+          type: "image",
+          src: "/images/word/hyperlinks/hyperlinks_understanding_website_example.png",
+          alt: "Website example after clicking hyperlink",
+        },
+      ],
+    },
+
+    // ---------------- EDITING A HYPERLINK ----------------
+    {
+      heading: "Editing a Hyperlink",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To edit an existing hyperlink, right-click the link and choose Edit Hyperlink. You can change the display text or the web address.",
+        },
+        {
+          type: "image",
+          src: "/images/word/hyperlinks/hyperlinks_format_edit.png",
+          alt: "Edit hyperlink option",
+        },
+      ],
+    },
+
+    // ---------------- REMOVING A HYPERLINK ----------------
+    {
+      heading: "Removing a Hyperlink",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To remove a hyperlink but keep the text, right-click the link and select Remove Hyperlink.",
+        },
+        {
+          type: "image",
+          src: "/images/word/hyperlinks/hyperlinks_format_remove.png",
+          alt: "Remove hyperlink option",
+        },
+      ],
+    },
+
+    // ---------------- AUTO HYPERLINKS ----------------
+    {
+      heading: "Automatic Hyperlinks",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Word automatically converts web addresses (like www.poolsafely.gov) into clickable hyperlinks when you press Enter or Space.",
+        },
+        {
+          type: "image",
+          src: "/images/word/hyperlinks/hyperlink_link.jpg",
+          alt: "Automatic hyperlink example",
+        },
+      ],
+    },
+
+            // ---------------- FINAL RESULT ----------------
+        {
+        heading: "Final Result",
         blocks: [
-          {
+            {
             type: "paragraph",
             text:
-              "Styles apply consistent formatting to headings and text.",
-          },
+                "When you are finished, your page should look something like this.",
+            },
+        {
+          type: "image",
+          src: "/images/word/hyperlinks/word2016_hyperlink_img2.png",
+          alt: "Insert Hyperlink dialog box",
+        },
         ],
-      },
-    ],
-  },
-  
+        },
+  ],
+
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Using the provided practice file, complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Insert a hyperlink for 'City of Orlando'.",
+        "Verify the link using Ctrl + Click.",
+        "Edit the hyperlink address.",
+        "Remove a hyperlink but keep the text.",
+        "Create a hyperlink from a typed web address.",
+      ],
+    },
+  ],
+}
+
 ];
