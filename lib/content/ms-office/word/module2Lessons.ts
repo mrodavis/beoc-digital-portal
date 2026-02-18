@@ -408,7 +408,7 @@ export const wordModule2Lessons: Lesson[] = [
   ],
 },
 
-    {
+   {
     slug: "find-and-replace",
     title: "Using Find & Replace",
     description:
@@ -528,6 +528,160 @@ export const wordModule2Lessons: Lesson[] = [
             "Replace 'Sewanee Review' with 'SR'.",
             "Use Replace All to update the entire document.",
             "Verify that all instances were correctly replaced.",
+        ],
+        },
+    ],
+    },
+
+   {
+    slug: "indents-and-tabs",
+    title: "Indents and Tabs",
+    description:
+        "Learn how to use the ruler, tab selector, and indentation tools to control paragraph layout in Microsoft Word.",
+    duration: "8 min",
+    videoUrl: "https://www.youtube.com/embed/vJGYWVe52T4?si=P2fE667vh32d5DfJ",
+
+    practiceFiles: [
+        {
+        name: "Word Indents & Tabs Practice File",
+        url: "/practice/word/module-2/indents-tabs/word_indentstabs_practice.docx",
+        },
+    ],
+
+    sections: [
+
+        // ---------------- SHOW RULER ----------------
+        {
+        heading: "Using the Ruler",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "The ruler allows you to visually control indents and tab stops. If it is not visible, go to the View tab and check Ruler.",
+            },
+            {
+            type: "image",
+            src: "/images/word/indents-tabs/2016-01-05_15-15-13.png",
+            alt: "Enabling the ruler in Word",
+            },
+        ],
+        },
+
+        // ---------------- INDENTS ----------------
+        {
+        heading: "Adjusting Indents",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Indentation moves text inward from the margin. You can adjust the left indent, right indent, first-line indent, or hanging indent using the ruler or the Layout tab.",
+            },
+            {
+            type: "image",
+            src: "/images/word/indents-tabs/indent_commands_before.png",
+            alt: "Indent controls before adjustment",
+            },
+            {
+            type: "image",
+            src: "/images/word/indents-tabs/indent_commands_after.png",
+            alt: "Indent controls after adjustment",
+            },
+        ],
+        },
+
+        // ---------------- FIRST LINE INDENT ----------------
+        {
+        heading: "First-Line Indent",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "A first-line indent moves only the first line of a paragraph inward. This is commonly used in essays and formal writing.",
+            },
+            {
+            type: "image",
+            src: "/images/word/indents-tabs/tabs_inline_first.png",
+            alt: "First line indent example",
+            },
+        ],
+        },
+
+        // ---------------- HANGING INDENT ----------------
+        {
+        heading: "Hanging Indent",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "A hanging indent moves all lines except the first inward. This format is commonly used for Works Cited or reference pages.",
+            },
+            {
+            type: "image",
+            src: "/images/word/indents-tabs/indent_hanging_example2.png",
+            alt: "Hanging indent example",
+            },
+        ],
+        },
+
+        // ---------------- TABS ----------------
+        {
+        heading: "Using Tab Stops",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Tab stops allow you to align text precisely. You can set left, center, right, or decimal tabs using the tab selector and ruler.",
+            },
+            {
+            type: "image",
+            src: "/images/word/indents-tabs/tabs_inline_center.png",
+            alt: "Center tab example",
+            },
+            {
+            type: "image",
+            src: "/images/word/indents-tabs/tabs_inline_left_indent.png",
+            alt: "Left tab example",
+            },
+        ],
+        },
+
+        // ---------------- FINAL EXAMPLE ----------------
+        {
+        heading: "Real-World Example",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Below is an example of a professionally formatted resume section using indents and tab stops.",
+            },
+            {
+            type: "image",
+            src: "/images/word/indents-tabs/word2016_indents2_img1.png",
+            alt: "Completed resume example",
+            },
+            {
+            type: "image",
+            src: "/images/word/indents-tabs/word2016_indents2_img2.png",
+            alt: "Completed resume layout",
+            },
+        ],
+        },
+    ],
+
+    challenge: [
+        {
+        type: "paragraph",
+        text: "Using the provided practice file, complete the following tasks:",
+        },
+        {
+        type: "list",
+        ordered: true,
+        items: [
+            "Enable the ruler.",
+            "Apply a first-line indent to the body paragraph.",
+            "Create a hanging indent for the Works Cited section.",
+            "Use tab stops to align dates to the right margin.",
+            "Adjust left and right indents for the Skills section.",
         ],
         },
     ],
