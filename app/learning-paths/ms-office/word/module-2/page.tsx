@@ -5,7 +5,7 @@ export default function Module2Page() {
   return (
     <ModuleIndexTemplate
         moduleNumber={2}
-        title="Advanced Formatting & Styles"
+        title="Formatting & Styles"
         emoji="🎨"
         description="Master text formatting, paragraph controls, styles, and themes..."
         lessons={wordModule2Lessons}

@@ -408,6 +408,131 @@ export const wordModule2Lessons: Lesson[] = [
   ],
 },
 
+    {
+    slug: "find-and-replace",
+    title: "Using Find & Replace",
+    description:
+        "Learn how to search for text, navigate results, and replace words or phrases efficiently in Microsoft Word.",
+    duration: "8 min",
+    videoUrl: "https://www.youtube.com/embed/p3Ql9y3eEyo?si=ZQ4tqLb9hhar33zv",
+
+    practiceFiles: [
+        {
+        name: "Word Find and Replace Practice File",
+        url: "/practice/word/module-2/find-and-replace/word_findreplace_practice.docx",
+        },
+    ],
+
+    sections: [
+        // ---------------- FIND ----------------
+        {
+        heading: "Using Find (Ctrl + F)",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "The Find command allows you to search for specific words or phrases in a document. Press Ctrl + F or click Find in the Editing group on the Home tab.",
+            },
+            {
+            type: "image",
+            src: "/images/word/find-replace/2016-01-05_12-20-50.png",
+            alt: "Find command button",
+            },
+            {
+            type: "image",
+            src: "/images/word/find-replace/2016-01-05_12-22-01.png",
+            alt: "Navigation pane showing results",
+            },
+            {
+            type: "paragraph",
+            text:
+                "The Navigation pane displays all matching results. Click any result to jump directly to that location in the document.",
+            },
+        ],
+        },
+
+        // ---------------- ADVANCED FIND ----------------
+        {
+        heading: "Advanced Find Options",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Click the dropdown arrow in the Navigation pane to access Advanced Find. This allows you to refine your search or locate specific elements such as tables, graphics, or footnotes.",
+            },
+            {
+            type: "image",
+            src: "/images/word/find-replace/2016-01-05_12-23-11.png",
+            alt: "Advanced find options menu",
+            },
+        ],
+        },
+
+        // ---------------- REPLACE ----------------
+        {
+        heading: "Using Replace (Ctrl + H)",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "The Replace command allows you to search for text and automatically replace it with new text. Press Ctrl + H or click Replace in the Editing group.",
+            },
+            {
+            type: "image",
+            src: "/images/word/find-replace/2016-01-05_12-25-23.png",
+            alt: "Replace command",
+            },
+            {
+            type: "image",
+            src: "/images/word/find-replace/2016-01-05_12-26-17.png",
+            alt: "Find and Replace dialog box",
+            },
+            {
+            type: "image",
+            src: "/images/word/find-replace/2016-01-05_12-29-47.png",
+            alt: "Replace example",
+            },
+        ],
+        },
+
+        // ---------------- FINAL RESULT ----------------
+        {
+        heading: "Final Result",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "After using Replace All, every instance of the word is updated throughout the document instantly.",
+            },
+            {
+            type: "image",
+            src: "/images/word/find-replace/2016-01-11_08-48-30.png",
+            alt: "Final replaced document result",
+            },
+        ],
+        },
+    ],
+
+    challenge: [
+        {
+        type: "paragraph",
+        text: "Using the provided practice file, complete the following tasks:",
+        },
+        {
+        type: "list",
+        ordered: true,
+        items: [
+            "Use Find to search for the word 'fiction'.",
+            "Navigate through all results using the arrows in the Navigation pane.",
+            "Open Replace (Ctrl + H).",
+            "Replace 'Sewanee Review' with 'SR'.",
+            "Use Replace All to update the entire document.",
+            "Verify that all instances were correctly replaced.",
+        ],
+        },
+    ],
+    },
+
 
   {
     slug: "paragraph-formatting",
