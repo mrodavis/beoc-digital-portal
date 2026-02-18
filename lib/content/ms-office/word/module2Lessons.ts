@@ -148,42 +148,266 @@ export const wordModule2Lessons: Lesson[] = [
     ],
   },
 
-  {
-    slug: "formatting-text",
-    title: "Formatting Text",
-    description:
-      "Learn how to change font, size, color, bold, italic, underline, and alignment.",
-    duration: "9 min",
-    videoUrl: "https://www.youtube.com/embed/YOUR_VIDEO_ID",
-    sections: [
-      {
-        heading: "Font and Size",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "The Font group on the Home tab allows you to change font type and size.",
-          },
-        ],
-      },
-      {
-        heading: "Text Emphasis",
-        blocks: [
-          {
-            type: "list",
-            ordered: false,
-            items: [
-              "Bold",
-              "Italic",
-              "Underline",
-              "Text Color",
-              "Highlight",
-            ],
-          },
-        ],
-      },
-    ],
-  },
+{
+  slug: "formatting-text",
+  title: "Formatting Text",
+  description:
+    "Learn how to change font, size, case, color, alignment, bold, italic, underline, and highlighting in Microsoft Word.",
+  duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/pmAl-8Tf8Pg?si=ObAc154cTG0NXlLk",
+
+  practiceFiles: [
+    {
+      name: "Word Formatting Text Practice File",
+      url: "/practice/word/module-2/formatting-text/word_formattext_practice.docx",
+    },
+  ],
+
+  sections: [
+
+    // ---------------- ALIGNMENT ----------------
+    {
+      heading: "Text Alignment",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Alignment controls how text is positioned between the margins. You can align text to the left, center, right, or justify it.",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_alignment_select.png",
+          alt: "Selecting text before alignment",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_alignment_command.png",
+          alt: "Alignment command in Word",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_alignment_result.png",
+          alt: "Aligned text result",
+        },
+      ],
+    },
+
+    // ---------------- CHANGE CASE ----------------
+    {
+      heading: "Changing Text Case",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The Change Case command allows you to quickly convert text to uppercase, lowercase, or capitalize each word.",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_case_select.png",
+          alt: "Selecting text before changing case",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_case_menu.png",
+          alt: "Change case dropdown menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_case_result.png",
+          alt: "Uppercase text result",
+        },
+      ],
+    },
+
+    // ---------------- FONT TYPE ----------------
+    {
+      heading: "Changing Font Type",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can change the font style from the Font dropdown menu in the Home tab.",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_font_select.png",
+          alt: "Selecting text before changing font",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_font_menu.png",
+          alt: "Font dropdown menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_font_result.png",
+          alt: "Changed font result",
+        },
+      ],
+    },
+
+    // ---------------- FONT SIZE ----------------
+    {
+      heading: "Changing Font Size",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Adjust font size using the size dropdown menu or the Increase/Decrease Font Size buttons.",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_size_select.png",
+          alt: "Selecting text before resizing",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_size_menu.png",
+          alt: "Font size dropdown menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_size_grow_shrink.png",
+          alt: "Grow and shrink font buttons",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_size_result.png",
+          alt: "Resized text result",
+        },
+      ],
+    },
+
+    // ---------------- FONT COLOR ----------------
+    {
+      heading: "Changing Font Color",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use the Font Color dropdown to apply theme colors or choose custom colors.",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_color_select.png",
+          alt: "Selecting text before changing color",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_color_menu2.png",
+          alt: "Font color dropdown menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_color_more_colors.png",
+          alt: "More colors dialog",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_color_result2.png",
+          alt: "Font color result",
+        },
+      ],
+    },
+
+    // ---------------- HIGHLIGHT ----------------
+    {
+      heading: "Text Highlighting",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The Text Highlight tool allows you to emphasize important information.",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_highlight_select.png",
+          alt: "Selecting text before highlighting",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_highlight_menu.png",
+          alt: "Highlight color menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_highlight_result.png",
+          alt: "Highlighted text result",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_highlight_no_color.png",
+          alt: "Removing highlight",
+        },
+      ],
+    },
+
+    // ---------------- EMPHASIS ----------------
+    {
+      heading: "Bold, Italic, and Underline",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use Bold, Italic, and Underline to emphasize text.",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_emphasis_select.png",
+          alt: "Selecting text before applying emphasis",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_emphasis_command.png",
+          alt: "Bold Italic Underline buttons",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/formatting_emphasis_result.png",
+          alt: "Bold and italic result",
+        },
+      ],
+    },
+
+    // ---------------- FINAL RESULT ----------------
+    {
+      heading: "Final Result",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After applying alignment, case changes, font adjustments, color, highlighting, and emphasis, your completed document should look like this:",
+        },
+        {
+          type: "image",
+          src: "/images/word/formatting-text/word2016_format_text_img.png",
+          alt: "Completed For Rent flyer example",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Using the provided practice file, complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Change the title to ALL CAPS.",
+        "Center-align the main heading.",
+        "Increase the font size of the title to 72pt.",
+        "Change the font color of the title.",
+        "Apply bold formatting to the price.",
+        "Highlight the contact phone number.",
+        "Modify the font style of the title.",
+      ],
+    },
+  ],
+},
+
 
   {
     slug: "paragraph-formatting",
@@ -231,4 +455,5 @@ export const wordModule2Lessons: Lesson[] = [
       },
     ],
   },
+  
 ];
