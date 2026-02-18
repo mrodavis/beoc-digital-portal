@@ -157,7 +157,7 @@ export default function ModuleIndexTemplate({
                   />
                 </svg>
               </div>
-            </div>
+            </div><br></br>
           </Link>
         ))}
       </div>

@@ -90,7 +90,29 @@ export default function WordPage() {
             Module 2
           </span>
           <h3 className="text-xl font-bold mt-3 mb-2">
-            Advanced Formatting & Styles
+            Basic Formatting
+          </h3>
+          <p className="text-gray-600">
+            Master paragraph styles, themes, advanced formatting options, and professional templates.
+          </p>
+        </div>
+        <span className="text-green-600 font-semibold text-sm">
+          Available →
+        </span>
+      </div>
+    </div>
+  </Link><br></br>
+
+    {/* Module 3 - Available */}
+  <Link href="/learning-paths/ms-office/word/module-3">
+    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+      <div className="flex items-center justify-between">
+        <div>
+          <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+            Module 3
+          </span>
+          <h3 className="text-xl font-bold mt-3 mb-2">
+            Advanced Formatting
           </h3>
           <p className="text-gray-600">
             Master paragraph styles, themes, advanced formatting options, and professional templates.
@@ -104,7 +126,7 @@ export default function WordPage() {
   </Link>
 
   {/* Modules 3–6 Locked */}
-  {["3", "4", "5", "6"].map((num) => (
+  {["4", "5", "6"].map((num) => (
     <div
       key={num}
       className="bg-white rounded-xl shadow-md border border-gray-200 p-6"
@@ -113,7 +135,6 @@ export default function WordPage() {
         Module {num}
       </span>
       <h3 className="text-xl font-bold mt-3 mb-2">
-        {num === "3" && "Tables, Graphics & Media"}
         {num === "4" && "Document References & Citations"}
         {num === "5" && "Mail Merge & Collaboration"}
         {num === "6" && "Productivity & Workflow Optimization"}
