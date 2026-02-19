@@ -1,196 +1,246 @@
 import { Lesson } from "@/types/lesson";
 
 export const wordModule3Lessons: Lesson[] = [
-   {
-        slug: "page-layout",
-        title: "Page Layout",
-        description:
-            "Learn how to adjust margins, orientation, paper size, and use the Page Setup dialog box in Microsoft Word.",
-        duration: "12 min",
-        videoUrl: "https://www.youtube.com/embed/aRvVeiWmFZk",
+{
+  slug: "pictures-text-wrapping",
+  title: "Pictures & Text Wrapping",
+  description:
+    "Learn how to insert images, resize them properly, and control how text wraps around pictures in Microsoft Word.",
+  duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/sqkEDw99szg",
 
-        practiceFiles: [
-            {
-            name: "Word Page Layout Practice File",
-            url: "/practice/word/module-3/page-layout/word_pagelayout_practice.docx",
-            },
-        ],
-
-        sections: [
-
-            // ---------------- MARGINS ----------------
-            {
-            heading: "Changing Margins",
-            blocks: [
-                {
-                type: "paragraph",
-                text:
-                    "Margins control the space between your text and the edge of the page. To change margins, go to the Layout tab and click Margins.",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_margins_command.png",
-                alt: "Margins command button",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_margins_menu.png",
-                alt: "Margins dropdown menu",
-                },
-            ],
-            },
-
-            // ---------------- CUSTOM MARGINS ----------------
-            {
-            heading: "Custom Margins",
-            blocks: [
-                {
-                type: "paragraph",
-                text:
-                    "For precise control, click Custom Margins to open the Page Setup dialog box. Here you can manually adjust top, bottom, left, and right margins.",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_custom_margins_menu.png",
-                alt: "Custom margins option",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_custom_margins_page_setup.png",
-                alt: "Page setup margins dialog",
-                },
-            ],
-            },
-
-            // ---------------- ORIENTATION ----------------
-            {
-            heading: "Changing Page Orientation",
-            blocks: [
-                {
-                type: "paragraph",
-                text:
-                    "Orientation determines whether your document prints vertically (Portrait) or horizontally (Landscape).",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_orientation_command.png",
-                alt: "Orientation command",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_orientation_menu.png",
-                alt: "Orientation dropdown menu",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_orientation_landscape.png",
-                alt: "Landscape orientation result",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_orientation_portrait.png",
-                alt: "Portrait orientation result",
-                },
-            ],
-            },
-
-            // ---------------- PAPER SIZE ----------------
-            {
-            heading: "Changing Paper Size",
-            blocks: [
-                {
-                type: "paragraph",
-                text:
-                    "You can change the paper size from the Layout tab by clicking Size. Word provides preset sizes such as Letter, Legal, and A4.",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_size_command.png",
-                alt: "Size command button",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_size_menu.png",
-                alt: "Paper size dropdown menu",
-                },
-            ],
-            },
-
-            // ---------------- CUSTOM SIZE ----------------
-            {
-            heading: "Custom Paper Size",
-            blocks: [
-                {
-                type: "paragraph",
-                text:
-                    "To define a custom paper size, click More Paper Sizes to open the Page Setup dialog box and manually enter width and height.",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_custom_size_menu.png",
-                alt: "More paper sizes option",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_custom_size_page_setup.png",
-                alt: "Custom paper size dialog",
-                },
-            ],
-            },
-
-            // ---------------- PAGE SETUP DIALOG ----------------
-            {
-            heading: "Using the Page Setup Dialog Box",
-            blocks: [
-                {
-                type: "paragraph",
-                text:
-                    "The Page Setup launcher provides full control over margins, paper size, orientation, and layout options in one place.",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/layout_page_setup.png",
-                alt: "Page setup launcher",
-                },
-            ],
-            },
-
-            // ---------------- FINAL RESULT ----------------
-            {
-            heading: "Final Result",
-            blocks: [
-                {
-                type: "paragraph",
-                text:
-                    "After adjusting margins, orientation, and paper size, your completed document should look like this:",
-                },
-                {
-                type: "image",
-                src: "/images/word/page-layout/word2016_page_layout_img.png",
-                alt: "Completed page layout example",
-                },
-            ],
-            },
-        ],
-
-        challenge: [
-            {
-            type: "paragraph",
-            text: "Using the provided practice file, complete the following tasks:",
-            },
-            {
-            type: "list",
-            ordered: true,
-            items: [
-                "Change the margins to Narrow.",
-                "Set orientation to Landscape.",
-                "Change the paper size to Legal.",
-                "Create custom margins of 0.75 inches on all sides.",
-                "Open the Page Setup dialog box and review all layout settings.",
-            ],
-            },
-        ],
+  practiceFiles: [
+    {
+      name: "Word Pictures & Text Wrapping Practice File",
+      url: "/practice/word/module-3/pictures-text-wrapping/word_picturestextwrapping_practice.docx",
     },
+  ],
+
+  sections: [
+
+    // ---------------- INSERT FROM DEVICE ----------------
+    {
+      heading: "Inserting a Picture from Your Computer",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To insert a picture from your computer, go to the Insert tab and click Pictures. Then choose This Device and select your image.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/pictures_insert.jpg",
+          alt: "Insert picture from device",
+        },
+      ],
+    },
+
+    // ---------------- INSERT ONLINE ----------------
+    {
+      heading: "Inserting an Online Picture",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can also insert images from online sources. Click Insert → Online Pictures, search for a keyword, select an image, and click Insert.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/pictures_search.jpg",
+          alt: "Online picture search window",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/pictures_onedrive.jpg",
+          alt: "Online pictures category screen",
+        },
+      ],
+    },
+
+    // ---------------- RESIZING ----------------
+    {
+      heading: "Resizing a Picture",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To resize a picture, click the image and drag a corner handle. Dragging from the corner keeps the image proportional and prevents distortion.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/insert_picture_resize.png",
+          alt: "Resize image using corner handles",
+        },
+      ],
+    },
+
+    // ---------------- WRAP TEXT INTRO ----------------
+    {
+      heading: "Understanding Text Wrapping",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "By default, pictures are inserted In Line with Text. To freely move and position a picture, you must change its wrapping style.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Select the image, then click the Layout Options icon or go to Picture Format → Wrap Text.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/2016-01-12_09-23-34.png",
+          alt: "Layout options button",
+        },
+      ],
+    },
+
+    // ---------------- WRAP OPTIONS ----------------
+    {
+      heading: "Wrap Text Options",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Word provides several wrapping options: In Line with Text, Square, Tight, Through, Top and Bottom, Behind Text, and In Front of Text.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Square wrapping is commonly used in newsletters because it allows text to flow neatly around the image.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/2016-01-12_09-24-44.png",
+          alt: "Wrap text menu options",
+        },
+      ],
+    },
+
+    // ---------------- SQUARE WRAP ----------------
+    {
+      heading: "Using Square Text Wrapping",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After selecting Square wrapping, drag the image to position it. The surrounding text will automatically adjust around the picture.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/2016-01-12_09-26-17.png",
+          alt: "Square wrapping applied",
+        },
+      ],
+    },
+
+    // ---------------- TOP AND BOTTOM ----------------
+    {
+      heading: "Using Top and Bottom Wrapping",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Top and Bottom wrapping places text above and below the image only. This is useful when separating content sections.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/2016-01-12_09-27-19.png",
+          alt: "Top and bottom wrapping example",
+        },
+      ],
+    },
+
+    // ---------------- MOVE VS FIX ----------------
+    {
+      heading: "Move with Text vs Fix Position",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When using wrapping styles, you can choose Move with Text or Fix Position on Page. Move with Text keeps the image connected to surrounding content.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/2016-01-12_09-27-59.png",
+          alt: "Move with text option",
+        },
+      ],
+    },
+
+    // ---------------- POSITION PRESETS ----------------
+    {
+      heading: "Using Position Presets",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Instead of manually dragging images, use Picture Format → Position to choose preset layout options.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/2016-01-12_09-50-34.png",
+          alt: "Position preset menu",
+        },
+      ],
+    },
+
+    // ---------------- ALIGN TOOLS ----------------
+    {
+      heading: "Aligning Images",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use Picture Format → Align to align images precisely. Alignment guides help create professional layouts.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/2016-01-11_10-50-52.png",
+          alt: "Align tools in picture format",
+        },
+      ],
+    },
+
+    // ---------------- FINAL RESULT ----------------
+    {
+      heading: "Final Result",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After inserting and wrapping images properly, your newsletter should have balanced spacing, clear structure, and professional image placement.",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/word2016_pictureswrapping2_img.png",
+          alt: "Completed newsletter with wrapped images",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Using the provided practice file, complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Insert a picture from your computer.",
+        "Apply Square text wrapping.",
+        "Insert an online image.",
+        "Apply Top and Bottom wrapping to one image.",
+        "Use Position presets to adjust layout.",
+        "Align the image using alignment tools.",
+        "Ensure images are set to Move with Text.",
+      ],
+    },
+  ],
+},
 
    
     {

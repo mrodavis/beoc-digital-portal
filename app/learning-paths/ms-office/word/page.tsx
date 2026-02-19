@@ -112,7 +112,7 @@ export default function WordPage() {
             Module 3
           </span>
           <h3 className="text-xl font-bold mt-3 mb-2">
-            Advanced Formatting
+            Styles, Media, and Themes
           </h3>
           <p className="text-gray-600">
             Master paragraph styles, themes, advanced formatting options, and professional templates.
@@ -126,7 +126,7 @@ export default function WordPage() {
   </Link>
 
   {/* Modules 3–6 Locked */}
-  {["4", "5", "6"].map((num) => (
+  {["4", "5"].map((num) => (
     <div
       key={num}
       className="bg-white rounded-xl shadow-md border border-gray-200 p-6"
@@ -135,9 +135,8 @@ export default function WordPage() {
         Module {num}
       </span>
       <h3 className="text-xl font-bold mt-3 mb-2">
-        {num === "4" && "Document References & Citations"}
-        {num === "5" && "Mail Merge & Collaboration"}
-        {num === "6" && "Productivity & Workflow Optimization"}
+        {num === "4" && "References, Review & Collaboration"}
+        {num === "5" && "Tables, Charts, & Mail Merge"}
       </h3>
       <p className="text-gray-600">
         Content unlocking soon.
@@ -160,9 +159,30 @@ export default function WordPage() {
 
       {/* ================= ADVANCED TRACK ================= */}
       <SectionHeader
-        title="Advanced Certification Track (Modules 7–8)"
+        title="Advanced Certification Track (Modules 6–8)"
         description="Designed for MOS certification and advanced professional use."
       />
+      {/* Module 3 - Available */}
+        <Link href="/learning-paths/ms-office/word/module-6">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+                  Module 6
+                </span>
+                <h3 className="text-xl font-bold mt-3 mb-2">
+                  Advanced Formatting
+                </h3>
+                <p className="text-gray-600">
+                  Master paragraph styles, themes, advanced formatting options, and professional templates.
+                </p>
+              </div>
+              <span className="text-green-600 font-semibold text-sm">
+                Available →
+              </span>
+            </div>
+          </div>
+        </Link><br></br>
 
       <div className="space-y-4 mb-8">
 
