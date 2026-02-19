@@ -20,7 +20,7 @@ export default function Navbar() {
               B
             </div>
             <span className="font-display font-bold text-xl text-gray-900 hidden sm:block">
-              BEOC Portal
+              BEOC Digital
             </span>
           </Link>
 

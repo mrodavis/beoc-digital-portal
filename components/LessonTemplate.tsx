@@ -12,6 +12,8 @@ interface ModuleTemplateProps {
   description: string;
   videoUrl: string;
 
+  moduleSlug: string;
+
   sections?: LessonSection[];
   challenge?: ContentBlock[];
   practiceFiles?: {
@@ -30,6 +32,7 @@ export default function ModuleTemplate({
   title,
   description,
   videoUrl,
+  moduleSlug,
   sections = [],
   challenge = [],
   practiceFiles = [],
@@ -274,7 +277,7 @@ export default function ModuleTemplate({
       <div className="flex justify-between items-center pt-8 border-t border-gray-200">
         {prevLesson ? (
           <Link
-            href={`/learning-paths/ms-office/word/module-1/${prevLesson.slug}`}
+            href={`/learning-paths/ms-office/word/${moduleSlug}/${prevLesson.slug}`}
             className="text-gray-500 hover:text-gray-700 font-medium transition-colors"
           >
             ← {prevLesson.title}
@@ -285,7 +288,7 @@ export default function ModuleTemplate({
 
         {nextLesson ? (
           <Link
-            href={`/learning-paths/ms-office/word/module-1/${nextLesson.slug}`}
+            href={`/learning-paths/ms-office/word/${moduleSlug}/${nextLesson.slug}`}
             className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
           >
             {nextLesson.title} →

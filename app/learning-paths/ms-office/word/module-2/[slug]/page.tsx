@@ -27,6 +27,7 @@ export default async function LessonPage({
 
   return (
     <ModuleTemplate
+      moduleSlug="module-2"
       title={lesson.title}
       description={lesson.description}
       videoUrl={lesson.videoUrl}
