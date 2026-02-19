@@ -865,6 +865,179 @@ export const wordModule2Lessons: Lesson[] = [
       ],
     },
   ],
-}
+},
+
+{
+  slug: "printing-documents",
+  title: "Printing Documents",
+  description:
+    "Learn how to access the Print pane, select a printer, adjust print settings, and print specific pages in Microsoft Word.",
+  duration: "10 min",
+  videoUrl: "https://www.youtube.com/embed/7bLQFTCsH8Y",
+
+  practiceFiles: [
+    {
+      name: "Word Printing Practice File",
+      url: "/practice/word/module-2/printing/word_printing_practice.docx",
+    },
+  ],
+
+  sections: [
+
+    // ---------------- OPENING PRINT ----------------
+    {
+      heading: "Opening the Print Pane",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To print a document, click the File tab and then select Print. This opens the Print pane where you can preview and adjust settings before printing.",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/printing_pane_file_tab.png",
+          alt: "Clicking the File tab",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/printing_pane_print_tab.png",
+          alt: "Print pane in Word",
+        },
+      ],
+    },
+
+    // ---------------- SELECTING PRINTER ----------------
+    {
+      heading: "Selecting a Printer",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use the Printer dropdown menu to choose which printer to send your document to. Word displays the printer status (Ready, Offline, etc.).",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/printing_to_print_1.png",
+          alt: "Printer dropdown menu",
+        },
+      ],
+    },
+
+    // ---------------- COPIES ----------------
+    {
+      heading: "Choosing the Number of Copies",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use the Copies box to specify how many copies of the document you want to print.",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/printing_to_print_2.png",
+          alt: "Copies selection box",
+        },
+      ],
+    },
+
+    // ---------------- PRINT SETTINGS ----------------
+    {
+      heading: "Adjusting Print Settings",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Under Settings, you can choose to print all pages, specific pages, one-sided or double-sided, portrait or landscape orientation, margins, and more.",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/printing_to_print_3.png",
+          alt: "Print settings options",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/printing_to_print_4.png",
+          alt: "More print settings",
+        },
+      ],
+    },
+
+    // ---------------- CUSTOM PRINT ----------------
+    {
+      heading: "Printing Specific Pages",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To print specific pages, select Custom Print and enter page numbers separated by commas (e.g., 2,5) or ranges (e.g., 1-3).",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/printing_custom_print_pages.png",
+          alt: "Custom print page selection",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/printing_custom_print_print.png",
+          alt: "Print button in custom print",
+        },
+      ],
+    },
+
+    // ---------------- PRINT PREVIEW ----------------
+    {
+      heading: "Print Preview",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The preview pane shows exactly how your document will look when printed. Use the zoom slider to adjust the view before printing.",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/word2016_printing_img_2.png",
+          alt: "Print preview example",
+        },
+      ],
+    },
+
+    // ---------------- FINAL RESULT ----------------
+    {
+      heading: "Final Result",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After selecting your printer, adjusting settings, and reviewing the preview, click the Print button to send your document to the printer.",
+        },
+        {
+          type: "image",
+          src: "/images/word/printing/download.png",
+          alt: "Print button highlighted",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Using the provided practice file, complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Open the Print pane.",
+        "Select your printer from the dropdown list.",
+        "Print 2 copies of the document.",
+        "Print only pages 1–3 and page 5.",
+        "Change the orientation to Landscape.",
+        "Review the print preview before printing.",
+      ],
+    },
+  ],
+},
+
 
 ];

@@ -2,6 +2,198 @@ import { Lesson } from "@/types/lesson";
 
 export const wordModule3Lessons: Lesson[] = [
    {
+        slug: "page-layout",
+        title: "Page Layout",
+        description:
+            "Learn how to adjust margins, orientation, paper size, and use the Page Setup dialog box in Microsoft Word.",
+        duration: "12 min",
+        videoUrl: "https://www.youtube.com/embed/aRvVeiWmFZk",
+
+        practiceFiles: [
+            {
+            name: "Word Page Layout Practice File",
+            url: "/practice/word/module-3/page-layout/word_pagelayout_practice.docx",
+            },
+        ],
+
+        sections: [
+
+            // ---------------- MARGINS ----------------
+            {
+            heading: "Changing Margins",
+            blocks: [
+                {
+                type: "paragraph",
+                text:
+                    "Margins control the space between your text and the edge of the page. To change margins, go to the Layout tab and click Margins.",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_margins_command.png",
+                alt: "Margins command button",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_margins_menu.png",
+                alt: "Margins dropdown menu",
+                },
+            ],
+            },
+
+            // ---------------- CUSTOM MARGINS ----------------
+            {
+            heading: "Custom Margins",
+            blocks: [
+                {
+                type: "paragraph",
+                text:
+                    "For precise control, click Custom Margins to open the Page Setup dialog box. Here you can manually adjust top, bottom, left, and right margins.",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_custom_margins_menu.png",
+                alt: "Custom margins option",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_custom_margins_page_setup.png",
+                alt: "Page setup margins dialog",
+                },
+            ],
+            },
+
+            // ---------------- ORIENTATION ----------------
+            {
+            heading: "Changing Page Orientation",
+            blocks: [
+                {
+                type: "paragraph",
+                text:
+                    "Orientation determines whether your document prints vertically (Portrait) or horizontally (Landscape).",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_orientation_command.png",
+                alt: "Orientation command",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_orientation_menu.png",
+                alt: "Orientation dropdown menu",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_orientation_landscape.png",
+                alt: "Landscape orientation result",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_orientation_portrait.png",
+                alt: "Portrait orientation result",
+                },
+            ],
+            },
+
+            // ---------------- PAPER SIZE ----------------
+            {
+            heading: "Changing Paper Size",
+            blocks: [
+                {
+                type: "paragraph",
+                text:
+                    "You can change the paper size from the Layout tab by clicking Size. Word provides preset sizes such as Letter, Legal, and A4.",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_size_command.png",
+                alt: "Size command button",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_size_menu.png",
+                alt: "Paper size dropdown menu",
+                },
+            ],
+            },
+
+            // ---------------- CUSTOM SIZE ----------------
+            {
+            heading: "Custom Paper Size",
+            blocks: [
+                {
+                type: "paragraph",
+                text:
+                    "To define a custom paper size, click More Paper Sizes to open the Page Setup dialog box and manually enter width and height.",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_custom_size_menu.png",
+                alt: "More paper sizes option",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_custom_size_page_setup.png",
+                alt: "Custom paper size dialog",
+                },
+            ],
+            },
+
+            // ---------------- PAGE SETUP DIALOG ----------------
+            {
+            heading: "Using the Page Setup Dialog Box",
+            blocks: [
+                {
+                type: "paragraph",
+                text:
+                    "The Page Setup launcher provides full control over margins, paper size, orientation, and layout options in one place.",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/layout_page_setup.png",
+                alt: "Page setup launcher",
+                },
+            ],
+            },
+
+            // ---------------- FINAL RESULT ----------------
+            {
+            heading: "Final Result",
+            blocks: [
+                {
+                type: "paragraph",
+                text:
+                    "After adjusting margins, orientation, and paper size, your completed document should look like this:",
+                },
+                {
+                type: "image",
+                src: "/images/word/page-layout/word2016_page_layout_img.png",
+                alt: "Completed page layout example",
+                },
+            ],
+            },
+        ],
+
+        challenge: [
+            {
+            type: "paragraph",
+            text: "Using the provided practice file, complete the following tasks:",
+            },
+            {
+            type: "list",
+            ordered: true,
+            items: [
+                "Change the margins to Narrow.",
+                "Set orientation to Landscape.",
+                "Change the paper size to Legal.",
+                "Create custom margins of 0.75 inches on all sides.",
+                "Open the Page Setup dialog box and review all layout settings.",
+            ],
+            },
+        ],
+    },
+
+   
+    {
     slug: "indents-and-tabs",
     title: "Indents and Tabs",
     description:
