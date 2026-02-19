@@ -460,5 +460,199 @@ export const wordModule3Lessons: Lesson[] = [
       },
     ],
 },
+
+{
+  slug: "breaks",
+  title: "Breaks (Page, Column & Section)",
+  description:
+    "Learn how to insert, manage, and delete page breaks, column breaks, and section breaks in Microsoft Word.",
+  duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/78fvQ9Ks8DA",
+
+  practiceFiles: [
+    {
+      name: "Word Breaks Practice File",
+      url: "/practice/word/module-3/breaks/word_breaks_practice.docx",
+    },
+  ],
+
+  sections: [
+
+    // ---------------- INTRO TO BREAKS ----------------
+    {
+      heading: "Understanding Breaks",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Breaks allow you to control how content flows in your document. You can force text onto a new page, start a new column, or create a new section with different formatting.",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_section_intro.png",
+          alt: "Break types overview",
+        },
+      ],
+    },
+
+    // ---------------- PAGE BREAK ----------------
+    {
+      heading: "Inserting a Page Break",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "A page break forces content to begin on the next page. Go to the Insert tab and click Page Break, or press Ctrl + Enter.",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_page_command.png",
+          alt: "Insert page break command",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_page_done.png",
+          alt: "Page break result",
+        },
+      ],
+    },
+
+    // ---------------- SECTION BREAK ----------------
+    {
+      heading: "Inserting a Section Break",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Section breaks allow different formatting in different parts of the document, such as changing columns, margins, or orientation.",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_section_command.png",
+          alt: "Section break menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_section_added.png",
+          alt: "Section break added",
+        },
+      ],
+    },
+
+    // ---------------- TYPES OF SECTION BREAKS ----------------
+    {
+      heading: "Types of Section Breaks",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Word provides several types of section breaks: Next Page, Continuous, Even Page, and Odd Page. Continuous section breaks are useful when changing formatting without starting a new page.",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_section_start.png",
+          alt: "Section break options",
+        },
+      ],
+    },
+
+    // ---------------- COLUMN BREAK ----------------
+    {
+      heading: "Column Breaks",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "A column break forces text to move to the next column. This is useful when working with multi-column layouts.",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_other_intro.png",
+          alt: "Column break option",
+        },
+      ],
+    },
+
+    // ---------------- SHOW HIDE ----------------
+    {
+      heading: "Viewing Breaks with Show/Hide",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Breaks are invisible by default. Click the Show/Hide ¶ button on the Home tab to display formatting marks and see where breaks are located.",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_delete_showhide.png",
+          alt: "Show hide formatting marks",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_page_splat_showhide.png",
+          alt: "Visible page break",
+        },
+      ],
+    },
+
+    // ---------------- DELETING BREAKS ----------------
+    {
+      heading: "Deleting a Break",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To delete a break, place your cursor directly before it and press Delete. Removing a section break may change formatting in your document.",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_delete_placeinsertion.png",
+          alt: "Placing insertion point before break",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/break_delete_done.png",
+          alt: "Break removed result",
+        },
+      ],
+    },
+
+    // ---------------- FINAL RESULT ----------------
+    {
+      heading: "Final Result",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After inserting and managing breaks correctly, your document should have clean page transitions and properly formatted sections.",
+        },
+        {
+          type: "image",
+          src: "/images/word/breaks/word2016_breaks_img_combined.png",
+          alt: "Completed breaks example",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Using the provided practice file, complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Insert a page break before the 'Monthly Revenue' section.",
+        "Insert a section break before the 'Clients Overview' section.",
+        "Change one section to a two-column layout.",
+        "Use Show/Hide to display formatting marks.",
+        "Delete an unnecessary page or section break.",
+      ],
+    },
+  ],
+},
+
   
 ];
