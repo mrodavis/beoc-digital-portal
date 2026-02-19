@@ -162,7 +162,7 @@ export default function WordPage() {
         title="Advanced Certification Track (Modules 6–8)"
         description="Designed for MOS certification and advanced professional use."
       />
-      {/* Module 3 - Available */}
+      {/* Module 6 - Available */}
         <Link href="/learning-paths/ms-office/word/module-6">
           <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
             <div className="flex items-center justify-between">
@@ -195,7 +195,7 @@ export default function WordPage() {
               Module {num}
             </span>
             <h3 className="text-xl font-bold mt-3 mb-2">
-              {num === "7" && "Advanced Automation & Mail Merge"}
+              {num === "7" && "Advanced Styles & Themes"}
               {num === "8" && "MOS Exam Strategies & Simulation"}
             </h3>
             <p className="text-gray-600">
