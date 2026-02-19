@@ -653,6 +653,196 @@ export const wordModule3Lessons: Lesson[] = [
     },
   ],
 },
+{
+  slug: "columns",
+  title: "Columns",
+  description:
+    "Learn how to create, customize, and remove columns in Microsoft Word, including how to use column breaks and adjust column spacing.",
+  duration: "10 min",
+  videoUrl: "https://www.youtube.com/embed/X1n2VG1yxFs?si=WLrIc_XyiWiQtSBB",
+
+  practiceFiles: [
+    {
+      name: "Word Columns Practice File",
+      url: "/practice/word/module-3/columns/word_columns_practice.docx",
+    },
+  ],
+
+  sections: [
+
+    // ---------------- INTRO TO COLUMNS ----------------
+    {
+      heading: "Adding Columns",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Columns allow text to flow from top to bottom in one column, then continue at the top of the next column—similar to newspapers or newsletters.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To add columns, select your text, go to the Layout tab, and click Columns. Then choose Two, Three, or another preset option.",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_add_select.png",
+          alt: "Selecting text before applying columns",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_add_menu.png",
+          alt: "Columns dropdown menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_add_result.png",
+          alt: "Text displayed in two columns",
+        },
+      ],
+    },
+
+    // ---------------- COLUMN BREAKS ----------------
+    {
+      heading: "Inserting a Column Break",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "A column break forces text to move to the top of the next column immediately.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Place your insertion point where you want the new column to begin. Then go to Layout → Breaks → Column.",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_break_menu.png",
+          alt: "Breaks menu showing column break",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_break_insert_callout.png",
+          alt: "Inserting a column break",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_break_result.png",
+          alt: "Column break result",
+        },
+      ],
+    },
+
+    // ---------------- CUSTOMIZING COLUMNS ----------------
+    {
+      heading: "Customizing Columns",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To adjust column width or spacing, click Columns and choose More Columns.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "From the Columns dialog box, you can change the number of columns, adjust spacing, and add a line between columns.",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_more_columns.png",
+          alt: "More Columns dialog box",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_indent_markers.png",
+          alt: "Column spacing and indent markers",
+        },
+      ],
+    },
+
+    // ---------------- REMOVING COLUMNS ----------------
+    {
+      heading: "Removing Columns",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To remove columns, select the text and go to Layout → Columns → One.",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_remove_menu.png",
+          alt: "Columns menu showing One column",
+        },
+      ],
+    },
+
+    // ---------------- REMOVING COLUMN BREAKS ----------------
+    {
+      heading: "Removing a Column Break",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To delete a column break, turn on Show/Hide (¶) to reveal formatting marks. Then place your insertion point before the break and press Delete.",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_remove_breaks_showhide.png",
+          alt: "Show/Hide formatting marks",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_remove_breaks_insertion.png",
+          alt: "Selecting column break",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/columns_remove_breaks_result.png",
+          alt: "Column break removed",
+        },
+      ],
+    },
+
+    // ---------------- FINAL RESULT ----------------
+    {
+      heading: "Final Result",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After applying columns and adjusting spacing properly, your newsletter should look clean, balanced, and professionally formatted.",
+        },
+        {
+          type: "image",
+          src: "/images/word/columns/word2016_columns2_img.png",
+          alt: "Completed newsletter with two columns",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Using the provided practice file, complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Convert the Community Reminders section into two columns.",
+        "Insert a column break after the first bullet.",
+        "Adjust spacing between columns using More Columns.",
+        "Add a line between columns.",
+        "Remove the column break.",
+        "Return the section to one column.",
+      ],
+    },
+  ],
+}
+
 
   
 ];
