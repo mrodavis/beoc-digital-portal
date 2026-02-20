@@ -469,118 +469,303 @@ export const wordModule3Lessons: Lesson[] = [
   ],
 },
 
-  {
-    slug: "line-paragraph-spacing",
-    title: "Line and Paragraph Spacing",
-    description:
-      "Learn how to adjust line spacing and paragraph spacing for professional document formatting.",
-    duration: "10 min",
-    videoUrl: "https://www.youtube.com/embed/mXWvKHWe2Co?si=ALpc88kNziEZhfGI",
+{
+  slug: "shapes",
+  title: "Shapes",
+  description:
+    "Learn how to insert, resize, rotate, reorder, and format shapes in Microsoft Word, including fill, outline, styles, and special effects.",
+  duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/6OJRvC1C7-U?si=ecqD5EXs5t_XiW_e",
 
-    practiceFiles: [
-      {
-        name: "Word Line and Paragraph Spacing Practice File",
-        url: "/practice/word/module-3/line-paragraph-spacing/word_lineparagraphspacing_practice.docx",
-      },
-    ],
+  practiceFiles: [
+    {
+      name: "Word Shapes Practice File",
+      url: "/practice/word/module-3/shapes/word_shapes_practice.docx",
+    },
+  ],
 
-    sections: [
-      {
-        heading: "Using the Line Spacing Menu",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "You can quickly change line spacing from the Line and Paragraph Spacing button in the Paragraph group on the Home tab.",
-          },
-          {
-            type: "image",
-            src: "/images/word/line-paragraph-spacing/2016-01-11_09-49-05.png",
-            alt: "Line spacing dropdown menu",
-          },
-          {
-            type: "image",
-            src: "/images/word/line-paragraph-spacing/2016-01-11_13-03-40.png",
-            alt: "Line spacing applied result",
-          },
-        ],
-      },
+  sections: [
 
-      {
-        heading: "Opening Line Spacing Options",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "For advanced spacing control, open the Paragraph dialog box and use the Line spacing dropdown menu.",
-          },
-          {
-            type: "image",
-            src: "/images/word/line-paragraph-spacing/2016-01-08_10-58-38.png",
-            alt: "Paragraph dialog box with line spacing options",
-          },
-        ],
-      },
+    // ---------------- INSERT SHAPES ----------------
+    {
+      heading: "Inserting a Shape",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To insert a shape, go to the Insert tab and click Shapes. Choose a shape from the dropdown menu, then click and drag on the page to draw it.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_insert_menu2.png",
+          alt: "Insert shapes menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_insert_in_document3.png",
+          alt: "Shape inserted in document",
+        },
+      ],
+    },
 
-      {
-        heading: "Spacing Before and After Paragraphs",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Paragraph spacing adds space before or after entire paragraphs. This creates cleaner documents without using extra blank lines.",
-          },
-          {
-            type: "image",
-            src: "/images/word/line-paragraph-spacing/2016-01-08_10-42-20.png",
-            alt: "Before and After spacing settings",
-          },
-          {
-            type: "image",
-            src: "/images/word/line-paragraph-spacing/2016-01-11_09-51-32.png",
-            alt: "Paragraph spacing result example",
-          },
-        ],
-      },
+    // ---------------- ADD TEXT ----------------
+    {
+      heading: "Adding Text to a Shape",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can type directly inside most shapes. After inserting the shape, simply begin typing. Use the Home tab to adjust font, size, color, and alignment.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_insert_text.jpg",
+          alt: "Typing inside a shape",
+        },
+      ],
+    },
 
-      {
-        heading: "Professional Example",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Proper spacing improves readability and gives letters and resumes a clean, professional look.",
-          },
-          {
-            type: "image",
-            src: "/images/word/line-paragraph-spacing/2016-01-08_10-34-42.png",
-            alt: "Letter before spacing adjustment",
-          },
-          {
-            type: "image",
-            src: "/images/word/line-paragraph-spacing/word2016_linespacing_img3.png",
-            alt: "Letter after spacing adjustment",
-          },
-        ],
-      },
-    ],
+    // ---------------- RESIZE ROTATE ----------------
+    {
+      heading: "Resizing and Rotating Shapes",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Select a shape to display sizing handles. Drag corner handles to resize proportionally. Use the circular rotation handle at the top to rotate the shape.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_resize_select.jpg",
+          alt: "Shape selected with handles",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_resize_handle.jpg",
+          alt: "Resizing shape using handles",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_resize_rotate.jpg",
+          alt: "Rotating a shape",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Some shapes include yellow adjustment handles. These allow you to modify specific parts of the shape, such as banner folds.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_resize_yellow.jpg",
+          alt: "Yellow adjustment handle",
+        },
+      ],
+    },
 
-    challenge: [
-      {
-        type: "paragraph",
-        text: "Using the provided practice file, complete the following tasks:",
-      },
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Change the body text to 1.5 line spacing.",
-          "Add spacing after each paragraph.",
-          "Remove unnecessary blank lines created using Enter.",
-          "Adjust the document to look professionally formatted.",
-        ],
-      },
-    ],
+    // ---------------- ORDERING ----------------
+    {
+      heading: "Changing Shape Order",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When shapes overlap, you can control which appears in front. Right-click the shape and choose Bring to Front or Send to Back.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_order_menu.jpg",
+          alt: "Bring to front or send to back menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_order_result.jpg",
+          alt: "Shape ordering result",
+        },
+        {
+          type: "paragraph",
+          text:
+            "For complex documents, use the Selection Pane (Format tab → Selection Pane) to select and manage overlapping shapes.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_order_selection_pane.jpg",
+          alt: "Selection pane",
+        },
+      ],
+    },
+
+    // ---------------- SHAPE STYLES ----------------
+    {
+      heading: "Applying Shape Styles",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use Shape Styles on the Format tab to quickly apply preset combinations of fill, outline, and effects.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_style_command.png",
+          alt: "Shape styles command",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_style_menu.png",
+          alt: "Shape styles gallery",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_style_result.jpg",
+          alt: "Shape style applied",
+        },
+      ],
+    },
+
+    // ---------------- SHAPE FILL ----------------
+    {
+      heading: "Changing Shape Fill",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click Shape Fill to change the interior color of a shape. You can choose theme colors, gradients, textures, or select No Fill for transparency.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_fill_menu.png",
+          alt: "Shape fill menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_fill_result.jpg",
+          alt: "Shape fill result",
+        },
+      ],
+    },
+
+    // ---------------- SHAPE OUTLINE ----------------
+    {
+      heading: "Changing Shape Outline",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use Shape Outline to change border color, thickness (weight), dashes, or remove the outline entirely.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_outline_menu.png",
+          alt: "Shape outline menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_outline_lines.png",
+          alt: "Outline weight options",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_outline_result.jpg",
+          alt: "Outline result",
+        },
+      ],
+    },
+
+    // ---------------- SHAPE EFFECTS ----------------
+    {
+      heading: "Adding Shape Effects",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Select Shape Effects to add shadows, reflections, glow, bevel, or 3-D rotation effects.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_effects_menu.png",
+          alt: "Shape effects menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_effects_result.jpg",
+          alt: "Shape effects applied",
+        },
+        {
+          type: "paragraph",
+          text:
+            "For advanced customization, open the Format Shape pane to fine-tune bevel size, depth, lighting, and more.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_effects_format.jpg",
+          alt: "Format shape pane",
+        },
+      ],
+    },
+
+    // ---------------- CHANGE SHAPE ----------------
+    {
+      heading: "Changing to a Different Shape",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can convert one shape into another without deleting it. Go to Format → Edit Shape → Change Shape and choose a new option.",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_edit_menu.png",
+          alt: "Edit shape menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_edit_result.jpg",
+          alt: "Changed shape result",
+        },
+      ],
+    },
+
+    // ---------------- FINAL RESULT ----------------
+    {
+      heading: "Final Example",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After inserting, formatting, layering, and applying effects, your completed design might look like this:",
+        },
+        {
+          type: "image",
+          src: "/images/word/shapes/shapes_effects_result.jpg",
+          alt: "Completed shapes design",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Using the provided practice file, complete the following tasks. Your finished result should resemble the example shown below:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Insert a Cloud shape on the right side of the page.",
+        "Change the shape fill to white.",
+        "Change the outline color to gray.",
+        "Apply a Circle Bevel effect from Shape Effects.",
+        "Insert a Sun shape and apply a Gold style.",
+        "Send the Sun backward so it appears behind the Cloud.",
+        "Adjust positioning so the sun peeks out from behind the cloud.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/word/shapes/word2016_shapes_img_edited2.png",
+      alt: "Completed cloud and sun shapes example",
+    },
+  ],
 },
 
 {
