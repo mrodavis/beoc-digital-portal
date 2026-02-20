@@ -19,7 +19,7 @@ export const excelModule2Lessons: Lesson[] = [
     practiceFiles: [
       {
         name: "Cell Basics Practice File",
-        url: "/practice/excel/Excel_CellBasics_Practice.xlsx",
+        url: "/practice/excel/module-2/cell-basics/Excel_CellBasics_Practice.xlsx",
       },
     ],
     sections: [
