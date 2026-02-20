@@ -27,6 +27,7 @@ export default async function LessonPage({
 
   return (
     <ModuleTemplate
+      appSlug="word"
       moduleSlug="module-4"
       title={lesson.title}
       description={lesson.description}

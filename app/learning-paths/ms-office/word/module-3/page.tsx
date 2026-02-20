@@ -4,6 +4,8 @@ import { wordModule3Lessons } from "@/lib/content/ms-office/word/module3Lessons"
 export default function Module3Page() {
   return (
     <ModuleIndexTemplate
+        courseSlug="word"
+        courseTitle="Word 2019"
         moduleNumber={3}
         title="Styles, Media & Themes"
         emoji="🎨"
