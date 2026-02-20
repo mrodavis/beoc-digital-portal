@@ -3,15 +3,9 @@ import SectionHeader from "@/components/SectionHeader";
 import { Lesson } from "@/types/lesson";
 
 
-// interface Lesson {
-//   slug: string;
-//   title: string;
-//   description: string;
-//   duration?: string;
-//   practiceFiles?: string[];
-// }
-
 interface ModuleIndexTemplateProps {
+  courseSlug: string;      
+  courseTitle: string;     
   moduleNumber: number;
   title: string;
   emoji: string;
@@ -27,6 +21,8 @@ interface ModuleIndexTemplateProps {
 }
 
 export default function ModuleIndexTemplate({
+  courseSlug,
+  courseTitle,
   moduleNumber,
   title,
   emoji,
@@ -48,9 +44,12 @@ export default function ModuleIndexTemplate({
           Microsoft Office 2019
         </Link>
         <span className="mx-2">/</span>
-        <Link href="/learning-paths/ms-office/word" className="hover:text-primary-600">
-          Word 2019
-        </Link>
+      <Link
+        href={`/learning-paths/ms-office/${courseSlug}`}
+        className="hover:text-primary-600"
+      >
+        {courseTitle}
+      </Link>
         <span className="mx-2">/</span>
         <span className="text-gray-900 font-medium">
           Module {moduleNumber}
@@ -112,7 +111,7 @@ export default function ModuleIndexTemplate({
         {lessons.map((lesson, index) => (
           <Link
             key={lesson.slug}
-            href={`/learning-paths/ms-office/word/module-${moduleNumber}/${lesson.slug}`}
+            href={`/learning-paths/ms-office/${courseSlug}/module-${moduleNumber}/${lesson.slug}`}
           >
             <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
               <div className="flex items-start justify-between gap-4">
