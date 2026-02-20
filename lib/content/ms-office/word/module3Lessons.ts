@@ -960,170 +960,182 @@ export const wordModule3Lessons: Lesson[] = [
   ],
 },
 {
-  slug: "columns",
-  title: "Columns",
+  slug: "align-order-group",
+  title: "Align, Order & Group Objects",
   description:
-    "Learn how to create, customize, and remove columns in Microsoft Word, including how to use column breaks and adjust column spacing.",
-  duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/X1n2VG1yxFs?si=WLrIc_XyiWiQtSBB",
+    "Learn how to align objects, distribute spacing, change object order, flip images, group items, and use the Selection Pane in Microsoft Word.",
+  duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/6nx5H8yhhWo?si=RWGfiWZfjcgClgPM",
 
   practiceFiles: [
     {
-      name: "Word Columns Practice File",
-      url: "/practice/word/module-3/columns/word_columns_practice.docx",
+      name: "Word Align & Group Practice File",
+      url: "/practice/word/module-3/align/word2016_align_order_group_img.docx",
     },
   ],
 
   sections: [
 
-    // ---------------- INTRO TO COLUMNS ----------------
+    // ---------------- ALIGN OBJECTS ----------------
     {
-      heading: "Adding Columns",
+      heading: "Aligning Objects",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Columns allow text to flow from top to bottom in one column, then continue at the top of the next column—similar to newspapers or newsletters.",
-        },
-        {
-          type: "paragraph",
-          text:
-            "To add columns, select your text, go to the Layout tab, and click Columns. Then choose Two, Three, or another preset option.",
+            "Select multiple objects by holding Ctrl and clicking each one. Go to Format → Align to align objects left, center, right, top, middle, or bottom.",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_add_select.png",
-          alt: "Selecting text before applying columns",
+          src: "/images/word/align/align_select.png",
+          alt: "Selecting multiple objects",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_add_menu.png",
-          alt: "Columns dropdown menu",
+          src: "/images/word/align/align_command.png",
+          alt: "Align command dropdown",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_add_result.png",
-          alt: "Text displayed in two columns",
+          src: "/images/word/align/align_right_done.png",
+          alt: "Objects aligned right",
         },
       ],
     },
 
-    // ---------------- COLUMN BREAKS ----------------
+    // ---------------- DISTRIBUTE ----------------
     {
-      heading: "Inserting a Column Break",
+      heading: "Distributing Objects Evenly",
       blocks: [
         {
           type: "paragraph",
           text:
-            "A column break forces text to move to the top of the next column immediately.",
-        },
-        {
-          type: "paragraph",
-          text:
-            "Place your insertion point where you want the new column to begin. Then go to Layout → Breaks → Column.",
+            "Use Distribute Horizontally or Distribute Vertically to evenly space selected objects.",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_break_menu.png",
-          alt: "Breaks menu showing column break",
+          src: "/images/word/align/align_vertically_command.png",
+          alt: "Distribute vertically command",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_break_insert_callout.png",
-          alt: "Inserting a column break",
-        },
-        {
-          type: "image",
-          src: "/images/word/columns/columns_break_result.png",
-          alt: "Column break result",
+          src: "/images/word/align/align_vertically_done.png",
+          alt: "Objects evenly distributed",
         },
       ],
     },
 
-    // ---------------- CUSTOMIZING COLUMNS ----------------
+    // ---------------- FLIP & ROTATE ----------------
     {
-      heading: "Customizing Columns",
+      heading: "Flipping and Rotating Objects",
       blocks: [
         {
           type: "paragraph",
           text:
-            "To adjust column width or spacing, click Columns and choose More Columns.",
-        },
-        {
-          type: "paragraph",
-          text:
-            "From the Columns dialog box, you can change the number of columns, adjust spacing, and add a line between columns.",
+            "Use the Rotate dropdown in the Format tab to rotate or flip objects horizontally or vertically.",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_more_columns.png",
-          alt: "More Columns dialog box",
+          src: "/images/word/align/align_flip_command.png",
+          alt: "Flip horizontal command",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_indent_markers.png",
-          alt: "Column spacing and indent markers",
+          src: "/images/word/align/align_flip_done.png",
+          alt: "Object flipped horizontally",
         },
       ],
     },
 
-    // ---------------- REMOVING COLUMNS ----------------
+    // ---------------- CHANGE ORDER ----------------
     {
-      heading: "Removing Columns",
+      heading: "Changing Object Order",
       blocks: [
         {
           type: "paragraph",
           text:
-            "To remove columns, select the text and go to Layout → Columns → One.",
+            "When objects overlap, use Bring Forward, Send Backward, Send to Back, or Bring to Front to control layering.",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_remove_menu.png",
-          alt: "Columns menu showing One column",
+          src: "/images/word/align/align_order_intro.png",
+          alt: "Overlapping objects example",
+        },
+        {
+          type: "image",
+          src: "/images/word/align/align_order_sendbackward.png",
+          alt: "Send backward command",
+        },
+        {
+          type: "image",
+          src: "/images/word/align/align_order_sendtoback.png",
+          alt: "Send to back command",
         },
       ],
     },
 
-    // ---------------- REMOVING COLUMN BREAKS ----------------
+    // ---------------- SELECTION PANE ----------------
     {
-      heading: "Removing a Column Break",
+      heading: "Using the Selection Pane",
       blocks: [
         {
           type: "paragraph",
           text:
-            "To delete a column break, turn on Show/Hide (¶) to reveal formatting marks. Then place your insertion point before the break and press Delete.",
+            "Open the Selection Pane (Format → Selection Pane) to view, rename, hide, or reorder objects easily.",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_remove_breaks_showhide.png",
-          alt: "Show/Hide formatting marks",
+          src: "/images/word/align/align_order_selectionpane_splat.png",
+          alt: "Selection pane open",
+        },
+      ],
+    },
+
+    // ---------------- GROUPING ----------------
+    {
+      heading: "Grouping and Ungrouping Objects",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Select multiple objects and click Group to combine them into one unit. Use Ungroup to separate them again.",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_remove_breaks_insertion.png",
-          alt: "Selecting column break",
+          src: "/images/word/align/align_group_command.png",
+          alt: "Group command",
         },
         {
           type: "image",
-          src: "/images/word/columns/columns_remove_breaks_result.png",
-          alt: "Column break removed",
+          src: "/images/word/align/align_group_done.png",
+          alt: "Grouped objects",
+        },
+        {
+          type: "image",
+          src: "/images/word/align/align_ungroup_command.png",
+          alt: "Ungroup command",
+        },
+        {
+          type: "image",
+          src: "/images/word/align/align_ungroup_done.png",
+          alt: "Ungrouped objects",
         },
       ],
     },
 
     // ---------------- FINAL RESULT ----------------
     {
-      heading: "Final Result",
+      heading: "Final Example",
       blocks: [
         {
           type: "paragraph",
           text:
-            "After applying columns and adjusting spacing properly, your newsletter should look clean, balanced, and professionally formatted.",
+            "After aligning, ordering, and grouping objects, your completed layout should look clean, balanced, and professional.",
         },
         {
           type: "image",
-          src: "/images/word/columns/word2016_columns2_img.png",
-          alt: "Completed newsletter with two columns",
+          src: "/images/word/align/word2016_align_order_group_img.png",
+          alt: "Final aligned and grouped layout",
         },
       ],
     },
@@ -1132,22 +1144,27 @@ export const wordModule3Lessons: Lesson[] = [
   challenge: [
     {
       type: "paragraph",
-      text: "Using the provided practice file, complete the following tasks:",
+      text: "Using the practice file, complete the following tasks:",
     },
     {
       type: "list",
       ordered: true,
       items: [
-        "Convert the Community Reminders section into two columns.",
-        "Insert a column break after the first bullet.",
-        "Adjust spacing between columns using More Columns.",
-        "Add a line between columns.",
-        "Remove the column break.",
-        "Return the section to one column.",
+        "Select the four service buttons and align them to the right.",
+        "Distribute the buttons vertically so spacing is even.",
+        "Group the four buttons together.",
+        "Flip the banner image horizontally.",
+        "Send the background image to the back.",
+        "Use the Selection Pane to confirm object order.",
       ],
     },
+    {
+      type: "image",
+      src: "/images/word/align/word2016_align_order_group_img.png",
+      alt: "Completed alignment challenge result",
+    },
   ],
-}
+},
 
 
   
