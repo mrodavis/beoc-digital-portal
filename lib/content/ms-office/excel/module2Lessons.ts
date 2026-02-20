@@ -12,14 +12,74 @@ export const excelModule2Lessons: Lesson[] = [
       "Learn how to insert and delete cells and cell content, drag and drop cells, use the fill handle, and use cut, copy, and paste.",
     duration: "12 min",
 
+    videoUrls: [
+      "https://www.youtube.com/embed/6mSKsaquTAM",
+      "https://www.youtube.com/embed/Ww56q-BSSXw",
+    ],
+    practiceFiles: [
+      {
+        name: "Cell Basics Practice File",
+        url: "/practice/excel/Excel_CellBasics_Practice.xlsx",
+      },
+    ],
     sections: [
       {
-        heading: "Understanding Cells",
+        heading: "Understanding Cells and Ranges",
         blocks: [
           {
             type: "paragraph",
             text:
-              "Cells are the building blocks of an Excel worksheet. Each cell is identified by a column letter and row number.",
+              "A cell is the intersection of a row and column. A range is a group of selected cells.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-2/cell-basics/cellb_intro_cell.png",
+            alt: "Excel cell example",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-2/cell-basics/cellb_select_range.png",
+            alt: "Selecting a range in Excel",
+          },
+        ],
+      },
+      {
+        heading: "Insert and Delete Cells",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "You can insert new cells or delete existing ones to reorganize worksheet data.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-2/cell-basics/cellb_insert_select.png",
+            alt: "Insert cells",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-2/cell-basics/cellb_delete_select.png",
+            alt: "Delete cells",
+          },
+        ],
+      },
+      {
+        heading: "Cut, Copy & Paste",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "Use Cut, Copy, and Paste to move or duplicate data.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-2/cell-basics/cellb_copy_command.png",
+            alt: "Copy command in Excel",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-2/cell-basics/cellb_paste_done.png",
+            alt: "Pasting in Excel",
           },
         ],
       },
@@ -29,7 +89,17 @@ export const excelModule2Lessons: Lesson[] = [
           {
             type: "paragraph",
             text:
-              "The fill handle allows you to quickly copy or extend data patterns across cells.",
+              "The fill handle allows you to quickly copy data or create series.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-2/cell-basics/cellb_fill_select.png",
+            alt: "Fill handle selection",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-2/cell-basics/cellb_fill_done.png",
+            alt: "Fill handle result",
           },
         ],
       },
@@ -44,13 +114,15 @@ export const excelModule2Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Insert and delete cells.",
-          "Use drag and drop to move cell data.",
+          "Insert a new row.",
+          "Delete a selected cell.",
+          "Copy and paste data.",
           "Use the fill handle to extend a series.",
-          "Copy and paste data using keyboard shortcuts.",
         ],
       },
     ],
+
+
   },
 
   // ============================================================
@@ -60,7 +132,7 @@ export const excelModule2Lessons: Lesson[] = [
     slug: "modifying-columns-rows-and-cells",
     title: "Modifying Columns, Rows, and Cells",
     description:
-      "Learn how to modify rows, columns, and cells in Excel.",
+      "Learn how to resize, insert, delete, hide, and unhide rows and columns.",
     duration: "13 min",
 
     sections: [
@@ -70,17 +142,17 @@ export const excelModule2Lessons: Lesson[] = [
           {
             type: "paragraph",
             text:
-              "You can manually resize or use AutoFit to automatically adjust row height and column width.",
+              "You can manually resize rows and columns or use AutoFit to automatically adjust size.",
           },
         ],
       },
       {
-        heading: "Inserting and Deleting Rows & Columns",
+        heading: "Inserting and Deleting",
         blocks: [
           {
             type: "paragraph",
             text:
-              "Rows and columns can be inserted or deleted to reorganize worksheet data.",
+              "Rows and columns can be inserted or deleted to restructure worksheet data.",
           },
         ],
       },
@@ -95,10 +167,10 @@ export const excelModule2Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Resize columns using AutoFit.",
+          "Resize a column using AutoFit.",
           "Insert a new row.",
           "Delete a column.",
-          "Hide and unhide rows or columns.",
+          "Hide and unhide rows.",
         ],
       },
     ],
@@ -111,27 +183,27 @@ export const excelModule2Lessons: Lesson[] = [
     slug: "formatting-cells",
     title: "Formatting Cells in Excel",
     description:
-      "Learn how to format text, alignment, borders, and apply cell styles.",
+      "Learn how to format text, alignment, borders, and cell styles.",
     duration: "17 min",
 
     sections: [
       {
-        heading: "Font and Text Formatting",
+        heading: "Font and Alignment",
         blocks: [
           {
             type: "paragraph",
             text:
-              "You can change font type, size, color, and apply bold, italic, and underline formatting.",
+              "Change font style, size, color, alignment, and apply bold or italic formatting.",
           },
         ],
       },
       {
-        heading: "Alignment and Cell Styles",
+        heading: "Cell Styles and Borders",
         blocks: [
           {
             type: "paragraph",
             text:
-              "Excel provides alignment tools and built-in cell styles to enhance readability.",
+              "Apply borders and built-in styles to enhance readability.",
           },
         ],
       },
@@ -139,16 +211,12 @@ export const excelModule2Lessons: Lesson[] = [
 
     challenge: [
       {
-        type: "paragraph",
-        text: "Complete the following tasks:",
-      },
-      {
         type: "list",
         ordered: true,
         items: [
-          "Format text using bold and font color.",
-          "Center-align data.",
-          "Apply borders to a data table.",
+          "Format text in bold.",
+          "Center-align content.",
+          "Apply borders.",
           "Use a built-in cell style.",
         ],
       },
@@ -162,7 +230,7 @@ export const excelModule2Lessons: Lesson[] = [
     slug: "understanding-number-formats",
     title: "Understanding Number Formats in Excel",
     description:
-      "Learn how to apply and customize number formats in Excel.",
+      "Learn how to apply and customize number formats.",
     duration: "12 min",
 
     sections: [
@@ -177,12 +245,12 @@ export const excelModule2Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Custom Number Formats",
+        heading: "Custom Formats",
         blocks: [
           {
             type: "paragraph",
             text:
-              "You can create custom formats to control how numeric data is displayed.",
+              "Create custom formats to control how numbers are displayed.",
           },
         ],
       },
@@ -190,17 +258,13 @@ export const excelModule2Lessons: Lesson[] = [
 
     challenge: [
       {
-        type: "paragraph",
-        text: "Complete the following tasks:",
-      },
-      {
         type: "list",
         ordered: true,
         items: [
           "Format values as currency.",
-          "Apply percentage formatting.",
-          "Change date formats.",
-          "Create a simple custom format.",
+          "Apply percentage format.",
+          "Change date format.",
+          "Create a custom format.",
         ],
       },
     ],
@@ -223,7 +287,7 @@ export const excelModule2Lessons: Lesson[] = [
           {
             type: "paragraph",
             text:
-              "Worksheets can be added, deleted, renamed, and rearranged within a workbook.",
+              "Worksheets can be inserted, renamed, deleted, and rearranged.",
           },
         ],
       },
@@ -233,7 +297,7 @@ export const excelModule2Lessons: Lesson[] = [
           {
             type: "paragraph",
             text:
-              "Grouping allows you to apply changes across multiple worksheets at once.",
+              "Grouping allows you to apply changes across multiple sheets at once.",
           },
         ],
       },
@@ -241,14 +305,10 @@ export const excelModule2Lessons: Lesson[] = [
 
     challenge: [
       {
-        type: "paragraph",
-        text: "Complete the following tasks:",
-      },
-      {
         type: "list",
         ordered: true,
         items: [
-          "Insert a new worksheet.",
+          "Insert a worksheet.",
           "Rename a worksheet.",
           "Move or copy a worksheet.",
           "Group and ungroup worksheets.",
@@ -256,5 +316,4 @@ export const excelModule2Lessons: Lesson[] = [
       },
     ],
   },
-
 ];

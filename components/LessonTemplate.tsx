@@ -15,6 +15,7 @@ interface ModuleTemplateProps {
   moduleSlug: string;
 
   videoUrl?: string;        // 👈 optional now
+  videoUrls?: string[];
 
   sections?: LessonSection[];
   challenge?: ContentBlock[];
@@ -36,6 +37,7 @@ export default function ModuleTemplate({
   appSlug,
   moduleSlug,
   videoUrl,
+  videoUrls,
   sections = [],
   challenge = [],
   practiceFiles = [],
@@ -81,31 +83,53 @@ export default function ModuleTemplate({
         </p>
       </div>
 
-      {/* Video or Reading Badge */}
-      {videoUrl ? (
-        <div className="mb-12">
-          <SectionHeader
-            title="Video"
-            description="Watch the lesson video, then complete the reading and challenge."
-          />
-          <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-            <iframe
-              src={videoUrl}
-              title={title}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="w-full h-full"
-            />
-          </div>
-        </div>
-      ) : (
-        <div className="mb-12">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-700 font-medium text-sm">
-            📘 Reading Lesson
-          </div>
-        </div>
-      )}
+    {/* Video(s) or Reading Badge */}
+    {(videoUrl || (videoUrls && videoUrls.length > 0)) ? (
+      <div className="mb-12">
+        <SectionHeader
+          title="Video"
+          description="Watch the lesson video, then complete the reading and challenge."
+        />
 
+        <div className="space-y-8">
+          {/* Multiple Videos */}
+          {videoUrls && videoUrls.length > 0 &&
+            videoUrls.map((url, index) => (
+              <div
+                key={index}
+                className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-200"
+              >
+                <iframe
+                  src={url}
+                  title={`${title} - Video ${index + 1}`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="w-full h-full"
+                />
+              </div>
+            ))}
+
+          {/* Single Video Fallback */}
+          {videoUrl && (!videoUrls || videoUrls.length === 0) && (
+            <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+              <iframe
+                src={videoUrl}
+                title={title}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                className="w-full h-full"
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    ) : (
+      <div className="mb-12">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-700 font-medium text-sm">
+          📘 Reading Lesson
+        </div>
+      </div>
+    )}
       {/* Lesson Notes */}
       {hasSections && (
         <div className="mb-12">
