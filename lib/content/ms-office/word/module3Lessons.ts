@@ -769,174 +769,172 @@ export const wordModule3Lessons: Lesson[] = [
 },
 
 {
-  slug: "breaks",
-  title: "Breaks (Page, Column & Section)",
+  slug: "text-boxes",
+  title: "Text Boxes",
   description:
-    "Learn how to insert, manage, and delete page breaks, column breaks, and section breaks in Microsoft Word.",
-  duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/78fvQ9Ks8DA",
+    "Learn how to insert built-in text boxes, draw custom text boxes, resize, move, format, apply styles, and change shapes in Microsoft Word.",
+  duration: "10 min",
+  videoUrl: "https://www.youtube.com/embed/LRGZEi7lSnA?si=HO6IryaHGHU_-Ss6",
 
   practiceFiles: [
     {
-      name: "Word Breaks Practice File",
-      url: "/practice/word/module-3/breaks/word_breaks_practice.docx",
+      name: "Word Text Boxes Practice File",
+      url: "/practice/word/module-3/textboxes/word_textboxes_practice.docx",
     },
   ],
 
   sections: [
 
-    // ---------------- INTRO TO BREAKS ----------------
+    // ---------------- INSERT BUILT-IN ----------------
     {
-      heading: "Understanding Breaks",
+      heading: "Inserting a Built-In Text Box",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Breaks allow you to control how content flows in your document. You can force text onto a new page, start a new column, or create a new section with different formatting.",
+            "Go to the Insert tab and click Text Box. Choose from the built-in text box gallery to quickly add styled text areas to your document.",
         },
         {
           type: "image",
-          src: "/images/word/breaks/break_section_intro.png",
-          alt: "Break types overview",
+          src: "/images/word/textboxes/textboxes_insert_command.png",
+          alt: "Insert text box command",
+        },
+        {
+          type: "image",
+          src: "/images/word/textboxes/textboxes_insert_built_in.png",
+          alt: "Built-in text box gallery",
         },
       ],
     },
 
-    // ---------------- PAGE BREAK ----------------
+    // ---------------- DRAW CUSTOM ----------------
     {
-      heading: "Inserting a Page Break",
+      heading: "Drawing a Custom Text Box",
       blocks: [
         {
           type: "paragraph",
           text:
-            "A page break forces content to begin on the next page. Go to the Insert tab and click Page Break, or press Ctrl + Enter.",
+            "Select Draw Text Box from the Text Box dropdown. Click and drag anywhere in the document to create a custom-sized text box.",
         },
         {
           type: "image",
-          src: "/images/word/breaks/break_page_command.png",
-          alt: "Insert page break command",
+          src: "/images/word/textboxes/textboxes_insert_draw.png",
+          alt: "Draw text box option",
         },
         {
           type: "image",
-          src: "/images/word/breaks/break_page_done.png",
-          alt: "Page break result",
+          src: "/images/word/textboxes/textboxes_insert_drag.png",
+          alt: "Dragging to create text box",
         },
       ],
     },
 
-    // ---------------- SECTION BREAK ----------------
+    // ---------------- TYPING & FORMATTING ----------------
     {
-      heading: "Inserting a Section Break",
+      heading: "Typing and Formatting Text",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Section breaks allow different formatting in different parts of the document, such as changing columns, margins, or orientation.",
+            "Click inside the text box and begin typing. Use the Home tab to change font style, size, color, and alignment.",
         },
         {
           type: "image",
-          src: "/images/word/breaks/break_section_command.png",
-          alt: "Section break menu",
-        },
-        {
-          type: "image",
-          src: "/images/word/breaks/break_section_added.png",
-          alt: "Section break added",
+          src: "/images/word/textboxes/textboxes_insert_format.png",
+          alt: "Formatting text inside text box",
         },
       ],
     },
 
-    // ---------------- TYPES OF SECTION BREAKS ----------------
+    // ---------------- MOVE & RESIZE ----------------
     {
-      heading: "Types of Section Breaks",
+      heading: "Moving and Resizing Text Boxes",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Word provides several types of section breaks: Next Page, Continuous, Even Page, and Odd Page. Continuous section breaks are useful when changing formatting without starting a new page.",
+            "Click the border of the text box to select it. Drag from the border to move it. Use the corner sizing handles to resize proportionally.",
         },
         {
           type: "image",
-          src: "/images/word/breaks/break_section_start.png",
-          alt: "Section break options",
+          src: "/images/word/textboxes/textboxes_move2.png",
+          alt: "Moving text box",
+        },
+        {
+          type: "image",
+          src: "/images/word/textboxes/textboxes_resize.png",
+          alt: "Resizing text box",
         },
       ],
     },
 
-    // ---------------- COLUMN BREAK ----------------
+    // ---------------- SHAPE STYLES ----------------
     {
-      heading: "Column Breaks",
+      heading: "Applying Shape Styles",
       blocks: [
         {
           type: "paragraph",
           text:
-            "A column break forces text to move to the next column. This is useful when working with multi-column layouts.",
+            "When a text box is selected, the Format tab appears. Use Shape Styles to quickly apply preset fill, outline, and effect combinations.",
         },
         {
           type: "image",
-          src: "/images/word/breaks/break_other_intro.png",
-          alt: "Column break option",
+          src: "/images/word/textboxes/textboxes_shape_style_command.png",
+          alt: "Shape styles command",
+        },
+        {
+          type: "image",
+          src: "/images/word/textboxes/textboxes_shape_style_menu.png",
+          alt: "Shape styles gallery",
+        },
+        {
+          type: "image",
+          src: "/images/word/textboxes/textboxes_shape_style_result.png",
+          alt: "Shape style applied to text box",
         },
       ],
     },
 
-    // ---------------- SHOW HIDE ----------------
+    // ---------------- EDIT SHAPE ----------------
     {
-      heading: "Viewing Breaks with Show/Hide",
+      heading: "Changing the Text Box Shape",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Breaks are invisible by default. Click the Show/Hide ¶ button on the Home tab to display formatting marks and see where breaks are located.",
+            "You can convert a text box into another shape. Go to Format → Edit Shape → Change Shape and select a new shape.",
         },
         {
           type: "image",
-          src: "/images/word/breaks/break_delete_showhide.png",
-          alt: "Show hide formatting marks",
+          src: "/images/word/textboxes/textboxes_edit_shape_command.png",
+          alt: "Edit shape command",
         },
         {
           type: "image",
-          src: "/images/word/breaks/break_page_splat_showhide.png",
-          alt: "Visible page break",
-        },
-      ],
-    },
-
-    // ---------------- DELETING BREAKS ----------------
-    {
-      heading: "Deleting a Break",
-      blocks: [
-        {
-          type: "paragraph",
-          text:
-            "To delete a break, place your cursor directly before it and press Delete. Removing a section break may change formatting in your document.",
+          src: "/images/word/textboxes/textboxes_edit_shape_menu.png",
+          alt: "Change shape menu",
         },
         {
           type: "image",
-          src: "/images/word/breaks/break_delete_placeinsertion.png",
-          alt: "Placing insertion point before break",
-        },
-        {
-          type: "image",
-          src: "/images/word/breaks/break_delete_done.png",
-          alt: "Break removed result",
+          src: "/images/word/textboxes/textboxes_edit_shape_result.png",
+          alt: "Changed shape result",
         },
       ],
     },
 
     // ---------------- FINAL RESULT ----------------
     {
-      heading: "Final Result",
+      heading: "Final Example",
       blocks: [
         {
           type: "paragraph",
           text:
-            "After inserting and managing breaks correctly, your document should have clean page transitions and properly formatted sections.",
+            "After inserting, styling, resizing, and changing shapes, your final promotional layout might look like this:",
         },
         {
           type: "image",
-          src: "/images/word/breaks/word2016_breaks_img_combined.png",
-          alt: "Completed breaks example",
+          src: "/images/word/textboxes/word2016_textbox_img.png",
+          alt: "Completed text box promotional layout",
         },
       ],
     },
@@ -945,17 +943,18 @@ export const wordModule3Lessons: Lesson[] = [
   challenge: [
     {
       type: "paragraph",
-      text: "Using the provided practice file, complete the following tasks:",
+      text: "Using the practice file, complete the following tasks:",
     },
     {
       type: "list",
       ordered: true,
       items: [
-        "Insert a page break before the 'Monthly Revenue' section.",
-        "Insert a section break before the 'Clients Overview' section.",
-        "Change one section to a two-column layout.",
-        "Use Show/Hide to display formatting marks.",
-        "Delete an unnecessary page or section break.",
+        "Insert a built-in text box.",
+        "Resize and position it over the image.",
+        "Change the fill color to orange.",
+        "Change the text to: Up to 75% off!",
+        "Apply a Shape Style from the gallery.",
+        "Change the text box shape to an Oval.",
       ],
     },
   ],
