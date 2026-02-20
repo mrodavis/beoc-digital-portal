@@ -66,6 +66,16 @@
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/ms-office/word/module-5/page.js"
     ],
+    "/learning-paths/ms-office/word/module-4/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/ms-office/word/module-4/page.js"
+    ],
+    "/learning-paths/ms-office/word/module-4/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/ms-office/word/module-4/[slug]/page.js"
+    ],
     "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",

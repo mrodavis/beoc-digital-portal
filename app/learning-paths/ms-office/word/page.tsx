@@ -123,10 +123,32 @@ export default function WordPage() {
         </span>
       </div>
     </div>
+  </Link><br></br>
+
+    {/* Module 4 - Available */}
+  <Link href="/learning-paths/ms-office/word/module-4">
+    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+      <div className="flex items-center justify-between">
+        <div>
+          <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+            Module 4
+          </span>
+          <h3 className="text-xl font-bold mt-3 mb-2">
+            References, Review, & Collaboration
+          </h3>
+          <p className="text-gray-600">
+            Master headers, footers, track changes, and collaborate with others...
+          </p>
+        </div>
+        <span className="text-green-600 font-semibold text-sm">
+          Available →
+        </span>
+      </div>
+    </div>
   </Link>
 
   {/* Modules 3–6 Locked */}
-  {["4", "5"].map((num) => (
+  {["5"].map((num) => (
     <div
       key={num}
       className="bg-white rounded-xl shadow-md border border-gray-200 p-6"
@@ -135,7 +157,6 @@ export default function WordPage() {
         Module {num}
       </span>
       <h3 className="text-xl font-bold mt-3 mb-2">
-        {num === "4" && "References, Review, & Collaboration"}
         {num === "5" && "Tables, Charts, & Mail Merge"}
       </h3>
       <p className="text-gray-600">
