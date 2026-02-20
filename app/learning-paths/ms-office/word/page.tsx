@@ -112,7 +112,7 @@ export default function WordPage() {
             Module 3
           </span>
           <h3 className="text-xl font-bold mt-3 mb-2">
-            Styles, Media, and Themes
+            Styles, Media, & Themes
           </h3>
           <p className="text-gray-600">
             Master paragraph styles, themes, advanced formatting options, and professional templates.
@@ -135,7 +135,7 @@ export default function WordPage() {
         Module {num}
       </span>
       <h3 className="text-xl font-bold mt-3 mb-2">
-        {num === "4" && "References, Review & Collaboration"}
+        {num === "4" && "References, Review, & Collaboration"}
         {num === "5" && "Tables, Charts, & Mail Merge"}
       </h3>
       <p className="text-gray-600">
@@ -151,7 +151,7 @@ export default function WordPage() {
             🧪 Workforce Assessment
           </h3>
           <p className="text-gray-700">
-            Covers Modules 1–6. Demonstrate job-ready proficiency in Word.
+            Covers Modules 1–5. Demonstrate job-ready proficiency in Word.
           </p>
         </div>
 
@@ -196,7 +196,7 @@ export default function WordPage() {
             </span>
             <h3 className="text-xl font-bold mt-3 mb-2">
               {num === "7" && "Advanced Styles & Themes"}
-              {num === "8" && "MOS Exam Strategies & Simulation"}
+              {num === "8" && "Office 365 and More"}
             </h3>
             <p className="text-gray-600">
               Certification-level content coming soon.

@@ -242,160 +242,232 @@ export const wordModule3Lessons: Lesson[] = [
   ],
 },
 
-   
+{
+  slug: "formatting-pictures",
+  title: "Formatting Pictures",
+  description:
+    "Learn how to crop images, apply picture styles, add borders, adjust color and corrections, and compress images in Microsoft Word.",
+  duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/eC4bRXx9k6g?si=9Y7ajF4Ato7_DjyJ",
+
+  practiceFiles: [
     {
-    slug: "indents-and-tabs",
-    title: "Indents and Tabs",
-    description:
-        "Learn how to use the ruler, tab selector, and indentation tools to control paragraph layout in Microsoft Word.",
-    duration: "8 min",
-    videoUrl: "https://www.youtube.com/embed/vJGYWVe52T4?si=P2fE667vh32d5DfJ",
-
-    practiceFiles: [
-        {
-        name: "Word Indents & Tabs Practice File",
-        url: "/practice/word/module-3/indents-tabs/word_indentstabs_practice.docx",
-        },
-    ],
-
-    sections: [
-
-        // ---------------- SHOW RULER ----------------
-        {
-        heading: "Using the Ruler",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "The ruler allows you to visually control indents and tab stops. If it is not visible, go to the View tab and check Ruler.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/2016-01-05_15-15-13.png",
-            alt: "Enabling the ruler in Word",
-            },
-        ],
-        },
-
-        // ---------------- INDENTS ----------------
-        {
-        heading: "Adjusting Indents",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "Indentation moves text inward from the margin. You can adjust the left indent, right indent, first-line indent, or hanging indent using the ruler or the Layout tab.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/indent_commands_before.png",
-            alt: "Indent controls before adjustment",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/indent_commands_after.png",
-            alt: "Indent controls after adjustment",
-            },
-        ],
-        },
-
-        // ---------------- FIRST LINE INDENT ----------------
-        {
-        heading: "First-Line Indent",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "A first-line indent moves only the first line of a paragraph inward. This is commonly used in essays and formal writing.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/tabs_inline_first.png",
-            alt: "First line indent example",
-            },
-        ],
-        },
-
-        // ---------------- HANGING INDENT ----------------
-        {
-        heading: "Hanging Indent",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "A hanging indent moves all lines except the first inward. This format is commonly used for Works Cited or reference pages.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/indent_hanging_example2.png",
-            alt: "Hanging indent example",
-            },
-        ],
-        },
-
-        // ---------------- TABS ----------------
-        {
-        heading: "Using Tab Stops",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "Tab stops allow you to align text precisely. You can set left, center, right, or decimal tabs using the tab selector and ruler.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/tabs_inline_center.png",
-            alt: "Center tab example",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/tabs_inline_left_indent.png",
-            alt: "Left tab example",
-            },
-        ],
-        },
-
-        // ---------------- FINAL EXAMPLE ----------------
-        {
-        heading: "Real-World Example",
-        blocks: [
-            {
-            type: "paragraph",
-            text:
-                "Below is an example of a professionally formatted resume section using indents and tab stops.",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/word2016_indents2_img1.png",
-            alt: "Completed resume example",
-            },
-            {
-            type: "image",
-            src: "/images/word/indents-tabs/word2016_indents2_img2.png",
-            alt: "Completed resume layout",
-            },
-        ],
-        },
-    ],
-
-    challenge: [
-        {
-        type: "paragraph",
-        text: "Using the provided practice file, complete the following tasks:",
-        },
-        {
-        type: "list",
-        ordered: true,
-        items: [
-            "Enable the ruler.",
-            "Apply a first-line indent to the body paragraph.",
-            "Create a hanging indent for the Works Cited section.",
-            "Use tab stops to align dates to the right margin.",
-            "Adjust left and right indents for the Skills section.",
-        ],
-        },
-    ],
+      name: "Word Formatting Pictures Practice File",
+      url: "/practice/word/module-3/formatting-pictures/word_formatpictures_practice.docx",
     },
+  ],
+
+  sections: [
+
+    // ---------------- INTRO ----------------
+    {
+      heading: "Introduction to Formatting Pictures",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Microsoft Word provides powerful tools for formatting pictures. You can crop images, apply artistic effects, adjust brightness and color, add borders, and compress pictures to reduce file size.",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_adjust_all.png",
+          alt: "Format tab with picture tools",
+        },
+      ],
+    },
+
+    // ---------------- CROP ----------------
+    {
+      heading: "Cropping an Image",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Cropping removes unwanted areas of an image. Select the image, go to the Format tab, and click Crop.",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_crop_command2.png",
+          alt: "Crop command",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_crop_handles2.png",
+          alt: "Crop handles",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_crop_result.png",
+          alt: "Cropped image result",
+        },
+      ],
+    },
+
+    // ---------------- CROP TO SHAPE ----------------
+    {
+      heading: "Crop to Shape",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can crop a picture into a specific shape. Click Crop → Crop to Shape and select a shape such as circle, star, or banner.",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_shape_command.png",
+          alt: "Crop to shape menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_shape_result.png",
+          alt: "Cropped to shape result",
+        },
+      ],
+    },
+
+    // ---------------- BORDERS ----------------
+    {
+      heading: "Adding a Picture Border",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can add a colored border to any image. Use Picture Border to choose a color, weight (thickness), and line style.",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_border_command.png",
+          alt: "Picture border options",
+        },
+      ],
+    },
+
+    // ---------------- CORRECTIONS ----------------
+    {
+      heading: "Using Corrections",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The Corrections tool allows you to sharpen or soften an image and adjust brightness and contrast.",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_adjust_corrections.png",
+          alt: "Picture corrections menu",
+        },
+      ],
+    },
+
+    // ---------------- COLOR ----------------
+    {
+      heading: "Adjusting Color",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The Color tool allows you to adjust saturation (vibrancy), tone (warm or cool), and recolor the entire image.",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_adjust_color.png",
+          alt: "Color adjustments menu",
+        },
+      ],
+    },
+
+    // ---------------- ARTISTIC EFFECTS ----------------
+    {
+      heading: "Applying Artistic Effects",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Artistic Effects apply stylized filters such as pastel, watercolor, or glow. These should be used carefully in professional documents.",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_adjust_artistic.png",
+          alt: "Artistic effects gallery",
+        },
+      ],
+    },
+
+    // ---------------- PICTURE STYLES ----------------
+    {
+      heading: "Using Picture Styles",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Picture Styles are predefined formats that quickly apply frames, shadows, and visual effects without manually adjusting settings.",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_adjust_styles.png",
+          alt: "Picture styles gallery",
+        },
+      ],
+    },
+
+    // ---------------- COMPRESS ----------------
+    {
+      heading: "Compressing Pictures",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Large images increase document size. Use Compress Pictures to reduce resolution and delete cropped areas.",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_compress_command.png",
+          alt: "Compress pictures command",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/formatpics_compress_dialog.png",
+          alt: "Compress pictures dialog box",
+        },
+      ],
+    },
+
+    // ---------------- FINAL RESULT ----------------
+    {
+      heading: "Final Result",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After applying picture styles, cropping to shapes, recoloring elements, and compressing images, your finished document should look like this:",
+        },
+        {
+          type: "image",
+          src: "/images/word/format-pictures/word2016_formatpictures_img.png",
+          alt: "Completed formatted document example",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Using the provided practice file, complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Change the sailboat image to the 'Simple Frame, White' style.",
+        "Crop the sailboat image to the Double Wave shape.",
+        "Recolor the anchor to Gold, Accent 2 Light.",
+        "Apply an artistic effect to one image.",
+        "Compress all pictures using the Email (96 ppi) setting.",
+      ],
+    },
+  ],
+},
 
   {
     slug: "line-paragraph-spacing",
