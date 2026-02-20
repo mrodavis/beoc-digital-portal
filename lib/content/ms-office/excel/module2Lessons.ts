@@ -128,53 +128,313 @@ export const excelModule2Lessons: Lesson[] = [
   // ============================================================
   // LESSON 6
   // ============================================================
-  {
-    slug: "modifying-columns-rows-and-cells",
-    title: "Modifying Columns, Rows, and Cells",
-    description:
-      "Learn how to resize, insert, delete, hide, and unhide rows and columns.",
-    duration: "13 min",
+{
+  slug: "modifying-columns-rows-and-cells",
+  title: "Modifying Columns, Rows, and Cells",
+  description:
+    "Learn how to resize, insert, delete, hide, move, and format rows and columns in Excel.",
+  duration: "15 min",
 
-    sections: [
-      {
-        heading: "Resizing Rows and Columns",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "You can manually resize rows and columns or use AutoFit to automatically adjust size.",
-          },
-        ],
-      },
-      {
-        heading: "Inserting and Deleting",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Rows and columns can be inserted or deleted to restructure worksheet data.",
-          },
-        ],
-      },
-    ],
+  videoUrl: "https://www.youtube.com/embed/9s0OdXiuqL0",
 
-    challenge: [
-      {
-        type: "paragraph",
-        text: "Complete the following tasks:",
-      },
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Resize a column using AutoFit.",
-          "Insert a new row.",
-          "Delete a column.",
-          "Hide and unhide rows.",
-        ],
-      },
-    ],
-  },
+  practiceFiles: [
+    {
+      name: "Modifying Columns and Rows Practice File",
+      url: "/practice/excel/module-2/modifying/excel_modifyingcells_practice.xlsx",
+    },
+  ],
+
+  sections: [
+
+    // ------------------------------------------------------------
+    // Resizing Columns
+    // ------------------------------------------------------------
+    {
+      heading: "Resizing Columns",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can manually resize columns by dragging the boundary between column headers or use AutoFit to automatically adjust the width.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_colwidth_select.png",
+          alt: "Selecting column boundary",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_colwidth_during.png",
+          alt: "Dragging to resize column",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_colwidth_auto_start.png",
+          alt: "AutoFit column width option",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_colwidth_auto_done.png",
+          alt: "AutoFit result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Resizing Rows
+    // ------------------------------------------------------------
+    {
+      heading: "Resizing Rows",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Row height can be adjusted manually or through the Row Height command.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_rowheight_start.png",
+          alt: "Selecting row boundary",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_rowheight_during.png",
+          alt: "Dragging to resize row",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_rowheight_done.png",
+          alt: "Resized row",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Wrap Text
+    // ------------------------------------------------------------
+    {
+      heading: "Wrap Text",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Wrap Text allows content to appear on multiple lines within a single cell instead of expanding the column width.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_wrap_command.png",
+          alt: "Wrap Text command",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_wrap_done.png",
+          alt: "Wrapped text result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Inserting Rows and Columns
+    // ------------------------------------------------------------
+    {
+      heading: "Inserting Rows and Columns",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can insert new rows or columns using the Insert command from the Home tab.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_insertrow_select.png",
+          alt: "Selecting row before inserting",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_insertrow_command.png",
+          alt: "Insert row command",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_insertrow_done.png",
+          alt: "Inserted row result",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_insertcol_command.png",
+          alt: "Insert column command",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_insertcol_done.png",
+          alt: "Inserted column result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Deleting Rows and Columns
+    // ------------------------------------------------------------
+    {
+      heading: "Deleting Rows and Columns",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Rows and columns can be deleted using the Delete command or right-click menu.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_delete_select.png",
+          alt: "Selecting row to delete",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_delete_command.png",
+          alt: "Delete command",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_delete_done.png",
+          alt: "Deleted row result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Hiding and Unhiding
+    // ------------------------------------------------------------
+    {
+      heading: "Hiding and Unhiding Rows and Columns",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Rows and columns can be hidden to temporarily remove them from view without deleting data.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_hide_command.png",
+          alt: "Hide command",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_hide_hidden.png",
+          alt: "Hidden column",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_hide_unhidden.png",
+          alt: "Unhidden column",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Moving Rows and Columns
+    // ------------------------------------------------------------
+    {
+      heading: "Moving Rows and Columns",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Rows and columns can be moved using Cut and Insert Cut Cells.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_move_select.png",
+          alt: "Selecting row to move",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_move_cut.png",
+          alt: "Cut command",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_move_done.png",
+          alt: "Moved row result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Merge & Center vs Center Across Selection
+    // ------------------------------------------------------------
+    {
+      heading: "Merge & Center vs Center Across Selection",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Merge & Center combines cells into one. Center Across Selection centers text without merging cells.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_merge_select.png",
+          alt: "Merge select",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_merge_more.png",
+          alt: "Merge options",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_centeracross_dialog.png",
+          alt: "Center Across Selection dialog",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Select All
+    // ------------------------------------------------------------
+    {
+      heading: "Selecting All Cells",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click the Select All button to highlight the entire worksheet at once.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_selectall.png",
+          alt: "Select All button",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/modifying/mod_selectall_done.png",
+          alt: "Entire worksheet selected",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "AutoFit a column width.",
+        "Resize a row manually.",
+        "Insert a new row.",
+        "Delete a column.",
+        "Hide and unhide a column.",
+        "Move a row using Cut.",
+        "Use Wrap Text on a long address.",
+        "Use Center Across Selection on a title.",
+      ],
+    },
+  ],
+},
 
   // ============================================================
   // LESSON 7
