@@ -24,7 +24,7 @@ export interface Lesson {
   slug: string;
   title: string;
   description: string;
-  videoUrl: string;
+  videoUrl?: string;
   duration?: string;
   sections?: LessonSection[];
   challenge?: ContentBlock[];

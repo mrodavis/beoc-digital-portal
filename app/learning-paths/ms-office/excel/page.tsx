@@ -78,12 +78,35 @@ export default function ExcelPage() {
               </span>
             </div>
           </div>
+        </Link><br></br>
+
+        {/* Module 1 - Available */}
+        <Link href="/learning-paths/ms-office/excel/module-2">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+                  Module 2
+                </span>
+                <h3 className="text-xl font-bold mt-3 mb-2">
+                  Cells, Formatting & Worksheets
+                </h3>
+                <p className="text-gray-600">
+                  Cell basics, formatting, worksheet manipulation.
+                </p>
+              </div>
+              <span className="text-green-600 font-semibold text-sm">
+                Available →
+              </span>
+            </div>
+          </div>
         </Link>
 
-        {/* Module 2 - Locked */}
+
+        {/* Module 3 - Locked */}
         <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
           <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-            Module 2
+            Module 3
           </span>
           <h3 className="text-xl font-bold mt-3 mb-2">
             Formulas & Functions
@@ -93,10 +116,10 @@ export default function ExcelPage() {
           </p>
         </div>
 
-        {/* Module 3 - Locked */}
+        {/* Module 4 - Locked */}
         <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
           <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-            Module 3
+            Module 4
           </span>
           <h3 className="text-xl font-bold mt-3 mb-2">
             Working with Data

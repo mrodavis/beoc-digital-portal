@@ -7,15 +7,14 @@ export default function Module1Page() {
       courseSlug="excel"
       courseTitle="Excel 2019"
       moduleNumber={1}
-      title="Introduction to Excel 2019"
+      title="Excel Foundations: Interface & File Management"
       emoji="📊"
-      description="Learn the fundamentals of Excel"
+      description="Master Excel navigation, workbook creation, saving, exporting, and OneDrive integration."
       lessons={excelModule1Lessons}
       level="Beginner"
-      estimatedMinutes={30}
+      estimatedMinutes={44}
       nextModuleHref="/learning-paths/ms-office/excel/module-2"
-      nextModuleLabel="Module 2: Formulas & Functions"
+      nextModuleLabel="Module 2: Cells & Formatting"
     />
-
   );
 }

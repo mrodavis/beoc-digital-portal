@@ -10,10 +10,11 @@ interface NavLesson {
 interface ModuleTemplateProps {
   title: string;
   description: string;
-  videoUrl: string;
 
-  appSlug: string;
+  appSlug: string;          // 👈 dynamic (word, excel, etc.)
   moduleSlug: string;
+
+  videoUrl?: string;        // 👈 optional now
 
   sections?: LessonSection[];
   challenge?: ContentBlock[];
@@ -32,9 +33,9 @@ interface ModuleTemplateProps {
 export default function ModuleTemplate({
   title,
   description,
-  videoUrl,
   appSlug,
   moduleSlug,
+  videoUrl,
   sections = [],
   challenge = [],
   practiceFiles = [],
@@ -43,11 +44,13 @@ export default function ModuleTemplate({
   backHref,
   backLabel = "Back",
 }: ModuleTemplateProps) {
+
   const hasSections = sections.length > 0;
   const hasChallenge = challenge.length > 0;
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-5xl">
+
       {/* Top Navigation */}
       {(backHref || prevLesson || nextLesson) && (
         <div className="mb-8 flex items-center justify-between">
@@ -78,24 +81,30 @@ export default function ModuleTemplate({
         </p>
       </div>
 
-      {/* Video */}
-      <div className="mb-12">
-        <SectionHeader
-          title="Video"
-          description="Watch the lesson video, then complete the reading and challenge."
-        />
-        <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
-          <iframe
-            src={videoUrl}
-            title={title}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-            className="w-full h-full"
+      {/* Video or Reading Badge */}
+      {videoUrl ? (
+        <div className="mb-12">
+          <SectionHeader
+            title="Video"
+            description="Watch the lesson video, then complete the reading and challenge."
           />
+          <div className="aspect-video bg-gray-900 rounded-2xl overflow-hidden shadow-lg border border-gray-200">
+            <iframe
+              src={videoUrl}
+              title={title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="w-full h-full"
+            />
+          </div>
         </div>
-      </div>
-
-
+      ) : (
+        <div className="mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-700 font-medium text-sm">
+            📘 Reading Lesson
+          </div>
+        </div>
+      )}
 
       {/* Lesson Notes */}
       {hasSections && (
@@ -116,6 +125,7 @@ export default function ModuleTemplate({
                   <div className="space-y-6">
                     {section.blocks.map((block, bIdx) => {
                       switch (block.type) {
+
                         case "paragraph":
                           return (
                             <p
@@ -174,14 +184,15 @@ export default function ModuleTemplate({
           </div>
         </div>
       )}
-      
-      {/* Practice File */}
+
+      {/* Practice Files */}
       {practiceFiles.length > 0 && (
         <div className="mb-12">
           <SectionHeader
             title="Practice File"
             description="Download this file and follow along with the lesson."
           />
+
           <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6">
             {practiceFiles.map((file, index) => (
               <a
@@ -223,6 +234,7 @@ export default function ModuleTemplate({
           <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-8 space-y-6">
             {challenge.map((block, idx) => {
               switch (block.type) {
+
                 case "paragraph":
                   return (
                     <p key={idx} className="text-gray-700 leading-relaxed">
@@ -238,11 +250,6 @@ export default function ModuleTemplate({
                         alt={block.alt}
                         className="rounded-xl border border-gray-200 shadow-sm"
                       />
-                      {block.caption && (
-                        <p className="text-sm text-gray-500 mt-2 italic">
-                          {block.caption}
-                        </p>
-                      )}
                     </div>
                   );
 
@@ -299,6 +306,7 @@ export default function ModuleTemplate({
           <div />
         )}
       </div>
+
     </div>
   );
 }
