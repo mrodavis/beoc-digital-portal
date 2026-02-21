@@ -953,5 +953,210 @@ export const excelModule2Lessons: Lesson[] = [
     },
   ],
 },
-  
+  // ============================================================
+// LESSON 9
+// ============================================================
+{
+  slug: "working-with-multiple-worksheets",
+  title: "Working with Multiple Worksheets",
+  description:
+    "Learn how to insert, rename, move, copy, group, ungroup, and organize worksheets within a workbook.",
+  duration: "15 min",
+
+  videoUrl: "https://www.youtube.com/embed/qRShQc-v3LI",
+
+  practiceFiles: [
+    {
+      name: "Multiple Worksheets Practice File",
+      url: "/practice/excel/module-2/multiple-sheets/Excel_MultipleSheets_Practice.xlsx",
+    },
+  ],
+
+  sections: [
+
+    // ------------------------------------------------------------
+    // Creating New Worksheets
+    // ------------------------------------------------------------
+    {
+      heading: "Creating a New Worksheet",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click the New Sheet (+) button to insert a new worksheet into your workbook.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_new.png",
+          alt: "New sheet button",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_new_done.png",
+          alt: "New sheet created",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Renaming Worksheets
+    // ------------------------------------------------------------
+    {
+      heading: "Renaming Worksheets",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Right-click a worksheet tab and choose Rename to give the sheet a meaningful name.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_rename_rightclick.png",
+          alt: "Right-click rename option",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_rename_done.png",
+          alt: "Renamed worksheet",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Moving Worksheets
+    // ------------------------------------------------------------
+    {
+      heading: "Moving Worksheets",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click and drag a worksheet tab to reposition it within the workbook.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_move_icon.png",
+          alt: "Dragging worksheet tab",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_move_done.png",
+          alt: "Worksheet moved",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Copying Worksheets
+    // ------------------------------------------------------------
+    {
+      heading: "Copying Worksheets",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use Move or Copy to duplicate a worksheet within the same workbook or another workbook.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_copy_rightclick.png",
+          alt: "Right-click move or copy",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_copy_dialog.png",
+          alt: "Move or Copy dialog box",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_copy_done.png",
+          alt: "Copied worksheet result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Changing Tab Color
+    // ------------------------------------------------------------
+    {
+      heading: "Changing Tab Color",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Right-click a worksheet tab and select Tab Color to visually organize related sheets.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_color_rightclick.png",
+          alt: "Changing tab color",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Grouping Worksheets
+    // ------------------------------------------------------------
+    {
+      heading: "Grouping Worksheets",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Hold Ctrl and click multiple sheet tabs to group them. Changes made to one sheet will apply to all grouped sheets.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_group_select.png",
+          alt: "Selecting multiple sheets",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_group_during.png",
+          alt: "Grouped sheets indicator",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Ungrouping Worksheets
+    // ------------------------------------------------------------
+    {
+      heading: "Ungrouping Worksheets",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Right-click any grouped sheet and select Ungroup Sheets to stop applying changes across multiple sheets.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/multiple-sheets/sheets_ungroup_rightclick.png",
+          alt: "Ungroup sheets option",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Insert a new worksheet.",
+        "Rename a worksheet to a specific month.",
+        "Move a worksheet to a new position.",
+        "Create a copy of a worksheet.",
+        "Change a worksheet tab color.",
+        "Group two worksheets together.",
+        "Ungroup the worksheets.",
+      ],
+    },
+  ],
+},
 ];
