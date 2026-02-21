@@ -58,7 +58,7 @@ export default function ExcelPage() {
 
       <div className="space-y-4 mb-8">
 
-        {/* Module 1 - Available */}
+        {/* Module 1 */}
         <Link href="/learning-paths/ms-office/excel/module-1">
           <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
             <div className="flex items-center justify-between">
@@ -70,7 +70,7 @@ export default function ExcelPage() {
                   Excel Fundamentals
                 </h3>
                 <p className="text-gray-600">
-                  Interface navigation, workbook management, cell basics, formatting, and printing.
+                  Interface navigation, workbook basics, formatting, and spreadsheet setup.
                 </p>
               </div>
               <span className="text-green-600 font-semibold text-sm">
@@ -80,7 +80,7 @@ export default function ExcelPage() {
           </div>
         </Link><br></br>
 
-        {/* Module 1 - Available */}
+        {/* Module 2 */}
         <Link href="/learning-paths/ms-office/excel/module-2">
           <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
             <div className="flex items-center justify-between">
@@ -89,10 +89,32 @@ export default function ExcelPage() {
                   Module 2
                 </span>
                 <h3 className="text-xl font-bold mt-3 mb-2">
-                  Cells, Formatting & Worksheets
+                  Cells & Formatting
                 </h3>
                 <p className="text-gray-600">
-                  Cell basics, formatting, worksheet manipulation.
+                  Cell formatting, number formats, and worksheet structure.
+                </p>
+              </div>
+              <span className="text-green-600 font-semibold text-sm">
+                Available →
+              </span>
+            </div>
+          </div>
+        </Link><br></br>
+
+        {/* Module 3 */}
+        <Link href="/learning-paths/ms-office/excel/module-3">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+                  Module 3
+                </span>
+                <h3 className="text-xl font-bold mt-3 mb-2">
+                  Workbook Management & Printing
+                </h3>
+                <p className="text-gray-600">
+                  Multiple worksheets, find & replace, spell check, view tools, and professional printing.
                 </p>
               </div>
               <span className="text-green-600 font-semibold text-sm">
@@ -101,33 +123,6 @@ export default function ExcelPage() {
             </div>
           </div>
         </Link>
-
-
-        {/* Module 3 - Locked */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-            Module 3
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            Formulas & Functions
-          </h3>
-          <p className="text-gray-600">
-            Intro to formulas, functions, relative & absolute references.
-          </p>
-        </div>
-
-        {/* Module 4 - Locked */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-            Module 4
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            Working with Data
-          </h3>
-          <p className="text-gray-600">
-            Sorting, filtering, tables, charts, and conditional formatting.
-          </p>
-        </div>
 
       </div>
 
@@ -139,25 +134,57 @@ export default function ExcelPage() {
 
       <div className="space-y-4 mb-8">
 
-        {["4", "5", "6", "7"].map((num) => (
-          <div
-            key={num}
-            className="bg-white rounded-xl shadow-md border border-gray-200 p-6"
-          >
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-              Module {num}
-            </span>
-            <h3 className="text-xl font-bold mt-3 mb-2">
-              {num === "4" && "Collaboration & Protection"}
-              {num === "5" && "PivotTables"}
-              {num === "6" && "Advanced Data Analysis"}
-              {num === "7" && "Office 365 & Modern Excel"}
-            </h3>
-            <p className="text-gray-600">
-              Advanced content unlocking soon.
-            </p>
-          </div>
-        ))}
+        {/* Module 4 */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
+            Module 4
+          </span>
+          <h3 className="text-xl font-bold mt-3 mb-2">
+            Formulas & Functions
+          </h3>
+          <p className="text-gray-600">
+            Logical functions, lookup functions, and advanced calculations.
+          </p>
+        </div>
+
+        {/* Module 5 */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
+            Module 5
+          </span>
+          <h3 className="text-xl font-bold mt-3 mb-2">
+            Working with Data
+          </h3>
+          <p className="text-gray-600">
+            Sorting, filtering, tables, charts, and conditional formatting.
+          </p>
+        </div>
+
+        {/* Module 6 */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
+            Module 6
+          </span>
+          <h3 className="text-xl font-bold mt-3 mb-2">
+            PivotTables & Dashboards
+          </h3>
+          <p className="text-gray-600">
+            Data summarization, PivotTables, PivotCharts, and executive dashboards.
+          </p>
+        </div>
+
+        {/* Module 7 */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
+            Module 7
+          </span>
+          <h3 className="text-xl font-bold mt-3 mb-2">
+            Advanced Excel & Modern Tools
+          </h3>
+          <p className="text-gray-600">
+            Advanced analysis tools and Microsoft 365 features.
+          </p>
+        </div>
 
         {/* Assessment */}
         <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6">

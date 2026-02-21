@@ -6,6 +6,11 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
     "/learning-paths/ms-office/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -21,10 +26,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/ms-office/excel/module-2/page.js"
     ],
-    "/learning-paths/ms-office/excel/module-2/[slug]/page": [
+    "/learning-paths/ms-office/excel/module-3/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/excel/module-2/[slug]/page.js"
+      "static/chunks/app/learning-paths/ms-office/excel/module-3/page.js"
+    ],
+    "/learning-paths/ms-office/excel/module-3/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/ms-office/excel/module-3/[slug]/page.js"
     ],
     "/_not-found/page": [
       "static/chunks/webpack.js",

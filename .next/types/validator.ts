@@ -81,6 +81,24 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../app/learning-paths/ms-office/excel/module-3/[slug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ms-office/excel/module-3/[slug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/ms-office/excel/module-3/[slug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/ms-office/excel/module-3/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ms-office/excel/module-3">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/ms-office/excel/module-3/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/learning-paths/ms-office/excel/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ms-office/excel">> = Specific

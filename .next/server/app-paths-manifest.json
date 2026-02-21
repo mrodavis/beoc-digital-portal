@@ -1,5 +1,8 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/learning-paths/ms-office/page": "app/learning-paths/ms-office/page.js",
   "/learning-paths/ms-office/excel/page": "app/learning-paths/ms-office/excel/page.js",
-  "/learning-paths/ms-office/excel/module-2/[slug]/page": "app/learning-paths/ms-office/excel/module-2/[slug]/page.js",
-  "/learning-paths/ms-office/excel/module-2/page": "app/learning-paths/ms-office/excel/module-2/page.js"
+  "/learning-paths/ms-office/excel/module-2/page": "app/learning-paths/ms-office/excel/module-2/page.js",
+  "/learning-paths/ms-office/excel/module-3/page": "app/learning-paths/ms-office/excel/module-3/page.js",
+  "/learning-paths/ms-office/excel/module-3/[slug]/page": "app/learning-paths/ms-office/excel/module-3/[slug]/page.js"
 }
