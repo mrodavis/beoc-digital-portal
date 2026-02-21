@@ -740,98 +740,218 @@ export const excelModule2Lessons: Lesson[] = [
   ],
 },
 
-  // ============================================================
-  // LESSON 8
-  // ============================================================
-  {
-    slug: "understanding-number-formats",
-    title: "Understanding Number Formats in Excel",
-    description:
-      "Learn how to apply and customize number formats.",
-    duration: "12 min",
+// ============================================================
+// LESSON 8
+// ============================================================
+{
+  slug: "understanding-number-formats",
+  title: "Understanding Number Formats in Excel",
+  description:
+    "Learn how to apply Date, Currency, Percentage, and Decimal number formats, and understand how formatting affects calculations.",
+  duration: "18 min",
 
-    sections: [
-      {
-        heading: "Common Number Formats",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Excel includes formats such as General, Currency, Percentage, Date, and Number.",
-          },
-        ],
-      },
-      {
-        heading: "Custom Formats",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Create custom formats to control how numbers are displayed.",
-          },
-        ],
-      },
-    ],
+  videoUrls: [
+    "https://www.youtube.com/embed/fjyOG7Ls7BA",
+    "https://www.youtube.com/embed/LLmSAQ2PgVc",
+  ],
 
-    challenge: [
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Format values as currency.",
-          "Apply percentage format.",
-          "Change date format.",
-          "Create a custom format.",
-        ],
-      },
-    ],
-  },
+  practiceFiles: [
+    {
+      name: "Number Formats Practice File",
+      url: "/practice/excel/module-2/number-formats/Excel_NumberFormats_Practice.xlsx",
+    },
+  ],
 
-  // ============================================================
-  // LESSON 9
-  // ============================================================
-  {
-    slug: "working-with-multiple-worksheets",
-    title: "Working with Multiple Worksheets",
-    description:
-      "Learn how to add, delete, copy, move, group, and ungroup worksheets.",
-    duration: "12 min",
+  sections: [
 
-    sections: [
-      {
-        heading: "Managing Worksheets",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Worksheets can be inserted, renamed, deleted, and rearranged.",
-          },
-        ],
-      },
-      {
-        heading: "Grouping Worksheets",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Grouping allows you to apply changes across multiple sheets at once.",
-          },
-        ],
-      },
-    ],
+    // ------------------------------------------------------------
+    // Understanding General Format
+    // ------------------------------------------------------------
+    {
+      heading: "General Format vs Specific Formats",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "By default, Excel uses the General format. This does not apply any special formatting such as currency symbols, percentage signs, or date styling.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_date_general.png",
+          alt: "General format example",
+        },
+      ],
+    },
 
-    challenge: [
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Insert a worksheet.",
-          "Rename a worksheet.",
-          "Move or copy a worksheet.",
-          "Group and ungroup worksheets.",
-        ],
-      },
-    ],
-  },
+    // ------------------------------------------------------------
+    // Date Formatting
+    // ------------------------------------------------------------
+    {
+      heading: "Applying Date Formats",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Dates can be formatted as Short Date, Long Date, or customized through the Format Cells dialog box.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_date_format.png",
+          alt: "Date dropdown menu",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_date_longdate.png",
+          alt: "Long date example",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_date_dialog.png",
+          alt: "Date format dialog box",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Currency Formatting
+    // ------------------------------------------------------------
+    {
+      heading: "Currency and Accounting Formats",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Currency format adds a currency symbol and decimal places. Accounting format aligns currency symbols and decimal points for professional financial reports.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_formats_applying_menu_cropped.png",
+          alt: "Currency from dropdown menu",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_formats_applying_currency_cropped.png",
+          alt: "Currency formatting applied",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Decimal and Rounding
+    // ------------------------------------------------------------
+    {
+      heading: "Decimal Places and Rounding",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use Increase Decimal and Decrease Decimal to control how many decimal places are displayed.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_formats_decimal_commands.png",
+          alt: "Decimal commands",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_format_decimal_rounding.png",
+          alt: "Decimal rounding example",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Percentage Formatting
+    // ------------------------------------------------------------
+    {
+      heading: "Understanding Percentage Format",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Percentage format multiplies a value by 100 and adds a percent symbol. For example, typing 0.05 and applying Percentage becomes 5%.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_percent_intro.png",
+          alt: "Percentage format example",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_percent_compare_big.png",
+          alt: "Percentage formatting comparison",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_tip_percent_after.png",
+          alt: "Percentage applied correctly",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Formatting and Calculations
+    // ------------------------------------------------------------
+    {
+      heading: "How Formatting Affects Calculations",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Formatting changes how data is displayed, but it does not change the underlying value. Understanding this is critical for accurate calculations.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_tip_carryover.png",
+          alt: "Formatting does not change actual value",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/number_format_chart.png",
+          alt: "Correct vs incorrect formatting comparison",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Real-World Invoice Example
+    // ------------------------------------------------------------
+    {
+      heading: "Real-World Example: Customer Invoice",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "In professional documents like invoices, proper number formatting ensures totals, tax rates, and currency values are displayed correctly.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/number-formats/invoice_final_example.png",
+          alt: "Formatted invoice example",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Format a column as Short Date.",
+        "Change a date to Long Date format.",
+        "Apply Currency formatting to a price column.",
+        "Adjust decimal places to two digits.",
+        "Format a tax rate as Percentage.",
+        "Create a properly formatted invoice total.",
+      ],
+    },
+  ],
+},
   
 ];

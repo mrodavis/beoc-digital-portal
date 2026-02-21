@@ -6,85 +6,15 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
     "/learning-paths/ms-office/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/ms-office/page.js"
     ],
-    "/learning-paths/ms-office/word/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-1/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-1/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-2/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-2/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-2/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-2/[slug]/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-1/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-1/[slug]/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-3/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-3/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-3/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-3/[slug]/page.js"
-    ],
     "/learning-paths/ms-office/excel/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/ms-office/excel/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-6/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-6/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-5/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-5/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-4/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-4/page.js"
-    ],
-    "/learning-paths/ms-office/word/module-4/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/word/module-4/[slug]/page.js"
-    ],
-    "/learning-paths/ms-office/excel/module-1/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/excel/module-1/page.js"
-    ],
-    "/learning-paths/ms-office/excel/module-1/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/excel/module-1/[slug]/page.js"
     ],
     "/learning-paths/ms-office/excel/module-2/page": [
       "static/chunks/webpack.js",
