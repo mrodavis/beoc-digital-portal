@@ -439,49 +439,306 @@ export const excelModule2Lessons: Lesson[] = [
   // ============================================================
   // LESSON 7
   // ============================================================
-  {
-    slug: "formatting-cells",
-    title: "Formatting Cells in Excel",
-    description:
-      "Learn how to format text, alignment, borders, and cell styles.",
-    duration: "17 min",
+{
+  slug: "formatting-cells",
+  title: "Formatting Cells in Excel",
+  description:
+    "Learn how to format fonts, apply colors, borders, alignment, cell styles, and enhance worksheet presentation.",
+  duration: "20 min",
 
-    sections: [
-      {
-        heading: "Font and Alignment",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Change font style, size, color, alignment, and apply bold or italic formatting.",
-          },
-        ],
-      },
-      {
-        heading: "Cell Styles and Borders",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Apply borders and built-in styles to enhance readability.",
-          },
-        ],
-      },
-    ],
+  videoUrls: [
+    "https://www.youtube.com/embed/etAMC0KRuBE",
+    "https://www.youtube.com/embed/LHSJJvkVrvA",
+  ],
 
-    challenge: [
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Format text in bold.",
-          "Center-align content.",
-          "Apply borders.",
-          "Use a built-in cell style.",
-        ],
-      },
-    ],
-  },
+  practiceFiles: [
+    {
+      name: "Formatting Cells Practice File",
+      url: "/practice/excel/module-2/formatting/Excel_FormattingCells_Practice.xlsx",
+    },
+  ],
+
+  sections: [
+
+    // ------------------------------------------------------------
+    // Font Type
+    // ------------------------------------------------------------
+    {
+      heading: "Changing Font Type",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can change the font type from the Font group on the Home tab.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font type select cells.png",
+          alt: "Selecting cells for font change",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font type dropdown menu.png",
+          alt: "Font dropdown menu",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font type after change.png",
+          alt: "Font after change",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Font Size
+    // ------------------------------------------------------------
+    {
+      heading: "Changing Font Size",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can choose a font size from the dropdown or use the Increase and Decrease Font Size buttons.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font-size-select-cells.png",
+          alt: "Selecting cells for font size change",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font-size-dropdown-menu.png",
+          alt: "Font size dropdown",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font-size-increase-and-decrease.png",
+          alt: "Increase and decrease font size buttons",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font-size-after-size-change.png",
+          alt: "Font size applied",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Bold Italic Underline
+    // ------------------------------------------------------------
+    {
+      heading: "Bold, Italic, and Underline",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use Bold, Italic, and Underline to emphasize important text.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font-biu-buttons.png",
+          alt: "BIU buttons",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/biu-select-cells.png",
+          alt: "Selecting cells for BIU",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/biu-after-change.png",
+          alt: "BIU applied",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Font Color
+    // ------------------------------------------------------------
+    {
+      heading: "Changing Font Color",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Font color can be changed using Theme Colors or Standard Colors.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font color select cells.png",
+          alt: "Selecting cells for font color",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font color dropdown menu.png",
+          alt: "Font color dropdown",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/font color after change.png",
+          alt: "Font color applied",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Fill Color
+    // ------------------------------------------------------------
+    {
+      heading: "Applying Fill Color",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Fill color changes the background color of selected cells.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/fill-color-select-cells2.png",
+          alt: "Selecting cells for fill color",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/fill-color-after-change3.png",
+          alt: "Fill color applied",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Borders
+    // ------------------------------------------------------------
+    {
+      heading: "Applying Borders",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Borders help define data tables and improve readability.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/borders-select-cells2.png",
+          alt: "Selecting cells for borders",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/borders-after-change2.png",
+          alt: "Borders applied",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Cell Styles
+    // ------------------------------------------------------------
+    {
+      heading: "Using Cell Styles",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Excel provides built-in cell styles for quick formatting.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/cell-style-select-cells2.png",
+          alt: "Selecting cells for cell style",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/cell-style-dropdown-menu.png",
+          alt: "Cell style dropdown",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/cell-style-after-change.png",
+          alt: "Cell style applied",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Horizontal Alignment
+    // ------------------------------------------------------------
+    {
+      heading: "Horizontal Alignment",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Horizontal alignment positions text left, center, or right within a cell.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/horizontal-align-select-cells.png",
+          alt: "Selecting cells for horizontal alignment",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/horizontal-align-after-change.png",
+          alt: "Horizontal alignment applied",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Vertical Alignment
+    // ------------------------------------------------------------
+    {
+      heading: "Vertical Alignment",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Vertical alignment positions text at the top, middle, or bottom of a cell.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/vertical-align-buttons.png",
+          alt: "Vertical alignment buttons",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/vertical-align-select-cells.png",
+          alt: "Selecting cells for vertical alignment",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formatting/vertical-align-after-change.png",
+          alt: "Vertical alignment applied",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Change the font type and size of the worksheet title.",
+        "Apply Bold formatting to the header row.",
+        "Change the font color of the title.",
+        "Apply fill color to the header row.",
+        "Add borders to the entire data table.",
+        "Center-align column headers horizontally.",
+        "Apply Middle Align vertically.",
+        "Apply a built-in cell style.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/excel/module-2/formatting/formatting cells challenge screenshot.png",
+      alt: "Formatting challenge example",
+    },
+  ],
+},
 
   // ============================================================
   // LESSON 8
@@ -576,4 +833,5 @@ export const excelModule2Lessons: Lesson[] = [
       },
     ],
   },
+  
 ];
