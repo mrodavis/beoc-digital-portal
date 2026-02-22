@@ -270,64 +270,155 @@ export const excelModule3Lessons: Lesson[] = [
   // ============================================================
   // LESSON 12
   // ============================================================
-  {
+// ============================================================
+// LESSON – CHECKING SPELLING
+// ============================================================
+
+{
     slug: "checking-spelling",
-    title: "Checking Spelling",
+    title: "Checking Spelling in Excel",
     description:
-      "Use Excel's spell check tool to ensure worksheets are professional and error-free before sharing.",
+        "Learn how to use Excel’s Spell Check tool to identify and correct spelling errors before sharing a workbook.",
     duration: "4 min",
 
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER",
-
     practiceFiles: [
-      {
-        name: "Spell Check Practice File",
-        url: "/practice/excel/module-3/spell-check/Excel_SpellCheck_Practice.xlsx",
-      },
+        {
+        name: "Check Spelling Practice File",
+        url: "/practice/excel/module-3/spelling/Excel_CheckSpelling_Practice.xlsx",
+        },
     ],
 
     sections: [
-      {
+
+        // ------------------------------------------------------------
+        // Why Spell Check Matters
+        // ------------------------------------------------------------
+        {
+        heading: "Why Use Spell Check?",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Before sharing a workbook, it’s important to check for spelling errors. Excel includes a built-in Spell Check tool that scans your worksheet for misspelled words.",
+            },
+            {
+            type: "paragraph",
+            text:
+                "Unlike Microsoft Word, Excel does not check grammar or spelling as you type. Spell Check must be run manually.",
+            },
+        ],
+        },
+
+        // ------------------------------------------------------------
+        // Running Spell Check
+        // ------------------------------------------------------------
+        {
         heading: "Running Spell Check",
         blocks: [
-          {
+            {
             type: "paragraph",
             text:
-              "Use the Spelling command under the Review tab to check for spelling errors in a worksheet.",
-          },
-          {
+                "To begin spell check, go to the Review tab and click Spelling.",
+            },
+            {
             type: "image",
-            src: "/images/excel/module-3/spell-check/spellcheck-dialog.png",
-            alt: "Spell check dialog",
-          },
-        ],
-      },
-      {
-        heading: "Spell Check Options",
-        blocks: [
-          {
+            src: "/images/excel/module-3/spelling/spelling-review-tab.png",
+            alt: "Spelling command on Review tab",
+            },
+            {
             type: "paragraph",
             text:
-              "Choose to Ignore, Change, or Add to Dictionary depending on the context of the word.",
-          },
+                "The Spelling dialog box will appear. Excel will highlight words that are not found in the dictionary and provide suggestions.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-3/spelling/spelling-dialog.png",
+            alt: "Spelling dialog box with suggestions",
+            },
         ],
-      },
+        },
+
+        // ------------------------------------------------------------
+        // Correcting Errors
+        // ------------------------------------------------------------
+        {
+        heading: "Correcting Spelling Errors",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Select the correct spelling from the Suggestions list and click Change to fix the error. Use Change All to correct every instance of that word in the worksheet.",
+            },
+
+        ],
+        },
+
+        // ------------------------------------------------------------
+        // Ignoring Words
+        // ------------------------------------------------------------
+        {
+        heading: "Ignoring or Adding Words",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Spell Check may flag names or brand terms that are actually correct. You can choose Ignore Once, Ignore All, or Add to Dictionary.",
+            },
+            {
+            type: "list",
+            ordered: false,
+            items: [
+                "Ignore Once – Skips this instance.",
+                "Ignore All – Skips all instances in the worksheet.",
+                "Add to Dictionary – Saves the word so Excel won’t flag it again.",
+            ],
+            },
+        ],
+        },
+
+        // ------------------------------------------------------------
+        // Completion Message
+        // ------------------------------------------------------------
+        {
+        heading: "Spell Check Complete",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "After Excel finishes reviewing the worksheet, a confirmation message will appear.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-3/spelling/spelling-complete.png",
+            alt: "Spell check complete message",
+            },
+        ],
+        },
+
     ],
 
     challenge: [
-      { type: "paragraph", text: "Complete the following tasks:" },
-      {
+        {
+        type: "paragraph",
+        text: "Complete the following tasks:",
+        },
+        {
         type: "list",
         ordered: true,
         items: [
-          "Run spell check on the worksheet.",
-          "Correct identified spelling errors.",
-          "Add an industry term to the dictionary.",
+            "Run Spell Check from the Review tab.",
+            "Correct the misspelled words 'coffe' and 'medum'.",
+            "Ignore the spelling suggestion for the word 'Amanecer'.",
+            "Finish spell check and confirm the completion message appears.",
         ],
-      },
+        },
+        {
+        type: "image",
+        src: "/images/excel/module-3/spelling/spelling-challenge-final.png",
+        alt: "Final invoice after spell check",
+        },
     ],
-  },
-
+},
   // ============================================================
   // LESSON 13
   // ============================================================
