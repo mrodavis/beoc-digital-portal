@@ -7,7 +7,7 @@ export default function Module3Page() {
       courseSlug="excel"
       courseTitle="Excel 2019"
       moduleNumber={3}
-      title="Data Analysis & Visualization"
+      title="Workbook Management & Printing"
       emoji="📊"
       description="Develop advanced Excel skills including logical functions, lookup tools, data validation, PivotTables, and professional data visualization techniques."
       lessons={excelModule3Lessons}

@@ -99,78 +99,173 @@ export const excelModule3Lessons: Lesson[] = [
   // ============================================================
   // LESSON 11
   // ============================================================
-  {
-    slug: "find-and-replace",
-    title: "Using Find & Replace",
-    description:
-      "Learn how to search for specific data and replace values efficiently within a worksheet or workbook.",
-    duration: "8 min",
+{
+  slug: "find-and-replace",
+  title: "Using Find & Replace",
+  description:
+    "Search for specific data and quickly correct or replace repeated content throughout a worksheet or workbook.",
+  duration: "8 min",
 
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER",
+  videoUrl: "https://www.youtube.com/embed/hmizmgOjNYo",
 
-    practiceFiles: [
-      {
-        name: "Find and Replace Practice File",
-        url: "/practice/excel/module-3/find-replace/Excel_FindReplace_Practice.xlsx",
-      },
-    ],
+  practiceFiles: [
+    {
+      name: "Find and Replace Practice File",
+      url: "/practice/excel/module-3/find-replace/Excel_FindReplace_Practice.xlsx",
+    },
+  ],
 
-    sections: [
-      {
-        heading: "Using Find",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "The Find feature helps locate specific words, numbers, or formatting within a worksheet or entire workbook.",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-3/find-replace/find-dialog.png",
-            alt: "Find dialog box",
-          },
-        ],
-      },
-      {
-        heading: "Using Replace",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Replace allows you to substitute one value with another. Use Replace All carefully to avoid unintended changes.",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-3/find-replace/replace-dialog.png",
-            alt: "Replace dialog box",
-          },
-        ],
-      },
-      {
-        heading: "Advanced Find Options",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Options such as Match Case and Match Entire Cell Contents help refine search results.",
-          },
-        ],
-      },
-    ],
+  sections: [
 
-    challenge: [
-      { type: "paragraph", text: "Complete the following tasks:" },
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Find all instances of a department name.",
-          "Replace an abbreviation with a full department name.",
-          "Use Match Case to refine search results.",
-        ],
-      },
-    ],
-  },
+    // ------------------------------------------------------------
+    // Introduction
+    // ------------------------------------------------------------
+    {
+      heading: "Why Use Find & Replace?",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When working with large datasets, manually scanning for errors or repeated values can be time-consuming. Excel’s Find and Replace tools allow you to quickly locate and update content across a worksheet or an entire workbook.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Using Find
+    // ------------------------------------------------------------
+    {
+      heading: "Using the Find Command",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To locate specific content, go to the Home tab, click Find & Select, then choose Find. You can also press Ctrl + F on your keyboard.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/find-replace/find-menu.png",
+          alt: "Find command in Excel",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Enter the text you want to search for in the Find what field. Click Find Next to locate one instance at a time or Find All to display every match.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/find-replace/find-dialog.png",
+          alt: "Find dialog box",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/find-replace/find-all-results.png",
+          alt: "Find All results showing multiple matches",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Advanced Options
+    // ------------------------------------------------------------
+    {
+      heading: "Advanced Search Options",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click Options to expand advanced search settings such as Match Case, Match Entire Cell Contents, and choosing whether to search within the current sheet or the entire workbook.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/find-replace/find-options.png",
+          alt: "Find dialog expanded options",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Using Replace
+    // ------------------------------------------------------------
+    {
+      heading: "Using Replace",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If you need to correct repeated mistakes or update values, use Replace. From the Home tab, click Find & Select, then choose Replace.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/find-replace/replace-menu.png",
+          alt: "Replace option in Excel",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Enter the text to find in the Find what field and the replacement text in the Replace with field. Use Replace to update one instance at a time.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/find-replace/replace-dialog.png",
+          alt: "Replace dialog box",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Replace All
+    // ------------------------------------------------------------
+    {
+      heading: "Using Replace All",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Replace All updates every matching instance automatically. Use this option carefully, as it does not allow you to review changes individually.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/find-replace/replace-all-selected.png",
+          alt: "Replace All button selected",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/find-replace/replace-confirmation.png",
+          alt: "Replacement confirmation message",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/find-replace/replace-before-after.png",
+          alt: "Before and after comparison of replaced values",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks using the practice workbook:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Change Crystal Lewis’s last name to Taylor using Find and Replace. Be careful to only change Crystal’s record.",
+        "Replace Bio with Biology. Do NOT change Biomedical Engineering.",
+        "Use Replace All to change Physics to Physical Science.",
+        "Verify your worksheet matches the final expected result.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/excel/module-3/find-replace/challenge-final.png",
+      alt: "Final challenge worksheet result",
+    },
+  ],
+},
 
   // ============================================================
   // LESSON 12

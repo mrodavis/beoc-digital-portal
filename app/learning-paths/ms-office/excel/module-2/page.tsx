@@ -7,7 +7,7 @@ export default function Module2Page() {
       courseSlug="excel"
       courseTitle="Excel 2019"
       moduleNumber={2}
-      title="Cells, Formatting & Worksheets"
+      title="Cells & Formatting"
       emoji="💻"
       description="Learn how to modify cells, format data, manage worksheets, and structure professional spreadsheets."
       lessons={excelModule2Lessons}
