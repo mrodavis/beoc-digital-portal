@@ -419,139 +419,580 @@ export const excelModule3Lessons: Lesson[] = [
         },
     ],
 },
+
   // ============================================================
   // LESSON 13
-  // ============================================================
-  {
-    slug: "view-tools-for-reviewing",
-    title: "View Tools for Reviewing Worksheets",
-    description:
-      "Use view options and navigation tools to review and manage large worksheets efficiently.",
-    duration: "10 min",
-
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER",
-
-    practiceFiles: [
-      {
-        name: "View Tools Practice File",
-        url: "/practice/excel/module-3/view-tools/Excel_ViewTools_Practice.xlsx",
-      },
-    ],
-
-    sections: [
-      {
-        heading: "Worksheet Views",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Switch between Normal View, Page Layout View, and Page Break Preview to manage how content appears.",
-          },
-        ],
-      },
-      {
-        heading: "Freeze Panes and Split",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Freeze Panes keeps specific rows or columns visible while scrolling. Split divides the worksheet into panes.",
-          },
-        ],
-      },
-      {
-        heading: "Zoom and Window Tools",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Use Zoom and Arrange All to review multiple sheets or workbooks simultaneously.",
-          },
-        ],
-      },
-    ],
-
-    challenge: [
-      { type: "paragraph", text: "Complete the following tasks:" },
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Switch to Page Break Preview.",
-          "Freeze the top row.",
-          "Split the worksheet.",
-          "Adjust the zoom level.",
-        ],
-      },
-    ],
-  },
-
-  // ============================================================
-  // LESSON 14
   // ============================================================
   {
     slug: "page-layout-and-printing",
     title: "Page Layout and Printing",
     description:
-      "Learn how to control margins, orientation, scaling, print area, and headers to produce professional printed reports.",
+      "Learn how to control margins, orientation, scaling, print area, print titles, and page breaks to produce professional printed reports.",
     duration: "12 min",
 
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER",
+    videoUrl: "https://www.youtube.com/embed/8XcFTeCu98k",
 
     practiceFiles: [
       {
         name: "Printing Practice File",
-        url: "/practice/excel/module-3/printing/Excel_Printing_Practice.xlsx",
+        url: "/practice/excel/module-3/page-layout-and-printing/Excel_PageLayoutPrint_Practice.xlsx",
       },
     ],
 
     sections: [
+
+      // ------------------------------------------------------------
+      // Accessing the Print Pane
+      // ------------------------------------------------------------
       {
-        heading: "Setting Print Area and Orientation",
+        heading: "Accessing the Print Pane",
         blocks: [
           {
             type: "paragraph",
             text:
-              "Define a Print Area to specify what should print. Choose Portrait or Landscape orientation based on layout.",
+              "To begin printing in Excel, select the File tab to open Backstage View, then choose Print. The Print pane allows you to preview and configure all print settings.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_pane_file_tab.png",
+            alt: "File tab in Excel",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_pane_print_pane.png",
+            alt: "Excel Print pane",
           },
         ],
       },
+
+      // ------------------------------------------------------------
+      // Choosing What to Print
+      // ------------------------------------------------------------
       {
-        heading: "Margins and Scaling",
+        heading: "Choosing What to Print",
         blocks: [
           {
             type: "paragraph",
             text:
-              "Adjust margins and use scaling options such as Fit Sheet on One Page to control layout.",
+              "From the Settings section, you can choose to print Active Sheets, the Entire Workbook, or a Selection. Always verify the preview before printing.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_print_active_select.png",
+            alt: "Print active sheets option",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_print_entire_workbook.png",
+            alt: "Print entire workbook option",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_print_selection_select.png",
+            alt: "Print selection option",
           },
         ],
       },
+
+      // ------------------------------------------------------------
+      // Setting a Print Area
+      // ------------------------------------------------------------
       {
-        heading: "Headers, Footers, and Print Titles",
+        heading: "Setting a Print Area",
         blocks: [
           {
             type: "paragraph",
             text:
-              "Add headers and footers for page numbers and document information. Use Print Titles to repeat header rows on each page.",
+              "To define exactly what prints, select the desired cells, go to the Page Layout tab, click Print Area, and choose Set Print Area.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_print_area.png",
+            alt: "Set print area command",
           },
         ],
       },
+
+      // ------------------------------------------------------------
+      // Orientation
+      // ------------------------------------------------------------
+      {
+        heading: "Changing Page Orientation",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "Excel offers Portrait (vertical) and Landscape (horizontal) orientation. Landscape is best for wide data tables.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_orientation_preview.png",
+            alt: "Landscape orientation preview",
+          },
+        ],
+      },
+
+      // ------------------------------------------------------------
+      // Scaling
+      // ------------------------------------------------------------
+      {
+        heading: "Using Scaling Options",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "If your worksheet content is cut off, use scaling options such as 'Fit All Columns on One Page' or 'Fit Sheet on One Page'. Be aware that scaling reduces text size.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_fit_preview.png",
+            alt: "Fit columns to one page preview",
+          },
+        ],
+      },
+
+      // ------------------------------------------------------------
+      // Margins
+      // ------------------------------------------------------------
+      {
+        heading: "Adjusting Margins",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "Margins control the spacing between your worksheet content and the page edge. Choose presets like Normal, Wide, or Narrow, or manually adjust margins in the preview pane.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_margins_preview.png",
+            alt: "Margins dropdown",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_margins_show.png",
+            alt: "Show margins in preview",
+          },
+        ],
+      },
+
+      // ------------------------------------------------------------
+      // Print Titles
+      // ------------------------------------------------------------
+      {
+        heading: "Using Print Titles",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "Use Print Titles to repeat header rows or columns on every printed page. Go to Page Layout → Print Titles and specify rows to repeat at top and columns to repeat at left.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_print_titles_ribbon.png",
+            alt: "Print titles ribbon command",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_print_titles_setup_rows_callout.png",
+            alt: "Rows to repeat at top field",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_print_titles_setup_ok.png",
+            alt: "Print titles setup confirmation",
+          },
+        ],
+      },
+
+      // ------------------------------------------------------------
+      // Page Break Preview
+      // ------------------------------------------------------------
+      {
+        heading: "Adjusting Page Breaks",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "Switch to Page Break Preview to manually control where printed pages divide. Drag the blue lines to reposition page breaks.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_break_view.png",
+            alt: "Page break preview mode",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-3/page-layout-and-printing/layout_break_drag1.png",
+            alt: "Dragging page break line",
+          },
+        ],
+      },
+
     ],
 
     challenge: [
-      { type: "paragraph", text: "Complete the following tasks:" },
+      {
+        type: "paragraph",
+        text: "Complete the following tasks:",
+      },
       {
         type: "list",
         ordered: true,
         items: [
-          "Set a print area.",
+          "Open the East Coast worksheet.",
+          "Repeat row 1 at the top and column A at the left.",
+          "Move the page break so rows 1–40 print on the first page.",
           "Change orientation to Landscape.",
-          "Fit worksheet to one page wide.",
-          "Add a footer with page numbers.",
-          "Repeat header rows on every printed page.",
+          "Set margins to Narrow.",
+          "Use Fit All Columns on One Page.",
+          "Verify the preview matches the expected layout.",
         ],
+      },
+      {
+        type: "image",
+        src: "/images/excel/module-3/page-layout-and-printing/printing and page layout challenge.png",
+        alt: "Final expected print preview",
       },
     ],
   },
+  // ============================================================
+// LESSON 14
+// ============================================================
 
+{
+  slug: "comments-and-coauthoring",
+  title: "Comments and Co-authoring",
+  description:
+    "Learn how to add, edit, delete, and manage comments, collaborate in real time, and restore previous versions of a workbook.",
+  duration: "11 min",
+
+  videoUrl: "https://www.youtube.com/embed/eK23Fzttlyo",
+
+  practiceFiles: [
+    {
+      name: "Comments & Track Changes Practice File",
+      url: "/practice/excel/module-3/comments/Excel_TrackChangesComments_Practice.xlsx",
+    },
+  ],
+
+  sections: [
+
+    // ------------------------------------------------------------
+    // Sharing a Workbook
+    // ------------------------------------------------------------
+    {
+      heading: "Sharing a Workbook",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To collaborate with others, click the Share button in the top-right corner of Excel.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/comments_share_button.png",
+          alt: "Share button in Excel",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Upload the workbook to OneDrive if prompted. Then enter the recipient’s email address and choose whether they Can edit or Can view.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/comments_share_onedrive.png",
+          alt: "Upload to OneDrive prompt",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/comments_share_email.png",
+          alt: "Entering email address in Share pane",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/comments_share_can_edit.png",
+          alt: "Can Edit dropdown option",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/comments_share_share.png",
+          alt: "Click Share button",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Adding Comments
+    // ------------------------------------------------------------
+    {
+      heading: "Adding Comments",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Comments allow you to leave feedback without changing the contents of a cell. Select a cell, go to the Review tab, and click New Comment.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_comment_new.png",
+          alt: "New Comment button on Review tab",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_comment_type.png",
+          alt: "Typing a comment",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Cells with comments display a red indicator in the corner. Select the cell to view the comment.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_comment_indicator_close.png",
+          alt: "Cell with comment indicator",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Editing Comments
+    // ------------------------------------------------------------
+    {
+      heading: "Editing Comments",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To edit a comment, select the cell and click Edit Comment on the Review tab.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_edit_click.png",
+          alt: "Edit Comment button",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_edit_type.png",
+          alt: "Editing comment text",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Showing and Hiding Comments
+    // ------------------------------------------------------------
+    {
+      heading: "Showing and Hiding Comments",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To display every comment at once, click Show All Comments on the Review tab.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_show_click.png",
+          alt: "Show All Comments button",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_show_comments.png",
+          alt: "All comments displayed",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can also show or hide a single comment by selecting the cell and clicking Show/Hide Comment.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_show_one.png",
+          alt: "Show or hide individual comment",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Deleting Comments
+    // ------------------------------------------------------------
+    {
+      heading: "Deleting Comments",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To remove a comment, select the cell and click Delete in the Comments group on the Review tab.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_delete_select.png",
+          alt: "Selecting comment to delete",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_delete_click.png",
+          alt: "Delete comment button",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/track_delete_deleted.png",
+          alt: "Comment deleted",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Co-authoring
+    // ------------------------------------------------------------
+    {
+      heading: "Real-Time Co-authoring",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When a workbook is shared through OneDrive, multiple users can edit at the same time. Each collaborator appears with a unique color indicator.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/comments_coauthor_hover.png",
+          alt: "Co-author hover indicator",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Version History
+    // ------------------------------------------------------------
+    {
+      heading: "Restoring a Previous Version",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If changes were made that you want to undo, click the clock icon next to the Share button to open Version History.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/comments_restore_clock.png",
+          alt: "Version history clock icon",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/comments_restore_version.png",
+          alt: "Version history pane",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/comments/comments_restore_restore.png",
+          alt: "Restore previous version",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Add four comments to different cells.",
+        "Edit one of the comments.",
+        "Delete one comment.",
+        "Use Show All Comments to display every comment.",
+        "Open Version History and review a previous version.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/excel/module-3/comments/comments_challenge.png",
+      alt: "Final challenge worksheet with comments",
+    },
+  ],
+},
+
+// ============================================================
+// LESSON 15
+// ============================================================
+
+{
+  slug: "inspecting-and-protecting-workbooks",
+  title: "Inspecting and Protecting Workbooks",
+  description:
+    "Learn how to inspect documents for hidden data and protect worksheets or workbook structure to prevent unwanted changes.",
+  duration: "8 min",
+
+  sections: [
+
+    {
+      heading: "Inspecting a Workbook",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Before sharing a workbook publicly, use Document Inspector to remove hidden properties, comments, and personal information.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Go to File > Info > Check for Issues > Inspect Document.",
+        },
+      ],
+    },
+
+    {
+      heading: "Protecting a Worksheet",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To prevent users from editing certain cells, go to the Review tab and click Protect Sheet.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can assign a password and choose which actions users are allowed to perform.",
+        },
+      ],
+    },
+
+    {
+      heading: "Protecting Workbook Structure",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Protect Workbook prevents users from adding, deleting, renaming, or moving worksheets.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click Protect Workbook on the Review tab and optionally assign a password.",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Run Document Inspector.",
+        "Protect a worksheet with a password.",
+        "Protect the workbook structure.",
+      ],
+    },
+  ],
+},
 ];
