@@ -7,37 +7,154 @@ export const excelModule4Lessons: Lesson[] = [
   // ============================================================
 
   {
-    slug: "logical-functions-if",
-    title: "Logical Functions: IF",
+    slug: "complex-formulas-order-of-operations",
+    title: "Complex Formulas & Order of Operations",
     description:
-      "Learn how to use the IF function to perform logical tests and return different results based on conditions.",
-    duration: "25 min",
+      "Use PEMDAS and parentheses to control calculation order when building multi-step formulas such as subtotals and tax.",
+    duration: "12 min",
 
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ", // Replace later
+    videoUrl: "https://www.youtube.com/embed/J-W3thqtDpQ",
+
+    practiceFiles: [
+      {
+        name: "Complex Formulas Practice File",
+        url: "/practice/excel/module-4/complex-formulas/Excel_ComplexFormulas_Practice.xlsx",
+      },
+    ],
 
     sections: [
+      // ------------------------------------------------------------
+      // PEMDAS Overview
+      // ------------------------------------------------------------
       {
-        heading: "Understanding Logical Tests",
+        heading: "Order of Operations (PEMDAS)",
         blocks: [
           {
             type: "paragraph",
             text:
-              "The IF function allows Excel to make decisions. It evaluates a condition and returns one value if TRUE and another if FALSE.",
+              "When a formula includes multiple operators, Excel follows an order of operations. PEMDAS stands for Parentheses, Exponents, Multiplication, Division, Addition, and Subtraction.",
           },
           {
-            type: "paragraph",
-            text:
-              "Syntax: =IF(logical_test, value_if_true, value_if_false)",
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_order1.png",
+            alt: "Using the order of operations (PEMDAS) graphic",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_order2.png",
+            alt: "Parentheses step highlighted",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_order3.png",
+            alt: "Exponents step highlighted",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_order4.png",
+            alt: "Multiplication and division step highlighted",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_order5.png",
+            alt: "Division step result",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_order6.png",
+            alt: "Addition and subtraction step highlighted",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_order7.png",
+            alt: "Final simplification step",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_order8.png",
+            alt: "Final answer shown",
           },
         ],
       },
+
+      // ------------------------------------------------------------
+      // Subtotal Example
+      // ------------------------------------------------------------
       {
-        heading: "Example: Pass or Fail",
+        heading: "Building a Subtotal Formula",
         blocks: [
           {
             type: "paragraph",
             text:
-              "Example: =IF(A2>=70, \"Pass\", \"Fail\") will return Pass if the score is 70 or higher.",
+              "A subtotal often involves adding multiple calculations together. In this example, we multiply Unit Price by Quantity for each item, then add the results.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_subtotal_cell.png",
+            alt: "Subtotal cell selected",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_subtotal_formula.png",
+            alt: "Subtotal formula entered",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_subtotal_parentheses.png",
+            alt: "Subtotal formula improved with parentheses",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_subtotal_result.png",
+            alt: "Subtotal result displayed",
+          },
+        ],
+      },
+
+      // ------------------------------------------------------------
+      // Tax Formula Example
+      // ------------------------------------------------------------
+      {
+        heading: "Calculating Tax Correctly",
+        blocks: [
+          {
+            type: "paragraph",
+            text:
+              "To calculate tax, you typically add totals first, then multiply by the tax rate. Parentheses ensure Excel performs the addition before multiplying.",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_tax_formula.png",
+            alt: "Correct tax formula using parentheses",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_tax_incorrect.png",
+            alt: "Incorrect tax formula without parentheses",
+          },
+          {
+            type: "image",
+            src: "/images/excel/module-4/complex-formulas/complex_tax_result.png",
+            alt: "Correct tax result displayed",
+          },
+        ],
+      },
+
+      // ------------------------------------------------------------
+      // Wrap-Up
+      // ------------------------------------------------------------
+      {
+        heading: "Key Takeaways",
+        blocks: [
+          {
+            type: "list",
+            ordered: false,
+            items: [
+              "Excel follows PEMDAS automatically.",
+              "Use parentheses to control the order of calculations.",
+              "Multiplication and division happen before addition and subtraction.",
+              "When totals look wrong, parentheses are usually the culprit.",
+            ],
           },
         ],
       },
@@ -45,12 +162,24 @@ export const excelModule4Lessons: Lesson[] = [
 
     challenge: [
       {
+        type: "paragraph",
+        text: "Complete the following tasks using the practice workbook:",
+      },
+      {
         type: "list",
         ordered: true,
         items: [
-          "Create an IF formula to classify scores as Pass or Fail.",
-          "Modify the formula to label scores above 90 as Excellent.",
+          "Use a formula to calculate Subtotal for the invoice items.",
+          "Modify your formula to include parentheses where appropriate.",
+          "Create a tax formula that adds totals first, then multiplies by the tax rate.",
+          "Identify the incorrect tax formula example and explain why it’s wrong.",
+          "Verify your final totals match the expected results.",
         ],
+      },
+      {
+        type: "image",
+        src: "/images/excel/module-4/complex-formulas/intro-formulas-final-result.png",
+        alt: "Final expected results for complex formulas challenge",
       },
     ],
   },
