@@ -924,55 +924,137 @@ export const excelModule3Lessons: Lesson[] = [
   slug: "inspecting-and-protecting-workbooks",
   title: "Inspecting and Protecting Workbooks",
   description:
-    "Learn how to inspect documents for hidden data and protect worksheets or workbook structure to prevent unwanted changes.",
+    "Learn how to inspect your workbook for hidden information and protect it before sharing by using Document Inspector and Protect Workbook tools.",
   duration: "8 min",
+
+  videoUrl: "https://www.youtube.com/embed/fsXS_VSuBvs",
+
+  practiceFiles: [
+    {
+      name: "Inspect and Protect Practice File",
+      url: "/practice/excel/module-3/inspect-protect/Excel_InspectProtect_Practice.xlsx",
+    },
+  ],
 
   sections: [
 
+    // ------------------------------------------------------------
+    // Introduction
+    // ------------------------------------------------------------
     {
-      heading: "Inspecting a Workbook",
+      heading: "Why Inspect and Protect a Workbook?",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Before sharing a workbook publicly, use Document Inspector to remove hidden properties, comments, and personal information.",
-        },
-        {
-          type: "paragraph",
-          text:
-            "Go to File > Info > Check for Issues > Inspect Document.",
+            "Before sharing a workbook, you should remove hidden personal information and discourage unwanted editing. Excel provides tools such as Document Inspector and Protect Workbook to help finalize your file.",
         },
       ],
     },
 
+    // ------------------------------------------------------------
+    // Using Document Inspector
+    // ------------------------------------------------------------
     {
-      heading: "Protecting a Worksheet",
+      heading: "Using Document Inspector",
       blocks: [
         {
           type: "paragraph",
           text:
-            "To prevent users from editing certain cells, go to the Review tab and click Protect Sheet.",
+            "Click the File tab to open Backstage view. From the Info pane, select Check for Issues and then click Inspect Document.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/inspect-protect/inspecting_inspector_info.png",
+          alt: "Check for Issues and Inspect Document option",
         },
         {
           type: "paragraph",
           text:
-            "You can assign a password and choose which actions users are allowed to perform.",
+            "Excel may prompt you to save your file before continuing. Click Yes to proceed.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/inspect-protect/inspecting_inspector_warning.png",
+          alt: "Save confirmation before running Document Inspector",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Leave all inspection options selected and click Inspect.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/inspect-protect/inspecting_inspector_inspect.png",
+          alt: "Document Inspector options window",
         },
       ],
     },
 
+    // ------------------------------------------------------------
+    // Removing Hidden Information
+    // ------------------------------------------------------------
     {
-      heading: "Protecting Workbook Structure",
+      heading: "Removing Hidden Information",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Protect Workbook prevents users from adding, deleting, renaming, or moving worksheets.",
+            "If the inspector finds comments or personal information, click Remove All next to each category.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/inspect-protect/inspecting_inspector_results.png",
+          alt: "Document Inspector results showing removable content",
         },
         {
           type: "paragraph",
           text:
-            "Click Protect Workbook on the Review tab and optionally assign a password.",
+            "When finished, click Close to return to your workbook.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/inspect-protect/inspecting_inspector_close2.png",
+          alt: "Close Document Inspector",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Protecting the Workbook
+    // ------------------------------------------------------------
+    {
+      heading: "Protecting the Workbook",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To discourage editing, go to File → Info → Protect Workbook and choose Mark as Final.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/inspect-protect/inspecting_protect_info.png",
+          alt: "Protect Workbook menu",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/inspect-protect/inspecting_protect_save_dialog.png",
+          alt: "Mark as Final confirmation dialog",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/inspect-protect/inspecting_protect_message_dialog.png",
+          alt: "Workbook marked as final message",
+        },
+        {
+          type: "paragraph",
+          text:
+            "When a workbook is marked as final, a banner appears indicating that editing is discouraged.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/inspect-protect/inspecting_protect_final.png",
+          alt: "Workbook marked as final banner",
         },
       ],
     },
@@ -988,10 +1070,17 @@ export const excelModule3Lessons: Lesson[] = [
       type: "list",
       ordered: true,
       items: [
-        "Run Document Inspector.",
-        "Protect a worksheet with a password.",
-        "Protect the workbook structure.",
+        "Open the Inspect and Protect practice workbook.",
+        "Run Document Inspector and remove any comments or personal information found.",
+        "Close the inspector after removing issues.",
+        "Protect the workbook by selecting Mark as Final.",
+        "Verify that the 'Marked as Final' banner appears.",
       ],
+    },
+    {
+      type: "image",
+      src: "/images/excel/module-3/inspect-protect/inspecting_protect_final.png",
+      alt: "Final workbook marked as final example",
     },
   ],
 },

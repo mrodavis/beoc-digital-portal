@@ -89,10 +89,10 @@ export default function ExcelPage() {
                   Module 2
                 </span>
                 <h3 className="text-xl font-bold mt-3 mb-2">
-                  Cells & Formatting
+                  Cells, Formatting & Basic Formulas
                 </h3>
                 <p className="text-gray-600">
-                  Cell formatting, number formats, and worksheet structure.
+                  Cell formatting, number formats, worksheet structure and basic formulas.
                 </p>
               </div>
               <span className="text-green-600 font-semibold text-sm">
@@ -111,10 +111,10 @@ export default function ExcelPage() {
                   Module 3
                 </span>
                 <h3 className="text-xl font-bold mt-3 mb-2">
-                  Workbook Management & Printing
+                  Workbook Management, Printing & Basic Calculations
                 </h3>
                 <p className="text-gray-600">
-                  Multiple worksheets, find & replace, spell check, view tools, and professional printing.
+                  Multiple worksheets, find & replace, spell check, view tools, professional printing, intro to formulas.
                 </p>
               </div>
               <span className="text-green-600 font-semibold text-sm">
@@ -135,17 +135,26 @@ export default function ExcelPage() {
       <div className="space-y-4 mb-8">
 
         {/* Module 4 */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-            Module 4
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            Formulas & Functions
-          </h3>
-          <p className="text-gray-600">
-            Logical functions, lookup functions, and advanced calculations.
-          </p>
-        </div>
+        <Link href="/learning-paths/ms-office/excel/module-4">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+                  Module 4
+                </span>
+                <h3 className="text-xl font-bold mt-3 mb-2">
+                  Advanced Functions & Logical Tools
+                </h3>
+                <p className="text-gray-600">
+                  Logical functions, lookup functions, and advanced calculations.
+                </p>
+              </div>
+              <span className="text-green-600 font-semibold text-sm">
+                Available →
+              </span>
+            </div>
+          </div>
+        </Link>
 
         {/* Module 5 */}
         <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">

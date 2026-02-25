@@ -953,4 +953,275 @@ export const excelModule2Lessons: Lesson[] = [
     },
   ],
 },
+
+// ============================================================
+// LESSON – INTRO TO FORMULAS
+// ============================================================
+
+{
+  slug: "intro-to-formulas",
+  title: "Intro to Formulas",
+  description:
+    "Learn how to create basic formulas in Excel using cell references, mathematical operators, and the fill handle.",
+  duration: "15 min",
+
+  videoUrl: "https://www.youtube.com/embed/xc14gFFyiTw",
+
+  practiceFiles: [
+    {
+      name: "Intro to Formulas Practice File",
+      url: "/practice/excel/module-2/formulas/Excel_IntroFormulas_Practice.xlsx",
+    },
+  ],
+
+  sections: [
+
+    // ------------------------------------------------------------
+    // What Is a Formula?
+    // ------------------------------------------------------------
+    {
+      heading: "What Is a Formula?",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "A formula is an equation that performs calculations in a worksheet. All formulas in Excel must begin with an equals sign (=).",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Excel can add, subtract, multiply, divide, and calculate exponents using standard mathematical operators.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/simpform_graphic_operators4.png",
+          alt: "Excel mathematical operators",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Understanding Cell References
+    // ------------------------------------------------------------
+    {
+      heading: "Understanding Cell References",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Instead of typing numbers directly into formulas, Excel typically uses cell references. A cell reference identifies the location of data in the worksheet, such as A1 or D10.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Using references allows formulas to automatically update when the referenced data changes.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_understanding_1.png",
+          alt: "Simple numbers in cells",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_understanding_2.png",
+          alt: "Formula using cell references",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_understanding_3.png",
+          alt: "Formula recalculated result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Example Formulas
+    // ------------------------------------------------------------
+    {
+      heading: "Common Formula Examples",
+      blocks: [
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/simpform_graphic_formulas5.png",
+          alt: "Common formula examples table",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Creating a Basic Formula
+    // ------------------------------------------------------------
+    {
+      heading: "Creating a Basic Formula",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To create a formula, select the cell where you want the result to appear, type an equals sign (=), then enter the cell references and operator.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "In this example, we calculate a total budget by adding two cells together.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_create_equals_sign.png",
+          alt: "Typing equals sign in Excel",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_create_cell_reference.png",
+          alt: "Selecting first cell reference",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_create_operator.png",
+          alt: "Typing operator in formula",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_create_result.png",
+          alt: "Final calculated result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Editing a Formula
+    // ------------------------------------------------------------
+    {
+      heading: "Editing a Formula",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To modify a formula, select the cell and click inside the formula bar, or double-click the cell to edit directly.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_edit_click.png",
+          alt: "Clicking formula bar",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_edit_edit.png",
+          alt: "Editing formula reference",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_edit_enter.png",
+          alt: "Press Enter to confirm formula",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_edit_result.png",
+          alt: "Updated formula result",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_edit_cancel.png",
+          alt: "Cancel formula edit",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Point-and-Click Method
+    // ------------------------------------------------------------
+    {
+      heading: "Using the Point-and-Click Method",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Instead of typing cell addresses manually, you can click the cells you want to include in the formula. This reduces errors and increases accuracy.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_pnc_select.png",
+          alt: "Selecting first cell",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_pnc_click_1.png",
+          alt: "Selecting second cell",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_pnc_click_2.png",
+          alt: "Completing multiplication",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_pnc_result.png",
+          alt: "Point and click result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Copying with the Fill Handle
+    // ------------------------------------------------------------
+    {
+      heading: "Copying Formulas with the Fill Handle",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Formulas can be copied to adjacent cells using the fill handle. This small square appears in the bottom-right corner of a selected cell.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_fill_select2.png",
+          alt: "Selecting cell with formula",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/formulas_fill_result.png",
+          alt: "Formula copied using fill handle",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // Practical Invoice Example
+    // ------------------------------------------------------------
+    {
+      heading: "Practical Invoice Example",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "In real-world spreadsheets, formulas are often used to calculate totals such as invoices, budgets, or payroll.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-2/formulas/screen shot 2015-11-24 at 3.27.57 pm.png",
+          alt: "Invoice example with calculated totals",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks in the practice workbook:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Create a formula in cell D4 that multiplies Quantity by Price per Unit.",
+        "Use the fill handle to copy the formula to remaining rows.",
+        "Edit one price value and verify that totals update automatically.",
+        "Create a formula that adds two budget values together.",
+        "Show all formulas using Ctrl + ` and then return to normal view.",
+      ],
+    },
+  ],
+},
+
 ];
