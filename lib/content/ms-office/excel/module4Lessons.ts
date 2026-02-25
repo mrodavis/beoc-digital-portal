@@ -455,10 +455,7 @@ export const excelModule4Lessons: Lesson[] = [
     ],
 
     challenge: [
-      {
-        type: "paragraph",
-        text: "Challenge!",
-      },
+
       {
         type: "list",
         ordered: true,
