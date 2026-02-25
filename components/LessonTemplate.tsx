@@ -180,6 +180,7 @@ export default function ModuleTemplate({
                           return block.ordered ? (
                             <ol
                               key={bIdx}
+                              start={block.start}
                               className="list-decimal pl-6 space-y-3 text-gray-700"
                             >
                               {block.items?.map((item, i) => (
@@ -281,6 +282,7 @@ export default function ModuleTemplate({
                   return block.ordered ? (
                     <ol
                       key={idx}
+                      start={block.start}
                       className="list-decimal pl-6 space-y-3 text-gray-700"
                     >
                       {block.items?.map((item, i) => (

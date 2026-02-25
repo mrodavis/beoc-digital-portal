@@ -13,6 +13,7 @@ export type ContentBlock =
       type: "list";
       items: string[];
       ordered?: boolean;
+      start?: number;
     };
 
 export interface LessonSection {
