@@ -5,14 +5,13 @@ export const excelModule3Lessons: Lesson[] = [
   // ============================================================
   // LESSON 10
   // ============================================================
-  {
-    slug: "working-with-multiple-worksheets",
-    title: "Working with Multiple Worksheets",
-    description:
-      "Learn how to add, delete, copy, move, group, and organize worksheets within a workbook.",
-    duration: "12 min",
-
-    videoUrl: "https://www.youtube.com/embed/qRShQc-v3LI",
+{
+  slug: "working-with-multiple-worksheets",
+  title: "Working with Multiple Worksheets",
+  description:
+    "Learn how to insert, rename, move, copy, group, and organize worksheets within a workbook.",
+  
+  videoUrl: "https://www.youtube.com/embed/qRShQc-v3LI",
 
     practiceFiles: [
       {
@@ -20,81 +19,263 @@ export const excelModule3Lessons: Lesson[] = [
         url: "/practice/excel/module-3/multiple-worksheets/Excel_MultipleSheets_Practice.xlsx",
       },
     ],
+  sections: [
+    {
+      heading: "Introduction",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Every workbook contains at least one worksheet by default. When working with large amounts of data, you can create multiple worksheets to better organize your information and make it easier to manage.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can also group worksheets together to make changes to multiple sheets at the same time.",
+        },
+      ],
+    },
 
-    sections: [
-      {
-        heading: "Creating and Renaming Worksheets",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Click the New Sheet (+) button to insert a new worksheet. Rename sheets to reflect meaningful labels such as months or departments.",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-3/multiple-worksheets/new-sheet.png",
-            alt: "Insert new worksheet",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-3/multiple-worksheets/rename-sheet.png",
-            alt: "Rename worksheet",
-          },
-        ],
-      },
-      {
-        heading: "Moving and Copying Worksheets",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Worksheets can be reordered by dragging tabs or copied using the Move or Copy dialog box.",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-3/multiple-worksheets/move-sheet.png",
-            alt: "Moving worksheet tab",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-3/multiple-worksheets/copy-sheet.png",
-            alt: "Copy worksheet dialog",
-          },
-        ],
-      },
-      {
-        heading: "Grouping and Ungrouping Worksheets",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Hold Ctrl to select multiple sheets and group them. Changes made to one sheet will apply to all grouped sheets.",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-3/multiple-worksheets/group-sheets.png",
-            alt: "Grouped worksheets",
-          },
-        ],
-      },
-    ],
+    {
+      heading: "Insert a New Worksheet",
+      blocks: [
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Locate and select the New Sheet (+) button near the bottom-right corner of the Excel window.",
+            "A new blank worksheet will appear.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_new.png",
+          alt: "New worksheet button",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_new_done.png",
+          alt: "New worksheet inserted",
+        },
+      ],
+    },
 
-    challenge: [
-      { type: "paragraph", text: "Complete the following tasks:" },
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Insert a new worksheet.",
-          "Rename the worksheet to a month.",
-          "Move the worksheet to a new position.",
-          "Create a copy of a worksheet.",
-          "Group two worksheets and apply formatting.",
-          "Ungroup the worksheets.",
-        ],
-      },
-    ],
-  },
+    {
+      heading: "Copy a Worksheet",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Excel allows you to duplicate an existing worksheet without copying and pasting content manually.",
+        },
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Right-click the worksheet you want to copy.",
+            "Select Move or Copy.",
+            "Choose where the sheet should appear.",
+            "Check Create a copy and click OK.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_copy_rightclick.png",
+          alt: "Right-click move or copy",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_copy_dialog.png",
+          alt: "Move or copy dialog box",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_copy_done.png",
+          alt: "Copied worksheet",
+        },
+      ],
+    },
+
+    {
+      heading: "Rename a Worksheet",
+      blocks: [
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Right-click the worksheet tab.",
+            "Select Rename.",
+            "Type the desired name and press Enter.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_rename_rightclick.png",
+          alt: "Rename worksheet option",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_rename_done.png",
+          alt: "Worksheet renamed",
+        },
+      ],
+    },
+
+    {
+      heading: "Move a Worksheet",
+      blocks: [
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Click and drag the worksheet tab.",
+            "Release when the black arrow appears in the desired location.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_move_icon.png",
+          alt: "Drag worksheet tab",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_move_done.png",
+          alt: "Worksheet moved",
+        },
+      ],
+    },
+
+    {
+      heading: "Change Worksheet Tab Color",
+      blocks: [
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Right-click the worksheet tab.",
+            "Hover over Tab Color.",
+            "Select the desired color.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_color_rightclick.png",
+          alt: "Tab color menu",
+        },
+      ],
+    },
+
+    {
+      heading: "Delete a Worksheet",
+      blocks: [
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Right-click the worksheet tab.",
+            "Select Delete.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_delete_rightclick.png",
+          alt: "Delete worksheet option",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_delete_done.png",
+          alt: "Delete worksheet done",
+        },
+      ],
+    },
+
+    {
+      heading: "Switching Between Worksheets",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can click worksheet tabs to switch between sheets. For large workbooks, right-click the scroll arrows in the lower-left corner to see a list of all worksheets.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_scroll_list.png",
+          alt: "Worksheet navigation list",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_scroll_list_dialog.png",
+          alt: "Worksheet navigation list",
+        },
+      ],
+    },
+
+    {
+      heading: "Grouping and Ungrouping Worksheets",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Grouping worksheets allows you to make changes to multiple sheets at the same time.",
+        },
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Hold the Ctrl key.",
+            "Click each worksheet tab you want to group.",
+            "Release Ctrl once selected.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_group_select.png",
+          alt: "Grouped worksheets selected",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_group_during.png",
+          alt: "Grouped worksheets active",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To ungroup worksheets, right-click any grouped tab and select Ungroup Sheets.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-3/multiple-worksheets/sheets_ungroup_rightclick.png",
+          alt: "Ungroup sheets option",
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Insert a new worksheet and rename it Q1 Summary.",
+        "Move the Expenses Summary worksheet to the far right.",
+        "Move the Q1 Summary worksheet so it appears between March and April.",
+        "Create a copy of the Expenses Summary worksheet using Move or Copy.",
+        "Change the January tab color to blue and the February tab color to red.",
+        "Group the worksheets September, October, and November.",
+      ],
+    },
+    {
+      type: "paragraph",
+      text:
+        "When you're finished, your workbook should resemble the example below:",
+    },
+    {
+      type: "image",
+      src: "/images/excel/module-3/multiple-worksheets/sheets_group_done.png",
+      alt: "Completed worksheet layout",
+    },
+  ],
+},
 
   // ============================================================
   // LESSON 11

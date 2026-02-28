@@ -200,11 +200,12 @@ export const excelModule4Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Use a formula to calculate Subtotal for the invoice items.",
-          "Modify your formula to include parentheses where appropriate.",
-          "Create a tax formula that adds totals first, then multiplies by the tax rate.",
-          "Identify the incorrect tax formula example and explain why it’s wrong.",
-          "Verify your final totals match the expected results.",
+          "Download the practice file above.",
+          "Click the Challenge worksheet tab in the bottom-left of the workbook.",
+          "In cell D7, create a formula that calculates the tax for the invoice. Use a sales tax rate of 7.5%",
+          "In cell D8, create a formula that finds the total for the order. In other words, this formula should add cells D3:D7.",
+          "In cell D9 create a formula that calculates the total after a 10% discount.",
+          "When you are finished, your spreadsheet should look like this:",
         ],
       },
       {
