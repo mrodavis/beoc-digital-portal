@@ -52,7 +52,7 @@ export default function ExcelPage() {
 
       {/* ================= FOUNDATION TRACK ================= */}
       <SectionHeader
-        title="Excel Foundations (Modules 1–3)"
+        title="Excel Foundations (Modules 1–4)"
         description="Build strong spreadsheet fundamentals used in every office environment."
       />
 
@@ -122,17 +122,7 @@ export default function ExcelPage() {
               </span>
             </div>
           </div>
-        </Link>
-
-      </div>
-
-      {/* ================= ADVANCED TRACK ================= */}
-      <SectionHeader
-        title="Advanced Analysis (Modules 4–7)"
-        description="Develop professional-level Excel skills for reporting and certification."
-      />
-
-      <div className="space-y-4 mb-8">
+        </Link><br></br>
 
         {/* Module 4 */}
         <Link href="/learning-paths/ms-office/excel/module-4">
@@ -143,10 +133,10 @@ export default function ExcelPage() {
                   Module 4
                 </span>
                 <h3 className="text-xl font-bold mt-3 mb-2">
-                  Advanced Functions & Logical Tools
+                  Formulas, Functions & Cell References
                 </h3>
                 <p className="text-gray-600">
-                  Logical functions, lookup functions, and advanced calculations.
+                  Complex formulas, intro to functions, and absolute and relative cell references.
                 </p>
               </div>
               <span className="text-green-600 font-semibold text-sm">
@@ -155,6 +145,18 @@ export default function ExcelPage() {
             </div>
           </div>
         </Link>
+
+      </div>
+
+      {/* ================= ADVANCED TRACK ================= */}
+      <SectionHeader
+        title="Advanced Analysis (Modules 5–8)"
+        description="Develop professional-level Excel skills for reporting and certification."
+      />
+
+      <div className="space-y-4 mb-8">
+
+
 
         {/* Module 5 */}
         <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">

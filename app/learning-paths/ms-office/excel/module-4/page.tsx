@@ -7,7 +7,7 @@ export default function Module4Page() {
       courseSlug="excel"
       courseTitle="Excel 2019"
       moduleNumber={4}
-      title="Advanced Functions & Logical Tools"
+      title="Formulas, Functions & Cell References"
       emoji="🧮"
       description="Develop advanced Excel calculation skills using logical functions, lookup tools, conditional formulas, and error handling techniques essential for professional spreadsheet modeling and MOS certification."
       lessons={excelModule4Lessons}
