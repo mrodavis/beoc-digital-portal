@@ -133,7 +133,7 @@ export default function ExcelPage() {
                   Module 4
                 </span>
                 <h3 className="text-xl font-bold mt-3 mb-2">
-                  Formulas, Functions & Cell References
+                  Complex Formulas, Functions & Cell References
                 </h3>
                 <p className="text-gray-600">
                   Complex formulas, intro to functions, and absolute and relative cell references.
@@ -157,19 +157,27 @@ export default function ExcelPage() {
       <div className="space-y-4 mb-8">
 
 
-
         {/* Module 5 */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-            Module 5
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            Working with Data
-          </h3>
-          <p className="text-gray-600">
-            Sorting, filtering, tables, charts, and conditional formatting.
-          </p>
-        </div>
+        <Link href="/learning-paths/ms-office/excel/module-5">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+                  Module 5
+                </span>
+                <h3 className="text-xl font-bold mt-3 mb-2">
+                  Working with Data
+                </h3>
+                <p className="text-gray-600">
+                  Sorting, filtering, tables, charts, and conditional formatting.
+                </p>
+              </div>
+              <span className="text-green-600 font-semibold text-sm">
+                Available →
+              </span>
+            </div>
+          </div>
+        </Link>
 
         {/* Module 6 */}
         <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
@@ -188,6 +196,19 @@ export default function ExcelPage() {
         <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
           <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
             Module 7
+          </span>
+          <h3 className="text-xl font-bold mt-3 mb-2">
+            Advanced Excel & Modern Tools
+          </h3>
+          <p className="text-gray-600">
+            Advanced analysis tools and Microsoft 365 features.
+          </p>
+        </div>
+
+        {/* Module 8 */}
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
+            Module 8
           </span>
           <h3 className="text-xl font-bold mt-3 mb-2">
             Advanced Excel & Modern Tools
