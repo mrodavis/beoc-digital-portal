@@ -488,35 +488,291 @@ export const excelModule5Lessons: Lesson[] = [
   ],
 },
 
-  // ============================================================
-  // LESSON 3 – SORTING DATA
-  // ============================================================
+// ============================================================
+// LESSON 3 – SORTING DATA
+// ============================================================
 
+{
+  slug: "sorting-data",
+  title: "Sorting Data",
+  description:
+    "Learn how to sort text, numbers, and custom lists in Excel. Master basic sorting, multi-level sorting, and logical ordering using the Sort dialog box.",
+  duration: "12 min",
+
+  videoUrl: "https://www.youtube.com/embed/Ep5q1cUhQas",
+
+  sections: [
+
+    // ------------------------------------------------------------
+    // INTRODUCTION
+    // ------------------------------------------------------------
+
+    {
+      heading: "Understanding Sorting in Excel",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Sorting reorganizes your dataset based on the values in one or more columns. Instead of manually rearranging rows, Excel automatically moves entire records together so your data remains aligned.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can sort alphabetically, numerically, by date, or by a custom logical order such as T-shirt sizes.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // STEP 1 – SELECTING YOUR DATA
+    // ------------------------------------------------------------
+
+    {
+      heading: "Step 1: Select a Cell Inside Your Dataset",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Before sorting, click anywhere inside your dataset. Excel will automatically detect the surrounding data range.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "If you select only one column instead of the entire dataset, you risk misaligning rows and corrupting your data.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_cell_range.png",
+          alt: "Selecting a cell inside the dataset",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // STEP 2 – LOCATING SORT TOOLS
+    // ------------------------------------------------------------
+
+    {
+      heading: "Step 2: Locate the Sort Commands",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Sorting tools are located on the Data tab inside the Sort & Filter group.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_ribbon.png",
+          alt: "Sort & Filter group on Data tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "There are two quick-sort buttons (A–Z and Z–A) and a full Sort button for advanced options.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // BASIC SORTING – A TO Z
+    // ------------------------------------------------------------
+
+    {
+      heading: "Basic Sorting: A to Z",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The A–Z button sorts text alphabetically (A to Z), numbers from smallest to largest, and dates from oldest to newest.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_a-z.png",
+          alt: "A to Z sorting command",
+        },
+        {
+          type: "paragraph",
+          text:
+            "After clicking A–Z, Excel reorganizes the entire dataset based on the selected column.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_a-z_done.png",
+          alt: "Dataset sorted A to Z",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // BASIC SORTING – Z TO A
+    // ------------------------------------------------------------
+
+    {
+      heading: "Basic Sorting: Z to A",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The Z–A button reverses the order. It sorts text from Z to A, numbers from largest to smallest, and dates from newest to oldest.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is useful when identifying top performers, highest values, or most recent entries.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // ADVANCED SORTING – USING THE SORT DIALOG
+    // ------------------------------------------------------------
+
+    {
+      heading: "Using the Sort Dialog for More Control",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "For advanced sorting, click the Sort button instead of the A–Z icons.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_sort_command.png",
+          alt: "Sort command button",
+        },
+        {
+          type: "paragraph",
+          text:
+            "The Sort dialog box allows you to choose specific columns and define custom sorting rules.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_dialog.png",
+          alt: "Sort dialog box",
+        },
+        {
+          type: "paragraph",
+          text:
+            "If your dataset includes headers, ensure 'My data has headers' is checked so Excel recognizes column names.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // MULTI-LEVEL SORTING
+    // ------------------------------------------------------------
+
+    {
+      heading: "Multi-Level Sorting",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Multi-level sorting allows you to sort by more than one column. Excel sorts by the first column, then breaks ties using the second column.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "For example, you could sort by Homeroom number first, then by Last Name.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_add_level_dialog.png",
+          alt: "Add Level in Sort dialog",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Use Add Level to introduce another sorting rule. You can adjust priority using Move Up or Move Down.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_add_level_move_up-down.png",
+          alt: "Move Up and Move Down sorting levels",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_add_level_sorted.png",
+          alt: "Multi-level sorted result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // CUSTOM LIST SORTING
+    // ------------------------------------------------------------
+
+    {
+      heading: "Sorting with Custom Lists",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Alphabetical order is not always logical. For example, T-shirt sizes should follow Small, Medium, Large, X-Large — not alphabetical order.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To create a logical order, use Custom Lists.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_dialog_order.png",
+          alt: "Order dropdown showing Custom List option",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_custom_lists_dialog.png",
+          alt: "Custom Lists dialog window",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Enter your logical sequence (Small, Medium, Large, X-Large) and click Add.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_custom_lists_selected.png",
+          alt: "Custom list selected",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/sorting/sorting_custom_lists_sorted.png",
+          alt: "Dataset sorted using custom list",
+        },
+      ],
+    },
+
+
+
+  ],
+
+challenge: [
   {
-    slug: "sorting-data",
-    title: "Sorting Data",
-    description:
-      "Organize worksheet data alphabetically, numerically, or by custom criteria.",
-    duration: "12 min",
-
-    sections: [
-      {
-        heading: "Sorting Information",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Sorting allows you to reorganize data for better readability and analysis.",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-5/basic-tips-data-sort.png",
-            alt: "Sorting example",
-          },
-        ],
-      },
+    type: "paragraph",
+    text:
+      "Download and open the practice workbook provided for this lesson.",
+  },
+  {
+    type: "list",
+    ordered: true,
+    items: [
+      "Click the Challenge tab at the bottom of the workbook.",
+      "For the main table, create a custom sort that sorts by Grade from Smallest to Largest and then by Camper Name from A to Z.",
+      "Create a second sort for the Additional Information section. Sort by Counselor (Column H) from A to Z.",
+      "Ensure the entire dataset moves together without misaligning rows.",
+      "When finished, your workbook should match the example shown below.",
     ],
   },
+  {
+    type: "image",
+    src: "/images/excel/module-5/sorting/sorting_final_result.png",
+    alt: "Final sorted challenge result",
+    caption:
+      "Final result after applying multi-level sorting and sorting the Additional Information section.",
+  },
+],
+},
 
   // ============================================================
   // LESSON 4 – FILTERING DATA
