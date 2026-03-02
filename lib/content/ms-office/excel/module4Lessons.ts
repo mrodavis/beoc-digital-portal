@@ -866,11 +866,7 @@ export const excelModule4Lessons: Lesson[] = [
           src: "/images/excel/module-4/functions/functions_arguments_done.png",
           alt: "NETWORKDAYS function arguments completed",
         },
-        {
-          type: "image",
-          src: "/images/excel/module-4/functions/functions_final_result.png",
-          alt: "Final NETWORKDAYS result shown in worksheet",
-        },
+
       ],
     },
 
@@ -898,6 +894,11 @@ export const excelModule4Lessons: Lesson[] = [
         "In cell B20, create a function to calculate the highest score in B3:B17.",
         "Copy the functions in B18:B20 across to C18:F20 using the fill handle.",
       ],
+    },
+    {
+        type: "image",
+        src: "/images/excel/module-4/functions/functions_final_result.png",
+        alt: "Final practice result shown in worksheet",
     },
   ],
 },
