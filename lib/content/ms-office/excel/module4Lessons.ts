@@ -203,6 +203,33 @@ export const excelModule4Lessons: Lesson[] = [
         },
       ],
     },
+    {
+      heading: "Understanding Excel's Order of Operations (PEMDAS)",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Excel calculates complex formulas using a specific hierarchy known as the Order of Operations. If you do not understand this hierarchy, your formulas may return unexpected results.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Excel follows PEMDAS: Parentheses, Exponents, Multiplication, Division, Addition, and Subtraction.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-4/complex-formulas/pemdas-infographic.png",
+          alt: "Excel Order of Operations PEMDAS infographic",
+          caption:
+            "Excel calculates formulas using PEMDAS. Multiplication and division are solved left-to-right, as are addition and subtraction.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "When operators share the same priority level—such as multiplication and division—Excel evaluates them from left to right.",
+        },
+      ],
+    },
   ],
 
   // ------------------------------------------------------------
