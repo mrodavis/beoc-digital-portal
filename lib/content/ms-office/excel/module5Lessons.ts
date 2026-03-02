@@ -774,35 +774,381 @@ challenge: [
 ],
 },
 
-  // ============================================================
-  // LESSON 4 – FILTERING DATA
-  // ============================================================
+// ============================================================
+// LESSON 4 – FILTERING DATA
+// ============================================================
 
-  {
-    slug: "filtering-data",
-    title: "Filtering Data",
-    description:
-      "Display only the rows that meet specific criteria using Excel filters.",
-    duration: "14 min",
+{
+  slug: "filtering-data",
+  title: "Filtering Data",
+  description:
+    "Learn how to filter lists and tables to show only the records you need. Use checkbox filters, search, text/number/date filters, and clear filters confidently.",
+  duration: "14 min",
 
-    sections: [
-      {
-        heading: "Using Filters",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Filtering narrows your worksheet to show only the data that matches selected criteria.",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-5/basic-tips-data-filter.png",
-            alt: "Filtering example with dropdown menu",
-          },
-        ],
-      },
-    ],
-  },
+  videoUrl: "https://www.youtube.com/embed/_OdsZR_rL1U",
+
+  sections: [
+
+    // ------------------------------------------------------------
+    // INTRODUCTION
+    // ------------------------------------------------------------
+
+    {
+      heading: "Why Filters Matter",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When a worksheet has a lot of rows, it’s hard (and honestly pointless) to scroll forever hunting for what you need. Filters let you temporarily hide rows that don’t match your criteria—without deleting anything.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Filters are perfect for finding items by category, narrowing to specific dates, or showing only records that meet a numeric requirement (like loan amounts over $100).",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // REQUIREMENT: HEADER ROW
+    // ------------------------------------------------------------
+
+    {
+      heading: "Before You Filter: Make Sure You Have Headers",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Filtering works best when your data has a clear header row (column names like ID#, Type, Item Description, etc.). Excel uses these headers to label each filter dropdown.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_header.png",
+          alt: "Dataset with header row and filter dropdown arrows",
+          caption:
+            "Headers identify each column so Excel can filter correctly.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // TURNING FILTER ON (DATA TAB)
+    // ------------------------------------------------------------
+
+    {
+      heading: "Turn Filters On",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To enable filtering, go to the Data tab and click the Filter button. Excel adds a dropdown arrow to each header cell.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_data_tab_filter.png",
+          alt: "Data tab Filter command",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once filters are on, every column header gets a dropdown arrow you can click to filter that column.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_dropdown_arrow.png",
+          alt: "Filter dropdown arrow in a table header",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can also access Filter from the Home tab under Sort & Filter (different path, same tool).",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_sort_filter_alt.png",
+          alt: "Home tab Sort & Filter menu showing Filter option",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // BASIC CHECKBOX FILTER
+    // ------------------------------------------------------------
+
+    {
+      heading: "Basic Filtering with Checkboxes",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The simplest filter is the checkbox list. You open the filter dropdown, uncheck everything, then check only what you want to see.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Example: Filter the Type column to show only Laptop and Projector.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_menu.png",
+          alt: "Filter menu dropdown showing checkbox list",
+          caption:
+            "The filter menu shows sorting at the top and checkbox filtering at the bottom.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "First, uncheck Select All so you can start from a clean slate.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_uncheck.png",
+          alt: "Unchecking Select All in a filter menu",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Then check only the values you want and click OK. Excel hides everything else.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_filtered.png",
+          alt: "Filtered dataset after choosing values",
+          caption:
+            "Only rows matching the selected values remain visible.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // MULTIPLE FILTERS (CUMULATIVE)
+    // ------------------------------------------------------------
+
+    {
+      heading: "Applying Multiple Filters (Filters Stack)",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Filters are cumulative—meaning each new filter further narrows your results. This is how you go from “a lot of rows” to “exactly what I need.”",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Example: If you already filtered Type to Laptop + Projector, you can ALSO filter Checked Out to show only items checked out in August.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_multiple_filters.png",
+          alt: "Applying another filter on a date column",
+        },
+        {
+          type: "paragraph",
+          text:
+            "After applying that second filter, you’ll see a smaller subset that matches BOTH criteria.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_new_filter.png",
+          alt: "New filter applied on top of an existing filter",
+          caption:
+            "Multiple filters narrow the list step-by-step.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // CLEARING FILTERS
+    // ------------------------------------------------------------
+
+    {
+      heading: "Clearing a Filter (Without Turning Filters Off)",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When you’re done with a filter, don’t panic-scroll. Just clear it.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Open the dropdown for the filtered column and choose Clear Filter From [Column Name]. That restores the hidden rows for that column’s filter.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_filter_menu.png",
+          alt: "Clear Filter option in a filter dropdown",
+        },
+        {
+          type: "paragraph",
+          text:
+            "If you want to remove ALL filters from the sheet at once, click Filter again on the Data tab to toggle filtering off.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // SEARCH FILTER (FAST)
+    // ------------------------------------------------------------
+
+    {
+      heading: "Filtering with Search",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Search is the fastest way to filter when you’re looking for one brand, keyword, or repeated term.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Open the filter dropdown for the column you want (like Equipment Detail), then type into the search box. Excel narrows the checkbox list automatically as you type.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_search.png",
+          alt: "Filter search box inside dropdown",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Example: Type saris to show only Saris items.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_filtered_search.png",
+          alt: "Search term applied inside the filter dropdown",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_laptop_search.png",
+          alt: "Filtered results after search is applied",
+          caption:
+            "After clicking OK, the worksheet updates to show only matching rows.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // ADVANCED TEXT FILTER
+    // ------------------------------------------------------------
+
+    {
+      heading: "Advanced Text Filters (Contains / Does Not Contain)",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When checkboxes and search aren’t specific enough, use Text Filters. These let you filter based on rules like Begins With, Ends With, Contains, or Does Not Contain.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Example: Exclude items that contain the word laptop.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_does_not_contain.png",
+          alt: "Text Filters menu showing Does Not Contain",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This opens a Custom AutoFilter box where you type the word or phrase and confirm.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_menu_between.png",
+          alt: "Custom AutoFilter dialog for a text rule",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // ADVANCED NUMBER FILTER
+    // ------------------------------------------------------------
+
+    {
+      heading: "Advanced Number Filters (Greater Than / Between)",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Number Filters are used for columns with numeric values like ID numbers, quantities, prices, or loan amounts.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can filter values greater than, less than, between two numbers, top 10, above average, and more.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_number_filter.png",
+          alt: "Number Filters menu showing Between option",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Example: Show only records with ID numbers between 3000 and 6000.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // ADVANCED DATE FILTER
+    // ------------------------------------------------------------
+
+    {
+      heading: "Advanced Date Filters (This Month / Between Dates)",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Date filters are built for time-based data. You can filter by year, month, or use built-in ranges like Last Week, Next Month, or Between two dates.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Example: Filter Checked Out to show only items checked out between two specific dates.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/filtering/filtering_date_filters.png",
+          alt: "Date Filters menu showing Between option",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text:
+        "Download and open the practice workbook.",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Click the Challenge tab in the bottom-left of the workbook.",
+        "Apply a filter to show only Electronics and Instruments.",
+        "Use the Search feature to filter item descriptions that contain the word Sansei (you should see 6 entries).",
+        "Clear the Item Description filter.",
+        "Using a number filter, show loan amounts greater than or equal to $100.",
+        "Filter to show only items that have deadlines in 2016.",
+        "When you're finished, your workbook should look like the example below.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/excel/module-5/filtering/filtering_final_result.png",
+      alt: "Final filtering challenge result",
+      caption:
+        "Final result after applying item type, search, number, and date filters.",
+    },
+  ],
+},
 
   // ============================================================
   // LESSON 5 – GROUPS AND SUBTOTALS
