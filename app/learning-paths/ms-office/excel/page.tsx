@@ -185,7 +185,7 @@ export default function ExcelPage() {
             Module 6
           </span>
           <h3 className="text-xl font-bold mt-3 mb-2">
-            PivotTables & Dashboards
+            Tables, Charts, & Pivot Tables
           </h3>
           <p className="text-gray-600">
             Data summarization, PivotTables, PivotCharts, and executive dashboards.
