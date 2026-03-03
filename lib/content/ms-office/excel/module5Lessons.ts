@@ -276,216 +276,247 @@ export const excelModule5Lessons: Lesson[] = [
 
   videoUrl: "https://www.youtube.com/embed/zuhsUNBeNHw",
 
-  sections: [
+  practiceFiles: [
+    {
+        name: "Download Practice Workbook",
+        url: "/files/excel/Excel_FreezePanes_Practice.xlsx",
+    },
+    ],
+
+
+    sections: [
 
     // ------------------------------------------------------------
     // INTRODUCTION
     // ------------------------------------------------------------
 
     {
-      heading: "Why View Options Matter",
-      blocks: [
+        heading: "Why Freeze Panes and View Tools Matter",
+        blocks: [
         {
-          type: "paragraph",
-          text:
-            "When working with large spreadsheets, it becomes difficult to compare information across different sections of a worksheet.",
+            type: "paragraph",
+            text:
+            "As spreadsheets grow larger, important information like headers and identifiers can disappear when scrolling. Excel provides Freeze Panes, Split, and New Window tools to improve navigation and comparison.",
         },
         {
-          type: "paragraph",
-          text:
-            "Excel includes powerful view tools such as Freeze Panes, Split, and New Window to help you compare and navigate large datasets efficiently.",
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_rows_example.png",
+            alt: "Large dataset requiring freeze panes",
         },
-      ],
+        ],
     },
 
     // ------------------------------------------------------------
-    // FREEZING ROWS
+    // FREEZE TOP ROW
     // ------------------------------------------------------------
 
     {
-      heading: "Freezing Rows",
-      blocks: [
+        heading: "Freeze the Top Row",
+        blocks: [
         {
-          type: "paragraph",
-          text:
-            "Freezing rows allows you to keep header rows visible while scrolling down through large datasets.",
+            type: "paragraph",
+            text:
+            "If your headers are in Row 1, use Freeze Top Row to keep them visible while scrolling.",
         },
         {
-          type: "paragraph",
-          text:
-            "To freeze rows:",
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_top_row.png",
+            alt: "Freeze Top Row command",
         },
         {
-          type: "list",
-          ordered: true,
-          items: [
-            "Select the row below the row(s) you want to freeze.",
-            "Go to the View tab.",
-            "Click Freeze Panes.",
-            "Choose Freeze Panes from the dropdown.",
-          ],
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_row.png",
+            alt: "Top row frozen example",
+            caption:
+            "Row 1 remains visible even as you scroll down.",
         },
-        {
-          type: "image",
-          src: "/images/excel/module-5/freezing/freezing_row.png",
-          alt: "Freezing rows example",
-          caption:
-            "Select the row below the rows you want frozen before choosing Freeze Panes.",
-        },
-      ],
+        ],
     },
 
     // ------------------------------------------------------------
-    // FREEZING COLUMNS
+    // FREEZE MULTIPLE ROWS
     // ------------------------------------------------------------
 
     {
-      heading: "Freezing Columns",
-      blocks: [
+        heading: "Freeze Multiple Rows",
+        blocks: [
         {
-          type: "paragraph",
-          text:
-            "Freezing columns keeps important identifiers—such as employee names or product IDs—visible while scrolling horizontally.",
+            type: "paragraph",
+            text:
+            "To freeze more than one row, select the row below the rows you want frozen, then choose Freeze Panes.",
         },
         {
-          type: "list",
-          ordered: true,
-          items: [
-            "Select the column to the right of the column(s) you want to freeze.",
-            "Go to View → Freeze Panes.",
-            "Choose Freeze Panes.",
-          ],
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_panes.png",
+            alt: "Freeze Panes dropdown",
         },
         {
-          type: "image",
-          src: "/images/excel/module-5/freezing/freezing_columns.png",
-          alt: "Freezing column example",
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_panes(1).png",
+            alt: "Multiple rows frozen",
         },
-        {
-          type: "paragraph",
-          text:
-            "If you only need the first row or first column, use Freeze Top Row or Freeze First Column.",
-        },
-      ],
+        ],
     },
 
     // ------------------------------------------------------------
-    // UNFREEZING PANES
+    // FREEZE COLUMNS
     // ------------------------------------------------------------
 
     {
-      heading: "Unfreezing Panes",
-      blocks: [
+        heading: "Freeze Columns",
+        blocks: [
         {
-          type: "paragraph",
-          text:
-            "To reset your worksheet view:",
+            type: "paragraph",
+            text:
+            "To freeze columns, select the column to the right of the columns you want frozen.",
         },
         {
-          type: "list",
-          ordered: true,
-          items: [
-            "Go to the View tab.",
-            "Click Freeze Panes.",
-            "Select Unfreeze Panes.",
-          ],
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_columns.png",
+            alt: "Freeze columns selection",
         },
         {
-          type: "image",
-          src: "/images/excel/module-5/freezing/freezing_unfreeze.png",
-          alt: "Unfreeze panes command",
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_column_frozen.png",
+            alt: "Column frozen result",
+            caption:
+            "The first column stays visible while scrolling horizontally.",
         },
-      ],
+        ],
     },
 
     // ------------------------------------------------------------
-    // OPENING A NEW WINDOW
+    // UNFREEZE
     // ------------------------------------------------------------
 
     {
-      heading: "Opening a New Window",
-      blocks: [
+        heading: "Unfreeze Panes",
+        blocks: [
         {
-          type: "paragraph",
-          text:
-            "Excel allows multiple windows of the same workbook to be open at once.",
+            type: "paragraph",
+            text:
+            "To remove any freeze settings, go to View → Freeze Panes → Unfreeze Panes.",
         },
         {
-          type: "paragraph",
-          text:
-            "This is useful for comparing different worksheets or different sections of the same worksheet.",
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_unfreeze.png",
+            alt: "Unfreeze command",
         },
-        {
-          type: "list",
-          ordered: true,
-          items: [
-            "Go to the View tab.",
-            "Click New Window.",
-            "Use Arrange All to position windows side by side.",
-          ],
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-5/freezing/freezing_new_window_command.png",
-          alt: "New Window command",
-        },
-      ],
+        ],
     },
 
     // ------------------------------------------------------------
-    // SPLITTING A WORKSHEET
+    // NEW WINDOW
     // ------------------------------------------------------------
 
     {
-      heading: "Splitting a Worksheet",
-      blocks: [
+        heading: "Open a New Window",
+        blocks: [
         {
-          type: "paragraph",
-          text:
-            "The Split command divides a worksheet into multiple panes that scroll independently.",
+            type: "paragraph",
+            text:
+            "Excel allows you to open a second window of the same workbook for comparison.",
         },
         {
-          type: "list",
-          ordered: true,
-          items: [
-            "Select the cell where you want the split.",
-            "Go to View → Split.",
-            "Scroll each pane independently to compare data.",
-          ],
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_new_window.png",
+            alt: "New Window command",
         },
         {
-          type: "image",
-          src: "/images/excel/module-5/freezing/freezing_split_command.png",
-          alt: "Split worksheet command",
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_new_window_compare.png",
+            alt: "Two windows open side by side",
         },
-        {
-          type: "paragraph",
-          text:
-            "Click Split again to remove the split.",
-        },
-      ],
+        ],
     },
 
-  ],
+    // ------------------------------------------------------------
+    // ARRANGE WINDOWS
+    // ------------------------------------------------------------
 
-  challenge: [
     {
-      type: "paragraph",
-      text:
-        "Download the practice workbook and complete the following:",
+        heading: "Arrange All Windows",
+        blocks: [
+        {
+            type: "paragraph",
+            text:
+            "Use Arrange All to automatically tile workbook windows for comparison.",
+        },
+        {
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_arrange_all.png",
+            alt: "Arrange All dialog",
+        },
+        ],
+    },
+
+    // ------------------------------------------------------------
+    // SPLIT WORKSHEET
+    // ------------------------------------------------------------
+
+    {
+        heading: "Split a Worksheet",
+        blocks: [
+        {
+            type: "paragraph",
+            text:
+            "The Split command divides your worksheet into panes that scroll independently.",
+        },
+        {
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_split_origin.png",
+            alt: "Before split applied",
+        },
+        {
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_split_command.png",
+            alt: "Split command",
+        },
+        {
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_split_done.png",
+            alt: "Split applied",
+        },
+        {
+            type: "image",
+            src: "/images/excel/module-5/freezing/freezing_split_final_result.png",
+            alt: "Final split view",
+            caption:
+            "Each pane scrolls independently for comparison.",
+        },
+        ],
+    },
+
+    ],
+
+    challenge: [
+    {
+        type: "paragraph",
+        text:
+        "Within our example file, there is a LOT of sales data. For this challenge, we want to compare data for different years side by side. To do this:",
     },
     {
-      type: "list",
-      ordered: true,
-      items: [
-        "Open a new window for the workbook.",
-        "Freeze the first column and scroll horizontally to view later months.",
+        type: "list",
+        ordered: true,
+        items: [
+        "Download our practice workbook.",
+        "Open a new window for your workbook.",
+        "Freeze First Column and use the horizontal scroll bar to look at sales from 2015.",
         "Unfreeze the first column.",
-        "Select cell G17 and use Split to divide the worksheet.",
-        "Arrange two windows side by side to compare different years.",
-      ],
+        "Select cell G17 and click Split to split the worksheet into multiple panes. Hint: This should split the worksheet between rows 16 and 17 and columns F and G.",
+        "Use the horizontal scroll bar in the bottom-right of the window to move the worksheet so Column N, which contains data for January 2015, is next to Column F.",
+        "Open a new window for your workbook and select the 2012-2013 Sales tab.",
+        "Move your windows so they are side by side. Now you’re able to compare data for similar months from several different years. Your screen should look something like this:",
+        ],
     },
-  ],
+    {
+        type: "image",
+        src: "/images/excel/module-5/freezing/freezing_split_final_result.png",
+        alt: "Two Excel windows side by side for comparing sales data across years",
+        caption:
+        "Goal: two workbook windows arranged side-by-side so you can compare the same months across different years.",
+    },
+    ],
 },
 
 // ============================================================
