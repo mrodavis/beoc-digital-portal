@@ -1480,30 +1480,232 @@ challenge: [
   // LESSON 6 – CONDITIONAL FORMATTING
   // ============================================================
 
-  {
+    {
     slug: "conditional-formatting",
     title: "Conditional Formatting",
     description:
-      "Highlight patterns and trends automatically using Excel's conditional formatting tools.",
-    duration: "11 min",
+        "Automatically highlight patterns, trends, and performance using Conditional Formatting rules, color scales, data bars, and icon sets.",
+    duration: "15 min",
+
+    videoUrl: "https://www.youtube.com/embed/zfQ8uOBoIj8",
 
     sections: [
-      {
-        heading: "Applying Conditional Formatting",
+
+        // ------------------------------------------------------------
+        // INTRODUCTION
+        // ------------------------------------------------------------
+
+        {
+        heading: "Why Conditional Formatting Matters",
         blocks: [
-          {
+            {
             type: "paragraph",
             text:
-              "Conditional formatting automatically changes the appearance of cells based on their values.",
-          },
-          {
+                "When working with large datasets, it can be difficult to identify trends and performance issues just by reading numbers. Conditional Formatting automatically applies visual styling based on cell values so patterns become instantly visible.",
+            },
+            {
             type: "image",
-            src: "/images/excel/module-5/basic-tips-data-conditional-format.png",
-            alt: "Conditional formatting example",
-          },
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_example.png",
+            alt: "Example of conditional formatting applied to sales data",
+            },
         ],
-      },
-    ],
-  },
+        },
 
-];
+        // ------------------------------------------------------------
+        // STEP 1 – SELECT RANGE
+        // ------------------------------------------------------------
+
+        {
+        heading: "Step 1: Select the Desired Cells",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Before applying Conditional Formatting, select the range of cells you want to evaluate.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_selected_range.png",
+            alt: "Selecting cells before applying conditional formatting",
+            },
+        ],
+        },
+
+        // ------------------------------------------------------------
+        // HIGHLIGHT CELLS RULES – GREATER THAN
+        // ------------------------------------------------------------
+
+        {
+        heading: "Highlight Cells Greater Than a Value",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "To highlight values greater than a specific number, use the Highlight Cells Rules option.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_highlight_greater_than.png",
+            alt: "Highlight Cells Rules Greater Than option",
+            },
+            {
+            type: "paragraph",
+            text:
+                "Enter the comparison value (e.g., 4000) and choose a preset style such as Green Fill with Dark Green Text.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_green_fill.png",
+            alt: "Greater Than dialog box with 4000 entered",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_green_fill_done.png",
+            alt: "Cells highlighted with green formatting",
+            caption:
+                "Values above the threshold are automatically highlighted.",
+            },
+        ],
+        },
+
+        // ------------------------------------------------------------
+        // COLOR SCALES
+        // ------------------------------------------------------------
+
+        {
+        heading: "Using Color Scales",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Color Scales apply a gradient based on cell values. Highest values receive one color, lowest receive another, and middle values are blended between them.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_color_scales.png",
+            alt: "Color scale preset applied to dataset",
+            },
+        ],
+        },
+
+        // ------------------------------------------------------------
+        // DATA BARS
+        // ------------------------------------------------------------
+
+        {
+        heading: "Using Data Bars",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Data Bars visually represent values inside each cell using horizontal bars, similar to a mini bar chart.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_data_bar.png",
+            alt: "Data bars applied to dataset",
+            },
+        ],
+        },
+
+        // ------------------------------------------------------------
+        // ICON SETS
+        // ------------------------------------------------------------
+
+        {
+        heading: "Using Icon Sets",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Icon Sets add symbols such as arrows, circles, or indicators based on value ranges. These are useful for performance dashboards.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_icon_sets.png",
+            alt: "Icon Sets menu",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_icon_done.png",
+            alt: "Icon set applied to dataset",
+            },
+        ],
+        },
+
+        // ------------------------------------------------------------
+        // MANAGING RULES
+        // ------------------------------------------------------------
+
+        {
+        heading: "Managing and Editing Rules",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "Use Manage Rules to edit, delete, or prioritize formatting rules applied to a worksheet.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_delete_rule.png",
+            alt: "Conditional Formatting Rules Manager",
+            },
+        ],
+        },
+
+        // ------------------------------------------------------------
+        // CLEARING RULES
+        // ------------------------------------------------------------
+
+        {
+        heading: "Clearing Conditional Formatting",
+        blocks: [
+            {
+            type: "paragraph",
+            text:
+                "To remove formatting, click Conditional Formatting → Clear Rules, then choose whether to clear from selected cells or the entire sheet.",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_clear_rules.png",
+            alt: "Clear Rules menu",
+            },
+            {
+            type: "image",
+            src: "/images/excel/module-5/conditional-formatting/conditional-formatting_removed.png",
+            alt: "Worksheet after conditional formatting removed",
+            },
+        ],
+        },
+
+    ],
+
+    challenge: [
+        {
+        type: "paragraph",
+        text:
+            "Download and open the practice workbook. Then complete the following:",
+        },
+        {
+        type: "list",
+        ordered: true,
+        items: [
+            "Click the Challenge worksheet tab.",
+            "Select cells B3:J17.",
+            "Apply Conditional Formatting to highlight values Less Than 70 using a light red fill.",
+            "Apply the Icon Set called 3 Symbols (Circled).",
+            "Use Manage Rules to remove the light red fill rule but keep the icon set.",
+            "Your worksheet should match the example shown below.",
+        ],
+        },
+        {
+        type: "image",
+        src: "/images/excel/module-5/conditional-formatting/conditional-formatting_final_result.png",
+        alt: "Final conditional formatting challenge result",
+        caption:
+            "Final result showing icon set applied while red fill rule has been removed.",
+        },
+    ],
+    },
+
+    ];
