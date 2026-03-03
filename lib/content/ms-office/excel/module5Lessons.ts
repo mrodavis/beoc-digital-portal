@@ -1489,6 +1489,13 @@ challenge: [
 
     videoUrl: "https://www.youtube.com/embed/zfQ8uOBoIj8",
 
+    practiceFiles: [
+        {
+            name: "Download Practice Workbook",
+            url: "/practice/excel/module-5/conditional-formatting/Excel_ConditionalFormatting_Practice.xlsx",
+        },
+        ],
+
     sections: [
 
         // ------------------------------------------------------------
