@@ -818,6 +818,13 @@ challenge: [
 
   videoUrl: "https://www.youtube.com/embed/_OdsZR_rL1U",
 
+  practiceFiles: [
+        {
+            name: "Download Practice Workbook",
+            url: "/practice/excel/module-5/filtering/Excel_Filtering_Practice.xlsx",
+        },
+        ],
+
   sections: [
 
     // ------------------------------------------------------------
