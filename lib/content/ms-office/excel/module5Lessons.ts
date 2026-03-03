@@ -279,7 +279,7 @@ export const excelModule5Lessons: Lesson[] = [
   practiceFiles: [
     {
         name: "Download Practice Workbook",
-        url: "/files/excel/Excel_FreezePanes_Practice.xlsx",
+        url: "/practice/excel/module-5/freezing/Excel_FreezePanes_Practice.xlsx",
     },
     ],
 
@@ -531,6 +531,13 @@ export const excelModule5Lessons: Lesson[] = [
   duration: "12 min",
 
   videoUrl: "https://www.youtube.com/embed/Ep5q1cUhQas",
+
+  practiceFiles: [
+    {
+        name: "Download Practice Workbook",
+        url: "/practice/excel/module-5/sorting/Excel_Sorting_Practice.xlsx",
+    },
+    ],
 
   sections: [
 
