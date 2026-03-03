@@ -177,20 +177,29 @@ export default function ExcelPage() {
               </span>
             </div>
           </div>
-        </Link>
+        </Link><br></br>
 
         {/* Module 6 */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-            Module 6
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            Tables, Charts, & Pivot Tables
-          </h3>
-          <p className="text-gray-600">
-            Data summarization, PivotTables, PivotCharts, and executive dashboards.
-          </p>
-        </div>
+        <Link href="/learning-paths/ms-office/excel/module-6">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+                  Module 6
+                </span>
+                <h3 className="text-xl font-bold mt-3 mb-2">
+                  Tables, Charts & PivotTables
+                </h3>
+                <p className="text-gray-600">
+                  Structure data with tables, visualize insights with charts, and summarize information using PivotTables.
+                </p>
+              </div>
+              <span className="text-green-600 font-semibold text-sm">
+                Available →
+              </span>
+            </div>
+          </div>
+        </Link>
 
         {/* Module 7 */}
         <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
