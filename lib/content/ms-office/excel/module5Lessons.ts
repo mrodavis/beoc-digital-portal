@@ -1150,35 +1150,300 @@ challenge: [
   ],
 },
 
-  // ============================================================
-  // LESSON 5 – GROUPS AND SUBTOTALS
-  // ============================================================
+// ============================================================
+// LESSON 5 – GROUPS AND SUBTOTALS
+// ============================================================
 
-  {
-    slug: "groups-and-subtotals",
-    title: "Groups and Subtotals",
-    description:
-      "Group related rows and summarize data using the Subtotal command.",
-    duration: "12 min",
+{
+  slug: "groups-and-subtotals",
+  title: "Groups and Subtotals",
+  description:
+    "Learn how to organize large datasets using grouping and automatically summarize data with the Subtotal command.",
+  duration: "15 min",
 
-    sections: [
-      {
-        heading: "Creating Subtotals",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "The Subtotal command allows you to automatically calculate totals for grouped categories.",
-          },
-          {
-            type: "image",
-            src: "/images/excel/module-5/basic-tips-data-summarize.png",
-            alt: "Subtotal summary example",
-          },
-        ],
-      },
+  videoUrl: "https://www.youtube.com/embed/7JJOBFSHbZk",
+
+  practiceFiles: [
+    {
+        name: "Download Practice Workbook",
+        url: "/files/excel/Excel_Subtotals_Practice.xlsx",
+    },
     ],
-  },
+
+  sections: [
+
+    // ------------------------------------------------------------
+    // INTRODUCTION
+    // ------------------------------------------------------------
+
+    {
+      heading: "Why Groups and Subtotals Matter",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Large datasets can quickly become overwhelming. Groups and Subtotals allow you to organize data into collapsible sections and automatically calculate summaries such as totals, counts, or averages.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "When subtotals are applied, Excel creates an outline structure that lets you expand or collapse levels of detail.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // GROUPING ROWS OR COLUMNS
+    // ------------------------------------------------------------
+
+    {
+      heading: "Grouping Rows or Columns",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can manually group selected rows or columns to create collapsible sections.",
+        },
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Select the rows or columns you want to group.",
+            "Go to the Data tab.",
+            "Click the Group command in the Outline group.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_group_command.png",
+          alt: "Group command on Data tab",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_grouped_range.png",
+          alt: "Grouped columns example",
+          caption:
+            "Selected columns are grouped and can now be collapsed.",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // HIDE AND SHOW DETAIL
+    // ------------------------------------------------------------
+
+    {
+      heading: "Hide and Show Detail",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Once data is grouped, minus (-) and plus (+) buttons appear to the left of the worksheet.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click the minus sign to collapse (hide) detail. Click the plus sign to expand (show) detail.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_hide.png",
+          alt: "Hide detail button",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_hidden.png",
+          alt: "Collapsed group view",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // IMPORTANT: SORT BEFORE SUBTOTAL
+    // ------------------------------------------------------------
+
+    {
+      heading: "Important: Sort Before Using Subtotal",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Before creating subtotals, you must sort your data by the column you plan to group by.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "For example, if you want to subtotal by T-Shirt Size, sort the worksheet by T-Shirt Size first.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_sort.png",
+          alt: "Sorting data before subtotaling",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // CREATING A SUBTOTAL
+    // ------------------------------------------------------------
+
+    {
+      heading: "Creating a Subtotal",
+      blocks: [
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Sort your worksheet by the column you want to subtotal.",
+            "Go to the Data tab.",
+            "Click Subtotal.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_subtotal_command.png",
+          alt: "Subtotal command on Data tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "In the Subtotal dialog box:",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_subtotal_count_fx.png",
+          alt: "Subtotal dialog showing Count function",
+        },
+        {
+          type: "paragraph",
+          text:
+            "• At each change in: Select the grouping column (e.g., T-Shirt Size)\n• Use function: Choose COUNT, SUM, AVERAGE, etc.\n• Add subtotal to: Select the column to calculate",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_t-shirt_size.png",
+          alt: "Subtotal dialog selecting T-Shirt Size",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // OUTLINE LEVELS
+    // ------------------------------------------------------------
+
+    {
+      heading: "Understanding Outline Levels",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After applying subtotals, Excel creates outline levels on the left side of the worksheet.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Level 1 shows only the Grand Total.\nLevel 2 shows subtotal rows.\nLevel 3 shows all detailed data.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_group_level_1.png",
+          alt: "Level 1 outline",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_group_level_2.png",
+          alt: "Level 2 outline",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_group_level_3.png",
+          alt: "Level 3 outline",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_result_full_view.png",
+          alt: "Full subtotal result",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // REMOVING SUBTOTALS
+    // ------------------------------------------------------------
+
+    {
+      heading: "Removing Subtotals",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To remove subtotals entirely:",
+        },
+        {
+          type: "list",
+          ordered: true,
+          items: [
+            "Go to Data → Subtotal.",
+            "Click Remove All.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_subtotal_remove_all.png",
+          alt: "Remove All in Subtotal dialog",
+        },
+      ],
+    },
+
+    // ------------------------------------------------------------
+    // CLEAR OUTLINE (UNGROUP ONLY)
+    // ------------------------------------------------------------
+
+    {
+      heading: "Clearing Groups Without Removing Data",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If you want to remove grouping but keep the data, use Clear Outline.",
+        },
+        {
+          type: "image",
+          src: "/images/excel/module-5/groups-subtotals/groups-subtotals_ungroup_clear_outline.png",
+          alt: "Clear Outline option",
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text:
+        "Download the practice workbook and complete the following:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Click the Challenge tab.",
+        "Sort the worksheet by Grade from Smallest to Largest.",
+        "Use Subtotal to group at each change in Grade.",
+        "Use the SUM function.",
+        "Add subtotals to Amount Raised.",
+        "Select outline Level 2 so only subtotals and the grand total appear.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/excel/module-5/groups-subtotals/groups-subtotals_group_level_2.png",
+      alt: "Challenge final subtotal view",
+      caption:
+        "Final result should display subtotal rows and the grand total only.",
+    },
+  ],
+},
 
   // ============================================================
   // LESSON 6 – CONDITIONAL FORMATTING
