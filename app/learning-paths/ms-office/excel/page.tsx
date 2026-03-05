@@ -199,33 +199,51 @@ export default function ExcelPage() {
               </span>
             </div>
           </div>
-        </Link>
+        </Link><br></br>
 
-        {/* Module 7 */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-            Module 7
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            Advanced Excel & Modern Tools
-          </h3>
-          <p className="text-gray-600">
-            Advanced analysis tools and Microsoft 365 features.
-          </p>
+      {/* Module 7 */}
+      <Link href="/learning-paths/ms-office/excel/module-7">
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+                Module 7
+              </span>
+              <h3 className="text-xl font-bold mt-3 mb-2">
+                Data Analysis Tools
+              </h3>
+              <p className="text-gray-600">
+                Learn advanced PivotTable techniques, What-If Analysis tools, and reference styles used for deeper data analysis.
+              </p>
+            </div>
+            <span className="text-gray-400 font-semibold text-sm">
+              Coming Soon
+            </span>
+          </div>
         </div>
+      </Link><br></br>
 
-        {/* Module 8 */}
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
-          <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-            Module 8
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            Advanced Excel & Modern Tools
-          </h3>
-          <p className="text-gray-600">
-            Advanced analysis tools and Microsoft 365 features.
-          </p>
+      {/* Module 8 */}
+      <Link href="/learning-paths/ms-office/excel/module-8">
+        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
+          <div className="flex items-center justify-between">
+            <div>
+              <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
+                Module 8
+              </span>
+              <h3 className="text-xl font-bold mt-3 mb-2">
+                Modern Excel Features
+              </h3>
+              <p className="text-gray-600">
+                Explore Microsoft 365 features, Intelligent Services, drawing tools, and icons to enhance modern Excel workflows.
+              </p>
+            </div>
+            <span className="text-gray-400 font-semibold text-sm">
+              Coming Soon
+            </span>
+          </div>
         </div>
+      </Link><br></br>
 
         {/* Assessment */}
         <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6">

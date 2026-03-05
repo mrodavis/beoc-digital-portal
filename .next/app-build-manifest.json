@@ -95,6 +95,16 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/ms-office/excel/module-6/[slug]/page.js"
+    ],
+    "/learning-paths/ms-office/excel/module-7/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/ms-office/excel/module-7/page.js"
+    ],
+    "/learning-paths/ms-office/excel/module-7/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/ms-office/excel/module-7/[slug]/page.js"
     ]
   }
 }
