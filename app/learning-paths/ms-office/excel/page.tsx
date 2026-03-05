@@ -216,8 +216,8 @@ export default function ExcelPage() {
                 Learn advanced PivotTable techniques, What-If Analysis tools, and reference styles used for deeper data analysis.
               </p>
             </div>
-            <span className="text-gray-400 font-semibold text-sm">
-              Coming Soon
+            <span className="text-green-600 font-semibold text-sm">
+                Available →
             </span>
           </div>
         </div>
@@ -238,8 +238,8 @@ export default function ExcelPage() {
                 Explore Microsoft 365 features, Intelligent Services, drawing tools, and icons to enhance modern Excel workflows.
               </p>
             </div>
-            <span className="text-gray-400 font-semibold text-sm">
-              Coming Soon
+            <span className="text-green-600 font-semibold text-sm">
+                Available →
             </span>
           </div>
         </div>
