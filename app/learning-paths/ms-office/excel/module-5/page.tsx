@@ -13,7 +13,7 @@ export default function Module5Page() {
       lessons={excelModule5Lessons}
       level="Intermediate"
       estimatedMinutes={180}
-      nextModuleHref="/learning-paths/ms-office/excel/module-5"
+      nextModuleHref="/learning-paths/ms-office/excel/module-6"
       nextModuleLabel="Module 6: Tables, Charts, & Pivot Tables"
     />
   );
