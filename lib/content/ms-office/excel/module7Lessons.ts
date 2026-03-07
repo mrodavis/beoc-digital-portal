@@ -13,82 +13,186 @@ LESSON 1 – DOING MORE WITH PIVOTTABLES
     "Learn how to perform deeper analysis with PivotTables by filtering, grouping, and refreshing summarized data.",
   duration: "10 min",
 
-  videoUrl: "https://www.youtube.com/embed/qERjkjK6p1M",
+  videoUrl: "https://www.youtube.com/embed/FVzX4I88DBs",
 
-  practiceFiles: [
+    practiceFiles: [
     {
-      name: "Download Practice Workbook",
-      url: "/practice/excel/module-7/pivotTables/Excel_PivotTables_Advanced_Practice.xlsx",
+    name: "Download Practice Workbook",
+    url: "/practice/excel/module-7/advanced-pivotTables/Excel_MorePivotTables_Practice.xlsx",
+    }
+    ],
+
+    sections: [
+
+    {
+    heading: "Filtering PivotTables",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "PivotTables allow you to filter data to focus on specific information. You can filter by fields such as Salesperson, Region, or Month to quickly analyze subsets of your dataset."
     },
-  ],
-
-  sections: [
-
     {
-      heading: "Filtering PivotTables",
-      blocks: [
-        {
-          type: "paragraph",
-          text:
-            "PivotTables allow you to filter data so you can focus on specific categories or values. Filters help you analyze subsets of your dataset quickly.",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-7/pivotTables/pivot_filter_dropdown.png",
-          alt: "PivotTable filter dropdown",
-        },
-      ],
+    type: "paragraph",
+    text:
+    "To filter a PivotTable, drag a field such as Salesperson into the Filters area of the PivotTable Fields panel."
     },
-
     {
-      heading: "Grouping Data in PivotTables",
-      blocks: [
-        {
-          type: "paragraph",
-          text:
-            "Grouping allows you to combine similar values into categories. For example, dates can be grouped by months or years.",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-7/pivotTables/pivot_group_dates.png",
-          alt: "Grouping data in PivotTables",
-        },
-      ],
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_add_filter.png",
+    alt: "Adding a field to the PivotTable filter area"
+    }
+    ]
     },
 
     {
-      heading: "Refreshing PivotTables",
-      blocks: [
-        {
-          type: "paragraph",
-          text:
-            "When the source data changes, the PivotTable must be refreshed so it reflects the updated data.",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-7/pivotTables/pivot_refresh.png",
-          alt: "Refreshing a PivotTable",
-        },
-      ],
+    heading: "Filtering Multiple Items",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "You can filter multiple values from a PivotTable field. Select the filter dropdown, enable Select Multiple Items, and choose the items you want to analyze."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_multiple_items.png",
+    alt: "Selecting multiple filter items in PivotTable"
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_uncheck.png",
+    alt: "Unchecking filter options in PivotTable"
+    }
+    ]
     },
 
-  ],
-
-  challenge: [
     {
-      type: "list",
-      ordered: true,
-      items: [
+    heading: "Using Slicers for Visual Filtering",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "Slicers provide a visual way to filter PivotTable data. Instead of dropdown menus, slicers use clickable buttons that allow you to filter data quickly."
+    },
+    {
+    type: "paragraph",
+    text:
+    "To insert a slicer, select the PivotTable and go to PivotTable Analyze → Insert Slicer."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_add_slicer.png",
+    alt: "Insert slicer button in Excel"
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_slicer_view.png",
+    alt: "Slicer interface in Excel"
+    }
+    ]
+    },
+
+    {
+    heading: "Filtering with Slicers",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "You can click individual buttons in the slicer to filter the PivotTable instantly. Hold Ctrl to select multiple items."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_slicer_select.png",
+    alt: "Selecting slicer filters"
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_slicer_view_select_item.png",
+    alt: "Filtering data with slicers"
+    }
+    ]
+    },
+
+    {
+    heading: "Creating PivotCharts",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "PivotCharts allow you to visualize PivotTable data in a chart format. When the PivotTable changes, the chart updates automatically."
+    },
+    {
+    type: "paragraph",
+    text:
+    "Select the PivotTable and go to Insert → PivotChart."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_insert_chart.png",
+    alt: "Insert PivotChart menu"
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_create_pivotChart.png",
+    alt: "PivotChart creation dialog"
+    }
+    ]
+    },
+
+    {
+    heading: "Interacting with PivotCharts",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "PivotCharts remain connected to their PivotTables. When filters or slicers change, the chart updates automatically."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_pivotChart_appear.png",
+    alt: "PivotChart appearing in Excel"
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_pivotChart_switch_view.png",
+    alt: "PivotChart switching views"
+    }
+    ]
+    },
+
+    {
+    heading: "Final Result",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "After applying filters, slicers, and charts, you can quickly analyze patterns in your dataset. PivotTables and PivotCharts together provide powerful tools for summarizing and visualizing data."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/advanced-pivotTables/advanced_pivotTables_final_result.png",
+    alt: "Final PivotTable and PivotChart result"
+    }
+    ]
+    }
+
+    ],
+
+    challenge: [
+        {
+        type: "list",
+        ordered: true,
+        items: [
         "Open the practice workbook.",
         "Create a PivotTable from the dataset.",
-        "Add Region to the Filters area.",
-        "Add Salesperson to Rows.",
-        "Add Order Amount to Values.",
-        "Filter the PivotTable to display only one region.",
-        "Refresh the PivotTable after changing the dataset.",
-      ],
-    },
-  ],
+        "Add Salesperson to Filters.",
+        "Filter the PivotTable to show only two salespeople.",
+        "Insert a Slicer for Salesperson.",
+        "Use the slicer to change which salespeople appear.",
+        "Create a PivotChart to visualize the sales totals."
+        ]
+        }
+    ],
 },
 
 /* ============================================================
