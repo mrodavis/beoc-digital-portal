@@ -549,68 +549,164 @@ LESSON 3 – REFERENCE STYLES
 ============================================================ */
 
 {
-  slug: "reference-styles",
-  title: "What are Reference Styles?",
-  description:
-    "Learn the difference between A1 and R1C1 reference styles and how Excel uses cell references in formulas.",
-  duration: "2 min",
+    slug: "reference-styles",
+    title: "What are Reference Styles?",
+    description:
+    "Learn the difference between A1 and R1C1 reference styles in Excel and how to switch between them using the Excel Options menu.",
+    duration: "10 min",
 
-  videoUrl: "https://www.youtube.com/embed/IkH9k0cQJ2Y",
-
-  sections: [
+    sections: [
 
     {
-      heading: "A1 Reference Style",
-      blocks: [
-        {
-          type: "paragraph",
-          text:
-            "The A1 reference style is the default reference system used in Excel. Columns are labeled with letters and rows are labeled with numbers.",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-7/reference-styles/a1_reference.png",
-          alt: "A1 reference style example",
-        },
-      ],
+    heading: "Understanding Reference Styles",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "Every Excel spreadsheet is organized into rows and columns. Rows are identified by numbers (1, 2, 3, etc.), while columns are typically identified by letters (A, B, C, etc.). This common labeling system is known as the A1 reference style."
+    },
+    {
+    type: "paragraph",
+    text:
+    "In the A1 reference style, the column letter appears first and the row number appears second. For example, the cell located in column A and row 1 is called A1."
+    },
+    {
+    type: "paragraph",
+    text:
+    "Excel also supports an alternative reference format called R1C1 reference style. In this format, both rows and columns are identified by numbers. The letter R represents the row number, while C represents the column number."
+    },
+    {
+    type: "paragraph",
+    text:
+    "For example, the cell that would normally be called A1 becomes R1C1 when using this reference system."
+    }
+    ]
     },
 
     {
-      heading: "R1C1 Reference Style",
-      blocks: [
-        {
-          type: "paragraph",
-          text:
-            "R1C1 reference style uses numbers for both rows and columns. For example, R1C1 refers to Row 1 Column 1.",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-7/reference-styles/r1c1_reference.png",
-          alt: "R1C1 reference style example",
-        },
-      ],
+    heading: "A1 vs R1C1 Reference Styles",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "The A1 reference style is the default format used in Excel and is the style most people are familiar with. However, some advanced users prefer the R1C1 reference style when working with complex formulas because it makes relative references easier to understand in certain situations."
+    },
+    {
+    type: "paragraph",
+    text:
+    "The image below shows the difference between the two reference styles."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/reference-styles/reference-styles_example.png",
+    alt: "Comparison of R1C1 reference style and A1 reference style"
+    },
+    {
+    type: "paragraph",
+    text:
+    "In the image on the left, the column headers are numbered instead of labeled with letters. This indicates that the worksheet is using the R1C1 reference style."
+    },
+    {
+    type: "paragraph",
+    text:
+    "In the image on the right, the columns are labeled with letters such as A, B, and C. This is the standard A1 reference style that Excel uses by default."
+    },
+    {
+    type: "paragraph",
+    text:
+    "In most situations you will want to use the A1 reference style because it is easier to read and matches the way Excel tutorials and documentation describe cell references."
+    }
+    ]
     },
 
     {
-      heading: "Switching Reference Styles",
-      blocks: [
-        {
-          type: "paragraph",
-          text:
-            "You can switch between reference styles in Excel Options under the Formulas category.",
-        },
-      ],
-    },
-
-  ],
-
-  challenge: [
+    heading: "Accessing Excel Options",
+    blocks: [
     {
-      type: "paragraph",
-      text:
-        "Open Excel Options and locate the R1C1 reference style setting. Enable it and observe how cell references change.",
+    type: "paragraph",
+    text:
+    "If your spreadsheet is currently using the R1C1 reference style, you can switch back to the standard A1 style using Excel Options."
     },
-  ],
+    {
+    type: "paragraph",
+    text:
+    "To access the Excel Options menu, begin by clicking the File tab located in the top-left corner of the Excel window."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/reference-styles/reference-styles_file_tab.png",
+    alt: "Click the File tab in Excel"
+    },
+    {
+    type: "paragraph",
+    text:
+    "Clicking the File tab will open the Backstage view. This screen contains several options for managing your workbook, including saving, printing, exporting, and accessing account settings."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/reference-styles/reference-styles_backstage_options.png",
+    alt: "Backstage view options menu"
+    },
+    {
+    type: "paragraph",
+    text:
+    "At the bottom of the Backstage view menu, click Options. This will open the Excel Options dialog box where you can customize many settings related to formulas, calculations, and interface preferences."
+    }
+    ]
+    },
+
+    {
+    heading: "Turning Off R1C1 Reference Style",
+    blocks: [
+    {
+    type: "paragraph",
+    text:
+    "Once the Excel Options dialog box appears, select the Formulas category from the list on the left side of the window."
+    },
+    {
+    type: "image",
+    src: "/images/excel/module-7/reference-styles/reference-styles_excel_options_formulas.png",
+    alt: "Excel Options formulas settings"
+    },
+    {
+    type: "paragraph",
+    text:
+    "Inside the Formulas section, you will see an option labeled R1C1 reference style."
+    },
+    {
+    type: "paragraph",
+    text:
+    "If this box is checked, Excel will display columns as numbers instead of letters. To switch back to the standard reference style, simply uncheck the R1C1 reference style box."
+    },
+    {
+    type: "paragraph",
+    text:
+    "After unchecking the box, click OK. Excel will immediately return to the standard A1 reference style."
+    },
+    {
+    type: "paragraph",
+    text:
+    "You will now see column letters again at the top of the worksheet, such as A, B, C, and D, instead of numbers."
+    }
+    ]
+    }
+
+    ],
+
+    challenge: [
+    {
+    type: "list",
+    ordered: true,
+    items: [
+    "Open Excel and create a new blank workbook.",
+    "Navigate to the File tab and open Excel Options.",
+    "Click the Formulas category.",
+    "Locate the R1C1 reference style checkbox.",
+    "Toggle the checkbox on and off to observe how the column labels change.",
+    "Return the setting to the standard A1 reference style."
+    ]
+    }
+    ]
 },
 
 ];
