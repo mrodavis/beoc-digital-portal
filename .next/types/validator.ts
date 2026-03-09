@@ -189,6 +189,24 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../app/learning-paths/ms-office/powerpoint/module-1/[slug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ms-office/powerpoint/module-1/[slug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/ms-office/powerpoint/module-1/[slug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/ms-office/powerpoint/module-1/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ms-office/powerpoint/module-1">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/ms-office/powerpoint/module-1/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/learning-paths/ms-office/powerpoint/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ms-office/powerpoint">> = Specific

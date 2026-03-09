@@ -104,10 +104,10 @@ export default function MicrosoftOfficePage() {
 
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
-                In Progress
+                Live
               </span>
               <span>•</span>
-              <span>7 Modules Planned</span>
+              <span>8 Modules</span>
             </div>
           </div>
         </Link>
@@ -127,11 +127,11 @@ export default function MicrosoftOfficePage() {
             </p>
 
             <div className="flex items-center gap-2 text-sm text-gray-500">
-              <span className="px-2 py-1 bg-gray-100 text-gray-700 rounded-full font-medium">
-                Planned
+              <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
+                In Progress
               </span>
               <span>•</span>
-              <span>5 Modules</span>
+              <span>8 Modules</span>
             </div>
           </div>
         </Link>
