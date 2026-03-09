@@ -599,39 +599,220 @@ export const powerpointModule1Lessons: Lesson[] = [
   slug: "saving-presentations",
   title: "Saving Presentations",
   description:
-    "Learn how to save presentations, change file types, and protect your work from data loss.",
-  duration: "8 min",
+    "Learn how to save PowerPoint presentations, change file types, export presentations, and recover unsaved work.",
+  duration: "10 min",
+  videoUrl: "https://www.youtube.com/embed/iwecUGKmiyw",
 
-  sections: [
-
+  practiceFiles: [
     {
-      heading: "Saving a Presentation",
-      blocks: [
-        {
-          type: "paragraph",
-          text:
-            "Click File → Save or Save As to store your presentation on your computer or OneDrive.",
-        },
-        {
-          type: "image",
-          src: "/images/powerpoint/module-1/saving/saving_presentation.png",
-          alt: "Save presentation dialog",
-        },
-      ],
+      name: "PowerPoint Saving Practice File",
+      url: "/practice/powerpoint/module-1/saving/Powerpoint_Saving_Practice.pptx",
     },
-
-    {
-      heading: "Using AutoSave",
-      blocks: [
-        {
-          type: "paragraph",
-          text:
-            "If you store presentations on OneDrive, PowerPoint can automatically save changes in real time using AutoSave.",
-        },
-      ],
-    },
-
   ],
+
+sections: [
+
+{
+  heading: "Saving a Presentation",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "Saving protects your work and allows you to reopen your presentation later. You can save files to your computer or to OneDrive.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Click the File tab to open Backstage view and access the Save and Save As commands.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_file_tab.png",
+      alt: "PowerPoint file tab",
+    },
+  ],
+},
+
+{
+  heading: "Using the Save Command",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "The Save command stores the current presentation using the same file name and location.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "If the presentation has never been saved before, PowerPoint will automatically open the Save As screen.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_command.png",
+      alt: "Save command in PowerPoint",
+    },
+  ],
+},
+
+{
+  heading: "Using Save As",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "Save As allows you to create a new version of a presentation or save it to a different location.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "From the Save As screen you can choose to store the presentation on OneDrive, your computer, or another location.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_save_as.png",
+      alt: "Save As screen",
+    },
+  ],
+},
+
+{
+  heading: "Entering a File Name",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "When saving a presentation you must provide a file name. Use descriptive names so you can easily identify presentations later.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_filename_input.png",
+      alt: "File name input field",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_filename_input_change.png",
+      alt: "Changing file name",
+    },
+  ],
+},
+
+{
+  heading: "Choosing a File Type",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "PowerPoint allows you to save presentations in multiple file formats including PowerPoint Presentation (.pptx), PowerPoint Show, or PDF.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_file_type_save_as.png",
+      alt: "File type dropdown",
+    },
+  ],
+},
+
+{
+  heading: "Exporting Presentations",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "The Export section allows you to convert presentations into different formats such as PDF or video.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_change_file_type.png",
+      alt: "Change file type export screen",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_change_to_pdf.png",
+      alt: "Export presentation as PDF",
+    },
+  ],
+},
+
+{
+  heading: "Sharing Presentations",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "If a presentation is stored on OneDrive, you can share it directly with others from within PowerPoint.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "You can invite people to view or edit the presentation by entering their email address.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_share.png",
+      alt: "Share presentation window",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_share_input.jpeg",
+      alt: "Entering email to share presentation",
+    },
+  ],
+},
+
+{
+  heading: "Recovering Unsaved Presentations",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "If PowerPoint closes unexpectedly, you may be able to recover work that was not saved.",
+    },
+    {
+      type: "paragraph",
+      text:
+        "Go to File → Info → Manage Presentation and choose Recover Unsaved Presentations.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_recover_unsaved.png",
+      alt: "Recover unsaved presentations",
+    },
+  ],
+},
+
+{
+  heading: "Document Recovery",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "When PowerPoint restarts after a crash, the Document Recovery pane may appear showing versions of your presentation that can be restored.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_doc_recovery.png",
+      alt: "Document recovery pane",
+    },
+  ],
+},
+
+{
+  heading: "PowerPoint Save Options",
+  blocks: [
+    {
+      type: "paragraph",
+      text:
+        "PowerPoint includes settings that control how presentations are saved. You can adjust AutoRecover settings and default save locations.",
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/saving/saving_options.png",
+      alt: "PowerPoint save options",
+    },
+  ],
+},
+
+],
 
   challenge: [
     {
@@ -642,9 +823,11 @@ export const powerpointModule1Lessons: Lesson[] = [
       type: "list",
       ordered: true,
       items: [
-        "Save a presentation to your computer.",
-        "Save a presentation to OneDrive.",
-        "Rename a saved presentation.",
+        "Open PowerPoint and create a new blank presentation.",
+        "Save the presentation to your computer using Save As.",
+        "Rename the presentation.",
+        "Export the presentation as a PDF.",
+        "Open the File tab and locate the Recover Unsaved Presentations option.",
       ],
     },
   ],
