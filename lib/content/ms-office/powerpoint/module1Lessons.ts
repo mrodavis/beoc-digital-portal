@@ -274,23 +274,65 @@ export const powerpointModule1Lessons: Lesson[] = [
   slug: "understanding-onedrive-for-powerpoint",
   title: "Understanding OneDrive for PowerPoint",
   description:
-    "Learn how to sign in to PowerPoint, connect to OneDrive, and store presentations in the cloud.",
-  duration: "6 min",
+    "Learn how to sign in to PowerPoint, connect your Microsoft account, and use OneDrive to save and access presentations from anywhere.",
+  duration: "8 min",
 
   sections: [
 
     {
-      heading: "Signing In to PowerPoint",
+      heading: "What is OneDrive?",
       blocks: [
         {
           type: "paragraph",
           text:
-            "To use OneDrive and collaboration features, sign in using your Microsoft account. Click the Sign In button in the top-right corner.",
+            "OneDrive is Microsoft's cloud storage service. It allows you to store presentations and other files online so you can access them from any computer, tablet, or smartphone with an internet connection.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Using OneDrive makes it easy to save, edit, and share PowerPoint presentations while keeping your files protected and backed up.",
+        }
+      ],
+    },
+
+    {
+      heading: "Signing in to PowerPoint",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To use OneDrive features, you need to sign in with a Microsoft account. Click the Sign in button in the upper-right corner of the PowerPoint window.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "After signing in, PowerPoint connects to your OneDrive storage so you can save presentations online and access them across devices.",
         },
         {
           type: "image",
-          src: "/images/powerpoint/module-1/onedrive/powerpoint_signin.png",
-          alt: "PowerPoint sign in",
+          src: "/images/powerpoint/module-1/onedrive/powerpoint_sign_in.png",
+          alt: "PowerPoint sign in button",
+        },
+      ],
+    },
+
+    {
+      heading: "Benefits of Using OneDrive",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Once you sign in, OneDrive provides several powerful advantages for managing presentations.",
+        },
+        {
+          type: "list",
+          ordered: false,
+          items: [
+            "Access files anywhere from any device connected to the internet.",
+            "Back up presentations safely in the cloud.",
+            "Share files with coworkers or classmates.",
+            "Collaborate on presentations with multiple people at the same time.",
+          ],
         },
       ],
     },
@@ -301,17 +343,33 @@ export const powerpointModule1Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Saving presentations to OneDrive allows you to access them from any computer, tablet, or phone.",
-        },
-        {
-          type: "image",
-          src: "/images/powerpoint/module-1/onedrive/powerpoint_save_onedrive.png",
-          alt: "Save presentation to OneDrive",
+            "When you save a presentation, you can choose OneDrive as the storage location. This allows the file to sync automatically with your Microsoft account.",
         },
         {
           type: "paragraph",
           text:
-            "Once saved, presentations can be shared and edited collaboratively.",
+            "Click File → Save As and choose OneDrive instead of saving directly to your computer.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/onedrive/powerpoint_onedrive.png",
+          alt: "Saving a PowerPoint presentation to OneDrive",
+        },
+      ],
+    },
+
+    {
+      heading: "Opening Files from OneDrive",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Once your presentations are stored in OneDrive, you can open them from any device. Simply sign into PowerPoint and choose OneDrive when opening a file.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can still save files locally to your computer, but OneDrive provides additional convenience and protection.",
         },
       ],
     },
@@ -328,9 +386,10 @@ export const powerpointModule1Lessons: Lesson[] = [
       ordered: true,
       items: [
         "Sign in to PowerPoint using a Microsoft account.",
+        "Open the File menu and select Save As.",
+        "Choose OneDrive as the save location.",
         "Save a presentation to OneDrive.",
-        "Locate the presentation in OneDrive online.",
-        "Share the presentation with another user.",
+        "Locate your saved presentation inside your OneDrive account.",
       ],
     },
   ],
@@ -340,14 +399,14 @@ export const powerpointModule1Lessons: Lesson[] = [
   slug: "creating-and-opening-presentations",
   title: "Creating and Opening Presentations",
   description:
-    "Learn how to create presentations, use templates, and open existing PowerPoint files.",
-  duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/V8C-9vJzV1M",
+    "Learn how to create new PowerPoint presentations, use templates, open existing files, pin presentations, and understand Compatibility Mode.",
+  duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/OX3vRazm4fw",
 
   practiceFiles: [
     {
-      name: "PowerPoint Practice Presentation",
-      url: "/practice/powerpoint/module-1/creating-opening/PowerPoint_CreatingOpening_Practice.pptx",
+      name: "Creating & Opening Presentations Practice File",
+      url: "/practice/powerpoint/module-1/creating-opening/Powerpoint_CreatingOpening_Practice.ppt",
     },
   ],
 
@@ -359,11 +418,21 @@ export const powerpointModule1Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Click File → New to create a new presentation. You can start with a blank presentation or choose a template.",
+            "PowerPoint files are called presentations. When starting a new project, you will usually begin with a blank presentation.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To create a new presentation, click the File tab to open Backstage view, then select New and choose Blank Presentation.",
         },
         {
           type: "image",
-          src: "/images/powerpoint/module-1/creating-opening/new_presentation.png",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_file_tab.png",
+          alt: "File tab in PowerPoint",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_backstage.png",
           alt: "New presentation screen",
         },
       ],
@@ -375,12 +444,27 @@ export const powerpointModule1Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Templates provide professionally designed layouts, fonts, and colors for presentations.",
+            "Templates are predesigned presentations that allow you to quickly start a slideshow with built-in formatting, layouts, and color themes.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "From the New screen in Backstage view, you can search for templates using the search bar or choose from suggested templates.",
         },
         {
           type: "image",
-          src: "/images/powerpoint/module-1/creating-opening/powerpoint_templates.png",
-          alt: "PowerPoint templates",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_new_template.png",
+          alt: "PowerPoint template selection screen",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_review_template.png",
+          alt: "Template preview screen",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_new_template_create.png",
+          alt: "Create presentation from template",
         },
       ],
     },
@@ -391,12 +475,100 @@ export const powerpointModule1Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Click File → Open to access recent presentations or browse your computer.",
+            "You can open presentations that have already been saved on your computer or OneDrive.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click File → Open to view recent files or browse your computer to locate a presentation.",
         },
         {
           type: "image",
-          src: "/images/powerpoint/module-1/creating-opening/open_recent.png",
-          alt: "Open recent presentations",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_existing.png",
+          alt: "Open presentations menu",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_existing_browse.png",
+          alt: "Browse option in PowerPoint",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_doc_folder.png",
+          alt: "Open dialog box",
+        },
+      ],
+    },
+
+    {
+      heading: "Pinning Presentations",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If you frequently use the same presentation, you can pin it to the Recent list so it stays easy to access.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Hover your mouse over a recent file and click the pushpin icon to pin the presentation.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_pin_present.png",
+          alt: "Pinned presentation",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_unpin_present.png",
+          alt: "Unpin presentation",
+        },
+      ],
+    },
+
+    {
+      heading: "Understanding Compatibility Mode",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If you open a presentation created in an older version of PowerPoint, it may open in Compatibility Mode.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Compatibility Mode disables certain newer features so the presentation remains compatible with older versions of PowerPoint.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_compatibility.png",
+          alt: "PowerPoint compatibility mode",
+        },
+      ],
+    },
+
+    {
+      heading: "Converting a Presentation",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To access newer PowerPoint features, you can convert a presentation from Compatibility Mode to the latest file format.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Open Backstage view, click Convert, and save the presentation as the newer format.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_convert_compat.png",
+          alt: "Convert presentation command",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/creating-opening/create_and_open_save_as.png",
+          alt: "Save converted presentation",
         },
       ],
     },
@@ -412,10 +584,12 @@ export const powerpointModule1Lessons: Lesson[] = [
       type: "list",
       ordered: true,
       items: [
-        "Create a new blank presentation.",
-        "Choose a presentation template.",
-        "Open an existing presentation.",
-        "Pin a presentation to the Recent list.",
+        "Create a new blank PowerPoint presentation.",
+        "Search for a template and create a presentation from it.",
+        "Open an existing presentation from your computer.",
+        "Pin a presentation in the Recent list.",
+        "Open a presentation in Compatibility Mode.",
+        "Convert the presentation to the latest PowerPoint format.",
       ],
     },
   ],
