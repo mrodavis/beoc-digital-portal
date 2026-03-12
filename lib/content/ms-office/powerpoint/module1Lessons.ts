@@ -837,8 +837,16 @@ sections: [
   slug: "slide-basics",
   title: "Slide Basics",
   description:
-    "Learn how slides work in PowerPoint and how to organize presentation content effectively.",
-  duration: "10 min",
+    "Learn how to create slides, choose layouts, work with placeholders, duplicate and reorder slides, and apply design changes in PowerPoint.",
+  duration: "14 min",
+  videoUrl: "https://www.youtube.com/embed/TZfcVbKJs1E",
+
+  practiceFiles: [
+    {
+      name: "PowerPoint Slide Basics Practice File",
+      url: "/practice/powerpoint/module-1/slide-basics/Powerpoint_SlideBasics_Practice.pptx",
+    },
+  ],
 
   sections: [
 
@@ -848,44 +856,409 @@ sections: [
         {
           type: "paragraph",
           text:
-            "Slides are the individual pages of a PowerPoint presentation. Each slide can contain text, images, charts, and multimedia.",
+            "PowerPoint presentations are built one slide at a time. Each slide acts like a page in your presentation, and together the slides tell your full story.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Most slides begin with placeholders. Placeholders are built-in boxes that make it easy to add titles, text, pictures, charts, tables, and other content without having to build the layout yourself.",
         },
         {
           type: "image",
-          src: "/images/powerpoint/module-1/slides/slide_layout_example.png",
-          alt: "Slide layout example",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_slide_placeholders.png",
+          alt: "PowerPoint slide with placeholders",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Using placeholders helps keep slides organized and consistent. Instead of dragging random objects around the screen, PowerPoint gives you a structured starting point.",
         },
       ],
     },
 
     {
-      heading: "Adding Slides",
+      heading: "Using the Slide Navigation Pane",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Use the New Slide button on the Home tab to add additional slides.",
+            "The Slide Navigation Pane appears on the left side of the PowerPoint window. It displays thumbnails of every slide in the presentation.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This pane allows you to jump between slides quickly, see the order of your presentation, and make changes to slide arrangement without leaving the main editing view.",
         },
         {
           type: "image",
-          src: "/images/powerpoint/module-1/slides/new_slide_button.png",
-          alt: "New slide button",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_nav_pane.jpeg",
+          alt: "PowerPoint slide navigation pane",
+        },
+        {
+          type: "paragraph",
+          text:
+            "When a presentation begins to grow, the Navigation Pane becomes one of the most important tools for staying organized.",
         },
       ],
     },
 
     {
-      heading: "Changing Slide Layouts",
+      heading: "Adding a New Slide",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Different layouts help organize slide content such as titles, images, and bullet points.",
+            "To continue building a presentation, you will usually need to insert additional slides. PowerPoint makes this easy with the New Slide command on the Home tab.",
         },
         {
           type: "image",
-          src: "/images/powerpoint/module-1/slides/slide_layout_menu.png",
-          alt: "Slide layout menu",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_new_slide.png",
+          alt: "New Slide command on Home tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Clicking the top half of the New Slide button inserts a new slide immediately. This is the fastest way to keep moving when you are building a presentation from scratch.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_quick_slide_add.png",
+          alt: "Quick new slide insertion",
+        },
+        {
+          type: "paragraph",
+          text:
+            "New slides usually appear directly below the currently selected slide in the Navigation Pane.",
+        },
+      ],
+    },
+
+    {
+      heading: "Choosing the Right Slide Layout",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Not every slide should look the same. Some slides only need a title, while others may need text, pictures, or two side-by-side content areas.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "That is where slide layouts come in. Layouts control how placeholders are arranged on the slide.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_choose_slide_layout.png",
+          alt: "Choosing a slide layout",
+        },
+        {
+          type: "paragraph",
+          text:
+            "One of the most common layouts is Title and Content. It gives you a title placeholder at the top and one large content area below.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_title_and_content.png",
+          alt: "Title and Content layout example",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Choosing the correct layout early makes your slides easier to build and usually saves you from unnecessary resizing later.",
+        },
+      ],
+    },
+
+    {
+      heading: "Changing the Layout of an Existing Slide",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Sometimes you create a slide and later realize it needs a different layout. Thankfully, you do not need to start over.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "PowerPoint lets you change the layout of an existing slide using the Layout command on the Home tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_change_layout.png",
+          alt: "Changing slide layout from Home tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "For example, you may want to switch to a Blank slide if you want full control over where objects appear.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_blank_slide.png",
+          alt: "Blank slide layout option",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Changing layouts is a clean way to reshape a slide without deleting it and rebuilding everything from scratch.",
+        },
+      ],
+    },
+
+    {
+      heading: "Adding a Text Box",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Placeholders are useful, but sometimes you need more freedom. A text box allows you to place text exactly where you want it on the slide.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To insert one, go to the Insert tab and click Text Box.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_add_text_box.png",
+          alt: "Text Box command on Insert tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "After selecting the command, click and drag on the slide to draw the text box area.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_text_box_create.png",
+          alt: "Drawing a text box on a slide",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once the text box appears, you can type directly inside it and format it like any other text in PowerPoint.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_text_box_appear.png",
+          alt: "Text box added to slide",
+        },
+      ],
+    },
+
+    {
+      heading: "Moving and Resizing Placeholders",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You are not locked into PowerPoint’s default object positions. Placeholders and text boxes can be moved and resized whenever needed.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To move an object, click its border and drag it to a new location.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_move_placeholder.png",
+          alt: "Moving a placeholder on a slide",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To resize an object, drag one of the sizing handles on the corners or sides. Corner handles adjust both height and width, while side handles adjust only one dimension.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_resize_placeholder.png",
+          alt: "Resizing a placeholder",
+        },
+        {
+          type: "paragraph",
+          text:
+            "These adjustments help you improve spacing, balance your slide, and make room for other content.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_adjust_placeholder.png",
+          alt: "Adjusted placeholder size and position",
+        },
+      ],
+    },
+
+    {
+      heading: "Duplicating Slides",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If you have a slide with a layout you want to reuse, duplicating it is much faster than rebuilding the entire slide from scratch.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To duplicate a slide, right-click the slide thumbnail in the Navigation Pane and choose Duplicate Slide.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_duplicate_slide.jpeg",
+          alt: "Duplicate Slide command",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can also copy and paste slides. This is useful when moving content between presentations or when you want even more control over placement.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_copy_slide.jpeg",
+          alt: "Copying a slide thumbnail",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_paste_appear.jpeg",
+          alt: "Pasted slide appears in navigation pane",
+        },
+      ],
+    },
+
+    {
+      heading: "Reordering Slides",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "As your presentation grows, you may decide that some slides belong earlier or later in the sequence.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To reorder slides, click and drag a slide thumbnail in the Navigation Pane. A horizontal insertion line shows where the slide will be placed.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_move_slide.jpeg",
+          alt: "Dragging slide to new position",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Reordering slides is one of the easiest ways to improve the flow of your presentation without changing the content itself.",
+        },
+      ],
+    },
+
+    {
+      heading: "Applying a Theme",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Themes give your presentation a consistent visual style by applying coordinated colors, fonts, and background styles across all slides.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To apply a theme, go to the Design tab and select one of the available theme thumbnails.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_select_theme.png",
+          alt: "Selecting a theme from the Design tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once applied, the theme updates the appearance of your presentation instantly.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_applied_theme.jpeg",
+          alt: "Theme applied to presentation",
+        },
+      ],
+    },
+
+    {
+      heading: "Formatting the Background",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If you want to customize the appearance of a slide even more, you can modify the slide background.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Use the Format Background command to choose a solid fill, gradient, texture, or picture background.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_format_background.png",
+          alt: "Format Background command",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can then select the background fill style and choose a color or other formatting option.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_background_fill.png",
+          alt: "Background fill options",
+        },
+        {
+          type: "paragraph",
+          text:
+            "If you want the same background on every slide, click Apply to All.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_format_apply_to_all.jpeg",
+          alt: "Apply background formatting to all slides",
+        },
+      ],
+    },
+
+    {
+      heading: "Changing Slide Size",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "PowerPoint allows you to choose between Standard (4:3) and Widescreen (16:9) slide sizes.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Widescreen is the more modern format and is commonly used for classroom projectors, TVs, and online presentations.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_slide_size.png",
+          alt: "Slide size options in PowerPoint",
+        },
+      ],
+    },
+
+    {
+      heading: "Completed Presentation Example",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After adding slides, choosing layouts, inserting text, duplicating content, and applying theme changes, your presentation will start to look polished and organized.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "The completed practice file gives a good example of how a simple presentation can become much more visually effective once these slide basics are applied.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-1/slide-basics/slide-basics_final_result.png",
+          alt: "Completed PowerPoint presentation example",
         },
       ],
     },
@@ -895,19 +1268,28 @@ sections: [
   challenge: [
     {
       type: "paragraph",
-      text: "Complete the following tasks:",
+      text: "Complete the following tasks using the practice presentation:",
     },
     {
       type: "list",
       ordered: true,
       items: [
-        "Insert a new slide.",
-        "Change a slide layout.",
-        "Reorder slides in the slide pane.",
-        "Delete a slide.",
+        "Insert a new slide into the presentation.",
+        "Change the layout of one slide.",
+        "Add a text box to a blank slide.",
+        "Move or resize a placeholder.",
+        "Duplicate one of the existing slides.",
+        "Reorder a slide in the Navigation Pane.",
+        "Apply a theme to the presentation.",
+        "Change the background formatting and apply it to all slides.",
       ],
     },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-1/slide-basics/slide-basics_final_result.png",
+      alt: "Final result for slide basics challenge",
+    },
   ],
-}
+},
 
 ];
