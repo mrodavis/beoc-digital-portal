@@ -1,6 +1,4 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/learning-paths/ms-office/powerpoint/module-2/[slug]/page": "app/learning-paths/ms-office/powerpoint/module-2/[slug]/page.js",
-  "/learning-paths/ms-office/powerpoint/page": "app/learning-paths/ms-office/powerpoint/page.js",
-  "/learning-paths/ms-office/powerpoint/module-2/page": "app/learning-paths/ms-office/powerpoint/module-2/page.js"
+  "/learning-paths/ms-office/powerpoint/module-2/[slug]/page": "app/learning-paths/ms-office/powerpoint/module-2/[slug]/page.js"
 }

@@ -226,13 +226,14 @@ alt: "Final result for the text basics challenge",
 slug: "powerpoint-lists",
 title: "PowerPoint Lists",
 description:
-"Learn how to create bulleted and numbered lists to organize information on slides.",
+"Learn how to create bulleted and numbered lists to organize information clearly on slides.",
 duration: "8 min",
+videoUrl: "https://www.youtube.com/embed/hL5XQGFdmDo",
 
 practiceFiles: [
 {
 name: "Lists Practice File",
-url: "/practice/powerpoint/module-2/lists/lists_practice.pptx",
+url: "/practice/powerpoint/module-2/lists/Powerpoint_Lists_Practice.pptx",
 },
 ],
 
@@ -244,38 +245,48 @@ blocks: [
 {
 type: "paragraph",
 text:
-"Bulleted lists help organize information into clear points that are easy for an audience to follow.",
+"Bulleted lists are commonly used in PowerPoint to organize information into clear and easy-to-read points.",
 },
 {
 type: "paragraph",
 text:
-"To create a bulleted list, click inside a text placeholder and press Enter after each item.",
+"To add bullets, select the text you want to format and click the Bullets command in the Paragraph group on the Home tab.",
 },
 {
 type: "image",
-src: "/images/powerpoint/module-2/lists/bulleted_list.png",
-alt: "Bulleted list in PowerPoint",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_bullet_command.png",
+alt: "Bullets command in the PowerPoint ribbon",
+},
+{
+type: "paragraph",
+text:
+"You can also click the drop-down arrow next to the Bullets command to choose from different bullet styles.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_bullets_dropdown.png",
+alt: "Bullet style dropdown menu",
 },
 ],
 },
 
 {
-heading: "Numbered Lists",
+heading: "Choosing a Bullet Style",
 blocks: [
 {
 type: "paragraph",
 text:
-"Numbered lists are useful when presenting steps or sequences.",
+"PowerPoint includes several built-in bullet styles such as circles, squares, arrows, and checkmarks.",
 },
 {
 type: "paragraph",
 text:
-"You can apply numbering using the Numbering command on the Home tab.",
+"Selecting a style immediately updates the appearance of the list.",
 },
 {
 type: "image",
-src: "/images/powerpoint/module-2/lists/numbered_list.png",
-alt: "Numbered list command",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_bullet_style.png",
+alt: "Selecting a bullet style in PowerPoint",
 },
 ],
 },
@@ -286,17 +297,100 @@ blocks: [
 {
 type: "paragraph",
 text:
-"PowerPoint allows you to customize bullets by changing their style, size, or color.",
-},
-{
-type: "image",
-src: "/images/powerpoint/module-2/lists/bullet_options.png",
-alt: "Bullet customization options",
+"If you want more control over the appearance of your bullets, you can open the Bullets and Numbering dialog box.",
 },
 {
 type: "paragraph",
 text:
-"Custom bullets can help match the visual style of your presentation.",
+"From here you can change the bullet style, adjust the size, or select a different color.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_bullets_and_numbering.png",
+alt: "Bullets and Numbering dialog box",
+},
+{
+type: "paragraph",
+text:
+"You can also click Customize to choose symbols or other bullet characters.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_symbol_dialog.png",
+alt: "Symbol dialog used for custom bullets",
+},
+],
+},
+
+{
+heading: "Numbered Lists",
+blocks: [
+{
+type: "paragraph",
+text:
+"Numbered lists are useful when presenting steps, instructions, or information that should appear in a specific order.",
+},
+{
+type: "paragraph",
+text:
+"To apply numbering, select the text and click the Numbering command on the Home tab.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_numbering_command.png",
+alt: "Numbering command in PowerPoint",
+},
+{
+type: "paragraph",
+text:
+"Click the drop-down arrow next to the Numbering button to choose from different numbering formats.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_number_options.png",
+alt: "Numbered list formatting options",
+},
+],
+},
+
+{
+heading: "Continuing Numbering",
+blocks: [
+{
+type: "paragraph",
+text:
+"When you create numbered lists across multiple slides or sections, PowerPoint can continue numbering automatically.",
+},
+{
+type: "paragraph",
+text:
+"You can adjust where numbering starts by opening the Bullets and Numbering dialog box and changing the Start At value.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_continued_numbering.png",
+alt: "Changing numbering start value",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_continued_numbering_displayed.png",
+alt: "Numbering continued across a list",
+},
+],
+},
+
+{
+heading: "Completed Slide Example",
+blocks: [
+{
+type: "paragraph",
+text:
+"After applying bullets or numbering and customizing the formatting, your slide will look more organized and easier for your audience to read.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_final_result.png",
+alt: "Final result of formatted lists on a PowerPoint slide",
 },
 ],
 },
@@ -306,16 +400,23 @@ text:
 challenge: [
 {
 type: "paragraph",
-text: "Complete the following tasks:",
+text: "Complete the following tasks using the practice presentation:",
 },
 {
 type: "list",
 ordered: true,
 items: [
-"Create a bulleted list with four items.",
-"Convert the list to a numbered list.",
-"Customize the bullet style.",
+"Open the practice presentation.",
+"Select the slide that contains the agenda list.",
+"Convert the list into a numbered list.",
+"Change the numbering so the list starts at 5.",
+"Customize the bullet style for another list on the slide.",
 ],
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/lists/powerpoint-lists_final_result.png",
+alt: "Final result for the lists challenge",
 },
 ],
 },
