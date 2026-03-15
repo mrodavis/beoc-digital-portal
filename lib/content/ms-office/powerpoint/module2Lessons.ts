@@ -683,30 +683,67 @@ alt: "Final result of the indents and spacing challenge",
 slug: "using-find-and-replace",
 title: "Using Find & Replace in PowerPoint",
 description:
-"Learn how to quickly locate text in your presentation and replace it with new content.",
+"Learn how to quickly locate text in your presentation and replace it with new content using the Find and Replace tools.",
 duration: "7 min",
+videoUrl: "https://www.youtube.com/embed/TEqzwdC4x58",
 
 practiceFiles: [],
 
 sections: [
 
 {
-heading: "Using Find",
+heading: "Finding Text",
 blocks: [
 {
 type: "paragraph",
 text:
-"The Find feature allows you to search for specific words or phrases in your presentation.",
+"The Find tool allows you to search for specific words or phrases within your presentation.",
+},
+{
+type: "paragraph",
+text:
+"This is useful when working with presentations that contain many slides or repeated information.",
+},
+{
+type: "paragraph",
+text:
+"To use Find, go to the Home tab and click the Find command in the Editing group.",
 },
 {
 type: "image",
-src: "/images/powerpoint/module-2/find-replace/find_command.png",
+src: "/images/powerpoint/module-2/find-replace/find-replace_find_command.png",
 alt: "Find command in PowerPoint",
 },
 {
 type: "paragraph",
 text:
-"This is helpful when editing long presentations with many slides.",
+"The Find dialog box will appear where you can enter the word or phrase you want to locate.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/find-replace/find-replace_find_next.png",
+alt: "Find dialog box in PowerPoint",
+},
+],
+},
+
+{
+heading: "Locating Text",
+blocks: [
+{
+type: "paragraph",
+text:
+"After entering the search text, click Find Next to move through the presentation and locate each occurrence.",
+},
+{
+type: "paragraph",
+text:
+"When PowerPoint finds the text, it will highlight the matching word or phrase on the slide.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/find-replace/find-replace_text_found.jpeg",
+alt: "Highlighted search result in PowerPoint",
 },
 ],
 },
@@ -717,17 +754,79 @@ blocks: [
 {
 type: "paragraph",
 text:
-"The Replace feature searches for specific text and replaces it with new text automatically.",
-},
-{
-type: "image",
-src: "/images/powerpoint/module-2/find-replace/replace_dialog.png",
-alt: "Replace dialog box",
+"The Replace feature allows you to search for text and replace it with different text automatically.",
 },
 {
 type: "paragraph",
 text:
-"This tool saves time when updating repeated information across multiple slides.",
+"This tool is especially useful when you need to update names, dates, or repeated information across multiple slides.",
+},
+{
+type: "paragraph",
+text:
+"To open Replace, click the Replace command in the Editing group on the Home tab.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/find-replace/find-replace_replace_command.png",
+alt: "Replace command in PowerPoint",
+},
+{
+type: "paragraph",
+text:
+"The Replace dialog box allows you to enter both the text you want to find and the text you want to replace it with.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/find-replace/find-replace_replace_dialog.png",
+alt: "Replace dialog box",
+},
+],
+},
+
+{
+heading: "Replacing Text",
+blocks: [
+{
+type: "paragraph",
+text:
+"Once the text is found, you can click Replace to change the highlighted occurrence.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/find-replace/find-replace_replace_execute.png",
+alt: "Replacing text in PowerPoint",
+},
+{
+type: "paragraph",
+text:
+"If you want PowerPoint to replace every occurrence of the text in the presentation, click Replace All.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/find-replace/find-replace_replace_finished.jpeg",
+alt: "PowerPoint confirmation after replacing text",
+},
+],
+},
+
+{
+heading: "Completed Slide Example",
+blocks: [
+{
+type: "paragraph",
+text:
+"After replacing the text, the updated content will appear throughout the presentation.",
+},
+{
+type: "paragraph",
+text:
+"This allows you to quickly update repeated information without manually editing each slide.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/find-replace/find-replace_final_result.png",
+alt: "Completed slide after replacing text",
 },
 ],
 },
@@ -737,16 +836,23 @@ text:
 challenge: [
 {
 type: "paragraph",
-text: "Complete the following tasks:",
+text: "Complete the following tasks using the presentation:",
 },
 {
 type: "list",
 ordered: true,
 items: [
-"Open a presentation with multiple slides.",
-"Use Find to locate a word.",
-"Replace the word with a new term.",
+"Open the presentation.",
+"Use the Find command to search for the text '2015-2016'.",
+"Use Replace to change it to '2016-2017'.",
+"Click Replace All to update every occurrence.",
+"Confirm the changes when PowerPoint displays the replacement message.",
 ],
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/find-replace/find-replace_final_result.png",
+alt: "Final result of the Find and Replace challenge",
 },
 ],
 },
