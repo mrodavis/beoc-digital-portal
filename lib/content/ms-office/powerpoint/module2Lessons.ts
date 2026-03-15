@@ -427,49 +427,227 @@ title: "Indents and Line Spacing",
 description:
 "Learn how to adjust paragraph indentation and spacing to improve slide readability.",
 duration: "11 min",
+videoUrl: "https://www.youtube.com/embed/fhLlISfmGqA",
 
-practiceFiles: [],
+practiceFiles: [
+{
+name: "Indents and Line Spacing Practice File",
+url: "/practice/powerpoint/module-2/indents/Powerpoint_IndentsLineSpacing_Practice.pptx",
+},
+],
 
 sections: [
 
 {
-heading: "Using Indents",
+heading: "Why Indents and Spacing Matter",
 blocks: [
 {
 type: "paragraph",
 text:
-"Indentation allows you to create hierarchy within lists and paragraphs.",
+"Indentation and line spacing help organize text so information is easier for your audience to read.",
 },
 {
 type: "paragraph",
 text:
-"In PowerPoint, you can increase or decrease indentation using the Indent commands on the Home tab.",
-},
-{
-type: "image",
-src: "/images/powerpoint/module-2/indents/indent_commands.png",
-alt: "Indent commands in PowerPoint",
+"Indentation creates hierarchy within lists and paragraphs, while line spacing controls the vertical distance between lines of text.",
 },
 ],
 },
 
 {
-heading: "Line Spacing",
+heading: "Showing the Ruler",
 blocks: [
 {
 type: "paragraph",
 text:
-"Line spacing controls the vertical space between lines of text.",
+"The ruler provides visual controls that allow you to adjust indentation precisely.",
 },
 {
 type: "paragraph",
 text:
-"Increasing line spacing can make slides easier to read, especially when presenting to a large audience.",
+"If the ruler is not visible, go to the View tab and check the Ruler option.",
 },
 {
 type: "image",
-src: "/images/powerpoint/module-2/indents/line_spacing.png",
+src: "/images/powerpoint/module-2/indents/indents-spacing_show_ruler.png",
+alt: "Turning on the ruler in PowerPoint",
+},
+],
+},
+
+{
+heading: "Understanding Indent Markers",
+blocks: [
+{
+type: "paragraph",
+text:
+"The ruler contains several markers that control how text is indented.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_first_line_marker.png",
+alt: "First line indent marker",
+},
+{
+type: "paragraph",
+text:
+"The first-line indent marker controls where the first line of a paragraph begins.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_hanging_indent_marker.png",
+alt: "Hanging indent marker",
+},
+{
+type: "paragraph",
+text:
+"The hanging indent marker controls the indentation of every line except the first.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_left_indent_marker.png",
+alt: "Left indent marker",
+},
+{
+type: "paragraph",
+text:
+"The left indent marker moves the entire paragraph inward.",
+},
+],
+},
+
+{
+heading: "Adjusting Indentation",
+blocks: [
+{
+type: "paragraph",
+text:
+"You can adjust bullet alignment by dragging the indent markers on the ruler.",
+},
+{
+type: "paragraph",
+text:
+"This allows you to control how far bullet points and text appear from the left side of the slide.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_left_indent_marker_example.png",
+alt: "Example of adjusting the left indent marker",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_left_indent_marker_example_dragged.png",
+alt: "Left indent marker dragged",
+},
+],
+},
+
+{
+heading: "Using Hanging Indents",
+blocks: [
+{
+type: "paragraph",
+text:
+"The hanging indent marker controls how lines wrap after the first line of text.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_hanging_indent_marker_example.png",
+alt: "Hanging indent marker example",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_hanging_indent_marker_example_dragged.png",
+alt: "Dragging the hanging indent marker",
+},
+],
+},
+
+{
+heading: "Creating Multilevel Lists",
+blocks: [
+{
+type: "paragraph",
+text:
+"Indentation can also be used to create multilevel lists that organize information into main topics and subtopics.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_list_multilevel.png",
+alt: "Multilevel bullet list example",
+},
+],
+},
+
+{
+heading: "Adjusting Line Spacing",
+blocks: [
+{
+type: "paragraph",
+text:
+"Line spacing controls how much vertical space appears between lines of text.",
+},
+{
+type: "paragraph",
+text:
+"To change line spacing, select the text and click the Line Spacing button in the Paragraph group on the Home tab.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_line_spacing_size.png",
 alt: "Line spacing menu",
+},
+{
+type: "paragraph",
+text:
+"You can select common spacing options such as 1.0, 1.5, or 2.0.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_line_spacing_example.png",
+alt: "Line spacing example",
+},
+],
+},
+
+{
+heading: "Using Line Spacing Options",
+blocks: [
+{
+type: "paragraph",
+text:
+"For more precise control, open Line Spacing Options from the dropdown menu.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_line_spacing_options.png",
+alt: "Line spacing options dialog box",
+},
+{
+type: "paragraph",
+text:
+"You can adjust spacing before and after paragraphs to improve readability.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_line_spacing_adjusted.png",
+alt: "Adjusted line spacing",
+},
+],
+},
+
+{
+heading: "Completed Slide Example",
+blocks: [
+{
+type: "paragraph",
+text:
+"After adjusting indentation and line spacing, the slide will appear more organized and easier to read.",
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_final_result.png",
+alt: "Completed PowerPoint slide",
 },
 ],
 },
@@ -479,16 +657,24 @@ alt: "Line spacing menu",
 challenge: [
 {
 type: "paragraph",
-text: "Complete the following tasks:",
+text: "Complete the following tasks using the practice presentation:",
 },
 {
 type: "list",
 ordered: true,
 items: [
-"Create a bulleted list.",
-"Increase indentation on one bullet level.",
-"Adjust line spacing for better readability.",
+"Open the practice presentation.",
+"Navigate to the slide containing the agenda.",
+"Select the bulleted list.",
+"Change the line spacing using Line Spacing Options.",
+"Show the ruler if it is not already visible.",
+"Adjust the left indent marker to align the bullet points.",
 ],
+},
+{
+type: "image",
+src: "/images/powerpoint/module-2/indents/indents-spacing_final_result.png",
+alt: "Final result of the indents and spacing challenge",
 },
 ],
 },
