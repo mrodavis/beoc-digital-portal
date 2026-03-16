@@ -6,50 +6,30 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/learning-paths/ms-office/powerpoint/module-2/[slug]/page": [
+    "/learning-paths/ms-office/[appSlug]/[moduleSlug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/powerpoint/module-2/[slug]/page.js"
+      "static/chunks/app/learning-paths/ms-office/[appSlug]/[moduleSlug]/page.js"
     ],
-    "/learning-paths/ms-office/powerpoint/module-2/page": [
+    "/learning-paths/ms-office/excel/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/powerpoint/module-2/page.js"
+      "static/chunks/app/learning-paths/ms-office/excel/page.js"
     ],
-    "/learning-paths/ms-office/powerpoint/page": [
+    "/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/powerpoint/page.js"
+      "static/chunks/app/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page.js"
     ],
     "/learning-paths/ms-office/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/ms-office/page.js"
     ],
-    "/page": [
+    "/learning-paths/ms-office/word/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
-    "/learning-paths/ms-office/powerpoint/module-1/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/powerpoint/module-1/page.js"
-    ],
-    "/learning-paths/ms-office/powerpoint/module-3/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/powerpoint/module-3/page.js"
-    ],
-    "/learning-paths/ms-office/powerpoint/module-3/[slug]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/ms-office/powerpoint/module-3/[slug]/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/learning-paths/ms-office/word/page.js"
     ]
   }
 }

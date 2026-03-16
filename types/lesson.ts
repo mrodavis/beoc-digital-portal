@@ -3,17 +3,49 @@ export type ContentBlock =
       type: "paragraph";
       text: string;
     }
+
   | {
       type: "image";
       src: string;
       alt: string;
       caption?: string;
     }
+
   | {
       type: "list";
       items: string[];
       ordered?: boolean;
       start?: number;
+    }
+
+  | {
+      type: "callout";
+      variant: "info" | "warning" | "success";
+      text: string;
+    }
+
+  | {
+      type: "tip";
+      text: string;
+    }
+
+  | {
+      type: "code";
+      code: string;
+      language?: string;
+    }
+
+  | {
+      type: "download";
+      name: string;
+      url: string;
+    }
+
+  | {
+      type: "knowledge-check";
+      question: string;
+      options: string[];
+      correctIndex: number;
     };
 
 export interface LessonSection {

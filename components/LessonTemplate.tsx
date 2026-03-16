@@ -1,6 +1,7 @@
 import SectionHeader from "./SectionHeader";
 import Link from "next/link";
 import { ContentBlock, LessonSection } from "@/types/lesson";
+import KnowledgeCheck from "./KnowledgeCheck";
 
 interface NavLesson {
   slug: string;
@@ -196,6 +197,58 @@ export default function ModuleTemplate({
                                 <li key={i}>{item}</li>
                               ))}
                             </ul>
+                          );
+                        case "callout":
+                          return (
+                            <div
+                              key={bIdx}
+                              className={`p-4 rounded-xl border-l-4 ${
+                                block.variant === "info"
+                                  ? "bg-blue-50 border-blue-400"
+                                  : block.variant === "warning"
+                                  ? "bg-yellow-50 border-yellow-400"
+                                  : "bg-green-50 border-green-400"
+                              }`}
+                            >
+                              {block.text}
+                            </div>
+                          );
+
+                        case "tip":
+                          return (
+                            <div
+                              key={bIdx}
+                              className="bg-green-50 border-l-4 border-green-400 p-4 rounded-xl"
+                            >
+                              💡 {block.text}
+                            </div>
+                          );
+
+                        case "code":
+                          return (
+                            <pre
+                              key={bIdx}
+                              className="bg-gray-900 text-green-300 p-4 rounded-xl overflow-x-auto"
+                            >
+                              <code>{block.code}</code>
+                            </pre>
+                          );
+
+                        case "download":
+                          return (
+                            <a
+                              key={bIdx}
+                              href={block.url}
+                              download
+                              className="inline-block bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition"
+                            >
+                              Download: {block.name}
+                            </a>
+                          );
+
+                        case "knowledge-check":
+                          return (
+                            <KnowledgeCheck key={bIdx} block={block} />
                           );
 
                         default:

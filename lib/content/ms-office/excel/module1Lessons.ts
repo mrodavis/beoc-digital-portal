@@ -24,7 +24,7 @@ export const excelModule1Lessons: Lesson[] = [
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_interface_start.png",
+          src: "/images/excel/module-1/getting-started/getting_started_interface_start.png",
           alt: "Excel interface overview",
         },
       ],
@@ -40,12 +40,12 @@ export const excelModule1Lessons: Lesson[] = [
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_ribbon_tabs2.png",
+          src: "/images/excel/module-1/getting-started/getting_started_ribbon_tabs2.png",
           alt: "Excel ribbon tabs",
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_ribbon_group.png",
+          src: "/images/excel/module-1/getting-started/getting_started_ribbon_group.png",
           alt: "Ribbon command groups",
         },
       ],
@@ -61,12 +61,12 @@ export const excelModule1Lessons: Lesson[] = [
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_backstage_file.png",
+          src: "/images/excel/module-1/getting-started/getting_started_backstage_file.png",
           alt: "File tab backstage view",
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_backstage_view.png",
+          src: "/images/excel/module-1/getting-started/getting_started_backstage_view.png",
           alt: "Backstage view screen",
         },
       ],
@@ -82,12 +82,12 @@ export const excelModule1Lessons: Lesson[] = [
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_quick_access_menu.png",
+          src: "/images/excel/module-1/getting-started/getting_started_quick_access_menu.png",
           alt: "Quick access customization menu",
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_quick_access_added.png",
+          src: "/images/excel/module-1/getting-started/getting_started_quick_access_added.png",
           alt: "Quick access toolbar with new command",
         },
       ],
@@ -103,12 +103,12 @@ export const excelModule1Lessons: Lesson[] = [
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_tell_me.png",
+          src: "/images/excel/module-1/getting-started/getting_started_tell_me.png",
           alt: "Tell Me search box",
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_tell_me_type.png",
+          src: "/images/excel/module-1/getting-started/getting_started_tell_me_type.png",
           alt: "Typing into Tell Me",
         },
       ],
@@ -124,17 +124,17 @@ export const excelModule1Lessons: Lesson[] = [
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_views_buttons.png",
+          src: "/images/excel/module-1/getting-started/getting_started_views_buttons.png",
           alt: "View buttons",
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_views_normal.png",
+          src: "/images/excel/module-1/getting-started/getting_started_views_normal.png",
           alt: "Normal view",
         },
         {
           type: "image",
-          src: "/images/excel/module1/getting-started/getting_started_views_page_break.png",
+          src: "/images/excel/module-1/getting-started/getting_started_views_page_break.png",
           alt: "Page break view",
         },
       ],
