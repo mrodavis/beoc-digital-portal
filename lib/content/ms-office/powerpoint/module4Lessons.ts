@@ -323,5 +323,227 @@ alt: "Final challenge result",
 ],
 },
 
+{
+  slug: "printing-presentations",
+  title: "Printing Presentations",
+  description:
+    "Learn how to print slides, handouts, and notes pages, and understand PowerPoint’s print settings for different presentation needs.",
+  duration: "10 min",
+  videoUrl: "https://www.youtube.com/embed/fzuHplbKD9A",
+
+  practiceFiles: [
+    {
+      name: "Printing Practice File",
+      url: "/practice/powerpoint/module-4/printing/Powerpoint_Printing_Practice.pptx",
+    },
+  ],
+
+  sections: [
+
+    {
+      heading: "Accessing the Print Screen",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To print a presentation, open the File tab to enter Backstage view, then select Print. This opens the print workspace where you can preview and adjust all print settings.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_tab.png",
+          alt: "Print option selected in PowerPoint File tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "The Print screen shows a live preview of your slides on the right and printing options on the left.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_print_pane.png",
+          alt: "Print pane with preview and settings",
+        },
+      ],
+    },
+
+    {
+      heading: "Understanding Print Settings",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "PowerPoint provides several print settings that allow you to control how your presentation will appear when printed.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_print_options.png",
+          alt: "Print settings options in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can choose the number of copies, select a printer, and decide whether to print all slides or a specific range.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Additional settings allow you to control slide layout, orientation, and whether the presentation prints in color or grayscale.",
+        },
+      ],
+    },
+
+    {
+      heading: "Print Layout Types",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "One of the most important decisions when printing is choosing the correct layout. PowerPoint offers several formats depending on how the presentation will be used.",
+        },
+
+        {
+          type: "paragraph",
+          text: "Full Page Slides print one slide per page and are ideal for reviewing or sharing individual slides.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_full_page.png",
+          alt: "Full page slide printing example",
+        },
+
+        {
+          type: "paragraph",
+          text:
+            "Handouts allow you to print multiple slides per page. This is useful for audiences who want to follow along during a presentation.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_handout.png",
+          alt: "Handout layout with multiple slides per page",
+        },
+
+        {
+          type: "paragraph",
+          text:
+            "Notes Pages include each slide along with speaker notes beneath it. This is helpful when presenting or reviewing detailed talking points.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_notes_page.png",
+          alt: "Notes page with slide and speaker notes",
+        },
+
+        {
+          type: "paragraph",
+          text:
+            "Outline view prints only the text from your slides, making it useful for reviewing the structure of your presentation.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_outline.png",
+          alt: "Outline view showing text-only slide content",
+        },
+
+        {
+          type: "tip",
+          text:
+            "If you're presenting to an audience, print handouts with 3 slides per page so viewers can take notes during your presentation.",
+        },
+      ],
+    },
+
+    {
+      heading: "Using Print Preview",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Before printing, always review the print preview to ensure your slides appear correctly. This helps avoid issues such as incorrect layouts or cut-off content.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_print_layout.png",
+          alt: "Print preview showing slide layout",
+        },
+      ],
+    },
+
+    {
+      heading: "Printing Your Presentation",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Once your settings are configured, click the Print button to print your presentation.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_print_command.png",
+          alt: "Print button in PowerPoint",
+        },
+      ],
+    },
+
+    {
+      heading: "Completed Output Example",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "A properly printed presentation should match your selected layout and provide a clear, readable format for your audience.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/printing/printing_final_result.png",
+          alt: "Final printed presentation example",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question:
+            "Which print layout includes space for audience notes beside each slide?",
+          options: [
+            "Full Page Slides",
+            "Notes Pages",
+            "Handouts",
+            "Outline",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks using the practice presentation:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Open the practice presentation.",
+        "Go to File and select Print.",
+        "Change the print layout to Handouts (3 slides per page).",
+        "Preview the print layout.",
+        "Switch to Notes Pages view.",
+        "Return to Handouts layout.",
+        "Print the presentation or export it as a PDF.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-4/printing/printing_final_result.png",
+      alt: "Final printed handout example",
+    },
+  ],
+},
 
 ];
