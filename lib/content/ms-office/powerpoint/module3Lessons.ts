@@ -483,4 +483,369 @@ alt: "Final result after modifying a theme",
 
 },
 
+{
+  slug: "slide-master-view",
+  title: "Slide Master View",
+  description:
+    "Learn how to use Slide Master view to make global design changes, create custom layouts, manage placeholders, and keep an entire presentation consistent.",
+  duration: "16 min",
+  videoUrl: "https://www.youtube.com/embed/h6ARCTypPTg",
+
+  practiceFiles: [
+    {
+      name: "Slide Master View Practice File",
+      url: "/practice/powerpoint/module-3/slide-master-view/Powerpoint_SlideMaster_Practice.pptx",
+    },
+  ],
+
+  sections: [
+    {
+      heading: "What Slide Master View Does",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Slide Master view allows you to control the overall design and layout structure of an entire presentation. Instead of editing slides one by one, you can update the master and its layouts so that design changes appear everywhere they are used.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is especially useful when you want consistent branding, repeated logos, matching fonts, and reusable slide layouts throughout a presentation.",
+        },
+      ],
+    },
+
+    {
+      heading: "Opening Slide Master View",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To begin working with slide masters, go to the View tab and select Slide Master. PowerPoint will switch from the normal editing view into the master editing workspace.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_ribbon_view.png",
+          alt: "View tab with Slide Master command in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once Slide Master view opens, the left pane will display the large master slide at the top and the related layouts below it.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_slide_master_select.png",
+          alt: "Slide Master selected in the left pane",
+        },
+      ],
+    },
+
+    {
+      heading: "Understanding the Master Slide and Layouts",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The top slide in Slide Master view is the master slide. It controls global elements such as theme fonts, background styling, and repeated objects like logos.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "The smaller slides beneath it are layouts. Each layout controls the structure of a specific slide type such as title slides, content slides, or image-based slides.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_slide_master.png",
+          alt: "Slide Master view showing hierarchy",
+        },
+        {
+          type: "paragraph",
+          text:
+            "When you apply a layout to a slide, that slide inherits all formatting and structure from that layout.",
+        },
+      ],
+    },
+
+    {
+      heading: "Editing Master Text and Branding",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can format text on the master or layouts just like regular slides, including font style, size, and alignment.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_text_formatting.png",
+          alt: "Formatting text in Slide Master",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can also insert logos or branding elements so they automatically appear on multiple slides.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_resize_move_logo.png",
+          alt: "Logo placement",
+        },
+      ],
+    },
+
+    {
+      heading: "Using Theme Fonts in Slide Master",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Slide Master view works closely with themes. Changing theme fonts will update text across all layouts instantly.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_theme_font.png",
+          alt: "Theme fonts",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This ensures consistency and helps maintain a professional appearance.",
+        },
+      ],
+    },
+
+    {
+      heading: "Inserting and Managing Placeholders",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Placeholders define where content such as text, images, charts, and media will appear on a slide.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Use Insert Placeholder from the Slide Master tab to add placeholders to layouts.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_placeholders.png",
+          alt: "Insert placeholder menu",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once placed, you can resize and position placeholders to create structured layouts.",
+        },
+      ],
+    },
+
+    {
+      heading: "Creating a Custom Layout",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can create your own layouts to standardize how slides are structured across a presentation.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_ribbon.png",
+          alt: "Slide Master ribbon",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Custom layouts are useful for things like product slides, team slides, or image-focused content.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_select_layout.png",
+          alt: "Selecting layout",
+        },
+      ],
+    },
+
+    {
+      heading: "Renaming Layouts",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Renaming layouts makes them easier to identify and reuse later.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click Rename and assign a meaningful name such as Product Slide.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_rename_layout.png",
+          alt: "Rename layout",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_rename_dialog.png",
+          alt: "Rename dialog",
+        },
+      ],
+    },
+
+    {
+      heading: "Showing and Hiding Master Elements",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can control whether titles, footers, and background elements appear on specific layouts.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_titles_footers.png",
+          alt: "Footer options",
+        },
+      ],
+    },
+
+    {
+      heading: "Applying Custom Layouts to Slides",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Apply layouts from the Home tab to instantly update slide structure and formatting.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_use_custom_layout.png",
+          alt: "Applying layout",
+        },
+      ],
+    },
+
+    {
+      heading: "Saving the Theme",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Save your customized theme to reuse it in future presentations.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_save_current_theme.png",
+          alt: "Save theme",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_save_theme.png",
+          alt: "Save dialog",
+        },
+      ],
+    },
+
+    {
+      heading: "Closing Slide Master View",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click Close Master View to return to the normal editing environment.",
+        },
+      ],
+    },
+
+    {
+      heading: "Completed Presentation Example",
+      blocks: [
+        {
+          type: "image",
+          src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_slides_updated.jpeg",
+          alt: "Final slides",
+        },
+      ],
+    },
+
+    // ✅ PRO TIP
+    {
+      heading: "Pro Tip",
+      blocks: [
+        {
+          type: "callout",
+          variant: "success",
+          text:
+            "If you find yourself repeating the same formatting changes across multiple slides, switch to Slide Master view. One change there updates every slide automatically.",
+        },
+      ],
+    },
+
+    // ✅ KNOWLEDGE CHECK
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What does Slide Master control?",
+          options: [
+            "Only one slide",
+            "The entire presentation design",
+            "Animations only",
+          ],
+          correctIndex: 1,
+        },
+        {
+          type: "knowledge-check",
+          question: "What is a layout?",
+          options: [
+            "A color theme",
+            "A slide structure template",
+            "A font style",
+          ],
+          correctIndex: 1,
+        },
+        {
+          type: "knowledge-check",
+          question: "Why are placeholders important?",
+          options: [
+            "To lock slides",
+            "To define content areas",
+            "To animate slides",
+          ],
+          correctIndex: 1,
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks using the practice presentation:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Open the practice presentation.",
+        "Go to the View tab and open Slide Master view.",
+        "Select one of the layouts and rename it Product Slide.",
+        "Insert a Picture placeholder on a custom layout.",
+        "Move and resize the logo so it is aligned consistently on the layout.",
+        "Change the theme font used for the layout.",
+        "Return to Normal view.",
+        "Apply the custom Product Slide layout to an existing slide.",
+        "Save the current theme for future use.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-3/slide-master-view/slide-master-view_slides_updated.jpeg",
+      alt: "Final result",
+    },
+  ],
+},
+
+
+
 ];
