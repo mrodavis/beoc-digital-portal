@@ -1,7 +1,6 @@
 {
-  "/learning-paths/ms-office/[appSlug]/[moduleSlug]/page": "app/learning-paths/ms-office/[appSlug]/[moduleSlug]/page.js",
   "/learning-paths/ms-office/excel/page": "app/learning-paths/ms-office/excel/page.js",
   "/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page": "app/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page.js",
   "/learning-paths/ms-office/word/page": "app/learning-paths/ms-office/word/page.js",
-  "/learning-paths/ms-office/powerpoint/page": "app/learning-paths/ms-office/powerpoint/page.js"
+  "/learning-paths/ms-office/[appSlug]/[moduleSlug]/page": "app/learning-paths/ms-office/[appSlug]/[moduleSlug]/page.js"
 }
