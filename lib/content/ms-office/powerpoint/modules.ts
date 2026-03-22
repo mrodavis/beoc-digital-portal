@@ -3,7 +3,7 @@ import { powerpointModule1Lessons } from "./module1Lessons";
 import { powerpointModule2Lessons } from "./module2Lessons";
 import { powerpointModule3Lessons } from "./module3Lessons";
 import { powerpointModule4Lessons } from "./module4Lessons";
-// import { powerpointModule5Lessons } from "./module5Lessons";
+import { powerpointModule5Lessons } from "./module5Lessons";
 // import { powerpointModule6Lessons } from "./module6Lessons";
 // import { powerpointModule7Lessons } from "./module7Lessons";
 // import { powerpointModule8Lessons } from "./module8Lessons";
@@ -65,4 +65,26 @@ export const powerpointModules: PowerPointModule[] = [
     level: "Beginner",
     estimatedMinutes: 30,
   },
+  {
+  moduleNumber: 5,
+  moduleSlug: "module-5",
+  title: "Images & Objects",
+  emoji: "🖼️",
+  description:
+    "Insert pictures, format images, work with shapes, and align objects to create visually engaging slides.",
+  lessons: powerpointModule5Lessons,
+  level: "Beginner",
+  estimatedMinutes: 50,
+},
+// {
+//   moduleNumber: 6,
+//   moduleSlug: "module-6",
+//   title: "Animations & Multimedia",
+//   emoji: "🎬",
+//   description:
+//     "Apply transitions, animate objects, and add audio and video.",
+//   lessons: powerpointModule6Lessons,
+//   level: "Beginner",
+//   estimatedMinutes: 45,
+// },
 ];
