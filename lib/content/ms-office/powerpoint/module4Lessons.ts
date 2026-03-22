@@ -651,5 +651,331 @@ export const powerpointModule4Lessons: Lesson[] = [
     },
   ],
 },
+{
+  slug: "presenting-your-slide-show",
+  title: "Presenting Your Slide Show",
+  description:
+    "Learn how to deliver your presentation using Slide Show view, navigation tools, Presenter View, and interactive presentation features.",
+  duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/7-2oM3AGHQM",
 
+  practiceFiles: [
+    {
+      name: "Presenting Practice File",
+      url: "/practice/powerpoint/module-4/presenting/PowerPoint_Presenting_Practice.pptx",
+    },
+  ],
+
+  sections: [
+
+    {
+      heading: "Starting a Slide Show",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To present your slides, you must enter Slide Show view. This mode displays your presentation in full screen, just as your audience will see it.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can start a slide show in several ways depending on your situation.",
+        },
+        {
+          type: "list",
+          items: [
+            "Press F5 to start from the beginning",
+            "Use the Slide Show tab → From Beginning",
+            "Use From Current Slide to start from your current position",
+            "Click the Slide Show button in the bottom-right corner",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_start_command.png",
+          alt: "Starting a slideshow in PowerPoint",
+        },
+        {
+          type: "tip",
+          text:
+            "Use 'From Current Slide' when practicing or presenting updates so you don’t restart the entire presentation every time.",
+        },
+      ],
+    },
+
+    {
+      heading: "Navigating Slides",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "While presenting, you can move between slides using several methods.",
+        },
+        {
+          type: "list",
+          items: [
+            "Click the mouse to move forward",
+            "Press the spacebar or arrow keys",
+            "Use on-screen navigation arrows",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_advance_arrows.png",
+          alt: "Slide navigation arrows",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Using multiple navigation methods ensures you can present smoothly whether using a keyboard, mouse, or remote clicker.",
+        },
+      ],
+    },
+
+    {
+      heading: "Ending a Slide Show",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To end your presentation, you can press the Esc key at any time.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can also right-click during the presentation and select End Show from the menu.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_end_show.png",
+          alt: "End slideshow option",
+        },
+        {
+          type: "paragraph",
+          text:
+            "At the end of the final slide, PowerPoint will display a message indicating the presentation has finished.",
+        },
+      ],
+    },
+
+    {
+      heading: "Using Presentation Tools",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "During a presentation, you can access additional tools by right-clicking or using the Slide Options menu.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_right_clicking.png",
+          alt: "Right-click presentation menu",
+        },
+        {
+          type: "paragraph",
+          text:
+            "These tools allow you to navigate slides, access settings, and control your presentation without exiting Slide Show view.",
+        },
+      ],
+    },
+
+    {
+      heading: "Jumping Between Slides",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can jump to any slide instantly by selecting 'See All Slides' during your presentation.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_thumbnail_versions.png",
+          alt: "Slide thumbnails during presentation",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is especially useful when answering audience questions or navigating a presentation out of order.",
+        },
+      ],
+    },
+
+    {
+      heading: "Using Drawing Tools",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "PowerPoint includes drawing tools that allow you to annotate slides during a presentation.",
+        },
+        {
+          type: "list",
+          items: [
+            "Pen for writing",
+            "Highlighter for emphasis",
+            "Different colors for visibility",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_pen_tool.png",
+          alt: "Pen tool menu",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_pen_tool_drawing.png",
+          alt: "Drawing on slide",
+        },
+        {
+          type: "tip",
+          text:
+            "Use drawing tools to emphasize key data points while speaking—it keeps your audience engaged and focused.",
+        },
+      ],
+    },
+
+    {
+      heading: "Using the Laser Pointer",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The laser pointer allows you to highlight areas without permanently marking the slide.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_laser_pointer.png",
+          alt: "Laser pointer option",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is useful when you want to guide attention without adding annotations.",
+        },
+      ],
+    },
+
+    {
+      heading: "Presenter View",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Presenter View allows you to see additional information while your audience only sees the slides.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_presenter_view.png",
+          alt: "Presenter View",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Presenter View includes tools like a timer, slide previews, notes, and navigation controls.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_presenter_view_example.png",
+          alt: "Presenter View interface labeled",
+        },
+        {
+          type: "tip",
+          text:
+            "Always use Presenter View when available—it allows you to stay organized and deliver a more professional presentation.",
+        },
+      ],
+    },
+
+    {
+      heading: "Setting Up a Slide Show",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "PowerPoint allows you to configure how your presentation behaves using the Set Up Slide Show dialog box.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_setup_slideshow_ribbon.png",
+          alt: "Set up slideshow button",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_setup_show_dialog.png",
+          alt: "Set up slideshow dialog",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can choose presentation type, slide range, and how slides advance.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_advance_slide_timing.png",
+          alt: "Slide timing settings",
+        },
+      ],
+    },
+
+    {
+      heading: "Completed Presentation Example",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "A well-delivered presentation uses navigation tools, annotations, and Presenter View to guide the audience effectively.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-4/presenting/presenting_final_result.jpeg",
+          alt: "Final presentation example",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question:
+            "Which feature allows you to view notes and upcoming slides while the audience sees only the presentation?",
+          options: [
+            "Slide Sorter View",
+            "Presenter View",
+            "Reading View",
+            "Outline View",
+          ],
+          correctIndex: 1,
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks using the practice presentation:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Open the practice presentation.",
+        "Start the slide show from the beginning.",
+        "Navigate to slide 8.",
+        "Use the pen tool to circle key data points.",
+        "Switch to Presenter View.",
+        "Use the laser pointer to highlight content.",
+        "End the slide show properly.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-4/presenting/presenting_final_result.jpeg",
+      alt: "Final challenge result",
+    },
+  ],
+},
 ];
