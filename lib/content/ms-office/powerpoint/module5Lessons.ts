@@ -727,55 +727,399 @@ export const powerpointModule5Lessons: Lesson[] = [
     ],
   },
 
-  {
-    slug: "shapes-in-powerpoint",
-    title: "Shapes in PowerPoint",
-    description:
-      "Learn how to insert shapes, format them, and use them to enhance slide design.",
-    duration: "9 min",
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER",
+{
+  slug: "shapes-in-powerpoint",
+  title: "Shapes in PowerPoint",
+  description:
+    "Learn how to insert, format, resize, rotate, and customize shapes to make your slides more visually engaging and professional.",
+  duration: "9 min",
+  videoUrl: "https://www.youtube.com/embed/lwBSCkmhwJA",
 
-    practiceFiles: [
-      {
-        name: "Shapes Practice File",
-        url: "/practice/powerpoint/module-5/shapes/PowerPoint_Shapes_Practice.pptx",
-      },
-    ],
+  practiceFiles: [
+    {
+      name: "Shapes in PowerPoint Practice File",
+      url: "/practice/powerpoint/module-5/shapes/Powerpoint_Shapes_Practice.pptx",
+    },
+  ],
 
-    sections: [
-      {
-        heading: "Working with Shapes",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Shapes can be used to highlight information, create diagrams, and improve slide layouts.",
-          },
-          {
-            type: "image",
-            src: "/images/powerpoint/module-5/shapes/shapes_insert.png",
-            alt: "Insert shapes menu",
-          },
-        ],
-      },
-    ],
+  sections: [
 
-    challenge: [
-      {
-        type: "paragraph",
-        text: "Complete the following tasks:",
-      },
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Insert a shape.",
-          "Change the fill color.",
-          "Add text inside the shape.",
-        ],
-      },
-    ],
-  },
+    {
+      heading: "Why Shapes Matter",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Shapes are more than decorative objects. In PowerPoint, they can be used to highlight important ideas, create visual emphasis, build diagrams, and make slides feel more polished and intentional.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "A simple shape can help direct attention to key content or add personality to a slide. In this lesson, shapes are used to support a wellness presentation by turning plain slides into more visually appealing ones.",
+        },
+        {
+          type: "callout",
+          variant: "info",
+          text:
+            "Shapes are one of the fastest ways to add structure and visual interest to a slide without needing outside graphics.",
+        },
+      ],
+    },
+
+    {
+      heading: "Inserting a Shape",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To insert a shape, go to the Insert tab and click Shapes. PowerPoint includes lines, rectangles, arrows, stars, banners, callouts, and many other built-in shape options.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_select_shape.png",
+          alt: "Shapes menu on the Insert tab in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "After selecting a shape, click and drag on the slide to draw it. The size and proportions of the shape will depend on how far you drag.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "In this example, a sun shape is inserted onto the slide as a starting point for a visual callout.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_sizing_shape.png",
+          alt: "A newly inserted sun shape on a PowerPoint slide",
+        },
+      ],
+    },
+
+    {
+      heading: "Resizing and Rotating Shapes",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Once a shape is inserted, you can resize it using the sizing handles around the border. Drag a corner handle to scale the shape larger or smaller.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_sizing_shape.png",
+          alt: "Resizing a shape in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To rotate a shape, drag the circular rotation handle above it. This allows you to angle the shape to better fit your design.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_rotate_shape.png",
+          alt: "Rotating a shape in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Resizing and rotating are basic but important adjustments. Even a simple angle change can make a shape look more dynamic and eye-catching.",
+        },
+      ],
+    },
+
+    {
+      heading: "Using the Yellow Adjustment Handle",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Some shapes include one or more yellow adjustment handles. These allow you to modify the appearance of the shape itself.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "For example, with the sun shape, the yellow handle changes the length and spacing of the rays. Other shapes may use this handle to alter corners, arrowheads, banner folds, or other design details.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_yellow_handles.png",
+          alt: "Yellow adjustment handle on a shape in PowerPoint",
+        },
+        {
+          type: "tip",
+          text:
+            "If a shape looks close to what you want but not quite right, check for a yellow handle before replacing it with a different shape.",
+        },
+      ],
+    },
+
+    {
+      heading: "Applying Shape Styles",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "PowerPoint includes built-in Shape Styles that instantly apply combinations of fill colors, outlines, and effects.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To use them, select the shape and go to the Drawing Tools Format tab. In the Shape Styles group, choose a preset style from the gallery.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_shape_style.png",
+          alt: "Shape Styles gallery on the Format tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Applying a style is a quick way to improve the appearance of a shape without manually adjusting every setting.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_style_selected.png",
+          alt: "A selected style applied to a sun shape",
+        },
+      ],
+    },
+
+    {
+      heading: "Changing Shape Fill",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Shape Fill controls the interior color or appearance of a shape. You can apply a solid fill, gradient, texture, picture fill, or choose No Fill.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To change the fill, select the shape, go to the Format tab, and click Shape Fill.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_select_color.png",
+          alt: "Shape Fill color options in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can use one of the theme colors for consistency, or choose More Fill Colors for additional customization.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_more_fill_colors.png",
+          alt: "More fill color options in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "In this example, changing the fill color helps transform the sun from a simple green shape into a brighter, more attention-grabbing graphic.",
+        },
+      ],
+    },
+
+    {
+      heading: "Changing Shape Outline",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Shape Outline controls the border around a shape. You can change its color, thickness, dashes, or remove it entirely.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To change the outline, select the shape and click Shape Outline on the Format tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_formatting_options.png",
+          alt: "Shape Outline menu with color and weight options",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Increasing the outline weight makes the border thicker and more visible. Removing the outline creates a cleaner, flatter look.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "In this lesson, outline changes help define the shape and make it coordinate more effectively with the slide theme.",
+        },
+      ],
+    },
+
+    {
+      heading: "Applying Shape Effects",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Shape Effects add visual enhancements such as shadows, glows, reflections, bevels, and 3-D rotation.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To apply an effect, select the shape, go to Shape Effects, and choose the effect you want to use.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_shape_effects.png",
+          alt: "Shape Effects menu in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Glow effects are especially useful when you want a shape to stand out from the background.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_shape_options.png",
+          alt: "Format Shape pane showing glow options",
+        },
+        {
+          type: "callout",
+          variant: "warning",
+          text:
+            "Effects can make a shape pop, but too many effects at once can make a slide feel cluttered or dated. Use them on purpose.",
+        },
+      ],
+    },
+
+    {
+      heading: "Editing and Changing a Shape",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You are not locked into the original shape you insert. PowerPoint allows you to change a shape into a different one while keeping much of its formatting.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Select the shape, go to Edit Shape, and choose Change Shape. Then select a new shape from the gallery.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_edit_shape.png",
+          alt: "Edit Shape and Change Shape menu in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is useful when you like the color, size, and effects you already applied, but want the object to take on a different form.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_new_shape.png",
+          alt: "A changed shape on the slide after using Change Shape",
+        },
+      ],
+    },
+
+    {
+      heading: "Adding Text to a Shape",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can type directly inside most shapes. Simply select the shape and start typing, or right-click and choose Edit Text.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once text is added, you can format it using the usual font, color, size, alignment, and WordArt options.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Adding text makes shapes especially useful for labels, callouts, banners, and highlighted messages on a slide.",
+        },
+      ],
+    },
+
+    {
+      heading: "Completed Slide Example",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "After inserting a shape, adjusting its size, rotating it, changing its fill and outline, applying effects, and adding text, the slide becomes much more visually dynamic.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "In this example, a plain shape evolves into a bold visual element that reinforces the message of the slide.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/shapes/shapes_final_result.png",
+          alt: "Completed slide showing a fully formatted shape with text",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question:
+            "Which handle allows you to rotate a shape in PowerPoint?",
+          options: [
+            "The yellow adjustment handle",
+            "The corner sizing handle",
+            "The circular rotation handle above the shape",
+            "The center point of the shape",
+          ],
+          correctIndex: 2,
+        },
+        {
+          type: "knowledge-check",
+          question:
+            "Which command lets you turn one shape into a different shape without starting over?",
+          options: [
+            "Shape Fill",
+            "Shape Effects",
+            "Picture Border",
+            "Edit Shape → Change Shape",
+          ],
+          correctIndex: 3,
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Download and open the practice presentation.",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Select slide 6.",
+        "Insert a Folded Corner shape onto the slide.",
+        "Rotate the shape so it is slightly angled.",
+        "Change the shape fill to a gold or yellow color.",
+        "Change the outline settings or remove the outline to improve the appearance.",
+        "Apply a shadow or glow effect to make the shape stand out.",
+        "Type a short wellness message inside the shape, such as Make stress relief a priority!",
+        "Optional: Use Edit Shape → Change Shape to transform the object into a different shape while keeping the formatting.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-5/shapes/shapes_final_result.png",
+      alt: "Final challenge result for the shapes lesson",
+    },
+  ],
+},
 
   {
     slug: "aligning-grouping-objects",
