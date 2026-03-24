@@ -1121,54 +1121,487 @@ export const powerpointModule5Lessons: Lesson[] = [
   ],
 },
 
-  {
-    slug: "aligning-grouping-objects",
-    title: "Aligning, Ordering, and Grouping Objects",
-    description:
-      "Learn how to align objects, control their layering, and group them for easier manipulation.",
-    duration: "13 min",
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER",
+{
+  slug: "aligning-grouping-objects",
+  title: "Aligning, Ordering, and Grouping Objects",
+  description:
+    "Learn how to align objects, distribute them evenly, group and ungroup items, control object layering, and rotate objects to create cleaner, more professional slides.",
+  duration: "13 min",
+  videoUrl: "https://www.youtube.com/embed/2GyjYgr-tSM",
 
-    practiceFiles: [
-      {
-        name: "Aligning & Grouping Practice File",
-        url: "/practice/powerpoint/module-5/aligning-grouping/PowerPoint_AligningGrouping_Practice.pptx",
-      },
-    ],
+  practiceFiles: [
+    {
+      name: "Aligning & Grouping Practice File",
+      url: "/practice/powerpoint/module-5/aligning-grouping/Powerpoint_Aligning_Practice.pptx",
+    },
+  ],
 
-    sections: [
-      {
-        heading: "Aligning Objects",
-        blocks: [
-          {
-            type: "paragraph",
-            text:
-              "Alignment tools help you position objects precisely and create clean, professional layouts.",
-          },
-          {
-            type: "image",
-            src: "/images/powerpoint/module-5/aligning-grouping/align_objects.png",
-            alt: "Align objects in PowerPoint",
-          },
-        ],
-      },
-    ],
+  sections: [
 
-    challenge: [
-      {
-        type: "paragraph",
-        text: "Complete the following tasks:",
-      },
-      {
-        type: "list",
-        ordered: true,
-        items: [
-          "Align multiple objects.",
-          "Change object order (bring forward/send backward).",
-          "Group objects together.",
-        ],
-      },
-    ],
-  },
+    // --------------------------------------------------
+    // WHY THIS LESSON MATTERS
+    // --------------------------------------------------
+    {
+      heading: "Why Object Arrangement Matters",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "A slide can have great colors, strong images, and useful content, but still look messy if the objects are poorly arranged. In PowerPoint, pictures, shapes, and text boxes can be aligned, spaced, layered, grouped, and rotated so the slide looks intentional instead of random.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This lesson focuses on the arrangement tools that help you clean up your layouts. These tools are especially useful when working with multiple pictures or overlapping objects.",
+        },
+        {
+          type: "callout",
+          variant: "info",
+          text:
+            "Design is not only about what you place on a slide. It is also about where you place it and how each object relates to the others.",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // ALIGNING OBJECTS
+    // --------------------------------------------------
+    {
+      heading: "Aligning Objects",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When you move objects manually, PowerPoint displays alignment guides and spacing guides to help you line them up. These guides are useful, but they are not always enough when several objects need to line up perfectly.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_single_object.jpeg",
+          alt: "Pictures on a slide with alignment guides visible",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To align two or more objects, first select them together. Hold the Shift key while clicking each object so PowerPoint knows they should be treated as a set.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_align_two_or_more.jpeg",
+          alt: "Selecting multiple pictures in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once the objects are selected, open the Format tab and click the Align command. Then choose Align Selected Objects so PowerPoint aligns the objects relative to one another instead of to the slide itself.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_align_to_slide_option.png",
+         
+          alt: "Align Selected Objects option in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "After that, open the Align menu again and choose one of the six alignment options. These include Align Left, Align Center, Align Right, Align Top, Align Middle, and Align Bottom.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_align_bottom.png",
+          alt: "Align Bottom option in the Align menu",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_align_middle.png",
+          alt: "Align Middle option in the Align menu",
+        },
+        {
+          type: "paragraph",
+          text:
+            "In this example, the pictures are aligned so they share a consistent position. This immediately makes the slide feel cleaner and easier to read.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_objects_aligned.jpeg",
+          alt: "Objects aligned evenly on a slide",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // ALIGN TO SLIDE
+    // --------------------------------------------------
+    {
+      heading: "Aligning Objects to the Slide",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Sometimes you do not want objects aligned to each other. Instead, you want them aligned to a specific area of the slide, such as the top, middle, or bottom.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To do this, open the Align menu and switch from Align Selected Objects to Align to Slide.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_align_to_slide_checked.png",
+          alt: "Align to Slide checked in the Align menu",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once Align to Slide is selected, choose an alignment command such as Align Middle or Align Bottom. PowerPoint will position the selected objects relative to the slide itself.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_objects_middle_aligned.jpeg",
+          alt: "Objects aligned to the middle of the slide",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is especially helpful when you want several objects to sit neatly across a slide without guessing at their vertical position.",
+        },
+        {
+          type: "tip",
+          text:
+            "Use Align Selected Objects when objects should line up with each other. Use Align to Slide when objects should line up with the slide.",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // DISTRIBUTING OBJECTS
+    // --------------------------------------------------
+    {
+      heading: "Distributing Objects Evenly",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Even after objects are aligned, they may still have uneven spacing between them. Distribution commands solve that problem by placing equal distance between each selected object.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "If your objects are arranged in a row, use Distribute Horizontally. If they are arranged in a column, use Distribute Vertically.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_distribute_horizontal.png",
+          alt: "Distribute Horizontally option in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can use distribution with either Align to Slide or Align Selected Objects, depending on whether the spacing should be based on the full slide or just the selected items.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_objects_distributed.jpeg",
+          alt: "Pictures distributed evenly across a slide",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is one of the fastest ways to make a row of pictures or icons look professionally arranged.",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // GROUPING OBJECTS
+    // --------------------------------------------------
+    {
+      heading: "Grouping Objects",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Grouping lets you combine multiple objects into one object. After grouping, the objects can be moved or resized together instead of one at a time.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is useful when you have finished arranging several objects and want them to stay together as a unit.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_group_ribbon.png",
+          alt: "Group command on the PowerPoint Format tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Select the objects you want to group, then go to Format and choose Group. PowerPoint will place a single selection box around the entire set.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_grouped_objects.jpeg",
+          alt: "Objects grouped into one selection box",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Once grouped, the pictures behave like one larger object. You can move them together, resize them together, and rotate them together.",
+        },
+        {
+          type: "callout",
+          variant: "warning",
+          text:
+            "Placeholders cannot be grouped. If the Group command is disabled, one or more of the selected items may still be inside a placeholder.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "If that happens, reinsert the images using the Pictures command on the Insert tab instead of the placeholder picture icon.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_pictures_command.png",
+          alt: "Pictures command on the Insert tab",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // UNGROUPING OBJECTS
+    // --------------------------------------------------
+    {
+      heading: "Ungrouping Objects",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If you need to edit one object inside a group, you can ungroup the set. This separates the objects so each item can be selected individually again.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_ungroup_command.png",
+          alt: "Ungroup command in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "After ungrouping, the objects return to individual items and can be moved, resized, or reformatted independently.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_objects_ungroupped.jpeg",
+          alt: "Objects after being ungrouped",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // ORDERING OBJECTS
+    // --------------------------------------------------
+    {
+      heading: "Ordering Objects and Understanding Layers",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When objects overlap on a slide, their order determines what appears in front and what appears behind. PowerPoint stacks objects in levels based on the order in which they were inserted.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "In this example, a large arrow shape sits on top of the pictures. That means it is currently on a higher layer than the images behind it.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_single_object_overlap.jpeg",
+          alt: "Large arrow shape overlapping pictures",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To change the order by one level, select the object and use Bring Forward or Send Backward on the Format tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_send_backward.png",
+          alt: "Send Backward command on the Format tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is useful when you want gradual control over layering and only need to move the object one step.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_objects_reordered.jpeg",
+          alt: "Object reordered behind some slide content",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // SEND TO BACK / SELECTION PANE
+    // --------------------------------------------------
+    {
+      heading: "Sending Objects to the Back and Using the Selection Pane",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If an object needs to move behind several other objects, it is usually faster to use the drop-down menu and select Send to Back instead of clicking Send Backward multiple times.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_send_to_back.png",
+          alt: "Send to Back option in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "After sending the arrow backward, the pictures become more visible and the design begins to make more sense visually.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_reordered_send_back.jpeg",
+          alt: "Arrow moved behind pictures on a slide",
+        },
+        {
+          type: "paragraph",
+          text:
+            "When several objects overlap, selecting the right one can become difficult. The Selection Pane gives you a list of all objects on the slide so you can select and reorder them more precisely.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_selection_pane.jpeg",
+          alt: "Selection Pane showing slide objects",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This is especially helpful in layered slides where clicking directly on the object is difficult.",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // ROTATING OBJECTS
+    // --------------------------------------------------
+    {
+      heading: "Rotating Objects",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "In addition to aligning and ordering objects, PowerPoint also allows you to rotate them. Rotation is useful when an image or shape needs to face a different direction or better match the design of the slide.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Select the object, go to the Format tab, click Rotate, and choose the option you want. You can rotate left, rotate right, or flip the object horizontally or vertically.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_rotate.jpeg",
+          alt: "Rotate menu in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "In this lesson, the food image is rotated so it better fits the final slide layout and makes the arrangement feel more dynamic.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_object_rotated.jpeg",
+          alt: "Object rotated on the slide",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // COMPLETED EXAMPLES
+    // --------------------------------------------------
+    {
+      heading: "Completed Slide Examples",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Once alignment, distribution, grouping, ordering, and rotation are all working together, the slide becomes much cleaner and easier to follow.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "This example shows how orderly spacing and correct layering make the design feel more intentional and professional.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-5/aligning-grouping/alignment_final_result.jpeg",
+          alt: "Completed final slide after aligning and arranging objects",
+        },
+      ],
+    },
+
+    // --------------------------------------------------
+    // KNOWLEDGE CHECK
+    // --------------------------------------------------
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question:
+            "Which PowerPoint command spaces selected objects evenly across a slide?",
+          options: [
+            "Align Middle",
+            "Distribute Horizontally",
+            "Send Backward",
+            "Group",
+          ],
+          correctIndex: 1,
+        },
+        {
+          type: "knowledge-check",
+          question:
+            "If the Group command is unavailable, what is a likely reason?",
+          options: [
+            "The objects are too large",
+            "The file is read-only",
+            "One of the selected objects is inside a placeholder",
+            "You must rotate the objects first",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
+  ],
+
+  // --------------------------------------------------
+  // CHALLENGE (MATCHED TO LEARNFREE FLOW)
+  // --------------------------------------------------
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Download and open the practice presentation.",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "On the last slide, select the picture of the hamburger and Rotate Left 90°.",
+        "Hold down the Shift key and select all three food pictures. Make sure you do not select the green diamonds.",
+        "Check Align to Slide under the Align command, then Align to Middle.",
+        "With the pictures still selected, Distribute Horizontally.",
+        "Select the first green diamond and send it behind the breakfast picture.",
+        "When you're finished, your slide should look like this:",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-5/aligning-grouping/alignment_final_result.jpeg",
+      alt: "Final challenge result for aligning, ordering, and grouping objects",
+    },
+  ],
+},
 
 ];
