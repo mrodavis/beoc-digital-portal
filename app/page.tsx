@@ -19,6 +19,30 @@ export default function Home() {
       icon: "📊",
     },
     {
+      title: "Office Assistant Professional",
+      description:
+        "Become a job-ready office assistant by mastering communication, Microsoft Office, cloud tools, scheduling, CRM systems, and AI-powered workflows.",
+      href: "/learning-paths/office-assistant",
+      status: "coming-soon",
+      icon: "💼",
+    },
+    {
+      title: "Healthcare Administrative",
+      description:
+        "Medical Office Practice, EHR training, HIPAA compliance, and front desk workflow preparation.",
+      href: "#",
+      status: "coming-soon",
+      icon: "🏥",
+    },
+    {
+      title: "Medical Terminology",
+      description:
+        "Build foundational healthcare vocabulary across body systems and clinical settings.",
+      href: "#",
+      status: "coming-soon",
+      icon: "🩺",
+    },
+    {
       title: "Certification Prep",
       description:
         "Prepare for industry-recognized certifications including Microsoft Office Specialist (MOS) and other professional credentials.",
@@ -34,30 +58,22 @@ export default function Home() {
       status: "coming-soon",
       icon: "🔐",
     },
-    {
-      title: "Healthcare Administrative",
-      description:
-        "Medical Office Practice, EHR training, HIPAA compliance, and front desk workflow preparation.",
-      href: "#",
-      status: "coming-soon",
-      icon: "🏥",
-    },
-    {
-      title: "Writing for the Workplace",
-      description:
-        "Professional email writing, documentation, resumes, reports, and business communication skills.",
-      href: "#",
-      status: "coming-soon",
-      icon: "✍️",
-    },
-    {
-      title: "Medical Terminology",
-      description:
-        "Build foundational healthcare vocabulary across body systems and clinical settings.",
-      href: "#",
-      status: "coming-soon",
-      icon: "🩺",
-    },
+  {
+    title: "OSHA Safety Training",
+    description:
+      "Learn workplace safety standards and OSHA certifications required for construction, maintenance, and industrial jobs.",
+    href: "/learning-paths/osha",
+    status: "coming-soon",
+    icon: "🦺",
+  },
+  {
+    title: "Security Guard Training",
+    description:
+      "Prepare for NYS security guard licensing with training in safety procedures, conflict management, and legal responsibilities.",
+    href: "/learning-paths/security",
+    status: "coming-soon",
+    icon: "🛡️",
+  },
   ];
 
   return (
@@ -77,7 +93,7 @@ export default function Home() {
       {/* Learning Paths */}
       <div className="mb-12">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">
-          Learning Paths
+          Career Paths & Skill Tracks
         </h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
