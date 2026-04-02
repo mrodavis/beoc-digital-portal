@@ -31,11 +31,6 @@
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/office-assistant/modern-office/page.js"
     ],
-    "/learning-paths/office-assistant/modern-office/module-1/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/office-assistant/modern-office/module-1/page.js"
-    ],
     "/learning-paths/ms-office/word/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -56,10 +51,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/certification/page.js"
     ],
-    "/learning-paths/office-assistant/modern-office/module-1/[slug]/page": [
+    "/learning-paths/office-assistant/modern-office/[moduleSlug]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/learning-paths/office-assistant/modern-office/module-1/[slug]/page.js"
+      "static/chunks/app/learning-paths/office-assistant/modern-office/[moduleSlug]/page.js"
+    ],
+    "/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page.js"
     ]
   }
 }
