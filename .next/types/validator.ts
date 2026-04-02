@@ -99,6 +99,33 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../app/learning-paths/office-assistant/modern-office/module-1/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/modern-office/module-1">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/modern-office/module-1/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/office-assistant/modern-office/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/modern-office">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/modern-office/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/office-assistant/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/">> = Specific

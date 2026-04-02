@@ -23,7 +23,7 @@ export default function Home() {
       description:
         "Become a job-ready office assistant by mastering communication, Microsoft Office, cloud tools, scheduling, CRM systems, and AI-powered workflows.",
       href: "/learning-paths/office-assistant",
-      status: "coming-soon",
+      status: "available",
       icon: "💼",
     },
     {

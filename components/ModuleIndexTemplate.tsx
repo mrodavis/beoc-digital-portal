@@ -4,8 +4,8 @@ import { Lesson } from "@/types/lesson";
 
 
 interface ModuleIndexTemplateProps {
-  courseSlug: string;      
-  courseTitle: string;     
+  courseSlug: string;
+  courseTitle: string;
   moduleNumber: number;
   title: string;
   emoji: string;
@@ -13,6 +13,9 @@ interface ModuleIndexTemplateProps {
   lessons: Lesson[];
   level: string;
   estimatedMinutes: number;
+  basePath?: string;
+  breadcrumbRootLabel?: string;
+  breadcrumbRootHref?: string;
 
   prevModuleHref?: string;
   prevModuleLabel?: string;
@@ -30,6 +33,9 @@ export default function ModuleIndexTemplate({
   lessons,
   level,
   estimatedMinutes,
+  basePath = "ms-office",
+  breadcrumbRootLabel = "Microsoft Office 2019",
+  breadcrumbRootHref = "/learning-paths/ms-office",
   prevModuleHref,
   prevModuleLabel,
   nextModuleHref,
@@ -40,12 +46,12 @@ export default function ModuleIndexTemplate({
 
       {/* Breadcrumb */}
       <nav className="mb-8 text-sm text-gray-600">
-        <Link href="/learning-paths/ms-office" className="hover:text-primary-600">
-          Microsoft Office 2019
+        <Link href={breadcrumbRootHref} className="hover:text-primary-600">
+          {breadcrumbRootLabel}
         </Link>
         <span className="mx-2">/</span>
       <Link
-        href={`/learning-paths/ms-office/${courseSlug}`}
+        href={`/learning-paths/${basePath}/${courseSlug}`}
         className="hover:text-primary-600"
       >
         {courseTitle}
@@ -111,7 +117,7 @@ export default function ModuleIndexTemplate({
         {lessons.map((lesson, index) => (
           <Link
             key={lesson.slug}
-            href={`/learning-paths/ms-office/${courseSlug}/module-${moduleNumber}/${lesson.slug}`}
+            href={`/learning-paths/${basePath}/${courseSlug}/module-${moduleNumber}/${lesson.slug}`}
           >
             <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
               <div className="flex items-start justify-between gap-4">
