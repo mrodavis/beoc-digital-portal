@@ -56,6 +56,36 @@ export default function OfficeAssistantPage() {
         </div>
       </div>
 
+      {/* Career Path Flow */}
+      <div className="bg-white rounded-xl shadow-md border border-gray-200 p-8 mb-12">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Career Path</h2>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+          {[
+            { step: "Foundations", icon: "💻" },
+            { step: "Core Skills", icon: "📊" },
+            { step: "Data & Systems", icon: "🗃️" },
+            { step: "Real-World Operations", icon: "🏢" },
+            { step: "Job Ready", icon: "🎓" },
+          ].map((item, i) => (
+            <div key={i} className="p-4 rounded-lg bg-gray-50 border border-gray-100">
+              <div className="text-2xl mb-2">{item.icon}</div>
+              <p className="font-semibold text-gray-800 text-sm">{item.step}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Career Outcomes */}
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-12">
+        <h3 className="text-xl font-bold text-gray-900 mb-3">Career Outcomes</h3>
+        <ul className="list-disc pl-6 text-gray-700 space-y-1">
+          <li>Office Assistant</li>
+          <li>Administrative Assistant</li>
+          <li>Front Desk Coordinator</li>
+          <li>Medical Office Assistant</li>
+        </ul>
+      </div>
+
       {/* Courses */}
       <SectionHeader
         title="Program Courses"

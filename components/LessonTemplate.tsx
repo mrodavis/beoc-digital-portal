@@ -14,6 +14,7 @@ interface ModuleTemplateProps {
 
   appSlug: string;          // 👈 dynamic (word, excel, etc.)
   moduleSlug: string;
+  basePath?: string;
 
   videoUrl?: string;        // 👈 optional now
   videoUrls?: string[];
@@ -37,6 +38,7 @@ export default function ModuleTemplate({
   description,
   appSlug,
   moduleSlug,
+  basePath = "learning-paths/ms-office",
   videoUrl,
   videoUrls,
   sections = [],
@@ -365,7 +367,7 @@ export default function ModuleTemplate({
       <div className="flex justify-between items-center pt-8 border-t border-gray-200">
         {prevLesson ? (
           <Link
-            href={`/learning-paths/ms-office/${appSlug}/${moduleSlug}/${prevLesson.slug}`}
+            href={`/${basePath}/${[appSlug, moduleSlug, prevLesson.slug].filter(Boolean).join("/")}`}
             className="text-gray-500 hover:text-gray-700 font-medium transition-colors"
           >
             ← {prevLesson.title}
@@ -376,7 +378,7 @@ export default function ModuleTemplate({
 
         {nextLesson ? (
           <Link
-            href={`/learning-paths/ms-office/${appSlug}/${moduleSlug}/${nextLesson.slug}`}
+            href={`/${basePath}/${[appSlug, moduleSlug, nextLesson.slug].filter(Boolean).join("/")}`}
             className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
           >
             {nextLesson.title} →

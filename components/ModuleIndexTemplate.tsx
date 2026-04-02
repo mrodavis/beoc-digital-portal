@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import { Lesson } from "@/types/lesson";
+import { ReactNode } from "react";
 
 
 interface ModuleIndexTemplateProps {
@@ -21,6 +22,7 @@ interface ModuleIndexTemplateProps {
   prevModuleLabel?: string;
   nextModuleHref?: string;
   nextModuleLabel?: string;
+  introContent?: ReactNode;
 }
 
 export default function ModuleIndexTemplate({
@@ -40,6 +42,7 @@ export default function ModuleIndexTemplate({
   prevModuleLabel,
   nextModuleHref,
   nextModuleLabel,
+  introContent,
 }: ModuleIndexTemplateProps) {
   return (
     <div className="container mx-auto px-4 py-12 max-w-6xl">
@@ -106,6 +109,9 @@ export default function ModuleIndexTemplate({
           </div>
         </div>
       </div>
+
+      {/* Optional intro content (e.g. What You'll Learn, Real-World Scenario) */}
+      {introContent}
 
       {/* Lessons */}
       <SectionHeader
