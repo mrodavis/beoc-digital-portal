@@ -7,6 +7,7 @@ export const module1Lessons: Lesson[] = [
     description:
       "Understand how modern workplaces operate using digital systems and tools.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/un2QGNwEH00?si=4X5x6cVYBYMTTUmW",
 
     slides: [
       {

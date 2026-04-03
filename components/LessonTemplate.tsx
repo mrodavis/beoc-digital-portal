@@ -94,16 +94,8 @@ export default function ModuleTemplate({
         </p>
       </div>
 
-    {/* Video(s), Slideshow, or Reading Badge */}
-    {slides && slides.length > 0 ? (
-      <div className="mb-12">
-        <SectionHeader
-          title="Presentation Slides"
-          description="Review the slides below, then complete the reading and challenge."
-        />
-        <Slideshow slides={slides} />
-      </div>
-    ) : (videoUrl || (videoUrls && videoUrls.length > 0)) ? (
+    {/* Video — renders independently if present */}
+    {(videoUrl || (videoUrls && videoUrls.length > 0)) && (
       <div className="mb-12">
         <SectionHeader
           title="Video"
@@ -142,7 +134,21 @@ export default function ModuleTemplate({
           )}
         </div>
       </div>
-    ) : (
+    )}
+
+    {/* Slides — renders independently if present */}
+    {slides && slides.length > 0 && (
+      <div className="mb-12">
+        <SectionHeader
+          title="Presentation Slides"
+          description="Review the slides below, then complete the reading and challenge."
+        />
+        <Slideshow slides={slides} />
+      </div>
+    )}
+
+    {/* Reading badge — only when neither video nor slides present */}
+    {!videoUrl && !(videoUrls && videoUrls.length > 0) && !(slides && slides.length > 0) && (
       <div className="mb-12">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-700 font-medium text-sm">
           📘 Reading Lesson
