@@ -128,6 +128,7 @@ export const module1Lessons: Lesson[] = [
     description:
       "Learn the essential tools used in every modern office environment.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/UnHOS8F4uO8",
 
     slides: [
       {
