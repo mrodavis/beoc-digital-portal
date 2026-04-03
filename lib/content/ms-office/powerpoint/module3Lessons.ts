@@ -184,6 +184,23 @@ alt: "Final presentation with applied theme",
 ],
 },
 
+{
+heading: "Knowledge Check",
+blocks: [
+{
+type: "knowledge-check",
+question: "What does applying a theme to a presentation do?",
+options: [
+"Changes only the font used in the presentation",
+"Adds animations to every slide automatically",
+"Changes the overall visual design including colors, fonts, and backgrounds",
+"Replaces all slide content with placeholder text",
+],
+correctIndex: 2,
+},
+],
+},
+
 ],
 
 challenge: [
@@ -452,6 +469,23 @@ text:
 type: "image",
 src: "/images/powerpoint/module-3/modifying/modifying-themes_final_result.png",
 alt: "Final presentation after modifying theme",
+},
+],
+},
+
+{
+heading: "Knowledge Check",
+blocks: [
+{
+type: "knowledge-check",
+question: "Which element of a theme controls the color palette used throughout the presentation?",
+options: [
+"Theme effects",
+"Theme fonts",
+"Background styles",
+"Theme colors",
+],
+correctIndex: 3,
 },
 ],
 },

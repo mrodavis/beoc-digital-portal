@@ -239,6 +239,23 @@ export const excelModule5Lessons: Lesson[] = [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which Excel feature highlights cells based on rules you define?",
+          options: [
+            "Data Validation",
+            "Sparklines",
+            "Conditional Formatting",
+            "Cell Styles",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -483,6 +500,23 @@ export const excelModule5Lessons: Lesson[] = [
             alt: "Final split view",
             caption:
             "Each pane scrolls independently for comparison.",
+        },
+        ],
+    },
+
+    {
+        heading: "Knowledge Check",
+        blocks: [
+        {
+            type: "knowledge-check",
+            question: "What does freezing the top row in Excel do?",
+            options: [
+            "Prevents the row from being edited",
+            "Locks the row so it cannot be deleted",
+            "Keeps the header row visible when you scroll down",
+            "Applies bold formatting to all cells in the row",
+            ],
+            correctIndex: 2,
         },
         ],
     },
@@ -781,7 +815,22 @@ export const excelModule5Lessons: Lesson[] = [
       ],
     },
 
-
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What type of sort would you use to organize a list from A to Z?",
+          options: [
+            "Descending sort",
+            "Custom sort",
+            "Ascending sort",
+            "Multi-level sort",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
 
   ],
 
@@ -1164,6 +1213,23 @@ challenge: [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What does applying a filter to a column do?",
+          options: [
+            "Permanently deletes rows that do not match the filter",
+            "Sorts the column in ascending order automatically",
+            "Shows only rows that match the selected criteria",
+            "Highlights matching cells with a color",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -1460,6 +1526,23 @@ challenge: [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What does the Subtotal command do?",
+          options: [
+            "Sorts the dataset alphabetically before calculating",
+            "Removes duplicate rows from the dataset",
+            "Automatically calculates summary values (sum, average, etc.) for grouped data",
+            "Converts a data range into an Excel Table",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -1696,6 +1779,23 @@ challenge: [
             src: "/images/excel/module-5/conditional-formatting/conditional-formatting_removed.png",
             alt: "Worksheet after conditional formatting removed",
             },
+        ],
+        },
+
+        {
+        heading: "Knowledge Check",
+        blocks: [
+        {
+            type: "knowledge-check",
+            question: "Which Conditional Formatting option fills cells with a color gradient based on their value?",
+            options: [
+            "Highlight Cells Rules",
+            "Icon Sets",
+            "Data Bars",
+            "Color Scales",
+            ],
+            correctIndex: 3,
+        },
         ],
         },
 

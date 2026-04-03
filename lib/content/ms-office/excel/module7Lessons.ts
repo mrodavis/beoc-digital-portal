@@ -174,7 +174,24 @@ LESSON 1 – DOING MORE WITH PIVOTTABLES
     alt: "Final PivotTable and PivotChart result"
     }
     ]
-    }
+    },
+
+    {
+    heading: "Knowledge Check",
+    blocks: [
+    {
+      type: "knowledge-check",
+      question: "What does a Slicer do in a PivotTable?",
+      options: [
+        "Splits the PivotTable into two separate tables",
+        "Deletes rows that do not match a selected value",
+        "Provides a visual, clickable filter to quickly narrow PivotTable results",
+        "Converts PivotTable data into a regular cell range",
+      ],
+      correctIndex: 2,
+    },
+    ],
+    },
 
     ],
 
@@ -520,7 +537,24 @@ LESSON 2 – WHAT-IF ANALYSIS
     alt: "Excel data table example"
     }
     ]
-    }
+    },
+
+    {
+    heading: "Knowledge Check",
+    blocks: [
+    {
+      type: "knowledge-check",
+      question: "Which What-If Analysis tool finds the input value needed to reach a specific result?",
+      options: [
+        "Scenario Manager",
+        "Data Tables",
+        "Solver",
+        "Goal Seek",
+      ],
+      correctIndex: 3,
+    },
+    ],
+    },
 
     ],
 
@@ -689,7 +723,24 @@ LESSON 3 – REFERENCE STYLES
     "You will now see column letters again at the top of the worksheet, such as A, B, C, and D, instead of numbers."
     }
     ]
-    }
+    },
+
+    {
+    heading: "Knowledge Check",
+    blocks: [
+    {
+      type: "knowledge-check",
+      question: "In R1C1 reference style, how is the cell in row 3, column 2 identified?",
+      options: [
+        "B3",
+        "C2R3",
+        "R3C2",
+        "3B",
+      ],
+      correctIndex: 2,
+    },
+    ],
+    },
 
     ],
 

@@ -230,6 +230,23 @@ export const excelModule4Lessons: Lesson[] = [
         },
       ],
     },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "In the formula =2+3*4, what is the result?",
+          options: [
+            "20",
+            "14",
+            "24",
+            "11",
+          ],
+          correctIndex: 1,
+        },
+      ],
+    },
   ],
 
   // ------------------------------------------------------------
@@ -560,6 +577,23 @@ export const excelModule4Lessons: Lesson[] = [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which symbol makes a cell reference absolute in Excel?",
+          options: [
+            "Ampersand (&)",
+            "Asterisk (*)",
+            "Hash (#)",
+            "Dollar sign ($)",
+          ],
+          correctIndex: 3,
+        },
+      ],
+    },
+
   ],
 
   // ------------------------------------------------------------
@@ -867,6 +901,23 @@ export const excelModule4Lessons: Lesson[] = [
           alt: "NETWORKDAYS function arguments completed",
         },
 
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which function adds all values in the range A1:A10?",
+          options: [
+            "=ADD(A1:A10)",
+            "=TOTAL(A1:A10)",
+            "=SUM(A1:A10)",
+            "=COUNT(A1:A10)",
+          ],
+          correctIndex: 2,
+        },
       ],
     },
 

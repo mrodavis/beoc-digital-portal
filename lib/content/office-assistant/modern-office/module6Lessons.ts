@@ -48,6 +48,22 @@ export const module6Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What does a CRM primarily help a business keep track of?",
+            options: [
+              "Employee payroll and hours worked",
+              "Company inventory and supply levels",
+              "Internal project timelines and milestones",
+              "Every interaction and relationship with clients",
+            ],
+            correctIndex: 3,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -123,6 +139,22 @@ export const module6Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Why is accuracy especially important when entering client contact information into a CRM?",
+            options: [
+              "Because the CRM will auto-correct any minor errors",
+              "Because records are only audited once a year",
+              "Because inaccurate records can cause communication failures and damage trust",
+              "Because managers manually review every entry before it is saved",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -181,6 +213,22 @@ export const module6Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Write a professional follow-up email after a 30-minute client discovery call. Include a thank-you, 3 next steps, and a proposed meeting date.\" Edit the result so it matches the tone and context of TOR Tech.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "When is the best time to log a client interaction after it takes place?",
+            options: [
+              "At the end of the workday",
+              "During your weekly review meeting",
+              "Only when your manager requests it",
+              "Immediately while the details are still fresh",
+            ],
+            correctIndex: 3,
           },
         ],
       },
@@ -243,6 +291,22 @@ export const module6Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Create a simple client interaction log template with columns for date, contact name, interaction type, summary, and next action.\" Use the template it generates to structure your submission for this challenge.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Which field in a communication log ensures follow-through after every client interaction?",
+            options: [
+              "The interaction type",
+              "The date of the interaction",
+              "The contact name",
+              "The next action required",
+            ],
+            correctIndex: 3,
           },
         ],
       },

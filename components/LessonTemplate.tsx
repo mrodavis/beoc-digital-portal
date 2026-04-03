@@ -29,6 +29,9 @@ interface ModuleTemplateProps {
   prevLesson?: NavLesson;
   nextLesson?: NavLesson;
 
+  nextModuleHref?: string;
+  nextModuleLabel?: string;
+
   backHref?: string;
   backLabel?: string;
 }
@@ -46,6 +49,8 @@ export default function ModuleTemplate({
   practiceFiles = [],
   prevLesson,
   nextLesson,
+  nextModuleHref,
+  nextModuleLabel,
   backHref,
   backLabel = "Back",
 }: ModuleTemplateProps) {
@@ -382,6 +387,13 @@ export default function ModuleTemplate({
             className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
           >
             {nextLesson.title} →
+          </Link>
+        ) : nextModuleHref ? (
+          <Link
+            href={nextModuleHref}
+            className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
+          >
+            {nextModuleLabel} →
           </Link>
         ) : (
           <div />

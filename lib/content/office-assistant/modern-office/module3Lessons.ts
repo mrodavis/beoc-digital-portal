@@ -48,6 +48,22 @@ export const module3Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What format should you use when sharing a professional document externally?",
+            options: [
+              ".docx to allow the recipient to edit",
+              "PDF to preserve formatting and layout",
+              ".txt for simplicity",
+              "A shared Google Doc with full edit access",
+            ],
+            correctIndex: 1,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -106,6 +122,22 @@ export const module3Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Create a professional memo template for internal business communication.\" Use the result as the content to populate the template you build in this lesson's challenge.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What is the recommended way to format section headers in a professional document?",
+            options: [
+              "Manually bold and increase the font size",
+              "Underline the text and add a border",
+              "Use built-in heading styles from the Styles panel",
+              "Use a different font for each section",
+            ],
+            correctIndex: 2,
           },
         ],
       },
@@ -170,6 +202,22 @@ export const module3Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Which formula adds up all values in the range A1 through A10?",
+            options: [
+              "=COUNT(A1:A10)",
+              "=TOTAL(A1:A10)",
+              "=ADD(A1:A10)",
+              "=SUM(A1:A10)",
+            ],
+            correctIndex: 3,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -228,6 +276,22 @@ export const module3Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Build me a simple office supply tracking spreadsheet with columns for item, quantity, cost, date ordered, and status.\" Use the suggested structure as a starting point, then customize it for TOR Tech's needs.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What spreadsheet feature should you use to keep status entries consistent across all rows?",
+            options: [
+              "A SUM formula",
+              "Conditional formatting",
+              "Data validation with a dropdown list",
+              "Freezing the header row",
+            ],
+            correctIndex: 2,
           },
         ],
       },

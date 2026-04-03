@@ -27,6 +27,12 @@ export default async function LessonPage({
       ? module.lessons[lessonIndex + 1]
       : undefined;
 
+  const moduleIndex = modernOfficeModules.findIndex((m) => m.moduleSlug === moduleSlug);
+  const nextModule =
+    lessonIndex === module.lessons.length - 1 && moduleIndex < modernOfficeModules.length - 1
+      ? modernOfficeModules[moduleIndex + 1]
+      : undefined;
+
   return (
     <LessonTemplate
       basePath={`learning-paths/office-assistant/modern-office/${moduleSlug}`}
@@ -41,6 +47,8 @@ export default async function LessonPage({
       practiceFiles={lesson.practiceFiles}
       prevLesson={prevLesson}
       nextLesson={nextLesson}
+      nextModuleHref={nextModule ? `/learning-paths/office-assistant/modern-office/${nextModule.moduleSlug}` : undefined}
+      nextModuleLabel={nextModule ? `Module ${nextModule.moduleNumber}: ${nextModule.title}` : undefined}
       backHref={`/learning-paths/office-assistant/modern-office/${moduleSlug}`}
       backLabel={`Module ${module.moduleNumber}: ${module.title}`}
     />

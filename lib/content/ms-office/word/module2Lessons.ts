@@ -128,6 +128,22 @@ export const wordModule2Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Which keyboard shortcut copies selected text?",
+            options: [
+              "Ctrl + X",
+              "Ctrl + V",
+              "Ctrl + C",
+              "Ctrl + Z",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -385,6 +401,22 @@ export const wordModule2Lessons: Lesson[] = [
         },
       ],
     },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which formatting option makes text appear slanted?",
+          options: [
+            "Bold",
+            "Italic",
+            "Underline",
+            "Strikethrough",
+          ],
+          correctIndex: 1,
+        },
+      ],
+    },
   ],
 
   challenge: [
@@ -508,6 +540,22 @@ export const wordModule2Lessons: Lesson[] = [
             type: "image",
             src: "/images/word/find-replace/2016-01-11_08-48-30.png",
             alt: "Final replaced document result",
+            },
+        ],
+        },
+        {
+        heading: "Knowledge Check",
+        blocks: [
+            {
+            type: "knowledge-check",
+            question: "Which keyboard shortcut opens Find & Replace?",
+            options: [
+                "Ctrl + F",
+                "Ctrl + G",
+                "Ctrl + H",
+                "Ctrl + R",
+            ],
+            correctIndex: 2,
             },
         ],
         },
@@ -690,6 +738,22 @@ export const wordModule2Lessons: Lesson[] = [
         },
       ],
     },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What type of list should you use when the order of items matters?",
+          options: [
+            "Bulleted list",
+            "Multilevel list",
+            "Numbered list",
+            "Custom symbol list",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
   ],
 
   challenge: [
@@ -845,6 +909,22 @@ export const wordModule2Lessons: Lesson[] = [
         },
         ],
         },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "How do you follow a hyperlink in a Word document?",
+          options: [
+            "Double-click the link",
+            "Hold Ctrl and click the link",
+            "Right-click and select Open Hyperlink",
+            "Press Enter while the link is selected",
+          ],
+          correctIndex: 1,
+        },
+      ],
+    },
   ],
 
 
@@ -1014,6 +1094,22 @@ export const wordModule2Lessons: Lesson[] = [
           type: "image",
           src: "/images/word/printing/download.png",
           alt: "Print button highlighted",
+        },
+      ],
+    },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Where can you preview how your document will look before printing?",
+          options: [
+            "The View tab",
+            "The Home tab",
+            "The Print pane in Backstage view",
+            "The Page Layout dialog box",
+          ],
+          correctIndex: 2,
         },
       ],
     },

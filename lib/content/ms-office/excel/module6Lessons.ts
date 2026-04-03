@@ -254,6 +254,23 @@ export const excelModule6Lessons: Lesson[] = [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is one advantage of converting a data range to an Excel Table?",
+          options: [
+            "The table locks cells so no one can edit them",
+            "New rows added at the bottom are automatically included in the table",
+            "Formulas are converted to plain text for safety",
+            "The table removes duplicate values automatically",
+          ],
+          correctIndex: 1,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -553,6 +570,23 @@ export const excelModule6Lessons: Lesson[] = [
         },
       ],
     },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which chart type is best for showing how individual parts make up a whole?",
+          options: [
+            "Bar chart",
+            "Line chart",
+            "Pie chart",
+            "Area chart",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
   ],
 
   challenge: [
@@ -777,6 +811,23 @@ export const excelModule6Lessons: Lesson[] = [
           type: "image",
           src: "/images/excel/module-6/pivotTables/pivotTable_done_example.png",
           alt: "Completed PivotTable example",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What does a PivotTable allow you to do?",
+          options: [
+            "Create a chart from a selected cell range",
+            "Apply conditional formatting across the entire workbook",
+            "Summarize and reorganize large datasets without changing the original data",
+            "Automatically correct formulas that return errors",
+          ],
+          correctIndex: 2,
         },
       ],
     },

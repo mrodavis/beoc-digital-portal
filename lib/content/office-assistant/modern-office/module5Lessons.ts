@@ -47,6 +47,22 @@ export const module5Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What two things should every task have to ensure clear accountability?",
+            options: [
+              "A color label and a comment thread",
+              "A due date and an assigned owner",
+              "A description and a file attachment",
+              "A priority level and a project tag",
+            ],
+            correctIndex: 1,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -105,6 +121,22 @@ export const module5Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"I have these 8 tasks today. Help me prioritize them using the Eisenhower Matrix: [paste your list of tasks].\" Use your own real or made-up task list and review where ChatGPT places each item.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "In the Eisenhower Matrix, tasks that are both Urgent AND Important should be:",
+            options: [
+              "Scheduled for later in the week",
+              "Delegated to a teammate",
+              "Done immediately",
+              "Eliminated from your list",
+            ],
+            correctIndex: 2,
           },
         ],
       },
@@ -179,6 +211,22 @@ export const module5Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "When should you flag a task as 'At Risk' in your project tracker?",
+            options: [
+              "Only after the deadline has already passed",
+              "At the end of every week during a routine review",
+              "As soon as you know it might not be completed on time",
+              "When your manager explicitly asks about the task's status",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -238,6 +286,22 @@ export const module5Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Build a project tracker template for a 5-person team managing 3 simultaneous projects.\" Review the column structure it suggests and decide which columns to keep, modify, or add based on what you have learned.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What makes a project tracker most effective for team accountability?",
+            options: [
+              "Assigning tasks to the whole team collectively",
+              "Color-coding tasks based on personal preference",
+              "Limiting tracker access to managers only",
+              "Assigning every task to a single named owner",
+            ],
+            correctIndex: 3,
           },
         ],
       },

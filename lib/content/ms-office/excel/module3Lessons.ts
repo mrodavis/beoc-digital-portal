@@ -249,6 +249,23 @@ export const excelModule3Lessons: Lesson[] = [
         },
       ],
     },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "How do you rename a worksheet tab in Excel?",
+          options: [
+            "Go to File → Rename Sheet",
+            "Press F2 while the sheet is selected",
+            "Double-click the tab and type a new name",
+            "Use the Format menu on the Home tab",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
   ],
 
   challenge: [
@@ -423,6 +440,23 @@ export const excelModule3Lessons: Lesson[] = [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which keyboard shortcut opens the Replace dialog in Excel?",
+          options: [
+            "Ctrl + F",
+            "Ctrl + G",
+            "Ctrl + H",
+            "Ctrl + R",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -573,6 +607,23 @@ export const excelModule3Lessons: Lesson[] = [
             src: "/images/excel/module-3/spelling/spelling-complete.png",
             alt: "Spell check complete message",
             },
+        ],
+        },
+
+        {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What happens when you click 'Add to Dictionary' in Spell Check?",
+            options: [
+              "The word is deleted from the worksheet",
+              "The word is automatically corrected to the nearest suggestion",
+              "The word is saved so Excel won't flag it as an error again",
+              "All instances of the word are replaced with the first suggestion",
+            ],
+            correctIndex: 2,
+          },
         ],
         },
 
@@ -805,6 +856,23 @@ export const excelModule3Lessons: Lesson[] = [
             type: "image",
             src: "/images/excel/module-3/page-layout-and-printing/layout_break_drag1.png",
             alt: "Dragging page break line",
+          },
+        ],
+      },
+
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What does setting a print area do in Excel?",
+            options: [
+              "Adds a colored border around the selected cells",
+              "Saves the selected cells as a separate file",
+              "Limits printing to only the selected cells",
+              "Automatically fits all columns to one page",
+            ],
+            correctIndex: 2,
           },
         ],
       },
@@ -1071,6 +1139,23 @@ export const excelModule3Lessons: Lesson[] = [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What allows multiple people to edit an Excel file at the same time?",
+          options: [
+            "Enabling Track Changes from the Review tab",
+            "Saving the file as a CSV and emailing it",
+            "Sharing via OneDrive and using co-authoring",
+            "Using the Protect Workbook feature",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -1236,6 +1321,23 @@ export const excelModule3Lessons: Lesson[] = [
           type: "image",
           src: "/images/excel/module-3/inspect-protect/inspecting_protect_final.png",
           alt: "Workbook marked as final banner",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What does Document Inspector help you do?",
+          options: [
+            "Check formulas for calculation errors",
+            "Fix spelling mistakes throughout the workbook",
+            "Find and remove hidden or personal data before sharing",
+            "Verify that all cells have the correct number format",
+          ],
+          correctIndex: 2,
         },
       ],
     },

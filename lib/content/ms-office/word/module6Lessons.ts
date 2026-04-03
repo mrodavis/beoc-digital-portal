@@ -171,6 +171,22 @@ export const wordModule6Lessons: Lesson[] = [
                 },
             ],
             },
+            {
+            heading: "Knowledge Check",
+            blocks: [
+                {
+                type: "knowledge-check",
+                question: "Which page orientation makes the page wider than it is tall?",
+                options: [
+                    "Portrait",
+                    "Landscape",
+                    "Custom",
+                    "Letter",
+                ],
+                correctIndex: 1,
+                },
+            ],
+            },
         ],
 
         challenge: [
@@ -326,6 +342,22 @@ export const wordModule6Lessons: Lesson[] = [
             },
         ],
         },
+        {
+        heading: "Knowledge Check",
+        blocks: [
+            {
+            type: "knowledge-check",
+            question: "What is a hanging indent?",
+            options: [
+                "All lines of a paragraph are indented equally",
+                "Only the first line is indented; remaining lines stay at the margin",
+                "All lines except the first are indented",
+                "The paragraph is indented from the right margin only",
+            ],
+            correctIndex: 2,
+            },
+        ],
+        },
     ],
 
     challenge: [
@@ -438,6 +470,22 @@ export const wordModule6Lessons: Lesson[] = [
             type: "image",
             src: "/images/word/line-paragraph-spacing/word2016_linespacing_img3.png",
             alt: "Letter after spacing adjustment",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Which spacing setting adds extra space between paragraphs without using blank lines?",
+            options: [
+              "Line spacing set to Double",
+              "Spacing Before or After paragraphs",
+              "Increase Indent",
+              "Column spacing",
+            ],
+            correctIndex: 1,
           },
         ],
       },
@@ -633,6 +681,22 @@ export const wordModule6Lessons: Lesson[] = [
         },
       ],
     },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What type of break forces content to start on a new page?",
+          options: [
+            "Page break",
+            "Column break",
+            "Continuous section break",
+            "Next Page section break",
+          ],
+          correctIndex: 0,
+        },
+      ],
+    },
   ],
 
   challenge: [
@@ -818,6 +882,22 @@ export const wordModule6Lessons: Lesson[] = [
           type: "image",
           src: "/images/word/columns/word2016_columns2_img.png",
           alt: "Completed newsletter with two columns",
+        },
+      ],
+    },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is a column break used for?",
+          options: [
+            "To remove all columns and return to a single-column layout",
+            "To add a line between two columns",
+            "To force text to the top of the next column",
+            "To change the number of columns in the document",
+          ],
+          correctIndex: 2,
         },
       ],
     },

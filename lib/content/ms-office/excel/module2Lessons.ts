@@ -103,6 +103,22 @@ export const excelModule2Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What does the fill handle do in Excel?",
+            options: [
+              "Deletes the contents of selected cells",
+              "Formats cells with a fill color",
+              "Copies content or continues a pattern into adjacent cells",
+              "Inserts a new row below the selected cell",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -412,6 +428,23 @@ export const excelModule2Lessons: Lesson[] = [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What does AutoFit do to a column?",
+          options: [
+            "Applies a preset width of 10 characters",
+            "Hides the column from view",
+            "Adjusts the column width to fit the widest content",
+            "Merges the column with the one to its right",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -711,6 +744,23 @@ export const excelModule2Lessons: Lesson[] = [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which formatting option applies color to the background of a cell?",
+          options: [
+            "Font Color",
+            "Cell Style",
+            "Fill Color",
+            "Border Color",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -928,6 +978,23 @@ export const excelModule2Lessons: Lesson[] = [
           type: "image",
           src: "/images/excel/module-2/number-formats/invoice_final_example.png",
           alt: "Formatted invoice example",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "If a cell is formatted as Percentage, what does the value 0.25 display as?",
+          options: [
+            "0.25%",
+            "2.5%",
+            "25%",
+            "250%",
+          ],
+          correctIndex: 2,
         },
       ],
     },
@@ -1199,6 +1266,23 @@ export const excelModule2Lessons: Lesson[] = [
           type: "image",
           src: "/images/excel/module-2/formulas/screen shot 2015-11-24 at 3.27.57 pm.png",
           alt: "Invoice example with calculated totals",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "How must every Excel formula begin?",
+          options: [
+            "With a plus sign (+)",
+            "With a cell reference like A1",
+            "With an equals sign (=)",
+            "With a function name like SUM",
+          ],
+          correctIndex: 2,
         },
       ],
     },

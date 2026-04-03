@@ -195,6 +195,23 @@ alt: "Completed PowerPoint slide example",
 ],
 },
 
+{
+heading: "Knowledge Check",
+blocks: [
+{
+  type: "knowledge-check",
+  question: "How do you select all text in a text box in PowerPoint?",
+  options: [
+    "Right-click the text box and choose Select All",
+    "Click the text box, then press Ctrl + A",
+    "Double-click the text box border",
+    "Go to Home → Select → Select All Text",
+  ],
+  correctIndex: 1,
+},
+],
+},
+
 ],
 
 challenge: [
@@ -391,6 +408,23 @@ text:
 type: "image",
 src: "/images/powerpoint/module-2/lists/powerpoint-lists_final_result.png",
 alt: "Final result of formatted lists on a PowerPoint slide",
+},
+],
+},
+
+{
+heading: "Knowledge Check",
+blocks: [
+{
+  type: "knowledge-check",
+  question: "When should you use a numbered list on a slide?",
+  options: [
+    "When you want to add visual variety with different bullet symbols",
+    "When the order of items does not matter",
+    "When the order of items matters",
+    "When you have more than five items to list",
+  ],
+  correctIndex: 2,
 },
 ],
 },
@@ -652,6 +686,23 @@ alt: "Completed PowerPoint slide",
 ],
 },
 
+{
+heading: "Knowledge Check",
+blocks: [
+{
+  type: "knowledge-check",
+  question: "What does increasing line spacing do?",
+  options: [
+    "Increases the font size of the selected text",
+    "Adds more space between lines of text, improving readability",
+    "Moves the text box higher on the slide",
+    "Changes the indent level of bullet points",
+  ],
+  correctIndex: 1,
+},
+],
+},
+
 ],
 
 challenge: [
@@ -832,6 +883,23 @@ text:
 type: "image",
 src: "/images/powerpoint/module-2/find-replace/find-replace_final_result.png",
 alt: "Completed slide after replacing text",
+},
+],
+},
+
+{
+heading: "Knowledge Check",
+blocks: [
+{
+  type: "knowledge-check",
+  question: "What is the main use of Replace in PowerPoint?",
+  options: [
+    "To format all instances of a word with bold or italic",
+    "To delete a word or phrase from every slide",
+    "To swap one word or phrase for another throughout the whole presentation",
+    "To move text from one slide to another",
+  ],
+  correctIndex: 2,
 },
 ],
 },

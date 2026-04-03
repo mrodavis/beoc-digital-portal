@@ -289,6 +289,23 @@ alt: "Example slideshow with transitions applied",
 ],
 },
 
+{
+heading: "Knowledge Check",
+blocks: [
+{
+type: "knowledge-check",
+question: "What is a slide transition?",
+options: [
+"An animation that moves text onto a slide",
+"A sound effect that plays during a presentation",
+"A visual effect that plays when moving from one slide to the next",
+"A way to hide certain slides during a presentation",
+],
+correctIndex: 2,
+},
+],
+},
+
 ],
 
 challenge: [

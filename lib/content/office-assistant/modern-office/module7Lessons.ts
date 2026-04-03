@@ -58,6 +58,22 @@ export const module7Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What is the recommended approach when using AI tools for professional workplace writing?",
+            options: [
+              "Send AI output directly to save time",
+              "Copy AI output into documents without reading it",
+              "Use AI to create a first draft, then review and personalize before sending",
+              "Only use AI for personal tasks, never for client-facing work",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -118,6 +134,22 @@ export const module7Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"I manually send a weekly status update email to 6 clients every Monday. How could I automate this using free tools?\" Review the suggestions and note which tool seems most beginner-friendly for your situation.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Which of the following tasks is the best candidate for automation?",
+            options: [
+              "Responding to a sensitive client complaint",
+              "Deciding which projects to prioritize for the quarter",
+              "A weekly status update email sent to the same recipients every Monday",
+              "Conducting a performance review for a new employee",
+            ],
+            correctIndex: 2,
           },
         ],
       },
@@ -192,6 +224,22 @@ export const module7Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What should you always do before including AI-generated data or statistics in a work document?",
+            options: [
+              "Include a disclaimer that AI assisted with the research",
+              "Copy it directly — AI tools are generally reliable for facts",
+              "Ask a colleague to review the AI's output before using it",
+              "Verify the information from a reliable, independent source",
+            ],
+            correctIndex: 3,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -250,6 +298,22 @@ export const module7Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Act as my office assistant. I need to: 1) draft a follow-up email to a client, 2) summarize a 500-word report in 3 bullets, 3) create a weekly task list for Monday. Help me with all three.\" Use this as a starting point, then customize each output for your own context.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What makes an AI prompt produce more useful, accurate results?",
+            options: [
+              "Keeping it short and vague so AI can interpret freely",
+              "Using all capital letters to emphasize importance",
+              "Starting every prompt with 'Please' to improve AI tone",
+              "Including the topic, format, length, and intended audience",
+            ],
+            correctIndex: 3,
           },
         ],
       },

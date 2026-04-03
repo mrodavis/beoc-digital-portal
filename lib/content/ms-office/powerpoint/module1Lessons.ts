@@ -240,6 +240,23 @@ export const powerpointModule1Lessons: Lesson[] = [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Where are most PowerPoint commands organized?",
+          options: [
+            "The status bar at the bottom of the screen",
+            "The Quick Access Toolbar above the slide",
+            "The Ribbon at the top of the screen",
+            "The slide navigation pane on the left",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -370,6 +387,23 @@ export const powerpointModule1Lessons: Lesson[] = [
           type: "paragraph",
           text:
             "You can still save files locally to your computer, but OneDrive provides additional convenience and protection.",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is the benefit of saving a presentation to OneDrive?",
+          options: [
+            "It automatically adds transitions to every slide",
+            "It compresses the file size to save disk space",
+            "You can access and share it from any device",
+            "It protects the presentation from being edited by anyone",
+          ],
+          correctIndex: 2,
         },
       ],
     },
@@ -569,6 +603,23 @@ export const powerpointModule1Lessons: Lesson[] = [
           type: "image",
           src: "/images/powerpoint/module-1/creating-opening/create_and_open_save_as.png",
           alt: "Save converted presentation",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is a PowerPoint template?",
+          options: [
+            "A blank slide with no formatting or placeholders",
+            "A slideshow that plays automatically without editing",
+            "A pre-designed presentation you can customize as a starting point",
+            "A file saved in read-only mode",
+          ],
+          correctIndex: 2,
         },
       ],
     },
@@ -808,6 +859,23 @@ sections: [
       type: "image",
       src: "/images/powerpoint/module-1/saving/saving_options.png",
       alt: "PowerPoint save options",
+    },
+  ],
+},
+
+{
+  heading: "Knowledge Check",
+  blocks: [
+    {
+      type: "knowledge-check",
+      question: "What should you do if you want to share a presentation that others cannot edit?",
+      options: [
+        "Save it as a .pptx file and email it",
+        "Use the Share button to invite collaborators",
+        "Export it as a PDF",
+        "Mark it as Final in the Info pane",
+      ],
+      correctIndex: 2,
     },
   ],
 },
@@ -1259,6 +1327,23 @@ sections: [
           type: "image",
           src: "/images/powerpoint/module-1/slide-basics/slide-basics_final_result.png",
           alt: "Completed PowerPoint presentation example",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is a layout in PowerPoint?",
+          options: [
+            "A theme that changes the fonts and colors of a presentation",
+            "A color palette used across all slides",
+            "A pre-arranged set of placeholders for content on a slide",
+            "A saved view that shows all slides at once",
+          ],
+          correctIndex: 2,
         },
       ],
     },

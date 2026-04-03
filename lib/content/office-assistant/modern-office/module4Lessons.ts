@@ -58,6 +58,22 @@ export const module4Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What is the best way to add a weekly team standup that repeats every Monday?",
+            options: [
+              "Create a new event manually each Monday",
+              "Set a recurring event with a weekly recurrence rule",
+              "Send a reminder email to the team each week",
+              "Add it to a spreadsheet as a weekly reminder",
+            ],
+            correctIndex: 1,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -116,6 +132,22 @@ export const module4Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Write a professional calendar invite for a 30-minute project kickoff meeting with 3 team members.\" Use the structure as a model for the invite you write in the challenge.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What should you do before proposing a meeting time to attendees?",
+            options: [
+              "Schedule it for Monday morning and adjust if needed",
+              "Check attendee availability using shared calendars or 'Find a Time'",
+              "Pick any open slot on your own calendar",
+              "Send an email asking everyone when they are free",
+            ],
+            correctIndex: 1,
           },
         ],
       },
@@ -190,6 +222,22 @@ export const module4Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "When a client meeting and an internal meeting are scheduled at the same time, which generally takes priority?",
+            options: [
+              "The internal meeting — it was booked first",
+              "The meeting with the most attendees",
+              "The client meeting — external commitments take precedence",
+              "Neither — reschedule both and start fresh",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -248,6 +296,22 @@ export const module4Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Create a sample Monday through Friday work schedule for an office assistant managing a 5-person team.\" Use the response as inspiration for how to structure your week view in the challenge.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Why should you add buffer blocks between meetings on a shared office calendar?",
+            options: [
+              "To make the calendar appear less busy",
+              "To give yourself time to check personal messages",
+              "To surface scheduling conflicts before they become problems",
+              "To signal to others that the calendar owner is unavailable",
+            ],
+            correctIndex: 2,
           },
         ],
       },

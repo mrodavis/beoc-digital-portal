@@ -55,6 +55,22 @@ export const module1Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What digital tool replaced the traditional paper filing cabinet in a modern office?",
+            options: [
+              "Email",
+              "Cloud storage",
+              "Spreadsheet",
+              "Digital calendar",
+            ],
+            correctIndex: 1,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -123,6 +139,22 @@ export const module1Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Compare Google Workspace and Microsoft 365. Which is better for a small business?\" Use the answer to understand which tools you may encounter on the job.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Which tool would you use to present quarterly results to a client?",
+            options: [
+              "Email",
+              "Spreadsheet",
+              "Presentation software",
+              "Cloud storage",
+            ],
+            correctIndex: 2,
           },
         ],
       },
@@ -207,6 +239,22 @@ export const module1Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What should you always do before sending or submitting AI-generated output?",
+            options: [
+              "Send it immediately to save time",
+              "Review and edit it yourself",
+              "Share it with your entire team first",
+              "Delete it and start from scratch",
+            ],
+            correctIndex: 1,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -266,6 +314,22 @@ export const module1Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Create a professional folder structure for a small business with clients, projects, and internal operations.\" Use the response as inspiration to improve your own setup.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Which of the following is an example of a professional file naming format?",
+            options: [
+              "untitled_final",
+              "2024-01_ClientNotes",
+              "myfolder123",
+              "docnew",
+            ],
+            correctIndex: 1,
           },
         ],
       },

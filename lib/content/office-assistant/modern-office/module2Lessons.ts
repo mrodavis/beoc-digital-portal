@@ -58,6 +58,22 @@ export const module2Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Which part of a professional email sets expectations before the reader even opens it?",
+            options: [
+              "The greeting",
+              "The subject line",
+              "The body paragraph",
+              "The closing signature",
+            ],
+            correctIndex: 1,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -130,6 +146,22 @@ export const module2Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Where should you post a project update that is relevant to your entire team?",
+            options: [
+              "In a direct message to your manager",
+              "In a private group chat",
+              "In a public team channel",
+              "Over email only",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -188,6 +220,22 @@ export const module2Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Create a meeting agenda template for a 30-minute client check-in meeting.\" Use the template as your starting point the next time you need to prepare for or facilitate a meeting.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "When should you send a meeting recap email after a video call?",
+            options: [
+              "Only if attendees request it",
+              "At the start of the next meeting",
+              "Within 24 hours",
+              "Within one week",
+            ],
+            correctIndex: 2,
           },
         ],
       },
@@ -259,6 +307,22 @@ export const module2Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Write a polite auto-reply email for when I'm away from my desk until 2pm.\" Edit the result to include your name and your return time.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What does the 'inbox zero' approach recommend you do with every email?",
+            options: [
+              "Leave unread emails until the end of the week",
+              "Process each email: reply, delegate, archive, or delete",
+              "Only respond to emails from your manager",
+              "Auto-archive everything older than 24 hours",
+            ],
+            correctIndex: 1,
           },
         ],
       },

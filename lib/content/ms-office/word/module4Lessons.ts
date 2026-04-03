@@ -187,6 +187,22 @@ export const wordModule4Lessons: Lesson[] = [
         },
       ],
     },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is the purpose of a header in a Word document?",
+          options: [
+            "To add decorative borders around the page",
+            "To set the document's font and color theme",
+            "To display repeated content at the top of every page",
+            "To insert a table of contents automatically",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
   ],
 
   challenge: [

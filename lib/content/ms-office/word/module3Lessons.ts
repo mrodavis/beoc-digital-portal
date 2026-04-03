@@ -219,6 +219,22 @@ export const wordModule3Lessons: Lesson[] = [
         },
       ],
     },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which text wrapping style keeps an image on the same line as surrounding text?",
+          options: [
+            "In Line with Text",
+            "Square",
+            "Tight",
+            "Behind Text",
+          ],
+          correctIndex: 0,
+        },
+      ],
+    },
   ],
 
   challenge: [
@@ -445,6 +461,22 @@ export const wordModule3Lessons: Lesson[] = [
           type: "image",
           src: "/images/word/format-pictures/word2016_formatpictures_img.png",
           alt: "Completed formatted document example",
+        },
+      ],
+    },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What tool would you use to remove the outer edge of an image?",
+          options: [
+            "Corrections",
+            "Artistic Effects",
+            "Crop",
+            "Picture Styles",
+          ],
+          correctIndex: 2,
         },
       ],
     },
@@ -740,6 +772,22 @@ export const wordModule3Lessons: Lesson[] = [
         },
       ],
     },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What must you do to add text inside a shape in Word?",
+          options: [
+            "Insert a text box first, then place it over the shape",
+            "Click the shape and start typing",
+            "Use the Insert > Text > Text Box command",
+            "Right-click the shape and select Add Text from a dialog box",
+          ],
+          correctIndex: 1,
+        },
+      ],
+    },
   ],
 
   challenge: [
@@ -935,6 +983,22 @@ export const wordModule3Lessons: Lesson[] = [
           type: "image",
           src: "/images/word/textboxes/word2016_textbox_img.png",
           alt: "Completed text box promotional layout",
+        },
+      ],
+    },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is the purpose of a text box in Word?",
+          options: [
+            "To insert a table with formatted cells",
+            "To apply a border to a paragraph",
+            "To place text anywhere on the page, independent of the main text flow",
+            "To create a hyperlink around a block of text",
+          ],
+          correctIndex: 2,
         },
       ],
     },
@@ -1136,6 +1200,22 @@ export const wordModule3Lessons: Lesson[] = [
           type: "image",
           src: "/images/word/align/word2016_align_order_group_img.png",
           alt: "Final aligned and grouped layout",
+        },
+      ],
+    },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What does grouping multiple objects do in Word?",
+          options: [
+            "Locks the objects so they cannot be moved",
+            "Merges their fill colors together",
+            "Applies the same style to all selected objects",
+            "Lets you move and resize them together as one unit",
+          ],
+          correctIndex: 3,
         },
       ],
     },

@@ -140,6 +140,23 @@ export const excelModule1Lessons: Lesson[] = [
       ],
     },
 
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Where are most Excel commands found?",
+          options: [
+            "The status bar at the bottom of the screen",
+            "The formula bar above the worksheet",
+            "The Ribbon at the top of the screen",
+            "The Quick Access Toolbar",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
   ],
 
   challenge: [
@@ -205,6 +222,23 @@ export const excelModule1Lessons: Lesson[] = [
           type: "paragraph",
           text:
             "Saving to OneDrive allows you to access your files from any device and protects against data loss.",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What allows you to access your Excel files from any device?",
+          options: [
+            "Enabling AutoRecover in Excel Options",
+            "Saving your workbook to OneDrive",
+            "Keeping Excel open in the background",
+            "Using the Quick Access Toolbar",
+          ],
+          correctIndex: 1,
         },
       ],
     },
@@ -351,6 +385,23 @@ export const excelModule1Lessons: Lesson[] = [
           type: "image",
           src: "/images/excel/module-1/creating-opening/creating_opening_compatibility_dialog.png",
           alt: "Compatibility dialog box",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is a template in Excel?",
+          options: [
+            "A locked workbook that cannot be edited",
+            "A saved chart format you can reuse",
+            "A pre-formatted workbook you can use as a starting point",
+            "A file that contains only formulas",
+          ],
+          correctIndex: 2,
         },
       ],
     },
@@ -513,6 +564,23 @@ export const excelModule1Lessons: Lesson[] = [
           type: "image",
           src: "/images/excel/module-1/saving-sharing/saving_sharing_share_pane.png",
           alt: "Share option",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What format should you use to share a workbook that others cannot edit?",
+          options: [
+            "CSV (.csv)",
+            "Excel Macro-Enabled Workbook (.xlsm)",
+            "PDF (.pdf)",
+            "Excel 97-2003 Workbook (.xls)",
+          ],
+          correctIndex: 2,
         },
       ],
     },

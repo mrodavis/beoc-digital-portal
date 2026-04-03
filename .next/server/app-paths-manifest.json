@@ -1,7 +1,11 @@
 {
-  "/learning-paths/office-assistant/page": "app/learning-paths/office-assistant/page.js",
+  "/learning-paths/office-assistant/modern-office/[moduleSlug]/page": "app/learning-paths/office-assistant/modern-office/[moduleSlug]/page.js",
+  "/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page": "app/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page.js",
+  "/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page": "app/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page.js",
+  "/learning-paths/ms-office/[appSlug]/[moduleSlug]/page": "app/learning-paths/ms-office/[appSlug]/[moduleSlug]/page.js",
   "/learning-paths/ms-office/page": "app/learning-paths/ms-office/page.js",
+  "/learning-paths/ms-office/excel/page": "app/learning-paths/ms-office/excel/page.js",
   "/page": "app/page.js",
-  "/learning-paths/office-assistant/modern-office/page": "app/learning-paths/office-assistant/modern-office/page.js",
-  "/learning-paths/ms-office/word/page": "app/learning-paths/ms-office/word/page.js"
+  "/learning-paths/office-assistant/page": "app/learning-paths/office-assistant/page.js",
+  "/learning-paths/office-assistant/modern-office/page": "app/learning-paths/office-assistant/modern-office/page.js"
 }

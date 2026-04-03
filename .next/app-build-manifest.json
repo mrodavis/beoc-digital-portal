@@ -60,6 +60,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page.js"
+    ],
+    "/learning-paths/ms-office/excel/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/ms-office/excel/page.js"
     ]
   }
 }

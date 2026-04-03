@@ -210,6 +210,22 @@ export const wordModule1Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Where are most Word formatting commands found?",
+            options: [
+              "The File menu",
+              "The status bar",
+              "The Ribbon",
+              "The Quick Access Toolbar",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -307,6 +323,22 @@ export const wordModule1Lessons: Lesson[] = [
           alt: "Save As Screen with OneDrive Option",
           caption:
             "Choose OneDrive to save online or This PC to save locally.",
+        },
+      ],
+    },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is the main benefit of saving a Word document to OneDrive?",
+          options: [
+            "It automatically formats your document",
+            "It allows you to access your files from any device",
+            "It converts your file to PDF automatically",
+            "It increases your document storage limit",
+          ],
+          correctIndex: 1,
         },
       ],
     },
@@ -476,6 +508,22 @@ export const wordModule1Lessons: Lesson[] = [
           type: "image",
           src: "/images/word/creating-and-opening-documents/new_convert_ok.png",
           alt: "Convert confirmation dialog",
+        },
+      ],
+    },
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What feature lets you quickly reopen a file you worked on recently?",
+          options: [
+            "The New tab",
+            "The Recent list",
+            "The Template gallery",
+            "The Browse button",
+          ],
+          correctIndex: 1,
         },
       ],
     },
@@ -650,6 +698,22 @@ export const wordModule1Lessons: Lesson[] = [
             type: "image",
             src: "/images/word/saving-and-sharing/share_menu.jpg",
             alt: "Share menu",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "Which file format should you use when sending a final document that others should not edit?",
+            options: [
+              "Word 97-2003 (.doc)",
+              "Plain Text (.txt)",
+              "PDF (.pdf)",
+              "Rich Text Format (.rtf)",
+            ],
+            correctIndex: 2,
           },
         ],
       },

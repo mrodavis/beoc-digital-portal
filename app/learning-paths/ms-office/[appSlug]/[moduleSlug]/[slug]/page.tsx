@@ -31,6 +31,12 @@ export default async function LessonPage({
       ? module.lessons[lessonIndex + 1]
       : undefined;
 
+  const moduleIndex = modules.findIndex((m) => m.moduleSlug === moduleSlug);
+  const nextModule =
+    lessonIndex === module.lessons.length - 1 && moduleIndex < modules.length - 1
+      ? modules[moduleIndex + 1]
+      : undefined;
+
   return (
     <ModuleTemplate
       appSlug={appSlug}
@@ -44,6 +50,8 @@ export default async function LessonPage({
       practiceFiles={lesson.practiceFiles}
       prevLesson={prevLesson}
       nextLesson={nextLesson}
+      nextModuleHref={nextModule ? `/learning-paths/ms-office/${appSlug}/${nextModule.moduleSlug}` : undefined}
+      nextModuleLabel={nextModule ? `Module ${nextModule.moduleNumber}: ${nextModule.title}` : undefined}
       backHref={`/learning-paths/ms-office/${appSlug}/${module.moduleSlug}`}
       backLabel={`Module ${module.moduleNumber}`}
     />

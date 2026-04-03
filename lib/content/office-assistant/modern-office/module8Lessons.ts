@@ -48,6 +48,22 @@ export const module8Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "How should you approach every task in the TOR Tech Final Simulation?",
+            options: [
+              "As a practice exercise where errors are acceptable",
+              "By completing tasks as quickly as possible to show efficiency",
+              "As if a real client or supervisor will read and evaluate every output",
+              "By using AI for every task without reviewing the results",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -107,6 +123,22 @@ export const module8Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Help me prioritize and plan this morning task list for an office assistant: schedule 2 meetings, send 3 emails, update a client tracker, and log a CRM entry. What order should I do them in and why?\" Use the suggested order as a starting point, then adjust based on your own context.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "When completing a multi-tool task list at work, what should you prioritize above speed?",
+            options: [
+              "Completing tasks in the order they were assigned",
+              "Delegating as many tasks as possible to teammates",
+              "Finishing the easiest tasks first to build momentum",
+              "Accuracy and completeness in every output",
+            ],
+            correctIndex: 3,
           },
         ],
       },
@@ -175,6 +207,22 @@ export const module8Lessons: Lesson[] = [
           },
         ],
       },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "What is the main advantage of having a professional portfolio when applying for office assistant roles?",
+            options: [
+              "It replaces the need for a resume or cover letter",
+              "It guarantees you will receive a job offer",
+              "It shows employers proof of real skills rather than just claiming to have them",
+              "It allows you to skip the interview process entirely",
+            ],
+            correctIndex: 2,
+          },
+        ],
+      },
     ],
 
     challenge: [
@@ -236,6 +284,22 @@ export const module8Lessons: Lesson[] = [
           {
             type: "tip",
             text: "AI Task: Ask ChatGPT — \"Act as my office manager. Give me a realistic full-day task list for a junior office assistant at a mid-size company on a Tuesday. Include morning priorities, afternoon tasks, and one end-of-day wrap-up action.\" Use the output as a reference framework to plan your own capstone approach.",
+          },
+        ],
+      },
+      {
+        heading: "Knowledge Check",
+        blocks: [
+          {
+            type: "knowledge-check",
+            question: "When using AI to assist with a capstone task, what must you document as part of your submission?",
+            options: [
+              "The AI tool's brand logo and website URL",
+              "The total number of words the AI generated",
+              "A disclaimer confirming no AI was used",
+              "Your prompt and your edited final output",
+            ],
+            correctIndex: 3,
           },
         ],
       },
