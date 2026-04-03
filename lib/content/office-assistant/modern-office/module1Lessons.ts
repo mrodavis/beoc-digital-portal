@@ -8,6 +8,41 @@ export const module1Lessons: Lesson[] = [
       "Understand how modern workplaces operate using digital systems and tools.",
     duration: "15 min",
 
+    slides: [
+      {
+        src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-1.jpg",
+        alt: "Mastering the Digital Desk — course introduction",
+      },
+      {
+        src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-2.jpg",
+        alt: "Your First Day at TOR Tech — onboarding checklist",
+      },
+      {
+        src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-3.jpg",
+        alt: "The Office is a Connected System — physical vs digital workflows",
+      },
+      {
+        src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-4.jpg",
+        alt: "Translating the Workplace — physical tools to digital ecosystem",
+      },
+      {
+        src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-5.jpg",
+        alt: "Dematerializing the Filing Cabinet — cloud storage",
+      },
+      {
+        src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-6.jpg",
+        alt: "The Modern Workflow Ecosystem — email, cloud, calendar, collaboration",
+      },
+      {
+        src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-7.jpg",
+        alt: "Activating Your AI Assistant — AI task prompt",
+      },
+      {
+        src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-8.jpg",
+        alt: "Your Integration Challenge",
+      },
+    ],
+
     sections: [
       {
         heading: "Why This Matters",

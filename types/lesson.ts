@@ -59,11 +59,12 @@ export interface Lesson {
   description: string;
   videoUrl?: string;
   videoUrls?: string[];
+  slides?: { src: string; alt: string }[];
   duration?: string;
   sections?: LessonSection[];
   challenge?: ContentBlock[];
   practiceFiles?: {
     name: string;
     url: string;
-  }[];  
+  }[];
 }

@@ -2,6 +2,7 @@ import SectionHeader from "./SectionHeader";
 import Link from "next/link";
 import { ContentBlock, LessonSection } from "@/types/lesson";
 import KnowledgeCheck from "./KnowledgeCheck";
+import Slideshow from "./Slideshow";
 
 interface NavLesson {
   slug: string;
@@ -18,6 +19,7 @@ interface ModuleTemplateProps {
 
   videoUrl?: string;        // 👈 optional now
   videoUrls?: string[];
+  slides?: { src: string; alt: string }[];
 
   sections?: LessonSection[];
   challenge?: ContentBlock[];
@@ -44,6 +46,7 @@ export default function ModuleTemplate({
   basePath = "learning-paths/ms-office",
   videoUrl,
   videoUrls,
+  slides,
   sections = [],
   challenge = [],
   practiceFiles = [],
@@ -91,8 +94,16 @@ export default function ModuleTemplate({
         </p>
       </div>
 
-    {/* Video(s) or Reading Badge */}
-    {(videoUrl || (videoUrls && videoUrls.length > 0)) ? (
+    {/* Video(s), Slideshow, or Reading Badge */}
+    {slides && slides.length > 0 ? (
+      <div className="mb-12">
+        <SectionHeader
+          title="Presentation Slides"
+          description="Review the slides below, then complete the reading and challenge."
+        />
+        <Slideshow slides={slides} />
+      </div>
+    ) : (videoUrl || (videoUrls && videoUrls.length > 0)) ? (
       <div className="mb-12">
         <SectionHeader
           title="Video"
