@@ -264,6 +264,50 @@ export const module1Lessons: Lesson[] = [
     description:
       "Learn how AI tools can support your daily tasks and increase productivity.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/zBQjwfEBkkM",
+
+    slides: [
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-01.jpg",
+        alt: "Your New Digital Co-Pilot — Demystifying AI for the Modern Workplace",
+      },
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-02.jpg",
+        alt: "The 10-Minute Screen vs. The 30-Second Draft — Traditional vs AI-Assisted Workflow",
+      },
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-03.jpg",
+        alt: "The Amplifier Effect — AI Tools and Your Skills Venn diagram",
+      },
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-04.jpg",
+        alt: "Core Capabilities of Your AI Assistant",
+      },
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-05.jpg",
+        alt: "Navigating the Division of Labor — AI vs Human Responsibilities",
+      },
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-06.jpg",
+        alt: "The Accountability Workflow — AI Generation, Human Review, Professional Edit, Final Submit",
+      },
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-07.jpg",
+        alt: "The Prompt Engineering Blueprint",
+      },
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-08.jpg",
+        alt: "Knowledge Check — What should you always do before sending AI-generated output?",
+      },
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-09.jpg",
+        alt: "Challenge: Enter the Sandbox",
+      },
+      {
+        src: "/images/office-assistant/module-1/ai-in-the-workplace/slide-10.jpg",
+        alt: "BEOC — Empowering Your Modern Workflow",
+      },
+    ],
 
     sections: [
       {
