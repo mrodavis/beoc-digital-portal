@@ -129,6 +129,45 @@ export const module1Lessons: Lesson[] = [
       "Learn the essential tools used in every modern office environment.",
     duration: "20 min",
 
+    slides: [
+      {
+        src: "/images/office-assistant/module-1/core-office-tools/slide-1.jpg",
+        alt: "Architecting the Modern Office — course introduction",
+      },
+      {
+        src: "/images/office-assistant/module-1/core-office-tools/slide-2.jpg",
+        alt: "The modern workflow demands seamless transitions between distinct digital tasks",
+      },
+      {
+        src: "/images/office-assistant/module-1/core-office-tools/slide-3.jpg",
+        alt: "Every modern office relies on a structured architecture of six core systems",
+      },
+      {
+        src: "/images/office-assistant/module-1/core-office-tools/slide-4.jpg",
+        alt: "Mastering the underlying function prepares you for any digital ecosystem — M365 vs Google Workspace",
+      },
+      {
+        src: "/images/office-assistant/module-1/core-office-tools/slide-5.jpg",
+        alt: "Cloud storage is the central hub that makes remote, asynchronous execution possible",
+      },
+      {
+        src: "/images/office-assistant/module-1/core-office-tools/slide-6.jpg",
+        alt: "The production triad powers the creation, tracking, and pitching of workplace value",
+      },
+      {
+        src: "/images/office-assistant/module-1/core-office-tools/slide-7.jpg",
+        alt: "AI serves as a strategic advisor for navigating workplace technology decisions",
+      },
+      {
+        src: "/images/office-assistant/module-1/core-office-tools/slide-8.jpg",
+        alt: "Matching the business problem to the correct digital tool — Scenario Wiring Map",
+      },
+      {
+        src: "/images/office-assistant/module-1/core-office-tools/slide-9.jpg",
+        alt: "Mastering core systems transforms software literacy into immediate employer value — Activation Curve",
+      },
+    ],
+
     sections: [
       {
         heading: "Real-World Scenario",
