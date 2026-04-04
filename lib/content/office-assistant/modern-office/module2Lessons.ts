@@ -7,6 +7,19 @@ export const module2Lessons: Lesson[] = [
     description:
       "Learn how to write clear, professional, and effective workplace emails.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/zNwhn7aOM4A",
+    slides: [
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-01.jpg", alt: "Digital Communication Architecture: Mastering the Professional Email Framework" },
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-02.jpg", alt: "The Anatomy of a First Impression" },
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-03.jpg", alt: "Winning the Inbox View" },
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-04.jpg", alt: "The Blueprint of Professional Correspondence" },
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-05.jpg", alt: "Framing the Intent" },
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-06.jpg", alt: "Execution and Sign-Off" },
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-07.jpg", alt: "Communication Diagnostic Matrix" },
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-08.jpg", alt: "Pre-Flight Security Protocol" },
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-09.jpg", alt: "The AI Assist Workflow" },
+      { src: "/images/office-assistant/module-2/professional-email-writing/slide-10.jpg", alt: "Synthesis Challenge: The Reschedule" },
+    ],
 
     sections: [
       {
