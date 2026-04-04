@@ -80,6 +80,11 @@ export const module1Lessons: Lesson[] = [
               "Collaboration tools replace in-person-only meetings",
             ],
           },
+          {
+            type: "image",
+            src: "/images/office-assistant/module-1/what-is-a-modern-office/modern-office-infograph.png",
+            alt: "The Evolution of the Modern Office: From Physical to Digital — comparing traditional physical office tools to modern digital equivalents",
+          },
         ],
       },
       {
