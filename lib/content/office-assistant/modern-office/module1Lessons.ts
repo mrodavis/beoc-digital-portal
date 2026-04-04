@@ -396,6 +396,7 @@ export const module1Lessons: Lesson[] = [
     description:
       "Create and organize your own digital office system from scratch.",
     duration: "30 min",
+    videoUrl: "https://www.youtube.com/embed/jgVLlC_FF5g",
 
     sections: [
       {
