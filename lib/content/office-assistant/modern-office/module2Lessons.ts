@@ -214,6 +214,22 @@ export const module2Lessons: Lesson[] = [
     description:
       "Learn how to show up, participate, and follow up on video meetings with confidence.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/Io7dhwJUV50",
+    slides: [
+      { src: "/images/office-assistant/module-2/video-meetings/slide-01.jpg", alt: "The Virtual Meeting Operating System: Mastering professional video communication, AI workflows, and flawless follow-ups" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-02.jpg", alt: "Every Meeting is a Broadcast: The Glitch vs. The Pro — camera, mic, and etiquette" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-03.jpg", alt: "The Platform Matrix: Choosing Your Tool — Microsoft Teams, Zoom, Google Meet, Slack Huddles" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-04.jpg", alt: "The Timeline of a Flawless Meeting: Setup (Before), Broadcast (During), Impact (After)" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-05.jpg", alt: "Phase 1: Orchestrate Your Studio — eye level, front lighting, and clean background" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-06.jpg", alt: "The AI Agenda Co-Pilot: Use AI to generate objectives and time-boxed topics" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-07.jpg", alt: "The Golden Rule of Virtual Audio: Join muted by default, unmute only to speak" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-08.jpg", alt: "Screen Sharing Mastery: Share specific windows only, close unneeded tabs" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-09.jpg", alt: "Note-Taking & The AI Revolution: AI note assistants combined with human synthesis" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-10.jpg", alt: "The 24-Hour Follow-Up Rule: Dispatch your recap with key decisions, action items, and owners" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-11.jpg", alt: "Anatomy of a Perfect Recap: Subject, date, attendees, decisions made, and next steps table" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-12.jpg", alt: "The VM-OS Master Checklist: Before, During, and After meeting actions" },
+      { src: "/images/office-assistant/module-2/video-meetings/slide-13.jpg", alt: "Up Next in Your Digital Journey: Continue building your modern communication system" },
+    ],
 
     sections: [
       {
