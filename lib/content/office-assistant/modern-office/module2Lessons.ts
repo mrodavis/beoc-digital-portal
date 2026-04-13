@@ -108,6 +108,24 @@ export const module2Lessons: Lesson[] = [
     description:
       "Master professional communication standards for workplace messaging platforms.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/MztgIsUDDl4",
+    slides: [
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-01.jpg", alt: "The Modern Communicator: Mastering Slack & Teams Etiquette in the Digital Workspace" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-02.jpg", alt: "Fast ≠ Casual: Workplace messaging and your digital reputation" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-03.jpg", alt: "Where to Communicate: Public Channels, Direct Messages, and Email" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-04.jpg", alt: "Anatomy of a Public Channel: Default to public for organizational transparency" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-05.jpg", alt: "The Mechanics of Threading: Keep channels readable with threaded replies" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-06.jpg", alt: "Reaction Etiquette: Use emoji reactions to acknowledge messages professionally" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-07.jpg", alt: "Keep Messages Professional: Avoid all-caps, excessive punctuation, and slang" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-08.jpg", alt: "Manage Notification Settings: Available, Away, and Do Not Disturb statuses" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-09.jpg", alt: "Responsible Use: Treat every message as you would a company email" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-10.jpg", alt: "AI as a Communication Coach: Use AI to audit your professional habits" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-11.jpg", alt: "Real-World Scenario: TOR Tech — applying your training in Microsoft Teams" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-12.jpg", alt: "Knowledge Check: Where should you post a project update for your entire team?" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-13.jpg", alt: "Challenge Application: Direct tagging and clear updates in public channels" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-14.jpg", alt: "Responding to Managerial Feedback: Professional, non-defensive thread replies" },
+      { src: "/images/office-assistant/module-2/slack-teams-etiquette/slide-15.jpg", alt: "The Digital Etiquette Summary: Choose the Right Space, Format for Clarity, Assume Visibility" },
+    ],
 
     sections: [
       {
