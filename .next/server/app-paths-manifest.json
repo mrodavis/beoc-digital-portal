@@ -1,6 +1,7 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
+  "/learning-paths/office-assistant/page": "app/learning-paths/office-assistant/page.js",
   "/learning-paths/office-assistant/modern-office/page": "app/learning-paths/office-assistant/modern-office/page.js",
-  "/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page": "app/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page.js",
   "/learning-paths/office-assistant/modern-office/[moduleSlug]/page": "app/learning-paths/office-assistant/modern-office/[moduleSlug]/page.js",
-  "/learning-paths/office-assistant/page": "app/learning-paths/office-assistant/page.js"
+  "/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page": "app/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page.js"
 }

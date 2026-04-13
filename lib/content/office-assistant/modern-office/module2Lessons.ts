@@ -307,6 +307,19 @@ export const module2Lessons: Lesson[] = [
     description:
       "Apply inbox organization strategies to triage and manage a high-volume email inbox.",
     duration: "30 min",
+    videoUrl: "https://www.youtube.com/embed/r4scpulRalE",
+    slides: [
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-01.jpg", alt: "The Inbox Rescue Framework: A tactical guide to triaging high-volume email and conquering digital overwhelm" },
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-02.jpg", alt: "The Monday Morning Scenario: 47 unread emails — the problem and the solution" },
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-03.jpg", alt: "The Inbox Zero Philosophy: Triage Funnel — Reply, Delegate, Archive, Delete" },
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-04.jpg", alt: "The Command Center Toolbelt: Folders & Labels, Filters, Flags, and Unsubscribe" },
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-05.jpg", alt: "Routing Logistics: Manual vs. Automated — Flags & Labels vs. Filters" },
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-06.jpg", alt: "Responsible Use of Automation: Be careful with filters and auto-archive rules" },
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-07.jpg", alt: "The AI Assist Workflow: Context + AI Generation + Human Refinement = Professional out-of-office communication" },
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-08.jpg", alt: "The System in Motion: Five steps from unsubscribe firewall to Inbox Zero processed safe zone" },
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-09.jpg", alt: "The Triage Quadrant: A visual rubric — Follow-Up Needed, Urgent Respond Today, Archive, Delete" },
+      { src: "/images/office-assistant/module-2/manage-your-inbox/slide-10.jpg", alt: "Hands-On Challenge: Execute the Rescue — sort emails into Triage Quadrant categories" },
+    ],
 
     sections: [
       {
