@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ContentBlock, LessonSection } from "@/types/lesson";
 import KnowledgeCheck from "./KnowledgeCheck";
 import Slideshow from "./Slideshow";
+import { ReactNode } from "react";
 
 interface NavLesson {
   slug: string;
@@ -36,6 +37,8 @@ interface ModuleTemplateProps {
 
   backHref?: string;
   backLabel?: string;
+
+  exercises?: ReactNode;
 }
 
 export default function ModuleTemplate({
@@ -56,6 +59,7 @@ export default function ModuleTemplate({
   nextModuleLabel,
   backHref,
   backLabel = "Back",
+  exercises,
 }: ModuleTemplateProps) {
 
   const hasSections = sections.length > 0;
@@ -382,6 +386,19 @@ export default function ModuleTemplate({
               }
             })}
           </div>
+        </div>
+      )}
+
+      {/* Exercises */}
+      {exercises && (
+        <div className="mb-4">
+          <div className="border-t border-gray-200 pt-12 mb-8">
+            <SectionHeader
+              title="Practice Exercises"
+              description="Apply what you've learned — complete the quick check and hands-on exercise below."
+            />
+          </div>
+          {exercises}
         </div>
       )}
 
