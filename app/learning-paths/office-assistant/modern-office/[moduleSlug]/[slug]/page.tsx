@@ -6,6 +6,7 @@ import EmailExercise from "@/components/exercises/EmailExercise";
 import MessageRewriteExercise from "@/components/exercises/MessageRewriteExercise";
 import MeetingExercise from "@/components/exercises/MeetingExercise";
 import InboxExercise from "@/components/exercises/InboxExercise";
+import SlackSimulator from "@/components/exercises/SlackSimulator";
 
 function getModule2Exercises(slug: string) {
   switch (slug) {
@@ -42,6 +43,7 @@ function getModule2Exercises(slug: string) {
             explanation="In-thread reactions or replies keep channels organized and show your teammates their updates are seen and valued."
           />
           <MessageRewriteExercise />
+          <SlackSimulator />
         </>
       );
 
