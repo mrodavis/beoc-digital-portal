@@ -96,6 +96,17 @@ export const module3Lessons: Lesson[] = [
         ],
       },
       {
+        heading: "Quick Reference: The Professional Document Checklist",
+        blocks: [
+          {
+            type: "image",
+            src: "/images/office-assistant/module-3/creating-professional-documents/checklist-infographic.png",
+            alt: "The Professional Document Checklist: From Draft to Delivery — covering heading styles, margins, font pairings, PDF export, and file naming conventions",
+            caption: "The Professional Document Checklist: From Draft to Delivery",
+          },
+        ],
+      },
+      {
         heading: "Responsible Use",
         blocks: [
           {
