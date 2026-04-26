@@ -636,6 +636,69 @@ export const module3Lessons: Lesson[] = [
     description:
       "Apply your spreadsheet skills to build a functional office supply tracker from scratch.",
     duration: "30 min",
+    videoUrl: "https://www.youtube.com/embed/EUTMg8y8Pkw",
+    slides: [
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-01.jpg",
+        alt: "Constructing a Functional Tracking Sheet — BEOC Digital Fundamentals, Module 3: Document & Data Workflows, Hands-On: Build a Tracking Sheet",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-02.jpg",
+        alt: "The TOR Tech Blank Canvas Problem — The Scenario: track office supply orders, expenditures, and delivery timelines. No template. Goal: build a robust tool the entire team can use.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-03.jpg",
+        alt: "Distinguishing the Fragile from the Functional — Fragile Tracker: inconsistent data, typos, breaks when rows are added. Functional Tracker: exact data, consistent status, updates effortlessly.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-04.jpg",
+        alt: "Architecting the Column Structure — Plan your tracker first. Decide what data you need before you type anything. Planning Phase: Item Name, Quantity, Cost Per Unit, Date Ordered, Status.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-05.jpg",
+        alt: "The Anatomy of a Professional Tracker — Structural Integrity (Frozen Headers), Data Guardrails (Validation Dropdowns), Visual Status (Conditional Formatting), Automated Intelligence (=SUM Formula).",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-06.jpg",
+        alt: "Locking the Foundation with Frozen Headers — BEFORE: Unstable Foundation (headers disappear when scrolling). AFTER: Locked Structure (Row 1 stays permanently visible as the sheet grows).",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-07.jpg",
+        alt: "Data Validation Acts as a Strategic Guardrail — Use Data Validation to create strict dropdown menus for the Status column. Ensures status entries are perfectly consistent and eliminates misspelled data.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-08.jpg",
+        alt: "Scaling Calculations with Automated Intelligence — =SUM() engine placed at the bottom of the cost column creates an automatic running total that updates instantly as new rows of office supplies are added.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-09.jpg",
+        alt: "Communicating Status Instantly via Color — Apply Conditional Formatting to trigger specific colors based on cell text. Status becomes visible at a single glance without requiring the user to read every individual cell.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-10.jpg",
+        alt: "Establishing the Data Dictionary — Add a second tab named Notes to serve as your Data Dictionary, explaining what each column means and outlining special rules for team members using the tracker.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-11.jpg",
+        alt: "Responsible Use Requires Cell Protection — When sharing a tracker with a team, protect important formula cells to prevent accidental edits. Google Sheets: Format > Protect range. Excel: Review > Protect Sheet.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-12.jpg",
+        alt: "Accelerating the Build with AI — Use ChatGPT to generate a structural starting point, then customize it for TOR Tech. Prompt Recipe: The Request, The Columns, The Features.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-13.jpg",
+        alt: "Knowledge Check — What spreadsheet feature should you use to keep status entries consistent across all rows? Answer: Data validation with a dropdown list.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-14.jpg",
+        alt: "The Capstone Challenge — Build a completed Office Supply Tracker with at least 8 rows of data meeting 5 specifications: all 5 columns, =SUM formula, conditional formatting, frozen header, and a Notes tab.",
+      },
+      {
+        src: "/images/office-assistant/module-3/build-tracking-sheet/slide-15.jpg",
+        alt: "Moving Forward — Next Up: Module 4: Scheduling & Meetings. Brooklyn Educational Opportunity Center: dedicated to providing accessible, high-quality digital skills training.",
+      },
+    ],
 
     sections: [
       {
@@ -644,28 +707,156 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "TOR Tech needs a way to track which office supplies have been ordered, when they were ordered, and how much was spent. You are asked to build the tracker. There is no template — just a blank spreadsheet and a clear goal. A well-built tracker will be used by the entire team.",
+            text: "TOR Tech needs a system to track office supply orders, expenditures, and delivery timelines. There is no template — you are starting with a blank spreadsheet. Your goal: build a robust tool that the entire team can use reliably without breaking it. A fragile tracker that breaks when new rows are added helps no one. A functional tracker stays accurate as the data grows.",
           },
         ],
       },
       {
-        heading: "Building a Functional Tracker",
+        heading: "The Fragile Tracker vs. The Functional Tracker",
         blocks: [
           {
             type: "paragraph",
-            text: "A good tracker captures the right data, makes it easy to update, gives a clear status at a glance, and stays accurate as more data is added. Here is how to build one that actually gets used:",
+            text: "Most people build spreadsheet trackers by typing data into cells and calling it done. The result is a fragile tracker that falls apart the moment anyone uses it. A functional tracker is deliberately engineered. Here is what separates them:",
           },
           {
             type: "list",
             items: [
-              "Plan your tracker first — decide what data you need to capture before you type anything. For an office supply tracker: item name, quantity, cost per unit, date ordered, and status.",
-              "Build the column structure — label each column in Row 1 using a frozen header so the labels stay visible as the sheet grows",
-              "Using dropdowns for status — use Data Validation to create a dropdown menu (e.g., Ordered, Received, Out of Stock) so status entries are consistent and never misspelled",
-              "Adding totals with SUM — use =SUM() at the bottom of your cost column for an automatic running total that updates as new rows are added",
-              "Color-coding with conditional formatting — highlight rows red for Out of Stock and green for Received so status is visible at a glance without reading every cell",
-              "Testing your tracker — enter a few rows of test data before sharing. Verify all formulas calculate correctly, dropdowns work, and conditional formatting triggers as expected.",
-              "Documentation — add a second tab named Notes that explains what each column means and any special rules for the tracker. This is called a data dictionary and is standard practice in professional spreadsheet work.",
+              "Fragile trackers capture inconsistent data — no rules mean every person types status values differently: 'received', 'Received', 'recieved', 'got it'. Filtering and sorting become useless.",
+              "Fragile trackers suffer from typos and misspelled entries — a single inconsistent value breaks every filter that depends on it.",
+              "Fragile trackers break when new rows are added — formulas that reference a fixed range like =SUM(B2:B8) silently stop counting the moment row 9 is added.",
+              "Functional trackers capture exactly the right data — every column is planned in advance with a clear purpose and a defined format.",
+              "Functional trackers enforce consistency through dropdowns — Data Validation limits status entries to a pre-approved list so no typo is ever possible.",
+              "Functional trackers stay accurate as data grows — formulas reference complete columns rather than fixed ranges, and frozen headers keep orientation intact no matter how long the sheet becomes.",
+              "Functional trackers provide clear status at a single glance — conditional formatting communicates every row's status visually so no one needs to read every cell to get the picture.",
             ],
+          },
+        ],
+      },
+      {
+        heading: "Phase 1 — Architecting the Column Structure",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The most important step in building any tracker happens before you type a single value: planning what data you actually need to capture. Columns added impulsively mid-project break existing formulas and create structural debt. Plan first, build second:",
+          },
+          {
+            type: "list",
+            items: [
+              "Item Name (Column A) — a short, clear name for the supply being ordered. Keep it concise: 'Printer Paper Ream', not 'the big box of paper from the store'.",
+              "Quantity (Column B) — the number of units ordered. This is always a plain number — no units or labels in the cell, just the numeric value.",
+              "Cost Per Unit (Column C) — the cost of a single unit formatted as currency ($). This column is the source for your =SUM formula.",
+              "Date Ordered (Column D) — the order date formatted consistently as YYYY-MM-DD across every row. A consistent date format enables reliable chronological sorting.",
+              "Status (Column E) — the current state of the order. This column gets a Data Validation dropdown: Ordered, Received, Out of Stock. No free-text entry allowed.",
+              "Build the column structure by labeling each column in Row 1, then immediately apply a frozen header so the labels stay permanently visible as the sheet grows.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Phase 1 — Locking the Foundation with Frozen Headers",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "A header row that disappears when you scroll is not a header row — it is just a label that becomes useless the moment your tracker grows past the screen. Freeze it immediately after labeling your columns:",
+          },
+          {
+            type: "list",
+            items: [
+              "Google Sheets — click View > Freeze > 1 Row. Row 1 locks in place and stays visible at the top of the screen no matter how far down you scroll.",
+              "Excel — click View > Freeze Panes > Freeze Top Row. Same result: the header row is now permanently anchored.",
+              "Always freeze the header row before entering any data — this ensures the structure is locked before the sheet grows.",
+              "Verify it works: enter 20+ rows of test data and scroll to the bottom. The header row should remain fully visible at the top of the window.",
+              "A frozen header is non-negotiable for any tracker shared with a team — without it, users scrolling through long lists have no way to know which column they are editing.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Phase 1 — Data Guardrails: Validation Dropdowns",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The Status column is the most dangerous column in any tracker because it relies entirely on free-text entry — and humans are unreliable typists. Data Validation eliminates the problem by replacing the free-text field with a strict dropdown menu:",
+          },
+          {
+            type: "list",
+            items: [
+              "Select the entire Status column (Column E), then navigate to Data > Data Validation (Google Sheets) or Data > Data Validation > Allow: List (Excel).",
+              "Enter your allowed values: Ordered, Received, Out of Stock — separated by commas. These are the only values the column will accept.",
+              "Set the validation to reject invalid data — in Google Sheets, choose 'Reject input' under On invalid data. This means typing anything outside the approved list will be blocked entirely.",
+              "The result: every status entry is perfectly consistent. Filtering by 'Ordered' will find every ordered item because no one can type 'ordered', 'Orderd', or 'in progress' into that column.",
+              "Data Validation also speeds up entry — users select from the dropdown instead of typing, which is faster and eliminates all possibility of error.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Phase 1 — Automated Intelligence: The =SUM Formula",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "A running total at the bottom of your cost column is the most essential formula in any supply tracker. Typing the total manually is not acceptable — a static number will silently become wrong the moment any cost value changes. Use =SUM:",
+          },
+          {
+            type: "list",
+            items: [
+              "Place your =SUM formula in the first empty cell below your last row of data in the Cost Per Unit column. For example, if your data runs from C2 to C9, place your formula in C10.",
+              "Write the formula as =SUM(C2:C9) — this adds every value in the Cost Per Unit column from row 2 to row 9 and displays the running total.",
+              "Label the formula clearly — type 'Total Cost:' in the cell directly to the left (B10 in this example) so anyone reading the sheet immediately knows what the number represents.",
+              "The formula updates automatically whenever any cost value in the range changes — no manual recalculation, no risk of a stale number.",
+              "If you add new rows of data between your last data row and the formula row, update your =SUM range to include the new rows. For example, expand =SUM(C2:C9) to =SUM(C2:C12) after adding more items.",
+              "Format the total cell as Currency ($) to match the values above it — a plain number in the total row looks inconsistent and unfinished.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Phase 2 — Visual Status via Conditional Formatting",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "A tracker with 50 rows of supply orders is useless if you have to read every Status cell to find which items are out of stock. Conditional Formatting makes status visible at a glance by automatically coloring cells based on their content:",
+          },
+          {
+            type: "list",
+            items: [
+              "Select the entire Status column (Column E), then navigate to Format > Conditional Formatting (Google Sheets) or Home > Conditional Formatting > New Rule (Excel).",
+              "Create a rule for 'Out of Stock' — set the condition to 'Text is exactly: Out of Stock' and choose a red background fill. Every cell containing 'Out of Stock' will turn red automatically.",
+              "Create a second rule for 'Received' — set the condition to 'Text is exactly: Received' and choose a green background fill. Every delivered item will show green instantly.",
+              "Leave 'Ordered' uncolored (white/default) so it is visually neutral — pending orders do not need a color signal until their status changes.",
+              "The result: scanning a 50-row tracker for urgent items takes two seconds instead of two minutes. Red cells demand attention; green cells confirm completion.",
+              "Conditional formatting applies automatically to every new row added to the column — you never need to manually reformat cells as the tracker grows.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Phase 2 — Establishing the Data Dictionary",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "A tracker shared with a team needs documentation. Without it, team members guess what each column means, enter data inconsistently, and break the structure you built. A Data Dictionary tab eliminates this problem:",
+          },
+          {
+            type: "list",
+            items: [
+              "Add a second tab to your spreadsheet — right-click the sheet tab at the bottom and select 'Insert sheet'. Name it 'Notes'.",
+              "Document every column in the Tracker tab with one clear entry in the Notes tab: the column name, what it means, and any formatting or entry rules.",
+              "Example entries: 'Column A (Item Name): Short descriptive name of the supply item. Max 30 characters.' | 'Column C (Cost Per Unit): Cost of one unit in USD. Format as Currency. Do not include total costs.' | 'Column E (Status): Select from dropdown only. Options: Ordered, Received, Out of Stock.'",
+              "Include the date the tracker was created and the name of the person who built it at the top of the Notes tab — this helps teammates know who to ask questions.",
+              "A Data Dictionary is standard professional practice. It is what separates a personal spreadsheet from a team tool that anyone can maintain without breaking it.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Quick Reference: Pro-Level Spreadsheets",
+        blocks: [
+          {
+            type: "image",
+            src: "/images/office-assistant/module-3/build-tracking-sheet/building-functional-tracker-infographic.png",
+            alt: "Pro-Level Spreadsheets: Building a Functional Office Supply Tracker — Phase 1: Structure & Automation (frozen headers, validation dropdowns, =SUM formula), Phase 2: Visibility & Protection (conditional formatting, data dictionary, formula cell protection)",
+            caption: "Pro-Level Spreadsheets: Building a Functional Office Supply Tracker",
           },
         ],
       },
@@ -675,7 +866,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "If you are sharing a tracker with your team, protect important formula cells to prevent accidental edits. Use Format > Protect range in Google Sheets or Review > Protect Sheet in Excel. A broken formula in a shared tracker can corrupt data for everyone using it.",
+            text: "When sharing a tracker with a team, protect important formula cells to prevent accidental edits. A single broken =SUM formula in a shared tracker can corrupt cost data for everyone. In Google Sheets: Format > Protect range — select your formula cells and restrict editing to yourself. In Excel: Review > Protect Sheet. Protect formulas before you share, not after someone accidentally deletes one.",
           },
         ],
       },
@@ -684,7 +875,7 @@ export const module3Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — \"Build me a simple office supply tracking spreadsheet with columns for item, quantity, cost per unit, date ordered, and status. Include a SUM formula for total cost and a dropdown for status values.\" Use the suggested structure as a starting point, then customize it for TOR Tech's needs.",
+            text: "AI Task: Ask ChatGPT — \"Build me a simple office supply tracking spreadsheet with columns for item, quantity, cost per unit, date ordered, and status. Include a SUM formula for total cost and a dropdown for status values.\" Use the AI-generated structure as a starting point, then apply every technique from this lesson — frozen headers, Data Validation dropdowns, conditional formatting, and a Notes tab — to turn the raw structure into a professional, team-ready tool.",
           },
         ],
       },
@@ -715,17 +906,17 @@ export const module3Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Include columns for: Item Name, Quantity, Cost Per Unit, Date Ordered, and Status",
-          "Add a total cost formula using =SUM at the bottom of the Cost Per Unit column",
-          "Apply conditional formatting to the Status column (e.g., red for Out of Stock, green for Received)",
-          "Freeze the header row so it stays visible when scrolling",
-          "Add a second tab named Notes with a brief description (1 sentence each) of what every column in the tracker means",
+          "Include all 5 columns: Item Name, Quantity, Cost Per Unit, Date Ordered, and Status",
+          "Add a total cost formula using =SUM at the bottom of the Cost Per Unit column, clearly labeled 'Total Cost:'",
+          "Apply conditional formatting to the Status column — red background for 'Out of Stock', green background for 'Received'",
+          "Freeze the header row so it stays visible when scrolling through the full list",
+          "Add a second tab named Notes with a 1-sentence description of every column in the tracker",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit a screenshot of your completed tracker showing the data, formula results, and conditional formatting — or share the link to your Google Sheet with view access granted to your instructor.",
+        text: "Deliverable: Submit a screenshot of your completed tracker showing the data, =SUM formula result, and conditional formatting active — or share your Google Sheet link with view access granted to your instructor. Test before sharing: enter a few rows of data, verify the formulas calculate correctly, and confirm the dropdown rejects free-text entries.",
       },
     ],
   },

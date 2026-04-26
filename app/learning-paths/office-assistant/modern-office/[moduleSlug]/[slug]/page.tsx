@@ -10,6 +10,7 @@ import SlackSimulator from "@/components/exercises/SlackSimulator";
 import DocumentReviewExercise from "@/components/exercises/DocumentReviewExercise";
 import StyleMatchExercise from "@/components/exercises/StyleMatchExercise";
 import SpreadsheetAuditExercise from "@/components/exercises/SpreadsheetAuditExercise";
+import TrackerBuilderExercise from "@/components/exercises/TrackerBuilderExercise";
 
 function getModule3Exercises(slug: string) {
   switch (slug) {
@@ -64,6 +65,24 @@ function getModule3Exercises(slug: string) {
             explanation="A typed number is a static value — it never changes no matter what happens to the data above it. If a contract value is updated, your total will silently be wrong. Always use =SUM() so the total recalculates automatically."
           />
           <SpreadsheetAuditExercise />
+        </>
+      );
+
+    case "build-tracking-sheet":
+      return (
+        <>
+          <MicroExercise
+            question="You need to share your Office Supply Tracker with your whole team. Which step should you take BEFORE sharing to prevent accidental formula damage?"
+            options={[
+              "Delete all formulas so teammates cannot break them",
+              "Protect important formula cells using Format > Protect range or Review > Protect Sheet",
+              "Convert the spreadsheet to a PDF before sharing",
+              "Move all formulas to a hidden tab",
+            ]}
+            correctIndex={1}
+            explanation="Protecting formula cells locks them against accidental edits while still allowing teammates to update data rows. A single deleted =SUM formula in a shared tracker can corrupt cost totals for everyone — protect it before you share, not after."
+          />
+          <TrackerBuilderExercise />
         </>
       );
 
