@@ -7,6 +7,32 @@ import MessageRewriteExercise from "@/components/exercises/MessageRewriteExercis
 import MeetingExercise from "@/components/exercises/MeetingExercise";
 import InboxExercise from "@/components/exercises/InboxExercise";
 import SlackSimulator from "@/components/exercises/SlackSimulator";
+import DocumentReviewExercise from "@/components/exercises/DocumentReviewExercise";
+
+function getModule3Exercises(slug: string) {
+  switch (slug) {
+    case "creating-professional-documents":
+      return (
+        <>
+          <MicroExercise
+            question="What's wrong with using bold text instead of a Heading style for section headers?"
+            options={[
+              "Nothing — bold text and Heading styles look the same",
+              "Bold text ruins document scannability and creates no navigable structure",
+              "Heading styles only work in Microsoft Word",
+              "Bold text makes the document harder to email",
+            ]}
+            correctIndex={1}
+            explanation="Heading styles do more than change how text looks — they create a navigable document structure that screen readers, table-of-contents generators, and PDF viewers can all detect. Bold text is just a visual style with none of those benefits."
+          />
+          <DocumentReviewExercise />
+        </>
+      );
+
+    default:
+      return undefined;
+  }
+}
 
 function getModule2Exercises(slug: string) {
   switch (slug) {
@@ -123,7 +149,11 @@ export default async function LessonPage({
       : undefined;
 
   const exercises =
-    moduleSlug === "module-2" ? getModule2Exercises(slug) : undefined;
+    moduleSlug === "module-2"
+      ? getModule2Exercises(slug)
+      : moduleSlug === "module-3"
+      ? getModule3Exercises(slug)
+      : undefined;
 
   return (
     <LessonTemplate
