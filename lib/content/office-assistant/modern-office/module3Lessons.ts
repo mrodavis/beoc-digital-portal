@@ -191,6 +191,49 @@ export const module3Lessons: Lesson[] = [
     description:
       "Learn how to use and create document templates to produce consistent, on-brand workplace documents.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/95UCS-485xY",
+    slides: [
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-01.jpg",
+        alt: "Digital Fundamentals: Document Workflows — Using templates and styles to engineer consistent workplace documents",
+      },
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-02.jpg",
+        alt: "Never start from a blank page — templates maintain brand and save time",
+      },
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-03.jpg",
+        alt: "The organizational value of pre-built documents — Saves Time, Ensures Consistency, Reduces Errors",
+      },
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-04.jpg",
+        alt: "Stop formatting text manually — Manual Formatting vs Built-In Styles comparison",
+      },
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-05.jpg",
+        alt: "Anatomy of a professional template — Pre-set Fonts, Locked-in Colors, Consistent Formatting, Placeholders",
+      },
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-06.jpg",
+        alt: "Leverage built-in template galleries — Google Docs Gallery and Microsoft Word Gallery",
+      },
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-07.jpg",
+        alt: "How to capture and save a custom structure — Step 1: Configure, Step 2: Export .dotx, Step 3: Deploy",
+      },
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-08.jpg",
+        alt: "Accelerate drafting with AI assist — ChatGPT prompt for professional memo template",
+      },
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-09.jpg",
+        alt: "Knowledge check — What is the recommended way to format section headers in a professional document?",
+      },
+      {
+        src: "/images/office-assistant/module-3/using-templates/slide-10.jpg",
+        alt: "Execute the workflow challenge — open a blank document and apply built-in styles throughout",
+      },
+    ],
 
     sections: [
       {
@@ -199,27 +242,91 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "TOR Tech needs every document — every memo, report, and letter — to look like it came from the same organization. Your manager shows you the company template and says: 'Always start from this. Never start from a blank page.' Templates are how professional organizations maintain their brand and save time.",
+            text: "TOR Tech needs every document — every memo, report, and letter — to look like it came from the same organization. Your manager opens a file and says: 'Always start from this. Never start from a blank page.' You are now responsible for knowing how to use the company template, apply styles correctly, and save your own reusable structures for future documents.",
           },
         ],
       },
       {
-        heading: "Templates & Document Styles",
+        heading: "Why Professionals Never Start from Scratch",
         blocks: [
           {
             type: "paragraph",
-            text: "Templates remove guesswork and ensure every document looks like it came from the same organization. They are one of the most powerful tools for working efficiently and professionally. Here is how they work and why they matter:",
+            text: "Starting from a blank page is one of the most common inefficiencies in office work. Professional organizations use templates to eliminate guesswork, protect their brand, and ensure every document produced — regardless of who makes it — looks like it came from the same team. Templates deliver three direct benefits:",
           },
           {
             type: "list",
             items: [
-              "What templates are — pre-built documents with consistent formatting, fonts, colors, and placeholder text already set up so you start with structure, not a blank page",
-              "Why offices use them — templates save time, ensure brand consistency, and eliminate formatting errors that happen when everyone builds documents from scratch",
-              "Applying styles — use built-in styles (Heading 1, Heading 2, Normal/Body Text) from the Styles panel instead of manually bolding or resizing text",
-              "Modifying a style updates every instance — if you change Heading 1's font in the Styles panel, every Heading 1 in the document updates automatically, saving time and ensuring consistency",
-              "Creating your own template — format a document exactly how you want it, then save it as a .dotx file (Word) or add it to the Google Docs template gallery for reuse",
-              "Using template galleries — Google Docs and Microsoft Word both include pre-built templates for memos, resumes, reports, and more; access them from File > New from template",
+              "Saves time — eliminates the need to rebuild document structures, set margins, and choose fonts from scratch on every new file",
+              "Ensures consistency — locks in exact fonts, colors, and layouts across every person on the team so every document looks cohesive",
+              "Reduces errors — removes the risk of accidental formatting mistakes that happen when everyone manually styles their own documents",
             ],
+          },
+        ],
+      },
+      {
+        heading: "Anatomy of a Professional Template",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "A professional template is more than a blank page with a logo. It is a pre-engineered document structure with four built-in components that do the formatting work for you:",
+          },
+          {
+            type: "list",
+            items: [
+              "Pre-set fonts — heading and body fonts are defined in advance so every contributor uses the same typeface automatically",
+              "Locked-in colors — brand colors are embedded in the theme so accent colors, header backgrounds, and borders are always consistent",
+              "Consistent formatting — margins, line spacing, and paragraph styles are already configured to professional standards",
+              "Placeholders — marked fields like '<Insert text here>' guide the user to fill in the right content in the right location without breaking the structure",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Built-In Styles vs. Manual Formatting",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The most critical skill in document workflow is knowing the difference between manually styling text and applying a built-in style. They look similar on screen but behave completely differently:",
+          },
+          {
+            type: "list",
+            items: [
+              "Manual formatting (bold + font size increase) is prone to inconsistencies — each person applies it slightly differently and there is no global control",
+              "Built-in styles (Heading 1, Heading 2, Normal/Body Text) from the Styles panel are instant, uniform, and structurally locked to the template",
+              "Modifying a style updates every instance — change Heading 1's font size in the Styles panel and every Heading 1 in the document updates automatically",
+              "Built-in styles also power the document's navigable structure — table-of-contents generators, screen readers, and PDF viewers all detect them",
+              "The rule: never bold and resize text to fake a heading — click the style in the Styles panel instead",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Template Galleries & Saving Custom Templates",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "You do not need to build every template from scratch. Both major platforms include pre-built foundations ready for immediate use, and both allow you to save your own custom structures for reuse.",
+          },
+          {
+            type: "list",
+            items: [
+              "Google Docs gallery — access via File > New from template; includes memos, resumes, reports, and project plans ready to customize",
+              "Microsoft Word gallery — access via File > New; same document types with additional corporate and academic formats",
+              "Saving a custom template in Word — configure your document exactly as you want it, then File > Save As > Word Template (.dotx)",
+              "Saving a custom template in Google Docs — open the template gallery, click Submit template, and your document becomes available to your organization",
+              "Once saved, open the template file for future projects to guarantee an exact structural and visual match every time",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Quick Reference: Mastering Document Consistency",
+        blocks: [
+          {
+            type: "image",
+            src: "/images/office-assistant/module-3/using-templates/consistency-infographic.png",
+            alt: "Mastering Document Consistency: The Power of Templates & Styles — covering why professionals use templates, applying styles, and saving reusable templates",
+            caption: "Mastering Document Consistency: The Power of Templates & Styles",
           },
         ],
       },
@@ -229,7 +336,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Never modify your organization's master template file directly. Always create a copy before making changes. A damaged or inconsistently edited template can break formatting across dozens of documents and undermine your organization's brand standards.",
+            text: "Never modify your organization's master template file directly. Always create a copy before making changes. A damaged or inconsistently edited master template can break formatting across dozens of documents and undermine your organization's brand standards. If you are unsure whether a template is the master file, ask before editing.",
           },
         ],
       },
@@ -238,7 +345,7 @@ export const module3Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — \"Create a professional memo template for internal business communication. Include placeholders for To, From, Date, Subject, and a body section.\" Use the result as the content to populate the template you build in this lesson's challenge.",
+            text: "AI Task: Ask ChatGPT — \"Create a professional memo template for internal business communication. Include placeholders for To, From, Date, Subject, and a body section with an introduction and action items.\" Use the AI output as your raw content, then apply Title and Heading 1 styles from the Styles panel to turn it into a properly structured template document.",
           },
         ],
       },
@@ -263,14 +370,15 @@ export const module3Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Open a blank document in Google Docs or Microsoft Word. Apply consistent heading styles from the built-in Styles panel: use a Title style for the document title, Heading 1 for at least two section headers, and Normal or Body Text for paragraph content. Then populate the document with a memo using the AI-generated content from the AI Assist task above.",
+        text: "Build and save a reusable professional memo template from scratch. Use only built-in styles — no manual bold or font-size changes. Your finished template must meet all five requirements below:",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Apply Title style to the document title",
-          "Apply Heading 1 style to at least 2 section headers",
+          "Open a blank document in Google Docs or Microsoft Word",
+          "Apply the Title style for the main document heading",
+          "Apply Heading 1 style to at least two clearly labeled sections",
           "Apply Normal or Body Text style to all paragraph content",
           "Save the finished file as a reusable template (.dotx in Word or via Google Docs template gallery)",
         ],
@@ -278,7 +386,7 @@ export const module3Lessons: Lesson[] = [
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit a screenshot of your completed template document showing the Styles panel open with the styles applied visibly on the page.",
+        text: "Deliverable: Submit a screenshot of your completed template document showing the Styles panel open with your applied styles visible on the page.",
       },
     ],
   },

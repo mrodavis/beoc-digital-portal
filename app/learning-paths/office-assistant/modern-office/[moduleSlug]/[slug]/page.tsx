@@ -8,6 +8,7 @@ import MeetingExercise from "@/components/exercises/MeetingExercise";
 import InboxExercise from "@/components/exercises/InboxExercise";
 import SlackSimulator from "@/components/exercises/SlackSimulator";
 import DocumentReviewExercise from "@/components/exercises/DocumentReviewExercise";
+import StyleMatchExercise from "@/components/exercises/StyleMatchExercise";
 
 function getModule3Exercises(slug: string) {
   switch (slug) {
@@ -26,6 +27,24 @@ function getModule3Exercises(slug: string) {
             explanation="Heading styles do more than change how text looks — they create a navigable document structure that screen readers, table-of-contents generators, and PDF viewers can all detect. Bold text is just a visual style with none of those benefits."
           />
           <DocumentReviewExercise />
+        </>
+      );
+
+    case "using-templates":
+      return (
+        <>
+          <MicroExercise
+            question="What is the main advantage of modifying a built-in style (e.g., Heading 1) in the Styles panel?"
+            options={[
+              "It only changes the text you currently have selected",
+              "It updates every instance of that style in the document automatically",
+              "It saves the change as a new font on your computer",
+              "It locks the document so no one else can edit it",
+            ]}
+            correctIndex={1}
+            explanation="When you modify a style in the Styles panel, every piece of text using that style updates instantly — that is the power of styles over manual formatting. One change, document-wide consistency."
+          />
+          <StyleMatchExercise />
         </>
       );
 
