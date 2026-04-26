@@ -397,6 +397,61 @@ export const module3Lessons: Lesson[] = [
     description:
       "Learn how to enter, format, and organize data in a spreadsheet for everyday office tasks.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/NuCSU0iLHuk",
+    slides: [
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-01.jpg",
+        alt: "Spreadsheet Basics for Office Work — Module 3: Document & Data Workflows | Microsoft Office 2019 Certification",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-02.jpg",
+        alt: "15 client names, phone numbers, and contract dates — spreadsheets turn raw, chaotic information into organized, searchable, and analyzable records",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-03.jpg",
+        alt: "Cells, rows, and columns — Cell A1 is the intersection of Column A and Row 1. All data lives in cells, the building blocks of office data management.",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-04.jpg",
+        alt: "Formatting the Grid for Clarity — Raw Data vs Polished Data using Format > Cells for currency, dates, and text alignment",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-05.jpg",
+        alt: "The Power of Dynamic References — Static Values break when data changes; Dynamic References like =SUM(A1:A10) update totals automatically",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-06.jpg",
+        alt: "Demystifying Formula Anatomy — The Trigger (=), The Action (SUM), and The Range (A1:A10) explained",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-07.jpg",
+        alt: "Your Daily Formula Toolbelt — =SUM (The Adder), =COUNT (The Counter), =AVERAGE (The Balancer) with syntax and visual output",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-08.jpg",
+        alt: "Quick Knowledge Check — Which formula adds up all values in the range A1 through A10? Answer: =SUM(A1:A10)",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-09.jpg",
+        alt: "Taming Large Datasets — Freeze Headers with View > Freeze > 1 Row, Filter rows by condition, Sort with Data > Sort",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-10.jpg",
+        alt: "Rules of the Shared Workspace — Risky Behavior (deleting source data, restructuring blindly) vs Safe Behavior (duplicate before edits, communicate with team)",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-11.jpg",
+        alt: "Leveraging the AI Assistant — Ask ChatGPT for the 5 most useful Excel or Google Sheets formulas for an office assistant, then try at least 2 in a practice spreadsheet",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-12.jpg",
+        alt: "The Mastery Challenge — Build a functional tracking sheet: sort by date, format headers, add =COUNT row count, and add =AVERAGE to a 4th column",
+      },
+      {
+        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-13.jpg",
+        alt: "Brooklyn Educational Opportunity Center — dedicated to providing accessible, high-quality digital skills training for the modern workplace",
+      },
+    ],
 
     sections: [
       {
@@ -410,23 +465,107 @@ export const module3Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Spreadsheet Fundamentals",
+        heading: "The Anatomy of a Spreadsheet",
         blocks: [
           {
             type: "paragraph",
-            text: "Spreadsheets are the backbone of office data management. They turn raw information into organized, searchable, and analyzable records. Master these fundamentals and you can handle most data tasks with confidence:",
+            text: "Before you can do anything useful in a spreadsheet, you need to understand how it is structured. Every spreadsheet — whether in Microsoft Excel or Google Sheets — is built on the same three-part grid system:",
           },
           {
             type: "list",
             items: [
-              "Cells, rows, and columns — a cell is the intersection of a row (numbered 1, 2, 3...) and a column (lettered A, B, C...). All data lives in cells. Cell A1 is column A, row 1.",
-              "Entering and formatting data — type directly into a cell; use Format > Cells (or right-click) to apply number formats, date formats, currency symbols, and text alignment",
-              "Formatting numbers and dates — use Format > Number to ensure currency shows as $1,000.00 and dates display consistently (MM/DD/YYYY) across all rows",
-              "Basic formulas — =SUM(A1:A10) adds up a range; =COUNT(A1:A10) counts how many entries exist; =AVERAGE(A1:A10) calculates the mean of the range",
-              "Cell references vs. static values — always use cell references in formulas (=SUM(A1:A10)) rather than typing numbers directly, so totals update automatically when data changes",
-              "Sorting and filtering — select your data range, use Data > Sort to sort by any column, and use Filter to show only rows matching a specific condition",
-              "Freezing header rows — use View > Freeze > 1 Row so your column headers stay visible as you scroll down through hundreds of rows",
+              "Columns — lettered vertically across the top of the sheet (A, B, C...). Each column holds one category of data — for example, column A might be Client Name and column B might be Phone Number.",
+              "Rows — numbered horizontally down the left side of the sheet (1, 2, 3...). Each row holds one complete record — for example, row 2 might be all the information for a single client.",
+              "Cells — the intersection of a column and a row. Cell A1 is column A, row 1. Cell C4 is column C, row 4. All data lives in cells — every piece of text, every number, every date, every formula.",
+              "Row 1 is always your header row — label each column clearly in row 1 before entering any data. Headers like 'Client Name', 'Phone Number', and 'Contract Date' tell anyone reading the sheet exactly what they are looking at.",
+              "Never leave row 1 blank or use it for data — a missing header row makes sorting, filtering, and formula-writing significantly harder and is a hallmark of an unstructured spreadsheet.",
             ],
+          },
+        ],
+      },
+      {
+        heading: "Formatting the Grid for Clarity",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Raw data entered into a spreadsheet is not always readable or professional. Formatting transforms a messy grid of numbers and dates into a polished, scannable record that anyone can read at a glance. Three formatting rules apply to every professional spreadsheet:",
+          },
+          {
+            type: "list",
+            items: [
+              "Currency formatting — select any column holding dollar amounts, then use Format > Number > Currency. This converts raw numbers like 1000 into professionally displayed values like $1,000.00. Inconsistent currency display (some cells showing '1000', others '$1,000') is a sign of an unfinished spreadsheet.",
+              "Date formatting — select any date column and apply Format > Number > Date to lock in a consistent format like MM/DD/YYYY or YYYY-MM-DD across all rows. Without explicit formatting, dates may display differently depending on how they were typed — 01/05/2024 vs 1/5/24 vs January 5, 2024 — which breaks sorting.",
+              "Text alignment — left-align all text columns and right-align all number and currency columns. This is standard spreadsheet convention and makes columns visually scannable without having to read every cell. Apply alignment from the toolbar or Format > Cells > Alignment.",
+              "Column width — double-click any column border in the header to auto-fit its width to the longest entry. Columns that are too narrow cut off text and hide data; columns that are too wide waste screen space and make the sheet harder to scan.",
+              "Header row formatting — bold the text in row 1 and apply a background color (blue or grey are standard). This visually separates headers from data and makes the structure obvious at first glance.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Dynamic Cell References",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "The most important concept in spreadsheet formulas is the difference between typing a number directly and referencing a cell. This distinction determines whether your spreadsheet stays accurate when data changes — or silently breaks:",
+          },
+          {
+            type: "list",
+            items: [
+              "Static values — typing a number directly into a formula, like =150+200, is a static value. If the underlying data changes, the formula does not update. You must manually retype it every time, which introduces errors.",
+              "Dynamic cell references — using a cell address in a formula, like =SUM(B2:B4), means the formula reads whatever is currently in those cells. Change a number in B3 and the total updates instantly with zero manual work.",
+              "Always use cell references, never typed numbers — write =SUM(B2:B15) not =300. This is the single most important habit that separates spreadsheets that stay accurate from spreadsheets that lie.",
+              "Range notation — A1:A10 means every cell from A1 down to A10. The colon (:) is read as 'through'. You can also reference a single cell (A1), two separate cells (A1,A5), or an entire column (A:A).",
+              "Formula anatomy — every formula starts with an equals sign (=), which tells the spreadsheet you are calculating, not typing. Then comes the function name (SUM, COUNT, AVERAGE), then the range in parentheses: =SUM(A1:A10).",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "The Big Three Formulas",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "Three formulas cover the majority of everyday office data tasks. Learn these three and you can handle totals, counts, and averages — the building blocks of almost every tracking sheet, budget, and report you will encounter:",
+          },
+          {
+            type: "list",
+            items: [
+              "=SUM(A1:A10) — The Adder. Adds up all values in the specified range. Use it to total a column of costs, quantities, hours, or any numeric data. Example: =SUM(C2:C16) totals all contract values from rows 2 through 16.",
+              "=COUNT(A1:A10) — The Counter. Counts how many cells in the range contain a numeric value. Use it to find how many entries exist in a column — for example, how many clients are in a list, or how many invoices have been entered. Note: COUNT only counts numbers, not text; use COUNTA to count text entries.",
+              "=AVERAGE(A1:A10) — The Balancer. Calculates the mean average of all numeric values in the range. Use it to find the average contract value, average hours worked, or average cost per item. It adds all values and divides by the count automatically.",
+              "Placement — always place your formula results in a row below the last row of data, clearly labeled. For example, in cell A12 type 'Total:' and in B12 enter =SUM(B2:B11). This keeps formulas visually separated from raw data and easy to find.",
+              "Extending formulas — once you write a formula in one cell, you can drag the small blue square at the bottom-right corner of the cell across adjacent cells to apply the same formula to neighboring columns automatically.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Organizational Tools: Sort, Filter & Freeze",
+        blocks: [
+          {
+            type: "paragraph",
+            text: "As your spreadsheet grows from 10 rows to 100 or 1,000, three organizational tools become essential for keeping the data manageable and navigable:",
+          },
+          {
+            type: "list",
+            items: [
+              "Sort — select your entire data range (including headers), then use Data > Sort to reorganize rows by any column in ascending or descending order. Always select the full range before sorting — sorting a single column while leaving others in place will scramble your records and corrupt your data.",
+              "Filter — apply a filter via Data > Filter (or Data > Create a Filter in Google Sheets). This adds dropdown arrows to each header. Click a dropdown to show only rows that match a specific condition — for example, show only clients with a 'Pending' status, or only contracts from a specific month.",
+              "Freeze Panes — as you scroll down through a long sheet, your header row disappears and you lose track of which column is which. Use View > Freeze > 1 Row (Google Sheets) or View > Freeze Panes > Freeze Top Row (Excel) to lock row 1 in place so it stays visible no matter how far you scroll.",
+              "The correct order of operations — always set up your header row and freeze it first, then enter data, then sort. Sorting before freezing is a common mistake that produces confusing results.",
+            ],
+          },
+        ],
+      },
+      {
+        heading: "Quick Reference: Mastering the Grid",
+        blocks: [
+          {
+            type: "image",
+            src: "/images/office-assistant/module-3/spreadsheet-basics/mastering-the-grid-infographic.png",
+            alt: "Mastering the Grid: Spreadsheet Basics for Office Success — covering spreadsheet anatomy, dynamic cell references, the Big Three formulas, organizational tools, professional formatting, and responsible data habits",
+            caption: "Mastering the Grid: Spreadsheet Basics for Office Success",
           },
         ],
       },
@@ -436,7 +575,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Never delete source data from a spreadsheet without creating a backup first. If you are working in a shared spreadsheet, check with your team before adding formulas, sorting data, or restructuring columns — your changes affect everyone with access and can break formulas others are relying on.",
+            text: "Never delete source data from a shared spreadsheet without creating a backup first — duplicate the sheet tab before making any major changes. If you are working in a shared file, communicate with your team before sorting, restructuring columns, or adding formulas. Your changes affect everyone with access and can silently break formulas that others rely on. When in doubt, make your edits on a duplicate tab and share the result for review before touching the original.",
           },
         ],
       },
@@ -445,7 +584,7 @@ export const module3Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — \"What are the 5 most useful Excel or Google Sheets formulas for an office assistant, and how do I use each one?\" Review the response and try at least 2 of the formulas in a practice spreadsheet before starting the challenge.",
+            text: "AI Task: Ask ChatGPT — \"What are the 5 most useful Excel or Google Sheets formulas for an office assistant, and how do I use each one?\" Review the response and try at least 2 of the generated formulas in a practice spreadsheet to expand your toolbelt before starting the challenge.",
           },
         ],
       },
@@ -470,22 +609,23 @@ export const module3Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Create a spreadsheet with at least 10 rows of fictional client data. Include columns for Client Name, Phone Number, and Contract Start Date. Complete all four requirements below:",
+        text: "Apply everything you have learned to build a functional client tracking spreadsheet from scratch. Your spreadsheet must have at least 10 rows of fictional client data with all four required columns, and meet every specification below:",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Sort the data by Contract Start Date (earliest to latest)",
-          "Format the header row so it stands out — bold text and a background color",
-          "Add a row count below the data using the =COUNT formula",
-          "Add an =AVERAGE formula to a fourth column of your choice (e.g., Contract Value or Years Active) and write a 1–2 sentence note below the spreadsheet explaining what each formula you used does",
+          "Create columns for Client Name, Phone Number, Contract Start Date, and a fourth column of your choice — for example, Contract Value or Years Active",
+          "Format the header row to stand out — bold text and a background color — and freeze it so it stays visible when scrolling",
+          "Apply proper date formatting (MM/DD/YYYY) to the Contract Start Date column, then sort all data by that column from earliest to latest",
+          "Add a row count below your data using =COUNT referencing your date column, clearly labeled 'Total Clients:'",
+          "Add an =AVERAGE formula below your fourth column, clearly labeled, and write a 1–2 sentence note below the spreadsheet explaining what both formulas you used actually calculate",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit a screenshot of your completed spreadsheet showing the sorted data, the formatted header row, and both formula results visible.",
+        text: "Deliverable: Submit a screenshot of your completed spreadsheet showing the sorted data, formatted and frozen header row, and both formula results visible — or share your Google Sheet link with view access granted to your instructor.",
       },
     ],
   },

@@ -9,6 +9,7 @@ import InboxExercise from "@/components/exercises/InboxExercise";
 import SlackSimulator from "@/components/exercises/SlackSimulator";
 import DocumentReviewExercise from "@/components/exercises/DocumentReviewExercise";
 import StyleMatchExercise from "@/components/exercises/StyleMatchExercise";
+import SpreadsheetAuditExercise from "@/components/exercises/SpreadsheetAuditExercise";
 
 function getModule3Exercises(slug: string) {
   switch (slug) {
@@ -45,6 +46,24 @@ function getModule3Exercises(slug: string) {
             explanation="When you modify a style in the Styles panel, every piece of text using that style updates instantly — that is the power of styles over manual formatting. One change, document-wide consistency."
           />
           <StyleMatchExercise />
+        </>
+      );
+
+    case "spreadsheet-basics":
+      return (
+        <>
+          <MicroExercise
+            question="You type the number 7500 directly into the total cell instead of writing a formula. What is the problem with this?"
+            options={[
+              "Nothing — typing the number is faster and just as accurate",
+              "The cell will display an error message",
+              "The total will not update if any of the underlying data changes",
+              "Spreadsheets only accept formulas in the bottom row",
+            ]}
+            correctIndex={2}
+            explanation="A typed number is a static value — it never changes no matter what happens to the data above it. If a contract value is updated, your total will silently be wrong. Always use =SUM() so the total recalculates automatically."
+          />
+          <SpreadsheetAuditExercise />
         </>
       );
 
