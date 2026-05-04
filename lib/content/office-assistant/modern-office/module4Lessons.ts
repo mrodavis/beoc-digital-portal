@@ -7,6 +7,49 @@ export const module4Lessons: Lesson[] = [
     description:
       "Learn how to read, create, and manage events on a shared digital calendar without making costly mistakes.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/ZRbbyMSKZUQ",
+    slides: [
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-01.jpg",
+        alt: "Digital Calendar Fundamentals — Mastering the heartbeat of the modern office",
+      },
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-02.jpg",
+        alt: "The Heartbeat of the Office — Personal Schedule vs Team Coordination Tool",
+      },
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-03.jpg",
+        alt: "Three Pillars of Calendar Mastery — Build, Organize, Respect",
+      },
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-04.jpg",
+        alt: "Anatomy of a Flawless Calendar Invite — Title, Time, Location, Safety Net",
+      },
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-05.jpg",
+        alt: "Automating Your Routine Meetings — The Manual Trap vs The Automation Loop",
+      },
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-06.jpg",
+        alt: "Spotting Conflicts Before They Happen — The Layered Overlay of Personal, Team, and Company calendars",
+      },
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-07.jpg",
+        alt: "Reading the Schedule at a Glance — Week View with color-coded Client Calls, Internal Meetings, and Deadlines",
+      },
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-08.jpg",
+        alt: "Navigating Shared Calendar Protocol — View Only vs Edit Access permissions and the Golden Rule",
+      },
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-09.jpg",
+        alt: "Discovering Best Practices with AI — prompt ChatGPT for shared calendar management tips",
+      },
+      {
+        src: "/images/office-assistant/module-4/digital-calendar-fundamentals/slide-10.jpg",
+        alt: "The Five-Event Challenge — create 5 color-coded calendar events for the upcoming work week",
+      },
+    ],
 
     sections: [
       {
@@ -183,6 +226,61 @@ export const module4Lessons: Lesson[] = [
     description:
       "Learn how to check availability, write a proper meeting invite, and use scheduling tools to book meetings efficiently.",
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/1yAkHt48HMI",
+    slides: [
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-01.jpg",
+        alt: "Booking Meetings Like a Pro — A BEOC Digital Skills Playbook",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-02.jpg",
+        alt: "The TOR Tech Mission — schedule a 30-minute meeting without going back and forth more than once",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-03.jpg",
+        alt: "Professional Scheduling is About Effortless Execution — The Ping-Pong Trap vs The Zero-Friction Booking",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-04.jpg",
+        alt: "Step 1: Find the Overlap Before You Ask — check shared calendars or use Find a Time to spot availability",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-05.jpg",
+        alt: "Step 2: Match the Duration to the Purpose — 15-30 mins for check-ins, 60 mins for deep dives, 1+ hours sparingly",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-06.jpg",
+        alt: "Step 3: Anatomy of a Perfect Invite — Descriptive Title, Precise Date/Time, Location/Video Link, 3-Bullet Agenda",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-07.jpg",
+        alt: "Step 4: The Polite Polish — send a brief confirmation email with pre-read materials after the invite is accepted",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-08.jpg",
+        alt: "The Scheduling Spectrum: Manual vs Automated — Shared Calendars, Calendly, and When2Meet compared",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-09.jpg",
+        alt: "Work Smarter: The AI Assist — use ChatGPT to generate a professional agenda baseline for your invite",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-10.jpg",
+        alt: "The Zero-Friction Workflow — Check Overlap, Select Duration, Draft Invite, Let Tools Automate",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-11.jpg",
+        alt: "Knowledge Check — What should you do before proposing a meeting time to attendees?",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-12.jpg",
+        alt: "Your Turn: The Sandbox Challenge — write a complete meeting invite for a fictional client onboarding call",
+      },
+      {
+        src: "/images/office-assistant/module-4/booking-meetings/slide-13.jpg",
+        alt: "Continue Your Journey with BEOC — Home, Microsoft Office 2019, Certification Prep",
+      },
+    ],
 
     sections: [
       {
@@ -376,6 +474,57 @@ export const module4Lessons: Lesson[] = [
     description:
       "Learn how to identify, prioritize, and professionally resolve scheduling conflicts in a busy office.",
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/er66sIeYKI4",
+    slides: [
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-01.jpg",
+        alt: "Mastering the Calendar Collision — A strategic playbook for identifying, prioritizing, and professionally resolving schedule conflicts",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-02.jpg",
+        alt: "The Anatomy of a Double-Booked Calendar — Internal Strategy Session vs Client Presentation conflict overlap with the TOR Tech Scenario",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-03.jpg",
+        alt: "The Triage to Treatment Workflow — Step 1 Assess, Step 2 Approve, Step 3 Act, Step 4 Prevent",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-04.jpg",
+        alt: "Assess: Not Every Conflict is a Crisis — The Meeting Matrix mapping Urgent vs Important quadrants",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-05.jpg",
+        alt: "Assess: The Priority Diagnostic Tree — Path A (External/Client takes precedence) vs Path B (Both Internal — evaluate urgency and seniority)",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-06.jpg",
+        alt: "Approve: The Golden Rule of Calendar Management — Never cancel or reschedule a meeting without explicit managerial approval first",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-07.jpg",
+        alt: "Act: The Rescheduling Communication Timeline — Target Internal First, Be Honest and Proactive, Notify Everyone",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-08.jpg",
+        alt: "Act: Drafting the Message with AI Assist — Prompt Formula Building Block and the Review & Adapt rule",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-09.jpg",
+        alt: "Prevent: Architectural Safeguards and The Buffer Principle — No Buffer vs Buffered calendar with 15-minute grey zone",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-10.jpg",
+        alt: "The Anatomy of a Managed Conflict — Chaos calendar vs Order calendar with managerial approval blocks",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-11.jpg",
+        alt: "The Ultimate Test: A 3-Way Collision — Client Product Demo, Internal Budget Review, and 1-on-1 Check-in all at Thursday 2:00 PM",
+      },
+      {
+        src: "/images/office-assistant/module-4/managing-conflicts/slide-12.jpg",
+        alt: "Command Your Time, Empower Your Career — BEOC Digital Skills Portal closing slide",
+      },
+    ],
 
     sections: [
       {
@@ -548,6 +697,45 @@ export const module4Lessons: Lesson[] = [
     description:
       "Put your calendar management skills to the test by planning and managing an entire work week from scratch.",
     duration: "35 min",
+    videoUrl: "https://www.youtube.com/embed/MmZ4WuqMWwE",
+    slides: [
+      {
+        src: "/images/office-assistant/module-4/schedule-a-full-week/slide-01.jpg",
+        alt: "Mastering the Week — The Ultimate Calendar Challenge, Module 4 Hands-On Application",
+      },
+      {
+        src: "/images/office-assistant/module-4/schedule-a-full-week/slide-02.jpg",
+        alt: "Incoming Message: Urgent Office Coverage Required — TOR Tech manager on vacation, schedule meetings, track deadlines, and set reminders",
+      },
+      {
+        src: "/images/office-assistant/module-4/schedule-a-full-week/slide-03.jpg",
+        alt: "Five Skills in Action — Calendar Management, Meeting Booking, Conflict Resolution, Recurring Events, and Out-of-Office blocks",
+      },
+      {
+        src: "/images/office-assistant/module-4/schedule-a-full-week/slide-04.jpg",
+        alt: "The Functional Week View — Out-of-Office vacation block, Strategy Meeting booking, Weekly Sync recurring event, and Client Call rescheduled conflict resolution",
+      },
+      {
+        src: "/images/office-assistant/module-4/schedule-a-full-week/slide-05.jpg",
+        alt: "The Clash vs The Fix — two critical events in the same slot resolved by rescheduling one to an open slot with documented reasoning",
+      },
+      {
+        src: "/images/office-assistant/module-4/schedule-a-full-week/slide-06.jpg",
+        alt: "The Power of the Buffer Block — without buffers meetings collide, with buffers conflicts surface early and attendees get transition time",
+      },
+      {
+        src: "/images/office-assistant/module-4/schedule-a-full-week/slide-07.jpg",
+        alt: "AI Assist: Kickstarting Your Structure — use ChatGPT to generate a Monday through Friday baseline schedule for a 5-person team, then customize it for the TOR Tech mission",
+      },
+      {
+        src: "/images/office-assistant/module-4/schedule-a-full-week/slide-08.jpg",
+        alt: "Your Mission Dashboard — checklist: 2 client meetings with agendas, 1 recurring team standup, 3 task deadlines as all-day events, 1 out-of-office block, and conflict resolution with documented reasoning",
+      },
+      {
+        src: "/images/office-assistant/module-4/schedule-a-full-week/slide-09.jpg",
+        alt: "Challenge Accepted — once you have built the perfect week you are ready to move forward to Module 5: Task and Project Management",
+      },
+    ],
 
     sections: [
       {
