@@ -58,8 +58,8 @@ export default function Home() {
       title: "Electronic Health Records",
       description:
         "Learn to manage healthcare documentation and navigate EHR systems used in medical offices and clinical environments.",
-      href: "#",
-      status: "coming-soon",
+      href: "/learning-paths/ehr",
+      status: "available",
       icon: "🏥",
     },
     {
