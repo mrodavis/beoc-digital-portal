@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import ModuleIndexTemplate from "@/components/ModuleIndexTemplate";
-import { modernOfficeModules } from "@/lib/content/office-assistant/modern-office";
+import { officeAppsModules } from "@/lib/content/office-assistant/office-apps";
 
 export default async function ModulePage({
   params,
@@ -9,7 +9,7 @@ export default async function ModulePage({
 }) {
   const { moduleSlug } = await params;
 
-  const modules = modernOfficeModules;
+  const modules = officeAppsModules;
   const module = modules.find((m) => m.moduleSlug === moduleSlug);
 
   if (!module) return notFound();
@@ -21,10 +21,10 @@ export default async function ModulePage({
 
   return (
     <ModuleIndexTemplate
-      courseSlug="modern-office"
-      courseTitle="Cloud Technology with AI"
+      courseSlug="office-apps"
+      courseTitle="Office Productivity Applications"
       basePath="office-assistant"
-      breadcrumbRootLabel="Cloud Technology with AI"
+      breadcrumbRootLabel="Office Productivity Applications"
       breadcrumbRootHref="/learning-paths/office-assistant"
       moduleNumber={module.moduleNumber}
       title={module.title}
@@ -35,7 +35,7 @@ export default async function ModulePage({
       estimatedMinutes={module.estimatedMinutes}
       prevModuleHref={
         prevModule
-          ? `/learning-paths/office-assistant/modern-office/${prevModule.moduleSlug}`
+          ? `/learning-paths/office-assistant/office-apps/${prevModule.moduleSlug}`
           : undefined
       }
       prevModuleLabel={
@@ -45,7 +45,7 @@ export default async function ModulePage({
       }
       nextModuleHref={
         nextModule
-          ? `/learning-paths/office-assistant/modern-office/${nextModule.moduleSlug}`
+          ? `/learning-paths/office-assistant/office-apps/${nextModule.moduleSlug}`
           : undefined
       }
       nextModuleLabel={

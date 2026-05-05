@@ -162,7 +162,7 @@ export default function OfficeAssistantPage() {
           <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
             <div className="text-5xl mb-4">🏢</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Modern Office Operations with AI
+              Cloud Technology with AI
             </h3>
             <p className="text-gray-600 mb-4 leading-relaxed">
               Email, cloud tools, scheduling, CRM platforms, and

@@ -11,7 +11,7 @@ export default function ModernOfficePage() {
           Office Assistant
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900 font-medium">Modern Office Operations</span>
+        <span className="text-gray-900 font-medium">Cloud Technology with AI</span>
       </nav>
 
       {/* Header */}
@@ -20,7 +20,7 @@ export default function ModernOfficePage() {
           <span className="text-6xl">🏢</span>
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Modern Office Operations with AI
+              Cloud Technology with AI
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
               Learn how to operate in a real modern office using email, cloud tools,
