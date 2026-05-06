@@ -5,10 +5,7 @@ import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
-  
-  const isActive = (path: string) => {
-    return pathname.startsWith(path);
-  };
+  const isHome = pathname === "/";
 
   return (
     <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
@@ -27,43 +24,27 @@ export default function Navbar() {
           {/* Navigation Links */}
           <div className="flex items-center gap-1 sm:gap-2">
             <Link
+              href={isHome ? "#academic" : "/#academic"}
+              className="px-3 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              Academics
+            </Link>
+
+            <Link
+              href={isHome ? "#career" : "/#career"}
+              className="px-3 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              <span className="hidden sm:inline">Career & Technical</span>
+              <span className="sm:hidden">Career</span>
+            </Link>
+
+            <Link
               href="/"
-              className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors ${
-                pathname === "/"
-                  ? "bg-primary-100 text-primary-700"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
+              className="ml-2 px-4 py-2 rounded-lg font-semibold bg-primary-600 text-white hover:bg-primary-700 transition-colors"
             >
-              Home
+              <span className="hidden sm:inline">Get Started</span>
+              <span className="sm:hidden">Start</span>
             </Link>
-            
-            <Link
-              href="/learning-paths/ms-office"
-              className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors ${
-                isActive("/learning-paths/ms-office")
-                  ? "bg-primary-100 text-primary-700"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              <span className="hidden sm:inline">Microsoft Office 2019</span>
-              <span className="sm:hidden">Office</span>
-            </Link>
-            
-            <Link
-              href="/learning-paths/certification"
-              className={`px-3 sm:px-4 py-2 rounded-lg font-medium transition-colors ${
-                isActive("/learning-paths/certification")
-                  ? "bg-primary-100 text-primary-700"
-                  : "text-gray-700 hover:bg-gray-100"
-              }`}
-            >
-              <span className="hidden sm:inline">Certification</span>
-              <span className="sm:hidden">Cert</span>
-            </Link>
-            
-            <div className="px-3 sm:px-4 py-2 rounded-lg font-medium text-gray-400 cursor-not-allowed hidden lg:block">
-              Digital Fundamentals
-            </div>
           </div>
         </div>
       </div>

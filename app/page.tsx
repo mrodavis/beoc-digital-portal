@@ -158,7 +158,7 @@ export default function Home() {
       </div>
 
       {/* Academic Programs */}
-      <div className="mb-12">
+      <div id="academic" className="mb-12">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">
           Academic Programs
         </h2>
@@ -177,7 +177,7 @@ export default function Home() {
       </div>
 
       {/* Technical Programs */}
-      <div className="mb-12">
+      <div id="career" className="mb-12">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">
           Technical Programs
         </h2>
