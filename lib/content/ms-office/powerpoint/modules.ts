@@ -4,9 +4,9 @@ import { powerpointModule2Lessons } from "./module2Lessons";
 import { powerpointModule3Lessons } from "./module3Lessons";
 import { powerpointModule4Lessons } from "./module4Lessons";
 import { powerpointModule5Lessons } from "./module5Lessons";
-// import { powerpointModule6Lessons } from "./module6Lessons";
-// import { powerpointModule7Lessons } from "./module7Lessons";
-// import { powerpointModule8Lessons } from "./module8Lessons";
+import { powerpointModule6Lessons } from "./module6Lessons";
+import { powerpointModule7Lessons } from "./module7Lessons";
+import { powerpointModule8Lessons } from "./module8Lessons";
 
 export type PowerPointModule = {
   moduleNumber: number;
@@ -76,15 +76,37 @@ export const powerpointModules: PowerPointModule[] = [
   level: "Beginner",
   estimatedMinutes: 50,
 },
-// {
-//   moduleNumber: 6,
-//   moduleSlug: "module-6",
-//   title: "Animations & Multimedia",
-//   emoji: "🎬",
-//   description:
-//     "Apply transitions, animate objects, and add audio and video.",
-//   lessons: powerpointModule6Lessons,
-//   level: "Beginner",
-//   estimatedMinutes: 45,
-// },
+{
+  moduleNumber: 6,
+  moduleSlug: "module-6",
+  title: "Animations & Multimedia",
+  emoji: "🎬",
+  description:
+    "Apply slide transitions, animate text and objects, and embed audio and video into your presentation.",
+  lessons: powerpointModule6Lessons,
+  level: "Intermediate",
+  estimatedMinutes: 38,
+},
+{
+  moduleNumber: 7,
+  moduleSlug: "module-7",
+  title: "Tables, Charts & SmartArt",
+  emoji: "📊",
+  description:
+    "Create and format tables, insert data-driven charts, and build professional diagrams using SmartArt.",
+  lessons: powerpointModule7Lessons,
+  level: "Intermediate",
+  estimatedMinutes: 30,
+},
+{
+  moduleNumber: 8,
+  moduleSlug: "module-8",
+  title: "Review & Presenting",
+  emoji: "🎤",
+  description:
+    "Spell-check your work, collaborate with comments, deliver your presentation using Presenter View, and share or export your file.",
+  lessons: powerpointModule8Lessons,
+  level: "Intermediate",
+  estimatedMinutes: 27,
+},
 ];

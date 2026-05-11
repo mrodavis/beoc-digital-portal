@@ -334,4 +334,776 @@ alt: "Final slideshow with transitions applied",
 
 },
 
+
+{
+  slug: "animating-text-and-objects",
+  title: "Animating Text and Objects",
+  description:
+    "Learn how to apply animation effects to text and objects, customize timing, use the Animation Pane, and control the order animations play.",
+  duration: "11 min",
+  videoUrl: "",
+
+  practiceFiles: [
+    {
+      name: "Animations Practice File",
+      url: "/practice/powerpoint/module-6/animations/Powerpoint_Animations_Practice.pptx",
+    },
+  ],
+
+  sections: [
+
+    {
+      heading: "What Are Animations?",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Animations in PowerPoint control how individual objects — text, images, and shapes — appear, move, or disappear on a slide.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Unlike transitions, which affect the entire slide, animations target specific objects. This makes them useful for revealing bullet points one at a time or drawing attention to a key graphic.",
+        },
+        {
+          type: "callout",
+          variant: "info",
+          text:
+            "Use animations purposefully. Too many competing effects on a single slide can distract your audience instead of helping them follow along.",
+        },
+      ],
+    },
+
+    {
+      heading: "Animation Categories",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "PowerPoint organizes animations into four categories based on what they do to an object.",
+        },
+        {
+          type: "list",
+          ordered: false,
+          items: [
+            "Entrance — controls how an object appears on the slide (e.g., Fade, Fly In, Appear).",
+            "Emphasis — draws attention to an object that is already visible (e.g., Pulse, Spin, Grow/Shrink).",
+            "Exit — controls how an object leaves the slide (e.g., Fade Out, Fly Out).",
+            "Motion Paths — moves an object along a defined path on the slide.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_categories.png",
+          alt: "Four animation categories in PowerPoint",
+        },
+      ],
+    },
+
+    {
+      heading: "Applying an Animation",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To apply an animation, select an object on the slide and open the Animations tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_tab.png",
+          alt: "Animations tab on the PowerPoint ribbon",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click an effect from the Animation gallery. PowerPoint will immediately preview the animation on your slide.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_gallery.png",
+          alt: "Animation gallery showing entrance, emphasis, and exit effects",
+        },
+        {
+          type: "paragraph",
+          text:
+            "A number badge appears next to the object, indicating its animation order on the slide.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_number_badge.png",
+          alt: "Animation number badge on a slide object",
+        },
+      ],
+    },
+
+    {
+      heading: "Effect Options",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Many animations offer additional variations through Effect Options. For example, a text box can fade in all at once, or paragraph by paragraph.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click Effect Options on the Animations tab to see the available choices for the selected animation.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_effect_options.png",
+          alt: "Effect Options menu for animations",
+        },
+      ],
+    },
+
+    {
+      heading: "The Animation Pane",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The Animation Pane gives you a detailed list of every animation on the current slide and the order in which they play.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To open it, click Animation Pane on the Animations tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_pane_open.png",
+          alt: "Animation Pane open in PowerPoint",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can drag items up or down in the pane to reorder them, and click the Play All button at the top to preview the full sequence.",
+        },
+      ],
+    },
+
+    {
+      heading: "Start, Duration, and Delay",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Every animation has three timing settings that control when and how fast it plays.",
+        },
+        {
+          type: "list",
+          ordered: false,
+          items: [
+            "Start — On Click (default), With Previous (plays at the same time as the animation before it), or After Previous (plays automatically after the previous animation ends).",
+            "Duration — how long the animation takes to complete.",
+            "Delay — how many seconds to wait before the animation begins.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_timing_controls.png",
+          alt: "Start, Duration, and Delay timing controls on the Animations tab",
+        },
+        {
+          type: "tip",
+          text:
+            "Set multiple animations to With Previous or After Previous so the sequence plays automatically without requiring extra clicks.",
+        },
+      ],
+    },
+
+    {
+      heading: "Reordering Animations",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To change the order that animations play, select an animation in the Animation Pane and use the Move Earlier or Move Later buttons on the Animations tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_reorder.png",
+          alt: "Move Earlier and Move Later buttons for reordering animations",
+        },
+      ],
+    },
+
+    {
+      heading: "Removing an Animation",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To remove an animation, select the object on the slide or select the animation entry in the Animation Pane, then press the Delete key.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can also select the object and choose None from the Animation gallery to clear all animations from that object.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_remove.png",
+          alt: "Removing an animation in PowerPoint",
+        },
+      ],
+    },
+
+    {
+      heading: "Completed Slide Example",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When animations are applied consistently and sequenced correctly, they guide the audience through your content in a controlled and professional way.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/animations/animations_final_result.gif",
+          alt: "Slide demonstrating an animated sequence",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which animation start setting causes an animation to play automatically after the previous one ends?",
+          options: [
+            "On Click",
+            "With Previous",
+            "After Previous",
+            "Delayed Start",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Open the practice presentation and complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Select the title text box on slide 2.",
+        "Apply the Fly In entrance animation.",
+        "Change the Effect Options so the text flies in From Left.",
+        "Select the content placeholder on the same slide and apply the Fade entrance animation.",
+        "Change the Start setting to After Previous so it plays automatically after the title.",
+        "Open the Animation Pane to verify the sequence looks correct.",
+        "Preview the animations by clicking Play All.",
+      ],
+    },
+    {
+      type: "image",
+      src: "/images/powerpoint/module-6/animations/animations_final_result.gif",
+      alt: "Final animated slide result",
+    },
+  ],
+
+},
+
+{
+  slug: "working-with-audio",
+  title: "Working with Audio",
+  description:
+    "Learn how to insert audio files into your presentation, control playback settings, trim audio clips, and configure music to play across multiple slides.",
+  duration: "8 min",
+  videoUrl: "",
+
+  practiceFiles: [
+    {
+      name: "Working with Audio Practice File",
+      url: "/practice/powerpoint/module-6/audio/Powerpoint_Audio_Practice.pptx",
+    },
+  ],
+
+  sections: [
+
+    {
+      heading: "Why Add Audio to a Presentation?",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Audio can enhance a presentation by adding background music, narration, or short sound clips that reinforce your message.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Common uses include background music for kiosk displays, recorded narration for self-running presentations, and sound cues that accompany specific slides.",
+        },
+        {
+          type: "callout",
+          variant: "warning",
+          text:
+            "Use audio with purpose. Background music or sounds that don't match your content can distract your audience.",
+        },
+      ],
+    },
+
+    {
+      heading: "Inserting Audio from Your Computer",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To add an audio file, go to the Insert tab and select Audio, then choose Audio on My PC.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/audio/audio_insert_ribbon.png",
+          alt: "Audio command on the Insert tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Browse to and select your audio file. PowerPoint supports common formats including MP3 and WAV.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "After inserting, a speaker icon appears on the slide along with a small audio player bar.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/audio/audio_icon_on_slide.png",
+          alt: "Audio speaker icon and player bar on a slide",
+        },
+      ],
+    },
+
+    {
+      heading: "The Audio Format and Playback Tabs",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When the audio icon is selected, two new tabs appear on the ribbon: Audio Format and Playback.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "The Playback tab is where you configure most audio settings including start behavior, looping, and volume.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/audio/audio_playback_tab.png",
+          alt: "Playback tab for audio in PowerPoint",
+        },
+      ],
+    },
+
+    {
+      heading: "Playback Settings",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The Start setting controls when audio begins playing. You can set it to In Click Sequence, Automatically, or When Clicked On.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/audio/audio_start_options.png",
+          alt: "Audio start options in PowerPoint",
+        },
+        {
+          type: "list",
+          ordered: false,
+          items: [
+            "In Click Sequence — audio plays when you reach it during your click sequence.",
+            "Automatically — audio starts as soon as the slide appears.",
+            "When Clicked On — audio only plays when the audience clicks the icon.",
+          ],
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can also enable Loop until Stopped to repeat the audio continuously, and Hide During Show to keep the speaker icon invisible during the presentation.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/audio/audio_loop_hide.png",
+          alt: "Loop until Stopped and Hide During Show options",
+        },
+      ],
+    },
+
+    {
+      heading: "Playing Audio Across Slides",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "By default, audio stops when you move to the next slide. To have music continue across multiple slides, check Play Across Slides in the Playback tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/audio/audio_play_across_slides.png",
+          alt: "Play Across Slides option in PowerPoint",
+        },
+        {
+          type: "tip",
+          text:
+            "Combine Play Across Slides with Hide During Show and Loop until Stopped for seamless background music throughout a presentation.",
+        },
+      ],
+    },
+
+    {
+      heading: "Trimming Audio",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "If an audio clip is longer than you need, you can trim it without leaving PowerPoint.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click Trim Audio on the Playback tab. Drag the green start marker and red end marker to define the portion you want to keep.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/audio/audio_trim_dialog.png",
+          alt: "Trim Audio dialog with start and end markers",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Click OK to apply the trim. The audio clip will now start and stop at the points you selected.",
+        },
+      ],
+    },
+
+    {
+      heading: "Adjusting Volume",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use the Volume button on the Playback tab to set the default playback level to Low, Medium, High, or Mute.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/audio/audio_volume_control.png",
+          alt: "Volume control on the Playback tab",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "Which setting keeps audio playing as you advance through multiple slides?",
+          options: [
+            "Loop until Stopped",
+            "Hide During Show",
+            "Play Across Slides",
+            "When Clicked On",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Open the practice presentation and complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Insert an audio file onto slide 1 using Audio on My PC.",
+        "Set the Start option to Automatically.",
+        "Enable Play Across Slides so the music continues as you advance slides.",
+        "Enable Hide During Show so the speaker icon is not visible during the presentation.",
+        "Enable Loop until Stopped.",
+        "Use Trim Audio to shorten the clip to approximately 30 seconds.",
+        "Preview your presentation from slide 1 to confirm the audio plays correctly.",
+      ],
+    },
+  ],
+
+},
+
+{
+  slug: "working-with-video",
+  title: "Working with Video",
+  description:
+    "Learn how to insert videos from your computer or online, control playback settings, trim clips, and format the video frame on your slides.",
+  duration: "10 min",
+  videoUrl: "",
+
+  practiceFiles: [
+    {
+      name: "Working with Video Practice File",
+      url: "/practice/powerpoint/module-6/video/Powerpoint_Video_Practice.pptx",
+    },
+  ],
+
+  sections: [
+
+    {
+      heading: "Why Embed Video in a Presentation?",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Videos can make a presentation far more engaging than static slides. A short clip can demonstrate a process, share a testimonial, or show a product in action.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Embedding video directly into your presentation keeps everything in one file, so you don't need to switch applications during a live presentation.",
+        },
+        {
+          type: "callout",
+          variant: "info",
+          text:
+            "Keep embedded videos short. Long clips can increase file size significantly and may slow down your presentation.",
+        },
+      ],
+    },
+
+    {
+      heading: "Inserting Video from Your Computer",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Go to the Insert tab, click Video, then select This Device.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/video/video_insert_ribbon.png",
+          alt: "Video command on the Insert tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Browse to your video file and click Insert. PowerPoint supports common formats including MP4, MOV, and AVI.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "The video appears on the slide as a preview image with a playback bar beneath it.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/video/video_on_slide.png",
+          alt: "Inserted video on a slide with playback bar",
+        },
+      ],
+    },
+
+    {
+      heading: "Inserting an Online Video",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "You can also embed a video from an online source such as YouTube without downloading it first.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Go to Insert → Video → Online Video. Paste the video URL into the search box and click Insert.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/video/video_online_insert.png",
+          alt: "Online Video dialog in PowerPoint",
+        },
+        {
+          type: "callout",
+          variant: "warning",
+          text:
+            "Online videos require an internet connection during your presentation. If connectivity is uncertain, use a locally saved video file instead.",
+        },
+      ],
+    },
+
+    {
+      heading: "The Video Format and Playback Tabs",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "When a video is selected, the Video Format and Playback tabs appear on the ribbon.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Video Format lets you apply styles, adjust borders, and crop the video frame. Playback controls how the video behaves during the presentation.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/video/video_playback_tab.png",
+          alt: "Playback tab for video in PowerPoint",
+        },
+      ],
+    },
+
+    {
+      heading: "Playback Settings",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "The Start setting works the same as audio — In Click Sequence, Automatically, or When Clicked On.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Additional useful options include:",
+        },
+        {
+          type: "list",
+          ordered: false,
+          items: [
+            "Play Full Screen — expands the video to fill the entire screen during playback.",
+            "Hide While Not Playing — hides the video frame until it starts playing.",
+            "Loop until Stopped — repeats the video continuously.",
+            "Rewind after Playing — returns the video to the first frame when it ends.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/video/video_playback_options.png",
+          alt: "Video playback options in PowerPoint",
+        },
+      ],
+    },
+
+    {
+      heading: "Trimming Video",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To use only part of a video, click Trim Video on the Playback tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/video/video_trim_ribbon.png",
+          alt: "Trim Video button on the Playback tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "Drag the green start marker and the red end marker to define the clip you want to keep, then click OK.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/video/video_trim_dialog.png",
+          alt: "Trim Video dialog with start and end markers",
+        },
+        {
+          type: "tip",
+          text:
+            "Trimming is non-destructive — the original video file is not modified. You can re-open the dialog and adjust the markers at any time.",
+        },
+      ],
+    },
+
+    {
+      heading: "Adding a Video Poster Frame",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "A poster frame is the still image shown on the video before it plays. By default, PowerPoint shows the first frame.",
+        },
+        {
+          type: "paragraph",
+          text:
+            "To set a custom poster frame, play the video to the frame you want, pause it, then click Poster Frame → Current Frame on the Video Format tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/video/video_poster_frame.png",
+          alt: "Poster Frame options on the Video Format tab",
+        },
+      ],
+    },
+
+    {
+      heading: "Formatting the Video Frame",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Just like images, videos can be styled with borders, shadows, and reflections using the Video Styles gallery on the Video Format tab.",
+        },
+        {
+          type: "image",
+          src: "/images/powerpoint/module-6/video/video_styles_gallery.png",
+          alt: "Video Styles gallery on the Video Format tab",
+        },
+        {
+          type: "paragraph",
+          text:
+            "You can also resize and reposition the video frame on the slide the same way you would resize an image.",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What is a video poster frame?",
+          options: [
+            "The final frame that plays when the video ends",
+            "The still image displayed on the video before it plays",
+            "A picture inserted behind the video on the slide",
+            "A style applied to the video border",
+          ],
+          correctIndex: 1,
+        },
+      ],
+    },
+
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Open the practice presentation and complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "On slide 3, insert a video from your computer.",
+        "Resize and reposition the video so it fits neatly within the slide content area.",
+        "Set the Start option to Automatically.",
+        "Enable Rewind after Playing.",
+        "Use Trim Video to remove the first 5 seconds and last 5 seconds of the clip.",
+        "Apply a video style from the Video Format tab to give the frame a polished appearance.",
+        "Set a poster frame using a frame from inside the clip.",
+        "Preview the slide to confirm the video plays and rewinds correctly.",
+      ],
+    },
+  ],
+
+},
+
 ];
