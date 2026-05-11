@@ -45,6 +45,42 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../app/learning-paths/ehr/intro-to-ehr/[moduleSlug]/[slug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ehr/intro-to-ehr/[moduleSlug]/[slug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/ehr/intro-to-ehr/[moduleSlug]/[slug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/ehr/intro-to-ehr/[moduleSlug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ehr/intro-to-ehr/[moduleSlug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/ehr/intro-to-ehr/[moduleSlug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/ehr/intro-to-ehr/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ehr/intro-to-ehr">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/ehr/intro-to-ehr/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/ehr/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ehr">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/ehr/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]">> = Specific
@@ -99,6 +135,33 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../app/learning-paths/office-assistant/intro-database/[moduleSlug]/[slug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/intro-database/[moduleSlug]/[slug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/intro-database/[moduleSlug]/[slug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/office-assistant/intro-database/[moduleSlug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/intro-database/[moduleSlug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/intro-database/[moduleSlug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/office-assistant/intro-database/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/intro-database">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/intro-database/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]">> = Specific
@@ -126,10 +189,64 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../app/learning-paths/office-assistant/office-apps/[moduleSlug]/[slug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/office-apps/[moduleSlug]/[slug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/office-apps/[moduleSlug]/[slug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/office-assistant/office-apps/[moduleSlug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/office-apps/[moduleSlug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/office-apps/[moduleSlug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/office-assistant/office-apps/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/office-apps">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/office-apps/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/learning-paths/office-assistant/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant">> = Specific
   const handler = {} as typeof import("../../app/learning-paths/office-assistant/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/office-assistant/tech-foundations/[moduleSlug]/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/tech-foundations/[moduleSlug]">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/tech-foundations/[moduleSlug]/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
+// Validate ../../app/learning-paths/office-assistant/tech-foundations/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/office-assistant/tech-foundations">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/office-assistant/tech-foundations/page.js")
   type __Check = __IsExpected<typeof handler>
   // @ts-ignore
   type __Unused = __Check

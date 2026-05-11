@@ -7,7 +7,7 @@ export const module5Lessons: Lesson[] = [
     description:
       "Learn what task management tools are, how offices use them, and how to set up a basic board to track team work.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER_M5L1",
+    videoUrl: "https://www.youtube.com/embed/UPMmim0bZZw",
     slides: [
       {
         src: "/images/office-assistant/module-5/task-management-tools/slide-01.jpg",
@@ -240,47 +240,63 @@ export const module5Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-01.jpg",
-        alt: "Prioritizing & Organizing Work — Module 5: Task & Project Management | Modern Office Skills",
+        alt: "Mastering Your Workday — The Professional's Guide to Prioritization & Task Management: turn Monday morning chaos into structured, defensible action",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-02.jpg",
-        alt: "The TOR Tech Monday Problem — 12 tasks, one day, no system for deciding what to do first",
+        alt: "12 Tasks, 1 Inbox, 0 Direction — You start Monday at TOR Tech with a flood of competing demands. The answer is a system.",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-03.jpg",
-        alt: "Why Prioritization Is a Professional Skill — Reactive vs. Intentional Work",
+        alt: "The Twin Traps of Unprioritized Work — Reactive Work vs Comfort-Seeking Work both result in the most important work getting done last",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-04.jpg",
-        alt: "The Eisenhower Matrix — Four Quadrants: Urgent & Important, Important Not Urgent, Urgent Not Important, Neither",
+        alt: "Prioritization is a Professional Skill — Repeatable System, Defensible Decisions, Strategic Thinking: hard work is common, directed system-driven work is rare",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-05.jpg",
-        alt: "The MoSCoW Method — Must Have, Should Have, Could Have, Won't Have",
+        alt: "Sequencing Daily Output: The Eisenhower Matrix — Q1 Do Now, Q2 Schedule, Q3 Delegate or Minimize, Q4 Eliminate across Urgency and Importance axes",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-06.jpg",
-        alt: "Time-Blocking: Turning Priorities Into a Schedule — Reactive Calendar vs Blocked Calendar",
+        alt: "The Productivity Engine: Managing Q1 & Q2 — Q1 Do Now for today's commitments, Q2 Schedule for long-term work, and the Q2 Trap warning",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-07.jpg",
-        alt: "Saying No Professionally — The Reprioritization Script for overloaded plate situations",
+        alt: "The Deception Zone: Navigating Q3 & Q4 — Q3 Delegate/Minimize vs Q4 Eliminate, with the diagnostic question to distinguish between them",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-08.jpg",
-        alt: "The Multitasking Myth — why switching costs reduce quality and what to do instead",
+        alt: "Aligning the Team: The MoSCoW Method — Must Have, Should Have, Could Have, Won't Have funnel for scoping project deliverables",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-09.jpg",
-        alt: "AI Assist — Use ChatGPT to sort your task list using the Eisenhower Matrix",
+        alt: "Selecting the Right Tool for the Job — Eisenhower vs MoSCoW compared by primary use case, core dimensions, and ultimate goal",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-10.jpg",
-        alt: "Knowledge Check — Urgent AND Important tasks in the Eisenhower Matrix should be done immediately",
+        alt: "Activation: Time-Blocking Your Priorities — converting a task list into a calendared schedule with locked focus blocks",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-11.jpg",
-        alt: "The Challenge — Create 10 workplace tasks and sort them into a complete Eisenhower Matrix",
+        alt: "The Mechanics of a Bulletproof Schedule — Step 1 Batch Similar Tasks, Step 2 Protect Q2 Time, Step 3 Honor the Block",
+      },
+      {
+        src: "/images/office-assistant/module-5/prioritizing-work/slide-12.jpg",
+        alt: "Defending Your Focus: The Multitasking Myth — single tasking at 100% effective output vs rapid task-switching burning 35% on context reload costs",
+      },
+      {
+        src: "/images/office-assistant/module-5/prioritizing-work/slide-13.jpg",
+        alt: "The Art of Professional Pushback — the reprioritization script: 'I can get to that — would you like me to prioritize this over X, or after?'",
+      },
+      {
+        src: "/images/office-assistant/module-5/prioritizing-work/slide-14.jpg",
+        alt: "Responsible Framework Use — aligning employee priorities with leadership alignment using the Alignment Script before making sequencing decisions",
+      },
+      {
+        src: "/images/office-assistant/module-5/prioritizing-work/slide-15.jpg",
+        alt: "The Prioritization Challenge — create 10 workplace tasks, sort into 4 Eisenhower Quadrants, justify each placement, and identify the top 3 to execute first",
       },
     ],
 

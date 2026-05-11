@@ -7,6 +7,37 @@ export const module1Lessons: Lesson[] = [
     description:
       "Welcome to Introduction to EHR. Review course requirements, assignments, and what to expect across the semester.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/OFvROse3MW4",
+    slides: [
+      {
+        src: "/images/ehr/module-1/course-overview/slide-01.jpg",
+        alt: "The Digital Clinic Blueprint — An Operational Guide to EHR Ecosystems and Clinical Patient Workflows",
+      },
+      {
+        src: "/images/ehr/module-1/course-overview/slide-02.jpg",
+        alt: "The ultimate goal of an EHR system is precise information delivery — Right Information, Right Person, Right Time",
+      },
+      {
+        src: "/images/ehr/module-1/course-overview/slide-03.jpg",
+        alt: "EHR functions as the central nervous system of healthcare operations — Patient Workflow, Healthcare Administration, Financial Management, Legal Compliance",
+      },
+      {
+        src: "/images/ehr/module-1/course-overview/slide-04.jpg",
+        alt: "Establishing a baseline vocabulary for digital healthcare infrastructure — IT vs Infrastructure, Inpatient vs Outpatient, Provider vs System",
+      },
+      {
+        src: "/images/ehr/module-1/course-overview/slide-05.jpg",
+        alt: "Seamless information flow directly correlates to systemic clinical outcomes — six operational returns including improved patient care and data security",
+      },
+      {
+        src: "/images/ehr/module-1/course-overview/slide-06.jpg",
+        alt: "The physical clinic operates across three distinct data processing zones — Front Office, Middle Office, Back Office",
+      },
+      {
+        src: "/images/ehr/module-1/course-overview/slide-07.jpg",
+        alt: "Anatomy of an EHR Specialist — Clinical Support, Administrative & Financial, Data & Compliance, Core Requirements",
+      },
+    ],
     sections: [
       {
         heading: "What This Course Covers",
@@ -67,6 +98,28 @@ export const module1Lessons: Lesson[] = [
     description:
       "Trace the path a patient takes through a healthcare encounter and learn how each step connects to the revenue cycle.",
     duration: "20 min",
+    slides: [
+      {
+        src: "/images/ehr/module-1/patient-workflow-and-revenue-cycle/slide-01.jpg",
+        alt: "Workflow 1: Patient Registration, Check-In, and Admission — Front Office swimlane diagram from patient arrival to rooming",
+      },
+      {
+        src: "/images/ehr/module-1/patient-workflow-and-revenue-cycle/slide-02.jpg",
+        alt: "Workflow 2: Executing the Clinical Office Visit — Nurse/Support and Provider swimlane from EHR schedule review to encounter close",
+      },
+      {
+        src: "/images/ehr/module-1/patient-workflow-and-revenue-cycle/slide-03.jpg",
+        alt: "Workflow 3: Multi-node communication for e-Prescribing during a visit — Patient, Clerk/Nurse, Prescriber, ePrescribing Network, and Pharmacy lanes",
+      },
+      {
+        src: "/images/ehr/module-1/patient-workflow-and-revenue-cycle/slide-04.jpg",
+        alt: "Workflow 4: Processing and authorizing medication refills — reverse data flow from pharmacy through network to prescriber",
+      },
+      {
+        src: "/images/ehr/module-1/patient-workflow-and-revenue-cycle/slide-05.jpg",
+        alt: "EHR transforms isolated clinical encounters into a continuous continuum of care — Patient Care, Coordination, Cost Savings, Participation, Diagnostics, Data Security",
+      },
+    ],
     sections: [
       {
         heading: "The Patient Visit Lifecycle",
