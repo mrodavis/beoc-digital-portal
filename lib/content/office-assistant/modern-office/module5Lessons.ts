@@ -723,51 +723,51 @@ export const module5Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-01.jpg",
-        alt: "Hands-On: Build a Project Tracker — Module 5 Capstone | Modern Office Skills",
+        alt: "Building the Functional Project Tracker — from fragile spreadsheets to reliable team infrastructure",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-02.jpg",
-        alt: "The TOR Tech Mission — 'We've been losing track of who is doing what. Build us a project tracker we can actually use.'",
+        alt: "Three System Failures — Zero Visibility, No Accountability, Broken Tools: why fragile trackers collapse under real team use",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-03.jpg",
-        alt: "The Fragile Tracker vs The Functional Tracker — inconsistent data and silent failures vs enforced structure and reliable status",
+        alt: "The Fragile vs. Functional Matrix — Status Entry, Accountability, Visibility, and Onboarding compared side by side",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-04.jpg",
-        alt: "Phase 1: Architecting the Column Structure — plan before you build, seven essential columns",
+        alt: "Phase 1: Architecting the Blueprint — 7 required columns: Task Name, Project, Owner, Due Date, Priority, Status, and Notes",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-05.jpg",
-        alt: "Phase 1: Data Guardrails — Priority and Status dropdowns eliminate free-text errors",
+        alt: "Locking the Foundation — freeze the header row with View > Freeze > 1 Row before entering any task data",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-06.jpg",
-        alt: "Phase 1: Frozen Headers and Structural Foundation — lock Row 1 before entering any data",
+        alt: "Building Guardrails: Data Validation — apply dropdown lists to Priority and Status columns, set to Reject Input on invalid data",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-07.jpg",
-        alt: "Phase 2: Priority Visualization with Conditional Formatting — High Priority in red, Complete in green, Blocked in yellow",
+        alt: "Phase 2: Instant Visibility — Conditional Formatting rules: High = Red, Low = Grey, Complete = Green, At Risk = Orange, Blocked = Yellow",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-08.jpg",
-        alt: "Phase 2: Sharing With the Team — access levels, view vs edit permissions, and the team notes tab",
+        alt: "Team Infrastructure: Sharing & Access — Viewer Access for stakeholders, Editor Access for project leads, Protected Cells for formula ranges",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-09.jpg",
-        alt: "AI Assist — Use ChatGPT to generate a project tracker template for a 5-person team",
+        alt: "The Self-Documenting System — create a dedicated Notes tab defining every column so any team member can onboard on day one",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-10.jpg",
-        alt: "Knowledge Check — What makes a project tracker most effective for team accountability?",
+        alt: "The AI Kickstart — AI generates the flat structural template; humans install data validation, conditional formatting, and self-documentation",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-11.jpg",
-        alt: "The Capstone Challenge — Build a complete project tracker with 10+ tasks, 5 columns, conditional formatting, and a Notes tab",
+        alt: "Responsible Use: The 3-Step QA Test — Test Data Guardrails, Verify Calculations, and Check Visualization before sharing the tracker",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-12.jpg",
-        alt: "You Have Completed Module 5 — Moving Forward: Module 6 | Brooklyn Educational Opportunity Center",
+        alt: "Capstone Challenge: Build the Tracker — 5 missions covering Architecture, Guardrails, Visibility, Foundation, and Test Data entry",
       },
     ],
 
