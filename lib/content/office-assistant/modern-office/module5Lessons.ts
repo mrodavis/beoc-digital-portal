@@ -236,7 +236,7 @@ export const module5Lessons: Lesson[] = [
     description:
       "Learn proven frameworks for deciding what to work on first when everything feels urgent.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER_M5L2",
+    videoUrl: "https://www.youtube.com/embed/V5m-UGO-E7s",
     slides: [
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-01.jpg",

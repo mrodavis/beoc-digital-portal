@@ -1,5 +1,6 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
+  "/icon.svg/route": "app/icon.svg/route.js",
   "/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]/page": "app/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]/page.js",
   "/learning-paths/certification/page": "app/learning-paths/certification/page.js",
   "/learning-paths/office-assistant/modern-office/page": "app/learning-paths/office-assistant/modern-office/page.js",

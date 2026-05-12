@@ -7,6 +7,54 @@ export const module6Lessons: Lesson[] = [
     description:
       "Understand what a CRM is, why businesses use one, and how an office assistant interacts with it daily.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/ZJ94BG69pWg",
+
+    slides: [
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-01.jpg",
+        alt: "The Digital Command Center — a fundamental guide to CRM systems for the modern office professional",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-02.jpg",
+        alt: "The Fragility of Memory — the old way: isolated email threads and notebooks; the risk: institutional knowledge lost when people leave",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-03.jpg",
+        alt: "Institutionalizing Client Knowledge — Never Lost, The Shared Picture, A Business Asset",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-04.jpg",
+        alt: "The TOR Tech Reality Check — 'If it is not in Salesforce, it did not happen.' The CRM log is the authoritative record.",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-05.jpg",
+        alt: "How a CRM Thinks: The 3 Core Pillars — Records (Who), Activities (What), Deals/Pipelines (Where)",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-06.jpg",
+        alt: "The CRM Building Blocks — Contact Records, Account Records, Deals & Opportunities, Tasks & Reminders",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-07.jpg",
+        alt: "The Platform Ecosystem — Salesforce, HubSpot, Zoho, Monday.com, and Spreadsheets compared by size, complexity, and key trait",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-08.jpg",
+        alt: "Not an Afterthought: The Daily Workflow — Pre-Interaction Review, During Interaction Document, Post-Interaction Log, Weekly Audit",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-09.jpg",
+        alt: "What Happens When We Skip a Step? — skipped activity log leads to client frustration and permanently eroded trust",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-10.jpg",
+        alt: "The Guardian of Client Data — never share credentials, never export for personal use, every click is logged and audited",
+      },
+      {
+        src: "/images/office-assistant/module-6/what-is-a-crm/slide-11.jpg",
+        alt: "Your Turn: The TOR Tech Challenge — Explain It, Apply It, Analyze It",
+      },
+    ],
 
     sections: [
       {
@@ -171,6 +219,70 @@ export const module6Lessons: Lesson[] = [
     description:
       "Learn how to create, maintain, and protect accurate client records in a CRM system.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/2KW6YbN3Bx0",
+
+    slides: [
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-01.jpg",
+        alt: "Flawless CRM: Building, Maintaining, and Protecting Accurate Client Records — BEOC Digital Skills Portal Module 6",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-02.jpg",
+        alt: "The Stakes of First Impressions — Marcus Webb just signed with TOR Tech; build his client record from scratch before his 9 AM onboarding call; a half-finished placeholder is nearly as dangerous as a missing record",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-03.jpg",
+        alt: "Small Errors Compound Over Time — wrong email or misspelled name today leads to failed marketing campaign at Month 3, missed invoice delivery at Month 6, and a frustrated client whose trust is damaged at Month 9",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-04.jpg",
+        alt: "Accuracy is a Non-Negotiable Standard — Single Point of Failure, Business Decisions, Audit Trails, and Professional Brand all depend on record accuracy",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-05.jpg",
+        alt: "The Anatomy of a Complete Record — Identity (Full Legal Name & Preferred Name), Affiliation (Company, Industry, Website), Contact Info (Email, Direct Phone, Address), Financials (Contract Details); never save a record with placeholder text like 'TBD'",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-06.jpg",
+        alt: "Notes Provide Context, Not Just Data — bad: 'Called Marcus. Left message.' vs good: 'Marcus responds best by text, not email. Referred by Jordan Chen at Apex. Past billing dispute in Q2, fully resolved.' Notes are what distinguish a rich relationship record from a flat spreadsheet row",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-07.jpg",
+        alt: "The Five-Step Creation Pipeline — 1. Search (check CRM for name, company, email), 2. Gather (collect contract, intro email, intake forms), 3. Fill (complete every required field; flag missing info in Notes), 4. Link (connect contact to company account), 5. Verify (save then read every field against source documents)",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-08.jpg",
+        alt: "Duplicates Fracture the Relationship History — a duplicate splits history across two entries creating immediate confusion; The Rule: Search Name + Company + Email before clicking 'New Contact'",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-09.jpg",
+        alt: "Maintenance Requires the 30-Second Rule — a record accurate on day one decays within weeks; 1. Update Immediately, 2. Flag Transitions (update rep and add note when decision-makers change), 3. Pre-Flight Check (review records before renewals and meaningful interactions)",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-10.jpg",
+        alt: "Preserve Context by Archiving, Not Deleting — Archive Outdated Records (preserves critical historical context); Never Delete (when a client relationship ends or a primary contact leaves, never hit the delete button)",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-11.jpg",
+        alt: "Routine Hygiene Cures Stale Data — Duplicate Records (split relationship history): run monthly automated checks and merge records; Missing Fields (orphaned or useless data): add a 'Missing Info' note and assign follow-up task; Expired Contracts (missed renewal opportunities): perform quarterly sweeps to update contract end dates",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-12.jpg",
+        alt: "Standardization Creates Searchable Systems — consistent phone number and date formats enable reliable filtering; Audit Trails: document every update in Notes field with old and new values and date; Log Cleanups: document hygiene routines in a shared log to prevent duplicate cleanup efforts",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-13.jpg",
+        alt: "Ethics Govern the CRM — Privacy: never share client records with unauthorized individuals; Integrity: never modify a client record to cover up a communication failure; Truth: CRM records are business documents — altering a timeline or date after the fact is professional misconduct",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-14.jpg",
+        alt: "Stress-Test Requirements with AI — prompt: 'What fields should every client record include in a CRM for a small professional services company? Include the field name, what type of data it holds, and why it matters.' Run in ChatGPT and compare to existing organizational standards to identify operational gaps",
+      },
+      {
+        src: "/images/office-assistant/module-6/managing-client-records/slide-15.jpg",
+        alt: "The Final Challenge — Apply your skills: Invent a client (fill all required fields plus 2 contextual notes), explain how you checked for duplicates, write an update scenario 3 months in the future with the exact Notes entry you would make, and identify the one field most likely to go stale and how you will catch it",
+      },
+    ],
 
     sections: [
       {
@@ -355,6 +467,62 @@ export const module6Lessons: Lesson[] = [
     description:
       "Learn how to log client communications accurately and write professional follow-up emails that build trust.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/8L3sDC5P6nE",
+
+    slides: [
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-01.jpg",
+        alt: "The Cycle of Accountability: Professional Follow-Up, Communication Logs, and Client Trust — BEOC Digital Skills Masterclass Module 6",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-02.jpg",
+        alt: "The Fragility of Human Memory — The Memory: every interaction contains vital information, the moment a 45-minute client call lives only in your head it becomes fragile; The System: logging captures this raw data and converts it into a shared, searchable, permanent record",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-03.jpg",
+        alt: "Fragile vs. Bulletproof Operations — Relying on Memory vs. Maintaining a System Log: Client Disputes (your word against theirs vs. timestamped proof), Team Handoffs (colleagues ask 'what did we last discuss?' vs. seamless transitions with zero loss of context), Relationship Patterns (recurring issues look isolated vs. surfaces actionable patterns)",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-04.jpg",
+        alt: "You cannot write a useful follow-up email if you do not have a clear record. The log comes first; the follow-up comes from the log.",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-05.jpg",
+        alt: "The Anatomy of a Complete Log — Date & Time (exact chronological marker, e.g. YYYY-MM-DD), Participants (client name and internal team members), Interaction Type (call, email, meeting — enables pattern filtering), Summary (2–5 sentences of plain-language discussion points), Agreed Next Steps (crucial field — converts conversation into accountable commitments), Follow-Up Due Date (the date for the next action — without this, interactions are forgotten)",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-06.jpg",
+        alt: "Precision over Vagueness — Vague Note: 'Discussed project with client. Will send info later.' (missing context, owners, and deadlines) vs. Professional Entry: 'Discussed Q3 contract renewal timeline with Sarah. Client requested a revised pricing proposal. Next steps: I will send updated pricing by August 10.' (specific deliverables, named participants, and firm deadlines)",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-07.jpg",
+        alt: "The Follow-Up Output Structure — Specific Opening (names the specific interaction), Key Points Recap (2–4 point summary confirming shared understanding), Numbered Next Steps (clear list of actions with owners and deadlines), Correction Invitation ('Please let me know if I have missed anything' — demonstrates humility), Professional Closing (clean and confident sign-off)",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-08.jpg",
+        alt: "The Timing of Accountability — Hour 0: Meeting Ends (the clock starts); Hour 2–4: Log & Follow-Up (write internal log first, then send external email immediately); Mid-Week: Proactive Update (send brief update before deadlines hit to prevent anxiety); Day 3–5: Polite Check-In (if client goes silent, send a second touch — silence is not agreement)",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-09.jpg",
+        alt: "The Reminder Safety Net — memory alone cannot manage professional obligations; Immediate Creation: set the CRM task in the same workflow as the log entry, never close the log without a reminder; The 48-Hour Buffer: set alerts 24–48 hours before the deadline to ensure actual working time; Weekly Sweep: open the CRM every Monday, scan tasks, block calendar time, and close completed items",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-10.jpg",
+        alt: "The AI Draft Assist — prompt: 'Write a professional follow-up email after a 30-minute client discovery call. Include a thank-you, a 3-point recap, 3 numbered next steps, and an invitation for corrections.' The Human Edit (Crucial Step): AI provides the skeleton — you must inject the context, adjust names, specific topics, and tone so the output is a factual, human representation of the actual interaction",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-11.jpg",
+        alt: "Responsibility Guardrails — Internal Eyes Only: logs are internal business documents, never share directly with clients without authorization; Strictly Factual: do not log personal opinions about a client's mood, personality, or character — it is a factual record, not a journal; The Subpoena Rule: write every log entry as if it could be shared in a dispute or subpoenaed — in many industries, they are legal documents",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-12.jpg",
+        alt: "The Cycle of Accountability — The Internal Record: the Log captures the raw truth; The External Promise: the Follow-Up Email sets the public expectation; The Future Safety Net: the Reminder guarantees execution; Documentation is not an administrative chore — it is a unified system for building unbreakable client trust",
+      },
+      {
+        src: "/images/office-assistant/module-6/professional-follow-up/slide-13.jpg",
+        alt: "Quick Reference: Professional Follow-Up checklist — Did I log the interaction immediately while details are fresh? Does my log contain all 6 required fields (Date, Participants, Type, Summary, Next Steps, Due Date)? Did I draft the follow-up email from the log within 2–4 hours? Does the email clearly number the next steps with specific owners and deadlines? Have I set a CRM reminder 48 hours before the earliest deadline? Close the loop. Every interaction is a documented commitment.",
+      },
+    ],
 
     sections: [
       {
@@ -540,6 +708,58 @@ export const module6Lessons: Lesson[] = [
     description:
       "Apply all Module 6 skills by logging four different client interaction types and completing follow-up tasks.",
     duration: "30 min",
+    videoUrl: "https://www.youtube.com/embed/07bYfoSN9cA",
+
+    slides: [
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-01.jpg",
+        alt: "The Client Interaction Field Guide: Mastering the CRM Log — A Module 6 Playbook — BEOC Digital Skills Portal",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-02.jpg",
+        alt: "The Friday Afternoon Gauntlet — TOR Tech's four client touchpoints to log before the weekend: phone call with new prospect (Sarah K., high priority), email thread about contract revision (David L., in progress), in-person meeting with long-term client (Maria R.), and signed service agreement from third client (James T., completed) — goal: log all four accurately so every entry sets up the next action clearly",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-03.jpg",
+        alt: "Document the Nature, Not Just the Event — 'Just the Event' vague note: 'Spoke to client. Things went well. Will follow up.' vs. 'The Nature of the Interaction' structured entry with Summary (discussed project scope, timeline agreed upon), Open Items (clarify API requirements, send updated proposal), and Next Steps (schedule follow-up demo next Tuesday) — understanding the distinguishing elements of each interaction type makes log entries more useful to everyone who reads them",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-04.jpg",
+        alt: "The Engine of the CRM: Next Actions — infinity loop diagram: Client Interaction → CRM Log Entry → Next Action Triggered → New Client Interaction; regardless of interaction type, the final element of every log entry is always the same — a log that ends without a next action is an interaction that may not produce a result; every next action must explicitly state: What happens next, Who is responsible, and When it will happen",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-05.jpg",
+        alt: "The Interaction Diagnostic Matrix — Phone Calls: nature shorter/informal/ephemeral, risk factor highly easily lost, core focus verbal commitments; Email Threads: nature digital/flowing, risk factor information overload, core focus distilling the decision; In-Person Meetings: nature rich/multi-faceted, risk factor complex competing agendas, core focus owners & timelines; Signed Documents: nature formal/milestone, risk factor compliance & ambiguity, core focus storage & triggers",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-06.jpg",
+        alt: "Phone Calls: Capture the Ephemeral Immediately — five elements of a call log: (1) Context: Date, Time & Duration — establishes context for reviewing weeks later; (2) Who: Participants — your name and client name/title, create a new record if they aren't in the CRM yet; (3) The 'Why': Reason for the Call — a single sentence; (4) The Core: Summary — 3-5 sentences, record what was said and avoid editorializing; (5) The End: Next Steps — every commitment, one named owner, one clear due date — Warning: log immediately, a call log written 20 minutes later is noticeably thinner than one written within five minutes",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-07.jpg",
+        alt: "Email Threads: Distill the Outcome, Don't Duplicate — four elements: (1) The Hook: Thread Reference — subject line and date range to quickly find original context; (2) The Dynamic: Initiator vs. Responder — who started it, contextualizes the relationship dynamic; (3) The Core: Outcome Summary — write what was decided, not what was written in the email; (4) The Tether: Attached Link — keep the full source document exactly one click away — Flag Open Items: if a question is awaiting a response, note it as an open item with a due date",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-08.jpg",
+        alt: "In-Person Meetings: Managing Human Complexity — separate assistants who treat meetings as events from those who treat them as decisions — four elements: (1) Capture All Participants — every person present on both sides must be named; (2) Agenda Outcomes — 1-2 sentences per topic, do not collapse a 3-topic meeting into one vague paragraph; (3) Discussion vs. Decision — clearly separate what was talked about from what was actually agreed upon; (4) Multi-Owner Commitments — list every action, who is doing it, and by when — send a recap email within 24 hours telling the exact same story",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-09.jpg",
+        alt: "Signed Documents: The Official Milestone — four elements: (1) Precision: Document Name & Version — e.g. 'TOR Tech Agreement v2.1', ambiguity is a compliance risk; (2) Logistics: Delivery Method & Date — email, DocuSign, or physical, plus exact date received; (3) Retrieval: Storage Location — anyone should be able to find the document in under 30 seconds; (4) Momentum: Triggered Actions — onboarding, invoicing, countersigning — log these next steps with owners and due dates",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-10.jpg",
+        alt: "The AI Toolkit Integration — AI Assistant prompt: 'Create a client interaction log template with columns for date, contact name, interaction type, summary, next action, and due date. Format it as a table suitable for a Google Sheet.' — Use the AI-generated template as your starting structure, then customize the formatting to match the BEOC module standards",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-11.jpg",
+        alt: "Knowledge Check — 'Which field in a communication log ensures follow-through after every client interaction?' — Correct answer: D. The next action required — a log without a next action is an interaction that may not produce a result",
+      },
+      {
+        src: "/images/office-assistant/module-6/log-client-interaction/slide-12.jpg",
+        alt: "The Capstone Challenge — Module 6 Capstone: build a complete interaction log for four fictional TOR Tech interactions from one week using realistic names, dates, and scenarios with no placeholders — Log 4 Types (Phone, Email, Meeting, Signed Document) with all 6 required fields; Meeting Mastery: 3+ agenda items with individual outcomes and 2+ next steps with different owners; The Recap: write one complete follow-up email with recap, numbered next steps, and corrections invite; The Reflection: write 2-3 sentences on what was hardest to log accurately and how to improve in-the-moment note-taking",
+      },
+    ],
 
     sections: [
       {
