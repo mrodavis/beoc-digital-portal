@@ -482,55 +482,67 @@ export const module5Lessons: Lesson[] = [
     description:
       "Learn how to track project deadlines, communicate progress, and flag risks before they become missed deadlines.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER_M5L3",
+    videoUrl: "https://www.youtube.com/embed/-cmWnvAv2lA",
     slides: [
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-01.jpg",
-        alt: "Tracking Deadlines & Progress — Module 5: Task & Project Management | Modern Office Skills",
+        alt: "Converting Chaos to Clarity — The infrastructure of deadline tracking and project visibility: Pending, In Progress, At Risk, Complete status pipeline",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-02.jpg",
-        alt: "The TOR Tech 3-Week Project — 6 deliverables, multiple owners, one assistant responsible for keeping everything visible",
+        alt: "Memory is an unreliable system for managing deadlines — Memory-Based Management (Ambiguity & Risk) vs Tracker-Based Clarity (Alignment & Truth)",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-03.jpg",
-        alt: "Why Deadline Tracking Is Not Optional — the cost of a missed deadline that nobody saw coming",
+        alt: "Effective tracking builds a shared reality and protects your reputation — Unifies the Team, Prevents Surprises, Communicates Professionalism, Protects Reputation",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-04.jpg",
-        alt: "Building a Deadline Tracker — the five essential columns every tracker must have",
+        alt: "The five essential columns build the blueprint of project visibility — Task Name, Owner, Due Date, Status, Notes with definitions",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-05.jpg",
-        alt: "Status Vocabulary — Not Started, In Progress, Complete, At Risk: what each status means and when to use it",
+        alt: "Professional trackers capture data signals, not administrative noise — The Noise (Amateur) vs The Signal (Professional): vague entries vs specific structured data",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-06.jpg",
-        alt: "The Weekly Check-In Habit — 15 minutes every week prevents the surprise deadline",
+        alt: "Every task follows a defined, color-coded status lifecycle — Not Started, In Progress, At Risk, Blocked, Complete with transition rules",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-07.jpg",
-        alt: "Flagging At-Risk Items — Early Warning vs Silent Failure: the professional standard for surfacing problems",
+        alt: "The golden rule of tracker integrity: never allow free-text status entries — enforce status vocabulary with Data Validation Dropdowns",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-08.jpg",
-        alt: "Communicating Delays Proactively — the anatomy of a professional delay notification",
+        alt: "A fast-moving project requires a strict 15-minute weekly maintenance habit — Review, Verify & Update, Flag, Brief: the four-step weekly routine",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-09.jpg",
-        alt: "AI Assist — Use ChatGPT to generate a deadline tracker structure for a 3-week project",
+        alt: "Audit every active task against three fundamental questions — Has work happened? Is the owner on track? Has any blocker or risk emerged?",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-10.jpg",
-        alt: "Knowledge Check — When should you flag a task as At Risk in your project tracker?",
+        alt: "Translate raw tracker data into a highly distilled manager brief — the output of the 15-minute habit is a 2–4 bullet point summary sent to your manager",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-11.jpg",
-        alt: "The Challenge — Build a 3-week deadline tracker for a fictional project with 6 deliverables",
+        alt: "Flagging a risk is a demonstration of professionalism, not an admission of failure — The Misconception, The Reality, and The Trigger behind proactive communication",
       },
       {
         src: "/images/office-assistant/module-5/tracking-deadlines/slide-12.jpg",
-        alt: "Moving Forward — Next Up: Hands-On: Build a Project Tracker",
+        alt: "Professional delay messages follow a predictable four-part structure — Acknowledge Delay, Explain Reason, Revised Estimate, Stated Action",
+      },
+      {
+        src: "/images/office-assistant/module-5/tracking-deadlines/slide-13.jpg",
+        alt: "Never update a shared deadline without explicitly notifying the affected team — The Danger of silent date changes and The Protocol: update, note, notify",
+      },
+      {
+        src: "/images/office-assistant/module-5/tracking-deadlines/slide-14.jpg",
+        alt: "Clarity is the intersection of tools, habits, and communication — The Tracker, The 15-Min Habit, and Delay Formulas as interlocking components of system clarity",
+      },
+      {
+        src: "/images/office-assistant/module-5/tracking-deadlines/slide-15.jpg",
+        alt: "A fully functioning visibility ecosystem in practice — 3-Week Project Snapshot with Task Name, Owner, Due Date, Status, and Notes for 6 real deliverables",
       },
     ],
 

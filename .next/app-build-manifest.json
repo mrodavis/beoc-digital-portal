@@ -60,6 +60,26 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/office-assistant/office-apps/page.js"
+    ],
+    "/learning-paths/office-assistant/tech-foundations/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/office-assistant/tech-foundations/page.js"
+    ],
+    "/learning-paths/office-assistant/tech-foundations/[moduleSlug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/office-assistant/tech-foundations/[moduleSlug]/page.js"
+    ],
+    "/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
