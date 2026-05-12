@@ -731,7 +731,7 @@ export const module5Lessons: Lesson[] = [
     description:
       "Apply everything from this module to build a complete, usable project tracker for a real team scenario.",
     duration: "30 min",
-    videoUrl: "https://www.youtube.com/embed/PLACEHOLDER_M5L4",
+    videoUrl: "https://www.youtube.com/embed/0usda82dzZo",
     slides: [
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-01.jpg",
