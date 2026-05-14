@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import ModuleCard from "@/components/ModuleCard";
 
 export default function OfficeAppsPage() {
   return (
@@ -55,7 +56,7 @@ export default function OfficeAppsPage() {
         description="Complete each module in order to build a complete Microsoft Office 2019 skill set."
       />
 
-      <div className="space-y-4 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {[
           { num: 1, slug: "module-1", emoji: "📝", title: "Word Essentials", description: "Navigate the Word 2019 interface and create professionally formatted documents, styles, tables, and page layouts." },
           { num: 2, slug: "module-2", emoji: "📋", title: "Word Advanced", description: "Master mail merge, headers and footers, Track Changes collaboration, and reusable document templates." },
@@ -64,28 +65,15 @@ export default function OfficeAppsPage() {
           { num: 5, slug: "module-5", emoji: "🖥️", title: "PowerPoint", description: "Design professional presentations, add media and animations, and deliver confidently using Presenter View." },
           { num: 6, slug: "module-6", emoji: "📬", title: "Outlook & Integration", description: "Manage email and calendar in Outlook 2019 and build integrated workflows across all Office applications." },
         ].map(({ num, slug, emoji, title, description }) => (
-          <Link
+          <ModuleCard
             key={num}
+            num={num}
+            slug={slug}
+            emoji={emoji}
+            title={title}
+            description={description}
             href={`/learning-paths/office-assistant/office-apps/${slug}`}
-          >
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition">
-              <div className="flex items-center justify-between">
-                <div className="flex items-start gap-4">
-                  <span className="text-3xl">{emoji}</span>
-                  <div>
-                    <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                      Module {num}
-                    </span>
-                    <h3 className="text-xl font-bold mt-3 mb-2">{title}</h3>
-                    <p className="text-gray-600">{description}</p>
-                  </div>
-                </div>
-                <span className="text-green-600 font-semibold text-sm flex-shrink-0 ml-6">
-                  Available →
-                </span>
-              </div>
-            </div>
-          </Link>
+          />
         ))}
       </div>
 

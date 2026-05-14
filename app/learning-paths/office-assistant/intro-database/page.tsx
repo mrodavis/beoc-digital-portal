@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import ModuleCard from "@/components/ModuleCard";
 
 export default function IntroDatabasePage() {
   return (
@@ -55,71 +56,23 @@ export default function IntroDatabasePage() {
         description="Complete each module in order to build a practical data management skill set for professional office work."
       />
 
-      <div className="space-y-4 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {[
-          {
-            num: 1,
-            slug: "module-1",
-            emoji: "🗃️",
-            title: "Introduction to Data & Databases",
-            description:
-              "Understand what data is, why organized records matter in a medical office, and how the concept of a database solves the problems that paper records and scattered files create.",
-          },
-          {
-            num: 2,
-            slug: "module-2",
-            emoji: "📊",
-            title: "Excel as a Data Tool",
-            description:
-              "Use Microsoft Excel as a powerful data management tool — structure data tables correctly, sort and filter records, write lookup functions, and generate simple reports.",
-          },
-          {
-            num: 3,
-            slug: "module-3",
-            emoji: "🏛️",
-            title: "Introduction to Microsoft Access",
-            description:
-              "Get started with Microsoft Access — understand what makes it different from Excel, build your first database tables, and enter and edit records in a structured environment.",
-          },
-          {
-            num: 4,
-            slug: "module-4",
-            emoji: "🔍",
-            title: "Queries, Forms & Reports",
-            description:
-              "Build the three most powerful Access tools — queries that find and analyze data, forms that make data entry easy, and reports that present information professionally.",
-          },
-          {
-            num: 5,
-            slug: "module-5",
-            emoji: "🔒",
-            title: "Data Integrity & Records Management",
-            description:
-              "Ensure your data stays accurate, consistent, and protected — with validation rules, backup strategies, records retention knowledge, and a complete office data management system.",
-          },
+          { num: 1, slug: "module-1", emoji: "🗃️", title: "Introduction to Data & Databases", description: "Understand what data is, why organized records matter in a medical office, and how the concept of a database solves the problems that paper records and scattered files create." },
+          { num: 2, slug: "module-2", emoji: "📊", title: "Excel as a Data Tool", description: "Use Microsoft Excel as a powerful data management tool — structure data tables correctly, sort and filter records, write lookup functions, and generate simple reports." },
+          { num: 3, slug: "module-3", emoji: "🏛️", title: "Introduction to Microsoft Access", description: "Get started with Microsoft Access — understand what makes it different from Excel, build your first database tables, and enter and edit records in a structured environment." },
+          { num: 4, slug: "module-4", emoji: "🔍", title: "Queries, Forms & Reports", description: "Build the three most powerful Access tools — queries that find and analyze data, forms that make data entry easy, and reports that present information professionally." },
+          { num: 5, slug: "module-5", emoji: "🔒", title: "Data Integrity & Records Management", description: "Ensure your data stays accurate, consistent, and protected — with validation rules, backup strategies, records retention knowledge, and a complete office data management system." },
         ].map(({ num, slug, emoji, title, description }) => (
-          <Link
+          <ModuleCard
             key={num}
+            num={num}
+            slug={slug}
+            emoji={emoji}
+            title={title}
+            description={description}
             href={`/learning-paths/office-assistant/intro-database/${slug}`}
-          >
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition">
-              <div className="flex items-center justify-between">
-                <div className="flex items-start gap-4">
-                  <span className="text-3xl">{emoji}</span>
-                  <div>
-                    <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                      Module {num}
-                    </span>
-                    <h3 className="text-xl font-bold mt-3 mb-2">{title}</h3>
-                    <p className="text-gray-600">{description}</p>
-                  </div>
-                </div>
-                <span className="text-green-600 font-semibold text-sm flex-shrink-0 ml-6">
-                  Available →
-                </span>
-              </div>
-            </div>
-          </Link>
+          />
         ))}
       </div>
 

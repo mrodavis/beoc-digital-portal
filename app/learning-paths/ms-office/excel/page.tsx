@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import ModuleCard from "@/components/ModuleCard";
 
 export default function ExcelPage() {
   return (
@@ -56,96 +57,11 @@ export default function ExcelPage() {
         description="Build strong spreadsheet fundamentals used in every office environment."
       />
 
-      <div className="space-y-4 mb-8">
-
-        {/* Module 1 */}
-        <Link href="/learning-paths/ms-office/excel/module-1">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 1
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Excel Fundamentals
-                </h3>
-                <p className="text-gray-600">
-                  Interface navigation, workbook basics, formatting, and spreadsheet setup.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br></br>
-
-        {/* Module 2 */}
-        <Link href="/learning-paths/ms-office/excel/module-2">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 2
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Cells, Formatting & Basic Formulas
-                </h3>
-                <p className="text-gray-600">
-                  Cell formatting, number formats, worksheet structure and basic formulas.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br></br>
-
-        {/* Module 3 */}
-        <Link href="/learning-paths/ms-office/excel/module-3">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 3
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Workbook Management, Printing & Basic Calculations
-                </h3>
-                <p className="text-gray-600">
-                  Multiple worksheets, find & replace, spell check, view tools, professional printing, intro to formulas.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br></br>
-
-        {/* Module 4 */}
-        <Link href="/learning-paths/ms-office/excel/module-4">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 4
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Complex Formulas, Functions & Cell References
-                </h3>
-                <p className="text-gray-600">
-                  Complex formulas, intro to functions, and absolute and relative cell references.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <ModuleCard num={1} slug="module-1" emoji="📊" title="Excel Fundamentals" description="Interface navigation, workbook basics, formatting, and spreadsheet setup." href="/learning-paths/ms-office/excel/module-1" />
+        <ModuleCard num={2} slug="module-2" emoji="🔢" title="Cells, Formatting & Basic Formulas" description="Cell formatting, number formats, worksheet structure and basic formulas." href="/learning-paths/ms-office/excel/module-2" />
+        <ModuleCard num={3} slug="module-3" emoji="🖨️" title="Workbook Management, Printing & Basic Calculations" description="Multiple worksheets, find & replace, spell check, view tools, professional printing, intro to formulas." href="/learning-paths/ms-office/excel/module-3" />
+        <ModuleCard num={4} slug="module-4" emoji="🧮" title="Complex Formulas, Functions & Cell References" description="Complex formulas, intro to functions, and absolute and relative cell references." href="/learning-paths/ms-office/excel/module-4" />
       </div>
 
       {/* ================= ADVANCED TRACK ================= */}
@@ -154,107 +70,21 @@ export default function ExcelPage() {
         description="Develop professional-level Excel skills for reporting and certification."
       />
 
-      <div className="space-y-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <ModuleCard num={5} slug="module-5" emoji="📈" title="Working with Data" description="Sorting, filtering, tables, charts, and conditional formatting." href="/learning-paths/ms-office/excel/module-5" />
+        <ModuleCard num={6} slug="module-6" emoji="📉" title="Tables, Charts & PivotTables" description="Structure data with tables, visualize insights with charts, and summarize information using PivotTables." href="/learning-paths/ms-office/excel/module-6" />
+        <ModuleCard num={7} slug="module-7" emoji="🔍" title="Data Analysis Tools" description="Learn advanced PivotTable techniques, What-If Analysis tools, and reference styles used for deeper data analysis." href="/learning-paths/ms-office/excel/module-7" />
+        <ModuleCard num={8} slug="module-8" emoji="✨" title="Modern Excel Features" description="Explore Microsoft 365 features, Intelligent Services, drawing tools, and icons to enhance modern Excel workflows." href="/learning-paths/ms-office/excel/module-8" />
+      </div>
 
-
-        {/* Module 5 */}
-        <Link href="/learning-paths/ms-office/excel/module-5">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 5
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Working with Data
-                </h3>
-                <p className="text-gray-600">
-                  Sorting, filtering, tables, charts, and conditional formatting.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br></br>
-
-        {/* Module 6 */}
-        <Link href="/learning-paths/ms-office/excel/module-6">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 6
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Tables, Charts & PivotTables
-                </h3>
-                <p className="text-gray-600">
-                  Structure data with tables, visualize insights with charts, and summarize information using PivotTables.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br></br>
-
-      {/* Module 7 */}
-      <Link href="/learning-paths/ms-office/excel/module-7">
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                Module 7
-              </span>
-              <h3 className="text-xl font-bold mt-3 mb-2">
-                Data Analysis Tools
-              </h3>
-              <p className="text-gray-600">
-                Learn advanced PivotTable techniques, What-If Analysis tools, and reference styles used for deeper data analysis.
-              </p>
-            </div>
-            <span className="text-green-600 font-semibold text-sm">
-                Available →
-            </span>
-          </div>
-        </div>
-      </Link><br></br>
-
-      {/* Module 8 */}
-      <Link href="/learning-paths/ms-office/excel/module-8">
-        <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                Module 8
-              </span>
-              <h3 className="text-xl font-bold mt-3 mb-2">
-                Modern Excel Features
-              </h3>
-              <p className="text-gray-600">
-                Explore Microsoft 365 features, Intelligent Services, drawing tools, and icons to enhance modern Excel workflows.
-              </p>
-            </div>
-            <span className="text-green-600 font-semibold text-sm">
-                Available →
-            </span>
-          </div>
-        </div>
-      </Link><br></br>
-
-        {/* Assessment */}
-        <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6">
-          <h3 className="text-xl font-bold mb-2">
-            🏆 Excel Certification Assessment
-          </h3>
-          <p className="text-gray-700">
-            Covers Modules 1–7. MOS-style simulation and project-based evaluation.
-          </p>
-        </div>
-
+      {/* Assessment */}
+      <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6 mb-8">
+        <h3 className="text-xl font-bold mb-2">
+          🏆 Excel Certification Assessment
+        </h3>
+        <p className="text-gray-700">
+          Covers Modules 1–7. MOS-style simulation and project-based evaluation.
+        </p>
       </div>
 
       {/* Prerequisites */}

@@ -119,56 +119,46 @@ export default function ModuleIndexTemplate({
         description="Complete each lesson in order. Watch the video, review the notes, and finish the challenge."
       />
 
-      <div className="space-y-8 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
         {lessons.map((lesson, index) => (
           <Link
             key={lesson.slug}
             href={`/learning-paths/${basePath}/${courseSlug}/module-${moduleNumber}/${lesson.slug}`}
+            className="block h-full"
           >
-            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-2xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                      Lesson {index + 1}
+            <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden h-full flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
+
+              {/* Gradient Header */}
+              <div className="bg-gradient-to-br from-primary-600 to-indigo-700 p-5 flex flex-col justify-between min-h-[140px]">
+                <div className="flex items-center justify-between">
+                  <span className="px-3 py-1 bg-white/20 text-white text-sm font-bold rounded-full backdrop-blur-sm">
+                    Lesson {index + 1}
+                  </span>
+                  {lesson.duration && (
+                    <span className="text-white/80 text-sm">
+                      ⏱ {lesson.duration}
                     </span>
-                    {lesson.duration && (
-                      <span className="text-sm text-gray-500">
-                        {lesson.duration}
-                      </span>
-                    )}
-                  </div>
-
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {lesson.title}
-                  </h3>
-
-                  <p className="text-gray-600">
-                    {lesson.description}
-                  </p>
-
-                  {lesson.practiceFiles && lesson.practiceFiles.length > 0 && (
-                    <div className="mt-3 text-sm text-green-600 font-medium">
-                      ✔ Includes Practice File
-                    </div>
                   )}
                 </div>
-
-                <svg
-                  className="w-6 h-6 text-gray-400 flex-shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
+                <span className="text-4xl mt-3 drop-shadow-sm">{emoji}</span>
               </div>
-            </div><br></br>
+
+              {/* Content */}
+              <div className="p-5 flex flex-col flex-1">
+                <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-2 leading-snug">
+                  {lesson.title}
+                </h3>
+                <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed flex-1">
+                  {lesson.description}
+                </p>
+                {lesson.practiceFiles && lesson.practiceFiles.length > 0 && (
+                  <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-green-600 font-medium">
+                    ✔ Includes Practice File
+                  </div>
+                )}
+              </div>
+
+            </div>
           </Link>
         ))}
       </div>

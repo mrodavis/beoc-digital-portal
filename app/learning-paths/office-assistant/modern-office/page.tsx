@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import ModuleCard from "@/components/ModuleCard";
 
 export default function ModernOfficePage() {
   return (
@@ -55,36 +56,26 @@ export default function ModernOfficePage() {
         description="Complete each module in order to build your modern office skill set."
       />
 
-      <div className="space-y-4 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {[
-          { num: 1, slug: "module-1", title: "Digital Office Foundations", description: "Understand how modern offices operate using digital systems and tools like email, cloud storage, and scheduling platforms." },
-          { num: 2, slug: "module-2", title: "Communication Systems", description: "Master professional email writing, workplace chat tools, and video meeting etiquette." },
-          { num: 3, slug: "module-3", title: "Document & Data Workflows", description: "Create professional documents, use templates effectively, and manage data in spreadsheets." },
-          { num: 4, slug: "module-4", title: "Scheduling & Meetings", description: "Manage digital calendars, book meetings professionally, and resolve scheduling conflicts." },
-          { num: 5, slug: "module-5", title: "Task & Project Management", description: "Use task management tools, prioritize work, and keep projects organized across a team." },
-          { num: 6, slug: "module-6", title: "CRM & Office Systems", description: "Learn how CRM systems work, manage client records, and maintain professional follow-up." },
-          { num: 7, slug: "module-7", title: "AI Productivity", description: "Use AI tools to write faster, automate repetitive tasks, and build a personal AI workflow." },
-          { num: 8, slug: "module-8", title: "Final Simulation", description: "Apply all your skills in a realistic office simulation and build your professional portfolio." },
-        ].map(({ num, slug, title, description }) => (
-          <Link
+          { num: 1, slug: "module-1", emoji: "🏢", title: "Digital Office Foundations", description: "Understand how modern offices operate using digital systems and tools like email, cloud storage, and scheduling platforms." },
+          { num: 2, slug: "module-2", emoji: "💬", title: "Communication Systems", description: "Master professional email writing, workplace chat tools, and video meeting etiquette." },
+          { num: 3, slug: "module-3", emoji: "📄", title: "Document & Data Workflows", description: "Create professional documents, use templates effectively, and manage data in spreadsheets." },
+          { num: 4, slug: "module-4", emoji: "📅", title: "Scheduling & Meetings", description: "Manage digital calendars, book meetings professionally, and resolve scheduling conflicts." },
+          { num: 5, slug: "module-5", emoji: "✅", title: "Task & Project Management", description: "Use task management tools, prioritize work, and keep projects organized across a team." },
+          { num: 6, slug: "module-6", emoji: "🤝", title: "CRM & Office Systems", description: "Learn how CRM systems work, manage client records, and maintain professional follow-up." },
+          { num: 7, slug: "module-7", emoji: "🤖", title: "AI Productivity", description: "Use AI tools to write faster, automate repetitive tasks, and build a personal AI workflow." },
+          { num: 8, slug: "module-8", emoji: "🎯", title: "Final Simulation", description: "Apply all your skills in a realistic office simulation and build your professional portfolio." },
+        ].map(({ num, slug, emoji, title, description }) => (
+          <ModuleCard
             key={num}
+            num={num}
+            slug={slug}
+            emoji={emoji}
+            title={title}
+            description={description}
             href={`/learning-paths/office-assistant/modern-office/${slug}`}
-          >
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                    Module {num}
-                  </span>
-                  <h3 className="text-xl font-bold mt-3 mb-2">{title}</h3>
-                  <p className="text-gray-600">{description}</p>
-                </div>
-                <span className="text-green-600 font-semibold text-sm flex-shrink-0 ml-6">
-                  Available →
-                </span>
-              </div>
-            </div>
-          </Link>
+          />
         ))}
       </div>
 

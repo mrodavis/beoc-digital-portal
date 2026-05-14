@@ -76,10 +76,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]/page.js"
     ],
-    "/_not-found/page": [
+    "/learning-paths/ms-office/word/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/learning-paths/ms-office/word/page.js"
     ]
   }
 }

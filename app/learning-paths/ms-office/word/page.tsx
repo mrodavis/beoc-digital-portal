@@ -1,10 +1,11 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import ModuleCard from "@/components/ModuleCard";
 
 export default function WordPage() {
   return (
     <div className="container mx-auto px-4 py-12 max-w-7xl">
-      
+
       {/* Breadcrumb */}
       <nav className="mb-8 text-sm text-gray-600">
         <Link href="/learning-paths/ms-office" className="hover:text-primary-600">
@@ -23,8 +24,8 @@ export default function WordPage() {
               Word 2019
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
-              Master Microsoft Word from workforce-ready fundamentals to 
-              certification-level proficiency. Designed for career readiness 
+              Master Microsoft Word from workforce-ready fundamentals to
+              certification-level proficiency. Designed for career readiness
               and MOS exam preparation.
             </p>
           </div>
@@ -57,125 +58,18 @@ export default function WordPage() {
         description="Develop job-ready Word skills for professional office environments."
       />
 
-      <div className="space-y-4 mb-8">
-
-        {/* Module 1 */}
-        <Link href="/learning-paths/ms-office/word/module-1">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 1
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Introduction to Word 2019
-                </h3>
-                <p className="text-gray-600">
-                  Interface navigation, document creation, saving, and essential formatting.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br></br>
-
-  {/* Module 2 - Available */}
-  <Link href="/learning-paths/ms-office/word/module-2">
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-      <div className="flex items-center justify-between">
-        <div>
-          <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-            Module 2
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            Basic Formatting
-          </h3>
-          <p className="text-gray-600">
-            Master paragraph styles, themes, advanced formatting options, and professional templates.
-          </p>
-        </div>
-        <span className="text-green-600 font-semibold text-sm">
-          Available →
-        </span>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <ModuleCard num={1} slug="module-1" emoji="📝" title="Introduction to Word 2019" description="Interface navigation, document creation, saving, and essential formatting." href="/learning-paths/ms-office/word/module-1" />
+        <ModuleCard num={2} slug="module-2" emoji="🖋️" title="Basic Formatting" description="Master paragraph styles, themes, advanced formatting options, and professional templates." href="/learning-paths/ms-office/word/module-2" />
+        <ModuleCard num={3} slug="module-3" emoji="🎨" title="Styles, Media, & Themes" description="Master paragraph styles, themes, advanced formatting options, and professional templates." href="/learning-paths/ms-office/word/module-3" />
+        <ModuleCard num={4} slug="module-4" emoji="🤝" title="References, Review, & Collaboration" description="Master headers, footers, track changes, and collaborate with others." href="/learning-paths/ms-office/word/module-4" />
+        <ModuleCard num={5} slug="module-5" emoji="📋" title="Tables, Charts, & Mail Merge" description="Content unlocking soon." href="/learning-paths/ms-office/word/module-5" locked />
       </div>
-    </div>
-  </Link><br></br>
 
-    {/* Module 3 - Available */}
-  <Link href="/learning-paths/ms-office/word/module-3">
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-      <div className="flex items-center justify-between">
-        <div>
-          <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-            Module 3
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            Styles, Media, & Themes
-          </h3>
-          <p className="text-gray-600">
-            Master paragraph styles, themes, advanced formatting options, and professional templates.
-          </p>
-        </div>
-        <span className="text-green-600 font-semibold text-sm">
-          Available →
-        </span>
-      </div>
-    </div>
-  </Link><br></br>
-
-    {/* Module 4 - Available */}
-  <Link href="/learning-paths/ms-office/word/module-4">
-    <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-      <div className="flex items-center justify-between">
-        <div>
-          <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-            Module 4
-          </span>
-          <h3 className="text-xl font-bold mt-3 mb-2">
-            References, Review, & Collaboration
-          </h3>
-          <p className="text-gray-600">
-            Master headers, footers, track changes, and collaborate with others...
-          </p>
-        </div>
-        <span className="text-green-600 font-semibold text-sm">
-          Available →
-        </span>
-      </div>
-    </div>
-  </Link>
-
-  {/* Modules 3–6 Locked */}
-  {["5"].map((num) => (
-    <div
-      key={num}
-      className="bg-white rounded-xl shadow-md border border-gray-200 p-6"
-    >
-      <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-        Module {num}
-      </span>
-      <h3 className="text-xl font-bold mt-3 mb-2">
-        {num === "5" && "Tables, Charts, & Mail Merge"}
-      </h3>
-      <p className="text-gray-600">
-        Content unlocking soon.
-      </p>
-    </div>
-  ))}
-
-
-        {/* Workforce Assessment */}
-        <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-xl p-6">
-          <h3 className="text-xl font-bold mb-2">
-            🧪 Workforce Assessment
-          </h3>
-          <p className="text-gray-700">
-            Covers Modules 1–5. Demonstrate job-ready proficiency in Word.
-          </p>
-        </div>
-
+      {/* Workforce Assessment */}
+      <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-xl p-6 mb-12">
+        <h3 className="text-xl font-bold mb-2">🧪 Workforce Assessment</h3>
+        <p className="text-gray-700">Covers Modules 1–5. Demonstrate job-ready proficiency in Word.</p>
       </div>
 
       {/* ================= ADVANCED TRACK ================= */}
@@ -183,58 +77,17 @@ export default function WordPage() {
         title="Advanced Certification Track (Modules 6–8)"
         description="Designed for MOS certification and advanced professional use."
       />
-      {/* Module 6 - Available */}
-        <Link href="/learning-paths/ms-office/word/module-6">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 6
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Advanced Formatting
-                </h3>
-                <p className="text-gray-600">
-                  Master paragraph styles, themes, advanced formatting options, and professional templates.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br></br>
 
-      <div className="space-y-4 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <ModuleCard num={6} slug="module-6" emoji="⚙️" title="Advanced Formatting" description="Master paragraph styles, themes, advanced formatting options, and professional templates." href="/learning-paths/ms-office/word/module-6" />
+        <ModuleCard num={7} slug="module-7" emoji="🏅" title="Advanced Styles & Themes" description="Certification-level content coming soon." href="/learning-paths/ms-office/word/module-7" locked />
+        <ModuleCard num={8} slug="module-8" emoji="☁️" title="Office 365 and More" description="Certification-level content coming soon." href="/learning-paths/ms-office/word/module-8" locked />
+      </div>
 
-        {["7", "8"].map((num) => (
-          <div
-            key={num}
-            className="bg-white rounded-xl shadow-md border border-gray-200 p-6"
-          >
-            <span className="px-3 py-1 bg-gray-100 text-gray-700 text-sm font-bold rounded-full">
-              Module {num}
-            </span>
-            <h3 className="text-xl font-bold mt-3 mb-2">
-              {num === "7" && "Advanced Styles & Themes"}
-              {num === "8" && "Office 365 and More"}
-            </h3>
-            <p className="text-gray-600">
-              Certification-level content coming soon.
-            </p>
-          </div>
-        ))}
-
-        {/* Advanced Assessment */}
-        <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6">
-          <h3 className="text-xl font-bold mb-2">
-            🏆 Advanced Assessment
-          </h3>
-          <p className="text-gray-700">
-            Covers Modules 1–8. Certification-level simulation exam.
-          </p>
-        </div>
-
+      {/* Advanced Assessment */}
+      <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6 mb-12">
+        <h3 className="text-xl font-bold mb-2">🏆 Advanced Assessment</h3>
+        <p className="text-gray-700">Covers Modules 1–8. Certification-level simulation exam.</p>
       </div>
 
       {/* Prerequisites */}

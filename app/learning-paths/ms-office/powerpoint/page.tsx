@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import ModuleCard from "@/components/ModuleCard";
 
 export default function PowerPointPage() {
   return (
@@ -56,96 +57,11 @@ export default function PowerPointPage() {
         description="Learn the core tools used to build and manage presentations."
       />
 
-      <div className="space-y-4 mb-8">
-
-        {/* Module 1 */}
-        <Link href="/learning-paths/ms-office/powerpoint/module-1">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 1
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Getting Started with PowerPoint
-                </h3>
-                <p className="text-gray-600">
-                  Interface overview, OneDrive integration, creating presentations, saving files, and slide basics.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br />
-
-        {/* Module 2 */}
-        <Link href="/learning-paths/ms-office/powerpoint/module-2">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 2
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Working with Text
-                </h3>
-                <p className="text-gray-600">
-                  Text formatting, lists, spacing, indentation, and find & replace tools.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br />
-
-        {/* Module 3 */}
-        <Link href="/learning-paths/ms-office/powerpoint/module-3">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 3
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Slide Design & Themes
-                </h3>
-                <p className="text-gray-600">
-                  Apply themes, modify design styles, and use Slide Master for consistent presentation layouts.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br />
-
-        {/* Module 4 */}
-        <Link href="/learning-paths/ms-office/powerpoint/module-4">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 4
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Managing Slides & Presentations
-                </h3>
-                <p className="text-gray-600">
-                  Organize slides, manage presentation structure, print slides, and present to an audience.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <ModuleCard num={1} slug="module-1" emoji="🎯" title="Getting Started with PowerPoint" description="Interface overview, OneDrive integration, creating presentations, saving files, and slide basics." href="/learning-paths/ms-office/powerpoint/module-1" />
+        <ModuleCard num={2} slug="module-2" emoji="✏️" title="Working with Text" description="Text formatting, lists, spacing, indentation, and find & replace tools." href="/learning-paths/ms-office/powerpoint/module-2" />
+        <ModuleCard num={3} slug="module-3" emoji="🎨" title="Slide Design & Themes" description="Apply themes, modify design styles, and use Slide Master for consistent presentation layouts." href="/learning-paths/ms-office/powerpoint/module-3" />
+        <ModuleCard num={4} slug="module-4" emoji="🗂️" title="Managing Slides & Presentations" description="Organize slides, manage presentation structure, print slides, and present to an audience." href="/learning-paths/ms-office/powerpoint/module-4" />
       </div>
 
       {/* ================= VISUAL DESIGN ================= */}
@@ -154,96 +70,11 @@ export default function PowerPointPage() {
         description="Create engaging slides with images, shapes, charts, and multimedia."
       />
 
-      <div className="space-y-4 mb-8">
-
-        {/* Module 5 */}
-        <Link href="/learning-paths/ms-office/powerpoint/module-5">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 5
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Images & Objects
-                </h3>
-                <p className="text-gray-600">
-                  Insert pictures, format graphics, work with shapes, and align objects.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br />
-
-        {/* Module 6 */}
-        <Link href="/learning-paths/ms-office/powerpoint/module-6">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 6
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Animations & Multimedia
-                </h3>
-                <p className="text-gray-600">
-                  Apply transitions, animate objects, and add audio and video to slides.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br />
-
-        {/* Module 7 */}
-        <Link href="/learning-paths/ms-office/powerpoint/module-7">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 7
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Tables, Charts & SmartArt
-                </h3>
-                <p className="text-gray-600">
-                  Present structured information using tables, charts, and SmartArt graphics.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link><br />
-
-        {/* Module 8 */}
-        <Link href="/learning-paths/ms-office/powerpoint/module-8">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition cursor-pointer">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                  Module 8
-                </span>
-                <h3 className="text-xl font-bold mt-3 mb-2">
-                  Review & Protect Presentations
-                </h3>
-                <p className="text-gray-600">
-                  Proof presentations, review slides, inspect documents, and protect presentation files.
-                </p>
-              </div>
-              <span className="text-green-600 font-semibold text-sm">
-                Available →
-              </span>
-            </div>
-          </div>
-        </Link>
-
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        <ModuleCard num={5} slug="module-5" emoji="🖼️" title="Images & Objects" description="Insert pictures, format graphics, work with shapes, and align objects." href="/learning-paths/ms-office/powerpoint/module-5" />
+        <ModuleCard num={6} slug="module-6" emoji="🎬" title="Animations & Multimedia" description="Apply transitions, animate objects, and add audio and video to slides." href="/learning-paths/ms-office/powerpoint/module-6" />
+        <ModuleCard num={7} slug="module-7" emoji="📊" title="Tables, Charts & SmartArt" description="Present structured information using tables, charts, and SmartArt graphics." href="/learning-paths/ms-office/powerpoint/module-7" />
+        <ModuleCard num={8} slug="module-8" emoji="🔒" title="Review & Protect Presentations" description="Proof presentations, review slides, inspect documents, and protect presentation files." href="/learning-paths/ms-office/powerpoint/module-8" />
       </div>
 
       {/* Prerequisites */}

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import ModuleCard from "@/components/ModuleCard";
 import { introToEHRModules } from "@/lib/content/ehr/intro-to-ehr";
 
 export default function IntroToEHRPage() {
@@ -76,32 +77,20 @@ export default function IntroToEHRPage() {
         description="Complete each module in order — lectures build the concepts, Thursday labs put them into practice."
       />
 
-      <div className="space-y-4 mb-12">
-        {introToEHRModules.map(({ moduleNumber, moduleSlug, title, description, level, estimatedMinutes }) => (
-          <Link
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {introToEHRModules.map(({ moduleNumber, moduleSlug, emoji, title, description, level, estimatedMinutes, lessons }) => (
+          <ModuleCard
             key={moduleNumber}
+            num={moduleNumber}
+            slug={moduleSlug}
+            emoji={emoji}
+            title={title}
+            description={description}
             href={`/learning-paths/ehr/intro-to-ehr/${moduleSlug}`}
-          >
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition">
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                    Module {moduleNumber}
-                  </span>
-                  <h3 className="text-xl font-bold mt-3 mb-2">{title}</h3>
-                  <p className="text-gray-600">{description}</p>
-                  <div className="flex gap-4 mt-2 text-sm text-gray-500">
-                    <span>{level}</span>
-                    <span>·</span>
-                    <span>{Math.round(estimatedMinutes / 60 * 10) / 10} hrs</span>
-                  </div>
-                </div>
-                <span className="text-green-600 font-semibold text-sm flex-shrink-0 ml-6">
-                  Available →
-                </span>
-              </div>
-            </div>
-          </Link>
+            level={level}
+            estimatedMinutes={estimatedMinutes}
+            lessonCount={lessons.length}
+          />
         ))}
       </div>
 

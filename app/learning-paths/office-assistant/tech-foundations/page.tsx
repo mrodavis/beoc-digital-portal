@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import ModuleCard from "@/components/ModuleCard";
 
 export default function TechFoundationsPage() {
   return (
@@ -55,7 +56,7 @@ export default function TechFoundationsPage() {
         description="Complete each module in order to build a complete technology foundation for professional office work."
       />
 
-      <div className="space-y-4 mb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {[
           { num: 1, slug: "module-1", emoji: "💻", title: "Computers & Operating Systems", description: "Understand hardware, navigate Windows confidently, manage programs, and configure system settings for a professional workstation." },
           { num: 2, slug: "module-2", emoji: "🗂️", title: "File Management & Organization", description: "Create, name, copy, move, and search files and folders with the professional habits that keep an office organized and efficient." },
@@ -66,28 +67,15 @@ export default function TechFoundationsPage() {
           { num: 7, slug: "module-7", emoji: "☁️", title: "Cloud Storage & Collaboration", description: "Use OneDrive, SharePoint, and Microsoft Teams to store, share, and collaborate on documents the way modern offices actually work." },
           { num: 8, slug: "module-8", emoji: "🔐", title: "Cybersecurity Fundamentals", description: "Recognize digital threats, protect accounts with strong passwords and MFA, identify phishing attacks, and handle patient data securely under HIPAA." },
         ].map(({ num, slug, emoji, title, description }) => (
-          <Link
+          <ModuleCard
             key={num}
+            num={num}
+            slug={slug}
+            emoji={emoji}
+            title={title}
+            description={description}
             href={`/learning-paths/office-assistant/tech-foundations/${slug}`}
-          >
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 hover:shadow-lg transition">
-              <div className="flex items-center justify-between">
-                <div className="flex items-start gap-4">
-                  <span className="text-3xl">{emoji}</span>
-                  <div>
-                    <span className="px-3 py-1 bg-primary-100 text-primary-700 text-sm font-bold rounded-full">
-                      Module {num}
-                    </span>
-                    <h3 className="text-xl font-bold mt-3 mb-2">{title}</h3>
-                    <p className="text-gray-600">{description}</p>
-                  </div>
-                </div>
-                <span className="text-green-600 font-semibold text-sm flex-shrink-0 ml-6">
-                  Available →
-                </span>
-              </div>
-            </div>
-          </Link>
+          />
         ))}
       </div>
 
