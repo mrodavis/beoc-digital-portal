@@ -4,10 +4,10 @@ import { wordModule1Lessons } from "./module1Lessons";
 import { wordModule2Lessons } from "./module2Lessons";
 import { wordModule3Lessons } from "./module3Lessons";
 import { wordModule4Lessons } from "./module4Lessons";
-// import { wordModule5Lessons } from "./module5Lessons";
+import { wordModule5Lessons } from "./module5Lessons";
 import { wordModule6Lessons } from "./module6Lessons";
-// import { wordModule7Lessons } from "./module7Lessons";
-// import { wordModule8Lessons } from "./module8Lessons";
+import { wordModule7Lessons } from "./module7Lessons";
+import { wordModule8Lessons } from "./module8Lessons";
 
 export type WordModule = {
   moduleNumber: number;
@@ -69,17 +69,17 @@ export const wordModules: WordModule[] = [
     estimatedMinutes: 45,
   },
 
-//   {
-//     moduleNumber: 5,
-//     moduleSlug: "module-5",
-//     title: "Tables, Charts & Mail Merge",
-//     emoji: "📊",
-//     description:
-//       "Create tables, insert charts, and automate document creation using Mail Merge.",
-//     lessons: wordModule5Lessons,
-//     level: "Intermediate",
-//     estimatedMinutes: 50,
-//   },
+  {
+    moduleNumber: 5,
+    moduleSlug: "module-5",
+    title: "Tables, Charts & Mail Merge",
+    emoji: "📊",
+    description:
+      "Create tables, insert charts, and automate document creation using Mail Merge.",
+    lessons: wordModule5Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 50,
+  },
 
   {
     moduleNumber: 6,
@@ -93,27 +93,27 @@ export const wordModules: WordModule[] = [
     estimatedMinutes: 50,
   },
 
-//   {
-//     moduleNumber: 7,
-//     moduleSlug: "module-7",
-//     title: "Advanced Styles & Themes",
-//     emoji: "⚙️",
-//     description:
-//       "Deep dive into document styles, themes, and advanced formatting techniques used for certification-level workflows.",
-//     lessons: wordModule7Lessons,
-//     level: "Advanced",
-//     estimatedMinutes: 55,
-//   },
+  {
+    moduleNumber: 7,
+    moduleSlug: "module-7",
+    title: "Advanced Styles & Themes",
+    emoji: "⚙️",
+    description:
+      "Deep dive into document styles, themes, and advanced formatting techniques used for certification-level workflows.",
+    lessons: wordModule7Lessons,
+    level: "Advanced",
+    estimatedMinutes: 55,
+  },
 
-//   {
-//     moduleNumber: 8,
-//     moduleSlug: "module-8",
-//     title: "Office 365 and More",
-//     emoji: "☁️",
-//     description:
-//       "Explore modern Microsoft 365 features, cloud collaboration, and advanced Word productivity tools.",
-//     lessons: wordModule8Lessons,
-//     level: "Advanced",
-//     estimatedMinutes: 45,
-//   },
+  {
+    moduleNumber: 8,
+    moduleSlug: "module-8",
+    title: "Office 365 and More",
+    emoji: "☁️",
+    description:
+      "Explore modern Microsoft 365 features, cloud collaboration, and advanced Word productivity tools.",
+    lessons: wordModule8Lessons,
+    level: "Advanced",
+    estimatedMinutes: 45,
+  },
 ];

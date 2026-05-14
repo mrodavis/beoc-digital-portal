@@ -63,7 +63,7 @@ export default function WordPage() {
         <ModuleCard num={2} slug="module-2" emoji="🖋️" title="Basic Formatting" description="Master paragraph styles, themes, advanced formatting options, and professional templates." href="/learning-paths/ms-office/word/module-2" />
         <ModuleCard num={3} slug="module-3" emoji="🎨" title="Styles, Media, & Themes" description="Master paragraph styles, themes, advanced formatting options, and professional templates." href="/learning-paths/ms-office/word/module-3" />
         <ModuleCard num={4} slug="module-4" emoji="🤝" title="References, Review, & Collaboration" description="Master headers, footers, track changes, and collaborate with others." href="/learning-paths/ms-office/word/module-4" />
-        <ModuleCard num={5} slug="module-5" emoji="📋" title="Tables, Charts, & Mail Merge" description="Content unlocking soon." href="/learning-paths/ms-office/word/module-5" locked />
+        <ModuleCard num={5} slug="module-5" emoji="📋" title="Tables, Charts, & Mail Merge" description="Create tables, insert charts, and automate document creation using Mail Merge." href="/learning-paths/ms-office/word/module-5" />
       </div>
 
       {/* Workforce Assessment */}
@@ -80,8 +80,8 @@ export default function WordPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
         <ModuleCard num={6} slug="module-6" emoji="⚙️" title="Advanced Formatting" description="Master paragraph styles, themes, advanced formatting options, and professional templates." href="/learning-paths/ms-office/word/module-6" />
-        <ModuleCard num={7} slug="module-7" emoji="🏅" title="Advanced Styles & Themes" description="Certification-level content coming soon." href="/learning-paths/ms-office/word/module-7" locked />
-        <ModuleCard num={8} slug="module-8" emoji="☁️" title="Office 365 and More" description="Certification-level content coming soon." href="/learning-paths/ms-office/word/module-8" locked />
+        <ModuleCard num={7} slug="module-7" emoji="⚙️" title="Advanced Styles & Themes" description="Deep dive into document styles, themes, and advanced formatting techniques used for certification-level workflows." href="/learning-paths/ms-office/word/module-7" />
+        <ModuleCard num={8} slug="module-8" emoji="☁️" title="Office 365 and More" description="Explore modern Microsoft 365 features, cloud collaboration, and advanced Word productivity tools." href="/learning-paths/ms-office/word/module-8" />
       </div>
 
       {/* Advanced Assessment */}

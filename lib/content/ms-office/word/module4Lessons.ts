@@ -226,4 +226,356 @@ export const wordModule4Lessons: Lesson[] = [
   ],
 },
 
+,
+
+/* ============================================================
+LESSON 2 – TRACK CHANGES
+============================================================ */
+
+{
+  slug: "track-changes",
+  title: "Track Changes",
+  description:
+    "Learn how to track edits in a Word document, accept or reject changes, and review a document's revision history for professional collaboration.",
+  duration: "8 min",
+  videoUrl: "https://www.youtube.com/embed/pLKHMRBR0Z0",
+
+  practiceFiles: [
+    {
+      name: "Track Changes Practice File",
+      url: "/practice/word/module-4/track-changes/word_trackchanges_practice.docx",
+    },
+  ],
+
+  sections: [
+
+    {
+      heading: "What Is Track Changes?",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Track Changes is a feature in Word that records every edit made to a document — insertions, deletions, and formatting changes — so reviewers can see exactly what was modified and by whom.",
+        },
+      ],
+    },
+
+    {
+      heading: "Turning On Track Changes",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Go to the Review tab and click Track Changes to toggle it on. When active, the button appears highlighted and all edits are marked in the document.",
+        },
+        {
+          type: "image",
+          src: "/images/word/track-changes/trackchanges_command.png",
+          alt: "Track Changes button on the Review tab",
+        },
+        {
+          type: "image",
+          src: "/images/word/track-changes/trackchanges_active.png",
+          alt: "Track Changes turned on",
+        },
+      ],
+    },
+
+    {
+      heading: "How Changes Appear in the Document",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Inserted text appears underlined, deleted text appears with a strikethrough, and a change bar appears in the margin to mark edited lines. Each reviewer's changes appear in a different color.",
+        },
+        {
+          type: "image",
+          src: "/images/word/track-changes/trackchanges_markup_example.png",
+          alt: "Example of tracked insertions and deletions in a document",
+        },
+      ],
+    },
+
+    {
+      heading: "Controlling What Markup Is Shown",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use the Show Markup menu on the Review tab to control which types of changes are visible. You can also switch the display to Simple Markup (margin indicators only) or No Markup (clean view) using the dropdown next to Track Changes.",
+        },
+        {
+          type: "image",
+          src: "/images/word/track-changes/trackchanges_showmarkup_menu.png",
+          alt: "Show Markup dropdown menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/track-changes/trackchanges_display_dropdown.png",
+          alt: "All Markup / Simple Markup / No Markup display options",
+        },
+      ],
+    },
+
+    {
+      heading: "Accepting and Rejecting Changes",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click inside a tracked change, then choose Accept or Reject from the Review tab. Use Accept All or Reject All to process every change at once.",
+        },
+        {
+          type: "image",
+          src: "/images/word/track-changes/trackchanges_accept_reject_buttons.png",
+          alt: "Accept and Reject buttons on the Review tab",
+        },
+        {
+          type: "image",
+          src: "/images/word/track-changes/trackchanges_accept_all_menu.png",
+          alt: "Accept All Changes option in the dropdown",
+        },
+      ],
+    },
+
+    {
+      heading: "Using the Review Pane",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click Reviewing Pane on the Review tab to open a sidebar listing all tracked changes and comments in sequence. This is useful for quickly navigating between edits in long documents.",
+        },
+        {
+          type: "image",
+          src: "/images/word/track-changes/trackchanges_reviewing_pane.png",
+          alt: "Reviewing pane showing list of tracked changes",
+        },
+      ],
+    },
+
+    {
+      heading: "Locking Track Changes",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To prevent others from turning off Track Changes, go to Track Changes → Lock Tracking and set a password. Changes cannot be accepted or rejected until the document is unlocked.",
+        },
+        {
+          type: "image",
+          src: "/images/word/track-changes/trackchanges_lock_tracking.png",
+          alt: "Lock Tracking option and password dialog",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What does the Track Changes feature do in Word?",
+          options: [
+            "Automatically corrects spelling errors as you type",
+            "Records insertions, deletions, and formatting edits so reviewers can see what was changed",
+            "Saves a new version of the document every time you make an edit",
+            "Restricts editing so only the document owner can make changes",
+          ],
+          correctIndex: 1,
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Open the practice document and turn on Track Changes.",
+        "Delete a sentence and type a replacement — notice how both the deletion and insertion are marked.",
+        "Switch the display to Simple Markup, then back to All Markup.",
+        "Accept one tracked change individually.",
+        "Use Accept All to accept all remaining changes.",
+        "Turn off Track Changes when finished.",
+      ],
+    },
+  ],
+},
+
+/* ============================================================
+LESSON 3 – COMMENTS
+============================================================ */
+
+{
+  slug: "comments",
+  title: "Comments",
+  description:
+    "Add, reply to, resolve, and delete comments in Word to communicate feedback and collaborate on documents without altering the main content.",
+  duration: "6 min",
+  videoUrl: "https://www.youtube.com/embed/pLKHMRBR0Z0",
+
+  practiceFiles: [
+    {
+      name: "Comments Practice File",
+      url: "/practice/word/module-4/comments/word_comments_practice.docx",
+    },
+  ],
+
+  sections: [
+
+    {
+      heading: "What Are Comments?",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Comments let you attach notes to specific text in a document without changing the content. They appear as colored bubbles in the margin and are ideal for feedback, questions, and review notes.",
+        },
+      ],
+    },
+
+    {
+      heading: "Inserting a Comment",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Select the text you want to comment on, then go to Review → New Comment. A comment balloon appears in the margin linked to your selected text. Type your note inside the balloon.",
+        },
+        {
+          type: "image",
+          src: "/images/word/comments/comments_new_comment_command.png",
+          alt: "New Comment button on the Review tab",
+        },
+        {
+          type: "image",
+          src: "/images/word/comments/comments_balloon_example.png",
+          alt: "Comment balloon in the document margin",
+        },
+      ],
+    },
+
+    {
+      heading: "Replying to a Comment",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click inside an existing comment balloon and click the Reply button (the curved arrow icon) to add a threaded reply. This creates a conversation thread attached to the same text.",
+        },
+        {
+          type: "image",
+          src: "/images/word/comments/comments_reply_button.png",
+          alt: "Reply button inside a comment balloon",
+        },
+        {
+          type: "image",
+          src: "/images/word/comments/comments_thread_example.png",
+          alt: "Threaded comment conversation",
+        },
+      ],
+    },
+
+    {
+      heading: "Resolving a Comment",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Click the three-dot menu (…) inside a comment balloon and choose Resolve Thread. The comment turns gray to indicate it has been addressed but keeps it visible for reference.",
+        },
+        {
+          type: "image",
+          src: "/images/word/comments/comments_resolve_menu.png",
+          alt: "Resolve Thread option in comment menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/comments/comments_resolved_state.png",
+          alt: "Resolved comment shown in gray",
+        },
+      ],
+    },
+
+    {
+      heading: "Deleting a Comment",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "To permanently remove a comment, right-click the comment balloon and choose Delete Comment, or use the Delete button on the Review tab. Choose Delete All Comments in Document to remove all at once.",
+        },
+        {
+          type: "image",
+          src: "/images/word/comments/comments_delete_command.png",
+          alt: "Delete Comment option on right-click menu",
+        },
+        {
+          type: "image",
+          src: "/images/word/comments/comments_delete_all_menu.png",
+          alt: "Delete All Comments option on Review tab",
+        },
+      ],
+    },
+
+    {
+      heading: "Navigating Between Comments",
+      blocks: [
+        {
+          type: "paragraph",
+          text:
+            "Use the Previous and Next buttons in the Comments group on the Review tab to jump between comments without scrolling through the document manually.",
+        },
+        {
+          type: "image",
+          src: "/images/word/comments/comments_navigate_buttons.png",
+          alt: "Previous and Next comment navigation buttons",
+        },
+      ],
+    },
+
+    {
+      heading: "Knowledge Check",
+      blocks: [
+        {
+          type: "knowledge-check",
+          question: "What happens when you resolve a comment in Word?",
+          options: [
+            "The comment is permanently deleted from the document",
+            "The comment is saved as a footnote at the bottom of the page",
+            "The comment turns gray to show it has been addressed but remains visible",
+            "The commented text is automatically accepted and formatted",
+          ],
+          correctIndex: 2,
+        },
+      ],
+    },
+  ],
+
+  challenge: [
+    {
+      type: "paragraph",
+      text: "Complete the following tasks:",
+    },
+    {
+      type: "list",
+      ordered: true,
+      items: [
+        "Select a sentence in the practice document and insert a comment asking a question about the content.",
+        "Reply to an existing comment in the document.",
+        "Resolve a comment thread.",
+        "Delete one comment completely.",
+        "Use the Previous and Next buttons to navigate all remaining comments.",
+      ],
+    },
+  ],
+},
+
 ];
