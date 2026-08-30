@@ -1,1 +1,268 @@
-{"version":3,"caseSensitive":false,"basePath":"","rewrites":{"beforeFiles":[],"afterFiles":[],"fallback":[]},"redirects":[{"source":"/:path+/","destination":"/:path+","permanent":true,"internal":true,"regex":"^(?:\\/((?:[^\\/]+?)(?:\\/(?:[^\\/]+?))*))\\/$"}],"headers":[]}
+{
+  "version": 3,
+  "pages404": true,
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/eng0300/skills/[slug]",
+      "regex": "^/eng0300/skills/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/eng0300/skills/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ehr/intro-to-ehr/[moduleSlug]",
+      "regex": "^/learning\\-paths/ehr/intro\\-to\\-ehr/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug"
+      },
+      "namedRegex": "^/learning\\-paths/ehr/intro\\-to\\-ehr/(?<nxtPmoduleSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ehr/intro-to-ehr/[moduleSlug]/[slug]",
+      "regex": "^/learning\\-paths/ehr/intro\\-to\\-ehr/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug",
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/learning\\-paths/ehr/intro\\-to\\-ehr/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ms-office/[appSlug]/[moduleSlug]",
+      "regex": "^/learning\\-paths/ms\\-office/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPappSlug": "nxtPappSlug",
+        "nxtPmoduleSlug": "nxtPmoduleSlug"
+      },
+      "namedRegex": "^/learning\\-paths/ms\\-office/(?<nxtPappSlug>[^/]+?)/(?<nxtPmoduleSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]",
+      "regex": "^/learning\\-paths/ms\\-office/([^/]+?)/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPappSlug": "nxtPappSlug",
+        "nxtPmoduleSlug": "nxtPmoduleSlug",
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/learning\\-paths/ms\\-office/(?<nxtPappSlug>[^/]+?)/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/intro-database/[moduleSlug]",
+      "regex": "^/learning\\-paths/office\\-assistant/intro\\-database/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug"
+      },
+      "namedRegex": "^/learning\\-paths/office\\-assistant/intro\\-database/(?<nxtPmoduleSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/intro-database/[moduleSlug]/[slug]",
+      "regex": "^/learning\\-paths/office\\-assistant/intro\\-database/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug",
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/learning\\-paths/office\\-assistant/intro\\-database/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/modern-office/[moduleSlug]",
+      "regex": "^/learning\\-paths/office\\-assistant/modern\\-office/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug"
+      },
+      "namedRegex": "^/learning\\-paths/office\\-assistant/modern\\-office/(?<nxtPmoduleSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]",
+      "regex": "^/learning\\-paths/office\\-assistant/modern\\-office/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug",
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/learning\\-paths/office\\-assistant/modern\\-office/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/office-apps/[moduleSlug]",
+      "regex": "^/learning\\-paths/office\\-assistant/office\\-apps/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug"
+      },
+      "namedRegex": "^/learning\\-paths/office\\-assistant/office\\-apps/(?<nxtPmoduleSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/office-apps/[moduleSlug]/[slug]",
+      "regex": "^/learning\\-paths/office\\-assistant/office\\-apps/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug",
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/learning\\-paths/office\\-assistant/office\\-apps/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/tech-foundations/[moduleSlug]",
+      "regex": "^/learning\\-paths/office\\-assistant/tech\\-foundations/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug"
+      },
+      "namedRegex": "^/learning\\-paths/office\\-assistant/tech\\-foundations/(?<nxtPmoduleSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]",
+      "regex": "^/learning\\-paths/office\\-assistant/tech\\-foundations/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug",
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/learning\\-paths/office\\-assistant/tech\\-foundations/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/eng0300",
+      "regex": "^/eng0300(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/eng0300(?:/)?$"
+    },
+    {
+      "page": "/eng0300/practice",
+      "regex": "^/eng0300/practice(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/eng0300/practice(?:/)?$"
+    },
+    {
+      "page": "/eng0300/resources",
+      "regex": "^/eng0300/resources(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/eng0300/resources(?:/)?$"
+    },
+    {
+      "page": "/eng0300/tabe",
+      "regex": "^/eng0300/tabe(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/eng0300/tabe(?:/)?$"
+    },
+    {
+      "page": "/icon.svg",
+      "regex": "^/icon\\.svg(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/icon\\.svg(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/certification",
+      "regex": "^/learning\\-paths/certification(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/certification(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ehr",
+      "regex": "^/learning\\-paths/ehr(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ehr(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ehr/intro-to-ehr",
+      "regex": "^/learning\\-paths/ehr/intro\\-to\\-ehr(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ehr/intro\\-to\\-ehr(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ms-office",
+      "regex": "^/learning\\-paths/ms\\-office(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ms\\-office(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ms-office/excel",
+      "regex": "^/learning\\-paths/ms\\-office/excel(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ms\\-office/excel(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ms-office/powerpoint",
+      "regex": "^/learning\\-paths/ms\\-office/powerpoint(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ms\\-office/powerpoint(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ms-office/word",
+      "regex": "^/learning\\-paths/ms\\-office/word(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ms\\-office/word(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant",
+      "regex": "^/learning\\-paths/office\\-assistant(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/office\\-assistant(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/intro-database",
+      "regex": "^/learning\\-paths/office\\-assistant/intro\\-database(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/office\\-assistant/intro\\-database(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/modern-office",
+      "regex": "^/learning\\-paths/office\\-assistant/modern\\-office(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/office\\-assistant/modern\\-office(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/office-apps",
+      "regex": "^/learning\\-paths/office\\-assistant/office\\-apps(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/office\\-assistant/office\\-apps(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/tech-foundations",
+      "regex": "^/learning\\-paths/office\\-assistant/tech\\-foundations(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/office\\-assistant/tech\\-foundations(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSuffix": ".prefetch.rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments"
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}

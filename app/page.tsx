@@ -20,6 +20,14 @@ export default function Home() {
 
   const academicPrograms: LearningPath[] = [
     {
+      title: "ENG0300 Reading for Academics",
+      description:
+        "Academic Bridge Reading Lab. Build the reading comprehension skills measured by the TABE: main ideas, inferences, vocabulary, text structure, point of view, evidence, and data.",
+      href: "/eng0300",
+      status: "available",
+      icon: "📖",
+    },
+    {
       title: "College Preparation",
       description:
         "Build the academic skills and strategies needed to succeed in college-level coursework and higher education environments.",
