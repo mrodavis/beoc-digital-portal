@@ -55,6 +55,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/learning-paths/certification": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/certification",
+      "dataRoute": "/learning-paths/certification.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/ms-office/excel": {
       "experimentalBypassFor": [
         {
@@ -103,6 +127,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/learning-paths/ehr/intro-to-ehr": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ehr/intro-to-ehr",
+      "dataRoute": "/learning-paths/ehr/intro-to-ehr.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/ms-office": {
       "experimentalBypassFor": [
         {
@@ -118,54 +166,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/learning-paths/ms-office",
       "dataRoute": "/learning-paths/ms-office.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/ms-office/powerpoint": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ms-office/powerpoint",
-      "dataRoute": "/learning-paths/ms-office/powerpoint.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/ms-office/word": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ms-office/word",
-      "dataRoute": "/learning-paths/ms-office/word.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -199,7 +199,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/certification": {
+    "/learning-paths/ms-office/word": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -212,32 +212,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/certification",
-      "dataRoute": "/learning-paths/certification.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/office-assistant/modern-office": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/modern-office",
-      "dataRoute": "/learning-paths/office-assistant/modern-office.rsc",
+      "srcRoute": "/learning-paths/ms-office/word",
+      "dataRoute": "/learning-paths/ms-office/word.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -295,7 +271,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/office-assistant/tech-foundations": {
+    "/learning-paths/ms-office/powerpoint": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -308,8 +284,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/tech-foundations",
-      "dataRoute": "/learning-paths/office-assistant/tech-foundations.rsc",
+      "srcRoute": "/learning-paths/ms-office/powerpoint",
+      "dataRoute": "/learning-paths/ms-office/powerpoint.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -343,7 +319,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/ehr/intro-to-ehr": {
+    "/learning-paths/office-assistant/modern-office": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -356,8 +332,56 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ehr/intro-to-ehr",
-      "dataRoute": "/learning-paths/ehr/intro-to-ehr.rsc",
+      "srcRoute": "/learning-paths/office-assistant/modern-office",
+      "dataRoute": "/learning-paths/office-assistant/modern-office.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/office-assistant/tech-foundations": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/office-assistant/tech-foundations",
+      "dataRoute": "/learning-paths/office-assistant/tech-foundations.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/resources": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/resources",
+      "dataRoute": "/eng0300/resources.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -550,30 +574,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/eng0300/skills/[slug]",
       "dataRoute": "/eng0300/skills/vocabulary.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/eng0300/resources": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/resources",
-      "dataRoute": "/eng0300/resources.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
