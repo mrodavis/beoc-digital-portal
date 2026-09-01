@@ -1,4 +1,11 @@
 import { Lesson } from "@/types/lesson";
+import { cloudModule1Lessons } from "./cloudModule1Lessons";
+import { cloudModule2Lessons } from "./cloudModule2Lessons";
+import { cloudModule3Lessons } from "./cloudModule3Lessons";
+import { cloudModule4Lessons } from "./cloudModule4Lessons";
+import { cloudModule5Lessons } from "./cloudModule5Lessons";
+import { cloudModule6Lessons } from "./cloudModule6Lessons";
+import { cloudModule7Lessons } from "./cloudModule7Lessons";
 import { module1Lessons } from "./module1Lessons";
 import { module2Lessons } from "./module2Lessons";
 import { module3Lessons } from "./module3Lessons";
@@ -25,6 +32,140 @@ export const modernOfficeModules: ModernOfficeModule[] = [
   {
     moduleNumber: 1,
     moduleSlug: "module-1",
+    title: "Computer Basics",
+    emoji: "🖥️",
+    description:
+      "Identify what a computer is and does, then specify a complete machine for a defined purpose and budget.",
+    lessons: cloudModule1Lessons,
+    level: "Beginner",
+    estimatedMinutes: 45,
+    whatYoullLearn: [
+      "The components of a computer and the input-process-output-storage model",
+      "The difference between hardware and software, and between RAM and storage",
+      "How each component affects performance for a given workload",
+      "How to specify a workstation from the job it must do, within a budget",
+    ],
+    scenario:
+      "Before you can reason about where computing happens in the cloud, you need a clear picture of where it happens on the machine in front of you. The cloud is not magic — it is somebody else's computers, in a building, running the same components sitting on your desk. Lakeside is also replacing four workstations at $900 each, and someone has to specify them.",
+  },
+  {
+    moduleNumber: 2,
+    moduleSlug: "module-2",
+    title: "Cloud Computing Basics",
+    emoji: "☁️",
+    description:
+      "Understand what the cloud actually is, and learn the three service models — IaaS, PaaS, and SaaS — by what each leaves you responsible for.",
+    lessons: cloudModule2Lessons,
+    level: "Beginner",
+    estimatedMinutes: 46,
+    whatYoullLearn: [
+      "What defines cloud computing, and what changes when computing moves off local hardware",
+      "The real trade-offs of the cloud, including the ones vendors do not lead with",
+      "IaaS, PaaS, and SaaS, and who manages what in each",
+      "The shared responsibility model, and why data is always the customer's responsibility",
+    ],
+    scenario:
+      "Lakeside owns a server in a closet. It needs replacing, its backups have not been tested in a year, and its failure stops the practice working. A vendor proposes moving everything to the cloud, and three other vendors all describe their products as 'cloud-based' while meaning three quite different things.",
+  },
+  {
+    moduleNumber: 3,
+    moduleSlug: "module-3",
+    title: "Windows & File Management",
+    emoji: "🗂️",
+    description:
+      "Navigate Windows efficiently, and design a folder structure and naming convention that stays findable as it grows.",
+    lessons: cloudModule3Lessons,
+    level: "Beginner",
+    estimatedMinutes: 42,
+    whatYoullLearn: [
+      "Keyboard navigation, window snapping, and virtual desktops",
+      "File Explorer navigation and view options",
+      "How to design a folder structure that mirrors how people search",
+      "A file naming convention that sorts and searches correctly",
+    ],
+    scenario:
+      "The shared drive at Lakeside holds 1,400 files across four levels of folders, with names like 'letter final v2.docx' and 'letter FINAL USE THIS.docx'. Nobody can find anything, so people save new copies instead of searching — which makes it worse every week.",
+  },
+  {
+    moduleNumber: 4,
+    moduleSlug: "module-4",
+    title: "SaaS in Action & Document Sharing",
+    emoji: "🤝",
+    description:
+      "Use Google cloud applications as a working example of SaaS, and share documents with the right people at the right permission level.",
+    lessons: cloudModule4Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 46,
+    whatYoullLearn: [
+      "Google Drive, Docs, Sheets, and Slides as a concrete example of the SaaS model",
+      "How continuous saving and version history change your working habits",
+      "Permission levels, and choosing the least privilege that does the job",
+      "How to audit and revoke access when it is no longer needed",
+    ],
+    scenario:
+      "Eighteen months ago someone at Lakeside shared a folder as 'anyone with the link can edit' so a temporary contractor could deliver a file. The contractor left a year ago, the link still works, it has been forwarded twice, and the folder now contains staff records nobody considered when the link was created.",
+  },
+  {
+    moduleNumber: 5,
+    moduleSlug: "module-5",
+    title: "The Internet & Networking",
+    emoji: "🌐",
+    description:
+      "Understand what happens between clicking a link and seeing a page, and how local and wide area networks connect.",
+    lessons: cloudModule5Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 44,
+    whatYoullLearn: [
+      "The steps in a web request, and what each looks like when it fails",
+      "The roles of IP addresses, DNS, and protocols",
+      "The difference between a LAN and a WAN, and how they connect",
+      "Wired against wireless, and when each is the right choice",
+    ],
+    scenario:
+      "A colleague reports that 'the internet is down.' The EHR will not load, but Outlook is receiving mail and a colleague's phone loads pages fine on the office wireless. Something is wrong, and the description you have been given is too vague to act on.",
+  },
+  {
+    moduleNumber: 6,
+    moduleSlug: "module-6",
+    title: "AI Foundations",
+    emoji: "🧠",
+    description:
+      "Understand what artificial intelligence actually is, how language models produce text, and why AI arrives as a cloud service with all that implies for your data.",
+    lessons: cloudModule6Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 44,
+    whatYoullLearn: [
+      "The difference between AI, machine learning, and large language models",
+      "How a language model produces text, and why fluency is not accuracy",
+      "Where AI sits in the IaaS, PaaS, and SaaS models from Module 2",
+      "What happens to a prompt after you submit it, and what must never be put in one",
+    ],
+    scenario:
+      "A scheduling vendor tells Lakeside its product is 'AI-powered.' That could mean a language model, a statistical predictor, or a set of if-then rules written in 2015 — all marketed identically, all carrying different risks. Meanwhile a colleague has been pasting draft letters containing patient names into a free AI assistant to improve the wording.",
+  },
+  {
+    moduleNumber: 7,
+    moduleSlug: "module-7",
+    title: "Working with AI Tools",
+    emoji: "✨",
+    description:
+      "Write prompts that produce usable output, and build the verification habit that makes AI safe to rely on at work.",
+    lessons: cloudModule7Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 48,
+    whatYoullLearn: [
+      "The six components of a well-formed prompt, and how to iterate on one",
+      "Why underspecified prompts produce generic output",
+      "What a hallucination is and which output types always require checking",
+      "How to match verification effort to the consequences of being wrong",
+    ],
+    scenario:
+      "You ask an AI tool to summarize HIPAA records retention requirements. The answer is well organized, appropriately hedged, and cites a specific section of the regulation with a specific retention period. The section number does not exist — and nothing about the response looked wrong.",
+  },
+
+  {
+    moduleNumber: 8,
+    moduleSlug: "module-8",
     title: "Digital Office Foundations",
     emoji: "🏢",
     description:
@@ -43,8 +184,8 @@ export const modernOfficeModules: ModernOfficeModule[] = [
   },
 
   {
-    moduleNumber: 2,
-    moduleSlug: "module-2",
+    moduleNumber: 9,
+    moduleSlug: "module-9",
     title: "Communication Systems",
     emoji: "📧",
     description:
@@ -63,8 +204,8 @@ export const modernOfficeModules: ModernOfficeModule[] = [
   },
 
   {
-    moduleNumber: 3,
-    moduleSlug: "module-3",
+    moduleNumber: 10,
+    moduleSlug: "module-10",
     title: "Document & Data Workflows",
     emoji: "📄",
     description:
@@ -83,8 +224,8 @@ export const modernOfficeModules: ModernOfficeModule[] = [
   },
 
   {
-    moduleNumber: 4,
-    moduleSlug: "module-4",
+    moduleNumber: 11,
+    moduleSlug: "module-11",
     title: "Scheduling & Meetings",
     emoji: "📅",
     description:
@@ -103,8 +244,8 @@ export const modernOfficeModules: ModernOfficeModule[] = [
   },
 
   {
-    moduleNumber: 5,
-    moduleSlug: "module-5",
+    moduleNumber: 12,
+    moduleSlug: "module-12",
     title: "Task & Project Management",
     emoji: "✅",
     description:
@@ -123,8 +264,8 @@ export const modernOfficeModules: ModernOfficeModule[] = [
   },
 
   {
-    moduleNumber: 6,
-    moduleSlug: "module-6",
+    moduleNumber: 13,
+    moduleSlug: "module-13",
     title: "CRM & Office Systems",
     emoji: "👥",
     description:
@@ -143,8 +284,8 @@ export const modernOfficeModules: ModernOfficeModule[] = [
   },
 
   {
-    moduleNumber: 7,
-    moduleSlug: "module-7",
+    moduleNumber: 14,
+    moduleSlug: "module-14",
     title: "AI Productivity",
     emoji: "🤖",
     description:
@@ -163,8 +304,8 @@ export const modernOfficeModules: ModernOfficeModule[] = [
   },
 
   {
-    moduleNumber: 8,
-    moduleSlug: "module-8",
+    moduleNumber: 15,
+    moduleSlug: "module-15",
     title: "Final Simulation",
     emoji: "🏆",
     description:

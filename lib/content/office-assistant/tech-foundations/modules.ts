@@ -7,6 +7,8 @@ import { module5Lessons } from "./module5Lessons";
 import { module6Lessons } from "./module6Lessons";
 import { module7Lessons } from "./module7Lessons";
 import { module8Lessons } from "./module8Lessons";
+import { module9Lessons } from "./module9Lessons";
+import { module10Lessons } from "./module10Lessons";
 
 export type TechFoundationsModule = {
   moduleNumber: number;
@@ -173,5 +175,45 @@ export const techFoundationsModules: TechFoundationsModule[] = [
     ],
     scenario:
       "Lakeside Medical Associates was nearly the victim of a phishing attack last year — a staff member almost clicked a fake invoice link that would have exposed patient records. Your supervisor has made cybersecurity awareness a priority for every new hire. This module ensures you can recognize threats, protect your accounts, and handle PHI in a way that keeps the practice safe.",
+  },
+
+  {
+    moduleNumber: 9,
+    moduleSlug: "module-9",
+    title: "New Technology",
+    emoji: "🛰️",
+    description:
+      "Trace how the internet and computing devices evolved, and use that history to evaluate whether a new technology is worth adopting.",
+    lessons: module9Lessons,
+    level: "Beginner",
+    estimatedMinutes: 42,
+    whatYoullLearn: [
+      "The major stages in the development of the internet, and why its early design still shapes it",
+      "The difference between the internet and the World Wide Web",
+      "How computing devices evolved from mainframes to wearables, and the single trend behind it",
+      "A four-question framework for evaluating any new technology before adopting it",
+    ],
+    scenario:
+      "A colleague at Lakeside asks why email arrives unencrypted, why phishing works so well, and why the practice needs so many security add-ons for something that is supposed to just work. The honest answer is historical: the network was built by researchers who trusted each other, and security was never among its original requirements.",
+  },
+
+  {
+    moduleNumber: 10,
+    moduleSlug: "module-10",
+    title: "Applications & the Internet of Things",
+    emoji: "📡",
+    description:
+      "Understand how software is built and maintained, what makes a device smart, and how to design a small office network that keeps sensitive systems separate.",
+    lessons: module10Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 66,
+    whatYoullLearn: [
+      "The software development lifecycle, and why maintenance is where most of a program's life is spent",
+      "The differences between native apps, web apps, and OEM software",
+      "What the Internet of Things is, and the security problem these devices introduce",
+      "How to design a segmented SOHO network for a small medical practice",
+    ],
+    scenario:
+      "Lakeside Medical Associates is opening a second location needing eight workstations, staff and patient wireless, four IoT devices, and a link to the main office. The vendor has quoted a single flat network for everyone — a design that would put a patient's phone on the same network as the workstation holding patient records.",
   },
 ];

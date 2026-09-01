@@ -1,0 +1,175 @@
+State University of New York
+Brooklyn Educational Opportunity Center
+Academic Affairs Department
+111 Livingston Street, Suite 205
+Brooklyn, NY 11201
+TERM: Spring 2025
+COURSE TITLE: Cloud Computing
+COURSE CODE: INFO3035
+PRE-REQUISITES: None
+CLASS SCHEDULE: Monday and Wednesday 6:00 - 7:20; 7:30- 8:50
+INSTRUCTOR’S NAME: Joseph Keitt MBA, BS
+OFFICE HOURS: Monday and Wednesday 5:00 - 6:00 In Office (Or via Zoom Conference as Mutually Determined)
+OFFICE TELEPHONE: 646-464-2334
+INSTRUCTOR’S E-MAIL: keittj@beoc.cuny.edu & jckeitt.beoc@gmail.com
+COURSE DESCRIPTION:
+In this course we explore the basics of Cloud Computing utilizing the Internet, as well as the various associated Software Applications used. This software includes:
+The Google Applications
+The Microsoft Office Applications
+Associated Cloud Computing Platforms
+We will also touch on Operating Systems and Computer Hardware, and the very
+important role they play in making sure the connectivity to the various platforms
+perform appropriately,
+LEARNING GOALS/OUTCOMES:
+At the end of the course students will be able to:
+Identify and define basic computer hardware parts
+Recognize the role of Cloud and Computer technology in today’s society
+Identify and define basic computer software programs
+Recognize file name and its extension, different file name conventions
+Computing utilizing the Internet, as well as the various associated Software
+Identify the basics of Cloud Computing
+RECOMMENDED TEXTBOOKS:
+N/A
+MAKE-UP POLICY:
+Make-up exams will take place during office hours after instructor’s approval.
+Student is responsible for completing homework and classwork by due date even if student is absent on the date the work is assigned.
+ATTENDANCE CRITERIA:
+Students are required to attend all classes as scheduled. All absences are recorded and count towards the absence limit, which is 20% of instructional time in each course. All late arrivals and early departures are also recorded. Since attendance and participation contribute to midterm and final grades, students with excessive absences may receive lower grades.
+Student Support Services - Accommodations
+BEOC provides reasonable accommodations and academic adjustments, when appropriate, to individuals with disabilities, individuals observing religious practices, individuals who have pregnancy or childbirth-related medical conditions and victims of domestic violence/stalking/sex offenses.
+Students who need accommodations or academic adjustments should speak to a student advisor in the Advisement Center (Room 201). The staff of the Advisement Center coordinates services to students with disabilities.  Students requesting accommodations will be asked to complete a request for accommodations form, and provide supporting documentation. Students who identify as having learning, physical or other documented disabilities receive classroom support, testing accommodations and referral to other agencies, as necessary.
+BEOC Policy on Academic Integrity
+Students and all others who work with information, ideas, images, music, inventions, and other intellectual property owe their audience and sources accuracy and honesty in using, crediting, and citing sources. As a community of intellectual and professional workers, the BEOC recognizes its responsibility for providing instruction in information literacy and academic integrity, offering models of good practice, and responding vigilantly and appropriately to infraction of academic integrity.
+Accordingly, academic dishonesty is prohibited in the City University of New York and at the BEOC and is punishable by penalties, including failing grades, suspension, and expulsion. The complete text of the Policy on Academic Integrity may be found in the Student Handbook.
+CLASSROOM POLICIES:
+Electronic Device Policy: All cell phones should be turned off during class period. Cell phones may not be charged in class. Electronic devices like cell phones, tablets and personal laptops, & book/hand-bags are not allowed on top of the desks during class time i.e., lecture and/or lab.
+Food and Beverages are not allowed in class. Students must use the Student Lounge.
+OUT-OF-CLASS WORK POLICY
+An essential part of every program of study, out-of-class work enables students to master course learning objectives and leads toward the achievement of the overall program objectives. Out-of-class work refers to self-directed learning activities (homework) such as reading assignments, research activities and projects, quiz/exam preparation, projects ( individual), written assignments (papers and essays), knowledge checks and self-assessments, etc. Students are expected to complete two hours of out-of-class work for each hour of classroom instruction.
+Submission of Late Homework - Out of class assignments (homework) must be submitted on the due date stated on the syllabus to receive full credit. If submitted one (1) day after due date, grade will be lowered 10%. If homework submitted two (2) days after due date, grade will be lowered 20%. If homework is submitted three (3) days after due date, student will receive a zero (0) grade. If a student expects to be absent on the date that an assignment is due, he/she must make arrangements to submit the assignment prior to, or on the due date.
+All assignments should be submitted directly to the instructor or via BrightSpace.
+Student/Teacher Conferences
+Formal Progress Conferences will be scheduled at midterm and after finals to discuss your course status and grade. However, please drop in during the above office hours to discuss any concerns you may have about coursework or your status in class. Be proactive! Don’t wait until a problem becomes serious before addressing it.
+New York City College of Technology Policy on Academic Integrity
+Students and all others who work with information, ideas, texts, images, music inventions, and other intellectual property owe their audience and sources accuracy and honesty in using, crediting and citing sources. As a community of intellectual and professional workers, the college recognizes its responsibility for providing instruction in information literacy and academic integrity, offering models of good practice, and responding vigilantly and appropriately to infractions of academic integrity. Accordingly, academic dishonesty is prohibited in the City University of New York and at the New York City College of Technology and is punishable by penalties, including failing grades, suspension, and expulsion. The complete text of the College policy on Academic integrity may be found in the catalog.
+Policy on Copying Work from Another Student
+Student are to do their own work at all times. Taking shortcuts, such as copying homework from the paper or flash drive of another student is strictly prohibited and this policy is non-negotiable.
+TEACHING METHODS:
+Whiteboard/blackboard-based lectures will be the focus of this course.
+YouTube videos will be used to clarify and strengthen subject understanding.
+PowerPoint slides will be utilized to reiterate and reinforce lecture materials on more complicated course topics.
+Tests will be administered for each covered topic.
+Hands-on exercises will be used to reinforce concepts learned.
+Grade Point Value
+Grade
+Percentage
+Points
+Description
+A
+96-100
+4.0
+A-
+90-95
+3.7
+B+
+86-89
+3.3
+B
+83-85
+3.0
+B-
+80-82
+2,7
+C+
+76-79
+2.3
+C
+73-75
+2.0
+C-
+70-72
+1,7
+D
+65-69
+1.0
+Failing grade
+F
+0-64
+0
+Failing grade
+P
+Passed
+For courses taken in Pass/Fail mode
+FN
+Failed
+For courses taken in Pass/Fail mode
+IP
+In Progress
+Student is making satisfactory progress at end of semester
+E
+Exempt
+Student has been exempted from course by test or other
+I
+Incomplete
+Student has work to complete by particular date
+W
+Student Withdrawal
+Student stopped attending or exceeded absence limit
+WA
+Administrative Withdrawal
+Student withdrawn from program – all classes
+NG
+No Grade
+Course is not graded
+Student Evaluation/Grading:
+Professionalism /Attendance
+Activities/ClassWork Homework 25%
+Exams (Midterm/Final) 30%
+Quizzes    25%
+Attendance    20%
+100%
+COURSE OUTLINE:
+SESSIONS
+TOPICS
+Week 04/02/2025
+Introduction
+Teacher/student Introduction
+Course Outline
+Grading/Attendance
+Expectations & Goals (Quiz)
+Introduction to Brightspace
+Computer Basics
+Learn what a computer is and what it does
+Define the term computer and identify its components: monitor, keyboard, mouse, system unit and printer
+Understand the difference between hardware and software
+Build Virtual Computer
+Week 04/07- 04/9/2025
+Review Virtual Computer Project
+Cloud Computing Basics
+Infrastructure as a Service (IaaS):
+Platform as a Service (PaaS):
+Software as a Service (SaaS):
+Week 04/21–04/23/2025
+Basic Windows 10
+Navigate and identify the window’s environment
+Learn, use and customized important controls from the Start Menu
+Understand and navigate file explorer
+Learn how to create, rename, delete, hide and share folders
+Gain knowledge on how to customize the computer desktop
+SaaS In Action: Introduction to Google Cloud Based Applications;
+Associated Projects
+Week 04/28 – 04/30/2025
+Midterm Exam Prep (Review)
+Midterm Exam
+Week 05/05 – 05/07/2025
+Some More Projects!:
+Document Creation and Sharing
+Week
+05/12 – 05/14/2025
+Understanding the Internet;
+Networking; Differentiate between WAN and LAN;
+Understand how LANs work
+Week 05/28 – 05/29/2025
+Final Exam Prep (Review)
+Final Exam
+Detailed listing of weekly learning, assignments, test dates, and other important announcements on a WEEKLY BASIS will be posted on Brightspace

@@ -5,6 +5,8 @@ import { module3Lessons } from "./module3Lessons";
 import { module4Lessons } from "./module4Lessons";
 import { module5Lessons } from "./module5Lessons";
 import { module6Lessons } from "./module6Lessons";
+import { module7Lessons } from "./module7Lessons";
+import { module8Lessons } from "./module8Lessons";
 
 export type OfficeAppsModule = {
   moduleNumber: number;
@@ -138,5 +140,45 @@ export const officeAppsModules: OfficeAppsModule[] = [
     ],
     scenario:
       "As the office assistant at Lakeside Medical Associates, you are responsible for managing the main clinic inbox, scheduling all provider appointments, coordinating between Word documents and Excel reports, and maintaining a professional communication system across the whole practice.",
+  },
+
+  {
+    moduleNumber: 7,
+    moduleSlug: "module-7",
+    title: "Google Workspace",
+    emoji: "🌐",
+    description:
+      "Work in Google Docs, Sheets, and Slides — the cloud half of every application pairing in this course — and learn when each is the better tool than its Microsoft counterpart.",
+    lessons: module7Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 70,
+    whatYoullLearn: [
+      "Create, format, and share documents, spreadsheets, and presentations in Google Workspace",
+      "Collaborate in real time using comments, suggesting mode, and sharing permissions",
+      "Use version history to recover earlier work",
+      "Choose between a Google and a Microsoft application for a given task",
+    ],
+    scenario:
+      "Lakeside Medical Associates keeps Microsoft Office for finished documents and uses Google Workspace for anything several people work on at once. Your supervisor asks you to draft the new patient welcome letter for three reviewers, keep the shared supply log current across three staff, and build the in-service deck with two colleagues — all before Friday. Each job needs the cloud tools, and the finished letter still needs Word.",
+  },
+
+  {
+    moduleNumber: 8,
+    moduleSlug: "module-8",
+    title: "Database Applications with Access",
+    emoji: "🗄️",
+    description:
+      "Understand the principles of database construction, navigate the Access window, and build the three core objects: a table, a form, and a report.",
+    lessons: module8Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 65,
+    whatYoullLearn: [
+      "Explain how a database differs from a spreadsheet and when each is appropriate",
+      "Describe the features of the Access window and its four object types",
+      "Design a table with appropriate data types and a stable primary key",
+      "Create basic database objects: tables, forms, and reports",
+    ],
+    scenario:
+      "The patient contact list at Lakeside Medical Associates is a spreadsheet with one row per appointment, so a patient who has visited eleven times has her address stored eleven times. She moves, four rows get updated, and the practice now holds two addresses with no way to tell which is current. Your supervisor asks you to rebuild it properly — which means understanding why a database stores each fact exactly once.",
   },
 ];

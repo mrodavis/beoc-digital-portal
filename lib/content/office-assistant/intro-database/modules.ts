@@ -4,6 +4,9 @@ import { module2Lessons } from "./module2Lessons";
 import { module3Lessons } from "./module3Lessons";
 import { module4Lessons } from "./module4Lessons";
 import { module5Lessons } from "./module5Lessons";
+import { module6Lessons } from "./module6Lessons";
+import { module7Lessons } from "./module7Lessons";
+import { module8Lessons } from "./module8Lessons";
 
 export type IntroDatabaseModule = {
   moduleNumber: number;
@@ -113,5 +116,65 @@ export const introDatabaseModules: IntroDatabaseModule[] = [
     ],
     scenario:
       "After six months of using the new database system at Lakeside Medical Associates, three problems have emerged: staff keep entering dates in different formats, a database file was lost when a workstation crashed, and the practice manager needs to know how long to keep billing records before archiving them. This module gives you the tools and knowledge to solve all three.",
+  },
+
+  {
+    moduleNumber: 6,
+    moduleSlug: "module-6",
+    title: "Querying Data with SQL",
+    emoji: "🔍",
+    description:
+      "Learn the language underneath every Access query, and build parameter queries and calculated fields that answer many questions with one object.",
+    lessons: module6Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 47,
+    whatYoullLearn: [
+      "Read and write SELECT statements with WHERE and ORDER BY",
+      "Move between Access's Design view and SQL view for the same query",
+      "Build parameter queries that prompt the user for criteria",
+      "Create calculated fields, and explain why calculations do not belong in tables",
+    ],
+    scenario:
+      "A query built by a previous employee at Lakeside returns the wrong patients, and its Design view grid spans four tables with criteria scattered across a dozen columns. Read as SQL it is eight lines, and the error — a filter applied to the wrong table — is visible in about twenty seconds.",
+  },
+
+  {
+    moduleNumber: 7,
+    moduleSlug: "module-7",
+    title: "Advanced Queries & Reports",
+    emoji: "📑",
+    description:
+      "Summarize data across two dimensions with crosstab queries, use action queries safely, and design reports that organize data for a reader.",
+    lessons: module7Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 46,
+    whatYoullLearn: [
+      "Build a crosstab query to summarize data by two dimensions at once",
+      "Distinguish the four action query types and use them safely",
+      "Group and sort a report, with headers, footers, and page numbering",
+      "Place group and report totals in the correct sections",
+    ],
+    scenario:
+      "The practice manager wants supply spending shown as departments down the side and months across the top, and last year's records moved into an archive because the active table has grown slow. Both jobs need query types that go beyond SELECT — and one of them permanently deletes data.",
+  },
+
+  {
+    moduleNumber: 8,
+    moduleSlug: "module-8",
+    title: "Data Analysis & Automation",
+    emoji: "⚙️",
+    description:
+      "Automate repetitive work with macros, write your first VBA procedures, and learn to choose the simplest tool that solves the problem.",
+    lessons: module8Lessons,
+    level: "Advanced",
+    estimatedMinutes: 48,
+    whatYoullLearn: [
+      "Build macros that automate multi-step routines and attach them to buttons",
+      "Explain what VBA is and how it differs from macros",
+      "Write a Sub procedure using variables, a condition, and a loop",
+      "Choose between validation, a query, a macro, and VBA for a given task",
+    ],
+    scenario:
+      "Every morning five staff at Lakeside perform the same nine-step routine, and two of them do it differently — one regularly forgets the filter and works from yesterday's list. Meanwhile the manager wants a button that checks every item, groups low stock by vendor, and emails the order list. One of those is a macro; the other genuinely needs code.",
   },
 ];

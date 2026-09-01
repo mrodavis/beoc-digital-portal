@@ -165,15 +165,16 @@ export default function OfficeAssistantPage() {
               Cloud Technology with AI
             </h3>
             <p className="text-gray-600 mb-4 leading-relaxed">
-              Email, cloud tools, scheduling, CRM platforms, and
-              AI-powered workflows for real office environments.
+              Computer and cloud fundamentals, IaaS/PaaS/SaaS, Windows and file
+              management, networking, AI foundations, and the cloud tools and
+              AI-powered workflows of a real office.
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
                 Live
               </span>
               <span>•</span>
-              <span>8 Modules</span>
+              <span>15 Modules</span>
             </div>
           </div>
         </Link>

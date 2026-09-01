@@ -1,0 +1,201 @@
+STATE UNIVERSITY OF NEW YORK BROOKLYN EDUCATIONAL OPPORTUNITY CENTER ACADEMIC AFFAIRS DEPARTMENT 111 LIVINGSTON STREET, SUITE 205 BROOKLYN, NY 11201
+TERM:
+Fall 2025
+COURSE TITLE:
+TECHNOLOGY FOR THE WORKPLACE I
+COURSE CODE:
+INFO 3023
+INSTRUCTOR’S NAME:
+Professor: Mr. Tirado
+OFFICE HOURS:
+Tuesday 5:00 pm – 6:00 pm.
+INSTRUCTOR’S E-MAIL:
+tirador@beoc.cuny.edu
+COURSE DESCRIPTION:
+The course is designed as an introduction to the world of technology. We will examine advancements based on current driving forces for the development of new technology and its practical applications in societal contexts. Based on established knowledge in human-computer interaction, the course focuses on emerging technologies, which contribute to societal change and development. The course further focuses on the application of concepts intended to describe and understand the relationship between emerging technologies and their use at different levels in society.
+LEARNING GOALS AND OUTCOMES:
+Upon completion of this course, you will gain the following computer competencies:
+Define and describe basic computer functions and computer hardware/software that support them
+Perform computer system operations such as log on, shut down, start programs, and file management
+Define computer networks and describe their purpose; understand principles of data communication
+Describe the main features of ongoing digital technology development, emerging use and transformative processes in relation to societal development
+Present and argue for or against the development of emerging technology both orally and in writing
+Decide on appropriate methods for evaluating an emerging digital technology and justify the choice LEARNING MATERIALS, ONLINE RESOURCES AND SUPPLIES
+CENGAGE LEARNING:
+Vermaat, M. E., Freund, S. M., Hoisington, C., Schmieder, E., Last, M. Z. 2017. Shelly Cashman series Microsoft Office 365 & Office 2016: Introductory 1st Edition. Boston, MA: Cengage Learning.   ISBN 9781305870017
+GOOGLE / GMAIL ACCOUNT:
+Students are required to create a Gmail and an Outlook account for this course.
+USB FLASH DRIVE: (8GB minimum)
+TEACHING AND LEARNING METHODS
+Lectures and Demonstrations: to explore and learn specific concepts and skills during our scheduled live online sessions. Take careful notes during our lessons as not all material can be found in the texts or readings. Participation in discussion is highly encouraged.
+Assignments: practices and projects to help support and supplement material covered during the lectures and demonstrations. YOU WILL SUBMIT ALL ASSIGNMENTS VIA BRIGHTSPACE.
+Exams: to evaluate proficiency and competence with learned material
+MAKE-UP POLICY:
+To receive full credit, out-of-class assignments are expected to be submitted via Brightspace on or before the deadline. If submitted one (1) day after due date, grade will be lowered by 10%.  If homework is submitted two (2) days after due date, grade will be lowered by 20%.  If homework is submitted three (3) days after due date, student will receive a zero (0) grade.
+MAKE-UP FOR MAJOR TESTS LIKE MIDTERM AND FINAL MAY BE OFFERED AT THE INSTRUCTOR’S DISCRETION BASED ON PRESENTED VALID DOCUMENTATION THAT EXPLAINS THE REASON FOR THE ABSENCE.
+ATTENDANCE CRITERIA:
+You are required to attend all classes as scheduled.  All absences are recorded and count towards the absence limit, which is 20% of instructional time in each course.  All late arrivals and early departures are also recorded. Since attendance and participation contribute to midterm and final grades, students with excessive absences may receive lower grades. To be considered attending a student must participate for the full length of sessions conducted in Conferences.
+STUDENT SUPPORT SERVICES – ACCOMMODATIONS
+BEOC provides reasonable accommodations and academic adjustments, when appropriate, to individuals with disabilities, individuals observing religious practices, individuals who have pregnancy or childbirth-related medical conditions and victims of domestic violence/stalking/sex offenses.
+Students who need accommodations or academic adjustments should contact a student advisor @ Advisors@beoc.cuny.edu.The staff of the Advisement Center coordinates services to students with disabilities.  Students requesting accommodations will be asked to complete a request for accommodations form and provide supporting documentation. Students who identify as having learning, physical or other documented disabilities receive classroom support, testing accommodations and referral to other agencies, as necessary.
+BEOC POLICY ON ACADEMIC INTEGRITY
+Students and all others who work with information, ideas, images, music, inventions, and other intellectual property owe their audience and sources accuracy and honesty in using, crediting, and citing sources. As a community of intellectual and professional workers, the BEOC recognizes its responsibility for providing instruction in information literacy and academic integrity, offering models of good practice, and responding vigilantly and appropriately to infraction of academic integrity.
+Accordingly, academic dishonesty is prohibited in the City University of New York and at the BEOC and is punishable by penalties, including failing grades, suspension, and expulsion. The complete text of the Policy on Academic Integrity may be found in the Student Handbook.
+“OUT-OF-CLASS” WORK POLICY
+Study time beyond the scheduled lecture sessions is essential for achieving your learning goals for this class. Out-of-class work refers to self-directed learning activities (homework) such as reading assignments, research activities and projects, quiz/exam preparation, projects (individual), written assignments (papers and essays), knowledge checks and self-assessments, etc. We encourage that you spend two hours of self-directed studying for each hour of teacher-lead instruction.
+ACADEMIC SUPPORT (TUTORING)
+For information on tutoring or to schedule an appointment with a tutor, logon to Brightspace and access My Virtual Library: LRC from your course dashboard.
+GRADE POINT VALUE
+Grade
+Percentage
+Points
+Description
+A
+96-100
+4.0
+A-
+90-95
+3.7
+B+
+86-89
+3.3
+B
+83-85
+3.0
+B-
+80-82
+2.7
+C+
+76-79
+2.3
+C
+73-75
+2.0
+C-
+70-72
+1.7
+D
+65-69
+1.0
+Failing grade
+F
+0-64
+0
+Failing grade
+P
+Passed
+For courses taken in Pass/Fail mode
+FN
+Failed
+For courses taken in Pass/Fail mode
+IP
+In Progress
+Student is making satisfactory progress at end of semester
+E
+Exempt
+Student has been exempted from course by test or other
+I
+Incomplete
+Student has work to complete by particular date
+W
+Student Withdrawal
+Student stopped attending or exceeded absence limit
+WA
+Administrative Withdrawal
+Student withdrawn from program – all classes
+NG
+No Grade
+Course is not graded
+Student Evaluation/Grading:
+Assessment Type
+Description
+% of Grade
+Professionalism
+Attendance, punctuality, demeanor, participation, online discussions
+10%
+Assignments
+In class Assignments and/or HW to build MS Office competencies
+40%
+Quizzes/Cengage
+Practices with application software and quizzes
+15%
+Midterm
+Exam
+15%
+Final
+Exam
+20%
+100%
+COURSE OUTLINE
+Detailed listing of weekly learning objectives, “WEEKLY LESSONS” folder on Brightspace !
+NOTE: Instructor may adjust Module order for better comprehension
+GETTING
+STARTED
+SESSIONS 1-2
+COURSE INTRODUCTION / ORIENTATION
+Learning Objectives:
+Familiarize with essential learning tools and environment – Brightspace
+Set up accounts to access necessary online productivity applications and practices (Google, Cengage, MS Office 365)
+Create Folders and files in Microsoft Drive
+MODULE 1
+FOUNDATIONS
+SESSIONS 3-4
+ESSENTIAL COMPUTER CONCEPTS I: HARDWARE
+Learning Objectives
+Identify components of Information System:
+Hardware/Software/Data/ Procedures/Users
+Distinguish types of computers
+Identify primary hardware components of a computer, and explain functions:
+CPU, types of memory, input / output, types of storage
+Describe data communication
+Describe components of network
+Define the Internet as the global network
+FOUNDATIONS
+SESSIONS 5-6
+ESSENTIAL COMPUTER CONCEPTS II: SOFTWARE AND FILE MANAGEMENT
+Learning Objectives
+Understand purpose of System Software
+Describe functions of Application Software
+List and compare productivity applications:
+MS Office - Google Suite
+Describe Web-based applications
+Understand the basic features of Windows (Mac) OS interface
+Acquire skills for navigating the desktop and Start menu
+Manage windows
+Gain and reinforce file management techniques (managing files and folders)
+MODULE 1
+ASSESSMENT SESSIONS 7
+QUIZ: ESSENTIAL COMPUTER CONCEPTS
+Review -> Quiz -> Post-Quiz Review
+MODULE 2:
+NEW
+TECHNOLOGY
+SESSIONS 8-10
+NEW TECHNOLOGY
+Learning Objectives
+Describe history of Internet & all tech devices
+Understand timeline under which it has it evolved
+ASSESSMENT
+SESSIONS 11
+QUIZ: NEW TECHNOLOGY
+Review -> Quiz -> Post-Quiz Review
+MODULE 3: DEVICE
+SECURITY
+SESSIONS 12
+DEVICE SECURITY
+Learning Objectives
+Identify the elements of a secure electronic device
+Understand the effective design elements in secure devices
+Create a simple security plan for personal & work devices
+Apply variety of enhancement tools to create a more secure environment
+MODULE 4:
+APPLICATIONS SESSIONS 13-14
+APPLICATIONS – INTERNET OF THINGS
+Learning Objectives
+Understand basic principles of application development
+Describe the features of apps vs OEM software
+Design a simple SOHO network
+FINAL
+ASSESSMENT
+SESSIONS 15-16
+REVIEW -> FINAL EXAM: IOT

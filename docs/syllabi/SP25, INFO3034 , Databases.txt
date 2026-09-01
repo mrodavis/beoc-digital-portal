@@ -1,0 +1,172 @@
+State University of New York
+Brooklyn Educational Opportunity Center
+Academic Affairs Department
+111 Livingston Street, Suite 205
+Brooklyn, NY 1120
+TERM:  SPRING 2025
+COURSE TITLE:   Database Management
+COURSE CODE:  BUSI3034
+INSTRUCTOR’S NAME:  RAFAEL TIRADO
+OFFICE HOURS:  5:00 PM to 6:00 PM Tuesdays and Thursdays
+INSTRUCTOR’S E-MAIL:  Contact via Brightspace
+COURSE DESCRIPTION:
+In this 45-hour course on Database Management with Microsoft Access, students will acquire a robust skill set that empowers them to excel in various professional and academic endeavors. By mastering the intricacies of database design, implementation, and management using Access, participants will gain the proficiency needed to streamline data operations, enhance organizational efficiency, and make informed decisions based on comprehensive data analysis.
+LEARNING GOALS AND OUTCOMES:
+Upon completion of this course, you will gain the following computer competencies:
+Database Design and Modeling:
+Efficient Database Schema Design: Ability to design well-structured and normalized database schemas tailored to specific organizational needs, ensuring data integrity and efficiency.
+Entity-Relationship (ER) Modeling: Proficiency in modeling database relationships using ER diagrams, enabling clear visualization and understanding of data structures.
+Relational Database Concepts: Understanding of fundamental concepts such as tables, relationships, keys, and normalization, laying the foundation for effective database design and management.
+Microsoft Access Proficiency:
+Database Creation and Management: Competence in creating, modifying, and managing databases within Microsoft Access, including tasks such as table creation, data entry, and database maintenance.
+Form and Report Design: Ability to design intuitive forms and comprehensive reports for data entry, analysis, and presentation, enhancing usability and accessibility of database information.
+Query Construction and Optimization: Proficiency in constructing and optimizing queries to retrieve, filter, and manipulate data efficiently, enabling effective data analysis and reporting within Access.
+LEARNING MATERIALS, ONLINE RESOURCES AND SUPPLIES
+CENGAGE LEARNING:
+Vermaat, M. E., Freund, S. M., Hoisington, C., Schmieder, E., Last, M. Z. 2017. Shelly Cashman series Microsoft Office 365 & Office 2016: Introductory 1st Edition. Boston, MA: Cengage Learning.  ISBN 9781305870017
+Access code to all Cengage materials (e-Textbooks, MindTap, etc.) will be provided by BEOC
+GCF GLOBAL
+You will be using online content from gcflearnfree.org as a supplementary learning and tutorials.
+MICROSOFT ACCOUNT
+Students who do not have Outlook accounts are required to create one for this course.
+USB FLASH DRIVE (8GB minimum) - optional for remote instruction. Additional content and practice assignments will be posted on Brightspace, BEOC’s learning management platform. Details on how access materials from Brightspace will be explained to students during the first week of class.
+TEACHING AND LEARNING METHODS
+This course will be delivered in-person at BEOC. All the content will be organized and delivered through Brightspace.
+Lectures and Demonstrations to explore and learn specific concepts and skills during our scheduled in person sessions. Take careful notes during our lessons as not all material can be found in the texts or readings. Participation in discussion is expected, and highly encouraged.
+Assignments: practices and projects to help support and supplement material covered during the lectures and demonstrations. YOU WILL SUBMIT ALL ASSIGNMENTS VIA BRIGHTSPACE.
+Exams: to evaluate proficiency and competence with learned material
+MAKE-UP POLICY: TO RECEIVE FULL CREDIT, IN-CLASS AND HOMEWORK ASSIGNMENTS ARE EXPECTED TO BE SUBMITTED VIA BRIGHTSPACE ON OR BEFORE THE DEADLINE.
+MINOR TESTS / QUIZZES (WRITTEN OR HANDS-ON): Regularly scheduled quizzes and / or tests can only be made up once. If you know that you will miss the test in advance, you must notify me as soon as possible. If you are ill on the day of the test, you must reach out to me immediately to schedule a make-up prior to our next class. It is highly encouraged that you present documentation that shows the reason for your absence on the day of the test. Once I return the tests, you will not be given the opportunity to take the test if you neglect to make the necessary arrangements prior to our next class session.
+MAJOR TESTS: Make-up for major tests like midterm and final may be offered at the instructor’s discretion based on presented valid documentation that explains the reason for the absence.
+LATE WORK: If your work in submitted within the first week after due date, the grade will be lowered by 10%. Beyond this, your grade will be lowered by 20%. After a completion of a specific topic /chapter, the late work, associated with this topic / chapter will not be accepted.
+ATTENDANCE CRITERIA: You are required to attend all classes as scheduled.  All absences are recorded and count towards the absence limit, which is 20% of instructional time in each course.  All late arrivals and early departures are also recorded. Since attendance and participation contribute to midterm and final grades, students with excessive absences may receive lower grades. To be considered attending a student must participate for the full length of sessions.
+STUDENT SUPPORT SERVICES ACCOMMODATIONS: BEOC provides reasonable accommodations and academic adjustments, when appropriate, to individuals with disabilities, individuals observing religious practices, individuals who have pregnancy or childbirth-related medical conditions and victims of domestic violence/stalking/sex offenses. Students who need accommodations or academic adjustments should contact a student advisor @ Advisors@beoc.cuny.edu.The staff of the Advisement Center coordinates services to students with disabilities.  Students requesting accommodations will be asked to complete a request for accommodations form and provide supporting documentation. Students who identify as having learning, physical or other documented disabilities receive classroom support, testing accommodations and referral to other agencies, as necessary.
+BEOC POLICY AND ACADEMIC INTEGRITY: Students and all others who work with information, ideas, images, music, inventions, and other intellectual property owe their audience and sources accuracy and honesty in using, crediting, and citing sources. As a community of intellectual and professional workers, the BEOC recognizes its responsibility for providing instruction in information literacy and academic integrity, offering models of good practice, and responding vigilantly and appropriately to infraction of academic integrity. Accordingly, academic dishonesty is prohibited in the City University of New York and at the BEOC and is punishable by penalties, including failing grades, suspension, and expulsion. The complete text of the Policy on Academic Integrity may be found in the Student Handbook.
+“OUT-OF-CLASS” WORK POLICY: Study time beyond the scheduled lecture sessions is essential for achieving your learning goals for this class. Out-of-class work refers to self-directed learning activities (homework) such as reading assignments, research activities and projects, quiz/exam preparation, projects (individual), written assignments (papers and essays), knowledge checks and self-assessments, etc. We encourage that you spend two hours of self-directed studying for each hour of teacher-lead instruction.
+NETIQUETTE: The term “netiquette” refers to the appropriate behavior guidelines students should follow in an online course.  In an online classroom, the primary means of communication is written, and at times verbal communication in a live lecture. It is important to maintain civility in discussions, and other forms of electronica or audio communication. Please be aware of the possibility of miscommunication due to the scarcity of non-verbal cues and compose your comments in a positive, supportive, and constructive manner.
+BRIGHTSPACE TECHNICAL SUPPORT AT SUNY ONLINE SUPPORT SERVICES
+Phone Support: 1-844-673-6786 or 1-518-320-1300 (direct)
+Web Form Request:  Create a support request (click the link)
+Knowledge Base articles and other self-service options are available 24/7 at  https://online.suny.edu/help/
+Support Hours: Monday-Friday 7am - Midnight; Saturday 10am - 6pm; Sunday 10am - 9pm
+ACADEMIC SUPPORT: Additional learning support will be available during the “Lunch and Learn Club Hours”. The program schedule will be posted on Brightspace.
+GRADE POINT VALUE
+Grade
+Percentage
+Points
+Description
+A
+96-100
+4.0
+A-
+90-95
+3.7
+B+
+86-89
+3.3
+B
+83-85
+3.0
+B-
+80-82
+2.7
+C+
+76-79
+2.3
+C
+73-75
+2.0
+C-
+70-72
+1.7
+D
+65-69
+1.0
+Failing grade
+F
+0-64
+0
+Failing grade
+P
+Passed
+For courses taken in Pass/Fail mode
+FN
+Failed
+For courses taken in Pass/Fail mode
+IP
+In Progress
+Student is making satisfactory progress at end of semester
+E
+Exempt
+Student has been exempted from course by test or other
+I
+Incomplete
+Student has work to complete by particular date
+W
+Student Withdrawal
+Student stopped attending or exceeded absence limit
+WA
+Administrative Withdrawal
+Student withdrawn from program – all classes
+NG
+No Grade
+Course is not graded
+Student Evaluation/Grading:
+Professionalism: Attendance, punctuality, demeanor, participation, online discussions - 10%
+Assignments: In class Assignments and/or HW to build MS Access competencies  - 40%
+Quizzes: Practices with application software and/or quizzes  - 10%
+Midterm: Exam - 20%
+Final: Presentation of final project - 20%
+COURSE OUTLINE:
+Detailed listing of weekly learning, assignments, test dates, and other important announcements will be posted on Brightspace!
+GETTING STARTED SESSIONS 1-2
+COURSE INTRODUCTION / ORIENTATION
+Learning Objectives:
+Familiarize with essential learning tools and environment - Brightspace
+Set up accounts to access necessary online productivity applications and practices (Google, Cengage, MS Office 365)
+FOUNDATIONS
+SESSIONS 2-3
+Introduction to Databases and Microsoft Access
+Learning Objectives
+Understand databases and their importance
+Get Introduce to Microsoft Access
+Understand Access interface and navigation
+Create and manage Access database
+APPLICATION
+SESSIONS 4-5
+Working with tables
+Learning Objectives
+Design tables for data collection
+Create and edit tables
+Understand properties of tables
+Establish relationships among tables
+SESSIONS 6-7
+Data Entry and Forms Design
+Learning Objectives
+Create forms for data entry
+Customize form layouts and controls
+Implement form validation and input masks
+SESSIONS 8-9
+Querying Data
+Learning Objectives
+Understand SQL (Structured Query Language) statements
+Write basic SQL queries in Access
+Design, create and edit queries
+Create parameter queries and calculated fields
+SESSIONS 10-11
+Advanced Queries and Reports
+Learning Objectives
+Create advanced queries (e.g., crosstab, action, append queries)
+Design custom reports
+Add headers, footers, and page numbering to reports
+Implement grouping and sorting in reports
+SESSIONS 12-14
+Data Analysis and Automation
+Learning Objectives
+Understand macros and automation
+Create simple macros to automate tasks
+Understand Visual Basic for Applications (VBA)
+Build basic VBA procedures for data manipulation
+SESSION 15
+FINAL EXAM
+Presentation of Final Project
