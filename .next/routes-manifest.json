@@ -238,6 +238,12 @@
       "namedRegex": "^/learning\\-paths/ms\\-office(?:/)?$"
     },
     {
+      "page": "/learning-paths/ms-office/access",
+      "regex": "^/learning\\-paths/ms\\-office/access(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ms\\-office/access(?:/)?$"
+    },
+    {
       "page": "/learning-paths/ms-office/excel",
       "regex": "^/learning\\-paths/ms\\-office/excel(?:/)?$",
       "routeKeys": {},

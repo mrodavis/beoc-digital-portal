@@ -144,6 +144,15 @@ type LayoutConfig<Route extends LayoutRoutes = LayoutRoutes> = {
   type __Unused = __Check
 }
 
+// Validate ../../app/learning-paths/ms-office/access/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ms-office/access">> = Specific
+  const handler = {} as typeof import("../../app/learning-paths/ms-office/access/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../app/learning-paths/ms-office/excel/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/learning-paths/ms-office/excel">> = Specific
