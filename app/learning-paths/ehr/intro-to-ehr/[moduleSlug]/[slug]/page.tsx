@@ -41,7 +41,10 @@ export default async function LessonPage({
       basePath={`learning-paths/ehr/intro-to-ehr/${moduleSlug}`}
       appSlug=""
       moduleSlug=""
+      lessonSlug={lesson.slug}
       title={lesson.title}
+      objectives={lesson.objectives}
+      duration={lesson.duration}
       description={lesson.description}
       videoUrl={lesson.videoUrl}
       videoUrls={lesson.videoUrls}

@@ -1,8 +1,9 @@
 import SectionHeader from "./SectionHeader";
 import Link from "next/link";
 import { ContentBlock, LessonSection } from "@/types/lesson";
-import KnowledgeCheck from "./KnowledgeCheck";
+import { BlockList } from "./ContentBlocks";
 import Slideshow from "./Slideshow";
+import LessonProgress from "./LessonProgress";
 import { ReactNode } from "react";
 
 interface NavLesson {
@@ -16,7 +17,13 @@ interface ModuleTemplateProps {
 
   appSlug: string;          // 👈 dynamic (word, excel, etc.)
   moduleSlug: string;
+  /** The lesson's own slug — the stable half of its progress key. */
+  lessonSlug: string;
   basePath?: string;
+
+  /** "By the end of this lesson you can…" */
+  objectives?: string[];
+  duration?: string;
 
   videoUrl?: string;        // 👈 optional now
   videoUrls?: string[];
@@ -46,7 +53,10 @@ export default function ModuleTemplate({
   description,
   appSlug,
   moduleSlug,
+  lessonSlug,
   basePath = "learning-paths/ms-office",
+  objectives = [],
+  duration,
   videoUrl,
   videoUrls,
   slides,
@@ -64,6 +74,11 @@ export default function ModuleTemplate({
 
   const hasSections = sections.length > 0;
   const hasChallenge = challenge.length > 0;
+  const hasObjectives = objectives.length > 0;
+
+  // Stable id for progress: the course + module + lesson this page represents.
+  const courseId = [basePath, appSlug].filter(Boolean).join("/");
+  const lessonId = `${moduleSlug}::${lessonSlug}`;
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-5xl">
@@ -84,7 +99,9 @@ export default function ModuleTemplate({
               <div />
             )}
           </div>
-          <div className="text-sm text-gray-500">Lesson</div>
+          <div className="text-sm text-gray-500">
+            {duration ? `Lesson · ${duration}` : "Lesson"}
+          </div>
         </div>
       )}
 
@@ -97,6 +114,25 @@ export default function ModuleTemplate({
           {description}
         </p>
       </div>
+
+      {/* Objectives — what the learner should be able to do afterwards. */}
+      {hasObjectives && (
+        <div className="mb-12 rounded-2xl border border-primary-200 bg-primary-50 p-6">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-primary-800 mb-3">
+            By the end of this lesson you can
+          </h2>
+          <ul className="space-y-2">
+            {objectives.map((objective, i) => (
+              <li key={i} className="flex gap-3 text-gray-800 leading-relaxed">
+                <span className="flex-shrink-0 text-primary-600 font-bold" aria-hidden="true">
+                  ✓
+                </span>
+                <span>{objective}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
     {/* Video — renders independently if present */}
     {(videoUrl || (videoUrls && videoUrls.length > 0)) && (
@@ -174,116 +210,7 @@ export default function ModuleTemplate({
                   <h3 className="text-2xl font-bold text-gray-900 mb-6">
                     {section.heading}
                   </h3>
-
-                  <div className="space-y-6">
-                    {section.blocks.map((block, bIdx) => {
-                      switch (block.type) {
-
-                        case "paragraph":
-                          return (
-                            <p
-                              key={bIdx}
-                              className="text-gray-700 leading-relaxed"
-                            >
-                              {block.text}
-                            </p>
-                          );
-
-                        case "image":
-                          return (
-                            <div key={bIdx}>
-                              <img
-                                src={block.src}
-                                alt={block.alt}
-                                className="rounded-xl border border-gray-200 shadow-sm"
-                              />
-                              {block.caption && (
-                                <p className="text-sm text-gray-500 mt-2 italic">
-                                  {block.caption}
-                                </p>
-                              )}
-                            </div>
-                          );
-
-                        case "list":
-                          return block.ordered ? (
-                            <ol
-                              key={bIdx}
-                              start={block.start}
-                              className="list-decimal pl-6 space-y-3 text-gray-700"
-                            >
-                              {block.items?.map((item, i) => (
-                                <li key={i}>{item}</li>
-                              ))}
-                            </ol>
-                          ) : (
-                            <ul
-                              key={bIdx}
-                              className="list-disc pl-6 space-y-3 text-gray-700"
-                            >
-                              {block.items?.map((item, i) => (
-                                <li key={i}>{item}</li>
-                              ))}
-                            </ul>
-                          );
-                        case "callout":
-                          return (
-                            <div
-                              key={bIdx}
-                              className={`p-4 rounded-xl border-l-4 ${
-                                block.variant === "info"
-                                  ? "bg-blue-50 border-blue-400"
-                                  : block.variant === "warning"
-                                  ? "bg-yellow-50 border-yellow-400"
-                                  : "bg-green-50 border-green-400"
-                              }`}
-                            >
-                              {block.text}
-                            </div>
-                          );
-
-                        case "tip":
-                          return (
-                            <div
-                              key={bIdx}
-                              className="bg-green-50 border-l-4 border-green-400 p-4 rounded-xl"
-                            >
-                              💡 {block.text}
-                            </div>
-                          );
-
-                        case "code":
-                          return (
-                            <pre
-                              key={bIdx}
-                              className="bg-gray-900 text-green-300 p-4 rounded-xl overflow-x-auto"
-                            >
-                              <code>{block.code}</code>
-                            </pre>
-                          );
-
-                        case "download":
-                          return (
-                            <a
-                              key={bIdx}
-                              href={block.url}
-                              download
-                              className="inline-block bg-primary-600 text-white px-4 py-2 rounded-lg hover:bg-primary-700 transition"
-                            >
-                              Download: {block.name}
-                            </a>
-                          );
-
-                        case "knowledge-check":
-                          return (
-                            <KnowledgeCheck key={bIdx} block={block} />
-                          );
-
-                        default:
-                          return null;
-                      }
-                    })}
-                  </div>
+                  <BlockList blocks={section.blocks} />
                 </div>
               ))}
             </div>
@@ -312,6 +239,7 @@ export default function ModuleTemplate({
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -337,54 +265,8 @@ export default function ModuleTemplate({
             description="Apply what you've learned in this lesson."
           />
 
-          <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-8 space-y-6">
-            {challenge.map((block, idx) => {
-              switch (block.type) {
-
-                case "paragraph":
-                  return (
-                    <p key={idx} className="text-gray-700 leading-relaxed">
-                      {block.text}
-                    </p>
-                  );
-
-                case "image":
-                  return (
-                    <div key={idx}>
-                      <img
-                        src={block.src}
-                        alt={block.alt}
-                        className="rounded-xl border border-gray-200 shadow-sm"
-                      />
-                    </div>
-                  );
-
-                case "list":
-                  return block.ordered ? (
-                    <ol
-                      key={idx}
-                      start={block.start}
-                      className="list-decimal pl-6 space-y-3 text-gray-700"
-                    >
-                      {block.items?.map((item, i) => (
-                        <li key={i}>{item}</li>
-                      ))}
-                    </ol>
-                  ) : (
-                    <ul
-                      key={idx}
-                      className="list-disc pl-6 space-y-3 text-gray-700"
-                    >
-                      {block.items?.map((item, i) => (
-                        <li key={i}>{item}</li>
-                      ))}
-                    </ul>
-                  );
-
-                default:
-                  return null;
-              }
-            })}
+          <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-8">
+            <BlockList blocks={challenge} />
           </div>
         </div>
       )}
@@ -402,8 +284,11 @@ export default function ModuleTemplate({
         </div>
       )}
 
+      {/* Mark complete */}
+      <LessonProgress courseId={courseId} lessonId={lessonId} title={title} />
+
       {/* Prev / Next Navigation */}
-      <div className="flex justify-between items-center pt-8 border-t border-gray-200">
+      <div className="flex justify-between items-center pt-8 border-t border-gray-200 gap-4">
         {prevLesson ? (
           <Link
             href={`/${basePath}/${[appSlug, moduleSlug, prevLesson.slug].filter(Boolean).join("/")}`}
@@ -418,14 +303,14 @@ export default function ModuleTemplate({
         {nextLesson ? (
           <Link
             href={`/${basePath}/${[appSlug, moduleSlug, nextLesson.slug].filter(Boolean).join("/")}`}
-            className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
+            className="text-primary-600 hover:text-primary-700 font-medium transition-colors text-right"
           >
             {nextLesson.title} →
           </Link>
         ) : nextModuleHref ? (
           <Link
             href={nextModuleHref}
-            className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
+            className="text-primary-600 hover:text-primary-700 font-medium transition-colors text-right"
           >
             {nextModuleLabel} →
           </Link>
