@@ -141,6 +141,33 @@
         "nxtPslug": "nxtPslug"
       },
       "namedRegex": "^/learning\\-paths/office\\-assistant/tech\\-foundations/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/programs/[programSlug]",
+      "regex": "^/learning\\-paths/programs/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPprogramSlug": "nxtPprogramSlug"
+      },
+      "namedRegex": "^/learning\\-paths/programs/(?<nxtPprogramSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "regex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPprogramSlug": "nxtPprogramSlug",
+        "nxtPmoduleSlug": "nxtPmoduleSlug"
+      },
+      "namedRegex": "^/learning\\-paths/programs/(?<nxtPprogramSlug>[^/]+?)/(?<nxtPmoduleSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "regex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPprogramSlug": "nxtPprogramSlug",
+        "nxtPmoduleSlug": "nxtPmoduleSlug",
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/learning\\-paths/programs/(?<nxtPprogramSlug>[^/]+?)/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
