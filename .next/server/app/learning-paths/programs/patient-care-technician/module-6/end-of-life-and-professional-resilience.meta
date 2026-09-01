@@ -1,0 +1,7 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/learning-paths/layout,_N_T_/learning-paths/programs/layout,_N_T_/learning-paths/programs/[programSlug]/layout,_N_T_/learning-paths/programs/[programSlug]/[moduleSlug]/layout,_N_T_/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]/layout,_N_T_/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]/page,_N_T_/learning-paths/programs/patient-care-technician/module-6/end-of-life-and-professional-resilience"
+  }
+}

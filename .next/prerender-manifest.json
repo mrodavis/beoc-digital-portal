@@ -1,7 +1,12 @@
 {
   "version": 4,
   "routes": {
-    "/learning-paths/ms-office/access": {
+    "/icon.svg": {
+      "initialHeaders": {
+        "cache-control": "public, immutable, no-transform, max-age=31536000",
+        "content-type": "image/svg+xml",
+        "x-next-cache-tags": "_N_T_/layout,_N_T_/icon.svg/layout,_N_T_/icon.svg/route,_N_T_/icon.svg"
+      },
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -14,80 +19,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ms-office/access",
-      "dataRoute": "/learning-paths/ms-office/access.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/ehr/intro-to-ehr": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ehr/intro-to-ehr",
-      "dataRoute": "/learning-paths/ehr/intro-to-ehr.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/certification": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/certification",
-      "dataRoute": "/learning-paths/certification.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/ehr": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ehr",
-      "dataRoute": "/learning-paths/ehr.rsc",
+      "srcRoute": "/icon.svg",
+      "dataRoute": null,
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -122,6 +55,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/learning-paths/ehr": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ehr",
+      "dataRoute": "/learning-paths/ehr.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/ms-office/excel": {
       "experimentalBypassFor": [
         {
@@ -137,6 +94,54 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/learning-paths/ms-office/excel",
       "dataRoute": "/learning-paths/ms-office/excel.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/ehr/intro-to-ehr": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ehr/intro-to-ehr",
+      "dataRoute": "/learning-paths/ehr/intro-to-ehr.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/ms-office/access": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ms-office/access",
+      "dataRoute": "/learning-paths/ms-office/access.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -170,7 +175,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/ms-office/word": {
+    "/learning-paths/certification": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -183,8 +188,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ms-office/word",
-      "dataRoute": "/learning-paths/ms-office/word.rsc",
+      "srcRoute": "/learning-paths/certification",
+      "dataRoute": "/learning-paths/certification.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -218,6 +223,54 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/learning-paths/ms-office/word": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ms-office/word",
+      "dataRoute": "/learning-paths/ms-office/word.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/office-assistant/modern-office": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/office-assistant/modern-office",
+      "dataRoute": "/learning-paths/office-assistant/modern-office.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/office-assistant/intro-database": {
       "experimentalBypassFor": [
         {
@@ -242,12 +295,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/icon.svg": {
-      "initialHeaders": {
-        "cache-control": "public, immutable, no-transform, max-age=31536000",
-        "content-type": "image/svg+xml",
-        "x-next-cache-tags": "_N_T_/layout,_N_T_/icon.svg/layout,_N_T_/icon.svg/route,_N_T_/icon.svg"
-      },
+    "/learning-paths/office-assistant/office-apps": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -260,8 +308,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/icon.svg",
-      "dataRoute": null,
+      "srcRoute": "/learning-paths/office-assistant/office-apps",
+      "dataRoute": "/learning-paths/office-assistant/office-apps.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -271,7 +319,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/office-assistant": {
+    "/learning-paths/office-assistant/tech-foundations": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -284,8 +332,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant",
-      "dataRoute": "/learning-paths/office-assistant.rsc",
+      "srcRoute": "/learning-paths/office-assistant/tech-foundations",
+      "dataRoute": "/learning-paths/office-assistant/tech-foundations.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -319,7 +367,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/office-assistant/office-apps": {
+    "/learning-paths/office-assistant": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -332,8 +380,1064 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/office-apps",
-      "dataRoute": "/learning-paths/office-assistant/office-apps.rsc",
+      "srcRoute": "/learning-paths/office-assistant",
+      "dataRoute": "/learning-paths/office-assistant.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300",
+      "dataRoute": "/eng0300.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-3": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-3.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-4": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-4.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-5": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-5.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-6": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-6.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-7": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-7.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-8": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-8.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-3": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-3.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-4": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-4.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-5": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-5.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-6": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-6.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-7": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-7.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-8": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-8.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-3": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-3.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-4": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-4.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-5": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-5.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-6": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-6.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/tabe": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/tabe",
+      "dataRoute": "/eng0300/tabe.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/resources": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/resources",
+      "dataRoute": "/eng0300/resources.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-1/scope-of-practice-and-law": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-1/scope-of-practice-and-law.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-1/the-medical-assistant-role": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-1/the-medical-assistant-role.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-2/ppe-and-transmission-precautions": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-2/ppe-and-transmission-precautions.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-2/standard-precautions": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-2/standard-precautions.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-3/measuring-vital-signs": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-3/measuring-vital-signs.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-3/patient-intake-and-history": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-3/patient-intake-and-history.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-4/documenting-in-the-ehr": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-4/documenting-in-the-ehr.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-4/records-management-and-privacy": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-4/records-management-and-privacy.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-5/assisting-with-procedures": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-5/assisting-with-procedures.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-5/preparing-patients-and-rooms": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-5/preparing-patients-and-rooms.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-6/medication-administration-safety": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-6/medication-administration-safety.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-6/pharmacology-basics": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-6/pharmacology-basics.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-7/specimen-handling-and-clia": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-7/specimen-handling-and-clia.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-7/venipuncture-technique": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-7/venipuncture-technique.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-8/professionalism-and-communication": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-8/professionalism-and-communication.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-8/recognizing-and-responding-to-emergencies": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-8/recognizing-and-responding-to-emergencies.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -775,7 +1879,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding": {
+    "/learning-paths/programs/patient-care-technician/module-1/communication-and-patient-rights": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -788,8 +1892,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-1/communication-and-patient-rights.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -799,7 +1903,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/office-assistant/modern-office": {
+    "/learning-paths/programs/patient-care-technician/module-1/the-pct-role": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -812,8 +1916,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/modern-office",
-      "dataRoute": "/learning-paths/office-assistant/modern-office.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-1/the-pct-role.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -823,7 +1927,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-1": {
+    "/learning-paths/programs/patient-care-technician/module-2/infection-control-for-pcts": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -836,8 +1940,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-1.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-2/infection-control-for-pcts.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -847,7 +1951,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-2": {
+    "/learning-paths/programs/patient-care-technician/module-2/safety-and-body-mechanics": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -860,8 +1964,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-2.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-2/safety-and-body-mechanics.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -871,7 +1975,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-3": {
+    "/learning-paths/programs/patient-care-technician/module-3/ekg-and-point-of-care-testing": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -884,8 +1988,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-3.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-3/ekg-and-point-of-care-testing.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -895,7 +1999,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-4": {
+    "/learning-paths/programs/patient-care-technician/module-3/vital-signs-for-pcts": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -908,8 +2012,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-4.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-3/vital-signs-for-pcts.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -919,7 +2023,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-5": {
+    "/learning-paths/programs/patient-care-technician/module-4/activities-of-daily-living": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -932,8 +2036,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-5.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-4/activities-of-daily-living.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -943,7 +2047,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-6": {
+    "/learning-paths/programs/patient-care-technician/module-4/mobility-and-positioning": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -956,8 +2060,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-6.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-4/mobility-and-positioning.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -967,7 +2071,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-7": {
+    "/learning-paths/programs/patient-care-technician/module-5/nutrition-hydration-and-elimination": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -980,8 +2084,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-7.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-5/nutrition-hydration-and-elimination.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -991,7 +2095,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-8": {
+    "/learning-paths/programs/patient-care-technician/module-5/specimen-collection-for-pcts": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1004,8 +2108,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-8.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-5/specimen-collection-for-pcts.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1015,7 +2119,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/office-assistant/tech-foundations": {
+    "/learning-paths/programs/patient-care-technician/module-6/end-of-life-and-professional-resilience": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1028,8 +2132,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/tech-foundations",
-      "dataRoute": "/learning-paths/office-assistant/tech-foundations.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-6/end-of-life-and-professional-resilience.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1039,7 +2143,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/resources": {
+    "/learning-paths/programs/patient-care-technician/module-6/recognizing-deterioration": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1052,8 +2156,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/resources",
-      "dataRoute": "/eng0300/resources.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-6/recognizing-deterioration.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1230,58 +2334,10 @@
         "x-next-revalidated-tags",
         "x-next-revalidate-tag-token"
       ]
-    },
-    "/eng0300/tabe": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/tabe",
-      "dataRoute": "/eng0300/tabe.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/eng0300": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300",
-      "dataRoute": "/eng0300.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
     }
   },
   "dynamicRoutes": {
-    "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]": {
+    "/learning-paths/programs/[programSlug]/[moduleSlug]": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1293,10 +2349,10 @@
           "value": "multipart/form-data;.*"
         }
       ],
-      "routeRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)/([^/]+?)(?:/)?$",
-      "dataRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug].rsc",
+      "routeRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)(?:/)?$",
+      "dataRoute": "/learning-paths/programs/[programSlug]/[moduleSlug].rsc",
       "fallback": null,
-      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)/([^/]+?)\\.rsc$",
+      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)\\.rsc$",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1331,7 +2387,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/[programSlug]/[moduleSlug]": {
+    "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1343,10 +2399,10 @@
           "value": "multipart/form-data;.*"
         }
       ],
-      "routeRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)(?:/)?$",
-      "dataRoute": "/learning-paths/programs/[programSlug]/[moduleSlug].rsc",
+      "routeRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)/([^/]+?)(?:/)?$",
+      "dataRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug].rsc",
       "fallback": null,
-      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)\\.rsc$",
+      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)/([^/]+?)\\.rsc$",
       "allowHeader": [
         "host",
         "x-matched-path",
