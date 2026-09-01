@@ -95,7 +95,7 @@ export default function WordPage() {
         <h3 className="text-lg font-bold mb-3">Prerequisites</h3>
         <ul className="space-y-2 text-gray-700">
           <li>• Basic computer literacy</li>
-          <li>• Microsoft Word (Microsoft 365 or Office 2019)</li>
+          <li>• Microsoft Word (Microsoft 365 or Office 2024)</li>
           <li>• Willingness to practice and complete hands-on exercises</li>
         </ul>
       </div>

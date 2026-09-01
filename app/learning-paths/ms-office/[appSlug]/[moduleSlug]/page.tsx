@@ -32,6 +32,8 @@ export default async function ModulePage({
           ? "Microsoft Excel"
           : appSlug === "word"
           ? "Microsoft Word"
+          : appSlug === "access"
+          ? "Microsoft Access"
           : appSlug
       }
       moduleNumber={module.moduleNumber}

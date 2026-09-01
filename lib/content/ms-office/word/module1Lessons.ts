@@ -60,7 +60,7 @@ export const wordModule1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "version",
-            text: "The screenshots in this lesson show Office 2019. In Microsoft 365 the Tell Me box is labeled with a magnifying glass and the word Search, and it sits in the title bar rather than on the Ribbon. It does the same job. Microsoft 365 also offers a Simplified Ribbon, a single condensed row you can toggle from the Ribbon Display Options — everything in this lesson still applies, the commands are just collapsed under a chevron.",
+            text: "The screenshots in this lesson were captured in Office 2019. In Microsoft 365 and Office 2024 the Tell Me box is labeled with a magnifying glass and the word Search, and it sits in the title bar rather than on the Ribbon. It does the same job. Microsoft 365 also offers a Simplified Ribbon, a single condensed row you can toggle from the Ribbon Display Options — everything in this lesson still applies, the commands are just collapsed under a chevron.",
           },
         ],
       },

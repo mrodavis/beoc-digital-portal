@@ -37,7 +37,7 @@ export type ContentBlock =
 
   | {
       /**
-       * `version` is for Microsoft 365 vs. Office 2019 differences — the
+       * `version` flags Microsoft 365 and Office 2024 differences — the
        * screenshots in this portal were captured in 2019, and where the
        * current release moved a command the learner needs to be told.
        */

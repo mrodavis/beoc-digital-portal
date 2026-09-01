@@ -26,11 +26,11 @@ export default function MicrosoftOfficePage() {
         <div className="grid md:grid-cols-3 gap-6 text-gray-700">
           <div>
             <div className="text-3xl font-bold text-primary-600 mb-2">
-              15+
+              28
             </div>
             <div className="font-semibold">Structured Modules</div>
             <div className="text-sm text-gray-600">
-              Across Word & Excel
+              Across Word, Excel, PowerPoint & Access
             </div>
           </div>
 
@@ -62,7 +62,7 @@ export default function MicrosoftOfficePage() {
         description="Choose an application to begin your structured learning path."
       />
 
-      <div className="grid md:grid-cols-3 gap-8 mb-12">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
 
         {/* WORD */}
         <Link href="/learning-paths/ms-office/word">
@@ -112,6 +112,30 @@ export default function MicrosoftOfficePage() {
           </div>
         </Link>
 
+        {/* ACCESS */}
+        <Link href="/learning-paths/ms-office/access">
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
+            <div className="text-5xl mb-4">🗄️</div>
+
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+              Microsoft Access
+            </h3>
+
+            <p className="text-gray-600 mb-4 leading-relaxed">
+              Table design, relationships, queries and SQL,
+              and the forms and reports people actually use.
+            </p>
+
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
+                Live
+              </span>
+              <span>•</span>
+              <span>4 Modules</span>
+            </div>
+          </div>
+        </Link>
+
         {/* POWERPOINT */}
         <Link href="/learning-paths/ms-office/powerpoint">
           <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
@@ -128,7 +152,7 @@ export default function MicrosoftOfficePage() {
 
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
-                In Progress
+                Live
               </span>
               <span>•</span>
               <span>8 Modules</span>

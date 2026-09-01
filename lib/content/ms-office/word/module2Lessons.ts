@@ -86,7 +86,7 @@ export const wordModule2Lessons: Lesson[] = [
            {
              type: "callout",
              variant: "version",
-             text: "In Microsoft 365, Word can be set to default to Keep Text Only for pasted content: File > Options > Advanced > Cut, copy, and paste, and set 'Pasting from other programs' to 'Keep Text Only.' If you paste from the web frequently, changing this once saves the cleanup every time. Office 2019 has the same setting in the same place.",
+             text: "In Microsoft 365, Word can be set to default to Keep Text Only for pasted content: File > Options > Advanced > Cut, copy, and paste, and set 'Pasting from other programs' to 'Keep Text Only.' If you paste from the web frequently, changing this once saves the cleanup every time. Office 2019 and Office 2024 have the same setting in the same place.",
            },
          ],
        },

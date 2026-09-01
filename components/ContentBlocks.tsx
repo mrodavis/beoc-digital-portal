@@ -68,7 +68,7 @@ export function Block({ block }: { block: ContentBlock }) {
         >
           {block.variant === "version" && (
             <span className="block text-xs font-semibold uppercase tracking-wide text-violet-700 mb-1">
-              Microsoft 365 vs. Office 2019
+              Microsoft 365 & Office 2024
             </span>
           )}
           {block.text}
