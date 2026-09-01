@@ -73,9 +73,9 @@ export default function Home() {
     {
       title: "Medical Assisting Training (MA)",
       description:
-        "Develop clinical and administrative skills to support physicians and care teams in medical office settings.",
-      href: "#",
-      status: "coming-soon",
+        "Scope of practice, infection control, vital signs, documentation, assisting with procedures, medication safety, phlebotomy, and emergency response for the ambulatory care team.",
+      href: "/learning-paths/programs/medical-assisting",
+      status: "available",
       icon: "🩺",
     },
     {
@@ -97,9 +97,9 @@ export default function Home() {
     {
       title: "Patient Care Technician (PCT)",
       description:
-        "Prepare for a frontline clinical role with training in patient support, vital signs, and basic care procedures.",
-      href: "#",
-      status: "coming-soon",
+        "Frontline bedside care: the PCT role, infection control, safe patient handling, vital signs and EKG, personal care, specimen collection, and recognizing a deteriorating patient.",
+      href: "/learning-paths/programs/patient-care-technician",
+      status: "available",
       icon: "🧑‍⚕️",
     },
     {
