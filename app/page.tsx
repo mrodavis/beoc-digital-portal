@@ -81,9 +81,9 @@ export default function Home() {
     {
       title: "Medical Billing and Coding",
       description:
-        "Master healthcare billing procedures, medical coding systems, and insurance claims processing for administrative roles.",
-      href: "#",
-      status: "coming-soon",
+        "Follow a clinical encounter through to a paid claim: the revenue cycle, medical terminology, ICD-10-CM and CPT coding, claim submission, denials and appeals, and the compliance rules governing all of it.",
+      href: "/learning-paths/programs/medical-billing-coding",
+      status: "available",
       icon: "🗂️",
     },
     {

@@ -2,6 +2,11 @@ import { Program } from "@/types/program";
 import { module1Lessons } from "./module1Lessons";
 import { module2Lessons } from "./module2Lessons";
 import { module3Lessons } from "./module3Lessons";
+import { module4Lessons } from "./module4Lessons";
+import { module5Lessons } from "./module5Lessons";
+import { module6Lessons } from "./module6Lessons";
+import { module7Lessons } from "./module7Lessons";
+import { module8Lessons } from "./module8Lessons";
 
 export const medicalBillingCoding: Program = {
   slug: "medical-billing-coding",
@@ -20,6 +25,12 @@ export const medicalBillingCoding: Program = {
     "Use the Alphabetic Index and Tabular List together, as the guidelines require",
     "Distinguish upcoding from undercoding and explain why both are compliance problems",
     "Read a denial report and identify which phase of the revenue cycle owns each cause",
+    "Select CPT and HCPCS codes, and apply modifiers correctly",
+    "Code office visits using medical decision making or total time",
+    "Verify eligibility, obtain prior authorization, and use an ABN appropriately",
+    "Complete a CMS-1500, distinguish a rejection from a denial, and post a remittance",
+    "Prioritize a denial queue by deadline and recoverable value, and write an appeal",
+    "Apply HIPAA's minimum necessary standard, and recognize the line between error and fraud",
   ],
   careerRoles: [
     "Medical biller",
@@ -109,6 +120,102 @@ export const medicalBillingCoding: Program = {
       ],
       scenario:
         "You submit S52.5 for a healing wrist fracture and the claim is rejected as an invalid code. Your reading of the chart was right; the code was a category header missing the characters that say which wrist, what kind of fracture, and which encounter this is. Learning the structure is what prevents that rejection.",
+    },
+
+    {
+      moduleNumber: 4,
+      moduleSlug: "module-4",
+      title: "CPT & HCPCS Procedure Coding",
+      emoji: "🔢",
+      description:
+        "Code what the provider did: CPT structure and categories, office visit level selection under the current rules, and the modifiers that keep legitimate claims from being denied.",
+      lessons: module4Lessons,
+      level: "Intermediate",
+      estimatedMinutes: 72,
+      whatYoullLearn: [
+        "CPT structure, its three categories, and how it differs from HCPCS Level II",
+        "Selecting an office visit level by medical decision making or by total time",
+        "The new versus established patient rule and why it affects payment",
+        "Modifiers 25 and 59, the two most misused codes in the field",
+      ],
+      scenario:
+        "The diagnosis code says the patient has osteoarthritis of the left knee. That explains why care was needed and says nothing about what the provider did — the examination, the injection, the X-ray. Twenty-two of the day's twenty-four encounters are office visits, and each needs a level that the documentation actually supports.",
+    },
+    {
+      moduleNumber: 5,
+      moduleSlug: "module-5",
+      title: "Payers, Eligibility & Authorization",
+      emoji: "🛡️",
+      description:
+        "Do the front-end work that prevents most denials, and understand how payers decide what to pay.",
+      lessons: module5Lessons,
+      level: "Intermediate",
+      estimatedMinutes: 46,
+      whatYoullLearn: [
+        "What an eligibility verification confirms, and what it does not",
+        "The difference between coverage, authorization, and medical necessity",
+        "Using an ABN and modifier GA for Medicare services that may not be covered",
+        "Fee schedules, RBRVS, and why timely filing limits are absolute",
+      ],
+      scenario:
+        "In Module 1 you found that 112 of last month's 138 denials originated before the patient was ever seen. Every one was preventable in the ninety seconds before the appointment. Meanwhile the same office visit code pays $186 from one payer, $142 from another, and $109 from Medicaid.",
+    },
+    {
+      moduleNumber: 6,
+      moduleSlug: "module-6",
+      title: "Claim Submission",
+      emoji: "📤",
+      description:
+        "Build a clean claim, understand the fields that cause rejections, and follow it through adjudication to a correctly posted payment.",
+      lessons: module6Lessons,
+      level: "Intermediate",
+      estimatedMinutes: 46,
+      whatYoullLearn: [
+        "The CMS-1500, the 837P transaction, and the fields that most often reject",
+        "The difference between a rejection and a denial, and why it changes what you do",
+        "What claim scrubbing catches and why it pays for itself",
+        "Reading a remittance and posting payment, adjustment, and patient responsibility",
+      ],
+      scenario:
+        "Twelve claims come back the same afternoon, before any payer looked at them clinically — invalid subscriber ID, missing NPI, a diagnosis pointer referencing a diagnosis not on the claim. None are coding problems. All twelve were preventable.",
+    },
+    {
+      moduleNumber: 7,
+      moduleSlug: "module-7",
+      title: "Denials, Appeals & A/R",
+      emoji: "📊",
+      description:
+        "Work a denial queue by deadline and recoverable value, write appeals that succeed, and manage accounts receivable before claims age into worthlessness.",
+      lessons: module7Lessons,
+      level: "Advanced",
+      estimatedMinutes: 48,
+      whatYoullLearn: [
+        "Interpreting denial reason codes and categorizing by root cause",
+        "Choosing between a corrected claim, an appeal, and a write-off",
+        "Prioritizing a denial queue by deadline and dollar value",
+        "Writing a structured appeal, and reading an A/R aging report",
+      ],
+      scenario:
+        "You inherit 138 denials worth $47,000. Working them oldest-first would be reasonable if they were equivalent — but some are worth $40 and some $3,000, some are five days from a filing deadline, and roughly a third have no realistic prospect of recovery at all.",
+    },
+    {
+      moduleNumber: 8,
+      moduleSlug: "module-8",
+      title: "Compliance & Ethics",
+      emoji: "⚖️",
+      description:
+        "The privacy rules governing everything you touch, the laws governing claim submission, and what to do when you are asked to code something you cannot support.",
+      lessons: module8Lessons,
+      level: "Advanced",
+      estimatedMinutes: 50,
+      whatYoullLearn: [
+        "What counts as protected health information, and the minimum necessary standard",
+        "Recognizing a breach and the obligation to report it",
+        "The False Claims Act, Anti-Kickback Statute, and Stark Law",
+        "How to respond when directed to submit a claim the documentation does not support",
+      ],
+      scenario:
+        "A provider asks you to change a 99213 to a 99215 on a note that plainly does not support it, saying the visit 'felt like a level five' and the practice is behind on revenue. Refusing is uncomfortable. Complying would make you a participant in submitting a false claim — and 'my supervisor told me to' has never been a defence.",
     },
   ],
 };
