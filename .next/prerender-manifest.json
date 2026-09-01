@@ -1,6 +1,30 @@
 {
   "version": 4,
   "routes": {
+    "/learning-paths/ms-office/access": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ms-office/access",
+      "dataRoute": "/learning-paths/ms-office/access.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/ehr/intro-to-ehr": {
       "experimentalBypassFor": [
         {
@@ -25,12 +49,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/icon.svg": {
-      "initialHeaders": {
-        "cache-control": "public, immutable, no-transform, max-age=31536000",
-        "content-type": "image/svg+xml",
-        "x-next-cache-tags": "_N_T_/layout,_N_T_/icon.svg/layout,_N_T_/icon.svg/route,_N_T_/icon.svg"
-      },
+    "/learning-paths/certification": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -43,8 +62,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/icon.svg",
-      "dataRoute": null,
+      "srcRoute": "/learning-paths/certification",
+      "dataRoute": "/learning-paths/certification.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -54,7 +73,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/ms-office/access": {
+    "/learning-paths/ehr": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -67,8 +86,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ms-office/access",
-      "dataRoute": "/learning-paths/ms-office/access.rsc",
+      "srcRoute": "/learning-paths/ehr",
+      "dataRoute": "/learning-paths/ehr.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -103,6 +122,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/learning-paths/ms-office/excel": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ms-office/excel",
+      "dataRoute": "/learning-paths/ms-office/excel.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/ms-office": {
       "experimentalBypassFor": [
         {
@@ -118,30 +161,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/learning-paths/ms-office",
       "dataRoute": "/learning-paths/ms-office.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/ehr": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ehr",
-      "dataRoute": "/learning-paths/ehr.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -199,30 +218,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/ms-office/excel": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ms-office/excel",
-      "dataRoute": "/learning-paths/ms-office/excel.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/learning-paths/office-assistant/intro-database": {
       "experimentalBypassFor": [
         {
@@ -247,7 +242,12 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/certification": {
+    "/icon.svg": {
+      "initialHeaders": {
+        "cache-control": "public, immutable, no-transform, max-age=31536000",
+        "content-type": "image/svg+xml",
+        "x-next-cache-tags": "_N_T_/layout,_N_T_/icon.svg/layout,_N_T_/icon.svg/route,_N_T_/icon.svg"
+      },
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -260,32 +260,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/certification",
-      "dataRoute": "/learning-paths/certification.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/office-assistant/office-apps": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/office-apps",
-      "dataRoute": "/learning-paths/office-assistant/office-apps.rsc",
+      "srcRoute": "/icon.svg",
+      "dataRoute": null,
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -319,54 +295,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/office-assistant/modern-office": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/modern-office",
-      "dataRoute": "/learning-paths/office-assistant/modern-office.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/office-assistant/tech-foundations": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/tech-foundations",
-      "dataRoute": "/learning-paths/office-assistant/tech-foundations.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/": {
       "experimentalBypassFor": [
         {
@@ -382,6 +310,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/",
       "dataRoute": "/index.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/office-assistant/office-apps": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/office-assistant/office-apps",
+      "dataRoute": "/learning-paths/office-assistant/office-apps.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -559,6 +511,318 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/learning-paths/programs/medical-billing-coding/module-4/cpt-structure-and-categories": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-4/cpt-structure-and-categories.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-4/evaluation-and-management-coding": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-4/evaluation-and-management-coding.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-4/modifiers": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-4/modifiers.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-5/eligibility-and-authorization": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-5/eligibility-and-authorization.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-5/payer-rules-and-fee-schedules": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-5/payer-rules-and-fee-schedules.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-6/claim-scrubbing-and-submission": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-6/claim-scrubbing-and-submission.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-6/the-cms-1500-and-claim-fields": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-6/the-cms-1500-and-claim-fields.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-7/appeals-and-accounts-receivable": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-7/appeals-and-accounts-receivable.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-7/working-denials": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-7/working-denials.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-8/fraud-abuse-and-compliance": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-8/fraud-abuse-and-compliance.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-8/hipaa-for-billing": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-8/hipaa-for-billing.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/office-assistant/modern-office": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/office-assistant/modern-office",
+      "dataRoute": "/learning-paths/office-assistant/modern-office.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/programs/medical-billing-coding/module-1": {
       "experimentalBypassFor": [
         {
@@ -631,7 +895,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding": {
+    "/learning-paths/programs/medical-billing-coding/module-4": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -644,8 +908,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-4.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -655,7 +919,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300": {
+    "/learning-paths/programs/medical-billing-coding/module-5": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -668,8 +932,128 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300",
-      "dataRoute": "/eng0300.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-5.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-6": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-6.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-7": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-7.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-8": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-8.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/office-assistant/tech-foundations": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/office-assistant/tech-foundations",
+      "dataRoute": "/learning-paths/office-assistant/tech-foundations.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/resources": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/resources",
+      "dataRoute": "/eng0300/resources.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -847,30 +1231,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/resources": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/resources",
-      "dataRoute": "/eng0300/resources.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/eng0300/tabe": {
       "experimentalBypassFor": [
         {
@@ -886,6 +1246,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/eng0300/tabe",
       "dataRoute": "/eng0300/tabe.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300",
+      "dataRoute": "/eng0300.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -922,31 +1306,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/[programSlug]/[moduleSlug]": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "routeRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)(?:/)?$",
-      "dataRoute": "/learning-paths/programs/[programSlug]/[moduleSlug].rsc",
-      "fallback": null,
-      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)\\.rsc$",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/learning-paths/programs/[programSlug]": {
       "experimentalBypassFor": [
         {
@@ -963,6 +1322,31 @@
       "dataRoute": "/learning-paths/programs/[programSlug].rsc",
       "fallback": null,
       "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)\\.rsc$",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/[programSlug]/[moduleSlug]": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "routeRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)(?:/)?$",
+      "dataRoute": "/learning-paths/programs/[programSlug]/[moduleSlug].rsc",
+      "fallback": null,
+      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)\\.rsc$",
       "allowHeader": [
         "host",
         "x-matched-path",
