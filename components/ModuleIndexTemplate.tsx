@@ -36,7 +36,7 @@ export default function ModuleIndexTemplate({
   level,
   estimatedMinutes,
   basePath = "ms-office",
-  breadcrumbRootLabel = "Microsoft Office 2019",
+  breadcrumbRootLabel = "Microsoft Office",
   breadcrumbRootHref = "/learning-paths/ms-office",
   prevModuleHref,
   prevModuleLabel,

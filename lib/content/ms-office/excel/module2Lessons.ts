@@ -10,6 +10,12 @@ export const excelModule2Lessons: Lesson[] = [
     title: "Cell Basics",
     description:
       "Learn how to insert and delete cells and cell content, drag and drop cells, use the fill handle, and use cut, copy, and paste.",
+    objectives: [
+      "Enter, edit, and clear cell content, and distinguish clearing from deleting",
+      "Use the fill handle to copy values and extend patterns",
+      "Use Paste Special to paste values, formats, or formulas selectively",
+      "Explain why Excel treats some entries as text and others as numbers",
+    ],
     duration: "12 min",
 
     videoUrls: [
@@ -23,6 +29,66 @@ export const excelModule2Lessons: Lesson[] = [
       },
     ],
     sections: [
+      {
+        heading: "Excel is always deciding what you typed",
+        blocks: [
+          {
+            type: "scenario",
+            role: "You are entering supply orders at Lakeside Medical Associates.",
+            text: "You type a catalog number as 03-4521 and Excel displays a date. You type another as 1/2 and get January 2nd. Your totals column will not sum, because half its values are text that merely looks numeric.",
+            task: "Understand how Excel interprets what you type, so your data behaves as data.",
+          },
+          {
+            type: "paragraph",
+            text: "Every entry is classified the moment you press Enter: number, date, or text. That classification governs everything afterwards — whether it sums, how it sorts, whether a formula can use it. Numbers align right by default and text aligns left, which gives you a free visual check: a column of right-aligned figures with one left-aligned entry has one text value hiding in it.",
+          },
+          {
+            type: "paragraph",
+            text: "To force text, format the cells as Text before typing, or begin the entry with an apostrophe: '03-4521. The apostrophe is not stored — it tells Excel to keep what follows verbatim. This is the standard fix for catalog numbers, account codes, and any identifier with leading zeros.",
+          },
+          {
+            type: "table",
+            caption: "The fill handle's behaviors",
+            columns: [
+              "You enter and drag",
+              "Excel produces",
+              "Why",
+            ],
+            rows: [
+              [
+                "One cell containing 5",
+                "5, 5, 5, 5",
+                "A single value is copied",
+              ],
+              [
+                "Two cells containing 5 and 10",
+                "15, 20, 25",
+                "Two cells establish a pattern — a step of 5",
+              ],
+              [
+                "A cell containing Monday",
+                "Tuesday, Wednesday…",
+                "Excel knows built-in lists for days and months",
+              ],
+              [
+                "A cell containing =A1+B1",
+                "=A2+B2, =A3+B3",
+                "Relative references shift as the formula moves down",
+              ],
+              [
+                "Ctrl held while dragging",
+                "Copies instead of extending",
+                "Overrides Excel's pattern detection",
+              ],
+            ],
+          },
+          {
+            type: "callout",
+            variant: "warning",
+            text: "Delete clears a cell's contents but leaves the cell in place. Right-click > Delete removes the cell itself and shifts its neighbours, which will break formulas that referred to the shifted cells. When you mean to empty cells, press Delete; when you mean to remove rows, select the whole row.",
+          },
+        ],
+      },
       {
         heading: "Understanding Cells and Ranges",
         blocks: [
@@ -116,6 +182,13 @@ export const excelModule2Lessons: Lesson[] = [
               "Inserts a new row below the selected cell",
             ],
             correctIndex: 2,
+            explanation: "The fill handle — the small square at the bottom-right of a selection — copies content into adjacent cells or continues a pattern. Select two cells that establish a step and it extends the series rather than repeating the value.",
+            optionRationales: [
+              "Clearing contents is done with the Delete key or Home > Clear. The fill handle adds content rather than removing it.",
+              "Fill color is applied from the Home tab's paint bucket. The fill handle fills cells with content, not with color — an easy confusion given the name.",
+              "Correct. It copies a value or continues a detected pattern into the cells you drag across.",
+              "Inserting rows is done by right-clicking a row header and choosing Insert. The fill handle does not change the structure of the sheet.",
+            ],
           },
         ],
       },
@@ -149,6 +222,12 @@ export const excelModule2Lessons: Lesson[] = [
   title: "Modifying Columns, Rows, and Cells",
   description:
     "Learn how to resize, insert, delete, hide, move, and format rows and columns in Excel.",
+  objectives: [
+    "Adjust column width and row height, including AutoFit",
+    "Insert, delete, hide, and unhide rows and columns",
+    "Explain why merged cells cause problems in data ranges",
+    "Wrap text so long entries stay readable",
+  ],
   duration: "15 min",
 
   videoUrl: "https://www.youtube.com/embed/9s0OdXiuqL0",
@@ -161,6 +240,35 @@ export const excelModule2Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Merged cells break more than they fix",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You inherit the supply tracker at Lakeside Medical Associates.",
+           text: "Your predecessor merged cells across the top of each section to make headings look centered. Now sorting throws an error, filtering behaves unpredictably, and selecting a column selects far more than you asked for.",
+           task: "Learn the layout tools that make a sheet readable without damaging its structure.",
+         },
+         {
+           type: "paragraph",
+           text: "Merging combines cells into one, which destroys the grid the merged region covered. Sorting, filtering, and many formulas depend on every row having the same shape, so a merged range breaks them. In a data table, merged cells are close to always the wrong tool.",
+         },
+         {
+           type: "paragraph",
+           text: "'Center Across Selection' gives the same visual result without the damage. Select the cells, open Format Cells > Alignment, and set Horizontal to Center Across Selection. The text appears centered across the range while every cell remains individually addressable — so sorting and filtering keep working.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Hiding a column does not remove its data. Hidden columns are fully present in the file and unhide in two clicks, so hiding is never a way to withhold information from someone you send the workbook to. If data should not travel, delete it from a copy.",
+         },
+         {
+           type: "tip",
+           text: "Double-clicking the boundary between two column headers AutoFits that column to its widest entry. Select every column first and one double-click sizes them all — the fastest way to make an inherited sheet readable.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // Resizing Columns
@@ -441,6 +549,13 @@ export const excelModule2Lessons: Lesson[] = [
             "Merges the column with the one to its right",
           ],
           correctIndex: 2,
+          explanation: "AutoFit sizes a column to exactly fit its widest entry, so nothing is cut off and no space is wasted. Double-clicking the boundary in the column header is the fastest way to apply it.",
+          optionRationales: [
+            "AutoFit measures the actual content rather than applying any fixed width. Excel's default width is about 8.43 characters, but AutoFit ignores it.",
+            "Hiding is a separate command on the right-click menu. AutoFit changes width, and never to zero.",
+            "Correct. The column is sized to fit its widest entry.",
+            "Merging is a separate command on the Home tab, and it is best avoided in data ranges. AutoFit only changes width.",
+          ],
         },
       ],
     },
@@ -477,6 +592,12 @@ export const excelModule2Lessons: Lesson[] = [
   title: "Formatting Cells in Excel",
   description:
     "Learn how to format fonts, apply colors, borders, alignment, cell styles, and enhance worksheet presentation.",
+  objectives: [
+    "Apply fonts, borders, and fill colors purposefully",
+    "Use cell styles for consistency across a workbook",
+    "Explain why formatting should never be the only carrier of meaning",
+    "Use Format Painter to copy formatting across ranges",
+  ],
   duration: "20 min",
 
   videoUrls: [
@@ -492,6 +613,30 @@ export const excelModule2Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Formatting should help someone read the numbers",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You prepare the monthly budget review at Lakeside Medical Associates.",
+           text: "You shade the over-budget rows red. The report is printed in black and white for the board meeting, where every row is now identical grey. The one thing the report existed to communicate is invisible.",
+           task: "Format so the meaning survives printing, photocopying, and colorblind readers.",
+         },
+         {
+           type: "paragraph",
+           text: "The rule is that color may reinforce meaning but must never be the only thing carrying it. Add a status column reading 'Over budget,' or a symbol, or bold. Then the red shading is a helpful accent rather than the sole signal — and the report still works in greyscale.",
+         },
+         {
+           type: "paragraph",
+           text: "Cell Styles (Home > Cell Styles) are Excel's equivalent of Word's styles: named formatting you apply by reference. Using the built-in Heading, Total, and Input styles means a workbook stays consistent, and restyling it later is one change rather than a hunt through every sheet.",
+         },
+         {
+           type: "tip",
+           text: "A widely used convention marks input cells — the ones a person types into — in one distinct color, and leaves calculated cells unshaded. Anyone opening the workbook then knows immediately which cells are safe to change and which contain formulas they would break.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // Font Type
@@ -757,6 +902,13 @@ export const excelModule2Lessons: Lesson[] = [
             "Border Color",
           ],
           correctIndex: 2,
+          explanation: "Fill Color sets the background of the cell. Font Color changes the text itself, and Border Color affects only the cell's outline.",
+          optionRationales: [
+            "Font Color changes the color of the characters, leaving the cell background unchanged.",
+            "Cell Styles apply a saved combination of formatting, which may include a fill — but the specific control for the background is Fill Color.",
+            "Correct. Fill Color sets the cell's background color.",
+            "Border Color affects the lines around the cell, not the area inside it.",
+          ],
         },
       ],
     },
@@ -798,6 +950,12 @@ export const excelModule2Lessons: Lesson[] = [
   title: "Understanding Number Formats in Excel",
   description:
     "Learn how to apply Date, Currency, Percentage, and Decimal number formats, and understand how formatting affects calculations.",
+  objectives: [
+    "Apply currency, percentage, date, and accounting formats appropriately",
+    "Explain the difference between a displayed value and a stored value",
+    "Diagnose why a percentage or date displays unexpectedly",
+    "Use custom number formats for identifiers with leading zeros",
+  ],
   duration: "18 min",
 
   videoUrls: [
@@ -813,6 +971,67 @@ export const excelModule2Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "What you see is not always what is stored",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You reconcile invoices at Lakeside Medical Associates.",
+           text: "A column of costs displays as whole dollars and the total is off by four dollars against the vendor statement. Nothing looks wrong. The cells actually contain cents, and the display is rounding each one for you while the total sums the real values.",
+           task: "Separate what a cell displays from what it stores, because formulas always use the stored value.",
+         },
+         {
+           type: "paragraph",
+           text: "Number formatting changes appearance only. A cell holding 1240.4567 formatted to no decimals displays 1240, but every formula referring to it uses 1240.4567. This is why a column of rounded-looking numbers produces a total that appears not to add up — the total is correct, and the display is what is lying.",
+         },
+         {
+           type: "paragraph",
+           text: "If you need the value itself rounded, use the ROUND function: =ROUND(A1,2). Formatting is for presentation; ROUND is for changing the number. Confusing the two is one of the most common sources of reconciliation discrepancies.",
+         },
+         {
+           type: "table",
+           caption: "Formats and their traps",
+           columns: [
+             "Format",
+             "Displays 0.25 as",
+             "Watch out for",
+           ],
+           rows: [
+             [
+               "General",
+               "0.25",
+               "No formatting applied",
+             ],
+             [
+               "Percentage",
+               "25%",
+               "Excel multiplies by 100 to display — typing 25 into a percent cell gives 2500%",
+             ],
+             [
+               "Currency",
+               "$0.25",
+               "Places the symbol next to the number",
+             ],
+             [
+               "Accounting",
+               "$   0.25",
+               "Aligns symbols and decimals in a column; shows zero as a dash",
+             ],
+             [
+               "Text",
+               "0.25",
+               "Excel stops treating it as a number — it will not sum",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "Dates are stored as serial numbers counting from 1 January 1900, which is why a date can suddenly display as 45,292 if the format is reset to General. The data is intact — apply a date format and it returns. It is also why dates can be used in arithmetic: subtracting one date from another gives the number of days between them.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // Understanding General Format
@@ -995,6 +1214,13 @@ export const excelModule2Lessons: Lesson[] = [
             "250%",
           ],
           correctIndex: 2,
+          explanation: "Percentage format multiplies the stored value by 100 for display and adds a percent sign, so 0.25 displays as 25%. This is also the trap: typing 25 into a cell already formatted as percentage gives 2500%.",
+          optionRationales: [
+            "That would be the result of formatting 0.0025. Percentage format multiplies the stored value by 100 for display.",
+            "That would be the result of formatting 0.025.",
+            "Correct. 0.25 multiplied by 100 displays as 25%.",
+            "That would be the result of formatting 2.5. It is what you get by typing 25 into a cell already formatted as percentage.",
+          ],
         },
       ],
     },
@@ -1030,6 +1256,12 @@ export const excelModule2Lessons: Lesson[] = [
   title: "Intro to Formulas",
   description:
     "Learn how to create basic formulas in Excel using cell references, mathematical operators, and the fill handle.",
+  objectives: [
+    "Write formulas using cell references rather than typed values",
+    "Explain why references make a spreadsheet maintainable",
+    "Use the fill handle to copy a formula down a column",
+    "Recognize and interpret Excel's common error values",
+  ],
   duration: "15 min",
 
   videoUrl: "https://www.youtube.com/embed/xc14gFFyiTw",
@@ -1042,6 +1274,92 @@ export const excelModule2Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Never type a number a formula could calculate",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You maintain the supply budget at Lakeside Medical Associates.",
+           text: "The totals row contains typed numbers your predecessor calculated by hand. A price correction arrives for one item. The item's cost updates, the totals do not, and the workbook now quietly disagrees with itself — with nothing on screen indicating a problem.",
+           task: "Build formulas that recalculate, so the workbook can never fall out of step with its own data.",
+         },
+         {
+           type: "paragraph",
+           text: "Every formula begins with an equals sign, which is how Excel knows to calculate rather than store what you typed. =C2*D2 multiplies whatever is currently in those two cells and updates the instant either changes.",
+         },
+         {
+           type: "paragraph",
+           text: "The discipline is to reference rather than embed. =C2*0.08 for tax works until the rate changes, and then it is wrong in every cell that used it, invisibly. Put the rate in its own labeled cell and write =C2*$F$1. When the rate changes you edit one cell, and the entire workbook is correct again.",
+         },
+         {
+           type: "table",
+           caption: "Error values and what they actually mean",
+           columns: [
+             "Error",
+             "Means",
+             "Usual cause",
+           ],
+           rows: [
+             [
+               "#####",
+               "The column is too narrow to display the value",
+               "Widen the column — the value is fine",
+             ],
+             [
+               "#DIV/0!",
+               "Division by zero or by an empty cell",
+               "A divisor cell is empty or zero",
+             ],
+             [
+               "#VALUE!",
+               "The formula received the wrong type of data",
+               "Text where a number was expected",
+             ],
+             [
+               "#REF!",
+               "A reference points at a cell that no longer exists",
+               "A row or column the formula used was deleted",
+             ],
+             [
+               "#NAME?",
+               "Excel does not recognize a name in the formula",
+               "A misspelled function name, or text without quotation marks",
+             ],
+             [
+               "#N/A",
+               "A lookup found no match",
+               "The value being looked up is not present in the lookup range",
+             ],
+           ],
+         },
+         {
+           type: "worked-example",
+           title: "Building a supply cost sheet that maintains itself",
+           task: "Calculate line totals, a subtotal, and tax so that any price change updates everything automatically.",
+           steps: [
+             {
+               move: "Put the tax rate in its own labeled cell, say F1, rather than inside formulas.",
+               why: "A rate typed into thirty formulas has to be found and changed thirty times, and any one you miss stays wrong silently. A rate in a labeled cell is changed once, and it is visible to anyone opening the workbook.",
+             },
+             {
+               move: "In E2 enter =C2*D2 for quantity times unit price.",
+               why: "References rather than numbers. If the quantity in C2 changes, the line total follows immediately — the sheet can never disagree with its own inputs.",
+             },
+             {
+               move: "Select E2 and double-click the fill handle to copy down the column.",
+               why: "Double-clicking fills down to the extent of the adjacent data, which is far more reliable than dragging on a 900-row sheet. The relative references shift as the formula moves, so row 3 gets =C3*D3.",
+             },
+             {
+               move: "Subtotal with =SUM(E2:E30), then tax with =E31*$F$1.",
+               why: "The dollar signs make F1 absolute, so copying the formula never shifts it off the rate cell. SUM over a range also keeps working when rows are inserted inside it, which typed addition does not.",
+             },
+           ],
+           result: "A sheet where changing any quantity, price, or the tax rate updates every dependent figure instantly.",
+           takeaway: "Put every input in its own labeled cell and reference it. Numbers buried inside formulas are the single most common cause of spreadsheets that are quietly wrong.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // What Is a Formula?
@@ -1283,6 +1601,13 @@ export const excelModule2Lessons: Lesson[] = [
             "With a function name like SUM",
           ],
           correctIndex: 2,
+          explanation: "Every formula begins with an equals sign. Without it Excel stores what you typed as text, which is why a 'formula' sometimes just sits in the cell displaying itself.",
+          optionRationales: [
+            "Excel accepts a leading + for compatibility with old Lotus habits and converts it to =, but the equals sign is the actual rule.",
+            "Starting with a cell reference produces text. A1+B1 typed without an equals sign is stored as the literal characters.",
+            "Correct. The equals sign tells Excel to calculate rather than store the text.",
+            "Even a function needs the equals sign. SUM(A1:A10) without it is text; =SUM(A1:A10) calculates.",
+          ],
         },
       ],
     },

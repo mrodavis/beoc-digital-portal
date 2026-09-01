@@ -7,12 +7,103 @@ export const powerpointModule1Lessons: Lesson[] = [
   title: "Getting Started with PowerPoint",
   description:
     "Learn your way around the PowerPoint interface including the Ribbon, Quick Access Toolbar, slide views, zoom controls, and Backstage view.",
+  objectives: [
+    "Identify the Ribbon, slide pane, thumbnail pane, and notes pane",
+    "Switch between Normal, Slide Sorter, Reading, and Presenter views",
+    "Explain what a placeholder is and why it matters",
+    "Navigate a deck efficiently while building it",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/k6pg4nZS6fA",
 
   practiceFiles: [],
 
   sections: [
+
+    {
+       heading: "PowerPoint is a visual aid, not the presentation",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You prepare the monthly all-staff briefing at Lakeside Medical Associates.",
+           text: "Your first deck has fourteen slides carrying every word you plan to say. During the meeting the room reads ahead, stops listening, and you end up reading your own slides aloud to people who finished them a minute ago.",
+           task: "Learn the tool, and learn what belongs on a slide versus what belongs in your mouth.",
+         },
+         {
+           type: "paragraph",
+           text: "The most useful principle in this entire course is that the audience cannot read and listen at the same time. Text-heavy slides force a choice, and the audience reliably chooses reading — which makes the presenter redundant. Slides should carry the few things that genuinely benefit from being seen: an image, a number, a chart, a short phrase that anchors what you are saying.",
+         },
+         {
+           type: "paragraph",
+           text: "Everything else goes in the notes pane, which only you see in Presenter View. This is what the notes pane is actually for, and using it properly is the difference between a deck that supports you and a deck that replaces you.",
+         },
+         {
+           type: "key-terms",
+           terms: [
+             {
+               term: "Placeholder",
+               definition: "A pre-positioned content box defined by the slide layout. Typing into placeholders rather than free text boxes is what keeps a deck consistent.",
+             },
+             {
+               term: "Layout",
+               definition: "A named arrangement of placeholders — Title Slide, Title and Content, Two Content. Chosen per slide.",
+             },
+             {
+               term: "Slide Master",
+               definition: "The design definition behind every layout. Change it once and the whole deck follows.",
+             },
+             {
+               term: "Theme",
+               definition: "The coordinated colors, fonts, and effects applied across the presentation.",
+             },
+             {
+               term: "Notes pane",
+               definition: "Text attached to a slide that the audience never sees. Visible to you in Presenter View.",
+             },
+           ],
+         },
+         {
+           type: "table",
+           caption: "The views and when to use each",
+           columns: [
+             "View",
+             "Shows",
+             "Use it to",
+           ],
+           rows: [
+             [
+               "Normal",
+               "One slide plus thumbnails and notes",
+               "Build and edit slides",
+             ],
+             [
+               "Outline",
+               "Text only, as a hierarchy",
+               "Draft and reorder the argument before designing anything",
+             ],
+             [
+               "Slide Sorter",
+               "All slides as thumbnails",
+               "Reorder, delete, and check visual consistency",
+             ],
+             [
+               "Reading",
+               "Full screen in a window",
+               "Review the flow without leaving your desktop",
+             ],
+             [
+               "Presenter",
+               "Notes, timer, and next slide",
+               "Actually present",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Build the deck in Outline View first. It shows only the text hierarchy, so you are forced to work on the argument before you can be distracted by design. A deck whose outline does not make sense will not be rescued by a theme.",
+         },
+       ],
+     },
 
     {
       heading: "PowerPoint Start Screen",
@@ -253,6 +344,13 @@ export const powerpointModule1Lessons: Lesson[] = [
             "The slide navigation pane on the left",
           ],
           correctIndex: 2,
+          explanation: "The Ribbon organizes PowerPoint's commands into task-based tabs — Home for text and slides, Insert for objects, Design for themes, Transitions and Animations for motion.",
+          optionRationales: [
+            "The status bar reports the slide number, view controls, and zoom. It displays information rather than housing commands.",
+            "The Quick Access Toolbar holds a few shortcuts you choose yourself. It is a convenience layer over the Ribbon.",
+            "Correct. The Ribbon organizes commands into task-based tabs.",
+            "The navigation pane shows slide thumbnails for reordering and selecting. It manages slides rather than holding commands.",
+          ],
         },
       ],
     },
@@ -292,9 +390,40 @@ export const powerpointModule1Lessons: Lesson[] = [
   title: "Understanding OneDrive for PowerPoint",
   description:
     "Learn how to sign in to PowerPoint, connect your Microsoft account, and use OneDrive to save and access presentations from anywhere.",
+  objectives: [
+    "Save a presentation to OneDrive and open it elsewhere",
+    "Explain why cloud storage matters for a deck you will present",
+    "Share a presentation with appropriate permissions",
+    "Plan for presenting when the network is unavailable",
+  ],
   duration: "8 min",
 
   sections: [
+
+    {
+       heading: "The file has to be there when you stand up to present",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present at the quarterly staff meeting at Lakeside Medical Associates.",
+           text: "Your deck is on your desk computer. The meeting is in the conference room, on a different machine, and the guest network is refusing connections. You have four minutes and thirty people waiting.",
+           task: "Store the deck so it is reachable from anywhere, and carry a fallback for when the network is not.",
+         },
+         {
+           type: "paragraph",
+           text: "OneDrive makes the presentation reachable from any machine you can sign in on, which solves the ordinary case well. It also gives you version history, so an accidental deletion of six slides is recoverable rather than final.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Never let the cloud be your only copy of something you must present. Networks fail in conference rooms specifically. Before any presentation that matters, put a copy on a USB drive or the local desktop, and export a PDF as a last-resort fallback — a PDF will open on literally any machine, and a static deck is far better than no deck.",
+         },
+         {
+           type: "tip",
+           text: "Embedded video and audio are the usual cause of a deck that works on your machine and fails on the presentation machine. File > Info > Optimize Media Compatibility embeds and converts media so it travels with the file. Always run it before presenting from a different computer.",
+         },
+       ],
+     },
 
     {
       heading: "What is OneDrive?",
@@ -404,6 +533,13 @@ export const powerpointModule1Lessons: Lesson[] = [
             "It protects the presentation from being edited by anyone",
           ],
           correctIndex: 2,
+          explanation: "OneDrive stores the presentation on Microsoft's servers so you can open it from any device you sign in on, and share it by link. It also provides version history and co-authoring.",
+          optionRationales: [
+            "Storage location has no effect on transitions, which are applied from the Transitions tab.",
+            "OneDrive does not compress files. Reducing file size is done with Compress Pictures and media optimization.",
+            "Correct. The presentation is reachable from any device you sign in on, and can be shared by link.",
+            "Sharing permissions are something you set deliberately. Saving to OneDrive does not lock a file against editing.",
+          ],
         },
       ],
     },
@@ -434,6 +570,12 @@ export const powerpointModule1Lessons: Lesson[] = [
   title: "Creating and Opening Presentations",
   description:
     "Learn how to create new PowerPoint presentations, use templates, open existing files, pin presentations, and understand Compatibility Mode.",
+  objectives: [
+    "Create presentations from blank files and from templates",
+    "Open and pin recent presentations",
+    "Evaluate whether a template suits your content",
+    "Explain what a template supplies beyond appearance",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/OX3vRazm4fw",
 
@@ -445,6 +587,27 @@ export const powerpointModule1Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "A template is a set of decisions already made",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You produce recurring briefings at Lakeside Medical Associates.",
+           text: "Every month you rebuild the same deck: the same title arrangement, the same colors, the same closing slide. Twenty minutes each time, spent re-making decisions you already made in January — and the decks still do not quite match each other.",
+           task: "Build the practice's design once as a template, then start every deck from it.",
+         },
+         {
+           type: "paragraph",
+           text: "A template supplies the theme, the slide layouts, and often placeholder content — all the structural decisions. Starting from one means starting with the design settled, so your attention goes to the argument rather than to fonts.",
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "Judge a template by its layouts, not its title slide. Many attractive templates supply three usable layouts and nothing else, so the moment you need a comparison slide or a full-width chart you are improvising with text boxes — and the consistency you chose the template for is gone. Open the Slide Master and look at what layouts exist before committing to a template.",
+         },
+       ],
+     },
 
     {
       heading: "Creating a New Presentation",
@@ -620,6 +783,13 @@ export const powerpointModule1Lessons: Lesson[] = [
             "A file saved in read-only mode",
           ],
           correctIndex: 2,
+          explanation: "A template is a pre-designed presentation supplying the theme, slide layouts, and often sample content, used as a starting point. Opening one creates a new presentation and leaves the template intact.",
+          optionRationales: [
+            "A blank slide with no formatting is what you get from a blank presentation, which is the opposite of a template.",
+            "That describes a self-running or kiosk presentation, configured under Set Up Slide Show.",
+            "Correct. A template is a pre-designed presentation you customize as a starting point.",
+            "Read-only status is a file property, unrelated to what a template is.",
+          ],
         },
       ],
     },
@@ -651,6 +821,12 @@ export const powerpointModule1Lessons: Lesson[] = [
   title: "Saving Presentations",
   description:
     "Learn how to save PowerPoint presentations, change file types, export presentations, and recover unsaved work.",
+  objectives: [
+    "Save in the format that matches how the deck will be used",
+    "Export to PDF and to video",
+    "Explain what each export format preserves and loses",
+    "Prepare a deck for a machine that may not have PowerPoint",
+  ],
   duration: "10 min",
   videoUrl: "https://www.youtube.com/embed/iwecUGKmiyw",
 
@@ -662,6 +838,59 @@ export const powerpointModule1Lessons: Lesson[] = [
   ],
 
 sections: [
+
+  {
+     heading: "Choose the format for how it will be opened",
+     blocks: [
+       {
+         type: "scenario",
+         role: "You distribute the orientation deck at Lakeside Medical Associates.",
+         text: "You email the .pptx to twelve new hires. Three cannot open it, two see substituted fonts that break every slide layout, and one edits it and forwards their version to the rest.",
+         task: "Match the distribution format to what recipients actually need to do with it.",
+       },
+       {
+         type: "table",
+         caption: "Export formats",
+         columns: [
+           "Format",
+           "Preserves",
+           "Use for",
+         ],
+         rows: [
+           [
+             ".pptx",
+             "Everything, fully editable",
+             "Colleagues who must edit it",
+           ],
+           [
+             "PDF",
+             "Layout and fonts; loses animation and video",
+             "Distributing to read — opens anywhere",
+           ],
+           [
+             "MP4 video",
+             "Animation, timing, and narration",
+             "Self-paced training people watch without you",
+           ],
+           [
+             "PowerPoint Show (.ppsx)",
+             "Everything; opens straight into the slide show",
+             "Handing to someone who should present, not edit",
+           ],
+           [
+             "Images (PNG/JPG)",
+             "One picture per slide",
+             "Dropping a slide into another document",
+           ],
+         ],
+       },
+       {
+         type: "callout",
+         variant: "warning",
+         text: "Fonts are the most common cause of a deck that looks wrong on someone else's machine. If a font is not installed there, PowerPoint substitutes another and your layout reflows — text overflows placeholders and line breaks land in the wrong places. File > Options > Save > Embed fonts in the file prevents it, and PDF sidesteps the problem entirely.",
+       },
+     ],
+   },
 
 {
   heading: "Saving a Presentation",
@@ -876,6 +1105,13 @@ sections: [
         "Mark it as Final in the Info pane",
       ],
       correctIndex: 2,
+      explanation: "PDF preserves layout and fonts exactly and is not casually editable, so it is right for distributing a deck people should read rather than change. It does lose animation, transitions, and embedded video.",
+      optionRationales: [
+        "A .pptx is fully editable, which is precisely what you are trying to avoid — and it also risks font substitution on the recipient's machine.",
+        "Sharing with collaborators grants editing access, which is the opposite of the goal.",
+        "Correct. PDF locks the layout and fonts and is not casually editable.",
+        "Mark as Final is only an advisory flag. It shows a notice and is dismissed with one click, so it prevents nothing.",
+      ],
     },
   ],
 },
@@ -906,6 +1142,12 @@ sections: [
   title: "Slide Basics",
   description:
     "Learn how to create slides, choose layouts, work with placeholders, duplicate and reorder slides, and apply design changes in PowerPoint.",
+  objectives: [
+    "Add, duplicate, delete, and reorder slides",
+    "Choose a layout that matches the slide's content",
+    "Explain why placeholders beat free-floating text boxes",
+    "Use the outline to structure a deck before designing it",
+  ],
   duration: "14 min",
   videoUrl: "https://www.youtube.com/embed/TZfcVbKJs1E",
 
@@ -917,6 +1159,51 @@ sections: [
   ],
 
   sections: [
+
+    {
+       heading: "Layouts are what keep a deck from drifting",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You build a twenty-slide orientation deck at Lakeside Medical Associates.",
+           text: "You add text boxes wherever you need them rather than using layouts. Your titles land at slightly different heights on almost every slide. Watching the deck, the title jitters up and down from slide to slide, and the whole thing feels amateurish for reasons nobody can name.",
+           task: "Use layouts and placeholders so alignment is structural rather than something you re-achieve each time.",
+         },
+         {
+           type: "paragraph",
+           text: "A layout is a set of placeholders positioned by the Slide Master. Type into placeholders and every title lands in exactly the same place on every slide, with the same font and size. That invisible consistency is most of what separates a professional deck from a homemade one.",
+         },
+         {
+           type: "paragraph",
+           text: "Free text boxes place themselves wherever you drop them, which is why title jitter happens. They have a legitimate role — a caption over an image, an annotation on a diagram — but they should never be doing a placeholder's job.",
+         },
+         {
+           type: "worked-example",
+           title: "Building a slide that stays consistent with the rest of the deck",
+           task: "Add a slide comparing two intake processes, without breaking the deck's alignment.",
+           steps: [
+             {
+               move: "Home > New Slide, and pick the Two Content layout rather than accepting the default.",
+               why: "The layout is chosen for the content, not the other way round. Two Content gives two side-by-side placeholders already aligned to the master, so the comparison structure is built in before you type anything.",
+             },
+             {
+               move: "Click into each placeholder and type.",
+               why: "Placeholder text inherits the master's font, size, and position automatically, and it appears in the outline. Text in a free box does neither, which is also why it will not appear if anyone builds a summary from the outline.",
+             },
+             {
+               move: "If the text does not fit, cut the text rather than shrinking the font.",
+               why: "PowerPoint offers to autofit by reducing the size, which is how a deck ends up with eight different body sizes. Overflow is a signal that the slide is carrying too much — move the detail to the notes, which is where it belonged.",
+             },
+             {
+               move: "Use Outline View to check the slide's place in the argument.",
+               why: "The outline shows the deck as structure, stripped of design. If a slide's title does not make sense in that list, the problem is with the content rather than the layout.",
+             },
+           ],
+           result: "A comparison slide that matches every other slide's alignment and typography exactly.",
+           takeaway: "Pick the layout that fits the content, type into placeholders, and treat overflow as a content problem rather than a font-size problem.",
+         },
+       ],
+     },
 
     {
       heading: "Understanding Slides",
@@ -1344,6 +1631,13 @@ sections: [
             "A saved view that shows all slides at once",
           ],
           correctIndex: 2,
+          explanation: "A layout is a pre-arranged set of placeholders defining where content sits on a slide. Because placeholder positions come from the Slide Master, using layouts keeps every slide aligned consistently.",
+          optionRationales: [
+            "That describes a theme, which sets colors and fonts across the whole presentation. A layout arranges content areas.",
+            "A color palette is part of the theme. Layouts govern arrangement, not color.",
+            "Correct. A layout is a pre-arranged set of placeholders for a slide's content.",
+            "That describes Slide Sorter view. A layout is a property of a slide rather than a way of viewing the deck.",
+          ],
         },
       ],
     },

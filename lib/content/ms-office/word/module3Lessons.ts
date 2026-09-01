@@ -6,6 +6,12 @@ export const wordModule3Lessons: Lesson[] = [
   title: "Pictures & Text Wrapping",
   description:
     "Learn how to insert images, resize them properly, and control how text wraps around pictures in Microsoft Word.",
+  objectives: [
+    "Insert images from your computer and from online sources",
+    "Choose a text wrapping mode that matches how the image relates to the text",
+    "Explain the difference between In Line with Text and the floating wrap modes",
+    "Anchor an image so it stays with the content it illustrates",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/sqkEDw99szg",
 
@@ -17,6 +23,71 @@ export const wordModule3Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Wrapping decides whether an image behaves like a letter or like a sticker",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are laying out a wellness newsletter at Lakeside Medical Associates.",
+           text: "You place a photo beside a paragraph about flu season. You add two sentences higher up the page and the photo leaps to page three, landing beside an unrelated article about parking. You drag it back. You add another sentence. It jumps again.",
+           task: "Understand anchoring and wrapping well enough that images stay where you put them.",
+         },
+         {
+           type: "paragraph",
+           text: "There are really only two behaviors, and everything else is a variation. In Line with Text treats the image as an enormous character — it sits in the line, moves when text moves, and cannot have text beside it. Every other mode makes the image floating: it sits in its own layer, text flows around it according to the mode you choose, and it is tied to a paragraph by an anchor.",
+         },
+         {
+           type: "paragraph",
+           text: "The anchor is the part almost nobody is taught, and it explains the jumping. A floating image is attached to a specific paragraph; when that paragraph moves to another page, the image follows. Turn on the anchor symbol display and you can see which paragraph owns the image — and drag the anchor to a different paragraph if it is attached to the wrong one.",
+         },
+         {
+           type: "table",
+           caption: "Wrap modes and what they are for",
+           columns: [
+             "Mode",
+             "Behavior",
+             "Use for",
+           ],
+           rows: [
+             [
+               "In Line with Text",
+               "Sits in the text line like a character",
+               "Icons, signatures, anything in a table cell",
+             ],
+             [
+               "Square",
+               "Text flows around the bounding box",
+               "A photo beside a paragraph — the common newsletter case",
+             ],
+             [
+               "Tight",
+               "Text follows the image's actual shape",
+               "Cut-out images with transparent backgrounds",
+             ],
+             [
+               "Top and Bottom",
+               "Text stops above and resumes below",
+               "A wide figure that should own its horizontal band",
+             ],
+             [
+               "Behind Text",
+               "Image sits under the text",
+               "Watermarks and background graphics",
+             ],
+             [
+               "In Front of Text",
+               "Image covers the text",
+               "Callout arrows and annotations over a screenshot",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "If an image will not stop moving, select it, open Layout Options, and choose 'Fix position on page.' The image stays put on that page regardless of text edits. Use it sparingly — it is right for a masthead and wrong for a figure that must stay next to its caption.",
+         },
+       ],
+     },
 
     // ---------------- INSERT FROM DEVICE ----------------
     {
@@ -232,6 +303,13 @@ export const wordModule3Lessons: Lesson[] = [
             "Behind Text",
           ],
           correctIndex: 0,
+          explanation: "In Line with Text places the image inside the text flow itself, as though it were a very large character. This is why text cannot appear beside it — the image occupies the whole line. Every other mode makes the image float in its own layer.",
+          optionRationales: [
+            "Correct. The image sits in the line like a character, moving with the text and preventing text from appearing beside it.",
+            "Square floats the image and flows text around its rectangular bounding box, which places text beside it rather than on the same line.",
+            "Tight floats the image and flows text around its actual contours, so it also places text alongside rather than in line.",
+            "Behind Text floats the image on a lower layer, with text running over the top of it.",
+          ],
         },
       ],
     },
@@ -263,6 +341,12 @@ export const wordModule3Lessons: Lesson[] = [
   title: "Formatting Pictures",
   description:
     "Learn how to crop images, apply picture styles, add borders, adjust color and corrections, and compress images in Microsoft Word.",
+  objectives: [
+    "Crop an image to improve its composition, and crop to a shape",
+    "Adjust brightness, contrast, and color to make an image usable",
+    "Compress images to keep file size manageable",
+    "Judge when a picture style helps and when it distracts",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/eC4bRXx9k6g?si=9Y7ajF4Ato7_DjyJ",
 
@@ -274,6 +358,35 @@ export const wordModule3Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Cropping is editing, not trimming",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are building a staff directory at Lakeside Medical Associates.",
+           text: "Eleven staff photos arrive from eleven different phones. Some are portrait, some landscape, some show the whole waiting room with a person somewhere in it. Dropped into the directory as-is, they make the page look like a scrapbook. The document is going to new patients.",
+           task: "Crop and adjust the photos so they read as one consistent set.",
+         },
+         {
+           type: "paragraph",
+           text: "Cropping serves composition, not just size. Cropping every headshot to the same aspect ratio and framing each face in roughly the same position makes eleven unrelated photos read as one deliberate set. Resizing alone cannot do that — a wide photo scaled down is still a wide photo of a waiting room.",
+         },
+         {
+           type: "paragraph",
+           text: "Compression is the practical companion. A modern phone photo can be several megabytes; eleven of them produce a document too large to email. Picture Format > Compress Pictures reduces resolution to what the output actually needs. Use 220 ppi for something that will be printed, 150 ppi for on-screen reading, and 96 ppi for email. Always uncheck 'Apply only to this picture' when you want the whole document reduced.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Cropping hides the cropped-away area; it does not delete it by default. Anyone who receives the file can drag the crop handles back out and reveal what you removed. If you cropped to hide something — another patient in the background, a name badge, a screen with data on it — you must also run Compress Pictures with 'Delete cropped areas of pictures' checked. Otherwise you have concealed it visually while still shipping the pixels.",
+         },
+         {
+           type: "tip",
+           text: "Crop to Shape (Crop dropdown > Crop to Shape) trims the image to a circle or rounded rectangle in one step. Circular headshots are a quick, reliable way to make photos of mixed quality look coordinated.",
+         },
+       ],
+     },
 
     // ---------------- INTRO ----------------
     {
@@ -477,6 +590,13 @@ export const wordModule3Lessons: Lesson[] = [
             "Picture Styles",
           ],
           correctIndex: 2,
+          explanation: "Crop trims away the outer parts of an image so you keep only the region you want. Note that by default Word hides rather than discards the cropped area — use Compress Pictures with 'Delete cropped areas' to remove it for good.",
+          optionRationales: [
+            "Corrections adjusts sharpness, brightness, and contrast. It changes how the existing image looks, not how much of it is visible.",
+            "Artistic Effects applies stylized filters such as pencil sketch or blur. It restyles the whole image rather than trimming it.",
+            "Correct. Crop removes the outer edges of the image, letting you keep only the part you want to show.",
+            "Picture Styles apply frames, shadows, and borders around the image. They decorate the edge rather than remove it.",
+          ],
         },
       ],
     },
@@ -506,6 +626,12 @@ export const wordModule3Lessons: Lesson[] = [
   title: "Shapes",
   description:
     "Learn how to insert, resize, rotate, reorder, and format shapes in Microsoft Word, including fill, outline, styles, and special effects.",
+  objectives: [
+    "Insert and resize shapes, and constrain proportions while drawing",
+    "Add and format text inside a shape",
+    "Apply fills, outlines, and effects consistently across several shapes",
+    "Understand stacking order and how it affects what is visible",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/6OJRvC1C7-U?si=ecqD5EXs5t_XiW_e",
 
@@ -517,6 +643,66 @@ export const wordModule3Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Shapes are for showing relationships",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are documenting the referral process at Lakeside Medical Associates.",
+           text: "The referral workflow has six steps and two decision points. Written as a paragraph, it takes four readings to follow. Drawn as six boxes with arrows and two diamonds, it takes about eight seconds — and new staff stop asking which form goes where.",
+           task: "Use shapes to make a process visible instead of describing it.",
+         },
+         {
+           type: "paragraph",
+           text: "A diagram earns its place when the relationship between things is the point. A sequence, a hierarchy, a decision with branches — these are genuinely hard to hold in your head from prose and immediately obvious as a drawing. A shape added because the page looked plain earns nothing and costs the reader attention.",
+         },
+         {
+           type: "paragraph",
+           text: "Text goes directly inside a shape: click the shape and start typing. There is no need to lay a separate text box over it, and doing so creates two objects that must be moved together and inevitably drift apart. Text typed inside the shape moves with it, wraps within it, and stays centered automatically.",
+         },
+         {
+           type: "table",
+           caption: "Conventional shape meanings in a process diagram",
+           columns: [
+             "Shape",
+             "Means",
+             "Example",
+           ],
+           rows: [
+             [
+               "Rectangle",
+               "A step or action",
+               "Verify insurance eligibility",
+             ],
+             [
+               "Diamond",
+               "A decision with branches",
+               "Referral requires prior authorization?",
+             ],
+             [
+               "Rounded rectangle / oval",
+               "Start or end point",
+               "Referral received",
+             ],
+             [
+               "Arrow",
+               "Flow from one step to the next",
+               "Connects each step in order",
+             ],
+             [
+               "Parallelogram",
+               "Input or output — a document or form",
+               "Completed referral form",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Hold Shift while drawing to constrain proportions — a perfect circle from the oval tool, a true square from the rectangle, or a straight line locked to 15-degree increments. Hold Ctrl while dragging an existing shape to duplicate it, which is the fastest way to build six identical process boxes.",
+         },
+       ],
+     },
 
     // ---------------- INSERT SHAPES ----------------
     {
@@ -785,6 +971,13 @@ export const wordModule3Lessons: Lesson[] = [
             "Right-click the shape and select Add Text from a dialog box",
           ],
           correctIndex: 1,
+          explanation: "Shapes accept text directly — select the shape and type. The text becomes part of the shape, so it moves, resizes, and rotates with it. Overlaying a separate text box creates two objects that will eventually separate.",
+          optionRationales: [
+            "This works visually but creates two independent objects. Move the shape and the text box stays behind, which is why the approach falls apart in any document that gets edited.",
+            "Correct. Click the shape and type — the text belongs to the shape and travels with it.",
+            "That command inserts a standalone text box, which is a different object. It is the right tool for free-floating text, not for labeling a shape.",
+            "Right-clicking a shape does offer Add Text on the context menu, but it opens no dialog — and simply clicking and typing achieves the same thing in one step.",
+          ],
         },
       ],
     },
@@ -821,6 +1014,12 @@ export const wordModule3Lessons: Lesson[] = [
   title: "Text Boxes",
   description:
     "Learn how to insert built-in text boxes, draw custom text boxes, resize, move, format, apply styles, and change shapes in Microsoft Word.",
+  objectives: [
+    "Insert built-in and custom text boxes and position them precisely",
+    "Format text box fills, borders, and internal margins",
+    "Explain when a text box is the right tool and when a table or paragraph is better",
+    "Keep text boxes accessible for screen reader users",
+  ],
   duration: "10 min",
   videoUrl: "https://www.youtube.com/embed/LRGZEi7lSnA?si=HO6IryaHGHU_-Ss6",
 
@@ -832,6 +1031,61 @@ export const wordModule3Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "A text box breaks text out of the flow",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are designing a patient information sheet at Lakeside Medical Associates.",
+           text: "The sheet needs a bordered box in the margin holding the after-hours number, visible no matter which paragraph a patient is reading. Ordinary paragraphs cannot do that — they sit in the flow and move as text is added above them.",
+           task: "Use a text box to place content precisely, and know when not to reach for one.",
+         },
+         {
+           type: "paragraph",
+           text: "A text box is a container that floats independently of the main text flow, so you can put words anywhere on the page — in a margin, over an image, in a sidebar. That independence is the whole point, and also the reason to be careful with it.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Screen readers may read text boxes out of order, or skip them entirely, because they sit outside the main document flow. Never put essential information only in a text box. If the after-hours number matters, it also belongs in the body text — the box is emphasis, not the sole delivery mechanism. Run Review > Check Accessibility before distributing any document that uses text boxes heavily.",
+         },
+         {
+           type: "table",
+           columns: [
+             "You want",
+             "Use",
+             "Why",
+           ],
+           rows: [
+             [
+               "A pull quote or sidebar",
+               "Text box",
+               "Needs to sit outside the flow, in a fixed place",
+             ],
+             [
+               "Aligned rows and columns of data",
+               "Table",
+               "Tables handle alignment and stay accessible",
+             ],
+             [
+               "An indented block quotation",
+               "Paragraph with indents",
+               "Stays in the flow and in the reading order",
+             ],
+             [
+               "A label over a screenshot",
+               "Text box, In Front of Text",
+               "Must sit on top of an image at an exact spot",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Right-click a text box and choose Format Shape > Text Options > Text Box to set internal margins. The default padding is often too tight when you add a border — a little breathing room between the border and the text is most of what makes a box look professional rather than cramped.",
+         },
+       ],
+     },
 
     // ---------------- INSERT BUILT-IN ----------------
     {
@@ -999,6 +1253,13 @@ export const wordModule3Lessons: Lesson[] = [
             "To create a hyperlink around a block of text",
           ],
           correctIndex: 2,
+          explanation: "A text box floats independently of the main text flow, so you can position words anywhere on the page — a margin, a sidebar, or on top of an image. That independence is exactly why screen readers may miss it, so never let a text box be the only place important information appears.",
+          optionRationales: [
+            "Tables organize content into rows and columns within the text flow. That is a different tool with different behavior.",
+            "Paragraph borders (Home > Borders) put a box around a paragraph while it stays in the flow. Useful, but it cannot be positioned freely.",
+            "Correct. A text box floats independently of the text flow, so it can be placed anywhere on the page.",
+            "Hyperlinks are created with Ctrl+K on selected text. A text box is a container, not a linking tool.",
+          ],
         },
       ],
     },
@@ -1028,6 +1289,12 @@ export const wordModule3Lessons: Lesson[] = [
   title: "Align, Order & Group Objects",
   description:
     "Learn how to align objects, distribute spacing, change object order, flip images, group items, and use the Selection Pane in Microsoft Word.",
+  objectives: [
+    "Align and distribute multiple objects precisely instead of by eye",
+    "Control stacking order with Bring Forward and Send Backward",
+    "Use the Selection pane to find and select objects that are hidden behind others",
+    "Group objects so they move and scale as a unit",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/6nx5H8yhhWo?si=RWGfiWZfjcgClgPM",
 
@@ -1039,6 +1306,55 @@ export const wordModule3Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Aligning by eye is why layouts look almost right",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are finishing the referral workflow diagram at Lakeside Medical Associates.",
+           text: "Six process boxes, positioned by dragging. On screen at 100% they look fine. Printed and pinned by the front desk, three of them are visibly two millimetres out of line, and the diagram reads as sloppy — which is what people then assume about the process it describes.",
+           task: "Use the alignment tools so the layout is actually correct rather than approximately correct.",
+         },
+         {
+           type: "paragraph",
+           text: "Human eyes are good at detecting misalignment and bad at preventing it. Select several objects, then Shape Format > Align > Align Left, and Word puts every left edge on precisely the same coordinate. Align > Distribute Horizontally makes the gaps between them mathematically equal. Both take one click and are exact in a way dragging never is.",
+         },
+         {
+           type: "paragraph",
+           text: "Grouping is the follow-up. Once a diagram is aligned, select every piece and press Ctrl+G to group them into a single object. From then on, moving or resizing the group preserves every internal relationship. Without grouping, moving a six-box diagram means moving six objects and re-aligning them at the destination.",
+         },
+         {
+           type: "tip",
+           text: "The Selection pane (Home > Select > Selection Pane, or Alt+F10) lists every object on the page. It is the only practical way to select something completely hidden behind another object, and you can rename entries — 'Step 3 box' rather than 'Rectangle 47' — which makes a complex diagram far easier to maintain.",
+         },
+         {
+           type: "worked-example",
+           title: "Turning six dragged boxes into a clean diagram",
+           task: "Take six roughly positioned process boxes and make them exactly aligned, evenly spaced, and movable as one object.",
+           steps: [
+             {
+               move: "Click the first box, then Shift+click the other five.",
+               why: "Shift+click adds to a selection rather than replacing it. Every alignment command works on the current selection, so getting all six selected is the prerequisite for everything that follows.",
+             },
+             {
+               move: "Shape Format > Align > Align Left.",
+               why: "Word moves every selected object so its left edge sits at the leftmost edge in the selection. This is exact to the pixel, which is the difference between a diagram that looks intentional and one that looks hand-placed.",
+             },
+             {
+               move: "Shape Format > Align > Distribute Vertically.",
+               why: "This equalizes the vertical gaps between all six. Distribution needs at least three objects to be meaningful, and it fixes the uneven spacing that dragging always produces.",
+             },
+             {
+               move: "With all six still selected, press Ctrl+G to group.",
+               why: "The diagram becomes one object. It can now be moved, resized, or wrapped as a unit without any internal drift. Ctrl+Shift+G ungroups again when you need to edit an individual box.",
+             },
+           ],
+           result: "A precisely aligned, evenly distributed diagram that behaves as a single object.",
+           takeaway: "Align, distribute, then group. Three commands convert an approximate layout into an exact one, and stop it from degrading the next time someone edits the page.",
+         },
+       ],
+     },
 
     // ---------------- ALIGN OBJECTS ----------------
     {
@@ -1216,6 +1532,13 @@ export const wordModule3Lessons: Lesson[] = [
             "Lets you move and resize them together as one unit",
           ],
           correctIndex: 3,
+          explanation: "Grouping combines several objects into one, so moving, resizing, or rotating the group applies to everything inside it and preserves the relationships between the pieces. Ctrl+Shift+G ungroups them again.",
+          optionRationales: [
+            "Grouping does not lock anything — the group moves freely. You are thinking of 'Fix position on page,' which is a layout option rather than grouping.",
+            "Grouping leaves every object's fill exactly as it was. It changes how they are selected and moved, not how they look.",
+            "Grouping applies no formatting at all. To style several objects identically, select them all and apply the style, which is a separate operation.",
+            "Correct. The objects behave as a single unit, so the diagram keeps its internal alignment wherever you move it.",
+          ],
         },
       ],
     },

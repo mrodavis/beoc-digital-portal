@@ -6,6 +6,12 @@ export const powerpointModule4Lessons: Lesson[] = [
   title: "Managing Slides",
   description:
     "Learn how to organize slides using slide views, notes, and sections to manage large presentations more effectively.",
+  objectives: [
+    "Reorder, duplicate, hide, and delete slides",
+    "Organize a long deck into sections",
+    "Use speaker notes effectively",
+    "Choose the right view for reorganizing a presentation",
+  ],
   duration: "11 min",
   videoUrl: "https://www.youtube.com/embed/UmOJXAr_riE",
 
@@ -17,6 +23,30 @@ export const powerpointModule4Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Structure the deck before you polish it",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You assemble the annual review deck at Lakeside Medical Associates.",
+           text: "Forty-five slides in Normal view means scrolling a thumbnail strip to find anything. Reordering means dragging a slide past thirty others and hoping it lands where you meant.",
+           task: "Use Slide Sorter and sections to work on the deck's shape rather than one slide at a time.",
+         },
+         {
+           type: "paragraph",
+           text: "Slide Sorter view shows every slide as a thumbnail on one screen, which is the right place to reorder, delete, and check visual consistency. Seeing all forty-five at once also reveals patterns you cannot notice one slide at a time — six consecutive bullet slides, or a title that jumps position.",
+         },
+         {
+           type: "paragraph",
+           text: "Sections group slides under named headings that collapse and expand. In a long deck they make navigation practical, and they let you jump directly to a section when a question comes up during the presentation.",
+         },
+         {
+           type: "tip",
+           text: "Hiding a slide (right-click > Hide Slide) keeps it in the file but skips it during the show. It is the right way to hold backup detail for a question you might be asked — the slide is there if you need it and never appears if you do not.",
+         },
+       ],
+     },
 
     {
       heading: "Slide Views",
@@ -374,6 +404,13 @@ export const powerpointModule4Lessons: Lesson[] = [
             "Slide Show View",
           ],
           correctIndex: 1,
+          explanation: "Slide Sorter view shows every slide as a thumbnail on one screen, so you can drag slides into a new order and see the whole deck's structure at once.",
+          optionRationales: [
+            "Reading View plays the presentation in a window for review. It does not support reordering.",
+            "Correct. Slide Sorter shows all slides as thumbnails, making reordering and structural review straightforward.",
+            "Notes Page view shows one slide with its notes below, for working on what you will say.",
+            "Slide Show view presents full screen to an audience and cannot be used for editing.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -385,6 +422,13 @@ export const powerpointModule4Lessons: Lesson[] = [
             "Creating new sections",
           ],
           correctIndex: 1,
+          explanation: "Speaker notes hold what you plan to say. The audience never sees them, and they appear in Presenter View alongside a timer and the next slide.",
+          optionRationales: [
+            "Design changes are made on the slide itself or through the Slide Master.",
+            "Correct. Notes hold reminders and talking points, visible only to you in Presenter View.",
+            "Transitions are applied from the Transitions tab, independently of notes.",
+            "Sections are created by right-clicking between slides. Notes are attached to a single slide.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -396,6 +440,13 @@ export const powerpointModule4Lessons: Lesson[] = [
             "They replace slide layouts",
           ],
           correctIndex: 2,
+          explanation: "Sections group slides under named, collapsible headings, which makes a long deck navigable and lets you move a whole group of slides at once.",
+          optionRationales: [
+            "Sections have no effect on animation.",
+            "Sections are an organizational tool and do not affect printing speed.",
+            "Correct. Sections organize a large presentation into named groups.",
+            "Layouts and sections do different jobs — a layout arranges one slide's content, a section groups many slides.",
+          ],
         },
       ],
     },
@@ -434,6 +485,12 @@ export const powerpointModule4Lessons: Lesson[] = [
   title: "Printing Presentations",
   description:
     "Learn how to print slides, handouts, and notes pages, and understand PowerPoint’s print settings for different presentation needs.",
+  objectives: [
+    "Choose an appropriate print layout for a given purpose",
+    "Print handouts with a sensible number of slides per page",
+    "Print speaker notes for yourself",
+    "Reduce ink and improve legibility on printed slides",
+  ],
   duration: "10 min",
   videoUrl: "https://www.youtube.com/embed/fzuHplbKD9A",
 
@@ -445,6 +502,58 @@ export const powerpointModule4Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "A printed deck serves a different purpose from a projected one",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You prepare materials for the board meeting at Lakeside Medical Associates.",
+           text: "You print forty slides full page, one per sheet, on a dark-backgrounded theme. Forty sheets per attendee, most of the toner cartridge, and pages so dark the text is barely legible on paper.",
+           task: "Pick the print layout that matches what the reader will do with it.",
+         },
+         {
+           type: "table",
+           caption: "Print layouts",
+           columns: [
+             "Layout",
+             "Produces",
+             "Use for",
+           ],
+           rows: [
+             [
+               "Full Page Slides",
+               "One slide per sheet",
+               "Rarely — only when detail genuinely needs the size",
+             ],
+             [
+               "Notes Pages",
+               "Slide plus your notes",
+               "Your own copy while presenting",
+             ],
+             [
+               "Handouts, 3 per page",
+               "Slides with ruled lines beside them",
+               "Audience handouts — the lines invite notes",
+             ],
+             [
+               "Handouts, 6 per page",
+               "Six thumbnails per sheet",
+               "A compact reference after the session",
+             ],
+             [
+               "Outline",
+               "Text only",
+               "Reviewing the argument without design",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "For a dark-themed deck, choose Color/Grayscale > Pure Black and White in the print settings. It prints readable text on a white background instead of reproducing the dark background, saving most of the toner and producing something people can actually read and annotate.",
+         },
+       ],
+     },
 
     {
       heading: "Accessing the Print Screen",
@@ -620,6 +729,13 @@ export const powerpointModule4Lessons: Lesson[] = [
             "Outline",
           ],
           correctIndex: 2,
+          explanation: "The Handouts layouts print slide thumbnails, and the 3-per-page option adds ruled lines beside each slide specifically so the audience can write notes.",
+          optionRationales: [
+            "Full Page Slides prints one slide per sheet with no room for notes.",
+            "Notes Pages prints the presenter's own notes below each slide, which is for you rather than the audience.",
+            "Correct. Handouts, particularly 3 per page, include ruled lines for audience notes.",
+            "Outline prints the text hierarchy only, with no slides and no note space.",
+          ],
         },
       ],
     },
@@ -656,6 +772,12 @@ export const powerpointModule4Lessons: Lesson[] = [
   title: "Presenting Your Slide Show",
   description:
     "Learn how to deliver your presentation using Slide Show view, navigation tools, Presenter View, and interactive presentation features.",
+  objectives: [
+    "Start a slide show and navigate it confidently",
+    "Use Presenter View to see notes, timing, and the next slide",
+    "Use presentation tools such as the pen and screen blanking",
+    "Prepare for the practical failures that occur during presentations",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/7-2oM3AGHQM",
 
@@ -667,6 +789,65 @@ export const powerpointModule4Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Presenter View is the reason to stop reading your slides",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present at the all-staff meeting at Lakeside Medical Associates.",
+           text: "Without Presenter View you turn to the screen to see what is on the slide, which means talking to the wall. You cannot see what is coming next, and you have no idea whether you are running long.",
+           task: "Use Presenter View so your notes, the next slide, and a timer are in front of you and the audience sees only the presentation.",
+         },
+         {
+           type: "paragraph",
+           text: "Presenter View puts your notes, a timer, a preview of the next slide, and navigation controls on your screen while the audience sees the slide alone. It is the single feature that most improves how a presentation is delivered, because it removes every reason to look at the projection.",
+         },
+         {
+           type: "table",
+           caption: "Controls worth knowing before you stand up",
+           columns: [
+             "Key",
+             "Does",
+           ],
+           rows: [
+             [
+               "F5",
+               "Starts the show from the beginning",
+             ],
+             [
+               "Shift + F5",
+               "Starts from the current slide — what you want when rehearsing",
+             ],
+             [
+               "B or W",
+               "Blanks the screen to black or white",
+             ],
+             [
+               "Number then Enter",
+               "Jumps directly to that slide",
+             ],
+             [
+               "Esc",
+               "Ends the show",
+             ],
+             [
+               "Ctrl + P",
+               "Turns the pointer into a pen for annotating",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Pressing B blanks the screen to black. When discussion starts, or a question takes you off the deck, blanking removes the slide as a distraction and brings attention back to the room. It is the most useful key in the list and almost nobody knows it.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Have a fallback. Carry the deck on a USB drive and a PDF export, know your opening two minutes well enough to start without slides, and arrive early enough to test the display. Presentations fail on unfamiliar hardware more often than on anything you did wrong in PowerPoint.",
+         },
+       ],
+     },
 
     {
       heading: "Starting a Slide Show",
@@ -947,6 +1128,13 @@ export const powerpointModule4Lessons: Lesson[] = [
             "Outline View",
           ],
           correctIndex: 1,
+          explanation: "Presenter View shows your notes, a timer, and the upcoming slide on your screen while the audience sees only the current slide — which is what lets you speak to the room rather than read the projection.",
+          optionRationales: [
+            "Slide Sorter is an editing view showing thumbnails. It is not used while presenting.",
+            "Correct. Presenter View gives you notes, timing, and the next slide privately.",
+            "Reading View plays the show in a window for your own review, with no separate presenter display.",
+            "Outline View shows the text hierarchy for drafting and is not a presentation view.",
+          ],
         },
       ],
     },

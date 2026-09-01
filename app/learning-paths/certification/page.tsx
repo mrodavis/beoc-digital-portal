@@ -32,10 +32,10 @@ export default function CertificationPage() {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-1">
-                  MOS: Word 2019
+                  MOS: Word (Microsoft 365 Apps)
                 </h3>
                 <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
-                  Exam MO-100
+                  Exam MO-110
                 </span>
               </div>
             </div>
@@ -86,18 +86,18 @@ export default function CertificationPage() {
             </Link>
           </div>
 
-          {/* Excel Certification - Coming Soon */}
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 opacity-60">
+          {/* Excel Certification */}
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-2xl">
                 📊
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-1">
-                  MOS: Excel 2019
+                  MOS: Excel (Microsoft 365 Apps)
                 </h3>
-                <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded-full">
-                  Coming Soon
+                <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+                  Exam MO-210
                 </span>
               </div>
             </div>
@@ -115,26 +115,26 @@ export default function CertificationPage() {
                 <li>• Manage charts</li>
               </ul>
             </div>
-            <button
-              disabled
-              className="inline-block w-full text-center px-6 py-3 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed"
+            <Link
+              href="/learning-paths/ms-office/excel"
+              className="inline-block btn-primary w-full text-center"
             >
-              Excel Modules Coming Soon
-            </button>
+              Prepare with Excel Modules
+            </Link>
           </div>
 
-          {/* PowerPoint Certification - Coming Soon */}
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 opacity-60">
+          {/* PowerPoint Certification */}
+          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-2xl">
                 🎨
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-1">
-                  MOS: PowerPoint 2019
+                  MOS: PowerPoint (Microsoft 365 Apps)
                 </h3>
-                <span className="px-2 py-1 bg-amber-100 text-amber-700 text-xs font-medium rounded-full">
-                  Coming Soon
+                <span className="px-2 py-1 bg-green-100 text-green-700 text-xs font-medium rounded-full">
+                  Exam MO-310
                 </span>
               </div>
             </div>
@@ -152,12 +152,12 @@ export default function CertificationPage() {
                 <li>• Apply transitions and animations</li>
               </ul>
             </div>
-            <button
-              disabled
-              className="inline-block w-full text-center px-6 py-3 bg-gray-300 text-gray-500 rounded-lg font-medium cursor-not-allowed"
+            <Link
+              href="/learning-paths/ms-office/powerpoint"
+              className="inline-block btn-primary w-full text-center"
             >
-              PowerPoint Modules Coming Soon
-            </button>
+              Prepare with PowerPoint Modules
+            </Link>
           </div>
         </div>
       </div>
@@ -179,7 +179,7 @@ export default function CertificationPage() {
                 <svg className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
-                <span>Practice with real Office 2019 software</span>
+                <span>Practice in the real application — Microsoft 365 or Office 2019</span>
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">

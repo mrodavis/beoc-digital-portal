@@ -27,11 +27,11 @@ export default async function ModulePage({
       courseSlug={appSlug}
       courseTitle={
         appSlug === "powerpoint"
-          ? "PowerPoint 2019"
+          ? "Microsoft PowerPoint"
           : appSlug === "excel"
-          ? "Excel 2019"
+          ? "Microsoft Excel"
           : appSlug === "word"
-          ? "Word 2019"
+          ? "Microsoft Word"
           : appSlug
       }
       moduleNumber={module.moduleNumber}

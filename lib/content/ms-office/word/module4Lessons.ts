@@ -7,6 +7,12 @@ export const wordModule4Lessons: Lesson[] = [
   title: "Headers & Footers",
   description:
     "Create, edit, and customize headers and footers in Microsoft Word. Insert preset headers, add dates, page numbers, and format different first pages.",
+  objectives: [
+    "Add headers and footers, including automatic page numbers and dates",
+    "Use a different first page so a letterhead does not repeat",
+    "Explain how section breaks let headers differ between parts of a document",
+    "Choose between a date that updates automatically and one that stays fixed",
+  ],
   duration: "7 min",
   videoUrl: "https://www.youtube.com/embed/hxSGN6IJAFc?si=lsvChAnjpi3Hb-kj",
 
@@ -18,6 +24,31 @@ export const wordModule4Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Headers are how a page proves where it came from",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You prepare clinical documentation packets at Lakeside Medical Associates.",
+           text: "A twelve-page packet goes to a specialist. It is unstapled at the other end, mixed with pages from two other practices, and reassembled. Half the pages carry no identification and no page numbers. Nobody can tell which pages belong together, or whether any are missing.",
+           task: "Put identifying information on every page automatically, so a loose sheet is never anonymous.",
+         },
+         {
+           type: "paragraph",
+           text: "A header or footer is defined once and repeats on every page — the practice name, the document title, and 'Page X of Y' so a reader can tell at a glance that page 7 of 12 is missing. Typing that on each page by hand is not just slow; it breaks the moment the document repaginates.",
+         },
+         {
+           type: "paragraph",
+           text: "The date field has a subtlety worth getting right. Insert > Date & Time offers an 'Update automatically' checkbox. Checked, the date rewrites itself to today every time the document opens — correct for a template, and actively wrong for a letter, because reopening a letter from March in September silently changes its date. For anything with a fixed issuance date, leave that box unchecked.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Different First Page (on the Header & Footer contextual tab) stops the header appearing on page one, which is what you want when page one carries a full letterhead. For headers that differ between parts of a longer document, you need section breaks — and you must also turn off 'Link to Previous' in the new section, or Word keeps inheriting the previous section's header and the change appears to do nothing.",
+         },
+       ],
+     },
 
     {
       heading: "Creating a Header",
@@ -200,6 +231,13 @@ export const wordModule4Lessons: Lesson[] = [
             "To insert a table of contents automatically",
           ],
           correctIndex: 2,
+          explanation: "A header is content defined once in the top margin that Word repeats on every page — practice name, document title, page numbers. That repetition is the point: it identifies a page that has been separated from the rest of its document.",
+          optionRationales: [
+            "Page borders are set under Design > Page Borders. That is decoration around the page edge, unrelated to headers.",
+            "Fonts and colors come from the document theme under the Design tab. A header holds content, not theme settings.",
+            "Correct. Content placed in the header repeats automatically at the top of every page.",
+            "A table of contents is inserted from References > Table of Contents and appears in the body of the document, not in the header.",
+          ],
         },
       ],
     },
@@ -235,6 +273,12 @@ LESSON 2 – TRACK CHANGES
   title: "Track Changes",
   description:
     "Learn how to track edits in a Word document, accept or reject changes, and review a document's revision history for professional collaboration.",
+  objectives: [
+    "Turn Track Changes on and recognize how edits are displayed",
+    "Switch between markup views and explain what each one hides",
+    "Accept and reject changes individually or in bulk",
+    "Remove all tracked changes and comments before sending a document externally",
+  ],
   duration: "8 min",
   videoUrl: "https://www.youtube.com/embed/pLKHMRBR0Z0",
 
@@ -246,6 +290,86 @@ LESSON 2 – TRACK CHANGES
   ],
 
   sections: [
+
+    {
+       heading: "The markup you cannot see is still in the file",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are finalizing a policy document at Lakeside Medical Associates.",
+           text: "The draft went through three reviewers. You switch the display to 'No Markup,' the document looks clean, and you email it to the practice's insurer. The insurer opens it, switches to All Markup, and reads every deleted sentence, including a reviewer's comment questioning whether a colleague is competent to sign off on the policy.",
+           task: "Understand that display mode hides markup from you, not from anyone else — and learn the step that actually removes it.",
+         },
+         {
+           type: "paragraph",
+           text: "This is the single most consequential misunderstanding in Word. Simple Markup and No Markup change what you see on screen. They do not alter the file. Every deletion, insertion, and comment remains stored in the document and is one dropdown away for whoever opens it next.",
+         },
+         {
+           type: "paragraph",
+           text: "To actually remove tracked changes you must resolve them: Review > Accept > Accept All Changes, and Review > Delete > Delete All Comments in Document. Then verify with File > Info > Check for Issues > Inspect Document, which reports any remaining revisions, comments, or hidden metadata.",
+         },
+         {
+           type: "table",
+           caption: "What each display mode shows",
+           columns: [
+             "Mode",
+             "You see",
+             "The file contains",
+           ],
+           rows: [
+             [
+               "Simple Markup",
+               "Clean text with change bars in the margin",
+               "All tracked changes",
+             ],
+             [
+               "All Markup",
+               "Every insertion, deletion, and comment",
+               "All tracked changes",
+             ],
+             [
+               "No Markup",
+               "The document as if all changes were accepted",
+               "All tracked changes — nothing has been removed",
+             ],
+             [
+               "Original",
+               "The document before any edits",
+               "All tracked changes",
+             ],
+           ],
+         },
+         {
+           type: "worked-example",
+           title: "Clearing a reviewed document before it leaves the practice",
+           task: "Take a policy draft with three rounds of tracked edits and comments and produce a file that genuinely contains none of them.",
+           steps: [
+             {
+               move: "Switch to All Markup and read the document through.",
+               why: "You cannot make good accept-or-reject decisions on changes you have not seen. All Markup is the only view that shows everything, and reading it once is how you catch a reviewer's change you actually disagree with.",
+             },
+             {
+               move: "Review > Accept > Accept All Changes, or step through with Accept and Reject individually.",
+               why: "Accepting is what physically applies each edit and removes the revision record. Bulk-accept when you have already reviewed and agree with everything; step through individually when the edits are contested.",
+             },
+             {
+               move: "Review > Delete > Delete All Comments in Document.",
+               why: "Comments are stored separately from tracked changes, so accepting all changes leaves every comment intact. This is the step people skip, and comments are usually the more embarrassing of the two.",
+             },
+             {
+               move: "File > Info > Check for Issues > Inspect Document, then remove what it finds.",
+               why: "The Document Inspector reports tracked changes, comments, hidden text, and author metadata that the Review tab does not surface. It is the only reliable verification, and it takes about fifteen seconds.",
+             },
+             {
+               move: "Turn Track Changes off before saving.",
+               why: "If it is still on, your own final cleanup edits become a new round of tracked changes — and you ship the problem you just spent five minutes fixing.",
+             },
+           ],
+           result: "A file that contains no revisions, no comments, and no reviewer metadata — verified, not assumed.",
+           takeaway: "Changing the view hides markup from you alone. Accept, delete comments, inspect, and turn tracking off — anything less ships the edit history with the document.",
+         },
+       ],
+     },
 
     {
       heading: "What Is Track Changes?",
@@ -382,6 +506,13 @@ LESSON 2 – TRACK CHANGES
             "Restricts editing so only the document owner can make changes",
           ],
           correctIndex: 1,
+          explanation: "Track Changes records every insertion, deletion, and formatting change with an attribution to the person who made it, so a reviewer can see exactly what was altered and accept or reject each edit individually.",
+          optionRationales: [
+            "That describes AutoCorrect, which fixes typing as you go. Track Changes records edits; it does not make them for you.",
+            "Correct. Word marks each insertion, deletion, and formatting change and attributes it to its author, so every edit can be reviewed individually.",
+            "That describes version history, which OneDrive and SharePoint provide separately. Track Changes marks up edits within a single file.",
+            "That describes Restrict Editing under the Review tab. Track Changes records edits rather than preventing them — though you can lock tracking on so reviewers cannot turn it off.",
+          ],
         },
       ],
     },
@@ -416,6 +547,12 @@ LESSON 3 – COMMENTS
   title: "Comments",
   description:
     "Add, reply to, resolve, and delete comments in Word to communicate feedback and collaborate on documents without altering the main content.",
+  objectives: [
+    "Insert, reply to, resolve, and delete comments",
+    "Explain the difference between resolving and deleting a comment",
+    "Navigate between comments efficiently during a review",
+    "Write comments that a colleague can act on without asking a follow-up question",
+  ],
   duration: "6 min",
   videoUrl: "https://www.youtube.com/embed/pLKHMRBR0Z0",
 
@@ -427,6 +564,35 @@ LESSON 3 – COMMENTS
   ],
 
   sections: [
+
+    {
+       heading: "Comments are a conversation with a future reader",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are reviewing a colleague's intake form revision at Lakeside Medical Associates.",
+           text: "You leave a comment that says 'This is confusing.' Your colleague opens it three days later, reads the paragraph five times, cannot work out which part you meant or what would fix it, and either guesses or comes to find you. Either way the comment cost more time than it saved.",
+           task: "Write comments specific enough to act on, and manage the review so nothing is silently lost.",
+         },
+         {
+           type: "paragraph",
+           text: "A comment attaches a note to a specific selection without altering the text. That specificity is its value — select the exact phrase you mean, not the whole paragraph, so the reader knows precisely what you are pointing at.",
+         },
+         {
+           type: "paragraph",
+           text: "Say what is wrong and what would resolve it. 'This is confusing' gives the author nothing. 'Does \"within 24 hours\" mean business hours or calendar hours? Suggest stating it explicitly' names the ambiguity and proposes the fix, and it can be actioned in thirty seconds without a conversation.",
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "Resolving and deleting are different. A resolved comment greys out and stays in the document, preserving the record of what was raised and that it was addressed. A deleted comment is gone. During an active review, resolve rather than delete — the thread is the evidence of why the document says what it says. Delete everything only in the final cleanup before the document leaves the practice.",
+         },
+         {
+           type: "tip",
+           text: "Ctrl+Alt+M inserts a comment on the current selection. Review > Previous and Next step through comments in order, which is the reliable way to make sure none is missed in a long document — scrolling and looking is not.",
+         },
+       ],
+     },
 
     {
       heading: "What Are Comments?",
@@ -552,6 +718,13 @@ LESSON 3 – COMMENTS
             "The commented text is automatically accepted and formatted",
           ],
           correctIndex: 2,
+          explanation: "Resolving greys the comment out to show it has been dealt with, while keeping it in the document as a record of what was raised and settled. Deleting removes it entirely, along with that history.",
+          optionRationales: [
+            "That describes deleting. Resolving deliberately keeps the comment so the review history survives.",
+            "Comments and footnotes are unrelated features. Resolving never converts one into the other.",
+            "Correct. The comment greys out to show it is addressed but remains visible as a record of the discussion.",
+            "Resolving a comment changes nothing in the document text. Comments annotate; they never edit.",
+          ],
         },
       ],
     },

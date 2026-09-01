@@ -9,10 +9,10 @@ export default function PowerPointPage() {
       {/* Breadcrumb */}
       <nav className="mb-8 text-sm text-gray-600">
         <Link href="/learning-paths/ms-office" className="hover:text-primary-600">
-          Microsoft Office 2019
+          Microsoft Office
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900 font-medium">PowerPoint 2019</span>
+        <span className="text-gray-900 font-medium">Microsoft PowerPoint</span>
       </nav>
 
       {/* Header */}
@@ -21,7 +21,7 @@ export default function PowerPointPage() {
           <span className="text-6xl">🎨</span>
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              PowerPoint 2019
+              Microsoft PowerPoint
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
               Learn how to design professional presentations with slides, layouts,
@@ -82,7 +82,7 @@ export default function PowerPointPage() {
         <h3 className="text-lg font-bold mb-3">Prerequisites</h3>
         <ul className="space-y-2 text-gray-700">
           <li>• Basic computer literacy</li>
-          <li>• Microsoft PowerPoint 2019 or Microsoft 365 installed</li>
+          <li>• Microsoft PowerPoint (Microsoft 365 or Office 2019)</li>
           <li>• Willingness to practice building presentations</li>
         </ul>
       </div>

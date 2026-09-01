@@ -7,6 +7,12 @@ export const powerpointModule2Lessons: Lesson[] = [
   title: "PowerPoint Text Basics",
   description:
     "Learn how to select text, cut, copy, paste, drag text, and format text using the tools on the Home tab.",
+  objectives: [
+    "Add and edit text in placeholders and text boxes",
+    "Select text efficiently with keyboard shortcuts",
+    "Apply formatting that stays consistent with the deck's theme",
+    "Recognize when a slide is carrying too much text",
+  ],
   duration: "9 min",
   videoUrl: "https://www.youtube.com/embed/F9RL0Lk5cmw",
 
@@ -18,6 +24,57 @@ export const powerpointModule2Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "The word limit is the design",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present quarterly results at Lakeside Medical Associates.",
+           text: "Your key slide holds ninety words in five bullets. You watch the room read it, and by the time you reach your second sentence they have finished and are checking their phones. The information was delivered. The point was not.",
+           task: "Reduce each slide to what genuinely benefits from being seen, and move the rest to the notes.",
+         },
+         {
+           type: "paragraph",
+           text: "A commonly cited guide is roughly six words per line and six lines per slide. The number matters less than the principle behind it: a slide is glanced at, not read. Anything requiring sustained reading belongs in a handout or in the notes pane.",
+         },
+         {
+           type: "paragraph",
+           text: "Font size is the other half. Twenty-four point is a sensible floor for body text — not for aesthetics, but because it is what remains legible from the back of a room. If your content only fits at eighteen point, the slide has too much on it, and shrinking the type just makes it unreadable as well as crowded.",
+         },
+         {
+           type: "table",
+           caption: "Where content belongs",
+           columns: [
+             "Content",
+             "Put it",
+             "Because",
+           ],
+           rows: [
+             [
+               "The single point of the slide",
+               "The slide, as a short phrase",
+               "It anchors what you are saying",
+             ],
+             [
+               "Your supporting explanation",
+               "The notes pane",
+               "You say it; the audience listens rather than reads",
+             ],
+             [
+               "Detailed figures and tables",
+               "A handout",
+               "Detail needs reading time a live audience does not have",
+             ],
+             [
+               "The source of a statistic",
+               "A small line on the slide",
+               "It establishes credibility without being read aloud",
+             ],
+           ],
+         },
+       ],
+     },
 
 {
 heading: "Selecting Text",
@@ -208,6 +265,13 @@ blocks: [
     "Go to Home → Select → Select All Text",
   ],
   correctIndex: 1,
+  explanation: "Clicking the text box places your cursor inside it, and Ctrl+A then selects all the text within that box rather than every object on the slide.",
+  optionRationales: [
+    "PowerPoint's right-click menu for a text box has no Select All command.",
+    "Correct. Click into the box to place the cursor, then Ctrl+A selects all the text inside it.",
+    "Double-clicking the border selects the text box as an object, which lets you format the box rather than edit its text. Useful, but not the same thing.",
+    "Home > Select offers Select All for objects on the slide, not for text inside one box.",
+  ],
 },
 ],
 },
@@ -244,6 +308,12 @@ slug: "powerpoint-lists",
 title: "PowerPoint Lists",
 description:
 "Learn how to create bulleted and numbered lists to organize information clearly on slides.",
+objectives: [
+  "Create bulleted and numbered lists and change their levels",
+  "Choose between bullets and numbers based on whether order matters",
+  "Explain why long bulleted lists undermine a presentation",
+  "Convert a list into a stronger visual when appropriate",
+],
 duration: "8 min",
 videoUrl: "https://www.youtube.com/embed/hL5XQGFdmDo",
 
@@ -255,6 +325,30 @@ url: "/practice/powerpoint/module-2/lists/Powerpoint_Lists_Practice.pptx",
 ],
 
 sections: [
+
+  {
+     heading: "The bullet list is the default, and rarely the best choice",
+     blocks: [
+       {
+         type: "scenario",
+         role: "You explain the referral workflow at Lakeside Medical Associates.",
+         text: "Six bullets describing six sequential steps. The audience sees six equal-looking items and cannot tell that order matters, that step three depends on step two, or where the decision point is. A simple diagram would have shown all three instantly.",
+         task: "Use numbers when sequence matters, and consider whether a list is the right form at all.",
+       },
+       {
+         type: "paragraph",
+         text: "Bullets signal a set with no order. Numbers signal sequence. Using bullets for a procedure actively misinforms, because readers take the formatting as meaning — the same rule that applies in Word applies here, and matters more, because a slide gets a glance rather than a careful read.",
+       },
+       {
+         type: "paragraph",
+         text: "It is also worth asking whether a list is the right form at all. A sequence is usually clearer as a process diagram, a comparison as a two-column table, and a proportion as a chart. Bullets are the default because they are easy to type, not because they communicate well.",
+       },
+       {
+         type: "tip",
+         text: "Tab demotes a bullet to the next level and Shift+Tab promotes it, which works as you type. If you find yourself needing a third or fourth level on a slide, the content has outgrown the format — split it into several slides or move it to a handout.",
+       },
+     ],
+   },
 
 {
 heading: "Bulleted Lists",
@@ -425,6 +519,13 @@ blocks: [
     "When you have more than five items to list",
   ],
   correctIndex: 2,
+  explanation: "Numbers communicate sequence. Use them whenever steps must happen in a particular order; bullets tell the audience the order does not matter, which misleads them on a procedure.",
+  optionRationales: [
+    "Visual variety is not a reason to change list type. The list type carries meaning, and choosing it for looks misinforms.",
+    "That is exactly when bullets are appropriate — numbers would imply an order that does not exist.",
+    "Correct. Numbers signal sequence, so use them whenever order matters.",
+    "Item count has no bearing on the choice. If anything, more than five or six items suggests the slide should be split.",
+  ],
 },
 ],
 },
@@ -460,6 +561,12 @@ slug: "indents-and-line-spacing",
 title: "Indents and Line Spacing",
 description:
 "Learn how to adjust paragraph indentation and spacing to improve slide readability.",
+objectives: [
+  "Adjust line spacing and paragraph spacing in a placeholder",
+  "Use indent levels to show hierarchy",
+  "Explain how whitespace affects legibility from a distance",
+  "Recognize when spacing changes are hiding a content problem",
+],
 duration: "11 min",
 videoUrl: "https://www.youtube.com/embed/fhLlISfmGqA",
 
@@ -471,6 +578,27 @@ url: "/practice/powerpoint/module-2/indents/Powerpoint_IndentsLineSpacing_Practi
 ],
 
 sections: [
+
+  {
+     heading: "Whitespace is what makes a slide readable from the back",
+     blocks: [
+       {
+         type: "scenario",
+         role: "You prepare a training slide at Lakeside Medical Associates.",
+         text: "You cram five bullets in by cutting line spacing to 0.8. On your monitor it is fine. Projected in a room with the lights on, the lines run together into a grey block and the people at the back read none of it.",
+         task: "Use spacing to aid legibility, and treat crowding as a signal to cut content.",
+       },
+       {
+         type: "paragraph",
+         text: "Line spacing between about 1.0 and 1.2 suits most slide text. Tighter than that and lines start to merge visually at a distance, particularly with a projector's reduced contrast. Space between paragraphs matters more on a slide than in a document, because it is what separates one idea from the next at a glance.",
+       },
+       {
+         type: "callout",
+         variant: "warning",
+         text: "Reducing line spacing to fit more content is treating the symptom. Crowding means the slide is carrying more than a slide can carry — the fix is to split it or move detail to the notes. A slide that only fits at 0.8 spacing and 16 point will not be read by anyone beyond the second row.",
+       },
+     ],
+   },
 
 {
 heading: "Why Indents and Spacing Matter",
@@ -699,6 +827,13 @@ blocks: [
     "Changes the indent level of bullet points",
   ],
   correctIndex: 1,
+  explanation: "Line spacing controls the vertical gap between lines within a paragraph. On a slide, adequate spacing is what keeps lines from merging visually when projected at a distance.",
+  optionRationales: [
+    "Font size is a separate setting. Line spacing changes the gaps between lines, not the size of the characters.",
+    "Correct. It adds space between lines, which improves legibility — especially when projected.",
+    "Position on the slide is controlled by moving the placeholder. Line spacing works inside it.",
+    "Indent level is changed with Tab and Shift+Tab or the indent buttons. Spacing and indentation are independent.",
+  ],
 },
 ],
 },
@@ -735,6 +870,12 @@ slug: "using-find-and-replace",
 title: "Using Find & Replace in PowerPoint",
 description:
 "Learn how to quickly locate text in your presentation and replace it with new content using the Find and Replace tools.",
+objectives: [
+  "Find text across all slides in a presentation",
+  "Replace text throughout a deck",
+  "Use Replace Fonts to swap a typeface everywhere",
+  "Check that a replacement has not broken anything",
+],
 duration: "7 min",
 videoUrl: "https://www.youtube.com/embed/TEqzwdC4x58",
 
@@ -746,6 +887,31 @@ url: "/practice/powerpoint/module-2/find-replace/Powerpoint_FindReplace_Practice
 ],
 
 sections: [
+
+  {
+     heading: "One command for a change that touches every slide",
+     blocks: [
+       {
+         type: "scenario",
+         role: "You update the orientation deck at Lakeside Medical Associates.",
+         text: "The practice changes its name. The old name appears on thirty-one of forty slides, including several inside diagrams. Slide by slide, this is half an hour and a guarantee of missing two.",
+         task: "Replace throughout the deck in one action, then verify the result.",
+       },
+       {
+         type: "paragraph",
+         text: "Replace (Ctrl+H) works across every slide at once. Match case is available and worth using for a proper noun, so you change the practice name without touching an ordinary word that happens to contain the same letters.",
+       },
+       {
+         type: "callout",
+         variant: "info",
+         text: "Replace Fonts, on the Replace dropdown, swaps one typeface for another everywhere in the deck. It is the correct fix when you inherit a presentation using a font your machine does not have, and far faster than selecting text on every slide. Check the deck afterwards — different fonts have different widths, so text that fitted before may now overflow its placeholder.",
+       },
+       {
+         type: "tip",
+         text: "Find and Replace does not reach text inside images or embedded objects. After a replacement, use Outline View to confirm the old text is gone from all the real text, and then look through the slides for any that appears in a picture or a screenshot.",
+       },
+     ],
+   },
 
 {
 heading: "Finding Text",
@@ -900,6 +1066,13 @@ blocks: [
     "To move text from one slide to another",
   ],
   correctIndex: 2,
+  explanation: "Replace swaps one word or phrase for another throughout the entire presentation in a single action, rather than requiring you to edit each slide.",
+  optionRationales: [
+    "Replace changes the text itself, not its formatting. Formatting every instance is a separate task.",
+    "Deleting is possible by replacing with nothing, but that is a special case rather than what Replace is for.",
+    "Correct. It swaps one word or phrase for another across every slide at once.",
+    "Moving text between slides is done by cutting and pasting. Replace changes text in place.",
+  ],
 },
 ],
 },

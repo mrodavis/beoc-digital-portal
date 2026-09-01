@@ -7,6 +7,12 @@ export const powerpointModule7Lessons: Lesson[] = [
   title: "Inserting Tables",
   description:
     "Learn how to create and insert tables in PowerPoint, add and remove rows and columns, merge cells, and apply table styles to organize data clearly.",
+  objectives: [
+    "Insert and format a table on a slide",
+    "Navigate a table and add rows efficiently",
+    "Use table style options to aid reading",
+    "Judge when a table belongs on a slide at all",
+  ],
   duration: "10 min",
   videoUrl: "",
 
@@ -18,6 +24,26 @@ export const powerpointModule7Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Most tables do not belong on a slide",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present budget figures at Lakeside Medical Associates.",
+           text: "You paste a twelve-column, thirty-row table from Excel onto a slide. At the back of the room it is a grey texture. Nobody reads a single figure, and the two numbers that actually mattered are lost among four hundred that did not.",
+           task: "Put the few figures that matter on the slide, and give the full table out as a handout.",
+         },
+         {
+           type: "paragraph",
+           text: "A slide is glanced at from a distance. A table with more than about five columns and six rows exceeds what that allows. If the audience needs the full data set, it belongs in a handout or an appendix — and the slide should carry the three numbers your point actually rests on.",
+         },
+         {
+           type: "tip",
+           text: "Banded rows are the highest-value table formatting on a slide: alternating shading lets the eye track across a row without losing its place, which matters much more at a distance than up close. Turn on Header Row as well, so the labels are visibly distinct from the data.",
+         },
+       ],
+     },
 
     {
       heading: "When to Use Tables",
@@ -257,6 +283,13 @@ export const powerpointModule7Lessons: Lesson[] = [
             "A new row is added at the bottom of the table",
           ],
           correctIndex: 3,
+          explanation: "Tab in the last cell adds a new row and moves the cursor into it, so you can keep typing without deciding the row count in advance.",
+          optionRationales: [
+            "The table stays selected and active.",
+            "Tab never adds columns; columns are added from the Table Layout tab.",
+            "That is what Ctrl+Home does. Tab moves forward.",
+            "Correct. A new row is added at the bottom and the cursor moves into it.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -268,6 +301,13 @@ export const powerpointModule7Lessons: Lesson[] = [
             "First Column",
           ],
           correctIndex: 2,
+          explanation: "Banded Rows applies alternating shading to rows, which helps the eye track across a row — particularly valuable when the table is being read from a distance.",
+          optionRationales: [
+            "Header Row formats the first row distinctly as column labels.",
+            "Total Row emphasizes a summary row at the bottom.",
+            "Correct. Banded Rows shades alternate rows to aid horizontal tracking.",
+            "First Column emphasizes the leftmost column, usually the row labels.",
+          ],
         },
       ],
     },
@@ -308,6 +348,12 @@ export const powerpointModule7Lessons: Lesson[] = [
   title: "Inserting Charts",
   description:
     "Learn how to insert charts into PowerPoint, choose the right chart type, edit chart data, and format your chart to communicate information visually.",
+  objectives: [
+    "Insert a chart and edit its underlying data",
+    "Choose a chart type that answers the audience's question",
+    "Simplify a chart so it reads from the back of a room",
+    "Update a chart when the source figures change",
+  ],
   duration: "11 min",
   videoUrl: "",
 
@@ -319,6 +365,53 @@ export const powerpointModule7Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "A presentation chart needs to be simpler than a report chart",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present spending trends at Lakeside Medical Associates.",
+           text: "You paste the chart from your Excel report: eight series, gridlines, a legend on the right, and axis labels at nine point. In the report, where a reader can study it, it works. Projected, it is a coloured tangle.",
+           task: "Rebuild the chart for a glance from six metres away, not for a reader at a desk.",
+         },
+         {
+           type: "paragraph",
+           text: "A report chart is read; a presentation chart is glanced at. That difference means fewer series — two or three, not eight — larger type, no gridlines, and direct labels on the lines rather than a legend the eye has to travel to and match by colour.",
+         },
+         {
+           type: "table",
+           caption: "Choosing a chart type",
+           columns: [
+             "The question",
+             "Chart",
+           ],
+           rows: [
+             [
+               "How did this change over time?",
+               "Line",
+             ],
+             [
+               "How do these categories compare?",
+               "Column or bar",
+             ],
+             [
+               "What share of the whole is each part?",
+               "Pie, five or fewer slices",
+             ],
+             [
+               "Are these two measures related?",
+               "Scatter",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Start a column chart's value axis at zero. Readers judge bar length, so a truncated axis makes a small difference look dramatic. Presenting a misleading chart damages your credibility even when the distortion was accidental — and it usually is.",
+         },
+       ],
+     },
 
     {
       heading: "Why Use Charts in Presentations?",
@@ -553,6 +646,13 @@ export const powerpointModule7Lessons: Lesson[] = [
             "Scatter",
           ],
           correctIndex: 2,
+          explanation: "A line chart shows change over a continuous period. The connecting line is read as continuity, which makes the shape of the trend immediately visible.",
+          optionRationales: [
+            "Pie charts show composition at one moment and cannot express change over time.",
+            "Column charts compare discrete categories well and can show time, but a line expresses a continuous trend more directly.",
+            "Correct. Line charts show trends over time.",
+            "Scatter charts show the relationship between two measures rather than a trend over time.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -564,6 +664,13 @@ export const powerpointModule7Lessons: Lesson[] = [
             "Double-click the chart legend",
           ],
           correctIndex: 1,
+          explanation: "Right-clicking the chart and choosing Edit Data opens the embedded worksheet holding the chart's values. Change them there and the chart redraws immediately.",
+          optionRationales: [
+            "Deleting and rebuilding discards all your formatting for no reason.",
+            "Correct. Edit Data opens the underlying worksheet.",
+            "The Format tab styles the chart's appearance; it does not hold the values.",
+            "Double-clicking the legend opens legend formatting options.",
+          ],
         },
       ],
     },
@@ -604,6 +711,12 @@ export const powerpointModule7Lessons: Lesson[] = [
   title: "Using SmartArt",
   description:
     "Learn how to insert SmartArt graphics, choose the right layout for your content, add and edit text, and apply styles to create professional diagrams.",
+  objectives: [
+    "Insert SmartArt and choose a category that fits the relationship",
+    "Add and reorder items using the Text Pane",
+    "Convert bullet lists into SmartArt",
+    "Recognize when SmartArt clarifies and when it merely decorates",
+  ],
   duration: "9 min",
   videoUrl: "",
 
@@ -615,6 +728,67 @@ export const powerpointModule7Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "SmartArt is only useful when the shape means something",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present the referral process at Lakeside Medical Associates.",
+           text: "Six sequential steps as bullets read as six equal items. The same six in a Process graphic show direction, order, and where the flow branches — the structure becomes visible rather than merely stated.",
+           task: "Choose the SmartArt category that matches the actual relationship in your content.",
+         },
+         {
+           type: "paragraph",
+           text: "SmartArt builds a diagram from text you type, keeping every element aligned and consistently styled. Its value is that the layout carries meaning — but only if you choose the category that matches your content's real structure. A Cycle graphic applied to a linear process tells the audience something untrue.",
+         },
+         {
+           type: "table",
+           caption: "SmartArt categories",
+           columns: [
+             "Category",
+             "Shows",
+             "Use for",
+           ],
+           rows: [
+             [
+               "Process",
+               "A sequence with direction",
+               "Steps in a workflow",
+             ],
+             [
+               "Cycle",
+               "A repeating loop",
+               "A process that genuinely returns to its start",
+             ],
+             [
+               "Hierarchy",
+               "Levels of reporting or containment",
+               "Org charts, classification",
+             ],
+             [
+               "Relationship",
+               "Connection between items",
+               "Overlaps, opposing forces",
+             ],
+             [
+               "Matrix",
+               "Parts of a whole in quadrants",
+               "Two-axis categorization",
+             ],
+             [
+               "List",
+               "Grouped items, no sequence",
+               "Bullets that need visual grouping",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Type in the Text Pane rather than clicking each shape. Enter adds an item, Tab demotes it, Shift+Tab promotes it — and SmartArt re-lays out and resizes everything automatically. Building a diagram this way takes a fraction of the time of positioning shapes by hand.",
+         },
+       ],
+     },
 
     {
       heading: "What is SmartArt?",
@@ -857,6 +1031,13 @@ export const powerpointModule7Lessons: Lesson[] = [
             "Matrix",
           ],
           correctIndex: 2,
+          explanation: "Process graphics show a sequence with direction, which is exactly what a workflow is. The arrows communicate order — something a bulleted list cannot do.",
+          optionRationales: [
+            "Cycle shows a repeating loop returning to its start, which misrepresents a linear workflow.",
+            "Hierarchy shows levels of reporting or containment, as in an org chart.",
+            "Correct. Process graphics show sequential steps with direction.",
+            "Matrix shows parts of a whole arranged in quadrants.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -868,6 +1049,13 @@ export const powerpointModule7Lessons: Lesson[] = [
             "Type directly in the slide title",
           ],
           correctIndex: 1,
+          explanation: "In the Text Pane, pressing Enter creates a new bullet and SmartArt adds a corresponding shape, re-laying out the whole graphic automatically.",
+          optionRationales: [
+            "Insert > Shape adds a free shape to the slide, which is not part of the SmartArt graphic.",
+            "Correct. Enter in the Text Pane adds an item and SmartArt creates the shape for it.",
+            "Shapes cannot be dragged in from the Format tab.",
+            "The slide title is a separate placeholder and has no connection to the SmartArt.",
+          ],
         },
       ],
     },

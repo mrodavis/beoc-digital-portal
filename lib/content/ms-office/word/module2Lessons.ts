@@ -6,6 +6,12 @@ export const wordModule2Lessons: Lesson[] = [
     title: "Text Basics",
     description:
       "Learn how to insert, delete, select, cut, copy, paste, and move text efficiently in Word.",
+    objectives: [
+      "Select text precisely with the mouse, keyboard, and click shortcuts",
+      "Explain the difference between cut, copy, and the clipboard",
+      "Use Paste Special to bring in text without importing its formatting",
+      "Insert symbols and special characters that are not on the keyboard",
+    ],
     duration: "9 min",
     videoUrl:
       "https://www.youtube.com/embed/vmEzxQfVj5c?si=FydXQ8y--1kuD0b1",
@@ -18,6 +24,72 @@ export const wordModule2Lessons: Lesson[] = [
     ],
 
     sections: [
+
+      {
+         heading: "Selection is the skill underneath everything else",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You are assembling a patient handout at Lakeside Medical Associates.",
+             text: "A nurse sends you three paragraphs pasted from a manufacturer's website. You drop them into your handout and the text arrives in blue Arial 14 with a grey background, nothing like the rest of your document. You spend eleven minutes manually re-formatting it. There is a keystroke that would have prevented all eleven.",
+             task: "Learn to control what comes along when text moves — and to select exactly the text you mean, the first time.",
+           },
+           {
+             type: "paragraph",
+             text: "Every edit in Word begins with a selection. Word applies commands to whatever is selected, so imprecise selection is the root cause of a surprising share of formatting problems — the stray space that gets bolded, the paragraph mark that carries its formatting into the next paragraph. Learning to select with intent removes a whole category of mistakes before it starts.",
+           },
+           {
+             type: "table",
+             caption: "Selection shortcuts worth committing to memory",
+             columns: [
+               "To select",
+               "Do this",
+               "Use it when",
+             ],
+             rows: [
+               [
+                 "A word",
+                 "Double-click it",
+                 "Replacing a single term",
+               ],
+               [
+                 "A sentence",
+                 "Ctrl + click anywhere in it",
+                 "Rewriting one sentence in a dense paragraph",
+               ],
+               [
+                 "A paragraph",
+                 "Triple-click in it",
+                 "Restyling or moving a whole block",
+               ],
+               [
+                 "A block of text",
+                 "Click at the start, Shift + click at the end",
+                 "Any span too long to drag comfortably",
+               ],
+               [
+                 "The whole document",
+                 "Ctrl + A",
+                 "Applying a font or spacing change everywhere",
+               ],
+               [
+                 "A vertical block",
+                 "Hold Alt and drag",
+                 "Stripping a column of numbers out of pasted text",
+               ],
+             ],
+           },
+           {
+             type: "paragraph",
+             text: "The clipboard is the second idea. Cut removes text and holds it; copy duplicates it and holds it; paste places what is held. What most people never learn is that paste has options. Pasting normally brings the source formatting with it, which is why website text arrives looking like a website. Ctrl+Shift+V, or Paste Special > Keep Text Only, brings the words and leaves the formatting behind — and it is the single most useful keystroke in this lesson.",
+           },
+           {
+             type: "callout",
+             variant: "version",
+             text: "In Microsoft 365, Word can be set to default to Keep Text Only for pasted content: File > Options > Advanced > Cut, copy, and paste, and set 'Pasting from other programs' to 'Keep Text Only.' If you paste from the web frequently, changing this once saves the cleanup every time. Office 2019 has the same setting in the same place.",
+           },
+         ],
+       },
       {
         heading: "Selecting Text",
         blocks: [
@@ -129,6 +201,36 @@ export const wordModule2Lessons: Lesson[] = [
         ],
       },
       {
+        heading: "Bringing in outside text cleanly",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "Pasting three paragraphs from a website into a formatted handout",
+            task: "Add manufacturer instructions to a patient handout so they match the handout's existing fonts and spacing rather than the website's.",
+            steps: [
+              {
+                move: "Select the source text on the web page and copy it with Ctrl+C.",
+                why: "Standard so far. The problem is not the copy — it is that the clipboard is carrying HTML formatting along with the words, and a normal paste will honor it.",
+              },
+              {
+                move: "In Word, place the insertion point where the text belongs, then press Ctrl+Shift+V.",
+                why: "This is Paste Text Only. Word discards the source fonts, colors, and background shading and inserts plain characters, which immediately take on the formatting of the paragraph they land in. The eleven minutes of cleanup never happen.",
+              },
+              {
+                move: "If you already pasted normally, press Ctrl+Z and redo it — do not clean up by hand.",
+                why: "Manually stripping formatting almost always leaves something behind: a hidden style, a character-level color, a residual background. Undoing and re-pasting correctly takes two seconds and leaves nothing.",
+              },
+              {
+                move: "Turn on Show/Hide (¶) and check what actually arrived.",
+                why: "Pasted web text often carries line breaks where paragraph marks belong, which breaks spacing and list numbering later. Seeing the marks lets you fix the structure now rather than wondering later why a style will not apply correctly.",
+              },
+            ],
+            result: "Three paragraphs that match the handout exactly, with no residual web formatting and no manual cleanup.",
+            takeaway: "Ctrl+Shift+V is the difference between importing words and importing someone else's design. Make it the default reflex for anything from outside your document.",
+          },
+        ],
+      },
+      {
         heading: "Knowledge Check",
         blocks: [
           {
@@ -141,6 +243,13 @@ export const wordModule2Lessons: Lesson[] = [
               "Ctrl + Z",
             ],
             correctIndex: 2,
+            explanation: "Ctrl+C copies the selection to the clipboard, leaving the original in place. Its neighbors are worth learning together: Ctrl+X cuts (removes and holds), Ctrl+V pastes, and Ctrl+Z undoes.",
+            optionRationales: [
+              "Ctrl+X is cut — it removes the selected text and holds it on the clipboard rather than leaving it in place.",
+              "Ctrl+V pastes whatever is currently on the clipboard. It is the other half of the operation, not the copy itself.",
+              "Correct. Ctrl+C copies the selection to the clipboard and leaves the original text untouched.",
+              "Ctrl+Z is undo, which reverses your last action. Useful, but unrelated to the clipboard.",
+            ],
           },
         ],
       },
@@ -169,6 +278,12 @@ export const wordModule2Lessons: Lesson[] = [
   title: "Formatting Text",
   description:
     "Learn how to change font, size, case, color, alignment, bold, italic, underline, and highlighting in Microsoft Word.",
+  objectives: [
+    "Apply font, size, color, and emphasis deliberately rather than decoratively",
+    "Explain why bold, italic, and underline carry different conventional meanings",
+    "Use Format Painter to copy formatting from one passage to another",
+    "Recognize when direct formatting should be replaced by a style",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/pmAl-8Tf8Pg?si=ObAc154cTG0NXlLk",
 
@@ -180,6 +295,71 @@ export const wordModule2Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Formatting is communication, not decoration",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are producing a discharge instruction sheet at Lakeside Medical Associates.",
+           text: "A patient needs to know two things above all: take the medication with food, and call immediately if a fever passes 101°F. You have written both. They sit in the middle of a wall of identical grey text, and the patient will read neither.",
+           task: "Use formatting to make the most important information impossible to miss — and to make everything else recede.",
+         },
+         {
+           type: "paragraph",
+           text: "Emphasis works by contrast, which means it is a budget. If you bold six things on a page, you have bolded nothing — the reader's eye has no landing place. A page with two bold phrases directs attention exactly where you want it. The discipline is not learning what the buttons do; it is restraint about how often you press them.",
+         },
+         {
+           type: "paragraph",
+           text: "Conventions matter too, because readers have absorbed them. Bold signals importance and survives scanning. Italic signals a title, a term being defined, or a mild emphasis, and it is harder to read in long runs. Underline, on screen, reads as a hyperlink — underlining ordinary text is the fastest way to make readers click something that is not there. Use bold for emphasis and reserve underline for links.",
+         },
+         {
+           type: "table",
+           caption: "What each treatment conventionally means",
+           columns: [
+             "Treatment",
+             "Conventional meaning",
+             "Avoid",
+           ],
+           rows: [
+             [
+               "Bold",
+               "This is critical; do not skip it",
+               "More than two or three per page",
+             ],
+             [
+               "Italic",
+               "Title of a work, a defined term, or light emphasis",
+               "Long passages — it slows reading",
+             ],
+             [
+               "Underline",
+               "A hyperlink",
+               "Ordinary emphasis, on screen especially",
+             ],
+             [
+               "ALL CAPS",
+               "Short labels and warnings only",
+               "Sentences — capitals remove word shape and slow reading",
+             ],
+             [
+               "Color",
+               "Category or status, when there is a legend",
+               "Color alone as the only signal — it fails for colorblind readers",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Never let color be the only thing carrying meaning. Roughly one in twelve men has some form of color vision deficiency, and a red 'urgent' line that is otherwise identical to the rest of the text is invisible to them. Pair color with bold, an icon, or a word — 'Urgent: call the office' works for everyone.",
+         },
+         {
+           type: "tip",
+           text: "Format Painter (the paintbrush on the Home tab) copies formatting rather than text. Click inside text formatted the way you want, click Format Painter, then drag across the target. Double-click the paintbrush to keep it active for multiple targets, and press Esc when you are done.",
+         },
+       ],
+     },
 
     // ---------------- ALIGNMENT ----------------
     {
@@ -414,6 +594,13 @@ export const wordModule2Lessons: Lesson[] = [
             "Strikethrough",
           ],
           correctIndex: 1,
+          explanation: "Italic slants the letterforms. It conventionally marks titles, defined terms, or light emphasis — but it is harder to read in long passages, so keep italic runs short.",
+          optionRationales: [
+            "Bold thickens the strokes to signal importance. It does not slant the letters.",
+            "Correct. Italic slants the letterforms, conventionally marking titles, defined terms, or gentle emphasis.",
+            "Underline draws a line beneath the text without changing its shape. On screen it reads as a hyperlink, so use it sparingly.",
+            "Strikethrough draws a line through the text, marking it as deleted or superseded rather than slanting it.",
+          ],
         },
       ],
     },
@@ -445,6 +632,12 @@ export const wordModule2Lessons: Lesson[] = [
     title: "Using Find & Replace",
     description:
         "Learn how to search for text, navigate results, and replace words or phrases efficiently in Microsoft Word.",
+    objectives: [
+      "Find text quickly and navigate results with the Navigation pane",
+      "Use Replace All safely, and know when to replace one at a time instead",
+      "Apply Match case and Find whole words only to avoid unintended matches",
+      "Find and replace formatting, not just words",
+    ],
     duration: "8 min",
     videoUrl: "https://www.youtube.com/embed/p3Ql9y3eEyo?si=ZQ4tqLb9hhar33zv",
 
@@ -456,6 +649,55 @@ export const wordModule2Lessons: Lesson[] = [
     ],
 
     sections: [
+
+      {
+         heading: "The command that saves an hour and the mistake that costs one",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You maintain practice documents at Lakeside Medical Associates.",
+             text: "The practice's billing contact changes and you must update the name in a forty-page policy manual. You open Replace, type the old surname, type the new one, and click Replace All. Word reports 63 replacements. The name appeared 61 times — the other two were inside the words 'Manning' and 'planning,' which are now nonsense.",
+             task: "Learn the two checkboxes that turn Replace All from a risk into a reliable tool.",
+           },
+           {
+             type: "paragraph",
+             text: "Find (Ctrl+F) opens the Navigation pane and lists every match, letting you jump between them. Replace (Ctrl+H) swaps one string for another. The power of Replace All is genuine — it does in one second what would take forty minutes by hand — and so is its danger, because it does exactly what you asked across the entire document, including places you did not think about.",
+           },
+           {
+             type: "paragraph",
+             text: "Two options in the More menu prevent nearly every Replace accident. Find whole words only stops 'Ann' from matching inside 'Manning' and 'planning.' Match case stops 'IT' from matching inside 'it,' 'with,' and 'admit.' Together they narrow the search to what you actually meant.",
+           },
+           {
+             type: "worked-example",
+             title: "Replacing a name across a long document without breaking words",
+             task: "Change every occurrence of the billing contact's surname in a forty-page manual, without touching words that merely contain those letters.",
+             steps: [
+               {
+                 move: "Press Ctrl+H, then click More to expand the options.",
+                 why: "The default Replace dialog hides the settings that make it safe. Expanding it first is the habit that prevents the mistake, because the checkboxes are not visible in the collapsed view.",
+               },
+               {
+                 move: "Check 'Find whole words only' and 'Match case.'",
+                 why: "Whole words stops the match from landing inside a longer word. Match case ensures you replace the proper noun and not a lowercase coincidence. These two settings account for the overwhelming majority of Replace All accidents.",
+               },
+               {
+                 move: "Click Find Next two or three times before replacing anything.",
+                 why: "This is the step that separates a careful operator from a hopeful one. Stepping through a few matches shows you what the search is actually catching. If the first three look right, the remaining sixty almost certainly are.",
+               },
+               {
+                 move: "Click Replace All, then read the count Word reports.",
+                 why: "The count is a free verification. If you expected about sixty and Word says sixty-one, that is plausible. If it says two hundred, something matched far more broadly than you intended — press Ctrl+Z immediately, before doing anything else.",
+               },
+             ],
+             result: "Sixty-one accurate replacements and no corrupted words, verified by a count that matched expectation.",
+             takeaway: "Expand More, restrict the match, spot-check with Find Next, then read the count. Replace All is safe when you have told it precisely what you mean.",
+           },
+           {
+             type: "tip",
+             text: "Replace also works on formatting. With the cursor in the Find field, click Format > Font to search for, say, all red text and replace it with black — useful for stripping the editing marks out of a draft that circulated for comment.",
+           },
+         ],
+       },
         // ---------------- FIND ----------------
         {
         heading: "Using Find (Ctrl + F)",
@@ -556,6 +798,13 @@ export const wordModule2Lessons: Lesson[] = [
                 "Ctrl + R",
             ],
             correctIndex: 2,
+            explanation: "Ctrl+H opens Find and Replace with the Replace tab active. Ctrl+F opens Find alone in the Navigation pane, which is what you want when you only need to locate something rather than change it.",
+            optionRationales: [
+              "Ctrl+F opens Find in the Navigation pane. It locates text but offers no way to replace it.",
+              "Ctrl+G opens Go To, which jumps to a specific page, section, or bookmark rather than searching for text.",
+              "Correct. Ctrl+H opens the dialog with the Replace tab active, ready to swap one string for another.",
+              "Ctrl+R right-aligns the current paragraph. It is a formatting shortcut, unrelated to searching.",
+            ],
             },
         ],
         },
@@ -586,6 +835,12 @@ export const wordModule2Lessons: Lesson[] = [
   title: "Lists (Bulleted, Numbered & Multilevel)",
   description:
     "Learn how to create, customize, and manage bulleted, numbered, and multilevel lists in Microsoft Word.",
+  objectives: [
+    "Choose between a bulleted and a numbered list based on whether order matters",
+    "Build a multilevel list and promote or demote items with Tab and Shift+Tab",
+    "Restart or continue numbering when Word guesses wrong",
+    "Explain why manually typed numbers cause problems that list formatting avoids",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/tyXahko-tX8",
 
@@ -597,6 +852,61 @@ export const wordModule2Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "The choice between bullets and numbers is a meaning choice",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are writing front-desk procedures at Lakeside Medical Associates.",
+           text: "You document the check-in process as a bulleted list. A new hire reads it, verifies insurance before confirming the patient's identity, and discloses coverage details to the wrong person. The steps were all correct. Nothing told the reader they had to happen in order.",
+           task: "Use list type to communicate whether sequence matters — because readers genuinely read it that way.",
+         },
+         {
+           type: "paragraph",
+           text: "Numbers mean sequence: do this, then this, then this. Bullets mean membership: these items belong to a set, in no particular order. Readers process that distinction automatically, which is exactly why using the wrong one misleads them. Any procedure where doing step three before step two causes a problem must be numbered.",
+         },
+         {
+           type: "paragraph",
+           text: "There is also a mechanical reason to use Word's list formatting rather than typing numbers yourself. A real numbered list renumbers itself when you insert or delete an item. A list of hand-typed numbers does not — insert a step in the middle and you must retype everything below it, and sooner or later a document goes out with two step fours. Let Word own the numbering.",
+         },
+         {
+           type: "table",
+           caption: "Which list type to use",
+           columns: [
+             "Content",
+             "List type",
+             "Reason",
+           ],
+           rows: [
+             [
+               "Check-in procedure",
+               "Numbered",
+               "Order is required; doing them out of sequence causes harm",
+             ],
+             [
+               "Documents to bring to an appointment",
+               "Bulleted",
+               "All are needed; order is irrelevant",
+             ],
+             [
+               "Policy manual with sections and subsections",
+               "Multilevel",
+               "Hierarchy is part of the meaning and cross-references depend on it",
+             ],
+             [
+               "Ranked priorities",
+               "Numbered",
+               "The numbers carry the ranking, not just the sequence",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Inside a list, Tab demotes an item to the next level and Shift+Tab promotes it. This is far faster than the Multilevel List menu, and it works while you are typing, so you never have to break your rhythm to restructure.",
+         },
+       ],
+     },
 
     {
       heading: "Creating a Bulleted List",
@@ -751,6 +1061,13 @@ export const wordModule2Lessons: Lesson[] = [
             "Custom symbol list",
           ],
           correctIndex: 2,
+          explanation: "Numbers signal sequence, so numbered lists are correct whenever the steps must happen in order. Bullets signal membership in a set, which tells the reader that order does not matter — a genuinely misleading signal on a procedure.",
+          optionRationales: [
+            "Bullets tell the reader the items form a set with no required order, which is precisely the wrong signal for a sequence.",
+            "Multilevel lists express hierarchy — sections and subsections. They can be numbered, but the hierarchy is what they are for.",
+            "Correct. Numbers communicate sequence, and Word renumbers automatically when you insert or remove a step.",
+            "Custom symbols change how a bullet looks. That is decoration; it does not convey order.",
+          ],
         },
       ],
     },
@@ -781,6 +1098,12 @@ export const wordModule2Lessons: Lesson[] = [
   title: "Links (Hyperlinks)",
   description:
     "Learn how to insert, edit, follow, and remove hyperlinks in Microsoft Word.",
+  objectives: [
+    "Insert, edit, and remove hyperlinks, including links to places within the document",
+    "Write link text that makes sense to someone reading it out of context",
+    "Explain why 'click here' is a problem for screen reader users",
+    "Control Word's automatic hyperlink formatting",
+  ],
   duration: "10 min",
   videoUrl: "https://www.youtube.com/embed/mNJZo8ESMp0",
 
@@ -792,6 +1115,35 @@ export const wordModule2Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Link text is read out loud",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are publishing the patient resources page at Lakeside Medical Associates.",
+           text: "Your document has nine links, and every one says 'click here.' A patient using a screen reader asks it to list the links on the page — a standard way to navigate. The software reads: click here, click here, click here, nine times. The page is unusable, and nothing about it looks wrong on screen.",
+           task: "Write link text that says where the link goes, so the document works for everyone reading it.",
+         },
+         {
+           type: "paragraph",
+           text: "Screen readers can extract a list of every link in a document, and many people navigate that way rather than reading linearly. That means link text has to make sense standing alone. 'Click here' conveys nothing out of context. 'Download the new patient intake form' conveys everything, and it reads better on screen too.",
+         },
+         {
+           type: "paragraph",
+           text: "The rule is simple: put the destination in the link text itself. Instead of 'For directions, click here,' write 'See directions to our Lakeside office.' Instead of 'Our hours are listed here,' write 'View our current office hours.' The sentence gets shorter and the document gets more accessible at the same time.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Printed documents cannot be clicked. If a document will be printed as well as read on screen, write the destination so it survives on paper — 'visit lakesidemedical.example/forms' — or add the address in parentheses after a descriptive link. A printed page full of blue underlined 'click here' is a dead end.",
+         },
+         {
+           type: "tip",
+           text: "Ctrl+K inserts or edits a hyperlink on the selected text. In the same dialog, the ScreenTip button sets the tooltip that appears on hover, which is a good place for a note like 'opens in a new window' or 'PDF, 400 KB.'",
+         },
+       ],
+     },
 
     // ---------------- INSERTING A HYPERLINK ----------------
     {
@@ -922,6 +1274,13 @@ export const wordModule2Lessons: Lesson[] = [
             "Press Enter while the link is selected",
           ],
           correctIndex: 1,
+          explanation: "In the Word desktop app, links are Ctrl+click by default so that a normal click can place your cursor for editing without launching a browser. In Word Online and in Reading view, a plain click follows the link.",
+          optionRationales: [
+            "Double-clicking selects the word under the cursor. It edits the link text rather than following the link.",
+            "Correct. Ctrl+click follows the link, while a plain click places the insertion point so you can edit the text.",
+            "Right-click does offer Open Hyperlink on its menu, so this works — but it is three actions where Ctrl+click is one, and it is not the standard method.",
+            "Pressing Enter with a link selected replaces the selected text with a new paragraph. That deletes the link rather than following it.",
+          ],
         },
       ],
     },
@@ -952,6 +1311,12 @@ export const wordModule2Lessons: Lesson[] = [
   title: "Printing Documents",
   description:
     "Learn how to access the Print pane, select a printer, adjust print settings, and print specific pages in Microsoft Word.",
+  objectives: [
+    "Preview a document accurately before committing it to paper",
+    "Print a specific page range, selection, or set of pages",
+    "Choose duplex, collation, and scaling settings appropriately",
+    "Diagnose the common causes of a document that prints differently than it appears",
+  ],
   duration: "10 min",
   videoUrl: "https://www.youtube.com/embed/7bLQFTCsH8Y",
 
@@ -963,6 +1328,62 @@ export const wordModule2Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Print preview is a proofreading tool",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are preparing packets for tomorrow's new-patient orientation at Lakeside Medical Associates.",
+           text: "You send forty copies of a six-page packet to the printer. Two hundred and forty sheets later, you discover a seventh page containing one orphaned line — 'Thank you for choosing Lakeside.' Forty extra sheets, forty stapling errors, and a recycling bin full of paper.",
+           task: "Use the print pane to catch layout problems before they become physical objects.",
+         },
+         {
+           type: "paragraph",
+           text: "The print pane in Backstage view shows the document as the printer will produce it, including margins the screen view can hide. Check the page count first — a document that shows six pages on screen and seven in preview has an orphaned line, a stray page break, or an empty paragraph at the end. Deleting that is thirty seconds of work that saves forty sheets.",
+         },
+         {
+           type: "table",
+           caption: "Print settings worth understanding before a large job",
+           columns: [
+             "Setting",
+             "What it does",
+             "When it matters",
+           ],
+           rows: [
+             [
+               "Print Range",
+               "Prints specific pages, e.g. 1-3, 7",
+               "Reprinting one corrected page instead of the whole packet",
+             ],
+             [
+               "Print Selection",
+               "Prints only the highlighted text",
+               "Pulling one section out of a long document",
+             ],
+             [
+               "Collated",
+               "Produces complete sets in order",
+               "Any multi-page document you will hand out as packets",
+             ],
+             [
+               "Print on Both Sides",
+               "Duplex printing",
+               "Halves the paper for anything over two pages",
+             ],
+             [
+               "Scale to Paper Size",
+               "Fits the layout to the loaded paper",
+               "A document laid out for Letter printing on A4, or the reverse",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "If a document prints with different line breaks than it shows on screen, the usual cause is a font the printer does not have, or a printer driver substituting one. Exporting to PDF and printing that instead embeds the fonts and guarantees the output matches what you designed.",
+         },
+       ],
+     },
 
     // ---------------- OPENING PRINT ----------------
     {
@@ -1110,6 +1531,13 @@ export const wordModule2Lessons: Lesson[] = [
             "The Page Layout dialog box",
           ],
           correctIndex: 2,
+          explanation: "File > Print opens Backstage view with a live preview beside the settings, so you can check pagination and margins and adjust settings in the same place before committing to paper.",
+          optionRationales: [
+            "The View tab changes how you see the document while editing — Read Mode, zoom, multiple pages. It is not the print preview.",
+            "The Home tab holds text formatting commands. Nothing there previews printed output.",
+            "Correct. File > Print shows a live preview next to the print settings, so you can catch and fix problems before printing.",
+            "The Page Layout dialog sets margins, orientation, and paper size. It changes the layout but does not preview the printed result.",
+          ],
         },
       ],
     },

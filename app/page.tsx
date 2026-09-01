@@ -10,7 +10,7 @@ type LearningPath = {
 
 export default function Home() {
   const msOfficePath: LearningPath = {
-    title: "Microsoft Office 2019",
+    title: "Microsoft Office",
     description:
       "Master Word, Excel, and PowerPoint with comprehensive modules covering essential skills for professional productivity.",
     href: "/learning-paths/ms-office",

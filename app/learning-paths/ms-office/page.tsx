@@ -8,7 +8,7 @@ export default function MicrosoftOfficePage() {
       {/* Header */}
       <div className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Microsoft Office 2019
+          Microsoft Office
         </h1>
         <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
           Master the essential productivity tools used in modern workplaces.
@@ -70,7 +70,7 @@ export default function MicrosoftOfficePage() {
             <div className="text-5xl mb-4">📝</div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Word 2019
+              Microsoft Word
             </h3>
 
             <p className="text-gray-600 mb-4 leading-relaxed">
@@ -94,7 +94,7 @@ export default function MicrosoftOfficePage() {
             <div className="text-5xl mb-4">📊</div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Excel 2019
+              Microsoft Excel
             </h3>
 
             <p className="text-gray-600 mb-4 leading-relaxed">
@@ -118,7 +118,7 @@ export default function MicrosoftOfficePage() {
             <div className="text-5xl mb-4">🎨</div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              PowerPoint 2019
+              Microsoft PowerPoint
             </h3>
 
             <p className="text-gray-600 mb-4 leading-relaxed">

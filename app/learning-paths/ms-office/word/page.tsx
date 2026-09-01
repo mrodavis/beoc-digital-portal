@@ -9,10 +9,10 @@ export default function WordPage() {
       {/* Breadcrumb */}
       <nav className="mb-8 text-sm text-gray-600">
         <Link href="/learning-paths/ms-office" className="hover:text-primary-600">
-          Microsoft Office 2019
+          Microsoft Office
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900 font-medium">Word 2019</span>
+        <span className="text-gray-900 font-medium">Microsoft Word</span>
       </nav>
 
       {/* Header */}
@@ -21,7 +21,7 @@ export default function WordPage() {
           <span className="text-6xl">📝</span>
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Word 2019
+              Microsoft Word
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
               Master Microsoft Word from workforce-ready fundamentals to
@@ -59,7 +59,7 @@ export default function WordPage() {
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <ModuleCard num={1} slug="module-1" emoji="📝" title="Introduction to Word 2019" description="Interface navigation, document creation, saving, and essential formatting." href="/learning-paths/ms-office/word/module-1" />
+        <ModuleCard num={1} slug="module-1" emoji="📝" title="Introduction to Microsoft Word" description="Interface navigation, document creation, saving, and essential formatting." href="/learning-paths/ms-office/word/module-1" />
         <ModuleCard num={2} slug="module-2" emoji="🖋️" title="Basic Formatting" description="Master paragraph styles, themes, advanced formatting options, and professional templates." href="/learning-paths/ms-office/word/module-2" />
         <ModuleCard num={3} slug="module-3" emoji="🎨" title="Styles, Media, & Themes" description="Master paragraph styles, themes, advanced formatting options, and professional templates." href="/learning-paths/ms-office/word/module-3" />
         <ModuleCard num={4} slug="module-4" emoji="🤝" title="References, Review, & Collaboration" description="Master headers, footers, track changes, and collaborate with others." href="/learning-paths/ms-office/word/module-4" />
@@ -95,7 +95,7 @@ export default function WordPage() {
         <h3 className="text-lg font-bold mb-3">Prerequisites</h3>
         <ul className="space-y-2 text-gray-700">
           <li>• Basic computer literacy</li>
-          <li>• Microsoft Word 2019 or Microsoft 365 installed</li>
+          <li>• Microsoft Word (Microsoft 365 or Office 2019)</li>
           <li>• Willingness to practice and complete hands-on exercises</li>
         </ul>
       </div>

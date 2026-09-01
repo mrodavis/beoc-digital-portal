@@ -11,6 +11,12 @@ LESSON 1 – WORKING WITH STYLES
   title: "Working with Styles",
   description:
     "Learn how to apply and manage Word's built-in paragraph and character styles to format documents consistently and efficiently.",
+  objectives: [
+    "Apply paragraph and character styles from the Styles gallery",
+    "Explain the difference between a style and direct formatting",
+    "Use the Styles pane to see what is applied and clear it",
+    "Describe the three things heading styles enable beyond appearance",
+  ],
   duration: "10 min",
   videoUrl: "https://www.youtube.com/embed/fLmJV5RVJoM",
 
@@ -22,6 +28,71 @@ LESSON 1 – WORKING WITH STYLES
   ],
 
   sections: [
+
+    {
+       heading: "Styles are the single highest-leverage skill in Word",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You maintain the policy manual at Lakeside Medical Associates.",
+           text: "The manual has sixty section headings, each formatted by hand: select, set 14 point, bold, dark blue. Leadership adopts a new visual identity and headings must become 16 point in a different typeface. Formatted by hand, that is sixty repetitions. Formatted with a style, it is one change.",
+           task: "Understand styles well enough that a document-wide formatting change is one action, not sixty.",
+         },
+         {
+           type: "paragraph",
+           text: "Direct formatting applies appearance to the specific text you selected — Word remembers 'this text is bold' and nothing more. A style is a named, saved package of formatting applied by reference: the text is marked as Heading 1, and Heading 1 is defined once. Redefine the style and every paragraph carrying it updates instantly.",
+         },
+         {
+           type: "paragraph",
+           text: "The larger point is that heading styles carry meaning, not just looks. Three important features depend on them and work only when they are used properly. An automatic table of contents is built from heading styles. The Navigation pane's document outline comes from heading styles. And screen readers announce heading levels so a blind reader can jump between sections — text that merely looks like a heading provides none of this.",
+         },
+         {
+           type: "table",
+           caption: "Style types",
+           columns: [
+             "Type",
+             "Applies to",
+             "Example",
+           ],
+           rows: [
+             [
+               "Paragraph",
+               "The whole paragraph, including spacing and indents",
+               "Heading 1, Normal, Quote",
+             ],
+             [
+               "Character",
+               "Only the selected characters",
+               "Emphasis, Strong, Book Title",
+             ],
+             [
+               "Linked",
+               "Either, depending on your selection",
+               "Most heading styles",
+             ],
+             [
+               "Table",
+               "A whole table's borders, shading, and banding",
+               "Grid Table 4 Accent 1",
+             ],
+             [
+               "List",
+               "The numbering scheme of a multilevel list",
+               "List Paragraph",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Formatting a paragraph to look like a heading — bigger, bold, blue — produces something that only looks structural. It will not appear in a table of contents, will not show in the Navigation pane, and will not be announced as a heading by a screen reader. Use the real Heading styles and change how they look, rather than making body text look like headings.",
+         },
+         {
+           type: "tip",
+           text: "Ctrl+Alt+1, 2, and 3 apply Heading 1, 2, and 3. Ctrl+Shift+N returns a paragraph to Normal. Learning these three keystrokes makes structuring a long document dramatically faster than reaching for the gallery each time.",
+         },
+       ],
+     },
 
     {
       heading: "What Are Styles?",
@@ -142,6 +213,13 @@ LESSON 1 – WORKING WITH STYLES
             "They convert a Word document into a PDF automatically",
           ],
           correctIndex: 1,
+          explanation: "A style is a named, saved set of formatting applied by reference. Redefining the style updates every paragraph using it at once — and heading styles additionally drive the table of contents, the Navigation pane, and screen reader navigation.",
+          optionRationales: [
+            "Translation is under Review > Translate and is unrelated to styles.",
+            "Correct. Styles apply saved formatting combinations in one click, and redefining a style updates every paragraph that uses it.",
+            "Locking a document is Restrict Editing under the Review tab. Styles control formatting, not permissions.",
+            "PDF export is File > Export. Styles affect how the document looks and is structured, not what format it saves to.",
+          ],
         },
       ],
     },
@@ -175,6 +253,12 @@ LESSON 2 – MODIFYING STYLES
   title: "Modifying Styles",
   description:
     "Learn how to customize existing Word styles so that formatting updates apply automatically throughout the entire document.",
+  objectives: [
+    "Modify a built-in style so the change propagates document-wide",
+    "Update a style to match selected formatting",
+    "Create a new custom style",
+    "Explain the difference between changing this document and changing the template",
+  ],
   duration: "9 min",
   videoUrl: "https://www.youtube.com/embed/fLmJV5RVJoM",
 
@@ -186,6 +270,31 @@ LESSON 2 – MODIFYING STYLES
   ],
 
   sections: [
+
+    {
+       heading: "Change the style, not the sixty paragraphs",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are updating the policy manual at Lakeside Medical Associates.",
+           text: "Every Heading 1 in the manual must become 16 point in the practice's new typeface. The headings already use the Heading 1 style, so the work is one dialog rather than sixty selections.",
+           task: "Modify a style once and watch the whole document follow.",
+         },
+         {
+           type: "paragraph",
+           text: "There are two routes and they suit different moments. Right-click the style in the gallery and choose Modify to open a dialog where you set the formatting explicitly — best when you know exactly what you want. Or format one paragraph until it looks right, then right-click the style and choose 'Update Heading 1 to Match Selection' — best when you are designing visually and want to lock in what you have arrived at.",
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "The Modify dialog offers 'Only in this document' and 'New documents based on this template.' The first changes this file alone. The second writes the change into the underlying template, so every future document inherits it. Choose the template option deliberately — it is how you make practice-wide standards stick, and also how you accidentally change the look of everything you create from then on.",
+         },
+         {
+           type: "tip",
+           text: "Keep the number of styles small. A document with six well-defined styles is easy to maintain; one with forty near-identical variants is worse than no styles at all, because nobody can tell which to apply. If you need a variant, ask first whether an existing style should simply be adjusted.",
+         },
+       ],
+     },
 
     {
       heading: "Why Modify Styles?",
@@ -301,6 +410,13 @@ LESSON 2 – MODIFYING STYLES
             "Word creates a copy of the style with a new name",
           ],
           correctIndex: 1,
+          explanation: "Styles are applied by reference, so redefining one updates every paragraph carrying it at the same moment. This is precisely why styles are worth the small effort of learning.",
+          optionRationales: [
+            "Changing only the selection is what direct formatting does. Modifying a style deliberately reaches every paragraph using it.",
+            "Correct. Every paragraph using that style updates at once, because the formatting is applied by reference.",
+            "Modifying a style edits its definition in place. The style keeps its name and its links to the text using it.",
+            "That describes creating a new style from the selection, which is a different command. Modify changes the existing style.",
+          ],
         },
       ],
     },
@@ -334,6 +450,12 @@ LESSON 3 – STYLE SETS
   title: "Style Sets",
   description:
     "Learn how to switch between Word's built-in Style Sets to instantly change the look and feel of headings and body text across your entire document.",
+  objectives: [
+    "Apply a style set to restyle a whole document at once",
+    "Explain the relationship between style sets, styles, and themes",
+    "Return to the default style set",
+    "Save a custom style set for reuse",
+  ],
   duration: "7 min",
   videoUrl: "https://www.youtube.com/embed/CvnSSnm6bAc",
 
@@ -345,6 +467,31 @@ LESSON 3 – STYLE SETS
   ],
 
   sections: [
+
+    {
+       heading: "A coordinated redesign in one click",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are preparing a report for the board at Lakeside Medical Associates.",
+           text: "The content is finished but the document looks like a first draft. You could adjust each style by hand, or you could apply a style set and see the whole document restyled coherently in one click — then fine-tune from there.",
+           task: "Use style sets to reach a professional baseline quickly, instead of designing every style from scratch.",
+         },
+         {
+           type: "paragraph",
+           text: "A style set is a coordinated collection of definitions for the built-in styles — Heading 1 through 3, Normal, Quote, and the rest — designed to look right together. Applying one from Design > Document Formatting changes fonts, sizes, and spacing across the whole document simultaneously.",
+         },
+         {
+           type: "paragraph",
+           text: "Style sets only reach text that uses styles. This is where the value of the previous lessons becomes concrete: a document built with real Heading and Normal styles transforms completely, while a document formatted by hand barely changes, because none of its formatting is connected to a style definition.",
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "Style sets and themes overlap but are distinct. A theme (Design > Themes) sets the colors, fonts, and effects available document-wide, including in charts and shapes. A style set decides how the paragraph styles use them — sizes, spacing, and which theme font each style takes. Change the theme for palette; change the style set for typographic treatment.",
+         },
+       ],
+     },
 
     {
       heading: "What Is a Style Set?",
@@ -439,6 +586,13 @@ LESSON 3 – STYLE SETS
             "It locks the document formatting so no more changes can be made",
           ],
           correctIndex: 1,
+          explanation: "A style set redefines the built-in styles together — fonts, sizes, and spacing for headings, body text, and quotes — so the whole document is restyled coherently in one action. It changes formatting only; content is untouched.",
+          optionRationales: [
+            "Style sets never alter content. Only the formatting definitions change.",
+            "Correct. The built-in styles are redefined as a coordinated set, restyling the document in one click.",
+            "Page background color is Design > Page Color, a separate setting that style sets do not touch.",
+            "Style sets do not lock anything. Restricting further changes is Review > Restrict Editing.",
+          ],
         },
       ],
     },
@@ -473,6 +627,12 @@ LESSON 4 – USING THEMES
   title: "Using Themes",
   description:
     "Learn how to apply and customize document themes to control the color palette, fonts, and graphic effects used throughout your Word document.",
+  objectives: [
+    "Apply a theme and explain the three elements it controls",
+    "Change theme colors, fonts, and effects independently",
+    "Save a custom theme for consistent branding",
+    "Explain why theme colors are better than fixed colors",
+  ],
   duration: "9 min",
   videoUrl: "https://www.youtube.com/embed/CvnSSnm6bAc",
 
@@ -484,6 +644,30 @@ LESSON 4 – USING THEMES
   ],
 
   sections: [
+
+    {
+       heading: "Themes keep everything in a document agreeing with itself",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You produce patient-facing materials at Lakeside Medical Associates.",
+           text: "The practice adopts a new color palette. Your documents contain headings, chart series, table shading, and shape fills, all coloured by hand from the standard palette. Updating them means finding every coloured object in every document.",
+           task: "Use theme colors, so a palette change is one selection rather than an audit.",
+         },
+         {
+           type: "paragraph",
+           text: "A theme controls three things: a palette of colors, a pair of fonts for headings and body text, and a set of graphic effects for shapes and charts. Together they keep every element in a document visually consistent — and consistent across Word, Excel, and PowerPoint, since all three share the same theme system.",
+         },
+         {
+           type: "paragraph",
+           text: "The practical detail is in the color picker. Colors under 'Theme Colors' at the top are references to the theme; colors under 'Standard Colors' are fixed values. Choose a theme color and it updates automatically when the theme changes. Choose a standard color and it stays that exact color forever, regardless of any rebrand.",
+         },
+         {
+           type: "tip",
+           text: "Set up the practice's palette and fonts once, then Design > Themes > Save Current Theme. The theme appears in the gallery in Word, Excel, and PowerPoint, so a report, its spreadsheet, and the presentation about it all match without anyone having to remember hex codes.",
+         },
+       ],
+     },
 
     {
       heading: "What Is a Theme?",
@@ -609,6 +793,13 @@ LESSON 4 – USING THEMES
             "Document language, currency format, and date format",
           ],
           correctIndex: 1,
+          explanation: "A theme bundles a color palette, a heading and body font pair, and a set of graphic effects for shapes and charts. The same theme applies across Word, Excel, and PowerPoint, which is how a report, its spreadsheet, and its presentation stay visually consistent.",
+          optionRationales: [
+            "Margins, line spacing, and tab stops are layout and paragraph settings, controlled independently of the theme.",
+            "Correct. A theme controls colors, fonts, and effects — and applies the same three across the Office applications.",
+            "Header and footer content is document content. Themes affect how it looks, not what it says.",
+            "Language and regional formats are set under File > Options and the Review tab, unrelated to themes.",
+          ],
         },
       ],
     },
@@ -642,6 +833,12 @@ LESSON 5 – TABLE OF CONTENTS
   title: "Table of Contents",
   description:
     "Learn how to insert an automatic Table of Contents in Word using heading styles, and how to update it as your document changes.",
+  objectives: [
+    "Insert an automatic table of contents built from heading styles",
+    "Update a table of contents after the document changes",
+    "Explain why heading styles are a prerequisite",
+    "Navigate a long document using the Navigation pane",
+  ],
   duration: "8 min",
   videoUrl: "https://www.youtube.com/embed/eiStMVS9ooQ",
 
@@ -653,6 +850,51 @@ LESSON 5 – TABLE OF CONTENTS
   ],
 
   sections: [
+
+    {
+       heading: "The table of contents is the payoff for using styles",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are finishing the staff handbook at Lakeside Medical Associates.",
+           text: "The handbook runs to eighty pages with forty sections, and it is revised every quarter. A hand-typed contents list would be wrong within a week of every revision — each edit shifts the page numbers below it.",
+           task: "Generate a contents list that rebuilds itself from the document's own headings.",
+         },
+         {
+           type: "paragraph",
+           text: "An automatic table of contents scans the document for paragraphs styled Heading 1, 2, and 3, and builds an entry for each with its current page number. Nothing is typed manually, so nothing can drift out of date — you click Update Table and it is correct again.",
+         },
+         {
+           type: "paragraph",
+           text: "This is why the styles lessons come first. If your section titles are merely bold 14-point text, Word has no way to identify them, and the contents list comes back empty. The heading styles are what make a heading a heading as far as Word is concerned.",
+         },
+         {
+           type: "worked-example",
+           title: "Building a contents list that maintains itself",
+           task: "Add a working table of contents to an eighty-page handbook and keep it accurate through quarterly revisions.",
+           steps: [
+             {
+               move: "Apply Heading 1 to each main section and Heading 2 to subsections throughout.",
+               why: "This is the actual work, and everything else is one click. Use the Navigation pane as you go — it shows the outline Word can see, so a section missing from the pane is a section that will be missing from the contents.",
+             },
+             {
+               move: "Place the cursor where the contents belongs, then References > Table of Contents > Automatic Table 1.",
+               why: "Word inserts every heading with its page number. Choosing an automatic table rather than the manual one is what makes it updatable — the manual option inserts placeholder text you would have to maintain yourself.",
+             },
+             {
+               move: "After any revision, click in the table and press Update Table > Update entire table.",
+               why: "Page numbers only refreshes the numbers; entire table also picks up renamed, added, and deleted headings. After a real revision you always want the second option.",
+             },
+             {
+               move: "Update once more immediately before printing or exporting to PDF.",
+               why: "The table does not refresh on its own. A document edited and sent without a final update ships a contents list pointing at the wrong pages, which is worse than having none — readers trust it and are sent to the wrong place.",
+             },
+           ],
+           result: "A contents list that is correct after every revision, at the cost of one click.",
+           takeaway: "Heading styles make the table possible; updating before you export keeps it honest.",
+         },
+       ],
+     },
 
     {
       heading: "How an Automatic TOC Works",
@@ -773,6 +1015,13 @@ LESSON 5 – TABLE OF CONTENTS
             "Enable Track Changes so Word can find the headings",
           ],
           correctIndex: 1,
+          explanation: "Word builds the table from paragraphs styled as Heading 1, 2, and 3. Without heading styles applied there is nothing for Word to find, and the inserted table comes back empty.",
+          optionRationales: [
+            "A table of contents is built in the .docx. Exporting to PDF happens afterwards and is unrelated.",
+            "Correct. Word scans for paragraphs carrying heading styles and builds an entry for each.",
+            "Page breaks control pagination. They do not identify headings, and a table of contents works fine without them.",
+            "Track Changes records edits. It plays no part in how Word locates headings.",
+          ],
         },
       ],
     },

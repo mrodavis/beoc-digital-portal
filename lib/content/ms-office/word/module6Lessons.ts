@@ -6,6 +6,12 @@ export const wordModule6Lessons: Lesson[] = [
         title: "Page Layout",
         description:
             "Learn how to adjust margins, orientation, paper size, and use the Page Setup dialog box in Microsoft Word.",
+        objectives: [
+          "Set margins, orientation, and paper size for a specific purpose",
+          "Explain when landscape orientation is genuinely the right choice",
+          "Use the Page Setup dialog for settings not on the Ribbon",
+          "Account for binding and hole-punching when setting margins",
+        ],
         duration: "12 min",
         videoUrl: "https://www.youtube.com/embed/aRvVeiWmFZk",
 
@@ -17,6 +23,61 @@ export const wordModule6Lessons: Lesson[] = [
         ],
 
         sections: [
+
+          {
+             heading: "Margins are a reading decision",
+             blocks: [
+               {
+                 type: "scenario",
+                 role: "You are producing the staff handbook at Lakeside Medical Associates.",
+                 text: "To save paper you set every margin to half an inch. The handbook is then three-hole punched for binders, and the punch removes the first character of every line on odd pages. Sixty pages, reprinted.",
+                 task: "Set margins for how the document will physically be used, not only for how it looks on screen.",
+               },
+               {
+                 type: "paragraph",
+                 text: "Margins do three jobs: they leave room for hands and binding, they give the eye a rest at the end of each line, and they control line length. Very wide text is genuinely harder to read, because the eye loses its place travelling back to the start of the next line. The one-inch default is a reasonable compromise for most documents, not an arbitrary number.",
+               },
+               {
+                 type: "paragraph",
+                 text: "Orientation should follow the content. Portrait suits text, because it produces comfortable line lengths. Landscape suits wide tables, timelines, and charts that do not fit across a portrait page. A landscape page of body text has lines so long they are tiring to read — if you are reaching for landscape to fit text, the real fix is usually columns.",
+               },
+               {
+                 type: "table",
+                 caption: "Margin settings by purpose",
+                 columns: [
+                   "Purpose",
+                   "Setting",
+                   "Note",
+                 ],
+                 rows: [
+                   [
+                     "Standard letter or report",
+                     "1 inch all round",
+                     "Word's default; safe for any printer",
+                   ],
+                   [
+                     "Bound or hole-punched",
+                     "Gutter margin 0.5 in, left",
+                     "Page Setup > Margins > Gutter adds space for binding without shifting the text block",
+                   ],
+                   [
+                     "Double-sided binding",
+                     "Mirror margins",
+                     "Inside margins face each other so binding space lands correctly on both sides",
+                   ],
+                   [
+                     "Maximum content per page",
+                     "0.5 in",
+                     "Only for documents that stay flat and unbound",
+                   ],
+                 ],
+               },
+               {
+                 type: "tip",
+                 text: "Almost every printer has an unprintable edge, typically a quarter inch. Margins narrower than that will have content clipped, regardless of what the screen shows. If you must go narrow, print one test page before running the job.",
+               },
+             ],
+           },
 
             // ---------------- MARGINS ----------------
             {
@@ -184,6 +245,13 @@ export const wordModule6Lessons: Lesson[] = [
                     "Letter",
                 ],
                 correctIndex: 1,
+                explanation: "Landscape rotates the page so the long edge runs horizontally, making it wider than tall. It suits wide tables and charts; portrait suits body text because it produces more comfortable line lengths.",
+                optionRationales: [
+                  "Portrait is the taller-than-wide default, right for most text documents.",
+                  "Correct. Landscape orients the page so it is wider than it is tall, which suits wide tables and charts.",
+                  "Custom refers to a user-defined paper size, not an orientation.",
+                  "Letter is a paper size, 8.5 by 11 inches. Size and orientation are independent settings.",
+                ],
                 },
             ],
             },
@@ -214,6 +282,12 @@ export const wordModule6Lessons: Lesson[] = [
     title: "Indents and Tabs",
     description:
         "Learn how to use the ruler, tab selector, and indentation tools to control paragraph layout in Microsoft Word.",
+    objectives: [
+      "Set first-line and hanging indents using the ruler and the Paragraph dialog",
+      "Explain what a hanging indent is for and where it is required",
+      "Set and clear tab stops, including decimal and right-aligned tabs",
+      "Recognize why spaces are never a substitute for tabs or indents",
+    ],
     duration: "8 min",
     videoUrl: "https://www.youtube.com/embed/vJGYWVe52T4?si=P2fE667vh32d5DfJ",
 
@@ -225,6 +299,66 @@ export const wordModule6Lessons: Lesson[] = [
     ],
 
     sections: [
+
+      {
+         heading: "Never align with the space bar",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You are compiling a reference list for a staff training packet at Lakeside Medical Associates.",
+             text: "You align the second line of each reference with spaces until it looks right. You then change the font from Calibri to Times New Roman, and every alignment collapses, because the new font's space character is a different width. Forty references, all wrong.",
+             task: "Use indents and tab stops, so alignment is a property of the paragraph and survives every font change.",
+           },
+           {
+             type: "paragraph",
+             text: "The distinction is worth stating plainly. A space is a character whose width depends on the font. An indent is a measured property of the paragraph. A tab stop is a defined position on the ruler. Indents and tab stops are exact and stable; spaces are approximate and break the moment anything changes.",
+           },
+           {
+             type: "paragraph",
+             text: "A hanging indent puts the first line at the margin and indents every subsequent line. It is what citation styles require for reference lists, because it makes the author surnames line up down the left edge so a reader can scan them. Set it in Paragraph > Indentation > Special > Hanging, or by dragging the lower triangle on the ruler.",
+           },
+           {
+             type: "table",
+             caption: "Tab stop types",
+             columns: [
+               "Type",
+               "Aligns text",
+               "Use for",
+             ],
+             rows: [
+               [
+                 "Left",
+                 "Left edge at the stop",
+                 "Ordinary columns of text",
+               ],
+               [
+                 "Center",
+                 "Centered on the stop",
+                 "Column headings",
+               ],
+               [
+                 "Right",
+                 "Right edge at the stop",
+                 "Page numbers in a contents list",
+               ],
+               [
+                 "Decimal",
+                 "Decimal points at the stop",
+                 "Columns of currency or measurements",
+               ],
+               [
+                 "Bar",
+                 "Draws a vertical line",
+                 "A visual divider between columns",
+               ],
+             ],
+           },
+           {
+             type: "tip",
+             text: "Decimal tabs are the reason a column of prices lines up on the decimal point regardless of how many digits each number has. Click the tab selector at the left end of the ruler until it shows the decimal tab, then click on the ruler where the decimal points should sit.",
+           },
+         ],
+       },
 
         // ---------------- SHOW RULER ----------------
         {
@@ -355,6 +489,13 @@ export const wordModule6Lessons: Lesson[] = [
                 "The paragraph is indented from the right margin only",
             ],
             correctIndex: 2,
+            explanation: "A hanging indent leaves the first line at the margin and indents all following lines. Reference lists use it so the author surnames align down the left edge and can be scanned quickly.",
+            optionRationales: [
+              "Indenting every line equally is a block indent, used for long quotations.",
+              "That is a first-line indent, the traditional way to mark the start of a paragraph in continuous prose. A hanging indent is its mirror image.",
+              "Correct. The first line sits at the margin and every subsequent line is indented.",
+              "Indenting from the right is a right indent, which is usually combined with a left indent for block quotations.",
+            ],
             },
         ],
         },
@@ -384,6 +525,12 @@ export const wordModule6Lessons: Lesson[] = [
     title: "Line and Paragraph Spacing",
     description:
       "Learn how to adjust line spacing and paragraph spacing for professional document formatting.",
+    objectives: [
+      "Set line spacing and space before and after paragraphs",
+      "Explain why blank paragraphs are a poor way to create vertical space",
+      "Choose spacing appropriate to the document's purpose",
+      "Use Keep with next to stop headings being stranded at the foot of a page",
+    ],
     duration: "10 min",
     videoUrl: "https://www.youtube.com/embed/mXWvKHWe2Co?si=ALpc88kNziEZhfGI",
 
@@ -395,6 +542,61 @@ export const wordModule6Lessons: Lesson[] = [
     ],
 
     sections: [
+
+      {
+         heading: "Press Enter twice and you have made a formatting problem",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You are formatting a twelve-page policy document at Lakeside Medical Associates.",
+             text: "You separate paragraphs by pressing Enter twice throughout. Your supervisor asks for slightly tighter spacing. There is no setting to change — the spacing is made of empty paragraphs, so you must find and delete a hundred and forty of them by hand, and some of them are now stranded at the tops of pages.",
+             task: "Create vertical space with paragraph spacing settings, so it can be adjusted everywhere in one action.",
+           },
+           {
+             type: "paragraph",
+             text: "Space Before and Space After are properties of a paragraph, set in the Paragraph dialog or under Layout > Spacing. Because they are properties, they can be changed globally — or built into a style, so every paragraph using that style updates at once. Blank paragraphs are content, and content has to be edited one instance at a time.",
+           },
+           {
+             type: "paragraph",
+             text: "Empty paragraphs cause a second problem: they land at page boundaries. A blank paragraph pushed to the top of a page leaves an unexplained gap, and screen readers announce empty paragraphs, so a document padded this way is read aloud with meaningless pauses.",
+           },
+           {
+             type: "table",
+             caption: "Spacing conventions",
+             columns: [
+               "Document",
+               "Line spacing",
+               "Paragraph spacing",
+             ],
+             rows: [
+               [
+                 "Business letter",
+                 "Single",
+                 "6-12 pt after",
+               ],
+               [
+                 "Academic paper",
+                 "Double",
+                 "0 pt, first-line indent instead",
+               ],
+               [
+                 "Document for review",
+                 "1.5 lines",
+                 "Extra room for handwritten notes",
+               ],
+               [
+                 "Dense reference table",
+                 "Single",
+                 "Minimal — the structure does the separating",
+               ],
+             ],
+           },
+           {
+             type: "tip",
+             text: "Paragraph > Line and Page Breaks > Keep with next binds a paragraph to the one after it, so a heading can never be left alone at the bottom of a page. Setting it on your heading styles fixes the problem permanently across the whole document.",
+           },
+         ],
+       },
       {
         heading: "Using the Line Spacing Menu",
         blocks: [
@@ -486,6 +688,13 @@ export const wordModule6Lessons: Lesson[] = [
               "Column spacing",
             ],
             correctIndex: 1,
+            explanation: "Space Before and Space After are paragraph properties, so they can be adjusted document-wide in one action or built into a style. Blank paragraphs are content, which must be found and deleted individually.",
+            optionRationales: [
+              "Double line spacing increases the gap between every line inside a paragraph, not the gap between paragraphs.",
+              "Correct. Space Before and After are paragraph properties, adjustable everywhere at once and safe at page boundaries.",
+              "Increase Indent moves the paragraph horizontally. It has no effect on vertical space.",
+              "Column spacing controls the gutter between columns in a multi-column layout — horizontal, not vertical.",
+            ],
           },
         ],
       },
@@ -514,6 +723,12 @@ export const wordModule6Lessons: Lesson[] = [
   title: "Breaks (Page, Column & Section)",
   description:
     "Learn how to insert, manage, and delete page breaks, column breaks, and section breaks in Microsoft Word.",
+  objectives: [
+    "Insert page, column, and section breaks and explain how they differ",
+    "Choose the right section break type for a layout change",
+    "Reveal breaks with Show/Hide to diagnose layout problems",
+    "Replace repeated Enter presses with a proper page break",
+  ],
   duration: "12 min",
   videoUrl: "https://www.youtube.com/embed/78fvQ9Ks8DA",
 
@@ -525,6 +740,71 @@ export const wordModule6Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "The difference between a page break and a section break",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are assembling the annual report at Lakeside Medical Associates.",
+           text: "The report is portrait, but the budget table in the middle needs a landscape page. You set orientation to landscape and every page in the document rotates. You undo, try again, and get the same result.",
+           task: "Learn which break creates an independent region of the document, because orientation applies to sections, not pages.",
+         },
+         {
+           type: "paragraph",
+           text: "A page break simply moves the following content to the next page. Everything stays in the same section, so it keeps the same margins, orientation, headers, and page numbering. It is the right tool for starting a new chapter on a fresh page.",
+         },
+         {
+           type: "paragraph",
+           text: "A section break creates a genuinely independent region that can have its own orientation, margins, columns, headers, and page numbering. That is why the landscape budget table needs section breaks before and after it: only then can that one region rotate while the rest of the report stays portrait.",
+         },
+         {
+           type: "table",
+           caption: "Break types",
+           columns: [
+             "Break",
+             "Effect",
+             "Use for",
+           ],
+           rows: [
+             [
+               "Page",
+               "Content continues on the next page",
+               "Starting a chapter on a new page",
+             ],
+             [
+               "Column",
+               "Content continues in the next column",
+               "Controlling where a column ends in a newsletter",
+             ],
+             [
+               "Section: Next Page",
+               "New section starting on a new page",
+               "A landscape page inside a portrait document",
+             ],
+             [
+               "Section: Continuous",
+               "New section on the same page",
+               "Changing column count partway down a page",
+             ],
+             [
+               "Section: Even/Odd Page",
+               "New section on the next even or odd page",
+               "Chapters that must always start on a right-hand page",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Never create a page break by pressing Enter repeatedly. Those empty paragraphs stay where they are while the text around them reflows, so adding one sentence earlier in the document pushes your heading to the middle of the next page. Ctrl+Enter inserts a real page break that always starts a new page regardless of what changes above it.",
+         },
+         {
+           type: "tip",
+           text: "Turn on Show/Hide (¶ on the Home tab, or Ctrl+Shift+8) to see breaks as labeled dotted lines. When a document's layout is misbehaving in a way you cannot explain, this is the first diagnostic — an unexpected section break is one of the most common causes.",
+         },
+       ],
+     },
 
     // ---------------- INTRO TO BREAKS ----------------
     {
@@ -694,6 +974,13 @@ export const wordModule6Lessons: Lesson[] = [
             "Next Page section break",
           ],
           correctIndex: 0,
+          explanation: "A page break moves subsequent content to the next page while keeping it in the same section, so margins, orientation, and headers are unchanged. Ctrl+Enter inserts one.",
+          optionRationales: [
+            "Correct. A page break starts a new page while leaving the section — and therefore the layout settings — unchanged.",
+            "A column break moves content to the top of the next column, which only reaches a new page in the last column of a page.",
+            "A continuous section break starts a new section without starting a new page, so it deliberately does not force a page change.",
+            "A Next Page section break does start a new page, but it also creates a new section. When you only need a new page, that is more than you want — the extra section can cause header and numbering surprises later.",
+          ],
         },
       ],
     },
@@ -722,6 +1009,12 @@ export const wordModule6Lessons: Lesson[] = [
   title: "Columns",
   description:
     "Learn how to create, customize, and remove columns in Microsoft Word, including how to use column breaks and adjust column spacing.",
+  objectives: [
+    "Apply a multi-column layout to a whole document or a selection",
+    "Control where a column ends with a column break",
+    "Choose a column count and width appropriate to the page",
+    "Explain why columns are a readability tool",
+  ],
   duration: "10 min",
   videoUrl: "https://www.youtube.com/embed/X1n2VG1yxFs?si=WLrIc_XyiWiQtSBB",
 
@@ -733,6 +1026,35 @@ export const wordModule6Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Columns exist to shorten the line",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are laying out the patient newsletter at Lakeside Medical Associates.",
+           text: "Your first draft runs the text full width across the page. Readers report it feels like hard work, though they cannot say why. The sentences are fine. The lines are simply too long — the eye keeps losing its place travelling back to the start of the next one.",
+           task: "Use columns to bring the line length into the range people read comfortably.",
+         },
+         {
+           type: "paragraph",
+           text: "Typographers generally aim for roughly 50 to 75 characters per line. Beyond that, the return sweep from the end of one line to the start of the next becomes unreliable and readers lose their place. On a letter-size page at 11 point, full-width text runs closer to 100 characters, which is why newsletters and magazines are almost always set in columns.",
+         },
+         {
+           type: "paragraph",
+           text: "Apply columns from Layout > Columns. Applied with nothing selected, it affects the whole section; with text selected, Word adds continuous section breaks around the selection so only that part becomes multi-column. This is how a newsletter has a full-width masthead above two-column body text.",
+         },
+         {
+           type: "tip",
+           text: "A column break (Ctrl+Shift+Enter) pushes the following text to the top of the next column. Use it to stop an article ending with one stranded line, or to make two columns end level at the foot of the page.",
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "Two columns suit letter-size portrait pages. Three is workable for short items such as listings but gets tight for body text — narrow columns force awkward hyphenation and ragged spacing. If a three-column layout looks cramped, the answer is usually two columns or a smaller font, not narrower gutters.",
+         },
+       ],
+     },
 
     // ---------------- INTRO TO COLUMNS ----------------
     {
@@ -898,6 +1220,13 @@ export const wordModule6Lessons: Lesson[] = [
             "To change the number of columns in the document",
           ],
           correctIndex: 2,
+          explanation: "A column break forces the following text to the top of the next column. Use it to control where a column ends rather than letting the text break wherever it happens to fall.",
+          optionRationales: [
+            "Returning to a single column is done from Layout > Columns > One, which changes the layout rather than inserting a break.",
+            "The line between columns is the 'Line between' option in the Columns dialog, a formatting setting rather than a break.",
+            "Correct. The text after the break moves to the top of the next column.",
+            "The number of columns is set in the Columns dialog. A column break works within whatever layout is already applied.",
+          ],
         },
       ],
     },

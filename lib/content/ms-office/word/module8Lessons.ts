@@ -11,10 +11,77 @@ LESSON 1 – USING WORD ONLINE
   title: "Using Word Online",
   description:
     "Learn how to access and use Word Online through a browser, edit documents in the cloud, and understand the differences between Word Online and the desktop app.",
+  objectives: [
+    "Access Word Online and create or edit a document in a browser",
+    "Explain which features the browser version lacks and why that matters",
+    "Move a document between Word Online and the desktop app",
+    "Decide which version to use for a given task",
+  ],
   duration: "8 min",
   videoUrl: "https://www.youtube.com/embed/oXCnZ0e-Vfo",
 
   sections: [
+
+    {
+       heading: "The browser version is a different tool, not a smaller one",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are covering reception at Lakeside Medical Associates.",
+           text: "You need to fix a typo in a handout while working at a shared workstation that does not have Office installed. Word Online opens the file in a browser and the fix takes forty seconds. Later you try to run a mail merge in the same browser tab and find the command does not exist.",
+           task: "Know what the browser version does well and where you need the desktop app.",
+         },
+         {
+           type: "paragraph",
+           text: "Word Online runs in any modern browser with no installation, which makes it genuinely useful on a shared or borrowed machine. It handles typing, basic formatting, comments, and real-time co-authoring well, and it saves continuously to OneDrive.",
+         },
+         {
+           type: "table",
+           caption: "Where each version fits",
+           columns: [
+             "Task",
+             "Word Online",
+             "Desktop",
+           ],
+           rows: [
+             [
+               "Quick edit on a borrowed machine",
+               "Yes",
+               "Requires installation",
+             ],
+             [
+               "Real-time co-authoring",
+               "Yes",
+               "Yes, for files in OneDrive or SharePoint",
+             ],
+             [
+               "Mail merge",
+               "No",
+               "Yes",
+             ],
+             [
+               "Advanced layout: sections, columns, precise object placement",
+               "Limited",
+               "Yes",
+             ],
+             [
+               "Macros and add-ins",
+               "No",
+               "Yes",
+             ],
+             [
+               "Working offline",
+               "No",
+               "Yes",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Open in Desktop App, on the Word Online toolbar, hands the file to the installed application with your edits intact. Start in the browser for speed, switch when you hit a feature the browser does not have.",
+         },
+       ],
+     },
 
     {
       heading: "What Is Word Online?",
@@ -125,6 +192,13 @@ LESSON 1 – USING WORD ONLINE
             "It offers more advanced layout tools than the desktop version",
           ],
           correctIndex: 1,
+          explanation: "Word Online runs entirely in a browser, so it works on any machine with internet access and no installed copy of Office. That accessibility is its central advantage; the trade-off is a smaller feature set.",
+          optionRationales: [
+            "Macros and add-ins are desktop-only. The browser version does not run them.",
+            "Correct. It runs in any modern browser with no installation, which is what makes it useful on a shared machine.",
+            "The opposite is true: Word Online works from files stored in OneDrive, not on a local drive.",
+            "The desktop app has the more advanced layout tools. The browser version is deliberately simpler.",
+          ],
         },
       ],
     },
@@ -158,10 +232,45 @@ LESSON 2 – CO-AUTHORING IN WORD
   title: "Co-Authoring in Word",
   description:
     "Learn how to share a Word document and collaborate with others in real time using Microsoft 365 co-authoring features.",
+  objectives: [
+    "Share a document for co-authoring and choose appropriate permissions",
+    "Explain what co-authoring requires in order to work",
+    "Work alongside others without overwriting their edits",
+    "Manage and revoke sharing permissions",
+  ],
   duration: "9 min",
   videoUrl: "https://www.youtube.com/embed/WCROca-WFiI",
 
   sections: [
+
+    {
+       heading: "Two people, one document, no emailed versions",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are revising the intake form with a nurse manager at Lakeside Medical Associates.",
+           text: "Emailing versions back and forth produces 'Intake Form v3 FINAL (JM edits) revised.docx' and a genuine question about which copy is current. Two of the three changes made on Tuesday are in a file nobody opens again.",
+           task: "Work in one shared document so there is only ever one current version.",
+         },
+         {
+           type: "paragraph",
+           text: "Co-authoring lets several people edit the same document simultaneously. Each person's cursor is visible with their name, edits appear within seconds, and there is exactly one file — so the question of which version is current stops existing.",
+         },
+         {
+           type: "paragraph",
+           text: "It has one hard requirement: the file must be stored in OneDrive or SharePoint. Co-authoring works by syncing changes through the cloud, so a document on a local drive or a USB stick cannot support it. This is the same requirement AutoSave has, for the same reason.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Sharing permissions outlive the task. A link shared for one afternoon's revision keeps working next year unless you revoke it. Review sharing periodically through Share > Manage Access, set an expiry date on links to anything sensitive, and grant Can view rather than Can edit unless the person genuinely needs to make changes.",
+         },
+         {
+           type: "tip",
+           text: "AutoSave must be on for co-authoring to feel real-time. If it is off, or greyed out, the file is not in OneDrive or SharePoint — which is also the first thing to check when a colleague reports they cannot see your edits.",
+         },
+       ],
+     },
 
     {
       heading: "What Is Co-Authoring?",
@@ -272,6 +381,13 @@ LESSON 2 – CO-AUTHORING IN WORD
             "Emailed as an attachment to all collaborators",
           ],
           correctIndex: 2,
+          explanation: "Co-authoring syncs each person's changes through the cloud, so the file must live in OneDrive or SharePoint. A local file has no sync channel, which is also why AutoSave is unavailable for it.",
+          optionRationales: [
+            "A USB drive offers no synchronization. Two people editing copies from it would simply create two divergent files.",
+            "A local folder is not synced, so there is no mechanism for anyone else's changes to reach you.",
+            "Correct. OneDrive or SharePoint provides the sync that co-authoring depends on.",
+            "Emailing attachments creates separate copies for each recipient — exactly the version-conflict problem co-authoring solves.",
+          ],
         },
       ],
     },
@@ -305,10 +421,41 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
   title: "Smart Lookup & Researcher",
   description:
     "Use Word's built-in research tools to look up definitions, find background information, and insert properly cited content without leaving the document.",
+  objectives: [
+    "Use Smart Lookup for quick definitions and context",
+    "Use Researcher to gather sources and insert citations",
+    "Explain the difference in purpose between the two",
+    "Evaluate whether a source is appropriate before citing it",
+  ],
   duration: "7 min",
   videoUrl: "https://www.youtube.com/embed/lX6sMD5BXLY",
 
   sections: [
+
+    {
+       heading: "Research tools do not evaluate sources for you",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are drafting a patient education handout at Lakeside Medical Associates.",
+           text: "You need a clear definition of a clinical term and a citable source for a claim about screening intervals. Smart Lookup gives you the definition in seconds. Researcher returns twelve sources, of which perhaps four are appropriate for patient-facing health material.",
+           task: "Use both tools, and apply your own judgment to what they return.",
+         },
+         {
+           type: "paragraph",
+           text: "Smart Lookup (right-click a word > Smart Lookup) opens a pane with definitions and web results for the selected text. It is for quick understanding while you write, without leaving the document.",
+         },
+         {
+           type: "paragraph",
+           text: "Researcher (References > Researcher) is built for sourcing: it searches scholarly and reference material, lets you add content to your document, and creates a properly formatted citation and bibliography entry at the same time.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Neither tool judges whether a source is reliable or appropriate. For health information reaching patients, that judgment matters a great deal — prefer recognized clinical bodies and peer-reviewed sources, check the publication date, and have clinical staff review any claim about care before it is distributed. A citation makes a claim traceable; it does not make it correct.",
+         },
+       ],
+     },
 
     {
       heading: "What Is Smart Lookup?",
@@ -403,6 +550,13 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
             "There is no difference — they both do the same thing",
           ],
           correctIndex: 1,
+          explanation: "Smart Lookup is for quick understanding while writing — definitions and web context for a selected word. Researcher is for sourcing: it finds citable material and generates formatted citations and a bibliography.",
+          optionRationales: [
+            "Both are desktop features. Availability is not the distinction between them.",
+            "Correct. Smart Lookup gives quick definitions and context; Researcher supports deeper sourcing with citations.",
+            "Neither searches your local files. Both query online sources.",
+            "They serve genuinely different purposes — one for quick context, one for sourced research with citations.",
+          ],
         },
       ],
     },
@@ -437,10 +591,41 @@ LESSON 4 – DICTATION & VOICE FEATURES
   title: "Dictation & Voice Features",
   description:
     "Use Word's Dictation feature to type hands-free using your voice, and learn how to use voice commands to edit, format, and punctuate as you speak.",
+  objectives: [
+    "Start and stop dictation and dictate punctuation by voice",
+    "Use voice commands for basic editing",
+    "Change the dictation language",
+    "Judge when dictation is appropriate given the setting and the content",
+  ],
   duration: "7 min",
   videoUrl: "https://www.youtube.com/embed/cC3IOqrHMFU",
 
   sections: [
+
+    {
+       heading: "Dictation is fast, and it is spoken out loud",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are writing up notes at the front desk of Lakeside Medical Associates.",
+           text: "Dictation would let you produce the summary in a third of the time. The front desk is also within earshot of the waiting room, and the summary contains a patient's name and reason for visit.",
+           task: "Use dictation where it genuinely helps, and recognize where speaking aloud is the wrong choice.",
+         },
+         {
+           type: "paragraph",
+           text: "Dictation (Home > Dictate) converts speech to text using cloud speech recognition, which means it requires an internet connection. Most people speak far faster than they type, so for long-form drafting it is a substantial gain — and for anyone for whom typing is painful or difficult, it is an accessibility tool rather than a convenience.",
+         },
+         {
+           type: "paragraph",
+           text: "Punctuation is spoken: say 'period,' 'comma,' 'question mark,' 'new line,' 'new paragraph.' Speak at a natural pace in complete phrases — recognition accuracy is better on flowing speech than on isolated, over-enunciated words.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Two cautions in a clinical setting. First, dictation is audible: never dictate patient information anywhere it can be overheard, which rules out most reception areas. Second, speech recognition makes confident errors, and clinical terms and drug names are exactly where it errs most. Always read dictated text before saving or sending it.",
+         },
+       ],
+     },
 
     {
       heading: "What Is Dictation?",
@@ -551,6 +736,13 @@ LESSON 4 – DICTATION & VOICE FEATURES
             "Click the Punctuation button in the Dictation toolbar",
           ],
           correctIndex: 2,
+          explanation: "Punctuation is dictated as spoken commands — say 'period,' 'comma,' 'question mark,' 'new paragraph.' Word converts the spoken command into the mark rather than typing the word.",
+          optionRationales: [
+            "This works, but it defeats the purpose of dictating hands-free and is not how the feature is designed to be used.",
+            "Word does not infer punctuation from pauses. Speaking the mark is what inserts it.",
+            "Correct. Saying 'period' inserts the punctuation mark rather than the word.",
+            "The dictation toolbar has settings and a microphone control, but no punctuation button — punctuation is spoken.",
+          ],
         },
       ],
     },
@@ -585,10 +777,97 @@ LESSON 5 – ACCESSIBILITY FEATURES
   title: "Accessibility Features",
   description:
     "Learn how to use Word's Accessibility Checker to identify and fix issues that make documents difficult to use for people with disabilities.",
+  objectives: [
+    "Run the Accessibility Checker and act on what it reports",
+    "Write alt text that conveys the image's purpose",
+    "Use heading styles to give a document a navigable structure",
+    "Check color contrast and avoid color as the sole carrier of meaning",
+  ],
   duration: "8 min",
   videoUrl: "https://www.youtube.com/embed/aRvMDhDNB4o",
 
   sections: [
+
+    {
+       heading: "Accessibility is a requirement, not a courtesy",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You produce patient materials at Lakeside Medical Associates.",
+           text: "A patient with low vision requests the new patient handbook in a format their screen reader can use. You send the .docx. Their software reports 'image' fourteen times with no descriptions, finds no headings to navigate by, and reads a table as one continuous run of words. The document is technically delivered and practically unusable.",
+           task: "Build accessibility in as you write, rather than retrofitting it under time pressure.",
+         },
+         {
+           type: "paragraph",
+           text: "For an organization providing healthcare services, this is also a legal matter. Section 504 of the Rehabilitation Act and the Americans with Disabilities Act require that people with disabilities have meaningful access to services and information. A document that cannot be read by assistive technology is a barrier to access.",
+         },
+         {
+           type: "paragraph",
+           text: "Review > Check Accessibility scans the document and lists problems with explanations and one-click fixes. Running it before distribution takes under a minute and catches the great majority of issues.",
+         },
+         {
+           type: "table",
+           caption: "The five checks that matter most",
+           columns: [
+             "Check",
+             "What to do",
+             "Why",
+           ],
+           rows: [
+             [
+               "Alt text on images",
+               "Describe purpose, not appearance",
+               "Screen readers announce alt text in place of the image",
+             ],
+             [
+               "Real heading styles",
+               "Use Heading 1-3, not bold body text",
+               "Lets users jump between sections instead of reading linearly",
+             ],
+             [
+               "Table header rows",
+               "Mark the header row in Table Layout",
+               "Lets a screen reader announce which column a cell belongs to",
+             ],
+             [
+               "Meaningful link text",
+               "'Download the intake form', not 'click here'",
+               "Links are often read as a standalone list",
+             ],
+             [
+               "Color contrast",
+               "At least 4.5:1 for body text",
+               "Low-contrast text is unreadable for many, especially in print",
+             ],
+           ],
+         },
+         {
+           type: "worked-example",
+           title: "Writing alt text that is actually useful",
+           task: "Describe a bar chart showing appointment volume by month in a patient handbook.",
+           steps: [
+             {
+               move: "Ask what the image is doing in the document.",
+               why: "Alt text conveys purpose, not appearance. 'Bar chart with blue bars' describes pixels. The reader needs the information the chart carries, which is why the answer depends on why you put it there.",
+             },
+             {
+               move: "State the finding: 'Bar chart showing appointment volume rising from 320 in January to 480 in June.'",
+               why: "A sighted reader takes the trend from the chart in a second. Alt text should deliver that same trend, not force the reader to reconstruct it from a description of the axes.",
+             },
+             {
+               move: "For a complex figure, put the full data in a table nearby and keep the alt text short.",
+               why: "Alt text is announced as one unbroken run of speech, so it becomes unusable past a sentence or two. A real table beside the figure is navigable cell by cell — genuinely better than a long description.",
+             },
+             {
+               move: "Mark purely decorative images as decorative.",
+               why: "A border flourish with alt text interrupts reading for no benefit. The Alt Text pane has a 'Mark as decorative' checkbox that tells screen readers to skip it — which is the accessible choice, not a shortcut.",
+             },
+           ],
+           result: "Images that convey the same information to every reader, without padding the document with noise.",
+           takeaway: "Ask what the image tells a sighted reader, then write that. If it tells them nothing, mark it decorative.",
+         },
+       ],
+     },
 
     {
       heading: "Why Accessibility Matters",
@@ -704,6 +983,13 @@ LESSON 5 – ACCESSIBILITY FEATURES
             "It locks the image so it cannot be moved or resized",
           ],
           correctIndex: 1,
+          explanation: "Alt text is the description a screen reader announces in place of an image, so a blind or low-vision reader receives the information the image carries. It should convey the image's purpose rather than describe its appearance.",
+          optionRationales: [
+            "Captions are visible text added below an image with References > Insert Caption. Alt text is not printed and not visible on screen.",
+            "Correct. Screen readers announce alt text in place of the image, so the information reaches readers who cannot see it.",
+            "Compression is done with Picture Format > Compress Pictures. Alt text has no effect on file size.",
+            "Position is controlled by layout and wrapping options. Alt text describes the image; it does not lock it.",
+          ],
         },
       ],
     },

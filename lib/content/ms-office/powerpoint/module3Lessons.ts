@@ -7,6 +7,12 @@ slug: "applying-themes",
 title: "Applying Themes",
 description:
 "Learn how to quickly change the design of your presentation using built-in PowerPoint themes.",
+objectives: [
+  "Apply a theme and explain what it changes",
+  "Choose theme variants and understand what they alter",
+  "Judge a theme by legibility rather than attractiveness",
+  "Keep a deck consistent with organizational branding",
+],
 duration: "8 min",
 videoUrl: "https://www.youtube.com/embed/_gYShFl6i94",
 
@@ -18,6 +24,31 @@ url: "/practice/powerpoint/module-3/themes/Powerpoint_Themes_Practice.pptx",
 ],
 
 sections: [
+
+  {
+     heading: "Choose a theme for the room, not for the monitor",
+     blocks: [
+       {
+         type: "scenario",
+         role: "You design the annual staff briefing at Lakeside Medical Associates.",
+         text: "You pick a theme with pale grey text on a white background. It looks refined on your monitor. Projected in a room where the lights must stay on, the text is close to invisible from the fourth row.",
+         task: "Evaluate a theme by whether it survives a real projector in a real room.",
+       },
+       {
+         type: "paragraph",
+         text: "A theme sets colors, fonts, and effects across every slide at once, so the whole deck stays coherent and a redesign is one click rather than forty. That is its value. Its risk is that theme choice is usually made on a bright monitor a foot from your face, under conditions nothing like a presentation.",
+       },
+       {
+         type: "paragraph",
+         text: "Projection loses contrast, and ambient light loses more. Strong contrast — genuinely dark text on a genuinely light background, or the reverse — is the single most important property of a presentation theme. Mid-grey on white, or any two mid-tones together, will fail in the room.",
+       },
+       {
+         type: "callout",
+         variant: "warning",
+         text: "Test on the actual equipment when the presentation matters. Colors shift on projectors, thin fonts lose their strokes, and a subtle background gradient can turn into visible banding. Ten minutes in the room beforehand catches all of it — and is also when you discover the resolution is different from your laptop's.",
+       },
+     ],
+   },
 
 {
 heading: "What is a Theme?",
@@ -197,6 +228,13 @@ options: [
 "Replaces all slide content with placeholder text",
 ],
 correctIndex: 2,
+explanation: "A theme applies a coordinated set of colors, fonts, backgrounds, and effects across every slide, so the deck stays visually consistent and can be redesigned in one action.",
+optionRationales: [
+  "Fonts are one part of a theme. It also changes colors, backgrounds, and effects.",
+  "Themes are static design. Animation is applied separately from the Animations tab.",
+  "Correct. A theme changes the overall visual design — colors, fonts, and backgrounds — across the deck.",
+  "Themes never alter content. Only the design changes.",
+],
 },
 ],
 },
@@ -232,6 +270,12 @@ slug: "modifying-themes",
 title: "Modifying Themes",
 description:
 "Learn how to customize PowerPoint themes by changing theme colors, fonts, effects, and background styles.",
+objectives: [
+  "Change theme colors, fonts, and effects independently",
+  "Create and save a custom theme for reuse",
+  "Check color contrast for legibility",
+  "Apply organizational branding consistently",
+],
 duration: "10 min",
 videoUrl: "https://www.youtube.com/embed/UH7Gzjd3rGA",
 
@@ -243,6 +287,31 @@ url: "/practice/powerpoint/module-3/modifying/Powerpoint_ModifyingThemes_Practic
 ],
 
 sections: [
+
+  {
+     heading: "Build the practice's theme once",
+     blocks: [
+       {
+         type: "scenario",
+         role: "You standardize presentations across Lakeside Medical Associates.",
+         text: "Five staff produce decks and all five look different. Patients and partners see materials that do not appear to come from the same organization. Everyone is choosing colors from scratch each time, because there is nothing to choose from.",
+         task: "Define the practice's colors and fonts once as a saved theme, so consistency is the easy path.",
+       },
+       {
+         type: "paragraph",
+         text: "Theme colors, fonts, and effects can each be changed independently from the Design tab's Variants dropdown. Set the practice's palette and typefaces, then Save Current Theme — the theme appears in the gallery for everyone it is shared with, in PowerPoint, Word, and Excel alike.",
+       },
+       {
+         type: "paragraph",
+         text: "Once the theme exists, staff choose from theme colors rather than inventing them, and every deck matches without anyone needing to remember a hex code. Making the consistent choice the easy one is what actually produces consistency.",
+       },
+       {
+         type: "callout",
+         variant: "warning",
+         text: "Check contrast when you set the palette, not afterwards. Body text should reach at least a 4.5:1 contrast ratio against its background; large display text can go to 3:1. Free checkers online will give you the number from two hex values. Building the palette to pass means no one downstream has to think about it.",
+       },
+     ],
+   },
 
 {
 heading: "Modifying PowerPoint Themes",
@@ -486,6 +555,13 @@ options: [
 "Theme colors",
 ],
 correctIndex: 3,
+explanation: "Theme colors define the palette applied across the presentation — backgrounds, text, accents, chart series, and shape fills all draw from it.",
+optionRationales: [
+  "Theme effects control shadows, reflections, and 3-D treatments on shapes.",
+  "Theme fonts set the heading and body typefaces.",
+  "Background styles are variations built from the theme colors, so they follow the palette rather than defining it.",
+  "Correct. Theme colors define the palette used throughout the presentation.",
+],
 },
 ],
 },
@@ -522,6 +598,12 @@ alt: "Final result after modifying a theme",
   title: "Slide Master View",
   description:
     "Learn how to use Slide Master view to make global design changes, create custom layouts, manage placeholders, and keep an entire presentation consistent.",
+  objectives: [
+    "Open Slide Master view and explain what it controls",
+    "Distinguish the master from the layouts beneath it",
+    "Add a logo or standing element to every slide at once",
+    "Edit a layout without affecting the rest of the deck",
+  ],
   duration: "16 min",
   videoUrl: "https://www.youtube.com/embed/h6ARCTypPTg",
 
@@ -533,6 +615,78 @@ alt: "Final result after modifying a theme",
   ],
 
   sections: [
+
+    {
+       heading: "One change instead of forty",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You maintain the standard deck at Lakeside Medical Associates.",
+           text: "The practice logo must appear on every slide of a forty-slide deck. Pasted onto each slide by hand, it lands in forty slightly different positions and takes twenty minutes. Placed on the Slide Master, it appears once on every slide, in exactly the same place, in about fifteen seconds.",
+           task: "Use the master for anything that should appear on every slide.",
+         },
+         {
+           type: "paragraph",
+           text: "Slide Master view (View > Slide Master) shows a hierarchy. The master is at the top, and every layout beneath inherits from it. A change to the master reaches all layouts; a change to one layout affects only slides using that layout. This is the same inheritance idea as styles in Word, applied to slide design.",
+         },
+         {
+           type: "table",
+           caption: "Where to make a change",
+           columns: [
+             "You want to change",
+             "Edit",
+             "Effect",
+           ],
+           rows: [
+             [
+               "Logo on every slide",
+               "The master",
+               "Appears on all layouts at once",
+             ],
+             [
+               "Title font throughout",
+               "The master's title placeholder",
+               "Every layout's title updates",
+             ],
+             [
+               "The title slide only",
+               "The Title Slide layout",
+               "Other slides are unaffected",
+             ],
+             [
+               "Add a new arrangement",
+               "Insert Layout",
+               "Becomes available in the New Slide gallery",
+             ],
+           ],
+         },
+         {
+           type: "worked-example",
+           title: "Putting the practice logo on every slide",
+           task: "Add the logo to a forty-slide deck so it sits identically on every slide and stays there as slides are added.",
+           steps: [
+             {
+               move: "View > Slide Master, and select the top thumbnail — the master itself.",
+               why: "The top thumbnail is larger and sits above the indented layouts. Selecting a layout instead is the usual mistake, and it puts the logo on only the slides using that one layout.",
+             },
+             {
+               move: "Insert the logo and position it, allowing clear space from the edges.",
+               why: "Projectors and video calls sometimes crop the outer edge of a slide. Keeping the logo a little inside the boundary means it survives that, and it looks deliberate rather than jammed into the corner.",
+             },
+             {
+               move: "Close Master View and check several slides, including the title slide.",
+               why: "The Title Slide layout often has its own background and may position or hide the logo differently. Checking a few slides of different layouts confirms the change reached them as intended.",
+             },
+             {
+               move: "Add a new slide and confirm the logo appears on it too.",
+               why: "This is the actual test of whether you edited the master rather than individual slides. A logo that appears on new slides automatically is inherited; one that does not was pasted onto existing slides.",
+             },
+           ],
+           result: "The logo on every slide, in one position, appearing automatically on any slide added later.",
+           takeaway: "Edit the master for what belongs everywhere and a layout for what belongs on one kind of slide. Never paste a standing element onto individual slides.",
+         },
+       ],
+     },
     {
       heading: "What Slide Master View Does",
       blocks: [
@@ -827,6 +981,12 @@ alt: "Final result after modifying a theme",
             "Animations only",
           ],
           correctIndex: 1,
+          explanation: "The Slide Master sits at the top of the design hierarchy: changes there flow down to every layout and therefore to the whole presentation.",
+          optionRationales: [
+            "A single slide is edited directly in Normal view. The master's purpose is precisely that it is not limited to one slide.",
+            "Correct. The master controls the design for the entire presentation through the layouts that inherit from it.",
+            "Animation is applied per object from the Animations tab. The master governs design and layout.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -837,6 +997,12 @@ alt: "Final result after modifying a theme",
             "A font style",
           ],
           correctIndex: 1,
+          explanation: "A layout is a slide structure template — a named arrangement of placeholders that inherits its design from the master. Choosing a layout decides where content sits on that slide.",
+          optionRationales: [
+            "A color theme is part of the theme, set from the Design tab.",
+            "Correct. A layout is a slide structure template defining the placeholder arrangement.",
+            "Font styles come from the theme fonts, not from a layout.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -847,6 +1013,12 @@ alt: "Final result after modifying a theme",
             "To animate slides",
           ],
           correctIndex: 1,
+          explanation: "Placeholders define where content belongs on a slide. Because their position comes from the master, typing into placeholders rather than free text boxes is what keeps every slide aligned consistently.",
+          optionRationales: [
+            "Placeholders do not lock anything. Restricting changes is a separate feature.",
+            "Correct. Placeholders define the content areas, which is what keeps slides consistent.",
+            "Animation is applied separately. A placeholder can be animated, but that is not its purpose.",
+          ],
         },
       ],
     },

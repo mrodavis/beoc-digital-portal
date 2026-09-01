@@ -11,6 +11,12 @@ export const excelModule6Lessons: Lesson[] = [
   title: "Working with Tables",
   description:
     "Learn how to convert datasets into Excel tables, apply styles, add rows automatically, and manage structured data more efficiently.",
+  objectives: [
+    "Convert a range to an Excel Table and explain what changes",
+    "Use structured references in formulas",
+    "Add a total row that respects filtering",
+    "Judge when a Table helps and when a plain range is fine",
+  ],
   duration: "12 min",
 
   videoUrl: "https://www.youtube.com/embed/iroIA8_3soo",
@@ -23,6 +29,64 @@ export const excelModule6Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "A Table knows where its data ends",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You maintain the supply tracker at Lakeside Medical Associates.",
+           text: "Your chart and PivotTable are built on A1:F200. Twelve new rows are added at row 201. The chart does not include them, the PivotTable does not include them, and both look completely normal. Nobody notices for a month.",
+           task: "Use a Table so the range grows with the data and everything built on it follows.",
+         },
+         {
+           type: "paragraph",
+           text: "Insert > Table converts a range into a named object that tracks its own extent. Type into the row below and the Table absorbs it — and so does every chart, PivotTable, and formula referencing the Table. This is the single feature that prevents the silent staleness above.",
+         },
+         {
+           type: "paragraph",
+           text: "Tables also change how formulas read. =SUM(Orders[Cost]) says what it means, where =SUM(E2:E200) requires you to go and look. Structured references make formulas self-documenting, and they cannot drift out of alignment with the data the way fixed ranges do.",
+         },
+         {
+           type: "table",
+           caption: "What converting to a Table gives you",
+           columns: [
+             "Feature",
+             "Effect",
+           ],
+           rows: [
+             [
+               "Auto-expanding range",
+               "New rows and columns are included automatically everywhere",
+             ],
+             [
+               "Structured references",
+               "=SUM(Orders[Cost]) instead of =SUM(E2:E200)",
+             ],
+             [
+               "Filter buttons",
+               "Added to every header automatically",
+             ],
+             [
+               "Total row",
+               "Uses SUBTOTAL, so it respects filtering",
+             ],
+             [
+               "Banded rows",
+               "Readability that survives sorting and inserting",
+             ],
+             [
+               "Formula fill",
+               "A formula entered in one cell fills the whole column",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Name the Table as soon as you create it — Table Design > Table Name. 'Orders' reads far better in formulas than 'Table1', and in a workbook with several tables the default names become impossible to keep straight.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // INTRODUCTION
@@ -267,6 +331,13 @@ export const excelModule6Lessons: Lesson[] = [
             "The table removes duplicate values automatically",
           ],
           correctIndex: 1,
+          explanation: "A Table tracks its own extent, so rows added at the bottom are absorbed automatically — and every chart, PivotTable, and formula referencing the Table picks them up without being updated.",
+          optionRationales: [
+            "Tables do not lock cells. Protection is a separate feature on the Review tab.",
+            "Correct. The Table expands to include new rows, and everything referencing it follows.",
+            "Formulas stay formulas. Tables actually make formulas more readable through structured references.",
+            "Removing duplicates is a separate command on the Data tab. Converting to a Table does not alter your data.",
+          ],
         },
       ],
     },
@@ -312,6 +383,12 @@ export const excelModule6Lessons: Lesson[] = [
   title: "Creating Charts in Excel",
   description:
     "Learn how to visualize data in Excel using charts. Charts help transform raw numbers into visual insights that make trends, comparisons, and patterns easier to understand.",
+  objectives: [
+    "Choose a chart type that matches the question the data answers",
+    "Create and format a chart with clear titles and labels",
+    "Explain how axis choices can mislead a reader",
+    "Decide when a table communicates better than a chart",
+  ],
   duration: "30 min",
 
   videoUrl: "https://www.youtube.com/embed/_Wu7jYTr1Pk",
@@ -328,6 +405,72 @@ export const excelModule6Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "The chart type is a claim about the data",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present supply spending to the board at Lakeside Medical Associates.",
+           text: "You build a pie chart with eleven slices to show spending by category. Four slices are under 3% and their labels overlap into an unreadable tangle. A board member asks which of two similar slices is larger, and nobody can tell by looking.",
+           task: "Match the chart to the question, and recognize when a table would serve better.",
+         },
+         {
+           type: "paragraph",
+           text: "Human perception judges length far more accurately than angle or area. That single fact explains most chart guidance: bar and column charts are read accurately, pie charts poorly. A pie chart works only for parts of one whole, with few enough slices that the comparison is obvious — five or fewer is the usual advice.",
+         },
+         {
+           type: "table",
+           caption: "Choosing a chart type",
+           columns: [
+             "The question",
+             "Chart",
+             "Why",
+           ],
+           rows: [
+             [
+               "How did this change over time?",
+               "Line",
+               "A continuous line is read as continuity",
+             ],
+             [
+               "How do these categories compare?",
+               "Column or bar",
+               "Length is judged accurately",
+             ],
+             [
+               "What share is each part of the whole?",
+               "Pie",
+               "Only for parts of one whole, five or fewer slices",
+             ],
+             [
+               "Are these two measures related?",
+               "Scatter",
+               "Shows the relationship directly",
+             ],
+             [
+               "How does this distribute?",
+               "Histogram",
+               "Shows shape and spread",
+             ],
+             [
+               "Exact values matter more than shape",
+               "A table",
+               "Charts show patterns; tables give precision",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "On a column or bar chart, always start the value axis at zero. Readers compare bar lengths, so truncating the axis makes a 3% difference look like a doubling. Excel sometimes chooses a non-zero start automatically, which means a misleading chart can be produced entirely by accident — check the axis before you present it.",
+         },
+         {
+           type: "tip",
+           text: "Title the chart with the finding, not the subject. 'Medical supply spending rose 18% in Q3' does the interpretive work for the reader. 'Supply Spending by Quarter' leaves them to work it out, and some will reach the wrong conclusion.",
+         },
+       ],
+     },
     // ------------------------------------------------------------
     // INTRODUCTION
     // ------------------------------------------------------------
@@ -584,6 +727,13 @@ export const excelModule6Lessons: Lesson[] = [
             "Area chart",
           ],
           correctIndex: 2,
+          explanation: "A pie chart shows parts of a single whole. Keep it to five or fewer slices — beyond that, differences in angle become hard to judge and a bar chart communicates far better.",
+          optionRationales: [
+            "Bar charts compare values across categories, which readers judge accurately — but the bars do not inherently represent shares of a whole.",
+            "Line charts show change over a continuous variable, usually time.",
+            "Correct. Pie charts show each category's share of a single total.",
+            "Area charts show change over time with the area filled beneath. They emphasize magnitude over time rather than composition at a moment.",
+          ],
         },
       ],
     },
@@ -626,6 +776,12 @@ export const excelModule6Lessons: Lesson[] = [
   title: "Introduction to PivotTables",
   description:
     "PivotTables allow you to summarize large datasets instantly and reorganize your data to answer questions quickly.",
+  objectives: [
+    "Build a PivotTable from a clean data range",
+    "Arrange fields across Rows, Columns, Values, and Filters",
+    "Change how values are summarized",
+    "Refresh a PivotTable when the source data changes",
+  ],
   videoUrl: "https://www.youtube.com/embed/N4K3xjM76kI",
   duration: "35 min",
 
@@ -637,6 +793,62 @@ export const excelModule6Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Answering four questions in three minutes",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You are asked for a spending breakdown at Lakeside Medical Associates.",
+           text: "Your supervisor asks: what did we spend per department last month, what are the top categories, which vendors got the most, and how does May compare with April? Answered with formulas and manual summary tables, that is most of an afternoon. Answered with one PivotTable, it is about three minutes.",
+           task: "Learn to summarize a large data set by rearranging fields rather than writing formulas.",
+         },
+         {
+           type: "paragraph",
+           text: "A PivotTable summarizes a data set by whatever fields you drag into it, without altering the source in any way. Drag Department to Rows and Amount to Values and you have spending per department. Drag Month to Columns as well and you have a full cross-tab. Each rearrangement is a new question answered, and the underlying data is never touched.",
+         },
+         {
+           type: "table",
+           caption: "The four areas",
+           columns: [
+             "Area",
+             "Field goes here to",
+             "Example",
+           ],
+           rows: [
+             [
+               "Rows",
+               "Become the row labels",
+               "Department, one per row",
+             ],
+             [
+               "Columns",
+               "Become the column headings",
+               "Month, one per column",
+             ],
+             [
+               "Values",
+               "Be summarized — summed, counted, averaged",
+               "Amount, summed",
+             ],
+             [
+               "Filters",
+               "Filter the whole table",
+               "Year, to show one year at a time",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "PivotTables do not update automatically when the source data changes. You must click Refresh on the PivotTable Analyze tab, and forgetting is one of the most common ways a stale figure reaches a report. Building the PivotTable on an Excel Table rather than a fixed range at least ensures new rows are included when you do refresh.",
+         },
+         {
+           type: "tip",
+           text: "If Excel summarizes a numeric column with Count instead of Sum, that column contains text somewhere — often a stray note or a number stored as text. The PivotTable is telling you about a data quality problem worth fixing at the source.",
+         },
+       ],
+     },
 
     {
       heading: "Why PivotTables Are Powerful",
@@ -828,6 +1040,13 @@ export const excelModule6Lessons: Lesson[] = [
             "Automatically correct formulas that return errors",
           ],
           correctIndex: 2,
+          explanation: "A PivotTable summarizes and reorganizes a large data set — totalling, counting, and cross-tabulating by whatever fields you choose — without altering the source data at all. Rearranging fields answers a new question in seconds.",
+          optionRationales: [
+            "Charts are created from Insert > Chart. A PivotChart can be built on a PivotTable, but summarizing is what the PivotTable itself does.",
+            "Conditional Formatting is a separate feature and works on ranges rather than being a PivotTable function.",
+            "Correct. It summarizes and reorganizes large data sets while leaving the source data untouched.",
+            "PivotTables do not repair formulas. Error checking is under the Formulas tab.",
+          ],
         },
       ],
     },

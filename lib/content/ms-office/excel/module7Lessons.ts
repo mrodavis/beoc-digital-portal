@@ -11,6 +11,12 @@ LESSON 1 – DOING MORE WITH PIVOTTABLES
   title: "Doing More with PivotTables",
   description:
     "Learn how to perform deeper analysis with PivotTables by filtering, grouping, and refreshing summarized data.",
+  objectives: [
+    "Add slicers and timelines as visual filters",
+    "Group dates and numeric values into meaningful bands",
+    "Change value calculations to show percentages and running totals",
+    "Connect one slicer to several PivotTables",
+  ],
   duration: "10 min",
 
   videoUrl: "https://www.youtube.com/embed/FVzX4I88DBs",
@@ -23,6 +29,35 @@ LESSON 1 – DOING MORE WITH PIVOTTABLES
     ],
 
     sections: [
+
+      {
+         heading: "Making a PivotTable usable by someone else",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You build the spending dashboard at Lakeside Medical Associates.",
+             text: "The practice manager needs to look at one department at a time. Explaining the PivotTable field list means explaining Rows, Columns, Values, and Filters. Adding a slicer means saying 'click the department you want.'",
+             task: "Add controls that let a non-Excel user explore the data without instruction.",
+           },
+           {
+             type: "paragraph",
+             text: "A slicer is a filter with buttons. It does exactly what the Filters area does, but visibly — and crucially, it shows the current filter state, so nobody misreads a filtered table as the full picture. That failure mode is common enough with the Filters dropdown to justify slicers on its own.",
+           },
+           {
+             type: "paragraph",
+             text: "A timeline is the equivalent for dates: a slider for choosing months, quarters, or years. Both can be connected to several PivotTables at once through Report Connections, so one click filters an entire dashboard consistently.",
+           },
+           {
+             type: "tip",
+             text: "Show Values As (right-click a value > Show Values As) reframes numbers without any formula work: % of Grand Total, % of Parent Row, Running Total, or Difference From the previous period. 'Medical supplies are 46% of spending' often lands better than the raw dollar figure.",
+           },
+           {
+             type: "callout",
+             variant: "info",
+             text: "Right-click a date field and choose Group to band dates by month, quarter, or year; the same command bands numbers into ranges. This is how a thousand individual transaction dates become a readable twelve-row monthly summary.",
+           },
+         ],
+       },
 
     {
     heading: "Filtering PivotTables",
@@ -189,6 +224,13 @@ LESSON 1 – DOING MORE WITH PIVOTTABLES
         "Converts PivotTable data into a regular cell range",
       ],
       correctIndex: 2,
+      explanation: "A slicer is a visual filter: clickable buttons for each value in a field. Its advantage over the Filters dropdown is that the current filter state is always visible, so nobody mistakes a filtered table for the whole data set.",
+      optionRationales: [
+        "Slicers filter a PivotTable. They never split it into separate tables.",
+        "Nothing is deleted. Slicers filter what is displayed, leaving the source data untouched.",
+        "Correct. A slicer provides visible, clickable filter buttons, with the current selection always on screen.",
+        "Converting a PivotTable to a range is a separate operation. A slicer only filters.",
+      ],
     },
     ],
     },
@@ -221,6 +263,12 @@ LESSON 2 – WHAT-IF ANALYSIS
     title: "What-If Analysis",
     description:
     "Learn how to experiment with data using Excel’s What-If Analysis tools. In this lesson you will use Goal Seek to determine unknown values, explore Scenario Manager, and understand how Data Tables allow you to test multiple possibilities at once.",
+    objectives: [
+      "Use Goal Seek to find the input needed for a target result",
+      "Compare alternatives with Scenario Manager",
+      "Use a Data Table to see results across many input values",
+      "Explain what What-If tools can and cannot tell you",
+    ],
     duration: "35 min",
 
     videoUrl: "https://www.youtube.com/embed/STTYxT6iFio",
@@ -233,6 +281,53 @@ LESSON 2 – WHAT-IF ANALYSIS
     ],
 
     sections: [
+
+      {
+         heading: "Working backwards from the answer you need",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You plan next year's supply budget at Lakeside Medical Associates.",
+             text: "The budget must come in at $85,000. Current projections say $92,400. The question is not what the total is — it is how much the per-visit supply cost would have to fall to reach the target. Guessing and re-checking is slow and imprecise.",
+             task: "Let Excel solve for the input value that produces the result you need.",
+           },
+           {
+             type: "paragraph",
+             text: "Goal Seek (Data > What-If Analysis > Goal Seek) reverses a calculation. You name the formula cell, the result you want, and the input cell to vary. Excel adjusts that input until the formula produces the target. It answers 'what would this need to be?' rather than 'what is this?'",
+           },
+           {
+             type: "table",
+             caption: "The three What-If tools",
+             columns: [
+               "Tool",
+               "Answers",
+               "Varies",
+             ],
+             rows: [
+               [
+                 "Goal Seek",
+                 "What input gives me this exact result?",
+                 "One input",
+               ],
+               [
+                 "Data Table",
+                 "What happens across a range of inputs?",
+                 "One or two inputs, many values",
+               ],
+               [
+                 "Scenario Manager",
+                 "How do named alternatives compare?",
+                 "Several inputs, saved as named sets",
+               ],
+             ],
+           },
+           {
+             type: "callout",
+             variant: "warning",
+             text: "Goal Seek finds the arithmetic answer, not the achievable one. It may report that the per-visit supply cost needs to fall 31%, which is a real number and possibly an impossible operational target. The tool tells you what the model requires; whether that is attainable is a judgment it cannot make. Always state the required change to a decision-maker rather than presenting it as a plan.",
+           },
+         ],
+       },
 
     {
     heading: "Understanding What-If Analysis",
@@ -552,6 +647,13 @@ LESSON 2 – WHAT-IF ANALYSIS
         "Goal Seek",
       ],
       correctIndex: 3,
+      explanation: "Goal Seek works backwards from a target: you specify the result you want and which input may change, and Excel finds the input value that produces it.",
+      optionRationales: [
+        "Scenario Manager compares named sets of input values. It shows how alternatives differ rather than solving for a target.",
+        "A Data Table shows results across a range of input values in a grid. It surveys outcomes rather than finding one specific input.",
+        "Solver handles complex problems with multiple variables and constraints. It is the heavier tool; Goal Seek is the right one for a single input and a single target.",
+        "Correct. Goal Seek finds the input value needed to reach a specified result.",
+      ],
     },
     ],
     },
@@ -587,9 +689,39 @@ LESSON 3 – REFERENCE STYLES
     title: "What are Reference Styles?",
     description:
     "Learn the difference between A1 and R1C1 reference styles in Excel and how to switch between them using the Excel Options menu.",
+    objectives: [
+      "Explain the difference between A1 and R1C1 reference styles",
+      "Switch between reference styles in Excel Options",
+      "Read an R1C1 formula and recognize relative offsets",
+      "Recognize when R1C1 is genuinely useful",
+    ],
     duration: "10 min",
 
     sections: [
+
+      {
+         heading: "The same cell, described two ways",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You audit an inherited workbook at Lakeside Medical Associates.",
+             text: "You open a colleague's file and the column headers are numbers instead of letters. Formulas read =RC[-1]*R1C6. Nothing is broken — the workbook is simply using the other reference style, and R1C1 is not something most people ever see.",
+             task: "Recognize R1C1 notation, know how to switch it off, and understand why it exists.",
+           },
+           {
+             type: "paragraph",
+             text: "A1 style names a cell by column letter and row number. R1C1 style names it by row and column number, so row 3 column 2 is R3C2 — the same cell A1 style calls B3. Both describe an identical grid; only the notation differs.",
+           },
+           {
+             type: "paragraph",
+             text: "R1C1's real utility is that it makes relative references explicit. In R1C1, brackets mean an offset from the current cell: RC[-1] is 'the cell one column to my left,' whatever row it is in. Copy that formula anywhere and it still reads RC[-1] — which makes it obvious that every cell in a column holds the same logic, something A1 style hides behind changing addresses.",
+           },
+           {
+             type: "tip",
+             text: "To switch, go to File > Options > Formulas and check or uncheck 'R1C1 reference style.' It is a per-application setting rather than a property of the file, so a workbook that looks wrong to you looks normal to whoever created it.",
+           },
+         ],
+       },
 
     {
     heading: "Understanding Reference Styles",
@@ -738,6 +870,13 @@ LESSON 3 – REFERENCE STYLES
         "3B",
       ],
       correctIndex: 2,
+      explanation: "R1C1 style names the row first and the column second, so row 3 column 2 is R3C2 — the cell that A1 style calls B3.",
+      optionRationales: [
+        "B3 is the A1-style name for the same cell. The question asks for the R1C1 form.",
+        "This reverses the order. R1C1 style always puts the row before the column, which is what the name itself indicates.",
+        "Correct. R3C2 means row 3, column 2.",
+        "This mixes the two notations and is not valid in either style.",
+      ],
     },
     ],
     },

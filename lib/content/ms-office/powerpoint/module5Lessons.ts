@@ -7,6 +7,12 @@ export const powerpointModule5Lessons: Lesson[] = [
   title: "Inserting Pictures",
   description:
     "Learn how to insert pictures from your computer, online sources, screenshots, and screen clippings, then resize and position them on your slides.",
+  objectives: [
+    "Insert pictures from your computer, online sources, and screen captures",
+    "Use Screen Clipping to capture part of the screen",
+    "Choose images that carry meaning rather than decorate",
+    "Respect licensing when using images you did not create",
+  ],
   duration: "13 min",
   videoUrl: "https://www.youtube.com/embed/I-xlLwC4ERc",
 
@@ -18,6 +24,32 @@ export const powerpointModule5Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "An image should do a job",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You build a training deck at Lakeside Medical Associates.",
+           text: "You add a stock photo of smiling people in scrubs to every slide because the slides looked bare. None of the photos relate to what the slides say. They add nothing, they cost the audience a moment of attention each time, and the file is now 40 MB.",
+           task: "Use images that carry information, and leave slides alone when they do not need one.",
+         },
+         {
+           type: "paragraph",
+           text: "A picture earns its place when it shows something words handle poorly — what a form looks like, where a control sits, how a workflow branches, what a trend does. A screenshot of the actual EHR screen teaches. A stock photo of anonymous clinicians does not.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Images found through a web search are not free to use. Most are copyrighted, and using one in materials your organization distributes creates real exposure. Use PowerPoint's built-in stock images, photographs your practice owns, or sources with an explicit license that permits your use — and keep a note of where each came from.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Screenshots of clinical systems are a particular risk. Before capturing any screen showing patient data, use a training or demo environment, or fully redact the information — and redact by editing the image itself, not by covering it with a shape. A shape laid over a name in PowerPoint can simply be dragged aside by anyone who opens the file.",
+         },
+       ],
+     },
 
     // --------------------------------------------------
     // WHY PICTURES MATTER
@@ -330,6 +362,13 @@ export const powerpointModule5Lessons: Lesson[] = [
             "Insert Object",
           ],
           correctIndex: 1,
+          explanation: "Screen Clipping, on the Screenshot dropdown, dims the screen and lets you drag a rectangle around just the region you want, inserting that area alone.",
+          optionRationales: [
+            "Screenshot inserts a whole available window. Screen Clipping is the option on its menu for capturing a region.",
+            "Correct. Screen Clipping captures only the part of the screen you drag around.",
+            "Online Pictures searches the web for images rather than capturing your own screen.",
+            "Insert Object embeds a file or another application's content, which is a different feature.",
+          ],
         },
       ],
     },
@@ -383,6 +422,12 @@ export const powerpointModule5Lessons: Lesson[] = [
     title: "Formatting Pictures",
     description:
       "Learn how to enhance and customize images using picture styles, corrections, color adjustments, artistic effects, cropping, and compression tools in PowerPoint.",
+    objectives: [
+      "Crop, resize, and adjust images without distorting them",
+      "Compress images to control presentation file size",
+      "Remove a background to isolate a subject",
+      "Add alt text so images are accessible",
+    ],
     duration: "14 min",
     videoUrl: "https://www.youtube.com/embed/LD52XcAhL3s",
 
@@ -394,6 +439,35 @@ export const powerpointModule5Lessons: Lesson[] = [
     ],
 
     sections: [
+
+      {
+         heading: "Never resize an image by dragging a side handle",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You finish the orientation deck at Lakeside Medical Associates.",
+             text: "You widen a staff photo by dragging the right-hand handle to fill the space. Everyone in the photo is now noticeably stretched. The file is also 60 MB, because eleven phone photos are embedded at full resolution, and it bounces from the practice's email.",
+             task: "Resize proportionally and compress deliberately.",
+           },
+           {
+             type: "paragraph",
+             text: "Dragging a side or top handle changes one dimension only, which distorts the image — obvious and unflattering on any photo containing a face. Always drag a corner handle, which preserves the aspect ratio, and hold Shift if you want to be certain.",
+           },
+           {
+             type: "paragraph",
+             text: "Compression is the other habit. Picture Format > Compress Pictures reduces embedded images to a resolution appropriate for the output. For a projected presentation, 150 ppi is ample and will typically cut the file size by an order of magnitude. Uncheck 'Apply only to this picture' to compress the whole deck at once.",
+           },
+           {
+             type: "callout",
+             variant: "warning",
+             text: "Check 'Delete cropped areas of pictures' when compressing. Cropping only hides the removed region — the pixels remain in the file, and anyone can drag the crop handles back out to reveal them. If you cropped a photo to remove a patient in the background, that person is still in the file until you delete the cropped areas.",
+           },
+           {
+             type: "tip",
+             text: "Add alt text to every meaningful image: right-click > Edit Alt Text. Describe what the image conveys rather than what it depicts. Mark purely decorative images as decorative so screen readers skip them.",
+           },
+         ],
+       },
 
       // --------------------------------------------------
       // INTRO
@@ -693,6 +767,13 @@ export const powerpointModule5Lessons: Lesson[] = [
               "Corrections",
             ],
             correctIndex: 2,
+            explanation: "Compress Pictures reduces the resolution of embedded images to what the output actually needs, which is usually the largest single reduction available to a presentation's file size.",
+            optionRationales: [
+              "Picture Styles add frames and effects. They change appearance and can slightly increase file size.",
+              "Cropping hides part of an image but leaves the hidden pixels in the file unless you also delete cropped areas during compression.",
+              "Correct. Compress Pictures lowers embedded image resolution and can discard cropped regions.",
+              "Corrections adjusts brightness and sharpness without reducing the stored data.",
+            ],
           },
         ],
       },
@@ -732,6 +813,12 @@ export const powerpointModule5Lessons: Lesson[] = [
   title: "Shapes in PowerPoint",
   description:
     "Learn how to insert, format, resize, rotate, and customize shapes to make your slides more visually engaging and professional.",
+  objectives: [
+    "Insert, resize, and rotate shapes precisely",
+    "Change one shape into another without rebuilding it",
+    "Use shape styles consistently across a diagram",
+    "Build simple diagrams that explain a process",
+  ],
   duration: "9 min",
   videoUrl: "https://www.youtube.com/embed/lwBSCkmhwJA",
 
@@ -743,6 +830,57 @@ export const powerpointModule5Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Shapes make relationships visible",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You explain the referral workflow at Lakeside Medical Associates.",
+           text: "Described in bullets, the workflow takes three slides and still leaves people unsure where the decision point sits. Drawn as boxes, a diamond, and arrows, it fits on one slide and needs no explanation at all.",
+           task: "Use shapes where the relationship between steps is the actual content.",
+         },
+         {
+           type: "paragraph",
+           text: "Diagrams are worth building when structure is the point — a sequence, a branch, a hierarchy. Bullets flatten all of these into a list of equal-looking items, which is exactly what loses the structure.",
+         },
+         {
+           type: "table",
+           caption: "Handles on a selected shape",
+           columns: [
+             "Handle",
+             "Appearance",
+             "Does",
+           ],
+           rows: [
+             [
+               "Sizing",
+               "White squares at corners and edges",
+               "Resizes — use corners to keep proportions",
+             ],
+             [
+               "Rotation",
+               "Circular arrow above the shape",
+               "Rotates; hold Shift for 15° increments",
+             ],
+             [
+               "Adjustment",
+               "Yellow dot",
+               "Changes the shape's proportions, such as an arrow's head size",
+             ],
+             [
+               "Connection",
+               "Grey dots on the outline",
+               "Anchors a connector so it follows the shape when moved",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Edit Shape > Change Shape converts an existing shape to a different one while keeping its size, position, text, and formatting. When a rectangle should have been a diamond, this is one command instead of rebuilding and re-styling it.",
+         },
+       ],
+     },
 
     {
       heading: "Why Shapes Matter",
@@ -1076,6 +1214,13 @@ export const powerpointModule5Lessons: Lesson[] = [
             "The center point of the shape",
           ],
           correctIndex: 2,
+          explanation: "The circular arrow handle above a selected shape rotates it. Holding Shift while dragging constrains rotation to 15-degree increments.",
+          optionRationales: [
+            "The yellow adjustment handle changes a shape's internal proportions, such as the thickness of an arrow.",
+            "Corner sizing handles resize the shape while preserving its proportions.",
+            "Correct. The circular handle above the shape rotates it.",
+            "The center point is not a handle. Dragging inside a shape moves it.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -1088,6 +1233,13 @@ export const powerpointModule5Lessons: Lesson[] = [
             "Edit Shape → Change Shape",
           ],
           correctIndex: 3,
+          explanation: "Edit Shape > Change Shape swaps the shape's geometry while preserving its size, position, text, and formatting — so you never have to rebuild and re-style it.",
+          optionRationales: [
+            "Shape Fill changes the interior color, not the geometry.",
+            "Shape Effects adds shadows and reflections, leaving the shape itself unchanged.",
+            "Picture Border applies to pictures rather than shapes.",
+            "Correct. Edit Shape > Change Shape converts one shape into another, keeping everything else.",
+          ],
         },
       ],
     },
@@ -1126,6 +1278,12 @@ export const powerpointModule5Lessons: Lesson[] = [
   title: "Aligning, Ordering, and Grouping Objects",
   description:
     "Learn how to align objects, distribute them evenly, group and ungroup items, control object layering, and rotate objects to create cleaner, more professional slides.",
+  objectives: [
+    "Align and distribute objects precisely",
+    "Group objects so they move and scale together",
+    "Use guides and smart guides for consistent placement",
+    "Diagnose why the Group command is sometimes unavailable",
+  ],
   duration: "13 min",
   videoUrl: "https://www.youtube.com/embed/2GyjYgr-tSM",
 
@@ -1137,6 +1295,31 @@ export const powerpointModule5Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Alignment is what the audience notices without noticing",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You finish the workflow diagram at Lakeside Medical Associates.",
+           text: "Five boxes positioned by dragging. Projected at three metres wide, the small misalignments become very visible, and the diagram reads as careless — which is not a good impression for a document describing a clinical process.",
+           task: "Use alignment and distribution so the layout is exact, then group it so it stays that way.",
+         },
+         {
+           type: "paragraph",
+           text: "Select several objects and use Shape Format > Align. Align Left puts every left edge on the same coordinate; Distribute Horizontally makes the gaps mathematically equal. Both are exact, and projection magnifies every error that dragging leaves behind.",
+         },
+         {
+           type: "paragraph",
+           text: "Group (Ctrl+G) then binds the finished diagram into one object, so moving or resizing it preserves every internal relationship. Without grouping, moving a diagram means moving each piece and re-aligning at the destination.",
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "If Group is greyed out, the usual cause is that one selected item is a placeholder rather than a free object. Placeholders belong to the layout and cannot be grouped with ordinary shapes. Either build the diagram entirely from inserted shapes, or copy the placeholder's content into a text box first.",
+         },
+       ],
+     },
 
     // --------------------------------------------------
     // WHY THIS LESSON MATTERS
@@ -1558,6 +1741,13 @@ export const powerpointModule5Lessons: Lesson[] = [
             "Group",
           ],
           correctIndex: 1,
+          explanation: "Distribute Horizontally makes the horizontal gaps between selected objects equal. It needs at least three objects to be meaningful, since it adjusts the ones between the outermost two.",
+          optionRationales: [
+            "Align Middle lines objects up on a shared horizontal axis. It aligns rather than spaces them.",
+            "Correct. Distribute Horizontally equalizes the horizontal spacing between the selected objects.",
+            "Send Backward changes stacking order, which controls what sits on top of what.",
+            "Group combines objects into one unit but does not reposition them.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -1570,6 +1760,13 @@ export const powerpointModule5Lessons: Lesson[] = [
             "You must rotate the objects first",
           ],
           correctIndex: 2,
+          explanation: "Placeholders belong to the slide layout rather than to the slide, so they cannot be grouped with ordinary shapes. Selecting one alongside free shapes disables Group.",
+          optionRationales: [
+            "Object size has no effect on whether Group is available.",
+            "A read-only file disables editing altogether, not the Group command specifically.",
+            "Correct. A placeholder in the selection prevents grouping, because placeholders belong to the layout.",
+            "Rotation is unrelated to grouping.",
+          ],
         },
       ],
     },

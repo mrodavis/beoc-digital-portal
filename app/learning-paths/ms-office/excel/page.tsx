@@ -9,10 +9,10 @@ export default function ExcelPage() {
       {/* Breadcrumb */}
       <nav className="mb-8 text-sm text-gray-600">
         <Link href="/learning-paths/ms-office" className="hover:text-primary-600">
-          Microsoft Office 2019
+          Microsoft Office
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900 font-medium">Excel 2019</span>
+        <span className="text-gray-900 font-medium">Microsoft Excel</span>
       </nav>
 
       {/* Header */}
@@ -21,7 +21,7 @@ export default function ExcelPage() {
           <span className="text-6xl">📊</span>
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Excel 2019
+              Microsoft Excel
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
               Master Excel from spreadsheet fundamentals to advanced data analysis,
@@ -92,7 +92,7 @@ export default function ExcelPage() {
         <h3 className="text-lg font-bold mb-3">Prerequisites</h3>
         <ul className="space-y-2 text-gray-700">
           <li>• Basic computer literacy</li>
-          <li>• Microsoft Excel 2019 or Microsoft 365 installed</li>
+          <li>• Microsoft Excel (Microsoft 365 or Office 2019)</li>
           <li>• Willingness to practice with real datasets</li>
         </ul>
       </div>

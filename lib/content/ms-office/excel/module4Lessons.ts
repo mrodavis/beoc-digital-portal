@@ -11,6 +11,12 @@ export const excelModule4Lessons: Lesson[] = [
   title: "Complex Formulas & Order of Operations",
   description:
     "Use PEMDAS and parentheses to control calculation order when building multi-step formulas such as subtotals and tax.",
+  objectives: [
+    "Predict the result of a formula using the order of operations",
+    "Use parentheses to make evaluation order explicit",
+    "Break a long formula into intermediate steps for auditability",
+    "Use Evaluate Formula to see how Excel works through a calculation",
+  ],
   duration: "12 min",
 
   videoUrl: "https://www.youtube.com/embed/J-W3thqtDpQ",
@@ -23,6 +29,67 @@ export const excelModule4Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Excel follows precedence, not reading order",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You calculate supply costs with tax at Lakeside Medical Associates.",
+           text: "You write =C2+D2*0.08 intending to add the item cost to the tax. Excel multiplies first, so it adds 8% of the shipping to the item price instead. Every line is wrong by a small amount, which is exactly the kind of error nobody notices for months.",
+           task: "Know the order Excel evaluates in, and use parentheses so intent is never ambiguous.",
+         },
+         {
+           type: "paragraph",
+           text: "Excel evaluates in a fixed order regardless of how the formula reads left to right: parentheses first, then exponents, then multiplication and division, then addition and subtraction. Operators at the same level evaluate left to right. So =2+3*4 is 14, not 20 — the multiplication happens first.",
+         },
+         {
+           type: "table",
+           caption: "Order of operations",
+           columns: [
+             "Order",
+             "Operators",
+             "Example",
+           ],
+           rows: [
+             [
+               "1",
+               "Parentheses ( )",
+               "=(2+3)*4 gives 20",
+             ],
+             [
+               "2",
+               "Exponents ^",
+               "=2^3*4 gives 32",
+             ],
+             [
+               "3",
+               "Multiplication and division * /",
+               "=2+3*4 gives 14",
+             ],
+             [
+               "4",
+               "Addition and subtraction + -",
+               "=2+3-1 gives 4",
+             ],
+             [
+               "5",
+               "Comparison = < > <= >= <>",
+               "=A1>B1 gives TRUE or FALSE",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Add parentheses even where precedence already gives the right answer. =(C2*D2)+(E2*F2) and =C2*D2+E2*F2 produce the same number, but the first states its intent, and the next person to edit it — quite possibly you — will not have to work out whether the omission was deliberate.",
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "For a formula you cannot reason about, select the cell and use Formulas > Evaluate Formula. It steps through the calculation one operation at a time, showing intermediate results. It is the fastest way to find where a long formula diverges from what you intended.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // PEMDAS Overview
@@ -244,6 +311,13 @@ export const excelModule4Lessons: Lesson[] = [
             "11",
           ],
           correctIndex: 1,
+          explanation: "Multiplication is evaluated before addition, so Excel computes 3*4 = 12 first and then adds 2, giving 14. Writing =(2+3)*4 would give 20.",
+          optionRationales: [
+            "20 is what you get from =(2+3)*4, where parentheses force the addition first.",
+            "Correct. 3*4 is evaluated first, then 2 is added, giving 14.",
+            "24 would require multiplying 2, 3, and 4 together, which the formula does not do.",
+            "11 would result from 2+3*3 or a similar variation. The multiplication here yields 12, not 9.",
+          ],
         },
       ],
     },
@@ -313,6 +387,12 @@ export const excelModule4Lessons: Lesson[] = [
   title: "Relative & Absolute Cell References",
   description:
     "Learn how relative, absolute, and mixed references behave when formulas are copied, and how to reference cells across worksheets.",
+  objectives: [
+    "Explain how relative references shift when a formula is copied",
+    "Use absolute references to anchor a formula to a fixed cell",
+    "Use mixed references to lock only a row or only a column",
+    "Cycle reference types with F4 while editing",
+  ],
   duration: "25 min",
 
   videoUrl: "https://www.youtube.com/embed/iDg9s7BJ2m4",
@@ -325,6 +405,61 @@ export const excelModule4Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "The dollar sign means 'do not move this'",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You apply a tax rate across the supply sheet at Lakeside Medical Associates.",
+           text: "The rate is in F1. You write =E2*F1 in the first row and fill down. Row 3 becomes =E3*F2, row 4 becomes =E4*F3 — the reference slid down with the formula, off the rate and into empty cells. Every row below the first is now wrong, and most show a plausible-looking zero.",
+           task: "Control which parts of a reference move when a formula is copied.",
+         },
+         {
+           type: "paragraph",
+           text: "A relative reference like F1 is really an instruction about position: 'the cell one column right and one row up from me.' Copy the formula down and that instruction is re-evaluated from the new location, which is why it slides. This is exactly what you want for =C2*D2, and exactly what you do not want for a rate cell.",
+         },
+         {
+           type: "paragraph",
+           text: "A dollar sign freezes the part it precedes. $F$1 is fully absolute and never moves. F$1 locks the row but lets the column shift. $F1 locks the column but lets the row shift. These mixed forms are what let a single formula fill across a whole grid — a rate table where one axis is fixed by row and the other by column.",
+         },
+         {
+           type: "table",
+           caption: "Reference types",
+           columns: [
+             "Written",
+             "Called",
+             "When copied",
+           ],
+           rows: [
+             [
+               "F1",
+               "Relative",
+               "Both column and row shift",
+             ],
+             [
+               "$F$1",
+               "Absolute",
+               "Never changes",
+             ],
+             [
+               "F$1",
+               "Mixed — row locked",
+               "Column shifts, row stays at 1",
+             ],
+             [
+               "$F1",
+               "Mixed — column locked",
+               "Row shifts, column stays at F",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "While editing a formula, put the cursor in a reference and press F4 to cycle F1 → $F$1 → F$1 → $F1 → F1. It is far faster than typing dollar signs and is the standard way experienced users set reference types.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // RELATIVE REFERENCES
@@ -590,6 +725,13 @@ export const excelModule4Lessons: Lesson[] = [
             "Dollar sign ($)",
           ],
           correctIndex: 3,
+          explanation: "The dollar sign locks the part of the reference that follows it. $F$1 is fully absolute and never shifts when copied; F$1 and $F1 lock only the row or only the column.",
+          optionRationales: [
+            "The ampersand joins text values together — =A1&\" \"&B1 concatenates. It has nothing to do with reference behavior.",
+            "The asterisk is the multiplication operator, and also a wildcard in searches.",
+            "The hash appears in error displays like ##### and in modern spill references, but it does not make a reference absolute.",
+            "Correct. The dollar sign locks the column or row it precedes, so $F$1 never moves when copied.",
+          ],
         },
       ],
     },
@@ -672,6 +814,12 @@ export const excelModule4Lessons: Lesson[] = [
   title: "Working with Functions",
   description:
     "Learn how to use Excel functions including SUM, AVERAGE, COUNT, MAX, MIN, COUNTA, and NETWORKDAYS. Understand syntax, arguments, and how to insert functions using AutoSum and the Function Library.",
+  objectives: [
+    "Use SUM, AVERAGE, COUNT, MIN, and MAX correctly",
+    "Explain what COUNT counts and how COUNTA differs",
+    "Use IF to return different values based on a condition",
+    "Read a function's arguments from the ScreenTip while typing",
+  ],
   duration: "35 min",
 
   videoUrls: [
@@ -687,6 +835,72 @@ export const excelModule4Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Functions are named calculations that survive editing",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You total supply costs at Lakeside Medical Associates.",
+           text: "You write =E2+E3+E4+E5+E6 to total five items. A sixth item is added on a new row inside that range, and the total silently ignores it. The number looks entirely reasonable, so the omission is never questioned.",
+           task: "Use range-based functions, which absorb inserted rows instead of ignoring them.",
+         },
+         {
+           type: "paragraph",
+           text: "=SUM(E2:E6) refers to a region rather than a list of cells. Insert a row inside that region and Excel expands the range automatically, so the new value is included. This is the practical reason to prefer functions over chains of arithmetic, quite apart from the typing they save.",
+         },
+         {
+           type: "table",
+           caption: "The functions worth knowing first",
+           columns: [
+             "Function",
+             "Returns",
+             "Note",
+           ],
+           rows: [
+             [
+               "=SUM(A1:A10)",
+               "The total",
+               "Ignores text and empty cells",
+             ],
+             [
+               "=AVERAGE(A1:A10)",
+               "The mean",
+               "Skips empty cells but includes zeros — these give different answers",
+             ],
+             [
+               "=COUNT(A1:A10)",
+               "How many cells hold numbers",
+               "Text and blanks are not counted",
+             ],
+             [
+               "=COUNTA(A1:A10)",
+               "How many cells are not empty",
+               "Counts text as well as numbers",
+             ],
+             [
+               "=MIN / =MAX(A1:A10)",
+               "The smallest or largest value",
+               "Useful for range checks on entered data",
+             ],
+             [
+               "=IF(A1>100,\"Over\",\"OK\")",
+               "One of two values, by condition",
+               "The basis of every status column",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "AVERAGE ignores empty cells but includes zeros, and the difference matters. Ten items where two are genuinely zero average differently from ten items where two were never filled in. If blanks mean 'not yet recorded,' leave them blank; if they mean zero, enter 0. The distinction changes the answer.",
+         },
+         {
+           type: "tip",
+           text: "As you type =SUM( Excel shows a ScreenTip listing the arguments, with the current one in bold. Reading it is faster than looking a function up, and clicking an argument name in the tip selects that part of the formula.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // INTRODUCTION
@@ -917,6 +1131,13 @@ export const excelModule4Lessons: Lesson[] = [
             "=COUNT(A1:A10)",
           ],
           correctIndex: 2,
+          explanation: "=SUM(A1:A10) adds every numeric value in the range. Because it refers to a range rather than individual cells, inserting a row inside it extends the range automatically.",
+          optionRationales: [
+            "There is no ADD function in Excel. This returns #NAME?, the error meaning Excel does not recognize a name in the formula.",
+            "There is no TOTAL function either. It also returns #NAME?.",
+            "Correct. SUM adds all numeric values in the specified range.",
+            "COUNT returns how many cells contain numbers — it would give 10, not the total of the values.",
+          ],
         },
       ],
     },

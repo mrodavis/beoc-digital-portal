@@ -7,6 +7,12 @@ export const powerpointModule8Lessons: Lesson[] = [
   title: "Checking Spelling & Using Comments",
   description:
     "Learn how to run a spell check, use the built-in thesaurus, add and review comments, and use Track Changes tools to collaborate and polish your presentation before delivery.",
+  objectives: [
+    "Run spell check across a presentation",
+    "Add, reply to, and resolve comments",
+    "Remove comments before presenting or distributing",
+    "Proofread the things spell check cannot catch",
+  ],
   duration: "8 min",
   videoUrl: "",
 
@@ -18,6 +24,27 @@ export const powerpointModule8Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Errors are magnified by a projector",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present to external partners at Lakeside Medical Associates.",
+           text: "Slide four carries a typo in a heading, three inches tall on the screen. A reviewer's comment is also still attached — 'is this number even right?' — visible to the room.",
+           task: "Clear comments and proofread properly before anything is projected.",
+         },
+         {
+           type: "paragraph",
+           text: "Spell check catches misspellings and nothing else. It will not notice 'from' where you meant 'form,' a title that is wrong, or a number that contradicts the previous slide. Reading the deck through once in Reading View is what catches those, and it takes a few minutes.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Comments are visible in Normal view and can appear in Presenter View, so a frank internal remark can end up in front of an audience or a client. Delete every comment before presenting or distributing, and run File > Info > Check for Issues > Inspect Document to confirm none remain — along with any presentation notes or metadata you would not want shared.",
+         },
+       ],
+     },
 
     {
       heading: "Why Review Before You Present?",
@@ -220,6 +247,13 @@ export const powerpointModule8Lessons: Lesson[] = [
             "Move them to the Notes pane",
           ],
           correctIndex: 2,
+          explanation: "Comments should be deleted or resolved before presenting so no internal remark can appear on screen or in Presenter View. Inspect Document confirms none remain.",
+          optionRationales: [
+            "Printing internal comments as handouts distributes exactly what should not be shared.",
+            "PowerPoint has no footnotes, and converting would not remove the content anyway.",
+            "Correct. Delete or resolve comments so they cannot be seen during the presentation.",
+            "Moving comments to the Notes pane keeps them in the file, and notes are visible in Presenter View.",
+          ],
         },
       ],
     },
@@ -251,6 +285,12 @@ export const powerpointModule8Lessons: Lesson[] = [
   title: "Presenting Your Slideshow",
   description:
     "Learn how to start a slide show, navigate slides during a presentation, use Presenter View, draw on slides, and use the laser pointer to guide your audience.",
+  objectives: [
+    "Start a slide show from the beginning or the current slide",
+    "Use Presenter View during a live presentation",
+    "Use pen, highlighter, and screen blanking",
+    "Set up a self-running presentation",
+  ],
   duration: "10 min",
   videoUrl: "",
 
@@ -262,6 +302,56 @@ export const powerpointModule8Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Know the controls before you are standing up",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present at the staff meeting at Lakeside Medical Associates.",
+           text: "Someone asks about slide 22 while you are on slide 8. You either click forward fourteen times while everyone watches, or you know that typing 22 and pressing Enter jumps straight there.",
+           task: "Learn the handful of controls that let you respond to a room instead of fighting the software.",
+         },
+         {
+           type: "table",
+           caption: "Presentation controls",
+           columns: [
+             "Key",
+             "Does",
+           ],
+           rows: [
+             [
+               "F5",
+               "Starts from the beginning",
+             ],
+             [
+               "Shift + F5",
+               "Starts from the current slide",
+             ],
+             [
+               "Number then Enter",
+               "Jumps to that slide",
+             ],
+             [
+               "B / W",
+               "Blanks the screen black or white",
+             ],
+             [
+               "Ctrl + P",
+               "Pen; Ctrl+A returns to the arrow",
+             ],
+             [
+               "Esc",
+               "Ends the show",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Shift+F5 starts from the slide you are on, which is what you want when rehearsing a single section. Restarting from slide one every time you want to check slide 30 is a surprisingly large waste of a rehearsal.",
+         },
+       ],
+     },
 
     {
       heading: "Starting a Slide Show",
@@ -499,6 +589,13 @@ export const powerpointModule8Lessons: Lesson[] = [
             "Ctrl+F5",
           ],
           correctIndex: 1,
+          explanation: "F5 starts the slide show from the first slide. Shift+F5 starts from the slide you are currently on, which is the one to use when rehearsing a section.",
+          optionRationales: [
+            "Ctrl+P opens the print dialog outside a show, and switches to the pen during one.",
+            "Correct. F5 starts the presentation from the beginning.",
+            "Shift+F5 starts from the current slide rather than the beginning.",
+            "Ctrl+F5 is not a PowerPoint presentation shortcut.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -510,6 +607,13 @@ export const powerpointModule8Lessons: Lesson[] = [
             "The file name and save location",
           ],
           correctIndex: 2,
+          explanation: "Presenter View shows your speaker notes, the next slide, and an elapsed timer on your screen, while the audience display shows only the current slide.",
+          optionRationales: [
+            "The theme is visible to everyone — it is how the slides look.",
+            "Animations play on the audience display as designed.",
+            "Correct. Presenter View privately shows notes, the next slide, and a timer.",
+            "File details are not shown in Presenter View.",
+          ],
         },
       ],
     },
@@ -545,12 +649,66 @@ export const powerpointModule8Lessons: Lesson[] = [
   title: "Sharing and Exporting Presentations",
   description:
     "Learn how to share your presentation via OneDrive, export it as a PDF, create a video from your slides, and package your file for delivery on another computer.",
+  objectives: [
+    "Export a presentation to PDF, video, and other formats",
+    "Package a presentation with its media for another machine",
+    "Share by link with appropriate permissions",
+    "Choose a distribution format based on the recipient's need",
+  ],
   duration: "9 min",
   videoUrl: "",
 
   practiceFiles: [],
 
   sections: [
+
+    {
+       heading: "Decide what the recipient needs to do with it",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You distribute the orientation deck at Lakeside Medical Associates.",
+           text: "Three audiences: new hires who need to watch it, a colleague who must update it next quarter, and a partner organization that only needs to read it. One format cannot serve all three.",
+           task: "Match the export format to what each recipient actually needs to do.",
+         },
+         {
+           type: "table",
+           caption: "Distribution formats",
+           columns: [
+             "Recipient needs to",
+             "Send",
+             "Why",
+           ],
+           rows: [
+             [
+               "Watch it without you",
+               "MP4 video",
+               "Preserves animation, timing, and narration",
+             ],
+             [
+               "Edit it",
+               ".pptx via OneDrive link",
+               "Editable, and everyone stays on one version",
+             ],
+             [
+               "Read it",
+               "PDF",
+               "Opens anywhere and cannot be altered casually",
+             ],
+             [
+               "Present it elsewhere",
+               "Package for CD",
+               "Bundles fonts and media into a portable folder",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "Package Presentation for CD is badly named — it produces a folder, and CDs are long gone. What it actually does is still useful: it bundles the presentation with all linked media and embedded fonts, so the whole thing works on a machine that has neither. Copy that folder to a USB drive when you are presenting somewhere unfamiliar.",
+         },
+       ],
+     },
 
     {
       heading: "Why Sharing and Exporting Matter",
@@ -769,6 +927,13 @@ export const powerpointModule8Lessons: Lesson[] = [
             ".xlsx",
           ],
           correctIndex: 2,
+          explanation: "PDF preserves layout and fonts exactly and opens on any device without PowerPoint. It loses animation, transitions, and embedded media, so it suits reading rather than presenting.",
+          optionRationales: [
+            ".pptx requires PowerPoint or a compatible viewer and remains fully editable.",
+            ".docx is a Word document format and is not a presentation export.",
+            "Correct. PDF preserves formatting and opens without PowerPoint.",
+            ".xlsx is an Excel workbook format, unrelated to presentations.",
+          ],
         },
         {
           type: "knowledge-check",
@@ -780,6 +945,13 @@ export const powerpointModule8Lessons: Lesson[] = [
             "To share the file on OneDrive",
           ],
           correctIndex: 1,
+          explanation: "Package Presentation for CD bundles the presentation with its linked media and embedded fonts into one folder, so it plays correctly on a computer that lacks those fonts or media files.",
+          optionRationales: [
+            "It usually increases total size, since it gathers all linked files together.",
+            "Correct. It bundles the presentation and its media into a portable folder for use on other machines.",
+            "Converting to video is a separate option under File > Export > Create a Video.",
+            "Sharing on OneDrive is done with the Share button.",
+          ],
         },
       ],
     },

@@ -7,6 +7,12 @@ slug: "applying-transitions",
 title: "Applying Slide Transitions",
 description:
 "Learn how to add visual effects between slides, preview transitions, and control timing in PowerPoint.",
+objectives: [
+  "Apply transitions and control their duration",
+  "Explain the difference between a transition and an animation",
+  "Choose transitions that support rather than distract",
+  "Apply a consistent transition across a whole deck",
+],
 duration: "9 min",
 videoUrl: "https://www.youtube.com/embed/Ey1atEavZ-M",
 
@@ -18,6 +24,30 @@ url: "/practice/powerpoint/module-6/transitions/Powerpoint_Transitions_Practice.
 ],
 
 sections: [
+
+  {
+     heading: "Restraint is the whole skill here",
+     blocks: [
+       {
+         type: "scenario",
+         role: "You present to the board at Lakeside Medical Associates.",
+         text: "You give each slide a different transition — one spins, one checkerboards, one flips in three dimensions. The board remembers the effects and not a single figure. Each transition also adds a second and a half, which across forty slides is a minute of watching animation.",
+         task: "Use one subtle transition throughout, or none at all.",
+       },
+       {
+         type: "paragraph",
+         text: "A transition is the effect between slides; an animation is the effect applied to an object on a slide. Both cost attention, and attention is the scarcest thing in a presentation.",
+       },
+       {
+         type: "paragraph",
+         text: "The working guidance is: pick one subtle transition — Fade or Push — apply it to every slide with Apply To All, and set the duration to around 0.5 seconds. Consistency makes the transition invisible, which is exactly what you want. Anything the audience notices is competing with your content.",
+       },
+       {
+         type: "tip",
+         text: "Reserve a distinct transition for genuine structural breaks — the move from one section to the next. Used sparingly it becomes a signal that the topic is changing, which is real communication rather than decoration.",
+       },
+     ],
+   },
 
 {
 heading: "What are Slide Transitions?",
@@ -302,6 +332,13 @@ options: [
 "A way to hide certain slides during a presentation",
 ],
 correctIndex: 2,
+explanation: "A transition is the visual effect that plays as one slide replaces the next. Effects applied to objects on a single slide are animations, which are a separate tab.",
+optionRationales: [
+  "That describes an animation, which applies to an object on a slide.",
+  "Transitions can include a sound, but the transition itself is the visual effect between slides.",
+  "Correct. A transition plays when moving from one slide to the next.",
+  "Hiding slides is done with right-click > Hide Slide and is unrelated to transitions.",
+],
 },
 ],
 },
@@ -340,6 +377,12 @@ alt: "Final slideshow with transitions applied",
   title: "Animating Text and Objects",
   description:
     "Learn how to apply animation effects to text and objects, customize timing, use the Animation Pane, and control the order animations play.",
+  objectives: [
+    "Apply entrance, emphasis, and exit animations",
+    "Control animation order and start timing",
+    "Use the Animation Pane to manage a sequence",
+    "Judge when animation clarifies and when it distracts",
+  ],
   duration: "11 min",
   videoUrl: "",
 
@@ -351,6 +394,53 @@ alt: "Final slideshow with transitions applied",
   ],
 
   sections: [
+
+    {
+       heading: "Animate to control attention, not to decorate",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You explain a four-stage process at Lakeside Medical Associates.",
+           text: "All four stages appear at once and the audience reads ahead to stage four while you are still on stage one. Revealing each stage as you reach it keeps everyone with you — which is the one thing animation genuinely does well.",
+           task: "Use animation to control when information arrives, and leave it alone otherwise.",
+         },
+         {
+           type: "paragraph",
+           text: "The legitimate use of animation is sequencing: revealing points as you discuss them so the audience attends to the one you are on. Almost every other use costs attention without returning any.",
+         },
+         {
+           type: "table",
+           caption: "Start timing options",
+           columns: [
+             "Setting",
+             "Plays",
+             "Use for",
+           ],
+           rows: [
+             [
+               "On Click",
+               "When you click",
+               "Revealing points at your own pace",
+             ],
+             [
+               "With Previous",
+               "At the same time as the previous animation",
+               "Two elements that belong together",
+             ],
+             [
+               "After Previous",
+               "Automatically when the previous one finishes",
+               "A self-running sequence with no clicking",
+             ],
+           ],
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "The Animation Pane (Animations > Animation Pane) lists every animation on the slide in order, with its trigger and duration. On any slide with more than two animations it is the only practical way to see and reorder the sequence — dragging entries in the pane is far easier than guessing from the numbered markers on the slide.",
+         },
+       ],
+     },
 
     {
       heading: "What Are Animations?",
@@ -579,6 +669,13 @@ alt: "Final slideshow with transitions applied",
             "Delayed Start",
           ],
           correctIndex: 2,
+          explanation: "After Previous starts the animation automatically once the preceding one finishes, requiring no click. With Previous starts it simultaneously with the preceding animation instead.",
+          optionRationales: [
+            "On Click waits for you to click before playing.",
+            "With Previous plays at the same time as the previous animation rather than after it.",
+            "Correct. After Previous plays automatically once the preceding animation completes.",
+            "There is no 'Delayed Start' option. Delay is a separate timing field applied to any of the three start settings.",
+          ],
         },
       ],
     },
@@ -617,6 +714,12 @@ alt: "Final slideshow with transitions applied",
   title: "Working with Audio",
   description:
     "Learn how to insert audio files into your presentation, control playback settings, trim audio clips, and configure music to play across multiple slides.",
+  objectives: [
+    "Insert audio and control how it plays",
+    "Set audio to continue across multiple slides",
+    "Hide the audio icon during a show",
+    "Consider accessibility when a presentation relies on sound",
+  ],
   duration: "8 min",
   videoUrl: "",
 
@@ -628,6 +731,27 @@ alt: "Final slideshow with transitions applied",
   ],
 
   sections: [
+
+    {
+       heading: "Audio that stops at the slide boundary",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You build a self-running display for the waiting room at Lakeside Medical Associates.",
+           text: "You add background music to the first slide. It stops the moment the deck advances, because by default audio belongs to the slide it was inserted on.",
+           task: "Configure audio playback so it behaves the way the presentation requires.",
+         },
+         {
+           type: "paragraph",
+           text: "Select the audio icon and use the Playback tab. 'Play Across Slides' lets it continue as the deck advances; 'Loop until Stopped' repeats it; 'Hide During Show' removes the speaker icon from view. For a looping waiting-room display you generally want all three.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Never let audio be the only way information is conveyed. Deaf and hard-of-hearing viewers, and anyone watching with the sound off — which is most people in a waiting room — receive nothing. Any narration needs on-screen text carrying the same content. Music must be licensed for the use; commercial recordings are not free to play in a public waiting area.",
+         },
+       ],
+     },
 
     {
       heading: "Why Add Audio to a Presentation?",
@@ -814,6 +938,13 @@ alt: "Final slideshow with transitions applied",
             "When Clicked On",
           ],
           correctIndex: 2,
+          explanation: "Play Across Slides lets the audio continue as the presentation advances, instead of stopping when the slide it belongs to is replaced.",
+          optionRationales: [
+            "Loop until Stopped repeats the clip, but it still stops when the slide changes unless Play Across Slides is also set.",
+            "Hide During Show only conceals the speaker icon. It has no effect on playback.",
+            "Correct. Play Across Slides keeps the audio playing as you move between slides.",
+            "When Clicked On means the audio starts on a click rather than automatically.",
+          ],
         },
       ],
     },
@@ -847,6 +978,12 @@ alt: "Final slideshow with transitions applied",
   title: "Working with Video",
   description:
     "Learn how to insert videos from your computer or online, control playback settings, trim clips, and format the video frame on your slides.",
+  objectives: [
+    "Insert video from a file or an online source",
+    "Trim a video and set a poster frame",
+    "Control playback options",
+    "Prepare video so it works on another machine",
+  ],
   duration: "10 min",
   videoUrl: "",
 
@@ -858,6 +995,31 @@ alt: "Final slideshow with transitions applied",
   ],
 
   sections: [
+
+    {
+       heading: "Video is where presentations fail on unfamiliar hardware",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You present a training deck at Lakeside Medical Associates.",
+           text: "Your video plays perfectly at your desk. On the conference room machine the slide shows a black rectangle, because the deck was linked to a file still sitting on your computer, and the guest network cannot reach the online copy either.",
+           task: "Embed and optimize media so the deck is genuinely self-contained.",
+         },
+         {
+           type: "paragraph",
+           text: "Video inserted from your PC is embedded in the file, which is what makes the deck portable — at the cost of size. Online video is linked, so it needs a working connection and an unblocked site at presentation time. Conference room networks frequently block video platforms.",
+         },
+         {
+           type: "paragraph",
+           text: "A poster frame is the still image shown before the video plays. By default it is the first frame, which is often black. Playback > Poster Frame lets you choose a meaningful frame, so the slide looks intentional rather than broken while you introduce it.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Before presenting from another machine, run File > Info > Optimize Media Compatibility. It embeds and re-encodes media into formats that play reliably elsewhere. Then test the deck on the actual presentation machine — media is the most common single point of failure in a presentation, and it fails silently until you are standing in front of people.",
+         },
+       ],
+     },
 
     {
       heading: "Why Embed Video in a Presentation?",
@@ -1077,6 +1239,13 @@ alt: "Final slideshow with transitions applied",
             "A style applied to the video border",
           ],
           correctIndex: 1,
+          explanation: "The poster frame is the still image displayed on the slide before the video plays. Setting a meaningful one avoids the black rectangle that the default first frame often produces.",
+          optionRationales: [
+            "The final frame is simply where playback ends. It is not a separate setting.",
+            "Correct. The poster frame is the still image shown before playback begins.",
+            "A picture placed behind the video would be a separate object on the slide.",
+            "Border styling is applied from Video Format. The poster frame is the preview image.",
+          ],
         },
       ],
     },

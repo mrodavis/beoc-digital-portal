@@ -11,9 +11,76 @@ export const excelModule5Lessons: Lesson[] = [
   title: "Basic Tips for Working with Data",
   description:
     "Learn how Excel helps you organize, sort, filter, summarize, and visualize large amounts of information efficiently.",
+  objectives: [
+    "Structure a data range so Excel's data tools work correctly",
+    "Explain why one row per record and one column per field matters",
+    "Avoid the layout choices that break sorting and filtering",
+    "Use Data Validation to prevent bad entries at the source",
+  ],
   duration: "6 min",
 
   sections: [
+
+    {
+       heading: "Excel's data tools assume a shape",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You inherit the supply log at Lakeside Medical Associates.",
+           text: "The sheet has a title in A1, two blank rows, merged headings, a blank row separating each month, and totals in the middle of the data. Sorting scrambles it, filtering catches only the first month, and a PivotTable refuses to build at all.",
+           task: "Learn the layout Excel's data tools expect, because every one of them assumes it.",
+         },
+         {
+           type: "paragraph",
+           text: "Sorting, filtering, subtotals, tables, and PivotTables all assume the same structure: one header row, one record per row, one field per column, and no blank rows or columns inside the data. Meet that and every tool works. Break it and each tool fails in its own confusing way.",
+         },
+         {
+           type: "table",
+           caption: "Layout rules that make the data tools work",
+           columns: [
+             "Rule",
+             "Why",
+             "Common violation",
+           ],
+           rows: [
+             [
+               "One header row",
+               "Tools read row 1 as field names",
+               "A title above the headers, or two header rows",
+             ],
+             [
+               "One record per row",
+               "Each row is treated as a unit when sorted",
+               "One item's data split across two rows",
+             ],
+             [
+               "No blank rows inside the data",
+               "A blank row is read as the end of the range",
+               "Blank rows used as visual separators",
+             ],
+             [
+               "No merged cells",
+               "Merging destroys the row and column grid",
+               "Merged section headings",
+             ],
+             [
+               "Totals outside the data",
+               "A total inside the range sorts along with the data",
+               "A subtotal row in the middle of the records",
+             ],
+             [
+               "One type per column",
+               "Mixed text and numbers break sorting and summing",
+               "Notes typed into a numeric column",
+             ],
+           ],
+         },
+         {
+           type: "tip",
+           text: "Put titles and notes on a separate sheet, or above a blank row that sits outside the range you select. Keep the data region itself clean — a rectangle with a header row and nothing else. Presentation belongs on the output sheet, not in the data.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // INTRODUCTION
@@ -252,6 +319,13 @@ export const excelModule5Lessons: Lesson[] = [
             "Cell Styles",
           ],
           correctIndex: 2,
+          explanation: "Conditional Formatting applies formatting automatically based on rules you define, so cells change appearance as their values change. It is dynamic — unlike manually applied formatting, which stays put.",
+          optionRationales: [
+            "Data Validation restricts what can be entered into a cell. It prevents bad input rather than highlighting it after the fact.",
+            "Sparklines are miniature charts drawn inside a single cell. They visualize a trend rather than highlighting cells by rule.",
+            "Correct. Conditional Formatting applies formatting automatically according to rules you define.",
+            "Cell Styles apply saved formatting when you choose them. They are applied manually and do not respond to values.",
+          ],
         },
       ],
     },
@@ -289,6 +363,12 @@ export const excelModule5Lessons: Lesson[] = [
   title: "Freezing Panes and View Options",
   description:
     "Learn how to freeze rows and columns, split worksheets, and open multiple windows to compare data more effectively.",
+  objectives: [
+    "Freeze rows and columns so headers stay visible while scrolling",
+    "Split a window to view distant parts of a sheet at once",
+    "Open a second window onto the same workbook",
+    "Choose the right view tool for a given navigation problem",
+  ],
   duration: "10 min",
 
   videoUrl: "https://www.youtube.com/embed/zuhsUNBeNHw",
@@ -302,6 +382,58 @@ export const excelModule5Lessons: Lesson[] = [
 
 
     sections: [
+
+
+      {
+          heading: "Losing the headers is a data-entry hazard",
+          blocks: [
+            {
+              type: "scenario",
+              role: "You update quantities in a 900-row tracker at Lakeside Medical Associates.",
+              text: "At row 340 the headers are long gone. You are counting columns from the left to work out which is Reorder Level and which is Quantity on Hand. Eventually you miscount, and the entries go into the wrong column.",
+              task: "Keep the headers on screen, so every row is entered against a visible label.",
+            },
+            {
+              type: "paragraph",
+              text: "Freeze Panes keeps chosen rows and columns fixed while the rest scrolls. The rule that catches everyone: Excel freezes everything above and to the left of the selected cell. To freeze row 1 and column A together, select B2 — not A1 — and then Freeze Panes.",
+            },
+            {
+              type: "table",
+              caption: "Which view tool to use",
+              columns: [
+                "You want",
+                "Use",
+                "How",
+              ],
+              rows: [
+                [
+                  "Headers visible while scrolling",
+                  "Freeze Panes",
+                  "Select the cell below and right of what should stay, then freeze",
+                ],
+                [
+                  "To compare row 5 with row 400",
+                  "Split",
+                  "View > Split — each pane scrolls independently",
+                ],
+                [
+                  "Two sheets side by side",
+                  "New Window",
+                  "View > New Window, then Arrange All",
+                ],
+                [
+                  "To hide detail temporarily",
+                  "Group",
+                  "Data > Group creates collapsible sections",
+                ],
+              ],
+            },
+            {
+              type: "tip",
+              text: "View > New Window opens a second window onto the same workbook — not a copy. Edits in one appear instantly in the other, so you can watch a summary sheet update as you type into the data sheet. Arrange All tiles them side by side.",
+            },
+          ],
+        },
 
     // ------------------------------------------------------------
     // INTRODUCTION
@@ -517,6 +649,13 @@ export const excelModule5Lessons: Lesson[] = [
             "Applies bold formatting to all cells in the row",
             ],
             correctIndex: 2,
+            explanation: "Freezing keeps the top row fixed on screen while the rest of the sheet scrolls beneath it, so column headers stay visible at any row. It affects display only — nothing about the data changes.",
+            optionRationales: [
+              "Freezing does not restrict editing. Preventing edits is sheet protection, a separate feature.",
+              "The row can still be deleted. Freezing is purely a viewing setting.",
+              "Correct. The row stays visible while the rest of the sheet scrolls.",
+              "Freezing applies no formatting. Bold headers are a separate, and worthwhile, choice.",
+            ],
         },
         ],
     },
@@ -562,6 +701,12 @@ export const excelModule5Lessons: Lesson[] = [
   title: "Sorting Data",
   description:
     "Learn how to sort text, numbers, and custom lists in Excel. Master basic sorting, multi-level sorting, and logical ordering using the Sort dialog box.",
+  objectives: [
+    "Sort by one column and by several columns in priority order",
+    "Explain why selecting a single column before sorting corrupts data",
+    "Use custom sort orders for non-alphabetical sequences",
+    "Recognize when a sort has gone wrong and recover",
+  ],
   duration: "12 min",
 
   videoUrl: "https://www.youtube.com/embed/Ep5q1cUhQas",
@@ -574,6 +719,35 @@ export const excelModule5Lessons: Lesson[] = [
     ],
 
   sections: [
+
+    {
+       heading: "The most destructive mistake in Excel",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You organize the supply list at Lakeside Medical Associates.",
+           text: "You click the Item Name column, select just that column, and sort A to Z. The names reorder. The quantities, prices, and vendors do not. Every row now pairs a name with another item's data, and there is no way to tell what belonged with what.",
+           task: "Sort in a way that keeps each record intact, and know how to recover when it goes wrong.",
+         },
+         {
+           type: "paragraph",
+           text: "This is the error worth being genuinely careful about, because it is silent and often unrecoverable. Sorting one selected column reorders only that column. Every other column stays put, so the association between a name and its data is destroyed — and nothing on screen indicates anything is wrong.",
+         },
+         {
+           type: "paragraph",
+           text: "The safe method is to click a single cell inside the data and use Data > Sort. Excel then detects the whole contiguous range and sorts complete rows, keeping records together. If a warning offers to 'Expand the selection,' always accept it — that dialog is Excel catching this exact mistake.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "If you realize you have mis-sorted, press Ctrl+Z immediately and do nothing else first. Once you save and close, the original pairing is gone — there is no way to reconstruct which name belonged to which quantity. This is the strongest practical argument for storing working files in OneDrive, where version history can recover the previous state.",
+         },
+         {
+           type: "tip",
+           text: "Add an index column numbered 1, 2, 3 before you start sorting a data set. Sorting by that column returns the sheet to its original order at any point, which turns an irreversible operation into a reversible one.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // INTRODUCTION
@@ -828,6 +1002,13 @@ export const excelModule5Lessons: Lesson[] = [
             "Multi-level sort",
           ],
           correctIndex: 2,
+          explanation: "An ascending sort runs smallest to largest — A to Z for text, earliest to latest for dates, lowest to highest for numbers.",
+          optionRationales: [
+            "Descending is the reverse: Z to A, latest to earliest, highest to lowest.",
+            "A custom sort defines a non-alphabetical order, such as Low, Medium, High. Useful, but not what A to Z means.",
+            "Correct. Ascending sorts A to Z for text.",
+            "A multi-level sort orders by several columns in priority. Each level is still ascending or descending.",
+          ],
         },
       ],
     },
@@ -870,6 +1051,12 @@ challenge: [
   title: "Filtering Data",
   description:
     "Learn how to filter lists and tables to show only the records you need. Use checkbox filters, search, text/number/date filters, and clear filters confidently.",
+  objectives: [
+    "Apply and clear filters on one or more columns",
+    "Use text, number, and date filters for specific criteria",
+    "Explain what filtering hides and what it does not remove",
+    "Recognize when filtered rows are affecting your totals",
+  ],
   duration: "14 min",
 
   videoUrl: "https://www.youtube.com/embed/_OdsZR_rL1U",
@@ -882,6 +1069,30 @@ challenge: [
         ],
 
   sections: [
+
+    {
+       heading: "Filtered rows are hidden, not gone",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You report on medical supply spending at Lakeside Medical Associates.",
+           text: "You filter the sheet to Medical Supplies and read the total at the bottom: $18,400. That figure is the total of every row in the sheet, including the office and cleaning supplies currently hidden. You report it as the medical supply spend, and it is wrong by about two-thirds.",
+           task: "Understand that filtering changes what you see, not what formulas calculate.",
+         },
+         {
+           type: "paragraph",
+           text: "Filtering hides rows that do not match. The data is entirely intact and returns when the filter is cleared — which is what makes it safe. But SUM and AVERAGE include hidden rows, because they operate on the range, not on what happens to be visible.",
+         },
+         {
+           type: "paragraph",
+           text: "=SUBTOTAL(109, E2:E900) is the fix: it sums only visible rows and updates as the filter changes. The 109 specifies sum-ignoring-hidden-rows. There is a parallel code for each function — 101 for average, 103 for count. Converting the range to an Excel Table gives you a Total Row that uses SUBTOTAL automatically.",
+         },
+         {
+           type: "tip",
+           text: "When a filter is active, Excel's status bar reports the count of visible rows, and the filtered column's dropdown arrow shows a funnel icon. If a sheet looks like it is missing data, check for that funnel before concluding anything was deleted — an unnoticed filter is a very common false alarm.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // INTRODUCTION
@@ -1226,6 +1437,13 @@ challenge: [
             "Highlights matching cells with a color",
           ],
           correctIndex: 2,
+          explanation: "A filter temporarily hides rows that do not match your criteria. The data is untouched and returns the moment the filter is cleared — but be aware that ordinary SUM and AVERAGE still include the hidden rows.",
+          optionRationales: [
+            "Nothing is deleted. Clearing the filter brings every row back, which is what makes filtering safe to use freely.",
+            "Filtering and sorting are independent. A filter changes which rows are visible, not their order.",
+            "Correct. Only rows matching the criteria remain visible; the rest are hidden but intact.",
+            "That describes Conditional Formatting, which changes appearance. Filtering changes visibility.",
+          ],
         },
       ],
     },
@@ -1270,6 +1488,12 @@ challenge: [
   title: "Groups and Subtotals",
   description:
     "Learn how to organize large datasets using grouping and automatically summarize data with the Subtotal command.",
+  objectives: [
+    "Group rows and columns into collapsible outlines",
+    "Apply automatic subtotals to a sorted data set",
+    "Explain why data must be sorted before subtotalling",
+    "Remove subtotals and return to a clean data range",
+  ],
   duration: "15 min",
 
   videoUrl: "https://www.youtube.com/embed/7JJOBFSHbZk",
@@ -1282,6 +1506,31 @@ challenge: [
     ],
 
   sections: [
+
+    {
+       heading: "Subtotals require a sort first",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You summarize spending by category at Lakeside Medical Associates.",
+           text: "You run Data > Subtotal on the supply sheet without sorting it first. Excel inserts a subtotal every time the category changes from one row to the next — producing forty-one subtotals across a sheet with four categories.",
+           task: "Sort by the grouping column first, so each category occupies one contiguous block.",
+         },
+         {
+           type: "paragraph",
+           text: "The Subtotal command inserts a summary row whenever the value in your chosen column changes. It has no memory of categories it has already seen, so if the categories are scattered it dutifully subtotals each run. Sorting by that column first gathers each category into one block, and you get one subtotal per category.",
+         },
+         {
+           type: "paragraph",
+           text: "Subtotals add an outline down the left edge with numbered buttons. Clicking 1 shows the grand total alone, 2 shows category subtotals, and 3 shows every row. That collapsibility is the real benefit — the same sheet serves both a manager wanting four numbers and an analyst wanting all 900 rows.",
+         },
+         {
+           type: "callout",
+           variant: "info",
+           text: "Subtotals insert real rows into your data, which means the range is no longer a clean data set — sorting it again will scramble the subtotal rows in with the data. Remove them with Data > Subtotal > Remove All before doing anything else with the range. For repeated analysis, a PivotTable is the better tool, because it summarizes without altering the source at all.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // INTRODUCTION
@@ -1539,6 +1788,13 @@ challenge: [
             "Converts a data range into an Excel Table",
           ],
           correctIndex: 2,
+          explanation: "Subtotal inserts summary rows into a sorted data set, calculating a sum, average, count, or similar for each group, and adds a collapsible outline so you can move between summary and detail.",
+          optionRationales: [
+            "Subtotal does not sort — which is exactly the trap. You must sort by the grouping column yourself first, or you get a subtotal at every change of value.",
+            "Removing duplicates is a separate command on the Data tab.",
+            "Correct. It calculates summary values for each group and adds an outline for collapsing detail.",
+            "Converting to a Table is Insert > Table, a different feature. Subtotal inserts summary rows into the existing range.",
+          ],
         },
       ],
     },
@@ -1582,6 +1838,12 @@ challenge: [
     title: "Conditional Formatting",
     description:
         "Automatically highlight patterns, trends, and performance using Conditional Formatting rules, color scales, data bars, and icon sets.",
+    objectives: [
+      "Apply highlight rules, data bars, color scales, and icon sets",
+      "Write a formula-based conditional formatting rule",
+      "Manage rule precedence when several rules apply",
+      "Use conditional formatting to surface data problems",
+    ],
     duration: "15 min",
 
     videoUrl: "https://www.youtube.com/embed/zfQ8uOBoIj8",
@@ -1594,6 +1856,88 @@ challenge: [
         ],
 
     sections: [
+
+      {
+         heading: "Formatting that keeps itself up to date",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You monitor stock levels at Lakeside Medical Associates.",
+             text: "You highlight the below-reorder items in red by hand. A week later the quantities have all changed, but the red highlights have not — they are still marking the items that were low last week. The colour is now actively misleading.",
+             task: "Make the formatting a rule about the data, so it can never go stale.",
+           },
+           {
+             type: "paragraph",
+             text: "Conditional formatting applies formatting according to a rule evaluated continuously. Set 'highlight cells less than the value in the reorder column' and the highlights follow the data as it changes, with no maintenance at all.",
+           },
+           {
+             type: "table",
+             caption: "Rule types and what each is for",
+             columns: [
+               "Type",
+               "Shows",
+               "Best for",
+             ],
+             rows: [
+               [
+                 "Highlight Cells Rules",
+                 "Formatting when a condition is met",
+                 "Flagging exceptions — below reorder, over budget",
+               ],
+               [
+                 "Top/Bottom Rules",
+                 "The highest or lowest values",
+                 "Finding the ten largest expenses",
+               ],
+               [
+                 "Data Bars",
+                 "An in-cell bar proportional to the value",
+                 "Comparing magnitudes across a column at a glance",
+               ],
+               [
+                 "Color Scales",
+                 "A color gradient across the range",
+                 "Seeing the distribution — where the highs and lows cluster",
+               ],
+               [
+                 "Icon Sets",
+                 "Arrows, flags, or traffic lights",
+                 "Status at a glance, with a legend",
+               ],
+               [
+                 "Formula rule",
+                 "Formatting driven by any formula",
+                 "Highlighting a whole row based on one cell's value",
+               ],
+             ],
+           },
+           {
+             type: "worked-example",
+             title: "Highlighting an entire row when stock is low",
+             task: "Make the whole row turn amber when Quantity on Hand falls below Reorder Level, so a scan down the sheet shows what needs ordering.",
+             steps: [
+               {
+                 move: "Select the full data range, A2:F900, starting from the top-left data cell.",
+                 why: "A formula rule is evaluated relative to the active cell in your selection, so where the selection starts determines how the formula is interpreted. Selecting from A2 means the rule is written as though it lives in A2.",
+               },
+               {
+                 move: "New Rule > Use a formula to determine which cells to format, and enter =$D2<$E2.",
+                 why: "The dollar signs before D and E lock the columns, so every cell in the row tests the same two columns. Leaving the row number relative lets it advance down the sheet. This mixed reference is precisely what makes whole-row formatting work.",
+               },
+               {
+                 move: "Set the format to an amber fill, and confirm.",
+                 why: "Amber rather than red leaves red available for something genuinely urgent, such as out of stock. Reserving intensity for severity keeps the sheet readable.",
+               },
+               {
+                 move: "Add a status column reading 'Reorder' driven by the same condition.",
+                 why: "Color alone fails in greyscale printing and for colorblind readers, and it cannot be filtered on. A text column can be filtered, sorted, and counted — the color becomes a helpful accent rather than the only signal.",
+               },
+             ],
+             result: "Rows that flag themselves as stock falls, with a text status that also works on paper and can be filtered.",
+             takeaway: "Lock the column, leave the row relative, and always pair color with something non-visual.",
+           },
+         ],
+       },
 
         // ------------------------------------------------------------
         // INTRODUCTION
@@ -1795,6 +2139,13 @@ challenge: [
             "Color Scales",
             ],
             correctIndex: 3,
+            explanation: "Color Scales apply a gradient across the range, so each cell's color reflects its value relative to the others. It is the fastest way to see how values are distributed.",
+            optionRationales: [
+              "Highlight Cells Rules apply one fixed format when a condition is met, rather than a gradient across values.",
+              "Icon Sets place a symbol in the cell — an arrow or traffic light — instead of shading it.",
+              "Data Bars draw a bar inside each cell proportional to its value. Close, but the bar is a shape rather than a color gradient.",
+              "Correct. Color Scales shade cells along a gradient according to their values.",
+            ],
         },
         ],
         },

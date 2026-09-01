@@ -10,6 +10,12 @@ export const excelModule3Lessons: Lesson[] = [
   title: "Working with Multiple Worksheets",
   description:
     "Learn how to insert, rename, move, copy, group, and organize worksheets within a workbook.",
+  objectives: [
+    "Add, rename, reorder, color, and delete worksheets",
+    "Reference a cell on another sheet in a formula",
+    "Group sheets to edit several at once",
+    "Structure a workbook so data, calculations, and output are separated",
+  ],
   
   videoUrl: "https://www.youtube.com/embed/qRShQc-v3LI",
 
@@ -20,6 +26,34 @@ export const excelModule3Lessons: Lesson[] = [
       },
     ],
   sections: [
+    {
+      heading: "One sheet per purpose",
+      blocks: [
+        {
+          type: "scenario",
+          role: "You rebuild the supply tracker at Lakeside Medical Associates.",
+          text: "The current workbook has everything on one sheet: raw orders, a summary, notes, and three abandoned attempts at a chart, side by side. Nobody can tell which region is authoritative, and every sort risks scrambling something unrelated.",
+          task: "Separate the workbook into sheets with distinct jobs, so each region has one purpose.",
+        },
+        {
+          type: "paragraph",
+          text: "A durable convention is three kinds of sheet: raw data that is only ever added to, calculations that read from it, and output that people actually look at. Keeping them apart means a change to a formula cannot corrupt source data, and a person reading the summary never has to scroll past 900 rows to find it.",
+        },
+        {
+          type: "paragraph",
+          text: "Cross-sheet references use the sheet name and an exclamation mark: =Data!C7, or ='Q3 Orders'!C7 when the name contains a space. Rather than typing them, start the formula, then click the other sheet's tab and the cell — Excel writes the reference correctly, including quoting names that need it.",
+        },
+        {
+          type: "callout",
+          variant: "warning",
+          text: "Grouping sheets — clicking one tab, then Ctrl+clicking others — applies every edit to all of them at once. It is efficient for building twelve identical monthly sheets and dangerous afterwards, because it is easy to forget the group is active and overwrite eleven sheets with one change. Right-click and Ungroup Sheets the moment you are finished, and check the title bar, which says [Group] while grouping is on.",
+        },
+        {
+          type: "tip",
+          text: "Right-click a tab to set a Tab Color. Coloring input sheets one color and output sheets another gives anyone opening the workbook an immediate sense of its structure, without a word of documentation.",
+        },
+      ],
+    },
     {
       heading: "Introduction",
       blocks: [
@@ -263,6 +297,13 @@ export const excelModule3Lessons: Lesson[] = [
             "Use the Format menu on the Home tab",
           ],
           correctIndex: 2,
+          explanation: "Double-clicking a sheet tab puts its name into edit mode so you can type a new one. Right-click > Rename does the same thing.",
+          optionRationales: [
+            "There is no Rename Sheet command in Backstage view. Sheet operations live on the tab's own context menu.",
+            "F2 edits the active cell's contents, not the sheet name.",
+            "Correct. Double-click the tab and type the new name.",
+            "The Home tab's Format menu does include Rename Sheet, but double-clicking the tab is the direct method and the one people actually use.",
+          ],
         },
       ],
     },
@@ -302,6 +343,12 @@ export const excelModule3Lessons: Lesson[] = [
   title: "Using Find & Replace",
   description:
     "Search for specific data and quickly correct or replace repeated content throughout a worksheet or workbook.",
+  objectives: [
+    "Find values and formulas across a worksheet or workbook",
+    "Use Replace All safely with Match case and whole-cell matching",
+    "Search within formulas as well as displayed values",
+    "Recognize when Find and Replace is the wrong tool for a data problem",
+  ],
   duration: "8 min",
 
   videoUrl: "https://www.youtube.com/embed/hmizmgOjNYo",
@@ -314,6 +361,31 @@ export const excelModule3Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Replace All reaches further than you think",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You standardize vendor names in the supply tracker at Lakeside Medical Associates.",
+           text: "You replace 'Med' with 'Medical' across the sheet. 'MedSupply Co' becomes 'MedicalSupply Co', 'Medline' becomes 'Medicalline', and a formula referencing a defined name called MedRate breaks entirely. One click, several hundred cells.",
+           task: "Constrain the search before running it, and know what Replace can reach.",
+         },
+         {
+           type: "paragraph",
+           text: "Excel's Find and Replace has an option Word does not: 'Match entire cell contents.' It requires the whole cell to equal your search term rather than merely containing it, and it is the single most effective protection against a runaway replacement in a data column.",
+         },
+         {
+           type: "paragraph",
+           text: "The Options button also exposes 'Look in,' which decides whether Excel searches Values, Formulas, or Comments. Searching Formulas is how you find every cell referencing a particular sheet or hard-coded number — genuinely useful when auditing an inherited workbook. It is also how a careless replacement damages formulas rather than data.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Before any Replace All on a workbook you cannot easily rebuild, save a copy. Replace All is a single undo step in principle, but if you save, close, or run several operations before noticing the damage, undo will not reach it. Ten seconds for a copy is cheap against rebuilding a data set.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // Introduction
@@ -453,6 +525,13 @@ export const excelModule3Lessons: Lesson[] = [
             "Ctrl + R",
           ],
           correctIndex: 2,
+          explanation: "Ctrl+H opens Find and Replace with the Replace tab active. Ctrl+F opens Find alone, which is what you want when locating data rather than changing it.",
+          optionRationales: [
+            "Ctrl+F opens Find, which locates values but does not replace them.",
+            "Ctrl+G opens Go To, which jumps to a specified reference or named range.",
+            "Correct. Ctrl+H opens the Replace tab, ready to substitute one value for another.",
+            "Ctrl+R fills right, copying the leftmost cell of a selection across it — a fill command, not a search.",
+          ],
         },
       ],
     },
@@ -494,6 +573,12 @@ export const excelModule3Lessons: Lesson[] = [
     title: "Checking Spelling in Excel",
     description:
         "Learn how to use Excel’s Spell Check tool to identify and correct spelling errors before sharing a workbook.",
+    objectives: [
+      "Run spell check across a worksheet and a whole workbook",
+      "Use Add to Dictionary and AutoCorrect appropriately",
+      "Explain why spell check cannot catch the errors that matter most in Excel",
+      "Build validation that catches data errors spell check never will",
+    ],
     duration: "4 min",
 
     practiceFiles: [
@@ -504,6 +589,30 @@ export const excelModule3Lessons: Lesson[] = [
     ],
 
     sections: [
+
+      {
+         heading: "Spell check does not check your numbers",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You prepare the quarterly supply report at Lakeside Medical Associates.",
+             text: "Spell check reports no errors. The report goes to the board with a quantity entered as 1200 instead of 120, which inflates the supply forecast by nine thousand dollars. Every word in the workbook is spelled correctly.",
+             task: "Use spell check for what it can do, and build separate checks for the errors that actually cost money.",
+           },
+           {
+             type: "paragraph",
+             text: "Spell check examines text in cells, headers, and comments. It cannot evaluate whether a number is plausible, whether a formula references the right range, or whether a value landed in the right row. In a spreadsheet, those are the errors with consequences.",
+           },
+           {
+             type: "paragraph",
+             text: "Data Validation (Data > Data Validation) is the tool that does catch them. Restrict a quantity column to whole numbers between 1 and 500 and Excel rejects 1200 at the moment of entry, with a message you write yourself. Catching an error at entry is far cheaper than finding it in a board report.",
+           },
+           {
+             type: "tip",
+             text: "Add to Dictionary is right for terms that are genuinely correct and recur — drug names, vendor names, clinical abbreviations. Adding a word you are not certain about teaches Excel to stop flagging a real mistake, so verify the spelling before adding it.",
+           },
+         ],
+       },
 
         // ------------------------------------------------------------
         // Why Spell Check Matters
@@ -623,6 +732,13 @@ export const excelModule3Lessons: Lesson[] = [
               "All instances of the word are replaced with the first suggestion",
             ],
             correctIndex: 2,
+            explanation: "Add to Dictionary stores the word in your custom dictionary so Excel accepts it from then on, in this and every future workbook. Use it for correct terms that recur — and verify the spelling first, because you are switching off future warnings.",
+            optionRationales: [
+              "Nothing is deleted. The word stays exactly as you typed it.",
+              "That describes Change, which applies the selected suggestion. Add to Dictionary accepts your spelling as correct.",
+              "Correct. The word is saved to your custom dictionary and will not be flagged again.",
+              "That describes Change All. Add to Dictionary changes nothing in the worksheet.",
+            ],
           },
         ],
         },
@@ -660,6 +776,12 @@ export const excelModule3Lessons: Lesson[] = [
     title: "Page Layout and Printing",
     description:
       "Learn how to control margins, orientation, scaling, print area, print titles, and page breaks to produce professional printed reports.",
+    objectives: [
+      "Set a print area and control what appears on each page",
+      "Repeat header rows on every printed page",
+      "Use Page Break Preview to control pagination",
+      "Fit a wide worksheet onto a sensible number of pages",
+    ],
     duration: "12 min",
 
     videoUrl: "https://www.youtube.com/embed/8XcFTeCu98k",
@@ -672,6 +794,62 @@ export const excelModule3Lessons: Lesson[] = [
     ],
 
     sections: [
+
+      {
+         heading: "Spreadsheets print badly by default",
+         blocks: [
+           {
+             type: "scenario",
+             role: "You print the supply report for a meeting at Lakeside Medical Associates.",
+             text: "You press print. Fourteen pages emerge: columns A through F on pages one to seven, columns G through J on pages eight to fourteen, with no headers on any page but the first. Nobody can reassemble it into anything readable.",
+             task: "Configure the print setup so a spreadsheet becomes a document someone can read on paper.",
+           },
+           {
+             type: "paragraph",
+             text: "The default assumes you want everything at full size, which almost never suits a worksheet wider than a page. Four settings fix nearly every printing problem, and they take about a minute.",
+           },
+           {
+             type: "table",
+             caption: "The four settings that fix spreadsheet printing",
+             columns: [
+               "Setting",
+               "Where",
+               "What it does",
+             ],
+             rows: [
+               [
+                 "Print Area",
+                 "Page Layout > Print Area > Set",
+                 "Prints only the selected range, not every stray cell",
+               ],
+               [
+                 "Print Titles",
+                 "Page Layout > Print Titles > Rows to repeat at top",
+                 "Repeats the header row on every page",
+               ],
+               [
+                 "Fit All Columns on One Page",
+                 "File > Print > Scaling",
+                 "Stops columns splitting across separate pages",
+               ],
+               [
+                 "Orientation",
+                 "Page Layout > Orientation",
+                 "Landscape suits most worksheets, which are wider than tall",
+               ],
+             ],
+           },
+           {
+             type: "tip",
+             text: "Page Break Preview (View tab) shows blue lines marking where pages will break, and you can drag them. It is far more direct than adjusting scaling percentages and guessing — you see the pagination and set it explicitly.",
+           },
+           {
+             type: "callout",
+             variant: "warning",
+             text: "'Fit Sheet on One Page' will shrink a large worksheet until it is genuinely unreadable — six-point type is common. If a sheet will not fit legibly, print it in sections with repeated headers, or reconsider whether the recipient needs all the columns.",
+           },
+         ],
+       },
 
       // ------------------------------------------------------------
       // Accessing the Print Pane
@@ -873,6 +1051,13 @@ export const excelModule3Lessons: Lesson[] = [
               "Automatically fits all columns to one page",
             ],
             correctIndex: 2,
+            explanation: "The print area defines the range Excel will print, so everything outside it is ignored. This is how you print a summary without also printing the 900 rows of source data beside it.",
+            optionRationales: [
+              "The print area shows as a thin dashed line on screen, but that is an indicator rather than the point of the feature.",
+              "Nothing is saved as a separate file. The print area is a setting stored in the workbook.",
+              "Correct. Only the cells inside the print area are printed.",
+              "Fitting columns to a page is a scaling setting under File > Print. The print area controls what prints, not how it is scaled.",
+            ],
           },
         ],
       },
@@ -913,6 +1098,12 @@ export const excelModule3Lessons: Lesson[] = [
   title: "Comments and Co-authoring",
   description:
     "Learn how to add, edit, delete, and manage comments, collaborate in real time, and restore previous versions of a workbook.",
+  objectives: [
+    "Add threaded comments and notes, and explain the difference",
+    "Co-author a workbook stored in OneDrive or SharePoint",
+    "Manage sharing permissions on a workbook",
+    "Judge what should never be written in a comment",
+  ],
   duration: "11 min",
 
   videoUrl: "https://www.youtube.com/embed/eK23Fzttlyo",
@@ -925,6 +1116,31 @@ export const excelModule3Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Comments explain the reasoning behind a number",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You forecast supply needs at Lakeside Medical Associates.",
+           text: "One line in the budget is 40% above last year. You know why — a vendor contract ended and the replacement costs more. Six months later, nobody remembers, and the figure looks like an error to everyone reviewing it.",
+           task: "Record the reasoning where the number lives, so the workbook explains itself.",
+         },
+         {
+           type: "paragraph",
+           text: "A spreadsheet shows what, rarely why. Comments attach the reasoning to the exact cell, so the explanation is found by whoever questions the number — including you, later. This is one of the highest-value habits in spreadsheet work and one of the least practiced.",
+         },
+         {
+           type: "paragraph",
+           text: "Modern Excel distinguishes threaded Comments, which support replies and are built for discussion, from Notes, which are the older single-author annotations. Use Comments for conversation and Notes for standing documentation such as 'source: vendor invoice 4471.'",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Comments travel with the file. A frank remark about a colleague or a vendor is visible to everyone the workbook is ever sent to, and comments are among the most common things people forget to remove before sharing. Write every comment as though the subject will read it, and run Document Inspector before the file leaves the practice.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // Sharing a Workbook
@@ -1152,6 +1368,13 @@ export const excelModule3Lessons: Lesson[] = [
             "Using the Protect Workbook feature",
           ],
           correctIndex: 2,
+          explanation: "Co-authoring requires the workbook to be stored in OneDrive or SharePoint, which provides the sync channel that lets several people edit at once and see each other's changes.",
+          optionRationales: [
+            "Track Changes in Excel is a legacy feature for a different sharing model. It does not enable simultaneous editing.",
+            "CSV files hold plain text with no collaboration support, and emailing copies creates the version conflicts co-authoring exists to prevent.",
+            "Correct. Cloud storage in OneDrive or SharePoint is what makes co-authoring possible.",
+            "Protect Workbook restricts what people can change. It limits editing rather than enabling shared editing.",
+          ],
         },
       ],
     },
@@ -1191,6 +1414,12 @@ export const excelModule3Lessons: Lesson[] = [
   title: "Inspecting and Protecting Workbooks",
   description:
     "Learn how to inspect your workbook for hidden information and protect it before sharing by using Document Inspector and Protect Workbook tools.",
+  objectives: [
+    "Use Document Inspector to find hidden and personal data",
+    "Protect a worksheet so formulas cannot be overwritten",
+    "Explain the difference between protecting a sheet and protecting a workbook",
+    "Understand the limits of Excel's password protection",
+  ],
   duration: "8 min",
 
   videoUrl: "https://www.youtube.com/embed/fsXS_VSuBvs",
@@ -1203,6 +1432,52 @@ export const excelModule3Lessons: Lesson[] = [
   ],
 
   sections: [
+
+    {
+       heading: "Protect the formulas, not the people",
+       blocks: [
+         {
+           type: "scenario",
+           role: "You built the supply tracker three staff members use daily at Lakeside Medical Associates.",
+           text: "Within a fortnight, two formula cells have been overwritten with typed numbers. Nobody did it deliberately — they tabbed into the wrong cell and typed. The tracker now reports figures that are simply wrong, and nothing on screen indicates it.",
+           task: "Lock the calculated cells and leave the data entry cells open, so the tool survives daily use.",
+         },
+         {
+           type: "paragraph",
+           text: "Sheet protection works in two stages, and the order surprises people. Every cell is marked Locked by default, but locking has no effect until the sheet is protected. So you first unlock the cells people should edit, then protect the sheet — which activates the lock on everything you did not unlock.",
+         },
+         {
+           type: "worked-example",
+           title: "Protecting a shared tracker",
+           task: "Let three staff enter quantities and prices while making the formula columns impossible to overwrite by accident.",
+           steps: [
+             {
+               move: "Select the data entry cells, then Format Cells > Protection and uncheck Locked.",
+               why: "This is the step that feels backwards. You are unlocking the cells you want editable, because protection will lock everything else. Skipping straight to Protect Sheet locks the entire sheet and nobody can enter anything.",
+             },
+             {
+               move: "Give the unlocked cells a distinct fill color.",
+               why: "People should be able to see where they may type before they try. A consistent color for input cells prevents most of the confused clicking that protection would otherwise produce.",
+             },
+             {
+               move: "Review > Protect Sheet, and leave 'Select unlocked cells' checked.",
+               why: "This activates the locks. Leaving selection of unlocked cells enabled means staff can still tab through the sheet normally — protection should stop mistakes without making the tool awkward.",
+             },
+             {
+               move: "Set a password only if you will still have it in a year, and record it somewhere durable.",
+               why: "Sheet protection is designed to prevent accidents, not to resist attack — the passwords are trivially removable with freely available tools. Its real value is stopping honest mistakes, and a lost password locks you out of your own workbook for no security benefit.",
+             },
+           ],
+           result: "A tracker three people use daily where the formulas cannot be overwritten by a stray keystroke.",
+           takeaway: "Unlock first, then protect. And treat Excel protection as accident prevention rather than security.",
+         },
+         {
+           type: "callout",
+           variant: "warning",
+           text: "Excel's worksheet and workbook passwords are not real security. They stop accidents and casual curiosity. If a workbook genuinely must be confidential, use File > Info > Protect Workbook > Encrypt with Password, which encrypts the file contents — and rely primarily on where the file is stored and who has access to it.",
+         },
+       ],
+     },
 
     // ------------------------------------------------------------
     // Introduction
@@ -1338,6 +1613,13 @@ export const excelModule3Lessons: Lesson[] = [
             "Verify that all cells have the correct number format",
           ],
           correctIndex: 2,
+          explanation: "Document Inspector scans for hidden worksheets, hidden rows and columns, comments, personal metadata, and other content that would travel with the file unnoticed. Run it before any workbook leaves the practice.",
+          optionRationales: [
+            "Formula auditing is done with Formulas > Error Checking and the trace tools. Document Inspector looks for hidden content, not calculation errors.",
+            "Spelling is handled by Review > Spelling. The Inspector does not read text for correctness.",
+            "Correct. It finds hidden and personal information so you can remove it before sharing.",
+            "Number formats are not part of the inspection. The Inspector reports hidden content and metadata.",
+          ],
         },
       ],
     },

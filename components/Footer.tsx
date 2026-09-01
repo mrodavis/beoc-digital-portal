@@ -35,7 +35,7 @@ export default function Footer() {
               </li>
               <li>
                 <a href="/learning-paths/ms-office" className="hover:text-white transition-colors">
-                  Microsoft Office 2019
+                  Microsoft Office
                 </a>
               </li>
               <li>
