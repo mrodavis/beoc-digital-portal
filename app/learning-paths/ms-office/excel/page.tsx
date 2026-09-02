@@ -81,7 +81,7 @@ export default function ExcelPage() {
         <ModuleCard num={5} slug="module-5" emoji="📈" title="Working with Data" description="Sorting, filtering, tables, charts, and conditional formatting." href="/learning-paths/ms-office/excel/module-5" />
         <ModuleCard num={6} slug="module-6" emoji="📉" title="Tables, Charts & PivotTables" description="Structure data with tables, visualize insights with charts, and summarize information using PivotTables." href="/learning-paths/ms-office/excel/module-6" />
         <ModuleCard num={7} slug="module-7" emoji="🔍" title="Data Analysis Tools" description="Learn advanced PivotTable techniques, What-If Analysis tools, and reference styles used for deeper data analysis." href="/learning-paths/ms-office/excel/module-7" />
-        <ModuleCard num={8} slug="module-8" emoji="✨" title="Modern Excel Features" description="Explore Microsoft 365 features, Intelligent Services, drawing tools, and icons to enhance modern Excel workflows." href="/learning-paths/ms-office/excel/module-8" />
+        <ModuleCard num={8} slug="module-8" emoji="✨" title="Modern Excel Features" description="Dynamic arrays and XLOOKUP, the Intelligent Services, icons and drawing tools, and co-authoring — the features that distinguish a current release from Excel 2019." href="/learning-paths/ms-office/excel/module-8" />
       </div>
 
       {/* Assessment */}

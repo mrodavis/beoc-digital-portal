@@ -7,7 +7,7 @@ import { excelModule4Lessons } from "./module4Lessons";
 import { excelModule5Lessons } from "./module5Lessons";
 import { excelModule6Lessons } from "./module6Lessons";
 import { excelModule7Lessons } from "./module7Lessons";
-// import { excelModule8Lessons } from "./module8Lessons";
+import { excelModule8Lessons } from "./module8Lessons";
 
 export type ExcelModule = {
   moduleNumber: number;
@@ -105,15 +105,15 @@ export const excelModules: ExcelModule[] = [
     estimatedMinutes: 60,
   },
 
-  // {
-  //   moduleNumber: 8,
-  //   moduleSlug: "module-8",
-  //   title: "Modern Excel Features",
-  //   emoji: "⚡",
-  //   description:
-  //     "Explore Microsoft 365 features, Intelligent Services, drawing tools, and icons to enhance modern Excel workflows.",
-  //   lessons: excelModule8Lessons,
-  //   level: "Advanced",
-  //   estimatedMinutes: 45,
-  // },
+  {
+    moduleNumber: 8,
+    moduleSlug: "module-8",
+    title: "Modern Excel Features",
+    emoji: "⚡",
+    description:
+      "Dynamic arrays and XLOOKUP, the Intelligent Services, icons and drawing tools, and co-authoring — the features that distinguish a current release from Excel 2019.",
+    lessons: excelModule8Lessons,
+    level: "Advanced",
+    estimatedMinutes: 45,
+  },
 ];
