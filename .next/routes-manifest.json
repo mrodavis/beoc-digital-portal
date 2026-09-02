@@ -39,6 +39,14 @@
       "namedRegex": "^/eng0300/skills/(?<nxtPslug>[^/]+?)(?:/)?$"
     },
     {
+      "page": "/engl0150/topics/[number]",
+      "regex": "^/engl0150/topics/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPnumber": "nxtPnumber"
+      },
+      "namedRegex": "^/engl0150/topics/(?<nxtPnumber>[^/]+?)(?:/)?$"
+    },
+    {
       "page": "/learning-paths/ehr/intro-to-ehr/[moduleSlug]",
       "regex": "^/learning\\-paths/ehr/intro\\-to\\-ehr/([^/]+?)(?:/)?$",
       "routeKeys": {
@@ -206,6 +214,24 @@
       "regex": "^/eng0300/tabe(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/eng0300/tabe(?:/)?$"
+    },
+    {
+      "page": "/engl0150",
+      "regex": "^/engl0150(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/engl0150(?:/)?$"
+    },
+    {
+      "page": "/engl0150/portfolio",
+      "regex": "^/engl0150/portfolio(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/engl0150/portfolio(?:/)?$"
+    },
+    {
+      "page": "/engl0150/word-bank",
+      "regex": "^/engl0150/word\\-bank(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/engl0150/word\\-bank(?:/)?$"
     },
     {
       "page": "/icon.svg",
