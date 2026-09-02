@@ -1,7 +1,18 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import { officeApps } from "@/lib/content/ms-office";
 
 export default function MicrosoftOfficePage() {
+  // Derived from the module data. These were hardcoded and had drifted — the
+  // page claimed 8 modules for Excel, which has 7, and 28 in total, which is 27.
+  const counts = {
+    word: officeApps.word.length,
+    excel: officeApps.excel.length,
+    powerpoint: officeApps.powerpoint.length,
+    access: officeApps.access.length,
+  };
+  const totalModules = Object.values(counts).reduce((a, b) => a + b, 0);
+
   return (
     <div className="container mx-auto px-4 py-12 max-w-7xl">
 
@@ -13,7 +24,7 @@ export default function MicrosoftOfficePage() {
         <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
           Master the essential productivity tools used in modern workplaces.
           Structured workforce-ready curriculum covering Word, Excel,
-          and presentation software from beginner to certification level.
+          PowerPoint, and Access, from beginner to certification level.
         </p>
       </div>
 
@@ -26,7 +37,7 @@ export default function MicrosoftOfficePage() {
         <div className="grid md:grid-cols-3 gap-6 text-gray-700">
           <div>
             <div className="text-3xl font-bold text-primary-600 mb-2">
-              28
+              {totalModules}
             </div>
             <div className="font-semibold">Structured Modules</div>
             <div className="text-sm text-gray-600">
@@ -83,7 +94,7 @@ export default function MicrosoftOfficePage() {
                 Live
               </span>
               <span>•</span>
-              <span>8 Modules</span>
+              <span>{counts.word} Modules</span>
             </div>
           </div>
         </Link>
@@ -107,7 +118,7 @@ export default function MicrosoftOfficePage() {
                 Live
               </span>
               <span>•</span>
-              <span>8 Modules</span>
+              <span>{counts.excel} Modules</span>
             </div>
           </div>
         </Link>
@@ -131,7 +142,7 @@ export default function MicrosoftOfficePage() {
                 Live
               </span>
               <span>•</span>
-              <span>4 Modules</span>
+              <span>{counts.access} Modules</span>
             </div>
           </div>
         </Link>
@@ -155,7 +166,7 @@ export default function MicrosoftOfficePage() {
                 Live
               </span>
               <span>•</span>
-              <span>8 Modules</span>
+              <span>{counts.powerpoint} Modules</span>
             </div>
           </div>
         </Link>

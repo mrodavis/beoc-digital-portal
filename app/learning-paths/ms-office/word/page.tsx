@@ -1,8 +1,15 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
+import { wordModules } from "@/lib/content/ms-office/word/modules";
 
 export default function WordPage() {
+  // Derived from the module data so these figures cannot drift out of
+  // step with the course, which is what had happened when they were
+  // hardcoded.
+  const moduleCount = wordModules.length;
+  const lessonCount = wordModules.reduce((n, m) => n + m.lessons.length, 0);
+
   return (
     <div className="container mx-auto px-4 py-12 max-w-7xl">
 
@@ -35,12 +42,12 @@ export default function WordPage() {
       {/* Course Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
         <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 text-center">
-          <div className="text-2xl font-bold text-primary-600">8</div>
+          <div className="text-2xl font-bold text-primary-600">{moduleCount}</div>
           <div className="text-sm text-gray-600">Modules</div>
         </div>
         <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 text-center">
-          <div className="text-2xl font-bold text-primary-600">2</div>
-          <div className="text-sm text-gray-600">Assessments</div>
+          <div className="text-2xl font-bold text-primary-600">{lessonCount}</div>
+          <div className="text-sm text-gray-600">Lessons</div>
         </div>
         <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 text-center">
           <div className="text-2xl font-bold text-primary-600">10+</div>
