@@ -10,6 +10,10 @@ import Sorter from "./Sorter";
 import Rewrite from "./Rewrite";
 import Sequencer from "./Sequencer";
 import Builder from "./Builder";
+import Matcher from "./Matcher";
+import ToneContinuum from "./ToneContinuum";
+import MissingInfo from "./MissingInfo";
+import ChooseBest from "./ChooseBest";
 
 /**
  * The ENGL0150 topic page.
@@ -290,6 +294,44 @@ export default function TopicPageTemplate({
                         instructions={widget.instructions}
                         scenario={widget.scenario}
                         fields={widget.fields}
+                      />
+                    );
+                  case "matcher":
+                    return (
+                      <Matcher
+                        key={i}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        pairs={widget.pairs}
+                      />
+                    );
+                  case "tone":
+                    return (
+                      <ToneContinuum
+                        key={i}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        samples={widget.samples}
+                      />
+                    );
+                  case "missing-info":
+                    return (
+                      <MissingInfo
+                        key={i}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        sample={widget.sample}
+                        elements={widget.elements}
+                      />
+                    );
+                  case "choose-best":
+                    return (
+                      <ChooseBest
+                        key={i}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        scenario={widget.scenario}
+                        items={widget.items}
                       />
                     );
                   default:

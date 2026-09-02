@@ -147,6 +147,46 @@ export const wordLists: WordList[] = [
       { word: "recommendation", meaning: "What you are asking the receiver to do.", example: "The recommendation closes an SBAR handoff." },
     ],
   },
+  {
+    number: 6,
+    topicNumber: 6,
+    spirals: true,
+    words: [
+      { word: "once", meaning: "One time.", example: "Change the bandage once a day.", confusedWith: "ones" },
+      { word: "ones", meaning: "Plural of 'one', standing in for a noun already named.", example: "Use the clean ones from the box.", confusedWith: "once" },
+      { word: "consent", meaning: "Permission given after the risks and benefits have been explained.", example: "Written consent was obtained before the procedure." },
+      { word: "concern", meaning: "A worry, or something that matters to someone.", example: "The patient's main concern was the cost." },
+      { word: "cleanse", meaning: "To clean thoroughly.", example: "Cleanse the area gently with soap and water." },
+      { word: "bandage", meaning: "A covering placed over a wound.", example: "Put on a new bandage after the skin is dry." },
+      { word: "gauze", meaning: "Thin, loosely woven fabric used on wounds.", example: "Cover the wound with sterile gauze." },
+      { word: "nourishment", meaning: "Food and drink that supports health and healing.", example: "Adequate nourishment helps a wound heal." },
+      { word: "follow-up", meaning: "A later visit or contact to check on progress.", example: "Her follow-up is scheduled for two weeks from today." },
+    ],
+  },
+  {
+    number: 7,
+    topicNumber: 7,
+    spirals: true,
+    words: [
+      { word: "reminder", meaning: "A message prompting someone about something upcoming.", example: "We send a reminder two days before each appointment." },
+      { word: "reschedule", meaning: "To move something to a different time.", example: "Call us if you need to reschedule." },
+      { word: "confirm", meaning: "To state definitely that something is correct or arranged.", example: "Please confirm that you received this message." },
+      { word: "available", meaning: "Able to be used, or free at a given time.", example: "The next available appointment is Tuesday at 10:00." },
+      { word: "referral", meaning: "Sending a patient to another provider for specialist care.", example: "The referral was sent to orthopedics on Monday." },
+    ],
+  },
+  {
+    number: 8,
+    topicNumber: 8,
+    spirals: true,
+    words: [
+      { word: "authorization", meaning: "Formal approval from a payer before a service is provided.", example: "Prior authorization was obtained before scheduling." },
+      { word: "specialist", meaning: "A provider who focuses on one area of medicine.", example: "She was referred to a specialist for her knee." },
+      { word: "documentation", meaning: "The written record of what was observed, reported, and done.", example: "Documentation of the phone call was added to the chart." },
+      { word: "eligibility", meaning: "Whether a patient's coverage applies to a service.", example: "Eligibility was verified at check-in." },
+      { word: "relevant", meaning: "Directly connected to the matter at hand.", example: "Include only the history relevant to this referral." },
+    ],
+  },
 ];
 
 export function getWordList(number: number) {
