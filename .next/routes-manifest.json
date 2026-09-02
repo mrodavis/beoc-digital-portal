@@ -222,6 +222,12 @@
       "namedRegex": "^/engl0150(?:/)?$"
     },
     {
+      "page": "/engl0150/final",
+      "regex": "^/engl0150/final(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/engl0150/final(?:/)?$"
+    },
+    {
       "page": "/engl0150/portfolio",
       "regex": "^/engl0150/portfolio(?:/)?$",
       "routeKeys": {},
