@@ -110,6 +110,53 @@ export interface RewriteItem {
   rubric: string[];
 }
 
+export interface MatchPair {
+  id: string;
+  /** The clinical term or jargon. */
+  term: string;
+  /** The plain-language equivalent a patient would understand. */
+  plain: string;
+  /** A model sentence explaining it to a patient. */
+  explanation?: string;
+}
+
+export interface ToneSample {
+  id: string;
+  text: string;
+  /** 0 blunt · 1 abrupt · 2 professional · 3 over-soft. */
+  band: 0 | 1 | 2 | 3;
+  feedback: string;
+  /** A version in the professional band, for comparison. */
+  professional?: string;
+}
+
+export interface RequiredElement {
+  id: string;
+  label: string;
+  /** True when the sample already contains it. */
+  present: boolean;
+  /** Why it matters to the person receiving the request. */
+  why: string;
+}
+
+export interface BuilderField {
+  id: string;
+  label: string;
+  prompt: string;
+  /** Words or ideas a complete answer should contain. Case-insensitive. */
+  expects?: string[];
+  /** Shown when `expects` is not satisfied. */
+  missingHint?: string;
+  rows?: number;
+}
+
+export interface ErrorHuntSpan {
+  /** The exact text carrying the error, as it appears in the paragraph. */
+  text: string;
+  category: string;
+  correction: string;
+}
+
 export interface OrderItem {
   id: string;
   text: string;
@@ -132,7 +179,13 @@ export type PracticeWidget =
   | { kind: "sorter"; title: string; instructions?: string; bins: { id: string; label: string; hint?: string }[]; items: SortItem[] }
   | { kind: "rewrite"; title: string; instructions?: string; items: RewriteItem[] }
   | { kind: "sequencer"; title: string; instructions?: string; items: OrderItem[] }
-  | { kind: "choose-best"; title: string; instructions?: string; scenario: string; items: DrillItem[] };
+  | { kind: "choose-best"; title: string; instructions?: string; scenario: string; items: DrillItem[] }
+  | { kind: "matcher"; title: string; instructions?: string; pairs: MatchPair[] }
+  | { kind: "tone"; title: string; instructions?: string; samples: ToneSample[] }
+  | { kind: "missing-info"; title: string; instructions?: string; sample: string; elements: RequiredElement[] }
+  | { kind: "builder"; title: string; instructions?: string; scenario: string; fields: BuilderField[]; storageKey: string }
+  | { kind: "ai-lab"; title: string; instructions?: string; starter: string; badRevision: { text: string; problems: string[] } }
+  | { kind: "error-hunt"; title: string; instructions?: string; paragraph: string; spans: ErrorHuntSpan[] };
 
 export interface WorkplaceProduct {
   /** Short badge label, e.g. "Basic SOAP note". */
@@ -143,8 +196,15 @@ export interface WorkplaceProduct {
   scenario?: string;
 }
 
+/** Core topics run on the calendar; advanced topics are optional extensions. */
+export type TopicTrack = "core" | "advanced";
+
 export interface Topic {
   number: number;
+  /** Defaults to "core" when omitted. */
+  track?: TopicTrack;
+  /** Programs an advanced topic is aimed at, e.g. ["MA", "PCT"]. */
+  programs?: string[];
   slug: string;
   title: string;
   /** Unit number and title this topic sits in. */

@@ -6,6 +6,10 @@ import Pending, { isPending } from "./Pending";
 import CommunicationCheck from "./CommunicationCheck";
 import GrammarDrill from "./GrammarDrill";
 import WordBankDeck from "./WordBankDeck";
+import Sorter from "./Sorter";
+import Rewrite from "./Rewrite";
+import Sequencer from "./Sequencer";
+import Builder from "./Builder";
 
 /**
  * The ENGL0150 topic page.
@@ -248,6 +252,46 @@ export default function TopicPageTemplate({
                         title={widget.title}
                       />
                     ) : null;
+                  case "sorter":
+                    return (
+                      <Sorter
+                        key={i}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        bins={widget.bins}
+                        items={widget.items}
+                      />
+                    );
+                  case "rewrite":
+                    return (
+                      <Rewrite
+                        key={i}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        items={widget.items}
+                      />
+                    );
+                  case "sequencer":
+                    return (
+                      <Sequencer
+                        key={i}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        items={widget.items}
+                      />
+                    );
+                  case "builder":
+                    return (
+                      <Builder
+                        key={i}
+                        topicNumber={topic.number}
+                        storageKey={widget.storageKey}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        scenario={widget.scenario}
+                        fields={widget.fields}
+                      />
+                    );
                   default:
                     return (
                       <Pending

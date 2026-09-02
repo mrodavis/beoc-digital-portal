@@ -108,6 +108,45 @@ export const wordLists: WordList[] = [
       },
     ],
   },
+  {
+    number: 3,
+    topicNumber: 3,
+    spirals: true,
+    words: [
+      { word: "evidence", meaning: "Facts or observations that support a conclusion.", example: "The note recorded the evidence rather than the assistant's opinion." },
+      { word: "Wednesday", meaning: "The third day of the working week. Note the silent 'd'.", example: "Her follow-up was scheduled for Wednesday morning." },
+      { word: "dilated", meaning: "Widened or enlarged.", example: "The provider documented that the pupils were dilated." },
+      { word: "nauseous", meaning: "Feeling sick to the stomach.", example: "The patient reported feeling nauseous after the medication." },
+      { word: "consciousness", meaning: "The state of being awake and aware of surroundings.", example: "Any change in consciousness is reported to the nurse immediately." },
+    ],
+  },
+  {
+    number: 4,
+    topicNumber: 4,
+    spirals: true,
+    words: [
+      { word: "assessment", meaning: "A clinical judgment based on the findings gathered.", example: "The assessment section of the note belongs to the provider." },
+      { word: "complaint", meaning: "The problem or symptom a patient reports.", example: "The chief complaint was a sore throat lasting three days." },
+      { word: "documentation", meaning: "The written record of what was observed, reported, and done.", example: "Accurate documentation protects the patient and the practice." },
+      { word: "relevant", meaning: "Directly connected to the matter at hand.", example: "Keep the note to information relevant to this visit." },
+      { word: "acute", meaning: "Beginning suddenly and lasting a short time.", example: "The patient presented with acute abdominal pain." },
+      { word: "dosage", meaning: "The amount of a medication to be taken and how often.", example: "The dosage was confirmed against the order before administration." },
+    ],
+  },
+  {
+    number: 5,
+    topicNumber: 5,
+    spirals: true,
+    words: [
+      { word: "allergy", meaning: "A harmful immune reaction to a substance. Plural: allergies.", example: "Her allergy to penicillin is recorded on her wristband." },
+      { word: "symptom", meaning: "Something the patient experiences and reports.", example: "The most concerning symptom was shortness of breath." },
+      { word: "seizure", meaning: "A sudden burst of abnormal electrical activity in the brain.", example: "Time the seizure and protect the patient's head." },
+      { word: "swelling", meaning: "An abnormal enlargement of a body part.", example: "Swelling was noted in the right ankle." },
+      { word: "diarrhea", meaning: "Frequent loose or watery stools.", example: "Sudden watery diarrhea is reported promptly." },
+      { word: "hemorrhage", meaning: "Heavy or uncontrolled bleeding.", example: "Any suspected hemorrhage is escalated immediately." },
+      { word: "recommendation", meaning: "What you are asking the receiver to do.", example: "The recommendation closes an SBAR handoff." },
+    ],
+  },
 ];
 
 export function getWordList(number: number) {
