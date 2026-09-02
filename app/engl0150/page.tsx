@@ -298,14 +298,7 @@ export default function Engl0150Home() {
           <tbody>
             {coursePolicy.grading.map((g) => (
               <tr key={g.category} className="border-b border-engl-ink-100">
-                <td className="py-2 text-engl-ink-800">
-                  {g.category}
-                  {g.note && (
-                    <span className="ml-2 rounded bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
-                      {g.note}
-                    </span>
-                  )}
-                </td>
+                <td className="py-2 text-engl-ink-800">{g.category}</td>
                 <td className="py-2 font-medium text-engl-ink-900">{g.weight}</td>
               </tr>
             ))}

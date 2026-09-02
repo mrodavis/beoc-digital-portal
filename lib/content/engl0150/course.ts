@@ -199,10 +199,16 @@ export const portfolioOutcomes = [
  * could not be verified against it directly. The syllabus remains authoritative.
  */
 export const coursePolicy = {
+  /**
+   * Weights follow the syllabus. The Brightspace gradebook currently shows a
+   * FINAL category at 20% and no QUIZZES category; the syllabus is the single
+   * source of truth for policy, so the syllabus figure is displayed and the
+   * gradebook is what needs correcting. See docs/ENGL0150_AUTHORED_ADDITIONS.md.
+   */
   grading: [
     { category: "Professionalism", weight: "20%" },
     { category: "Classwork & Homework", weight: "30%" },
-    { category: "Quizzes", weight: "20%", note: "Syllabus and gradebook disagree — see build report" },
+    { category: "Quizzes", weight: "20%" },
     { category: "Final Portfolio", weight: "30%" },
   ],
   lateWork:

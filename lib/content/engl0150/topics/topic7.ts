@@ -3,10 +3,10 @@ import { Topic } from "@/types/engl0150";
 /**
  * TOPIC 7 — Patient Messages, Reminders & Follow-Up (1–2 sessions)
  *
- * The guide names this an explicit spiral topic: its Grammar Focus is
- * "revisit earlier grammar topics" without listing specific items. The page
- * renders the spiral banner and a placeholder asking the instructor which
- * items to prioritize.
+ * NOTE ON SOURCES: the guide names this an explicit spiral topic, directing it
+ * to "revisit earlier grammar topics" without listing items. The four items
+ * below are authored — selected as the errors most likely to reach a patient
+ * in a short message. Recorded in docs/ENGL0150_AUTHORED_ADDITIONS.md.
  */
 export const topic7: Topic = {
   number: 7,
@@ -29,9 +29,25 @@ export const topic7: Topic = {
     "Confirming understanding without sounding like a test",
   ],
 
-  grammar: {
-    note: "The Instructor's Guide directs this topic to revisit earlier grammar rather than introduce new items, and does not specify which. The practice below spirals subject–verb agreement, fragments and run-ons, and pronoun clarity from Topics 2, 3, and 6. Confirm which items should be prioritized here.",
-  },
+  grammar: [
+    {
+      heading: "Spiral review — the errors that matter most in a short message",
+      points: [
+        "Subject–verb agreement, from Topic 2 — especially when a phrase separates the subject from its verb",
+        "Clear pronoun reference, from Topic 3 — a two-line message gives the reader no context to recover an ambiguous 'it' or 'she'",
+        "Fragments and run-ons, from Topics 2 and 6 — a fragment in a short message leaves the reader waiting for a point that never comes",
+        "Commonly confused words, from every list so far — your and you're, its and it's, then and than",
+      ],
+    },
+    {
+      heading: "Why these four, in this topic",
+      points: [
+        "A short message has no room to recover from an error. In a long document a reader can work out what you meant from context; in two sentences there is no context.",
+        "These are also the four errors most likely to reach a patient, because short messages are written quickly and proofread least.",
+        "Everything here has been introduced already. This topic is about applying it under time pressure, not learning it.",
+      ],
+    },
+  ],
 
   wordListNumber: 7,
 

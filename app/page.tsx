@@ -28,6 +28,14 @@ export default function Home() {
       icon: "📖",
     },
     {
+      title: "ENGL0150 Writing for the Workplace",
+      description:
+        "Healthcare workplace writing for MA, PCT, and Medical Billing students. Grammar and sentence clarity, objective documentation, SOAP notes, patient instructions, professional email, and using AI as a writing coach.",
+      href: "/engl0150",
+      status: "available",
+      icon: "✍️",
+    },
+    {
       title: "College Preparation",
       description:
         "Build the academic skills and strategies needed to succeed in college-level coursework and higher education environments.",

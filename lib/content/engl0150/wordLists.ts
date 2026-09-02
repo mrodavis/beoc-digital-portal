@@ -244,6 +244,20 @@ export const wordLists: WordList[] = [
       { word: "resolve", meaning: "To settle or fix.", example: "We will resolve the billing error this week." },
     ],
   },
+  {
+    number: 14,
+    topicNumber: 10,
+    spirals: true,
+    words: [
+      { word: "revision", meaning: "Changing what a piece of writing says or how it is organized.", example: "The revision cut two paragraphs and reordered the rest." },
+      { word: "proofread", meaning: "To check writing for errors in grammar, spelling, and punctuation.", example: "Proofread the letter after you have finished revising it." },
+      { word: "accuracy", meaning: "Being correct in every detail.", example: "Accuracy matters more than speed in a patient message." },
+      { word: "evaluate", meaning: "To judge the value or correctness of something.", example: "Evaluate each AI suggestion before you accept it." },
+      { word: "suggestion", meaning: "An idea put forward for consideration, which you may accept or reject.", example: "The tool made six suggestions; I accepted four." },
+      { word: "responsibility", meaning: "Being accountable for something.", example: "Responsibility for the final content stays with you." },
+      { word: "confidentiality", meaning: "Keeping information private and sharing it only with those who need it.", example: "Confidentiality rules apply to anything you paste into an AI tool." },
+    ],
+  },
 ];
 
 export function getWordList(number: number) {

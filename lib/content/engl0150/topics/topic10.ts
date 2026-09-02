@@ -3,8 +3,10 @@ import { Topic } from "@/types/engl0150";
 /**
  * TOPIC 10 — Proofreading, Revision & AI as a Writing Coach (2 sessions)
  *
- * The Instructor's Guide specifies no spelling list for this topic; the
- * vocabulary section renders a placeholder and offers spiral review instead.
+ * NOTE ON SOURCES: the Instructor's Guide specifies no spelling list for this
+ * topic. List 14 below is authored from the topic's own vocabulary — revision,
+ * proofread, evaluate, responsibility — and is recorded in
+ * docs/ENGL0150_AUTHORED_ADDITIONS.md for instructor review.
  */
 export const topic10: Topic = {
   number: 10,
@@ -40,9 +42,7 @@ export const topic10: Topic = {
     },
   ],
 
-  wordListNumber: {
-    note: "The Instructor's Guide lists no new spelling words for Topic 10. The Word Bank below offers spiral review of Lists 1–9 instead. Confirm whether a Topic 10 list should be added, or whether spiral review is the intent.",
-  },
+  wordListNumber: 14,
 
   practice: [
     {
@@ -249,7 +249,7 @@ export const topic10: Topic = {
         ],
       },
     },
-    { kind: "word-bank", title: "Spiral review — Lists 1 to 9", listNumber: 9 },
+    { kind: "word-bank", title: "Words to spell, plus spiral review", listNumber: 14 },
   ],
 
   product: {

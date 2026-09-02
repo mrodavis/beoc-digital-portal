@@ -5,10 +5,12 @@ import { Topic } from "@/types/engl0150";
  *
  * Content mirrors the finished Brightspace Week 1 page, including its voice.
  *
- * The Instructor's Guide does not supply an Essential Question, a Grammar
- * Focus, or a Cumulative Workplace Product for this orientation session. Those
- * three sections render as visible placeholders rather than being invented —
- * see the build report.
+ * NOTE ON SOURCES: the Instructor's Guide supplies no Essential Question,
+ * Grammar Focus, or Cumulative Workplace Product for this orientation session.
+ * All three are authored here from the guide's own Topic 1 material — the
+ * "Questions to think about", the Topic 2 diagnostic categories, and the
+ * writing warm-up the course map names as this session's product. Recorded in
+ * docs/ENGL0150_AUTHORED_ADDITIONS.md for instructor review.
  */
 export const topic1: Topic = {
   number: 1,
@@ -23,9 +25,8 @@ export const topic1: Topic = {
     "Do not worry about getting everything right today. Your first writing sample is a starting point, not a test.",
   ],
 
-  essentialQuestion: {
-    note: "The Instructor's Guide does not state an Essential Question for the orientation session. The 'Questions to think about' below are used in its place on the Brightspace Week 1 page. Confirm whether one should be added for consistency with Topics 2–10.",
-  },
+  essentialQuestion:
+    "Why does writing matter in healthcare, and how does anyone actually get better at it?",
 
   concepts: [
     "Describe the purpose of the course and why strong writing matters in healthcare",
@@ -35,9 +36,27 @@ export const topic1: Topic = {
     "Complete a short writing sample as a baseline",
   ],
 
-  grammar: {
-    note: "The Instructor's Guide assigns no Grammar Focus to the orientation session; explicit grammar instruction begins with the Topic 2 diagnostic. Confirm whether this section should stay empty or preview the diagnostic.",
-  },
+  grammar: [
+    {
+      heading: "What we will work on this term",
+      points: [
+        "Explicit grammar instruction begins next session with a diagnostic. Nothing is graded and nothing is expected of you today.",
+        "Over the term we work on: complete sentences, and fixing fragments and run-ons",
+        "Subject–verb agreement, and pronoun–antecedent agreement",
+        "Punctuation and capitalization",
+        "Clear pronoun reference — making sure the reader knows who 'she' or 'it' means",
+        "Word choice, including the pairs people mix up: patient and patience, affect and effect, your and you're",
+      ],
+    },
+    {
+      heading: "How the grammar work runs",
+      points: [
+        "Each skill is introduced once and then revisited in harder contexts — this is called spiraling, and it is deliberate",
+        "Subject–verb agreement introduced in Topic 2 comes back in a SOAP note, a patient message, and a workplace email",
+        "You are not expected to master a skill the first time you meet it",
+      ],
+    },
+  ],
 
   wordListNumber: 1,
 
@@ -50,7 +69,11 @@ export const topic1: Topic = {
   ],
 
   product: {
-    note: "The guide lists a professional self-introduction writing warm-up for this session rather than a cumulative workplace product. The warm-up prompt appears under 'Think about' below. Confirm whether Topic 1 should carry a formal workplace product.",
+    label: "Professional self-introduction (writing warm-up)",
+    description:
+      "Two short pieces of writing, both submitted in Amplify. Neither is graded for grammar — they are a starting point so you and your instructors can see where you begin. First, introduce yourself to the class. Then answer the writing warm-up prompt below. Write honestly and in your own words.",
+    scenario:
+      "Part 1 — Introduce yourself to your classmates and instructors: your name, the program you are in, and one thing you hope to be better at by the end of this course. Three or four sentences.\n\nPart 2 — The writing warm-up: Think about a time when someone communicated something to you clearly, or when a message was confusing. What made the communication effective or ineffective? This is not a grammar test.",
   },
 
   reflection: [
@@ -58,7 +81,6 @@ export const topic1: Topic = {
     "What makes communication clear, accurate, and professional?",
     "What does it mean to become a better writer?",
     "How can feedback and revision help me improve?",
-    "Writing warm-up: Think about a time when someone communicated something to you clearly — or when a message was confusing. What made the communication effective or ineffective? Write honestly and in your own words. This is not a grammar test.",
   ],
 
   beforeYouLeave: [

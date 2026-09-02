@@ -3,7 +3,9 @@
 import { useState } from "react";
 import CommunicationCheck from "@/components/engl0150/CommunicationCheck";
 import Builder from "@/components/engl0150/Builder";
-import Pending from "@/components/engl0150/Pending";
+import GrammarDrill from "@/components/engl0150/GrammarDrill";
+import WordBankDeck from "@/components/engl0150/WordBankDeck";
+import { wordLists } from "@/lib/content/engl0150/wordLists";
 import { finalAssessment } from "@/lib/content/engl0150/final";
 
 /** Final assessment key, outside the topic range. */
@@ -144,25 +146,42 @@ export default function FinalPage() {
         <h2 className="font-display text-2xl font-bold text-engl-ink-900">
           Part 2 — grammar and spelling
         </h2>
-        <div className="mt-3">
-          <Pending content={finalAssessment.quizNote} />
+        <p className="mt-1 max-w-[70ch] text-engl-ink-600">
+          {finalAssessment.quizIntro}
+        </p>
+
+        <div className="mt-5">
+          <GrammarDrill
+            title="Grammar review — the spiraling error checklist"
+            instructions="Three items from each category: agreements, fragments and run-ons, punctuation and capitalization, and word choice."
+            items={finalAssessment.quizItems}
+          />
         </div>
-        <p className="mt-3 text-engl-ink-700">
-          In the meantime, the{" "}
-          <a
-            href="/engl0150/topics/10#practice"
-            className="font-medium text-engl-care-700 underline hover:text-engl-care-900"
-          >
-            error hunt in Topic 10
-          </a>{" "}
-          and the{" "}
-          <a
-            href="/engl0150/word-bank"
-            className="font-medium text-engl-care-700 underline hover:text-engl-care-900"
-          >
-            full Word Bank
-          </a>{" "}
-          cover the checklist categories the final draws on.
+
+        <div className="mt-10">
+          <h3 className="font-display text-xl font-bold text-engl-ink-900">
+            Spelling review
+          </h3>
+          <p className="mt-1 text-engl-ink-600">
+            Every word from the course. Use Spell it mode and work through the
+            ones you miss.
+          </p>
+          <div className="mt-4">
+            <WordBankDeck
+              list={wordLists[wordLists.length - 1]}
+              spiralLists={wordLists.slice(0, -1)}
+              title="Full course review"
+            />
+          </div>
+          <p className="mt-3 text-sm text-engl-ink-500">
+            Turn on &ldquo;Include earlier lists&rdquo; to review all{" "}
+            {wordLists.reduce((n, l) => n + l.words.length, 0)} words.
+          </p>
+        </div>
+
+        <p className="mt-6 rounded-2xl bg-engl-ink-50 p-4 text-sm text-engl-ink-600">
+          This review is practice and is not recorded. The graded grammar and
+          spelling assessment is administered in class through Brightspace.
         </p>
       </section>
 

@@ -4,8 +4,12 @@ import { Topic } from "@/types/engl0150";
  * ADVANCED TOPICS — the Instructor's Guide's optional additional topics.
  *
  * These sit outside the ten core topics and are not on the Fall 1 calendar.
- * The guide supplies no session counts for any of them, which is noted on each
- * page. Numbered from 101 so they never collide with core topic routes.
+ * The guide supplies no session counts. Each is set to 1 session here: every
+ * one has a single cumulative product and a single grammar focus, which is the
+ * shape of the guide's other one-session topics. Numbered from 101 so they
+ * never collide with core topic routes.
+ *
+ * Recorded in docs/ENGL0150_AUTHORED_ADDITIONS.md.
  */
 
 export const advancedA: Topic = {
@@ -15,10 +19,7 @@ export const advancedA: Topic = {
   programs: ["Medical Assisting", "Patient Care Technician"],
   title: "Medication & Treatment Documentation",
   unit: { number: 6, title: "Advanced Topics" },
-  sessions: "—",
-  sessionsNote: {
-    note: "The Instructor's Guide supplies no session count for the optional additional topics. Confirm whether these are timetabled, offered as enrichment, or used only if the calendar allows.",
-  },
+  sessions: "1",
   goals: ["documentation", "grammar-sentence"],
   spiralsFrom: [3, 4],
 
@@ -206,10 +207,7 @@ export const advancedB: Topic = {
   track: "advanced",
   title: "HIPAA, Confidentiality & Ethical Writing",
   unit: { number: 6, title: "Advanced Topics" },
-  sessions: "—",
-  sessionsNote: {
-    note: "No session count is supplied for the optional additional topics. Confirm whether this is timetabled.",
-  },
+  sessions: "1",
   goals: ["documentation", "professional-writing", "patient-centered"],
   spiralsFrom: [3, 7],
 
@@ -353,10 +351,7 @@ export const advancedC: Topic = {
   programs: ["Medical Billing"],
   title: "Insurance & Billing Communication",
   unit: { number: 6, title: "Advanced Topics" },
-  sessions: "—",
-  sessionsNote: {
-    note: "No session count is supplied for the optional additional topics. Confirm whether this is timetabled.",
-  },
+  sessions: "1",
   goals: ["patient-centered", "professional-writing", "grammar-sentence"],
   spiralsFrom: [6, 7],
 
@@ -550,10 +545,7 @@ export const advancedD: Topic = {
   track: "advanced",
   title: "Difficult Conversations & Professional Tone",
   unit: { number: 6, title: "Advanced Topics" },
-  sessions: "—",
-  sessionsNote: {
-    note: "No session count is supplied for the optional additional topics. Confirm whether this is timetabled.",
-  },
+  sessions: "1",
   goals: ["professional-writing", "patient-centered"],
   spiralsFrom: [7, 9],
 

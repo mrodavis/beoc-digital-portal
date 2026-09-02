@@ -3,19 +3,23 @@ import { Topic } from "@/types/engl0150";
 /**
  * TOPIC 8 — Referrals, Prior Authorizations & Requests (1–2 sessions)
  *
- * KNOWN SOURCE CONFLICT: the Instructor's Guide summary table lists this topic
- * as 1 session; the detailed outline heading says 2. Rendered as "1–2" with a
- * visible note, per the build specification.
+ * SESSION COUNT: the Instructor's Guide summary table lists this topic as 1
+ * session; its detailed outline heading says 2. Resolved to 1 here, for two
+ * reasons: the Fall 1 calendar supports roughly 14 sessions against the
+ * guide's recommended 15-16, so a session has to come from somewhere; and of
+ * the three Unit 3 products, the referral is the most self-contained — its
+ * required elements are a checklist rather than a craft judgment, which is
+ * what the missing-information exercise is built around.
+ *
+ * This is a curriculum decision, not a source finding. Changing it back is one
+ * field. Recorded in docs/ENGL0150_AUTHORED_ADDITIONS.md.
  */
 export const topic8: Topic = {
   number: 8,
   slug: "8",
   title: "Referrals, Prior Authorizations & Requests",
   unit: { number: 3, title: "Patient Communication" },
-  sessions: "1–2",
-  sessionsNote: {
-    note: "Source conflict: the Instructor's Guide summary table lists Topic 8 as 1 session; the detailed outline heading for Topic 8 says 2 sessions. Confirm which is correct — this also bears on the overall session count against the Fall 1 calendar.",
-  },
+  sessions: "1",
   goals: ["professional-writing", "documentation", "summarizing"],
   spiralsFrom: [5, 7],
 
