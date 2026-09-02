@@ -30,7 +30,8 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/ehr": {
+    "/_not-found": {
+      "initialStatus": 404,
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -43,32 +44,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ehr",
-      "dataRoute": "/learning-paths/ehr.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/certification": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/certification",
-      "dataRoute": "/learning-paths/certification.rsc",
+      "srcRoute": "/_not-found",
+      "dataRoute": "/_not-found.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -102,7 +79,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/ms-office/word": {
+    "/learning-paths/ehr/intro-to-ehr": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -115,8 +92,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ms-office/word",
-      "dataRoute": "/learning-paths/ms-office/word.rsc",
+      "srcRoute": "/learning-paths/ehr/intro-to-ehr",
+      "dataRoute": "/learning-paths/ehr/intro-to-ehr.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -150,8 +127,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/_not-found": {
-      "initialStatus": 404,
+    "/learning-paths/ms-office/powerpoint": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -164,8 +140,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/_not-found",
-      "dataRoute": "/_not-found.rsc",
+      "srcRoute": "/learning-paths/ms-office/powerpoint",
+      "dataRoute": "/learning-paths/ms-office/powerpoint.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -199,6 +175,30 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/learning-paths/ms-office/word": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ms-office/word",
+      "dataRoute": "/learning-paths/ms-office/word.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/office-assistant/intro-database": {
       "experimentalBypassFor": [
         {
@@ -223,7 +223,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/ms-office/powerpoint": {
+    "/learning-paths/certification": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -236,8 +236,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ms-office/powerpoint",
-      "dataRoute": "/learning-paths/ms-office/powerpoint.rsc",
+      "srcRoute": "/learning-paths/certification",
+      "dataRoute": "/learning-paths/certification.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -295,7 +295,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/ehr/intro-to-ehr": {
+    "/learning-paths/office-assistant/tech-foundations": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -308,8 +308,32 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ehr/intro-to-ehr",
-      "dataRoute": "/learning-paths/ehr/intro-to-ehr.rsc",
+      "srcRoute": "/learning-paths/office-assistant/tech-foundations",
+      "dataRoute": "/learning-paths/office-assistant/tech-foundations.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/ehr": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ehr",
+      "dataRoute": "/learning-paths/ehr.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -367,7 +391,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/office-assistant/tech-foundations": {
+    "/eng0300/resources": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -380,8 +404,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/tech-foundations",
-      "dataRoute": "/learning-paths/office-assistant/tech-foundations.rsc",
+      "srcRoute": "/eng0300/resources",
+      "dataRoute": "/eng0300/resources.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1087,30 +1111,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/resources": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/resources",
-      "dataRoute": "/eng0300/resources.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/learning-paths/programs/medical-assisting": {
       "experimentalBypassFor": [
         {
@@ -1183,7 +1183,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/engl0150/portfolio": {
+    "/eng0300": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1196,8 +1196,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/engl0150/portfolio",
-      "dataRoute": "/engl0150/portfolio.rsc",
+      "srcRoute": "/eng0300",
+      "dataRoute": "/eng0300.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -2335,7 +2335,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300": {
+    "/eng0300/tabe": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -2348,8 +2348,56 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300",
-      "dataRoute": "/eng0300.rsc",
+      "srcRoute": "/eng0300/tabe",
+      "dataRoute": "/eng0300/tabe.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/engl0150/portfolio": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/engl0150/portfolio",
+      "dataRoute": "/engl0150/portfolio.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/engl0150/word-bank": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/engl0150/word-bank",
+      "dataRoute": "/engl0150/word-bank.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -2479,7 +2527,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/tabe": {
+    "/engl0150/topics/6": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -2492,8 +2540,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/tabe",
-      "dataRoute": "/eng0300/tabe.rsc",
+      "srcRoute": "/engl0150/topics/[number]",
+      "dataRoute": "/engl0150/topics/6.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -2503,7 +2551,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/engl0150/word-bank": {
+    "/engl0150/topics/7": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -2516,8 +2564,32 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/engl0150/word-bank",
-      "dataRoute": "/engl0150/word-bank.rsc",
+      "srcRoute": "/engl0150/topics/[number]",
+      "dataRoute": "/engl0150/topics/7.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/engl0150/topics/8": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/engl0150/topics/[number]",
+      "dataRoute": "/engl0150/topics/8.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
