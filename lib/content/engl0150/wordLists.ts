@@ -187,6 +187,63 @@ export const wordLists: WordList[] = [
       { word: "relevant", meaning: "Directly connected to the matter at hand.", example: "Include only the history relevant to this referral." },
     ],
   },
+  {
+    number: 9,
+    topicNumber: 9,
+    spirals: true,
+    words: [
+      { word: "regarding", meaning: "About; concerning.", example: "I am writing regarding Thursday's supply order." },
+      { word: "request", meaning: "To ask for something, or the act of asking.", example: "Please send the codes at your earliest convenience — this is a time-sensitive request." },
+      { word: "attachment", meaning: "A file sent along with an email.", example: "The order form is included as an attachment." },
+      { word: "available", meaning: "Free at a given time, or able to be obtained.", example: "I am available Tuesday afternoon if you would like to discuss it." },
+      { word: "schedule", meaning: "A plan of times, or to arrange a time.", example: "We will schedule the training for next Thursday." },
+      { word: "response", meaning: "A reply.", example: "I would appreciate a response before Wednesday." },
+      { word: "accurately", meaning: "In a way that is correct in every detail.", example: "Please record the item codes accurately." },
+    ],
+  },
+  {
+    number: 10,
+    topicNumber: 101,
+    spirals: true,
+    words: [
+      { word: "dosage", meaning: "The amount of a medication and how often it is taken.", example: "The dosage was checked against the order before administration." },
+      { word: "prescribed", meaning: "Ordered by a provider authorized to do so.", example: "Take only the dose prescribed for you." },
+      { word: "administered", meaning: "Given to a patient.", example: "The injection was administered at 0930." },
+      { word: "frequency", meaning: "How often something happens.", example: "Record the frequency as well as the dose." },
+      { word: "reaction", meaning: "The body's response to a substance.", example: "Any reaction is documented and reported immediately." },
+    ],
+  },
+  {
+    number: 11,
+    topicNumber: 102,
+    spirals: true,
+    words: [
+      { word: "confidential", meaning: "Meant to be kept private and shared only with those who need it.", example: "Patient records are confidential." },
+      { word: "privacy", meaning: "A person's right to control who knows information about them.", example: "Close the door to protect the patient's privacy." },
+      { word: "disclosure", meaning: "Releasing information to someone.", example: "Every disclosure must have a purpose that justifies it." },
+    ],
+  },
+  {
+    number: 12,
+    topicNumber: 103,
+    spirals: true,
+    words: [
+      { word: "eligibility", meaning: "Whether a patient's coverage applies to a service.", example: "Eligibility is verified before every visit." },
+      { word: "deductible", meaning: "The amount a patient pays before their plan begins paying.", example: "Her deductible resets in January." },
+      { word: "authorization", meaning: "Formal approval from a payer before a service is provided.", example: "Authorization was obtained before the procedure was scheduled." },
+    ],
+  },
+  {
+    number: 13,
+    topicNumber: 104,
+    spirals: true,
+    words: [
+      { word: "acknowledge", meaning: "To recognize and respond to what someone has said or felt.", example: "Acknowledge the frustration before explaining the policy." },
+      { word: "apologize", meaning: "To express regret.", example: "Apologize for the impact without accepting blame you do not own." },
+      { word: "escalate", meaning: "To raise something to someone with more authority, or to make worse.", example: "Escalate the complaint to the practice manager." },
+      { word: "resolve", meaning: "To settle or fix.", example: "We will resolve the billing error this week." },
+    ],
+  },
 ];
 
 export function getWordList(number: number) {

@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import TopicPageTemplate from "@/components/engl0150/TopicPageTemplate";
 import {
-  engl0150Topics,
+  allTopics,
   getAdjacentTopics,
   getTopic,
 } from "@/lib/content/engl0150/topics";
@@ -11,7 +11,7 @@ import { isPending } from "@/components/engl0150/Pending";
 
 /** All topic pages render from this one route. */
 export function generateStaticParams() {
-  return engl0150Topics.map((t) => ({ number: String(t.number) }));
+  return allTopics.map((t) => ({ number: String(t.number) }));
 }
 
 export async function generateMetadata({

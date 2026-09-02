@@ -5,7 +5,7 @@ import {
   learningGoals,
   sessionSequence,
 } from "@/lib/content/engl0150/course";
-import { courseMap } from "@/lib/content/engl0150/topics";
+import { advancedTopics, courseMap } from "@/lib/content/engl0150/topics";
 
 export default function Engl0150Home() {
   const units = Array.from(new Set(courseMap.map((t) => t.unit)));
@@ -174,7 +174,7 @@ export default function Engl0150Home() {
                       <li key={String(t.number)}>
                         {t.built ? (
                           <Link
-                            href={`/engl0150/topics/${t.number}`}
+                            href={t.number === "final" ? "/engl0150/final" : `/engl0150/topics/${t.number}`}
                             className="block rounded-2xl border border-engl-ink-200 bg-white p-4 transition-colors hover:border-engl-care-400 hover:bg-engl-care-50"
                           >
                             {body}
@@ -192,6 +192,50 @@ export default function Engl0150Home() {
             );
           })}
         </div>
+      </section>
+
+      {/* Advanced topics */}
+      <section id="advanced" className="mt-10 scroll-mt-32">
+        <h2 className="font-display text-2xl font-bold text-engl-ink-900">
+          Advanced topics
+        </h2>
+        <p className="mt-1 max-w-[70ch] text-engl-ink-600">
+          Optional extensions beyond the ten core topics. These are not on the
+          Fall 1 calendar — take them if your program calls for them, or work
+          through them on your own.
+        </p>
+        <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+          {advancedTopics.map((t) => (
+            <li key={t.number}>
+              <Link
+                href={`/engl0150/topics/${t.number}`}
+                className="flex h-full flex-col rounded-2xl border border-engl-plum-200 bg-white p-4 transition-colors hover:border-engl-plum-500 hover:bg-engl-plum-50"
+              >
+                <span className="font-display font-bold text-engl-ink-900">
+                  {t.title}
+                </span>
+                <span className="mt-1 flex flex-wrap gap-2">
+                  <span className="rounded bg-engl-plum-100 px-2 py-0.5 text-xs font-semibold text-engl-plum-800">
+                    Advanced
+                  </span>
+                  {t.programs?.map((prog) => (
+                    <span
+                      key={prog}
+                      className="rounded bg-engl-care-100 px-2 py-0.5 text-xs font-semibold text-engl-care-800"
+                    >
+                      {prog}
+                    </span>
+                  ))}
+                </span>
+                <span className="mt-2 text-sm text-engl-ink-600">
+                  {typeof t.essentialQuestion === "string"
+                    ? t.essentialQuestion
+                    : t.title}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* How a topic runs */}

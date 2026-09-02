@@ -14,6 +14,8 @@ import Matcher from "./Matcher";
 import ToneContinuum from "./ToneContinuum";
 import MissingInfo from "./MissingInfo";
 import ChooseBest from "./ChooseBest";
+import AIFeedbackLab from "./AIFeedbackLab";
+import ErrorHunt from "./ErrorHunt";
 
 /**
  * The ENGL0150 topic page.
@@ -49,12 +51,28 @@ export default function TopicPageTemplate({
         <span className="rounded-full bg-engl-ink-100 px-3 py-1 font-semibold text-engl-ink-700">
           Unit {topic.unit.number} · {topic.unit.title}
         </span>
-        <span className="rounded-full bg-engl-plum-100 px-3 py-1 font-semibold text-engl-plum-800">
-          Topic {topic.number}
-        </span>
-        <span className="rounded-full bg-engl-ink-100 px-3 py-1 font-semibold text-engl-ink-700">
-          {topic.sessions} {topic.sessions === "1" ? "session" : "sessions"}
-        </span>
+        {topic.track === "advanced" ? (
+          <span className="rounded-full bg-engl-plum-700 px-3 py-1 font-semibold text-white">
+            Advanced · optional
+          </span>
+        ) : (
+          <span className="rounded-full bg-engl-plum-100 px-3 py-1 font-semibold text-engl-plum-800">
+            Topic {topic.number}
+          </span>
+        )}
+        {topic.programs?.map((prog) => (
+          <span
+            key={prog}
+            className="rounded-full bg-engl-care-100 px-3 py-1 font-semibold text-engl-care-800"
+          >
+            {prog}
+          </span>
+        ))}
+        {topic.sessions !== "—" && (
+          <span className="rounded-full bg-engl-ink-100 px-3 py-1 font-semibold text-engl-ink-700">
+            {topic.sessions} {topic.sessions === "1" ? "session" : "sessions"}
+          </span>
+        )}
       </div>
 
       <h1 className="font-display text-3xl font-bold text-engl-ink-900 sm:text-4xl">
@@ -334,15 +352,44 @@ export default function TopicPageTemplate({
                         items={widget.items}
                       />
                     );
-                  default:
+                  case "ai-lab":
+                    return (
+                      <AIFeedbackLab
+                        key={i}
+                        topicNumber={topic.number}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        starter={widget.starter}
+                        badRevision={widget.badRevision}
+                      />
+                    );
+                  case "error-hunt":
+                    return (
+                      <ErrorHunt
+                        key={i}
+                        title={widget.title}
+                        instructions={widget.instructions}
+                        paragraph={widget.paragraph}
+                        spans={widget.spans}
+                      />
+                    );
+                  default: {
+                    // Every widget kind is handled above. This branch exists so
+                    // that adding a kind to the union without adding a case here
+                    // becomes a compile error rather than a silently blank
+                    // section on a student's page.
+                    const unhandled: never = widget;
                     return (
                       <Pending
                         key={i}
                         content={{
-                          note: `The "${widget.title}" activity is specified but its widget is not built yet.`,
+                          note: `An activity of type "${
+                            (unhandled as { kind: string }).kind
+                          }" is specified but its widget is not built yet.`,
                         }}
                       />
                     );
+                  }
                 }
               })}
             </div>

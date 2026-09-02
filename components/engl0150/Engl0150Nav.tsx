@@ -8,6 +8,8 @@ const links = [
   { href: "/engl0150#topics", label: "Topics", match: "/engl0150/topics" },
   { href: "/engl0150/word-bank", label: "Word Bank" },
   { href: "/engl0150/portfolio", label: "Portfolio" },
+  { href: "/engl0150#advanced", label: "Advanced" },
+  { href: "/engl0150/final", label: "Final" },
 ];
 
 /**
