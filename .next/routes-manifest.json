@@ -322,6 +322,12 @@
       "regex": "^/learning\\-paths/office\\-assistant/tech\\-foundations(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/learning\\-paths/office\\-assistant/tech\\-foundations(?:/)?$"
+    },
+    {
+      "page": "/progress",
+      "regex": "^/progress(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/progress(?:/)?$"
     }
   ],
   "dataRoutes": [],
