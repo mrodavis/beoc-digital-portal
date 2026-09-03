@@ -42,6 +42,8 @@ export default async function LessonPage({
       appSlug={appSlug}
       moduleSlug={module.moduleSlug}
       lessonSlug={lesson.slug}
+      courseId={`ms-office/${appSlug}`}
+      lessonId={`${module.moduleSlug}::${lesson.slug}`}
       title={lesson.title}
       objectives={lesson.objectives}
       duration={lesson.duration}

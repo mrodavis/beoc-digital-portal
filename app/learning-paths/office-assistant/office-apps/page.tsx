@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
+import CourseProgress from "@/components/progress/CourseProgress";
 import { officeAppsModules } from "@/lib/content/office-assistant/office-apps";
 
 export default function OfficeAppsPage() {
@@ -59,6 +60,19 @@ export default function OfficeAppsPage() {
           <div className="text-sm text-gray-600">Microsoft Office</div>
         </div>
       </div>
+
+      <div className="mb-8">
+
+        <CourseProgress
+
+          courseId="oap/office-apps"
+
+          total={officeAppsModules.reduce((n, m) => n + m.lessons.length, 0)}
+
+        />
+
+      </div>
+
 
       <SectionHeader
         title="Course Modules"

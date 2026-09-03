@@ -19,6 +19,17 @@ interface ModuleTemplateProps {
   moduleSlug: string;
   /** The lesson's own slug — the stable half of its progress key. */
   lessonSlug: string;
+  /**
+   * Stable identifiers for progress, passed explicitly by the route.
+   *
+   * These were previously derived from `basePath` + `appSlug` + `moduleSlug`.
+   * That broke for the courses whose routes bake the module into `basePath`
+   * and pass the other two empty: every module became its own course, and the
+   * lesson id collapsed to `::slug`, so two modules with a same-named lesson
+   * collided. The route always knows both ids, so it passes them.
+   */
+  courseId: string;
+  lessonId: string;
   basePath?: string;
 
   /** "By the end of this lesson you can…" */
@@ -54,6 +65,8 @@ export default function ModuleTemplate({
   appSlug,
   moduleSlug,
   lessonSlug,
+  courseId,
+  lessonId,
   basePath = "learning-paths/ms-office",
   objectives = [],
   duration,
@@ -76,9 +89,6 @@ export default function ModuleTemplate({
   const hasChallenge = challenge.length > 0;
   const hasObjectives = objectives.length > 0;
 
-  // Stable id for progress: the course + module + lesson this page represents.
-  const courseId = [basePath, appSlug].filter(Boolean).join("/");
-  const lessonId = `${moduleSlug}::${lessonSlug}`;
 
   return (
     <div className="container mx-auto px-4 py-12 max-w-5xl">

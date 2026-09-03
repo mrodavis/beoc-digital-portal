@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
+import CourseProgress from "@/components/progress/CourseProgress";
 import { wordModules } from "@/lib/content/ms-office/word/modules";
 
 export default function WordPage() {
@@ -60,6 +61,13 @@ export default function WordPage() {
       </div>
 
       {/* ================= WORKFORCE TRACK ================= */}
+      <div className="mb-8">
+        <CourseProgress
+          courseId="ms-office/word"
+          total={wordModules.reduce((n, m) => n + m.lessons.length, 0)}
+        />
+      </div>
+
       <SectionHeader
         title="Workforce Readiness Track (Modules 1–6)"
         description="Develop job-ready Word skills for professional office environments."

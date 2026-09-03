@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
+import CourseProgress from "@/components/progress/CourseProgress";
 import { accessModules } from "@/lib/content/ms-office/access/modules";
 
 export default function AccessPage() {
@@ -76,6 +77,19 @@ export default function AccessPage() {
           reason.
         </p>
       </div>
+
+      <div className="mb-8">
+
+        <CourseProgress
+
+          courseId="ms-office/access"
+
+          total={accessModules.reduce((n, m) => n + m.lessons.length, 0)}
+
+        />
+
+      </div>
+
 
       <SectionHeader
         title="Course Modules"

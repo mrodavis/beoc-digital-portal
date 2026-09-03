@@ -24,6 +24,7 @@ export default async function ModulePage({
 
   return (
     <ModuleIndexTemplate
+      courseId={`ms-office/${appSlug}`}
       courseSlug={appSlug}
       courseTitle={
         appSlug === "powerpoint"

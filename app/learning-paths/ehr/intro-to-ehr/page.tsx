@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
+import CourseProgress from "@/components/progress/CourseProgress";
 import { introToEHRModules } from "@/lib/content/ehr/intro-to-ehr";
 
 export default function IntroToEHRPage() {
@@ -77,6 +78,19 @@ export default function IntroToEHRPage() {
           </div>
         </div>
       </div>
+
+      <div className="mb-8">
+
+        <CourseProgress
+
+          courseId="ehr/intro-to-ehr"
+
+          total={introToEHRModules.reduce((n, m) => n + m.lessons.length, 0)}
+
+        />
+
+      </div>
+
 
       <SectionHeader
         title="Course Modules"

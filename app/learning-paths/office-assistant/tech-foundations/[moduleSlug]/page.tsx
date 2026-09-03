@@ -21,6 +21,7 @@ export default async function ModulePage({
 
   return (
     <ModuleIndexTemplate
+      courseId="oap/tech-foundations"
       courseSlug="tech-foundations"
       courseTitle="Technology Foundations"
       basePath="office-assistant"

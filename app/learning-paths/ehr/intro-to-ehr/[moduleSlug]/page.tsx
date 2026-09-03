@@ -21,6 +21,7 @@ export default async function ModulePage({
 
   return (
     <ModuleIndexTemplate
+      courseId="ehr/intro-to-ehr"
       courseSlug="intro-to-ehr"
       courseTitle="Introduction to Electronic Health Records"
       basePath="ehr"

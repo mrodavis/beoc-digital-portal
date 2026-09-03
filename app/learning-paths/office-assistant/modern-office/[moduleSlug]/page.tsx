@@ -21,6 +21,7 @@ export default async function ModulePage({
 
   return (
     <ModuleIndexTemplate
+      courseId="oap/modern-office"
       courseSlug="modern-office"
       courseTitle="Cloud Technology with AI"
       basePath="office-assistant"

@@ -39,6 +39,14 @@ export default function Navbar() {
             </Link>
 
             <Link
+              href="/progress"
+              className="px-3 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              <span className="hidden sm:inline">My Progress</span>
+              <span className="sm:hidden">Progress</span>
+            </Link>
+
+            <Link
               href="/"
               className="ml-2 px-4 py-2 rounded-lg font-semibold bg-primary-600 text-white hover:bg-primary-700 transition-colors"
             >

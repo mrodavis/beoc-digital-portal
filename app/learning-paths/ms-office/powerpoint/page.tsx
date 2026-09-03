@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
+import CourseProgress from "@/components/progress/CourseProgress";
 import { powerpointModules } from "@/lib/content/ms-office/powerpoint/modules";
 
 export default function PowerPointPage() {
@@ -59,6 +60,13 @@ export default function PowerPointPage() {
       </div>
 
       {/* ================= FOUNDATIONS ================= */}
+      <div className="mb-8">
+        <CourseProgress
+          courseId="ms-office/powerpoint"
+          total={powerpointModules.reduce((n, m) => n + m.lessons.length, 0)}
+        />
+      </div>
+
       <SectionHeader
         title="PowerPoint Foundations (Modules 1–4)"
         description="Learn the core tools used to build and manage presentations."

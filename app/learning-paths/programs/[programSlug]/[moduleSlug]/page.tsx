@@ -28,6 +28,7 @@ export default async function ProgramModulePage({
 
   return (
     <ModuleIndexTemplate
+      courseId={`programs/${program.slug}`}
       courseSlug={program.slug}
       courseTitle={program.shortTitle}
       basePath="programs"

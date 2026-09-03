@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { programs, programList } from "@/lib/content/programs";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
+import CourseProgress from "@/components/progress/CourseProgress";
 
 export function generateStaticParams() {
   return programList.map((p) => ({ programSlug: p.slug }));
@@ -143,6 +144,13 @@ export default async function ProgramPage({
       </div>
 
       {/* Modules */}
+      <div className="mb-8">
+        <CourseProgress
+          courseId={`programs/${program.slug}`}
+          total={totalLessons}
+        />
+      </div>
+
       <SectionHeader
         title="Course Modules"
         description="Work through the modules in order — each one builds on the last."

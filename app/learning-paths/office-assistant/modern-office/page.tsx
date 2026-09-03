@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
+import CourseProgress from "@/components/progress/CourseProgress";
 import { modernOfficeModules } from "@/lib/content/office-assistant/modern-office";
 
 export default function ModernOfficePage() {
@@ -61,6 +62,19 @@ export default function ModernOfficePage() {
           <div className="text-sm text-gray-600">Integrated</div>
         </div>
       </div>
+
+      <div className="mb-8">
+
+        <CourseProgress
+
+          courseId="oap/modern-office"
+
+          total={modernOfficeModules.reduce((n, m) => n + m.lessons.length, 0)}
+
+        />
+
+      </div>
+
 
       <SectionHeader
         title="Course Modules"

@@ -53,6 +53,8 @@ export default async function ProgramLessonPage({
       appSlug={program.slug}
       moduleSlug={module.moduleSlug}
       lessonSlug={lesson.slug}
+      courseId={`programs/${program.slug}`}
+      lessonId={`${module.moduleSlug}::${lesson.slug}`}
       title={lesson.title}
       description={lesson.description}
       objectives={lesson.objectives}

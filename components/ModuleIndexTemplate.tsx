@@ -2,9 +2,12 @@ import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import { Lesson } from "@/types/lesson";
 import { ReactNode } from "react";
+import ModuleLessonProgress from "@/components/progress/ModuleLessonProgress";
 
 
 interface ModuleIndexTemplateProps {
+  /** Progress id for this course; omit to hide the progress strip. */
+  courseId?: string;
   courseSlug: string;
   courseTitle: string;
   moduleNumber: number;
@@ -26,6 +29,7 @@ interface ModuleIndexTemplateProps {
 }
 
 export default function ModuleIndexTemplate({
+  courseId,
   courseSlug,
   courseTitle,
   moduleNumber,
@@ -120,6 +124,14 @@ export default function ModuleIndexTemplate({
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+        {courseId && (
+          <ModuleLessonProgress
+            courseId={courseId}
+            lessonIds={lessons.map((l) => `module-${moduleNumber}::${l.slug}`)}
+            titles={lessons.map((l) => l.title)}
+          />
+        )}
+
         {lessons.map((lesson, index) => (
           <Link
             key={lesson.slug}

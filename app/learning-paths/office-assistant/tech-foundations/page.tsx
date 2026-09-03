@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
+import CourseProgress from "@/components/progress/CourseProgress";
 import { techFoundationsModules } from "@/lib/content/office-assistant/tech-foundations";
 
 export default function TechFoundationsPage() {
@@ -57,6 +58,19 @@ export default function TechFoundationsPage() {
           <div className="text-sm text-gray-600">10 / 11</div>
         </div>
       </div>
+
+      <div className="mb-8">
+
+        <CourseProgress
+
+          courseId="oap/tech-foundations"
+
+          total={techFoundationsModules.reduce((n, m) => n + m.lessons.length, 0)}
+
+        />
+
+      </div>
+
 
       <SectionHeader
         title="Course Modules"

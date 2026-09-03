@@ -42,6 +42,8 @@ export default async function LessonPage({
       appSlug=""
       moduleSlug=""
       lessonSlug={lesson.slug}
+      courseId="oap/intro-database"
+      lessonId={`${moduleSlug}::${lesson.slug}`}
       title={lesson.title}
       objectives={lesson.objectives}
       duration={lesson.duration}
