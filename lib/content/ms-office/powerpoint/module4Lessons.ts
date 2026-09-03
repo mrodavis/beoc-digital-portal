@@ -571,7 +571,7 @@ export const powerpointModule4Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "The Print screen shows a live preview of your slides on the right and printing options on the left.",
+            "Check the preview before every print job, not just the settings. The page count is the fastest check available: a deck that shows 12 slides and previews 13 pages has a stray blank, and finding it now costs thirty seconds instead of a stack of wasted paper.",
         },
         {
           type: "image",
@@ -597,12 +597,12 @@ export const powerpointModule4Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "You can choose the number of copies, select a printer, and decide whether to print all slides or a specific range.",
+            "Printing a range matters more than it sounds. When one slide changes after you have printed forty packets, printing just that page and swapping it is a few minutes; reprinting everything is an afternoon and a full toner cartridge.",
         },
         {
           type: "paragraph",
           text:
-            "Additional settings allow you to control slide layout, orientation, and whether the presentation prints in color or grayscale.",
+            "For a dark-themed deck, choose Pure Black and White rather than Color. It prints readable dark text on white instead of reproducing the dark background, which saves most of the toner and produces something people can actually annotate.",
         },
       ],
     },
@@ -618,7 +618,7 @@ export const powerpointModule4Lessons: Lesson[] = [
 
         {
           type: "paragraph",
-          text: "Full Page Slides print one slide per page and are ideal for reviewing or sharing individual slides.",
+          text: "Full Page is rarely the right choice for an audience. It uses one sheet per slide and leaves no room to write. Handouts at 3 per page add ruled lines beside each slide, which is what people actually want to take notes on.",
         },
         {
           type: "image",
@@ -651,7 +651,7 @@ export const powerpointModule4Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Outline view prints only the text from your slides, making it useful for reviewing the structure of your presentation.",
+            "Printing the outline is a good way to check your own argument before you worry about design. Stripped of images and layout, a deck that does not make sense as a list of headings will not make sense to an audience either.",
         },
         {
           type: "image",

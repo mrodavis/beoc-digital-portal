@@ -359,7 +359,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "When you're ready to present, PowerPoint offers several ways to start your slide show.",
+            "F5 starts from the beginning and Shift+F5 starts from the slide you are on. Shift+F5 is the one to learn: restarting from slide one every time you want to check slide 30 wastes most of a rehearsal.",
         },
         {
           type: "list",
@@ -425,7 +425,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Enable it by checking Use Presenter View on the Slide Show tab before starting.",
+            "Presenter View needs two displays — your screen and the projector — and PowerPoint decides which is which. If your notes appear on the projector and the slides on your laptop, use Display Settings during the show to swap them. Check this in the actual room before the audience arrives; it is the most common thing that goes wrong in the first thirty seconds.",
         },
         {
           type: "image",
@@ -457,7 +457,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "To add notes, click in the Notes pane at the bottom of Normal View and type your content.",
+            "The notes pane is where the sentences you plan to say belong. Moving them off the slide is what lets you cut a slide down to the few words that benefit from being seen — the audience cannot read and listen at once, and given the choice they read.",
         },
         {
           type: "image",
@@ -478,7 +478,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "During a slide show, you can simulate a laser pointer to draw your audience's attention to specific areas of a slide.",
+            "The laser pointer is useful on a dense chart and unnecessary on a slide with four words. If you are reaching for it constantly, the slide is probably carrying too much.",
         },
         {
           type: "paragraph",
@@ -540,7 +540,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Right-click a slide in the slide panel and select Hide Slide, or use the Hide Slide button on the Slide Show tab.",
+            "A hidden slide stays in the file and is skipped during the show, which makes it the right way to hold backup detail for a question you might be asked. Press its number then Enter during the presentation to jump to it, and it appears as if you had planned for the question.",
         },
         {
           type: "image",
@@ -561,7 +561,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Press Escape at any time to exit the slide show and return to the Normal editing view.",
+            "Two more keys are worth knowing. B blanks the screen to black and W to white — press either when discussion starts, so the slide stops competing with the conversation. Typing a slide number then Enter jumps straight there, which is how you answer a question about slide 22 without clicking through fourteen slides while everyone watches.",
         },
         {
           type: "paragraph",
@@ -721,7 +721,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "PowerPoint provides several options for getting your file out of your computer and into the hands of your audience.",
+            "Decide what the recipient needs to do before choosing the format. Watch it without you means video. Edit it means a .pptx via a link, not an attachment. Read it means PDF. Present it themselves means a PowerPoint Show or a packaged folder.",
         },
       ],
     },
@@ -742,7 +742,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Before sharing, PowerPoint may ask you to save the file to OneDrive if it hasn't been saved there already.",
+            "That prompt is telling you something useful: a share link points at a file in the cloud, so a local file has nothing to link to. Emailing a copy instead creates a second version that immediately starts diverging from yours.",
         },
         {
           type: "image",
@@ -803,7 +803,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Go to File → Export → Create PDF/XPS. Choose a location, confirm the file name, and click Publish.",
+            "PDF locks the layout and fonts so the deck renders identically anywhere, which also solves the font-substitution problem — if a recipient lacks a font you used, PowerPoint silently swaps it and your text reflows. PDF drops animation, transitions, and embedded video, so it suits a deck to be read rather than watched.",
         },
         {
           type: "image",
@@ -840,7 +840,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Go to File → Export → Create a Video. Choose the display quality, set how long each slide appears, and click Create Video.",
+            "Video keeps animation, timing, and any recorded narration, which makes it the right format for training people watch on their own. Rendering a long deck takes several minutes and the file is large, so produce it the day before rather than the hour of.",
         },
         {
           type: "image",
@@ -898,7 +898,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Go to File → Info → Protect Presentation → Mark as Final.",
+            "Mark as Final is advisory, not protection. It sets the file read-only and shows a notice, and any recipient can dismiss it with one click. If a deck genuinely must not be altered, send a PDF; if it must be confidential, use Encrypt with Password on the same menu and consider where the file is stored.",
         },
         {
           type: "image",

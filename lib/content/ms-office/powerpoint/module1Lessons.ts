@@ -898,7 +898,7 @@ sections: [
     {
       type: "paragraph",
       text:
-        "Saving protects your work and allows you to reopen your presentation later. You can save files to your computer or to OneDrive.",
+        "Where you save decides what you can do later. A file on the computer's own drive is reachable only from that machine, and is gone if the drive fails. A file in OneDrive follows you to any device you sign in on, keeps a version history you can roll back, and is the only kind of file AutoSave and co-authoring work on. For a presentation you will build over several sessions, or deliver from a room's machine rather than your own, save to OneDrive from the start.",
     },
     {
       type: "paragraph",
@@ -919,12 +919,12 @@ sections: [
     {
       type: "paragraph",
       text:
-        "The Save command stores the current presentation using the same file name and location.",
+        "Save writes over the file you opened. That is what you want when you are updating your own work — and it is exactly the wrong thing when you opened an existing deck to build a new one from it. Whenever a file is your starting point rather than your subject, use Save As first, before you change anything.",
     },
     {
       type: "paragraph",
       text:
-        "If the presentation has never been saved before, PowerPoint will automatically open the Save As screen.",
+        "The first Save always opens Save As, because PowerPoint has nowhere to write to yet. After that it saves silently, which is why the Save-As-first habit matters: once the file has a name, a reflexive Ctrl+S goes straight into it with no prompt.",
     },
     {
       type: "image",
@@ -940,7 +940,7 @@ sections: [
     {
       type: "paragraph",
       text:
-        "Save As allows you to create a new version of a presentation or save it to a different location.",
+        "Save As creates a new file and leaves the original untouched. Do it before you edit, not after. Renaming a file you have already changed does not restore the original, and the deck you overwrote may have been the one someone else needed.",
     },
     {
       type: "paragraph",
@@ -961,7 +961,7 @@ sections: [
     {
       type: "paragraph",
       text:
-        "When saving a presentation you must provide a file name. Use descriptive names so you can easily identify presentations later.",
+        "Name the file so a stranger could identify it in a folder list: subject, audience, and date in year-month order — \"2026-10-14 Staff Orientation - New Hires.pptx\". Year-first dates sort chronologically automatically. \"Presentation1 final v2 FINAL.pptx\" is the file nobody can find in March.",
     },
     {
       type: "image",
@@ -982,7 +982,7 @@ sections: [
     {
       type: "paragraph",
       text:
-        "PowerPoint allows you to save presentations in multiple file formats including PowerPoint Presentation (.pptx), PowerPoint Show, or PDF.",
+        "Match the format to what the recipient needs to do. A .pptx is editable — right for a colleague who will revise it, and wrong for a deck you do not want altered. A PowerPoint Show (.ppsx) opens straight into the slide show, which suits handing a deck to someone who will present but not edit. A PDF opens anywhere, locks the layout, and drops animation and video.",
     },
     {
       type: "image",
@@ -998,7 +998,7 @@ sections: [
     {
       type: "paragraph",
       text:
-        "The Export section allows you to convert presentations into different formats such as PDF or video.",
+        "Export produces a copy in another format and leaves your .pptx alone. Video is the one worth knowing: it preserves animation, timing, and narration, so a deck people watch without you keeps working. It also takes minutes to render on a long deck, so do it before the day you need it.",
     },
     {
       type: "image",
@@ -1019,12 +1019,12 @@ sections: [
     {
       type: "paragraph",
       text:
-        "If a presentation is stored on OneDrive, you can share it directly with others from within PowerPoint.",
+        "Sharing requires the file to be in OneDrive or SharePoint — that is what a share link points at. If the Share button offers to upload first, it is telling you the file is currently local and cannot be shared as a link.",
     },
     {
       type: "paragraph",
       text:
-        "You can invite people to view or edit the presentation by entering their email address.",
+        "Choose the permission deliberately. \"Can view\" is right for most recipients; \"can edit\" is for genuine co-authors. And permissions outlive the task — a link shared for one afternoon still works next year unless someone revokes it. Set an expiry on anything sensitive.",
     },
     {
       type: "image",
@@ -1045,7 +1045,7 @@ sections: [
     {
       type: "paragraph",
       text:
-        "If PowerPoint closes unexpectedly, you may be able to recover work that was not saved.",
+        "AutoRecover is a safety net, not a save. It keeps periodic snapshots so a crash costs you minutes rather than hours, and it is not a substitute for saving. Check the interval under File > Options > Save and set it to match how much work you could bear to redo.",
     },
     {
       type: "paragraph",
@@ -1066,7 +1066,7 @@ sections: [
     {
       type: "paragraph",
       text:
-        "When PowerPoint restarts after a crash, the Document Recovery pane may appear showing versions of your presentation that can be restored.",
+        "Open the recovered version and check it before you close the pane — once you dismiss it, the recovery files are cleared. Compare it against the last version you saved, since the recovered copy may be newer or older depending on when the snapshot was taken.",
     },
     {
       type: "image",
@@ -1082,7 +1082,7 @@ sections: [
     {
       type: "paragraph",
       text:
-        "PowerPoint includes settings that control how presentations are saved. You can adjust AutoRecover settings and default save locations.",
+        "Two settings are worth changing once. Set the AutoRecover interval to five minutes rather than the default ten. And set the default save location to OneDrive, so the safe choice is the one that happens when you are not thinking about it.",
     },
     {
       type: "image",

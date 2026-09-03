@@ -87,7 +87,7 @@ text:
 {
 type: "paragraph",
 text:
-"To select text, click next to the text you want to select, then click and drag your mouse across the words.",
+"Dragging works, and there are faster ways worth knowing: double-click selects a word, triple-click selects a paragraph, and Ctrl+A selects everything in the placeholder. Precise selection matters because PowerPoint applies formatting to exactly what is highlighted — a stray trailing space picked up in the selection is how one word ends up a different size.",
 },
 {
 type: "image",
@@ -108,7 +108,7 @@ blocks: [
 {
 type: "paragraph",
 text:
-"Copying text allows you to duplicate information without removing the original content from the slide.",
+"Copy leaves the original in place; cut removes it. The keyboard versions are worth using — Ctrl+C, Ctrl+X, Ctrl+V — because they work identically in Word, Excel, and your browser.",
 },
 {
 type: "paragraph",
@@ -123,7 +123,7 @@ alt: "Copy command on the PowerPoint ribbon",
 {
 type: "paragraph",
 text:
-"Next place the insertion point where you want the copied text to appear and click the Paste command.",
+"Pasting normally brings the source formatting with it, which is why text copied from a web page arrives in the wrong font on a coloured background. Ctrl+Shift+V, or Paste Options > Keep Text Only, brings the words and leaves the formatting behind. On a slide, where consistency is most of what looks professional, that is almost always what you want.",
 },
 {
 type: "image",
@@ -211,12 +211,12 @@ blocks: [
 {
 type: "paragraph",
 text:
-"Formatting text helps emphasize important information and makes slides easier to read.",
+"Emphasis works by contrast, which makes it a budget. Bold one phrase on a slide and the eye goes there; bold six and you have emphasized nothing. Before formatting anything, decide which single thing the audience should see first.",
 },
 {
 type: "paragraph",
 text:
-"The Home tab contains several tools for formatting text, including options for font style, font size, color, and alignment.",
+"Prefer the placeholder's own styling to manual formatting wherever you can. Text typed into a layout placeholder inherits size, font, and position from the Slide Master, so it matches every other slide automatically. Formatting applied by hand has to be repeated, and it drifts.",
 },
 {
 type: "image",
@@ -226,7 +226,7 @@ alt: "Font and paragraph commands in the PowerPoint ribbon",
 {
 type: "paragraph",
 text:
-"You can also apply styles such as bold, italic, or underline to highlight important information for your audience.",
+"Bold for emphasis, and use it sparingly. Avoid underline entirely on a slide: readers read underlined text as a hyperlink and some will wait for it to do something. Italic is harder to read when projected, so keep italic runs short.",
 },
 ],
 },

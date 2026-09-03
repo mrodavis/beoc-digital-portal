@@ -470,7 +470,7 @@ alt: "Final slideshow with transitions applied",
         {
           type: "paragraph",
           text:
-            "PowerPoint organizes animations into four categories based on what they do to an object.",
+            "Entrance brings something onto the slide, Emphasis draws attention to something already there, Exit removes it, and Motion Path moves it along a route you draw. Entrance is the one with a legitimate everyday use — revealing points as you discuss them — and the other three are usually decoration.",
         },
         {
           type: "list",
@@ -516,7 +516,7 @@ alt: "Final slideshow with transitions applied",
         {
           type: "paragraph",
           text:
-            "A number badge appears next to the object, indicating its animation order on the slide.",
+            "Those badges are the running order, and they do not renumber when you rearrange objects on the slide. If your reveals fire in an order that surprises you during a rehearsal, the badges will show you why.",
         },
         {
           type: "image",
@@ -579,7 +579,7 @@ alt: "Final slideshow with transitions applied",
         {
           type: "paragraph",
           text:
-            "Every animation has three timing settings that control when and how fast it plays.",
+            "Start decides what triggers it: On Click waits for you, With Previous fires alongside the animation before it, and After Previous fires automatically once that one finishes. Duration sets the speed — under half a second for most things, because anything slower makes the audience wait. Delay staggers a sequence without needing extra clicks.",
         },
         {
           type: "list",
@@ -759,7 +759,7 @@ alt: "Final slideshow with transitions applied",
         {
           type: "paragraph",
           text:
-            "Audio can enhance a presentation by adding background music, narration, or short sound clips that reinforce your message.",
+            "Audio is worth adding for narration on a self-running deck and rarely worth it in a live presentation, where you are the narration. Two constraints apply whatever the use: any information carried by audio must also appear on screen, because deaf and hard-of-hearing viewers and anyone with the sound off receive none of it; and music must be licensed for the setting, since commercial recordings are not free to play in a waiting room or a classroom.",
         },
         {
           type: "paragraph",
@@ -833,7 +833,7 @@ alt: "Final slideshow with transitions applied",
         {
           type: "paragraph",
           text:
-            "The Start setting controls when audio begins playing. You can set it to In Click Sequence, Automatically, or When Clicked On.",
+            "Audio stops when the slide changes unless you also turn on Play Across Slides on the Playback tab. That is the setting people miss when background music cuts out one slide in — the file is fine, it simply belongs to the slide it was inserted on.",
         },
         {
           type: "image",
@@ -889,7 +889,7 @@ alt: "Final slideshow with transitions applied",
         {
           type: "paragraph",
           text:
-            "If an audio clip is longer than you need, you can trim it without leaving PowerPoint.",
+            "Trimming in PowerPoint is non-destructive: it changes the start and end points used during playback and leaves the original file whole, so you can always widen the trim again. It does not shrink the file, though — the untrimmed audio is still embedded, which matters when you are emailing the deck.",
         },
         {
           type: "paragraph",
