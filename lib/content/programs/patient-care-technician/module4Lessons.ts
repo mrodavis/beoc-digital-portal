@@ -15,6 +15,44 @@ export const module4Lessons: Lesson[] = [
     ],
     sections: [
       {
+        heading: "A bath that leaves someone their dignity",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "Helping a man who has dressed himself for seventy years",
+            task: "Assist with morning care for a patient who can wash his own face and arms but cannot manage his back, legs, or buttons.",
+            steps: [
+              {
+                move: "Knock, wait, introduce yourself, and say what you are there to do before touching anything.",
+                why: "It is his room and his body. Announcing the task gives him the chance to say 'not yet' or 'I can do that part', which is the difference between being helped and being handled.",
+              },
+              {
+                move: "Ask what he can do himself, and then let him do it even though it is slower.",
+                why: "Independence lost is rarely regained, and doing it for him because it is faster is how it gets lost. The time you save is measured in minutes; what he loses is measured in months.",
+              },
+              {
+                move: "Close the door and the curtain, and keep him covered except the part you are washing.",
+                why: "Exposure is the most common complaint in personal care and the easiest to prevent. Move the towel rather than the patient wherever you can.",
+              },
+              {
+                move: "Offer real choices — water temperature, which arm first, shirt before trousers.",
+                why: "Small autonomy matters disproportionately to someone who has lost most of theirs. These choices cost nothing and change how the whole interaction feels to him.",
+              },
+              {
+                move: "Use the time to look at his skin, and say what you are doing.",
+                why: "You are seeing areas nobody else sees, in good light, with your hands on him. Narrating it — 'I'm just checking your back while I'm here' — keeps it care rather than inspection.",
+              },
+              {
+                move: "Leave him covered, warm, with the call light in reach before you go.",
+                why: "The last thirty seconds are what he will remember, and the call light within reach is what prevents him getting up alone later.",
+              },
+            ],
+            result: "He is clean, his skin has been checked, and he did the parts he still can.",
+            takeaway: "Announce, ask what he can do, drape, offer choices, observe while you work, and leave him able to call you.",
+          },
+        ],
+      },
+      {
         heading: "Care that keeps a person a person",
         blocks: [
           {

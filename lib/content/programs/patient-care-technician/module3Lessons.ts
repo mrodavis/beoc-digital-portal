@@ -15,6 +15,44 @@ export const module3Lessons: Lesson[] = [
     ],
     sections: [
       {
+        heading: "Taking a blood pressure you would stake a decision on",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "Getting an accurate reading under time pressure",
+            task: "Measure a blood pressure on a busy round, accurately enough that a clinician can act on it without retaking it.",
+            steps: [
+              {
+                move: "Let the patient sit quietly for five minutes, feet flat and back supported.",
+                why: "This is the step time pressure removes first, and it is the largest single source of falsely high readings. Crossed legs raise systolic pressure and an unsupported back raises diastolic. Five minutes costs less than a patient started on medication they do not need.",
+              },
+              {
+                move: "Size the cuff to the arm rather than using the one already attached.",
+                why: "The bladder should encircle about 80% of the arm. A cuff that is too small reads high by 10 to 20 mmHg — enough on its own to move a patient into a different category. This is the most common equipment error in the building.",
+              },
+              {
+                move: "Bare arm, supported at heart level.",
+                why: "A sleeve under the cuff distorts the reading and a pushed-up sleeve becomes a tourniquet. An arm below heart level reads high. And support it yourself — a patient holding their own arm up is using muscle, which also raises the number.",
+              },
+              {
+                move: "Palpate first, then inflate 30 mmHg above where the pulse disappeared.",
+                why: "This avoids missing an auscultatory gap — a silent interval where the sounds vanish and return. Miss it and you record a systolic far below the real one, which is the error that reads as reassuring.",
+              },
+              {
+                move: "Deflate slowly, 2 to 3 mmHg per second.",
+                why: "Faster deflation misses the true first and last sounds, underestimating systolic and overestimating diastolic. It is the error that feels like efficiency.",
+              },
+              {
+                move: "Record the arm, the position, and the cuff size alongside the number.",
+                why: "It makes the reading comparable at the next check. A pressure recorded with no context cannot be meaningfully compared to one taken differently, and the trend is usually what matters.",
+              },
+            ],
+            result: "A reading that reflects the patient's pressure rather than your technique.",
+            takeaway: "Rest, cuff size, bare arm at heart level, palpate first, deflate slowly. Every error pushes the number in a predictable direction, and they add up.",
+          },
+        ],
+      },
+      {
         heading: "The trend matters as much as the number",
         blocks: [
           {
@@ -113,6 +151,40 @@ export const module3Lessons: Lesson[] = [
       "Explain what CLIA-waived testing requires",
     ],
     sections: [
+      {
+        heading: "Placing the precordial leads",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "Finding the fourth intercostal space",
+            task: "Place V1 through V6 accurately, since nothing downstream can correct a placement error.",
+            steps: [
+              {
+                move: "Find the sternal angle — the ridge where the manubrium meets the body of the sternum.",
+                why: "This is the only reliable landmark, and everything else is counted from it. Estimating by eye is where the common one-space-too-high error starts, and that error is invisible on the finished tracing.",
+              },
+              {
+                move: "Slide laterally from the sternal angle to find the second intercostal space, then count down to the fourth.",
+                why: "The second rib attaches at the sternal angle, so the space just below it is the second intercostal space. Count down two more and you are at the fourth. Counting from the clavicle instead is unreliable.",
+              },
+              {
+                move: "Place V1 and V2 either side of the sternum in that fourth space, then V4 before V3.",
+                why: "V3 sits midway between V2 and V4, so V4 has to exist first. Placing V3 by eye before V4 is a common sequencing error that misplaces two leads instead of one.",
+              },
+              {
+                move: "Place V4 at the fifth intercostal space, midclavicular line — then V5 and V6 level with V4, not along the rib.",
+                why: "V5 and V6 follow the horizontal plane of V4, not the curve of the rib. Following the rib carries them downward and changes the waveform.",
+              },
+              {
+                move: "For a patient with breast tissue, place the electrode under it rather than over it.",
+                why: "Placing over breast tissue attenuates the signal and shifts the effective position. Explain what you are doing and why before you do it, and offer a chaperone.",
+              },
+            ],
+            result: "A tracing that reflects the heart's electrical activity rather than where the electrodes happened to land.",
+            takeaway: "Count from the sternal angle, place V1, V2, then V4, then V3 between them. Nothing later can fix a misplaced lead.",
+          },
+        ],
+      },
       {
         heading: "Lead placement determines whether the tracing means anything",
         blocks: [

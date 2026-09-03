@@ -15,6 +15,44 @@ export const module6Lessons: Lesson[] = [
     ],
     sections: [
       {
+        heading: "Escalating when the first report does not land",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "A patient who is 'just not right'",
+            task: "A patient who has been chatty all week is quiet and says she feels strange. Her vital signs are within normal limits. You report it and the nurse says they will look later. You are still worried.",
+            steps: [
+              {
+                move: "Take a full set of vitals and compare each to her baseline.",
+                why: "'Within normal limits' is not the same as 'unchanged'. A pulse of 96 in someone who has run 62 all week is a 34-beat rise, and the normal range conceals it completely. Bring the comparison, not just the numbers.",
+              },
+              {
+                move: "Report again, and say plainly that you are concerned.",
+                why: "The nurse prioritized without seeing what you saw. Your continued concern is new information, and saying 'I'm worried about her' is a recognized escalation signal in most facilities — it is not being difficult.",
+              },
+              {
+                move: "Name the change rather than the impression.",
+                why: "'She's not herself' is easy to deprioritize. 'She's been talkative all week, she's barely spoken this afternoon, her pulse is up 34 from baseline, and she says she feels strange' is not.",
+              },
+              {
+                move: "If it is still not acted on, go to the charge nurse.",
+                why: "Going up the chain is what the chain is for. It is not going over anyone's head — it is the escalation path existing for exactly this situation, and nobody is disciplined for using it.",
+              },
+              {
+                move: "Consider the rapid response team if your facility lets any staff member activate it.",
+                why: "Many do, precisely because the person at the bedside notices first. Activating one and being wrong costs a team a few minutes; not activating and being right costs far more.",
+              },
+              {
+                move: "Document what you observed, when you reported it, and to whom.",
+                why: "It is a clinical record of a real change, and it is also a contemporaneous account of what you did. Both matter.",
+              },
+            ],
+            result: "The patient is seen, with a documented trail of what was noticed and when.",
+            takeaway: "New confusion and 'I feel strange' are early signs, not vague ones. Bring the baseline comparison, say you are concerned, and go up the chain if it does not land.",
+          },
+        ],
+      },
+      {
         heading: "You will notice it first",
         blocks: [
           {

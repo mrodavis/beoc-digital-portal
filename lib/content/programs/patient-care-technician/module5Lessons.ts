@@ -120,6 +120,40 @@ export const module5Lessons: Lesson[] = [
     ],
     sections: [
       {
+        heading: "Labelling so a mix-up cannot happen",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "Two specimens in fifteen minutes",
+            task: "Collect urine specimens from two patients in adjacent rooms without any possibility of swapping them.",
+            steps: [
+              {
+                move: "Take one labelled requisition into one room. Never carry two.",
+                why: "The mix-up becomes impossible rather than unlikely. If only one patient's paperwork is in your hand, there is nothing to confuse it with — this is a structural fix rather than a reminder to be careful.",
+              },
+              {
+                move: "Check the armband against the requisition, out loud, with the patient.",
+                why: "Two identifiers, name and date of birth, read from the band rather than asked as a leading question. 'Are you Mrs. Alvarez?' gets a yes from someone who is confused or hard of hearing; 'Can you tell me your name and date of birth?' does not.",
+              },
+              {
+                move: "Label the container in the room, immediately after collection, in front of the patient.",
+                why: "This is the whole procedure. Every mix-up happens in the gap between collection and labelling, and the only reliable fix is to close that gap to zero. Never pre-label and never carry an unlabelled specimen out.",
+              },
+              {
+                move: "Have the patient confirm their name on the label if they are able.",
+                why: "A second pair of eyes at no cost, and it is the patient's own result at stake. Most people check carefully when asked.",
+              },
+              {
+                move: "Complete and route that specimen before going to the second room.",
+                why: "Finishing one before starting the next keeps only one specimen in play at a time. Batching two collections and labelling afterwards is exactly how two patients receive each other's results.",
+              },
+            ],
+            result: "Two specimens, each labelled at the bedside in the patient's presence, with no moment when both were unlabelled.",
+            takeaway: "One patient's paperwork at a time, label in the room, and finish one before starting the next.",
+          },
+        ],
+      },
+      {
         heading: "The result belongs to whoever the label says",
         blocks: [
           {

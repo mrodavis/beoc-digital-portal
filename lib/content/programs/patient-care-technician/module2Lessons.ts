@@ -15,6 +15,40 @@ export const module2Lessons: Lesson[] = [
     ],
     sections: [
       {
+        heading: "Working through a bed bath without cross-contaminating",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "Where the gloves change during personal care",
+            task: "Give a bed bath to a patient who also has a wound dressing that needs checking, without carrying organisms from one task to the next.",
+            steps: [
+              {
+                move: "Hand hygiene, then gloves, before you touch the patient at all.",
+                why: "The first moment is before contact, not after. Gloves put on over unwashed hands carry whatever was on them into the task, and the glove gives you no protection from something you brought in yourself.",
+              },
+              {
+                move: "Work clean to dirty, top to bottom, and change gloves when you cross that line.",
+                why: "Wash the face and upper body before the perineal area, never the reverse. This is the single ordering rule that prevents most cross-contamination during personal care, and it costs nothing to follow.",
+              },
+              {
+                move: "After perineal care: remove gloves, perform hand hygiene, put on fresh gloves.",
+                why: "All three steps, in that order. Changing gloves without hand hygiene between is the common shortcut and it defeats the purpose — hands are contaminated during removal regardless of technique.",
+              },
+              {
+                move: "Only now approach the wound dressing.",
+                why: "Moving from a dirty task to an open wound on the same patient is a direct route to infection. The fact that it is the same person is irrelevant — organisms from the perineum do not belong in a wound.",
+              },
+              {
+                move: "Remove gloves and perform hand hygiene before touching the bed rails, the call light, or the chart.",
+                why: "Everything you touch after care becomes a surface the next person touches. This is how an organism leaves the room, and it is the step most often skipped because the task feels finished.",
+              },
+            ],
+            result: "One patient, one bath, one wound check, and nothing carried between them.",
+            takeaway: "Clean to dirty, and remove-hygiene-reglove as a single unit every time you cross the line.",
+          },
+        ],
+      },
+      {
         heading: "Proximity raises the stakes",
         blocks: [
           {

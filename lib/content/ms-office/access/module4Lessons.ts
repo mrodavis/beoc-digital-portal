@@ -130,6 +130,44 @@ export const accessModule4Lessons: Lesson[] = [
     ],
     sections: [
       {
+        heading: "Building the report",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "A grouped supply report that prints correctly",
+            task: "Produce a report grouped by category with subtotals, a grand total, and headings on every page.",
+            steps: [
+              {
+                move: "Base the report on a query, not the table.",
+                why: "The query is where filtering, sorting, and calculated fields belong. A report built directly on a table has to do that work in the report itself, which is harder to change and cannot be reused.",
+              },
+              {
+                move: "Use Group & Sort to group by Category, then sort by ItemName within it.",
+                why: "Grouping creates the Group Header and Group Footer sections you need for headings and subtotals. Without a group there is nowhere to put a subtotal, which is why people end up doing it by hand.",
+              },
+              {
+                move: "Put the report title in the Report Header and the column headings in the Page Header.",
+                why: "This is the distinction people get wrong, and it only shows up on page two. The Report Header prints once; the Page Header prints on every page. Put headings in the Report Header and pages two onward are unlabeled columns of numbers.",
+              },
+              {
+                move: "Add =Sum([TotalCost]) to the Group Footer, and the same expression to the Report Footer.",
+                why: "The identical expression means different things depending on which section it sits in — the Group Footer totals that group, the Report Footer totals everything. Nothing about the expression tells you which; only its position does.",
+              },
+              {
+                move: "Set Force New Page on the Group Header if each category should start its own page.",
+                why: "Useful when the report is distributed by department, so each recipient gets whole pages. Leave it off for a report someone reads end to end, where it just wastes paper.",
+              },
+              {
+                move: "Check it in Print Preview, not Report View.",
+                why: "Report View does not paginate. A report that looks correct there can still run a column off the page edge, and the only way to see that is Print Preview.",
+              },
+            ],
+            result: "A report with headings on every page, subtotals per category, a grand total, and nothing running off the paper.",
+            takeaway: "Build on a query, group before you total, title in the Report Header and headings in the Page Header, and check in Print Preview.",
+          },
+        ],
+      },
+      {
         heading: "A report is organized for a reader",
         blocks: [
           {

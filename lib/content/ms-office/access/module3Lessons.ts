@@ -156,6 +156,40 @@ ORDER BY Category ASC;`,
     ],
     sections: [
       {
+        heading: "Replacing a stored total",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "Removing a stored TotalCost column",
+            task: "A previous employee added a TotalCost field to the table and typed the values in. Replace it with a calculation that cannot go stale.",
+            steps: [
+              {
+                move: "Before deleting anything, build a query with the calculation and compare it against the stored column.",
+                why: "The comparison tells you how far the stored values have already drifted, and it is worth knowing before you remove the evidence. If they all match, nothing has changed since they were typed. If dozens differ, the table has been quietly wrong and someone may have made decisions on it.",
+              },
+              {
+                move: "In the query grid, add a new field: TotalCost: [Quantity]*[UnitCost].",
+                why: "The name before the colon becomes the column heading; the expression after it is evaluated per row, every time the query runs. Square brackets are how Access refers to a field, and they are required when a name contains a space.",
+              },
+              {
+                move: "Format the calculated field as Currency in its property sheet.",
+                why: "A calculated field has no inherited format, so it displays as a raw number — 41.97 rather than $41.97. Setting the format on the query field fixes it everywhere the query is used, including any report built on it.",
+              },
+              {
+                move: "Point any forms and reports at the query rather than the table.",
+                why: "This is the step that is easy to miss. Deleting the table field breaks every object still bound to it. Repoint them first, confirm they work, then delete.",
+              },
+              {
+                move: "Delete the stored field from the table, on a copy of the database first.",
+                why: "Deleting a field deletes its data irreversibly. Work on a copy until you have confirmed nothing else referenced it — Access will not warn you about a report you forgot.",
+              },
+            ],
+            result: "One calculation, always current, with nothing left in the table that can contradict it.",
+            takeaway: "Compare before you delete, repoint dependent objects first, and format the calculated field — an unformatted currency column looks broken.",
+          },
+        ],
+      },
+      {
         heading: "Calculate, do not store",
         blocks: [
           {

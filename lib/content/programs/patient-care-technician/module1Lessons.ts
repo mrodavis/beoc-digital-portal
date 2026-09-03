@@ -15,6 +15,40 @@ export const module1Lessons: Lesson[] = [
     ],
     sections: [
       {
+        heading: "Turning an observation into a report",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "Reporting a change a nurse can act on",
+            task: "You notice a patient is breathing faster than this morning and is quieter than usual. Report it.",
+            steps: [
+              {
+                move: "Measure before you report.",
+                why: "'Breathing faster' is an impression; 'respirations 26, up from 16 at 0800' is data. Taking thirty seconds to count gives the nurse something they can act on immediately rather than something they have to come and verify.",
+              },
+              {
+                move: "Compare against this patient's own baseline, not the textbook range.",
+                why: "A respiratory rate of 22 is inside the normal range and may still be a significant rise for someone who has been at 14 for three days. The change is the finding; the absolute number alone can hide it.",
+              },
+              {
+                move: "Note what else changed, including things that are not measurements.",
+                why: "Being quieter than usual is a real observation and often the earliest sign of deterioration. You are the person who knows how this patient has been all week — nobody else on the team has that comparison.",
+              },
+              {
+                move: "Report immediately rather than saving it for handoff.",
+                why: "Handoff may be hours away. You are not deciding whether the change matters, which is the nurse's judgment; you are making sure they have the information while there is still time to act on it.",
+              },
+              {
+                move: "State it in one sentence: what changed, from what, when, and what else you noticed.",
+                why: "'Mrs. Alvarez in 312 — respirations 26, up from 16 this morning, and she's much quieter than she's been all week' gives the nurse everything in four seconds. A narrative makes them extract it.",
+              },
+            ],
+            result: "The nurse can decide whether to assess now, with numbers and a baseline in hand.",
+            takeaway: "Measure it, compare it to the patient's own baseline, report it now, and say it in one sentence.",
+          },
+        ],
+      },
+      {
         heading: "Closest to the patient",
         blocks: [
           {

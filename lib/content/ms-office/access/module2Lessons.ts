@@ -146,6 +146,40 @@ export const accessModule2Lessons: Lesson[] = [
     ],
     sections: [
       {
+        heading: "Building the relationship",
+        blocks: [
+          {
+            type: "worked-example",
+            title: "Linking Appointments to Patients",
+            task: "Connect the two tables so Access refuses to accept an appointment for a patient who does not exist.",
+            steps: [
+              {
+                move: "Open Database Tools > Relationships and add both tables.",
+                why: "The Relationships window is where links are defined for the whole database, not per-query. A join drawn inside one query applies only to that query; a relationship defined here is enforced everywhere, including direct table entry.",
+              },
+              {
+                move: "Drag PatientID from Patients onto PatientID in Appointments.",
+                why: "Drag from the 'one' side to the 'many' side — from the primary key to the foreign key. Access reads the direction to decide which table is which, and dragging the wrong way produces a relationship that does not mean what you intended.",
+              },
+              {
+                move: "Tick Enforce Referential Integrity before clicking Create.",
+                why: "This is the whole point of the exercise, and it is off by default. Without it you get a line on a diagram and no enforcement — Access will happily accept an appointment for PatientID 4471 when no such patient exists.",
+              },
+              {
+                move: "Confirm Access reports the relationship as One-To-Many.",
+                why: "If it says One-To-One, the foreign key has a unique index on it and each patient could have only one appointment. If it says Indeterminate, the fields are different data types — usually a Number joined to a Short Text — and integrity cannot be enforced until you fix that.",
+              },
+              {
+                move: "Test it: try to enter an appointment with a PatientID that does not exist.",
+                why: "A relationship you have not tested is a relationship you are assuming. Access should refuse the record. If it accepts it, integrity is not actually on.",
+              },
+            ],
+            result: "Appointments can only reference real patients, and a patient with appointments on file cannot be deleted.",
+            takeaway: "Drag from the one side to the many side, and tick Enforce Referential Integrity — it is off by default, and without it the relationship is decorative.",
+          },
+        ],
+      },
+      {
         heading: "Relationships turn tables into a database",
         blocks: [
           {
