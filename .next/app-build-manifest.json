@@ -16,14 +16,6 @@
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/layout-b97e00712cd7b0e8.js"
     ],
-    "/learning-paths/certification/page": [
-      "static/chunks/webpack-58060ea323562661.js",
-      "static/chunks/4bd1b696-f785427dddbba9fb.js",
-      "static/chunks/1255-a390e12b70b4a9fb.js",
-      "static/chunks/main-app-fbdf19d09403bdbd.js",
-      "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/app/learning-paths/certification/page-96bd6777332d8448.js"
-    ],
     "/learning-paths/ehr/intro-to-ehr/[moduleSlug]/[slug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
@@ -41,6 +33,15 @@
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/learning-paths/ehr/intro-to-ehr/[moduleSlug]/page-40354ff0b2a80c76.js"
     ],
+    "/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page": [
+      "static/chunks/webpack-58060ea323562661.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-a390e12b70b4a9fb.js",
+      "static/chunks/main-app-fbdf19d09403bdbd.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-4c39720443de629f.js",
+      "static/chunks/app/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page-55f77d42cd3a778d.js"
+    ],
     "/learning-paths/ehr/intro-to-ehr/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
@@ -56,23 +57,6 @@
       "static/chunks/main-app-fbdf19d09403bdbd.js",
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/learning-paths/ehr/page-96bd6777332d8448.js"
-    ],
-    "/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page": [
-      "static/chunks/webpack-58060ea323562661.js",
-      "static/chunks/4bd1b696-f785427dddbba9fb.js",
-      "static/chunks/1255-a390e12b70b4a9fb.js",
-      "static/chunks/main-app-fbdf19d09403bdbd.js",
-      "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/5239-4c39720443de629f.js",
-      "static/chunks/app/learning-paths/ms-office/[appSlug]/[moduleSlug]/[slug]/page-55f77d42cd3a778d.js"
-    ],
-    "/learning-paths/ms-office/[appSlug]/[moduleSlug]/page": [
-      "static/chunks/webpack-58060ea323562661.js",
-      "static/chunks/4bd1b696-f785427dddbba9fb.js",
-      "static/chunks/1255-a390e12b70b4a9fb.js",
-      "static/chunks/main-app-fbdf19d09403bdbd.js",
-      "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/app/learning-paths/ms-office/[appSlug]/[moduleSlug]/page-40354ff0b2a80c76.js"
     ],
     "/learning-paths/ms-office/access/page": [
       "static/chunks/webpack-58060ea323562661.js",
@@ -90,13 +74,13 @@
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/learning-paths/ms-office/excel/page-33ef51e21b9941bc.js"
     ],
-    "/learning-paths/ms-office/powerpoint/page": [
+    "/learning-paths/ms-office/[appSlug]/[moduleSlug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
       "static/chunks/1255-a390e12b70b4a9fb.js",
       "static/chunks/main-app-fbdf19d09403bdbd.js",
       "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/app/learning-paths/ms-office/powerpoint/page-33ef51e21b9941bc.js"
+      "static/chunks/app/learning-paths/ms-office/[appSlug]/[moduleSlug]/page-40354ff0b2a80c76.js"
     ],
     "/learning-paths/office-assistant/intro-database/[moduleSlug]/[slug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
@@ -107,14 +91,6 @@
       "static/chunks/5239-4c39720443de629f.js",
       "static/chunks/app/learning-paths/office-assistant/intro-database/[moduleSlug]/[slug]/page-55f77d42cd3a778d.js"
     ],
-    "/learning-paths/ms-office/word/page": [
-      "static/chunks/webpack-58060ea323562661.js",
-      "static/chunks/4bd1b696-f785427dddbba9fb.js",
-      "static/chunks/1255-a390e12b70b4a9fb.js",
-      "static/chunks/main-app-fbdf19d09403bdbd.js",
-      "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/app/learning-paths/ms-office/word/page-33ef51e21b9941bc.js"
-    ],
     "/learning-paths/ms-office/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
@@ -122,6 +98,14 @@
       "static/chunks/main-app-fbdf19d09403bdbd.js",
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/learning-paths/ms-office/page-96bd6777332d8448.js"
+    ],
+    "/learning-paths/ms-office/word/page": [
+      "static/chunks/webpack-58060ea323562661.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-a390e12b70b4a9fb.js",
+      "static/chunks/main-app-fbdf19d09403bdbd.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/app/learning-paths/ms-office/word/page-33ef51e21b9941bc.js"
     ],
     "/learning-paths/office-assistant/intro-database/[moduleSlug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
@@ -131,6 +115,14 @@
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/learning-paths/office-assistant/intro-database/[moduleSlug]/page-40354ff0b2a80c76.js"
     ],
+    "/learning-paths/ms-office/powerpoint/page": [
+      "static/chunks/webpack-58060ea323562661.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-a390e12b70b4a9fb.js",
+      "static/chunks/main-app-fbdf19d09403bdbd.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/app/learning-paths/ms-office/powerpoint/page-33ef51e21b9941bc.js"
+    ],
     "/learning-paths/office-assistant/intro-database/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
@@ -138,15 +130,6 @@
       "static/chunks/main-app-fbdf19d09403bdbd.js",
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/learning-paths/office-assistant/intro-database/page-33ef51e21b9941bc.js"
-    ],
-    "/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page": [
-      "static/chunks/webpack-58060ea323562661.js",
-      "static/chunks/4bd1b696-f785427dddbba9fb.js",
-      "static/chunks/1255-a390e12b70b4a9fb.js",
-      "static/chunks/main-app-fbdf19d09403bdbd.js",
-      "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/5239-4c39720443de629f.js",
-      "static/chunks/app/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page-504150d36681691e.js"
     ],
     "/learning-paths/office-assistant/modern-office/[moduleSlug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
@@ -164,6 +147,31 @@
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/learning-paths/office-assistant/modern-office/page-33ef51e21b9941bc.js"
     ],
+    "/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page": [
+      "static/chunks/webpack-58060ea323562661.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-a390e12b70b4a9fb.js",
+      "static/chunks/main-app-fbdf19d09403bdbd.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/5239-4c39720443de629f.js",
+      "static/chunks/app/learning-paths/office-assistant/modern-office/[moduleSlug]/[slug]/page-504150d36681691e.js"
+    ],
+    "/learning-paths/office-assistant/office-apps/[moduleSlug]/page": [
+      "static/chunks/webpack-58060ea323562661.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-a390e12b70b4a9fb.js",
+      "static/chunks/main-app-fbdf19d09403bdbd.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/app/learning-paths/office-assistant/office-apps/[moduleSlug]/page-40354ff0b2a80c76.js"
+    ],
+    "/learning-paths/office-assistant/page": [
+      "static/chunks/webpack-58060ea323562661.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-a390e12b70b4a9fb.js",
+      "static/chunks/main-app-fbdf19d09403bdbd.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/app/learning-paths/office-assistant/page-96bd6777332d8448.js"
+    ],
     "/learning-paths/office-assistant/office-apps/[moduleSlug]/[slug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
@@ -180,14 +188,6 @@
       "static/chunks/main-app-fbdf19d09403bdbd.js",
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/learning-paths/office-assistant/office-apps/page-33ef51e21b9941bc.js"
-    ],
-    "/learning-paths/office-assistant/page": [
-      "static/chunks/webpack-58060ea323562661.js",
-      "static/chunks/4bd1b696-f785427dddbba9fb.js",
-      "static/chunks/1255-a390e12b70b4a9fb.js",
-      "static/chunks/main-app-fbdf19d09403bdbd.js",
-      "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/app/learning-paths/office-assistant/page-96bd6777332d8448.js"
     ],
     "/learning-paths/office-assistant/tech-foundations/[moduleSlug]/[slug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
@@ -222,22 +222,21 @@
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/page-96bd6777332d8448.js"
     ],
-    "/learning-paths/office-assistant/office-apps/[moduleSlug]/page": [
+    "/learning-paths/certification/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
       "static/chunks/1255-a390e12b70b4a9fb.js",
       "static/chunks/main-app-fbdf19d09403bdbd.js",
       "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/app/learning-paths/office-assistant/office-apps/[moduleSlug]/page-40354ff0b2a80c76.js"
+      "static/chunks/app/learning-paths/certification/page-96bd6777332d8448.js"
     ],
-    "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]/page": [
+    "/progress/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
       "static/chunks/1255-a390e12b70b4a9fb.js",
       "static/chunks/main-app-fbdf19d09403bdbd.js",
       "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/5239-4c39720443de629f.js",
-      "static/chunks/app/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]/page-55f77d42cd3a778d.js"
+      "static/chunks/app/progress/page-f3ed9b745540bdef.js"
     ],
     "/learning-paths/programs/[programSlug]/[moduleSlug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
@@ -247,13 +246,14 @@
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/learning-paths/programs/[programSlug]/[moduleSlug]/page-40354ff0b2a80c76.js"
     ],
-    "/progress/page": [
+    "/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
       "static/chunks/1255-a390e12b70b4a9fb.js",
       "static/chunks/main-app-fbdf19d09403bdbd.js",
       "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/app/progress/page-8c0d0c2f3581d196.js"
+      "static/chunks/5239-4c39720443de629f.js",
+      "static/chunks/app/learning-paths/programs/[programSlug]/[moduleSlug]/[slug]/page-55f77d42cd3a778d.js"
     ],
     "/learning-paths/programs/[programSlug]/page": [
       "static/chunks/webpack-58060ea323562661.js",
@@ -279,14 +279,6 @@
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/eng0300/page-329b4146b1709af3.js"
     ],
-    "/eng0300/skills/[slug]/page": [
-      "static/chunks/webpack-58060ea323562661.js",
-      "static/chunks/4bd1b696-f785427dddbba9fb.js",
-      "static/chunks/1255-a390e12b70b4a9fb.js",
-      "static/chunks/main-app-fbdf19d09403bdbd.js",
-      "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/app/eng0300/skills/[slug]/page-1f23506b47827e70.js"
-    ],
     "/eng0300/resources/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
@@ -295,14 +287,6 @@
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/eng0300/resources/page-96bd6777332d8448.js"
     ],
-    "/eng0300/practice/page": [
-      "static/chunks/webpack-58060ea323562661.js",
-      "static/chunks/4bd1b696-f785427dddbba9fb.js",
-      "static/chunks/1255-a390e12b70b4a9fb.js",
-      "static/chunks/main-app-fbdf19d09403bdbd.js",
-      "static/chunks/2619-3c9e02e22d10480a.js",
-      "static/chunks/app/eng0300/practice/page-e197d8cc98316d9b.js"
-    ],
     "/eng0300/tabe/page": [
       "static/chunks/webpack-58060ea323562661.js",
       "static/chunks/4bd1b696-f785427dddbba9fb.js",
@@ -310,6 +294,22 @@
       "static/chunks/main-app-fbdf19d09403bdbd.js",
       "static/chunks/2619-3c9e02e22d10480a.js",
       "static/chunks/app/eng0300/tabe/page-96bd6777332d8448.js"
+    ],
+    "/eng0300/skills/[slug]/page": [
+      "static/chunks/webpack-58060ea323562661.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-a390e12b70b4a9fb.js",
+      "static/chunks/main-app-fbdf19d09403bdbd.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/app/eng0300/skills/[slug]/page-1f23506b47827e70.js"
+    ],
+    "/eng0300/practice/page": [
+      "static/chunks/webpack-58060ea323562661.js",
+      "static/chunks/4bd1b696-f785427dddbba9fb.js",
+      "static/chunks/1255-a390e12b70b4a9fb.js",
+      "static/chunks/main-app-fbdf19d09403bdbd.js",
+      "static/chunks/2619-3c9e02e22d10480a.js",
+      "static/chunks/app/eng0300/practice/page-e197d8cc98316d9b.js"
     ],
     "/engl0150/layout": [
       "static/chunks/webpack-58060ea323562661.js",
