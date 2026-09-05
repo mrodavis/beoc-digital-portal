@@ -230,7 +230,7 @@ export const cloudModule7Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "You are accountable for anything you send, regardless of what produced the draft. 'The AI wrote it' is not a defence for an incorrect letter to a patient, a wrong figure in a report, or a fabricated citation in a policy. Treat AI output as a draft from a fast, confident, sometimes-wrong assistant whose work you are signing off.",
+            text: "You are accountable for anything you send, regardless of what produced the draft. 'The AI wrote it' is not a defense for an incorrect letter to a patient, a wrong figure in a report, or a fabricated citation in a policy. Treat AI output as a draft from a fast, confident, sometimes-wrong assistant whose work you are signing off.",
           },
           {
             type: "knowledge-check",

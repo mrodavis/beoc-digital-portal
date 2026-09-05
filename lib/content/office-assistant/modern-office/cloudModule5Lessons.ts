@@ -203,7 +203,7 @@ export const cloudModule5Lessons: Lesson[] = [
             ],
             correctIndex: 1,
             explanation:
-              "A VPN encrypts traffic travelling over the public internet, so the two networks can communicate as though privately connected. It provides confidentiality, not additional bandwidth, and uses the existing connections rather than new cabling.",
+              "A VPN encrypts traffic traveling over the public internet, so the two networks can communicate as though privately connected. It provides confidentiality, not additional bandwidth, and uses the existing connections rather than new cabling.",
             optionRationales: [
               "A VPN adds encryption overhead, so it is marginally slower rather than faster.",
               "Correct. It creates an encrypted tunnel over public infrastructure.",

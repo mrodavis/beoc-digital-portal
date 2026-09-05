@@ -10,6 +10,7 @@ import { module8Lessons } from "./module8Lessons";
 
 export const medicalBillingCoding: Program = {
   slug: "medical-billing-coding",
+  group: "Healthcare",
   title: "Medical Billing and Coding",
   shortTitle: "Medical Billing & Coding",
   icon: "🗂️",
@@ -215,7 +216,7 @@ export const medicalBillingCoding: Program = {
         "How to respond when directed to submit a claim the documentation does not support",
       ],
       scenario:
-        "A provider asks you to change a 99213 to a 99215 on a note that plainly does not support it, saying the visit 'felt like a level five' and the practice is behind on revenue. Refusing is uncomfortable. Complying would make you a participant in submitting a false claim — and 'my supervisor told me to' has never been a defence.",
+        "A provider asks you to change a 99213 to a 99215 on a note that plainly does not support it, saying the visit 'felt like a level five' and the practice is behind on revenue. Refusing is uncomfortable. Complying would make you a participant in submitting a false claim — and 'my supervisor told me to' has never been a defense.",
     },
   ],
 };

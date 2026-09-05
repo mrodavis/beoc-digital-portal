@@ -26,6 +26,12 @@ export interface ProgramModule {
 
 export interface Program {
   slug: string;
+  /**
+   * Which section of the portal this belongs to. Drives grouping on the
+   * progress page. Previously every program was assumed to be healthcare,
+   * which stopped being true once ESOL and OSHA 30 joined the list.
+   */
+  group: "Academic Programs" | "Healthcare" | "Technical Programs";
   title: string;
   shortTitle: string;
   icon: string;

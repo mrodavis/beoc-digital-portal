@@ -115,7 +115,7 @@ export const module4Lessons: Lesson[] = [
               "Setting the recurrence rule — when creating or editing an event, look for the 'Does not repeat' dropdown and change it to your needed frequency: Daily, Weekly, Monthly, or Custom. For a meeting that happens every Monday, select 'Weekly on Monday'.",
               "Custom recurrence options — use custom settings for meetings that occur every two weeks, only on weekdays, or with a specific end date. Avoid leaving recurrence set to 'Never ends' unless the meeting is truly indefinite.",
               "Editing a recurring event — when you edit a recurring event, the calendar will ask whether you want to change 'This event', 'This and following events', or 'All events'. Choose carefully — changing all events affects every past and future instance.",
-              "Canceling a single instance vs. the series — if a standup is cancelled for one week due to a holiday, cancel only that one occurrence, not the entire recurring series. Deleting the series removes every future meeting from every attendee's calendar.",
+              "Canceling a single instance vs. the series — if a standup is canceled for one week due to a holiday, cancel only that one occurrence, not the entire recurring series. Deleting the series removes every future meeting from every attendee's calendar.",
               "Never create a recurring event you do not own without explicit permission from the calendar owner — recurring events generate notifications for every attendee every time they occur.",
             ],
           },
@@ -150,7 +150,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Color-code by event type — assign a consistent color to each category of commitment. A common professional system: green for client calls, blue for internal meetings, red for deadlines, yellow for personal blocks, and grey for tentative or informational events.",
+              "Color-code by event type — assign a consistent color to each category of commitment. A common professional system: green for client calls, blue for internal meetings, red for deadlines, yellow for personal blocks, and gray for tentative or informational events.",
               "Apply color consistently across the entire team — if your organization uses a shared calendar, standardize color meanings in a team document so every assistant reads the calendar the same way.",
               "Overlay multiple calendars — in Google Calendar, enable multiple calendars in the left panel to overlay them in one view. A manager's travel calendar, the team's project calendar, and your personal calendar can all coexist in a single week view with different colors.",
               "Use descriptive calendar names — name calendars clearly when creating them: 'TOR Tech Client Calls' is more useful than 'Calendar 2' when you are switching between views.",
@@ -321,7 +321,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Google Calendar — Find a Time: When creating a new event and adding attendees' email addresses, click the 'Find a Time' tab next to 'Event Details'. This overlays all attendee calendars and highlights times when everyone is free simultaneously. Blocked slots appear grey; open times are white.",
+              "Google Calendar — Find a Time: When creating a new event and adding attendees' email addresses, click the 'Find a Time' tab next to 'Event Details'. This overlays all attendee calendars and highlights times when everyone is free simultaneously. Blocked slots appear gray; open times are white.",
               "Microsoft Outlook — Scheduling Assistant: Open a new meeting invite, add attendees, and click the 'Scheduling Assistant' tab. It displays every attendee's calendar side-by-side and marks conflicts in blue. Outlook also provides automatic 'Suggested Times' based on shared availability.",
               "When the attendee is external — external guests may not be visible on your calendar system. Use a scheduling tool (Calendly, When2Meet) and send them a booking link so they self-select from your available windows.",
               "Check for existing conflicts before any proposal — even if a time looks open, scan for travel time, recurring meetings, and out-of-office blocks that may not be visible to you.",
@@ -402,7 +402,7 @@ export const module4Lessons: Lesson[] = [
               "Send a confirmation email once the invite is accepted — a short 2–3 line email confirming the meeting, restating the time and location, and noting any pre-read materials. This is especially important for external guests who may use a different calendar system.",
               "Send a reminder for high-stakes meetings — for client calls, executive reviews, or any meeting that required significant coordination, send a brief reminder the morning of. Keep it professional and concise: 'Reminder: We have our Q3 kickoff call today at 2:00 PM EST. Zoom link: [link]. Looking forward to it.'",
               "Update the invite if anything changes — if the meeting time, location, or link changes after the invite is sent, update the calendar event and resend it. Do not rely on a separate email to communicate changes — the calendar event is the source of truth.",
-              "Include a cancellation window — if a meeting needs to be cancelled, do so with at least 24 hours' notice when possible. Cancel through the calendar event so every attendee's calendar is updated automatically.",
+              "Include a cancellation window — if a meeting needs to be canceled, do so with at least 24 hours' notice when possible. Cancel through the calendar event so every attendee's calendar is updated automatically.",
             ],
           },
         ],
@@ -510,7 +510,7 @@ export const module4Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/module-4/managing-conflicts/slide-09.jpg",
-        alt: "Prevent: Architectural Safeguards and The Buffer Principle — No Buffer vs Buffered calendar with 15-minute grey zone",
+        alt: "Prevent: Architectural Safeguards and The Buffer Principle — No Buffer vs Buffered calendar with 15-minute gray zone",
       },
       {
         src: "/images/office-assistant/module-4/managing-conflicts/slide-10.jpg",
@@ -547,7 +547,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "An unresolved conflict — where you wait and hope someone else notices — is the worst possible outcome. Someone will show up to a cancelled meeting they were never told was moved, and you will be the one who failed to communicate it.",
+              "An unresolved conflict — where you wait and hope someone else notices — is the worst possible outcome. Someone will show up to a canceled meeting they were never told was moved, and you will be the one who failed to communicate it.",
               "A poorly communicated reschedule — where you cancel without explanation or propose a new time without context — signals disorganization and disrespect for the other party's time.",
               "A well-handled conflict — where you identify the priority, notify the affected party proactively, explain the situation professionally, and propose a new time — can actually strengthen a relationship by demonstrating courtesy and accountability.",
               "The skill is not avoiding conflicts — it is resolving them faster and more gracefully than the people around you expect.",

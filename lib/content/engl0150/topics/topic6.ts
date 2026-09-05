@@ -48,7 +48,7 @@ export const topic6: Topic = {
       kind: "matcher",
       title: "Translate the jargon",
       instructions:
-        "Match each clinical term to plain language, then practise saying it to a patient.",
+        "Match each clinical term to plain language, then practice saying it to a patient.",
       pairs: [
         {
           id: "t6-m1",
@@ -338,7 +338,7 @@ export const topic6: Topic = {
   reflection: [
     "Give your sheet to someone outside healthcare. Ask them to tell you what they would do first — not whether it makes sense.",
     "Did you say what to do, or only what the situation is?",
-    "Is there any word on the page you would not use with a neighbour?",
+    "Is there any word on the page you would not use with a neighbor?",
   ],
 
   beforeYouLeave: [

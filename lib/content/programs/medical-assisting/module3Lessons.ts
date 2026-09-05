@@ -206,7 +206,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Record the chief complaint in the patient's own words, in quotation marks. 'My chest feels tight when I walk up stairs' is data. 'Angina' is your interpretation, and it is a diagnosis you are not authorized to make — it may also be wrong, and once it is in the record it colours everything that follows.",
+            text: "Record the chief complaint in the patient's own words, in quotation marks. 'My chest feels tight when I walk up stairs' is data. 'Angina' is your interpretation, and it is a diagnosis you are not authorized to make — it may also be wrong, and once it is in the record it colors everything that follows.",
           },
           {
             type: "callout",
@@ -248,7 +248,7 @@ export const module3Lessons: Lesson[] = [
           "Rewrite each as an open-ended or clarifying question: 'You're here for your diabetes follow-up, right?' 'The medication is working okay?' 'No new symptoms?'",
           "Research the OLDCARTS or SOCRATES mnemonic for history of present illness. Write out what each letter prompts.",
           "For a patient reporting 'stomach pain,' write eight questions that would characterize it fully, using at least two clarifying questions.",
-          "Practise a five-minute intake with someone willing to role-play. Afterwards, count how many of your questions were leading.",
+          "Practice a five-minute intake with someone willing to role-play. Afterwards, count how many of your questions were leading.",
         ],
       },
     ],

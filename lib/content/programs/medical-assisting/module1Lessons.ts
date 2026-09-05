@@ -81,7 +81,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "Medical assisting is not nursing, and the distinction is legal rather than a matter of respect. Nurses hold a licence that authorizes independent nursing judgment — assessment, triage, care planning. Medical assistants are unlicensed in most states and perform clinical tasks under a provider's delegation. An MA who assesses a patient and decides how urgently they need to be seen has crossed into nursing practice, whatever their experience.",
+            text: "Medical assisting is not nursing, and the distinction is legal rather than a matter of respect. Nurses hold a license that authorizes independent nursing judgment — assessment, triage, care planning. Medical assistants are unlicensed in most states and perform clinical tasks under a provider's delegation. An MA who assesses a patient and decides how urgently they need to be seen has crossed into nursing practice, whatever their experience.",
           },
           {
             type: "knowledge-check",

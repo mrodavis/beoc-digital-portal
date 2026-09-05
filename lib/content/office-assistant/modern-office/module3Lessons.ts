@@ -497,7 +497,7 @@ export const module3Lessons: Lesson[] = [
               "Date formatting — select any date column and apply Format > Number > Date to lock in a consistent format like MM/DD/YYYY or YYYY-MM-DD across all rows. Without explicit formatting, dates may display differently depending on how they were typed — 01/05/2024 vs 1/5/24 vs January 5, 2024 — which breaks sorting.",
               "Text alignment — left-align all text columns and right-align all number and currency columns. This is standard spreadsheet convention and makes columns visually scannable without having to read every cell. Apply alignment from the toolbar or Format > Cells > Alignment.",
               "Column width — double-click any column border in the header to auto-fit its width to the longest entry. Columns that are too narrow cut off text and hide data; columns that are too wide waste screen space and make the sheet harder to scan.",
-              "Header row formatting — bold the text in row 1 and apply a background color (blue or grey are standard). This visually separates headers from data and makes the structure obvious at first glance.",
+              "Header row formatting — bold the text in row 1 and apply a background color (blue or gray are standard). This visually separates headers from data and makes the structure obvious at first glance.",
             ],
           },
         ],

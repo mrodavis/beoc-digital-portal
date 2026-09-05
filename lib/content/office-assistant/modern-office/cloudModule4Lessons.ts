@@ -184,7 +184,7 @@ export const cloudModule4Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Practise the full lifecycle, including the part everyone skips.",
+        text: "Practice the full lifecycle, including the part everyone skips.",
       },
       {
         type: "list",

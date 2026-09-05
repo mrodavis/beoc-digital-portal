@@ -759,7 +759,7 @@ export const module5Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-07.jpg",
-        alt: "Phase 2: Instant Visibility — Conditional Formatting rules: High = Red, Low = Grey, Complete = Green, At Risk = Orange, Blocked = Yellow",
+        alt: "Phase 2: Instant Visibility — Conditional Formatting rules: High = Red, Low = Gray, Complete = Green, At Risk = Orange, Blocked = Yellow",
       },
       {
         src: "/images/office-assistant/module-5/build-project-tracker/slide-08.jpg",
@@ -887,7 +887,7 @@ export const module5Lessons: Lesson[] = [
             items: [
               "Select the entire Priority column (Column E), then navigate to Format > Conditional Formatting (Google Sheets) or Home > Conditional Formatting > New Rule (Excel).",
               "Create a rule for 'High' priority — set the condition to 'Text is exactly: High' and choose a red background fill. Every High-priority task will stand out immediately in the tracker.",
-              "Create a rule for 'Low' priority — set the condition to 'Text is exactly: Low' and choose a light grey or light blue fill. Visual hierarchy is now complete: red = urgent, grey = low stakes.",
+              "Create a rule for 'Low' priority — set the condition to 'Text is exactly: Low' and choose a light gray or light blue fill. Visual hierarchy is now complete: red = urgent, gray = low stakes.",
               "Apply a second set of rules to the Status column — 'Complete' in green, 'At Risk' in orange, 'Blocked' in yellow. This gives every row a two-column visual summary of urgency and progress status simultaneously.",
               "The result: scanning a 30-row tracker for the work that needs attention takes three seconds. Red high-priority tasks and orange at-risk items are immediately visible without reading any cell content.",
               "Conditional formatting applies automatically to every new row added — you never need to manually reformat cells as the tracker grows beyond its initial set of tasks.",

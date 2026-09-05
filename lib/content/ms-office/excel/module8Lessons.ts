@@ -194,7 +194,7 @@ LESSON 2 – INTELLIGENT SERVICES: DATA TYPES AND ANALYZE DATA
         },
         {
           type: "paragraph",
-          text: "A linked data type turns a cell's text into a record with fields behind it. Select a column of city names, choose Data > Geography, and Excel matches each to a place. A small icon appears in the cell, and clicking it opens a card of fields — population, area, leader, and so on. You pull a field into a neighbouring cell with the dot operator: =A2.Population.",
+          text: "A linked data type turns a cell's text into a record with fields behind it. Select a column of city names, choose Data > Geography, and Excel matches each to a place. A small icon appears in the cell, and clicking it opens a card of fields — population, area, leader, and so on. You pull a field into a neighboring cell with the dot operator: =A2.Population.",
         },
         {
           type: "table",
@@ -208,7 +208,7 @@ LESSON 2 – INTELLIGENT SERVICES: DATA TYPES AND ANALYZE DATA
         {
           type: "callout",
           variant: "version",
-          text: "Linked data types and Analyze Data require a Microsoft 365 subscription and an internet connection. They are not in Excel 2019, and they are not in the perpetual-licence Office 2024 either — these are subscription services, not local features. On a machine without them, the Data tab simply will not show Geography and Stocks.",
+          text: "Linked data types and Analyze Data require a Microsoft 365 subscription and an internet connection. They are not in Excel 2019, and they are not in the perpetual-license Office 2024 either — these are subscription services, not local features. On a machine without them, the Data tab simply will not show Geography and Stocks.",
         },
         {
           type: "callout",
@@ -325,7 +325,7 @@ LESSON 3 – ICONS, DRAWING TOOLS, AND MODERN COLLABORATION
         {
           type: "scenario",
           role: "You are preparing the quarterly supply summary for a meeting.",
-          text: "The numbers are correct and the sheet is a wall of grey. Three icons and a status column would let the practice manager find the two categories that need attention in about four seconds.",
+          text: "The numbers are correct and the sheet is a wall of gray. Three icons and a status column would let the practice manager find the two categories that need attention in about four seconds.",
           task: "Add visual signals that speed up reading, without decorating for its own sake.",
         },
         {

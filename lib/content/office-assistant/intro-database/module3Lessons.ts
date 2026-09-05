@@ -276,7 +276,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "The new Access database is live at Lakeside Medical Associates. Three front desk staff need to enter patient registrations and appointment records throughout the day. They need to know: how to move between fields efficiently, what to do when they make a mistake in a record they just saved, how to find a specific patient record without scrolling through 1,500 rows, and how to delete an appointment that was cancelled. This lesson covers all four.",
+            text: "The new Access database is live at Lakeside Medical Associates. Three front desk staff need to enter patient registrations and appointment records throughout the day. They need to know: how to move between fields efficiently, what to do when they make a mistake in a record they just saved, how to find a specific patient record without scrolling through 1,500 rows, and how to delete an appointment that was canceled. This lesson covers all four.",
           },
         ],
       },
@@ -347,7 +347,7 @@ export const module3Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — 'Create a data entry training guide for front desk staff using Microsoft Access to enter patient registrations. Cover: keyboard navigation with Tab, how to undo a mistake before saving, how to find a specific patient record with Ctrl+F, when to use Filter By Selection, and the correct procedure for cancelling an appointment (without deleting the record). Keep it practical and brief — one page maximum.' Customize the guide for your specific database field names.",
+            text: "AI Task: Ask ChatGPT — 'Create a data entry training guide for front desk staff using Microsoft Access to enter patient registrations. Cover: keyboard navigation with Tab, how to undo a mistake before saving, how to find a specific patient record with Ctrl+F, when to use Filter By Selection, and the correct procedure for canceling an appointment (without deleting the record). Keep it practical and brief — one page maximum.' Customize the guide for your specific database field names.",
           },
         ],
       },

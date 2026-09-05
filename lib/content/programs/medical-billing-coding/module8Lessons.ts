@@ -54,14 +54,14 @@ export const module8Lessons: Lesson[] = [
               [
                 "Looking up a record",
                 "Accounts you are assigned to work",
-                "A neighbour's or coworker's record out of curiosity",
+                "A neighbor's or coworker's record out of curiosity",
               ],
             ],
           },
           {
             type: "callout",
             variant: "warning",
-            text: "Accessing a record you have no work reason to see is a violation even if you tell no one and change nothing. Access is logged, audits are routine, and curiosity about a coworker's, neighbour's, or public figure's record is among the most common causes of termination in healthcare administration. There is no version of this that is harmless.",
+            text: "Accessing a record you have no work reason to see is a violation even if you tell no one and change nothing. Access is logged, audits are routine, and curiosity about a coworker's, neighbor's, or public figure's record is among the most common causes of termination in healthcare administration. There is no version of this that is harmless.",
           },
           {
             type: "paragraph",
@@ -126,7 +126,7 @@ export const module8Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You code for a provider at Lakeside Medical Associates.",
-            text: "A provider asks you to change a 99213 to a 99215 on a note that plainly does not support it, saying the visit 'felt like a level five' and the practice is behind on revenue. Refusing is uncomfortable. Complying would make you a participant in submitting a false claim, and 'my supervisor told me to' has never been a defence.",
+            text: "A provider asks you to change a 99213 to a 99215 on a note that plainly does not support it, saying the visit 'felt like a level five' and the practice is behind on revenue. Refusing is uncomfortable. Complying would make you a participant in submitting a false claim, and 'my supervisor told me to' has never been a defense.",
             task: "Know the law well enough to recognize the line, and know the process for what to do when you are asked to cross it.",
           },
           {
@@ -234,7 +234,7 @@ export const module8Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Following instructions is not a defence. A coder who submits a claim they know the documentation does not support has knowingly participated in submitting a false claim, regardless of who directed it. The False Claims Act also has whistleblower provisions, meaning colleagues have both protection and financial incentive to report. Your signature on the work is yours.",
+            text: "Following instructions is not a defense. A coder who submits a claim they know the documentation does not support has knowingly participated in submitting a false claim, regardless of who directed it. The False Claims Act also has whistleblower provisions, meaning colleagues have both protection and financial incentive to report. Your signature on the work is yours.",
           },
           {
             type: "knowledge-check",
@@ -250,7 +250,7 @@ export const module8Lessons: Lesson[] = [
             explanation:
               "Liability under the False Claims Act attaches to knowingly submitting a false claim. A coder who understands the rules and submits anyway has the requisite knowledge, and direction from a supervisor does not remove it. The correct response is to offer the amendment route and escalate through compliance.",
             optionRationales: [
-              "Following orders is not a recognized defence to knowingly submitting a false claim.",
+              "Following orders is not a recognized defense to knowingly submitting a false claim.",
               "Correct. Knowledge is what creates exposure, and you had it.",
               "Liability arises from the submission, not from whether it is caught.",
               "The provider is accountable for documentation, and the coder is accountable for coding to it. Both are exposed.",

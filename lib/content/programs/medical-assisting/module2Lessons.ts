@@ -217,7 +217,7 @@ export const module2Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "PPE technique is a psychomotor skill. Reading about it is preparation for practising it under supervision, not a substitute.",
+        text: "PPE technique is a psychomotor skill. Reading about it is preparation for practicing it under supervision, not a substitute.",
       },
       {
         type: "list",
@@ -226,7 +226,7 @@ export const module2Lessons: Lesson[] = [
           "Find the CDC's PPE donning and doffing sequence poster. Write both sequences from memory, then check.",
           "For each scenario, list the PPE required: a routine blood draw; assisting with a procedure where splashing is likely; caring for a patient on contact precautions; entering the room of a patient with suspected tuberculosis.",
           "Research what an N95 fit test involves and why it must be repeated periodically.",
-          "Practise the doffing sequence with any substitute materials you have. Identify the two points where you were most likely to contaminate yourself.",
+          "Practice the doffing sequence with any substitute materials you have. Identify the two points where you were most likely to contaminate yourself.",
         ],
       },
     ],

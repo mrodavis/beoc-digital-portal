@@ -85,7 +85,7 @@ export const excelModule2Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Delete clears a cell's contents but leaves the cell in place. Right-click > Delete removes the cell itself and shifts its neighbours, which will break formulas that referred to the shifted cells. When you mean to empty cells, press Delete; when you mean to remove rows, select the whole row.",
+            text: "Delete clears a cell's contents but leaves the cell in place. Right-click > Delete removes the cell itself and shifts its neighbors, which will break formulas that referred to the shifted cells. When you mean to empty cells, press Delete; when you mean to remove rows, select the whole row.",
           },
         ],
       },
@@ -620,7 +620,7 @@ export const excelModule2Lessons: Lesson[] = [
          {
            type: "scenario",
            role: "You prepare the monthly budget review at Lakeside Medical Associates.",
-           text: "You shade the over-budget rows red. The report is printed in black and white for the board meeting, where every row is now identical grey. The one thing the report existed to communicate is invisible.",
+           text: "You shade the over-budget rows red. The report is printed in black and white for the board meeting, where every row is now identical gray. The one thing the report existed to communicate is invisible.",
            task: "Format so the meaning survives printing, photocopying, and colorblind readers.",
          },
          {

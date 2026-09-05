@@ -88,7 +88,7 @@ export const cloudModule3Lessons: Lesson[] = [
           "For one work session, open every application using the Windows key and typing, never by clicking an icon. Note how it feels by the end.",
           "Snap four windows into the four quadrants of your screen using Windows + Arrow combinations.",
           "Create two virtual desktops, place different applications on each, and switch between them with Windows + Ctrl + Arrow.",
-          "Pin your five most-used applications to the taskbar in a deliberate order, then practise opening each with Windows + its number.",
+          "Pin your five most-used applications to the taskbar in a deliberate order, then practice opening each with Windows + its number.",
         ],
       },
     ],

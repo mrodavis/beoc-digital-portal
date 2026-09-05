@@ -233,7 +233,7 @@ export const module6Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Medication administration is a delegated clinical skill requiring hands-on competency assessment. Calculation, however, you can and should practise now.",
+        text: "Medication administration is a delegated clinical skill requiring hands-on competency assessment. Calculation, however, you can and should practice now.",
       },
       {
         type: "list",

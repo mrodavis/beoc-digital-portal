@@ -31,7 +31,7 @@ export const wordModule2Lessons: Lesson[] = [
            {
              type: "scenario",
              role: "You are assembling a patient handout at Lakeside Medical Associates.",
-             text: "A nurse sends you three paragraphs pasted from a manufacturer's website. You drop them into your handout and the text arrives in blue Arial 14 with a grey background, nothing like the rest of your document. You spend eleven minutes manually re-formatting it. There is a keystroke that would have prevented all eleven.",
+             text: "A nurse sends you three paragraphs pasted from a manufacturer's website. You drop them into your handout and the text arrives in blue Arial 14 with a gray background, nothing like the rest of your document. You spend eleven minutes manually re-formatting it. There is a keystroke that would have prevented all eleven.",
              task: "Learn to control what comes along when text moves — and to select exactly the text you mean, the first time.",
            },
            {
@@ -302,7 +302,7 @@ export const wordModule2Lessons: Lesson[] = [
          {
            type: "scenario",
            role: "You are producing a discharge instruction sheet at Lakeside Medical Associates.",
-           text: "A patient needs to know two things above all: take the medication with food, and call immediately if a fever passes 101°F. You have written both. They sit in the middle of a wall of identical grey text, and the patient will read neither.",
+           text: "A patient needs to know two things above all: take the medication with food, and call immediately if a fever passes 101°F. You have written both. They sit in the middle of a wall of identical gray text, and the patient will read neither.",
            task: "Use formatting to make the most important information impossible to miss — and to make everything else recede.",
          },
          {

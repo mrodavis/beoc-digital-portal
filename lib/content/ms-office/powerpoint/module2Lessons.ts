@@ -123,7 +123,7 @@ alt: "Copy command on the PowerPoint ribbon",
 {
 type: "paragraph",
 text:
-"Pasting normally brings the source formatting with it, which is why text copied from a web page arrives in the wrong font on a coloured background. Ctrl+Shift+V, or Paste Options > Keep Text Only, brings the words and leaves the formatting behind. On a slide, where consistency is most of what looks professional, that is almost always what you want.",
+"Pasting normally brings the source formatting with it, which is why text copied from a web page arrives in the wrong font on a colored background. Ctrl+Shift+V, or Paste Options > Keep Text Only, brings the words and leaves the formatting behind. On a slide, where consistency is most of what looks professional, that is almost always what you want.",
 },
 {
 type: "image",
@@ -585,7 +585,7 @@ sections: [
        {
          type: "scenario",
          role: "You prepare a training slide at Lakeside Medical Associates.",
-         text: "You cram five bullets in by cutting line spacing to 0.8. On your monitor it is fine. Projected in a room with the lights on, the lines run together into a grey block and the people at the back read none of it.",
+         text: "You cram five bullets in by cutting line spacing to 0.8. On your monitor it is fine. Projected in a room with the lights on, the lines run together into a gray block and the people at the back read none of it.",
          task: "Use spacing to aid legibility, and treat crowding as a signal to cut content.",
        },
        {

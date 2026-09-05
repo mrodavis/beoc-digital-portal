@@ -8,6 +8,7 @@ import { module6Lessons } from "./module6Lessons";
 
 export const patientCareTechnician: Program = {
   slug: "patient-care-technician",
+  group: "Healthcare",
   title: "Patient Care Technician",
   shortTitle: "Patient Care Technician",
   icon: "🧑‍⚕️",

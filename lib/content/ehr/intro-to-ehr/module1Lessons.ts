@@ -390,7 +390,7 @@ export const module1Lessons: Lesson[] = [
     duration: "80 min",
     sections: [
       {
-        heading: "Practising in a simulator, working like it is live",
+        heading: "Practicing in a simulator, working like it is live",
         blocks: [
           {
             type: "scenario",
@@ -447,7 +447,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Every EHR keeps an audit trail: who opened a record, when, from where, and what they viewed or changed. It cannot be switched off and it is reviewed. This is how organizations detect staff looking up a neighbour, a coworker, or a public figure — which is one of the most common causes of termination in healthcare. Open only the records your work requires, every time, including in the simulator.",
+            text: "Every EHR keeps an audit trail: who opened a record, when, from where, and what they viewed or changed. It cannot be switched off and it is reviewed. This is how organizations detect staff looking up a neighbor, a coworker, or a public figure — which is one of the most common causes of termination in healthcare. Open only the records your work requires, every time, including in the simulator.",
           },
           {
             type: "tip",

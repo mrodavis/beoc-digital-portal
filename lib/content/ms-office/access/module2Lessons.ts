@@ -15,7 +15,7 @@ export const accessModule2Lessons: Lesson[] = [
     ],
     sections: [
       {
-        heading: "Data types are your first line of defence",
+        heading: "Data types are your first line of defense",
         blocks: [
           {
             type: "scenario",

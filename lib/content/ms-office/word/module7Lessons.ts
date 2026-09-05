@@ -651,7 +651,7 @@ LESSON 4 – USING THEMES
          {
            type: "scenario",
            role: "You produce patient-facing materials at Lakeside Medical Associates.",
-           text: "The practice adopts a new color palette. Your documents contain headings, chart series, table shading, and shape fills, all coloured by hand from the standard palette. Updating them means finding every coloured object in every document.",
+           text: "The practice adopts a new color palette. Your documents contain headings, chart series, table shading, and shape fills, all colored by hand from the standard palette. Updating them means finding every colored object in every document.",
            task: "Use theme colors, so a palette change is one selection rather than an audit.",
          },
          {

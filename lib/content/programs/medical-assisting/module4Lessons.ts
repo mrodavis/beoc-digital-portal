@@ -159,7 +159,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Accessing a record you have no work reason to see is a violation even if you tell nobody and change nothing. Every access is logged and audits are routine. Looking up a friend, a neighbour, a coworker, or a family member out of concern is among the most common causes of termination in healthcare — and concern is not an exception in the rule.",
+            text: "Accessing a record you have no work reason to see is a violation even if you tell nobody and change nothing. Every access is logged and audits are routine. Looking up a friend, a neighbor, a coworker, or a family member out of concern is among the most common causes of termination in healthcare — and concern is not an exception in the rule.",
           },
           {
             type: "knowledge-check",

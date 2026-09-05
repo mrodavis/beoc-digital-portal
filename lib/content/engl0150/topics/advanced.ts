@@ -386,7 +386,7 @@ export const advancedC: Topic = {
       kind: "matcher",
       title: "Translate the billing jargon",
       instructions:
-        "Match each term to plain language, then practise explaining it to a patient who is worried about money.",
+        "Match each term to plain language, then practice explaining it to a patient who is worried about money.",
       pairs: [
         {
           id: "adv-c-m1",

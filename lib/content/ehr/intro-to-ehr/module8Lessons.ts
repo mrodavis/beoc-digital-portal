@@ -137,7 +137,7 @@ export const module8Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are asked to change a code on a claim.",
-            text: "A provider asks you to submit a higher-level code on a note that does not support it, because the practice is behind on revenue. Complying would make you a participant in submitting a false claim, and 'I was told to' has never been a defence.",
+            text: "A provider asks you to submit a higher-level code on a note that does not support it, because the practice is behind on revenue. Complying would make you a participant in submitting a false claim, and 'I was told to' has never been a defense.",
             task: "Know where the line is, and know the process for what to do when someone asks you to cross it.",
           },
           {

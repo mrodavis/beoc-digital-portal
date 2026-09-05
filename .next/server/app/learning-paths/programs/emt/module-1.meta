@@ -1,0 +1,7 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/learning-paths/layout,_N_T_/learning-paths/programs/layout,_N_T_/learning-paths/programs/[programSlug]/layout,_N_T_/learning-paths/programs/[programSlug]/[moduleSlug]/layout,_N_T_/learning-paths/programs/[programSlug]/[moduleSlug]/page,_N_T_/learning-paths/programs/emt/module-1"
+  }
+}

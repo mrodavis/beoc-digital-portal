@@ -870,7 +870,7 @@ export const powerpointModule5Lessons: Lesson[] = [
              ],
              [
                "Connection",
-               "Grey dots on the outline",
+               "Gray dots on the outline",
                "Anchors a connector so it follows the shape when moved",
              ],
            ],
@@ -1302,7 +1302,7 @@ export const powerpointModule5Lessons: Lesson[] = [
          {
            type: "scenario",
            role: "You finish the workflow diagram at Lakeside Medical Associates.",
-           text: "Five boxes positioned by dragging. Projected at three metres wide, the small misalignments become very visible, and the diagram reads as careless — which is not a good impression for a document describing a clinical process.",
+           text: "Five boxes positioned by dragging. Projected at three meters wide, the small misalignments become very visible, and the diagram reads as careless — which is not a good impression for a document describing a clinical process.",
            task: "Use alignment and distribution so the layout is exact, then group it so it stays that way.",
          },
          {

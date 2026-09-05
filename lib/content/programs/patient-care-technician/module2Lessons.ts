@@ -205,7 +205,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Restraints require a provider's order, are time-limited, and demand close monitoring — they are never a convenience or a substitute for staffing. They also carry real risk, including strangulation and injury from struggling against them. Side rails count: four raised rails is a restraint, and patients have died trying to climb over them. Exhaust alternatives first — rounding, repositioning, addressing the unmet need driving the behaviour.",
+            text: "Restraints require a provider's order, are time-limited, and demand close monitoring — they are never a convenience or a substitute for staffing. They also carry real risk, including strangulation and injury from struggling against them. Side rails count: four raised rails is a restraint, and patients have died trying to climb over them. Exhaust alternatives first — rounding, repositioning, addressing the unmet need driving the behavior.",
           },
           {
             type: "knowledge-check",

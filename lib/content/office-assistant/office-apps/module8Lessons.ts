@@ -324,7 +324,7 @@ export const module8Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "A data type is the first line of defence for data quality. A Number field will not accept 'twelve'. A Date/Time field will not accept 'next Tuesday'. Choosing the right type at design time prevents an entire category of problem that is extremely tedious to fix afterwards.",
+            text: "A data type is the first line of defense for data quality. A Number field will not accept 'twelve'. A Date/Time field will not accept 'next Tuesday'. Choosing the right type at design time prevents an entire category of problem that is extremely tedious to fix afterwards.",
           },
           {
             type: "table",

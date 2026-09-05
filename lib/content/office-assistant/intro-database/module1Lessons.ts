@@ -193,7 +193,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Appointment records link a patient, a provider, a date and time, and a visit type — each appointment record should capture enough information to prepare for the visit (reason for visit, whether the patient is new or established, insurance verification status). When appointments are rescheduled or cancelled, those changes should be recorded with reasons — this data helps the practice analyze no-show rates and optimize scheduling.",
+              "Appointment records link a patient, a provider, a date and time, and a visit type — each appointment record should capture enough information to prepare for the visit (reason for visit, whether the patient is new or established, insurance verification status). When appointments are rescheduled or canceled, those changes should be recorded with reasons — this data helps the practice analyze no-show rates and optimize scheduling.",
               "Provider schedules define when each provider is available, how long each appointment type should be, and which appointment types each provider sees. When scheduling conflicts arise, it is usually because provider schedule data is not being respected or is outdated. Keeping schedule templates accurate prevents double-booking and patient wait-time problems.",
               "Referral records track when a patient is sent to another provider — referral data must be documented for clinical continuity (the referring provider needs to know the outcome) and for billing purposes (some insurers require referral authorization before covering specialist visits).",
             ],

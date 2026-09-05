@@ -1863,7 +1863,7 @@ challenge: [
            {
              type: "scenario",
              role: "You monitor stock levels at Lakeside Medical Associates.",
-             text: "You highlight the below-reorder items in red by hand. A week later the quantities have all changed, but the red highlights have not — they are still marking the items that were low last week. The colour is now actively misleading.",
+             text: "You highlight the below-reorder items in red by hand. A week later the quantities have all changed, but the red highlights have not — they are still marking the items that were low last week. The color is now actively misleading.",
              task: "Make the formatting a rule about the data, so it can never go stale.",
            },
            {

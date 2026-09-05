@@ -35,7 +35,7 @@ export const wordModule6Lessons: Lesson[] = [
                },
                {
                  type: "paragraph",
-                 text: "Margins do three jobs: they leave room for hands and binding, they give the eye a rest at the end of each line, and they control line length. Very wide text is genuinely harder to read, because the eye loses its place travelling back to the start of the next line. The one-inch default is a reasonable compromise for most documents, not an arbitrary number.",
+                 text: "Margins do three jobs: they leave room for hands and binding, they give the eye a rest at the end of each line, and they control line length. Very wide text is genuinely harder to read, because the eye loses its place traveling back to the start of the next line. The one-inch default is a reasonable compromise for most documents, not an arbitrary number.",
                },
                {
                  type: "paragraph",
@@ -1033,7 +1033,7 @@ export const wordModule6Lessons: Lesson[] = [
          {
            type: "scenario",
            role: "You are laying out the patient newsletter at Lakeside Medical Associates.",
-           text: "Your first draft runs the text full width across the page. Readers report it feels like hard work, though they cannot say why. The sentences are fine. The lines are simply too long — the eye keeps losing its place travelling back to the start of the next one.",
+           text: "Your first draft runs the text full width across the page. Readers report it feels like hard work, though they cannot say why. The sentences are fine. The lines are simply too long — the eye keeps losing its place traveling back to the start of the next one.",
            task: "Use columns to bring the line length into the range people read comfortably.",
          },
          {

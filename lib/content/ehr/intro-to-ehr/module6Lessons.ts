@@ -202,7 +202,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Accessing a record you have no work reason to see is a violation even if you tell nobody and change nothing. Access is logged and audited routinely. Looking up a coworker, a neighbour, a family member, or a public figure is among the most common causes of termination in healthcare, and concern for the person is not an exception in the rule.",
+            text: "Accessing a record you have no work reason to see is a violation even if you tell nobody and change nothing. Access is logged and audited routinely. Looking up a coworker, a neighbor, a family member, or a public figure is among the most common causes of termination in healthcare, and concern for the person is not an exception in the rule.",
           },
         ],
       },
@@ -282,7 +282,7 @@ export const module6Lessons: Lesson[] = [
             type: "scenario",
             role: "You are working the compliance scenarios in EHR Go.",
             text: "Real privacy failures are rarely dramatic. They are a screen left open, a conversation in a corridor, a full chart sent when three pages were requested, and a colleague asking about someone you both know.",
-            task: "Practise the judgment on cases where nothing is at stake yet.",
+            task: "Practice the judgment on cases where nothing is at stake yet.",
           },
           {
             type: "table",

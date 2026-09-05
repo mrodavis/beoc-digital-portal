@@ -177,7 +177,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "A stage 1 pressure injury is intact skin with redness that does not blanch — press it and the colour stays. Blanchable redness fades under pressure and returns; that is normal. Non-blanchable redness means tissue damage has already begun. In darker skin tones colour change may be subtle or absent, so also assess for warmth, firmness, boggy texture, and pain compared with surrounding skin. Report any suspected stage 1 immediately — this is the stage at which it is still fully reversible.",
+            text: "A stage 1 pressure injury is intact skin with redness that does not blanch — press it and the color stays. Blanchable redness fades under pressure and returns; that is normal. Non-blanchable redness means tissue damage has already begun. In darker skin tones color change may be subtle or absent, so also assess for warmth, firmness, boggy texture, and pain compared with surrounding skin. Report any suspected stage 1 immediately — this is the stage at which it is still fully reversible.",
           },
           {
             type: "table",

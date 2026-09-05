@@ -10,6 +10,7 @@ import { module8Lessons } from "./module8Lessons";
 
 export const medicalAssisting: Program = {
   slug: "medical-assisting",
+  group: "Healthcare",
   title: "Medical Assisting Training",
   shortTitle: "Medical Assisting",
   icon: "🩺",
@@ -38,7 +39,7 @@ export const medicalAssisting: Program = {
     "Patient care coordinator",
   ],
   credentialNote:
-    "This is coursework, not a credential, and it cannot make anyone competent to perform clinical procedures. Every clinical skill covered here — venipuncture, injections, sterile technique, vital signs — requires hands-on instruction and supervised competency assessment before it is performed on a patient. Reading about a skill is preparation for practising it under supervision, never a substitute. Scope of practice is also set by your state and by your supervising provider's delegation, and it varies substantially: a task that is routine for medical assistants in one state may be prohibited in another. Verify your own state's rules before performing any clinical task. Certification is awarded by the bodies below, most of which require completion of an accredited program including a supervised practicum.",
+    "This is coursework, not a credential, and it cannot make anyone competent to perform clinical procedures. Every clinical skill covered here — venipuncture, injections, sterile technique, vital signs — requires hands-on instruction and supervised competency assessment before it is performed on a patient. Reading about a skill is preparation for practicing it under supervision, never a substitute. Scope of practice is also set by your state and by your supervising provider's delegation, and it varies substantially: a task that is routine for medical assistants in one state may be prohibited in another. Verify your own state's rules before performing any clinical task. Certification is awarded by the bodies below, most of which require completion of an accredited program including a supervised practicum.",
   relatedCertifications: [
     {
       name: "CMA (AAMA) — Certified Medical Assistant",

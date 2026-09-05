@@ -1,0 +1,4 @@
+
+# Webpack incremental build cache — local artifact, and 34.pack crossed
+# GitHub's 100MB file limit. The rendered .next output stays tracked.
+.next/cache/

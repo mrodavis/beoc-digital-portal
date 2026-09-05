@@ -31,7 +31,7 @@ sections: [
        {
          type: "scenario",
          role: "You design the annual staff briefing at Lakeside Medical Associates.",
-         text: "You pick a theme with pale grey text on a white background. It looks refined on your monitor. Projected in a room where the lights must stay on, the text is close to invisible from the fourth row.",
+         text: "You pick a theme with pale gray text on a white background. It looks refined on your monitor. Projected in a room where the lights must stay on, the text is close to invisible from the fourth row.",
          task: "Evaluate a theme by whether it survives a real projector in a real room.",
        },
        {
@@ -40,7 +40,7 @@ sections: [
        },
        {
          type: "paragraph",
-         text: "Projection loses contrast, and ambient light loses more. Strong contrast — genuinely dark text on a genuinely light background, or the reverse — is the single most important property of a presentation theme. Mid-grey on white, or any two mid-tones together, will fail in the room.",
+         text: "Projection loses contrast, and ambient light loses more. Strong contrast — genuinely dark text on a genuinely light background, or the reverse — is the single most important property of a presentation theme. Mid-gray on white, or any two mid-tones together, will fail in the room.",
        },
        {
          type: "callout",

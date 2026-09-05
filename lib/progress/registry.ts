@@ -42,7 +42,12 @@ export interface RegistryCourse {
   /** The course landing page. */
   href: string;
   /** Which section of the portal this belongs to. */
-  group: "Microsoft Office" | "Office Administrative Professional" | "Healthcare";
+  group:
+    | "Microsoft Office"
+    | "Office Administrative Professional"
+    | "Academic Programs"
+    | "Healthcare"
+    | "Technical Programs";
   modules: RegistryModule[];
 }
 
@@ -99,21 +104,21 @@ const oap = [
   build("oap/intro-database", "Database Management", "/learning-paths/office-assistant/intro-database", "Office Administrative Professional", introDatabaseModules as unknown as RawModule[], (m, l) => `/learning-paths/office-assistant/intro-database/${m}/${l}`),
 ];
 
-const healthcare = [
+const programCourses = [
   build("ehr/intro-to-ehr", "Introduction to EHR", "/learning-paths/ehr/intro-to-ehr", "Healthcare", introToEHRModules as unknown as RawModule[], (m, l) => `/learning-paths/ehr/intro-to-ehr/${m}/${l}`),
   ...programList.map((p) =>
     build(
       `programs/${p.slug}`,
       p.shortTitle,
       `/learning-paths/programs/${p.slug}`,
-      "Healthcare",
+      p.group,
       p.modules as unknown as RawModule[],
       (m, l) => `/learning-paths/programs/${p.slug}/${m}/${l}`
     )
   ),
 ];
 
-export const courseRegistry: RegistryCourse[] = [...msOffice, ...oap, ...healthcare];
+export const courseRegistry: RegistryCourse[] = [...msOffice, ...oap, ...programCourses];
 
 export function getCourse(id: string) {
   return courseRegistry.find((c) => c.id === id);
@@ -126,5 +131,7 @@ export function lessonCount(course: RegistryCourse) {
 export const registryGroups = [
   "Microsoft Office",
   "Office Administrative Professional",
+  "Academic Programs",
   "Healthcare",
+  "Technical Programs",
 ] as const;

@@ -39,24 +39,24 @@ export default function Home() {
       title: "College Preparation",
       description:
         "Build the academic skills and strategies needed to succeed in college-level coursework and higher education environments.",
-      href: "#",
-      status: "coming-soon",
+      href: "/learning-paths/programs/college-preparation",
+      status: "available",
       icon: "🎓",
     },
     {
       title: "English Speakers of Other Languages (ESOL)",
       description:
         "Develop English language proficiency for non-native speakers through reading, writing, speaking, and listening instruction.",
-      href: "#",
-      status: "coming-soon",
+      href: "/learning-paths/programs/esol",
+      status: "available",
       icon: "🌐",
     },
     {
       title: "High School Equivalency Preparation (HSE)",
       description:
         "Prepare for the High School Equivalency exam with instruction in math, reading, writing, science, and social studies.",
-      href: "#",
-      status: "coming-soon",
+      href: "/learning-paths/programs/high-school-equivalency",
+      status: "available",
       icon: "📚",
     },
   ];
@@ -98,8 +98,8 @@ export default function Home() {
       title: "OSHA 30 w/ Site Safety and Flagging",
       description:
         "Earn OSHA 30-hour certification covering workplace safety standards required for construction, maintenance, and industrial jobs.",
-      href: "#",
-      status: "coming-soon",
+      href: "/learning-paths/programs/osha-30",
+      status: "available",
       icon: "🦺",
     },
     {
@@ -114,32 +114,32 @@ export default function Home() {
       title: "Security Guard Training (SGT)",
       description:
         "Prepare for NYS security guard licensing with training in safety procedures, conflict management, and legal responsibilities.",
-      href: "#",
-      status: "coming-soon",
+      href: "/learning-paths/programs/security-guard",
+      status: "available",
       icon: "🛡️",
     },
     {
       title: "Pharmacy Technician Training",
       description:
         "Learn pharmacy operations, medication dispensing, and regulatory compliance to support licensed pharmacists.",
-      href: "#",
-      status: "coming-soon",
+      href: "/learning-paths/programs/pharmacy-technician",
+      status: "available",
       icon: "💊",
     },
     {
       title: "Emergency Medical Technician (EMT)",
       description:
         "Train for EMT certification with instruction in emergency response, patient assessment, and pre-hospital care.",
-      href: "#",
-      status: "coming-soon",
+      href: "/learning-paths/programs/emt",
+      status: "available",
       icon: "🚑",
     },
     {
       title: "Tourism and Hospitality Operations",
       description:
         "Develop customer service, front desk, and hospitality management skills for careers in hotels, tourism, and events.",
-      href: "#",
-      status: "coming-soon",
+      href: "/learning-paths/programs/tourism-hospitality",
+      status: "available",
       icon: "🏨",
     },
   ];

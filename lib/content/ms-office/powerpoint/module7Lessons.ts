@@ -31,7 +31,7 @@ export const powerpointModule7Lessons: Lesson[] = [
          {
            type: "scenario",
            role: "You present budget figures at Lakeside Medical Associates.",
-           text: "You paste a twelve-column, thirty-row table from Excel onto a slide. At the back of the room it is a grey texture. Nobody reads a single figure, and the two numbers that actually mattered are lost among four hundred that did not.",
+           text: "You paste a twelve-column, thirty-row table from Excel onto a slide. At the back of the room it is a gray texture. Nobody reads a single figure, and the two numbers that actually mattered are lost among four hundred that did not.",
            task: "Put the few figures that matter on the slide, and give the full table out as a handout.",
          },
          {
@@ -372,12 +372,12 @@ export const powerpointModule7Lessons: Lesson[] = [
          {
            type: "scenario",
            role: "You present spending trends at Lakeside Medical Associates.",
-           text: "You paste the chart from your Excel report: eight series, gridlines, a legend on the right, and axis labels at nine point. In the report, where a reader can study it, it works. Projected, it is a coloured tangle.",
-           task: "Rebuild the chart for a glance from six metres away, not for a reader at a desk.",
+           text: "You paste the chart from your Excel report: eight series, gridlines, a legend on the right, and axis labels at nine point. In the report, where a reader can study it, it works. Projected, it is a colored tangle.",
+           task: "Rebuild the chart for a glance from six meters away, not for a reader at a desk.",
          },
          {
            type: "paragraph",
-           text: "A report chart is read; a presentation chart is glanced at. That difference means fewer series — two or three, not eight — larger type, no gridlines, and direct labels on the lines rather than a legend the eye has to travel to and match by colour.",
+           text: "A report chart is read; a presentation chart is glanced at. That difference means fewer series — two or three, not eight — larger type, no gridlines, and direct labels on the lines rather than a legend the eye has to travel to and match by color.",
          },
          {
            type: "table",

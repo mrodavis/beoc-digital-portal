@@ -40,7 +40,7 @@ export const module5Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Never give food or fluids to a patient who is NPO, and never alter a prescribed diet texture or liquid thickness because the patient asks or because it seems excessive. Thickened liquids are prescribed after a swallow evaluation. Giving thin liquids to a patient prescribed thickened ones can cause aspiration and death, and 'they said they were fine with water' is not a defence.",
+            text: "Never give food or fluids to a patient who is NPO, and never alter a prescribed diet texture or liquid thickness because the patient asks or because it seems excessive. Thickened liquids are prescribed after a swallow evaluation. Giving thin liquids to a patient prescribed thickened ones can cause aspiration and death, and 'they said they were fine with water' is not a defense.",
           },
           {
             type: "paragraph",

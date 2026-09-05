@@ -194,7 +194,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Report a change immediately rather than saving it for handoff, particularly any change in breathing, level of consciousness, or skin colour, or a new or worsening pain. You are not deciding whether it matters — that is the nurse's judgment. You are making sure they have the information to make it while there is still time.",
+            text: "Report a change immediately rather than saving it for handoff, particularly any change in breathing, level of consciousness, or skin color, or a new or worsening pain. You are not deciding whether it matters — that is the nurse's judgment. You are making sure they have the information to make it while there is still time.",
           },
           {
             type: "table",
@@ -216,7 +216,7 @@ export const module1Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Abuse and neglect must be recognized and reported. Physical signs include unexplained bruising, particularly in patterns or at various stages of healing. Behavioural signs include fear of specific staff or visitors, withdrawal, or a change in demeanour when someone is present. Neglect shows as poor hygiene, dehydration, untreated pressure injuries, or unmet basic needs. Healthcare workers are mandated reporters in most jurisdictions — report through your facility's process, and reporting is required whether or not you are certain.",
+            text: "Abuse and neglect must be recognized and reported. Physical signs include unexplained bruising, particularly in patterns or at various stages of healing. Behavioral signs include fear of specific staff or visitors, withdrawal, or a change in demeanour when someone is present. Neglect shows as poor hygiene, dehydration, untreated pressure injuries, or unmet basic needs. Healthcare workers are mandated reporters in most jurisdictions — report through your facility's process, and reporting is required whether or not you are certain.",
           },
           {
             type: "knowledge-check",
