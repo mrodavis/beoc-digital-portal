@@ -7,6 +7,7 @@ import ActivityBlock from "./ActivityBlock";
 import AnswerReviewBlock from "./AnswerReviewBlock";
 import PendingContent from "./PendingContent";
 import SkillProgressControl from "./SkillProgressControl";
+import WriteItBlock from "./WriteItBlock";
 
 /**
  * The shared template behind all seven skill labs.
@@ -198,6 +199,23 @@ export default function SkillPageTemplate({
               <ActivityBlock activity={skill.masteryCheck} />
             ) : (
               <PendingContent stage="mastery check" skillTitle={skill.title} />
+            )}
+          </SkillStage>
+
+          {/* WRITE IT closes the lab: the writing counterpart of the reading
+              skill just practiced. Quicklinked from the Brightspace WRITE IT!
+              sub-module, so #write-it must stay a stable anchor. */}
+          <SkillStage
+            id="write-it"
+            step={8}
+            label="Write It"
+            title="Now write it yourself"
+            description="The same skill, going the other direction. Nothing here is submitted from this page — you will copy your paragraph into Brightspace when it is ready."
+          >
+            {skill.writeIt ? (
+              <WriteItBlock writeIt={skill.writeIt} />
+            ) : (
+              <PendingContent stage="writing task" skillTitle={skill.title} />
             )}
           </SkillStage>
         </div>

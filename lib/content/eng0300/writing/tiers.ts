@@ -1,0 +1,568 @@
+import { LessonSection, WriteIt } from "@/types/eng0300";
+
+/**
+ * The Writing Lab — three tiers, in order: Sentence, Paragraph, Short Response.
+ *
+ * A sibling to the Reading Lab, following the same instructional rhythm:
+ * instruction → worked example → guided practice → independent practice →
+ * self-check. The components are the Reading Lab's; only the content is new.
+ *
+ * All content here is ORIGINAL, written for BEOC Academic Bridge. Nothing is
+ * graded on this site — Tier 2 and Tier 3 independent practice ends in the
+ * same copy-into-Brightspace handoff the skill labs use.
+ */
+
+/** A before/after walkthrough — the writing counterpart of a worked example. */
+export interface WritingWorkedExample {
+  title: string;
+  /** The problem being fixed, in one line. */
+  setup: string;
+  before: string;
+  /** The reasoning, in order. Mirrors the Reading Lab's think-aloud steps. */
+  steps: { move: string; thinking: string }[];
+  after: string;
+  takeaway: string;
+}
+
+export interface WritingTier {
+  slug: string;
+  tier: 1 | 2 | 3;
+  title: string;
+  shortTitle: string;
+  description: string;
+  icon: string;
+  accent: string;
+  estimatedMinutes: number;
+  objectives: string[];
+  /** Topics this tier covers, shown as a contents list. */
+  covers: string[];
+  /** INSTRUCTION */
+  lesson: LessonSection[];
+  /** WORKED EXAMPLE */
+  workedExample: WritingWorkedExample;
+  /** GUIDED PRACTICE — bank skills to drill, or a guided writing move. */
+  guided: {
+    intro: string;
+    /** Sentence-skills bank ids practised at this tier, if any. */
+    bankSkills?: string[];
+    /** For paragraph and response tiers: a short structured task. */
+    steps?: string[];
+  };
+  /** INDEPENDENT PRACTICE — a full writing task, or the bank engine. */
+  independent?: WriteIt;
+  /** SELF-CHECK */
+  selfCheck: string[];
+}
+
+export const writingTiers: WritingTier[] = [
+  /* ================= TIER 1 — SENTENCE ================= */
+  {
+    slug: "sentence",
+    tier: 1,
+    title: "Tier 1 — Sentence",
+    shortTitle: "Sentence",
+    description:
+      "The unit everything else is built from. A sentence that is complete, agrees with itself, and is punctuated so a reader knows where it starts and stops.",
+    icon: "✍️",
+    accent: "from-eng-navy-800 to-eng-navy-600",
+    estimatedMinutes: 40,
+    objectives: [
+      "Tell a complete sentence from a fragment, and say what is missing",
+      "Recognize and repair run-ons and comma splices",
+      "Make subjects and verbs agree, including when a phrase separates them",
+      "Punctuate and capitalize so the reader is never slowed down",
+      "Choose correctly between commonly confused words",
+    ],
+    covers: [
+      "Complete sentences",
+      "Fragments",
+      "Run-ons and comma splices",
+      "Subject-verb agreement",
+      "Punctuation",
+      "Capitalization",
+      "Commonly confused words",
+    ],
+    lesson: [
+      {
+        heading: "What makes a sentence complete",
+        paragraphs: [
+          "A complete sentence needs three things: a subject, a main verb, and a thought that can stand on its own. Miss any one of them and you have a fragment — no matter how long the group of words is.",
+          "That last point is where most people go wrong. Length feels like completeness. It is not. \"The manager, who had worked there for eleven years and knew every customer by name\" runs to sixteen words and is still a fragment, because the manager never does anything.",
+        ],
+        callout: {
+          label: "The test",
+          text: "Read the group of words aloud on its own. If a listener would wait for the rest, it is a fragment.",
+        },
+      },
+      {
+        heading: "The two opposite errors",
+        paragraphs: [
+          "A fragment is too little — a piece of a sentence sent out alone. A run-on is too much — two complete sentences jammed together without the punctuation that separates them.",
+          "A comma splice is the most common run-on and the hardest to see, because a comma looks like it is doing the job. It is not strong enough. Two complete sentences need a period, a semicolon, or a comma plus one of seven joining words.",
+        ],
+        table: {
+          columns: ["Join", "Use it when", "Example"],
+          rows: [
+            ["Period", "The two ideas can stand apart", "The printer jammed. I used the one upstairs."],
+            ["Semicolon", "The ideas are closely related and equally weighted", "The printer jammed; I used the one upstairs."],
+            ["Comma + for, and, nor, but, or, yet, so", "You want to name the relationship", "The printer jammed, so I used the one upstairs."],
+            ["Make one clause dependent", "One idea sets up the other", "Because the printer jammed, I used the one upstairs."],
+          ],
+        },
+      },
+      {
+        heading: "Agreement, and why it is really a subject problem",
+        paragraphs: [
+          "Subject-verb agreement errors are usually not verb errors. They are subject-identification errors. In \"The box of files ___ on the counter,\" the subject is box, not files — files sits inside a prepositional phrase, and a phrase never changes the subject.",
+          "Cross out every prepositional phrase before you choose the verb. The sentence gets shorter and the answer gets obvious.",
+        ],
+        bullets: [
+          "Each, every, either, neither, and words ending in -one or -body are singular",
+          "Two subjects joined by and are plural",
+          "With either/or and neither/nor, match the verb to the nearer subject",
+          "Along with, as well as, and in addition to do not make a subject plural",
+        ],
+      },
+    ],
+    workedExample: {
+      title: "Repairing a sentence that has three problems at once",
+      setup:
+        "A note left for a supervisor. Every error in it is one this tier covers.",
+      before:
+        "Because the delivery arrived late, we couldn't finish the order, the boxes of inventory is still on the dock.",
+      steps: [
+        {
+          move: "Find each complete sentence first",
+          thinking:
+            "There are two: \"we couldn't finish the order\" and \"the boxes ... [are] still on the dock.\" The opening clause starts with Because, so it is dependent and belongs to the first one.",
+        },
+        {
+          move: "Name the join that is wrong",
+          thinking:
+            "The comma after \"order\" sits between two complete sentences. A comma alone cannot do that — this is a comma splice.",
+        },
+        {
+          move: "Choose a repair that fits the meaning",
+          thinking:
+            "The second statement explains the consequence of the first, so they are closely related and equally weighted. A semicolon fits better than a period here.",
+        },
+        {
+          move: "Now check agreement, with the phrases crossed out",
+          thinking:
+            "\"The boxes of inventory\" — cross out \"of inventory\" and the subject is boxes, plural. So the verb is are, not is.",
+        },
+      ],
+      after:
+        "Because the delivery arrived late, we couldn't finish the order; the boxes of inventory are still on the dock.",
+      takeaway:
+        "Work in that order every time: find the complete sentences, fix the joins, then check agreement. Fixing agreement first wastes effort on sentences you are about to restructure.",
+    },
+    guided: {
+      intro:
+        "Drill each skill on its own before mixing them. Every question explains why the wrong answers are wrong — that explanation is the part worth reading, especially on the ones you get right by instinct.",
+      bankSkills: [
+        "fragments",
+        "run-ons",
+        "subject-verb",
+        "punctuation",
+        "capitalization",
+        "confused-words",
+      ],
+    },
+    selfCheck: [
+      "I can say what a fragment is missing, not just that it feels wrong",
+      "I can name the four legal ways to join two complete sentences",
+      "I cross out prepositional phrases before choosing a verb",
+      "I know when a comma goes before and, and when it does not",
+      "I can explain the difference between its and it's without guessing",
+    ],
+  },
+
+  /* ================= TIER 2 — PARAGRAPH ================= */
+  {
+    slug: "paragraph",
+    tier: 2,
+    title: "Tier 2 — Paragraph",
+    shortTitle: "Paragraph",
+    description:
+      "A paragraph is not a group of sentences about the same topic. It is one idea, developed in an order a reader can follow, with words that mark the moves.",
+    icon: "📄",
+    accent: "from-eng-teal-800 to-eng-teal-600",
+    estimatedMinutes: 45,
+    objectives: [
+      "Write a topic sentence that makes a claim, not just names a subject",
+      "Develop an idea with specific supporting detail",
+      "Use transitions and signal words that match the relationship you mean",
+      "Close a paragraph without simply repeating the opening",
+      "Write inside a chosen pattern: cause/effect, compare/contrast, sequence, problem/solution",
+    ],
+    covers: [
+      "Topic sentences",
+      "Supporting detail",
+      "Transitions and signal words",
+      "Closing sentences",
+      "Paragraph patterns",
+    ],
+    lesson: [
+      {
+        heading: "A topic sentence makes a claim",
+        paragraphs: [
+          "\"This paragraph is about employer-paid training\" names a subject. It is not a topic sentence, because there is nothing in it a reader could agree or disagree with.",
+          "\"Employers pay for training because it is cheaper than hiring\" is a topic sentence. It commits to something, which tells you exactly what the rest of the paragraph has to support.",
+        ],
+        callout: {
+          label: "Quick test",
+          text: "Could a reasonable person disagree with your first sentence? If not, you have named a topic rather than written one.",
+        },
+      },
+      {
+        heading: "Support means specific",
+        paragraphs: [
+          "The gap between a weak paragraph and a strong one is almost always specificity. \"Replacing workers is expensive\" is a claim repeated. \"Replacing a worker means advertising the opening, interviewing candidates, and absorbing the weeks a new hire spends learning the job\" is support.",
+          "After each piece of support, say what it shows. That sentence — the explanation — is the one most writers skip, and it is worth as much on the rubric as the evidence itself.",
+        ],
+      },
+      {
+        heading: "Signal words tell the reader what move you are making",
+        paragraphs: [
+          "Transitions are not decoration. Each one makes a promise about what comes next, and using the wrong one actively misleads a reader. \"However\" promises a contrast. If what follows is not a contrast, the reader has to back up and re-read.",
+        ],
+        table: {
+          columns: ["Relationship", "Signal words", "The promise"],
+          rows: [
+            ["Adding", "furthermore, in addition, also, moreover", "More of the same kind of thing"],
+            ["Contrasting", "however, in contrast, nevertheless, whereas", "Something that cuts against what I just said"],
+            ["Causing", "therefore, consequently, as a result, because", "This follows from that"],
+            ["Comparing", "similarly, likewise, in the same way", "Two things behaving alike"],
+            ["Illustrating", "for instance, for example, specifically", "A concrete case of the general claim"],
+            ["Sequencing", "first, next, then, finally", "Order matters here"],
+          ],
+        },
+      },
+      {
+        heading: "Four patterns worth being able to write on demand",
+        bullets: [
+          "Cause and effect — what happened, and what followed from it",
+          "Compare and contrast — two things, held against each other on the same points",
+          "Sequence — steps or events in the order they occur",
+          "Problem and solution — what is wrong, who it affects, and what would fix it",
+        ],
+        paragraphs: [
+          "You already name these patterns when you read. Writing inside one on demand is the harder half, and it is what a short-response question usually asks for even when it does not say so.",
+        ],
+      },
+    ],
+    workedExample: {
+      title: "Turning a list of true sentences into a paragraph",
+      setup:
+        "Everything in the draft below is accurate. It is still not a paragraph, because nothing connects.",
+      before:
+        "The clinic has long waits. Midday appointments go unused most often. The clinic moved some slots to the evening. Patients cannot leave work without losing pay.",
+      steps: [
+        {
+          move: "Find the idea these sentences are circling",
+          thinking:
+            "They are all about why midday slots fail. That is the claim — but no sentence states it, so the reader has to assemble it themselves.",
+        },
+        {
+          move: "Promote it to a topic sentence",
+          thinking:
+            "\"The clinic's midday appointments fail for a reason the schedule itself creates.\" Now every other sentence has a job.",
+        },
+        {
+          move: "Order the rest so each one earns the next",
+          thinking:
+            "Evidence (the unused slots), then explanation (why — the unpaid time off), then response (the evening block). Right now the response comes before the explanation, which is backwards.",
+        },
+        {
+          move: "Add the signal words that mark those moves",
+          thinking:
+            "\"Because\" for the cause, \"as a result\" for the response. Without them the reader is guessing at the relationships.",
+        },
+      ],
+      after:
+        "The clinic's midday appointments fail for a reason the schedule itself creates. Slots scheduled around noon go unused far more often than any other hour. That happens because a midday appointment competes directly with a work shift most patients cannot leave without losing pay. As a result, the clinic moved several of those slots into an evening block.",
+      takeaway:
+        "The sentences barely changed. What changed is that one of them now makes a claim, and the rest are ordered to support it.",
+    },
+    guided: {
+      intro:
+        "Work through these in order on paper or in the box below. Each one isolates a single move so you can feel the difference it makes.",
+      steps: [
+        "Take this topic: the bus route you use most. Write a sentence that names it. Then rewrite that sentence so it makes a claim someone could disagree with.",
+        "Under your claim, list three specific details that support it. Specific means a number, a name, a time, or something you could point at.",
+        "Turn the three details into sentences, and put a signal word at the front of the second and third. Choose the word by the relationship, not by which sounds best.",
+        "Write a closing sentence that says something your topic sentence did not. If it just repeats the opening, cut it and write another.",
+      ],
+    },
+    independent: {
+      lab: 0,
+      storageId: "tier2-paragraph",
+      taskName: "One paragraph, one pattern",
+      passageTitle: "Writing Lab — Tier 2",
+      prompt: [
+        "Write one paragraph of six to eight sentences about a change you would make where you work, study, or live. Choose one pattern and commit to it: cause and effect, compare and contrast, sequence, or problem and solution.",
+        "Name your pattern in the first line of your submission, above the paragraph, so a reader knows what you were aiming at. Then write it well enough that they would have guessed correctly anyway.",
+      ],
+      checklist: [
+        "I named my pattern above the paragraph",
+        "My first sentence makes a claim, not just a topic",
+        "I have at least three specific supporting details",
+        "Signal words mark each move, and each one matches the actual relationship",
+        "My closing sentence adds something rather than repeating the opening",
+      ],
+      frames: [
+        "The main problem with ______ is that ______.",
+        "For instance, ______. As a result, ______.",
+        "Whereas ______, ______ does the opposite.",
+      ],
+      model: {
+        intro:
+          "A compare-and-contrast paragraph. Notice that the two things are held against each other on the same points, in the same order, rather than described one after the other.",
+        sentences: [
+          {
+            text: "Taking the 12 bus to campus and taking the train are close on paper and not close at all in practice.",
+            strand: "focus",
+            note: "A claim with a built-in contrast, which is what a compare-and-contrast paragraph needs before it starts comparing.",
+          },
+          {
+            text: "The bus is cheaper by about a dollar each way, and it stops two blocks from my door.",
+            strand: "evidence",
+            note: "Point one for the first option, with a number attached. Specific support, not a general impression.",
+          },
+          {
+            text: "The train, in contrast, costs more and requires a ten-minute walk on each end.",
+            strand: "evidence",
+            note: "The same two points for the second option, in the same order. In contrast marks the turn.",
+          },
+          {
+            text: "The difference that matters, though, is reliability.",
+            strand: "organization",
+            note: "A pivot sentence. It tells the reader the comparison is about to move to the point that decides it.",
+          },
+          {
+            text: "The bus shares the road with rush-hour traffic and has arrived anywhere from four to twenty-five minutes late on the mornings I have tracked it.",
+            strand: "evidence",
+            note: "The deciding point, with a measured range rather than a complaint.",
+          },
+          {
+            text: "The train runs on its own track and has never made me late.",
+            strand: "organization",
+            note: "The parallel half of the deciding point, kept short so the contrast lands.",
+          },
+          {
+            text: "I take the train, and I pay the extra dollar for a morning I can plan around.",
+            strand: "conventions",
+            note: "A conclusion that follows from the comparison instead of restating it, in a complete, correctly punctuated sentence.",
+          },
+        ],
+      },
+      brightspace: { week: 4, dropbox: "WRITING PORTFOLIO — Writing Lab Practice" },
+    },
+    selfCheck: [
+      "My topic sentence makes a claim someone could argue with",
+      "Every supporting detail is specific enough to point at",
+      "Each signal word matches the relationship it marks",
+      "A reader could name my pattern without being told",
+      "My last sentence adds something the first did not",
+    ],
+  },
+
+  /* ================= TIER 3 — SHORT RESPONSE ================= */
+  {
+    slug: "short-response",
+    tier: 3,
+    title: "Tier 3 — Short Response",
+    shortTitle: "Short Response",
+    description:
+      "Where reading and writing meet. A short response answers a specific question, using evidence from a text, for a reader with a particular reason to be reading.",
+    icon: "🧩",
+    accent: "from-eng-gold-700 to-eng-gold-500",
+    estimatedMinutes: 50,
+    objectives: [
+      "Answer the question that was actually asked",
+      "Build a response in Claim–Evidence–Explanation order",
+      "Adjust what you write to a stated purpose and audience",
+      "Revise a draft by diagnosis rather than by feel",
+    ],
+    covers: [
+      "Answering the question that was actually asked",
+      "Claim–Evidence–Explanation",
+      "Writing to a purpose and audience",
+      "Revising a draft",
+    ],
+    lesson: [
+      {
+        heading: "Most lost points are not writing problems",
+        paragraphs: [
+          "The single most common way to lose points on a short response is to answer a question near the one that was asked. A prompt asking why the author included a detail is not asking what the detail says. A prompt asking you to compare is not satisfied by describing both things separately.",
+          "Before you write, underline the question's verb — explain, compare, evaluate, describe, support — and the thing it points at. Then write your first sentence so it uses that verb. If the prompt says explain why, your first sentence should contain the word because.",
+        ],
+        callout: {
+          label: "Thirty seconds well spent",
+          text: "Restate the prompt as a sentence with a blank in it. Your answer is what fills the blank — nothing else has to be in the response.",
+        },
+      },
+      {
+        heading: "Claim, Evidence, Explanation",
+        paragraphs: [
+          "This is the shape almost every short response wants. A claim that answers the question. Evidence from the text that supports it. And an explanation of what that evidence shows — which is the part that turns a quotation into an argument.",
+          "Writers who lose points here usually have the first two. They quote a line and move on, leaving the reader to work out why it mattered. Say it yourself. The explanation is where the thinking becomes visible, and thinking that is not visible cannot be credited.",
+        ],
+        bullets: [
+          "Claim — a direct answer to the question, in one sentence",
+          "Evidence — a specific detail, quoted or closely paraphrased",
+          "Explanation — what the evidence shows, and why that answers the question",
+          "Repeat evidence and explanation if the response calls for more than one piece",
+        ],
+      },
+      {
+        heading: "Purpose and audience change the writing, not the facts",
+        paragraphs: [
+          "The same information written to inform a classmate and to persuade a supervisor produces two different paragraphs. The facts do not change. The verbs, the adjectives, the order, and whether there is an ask at the end all do.",
+          "When a prompt names an audience, it is telling you what to optimize for. A supervisor who controls a budget needs the cost consequence early. A classmate who missed the reading needs the context first.",
+        ],
+      },
+      {
+        heading: "Revising is diagnosis, not polish",
+        paragraphs: [
+          "Rereading a draft and changing whatever sounds off will fix small things and miss large ones. Revise against the rubric instead: check focus, then evidence and development, then organization, then conventions — in that order, because fixing a comma in a sentence you are about to cut is wasted work.",
+        ],
+        table: {
+          columns: ["Symptom", "Strand", "The fix"],
+          rows: [
+            ["I cannot find one sentence that answers the question", "Focus", "Write the claim as a single sentence and put it first"],
+            ["My support could apply to any text", "Evidence", "Replace it with a specific detail from this one"],
+            ["I quoted something and moved on", "Evidence", "Add a sentence saying what it shows"],
+            ["The reader has to reorder my sentences", "Organization", "Order by claim, then evidence, then explanation"],
+            ["My last sentence repeats my first", "Organization", "Cut it, or make it advance the idea"],
+            ["Errors slow the reader down", "Conventions", "Read it aloud; most errors are audible"],
+          ],
+        },
+      },
+    ],
+    workedExample: {
+      title: "A response that answers the wrong question, and its repair",
+      setup:
+        "The prompt: \"Explain why the author includes the detail about the line reaching past the laundromat.\" A first draft, and what is wrong with it.",
+      before:
+        "On the last afternoon, a line formed that reached past the laundromat next door. Several people in it had not bought anything at the store in years. This shows the store was closing and people came to say goodbye.",
+      steps: [
+        {
+          move: "Check the question's verb",
+          thinking:
+            "The prompt says explain why the author includes it. The draft explains what the detail says, which is a different question. Two of the three sentences are just the passage restated.",
+        },
+        {
+          move: "Write a claim that uses the prompt's verb",
+          thinking:
+            "\"The author includes it to show that…\" — starting this way makes it structurally impossible to answer the wrong question.",
+        },
+        {
+          move: "Keep the evidence, but shrink it",
+          thinking:
+            "The detail about people who had not shopped there in years is the sharpest part. One clause is enough; the rest was padding.",
+        },
+        {
+          move: "Add the explanation the draft never reached",
+          thinking:
+            "What does that detail prove? That the store's value to the neighborhood was never captured by its sales — which is exactly why the author put it last.",
+        },
+      ],
+      after:
+        "The author includes the detail to show that the store mattered to the neighborhood far more than its sales suggested. The line included people who had not bought anything there in years, which means they came for the place rather than for anything they needed. Ending on that image makes the closing feel like a loss to the block, not just to Ruth.",
+      takeaway:
+        "The repaired version is barely longer. It is better because every sentence answers the question that was asked, and the last one says what the evidence proves.",
+    },
+    guided: {
+      intro:
+        "A short diagnostic sequence. Do these against any passage from the Reading Lab — the vocabulary lab's \"The Grid in August\" works well.",
+      steps: [
+        "Write out the prompt you are answering, and underline its verb and its target.",
+        "Write one sentence that answers it directly, reusing that verb. This is your claim.",
+        "Find the single best piece of evidence in the passage. Quote no more than one clause of it.",
+        "Write the explanation sentence: what does that evidence show, and how does it support your claim?",
+        "Reread only your claim and your explanation, skipping the evidence. If they still answer the question together, the response holds.",
+      ],
+    },
+    independent: {
+      lab: 0,
+      storageId: "tier3-response",
+      taskName: "Short response with evidence",
+      passageTitle: "Writing Lab — Tier 3",
+      prompt: [
+        "Choose any passage from the Reading Lab you have already worked through. Then answer this prompt about it in five to seven sentences:",
+        "Explain why the author included one specific detail, and what the passage would lose without it.",
+        "Name the passage and the detail at the top of your response. Build the answer in Claim–Evidence–Explanation order, and make sure your first sentence contains the word because or the phrase to show that — that is your check that you are explaining rather than summarizing.",
+      ],
+      checklist: [
+        "I named the passage and the specific detail at the top",
+        "My first sentence explains why, not what",
+        "I quote or closely paraphrase no more than one clause",
+        "At least one sentence says what the evidence shows",
+        "I say what the passage would lose without the detail",
+      ],
+      frames: [
+        "The author includes ______ to show that ______.",
+        "The passage says ______, which means ______.",
+        "Without this detail, the reader would ______.",
+      ],
+      model: {
+        intro:
+          "Built on \"The Grid in August.\" Notice that the response never summarizes the passage — it argues about one choice the author made.",
+        sentences: [
+          {
+            text: "In \"The Grid in August,\" the author includes the detail that a hospital cannot participate in voluntary curtailment to show that the program has a hard limit built into it.",
+            strand: "focus",
+            note: "Names the passage and the detail, and answers why in the first sentence. The word show commits it to explaining.",
+          },
+          {
+            text: "The passage lists factories dimming lights and warehouses shifting equipment runs, then says plainly that a hospital cannot join them.",
+            strand: "evidence",
+            note: "Evidence kept tight — the contrast the author built, not a retelling of the paragraph.",
+          },
+          {
+            text: "That contrast means the utility can only ask for reductions from customers whose work can wait.",
+            strand: "evidence",
+            note: "The explanation sentence. It states what the evidence shows instead of trusting the reader to infer it.",
+          },
+          {
+            text: "It also quietly explains why voluntary measures sometimes fail, which sets up the brownout paragraph that follows.",
+            strand: "organization",
+            note: "Connects the detail to the passage's structure — evidence that the writer read the whole thing, not one line.",
+          },
+          {
+            text: "Without it, curtailment would read like a solution rather than a partial one.",
+            strand: "organization",
+            note: "Answers the second half of the prompt directly. Many responses never get here.",
+          },
+          {
+            text: "The single clause about the hospital is what keeps the passage honest about the size of the fix.",
+            strand: "conventions",
+            note: "A closing sentence that advances the argument, complete and correctly punctuated.",
+          },
+        ],
+      },
+      brightspace: { week: 6, dropbox: "WRITING PORTFOLIO — Writing Lab Practice" },
+    },
+    selfCheck: [
+      "My first sentence answers the question the prompt actually asked",
+      "I can point to my claim, my evidence, and my explanation separately",
+      "My evidence is specific to this passage and could not apply to another",
+      "I said what the evidence shows rather than leaving it to the reader",
+      "I revised against the rubric in order, starting with focus",
+    ],
+  },
+];
+
+export function getTierBySlug(slug: string): WritingTier | undefined {
+  return writingTiers.find((tier) => tier.slug === slug);
+}
+
+export function getAdjacentTiers(slug: string) {
+  const i = writingTiers.findIndex((tier) => tier.slug === slug);
+  return {
+    previous: i > 0 ? writingTiers[i - 1] : undefined,
+    next: i >= 0 && i < writingTiers.length - 1 ? writingTiers[i + 1] : undefined,
+  };
+}

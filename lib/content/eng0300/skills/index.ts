@@ -7,6 +7,7 @@ import { textStructureSkill } from "./textStructure";
 import { pointOfViewSkill } from "./pointOfView";
 import { evidenceSkill } from "./evidence";
 import { visualDataSkill } from "./visualData";
+import { writeItTasks } from "../writing/writeItTasks";
 
 /**
  * The seven skill labs, in course sequence.
@@ -15,7 +16,7 @@ import { visualDataSkill } from "./visualData";
  * here, and add it to the array. Routes, dashboard cards, the roadmap, and the
  * Practice Center all read from this list — no page components need editing.
  */
-export const eng0300Skills: Skill[] = [
+const readingSkills: Skill[] = [
   mainIdeasSkill,
   inferencesSkill,
   vocabularySkill,
@@ -24,6 +25,17 @@ export const eng0300Skills: Skill[] = [
   evidenceSkill,
   visualDataSkill,
 ];
+
+/**
+ * The writing strand is attached here rather than inside each skill file so the
+ * seven WRITE IT tasks can be read as one sequence in
+ * `lib/content/eng0300/writing/writeItTasks.ts` — an instructor reviewing the
+ * strand should be able to see the whole escalation in one file.
+ */
+export const eng0300Skills: Skill[] = readingSkills.map((skill) => ({
+  ...skill,
+  writeIt: writeItTasks[skill.id],
+}));
 
 export function getSkillBySlug(slug: string): Skill | undefined {
   return eng0300Skills.find((skill) => skill.slug === slug);

@@ -1,0 +1,1843 @@
+{
+  "version": 1,
+  "note": "Original practice items written for BEOC Academic Bridge. Nothing here is transcribed or adapted from any commercial TABE workbook, answer key, or practice test. See README.md.",
+  "skills": [
+    {
+      "id": "fragments",
+      "label": "Fragments",
+      "blurb": "A fragment is missing a subject, a main verb, or a finished thought. Find what is missing before you fix anything."
+    },
+    {
+      "id": "run-ons",
+      "label": "Run-ons & comma splices",
+      "blurb": "Two complete sentences need more than a comma between them. Learn the legal joins and the errors stop."
+    },
+    {
+      "id": "subject-verb",
+      "label": "Subject-verb agreement",
+      "blurb": "Find the real subject first. Most agreement errors are really subject-identification errors."
+    },
+    {
+      "id": "punctuation",
+      "label": "Punctuation",
+      "blurb": "Commas, semicolons, colons, and apostrophes, each doing one job. Most items turn on knowing which job."
+    },
+    {
+      "id": "capitalization",
+      "label": "Capitalization",
+      "blurb": "Proper nouns, titles, and sentence starts. The traps are seasons, directions, and job titles."
+    },
+    {
+      "id": "confused-words",
+      "label": "Commonly confused words",
+      "blurb": "There/their/they're, affect/effect, fewer/less. Pairs that sound alike and mean different things."
+    },
+    {
+      "id": "usage",
+      "label": "Usage",
+      "blurb": "Modifiers, parallel structure, pronoun clarity, and tense consistency — the errors that survive a spell-check."
+    }
+  ],
+  "questions": [
+    {
+      "id": "fr-001",
+      "skill": "fragments",
+      "difficulty": "Foundation",
+      "stem": "Which of these is a complete sentence?",
+      "choices": [
+        "Because the delivery arrived late on Friday afternoon.",
+        "The delivery arrived late.",
+        "Arriving late on Friday afternoon with the rest of the order.",
+        "Which arrived late on Friday afternoon."
+      ],
+      "correct": 1,
+      "why": [
+        "Because is a subordinating conjunction. It turns the group of words into a dependent clause that still needs a main clause to finish it.",
+        "Correct. Subject (the delivery), verb (arrived), and a complete thought.",
+        "Arriving is a participle, not a main verb. There is no subject doing anything here.",
+        "Which starts a relative clause. It has to attach to a noun in a main clause."
+      ],
+      "teach": "A sentence needs a subject, a verb, and a thought that can stand on its own."
+    },
+    {
+      "id": "fr-002",
+      "skill": "fragments",
+      "difficulty": "Foundation",
+      "stem": "Which of these is a fragment?",
+      "choices": [
+        "The supervisor signed the timesheet.",
+        "She left at four.",
+        "After the supervisor signed the timesheet.",
+        "The timesheet was signed."
+      ],
+      "correct": 2,
+      "why": [
+        "Complete: subject, verb, finished thought.",
+        "Short, but complete. Length is not what makes a sentence.",
+        "Correct. After makes this a dependent clause — it sets up something that never arrives.",
+        "Complete. A passive verb is still a verb."
+      ],
+      "teach": "Words like after, because, when, and although make a clause dependent."
+    },
+    {
+      "id": "fr-003",
+      "skill": "fragments",
+      "difficulty": "Developing",
+      "stem": "What is the best way to fix this fragment? 'Although the clinic opened at eight.'",
+      "choices": [
+        "Although the clinic opened at eight!",
+        "Although the clinic opened at eight, the first patient did not arrive until nine.",
+        "Although, the clinic opened at eight.",
+        "The clinic. Opened at eight."
+      ],
+      "correct": 1,
+      "why": [
+        "Punctuation does not complete a thought. The clause is still dependent.",
+        "Correct. The dependent clause now attaches to a main clause that finishes the idea.",
+        "A comma after although changes nothing about the missing main clause.",
+        "This creates two fragments instead of one."
+      ],
+      "teach": "Fix a dependent-clause fragment by attaching it to a main clause, not by repunctuating it."
+    },
+    {
+      "id": "fr-004",
+      "skill": "fragments",
+      "difficulty": "Developing",
+      "stem": "Which sentence contains a fragment?",
+      "choices": [
+        "We reviewed the schedule. Then we posted it.",
+        "We reviewed the schedule. Then posting it in the break room.",
+        "We reviewed the schedule and posted it.",
+        "After we reviewed the schedule, we posted it."
+      ],
+      "correct": 1,
+      "why": [
+        "Two short but complete sentences.",
+        "Correct. Then posting it in the break room has no subject and no main verb — posting is a participle.",
+        "One sentence with a compound verb. Complete.",
+        "A dependent clause correctly attached to a main clause."
+      ],
+      "teach": "An -ing word alone is never the main verb of a sentence."
+    },
+    {
+      "id": "fr-005",
+      "skill": "fragments",
+      "difficulty": "Foundation",
+      "stem": "Which group of words is a complete sentence?",
+      "choices": [
+        "Running late again.",
+        "The bus was late.",
+        "When the bus was late.",
+        "Such as the late bus."
+      ],
+      "correct": 1,
+      "why": [
+        "No subject. Who is running late?",
+        "Correct. Subject (the bus), verb (was), complete thought.",
+        "When makes it dependent.",
+        "Such as introduces an example, not a sentence."
+      ],
+      "teach": "Check for a subject and a main verb before anything else."
+    },
+    {
+      "id": "fr-006",
+      "skill": "fragments",
+      "difficulty": "Developing",
+      "stem": "Which revision fixes the fragment 'For example, the new intake form.'?",
+      "choices": [
+        "For example, the new intake form!",
+        "For example the new intake form.",
+        "For example, the new intake form now asks for a second phone number.",
+        "For example. The new intake form."
+      ],
+      "correct": 2,
+      "why": [
+        "The fragment has no verb; an exclamation point does not supply one.",
+        "Removing the comma does not add a verb.",
+        "Correct. Adding the verb asks gives the subject something to do.",
+        "This makes two fragments."
+      ],
+      "teach": "A fragment missing a verb is fixed by adding one, not by changing punctuation."
+    },
+    {
+      "id": "fr-007",
+      "skill": "fragments",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence is NOT a fragment?",
+      "choices": [
+        "The manager, who had worked there for eleven years and knew every customer by name.",
+        "The manager knew every customer by name.",
+        "Having worked there for eleven years and knowing every customer by name.",
+        "A manager with eleven years of experience and a memory for names."
+      ],
+      "correct": 1,
+      "why": [
+        "The relative clause who had worked… swallows the verb. The manager never does anything.",
+        "Correct. Subject (the manager), main verb (knew), complete thought.",
+        "Two participles, no main verb.",
+        "A long noun phrase. There is no verb at all."
+      ],
+      "teach": "A long group of words can still be a fragment. Length is not completeness."
+    },
+    {
+      "id": "fr-008",
+      "skill": "fragments",
+      "difficulty": "TABE Ready",
+      "stem": "Which choice corrects the fragment without changing the meaning? 'The reason being that the shipment was delayed.'",
+      "choices": [
+        "The reason being that the shipment was delayed!",
+        "The reason was that the shipment was delayed.",
+        "The reason, being that the shipment was delayed.",
+        "Being that the shipment was delayed."
+      ],
+      "correct": 1,
+      "why": [
+        "Being is a participle, not a main verb, with or without an exclamation point.",
+        "Correct. Was is a real main verb, so the subject the reason now has something to do.",
+        "Adding a comma leaves being as the only verb form.",
+        "This removes the subject as well, making it worse."
+      ],
+      "teach": "Being is never a main verb on its own. Swap it for was, is, or were."
+    },
+    {
+      "id": "fr-009",
+      "skill": "fragments",
+      "difficulty": "Foundation",
+      "stem": "Which of these needs to be joined to another sentence?",
+      "choices": [
+        "The office closes at five.",
+        "Ask at the front desk.",
+        "Because the office closes at five.",
+        "It closes early on Fridays."
+      ],
+      "correct": 2,
+      "why": [
+        "Complete.",
+        "A command. The subject you is understood, which is allowed.",
+        "Correct. Because leaves the thought unfinished.",
+        "Complete."
+      ],
+      "teach": "Commands are complete sentences even though the subject is not written."
+    },
+    {
+      "id": "fr-010",
+      "skill": "fragments",
+      "difficulty": "Developing",
+      "stem": "Which sentence is complete?",
+      "choices": [
+        "To submit the form before the deadline.",
+        "Submitting the form before the deadline.",
+        "Submit the form before the deadline.",
+        "The form to be submitted before the deadline."
+      ],
+      "correct": 2,
+      "why": [
+        "An infinitive phrase, not a sentence.",
+        "An -ing phrase with no main verb.",
+        "Correct. A command, with an understood subject you and the main verb submit.",
+        "No main verb — to be submitted is not doing the work of one here."
+      ],
+      "teach": "A command with an understood you is a complete sentence."
+    },
+    {
+      "id": "fr-011",
+      "skill": "fragments",
+      "difficulty": "Developing",
+      "stem": "Which sentence contains a fragment?",
+      "choices": [
+        "I called twice. No one answered.",
+        "I called twice. Even though the office was open.",
+        "I called twice, but no one answered.",
+        "Although I called twice, no one answered."
+      ],
+      "correct": 1,
+      "why": [
+        "Two complete sentences.",
+        "Correct. Even though makes the second group dependent — it should join the first sentence with a comma.",
+        "Two main clauses joined correctly by a comma and but.",
+        "A dependent clause correctly attached."
+      ],
+      "teach": "Even though, although, and while all start dependent clauses."
+    },
+    {
+      "id": "fr-012",
+      "skill": "fragments",
+      "difficulty": "TABE Ready",
+      "stem": "Which is the clearest correction of 'Workers who finish the safety course. Receive a certificate.'?",
+      "choices": [
+        "Workers who finish the safety course, receive a certificate.",
+        "Workers who finish the safety course receive a certificate.",
+        "Workers who finish the safety course; receive a certificate.",
+        "Workers, who finish the safety course. Receive a certificate."
+      ],
+      "correct": 1,
+      "why": [
+        "A comma between the subject and its verb is an error, and the period problem remains conceptually.",
+        "Correct. The period wrongly split the subject from its verb. Removing it restores one sentence.",
+        "A semicolon must join two complete sentences. Receive a certificate is not one.",
+        "This keeps the split and adds a comma error."
+      ],
+      "teach": "Never separate a subject from its verb with a period or a comma."
+    },
+    {
+      "id": "fr-013",
+      "skill": "fragments",
+      "difficulty": "Foundation",
+      "stem": "Which is a fragment?",
+      "choices": [
+        "Please sign here.",
+        "The pen is on the counter.",
+        "Right next to the sign-in sheet.",
+        "It writes in blue ink."
+      ],
+      "correct": 2,
+      "why": [
+        "A command — complete.",
+        "Complete.",
+        "Correct. A prepositional phrase with no subject and no verb.",
+        "Complete."
+      ],
+      "teach": "A phrase that only tells where or when is not a sentence by itself."
+    },
+    {
+      "id": "fr-014",
+      "skill": "fragments",
+      "difficulty": "Challenge",
+      "stem": "Which sentence is complete?",
+      "choices": [
+        "The report, which the committee requested in March and which the office finally produced in June.",
+        "The report the committee requested in March finally arrived in June.",
+        "The report requested by the committee in March and produced by the office in June.",
+        "Requested in March, produced in June, and reviewed in July."
+      ],
+      "correct": 1,
+      "why": [
+        "Both relative clauses describe the report; nothing states what the report did.",
+        "Correct. Subject (the report), main verb (arrived). The clause the committee requested in March just describes it.",
+        "Two participles describing the report. No main verb.",
+        "Three participles and no subject at all."
+      ],
+      "teach": "Strip the descriptions away. If no verb is left for the subject, it is a fragment."
+    },
+    {
+      "id": "ro-001",
+      "skill": "run-ons",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is a run-on?",
+      "choices": [
+        "The shift ended at six, and everyone left.",
+        "The shift ended at six everyone left.",
+        "The shift ended at six. Everyone left.",
+        "When the shift ended at six, everyone left."
+      ],
+      "correct": 1,
+      "why": [
+        "Correctly joined with a comma and and.",
+        "Correct. Two complete sentences jammed together with no punctuation and no joining word.",
+        "Correctly separated into two sentences.",
+        "A dependent clause correctly attached."
+      ],
+      "teach": "Two complete sentences need punctuation or a joining word between them — usually both."
+    },
+    {
+      "id": "ro-002",
+      "skill": "run-ons",
+      "difficulty": "Foundation",
+      "stem": "Which sentence contains a comma splice?",
+      "choices": [
+        "The printer jammed, so I used the one upstairs.",
+        "The printer jammed, I used the one upstairs.",
+        "The printer jammed. I used the one upstairs.",
+        "Because the printer jammed, I used the one upstairs."
+      ],
+      "correct": 1,
+      "why": [
+        "A comma plus so correctly joins two main clauses.",
+        "Correct. A comma alone cannot hold two complete sentences together. That is a comma splice.",
+        "Two separate sentences — correct.",
+        "A dependent clause plus a main clause — correct."
+      ],
+      "teach": "A comma by itself is never strong enough to join two complete sentences."
+    },
+    {
+      "id": "ro-003",
+      "skill": "run-ons",
+      "difficulty": "Developing",
+      "stem": "Which is the best correction? 'The order arrived late, we had to reschedule the install.'",
+      "choices": [
+        "The order arrived late we had to reschedule the install.",
+        "The order arrived late, so we had to reschedule the install.",
+        "The order arrived late, then we had to reschedule the install.",
+        "The order arrived late, we therefore had to reschedule the install."
+      ],
+      "correct": 1,
+      "why": [
+        "Removing the comma turns a comma splice into a fused run-on. Worse, not better.",
+        "Correct. So is a coordinating conjunction, and comma + so legally joins two main clauses.",
+        "Then is an adverb, not a coordinating conjunction. The splice remains.",
+        "Therefore is a conjunctive adverb; it needs a semicolon before it, not a comma."
+      ],
+      "teach": "The seven words that work after a comma are for, and, nor, but, or, yet, so."
+    },
+    {
+      "id": "ro-004",
+      "skill": "run-ons",
+      "difficulty": "Developing",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "The clinic was full, however we were seen quickly.",
+        "The clinic was full; however, we were seen quickly.",
+        "The clinic was full however, we were seen quickly.",
+        "The clinic was full, however, we were seen quickly."
+      ],
+      "correct": 1,
+      "why": [
+        "However is not a coordinating conjunction, so a comma cannot do this job.",
+        "Correct. Semicolon before however, comma after it.",
+        "The semicolon is missing, so the two sentences are still spliced.",
+        "Commas on both sides of however still leave a comma splice."
+      ],
+      "teach": "However, therefore, and moreover take a semicolon before and a comma after."
+    },
+    {
+      "id": "ro-005",
+      "skill": "run-ons",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "I checked the schedule it had changed.",
+        "I checked the schedule, it had changed.",
+        "I checked the schedule; it had changed.",
+        "I checked the schedule, and, it had changed."
+      ],
+      "correct": 2,
+      "why": [
+        "Fused run-on — no punctuation at all.",
+        "Comma splice.",
+        "Correct. A semicolon joins two closely related complete sentences.",
+        "The comma after and is wrong."
+      ],
+      "teach": "A semicolon is the quiet way to join two sentences that belong together."
+    },
+    {
+      "id": "ro-006",
+      "skill": "run-ons",
+      "difficulty": "Developing",
+      "stem": "Which sentence is a run-on?",
+      "choices": [
+        "Sign in at the desk, then take a seat.",
+        "Sign in at the desk and take a seat.",
+        "Sign in at the desk take a seat.",
+        "Sign in at the desk. Take a seat."
+      ],
+      "correct": 2,
+      "why": [
+        "Technically a comma splice with then, though it reads naturally. The clearest error is elsewhere.",
+        "One sentence with a compound verb — correct.",
+        "Correct. Two commands fused with no punctuation between them.",
+        "Two separate commands — correct."
+      ],
+      "teach": "Commands can run on too. Two complete commands still need separating."
+    },
+    {
+      "id": "ro-007",
+      "skill": "run-ons",
+      "difficulty": "TABE Ready",
+      "stem": "Which correction removes the comma splice without changing emphasis? 'The training runs six weeks, most people finish it.'",
+      "choices": [
+        "The training runs six weeks most people finish it.",
+        "The training runs six weeks; most people finish it.",
+        "The training runs six weeks, most people finish it anyway.",
+        "The training runs six weeks and most people finish it."
+      ],
+      "correct": 1,
+      "why": [
+        "This makes a fused run-on.",
+        "Correct. A semicolon keeps both statements equally weighted, which a comma splice was trying to do.",
+        "Adding a word does not fix the punctuation.",
+        "Joining with and needs a comma before it, and it subordinates the second idea slightly."
+      ],
+      "teach": "Use a semicolon when two sentences deserve equal weight."
+    },
+    {
+      "id": "ro-008",
+      "skill": "run-ons",
+      "difficulty": "Developing",
+      "stem": "Which sentence needs a comma before the conjunction?",
+      "choices": [
+        "She ordered the parts and installed them herself.",
+        "She ordered the parts and she installed them herself.",
+        "She ordered and installed the parts.",
+        "She ordered the parts for the machine."
+      ],
+      "correct": 1,
+      "why": [
+        "One subject, two verbs. No comma needed.",
+        "Correct. Two complete sentences joined by and, so a comma goes before and.",
+        "Compound verb, one subject. No comma.",
+        "A single simple sentence."
+      ],
+      "teach": "Comma before and only when a complete sentence sits on each side of it."
+    },
+    {
+      "id": "ro-009",
+      "skill": "run-ons",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "The van broke down, therefore, the route was covered by two drivers.",
+        "The van broke down therefore the route was covered by two drivers.",
+        "The van broke down; therefore, the route was covered by two drivers.",
+        "The van broke down, therefore the route was covered by two drivers."
+      ],
+      "correct": 2,
+      "why": [
+        "A comma before therefore leaves a comma splice.",
+        "No punctuation at all — a fused run-on.",
+        "Correct. Semicolon before therefore, comma after.",
+        "Still a comma splice; therefore cannot join sentences the way and can."
+      ],
+      "teach": "Conjunctive adverbs signal the relationship; they do not do the joining."
+    },
+    {
+      "id": "ro-010",
+      "skill": "run-ons",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is NOT a run-on?",
+      "choices": [
+        "The alarm went off everyone stopped working.",
+        "The alarm went off, everyone stopped working.",
+        "When the alarm went off, everyone stopped working.",
+        "The alarm went off everyone stopped working immediately."
+      ],
+      "correct": 2,
+      "why": [
+        "Fused run-on.",
+        "Comma splice.",
+        "Correct. When makes the first clause dependent, so a comma is exactly right.",
+        "Still fused; adding a word changes nothing."
+      ],
+      "teach": "Making one clause dependent is a clean way to fix a run-on."
+    },
+    {
+      "id": "ro-011",
+      "skill": "run-ons",
+      "difficulty": "Developing",
+      "stem": "Which is the best fix for 'It rained all morning the game was cancelled.'?",
+      "choices": [
+        "It rained all morning, the game was cancelled.",
+        "It rained all morning; the game was cancelled.",
+        "It rained all morning the game, was cancelled.",
+        "It rained all morning and, the game was cancelled."
+      ],
+      "correct": 1,
+      "why": [
+        "That turns a fused run-on into a comma splice — still an error.",
+        "Correct. Two related complete sentences, joined by a semicolon.",
+        "The comma is now in the wrong place entirely, separating subject from verb.",
+        "The comma belongs before and, not after it."
+      ],
+      "teach": "Fixing a run-on with a comma alone just produces a different error."
+    },
+    {
+      "id": "ro-012",
+      "skill": "run-ons",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence contains a comma splice?",
+      "choices": [
+        "Bring your ID, and sign the log at the front desk.",
+        "Bring your ID, sign the log at the front desk.",
+        "Bring your ID and sign the log at the front desk.",
+        "After you bring your ID, sign the log at the front desk."
+      ],
+      "correct": 1,
+      "why": [
+        "Comma plus and joining two commands — acceptable.",
+        "Correct. Two complete commands joined by a comma alone.",
+        "One command with a compound verb.",
+        "Dependent clause plus command — correct."
+      ],
+      "teach": "Test for a splice by covering the comma: if both halves stand alone, it is a splice."
+    },
+    {
+      "id": "ro-013",
+      "skill": "run-ons",
+      "difficulty": "Challenge",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "The supervisor approved the request, however she asked for it in writing, the form is online.",
+        "The supervisor approved the request; however, she asked for it in writing. The form is online.",
+        "The supervisor approved the request however she asked for it in writing the form is online.",
+        "The supervisor approved the request, however, she asked for it in writing, the form is online."
+      ],
+      "correct": 1,
+      "why": [
+        "Two errors: a comma before however, and a second comma splice at the end.",
+        "Correct. Semicolon and comma around however, then a clean sentence break.",
+        "Three sentences fused with no punctuation.",
+        "Comma splices throughout."
+      ],
+      "teach": "When a sentence has three clauses, fix them one join at a time."
+    },
+    {
+      "id": "ro-014",
+      "skill": "run-ons",
+      "difficulty": "Challenge",
+      "stem": "Which revision is correct? 'Attendance was low, we moved the workshop to Thursday, it filled up.'",
+      "choices": [
+        "Attendance was low, so we moved the workshop to Thursday, and it filled up.",
+        "Attendance was low we moved the workshop to Thursday it filled up.",
+        "Attendance was low, we moved the workshop to Thursday, and it filled up.",
+        "Attendance was low; we moved the workshop to Thursday; and it filled up."
+      ],
+      "correct": 0,
+      "why": [
+        "Correct. Each join now has a comma plus a coordinating conjunction.",
+        "All punctuation removed — a fused run-on.",
+        "The first join is still a comma splice.",
+        "A semicolon before and is incorrect when and is already doing the joining."
+      ],
+      "teach": "Every join in a multi-clause sentence needs its own repair."
+    },
+    {
+      "id": "sv-001",
+      "skill": "subject-verb",
+      "difficulty": "Foundation",
+      "stem": "Choose the correct verb: 'The box of files ___ on the counter.'",
+      "choices": [
+        "are sitting",
+        "sit",
+        "sits",
+        "were sitting"
+      ],
+      "correct": 2,
+      "why": [
+        "The subject is box, which is singular. Files is inside a prepositional phrase.",
+        "Sit is the plural form; box is singular.",
+        "Correct. The subject is box (singular), not files.",
+        "Were is plural, and the sentence needs present tense."
+      ],
+      "teach": "Ignore the prepositional phrase. Find the real subject before choosing the verb."
+    },
+    {
+      "id": "sv-002",
+      "skill": "subject-verb",
+      "difficulty": "Foundation",
+      "stem": "Choose the correct verb: 'Each of the applicants ___ a photo ID.'",
+      "choices": [
+        "need",
+        "needs",
+        "are needing",
+        "have needed"
+      ],
+      "correct": 1,
+      "why": [
+        "Each is always singular, so need is wrong.",
+        "Correct. Each is singular no matter what follows it.",
+        "The progressive form is awkward here and still misreads the subject.",
+        "Have is plural; each takes has."
+      ],
+      "teach": "Each, every, either, and neither are singular."
+    },
+    {
+      "id": "sv-003",
+      "skill": "subject-verb",
+      "difficulty": "Developing",
+      "stem": "Choose the correct verb: 'Neither the manager nor the clerks ___ the code.'",
+      "choices": [
+        "knows",
+        "know",
+        "is knowing",
+        "has known"
+      ],
+      "correct": 1,
+      "why": [
+        "With neither/nor, the verb agrees with the nearer subject — clerks, which is plural.",
+        "Correct. Clerks is closer to the verb, so the verb is plural.",
+        "Progressive form is wrong for a state verb like know.",
+        "Has is singular; clerks is plural."
+      ],
+      "teach": "With either/or and neither/nor, match the verb to the subject nearest it."
+    },
+    {
+      "id": "sv-004",
+      "skill": "subject-verb",
+      "difficulty": "Developing",
+      "stem": "Choose the correct verb: 'The team ___ meeting in the back room.'",
+      "choices": [
+        "are",
+        "is",
+        "were",
+        "be"
+      ],
+      "correct": 1,
+      "why": [
+        "In American usage a collective noun acting as one unit takes a singular verb.",
+        "Correct. Team is a collective noun acting as one unit.",
+        "Were is plural and past tense.",
+        "Be is not a finite verb form here."
+      ],
+      "teach": "Collective nouns — team, staff, committee — usually take singular verbs."
+    },
+    {
+      "id": "sv-005",
+      "skill": "subject-verb",
+      "difficulty": "Foundation",
+      "stem": "Choose the correct verb: 'There ___ three forms to complete.'",
+      "choices": [
+        "is",
+        "are",
+        "was",
+        "has been"
+      ],
+      "correct": 1,
+      "why": [
+        "The real subject is forms, which is plural.",
+        "Correct. There is not the subject; forms is, and it is plural.",
+        "Was is singular and past.",
+        "Has been is singular."
+      ],
+      "teach": "In a there is/there are sentence, the subject comes after the verb."
+    },
+    {
+      "id": "sv-006",
+      "skill": "subject-verb",
+      "difficulty": "Developing",
+      "stem": "Choose the correct verb: 'The list of approved vendors ___ updated monthly.'",
+      "choices": [
+        "are",
+        "were",
+        "is",
+        "have been"
+      ],
+      "correct": 2,
+      "why": [
+        "The subject is list, singular. Vendors sits inside a prepositional phrase.",
+        "Were is plural.",
+        "Correct. List is the subject and it is singular.",
+        "Have is plural."
+      ],
+      "teach": "A phrase between the subject and verb never changes the subject."
+    },
+    {
+      "id": "sv-007",
+      "skill": "subject-verb",
+      "difficulty": "TABE Ready",
+      "stem": "Choose the correct verb: 'Everyone who works weekends ___ extra pay.'",
+      "choices": [
+        "receive",
+        "receives",
+        "are receiving",
+        "have received"
+      ],
+      "correct": 1,
+      "why": [
+        "Everyone is singular.",
+        "Correct. Everyone is singular, despite referring to many people.",
+        "Are is plural.",
+        "Have is plural."
+      ],
+      "teach": "Indefinite pronouns ending in -one, -body, and -thing are singular."
+    },
+    {
+      "id": "sv-008",
+      "skill": "subject-verb",
+      "difficulty": "Developing",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "The supervisor and the trainee reviews the log.",
+        "The supervisor and the trainee review the log.",
+        "The supervisor and the trainee is reviewing the log.",
+        "The supervisor and the trainee has reviewed the log."
+      ],
+      "correct": 1,
+      "why": [
+        "Two subjects joined by and make a plural subject.",
+        "Correct. Compound subject joined by and takes a plural verb.",
+        "Is is singular.",
+        "Has is singular."
+      ],
+      "teach": "Two subjects joined by and are plural."
+    },
+    {
+      "id": "sv-009",
+      "skill": "subject-verb",
+      "difficulty": "TABE Ready",
+      "stem": "Choose the correct verb: 'Half of the shipment ___ damaged.'",
+      "choices": [
+        "were",
+        "was",
+        "are",
+        "have been"
+      ],
+      "correct": 1,
+      "why": [
+        "Shipment is singular, so were is wrong.",
+        "Correct. With half of, the verb follows the noun after of — shipment, singular.",
+        "Are is plural.",
+        "Have is plural."
+      ],
+      "teach": "With fractions and percentages, the noun after of decides the verb."
+    },
+    {
+      "id": "sv-010",
+      "skill": "subject-verb",
+      "difficulty": "TABE Ready",
+      "stem": "Choose the correct verb: 'Half of the boxes ___ damaged.'",
+      "choices": [
+        "was",
+        "is",
+        "were",
+        "has been"
+      ],
+      "correct": 2,
+      "why": [
+        "Boxes is plural.",
+        "Is is singular.",
+        "Correct. The noun after of is boxes, which is plural.",
+        "Has is singular."
+      ],
+      "teach": "Same rule, opposite result — the noun after of is what counts."
+    },
+    {
+      "id": "sv-011",
+      "skill": "subject-verb",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "The keys is on the hook.",
+        "The keys are on the hook.",
+        "The keys was on the hook.",
+        "The keys has been on the hook."
+      ],
+      "correct": 1,
+      "why": [
+        "Keys is plural.",
+        "Correct. Plural subject, plural verb.",
+        "Was is singular.",
+        "Has is singular."
+      ],
+      "teach": "Match a plural subject with a plural verb — the simplest case, and still the most missed."
+    },
+    {
+      "id": "sv-012",
+      "skill": "subject-verb",
+      "difficulty": "Developing",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "Statistics are a required course for the program.",
+        "Statistics is a required course for the program.",
+        "Statistics were a required course for the program.",
+        "Statistics have been a required course."
+      ],
+      "correct": 1,
+      "why": [
+        "Here statistics names one course, so it is singular.",
+        "Correct. As the name of a subject, statistics takes a singular verb.",
+        "Were is plural.",
+        "Have is plural."
+      ],
+      "teach": "Some -s words (news, mathematics, statistics as a subject) are singular."
+    },
+    {
+      "id": "sv-013",
+      "skill": "subject-verb",
+      "difficulty": "Challenge",
+      "stem": "Choose the correct verb: 'One of the machines that ___ on the loading dock is broken.'",
+      "choices": [
+        "sits",
+        "sit",
+        "is sitting",
+        "was sitting"
+      ],
+      "correct": 1,
+      "why": [
+        "The relative clause describes machines (plural), not one.",
+        "Correct. That refers to machines, which is plural.",
+        "Is is singular and misreads the antecedent.",
+        "Was is singular and past."
+      ],
+      "teach": "In 'one of the X that…', the verb in the clause agrees with X, not with one."
+    },
+    {
+      "id": "sv-014",
+      "skill": "subject-verb",
+      "difficulty": "Challenge",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "The number of applications have risen.",
+        "The number of applications has risen.",
+        "A number of applications has risen.",
+        "The number of applications are rising."
+      ],
+      "correct": 1,
+      "why": [
+        "The number is singular.",
+        "Correct. The number takes a singular verb; a number takes a plural one.",
+        "A number of is plural, so has is wrong here.",
+        "Are is plural."
+      ],
+      "teach": "The number is singular. A number is plural."
+    },
+    {
+      "id": "pu-001",
+      "skill": "punctuation",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "We need pens paper and folders.",
+        "We need pens, paper, and folders.",
+        "We need, pens, paper and folders.",
+        "We need pens, paper and, folders."
+      ],
+      "correct": 1,
+      "why": [
+        "A list of three needs commas.",
+        "Correct. Commas separate items in a series.",
+        "The first comma wrongly separates the verb from its object.",
+        "The comma after and is misplaced."
+      ],
+      "teach": "Use commas to separate three or more items in a series."
+    },
+    {
+      "id": "pu-002",
+      "skill": "punctuation",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "After the meeting we went back to work.",
+        "After the meeting, we went back to work.",
+        "After, the meeting we went back to work.",
+        "After the meeting we went, back to work."
+      ],
+      "correct": 1,
+      "why": [
+        "An introductory phrase should be followed by a comma.",
+        "Correct. A comma marks the end of the introductory element.",
+        "The comma splits the preposition from its object.",
+        "This comma separates the verb from its complement."
+      ],
+      "teach": "Put a comma after an introductory word, phrase, or clause."
+    },
+    {
+      "id": "pu-003",
+      "skill": "punctuation",
+      "difficulty": "Developing",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "My supervisor Dana approved the request.",
+        "My supervisor, Dana, approved the request.",
+        "My supervisor, Dana approved the request.",
+        "My supervisor Dana, approved the request."
+      ],
+      "correct": 1,
+      "why": [
+        "Acceptable only if you have several supervisors and are specifying which.",
+        "Correct. Dana is extra information, so it takes a comma on each side.",
+        "An appositive needs commas on both sides, not one.",
+        "Same problem — only one comma."
+      ],
+      "teach": "Extra, non-essential information takes a comma on both sides."
+    },
+    {
+      "id": "pu-004",
+      "skill": "punctuation",
+      "difficulty": "Developing",
+      "stem": "Which sentence uses the apostrophe correctly?",
+      "choices": [
+        "The employee's lockers are in the hallway.",
+        "The employees' lockers are in the hallway.",
+        "The employees lockers are in the hallway.",
+        "The employees's lockers are in the hallway."
+      ],
+      "correct": 1,
+      "why": [
+        "This says one employee owns several lockers.",
+        "Correct. Plural noun ending in s takes the apostrophe after the s.",
+        "No apostrophe at all, so no possession is shown.",
+        "You do not add 's to a plural already ending in s."
+      ],
+      "teach": "Plural possessive: add the apostrophe after the s."
+    },
+    {
+      "id": "pu-005",
+      "skill": "punctuation",
+      "difficulty": "Developing",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "Its going to be a long shift.",
+        "It's going to be a long shift.",
+        "Its' going to be a long shift.",
+        "Its going to be a long shift'."
+      ],
+      "correct": 1,
+      "why": [
+        "Its is the possessive form. This sentence needs it is.",
+        "Correct. It's is the contraction of it is.",
+        "Its' is not a word in English.",
+        "The apostrophe is meaningless here."
+      ],
+      "teach": "It's means it is. Its shows possession. There is no its'."
+    },
+    {
+      "id": "pu-006",
+      "skill": "punctuation",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "Did you finish the report.",
+        "Did you finish the report?",
+        "Did you finish the report!",
+        "Did you finish the report,"
+      ],
+      "correct": 1,
+      "why": [
+        "A question needs a question mark.",
+        "Correct.",
+        "An exclamation point changes the tone and does not mark a question.",
+        "A comma cannot end a sentence."
+      ],
+      "teach": "End punctuation has to match the job the sentence is doing."
+    },
+    {
+      "id": "pu-007",
+      "skill": "punctuation",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "The manager said, \"Bring the form tomorrow.\"",
+        "The manager said \"Bring the form tomorrow.\"",
+        "The manager said, \"Bring the form tomorrow\".",
+        "The manager said \"bring the form tomorrow.\""
+      ],
+      "correct": 0,
+      "why": [
+        "Correct. Comma before the quotation, capital at the start, period inside the closing mark.",
+        "A comma is needed before a direct quotation.",
+        "In American usage the period goes inside the quotation marks.",
+        "A quoted sentence starts with a capital letter, and the comma is missing."
+      ],
+      "teach": "Comma before a direct quotation; the period goes inside the closing quotation mark."
+    },
+    {
+      "id": "pu-008",
+      "skill": "punctuation",
+      "difficulty": "Developing",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "We ordered the parts, but they never arrived.",
+        "We ordered the parts but, they never arrived.",
+        "We ordered the parts but they never arrived,",
+        "We ordered, the parts but they never arrived."
+      ],
+      "correct": 0,
+      "why": [
+        "Correct. Comma before but, which joins two complete sentences.",
+        "The comma belongs before but, not after.",
+        "A comma cannot end a sentence.",
+        "This comma separates the verb from its object."
+      ],
+      "teach": "The comma goes before the coordinating conjunction, never after it."
+    },
+    {
+      "id": "pu-009",
+      "skill": "punctuation",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence uses the semicolon correctly?",
+      "choices": [
+        "The route was closed; because of flooding.",
+        "The route was closed; flooding had washed out the bridge.",
+        "The route was closed; and the bridge was out.",
+        "The route was closed; which surprised no one."
+      ],
+      "correct": 1,
+      "why": [
+        "Because of flooding is not a complete sentence.",
+        "Correct. A semicolon joins two complete sentences.",
+        "Do not use a semicolon before a coordinating conjunction that is already joining.",
+        "Which surprised no one is a dependent clause."
+      ],
+      "teach": "A semicolon needs a complete sentence on both sides."
+    },
+    {
+      "id": "pu-010",
+      "skill": "punctuation",
+      "difficulty": "Developing",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "The office is closed on Monday July 4.",
+        "The office is closed on Monday, July 4.",
+        "The office is closed on, Monday July 4.",
+        "The office is closed, on Monday July 4."
+      ],
+      "correct": 1,
+      "why": [
+        "A comma separates the day from the date.",
+        "Correct.",
+        "The comma after on is wrong.",
+        "This comma separates the verb phrase from its modifier unnecessarily."
+      ],
+      "teach": "Separate a weekday from a date with a comma."
+    },
+    {
+      "id": "pu-011",
+      "skill": "punctuation",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "Please bring the following, a photo ID, proof of address, and the signed form.",
+        "Please bring the following: a photo ID, proof of address, and the signed form.",
+        "Please bring the following; a photo ID, proof of address, and the signed form.",
+        "Please bring the following a photo ID, proof of address, and the signed form."
+      ],
+      "correct": 1,
+      "why": [
+        "A comma is too weak to introduce a list after a complete sentence.",
+        "Correct. A colon introduces a list after a complete sentence.",
+        "A semicolon joins sentences; it does not introduce a list.",
+        "The list needs an introducing mark."
+      ],
+      "teach": "A colon introduces a list, and what comes before it must be a complete sentence."
+    },
+    {
+      "id": "pu-012",
+      "skill": "punctuation",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "My co-worker who trained me is retiring.",
+        "My co-worker, who trained me, is retiring.",
+        "My co-worker, who trained me is retiring.",
+        "My co-worker who trained me, is retiring."
+      ],
+      "correct": 1,
+      "why": [
+        "Correct only if you are distinguishing among several co-workers.",
+        "Correct. The clause adds extra information, so it is set off with a pair of commas.",
+        "Only one comma; the pair is incomplete.",
+        "Same problem in reverse."
+      ],
+      "teach": "Non-essential clauses take two commas, never one."
+    },
+    {
+      "id": "pu-013",
+      "skill": "punctuation",
+      "difficulty": "Challenge",
+      "stem": "Which sentence is punctuated correctly?",
+      "choices": [
+        "The three sites Buffalo, Rochester, and Syracuse each sent a team.",
+        "The three sites — Buffalo, Rochester, and Syracuse — each sent a team.",
+        "The three sites, Buffalo, Rochester, and Syracuse, each sent a team.",
+        "The three sites: Buffalo, Rochester, and Syracuse: each sent a team."
+      ],
+      "correct": 1,
+      "why": [
+        "Without marks, the list runs into the sentence and is hard to read.",
+        "Correct. Dashes set off a list that already contains commas.",
+        "Workable but confusing, since the reader cannot tell which commas belong to the list.",
+        "A colon cannot be used as a closing mark."
+      ],
+      "teach": "Use dashes when the interrupting element already contains commas."
+    },
+    {
+      "id": "pu-014",
+      "skill": "punctuation",
+      "difficulty": "Challenge",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "Whose responsible for closing tonight?",
+        "Who's responsible for closing tonight?",
+        "Whos responsible for closing tonight?",
+        "Whose' responsible for closing tonight?"
+      ],
+      "correct": 1,
+      "why": [
+        "Whose shows possession. This sentence needs who is.",
+        "Correct. Who's is the contraction of who is.",
+        "Missing the apostrophe entirely.",
+        "Not a word."
+      ],
+      "teach": "Who's means who is. Whose shows possession."
+    },
+    {
+      "id": "ca-001",
+      "skill": "capitalization",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "my supervisor asked for the report on friday.",
+        "My supervisor asked for the report on Friday.",
+        "My Supervisor asked for the Report on Friday.",
+        "my Supervisor asked for the report on Friday."
+      ],
+      "correct": 1,
+      "why": [
+        "The first word and the weekday both need capitals.",
+        "Correct. Sentence start and the day of the week are capitalized; job titles used generally are not.",
+        "Supervisor and report are common nouns here.",
+        "The sentence must start with a capital."
+      ],
+      "teach": "Capitalize days, months, and the first word — not ordinary job titles."
+    },
+    {
+      "id": "ca-002",
+      "skill": "capitalization",
+      "difficulty": "Developing",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "I met with dean Alvarez on Tuesday.",
+        "I met with Dean Alvarez on Tuesday.",
+        "I met with Dean alvarez on tuesday.",
+        "I met with dean alvarez on Tuesday."
+      ],
+      "correct": 1,
+      "why": [
+        "A title used before a name is capitalized.",
+        "Correct. Dean is part of the name here, and Tuesday is a weekday.",
+        "A surname is always capitalized, as is a weekday.",
+        "Both the title and the surname need capitals."
+      ],
+      "teach": "Capitalize a title when it comes directly before a name."
+    },
+    {
+      "id": "ca-003",
+      "skill": "capitalization",
+      "difficulty": "Developing",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "She is studying Biology and Spanish this term.",
+        "She is studying biology and Spanish this term.",
+        "She is studying biology and spanish this term.",
+        "She is studying Biology and spanish this term."
+      ],
+      "correct": 1,
+      "why": [
+        "Biology is a general subject and is not capitalized.",
+        "Correct. Languages are always capitalized; general subjects are not.",
+        "Spanish comes from a proper noun and keeps its capital.",
+        "Reversed — biology should be lowercase, Spanish capitalized."
+      ],
+      "teach": "Capitalize languages always. Capitalize other subjects only in a course title."
+    },
+    {
+      "id": "ca-004",
+      "skill": "capitalization",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "we drove north on route 5 to buffalo.",
+        "We drove north on Route 5 to Buffalo.",
+        "We drove North on route 5 to Buffalo.",
+        "We drove north on Route 5 to buffalo."
+      ],
+      "correct": 1,
+      "why": [
+        "Sentence start, route name, and city all need capitals.",
+        "Correct. North is a direction here, so it stays lowercase; Route 5 and Buffalo are names.",
+        "North as a direction is lowercase.",
+        "Buffalo is a city name."
+      ],
+      "teach": "Capitalize a direction only when it names a region (the South), not a heading."
+    },
+    {
+      "id": "ca-005",
+      "skill": "capitalization",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "I applied to the Office of Financial Aid in the spring.",
+        "I applied to the office of financial aid in the Spring.",
+        "I applied to the Office Of Financial Aid in the Spring.",
+        "I applied to the office of Financial Aid in the spring."
+      ],
+      "correct": 0,
+      "why": [
+        "Correct. A specific office name is capitalized; seasons are not.",
+        "The specific office name needs capitals, and spring does not.",
+        "Of stays lowercase inside a name, and spring is lowercase.",
+        "The whole office name is capitalized or none of it."
+      ],
+      "teach": "Seasons are never capitalized. Specific department names are."
+    },
+    {
+      "id": "ca-006",
+      "skill": "capitalization",
+      "difficulty": "Developing",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "The Doctor said to come back in March.",
+        "The doctor said to come back in March.",
+        "The doctor said to come back in march.",
+        "the Doctor said to come back in March."
+      ],
+      "correct": 1,
+      "why": [
+        "Doctor used generally, with no name after it, is lowercase.",
+        "Correct. Months are capitalized; a general job title is not.",
+        "March is a month and needs a capital.",
+        "The sentence must start with a capital."
+      ],
+      "teach": "A job title without a name attached stays lowercase."
+    },
+    {
+      "id": "ca-007",
+      "skill": "capitalization",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "He read The New York Times on the bus to Albany.",
+        "He read the new york times on the bus to Albany.",
+        "He read The New York Times on the Bus to albany.",
+        "He read the New York times on the bus to albany."
+      ],
+      "correct": 0,
+      "why": [
+        "Correct. A newspaper title and a city are capitalized; bus is not.",
+        "The title and city both need capitals.",
+        "Bus is a common noun, and Albany needs a capital.",
+        "The full title is capitalized, as is Albany."
+      ],
+      "teach": "Capitalize the main words of a published title."
+    },
+    {
+      "id": "ca-008",
+      "skill": "capitalization",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "my name is james and i work in the mailroom.",
+        "My name is James and I work in the mailroom.",
+        "My name is james and I work in the Mailroom.",
+        "my name is James and i work in the mailroom."
+      ],
+      "correct": 1,
+      "why": [
+        "Sentence start, name, and the pronoun I all need capitals.",
+        "Correct.",
+        "A first name is always capitalized; mailroom is not.",
+        "Both the sentence start and I need capitals."
+      ],
+      "teach": "The pronoun I is always capitalized."
+    },
+    {
+      "id": "ca-009",
+      "skill": "capitalization",
+      "difficulty": "Developing",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "We celebrate Labor Day in september.",
+        "We celebrate labor day in September.",
+        "We celebrate Labor Day in September.",
+        "we celebrate Labor Day in September."
+      ],
+      "correct": 2,
+      "why": [
+        "September needs a capital.",
+        "Holiday names are capitalized.",
+        "Correct. Both the holiday and the month are proper nouns.",
+        "The sentence must start with a capital."
+      ],
+      "teach": "Holidays and months are proper nouns."
+    },
+    {
+      "id": "ca-010",
+      "skill": "capitalization",
+      "difficulty": "Challenge",
+      "stem": "Which sentence is capitalized correctly?",
+      "choices": [
+        "I take English 101 and a math class at Erie Community College.",
+        "I take english 101 and a Math class at Erie community college.",
+        "I take English 101 and a Math Class at erie community college.",
+        "I take english 101 and a math class at Erie Community College."
+      ],
+      "correct": 0,
+      "why": [
+        "Correct. A specific course title and a college name are capitalized; a general math class is not.",
+        "English and the college name both need capitals.",
+        "Math class in general is lowercase, and the college name needs capitals.",
+        "English is always capitalized as a language."
+      ],
+      "teach": "Capitalize a course by its official title, not by its subject area."
+    },
+    {
+      "id": "cw-001",
+      "skill": "confused-words",
+      "difficulty": "Foundation",
+      "stem": "Choose the correct word: 'Please put the folder over ___.'",
+      "choices": [
+        "their",
+        "there",
+        "they're",
+        "theirs"
+      ],
+      "correct": 1,
+      "why": [
+        "Their shows possession.",
+        "Correct. There indicates a place.",
+        "They're means they are.",
+        "Theirs is a possessive pronoun."
+      ],
+      "teach": "There is a place. Their shows ownership. They're means they are."
+    },
+    {
+      "id": "cw-002",
+      "skill": "confused-words",
+      "difficulty": "Foundation",
+      "stem": "Choose the correct word: '___ going to need two copies.'",
+      "choices": [
+        "Your",
+        "You're",
+        "Yours",
+        "Youre"
+      ],
+      "correct": 1,
+      "why": [
+        "Your shows possession.",
+        "Correct. You're is the contraction of you are.",
+        "Yours is a possessive pronoun.",
+        "Missing apostrophe."
+      ],
+      "teach": "You're means you are. Your shows ownership."
+    },
+    {
+      "id": "cw-003",
+      "skill": "confused-words",
+      "difficulty": "Developing",
+      "stem": "Choose the correct word: 'The new policy will ___ everyone in the department.'",
+      "choices": [
+        "effect",
+        "affect",
+        "effected",
+        "affects"
+      ],
+      "correct": 1,
+      "why": [
+        "Effect is usually a noun — the result.",
+        "Correct. Affect is the verb meaning to influence.",
+        "Wrong word and wrong tense.",
+        "The subject requires the base form after will."
+      ],
+      "teach": "Affect is the action. Effect is the result."
+    },
+    {
+      "id": "cw-004",
+      "skill": "confused-words",
+      "difficulty": "Developing",
+      "stem": "Choose the correct word: 'The policy had one unexpected ___.'",
+      "choices": [
+        "affect",
+        "effect",
+        "affecting",
+        "affected"
+      ],
+      "correct": 1,
+      "why": [
+        "Affect is the verb.",
+        "Correct. Effect is the noun meaning result.",
+        "Not a noun form that fits here.",
+        "Past tense verb, not a noun."
+      ],
+      "teach": "If you can put an or the in front of it, you need effect."
+    },
+    {
+      "id": "cw-005",
+      "skill": "confused-words",
+      "difficulty": "Foundation",
+      "stem": "Choose the correct word: 'We have fewer forms ___ we had last year.'",
+      "choices": [
+        "then",
+        "than",
+        "that",
+        "thin"
+      ],
+      "correct": 1,
+      "why": [
+        "Then refers to time or sequence.",
+        "Correct. Than is used for comparison.",
+        "That does not fit a comparison.",
+        "Unrelated word."
+      ],
+      "teach": "Than compares. Then tells when."
+    },
+    {
+      "id": "cw-006",
+      "skill": "confused-words",
+      "difficulty": "Developing",
+      "stem": "Choose the correct word: 'The office is ___ than it used to be.'",
+      "choices": [
+        "quieter",
+        "quietter",
+        "more quiet",
+        "quietest"
+      ],
+      "correct": 0,
+      "why": [
+        "Correct. Quieter is the comparative form.",
+        "Misspelled.",
+        "Two-syllable adjectives ending in -er take the -er form.",
+        "Quietest is superlative and does not work with than."
+      ],
+      "teach": "Use the -er form to compare two things, -est for three or more."
+    },
+    {
+      "id": "cw-007",
+      "skill": "confused-words",
+      "difficulty": "Developing",
+      "stem": "Choose the correct word: 'There are ___ chairs than we need.'",
+      "choices": [
+        "less",
+        "fewer",
+        "lesser",
+        "little"
+      ],
+      "correct": 1,
+      "why": [
+        "Less is for amounts you cannot count.",
+        "Correct. Chairs can be counted, so fewer is right.",
+        "Lesser means of lower importance.",
+        "Little is for uncountable amounts."
+      ],
+      "teach": "Fewer for things you can count. Less for things you measure."
+    },
+    {
+      "id": "cw-008",
+      "skill": "confused-words",
+      "difficulty": "TABE Ready",
+      "stem": "Choose the correct word: 'The supervisor asked Maria and ___ to stay late.'",
+      "choices": [
+        "I",
+        "me",
+        "myself",
+        "mine"
+      ],
+      "correct": 1,
+      "why": [
+        "I is a subject pronoun; here the pronoun is an object.",
+        "Correct. Drop Maria and — asked me is right, asked I is not.",
+        "Myself is only correct when the subject is also I.",
+        "Mine shows possession."
+      ],
+      "teach": "Remove the other person and read it aloud — the right pronoun becomes obvious."
+    },
+    {
+      "id": "cw-009",
+      "skill": "confused-words",
+      "difficulty": "TABE Ready",
+      "stem": "Choose the correct word: 'Maria and ___ finished the audit.'",
+      "choices": [
+        "me",
+        "I",
+        "myself",
+        "us"
+      ],
+      "correct": 1,
+      "why": [
+        "Me is an object pronoun; here the pronoun is the subject.",
+        "Correct. I finished the audit, so Maria and I finished it.",
+        "Myself needs I earlier in the sentence.",
+        "Us is an object pronoun."
+      ],
+      "teach": "Same test in reverse: I finished, not me finished."
+    },
+    {
+      "id": "cw-010",
+      "skill": "confused-words",
+      "difficulty": "Developing",
+      "stem": "Choose the correct word: 'We should have ___ the form before submitting it.'",
+      "choices": [
+        "reviewed",
+        "review",
+        "reviewing",
+        "reviews"
+      ],
+      "correct": 0,
+      "why": [
+        "Correct. Should have takes the past participle.",
+        "The base form does not follow have.",
+        "The -ing form does not follow have here.",
+        "Present tense does not fit."
+      ],
+      "teach": "Should have, could have, and would have are followed by a past participle."
+    },
+    {
+      "id": "cw-011",
+      "skill": "confused-words",
+      "difficulty": "Foundation",
+      "stem": "Choose the correct word: 'Take the elevator to the third floor, ___ turn left.'",
+      "choices": [
+        "than",
+        "then",
+        "thin",
+        "that"
+      ],
+      "correct": 1,
+      "why": [
+        "Than compares.",
+        "Correct. Then shows what happens next.",
+        "Unrelated.",
+        "That does not fit."
+      ],
+      "teach": "Then tells when. Than compares."
+    },
+    {
+      "id": "cw-012",
+      "skill": "confused-words",
+      "difficulty": "TABE Ready",
+      "stem": "Choose the correct word: 'The company lost ___ largest contract.'",
+      "choices": [
+        "it's",
+        "its",
+        "its'",
+        "the it's"
+      ],
+      "correct": 1,
+      "why": [
+        "It's means it is.",
+        "Correct. Its is the possessive form.",
+        "Not a word.",
+        "Not grammatical."
+      ],
+      "teach": "Possessive its has no apostrophe. That trips up experienced writers too."
+    },
+    {
+      "id": "cw-013",
+      "skill": "confused-words",
+      "difficulty": "Developing",
+      "stem": "Choose the correct word: 'Everyone must bring ___ own supplies.'",
+      "choices": [
+        "there",
+        "their",
+        "they're",
+        "theirs"
+      ],
+      "correct": 1,
+      "why": [
+        "There is a place.",
+        "Correct. Their shows possession, and it is now accepted as a singular pronoun after everyone.",
+        "They're means they are.",
+        "Theirs stands alone and cannot come before a noun."
+      ],
+      "teach": "Their shows ownership, and works as a singular pronoun after everyone."
+    },
+    {
+      "id": "cw-014",
+      "skill": "confused-words",
+      "difficulty": "Challenge",
+      "stem": "Choose the correct word: 'The two departments agreed ___ the new schedule.'",
+      "choices": [
+        "to",
+        "on",
+        "with",
+        "for"
+      ],
+      "correct": 1,
+      "why": [
+        "Agree to is used for a proposal you accept.",
+        "Correct. You agree on a thing you both settle.",
+        "Agree with is used for a person or an opinion.",
+        "Agree for is not standard English."
+      ],
+      "teach": "Agree on a plan, agree to a request, agree with a person."
+    },
+    {
+      "id": "us-001",
+      "skill": "usage",
+      "difficulty": "Developing",
+      "stem": "Which sentence uses the modifier correctly?",
+      "choices": [
+        "Walking into the office, the lights were already on.",
+        "Walking into the office, I saw that the lights were already on.",
+        "The lights were already on, walking into the office.",
+        "Walking into the office the lights were already on."
+      ],
+      "correct": 1,
+      "why": [
+        "The lights were not walking. This is a dangling modifier.",
+        "Correct. The person doing the walking, I, comes right after the phrase.",
+        "The modifier still attaches to the lights.",
+        "Same dangling modifier, now without the comma."
+      ],
+      "teach": "The word right after an opening -ing phrase must be the one doing that action."
+    },
+    {
+      "id": "us-002",
+      "skill": "usage",
+      "difficulty": "Developing",
+      "stem": "Which sentence is clearest?",
+      "choices": [
+        "She only worked three hours.",
+        "She worked only three hours.",
+        "Only she worked three hours.",
+        "She worked three only hours."
+      ],
+      "correct": 1,
+      "why": [
+        "This suggests working was all she did, not that three is a small number.",
+        "Correct. Only sits directly before what it limits — three hours.",
+        "This means nobody else worked.",
+        "Not grammatical."
+      ],
+      "teach": "Put only immediately before the word it limits."
+    },
+    {
+      "id": "us-003",
+      "skill": "usage",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence keeps a consistent verb tense?",
+      "choices": [
+        "He opened the drawer and finds the key.",
+        "He opened the drawer and found the key.",
+        "He opens the drawer and found the key.",
+        "He open the drawer and finds the key."
+      ],
+      "correct": 1,
+      "why": [
+        "Shifts from past to present with no reason.",
+        "Correct. Both verbs are past tense.",
+        "Shifts from present to past.",
+        "Open does not agree with he."
+      ],
+      "teach": "Do not change tense in the middle of a sentence without a reason."
+    },
+    {
+      "id": "us-004",
+      "skill": "usage",
+      "difficulty": "Developing",
+      "stem": "Which sentence uses parallel structure?",
+      "choices": [
+        "The job involves filing, answering phones, and to greet visitors.",
+        "The job involves filing, answering phones, and greeting visitors.",
+        "The job involves to file, answering phones, and greeting visitors.",
+        "The job involves filing, to answer phones, and greeting visitors."
+      ],
+      "correct": 1,
+      "why": [
+        "To greet breaks the -ing pattern.",
+        "Correct. All three items are -ing forms.",
+        "To file breaks the pattern at the start.",
+        "To answer breaks the pattern in the middle."
+      ],
+      "teach": "Items in a list must share the same grammatical form."
+    },
+    {
+      "id": "us-005",
+      "skill": "usage",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence avoids a double negative?",
+      "choices": [
+        "We don't have no more forms.",
+        "We don't have any more forms.",
+        "We don't never have forms.",
+        "We haven't got no forms."
+      ],
+      "correct": 1,
+      "why": [
+        "Don't and no cancel each other out.",
+        "Correct. One negative, stated clearly.",
+        "Don't and never is a double negative.",
+        "Haven't and no is a double negative."
+      ],
+      "teach": "One negative word per idea."
+    },
+    {
+      "id": "us-006",
+      "skill": "usage",
+      "difficulty": "Developing",
+      "stem": "Which sentence uses the pronoun clearly?",
+      "choices": [
+        "When Dana met Priya, she was already late.",
+        "Dana was already late when she met Priya.",
+        "She was already late when Dana met Priya.",
+        "When she met her, Dana was late."
+      ],
+      "correct": 1,
+      "why": [
+        "She could mean either woman.",
+        "Correct. She can only refer to Dana.",
+        "She has no clear antecedent before it.",
+        "Both pronouns are ambiguous."
+      ],
+      "teach": "A pronoun must point at exactly one possible noun."
+    },
+    {
+      "id": "us-007",
+      "skill": "usage",
+      "difficulty": "Foundation",
+      "stem": "Which sentence is in the active voice?",
+      "choices": [
+        "The form was completed by the applicant.",
+        "The applicant completed the form.",
+        "The form had been completed.",
+        "The form was being completed."
+      ],
+      "correct": 1,
+      "why": [
+        "Passive — the form receives the action.",
+        "Correct. The applicant does the action, so the sentence is active.",
+        "Passive.",
+        "Passive."
+      ],
+      "teach": "In an active sentence the subject does the verb."
+    },
+    {
+      "id": "us-008",
+      "skill": "usage",
+      "difficulty": "TABE Ready",
+      "stem": "Which sentence is most concise without losing meaning?",
+      "choices": [
+        "Due to the fact that the office was closed, we came back later.",
+        "Because the office was closed, we came back later.",
+        "On account of the fact the office was closed, we came back later.",
+        "The office being closed, due to that we came back later."
+      ],
+      "correct": 1,
+      "why": [
+        "Due to the fact that is five words doing the work of one.",
+        "Correct. Because says it exactly.",
+        "Even wordier.",
+        "Awkward and unclear."
+      ],
+      "teach": "Because beats due to the fact that every time."
+    },
+    {
+      "id": "us-009",
+      "skill": "usage",
+      "difficulty": "Developing",
+      "stem": "Which sentence uses good and well correctly?",
+      "choices": [
+        "She did good on the assessment.",
+        "She did well on the assessment.",
+        "She did good and well on the assessment.",
+        "She done well on the assessment."
+      ],
+      "correct": 1,
+      "why": [
+        "Good is an adjective; it cannot describe the verb did.",
+        "Correct. Well is the adverb that describes how she did.",
+        "Redundant and still misuses good.",
+        "Done is not the correct past tense form here."
+      ],
+      "teach": "Well describes how you do something. Good describes a thing."
+    },
+    {
+      "id": "us-010",
+      "skill": "usage",
+      "difficulty": "Challenge",
+      "stem": "Which sentence is correct?",
+      "choices": [
+        "The report, along with the invoices, were filed.",
+        "The report, along with the invoices, was filed.",
+        "The report along with the invoices were filed.",
+        "The report and the invoices was filed."
+      ],
+      "correct": 1,
+      "why": [
+        "Along with does not create a compound subject; report is still singular.",
+        "Correct. The subject is report, singular, so the verb is was.",
+        "Same agreement error without the commas.",
+        "And does make a compound subject, so was is wrong."
+      ],
+      "teach": "Along with, as well as, and in addition to do not make a subject plural."
+    }
+  ]
+}

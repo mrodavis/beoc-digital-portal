@@ -69,6 +69,26 @@ export default function TabePrepPage() {
       </section>
 
       {/* Question type guides */}
+      {/* Sibling subtest. TABE Language is structured differently from Reading —
+          four domains of its own — so it lives on its own page rather than as a
+          section here. */}
+      <section className="mb-12 rounded-2xl border-2 border-eng-teal-400 bg-eng-teal-50/60 p-5 sm:p-6">
+        <h2 className="font-display text-xl font-bold text-eng-navy-900">
+          Also testing on Language?
+        </h2>
+        <p className="mt-1 max-w-[68ch] text-[0.9375rem] leading-relaxed text-eng-navy-700">
+          The Language subtest asks for different work: grammar, usage,
+          mechanics, vocabulary, and writing. Nearly half of it is conventions
+          of standard English, and a quarter is a writing strand.
+        </p>
+        <Link
+          href="/eng0300/tabe/language"
+          className="mt-4 inline-block rounded-lg bg-eng-navy-800 px-5 py-3 font-semibold text-white hover:bg-eng-navy-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-navy-800 focus-visible:ring-offset-2"
+        >
+          TABE Language Prep →
+        </Link>
+      </section>
+
       <section id="question-types" className="mb-12 scroll-mt-32">
         <div className="mb-6">
           <h2 className="font-display text-3xl font-bold text-eng-navy-900">

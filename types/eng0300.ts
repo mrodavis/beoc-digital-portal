@@ -182,7 +182,82 @@ export interface Skill {
   /** MASTERY CHECK */
   masteryCheck?: Activity;
 
+  /** WRITE IT — the writing task that closes the lab. */
+  writeIt?: WriteIt;
+
   resources?: SkillResource[];
+}
+
+/* ------------------------------------------------------------------ *
+ * Writing strand
+ *
+ * beocdigital.org is where students practice. Brightspace is where
+ * points live. Nothing typed below is graded, scored by machine, or
+ * submitted from this site. Every writing task ends with the student
+ * copying their own text into a Brightspace dropbox.
+ *
+ * There is deliberately NO AI feedback, auto-scoring, or rewriting in
+ * the writing features. These drafts are placement-relevant writing
+ * samples and the instructor needs to see the student's own unaided
+ * prose. A future request for auto-feedback should be raised with the
+ * instructor, not implemented here.
+ * ------------------------------------------------------------------ */
+
+/** The four strands of the ENG0300 10-point writing rubric. */
+export type RubricStrandId = "focus" | "evidence" | "organization" | "conventions";
+
+export interface RubricStrand {
+  id: RubricStrandId;
+  /** Displayed exactly as it reads on the Brightspace rubric. */
+  label: string;
+  /** Points available. The four strands total 10. */
+  points: number;
+  /** What full marks looks like, in student-facing language. */
+  lookFor: string;
+}
+
+/** One sentence of a model paragraph, annotated with the strand it earns. */
+export interface ModelSentence {
+  text: string;
+  strand: RubricStrandId;
+  /** Why this sentence does that job. */
+  note: string;
+}
+
+/**
+ * The `Write It` task closing a skill lab — the writing counterpart of that
+ * lab's reading skill, tied to the passage the student has just read.
+ */
+export interface WriteIt {
+  /** Lab number 1-7. Also the localStorage key suffix: eng0300:writeit:lab<N>. */
+  lab: number;
+  /**
+   * Overrides the localStorage key for tasks that are not one of the seven
+   * skill labs — Writing Lab tier practice, for instance — so their drafts do
+   * not collide with a lab draft. Key becomes eng0300:writeit:<storageId>.
+   */
+  storageId?: string;
+  /** Short name of the writing move, e.g. "Summary paragraph". */
+  taskName: string;
+  /** The passage from this lab that the task is built on. */
+  passageTitle: string;
+  /** The prompt itself. */
+  prompt: string[];
+  /** 4-5 requirements, rendered as tickable boxes. State visible, not scored. */
+  checklist: string[];
+  /** Three sentence scaffolds. */
+  frames: string[];
+  /** Shown only behind a disclosure, so it cannot be copied before writing. */
+  model: {
+    intro: string;
+    sentences: ModelSentence[];
+  };
+  /** Where the finished paragraph goes for credit. */
+  brightspace: {
+    week: number;
+    /** The dropbox name as it appears in the Brightspace shell. */
+    dropbox: string;
+  };
 }
 
 /** A registered practice set surfaced in the Practice Center. */

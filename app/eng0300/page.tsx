@@ -3,6 +3,8 @@ import SkillCard from "@/components/eng0300/SkillCard";
 import { eng0300Skills } from "@/lib/content/eng0300/skills";
 import { eng0300Roadmap } from "@/lib/content/eng0300/roadmap";
 import { practiceStats } from "@/lib/content/eng0300/practice";
+import { writingTiers } from "@/lib/content/eng0300/writing/tiers";
+import { sentenceBankTotal } from "@/lib/content/eng0300/writing/sentence-skills";
 import {
   brightspaceRelationship,
   eng0300Course,
@@ -171,6 +173,70 @@ export default function Eng0300Dashboard() {
             </li>
           ))}
         </ul>
+      </section>
+
+      {/* Writing Lab — the writing strand added alongside the Reading Lab */}
+      <section id="writing" className="mb-14 scroll-mt-32">
+        <div className="mb-6">
+          <h2 className="font-display text-3xl font-bold text-eng-navy-900">
+            Writing Lab
+          </h2>
+          <p className="mt-2 max-w-[68ch] text-lg leading-relaxed text-eng-navy-600">
+            The writing half of the course. Build up from the sentence to the
+            paragraph to a short response, and drill sentence skills a week at a
+            time. Every skill lab now ends with a{" "}
+            <span className="font-semibold text-eng-navy-800">Write It</span>{" "}
+            task as well.
+          </p>
+        </div>
+
+        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {writingTiers.map((tier) => (
+            <li key={tier.slug}>
+              <Link
+                href={`/eng0300/writing-lab/${tier.slug}`}
+                className="group flex h-full flex-col rounded-2xl border border-eng-navy-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-teal-600 focus-visible:ring-offset-2"
+              >
+                <span className="text-4xl" aria-hidden="true">
+                  {tier.icon}
+                </span>
+                <span className="mt-3 text-xs font-bold uppercase tracking-widest text-eng-navy-400">
+                  Tier {tier.tier}
+                </span>
+                <h3 className="mt-1 font-display text-lg font-bold text-eng-navy-900">
+                  {tier.shortTitle}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-eng-navy-600">
+                  {tier.description}
+                </p>
+                <span className="mt-4 border-t border-eng-navy-100 pt-3 text-xs font-semibold text-eng-teal-700 group-hover:text-eng-teal-900">
+                  Open tier {tier.tier} &rarr;
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-5 flex flex-wrap gap-3">
+          <Link
+            href="/eng0300/writing-lab/sentence-skills"
+            className="rounded-lg bg-eng-navy-800 px-5 py-3 font-semibold text-white transition-colors hover:bg-eng-navy-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-navy-800 focus-visible:ring-offset-2"
+          >
+            Sentence Skills ({sentenceBankTotal} questions) &rarr;
+          </Link>
+          <Link
+            href="/eng0300/writing-lab/transitions"
+            className="rounded-lg border-2 border-eng-navy-300 px-5 py-3 font-semibold text-eng-navy-700 transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-navy-600 focus-visible:ring-offset-2"
+          >
+            Transition words &rarr;
+          </Link>
+          <Link
+            href="/eng0300/writing-lab"
+            className="rounded-lg border-2 border-eng-navy-300 px-5 py-3 font-semibold text-eng-navy-700 transition-colors hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-navy-600 focus-visible:ring-offset-2"
+          >
+            All of the Writing Lab &rarr;
+          </Link>
+        </div>
       </section>
 
       {/* Centers */}

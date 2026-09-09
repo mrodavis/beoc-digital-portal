@@ -6,8 +6,9 @@ import { usePathname } from "next/navigation";
 const links = [
   { href: "/eng0300", label: "Dashboard", exact: true },
   { href: "/eng0300#skills", label: "Skill Labs", match: "/eng0300/skills" },
+  { href: "/eng0300/writing-lab", label: "Writing Lab", match: "/eng0300/writing-lab" },
   { href: "/eng0300/practice", label: "Practice" },
-  { href: "/eng0300/tabe", label: "TABE Prep" },
+  { href: "/eng0300/tabe", label: "TABE Prep", match: "/eng0300/tabe" },
   { href: "/eng0300/resources", label: "Resources" },
 ];
 
