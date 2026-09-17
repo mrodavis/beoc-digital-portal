@@ -7,6 +7,7 @@ export const module4Lessons: Lesson[] = [
     description:
       "Understand how email works, navigate your inbox confidently, and set up your account for professional use in a medical office environment.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/WidJjNyZ-K4",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -267,6 +268,7 @@ export const module4Lessons: Lesson[] = [
     description:
       "Organize a high-volume inbox using folders, rules, flags, and filters — keeping your email system productive instead of overwhelming.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/cwNs39cpv1o",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -396,6 +398,7 @@ export const module4Lessons: Lesson[] = [
     description:
       "Master the unwritten rules of professional email that protect your reputation and keep workplace communication clear, efficient, and respectful.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/Gk9g0EBRavc",
     sections: [
       {
         heading: "Real-World Scenario",

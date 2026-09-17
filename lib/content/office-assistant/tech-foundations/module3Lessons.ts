@@ -7,6 +7,7 @@ export const module3Lessons: Lesson[] = [
     description:
       "Understand what the internet actually is, how websites load, and the difference between the internet and your local network — essential context for every task you do online.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/D5eek3tOM8M",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -136,6 +137,7 @@ export const module3Lessons: Lesson[] = [
     description:
       "Navigate the web confidently using browser features like tabs, bookmarks, history, and settings — and understand how to get the most out of the tools built into every browser.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/q9EAZKzhzRA",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -265,6 +267,7 @@ export const module3Lessons: Lesson[] = [
     description:
       "Recognize unsafe websites, protect your login credentials online, and adopt browsing habits that keep the office network and patient data secure.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/2-hkxh6qYgI",
     sections: [
       {
         heading: "Real-World Scenario",
