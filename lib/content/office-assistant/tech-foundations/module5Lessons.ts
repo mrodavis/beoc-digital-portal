@@ -7,6 +7,7 @@ export const module5Lessons: Lesson[] = [
     description:
       "Learn correct finger placement on the keyboard and develop the touch typing habit that makes office data entry dramatically faster and less tiring.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/KTv6Z0eESZ8",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -136,6 +137,7 @@ export const module5Lessons: Lesson[] = [
     description:
       "Learn the keyboard shortcuts that eliminate the most common mouse-heavy tasks — cutting your daily work time significantly without any special software.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/7BoqV7omIdQ",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -268,6 +270,7 @@ export const module5Lessons: Lesson[] = [
     description:
       "Master the accuracy, consistency, and verification habits that make data entry in a medical office reliable and error-free.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/mnUsaQ5px7M",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -397,6 +400,7 @@ export const module5Lessons: Lesson[] = [
     description:
       "Apply structured practice techniques to measurably increase your typing speed while maintaining the accuracy standards a medical office requires.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/mzX2ClRSLTY",
     sections: [
       {
         heading: "Real-World Scenario",
