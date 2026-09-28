@@ -1,6 +1,6 @@
 import { Skill } from "@/types/eng0300";
 
-/** WEEK 7 — Visual & Data Integration, plus integrating across sources (starter content). */
+/** WEEK 7 — Visual & Data Integration, plus integrating across sources (fully populated). */
 export const visualDataSkill: Skill = {
   id: "visual-data",
   slug: "visual-data",
@@ -11,8 +11,8 @@ export const visualDataSkill: Skill = {
   icon: "📊",
   accent: "from-eng-gold-500 to-eng-teal-700",
   week: 7,
-  status: "starter",
-  estimatedMinutes: 35,
+  status: "complete",
+  estimatedMinutes: 50,
 
   outcomes: [
     "Interpret information presented visually, orally, or quantitatively (e.g., in charts, graphs, diagrams, or timelines) and connect it to the related text",
@@ -117,7 +117,7 @@ export const visualDataSkill: Skill = {
         sourceNote:
           "Illustrative figure created for instruction. Not drawn from a published dataset.",
       },
-      wordCount: 190,
+      wordCount: 125,
     },
     question:
       "Which detail in the figure most directly supports the author's point in paragraph 2?",
@@ -182,7 +182,7 @@ export const visualDataSkill: Skill = {
           sourceNote:
             "Illustrative figure created for instruction. Not drawn from a published dataset.",
         },
-        wordCount: 70,
+        wordCount: 65,
       },
     ],
     questions: [
@@ -219,7 +219,7 @@ export const visualDataSkill: Skill = {
         type: "Health",
         attribution: "Original passage and figure — BEOC Academic Bridge",
         numbered: true,
-        wordCount: 205,
+        wordCount: 134,
         body: [
           "A neighborhood clinic tracked how often its appointment slots went unused across a full year, sorted by the time of day the appointment had been scheduled.",
           "Staff had expected the worst performance in the earliest slots, on the assumption that patients would struggle to arrive before work. The data did not support that expectation. The 8 a.m. slots were among the better-attended hours. Midday performed worst by a wide margin.",
@@ -315,11 +315,282 @@ export const visualDataSkill: Skill = {
     ],
   },
 
+  challenge: {
+    id: "vd-challenge",
+    title: "Challenge — two sources that count different things",
+    intro:
+      "Read both texts and the figure before you answer. Before you combine them, check what each source actually counts — most of these items turn on it.",
+    passages: [
+      {
+        id: "vd-challenge-report",
+        title: "Text A: Spring Report to the Pantry Board",
+        type: "Data / Charts",
+        attribution: "Original passage and figure — BEOC Academic Bridge",
+        numbered: true,
+        wordCount: 155,
+        body: [
+          "This spring was the busiest stretch our pantry has had since it opened. Visits held fairly steady from January through March, then jumped in April and stayed high through June. Between March and June, monthly visits grew by more than half.",
+          "The figure below shows every visit recorded at our sign-in table this year, month by month. The pattern is hard to miss. Once April arrived, the monthly count never came close to its winter level again.",
+          "The message for the board is simple: we are serving far more families than we were in the winter. By the last Saturday in May, our shelves were nearly bare, and volunteers had to give half orders to the people at the end of the line.",
+          "I am asking the board to approve a larger monthly food order starting in July, so that no one who waits in that line goes home with less than a full order.",
+        ],
+        figure: {
+          kind: "bar",
+          title: "Visits recorded at one food pantry's sign-in table, by month (January–June)",
+          summary:
+            "Bar chart of visits recorded at one food pantry's sign-in table each month from January to June: 310 in January, 295 in February, 340 in March, 480 in April, 505 in May, and 520 in June.",
+          columns: ["Month", "Visits recorded"],
+          rows: [
+            { label: "January", values: [310] },
+            { label: "February", values: [295] },
+            { label: "March", values: [340] },
+            { label: "April", values: [480] },
+            { label: "May", values: [505] },
+            { label: "June", values: [520] },
+          ],
+          sourceNote:
+            "Illustrative figure created for instruction. Not drawn from a published dataset.",
+        },
+      },
+      {
+        id: "vd-challenge-signin",
+        title: "Text B: Notes From the Sign-In Table",
+        type: "Informational",
+        attribution: "Original passage — BEOC Academic Bridge",
+        numbered: true,
+        wordCount: 168,
+        body: [
+          "I have worked the sign-in table every Saturday since last fall, so I see nearly every household that comes through the door. The spring rush was real. In May, the line reached the corner more than once.",
+          "The monthly totals leave out a change the pantry made on April 1. Until then, each household could pick up groceries once a month. Starting in April, households could come twice. Many people I signed in on the first Saturday of a month were back two weeks later.",
+          "Last week I went back through the sign-in sheets and counted each household only once per month, no matter how many times it came. In March, 340 different households signed in. In June, 365 did.",
+          "So we are seeing some new faces, and we are seeing familiar faces more often. Both mean more food going out the door. But they are not the same thing, and the board should know which one it is looking at before it decides how much to order.",
+        ],
+      },
+    ],
+    questions: [
+      {
+        id: "vd-c1",
+        type: "chart-data",
+        question:
+          "In paragraph 1 of Text A, the coordinator writes that between March and June, \"monthly visits grew by more than half.\" Which calculation from the figure correctly checks this claim?",
+        passageId: "vd-challenge-report",
+        choices: [
+          "520 − 310 = 210, and 210 is more than half of 310, so the claim is supported.",
+          "480 − 340 = 140, and 140 is less than half of 340, so the claim is not supported.",
+          "520 − 340 = 180, but 180 is less than half of 520, so the claim is not supported.",
+          "520 − 340 = 180, and 180 is more than half of 340, so the claim is supported.",
+        ],
+        correctAnswer: 3,
+        explanation:
+          "Find the two months the claim names — March at 340 and June at 520 — and subtract: 520 − 340 = 180. Growing \"by more than half\" compares the increase to the starting value, and half of 340 is 170. Since 180 is more than 170, the figure supports the claim. Notice what the claim and the figure both count, though: visits.",
+        choiceRationales: [
+          "The conclusion is right, but the numbers are not. 310 is the January bar; the claim starts in March, so the starting value must be 340.",
+          "480 is the April bar. The claim runs to June, so the ending value must be 520. Stopping one month early makes a supported claim look unsupported.",
+          "The subtraction is right, but the comparison uses the wrong base. Growth is measured against where visits started, 340 in March, not where they ended. Half of 340 is 170, and 180 is more than that.",
+          "Correct. March is 340 and June is 520, an increase of 180. Half of 340 is 170, so an increase of 180 is more than half.",
+        ],
+        skill: "visual-data",
+        difficulty: "TABE Ready",
+      },
+      {
+        id: "vd-c2",
+        type: "multiple-select",
+        question:
+          "Which conclusions are supported by the texts and the figure together — conclusions you could not reach from any one source alone? Select all that apply.",
+        choices: [
+          "Visits grew by 180 between March and June, while the number of different households grew by only 25.",
+          "June had more recorded visits than any other month from January through June.",
+          "The biggest one-month jump in visits came in April, the first month households were allowed a second visit.",
+          "Visits rose this spring because more families in the neighborhood lost work.",
+          "Visits will stay above 500 a month for the rest of the year.",
+        ],
+        correctAnswer: [0, 2],
+        explanation:
+          "A combined conclusion needs a piece from each source. Choice A takes visits from the figure and households from Text B. Choice C takes the April jump from the figure and the April 1 rule change from Text B. Choice B is true but needs only the figure, and choices D and E go beyond anything either source says.",
+        choiceRationales: [
+          "Correct. The 180 comes from the figure (520 − 340) and the 25 from Text B (365 − 340). Neither source has both numbers.",
+          "True, but the figure alone shows it: June's bar, at 520, is the tallest. It does not need either text, so it is not a combined conclusion.",
+          "Correct. The figure shows the biggest jump, from 340 to 480, arriving in April, and only Text B says April is when households could first come twice.",
+          "Neither source mentions anyone losing work. This reads a cause into the pattern and supplies it from outside knowledge.",
+          "Both sources stop at June. A figure cannot tell you what happens after the last month it shows, and neither text predicts it.",
+        ],
+        skill: "visual-data",
+        difficulty: "Challenge",
+      },
+      {
+        id: "vd-c3",
+        type: "paired-text",
+        question:
+          "Text A treats the rising bars as proof that the pantry is \"serving far more families.\" What does Text B add that the figure cannot show?",
+        choices: [
+          "It confirms that the pantry was busier in the spring than in the winter.",
+          "It explains that the figure counts visits, not households: from April on, one household could come twice a month, and the number of different households rose only from 340 to 365.",
+          "It shows that the coordinator's visit counts are wrong and that the pantry was not really busier this spring.",
+          "It shows that visits will drop once families no longer need a second trip each month.",
+        ],
+        correctAnswer: 1,
+        explanation:
+          "The figure measures visits. Text A reads visits as families; Text B shows why that reading fails after April 1, when one household could account for two visits. Visits rose by 180 while different households rose by 25, so most of the extra visits were return trips. Checking whether two sources measure the same thing is often the whole answer.",
+        choiceRationales: [
+          "Text B does agree — \"The spring rush was real\" — but the figure already shows a busier spring. This adds nothing the bars cannot show.",
+          "Correct. The figure has no way to show who made each visit. Text B supplies the rule change and the household counts that reveal the difference between visits and families.",
+          "Text B never disputes the counts. Its March total of 340 households matches the 340 visits in the figure, because each household could come only once that month.",
+          "Neither source says the twice-a-month rule will end or predicts what visits will do next. This goes beyond both texts.",
+        ],
+        skill: "visual-data",
+        difficulty: "Challenge",
+      },
+      {
+        id: "vd-c4",
+        type: "short-response",
+        question:
+          "In three or four sentences, write a conclusion about the pantry's spring that could not be reached from Text A, Text B, or the figure alone. Use at least one number from the figure and one from Text B.",
+        explanation:
+          "A complete answer does three jobs: it states one conclusion, supports it with a number from the figure and a number from Text B, and shows why the two together say something neither says alone. The trap is writing Text A's conclusion, because the figure by itself leads straight to it.",
+        sampleResponse:
+          "The pantry did get much busier this spring, but mostly because the same households came more often, not because many more households came. The figure shows monthly visits rising from 340 in March to 520 in June, an increase of 180. Text B explains that households could come twice a month starting in April, and that the number of different households grew only from 340 to 365, an increase of 25. The coordinator is right that more food is going out the door, but the claim that the pantry is \"serving far more families\" does not hold up once both sources are read together.",
+        skill: "visual-data",
+        difficulty: "Challenge",
+      },
+    ],
+  },
+
+  masteryCheck: {
+    id: "vd-mastery",
+    title: "Mastery check",
+    intro:
+      "One short passage with a figure, four items. If you miss one, the review below each answer will tell you which part of the lesson to revisit.",
+    passages: [
+      {
+        id: "vd-mastery-childcare",
+        title: "Waiting for a Child-Care Spot",
+        type: "Data / Charts",
+        attribution: "Original passage and figure — BEOC Academic Bridge",
+        wordCount: 100,
+        body: [
+          "A neighborhood child-care center keeps a separate waiting list for each age group. In September, the director counted the families on each list so she could give parents an honest answer when they asked how long they might wait. The infant list was the longest by far. Infant rooms need the most staff for each child, so the center has the fewest infant spots to offer. From there, the lists grew shorter as the children got older. The director reminds parents that the counts change every month, as children move up to the next room and spots open behind them.",
+        ],
+        figure: {
+          kind: "bar",
+          title: "Families on the waiting list, by child's age group (one child-care center, September)",
+          summary:
+            "Bar chart of families on one child-care center's waiting lists in September, by the child's age group: 26 for infants under age 1, 17 for toddlers age 1, 11 for twos, and 5 for preschool children ages 3 to 5.",
+          columns: ["Age group", "Families waiting"],
+          rows: [
+            { label: "Infants (under age 1)", values: [26] },
+            { label: "Toddlers (age 1)", values: [17] },
+            { label: "Twos (age 2)", values: [11] },
+            { label: "Preschool (ages 3–5)", values: [5] },
+          ],
+          sourceNote:
+            "Illustrative figure created for instruction. Not drawn from a published dataset.",
+        },
+      },
+    ],
+    questions: [
+      {
+        id: "vd-m1",
+        type: "chart-data",
+        question: "What does the figure measure?",
+        passageId: "vd-mastery-childcare",
+        choices: [
+          "How many months each family has been waiting",
+          "How many children are enrolled in each age group",
+          "How many families are on the waiting list for each age group",
+          "How many staff members work in each room",
+        ],
+        correctAnswer: 2,
+        explanation:
+          "The title and the column heading tell you what is counted: families on the waiting list, sorted by the child's age group, at one center in September. If you missed this, revisit \"Read the frame before you read the numbers\" in the lesson.",
+        choiceRationales: [
+          "The figure counts families, not time. The passage mentions how long parents might wait, but no bar measures months.",
+          "The figure counts families waiting for a spot, not children who already have one. Those are different groups.",
+          "Correct. The title names what is counted, families on the waiting list, and how the count is sorted, by the child's age group.",
+          "The passage mentions staff to explain why infant spots are scarce, but the figure does not count staff.",
+        ],
+        skill: "visual-data",
+        difficulty: "Foundation",
+      },
+      {
+        id: "vd-m2",
+        type: "chart-data",
+        question:
+          "According to the figure, how many more families were waiting for an infant spot than for a toddler spot?",
+        passageId: "vd-mastery-childcare",
+        choices: ["9 families", "17 families", "21 families", "43 families"],
+        correctAnswer: 0,
+        explanation:
+          "Find both bars, then subtract: 26 families on the infant list minus 17 on the toddler list is 9. If you missed this, revisit \"The figure and the text do different jobs\" in the lesson — a compare question asks which is larger and by how much, and the figure alone answers it.",
+        choiceRationales: [
+          "Correct. 26 minus 17 is 9.",
+          "This is the toddler bar by itself, not the difference between two bars.",
+          "This is 26 minus 5 — the gap between infants and preschool, not infants and toddlers.",
+          "This adds the two bars (26 plus 17). The question asks how many more, which means the difference, so subtract.",
+        ],
+        skill: "visual-data",
+        difficulty: "Developing",
+      },
+      {
+        id: "vd-m3",
+        type: "chart-data",
+        question:
+          "Which information in the figure best supports the statement that \"the lists grew shorter as the children got older\"?",
+        passageId: "vd-mastery-childcare",
+        choices: [
+          "26 families were waiting for an infant spot.",
+          "More families were waiting for a toddler spot than for a spot for twos.",
+          "The preschool list, at 5 families, was the shortest.",
+          "The number of families waiting drops at every step from the youngest group to the oldest: 26, 17, 11, then 5.",
+        ],
+        correctAnswer: 3,
+        explanation:
+          "The statement describes a pattern across all the age groups, so the support has to show the whole pattern, not one bar or one pair. If you missed this, revisit \"The figure and the text do different jobs\" in the lesson: a connect question starts with the text's claim, then finds the part of the figure that measures it.",
+        choiceRationales: [
+          "A single value. One bar cannot show how the lists change as children get older.",
+          "True, since 17 is more than 11, but it compares only two groups. The statement covers every age group.",
+          "True, but it names only the end point. The shortest list alone does not show the lists shrinking step by step.",
+          "Correct. Each count is lower than the one before it, which is exactly what \"the lists grew shorter as the children got older\" claims.",
+        ],
+        skill: "visual-data",
+        difficulty: "TABE Ready",
+      },
+      {
+        id: "vd-m4",
+        type: "multiple-choice",
+        question:
+          "Which conclusion is NOT supported by the passage and the figure together?",
+        passageId: "vd-mastery-childcare",
+        choices: [
+          "More families were waiting for an infant spot than for a preschool spot.",
+          "Parents of infants need child care more urgently than parents of older children do.",
+          "The center has fewer infant spots than spots for older children.",
+          "The counts describe the lists in September and may be different in other months.",
+        ],
+        correctAnswer: 1,
+        explanation:
+          "Neither source compares how badly different parents need care. The passage gives its own reason for the long infant list, the small number of infant spots, and the figure only counts families waiting. If you chose another answer, revisit \"What a figure cannot tell you\" in the lesson: a choice that adds information found in neither the figure nor the text is unsupported, however sensible it sounds.",
+        choiceRationales: [
+          "Supported by the figure: 26 families were waiting for infant spots and 5 for preschool.",
+          "Correct — this is the unsupported one. It reads a cause into the pattern that neither source gives. The passage explains the long infant list by the small number of infant spots, not by how urgently parents need care.",
+          "Supported by the passage, which says the center has \"the fewest infant spots to offer.\"",
+          "Supported by both: the figure's title gives September, and the passage says \"the counts change every month.\"",
+        ],
+        skill: "visual-data",
+        difficulty: "TABE Ready",
+      },
+    ],
+  },
+
   resources: [
     {
       label: "TABE Prep: Chart and Data questions",
       detail: "Reading the frame, combining categories, and avoiding conclusions a figure cannot support.",
       href: "/eng0300/tabe",
+    },
+    {
+      label: "Practice Center — Visual & Data sets",
+      detail: "Every Visual & Data set in one place, from the guided question through the challenge.",
+      href: "/eng0300/practice?skill=visual-data",
     },
   ],
 };

@@ -104,7 +104,7 @@ export const textStructureSkill: Skill = {
         "Several cities have responded with a set of low-cost measures. Coating flat roofs with reflective white paint lowers indoor temperatures on the top floor by several degrees. Planting street trees provides shade over sidewalks and building faces. Converting a portion of asphalt lots to permeable surfaces reduces the heat those lots store.",
         "None of these measures is dramatic on its own. Taken together across enough blocks, they have measurably reduced nighttime temperatures in the neighborhoods where they were applied.",
       ],
-      wordCount: 165,
+      wordCount: 134,
     },
     question: "What is the overall structure of this passage?",
     steps: [
@@ -147,7 +147,7 @@ export const textStructureSkill: Skill = {
         body: [
           "A person seeking work as a pharmacy technician can take two paths. A formal certificate program runs six to twelve months, costs money up front, and covers pharmacy law and calculations in a classroom. On-the-job training, by contrast, begins with a paid position and teaches the same material in practice, though it usually takes longer to reach certification and depends on finding an employer willing to train. Both routes end at the same national exam. Neither is faster in every case.",
         ],
-        wordCount: 84,
+        wordCount: 81,
       },
     ],
     questions: [
@@ -190,7 +190,7 @@ export const textStructureSkill: Skill = {
         type: "History",
         attribution: "Original passage — BEOC Academic Bridge",
         numbered: true,
-        wordCount: 150,
+        wordCount: 93,
         body: [
           "In 2015 the city's vital records office served walk-in customers only. Wait times averaged under an hour.",
           "In 2018 the office added an online request system for birth certificates. Walk-in traffic dropped, and the office reassigned two of its six clerks to process online orders.",
@@ -204,7 +204,7 @@ export const textStructureSkill: Skill = {
         type: "Informational",
         attribution: "Original passage — BEOC Academic Bridge",
         numbered: true,
-        wordCount: 145,
+        wordCount: 115,
         body: [
           "Long waits at the vital records office have become a serious obstacle for residents who need documents for a job, a lease, or a school enrollment.",
           "One response is to separate the two queues again by assigning dedicated staff to online orders, so that a surge in one channel does not slow the other.",

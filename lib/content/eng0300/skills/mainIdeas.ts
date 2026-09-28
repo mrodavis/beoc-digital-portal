@@ -118,7 +118,7 @@ export const mainIdeasSkill: Skill = {
         "The clinic eventually replaced the sticky notes with a one-page handoff form. Every departing assistant now fills in four fields: which patients are still waiting on something, what they are waiting for, who is responsible, and what needs to happen next. The form takes about four minutes to complete.",
         "The change was not glamorous, and staff complained about it at first. But within six months, the number of follow-ups that fell through the cracks dropped sharply. The lesson was not that the staff had been careless. It was that a busy team needs a structure that does not depend on anyone's memory.",
       ],
-      wordCount: 205,
+      wordCount: 187,
     },
     question: "What is the main idea of this passage?",
     steps: [
@@ -169,7 +169,7 @@ export const mainIdeasSkill: Skill = {
         body: [
           "Many workers assume tuition benefits are only for people pursuing a four-year degree. In practice, most employer tuition programs also cover short certificate programs, industry licenses, and single courses at a community college. Some cover exam fees. The real obstacle is usually paperwork rather than eligibility: these benefits often require approval before you enroll, not after. Workers who wait until the semester has started to ask about funding frequently lose it for that term.",
         ],
-        wordCount: 78,
+        wordCount: 74,
       },
     ],
     questions: [
@@ -213,7 +213,7 @@ export const mainIdeasSkill: Skill = {
         type: "Workplace",
         attribution: "Original passage — BEOC Academic Bridge",
         numbered: true,
-        wordCount: 315,
+        wordCount: 287,
         body: [
           "When a company offers to pay for an employee's training, it can look like generosity. Usually it is something more practical: arithmetic.",
           "Replacing an employee is expensive. An employer has to advertise the opening, review applications, interview candidates, and then absorb the weeks or months during which a new hire is still learning the job. Workforce studies have long placed the cost of replacing one employee somewhere between several thousand dollars and a substantial share of that person's annual salary, depending on the role. Training someone already on staff is usually cheaper, and that person already knows the company's systems, customers, and routines.",
@@ -348,7 +348,7 @@ export const mainIdeasSkill: Skill = {
         type: "Health",
         attribution: "Original passage — BEOC Academic Bridge",
         numbered: true,
-        wordCount: 330,
+        wordCount: 274,
         body: [
           "A missed medical appointment is usually recorded as a single line in a scheduling system: no-show. The word suggests a choice. What clinics find when they ask patients directly is more complicated.",
           "When clinics survey patients who missed appointments, the reasons that surface most often are not indifference. They are transportation, work schedules, and child care. A patient who takes two buses to a clinic and cannot leave a shift without losing pay is not weighing whether their health matters. They are weighing which loss is survivable this week.",
@@ -437,7 +437,7 @@ export const mainIdeasSkill: Skill = {
         body: [
           "Overtime rules are frequently misunderstood by the people they protect. Many workers believe overtime pay begins after eight hours in a day. Under federal law, the standard threshold is forty hours in a workweek, not eight hours in a day, although some states set additional daily rules. A worker who puts in twelve hours on Monday and six on each of the next three days has worked thirty hours and is generally owed no federal overtime. Knowing which rule applies where you live is the difference between noticing an underpayment and missing it.",
         ],
-        wordCount: 96,
+        wordCount: 93,
       },
     ],
     questions: [

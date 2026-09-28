@@ -1,6 +1,6 @@
 import { Skill } from "@/types/eng0300";
 
-/** WEEK 6 — Evidence & Argument Quality (starter content). */
+/** WEEK 6 — Evidence & Argument Quality (fully populated). */
 export const evidenceSkill: Skill = {
   id: "evidence",
   slug: "evidence",
@@ -11,8 +11,8 @@ export const evidenceSkill: Skill = {
   icon: "⚖️",
   accent: "from-eng-navy-800 to-eng-teal-700",
   week: 6,
-  status: "starter",
-  estimatedMinutes: 35,
+  status: "complete",
+  estimatedMinutes: 50,
 
   outcomes: [
     "Explain how an author uses reasons and evidence to support a point, and evaluate whether that evidence is sufficient",
@@ -106,7 +106,7 @@ export const evidenceSkill: Skill = {
         "My own former manager switched our team to four days and said afterward that she would never go back. Everyone on that team was happier.",
         "Critics raise the obvious objection: some work cannot be compressed. A hospital ward, a bus route, and a restaurant kitchen all require coverage during fixed hours, and a shorter week for those workers means hiring more of them, not rearranging the same hours.",
       ],
-      wordCount: 195,
+      wordCount: 156,
     },
     question:
       "Which of the author's reasons is best supported, and which is weakest?",
@@ -155,7 +155,7 @@ export const evidenceSkill: Skill = {
         body: [
           "Overdraft fees should be capped by regulation. Banking data has repeatedly shown that a small share of account holders pay the large majority of all overdraft fees collected, and that this group is concentrated among customers with the lowest average balances. A fee designed as a deterrent has become a recurring charge falling on the customers least able to absorb it. My cousin once paid four overdraft fees in a single week, which shows how quickly they add up.",
         ],
-        wordCount: 82,
+        wordCount: 79,
       },
     ],
     questions: [
@@ -197,7 +197,7 @@ export const evidenceSkill: Skill = {
         type: "Argument",
         attribution: "Original passage — BEOC Academic Bridge",
         numbered: true,
-        wordCount: 250,
+        wordCount: 175,
         body: [
           "The city should eliminate fares on its bus system.",
           "Fare collection is expensive in ways that are easy to overlook. Fare boxes must be maintained, revenue must be counted and transported, and fare enforcement requires staff. In some smaller systems, these costs consume a meaningful share of the revenue the fares bring in.",
@@ -296,11 +296,268 @@ export const evidenceSkill: Skill = {
     ],
   },
 
+  challenge: {
+    id: "ev-challenge",
+    title: "Challenge — an argument whose support is uneven",
+    intro:
+      "Every paragraph after the first offers support, but the support is not equally strong. For each question, restate the exact claim being supported before you look at the choices — several choices are true sentences that support a different point.",
+    passages: [
+      {
+        id: "ev-challenge-lots",
+        title: "Put the Empty Lots to Work",
+        type: "Argument",
+        attribution: "Original passage — BEOC Academic Bridge",
+        numbered: true,
+        wordCount: 346,
+        body: [
+          "Most older neighborhoods have one: a vacant lot behind a chain-link fence, owned by the city because the last owner stopped paying taxes. Some have sat empty for a decade. The city should lease these lots to neighborhood groups as community gardens, starting with every lot that has gone unsold for more than two years.",
+          "The first reason is money. An empty lot is not free to own: the city pays crews to mow it, fix its fence, and haul away dumped mattresses and tires. Two years ago, a city pilot let volunteer groups plant gardens on twelve lots. According to the pilot's first-year report, crews were sent to those twelve lots 140 times in the year before the gardens opened and 9 times in the year after, because the gardeners now handle the mowing and cleanup themselves.",
+          "Gardens also put fresh food on tables that need it. Loretta Banks, a home health aide with a pilot plot, grows enough tomatoes, peppers, and greens that she has not bought a vegetable from June through September. Multiply her summer across every vacant lot, and grocery bills would fall across the city.",
+          "Finally, gardens bring neighbors together. A county survey found that residents who live within a ten-minute walk of a public park are more likely than other residents to say they trust their neighbors. A garden on the corner would do the same work for blocks that have no park at all.",
+          "Some council members object that the lots should be kept ready for developers, since new housing would bring in property taxes that a garden never will. The concern is fair, and the pilot was built around it. Every pilot lease lets the city end it with sixty days' notice. When a builder bought one of the twelve lots last spring, the garden group harvested its last crop and cleared the lot before the deadline. A garden does not block a sale; it keeps the lot in use until a buyer comes. Until then, the city should let its neighbors put the empty lots to work.",
+        ],
+      },
+    ],
+    questions: [
+      {
+        id: "ev-c1",
+        type: "multiple-choice",
+        question: "What is the author's central claim?",
+        passageId: "ev-challenge-lots",
+        choices: [
+          "Vacant lots cost the city money to mow, fence, and clean up.",
+          "The city should lease its long-unsold vacant lots to neighborhood groups as community gardens.",
+          "Community gardens can end grocery bills for the families who work them.",
+          "The city should hold its vacant lots for developers who will build housing.",
+        ],
+        correctAnswer: 1,
+        explanation:
+          "The last sentence of paragraph 1 states the position: \"The city should lease these lots to neighborhood groups as community gardens, starting with every lot that has gone unsold for more than two years.\" Paragraphs 2 through 4 each give a reason for it, paragraph 5 answers an objection to it, and the final sentence restates it.",
+        choiceRationales: [
+          "A reason from paragraph 2. It explains why the author wants the change; it is not the change itself.",
+          "Correct. It is the position that every other paragraph either supports or defends.",
+          "An overstated version of the food reason in paragraph 3. It is support the author offers, not the position that support is for.",
+          "This is the objection the author answers in paragraph 5 — the opposite of the author's position.",
+        ],
+        skill: "evidence",
+        difficulty: "TABE Ready",
+      },
+      {
+        id: "ev-c2",
+        type: "evidence-selection",
+        question:
+          "Which sentence from the passage best supports the answer to the previous question?",
+        passageId: "ev-challenge-lots",
+        choices: [
+          "Loretta Banks, a home health aide with a pilot plot, grows enough tomatoes, peppers, and greens that she has not bought a vegetable from June through September.",
+          "Some council members object that the lots should be kept ready for developers, since new housing would bring in property taxes that a garden never will.",
+          "According to the pilot's first-year report, crews were sent to those twelve lots 140 times in the year before the gardens opened and 9 times in the year after, because the gardeners now handle the mowing and cleanup themselves.",
+          "Until then, the city should let its neighbors put the empty lots to work.",
+        ],
+        correctAnswer: 2,
+        explanation:
+          "Restate the answer you gave to the previous question: the city should turn its long-unsold lots into gardens. The best support is evidence about gardens on the city's own lots, with a named source and numbers you could check. The pilot report's before-and-after count of crew visits is the only choice that does all three, and it shows the change the author wants already working on twelve lots.",
+        choiceRationales: [
+          "The most vivid sentence in the passage, and that is the trap. It is one gardener's summer — an anecdote standing in for evidence — and it cannot show what gardens would do across the city.",
+          "This sentence states the objection. It supports the opposite position, holding the lots for developers, not the author's claim.",
+          "Correct. It names a source, gives before-and-after numbers, and describes gardens on the city's own lots, so it bears directly on the claim.",
+          "This restates the claim in new words. A claim cannot support itself.",
+        ],
+        skill: "evidence",
+        difficulty: "Challenge",
+      },
+      {
+        id: "ev-c3",
+        type: "multiple-select",
+        question:
+          "In paragraph 5, the author argues that a garden would not stop the city from selling a lot. Which TWO details provide the strongest support for that point? Select two.",
+        passageId: "ev-challenge-lots",
+        choices: [
+          "\"Every pilot lease lets the city end it with sixty days' notice.\" (paragraph 5)",
+          "\"crews were sent to those twelve lots 140 times in the year before the gardens opened and 9 times in the year after\" (paragraph 2)",
+          "\"new housing would bring in property taxes that a garden never will\" (paragraph 5)",
+          "\"When a builder bought one of the twelve lots last spring, the garden group harvested its last crop and cleared the lot before the deadline.\" (paragraph 5)",
+          "\"she has not bought a vegetable from June through September\" (paragraph 3)",
+        ],
+        correctAnswer: [0, 3],
+        explanation:
+          "Restate the point first: a garden would not get in the way of a sale. Two details bear on exactly that — the lease term that lets the city take a lot back, and the one time a pilot lot was actually sold. The crew-visit numbers are the strongest evidence in the whole passage, but they support a different point, which is why they are the most tempting wrong answer.",
+        choiceRationales: [
+          "Correct. It shows the city keeps the power to take a lot back for a buyer on short notice.",
+          "Strong evidence, but for a different point: it shows that gardens cut the city's cleanup costs. It says nothing about whether a lot can still be sold.",
+          "This is part of the objection. It gives a reason to sell the lots, not a reason to believe a garden would allow a sale.",
+          "Correct. It shows the lease term working in practice: a lot was sold, and the gardeners left on time.",
+          "One gardener's harvest, offered for the food reason in paragraph 3. It has nothing to do with selling a lot.",
+        ],
+        skill: "evidence",
+        difficulty: "Challenge",
+      },
+      {
+        id: "ev-c4",
+        type: "multiple-choice",
+        question:
+          "Which detail supports a claim slightly different from the one the author uses it to support?",
+        passageId: "ev-challenge-lots",
+        choices: [
+          "The pilot report's count of crew visits to the twelve lots before and after the gardens opened",
+          "Loretta Banks's summer harvest from her pilot plot",
+          "The builder who bought one of the pilot lots last spring",
+          "The county survey of residents who live near a public park",
+        ],
+        correctAnswer: 3,
+        explanation:
+          "Restate the claim in paragraph 4 first: gardens bring neighbors together. The survey is about parks, not gardens, so at most it supports a claim about parks — and even then it shows only that living near a park and trusting neighbors go together, not that one causes the other. The author closes the gap with an assumption, that a garden \"would do the same work,\" rather than with evidence.",
+        choiceRationales: [
+          "This supports exactly the point it is used for — that gardens save the city money. It is relevant, measured, and sourced.",
+          "Weak support, but for the right claim: it really is about a garden producing food. Its problem is sufficiency — one gardener cannot show what would happen across the city — not relevance.",
+          "This supports exactly the point it is used for — that a garden does not block a sale.",
+          "Correct. The survey measures something about parks, and the author stretches it to cover gardens. It supports a nearby claim, about parks, that the author did not make.",
+        ],
+        skill: "evidence",
+        difficulty: "Challenge",
+      },
+      {
+        id: "ev-c5",
+        type: "short-response",
+        question:
+          "Is the author's evidence sufficient to support the central claim? In three or four sentences, name the strongest support in the passage, name one reason whose support falls short and explain what is wrong with it, and give your overall judgment.",
+        passageId: "ev-challenge-lots",
+        explanation:
+          "A complete answer does three jobs: it credits the support that holds up, names the specific weakness in the support that does not — an anecdote standing in for evidence, or evidence about a different claim — and reaches a judgment that fits the evidence. The strongest answers notice that the evidence supports a narrower claim than the one the author makes. Judging the evidence insufficient is not the same as calling the claim false; the question is only whether the author supported it.",
+        sampleResponse:
+          "The strongest support is the pilot's first-year report, which found that crew visits to the twelve garden lots fell from 140 to 9 in a year, and the author also answers the developer objection with the sixty-day lease term and a lot that was actually sold. The other two reasons fall short: the food reason rests on one gardener's summer, and the neighbor reason rests on a survey about parks rather than gardens. Even the best evidence covers only twelve lots over a single year. The evidence is sufficient for a narrower claim, that gardens save the city money without blocking sales, but not for the author's promise that gardens would lower grocery bills and build trust across the city.",
+        skill: "evidence",
+        difficulty: "Challenge",
+      },
+    ],
+  },
+
+  masteryCheck: {
+    id: "ev-mastery",
+    title: "Mastery check",
+    intro:
+      "One short argument, four items. If you miss one, the review below each answer will tell you which part of the lesson to revisit.",
+    passages: [
+      {
+        id: "ev-mastery-vans",
+        title: "Cameras for the Vans",
+        type: "Workplace",
+        attribution: "Original passage — BEOC Academic Bridge",
+        wordCount: 108,
+        body: [
+          "The company should install backup cameras in every delivery van. Backing up is the riskiest part of a driver's shift. Drivers reverse into docks, alleys, and driveways many times a day, often with no one outside to guide them. The safety office's accident log shows that 15 of the 22 van accidents drivers reported last year happened while backing up. Repairs from those accidents averaged $2,100 each, according to the same log. Our parts supplier quotes about $300 to install a camera. Cameras are the right investment for this fleet, and the sooner we add them, the sooner we stop paying for the same accident again and again.",
+        ],
+      },
+    ],
+    questions: [
+      {
+        id: "ev-m1",
+        type: "multiple-choice",
+        question: "What is the author's claim?",
+        passageId: "ev-mastery-vans",
+        choices: [
+          "The company should install backup cameras in every delivery van.",
+          "Backing up is the riskiest part of a driver's shift.",
+          "Most of the van accidents last year happened while backing up.",
+          "Delivery drivers are careless when they back up.",
+        ],
+        correctAnswer: 0,
+        explanation:
+          "The claim is what the author wants you to accept. Here it is the first sentence, and everything after it — the risk of backing up, the accident log, the two prices — is there to support it. If you missed this, revisit \"Claim, reason, evidence\" in the lesson.",
+        choiceRationales: [
+          "Correct. It is the position the rest of the passage asks you to accept.",
+          "A reason. It answers why you should accept the claim, not what the claim is.",
+          "Evidence from the accident log. It shows how the author knows backing up is risky.",
+          "Not in the passage. The author never faults the drivers; the problem described is that they often have no one outside to guide them.",
+        ],
+        skill: "evidence",
+        difficulty: "Foundation",
+      },
+      {
+        id: "ev-m2",
+        type: "evidence-selection",
+        question:
+          "Which sentence from the passage is evidence, rather than the claim or a restatement of it?",
+        passageId: "ev-mastery-vans",
+        choices: [
+          "Cameras are the right investment for this fleet, and the sooner we add them, the sooner we stop paying for the same accident again and again.",
+          "Backing up is the riskiest part of a driver's shift.",
+          "The company should install backup cameras in every delivery van.",
+          "The safety office's accident log shows that 15 of the 22 van accidents drivers reported last year happened while backing up.",
+        ],
+        correctAnswer: 3,
+        explanation:
+          "Evidence answers the question of how the author knows. Only the accident log names a source and gives a count you could check. The first and last sentences state the claim, and the sentence about risk is a reason that the log then proves. If you missed this, revisit \"Claim, reason, evidence\" — evidence is the specific material behind a reason, not another way of saying the claim.",
+        choiceRationales: [
+          "A restatement of the claim in the last sentence. It sounds like a conclusion, but it adds no new support.",
+          "A reason, not evidence. It tells you why to accept the claim; the accident log is what shows the author knows it is true.",
+          "This is the claim itself. A claim cannot be its own evidence.",
+          "Correct. It names a source and gives specific numbers.",
+        ],
+        skill: "evidence",
+        difficulty: "Developing",
+      },
+      {
+        id: "ev-m3",
+        type: "multiple-choice",
+        question:
+          "The author includes the average repair cost and the price of a camera mainly to —",
+        passageId: "ev-mastery-vans",
+        choices: [
+          "show that drivers have been careless with company vans",
+          "show that preventing even a few backing accidents would more than pay for the cameras",
+          "prove that cameras will prevent every backing accident",
+          "explain why drivers often have no one outside to guide them",
+        ],
+        correctAnswer: 1,
+        explanation:
+          "The two prices turn the claim into a money decision: one $2,100 repair costs as much as seven cameras. The detail supports the cost side of the argument, not the safety side. If you missed this, revisit \"Claim, reason, evidence\" — each piece of evidence holds up a specific reason, and this one holds up the reason that cameras are worth what they cost.",
+        choiceRationales: [
+          "Not in the passage. The author never blames the drivers for the accidents.",
+          "Correct. At these prices, a single prevented repair covers several cameras.",
+          "Too strong. The prices show what an accident costs; nothing in the passage shows that cameras prevent every accident, or any particular number of them.",
+          "The prices have nothing to do with guiding drivers. That detail belongs to the reason about risk.",
+        ],
+        skill: "evidence",
+        difficulty: "TABE Ready",
+      },
+      {
+        id: "ev-m4",
+        type: "multiple-choice",
+        question:
+          "Which additional evidence would most strengthen the author's argument?",
+        passageId: "ev-mastery-vans",
+        choices: [
+          "A driver's account of backing a van into a loading dock",
+          "A list of the camera models the parts supplier sells, with their features",
+          "Accident records from vans that already have cameras, showing whether backing accidents fell",
+          "A count of how many times each driver backs up during a typical shift",
+        ],
+        correctAnswer: 2,
+        explanation:
+          "The passage proves that backing accidents are common and expensive, but it never shows that cameras reduce them — and the whole cost comparison depends on that link. Evidence from vans that already have cameras would fill the gap directly. If you missed this, revisit \"Three tests for evidence\": the evidence here is relevant, but it is not yet sufficient.",
+        choiceRationales: [
+          "A single story is anecdote, and it would only add to the proof that backing accidents happen — which the accident log already shows.",
+          "Product features do not show whether cameras reduce accidents. This evidence is not relevant to the gap in the argument.",
+          "Correct. It tests the link the argument assumes but never proves: that cameras actually prevent backing accidents.",
+          "This would add detail to a reason that is already supported. The log shows that backing is where accidents happen; the missing piece is whether cameras help.",
+        ],
+        skill: "evidence",
+        difficulty: "TABE Ready",
+      },
+    ],
+  },
+
   resources: [
     {
       label: "TABE Prep: Evidence and Argument questions",
       detail: "How to match evidence to a claim and spot the near-miss choice.",
       href: "/eng0300/tabe",
+    },
+    {
+      label: "Practice Center — Evidence sets",
+      detail: "Every Evidence set in one place, from the guided question through the challenge.",
+      href: "/eng0300/practice?skill=evidence",
     },
   ],
 };
