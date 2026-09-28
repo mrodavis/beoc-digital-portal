@@ -17,8 +17,8 @@ Maps each syllabus course outcome to its source material, week, skill lab, pract
 | 3 | Make logical inferences and draw conclusions, supporting them with specific details from the text | Scoreboost Unit 2, Strategy 4 (pp. 19–22 assigned); TABE Mastery Unit 2 (pp. 38–43 assigned); instructor handout | 2 | [Inferences & Conclusions](/eng0300/skills/inferences) | *The Third Application* (guided); *Closing Time* (3 items, including an "which conclusion goes too far" item) | Inference item paired with an evidence-selection follow-up (TABE two-part format) |
 | 4 | Determine the meaning of unfamiliar, technical, or multi-meaning words using context clues and word roots | Scoreboost Unit 1, Strategy 2 (pp. 7–11 assigned); TABE Mastery Unit 1; TABE Academy vocabulary module | 3 | [Vocabulary in Context](/eng0300/skills/vocabulary) | *Reading the Lease* (guided); *The Grid in August* — `curtail`, multi-meaning `load`, `brownout` clue-type item | Vocabulary-in-context set over a technical passage, mixed clue types |
 | 5 | Interpret figurative language, including metaphors, similes, and idioms, in context | Scoreboost Unit 1, Strategy 3 (pp. 12–15); TABE Mastery Unit 1 (pp. 28–33 assigned); CommonLit vocabulary passage | 3 | [Vocabulary in Context](/eng0300/skills/vocabulary) | Five-type reference table in the lesson; *walking a tightrope in the wind* metaphor item in *The Grid in August* | Identify-and-interpret items across all five figurative types |
-| 6 | Describe the overall structure of a text (chronology, comparison, cause/effect, problem/solution) | Scoreboost Unit 3, Strategy 9 (pp. 43–49 assigned); TABE Mastery Unit 3 | 4 | [Text Structure](/eng0300/skills/text-structure) | *Cooling the Block* worked example (problem/solution with cause/effect nested inside); *Two Routes to the Same Job* (guided) | Name-the-structure items plus a justification citing signal words |
-| 7 | Compare and contrast the structure of two or more texts on a related topic | Scoreboost Unit 3; TABE Mastery Unit 3 (pp. 80–85 assigned) | 4 | [Text Structure](/eng0300/skills/text-structure) | Paired texts *How the Line Got Longer* / *Fixing the Backlog* (3 items, ending in a paired-text comparison item) | Paired-passage structure comparison with a short written justification |
+| 6 | Describe the overall structure of a text (chronology, comparison, cause/effect, problem/solution) | Scoreboost Unit 3, Strategy 9 (pp. 43–49 assigned); TABE Mastery Unit 3 | 4 | [Text Structure](/eng0300/skills/text-structure) | *Cooling the Block* worked example (problem/solution with cause/effect nested inside); *Two Routes to the Same Job* (guided); *Clocking In* challenge (4 items — compare/contrast with a chronology and a cause/effect nested inside, incl. a multiple-select signal-word item and a short-response justification); *Reporting an Injury at Work* / *Why Small Injuries Go Unreported* mastery check (4 items) | Name-the-structure items plus a justification citing signal words |
+| 7 | Compare and contrast the structure of two or more texts on a related topic | Scoreboost Unit 3; TABE Mastery Unit 3 (pp. 80–85 assigned) | 4 | [Text Structure](/eng0300/skills/text-structure) | Paired texts *How the Line Got Longer* / *Fixing the Backlog* (3 items, ending in a paired-text comparison item); paired-text comparison item closing the mastery check | Paired-passage structure comparison with a short written justification |
 | 8 | Describe how a narrator's or author's point of view influences how events or ideas are presented | Scoreboost Unit 3 (pp. 50–53 assigned); TABE Mastery Unit 3 (pp. 86–93 assigned); instructor paired-perspective handout | 5 | [Point of View & Purpose](/eng0300/skills/point-of-view) | *The Bus Route Hearing* — two accounts of one hearing, worked through step by step; first-person effect item in *What the Library Became* | Paired-perspective set: same event, two authors, what each frames as important |
 | 9 | Distinguish between fact and opinion and determine an author's primary purpose | Scoreboost Unit 3; TABE Mastery Unit 3 | 5 | [Point of View & Purpose](/eng0300/skills/point-of-view) | *From an Employee Handbook* (POV + purpose, guided); *What the Library Became* — purpose item and a multiple-select fact/opinion item | Fact/opinion sort plus a primary-purpose item on an argumentative passage |
 | 10 | Explain how an author uses reasons and evidence to support a point, and evaluate whether that evidence is sufficient | Scoreboost Unit 4, Strategy 14 (pp. 71–74 assigned); TABE Mastery Unit 4 (pp. 124–132 assigned) | 6 | [Evidence & Arguments](/eng0300/skills/evidence) | *The Case for a Four-Day Week* worked example (strongest vs. weakest support); *Overdraft Fees* (guided); *Free Fares* (4 items incl. weakest-support and a short response on sufficiency) | Claim/reason/evidence identification plus a written evaluation of sufficiency |
@@ -34,7 +34,7 @@ Maps each syllabus course outcome to its source material, week, skill lab, pract
 | 1 | 1–2 | Main Ideas & Details; Summarizing | Main Ideas & Details | **Complete** — all seven stages authored (exemplar) |
 | 2 | 3–4 | Inferences & Conclusions | Inferences & Conclusions | Starter — Learn, See It, Try It, Practice, Answer Review |
 | 3 | 5–6 | Vocabulary in Context; Figurative Language | Vocabulary in Context | Starter — Learn, See It, Try It, Practice, Answer Review |
-| 4 | 7–8 | Text Structure; comparing structures; progress check-in | Text Structure | Starter — Learn, See It, Try It, Practice (paired texts), Answer Review |
+| 4 | 7–8 | Text Structure; comparing structures; progress check-in | Text Structure | **Complete** — all seven stages authored |
 | 5 | 9–10 | Point of View; fact vs. opinion; comparing POV | Point of View & Purpose | Starter — Learn, See It (paired accounts), Try It, Practice, Answer Review |
 | 6 | 11–12 | Author's reasons and evidence; argument quality | Evidence & Arguments | Starter — Learn, See It, Try It, Practice, Answer Review |
 | 7 | 13–14 | Visual/data integration; cumulative review | Visual & Data Integration | Starter — Learn, See It, Try It, Practice, Answer Review |
@@ -77,6 +77,9 @@ Page ranges for Scoreboost Units 1–3 were read from the scans; the Unit 4 uppe
 | Two Routes to the Same Job | Workplace | Text Structure | Try It | 84 |
 | How the Line Got Longer | History | Text Structure | Practice (paired A) | 150 |
 | Fixing the Backlog | Informational | Text Structure | Practice (paired B) | 145 |
+| Clocking In | Technology | Text Structure | Challenge | 342 |
+| Reporting an Injury at Work | Workplace | Text Structure | Mastery Check (paired 1) | 84 |
+| Why Small Injuries Go Unreported | Workplace | Text Structure | Mastery Check (paired 2) | 87 |
 | The Bus Route Hearing | Informational | Point of View | See It (paired accounts) | 210 |
 | From an Employee Handbook | Workplace | Point of View | Try It | 74 |
 | What the Library Became | Argument | Point of View | Practice | 230 |
@@ -87,7 +90,7 @@ Page ranges for Scoreboost Units 1–3 were read from the scans; the Unit 4 uppe
 | Who Is Online at Home | Data / Charts | Visual & Data | Try It (with figure) | 70 |
 | When the Clinic Is Open | Health | Visual & Data | Practice (with figure) | 205 |
 
-**24 original passages · 39 questions · 16 practice sets.** Topics are drawn from workplace, health, science, finance, civic life, history, and career development, per the adult-learner requirement. All three figures are labelled *"Illustrative figure created for instruction. Not drawn from a published dataset"* — they are teaching artifacts and are not presented as real published statistics.
+**27 original passages · 47 questions · 18 practice sets.** Topics are drawn from workplace, health, science, finance, civic life, history, and career development, per the adult-learner requirement. All three figures are labelled *"Illustrative figure created for instruction. Not drawn from a published dataset"* — they are teaching artifacts and are not presented as real published statistics.
 
 ---
 
@@ -95,9 +98,9 @@ Page ranges for Scoreboost Units 1–3 were read from the scans; the Unit 4 uppe
 
 | Gap | Where |
 |---|---|
-| Challenge stage for six skills | Inferences, Vocabulary, Text Structure, Point of View, Evidence, Visual & Data |
-| Mastery Check for six skills | same six |
-| Question-type balance | all seven types are represented, but `paired-text` appears once, `short-response` three times, and `multiple-select` twice |
-| Passage types with no set yet | Technology, Biography |
-| Difficulty balance | 6 Foundation, 9 Developing, 15 TABE Ready, 9 Challenge — Foundation is the thinnest tier |
+| Challenge stage for five skills | Inferences, Vocabulary, Point of View, Evidence, Visual & Data |
+| Mastery Check for five skills | same five |
+| Question-type balance | all seven types are represented, but `paired-text` appears twice, `short-response` four times, and `multiple-select` three times |
+| Passage types with no set yet | Biography |
+| Difficulty balance | 7 Foundation, 10 Developing, 18 TABE Ready, 12 Challenge — Foundation is the thinnest tier |
 | Diagnostic / progress instrument | Week 1 Day 1 diagnostic and Week 7 Day 2 progress test are instructor-administered; nothing in the portal implements them, by design |
