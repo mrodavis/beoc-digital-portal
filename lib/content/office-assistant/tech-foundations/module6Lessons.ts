@@ -7,6 +7,7 @@ export const module6Lessons: Lesson[] = [
     description:
       "Operate and troubleshoot the printers, scanners, and copiers that every medical office relies on daily — from loading paper to resolving jams and configuring scan-to-email.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/-2vShNF3cYU",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -137,6 +138,7 @@ export const module6Lessons: Lesson[] = [
     description:
       "Set up a workstation that supports high performance and long-term comfort — correct monitor position, ergonomic peripherals, and a setup that prevents strain injuries.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/58d4h9yCDc8",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -266,6 +268,7 @@ export const module6Lessons: Lesson[] = [
     description:
       "Diagnose and resolve the most frequent hardware problems that occur in office environments — reducing downtime and IT tickets for issues you can solve independently.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/j-OAa1JSXhc",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -397,6 +400,7 @@ export const module6Lessons: Lesson[] = [
     description:
       "Set up, test, and present yourself professionally in Microsoft Teams and Zoom meetings — the video conferencing tools now standard in every healthcare office environment.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/u_KAbrb0aGk",
     sections: [
       {
         heading: "Real-World Scenario",
