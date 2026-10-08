@@ -7,6 +7,7 @@ export const module8Lessons: Lesson[] = [
     description:
       "Recognize the most common digital threats targeting office workers and healthcare organizations — so you can identify them before they cause harm.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/-ca2pZkCaRc",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -137,6 +138,7 @@ export const module8Lessons: Lesson[] = [
     description:
       "Create strong, unbreakable passwords, manage them without memorizing hundreds of them, and enable multi-factor authentication across every important account.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/2xiQlzISXeM",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -267,6 +269,7 @@ export const module8Lessons: Lesson[] = [
     description:
       "Identify phishing emails, suspicious links, and social engineering attempts before they succeed — the single most important skill for preventing security incidents in a medical office.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/7B_mw5tShns",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -398,6 +401,7 @@ export const module8Lessons: Lesson[] = [
     description:
       "Understand HIPAA's data security requirements as they apply to your daily work — and develop the habits that protect patient privacy and keep the practice compliant.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/Epteg96JgLw",
     sections: [
       {
         heading: "Real-World Scenario",

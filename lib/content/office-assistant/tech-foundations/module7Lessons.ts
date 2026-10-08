@@ -7,6 +7,7 @@ export const module7Lessons: Lesson[] = [
     description:
       "Learn what cloud storage is, how OneDrive integrates with your Windows workstation and Microsoft 365, and how to use it safely for professional file management.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/rUp3qC-w0ec",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -137,6 +138,7 @@ export const module7Lessons: Lesson[] = [
     description:
       "Share files professionally, co-author documents in real time, and manage permissions so that colleagues access exactly what they need — and nothing more.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/paKKd2hpjh0",
     sections: [
       {
         heading: "Real-World Scenario",
@@ -266,6 +268,7 @@ export const module7Lessons: Lesson[] = [
     description:
       "Use Microsoft Teams as a complete communication hub — chat, call, meet, and collaborate in the tool that has become the backbone of modern office communication.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/jDOH-Olg9F0",
     sections: [
       {
         heading: "Real-World Scenario",
