@@ -288,12 +288,12 @@ export const module8Lessons: Lesson[] = [
   },
   {
     slug: "integrated-case-practice-lab",
-    title: "EHR Go Lab: Integrated Case Practice",
+    title: "EHR Simulator Lab: Integrated Case Practice",
     description:
-      "Complete an integrated case in EHR Go covering revenue cycle, compliance, and documentation from registration through payment posting.",
+      "Complete the graded rooming and medication reconciliation simulation, which brings identity, documentation, results, and medication safety together in one case.",
     objectives: [
-      "Work a complete case from registration through payment",
-      "Apply coding, privacy, and compliance judgment together",
+      "Work a complete case from rooming through a signed note",
+      "Apply accuracy, privacy, and documentation judgment together",
     ],
     duration: "80 min",
     sections: [
@@ -302,7 +302,7 @@ export const module8Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are working the integrated case in EHR Go.",
+            role: "You are rooming a patient at Northstar Medical Center.",
             text: "This case does not announce which skill each step needs. That is the point — real work does not arrive labelled by module.",
             task: "Work the case end to end and notice which decisions you hesitated on.",
           },
@@ -313,21 +313,39 @@ export const module8Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Lab Overview",
+        heading: "In the Simulator",
         blocks: [
           {
             type: "callout",
             variant: "info",
-            text: "This is a capstone lab session. Mr. Davis will guide you through a full patient encounter from registration to payment posting using EHR Go.",
+            text: "This is a capstone lab session. Mr. Davis will guide you through a complete patient case in the BEOC EHR Simulator.",
           },
           {
-            type: "list",
-            items: [
-              "Register a new patient and verify insurance eligibility",
-              "Document the clinical encounter and assign diagnosis and procedure codes",
-              "Submit a simulated claim and track its status",
-              "Post the payment and resolve a sample denial",
+            type: "simulator",
+            title: "Graded simulation: Hypertension Follow-Up",
+            path: "/ehr/assignments",
+            role: "Medical Assistant",
+            assignment: "Hypertension Follow-Up: Rooming and Medication Reconciliation",
+            steps: [
+              "Start the simulation; it switches you to Medical Assistant. Open the assigned patient and confirm identity with two identifiers.",
+              "Review the chief complaint, then the allergy list, before any medication work.",
+              "Document a full set of vital signs. The blood pressure is elevated: record exactly what you measure.",
+              "Review the medication list and complete medication reconciliation, documenting the doses the patient reports missing.",
+              "Complete the required intake flowsheet rows.",
+              "Review the provider's new order, which appears once reconciliation is done, and the laboratory result that returns.",
+              "Write and sign your intake note, complete the simulation, and read the debrief.",
             ],
+            done: "The debrief shows a passing score with no critical errors.",
+          },
+          {
+            type: "simulator",
+            title: "Walk one chart through every seat",
+            path: "/ehr/patients",
+            steps: [
+              "Open your practice patient's chart and walk it in order: Registration, Notes, Orders, Results, Billing.",
+              "At each stop, say who on the team does that work, and what would go wrong further down the line if they made an error there.",
+            ],
+            done: "You can trace one visit through every seat in the building.",
           },
         ],
       },

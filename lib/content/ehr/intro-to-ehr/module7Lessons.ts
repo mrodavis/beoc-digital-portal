@@ -231,12 +231,13 @@ export const module7Lessons: Lesson[] = [
   },
   {
     slug: "patient-tracking-financial-management-lab",
-    title: "EHR Go Lab: Patient Tracking, Administrative & Financial Workflows",
+    title: "EHR Simulator Lab: Patient Tracking, Administrative & Financial Workflows",
     description:
-      "Apply patient tracking and financial management concepts in EHR Go through structured exercises.",
+      "Track patients through the schedule, census, and bed board, close a visit, and read the revenue work queue the way an office manager does.",
     objectives: [
-      "Run patient tracking and financial reports in EHR Go",
-      "Interpret an aging report and identify what to work first",
+      "Track a visit through its statuses on the schedule",
+      "Read the census and bed board to locate patients",
+      "Read a revenue work queue and decide what to work first",
       "Handle reports containing PHI appropriately",
     ],
     duration: "80 min",
@@ -272,21 +273,38 @@ export const module7Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Lab Overview",
+        heading: "In the Simulator",
         blocks: [
           {
             type: "callout",
             variant: "info",
-            text: "Mr. Davis leads this lab through EHR Go's administrative and financial management features.",
+            text: "Mr. Davis leads this lab through the simulator's administrative and financial workspaces.",
           },
           {
-            type: "list",
-            items: [
-              "Search and track patients across the EHR Go system",
-              "Run a basic financial report in the simulation",
-              "Review an accounts receivable aging summary",
-              "Identify and document a sample claim status",
+            type: "simulator",
+            title: "Track the visit and the building",
+            path: "/ehr/schedule",
+            role: "Front Desk",
+            steps: [
+              "As Front Desk, open Schedule in Day view. Find your practice patient's visit and read its status against the sequence: scheduled, confirmed, arrived, checked in, roomed, in progress, completed.",
+              "Switch to the Provider view, then the Location view. Say what question each view answers that the others do not.",
+              "Check your practice patient out to close the visit and its encounter.",
+              "Open Census & Beds. Find the unit's occupancy and one bed in each status you can see, such as occupied, available, and cleaning.",
             ],
+            done: "Your practice patient's visit shows completed, and you can say where every inpatient is.",
+          },
+          {
+            type: "simulator",
+            title: "Work the revenue queue like a manager",
+            path: "/ehr/billing",
+            role: "Billing",
+            steps: [
+              "Switch to Billing and open the revenue work queue.",
+              "On paper, split the claims into those that need action now and those waiting on someone else.",
+              "Find the denied claim. Read its reason code and decide what corrects it, using the denial table from Lab 3. Read only; do not change it.",
+              "Apply the worked example above to what you see: deadline first, then value, then pattern.",
+            ],
+            done: "You have a short written note to a manager: what to work first, and the one process change that would prevent the denial.",
           },
         ],
       },

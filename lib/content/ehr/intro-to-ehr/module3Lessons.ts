@@ -279,14 +279,14 @@ export const module3Lessons: Lesson[] = [
   },
   {
     slug: "outpatient-coding-and-payments-lab",
-    title: "EHR Go Lab: Outpatient Coding Workflow & Payment Posting",
+    title: "EHR Simulator Lab: Outpatient Coding Workflow & Payment Posting",
     description:
-      "Practice entering outpatient diagnosis and procedure codes in EHR Go, then post a payment and apply an adjustment.",
+      "Code a finished office visit in the BEOC EHR Simulator: capture charges with diagnosis pointers, clear the claim scrub, submit, read the payer's response, and post the payment.",
     objectives: [
-      "Code an outpatient encounter from documentation in EHR Go",
-      "Link diagnosis and procedure codes with correct pointers",
-      "Post a payment and a contractual adjustment correctly",
-      "Read an explanation of benefits",
+      "Capture outpatient charges from documentation",
+      "Link each procedure to the diagnosis that supports it",
+      "Read a payer response: billed, allowed, paid, and patient responsibility",
+      "Post a payment and account for the contractual adjustment",
     ],
     duration: "80 min",
     sections: [
@@ -295,7 +295,7 @@ export const module3Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are working the coding and posting lab in EHR Go.",
+            role: "You are working the billing office at Northstar Medical Center.",
             text: "This lab runs the back half of the revenue cycle end to end: read the note, select the codes, link them, submit, and then post what comes back. Doing it once in sequence is what makes the individual steps make sense.",
             task: "Follow one encounter from documentation to a zero balance.",
           },
@@ -327,20 +327,70 @@ export const module3Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Lab Overview",
+        heading: "In the Simulator",
         blocks: [
           {
             type: "callout",
             variant: "info",
-            text: "In this lab, Mr. Davis will guide you through the coding and payment posting workflow in EHR Go using a simulated patient encounter.",
+            text: "In this lab, Mr. Davis will guide you through charge capture, claims, and payment posting in the BEOC EHR Simulator.",
           },
           {
-            type: "list",
-            items: [
-              "Assign ICD-10-CM diagnosis codes to a patient encounter",
-              "Select appropriate CPT procedure codes",
-              "Submit a simulated claim in EHR Go",
-              "Post an insurance payment and apply a contractual adjustment",
+            type: "simulator",
+            title: "Tour the revenue work queue",
+            path: "/ehr/billing",
+            role: "Billing",
+            steps: [
+              "Switch to Billing and open Billing from the left menu. This is the revenue work queue: every open claim in the building and where it stands.",
+              "Read the statuses a claim moves through: draft, ready, submitted, accepted or denied, paid.",
+              "Open a claim and find its Claim Scrub and Claim History. Read only; these claims belong to the whole class.",
+            ],
+            done: "You can say what has to happen to a draft claim before it can be paid.",
+          },
+          {
+            type: "simulator",
+            title: "Graded simulation: Charge Capture and Claim Submission",
+            path: "/ehr/assignments",
+            role: "Billing",
+            assignment: "Charge Capture and Claim Submission",
+            steps: [
+              "Start the simulation and open the patient's Billing section. Confirm the primary coverage is on file and effective today.",
+              "Capture the office visit, 99214, and point it to the diabetes diagnosis.",
+              "Look at the Claim Scrub as you go. A line with no diagnosis pointer is an error there, and it is exactly the CO-16 denial you are preventing.",
+              "Capture the hemoglobin A1c, 83036, with the diabetes diagnosis as its pointer.",
+              "When the scrub shows no errors, assemble the claim and submit it. Read the payer response: billed, allowed, payer paid, and patient responsibility.",
+              "Before you post, work out the contractual adjustment on paper: billed minus allowed. Then post the payment.",
+            ],
+            done: "The claim shows Paid, and you can account for every dollar of the billed amount.",
+          },
+          {
+            type: "table",
+            caption: "The denials the simulator's payer can return",
+            columns: [
+              "Code",
+              "What it means",
+              "What prevents it",
+            ],
+            rows: [
+              [
+                "CO-16",
+                "Claim lacks information needed to adjudicate",
+                "Every line points to a supporting diagnosis",
+              ],
+              [
+                "CO-27",
+                "Coverage was not in effect on the date of service",
+                "Verifying eligibility at registration, every visit",
+              ],
+              [
+                "CO-29",
+                "Filed after the timely filing limit (90 days here)",
+                "Working claims promptly; watching the aged bucket",
+              ],
+              [
+                "CO-97",
+                "Service is included in another service on the claim",
+                "Not billing the same procedure twice",
+              ],
             ],
           },
         ],

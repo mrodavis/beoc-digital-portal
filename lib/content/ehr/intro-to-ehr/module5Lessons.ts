@@ -31,7 +31,7 @@ export const module5Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "The midterm counts for 25% of your final grade. Make sure you have reviewed the Week 4 study materials and completed the EHR Go midterm skills review lab.",
+            text: "The midterm counts for 25% of your final grade. Make sure you have reviewed the Week 4 study materials and completed the EHR Simulator midterm skills review lab.",
           },
         ],
       },
@@ -156,13 +156,13 @@ export const module5Lessons: Lesson[] = [
   },
   {
     slug: "provider-order-entry-lab",
-    title: "EHR Go Lab: Provider Order Entry & Patient Chart Review",
+    title: "EHR Simulator Lab: Provider Order Entry & Patient Chart Review",
     description:
-      "Use EHR Go to enter simulated provider orders, complete documentation tasks, and review a patient chart.",
+      "Work as the provider in the BEOC EHR Simulator: verify the patient, enter and sign orders from the catalogue, and review a chart and its results.",
     objectives: [
-      "Enter orders in EHR Go and trace them to results",
       "Verify patient identity before entering an order",
-      "Recognize what a clinical decision support alert is telling you",
+      "Enter and sign orders: search, configure, review, sign",
+      "Review a chart and its results before deciding what to order",
     ],
     duration: "80 min",
     sections: [
@@ -171,7 +171,7 @@ export const module5Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are working the order entry lab in EHR Go.",
+            role: "You are working the order entry lab in the BEOC EHR Simulator.",
             text: "Two charts are open in adjacent tabs. This is the single most common way an order reaches the wrong patient, and it happens to careful people working quickly.",
             task: "Build the verification habit while the patients are fictional.",
           },
@@ -183,21 +183,39 @@ export const module5Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Lab Overview",
+        heading: "In the Simulator",
         blocks: [
           {
             type: "callout",
             variant: "info",
-            text: "Mr. Davis leads this hands-on lab focused on CPOE and clinical documentation in EHR Go.",
+            text: "Mr. Davis leads this hands-on lab focused on CPOE and chart review in the BEOC EHR Simulator. Today you work as the provider.",
           },
           {
-            type: "list",
-            items: [
-              "Navigate to the order entry section of EHR Go",
-              "Enter a simulated lab order and medication order",
-              "Complete a clinical documentation task",
-              "Review a completed patient chart for accuracy",
+            type: "simulator",
+            title: "Review a chart before you order",
+            path: "/ehr/patients",
+            role: "Provider",
+            steps: [
+              "Switch to Provider. Search for Tamika Sorensen and open her chart. Read only; her chart is shared with the whole class.",
+              "In Chart Review, read her recent encounters. In Problems, Medications, and Allergies, note what an ordering provider has to know before ordering anything.",
+              "Open Results and read her Complete Blood Count. Check each value against its reference range and note any flag.",
+              "Write two sentences: what you would want to know next, and what in the chart supports it.",
             ],
+            done: "You can name her active problems and allergies without looking.",
+          },
+          {
+            type: "simulator",
+            title: "Enter and sign orders on your practice patient",
+            path: "/ehr/patients",
+            role: "Provider",
+            steps: [
+              "Search for your practice patient and open the chart. Before ordering, compare two identifiers in the header — name and date of birth — with the patient you meant to open.",
+              "Open Orders. Search the catalogue for Complete Blood Count, select it, and configure it: choose a priority and add a short detail, such as the reason for the order.",
+              "Review the order, then sign it. The sequence is the lesson: search, configure, review, sign. An order is not an order until it is signed.",
+              "Enter a second order from a different category — Chest X-Ray, 2 Views, or a Cardiology Consultation — and sign it.",
+              "Find both orders on the Orders list and read their status.",
+            ],
+            done: "Your practice patient has two signed orders, and you checked the header before each one.",
           },
         ],
       },

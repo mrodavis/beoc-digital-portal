@@ -9,7 +9,7 @@ export const module1Lessons: Lesson[] = [
     objectives: [
       "Describe what an electronic health record is and what it replaced",
       "Name the three zones of a medical practice and the work each does",
-      "Explain how this course is assessed and what EHR Go is used for",
+      "Explain how this course is assessed and what the EHR Simulator is used for",
       "Describe the role an EHR specialist actually performs",
     ],
     duration: "15 min",
@@ -120,7 +120,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "This course uses EHR Go, a simulated EHR environment. Nothing you enter there concerns a real person, which is exactly why it is safe to practice in. Everything you learn about privacy and accuracy still applies — the habits you build in a simulator are the habits you will carry to a live system.",
+            text: "This course uses the BEOC EHR Simulator, a working EHR at a fictional training hospital. Nothing you enter there concerns a real person, which is exactly why it is safe to practice in. Everything you learn about privacy and accuracy still applies — the habits you build in a simulator are the habits you will carry to a live system.",
           },
         ],
       },
@@ -129,7 +129,7 @@ export const module1Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "This course introduces you to Electronic Health Records — the digital systems that power modern healthcare. Over nine weeks you will learn patient workflow, the healthcare revenue cycle, medical coding, legal compliance, and hands-on EHR simulation using EHR Go.",
+            text: "This course introduces you to Electronic Health Records — the digital systems that power modern healthcare. Over nine weeks you will learn patient workflow, the healthcare revenue cycle, medical coding, legal compliance, and weekly hands-on labs in the BEOC EHR Simulator.",
           },
           {
             type: "list",
@@ -138,7 +138,7 @@ export const module1Lessons: Lesson[] = [
               "Healthcare revenue cycle from check-in to payment",
               "ICD, CPT, and HCPCS coding systems",
               "Legal and regulatory requirements for EHR use",
-              "Hands-on simulation with EHR Go",
+              "Hands-on labs in the BEOC EHR Simulator",
             ],
           },
         ],
@@ -158,7 +158,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "Thursday lab sessions in EHR Go count toward your Homework & Lab Assignments grade. Come prepared and log in before class starts.",
+            text: "Thursday lab sessions in the BEOC EHR Simulator, including its graded simulations, count toward your Homework & Lab Assignments grade. Come prepared and sign in before class starts.",
           },
         ],
       },
@@ -171,7 +171,7 @@ export const module1Lessons: Lesson[] = [
           "Attendance only",
           "Midterm Exam",
           "Weekly quizzes",
-          "EHR Go login streak",
+          "Simulator login streak",
         ],
         correctIndex: 1,
         explanation: "Check your syllabus for the exact weighting, which is authoritative. The point of knowing it is practical: the midterm carries enough weight that preparation for it should start well before Module 4's review session.",
@@ -179,7 +179,7 @@ export const module1Lessons: Lesson[] = [
           "Attendance matters and is recorded, but it is not the largest single component.",
           "Correct per the course syllabus. Confirm the exact figure against your syllabus, which is the authoritative source.",
           "Quizzes contribute, but not at this weight.",
-          "Not a graded component. Logging into EHR Go matters because the labs are where the skills are built, not because attendance in the software is scored.",
+          "Not a graded component. Signing in to the simulator matters because the labs are where the skills are built, not because attendance in the software is scored.",
         ],
       },
     ],
@@ -378,14 +378,14 @@ export const module1Lessons: Lesson[] = [
   },
   {
     slug: "ehr-go-orientation",
-    title: "EHR Go Lab: Orientation & Navigation",
+    title: "EHR Simulator Lab: Orientation & Navigation",
     description:
-      "Log in to EHR Go for the first time, explore the interface, and complete a guided workflow basics exercise.",
+      "Join your class in the BEOC EHR Simulator, find your way around Northstar Medical Center, and open a chart the way you will at work.",
     objectives: [
-      "Navigate the EHR Go environment and locate a patient chart",
+      "Join your class in the EHR Simulator and sign in",
+      "Find a patient by name or date of birth and open the chart",
       "Identify the main areas of an EHR: chart, orders, results, documents, billing",
       "Explain what an audit trail records and why it matters",
-      "Work in a simulated EHR with the habits a live system requires",
     ],
     duration: "80 min",
     sections: [
@@ -394,7 +394,7 @@ export const module1Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are opening EHR Go for the first time.",
+            role: "You are opening the BEOC EHR Simulator for the first time.",
             text: "The chart in front of you belongs to a fictional patient, so nothing you do here can harm anyone. That is precisely why it is the right place to build the habits that will matter when the chart is real.",
             task: "Learn the layout, and learn to work as though every action is logged — because in a live system it is.",
           },
@@ -456,16 +456,41 @@ export const module1Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Lab Overview",
+        heading: "In the Simulator",
         blocks: [
           {
             type: "callout",
             variant: "info",
-            text: "This is a hands-on lab session led by Mr. Davis. You will log in to EHR Go, navigate the dashboard, and complete the orientation activity assigned in the platform.",
+            text: "This is a hands-on lab session led by Mr. Davis. The BEOC EHR Simulator is a working electronic health record at Northstar Medical Center, a training hospital with fictional patients. Have the class code from Mr. Davis ready before you start.",
           },
           {
-            type: "paragraph",
-            text: "EHR Go is a simulated Electronic Health Record environment used by healthcare training programs nationwide. Every activity you complete in EHR Go mirrors real tasks performed in clinic and hospital settings.",
+            type: "simulator",
+            title: "Join your class and sign in",
+            path: "/ehr",
+            steps: [
+              "If this is your first time, choose “Join with your class code” below, enter the code, and check that the class shown is yours. Create your account with your name as it appears on the class roster, your email, and a password of at least 10 characters.",
+              "You land on Home. Read the top bar from left to right: patient search, your inbox and task counts, your name, and the role you are working as.",
+              "Open the role selector in the top bar. Your class holds four roles — Front Desk, Medical Assistant, Provider, and Billing — and each one unlocks different work. Switch to Front Desk.",
+            ],
+            done: "You are signed in and the top bar shows Front Desk.",
+          },
+          {
+            type: "simulator",
+            title: "Find a patient and read the chart",
+            path: "/ehr/patient-lists",
+            role: "Front Desk",
+            steps: [
+              "Open Patient Lists. Notice how the day is organized: work starts from a list, not from a search box.",
+              "Press Ctrl + K (Cmd + K on a Mac) to open patient search. Find Emeka Castellanos by name. Then search again by his date of birth, typed as 1954-05-08. Both searches should land on the same MRN.",
+              "Open his chart. Before reading anything else, find the patient header: name, MRN, date of birth, age, and any allergy alert. It stays on screen in every section.",
+              "Click through each chart section — Summary, Chart Review, Notes, Flowsheets, MAR, Medications, Med Rec, Orders, Results, Problems, Allergies, Registration, and Billing — and write one thing each one holds. Read only; this chart is shared with your whole class.",
+              "Go back to Home and open the Workflow Translation guide. Read the entries for Patient Lists, Persistent Patient Header, and Chart Sections.",
+            ],
+            done: "You can open any chart with two searches and say what each chart section is for without guessing.",
+          },
+          {
+            type: "tip",
+            text: "Keep this lesson open in one browser tab and the simulator in another. The role you are working as is shown in the simulator's top bar; switch it there whenever a step names a different role.",
           },
         ],
       },
@@ -475,10 +500,10 @@ export const module1Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Log in to EHR Go with your assigned credentials",
-              "Navigate the main dashboard and menu structure",
-              "Identify key areas: patient search, scheduling, documentation",
-              "Complete the EHR Go orientation activity",
+              "Join your class in the BEOC EHR Simulator and sign in",
+              "Navigate Home, Patient Lists, patient search, and the chart sections",
+              "Read the patient header before reading anything else in a chart",
+              "Explain why every chart you open is logged",
             ],
           },
         ],

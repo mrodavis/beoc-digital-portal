@@ -241,14 +241,14 @@ export const module2Lessons: Lesson[] = [
   },
   {
     slug: "patient-registration-insurance-review-lab",
-    title: "EHR Go Lab: Patient Registration & Insurance Review",
+    title: "EHR Simulator Lab: Patient Registration & Insurance Review",
     description:
-      "Practice front-end workflow in EHR Go by registering a new patient, entering insurance information, and verifying eligibility.",
+      "Register a new patient, record their insurance, book and check in their visit, then complete the graded New Patient Arrival simulation.",
     objectives: [
       "Register a patient accurately in the EHR",
-      "Capture and verify insurance information",
+      "Capture and verify insurance information before the visit",
+      "Book an appointment and check the patient in from the schedule",
       "Recognize the registration errors that cause downstream denials",
-      "Document consent and financial responsibility",
     ],
     duration: "80 min",
     sections: [
@@ -257,7 +257,7 @@ export const module2Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are working registration in EHR Go.",
+            role: "You are working registration at Northstar Medical Center.",
             text: "Registration feels like data entry. It is actually the single highest-leverage step in the revenue cycle: a transposed digit in a member number produces a rejection weeks later, and by then the visit is a memory and the correction takes ten times longer than getting it right would have.",
             task: "Register accurately, and verify rather than assume.",
           },
@@ -314,21 +314,92 @@ export const module2Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Lab Overview",
+        heading: "In the Simulator",
         blocks: [
           {
             type: "callout",
             variant: "info",
-            text: "In this lab session, Mr. Davis will guide you through patient registration and insurance review workflows in EHR Go.",
+            text: "In this lab session, Mr. Davis will guide you through registration and insurance review in the BEOC EHR Simulator. The patient you register today is your practice patient for the rest of the course, so keep track of their name.",
           },
           {
-            type: "list",
-            items: [
-              "Register a new patient in EHR Go",
-              "Enter primary and secondary insurance information",
-              "Verify patient eligibility through the EHR Go simulation",
-              "Review common front-end errors that cause billing denials",
+            type: "simulator",
+            title: "Register your practice patient",
+            path: "/ehr/patients/new",
+            role: "Front Desk",
+            steps: [
+              "Switch to Front Desk, then choose Register a patient on Home.",
+              "Make up a fictional adult patient. Use your own first name as the patient's family name (if you are Keisha, your patient could be Marcus Keisha) so you can find them in later labs. Never enter information about a real person.",
+              "Complete the demographics and save. Work the Registration Checklist down until nothing is missing.",
+              "In the patient's Registration section, add primary Insurance Coverage using the practice card in the table below. Enter every value from the card, not from memory, and set the effective date to the first of this year.",
             ],
+            done: "Your patient's Registration Checklist is complete and their primary coverage is on file.",
+          },
+          {
+            type: "table",
+            caption: "Practice insurance card (fictional)",
+            columns: [
+              "Field",
+              "Value",
+            ],
+            rows: [
+              [
+                "Payer",
+                "Empire Northstar Health Plan",
+              ],
+              [
+                "Plan",
+                "Gold PPO",
+              ],
+              [
+                "Member ID",
+                "ENH4417 followed by any four digits you choose, e.g. ENH44172291",
+              ],
+              [
+                "Group",
+                "BEOC-2026",
+              ],
+              [
+                "Subscriber",
+                "The patient (same name as registered)",
+              ],
+              [
+                "Relationship",
+                "Self",
+              ],
+              [
+                "Priority",
+                "Primary",
+              ],
+            ],
+          },
+          {
+            type: "simulator",
+            title: "Book and check in the visit",
+            path: "/ehr/schedule",
+            role: "Front Desk",
+            steps: [
+              "Open Schedule and book your patient for a new-patient visit today. Choose any provider and location and an open time. If the schedule reports a conflict, a classmate already holds that slot; pick another, exactly as a real front desk would.",
+              "Find the appointment on the schedule and confirm it.",
+              "Check the patient in. Check-in is where the visit becomes an encounter.",
+              "Open the chart and confirm the header now shows where the patient is.",
+            ],
+            done: "Your practice patient is checked in for today's visit.",
+          },
+          {
+            type: "simulator",
+            title: "Graded simulation: New Patient Arrival",
+            path: "/ehr/assignments",
+            role: "Front Desk",
+            assignment: "New Patient Arrival: Coverage Verification and Check-In",
+            steps: [
+              "Open Assignments and start the simulation. It switches you to Front Desk.",
+              "Open the assigned patient's chart and confirm identity with two identifiers before you change anything.",
+              "Review the registration record with the patient and update anything that has changed.",
+              "Verify the insurance coverage and record it on the Registration tab before check-in. The order is graded: checking in first and verifying afterwards is the most common front-desk error.",
+              "Check the patient in from the Schedule. When the visit is over, check them out so the encounter can reach billing.",
+              "Complete the simulation and read the debrief.",
+            ],
+            done: "The debrief shows your score, and every missed step is listed with why it matters.",
           },
         ],
       },

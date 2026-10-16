@@ -265,11 +265,12 @@ export const module6Lessons: Lesson[] = [
   },
   {
     slug: "compliance-scenarios-lab",
-    title: "EHR Go Lab: Documentation Accuracy, Privacy & Compliance Scenarios",
+    title: "EHR Simulator Lab: Documentation Accuracy, Privacy & Compliance",
     description:
-      "Work through privacy and compliance scenarios in EHR Go, focusing on accurate clinical documentation and HIPAA-compliant behavior.",
+      "Write, sign, and correct a note the way a live EHR requires, and practice minimum-necessary access in a system that logs every chart you open.",
     objectives: [
       "Judge whether a disclosure meets the minimum necessary standard",
+      "Correct signed documentation with an addendum instead of changing it",
       "Identify documentation that would not withstand review",
       "Recognize a reportable breach",
     ],
@@ -280,7 +281,7 @@ export const module6Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are working the compliance scenarios in EHR Go.",
+            role: "You are working the compliance lab in the BEOC EHR Simulator.",
             text: "Real privacy failures are rarely dramatic. They are a screen left open, a conversation in a corridor, a full chart sent when three pages were requested, and a colleague asking about someone you both know.",
             task: "Practice the judgment on cases where nothing is at stake yet.",
           },
@@ -323,21 +324,37 @@ export const module6Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Lab Overview",
+        heading: "In the Simulator",
         blocks: [
           {
             type: "callout",
             variant: "info",
-            text: "Mr. Davis guides this lab through EHR Go scenarios that test documentation accuracy, appropriate record access, and privacy-compliant workflows.",
+            text: "Mr. Davis guides this lab through documentation accuracy, appropriate record access, and privacy-compliant workflows in the BEOC EHR Simulator.",
           },
           {
-            type: "list",
-            items: [
-              "Identify documentation errors in a sample patient record",
-              "Apply HIPAA minimum necessary standard in a simulated scenario",
-              "Complete an EHR Go compliance-focused activity",
-              "Discuss real-world consequences of documentation failures",
+            type: "simulator",
+            title: "Sign a note, then correct it the legal way",
+            path: "/ehr/patients",
+            role: "Medical Assistant",
+            steps: [
+              "Switch to Medical Assistant. Open only your practice patient's chart and confirm two identifiers.",
+              "Open Notes and start a Medical Assistant Intake Note. Document the reason for today's visit in two or three factual sentences: what was observed and what the patient reported, not opinions.",
+              "Save it as a draft, read it back once for accuracy, then sign it.",
+              "Now look for a way to change the signed note's text. There is none: a signed note is part of the legal record.",
+              "Add an addendum that corrects or adds one fact, and say why in the addendum. The original stays visible; the correction is dated and carries your name.",
             ],
+            done: "Your patient has a signed note with one addendum, and the original text is unchanged.",
+          },
+          {
+            type: "simulator",
+            title: "Minimum necessary in a logged system",
+            path: "/ehr",
+            steps: [
+              "Before opening anything, decide which charts this lab needs. The answer is one: your own practice patient.",
+              "From Home, open the Workflow Translation guide and read Note Addenda and Cosignature, and Role-Based Workspaces.",
+              "With a partner, take each row of the minimum-necessary table above and say whether the simulator's audit log would catch it, or only a person would.",
+            ],
+            done: "You opened one chart in this lab, and you can explain why that is the right number.",
           },
         ],
       },

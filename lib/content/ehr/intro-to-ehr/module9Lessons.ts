@@ -31,7 +31,7 @@ export const module9Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "The final exam counts for 25% of your final grade. Review all previous modules, your EHR Go lab notes, and the midterm feedback from your instructor.",
+            text: "The final exam counts for 25% of your final grade. Review all previous modules, your EHR Simulator lab notes and debriefs, and the midterm feedback from your instructor.",
           },
         ],
       },
@@ -192,9 +192,9 @@ export const module9Lessons: Lesson[] = [
   },
   {
     slug: "final-hands-on-review-lab",
-    title: "EHR Go Lab: Final Hands-On Review & Course Wrap-Up",
+    title: "EHR Simulator Lab: Final Hands-On Review & Course Wrap-Up",
     description:
-      "Complete a final competency check in EHR Go and celebrate your progress through the Introduction to EHR course.",
+      "Run every graded simulation clean in the BEOC EHR Simulator, review your performance history, and celebrate your progress through the Introduction to EHR course.",
     objectives: [
       "Demonstrate the full EHR workflow unassisted",
       "Identify any remaining gaps before the course ends",
@@ -206,7 +206,7 @@ export const module9Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are completing the final lab in EHR Go.",
+            role: "You are completing the final lab in the BEOC EHR Simulator.",
             text: "Register, verify, document, order, code, submit, post. If you can do all seven without stopping to look anything up, you can do the job.",
             task: "Run it clean, and note anything that still needs a reference.",
           },
@@ -217,17 +217,28 @@ export const module9Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Lab Overview",
+        heading: "In the Simulator",
         blocks: [
           {
             type: "callout",
             variant: "success",
-            text: "Congratulations on completing the Introduction to EHR course. This final lab session is your opportunity to demonstrate competency and get feedback from Mr. Davis.",
+            text: "Congratulations on reaching the end of the Introduction to EHR course. This final lab session is your opportunity to demonstrate competency and get feedback from Mr. Davis.",
+          },
+          {
+            type: "simulator",
+            title: "Run them clean",
+            path: "/ehr/assignments",
+            steps: [
+              "Open Assignments. For each graded simulation with attempts left, run it once more with no notes open.",
+              "Open My Performance and compare every attempt: score, time, and critical errors.",
+              "Pick the step you missed most often across the course and find it in the Workflow Translation guide on Home.",
+            ],
+            done: "Every graded simulation shows a passing best score, and you can name the one step you will keep a reference for.",
           },
           {
             type: "list",
             items: [
-              "Complete the EHR Go final competency activity",
+              "Complete a final clean run of each graded simulation",
               "Receive feedback on your simulation performance",
               "Review CEHRS exam registration steps",
               "Course wrap-up and next steps discussion",

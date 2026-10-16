@@ -200,7 +200,7 @@ export const module4Lessons: Lesson[] = [
               ],
               [
                 "EHR navigation",
-                "Find a chart, an order, a result, and a charge in EHR Go",
+                "Find a chart, an order, a result, and a charge in the EHR Simulator",
               ],
             ],
           },
@@ -227,7 +227,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "success",
-            text: "The midterm includes multiple choice, true/false, and short answer questions. Review your notes, textbook chapters, and EHR Go lab activities.",
+            text: "The midterm includes multiple choice, true/false, and short answer questions. Review your notes, textbook chapters, and your EHR Simulator lab work, including each debrief.",
           },
         ],
       },
@@ -235,11 +235,11 @@ export const module4Lessons: Lesson[] = [
   },
   {
     slug: "midterm-skills-review-lab",
-    title: "EHR Go Lab: Midterm Skills Review",
+    title: "EHR Simulator Lab: Midterm Skills Review",
     description:
-      "Hands-on review of registration, insurance verification, coding workflow, and documentation in EHR Go before the midterm.",
+      "Work front-desk and billing tasks in the BEOC EHR Simulator without the lessons open, then retake a graded simulation before the midterm.",
     objectives: [
-      "Complete a full encounter in EHR Go without prompting",
+      "Complete registration, scheduling, and billing tasks without prompting",
       "Self-identify which steps you still need to look up",
     ],
     duration: "80 min",
@@ -249,7 +249,7 @@ export const module4Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are running the skills review in EHR Go.",
+            role: "You are running the skills review in the BEOC EHR Simulator.",
             text: "Work one encounter end to end: register, verify, document, code, submit, post. Note every point where you had to stop and look something up — that list is worth more than a score.",
             task: "Find the steps you cannot yet do from memory, while it is still practice.",
           },
@@ -260,21 +260,37 @@ export const module4Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Lab Overview",
+        heading: "In the Simulator",
         blocks: [
           {
             type: "callout",
             variant: "info",
-            text: "This lab is a comprehensive skills review across all EHR Go activities completed so far. Mr. Davis will walk through each workflow and answer questions before the midterm.",
+            text: "This lab is a skills review across everything you have done in the simulator so far. Mr. Davis will walk through each workflow and answer questions before the midterm.",
           },
           {
-            type: "list",
-            items: [
-              "Patient registration and insurance entry review",
-              "Coding a simulated encounter (ICD + CPT)",
-              "Payment posting and adjustment review",
-              "Q&A and clarification on midterm topics",
+            type: "simulator",
+            title: "A timed run, no notes",
+            path: "/ehr/patients",
+            role: "Front Desk",
+            steps: [
+              "Close every lesson tab and give yourself 20 minutes.",
+              "As Front Desk, find your practice patient by name and confirm two identifiers in the header.",
+              "Update one demographic field that “changed” — a new mobile phone number — and save it.",
+              "Book a follow-up visit for next week, then switch the Schedule to Week view and find it.",
+              "Switch to Billing, open the revenue work queue, and say each step a claim goes through from capture to paid.",
+              "Write down every place you stopped to think. That list is what you bring to the review.",
             ],
+            done: "You have a written list of the steps you could not yet do from memory.",
+          },
+          {
+            type: "simulator",
+            title: "Retake a graded simulation",
+            path: "/ehr/assignments",
+            steps: [
+              "Open Assignments. If a graded simulation still has attempts left, retake it without notes.",
+              "Open My Performance and compare the attempts: score, time, and critical errors.",
+            ],
+            done: "Your second attempt's debrief has fewer missed steps than the first.",
           },
         ],
       },

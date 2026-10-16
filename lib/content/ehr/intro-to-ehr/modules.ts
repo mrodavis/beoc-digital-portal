@@ -37,10 +37,10 @@ export const introToEHRModules: IntroToEHRModule[] = [
       "Course structure, grading, and expectations",
       "The full patient workflow lifecycle in a healthcare setting",
       "Key steps in the healthcare revenue cycle",
-      "How to navigate EHR Go for the first time",
+      "How to navigate the BEOC EHR Simulator for the first time",
     ],
     scenario:
-      "You just started as an administrative support specialist at Brooklyn Community Health Center. On Day 1, your supervisor walks you through how a patient flows from the waiting room through billing. By Thursday, you are logging in to EHR Go for the first time.",
+      "You just started as an administrative support specialist at Brooklyn Community Health Center. On Day 1, your supervisor walks you through how a patient flows from the waiting room through billing. By Thursday, you are signing in to the EHR for the first time.",
   },
   {
     moduleNumber: 2,
@@ -113,7 +113,7 @@ export const introToEHRModules: IntroToEHRModule[] = [
       "Demonstrate competency through the midterm assessment",
       "Patient-Centered Medical Home and FQHC care models",
       "What CPOE is and why it reduces medication errors",
-      "How to enter provider orders in EHR Go",
+      "How to enter and sign provider orders in the EHR Simulator",
     ],
     scenario:
       "After the midterm, your supervisor introduces you to the clinic's CPOE system. A provider orders a medication but there is a duplicate alert — the patient is already on that drug. You learn how Clinical Decision Support helps catch errors before they reach the patient.",
@@ -151,10 +151,10 @@ export const introToEHRModules: IntroToEHRModule[] = [
       "Consolidated review of patient workflow, revenue cycle, and CPOE",
       "How EHR systems function as clinical and financial databases",
       "Key financial metrics: Days in A/R, denial rate, clean claim rate",
-      "How to use EHR Go's administrative and financial tracking features",
+      "How to use the EHR Simulator's schedule, census, and revenue work queue",
     ],
     scenario:
-      "Your administrator asks why the clinic's accounts receivable has been climbing for three months. You pull a Days in A/R report from EHR Go and identify that a specific payer is consistently taking 45+ days to pay. This module shows you how to find and interpret that data.",
+      "Your administrator asks why the clinic's accounts receivable has been climbing for three months. You pull a Days in A/R report and identify that a specific payer is consistently taking 45+ days to pay. This module shows you how to find and interpret that data.",
   },
   {
     moduleNumber: 8,
@@ -181,7 +181,7 @@ export const introToEHRModules: IntroToEHRModule[] = [
     title: "Final Exam & CEHRS Certification Prep",
     emoji: "🎓",
     description:
-      "Complete the final exam, prepare for the NHA Certified EHR Specialist (CEHRS) exam, and wrap up with a final hands-on EHR Go competency review.",
+      "Complete the final exam, prepare for the NHA Certified EHR Specialist (CEHRS) exam, and wrap up with a final hands-on competency review in the EHR Simulator.",
     lessons: module9Lessons,
     level: "Advanced",
     estimatedMinutes: 185,
@@ -189,7 +189,7 @@ export const introToEHRModules: IntroToEHRModule[] = [
       "Demonstrate mastery through the cumulative final exam",
       "NHA CEHRS exam format, content domains, and passing requirements",
       "Test-taking strategies for the CEHRS certification",
-      "Complete a final EHR Go competency activity",
+      "Complete a final competency run in the EHR Simulator",
     ],
     scenario:
       "You have completed Introduction to EHR. You sit for the final exam, then turn your attention to the NHA CEHRS certification — your credential for entering the healthcare workforce as a recognized Electronic Health Records Specialist.",

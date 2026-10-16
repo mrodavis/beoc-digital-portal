@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { introToEHRModules } from "@/lib/content/ehr/intro-to-ehr";
+import EhrSimulatorCallout from "@/components/EhrSimulatorCallout";
 
 export default function IntroToEHRPage() {
   // Derived from the module data so these figures cannot drift out of
@@ -34,7 +35,7 @@ export default function IntroToEHRPage() {
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
               Learn the structure, purpose, and practical use of EHR systems in modern
               healthcare settings — from patient workflow and medical coding to legal
-              compliance and hands-on simulation with EHR Go.
+              compliance and weekly hands-on labs in the BEOC EHR Simulator.
             </p>
           </div>
         </div>
@@ -51,8 +52,8 @@ export default function IntroToEHRPage() {
           <div className="text-sm text-gray-600">Lessons</div>
         </div>
         <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 text-center">
-          <div className="text-2xl font-bold text-primary-600">EHR Go</div>
-          <div className="text-sm text-gray-600">Simulation Platform</div>
+          <div className="text-2xl font-bold text-primary-600">9 Labs</div>
+          <div className="text-sm text-gray-600">In the BEOC EHR Simulator</div>
         </div>
         <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 text-center">
           <div className="text-2xl font-bold text-primary-600">CEHRS</div>
@@ -73,11 +74,17 @@ export default function IntroToEHRPage() {
           <div>
             <p className="font-semibold text-gray-900">Mr. Orville Davis — Lab Instructor</p>
             <p className="text-sm text-gray-600">
-              Leads EHR Go hands-on lab sessions every Thursday.
+              Leads the hands-on EHR Simulator labs every Thursday.
             </p>
           </div>
         </div>
       </div>
+
+      <EhrSimulatorCallout
+        className="mb-12"
+        heading="Your lab environment: the BEOC EHR Simulator"
+        text="Every Thursday lab happens in the simulator. Join with the class code Mr. Davis gives you before the first lab, then keep the lesson open in one tab and the simulator in another."
+      />
 
       <div className="mb-8">
 
