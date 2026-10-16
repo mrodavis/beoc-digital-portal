@@ -1,5 +1,6 @@
 import { ContentBlock } from "@/types/lesson";
 import KnowledgeCheck from "./KnowledgeCheck";
+import SimulatorLab from "./SimulatorLab";
 
 /**
  * Renders one ContentBlock.
@@ -229,6 +230,9 @@ export function Block({ block }: { block: ContentBlock }) {
 
     case "knowledge-check":
       return <KnowledgeCheck block={block} />;
+
+    case "simulator":
+      return <SimulatorLab block={block} />;
 
     default:
       return null;

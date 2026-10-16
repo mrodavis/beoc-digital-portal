@@ -2,6 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
 
+  // Short links students can type from a whiteboard. The simulator itself
+  // lives at ehr.beocdigital.org; these land on the portal's student guide.
+  async redirects() {
+    return [
+      { source: '/ehr', destination: '/ehr-simulator', permanent: false },
+      { source: '/simulator', destination: '/ehr-simulator', permanent: false },
+    ]
+  },
+
   async headers() {
     return [
       {

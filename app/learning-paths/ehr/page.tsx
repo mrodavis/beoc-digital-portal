@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import EhrSimulatorCallout from "@/components/EhrSimulatorCallout";
 
 export default function EHRProgramPage() {
   return (
@@ -97,7 +98,7 @@ export default function EHRProgramPage() {
             </h3>
             <p className="text-gray-600 mb-4 leading-relaxed">
               Patient workflow, the healthcare revenue cycle, medical coding (ICD, CPT, HCPCS),
-              legal compliance, and hands-on EHR simulation using EHR Go.
+              legal compliance, and weekly hands-on labs in the BEOC EHR Simulator.
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
@@ -109,7 +110,30 @@ export default function EHRProgramPage() {
           </div>
         </Link>
 
+        {/* EHR Simulator */}
+        <Link href="/ehr-simulator">
+          <div className="bg-slate-900 rounded-xl shadow-md border border-slate-700 p-6 card-hover h-full text-white">
+            <div className="text-5xl mb-4">🖥️</div>
+            <h3 className="text-2xl font-bold mb-3">
+              BEOC EHR Simulator
+            </h3>
+            <p className="text-slate-300 mb-4 leading-relaxed">
+              The training hospital where the labs happen: patient charts, vitals, orders,
+              results, scheduling, and billing, with graded simulations your instructor assigns.
+            </p>
+            <div className="flex items-center gap-2 text-sm text-slate-400">
+              <span className="px-2 py-1 bg-orange-700 text-orange-50 rounded-full font-medium">
+                Training Environment
+              </span>
+              <span>•</span>
+              <span>Student guide</span>
+            </div>
+          </div>
+        </Link>
+
       </div>
+
+      <EhrSimulatorCallout className="mb-12" />
 
       {/* Recommended Path */}
       <div className="bg-white rounded-xl shadow-md border border-gray-200 p-8">
@@ -167,10 +191,10 @@ export default function EHRProgramPage() {
             </span>
             <div>
               <h3 className="font-semibold text-gray-900">
-                Practice in EHR Go Simulation Labs
+                Practice in the BEOC EHR Simulator
               </h3>
               <p className="text-sm text-gray-600">
-                Apply every concept in a real EHR simulation environment every Thursday.
+                Apply every concept in a working EHR simulation every Thursday, graded on the steps you take.
               </p>
             </div>
           </div>

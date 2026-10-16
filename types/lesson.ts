@@ -115,6 +115,26 @@ export type ContentBlock =
     }
 
   | {
+      /**
+       * A hands-on step in the BEOC EHR Simulator (ehr.beocdigital.org):
+       * where to go, which role to work as, and — when there is one — the
+       * graded simulation the instructor assigns for it. Renders as a launch
+       * card that deep-links into the simulator (lib/ehr-simulator.ts).
+       */
+      type: "simulator";
+      title: string;
+      /** The workspace to open, a path inside the simulator such as "/ehr/schedule". */
+      path?: string;
+      /** The role to switch to in the simulator's top bar, e.g. "Front Desk". */
+      role?: string;
+      /** Exact title of the graded simulation under Assignments, when this lab has one. */
+      assignment?: string;
+      steps: string[];
+      /** What to have on screen, or hand in, when you are done. */
+      done?: string;
+    }
+
+  | {
       type: "knowledge-check";
       question: string;
       options: string[];

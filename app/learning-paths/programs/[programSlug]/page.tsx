@@ -4,6 +4,17 @@ import { programs, programList } from "@/lib/content/programs";
 import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
+import EhrSimulatorCallout from "@/components/EhrSimulatorCallout";
+
+/** Programs whose students have a track in the BEOC EHR Simulator. */
+const SIMULATOR_PROGRAMS: Record<string, string> = {
+  "medical-assisting":
+    "Room patients, take vitals, reconcile medications, route results, and sign intake notes in a working EHR at our training hospital. Join with the class code your instructor gives you.",
+  "medical-billing-coding":
+    "Verify coverage at check-in, capture charges with diagnosis pointers, submit claims, read payer responses, and post payments in a working EHR. Join with the class code your instructor gives you.",
+  "patient-care-technician":
+    "Start a shift from the patient list, chart vitals and fall-risk screens on the flowsheet, and report to the nurse in a working EHR. Join with the class code your instructor gives you.",
+};
 
 export function generateStaticParams() {
   return programList.map((p) => ({ programSlug: p.slug }));
@@ -142,6 +153,10 @@ export default async function ProgramPage({
           {program.credentialNote}
         </p>
       </div>
+
+      {SIMULATOR_PROGRAMS[program.slug] && (
+        <EhrSimulatorCallout className="mb-10" text={SIMULATOR_PROGRAMS[program.slug]} />
+      )}
 
       {/* Modules */}
       <div className="mb-8">

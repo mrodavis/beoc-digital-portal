@@ -22,25 +22,32 @@ export default function Navbar() {
           </Link>
 
           {/* Navigation Links */}
-          <div className="flex items-center gap-1 sm:gap-2">
+          <div className="flex items-center gap-0.5 sm:gap-2">
             <Link
               href={isHome ? "#academic" : "/#academic"}
-              className="px-3 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+              className="px-2 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
             >
               Academics
             </Link>
 
             <Link
               href={isHome ? "#career" : "/#career"}
-              className="px-3 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+              className="px-2 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
             >
               <span className="hidden sm:inline">Career & Technical</span>
               <span className="sm:hidden">Career</span>
             </Link>
 
             <Link
+              href="/ehr-simulator"
+              className="hidden md:inline-block px-3 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              EHR Simulator
+            </Link>
+
+            <Link
               href="/progress"
-              className="px-3 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+              className="px-2 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
             >
               <span className="hidden sm:inline">My Progress</span>
               <span className="sm:hidden">Progress</span>
@@ -48,7 +55,7 @@ export default function Navbar() {
 
             <Link
               href="/"
-              className="ml-2 px-4 py-2 rounded-lg font-semibold bg-primary-600 text-white hover:bg-primary-700 transition-colors"
+              className="ml-1 sm:ml-2 px-3 sm:px-4 py-2 rounded-lg font-semibold bg-primary-600 text-white hover:bg-primary-700 transition-colors"
             >
               <span className="hidden sm:inline">Get Started</span>
               <span className="sm:hidden">Start</span>

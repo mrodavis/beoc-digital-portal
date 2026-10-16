@@ -18,6 +18,15 @@ export default function Home() {
     icon: "📊",
   };
 
+  const ehrSimulatorPath: LearningPath = {
+    title: "BEOC EHR Simulator",
+    description:
+      "Work real clinical-software workflows in a training hospital with fictional patients: charts, vitals, orders, results, scheduling, and billing. Join with your class code.",
+    href: "/ehr-simulator",
+    status: "available",
+    icon: "🖥️",
+  };
+
   const academicPrograms: LearningPath[] = [
     {
       title: "ENG0300 Reading for Academics",
@@ -162,14 +171,16 @@ export default function Home() {
       <div className="mb-12">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <LearningCard
-            key={msOfficePath.title}
-            title={msOfficePath.title}
-            description={msOfficePath.description}
-            href={msOfficePath.href}
-            status={msOfficePath.status}
-            icon={msOfficePath.icon}
-          />
+          {[msOfficePath, ehrSimulatorPath].map((path) => (
+            <LearningCard
+              key={path.title}
+              title={path.title}
+              description={path.description}
+              href={path.href}
+              status={path.status}
+              icon={path.icon}
+            />
+          ))}
         </div>
       </div>
 
