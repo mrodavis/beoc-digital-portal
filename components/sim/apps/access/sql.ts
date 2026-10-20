@@ -1824,6 +1824,20 @@ class Exec {
         if (st.having && !truthy(this.evalGroup(st.having, g))) continue;
         outRows.push({ vals, sortRow: g[0] ?? { vals: this.nullVals(), ids: {} }, group: g, ids: {} });
       }
+      // Access returns grouped rows in ascending order of the Group By fields.
+      if (gb.length && !st.orderBy?.length) {
+        const keyOfRow = (o: (typeof outRows)[number]) => gb.map((x) => this.evalRow(x, o.sortRow));
+        const keyed = outRows.map((o) => ({ o, k: keyOfRow(o) }));
+        keyed.sort((a, b) => {
+          for (let i = 0; i < gb.length; i++) {
+            const x = a.k[i], y = b.k[i];
+            const c = x === null && y === null ? 0 : x === null ? -1 : y === null ? 1 : compare(x, y) ?? 0;
+            if (c) return c;
+          }
+          return 0;
+        });
+        outRows = keyed.map((x) => x.o);
+      }
     } else {
       for (const r of rows) {
         const extra = new Map<string, V>();
