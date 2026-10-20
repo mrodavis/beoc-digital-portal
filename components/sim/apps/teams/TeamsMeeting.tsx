@@ -486,7 +486,7 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
             </div>
           )}
           {m.captions && (
-            <div className="pointer-events-none absolute bottom-5 left-1/2 w-[70%] -translate-x-1/2 rounded-md bg-black/75 px-4 py-2 text-[13px]">
+            <div className={`pointer-events-none absolute left-1/2 w-[70%] -translate-x-1/2 rounded-md bg-black/75 px-4 py-2 text-[13px] ${m.sharing ? "bottom-28" : "bottom-5"}`}>
               <span className="font-semibold text-[#a6a8ff]">{speaking ? personName(doc, speaking) : "Live captions"}: </span>
               {speaking ? "Thanks, everyone. Let's start with the first item on the agenda." : "Captions will appear here when someone speaks."}
             </div>

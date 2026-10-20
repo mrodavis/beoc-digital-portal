@@ -24,7 +24,7 @@ import {
   sizeOf,
   splitPath,
 } from "./fs";
-import { S, fileSel, normLoc, selPaths, userName } from "./model";
+import { S, normLoc, selPaths, userName } from "./model";
 
 /* ------------------------------------------------------------------ */
 /* Entries                                                             */
@@ -199,11 +199,21 @@ export function canWrite(doc: WinDoc, loc: string): boolean {
   return Boolean(it && isFolder(it) && !it.zip);
 }
 
+/**
+ * Run a command once per selected item, selecting each one first. Moving three
+ * files at once and moving them one by one then both satisfy per-file steps.
+ */
+export function perItem(ctx: WinCtxValue, paths: string[], id: string, value?: string, prefix = "file:") {
+  for (const p of paths) {
+    ctx.select(`${prefix}${p}`);
+    ctx.cmd(id, value);
+  }
+}
+
 export function pasteInto(ctx: WinCtxValue, dest: string) {
   const cb = ctx.doc.clipboard;
   if (!cb || !canWrite(ctx.doc, dest)) return;
-  ctx.select(fileSel(cb.paths));
-  ctx.cmd(cb.mode === "cut" ? "fs.move" : "fs.copyTo", realPath(ctx.doc, dest));
+  perItem(ctx, cb.paths, cb.mode === "cut" ? "fs.move" : "fs.copyTo", realPath(ctx.doc, dest));
 }
 
 export function deleteSelected(ctx: WinCtxValue, permanent: boolean) {
@@ -218,14 +228,14 @@ export function deleteSelected(ctx: WinCtxValue, permanent: boolean) {
         item={first}
         onYes={() => {
           ctx.modal(null);
-          ctx.cmd(permanent ? "fs.deletePermanent" : "fs.delete");
+          perItem(ctx, paths, permanent ? "fs.deletePermanent" : "fs.delete");
         }}
         onNo={() => ctx.modal(null)}
       />,
     );
     return;
   }
-  ctx.cmd("fs.delete");
+  perItem(ctx, paths, "fs.delete");
 }
 
 function ConfirmDelete({ count, item, onYes, onNo }: { count: number; item: WinItem | null; onYes: () => void; onNo: () => void }) {
@@ -457,9 +467,9 @@ export function itemMenu(ctx: WinCtxValue, e: { clientX: number; clientY: number
   const single = paths.length <= 1;
   if (opts.bin || entry.bin) {
     ctx.menu(e, [
-      { label: "Restore", icon: "restoreItem", onClick: () => ctx.cmd("bin.restore") },
+      { label: "Restore", icon: "restoreItem", onClick: () => perItem(ctx, selPaths(ctx.sel, "bin:"), "bin.restore", undefined, "bin:") },
       { sep: true },
-      { label: "Delete", icon: "delete", onClick: () => ctx.modal(<ConfirmDelete count={1} item={entry.item ?? null} onYes={() => { ctx.modal(null); ctx.cmd("bin.delete"); }} onNo={() => ctx.modal(null)} />) },
+      { label: "Delete", icon: "delete", onClick: () => ctx.modal(<ConfirmDelete count={1} item={entry.item ?? null} onYes={() => { ctx.modal(null); perItem(ctx, selPaths(ctx.sel, "bin:"), "bin.delete", undefined, "bin:"); }} onNo={() => ctx.modal(null)} />) },
       { label: "Properties", icon: "properties", disabled: true },
     ]);
     return;
@@ -483,8 +493,8 @@ export function itemMenu(ctx: WinCtxValue, e: { clientX: number; clientY: number
   if (isZip) items.push({ label: "Extract All...", icon: "extract", onClick: () => openExtract(ctx) });
   if (!rootItem) items.push({ label: "Compress to ZIP file", icon: "compress", onClick: () => ctx.cmd("fs.compress") });
   items.push({ label: "Copy as path", icon: "link", shortcut: "Ctrl+Shift+C", onClick: () => ctx.addClip(`"${addressText(doc, entry.path)}"`) });
-  if (entry.folder) items.push(quick ? { label: "Unpin from Quick access", icon: "pin", onClick: () => ctx.cmd("fs.unpinQuick", entry.path) } : { label: "Pin to Quick access", icon: "pin", onClick: () => ctx.cmd("fs.pinQuick") });
-  else items.push({ label: "Add to Favorites", icon: "star", onClick: () => ctx.cmd("fs.pinQuick") });
+  if (entry.folder) items.push(quick ? { label: "Unpin from Quick access", icon: "pin", onClick: () => ctx.cmd("fs.unpinQuick", entry.path) } : { label: "Pin to Quick access", icon: "pin", onClick: () => perItem(ctx, selPaths(ctx.sel), "fs.pinQuick") });
+  else items.push({ label: "Add to Favorites", icon: "star", onClick: () => perItem(ctx, selPaths(ctx.sel), "fs.pinQuick") });
   items.push({ label: "Properties", icon: "properties", shortcut: "Alt+Enter", onClick: () => openProperties(ctx) });
   if (od) {
     items.push(
@@ -494,8 +504,8 @@ export function itemMenu(ctx: WinCtxValue, e: { clientX: number; clientY: number
       { label: "View online", icon: "globe", onClick: () => { ctx.cmd("edge.nav", "onedrive.live.com"); ctx.cmd("cloud.open", entry.folder ? entry.path : parentOf(entry.path)); } },
       { label: "Version history", icon: "history", disabled: entry.folder, onClick: () => { ctx.cmd("edge.nav", "onedrive.live.com"); ctx.cmd("cloud.open", entry.path); } },
       { sep: true },
-      { label: "Always keep on this device", icon: "cloudCheck", check: entry.item?.sync === "always", onClick: () => ctx.cmd("od.keep") },
-      { label: "Free up space", icon: "cloud", onClick: () => ctx.cmd("od.free") },
+      { label: "Always keep on this device", icon: "cloudCheck", check: entry.item?.sync === "always", onClick: () => perItem(ctx, selPaths(ctx.sel), "od.keep") },
+      { label: "Free up space", icon: "cloud", onClick: () => perItem(ctx, selPaths(ctx.sel), "od.free") },
     );
   }
   items.push({ sep: true }, { label: "Show more options", icon: "more", disabled: true });
@@ -584,7 +594,7 @@ export function fileKeys(e: React.KeyboardEvent, ctx: WinCtxValue, loc: string, 
   }
   if (e.key === "Delete") {
     if (binSel) {
-      ctx.modal(<ConfirmDelete count={1} item={null} onYes={() => { ctx.modal(null); ctx.cmd("bin.delete"); }} onNo={() => ctx.modal(null)} />);
+      ctx.modal(<ConfirmDelete count={1} item={null} onYes={() => { ctx.modal(null); perItem(ctx, selPaths(ctx.sel, "bin:"), "bin.delete", undefined, "bin:"); }} onNo={() => ctx.modal(null)} />);
       return true;
     }
     if (paths.length) deleteSelected(ctx, e.shiftKey);
@@ -646,16 +656,14 @@ export function dropOnto(e: React.DragEvent, ctx: WinCtxValue, dest: string) {
     return;
   }
   if (dest === "Recycle Bin") {
-    ctx.select(fileSel(paths));
-    ctx.cmd("fs.delete");
+    perItem(ctx, paths, "fs.delete");
     return;
   }
   if (!canWrite(ctx.doc, dest)) return;
   if (paths.some((p) => p.toLowerCase() === dest.toLowerCase())) return;
   const mode = dropMode(ctx.doc, paths, dest, e);
   if (mode === "move" && paths.every((p) => parentOf(p).toLowerCase() === realPath(ctx.doc, dest).toLowerCase())) return;
-  ctx.select(fileSel(paths));
-  ctx.cmd(mode === "move" ? "fs.move" : "fs.copyTo", realPath(ctx.doc, dest));
+  perItem(ctx, paths, mode === "move" ? "fs.move" : "fs.copyTo", realPath(ctx.doc, dest));
 }
 
 export function dragOver(e: React.DragEvent, doc: WinDoc, dest: string, setHint?: (h: string | null) => void) {
@@ -1006,9 +1014,9 @@ function CommandBar({ w, entries }: { w: WinWindow; entries: Entry[] }) {
         <CmdBtn icon="delete" label="Empty Recycle Bin" text="Empty Recycle Bin" disabled={!(doc.recycle ?? []).length} onClick={() => confirmEmpty(ctx)} />
         <span className="mx-1 h-5 border-l" style={{ borderColor: T.line }} />
         <CmdBtn icon="restoreItem" label="Restore all items" text="Restore all items" disabled={!(doc.recycle ?? []).length} onClick={() => ctx.cmd("bin.restoreAll")} />
-        <CmdBtn icon="restoreItem" label="Restore the selected items" text="Restore the selected items" disabled={!ctx.sel.startsWith("bin:")} onClick={() => ctx.cmd("bin.restore")} />
+        <CmdBtn icon="restoreItem" label="Restore the selected items" text="Restore the selected items" disabled={!ctx.sel.startsWith("bin:")} onClick={() => perItem(ctx, selPaths(ctx.sel, "bin:"), "bin.restore", undefined, "bin:")} />
         <span className="mx-1 h-5 border-l" style={{ borderColor: T.line }} />
-        <CmdBtn icon="delete" label="Delete" disabled={!ctx.sel.startsWith("bin:")} onClick={() => ctx.modal(<ConfirmDelete count={ctx.sel.split(",").length} item={null} onYes={() => { ctx.modal(null); ctx.cmd("bin.delete"); }} onNo={() => ctx.modal(null)} />)} />
+        <CmdBtn icon="delete" label="Delete" disabled={!ctx.sel.startsWith("bin:")} onClick={() => ctx.modal(<ConfirmDelete count={ctx.sel.split(",").length} item={null} onYes={() => { ctx.modal(null); perItem(ctx, selPaths(ctx.sel, "bin:"), "bin.delete", undefined, "bin:"); }} onNo={() => ctx.modal(null)} />)} />
         <CmdBtn icon="sort" label="Sort" text="Sort" caret onClick={(e) => ctx.menu(at(e), sortItems(ctx, w))} />
         <CmdBtn icon="view" label="View" text="View" caret onClick={(e) => ctx.menu(at(e), viewItems(ctx, w))} />
       </div>
@@ -1040,7 +1048,7 @@ function CommandBar({ w, entries }: { w: WinWindow; entries: Entry[] }) {
         onClick={(e) =>
           ctx.menu(at(e), [
             { label: "Undo", icon: "restoreItem", shortcut: "Ctrl+Z", disabled: !(doc.undo ?? []).length, onClick: () => ctx.cmd("fs.undo") },
-            { label: "Pin to Quick access", icon: "pin", disabled: !has, onClick: () => ctx.cmd("fs.pinQuick") },
+            { label: "Pin to Quick access", icon: "pin", disabled: !has, onClick: () => perItem(ctx, paths, "fs.pinQuick") },
             { label: "Compress to ZIP file", icon: "compress", disabled: !has || rootSel, onClick: () => ctx.cmd("fs.compress") },
             { sep: true },
             { label: "Select all", icon: "check", shortcut: "Ctrl+A", onClick: () => ctx.select(entries.map((x) => x.key).join(",")) },

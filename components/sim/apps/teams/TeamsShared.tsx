@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { SimCommit } from "@/types/sim";
 import type { TeamsDoc, TeamsPresence, TeamsUiState } from "./types";
 import { TIcon, FileIcon } from "./icons";
@@ -35,6 +36,8 @@ export interface TeamsCtxValue {
   /** Mark a chat as seen (display only). */
   seen: Set<string>;
   markSeen: (id: string, on: boolean) => void;
+  /** Canvas root, so dialogs cover the whole Teams window wherever they are rendered. */
+  overlayRoot: HTMLElement | null;
 }
 
 export const TeamsCtx = createContext<TeamsCtxValue | null>(null);
@@ -300,7 +303,8 @@ export function FloatingMenu({ x, y, items, width, onClose }: { x: number; y: nu
 }
 
 export function Modal({ title, onClose, children, width = 460, footer }: { title: string; onClose: () => void; children: React.ReactNode; width?: number; footer?: React.ReactNode }) {
-  return (
+  const ctx = useContext(TeamsCtx);
+  const node = (
     <div className="absolute inset-0 z-[90] flex items-center justify-center bg-black/30 p-4" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div role="dialog" aria-label={title} className="flex max-h-full flex-col rounded-lg bg-white shadow-[0_25px_65px_rgba(0,0,0,0.3)]" style={{ width }}>
         <div className="flex items-center justify-between px-6 pb-2 pt-5">
@@ -314,6 +318,7 @@ export function Modal({ title, onClose, children, width = 460, footer }: { title
       </div>
     </div>
   );
+  return ctx?.overlayRoot ? createPortal(node, ctx.overlayRoot) : node;
 }
 
 export function PrimaryBtn({ children, onClick, disabled, label }: { children: React.ReactNode; onClick?: () => void; disabled?: boolean; label?: string }) {

@@ -8,7 +8,7 @@ import { eventMenu, slotMenu } from "./menus";
 import { RecipientField } from "./mail";
 import { CATEGORY_COLORS, busyFor, conflictsWith, hasFreeBusy, occurrences, people, recurrenceEndText, recurrenceText, selKeys, todayOf, type Occurrence } from "./model";
 import {
-  DAY_SHORT, TIME_OPTIONS, addDays, addMinutes, addMonths, at, dateOf, dow, fmtDate, fmtDateDay, fmtDuration, fmtHour, fmtLong, fmtMonthDay,
+  DAY_SHORT, TIME_OPTIONS_15, addDays, addMinutes, addMonths, at, dateOf, dow, fmtDate, fmtDateDay, fmtDuration, fmtHour, fmtLong, fmtMonthDay,
   fmtMonthYear, fmtTime, minutesBetween, monthStart, parseTime, parseUsDate, toMs, weekStart,
 } from "./dates";
 
@@ -476,7 +476,7 @@ function DateField({ value, onChange, label, disabled }: { value: string; onChan
 }
 
 function TimeSelect({ value, onChange, label, from, disabled }: { value: string; onChange: (hhmm: string) => void; label: string; from?: string; disabled?: boolean }) {
-  const opts = TIME_OPTIONS.map((t) => parseTime(t)!);
+  const opts = TIME_OPTIONS_15.map((t) => parseTime(t)!);
   const list = opts.includes(value) ? opts : [...opts, value].sort();
   return (
     <select aria-label={label} disabled={disabled} value={value} onChange={(e) => onChange(e.target.value)} className="border border-gray-300 bg-white px-1 py-0.5 text-[12px] disabled:bg-gray-100">

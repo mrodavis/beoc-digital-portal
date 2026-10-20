@@ -140,7 +140,7 @@ export function NotepadApp({ w }: { w: WinWindow }) {
     const items =
       which === "File"
         ? [
-            { label: "New tab", shortcut: "Ctrl+N", onClick: () => ctx.cmd("notepad.new") },
+            { label: "New tab", onClick: () => ctx.cmd("notepad.new") },
             { label: "Save", shortcut: "Ctrl+S", onClick: () => doSave(false) },
             { label: "Save as", shortcut: "Ctrl+Shift+S", onClick: () => doSave(true) },
             { sep: true },
@@ -672,12 +672,14 @@ export function OfficeApp({ w }: { w: WinWindow }) {
   const o = OFFICE[w.app];
   const it = w.file ? getItem(ctx.doc, w.file) : null;
   const name = w.file ? baseOf(w.file) : `${o.doc}1`;
+  const frozen = processes(ctx.doc).some((p) => p.app === w.app && p.status);
   return (
-    <div className="flex h-full flex-col" style={{ background: "#f3f3f3" }}>
+    <div className="relative flex h-full flex-col" style={{ background: "#f3f3f3" }}>
+      {frozen && <div className="absolute inset-0 top-10 z-10 flex items-start justify-center bg-white/55 pt-10 text-[12px] text-[#333]"><span className="rounded bg-white px-3 py-2 shadow">{appInfo(w.app).name} is not responding. Wait a minute, or end the task in Task Manager.</span></div>}
       <TitleBar app={w.app} bg={o.color} darkText>
         <div className="flex min-w-0 flex-1 items-center gap-2 px-3 text-[12px] text-white">
           <AppIcon id={w.app} s={16} />
-          <span className="truncate">{name} - {appInfo(w.app).name}</span>
+          <span className="truncate">{name} - {appInfo(w.app).name}{frozen ? " (Not Responding)" : ""}</span>
         </div>
       </TitleBar>
       <div className="flex h-8 shrink-0 items-center gap-4 px-3 text-[12px] text-[#333]" style={{ background: "#f3f3f3" }}>

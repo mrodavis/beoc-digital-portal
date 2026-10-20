@@ -7,6 +7,7 @@ import { addDays, allChannels, DEFAULT_TODAY, findEvent, fmtTime, isoToMDY, long
 import { Avatar, IconBtn, PersonAvatar, PrimaryBtn, SecondaryBtn, inputCls, useAccepted, useOutsideClose, useTeams } from "./TeamsShared";
 
 const HOUR_H = 48;
+const pickCls = "w-auto rounded-[4px] border border-[#d1d1d1] border-b-[#616161] bg-white px-2.5 py-1.5 text-[14px] text-[#242424] outline-none focus:border-b-2 focus:border-b-[#5b5fc7]";
 const START_H = 8;
 const END_H = 18;
 
@@ -234,7 +235,7 @@ function EventCard({ id, x, y, onClose }: { id: string; x: number; y: number; on
 /* New meeting form                                                    */
 /* ------------------------------------------------------------------ */
 
-const TIMES = Array.from({ length: 25 }, (_, i) => fmtTime(7 * 60 + i * 30));
+const TIMES = Array.from({ length: 49 }, (_, i) => fmtTime(7 * 60 + i * 15));
 const REPEATS = ["Does not repeat", "Every weekday (Mon-Fri)", "Daily", "Weekly", "Monthly", "Yearly"];
 
 export function ScheduleForm() {
@@ -356,7 +357,7 @@ export function ScheduleForm() {
           {row(
             "clock",
             <div className="flex flex-wrap items-center gap-2">
-              <select aria-label="Start date" value={date} onChange={(e) => setDate(e.target.value)} className={`${inputCls} w-auto`}>
+              <select aria-label="Start date" value={date} onChange={(e) => setDate(e.target.value)} className={pickCls}>
                 {dates.map((d) => (
                   <option key={d} value={d}>
                     {shortDay(d)}/{d.slice(0, 4)}
@@ -372,14 +373,14 @@ export function ScheduleForm() {
                   setStart(s);
                   setEnd(fmtTime(Math.min(19 * 60, parseTime(s) + dur)));
                 }}
-                className={`${inputCls} w-auto`}
+                className={pickCls}
               >
                 {TIMES.map((t) => (
                   <option key={t}>{t}</option>
                 ))}
               </select>
               <TIcon name="fwd" size={14} className="text-[#616161]" />
-              <select aria-label="End time" value={end} onChange={(e) => setEnd(e.target.value)} className={`${inputCls} w-auto`}>
+              <select aria-label="End time" value={end} onChange={(e) => setEnd(e.target.value)} className={pickCls}>
                 {TIMES.filter((t) => parseTime(t) > parseTime(start)).map((t) => (
                   <option key={t}>{t}</option>
                 ))}
@@ -389,7 +390,7 @@ export function ScheduleForm() {
           )}
           {row(
             "repeat",
-            <select aria-label="Repeat" value={repeat} onChange={(e) => setRepeat(e.target.value)} className={`${inputCls} w-auto`}>
+            <select aria-label="Repeat" value={repeat} onChange={(e) => setRepeat(e.target.value)} className={pickCls}>
               {REPEATS.map((r) => (
                 <option key={r}>{r}</option>
               ))}
@@ -397,7 +398,7 @@ export function ScheduleForm() {
           )}
           {row(
             "teams",
-            <select aria-label="Add channel" value={channel} onChange={(e) => setChannel(e.target.value)} className={`${inputCls} w-auto`}>
+            <select aria-label="Add channel" value={channel} onChange={(e) => setChannel(e.target.value)} className={pickCls}>
               {channels.map((c) => (
                 <option key={c} value={c}>
                   {c === "None" ? "Add channel" : c}

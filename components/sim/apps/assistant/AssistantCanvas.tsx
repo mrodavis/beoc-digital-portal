@@ -193,9 +193,10 @@ function CopilotView({ c }: { c: ACtx }) {
   const [savePrompt, setSavePrompt] = useState<string | null>(null);
   const scroller = useRef<HTMLDivElement>(null);
   const acctRef = useOutside(acctOpen, () => setAcctOpen(false));
+  const feedbackSig = msgs.map((m) => m.feedback ?? "").join("|");
   useEffect(() => {
     scroller.current?.scrollTo({ top: scroller.current.scrollHeight, behavior: "smooth" });
-  }, [msgs.length]);
+  }, [msgs.length, feedbackSig]);
   useEffect(() => setPanel(null), [chatCtx]);
   const first = (account?.name ?? "there").split(" ")[0];
   const suggestions = agent ? agent.suggestions ?? [] : doc.suggestions ?? [];
@@ -562,7 +563,7 @@ function PromptBox({ c, ctxKey, draft, setDraft, placeholder, work, onSavePrompt
 
 function SidePanel({ c, panel, onClose }: { c: ACtx; panel: NonNullable<Panel>; onClose: () => void }) {
   const { doc, act } = c;
-  const [text, setText] = useState(panel.kind === "edit" ? panel.msg.edited ?? panel.msg.text : "");
+  const [text, setText] = useState(panel.kind === "edit" ? (panel.msg.edited ?? panel.msg.text).replace(/\*\*/g, "") : "");
   const accepted = useAccepted(doc);
   const title = panel.kind === "source" ? `Source ${panel.n}` : panel.kind === "file" ? panel.name : "Edit response";
   return (

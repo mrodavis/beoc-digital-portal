@@ -1192,7 +1192,10 @@ function applyDialog(d: EhrDoc, id: string, values: Record<string, SimValue>, ui
       mustPatient(d, pid);
       const vt = VISIT_TYPES.find((x) => x.value === str(values, "type"));
       if (!vt) throw new Error(`Unknown visit type "${str(values, "type")}"`);
-      if (slotConflict(d, slot.provider, slot.date, slot.time, vt.minutes)) throw new Error(`Slot ${ui.selection} overlaps another appointment`);
+      if (slotConflict(d, slot.provider, slot.date, slot.time, vt.minutes)) {
+        d.toast = `A ${vt.minutes}-minute ${vt.value.toLowerCase()} visit at ${slot.time} overlaps another appointment. Choose an earlier slot or another provider.`;
+        return { doc: d };
+      }
       const nid = nextId((d.appointments ?? []).map((a) => a.id), "V");
       d.appointments = [...(d.appointments ?? []), { id: nid, patient: pid, provider: slot.provider, date: slot.date, time: slot.time, minutes: vt.minutes, type: vt.value, reason: str(values, "reason"), status: "Scheduled" }];
       tick(d);
@@ -1246,7 +1249,10 @@ function applyDialog(d: EhrDoc, id: string, values: Record<string, SimValue>, ui
         o.status = "Canceled";
         d.toast = `${o.name} canceled.`;
       } else if (action === "Override and keep the order") {
-        if (!str(values, "reason")) throw new Error("Override needs a reason");
+        if (!str(values, "reason")) {
+          d.toast = "Choose an override reason before you keep an order that triggered an alert.";
+          return { doc: d };
+        }
         o.status = "Unsigned";
         o.override = str(values, "reason");
         d.toast = "Alert overridden. The reason is saved with the order.";

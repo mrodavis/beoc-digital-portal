@@ -100,7 +100,7 @@ export const ehrModule6Sims: Record<string, SimDefinition[]> = {
       app: "ehr",
       title: "Telephone orders and the result that never came",
       scenario:
-        "You are a medical assistant at Northstar Primary Care. Dr. Okafor is at the hospital and phones in orders for Ruth Adeyemi. Read every order back, enter it as a telephone order, never override an alert on her behalf, and then chase the imaging order that has gone quiet.",
+        "You are a medical assistant at Northstar Primary Care. Dr. Okafor is at the hospital and phones in orders for Ruth Adeyemi. Read every order back, enter it as a telephone order, leave alert overrides to the provider, and then chase the imaging order that has gone quiet.",
       fileName: "Northstar EHR · Medical Assistant",
       minutes: 5,
       initial: practice({
@@ -145,7 +145,7 @@ export const ehrModule6Sims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "dialog", id: "ehr.order.med", values: { patient: "P1", drug: "amoxicillin", dose: "500 mg", route: "Oral", freq: "Every 8 hours", duration: "10 days", mode: "Telephone (read back)", orderedBy: "PRV1" } } }],
         },
         {
-          instruction: "A drug-allergy alert fires: Ruth is allergic to penicillin. You may not override an alert on the provider's behalf. Cancel the order; you will call Dr. Okafor back with the alert.",
+          instruction: "A drug-allergy alert fires: Ruth is allergic to penicillin. Northstar policy does not let you override an alert on the provider's behalf. Cancel the order; you will call Dr. Okafor back with the alert.",
           hint: "In the alert: Response › Cancel this order › Continue.",
           steps: [{ action: { kind: "dialog", id: "ehr.alert", values: { action: "Cancel this order" } } }],
         },

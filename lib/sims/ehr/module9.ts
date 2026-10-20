@@ -128,7 +128,7 @@ export const ehrModule9Sims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Mateo's grandmother calls for his strep test result. She is not his parent or guardian and has no authorization on file. Record her request and decline it.",
+          instruction: "Mateo's grandmother calls for his strep test result. She is not his parent or legal guardian, and his parents have not authorized anyone else to receive his information. Record her request and decline it.",
           hint: "Mateo's chart › Documents › Release of information › Requested by: Family member without authorization › leave the documents unchecked › Decision: Decline: no valid authorization › Record request.",
           steps: [{ action: { kind: "dialog", id: "ehr.roi", values: { patient: "P1", requester: "Family member without authorization", decision: "Decline: no valid authorization" } } }],
         },

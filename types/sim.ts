@@ -114,14 +114,20 @@ export interface SimRequires {
   slide?: string;
 }
 
+/** An alternative action, optionally with its own selection requirement. */
+export type SimAlt = SimAction & { requires?: SimRequires };
+
 export interface SimStep {
   action: SimAction;
   /**
    * Other ways to do the same thing that should also count (the Font dialog
    * instead of the Ribbon box, a right-click command instead of a button).
    * Effects still apply; built-in behavior runs for whichever was used.
+   * An alternative may carry its own `requires` when it needs a different
+   * selection (Ctrl+D needs the whole fill range, the Fill Handle only the
+   * source cell); otherwise the step's `requires` applies.
    */
-  alt?: SimAction[];
+  alt?: SimAlt[];
   requires?: SimRequires;
   /** Shown when the right command is used with the wrong selection. */
   selectHint?: string;

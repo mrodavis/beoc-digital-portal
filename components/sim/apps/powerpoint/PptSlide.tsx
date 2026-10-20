@@ -230,7 +230,8 @@ function TableBody({ o, ctx }: { o: PptObject; ctx: ObjectCtx }) {
 
 function ChartBody({ o, ctx }: { o: PptObject; ctx: ObjectCtx }) {
   const s = o.series ?? [];
-  const ch = ox(o).chart ?? { showTitle: true, legend: "Bottom", title: "Chart Title" };
+  // Charts placed in a deck by hand carry no element settings: show them clean (no title, no legend).
+  const ch = ox(o).chart ?? { showTitle: false, legend: null, gridlines: true };
   const type = o.label ?? "";
   const palette = /Monochromatic/.test(ox(o).fx?.color ?? "") ? ["#1F3864", "#2F5597", "#4472C4", "#8FAADC", "#B4C7E7", "#DAE3F3"] : /Palette 2/.test(ox(o).fx?.color ?? "") ? ["#ED7D31", "#A5A5A5", "#FFC000", "#4472C4", "#70AD47", "#5B9BD5"] : PAL;
   const max = Math.max(1, ...s.map((x) => x.value));
@@ -643,7 +644,7 @@ export function SlideView(props: SlideViewProps) {
                   onDragStart={(e) => { e.dataTransfer.setData("text/x-ppt-line", lk); e.dataTransfer.effectAllowed = "move"; }}
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={(e) => { e.stopPropagation(); const from = e.dataTransfer.getData("text/x-ppt-line"); if (from) props.onLineDrop?.(from, i + 1); }}
-                  onMouseDown={interactive ? (e) => { if (isSel && !e.shiftKey) { e.stopPropagation(); props.onPart?.(lk, e); } } : undefined}
+                  onMouseDown={interactive ? (e) => { if (isSel && !e.shiftKey && e.button === 0) { e.stopPropagation(); props.onPart?.(lk, e); } else if (isSel && e.button !== 0) e.stopPropagation(); } : undefined}
                   className={`flex gap-3 ${lineSelected ? "bg-[#cde4f7]" : ""} ${interactive && lineSelected ? "cursor-move" : ""}`}
                   style={{ paddingLeft: lvl * 36, fontSize: lvl ? "0.83em" : undefined, marginTop: i ? `${0.35 + (bp.spaceBefore ?? 0) / 24}em` : undefined, marginBottom: bp.spaceAfter ? `${bp.spaceAfter / 24}em` : undefined }}
                 >

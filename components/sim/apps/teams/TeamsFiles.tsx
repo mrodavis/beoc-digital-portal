@@ -1,20 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import type { TeamsFile } from "./types";
 import { FileIcon, FolderIcon, TIcon } from "./icons";
 import { findChannel, findFile, personName, serializeForm } from "./model";
-import { Field, IconBtn, Modal, PersonAvatar, PrimaryBtn, SecondaryBtn, inputCls, useAccepted, useTeams } from "./TeamsShared";
+import { Field, Modal, PersonAvatar, PrimaryBtn, SecondaryBtn, inputCls, useAccepted, useTeams } from "./TeamsShared";
 
 /* ------------------------------------------------------------------ */
 /* Pickers and dialogs                                                 */
 /* ------------------------------------------------------------------ */
 
 export function UploadPicker({ onPick, onClose }: { onPick: (name: string) => void; onClose: () => void }) {
-  const { doc } = useTeams();
+  const { doc, overlayRoot } = useTeams();
   const [sel, setSel] = useState<string | null>(null);
   const files = doc.localFiles ?? [];
-  return (
+  const node = (
     <div className="absolute inset-0 z-[95] flex items-center justify-center bg-black/25" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div role="dialog" aria-label="Open" className="w-[560px] overflow-hidden rounded-md border border-[#c8c8c8] bg-white text-[13px] shadow-2xl">
         <div className="flex items-center justify-between bg-[#f3f3f3] px-3 py-2">
@@ -71,6 +72,7 @@ export function UploadPicker({ onPick, onClose }: { onPick: (name: string) => vo
       </div>
     </div>
   );
+  return overlayRoot ? createPortal(node, overlayRoot) : node;
 }
 
 const LINK_OPTIONS = (org: string) => ["Anyone with the link", `People in ${org}`, "People with existing access", "People you choose"];
@@ -506,9 +508,6 @@ export function OneDriveView() {
         {move && <MoveDialog file={move} onClose={() => setMove(null)} />}
         <FileViewer />
       </div>
-      <span className="hidden">
-        <IconBtn icon="more" label="" />
-      </span>
     </div>
   );
 }

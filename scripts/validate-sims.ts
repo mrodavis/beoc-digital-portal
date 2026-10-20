@@ -124,7 +124,14 @@ function selectionExists(app: string, doc: unknown, sel: string): boolean {
       return true;
     });
   }
-  if (app === "excel") return /^[A-Z]{1,3}\d+(:[A-Z]{1,3}\d+)?$|^[A-Z]+:[A-Z]+$|^\d+:\d+$/i.test(sel.replace(/\$/g, ""));
+  if (app === "excel") {
+    const sheets = (d.sheets ?? []) as { name: string; charts?: { id: string }[]; objects?: { id: string }[] }[];
+    const m = /^(sheet|chart|obj):([^.]+)/.exec(sel);
+    if (m?.[1] === "sheet") return sheets.some((s) => s.name === m[2]);
+    if (m?.[1] === "chart") return sheets.some((s) => s.charts?.some((c) => c.id === m[2]));
+    if (m?.[1] === "obj") return sheets.some((s) => s.objects?.some((o) => o.id === m[2]));
+    return /^[A-Z]{1,3}\d+(:[A-Z]{1,3}\d+)?$|^[A-Z]+:[A-Z]+$|^\d+:\d+$/i.test(sel.replace(/\$/g, ""));
+  }
   if (app === "powerpoint") {
     const [sid, part] = sel.split(".");
     const s = d.slides.find((x: { id: string }) => x.id === sid);

@@ -6,7 +6,7 @@ import type { CanvasProps, StatusBarProps } from "../../types";
 import type { EhrDoc, EhrWorkspace } from "./types";
 import { buildForm, type FormCtx } from "./forms";
 import { nameOf, patientOf } from "./model";
-import { EhrContext, FormModal, Icon, StarMark, useEhr as useEhrSafe, type Ehr, type MenuEntry } from "./ui";
+import { EhrContext, FormModal, Icon, StarMark, useEhr, type Ehr, type MenuEntry } from "./ui";
 import { AuditView, LockScreen, SearchView, SignInScreen } from "./views/Access";
 import { ChartView } from "./views/Chart";
 import { ScheduleView, TrackerView } from "./views/Schedule";
@@ -172,7 +172,7 @@ function Workstation() {
 }
 
 function TopBar() {
-  const { doc, cmd, openForm } = useEhrSafe();
+  const { doc, cmd, openForm } = useEhr();
   const initials = doc.session.name
     .split(/\s+/)
     .map((w) => w[0])
@@ -224,7 +224,7 @@ function TopBar() {
 }
 
 function Rail() {
-  const { doc, cmd } = useEhrSafe();
+  const { doc, cmd } = useEhr();
   const chartP = patientOf(doc, doc.nav.chart);
   return (
     <nav aria-label="Workspaces" className="flex w-[70px] shrink-0 flex-col gap-0.5 overflow-y-auto bg-slate-800 py-1.5">
@@ -251,7 +251,7 @@ function Rail() {
 }
 
 function Content() {
-  const { doc } = useEhrSafe();
+  const { doc } = useEhr();
   switch (doc.nav.ws) {
     case "search":
       return <SearchView />;

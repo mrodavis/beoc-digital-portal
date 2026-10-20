@@ -531,6 +531,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
     setEdit(null);
     editRef.current = null;
     if (blockedEdit(e.ref)) return;
+    if (e.text !== cellRaw(sheet, e.ref) && !validEntry(e.ref, e.text)) {
+      // Data Validation's default Stop alert: the entry is rejected and the cell keeps its value.
+      setMessage("This value doesn't match the data validation restrictions defined for this cell.");
+      return;
+    }
     if (e.text !== cellRaw(sheet, e.ref)) onCommit({ kind: "type", target: e.ref, value: e.text });
     const p = parseRef(e.ref)!;
     if (move === "down") onSelect({ selection: refOf(p.c, p.r + 1) });
@@ -549,6 +554,25 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
       return true;
     }
     return false;
+  };
+
+  /** Does typed text satisfy the Data Validation rule on this cell (if any)? */
+  const validEntry = (ref: string, text: string) => {
+    if (!/^[A-Z]+\d+$/.test(ref) || text.trim() === "" || text.startsWith("=")) return true;
+    const p = parseRef(ref)!;
+    const rule = Object.entries(sheet.validation ?? {}).find(([rng]) => { const rc = parseRange(rng); return rc && p.c >= rc.c1 && p.c <= rc.c2 && p.r >= rc.r1 && p.r <= rc.r2; })?.[1];
+    if (!rule || rule.type === "Any value") return true;
+    const v = parseInput(text).v;
+    const inRange = (n: number) => (rule.min === undefined || n >= rule.min) && (rule.max === undefined || n <= rule.max);
+    switch (rule.type) {
+      case "Whole number": return typeof v === "number" && Number.isInteger(v) && inRange(v);
+      case "Decimal":
+      case "Date":
+      case "Time": return typeof v === "number" && inRange(v);
+      case "List": return (rule.list ?? []).some((x) => x.toLowerCase() === text.trim().toLowerCase());
+      case "Text length": return inRange(text.length);
+    }
+    return true;
   };
 
   const startEdit = (text?: string) => {
@@ -1154,6 +1178,17 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                   {midR > 1 && <div className="pointer-events-none absolute z-[4] h-[4px] bg-[#c6c6c6]" style={{ left: 0, top: rowY[midR] - 2, width: gridW }} />}
                   {midC > 1 && <div className="pointer-events-none absolute z-[4] w-[4px] bg-[#c6c6c6]" style={{ top: 0, left: colX[midC] - 2, height: gridH }} />}
                 </>
+              );
+            })()}
+            {/* Data Validation input message for the active cell */}
+            {(() => {
+              if (!ap || edit) return null;
+              const rule = Object.entries(sheet.validation ?? {}).find(([rng]) => { const rc = parseRange(rng); return rc && ap.c >= rc.c1 && ap.c <= rc.c2 && ap.r >= rc.r1 && ap.r <= rc.r2; })?.[1];
+              if (!rule?.message) return null;
+              return (
+                <div className="pointer-events-none absolute z-[9] max-w-[200px] border border-gray-500 bg-[#ffffe1] px-2 py-1 text-[11px] leading-snug text-gray-800 shadow" style={{ left: (colX[ap.c] ?? 0) + 12, top: (rowY[ap.r + 1] ?? 0) + 4 }}>
+                  {rule.message}
+                </div>
               );
             })()}
             {/* spill range border */}

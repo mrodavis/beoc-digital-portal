@@ -101,7 +101,10 @@ export const wordModule2Sims: Record<string, SimDefinition[]> = {
   give a `selectHint` that tells the learner what to click.
 - **Accept every normal method.** If the Font dialog, the Ribbon box and a
   shortcut all do it, list the others in `alt`. Shortcuts already emit the
-  same command id as their button.
+  same command id as their button. An alternative that needs a different
+  selection carries its own `requires` (it falls back to the step's).
+- In an any-order task, several steps may share a command (style each of
+  three headings); the player completes the one whose selection matches.
 - **Typing** uses `{ kind: "type", target, value }`. Keep typed text short and
   quote it exactly in the instruction. The learner double-clicks (or selects
   and starts typing) and presses Enter to commit.
@@ -185,8 +188,8 @@ file), `file.protect`, `file.inspect`, `file.versionHistory`, `file.email`,
   `strictRefs: true` (use it in absolute-reference lessons).
 - Fill handle: `{ kind: "command", id: "excel.fill", value: "D2:D10" }` with
   `requires: { selection: "D2" }`; accept Ctrl+D through `alt: [{ kind:
-  "command", id: "home.fillSeries", value: "Down" }]` when the learner might
-  select the whole range first.
+  "command", id: "home.fillSeries", value: "Down", requires: { selection:
+  "D2:D10" } }]`, since Ctrl+D needs the whole range selected.
 - Renaming a sheet: double-click the tab and type → `{ kind: "type", target:
   "sheet:Sheet1", value: "Q1 Visits" }`.
 - AutoFilter: `filter.by` with value `"C=Paid|Pending"`; filter-menu sorting
@@ -196,6 +199,23 @@ file), `file.protect`, `file.inspect`, `file.versionHistory`, `file.email`,
 - Sorting acts on the current region like real Excel: keep totals separated
   from the data by a blank row (or sort before adding totals), or the total
   row sorts with the data.
+- Also in the formula engine: PRODUCT, IFS, FV, PV, NETWORKDAYS, WEEKDAY,
+  SORTBY, SEQUENCE; dynamic arrays spill (with `#SPILL!` and `#CALC!`);
+  SUBTOTAL skips filtered rows, hidden rows (101 and up) and nested
+  subtotals; structured table references and named ranges; R1C1 display.
+- AutoFilter value syntax for `filter.by`: `"C=Paid|Pending"` (checked
+  items), `"C=*"` (clear), `"F~>=100"` (number filter), `"C~contains
+  Omron"` (text filter), `"D~between a|b"` (two-condition filter).
+- Canvas-only commands: `home.insertCut`, `spelling.changeAll`,
+  `outline.level`, `pivot.filter`, `pivot.showAs`, `options.r1c1`,
+  `analyze.insert`, `excel.editAnyway`. Free commands include
+  `excel.editAnyway` and `formulas.function`.
+- State the shared types can't hold lives in `doc.flags` under these key
+  prefixes: `unlocked:`, `cas:`, `geo:`, `outline:`, `pvf:`, `pvShowAs:`,
+  `slicers:`, `split:`, `chart:<id>:*`, `objfill:`, `alt:`, plus `r1c1`,
+  `sheetView` and `protect`.
+- Sim files may import shared helpers (see `lib/sims/excel/helpers.ts` for
+  grids, columns, formats and dates).
 
 ## PowerPoint deck model
 

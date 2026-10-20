@@ -28,6 +28,7 @@ import { allFiles, baseOf, getItem, isFolder, parentOf, realPath } from "./fs";
 import {
   ExplorerApp,
   backgroundMenu,
+  confirmEmpty,
   dragOver,
   dropOnto,
   entryOf,
@@ -475,7 +476,12 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
 
   /* ---------------- desktop ---------------- */
 
-  const onDeskDown = useItemSelect(desktopEntries, { sel, select });
+  const onDeskSelect = useItemSelect(desktopEntries, { sel, select });
+  const onDeskDown = (e: React.MouseEvent, en: Entry) => {
+    if (doc.focus && e.button === 0) cmd("win.focus", "");
+    closeFly();
+    onDeskSelect(e, en);
+  };
   const deskSel = new Set(sel.split(",").filter(Boolean));
   const [deskHint, setDeskHint] = useState<string | null>(null);
   const recycleFull = (doc.recycle ?? []).length > 0;
@@ -522,9 +528,9 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
           label="Recycle Bin"
           art={recycleFull ? "recycleFull" : "recycle"}
           selected={sel === "sys:recycle"}
-          onDown={(e) => { e.stopPropagation(); select("sys:recycle"); }}
+          onDown={(e) => { e.stopPropagation(); if (doc.focus) cmd("win.focus", ""); select("sys:recycle"); }}
           onOpen={() => cmd("explorer.nav", "Recycle Bin")}
-          onMenu={(e) => { select("sys:recycle"); ctx.menu(e, [{ label: "Open", icon: "open", onClick: () => cmd("explorer.nav", "Recycle Bin") }, { label: "Empty Recycle Bin", icon: "delete", disabled: !recycleFull, onClick: () => cmd("explorer.nav", "Recycle Bin") }, { label: "Properties", icon: "properties", disabled: true }]); }}
+          onMenu={(e) => { select("sys:recycle"); ctx.menu(e, [{ label: "Open", icon: "open", onClick: () => cmd("explorer.nav", "Recycle Bin") }, { label: "Empty Recycle Bin", icon: "delete", disabled: !recycleFull, onClick: () => confirmEmpty(ctx) }, { label: "Properties", icon: "properties", disabled: true }]); }}
           onDrop={(e) => dropOnto(e, ctx, "Recycle Bin")}
           dropTarget
         />
@@ -1045,7 +1051,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
       onContextMenu={(e) => {
         if (e.target !== e.currentTarget) return;
         e.preventDefault();
-        ctx.menu({ clientX: e.clientX, clientY: e.clientY - 40 }, [{ label: "Taskbar settings", icon: "gear", onClick: () => cmd("settings.nav", "personalization/taskbar") }]);
+        ctx.menu({ clientX: e.clientX, clientY: e.clientY - 80 }, [{ label: "Task Manager", icon: "chart", onClick: () => cmd("win.open", "taskmgr") }, { label: "Taskbar settings", icon: "gear", onClick: () => cmd("settings.nav", "personalization/taskbar") }]);
       }}
     >
       {S(doc, "taskbar.widgets") === "on" && align !== "Left" && (
@@ -1382,7 +1388,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
           {taskbar}
           {snipLayer}
         </div>
-        {bright < 100 && <div className="pointer-events-none absolute inset-0 z-[590]" style={{ background: `rgba(0,0,0,${((100 - bright) / 100) * 0.55})` }} />}
+        {bright < 70 && <div className="pointer-events-none absolute inset-0 z-[590]" style={{ background: `rgba(0,0,0,${((70 - bright) / 70) * 0.5})` }} />}
         {S(doc, "nightlight") === "on" && <div className="pointer-events-none absolute inset-0 z-[591]" style={{ background: "rgba(255,140,40,.13)", mixBlendMode: "multiply" }} />}
         {smartApp}
         {modal}

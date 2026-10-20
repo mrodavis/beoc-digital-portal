@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import type { SimCommit, SimDefinition, SimDoc, SimTask, SimValue } from "@/types/sim";
+import type { SimCommit, SimDefinition, SimDoc, SimStep, SimTask, SimValue } from "@/types/sim";
 import type { AppModule, MenuItem, SimUi } from "./types";
 import { APPS } from "./apps";
 import { Ribbon, Popover, searchRibbon } from "./chrome/Ribbon";
@@ -201,11 +201,12 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
       // In an any-order task several steps can share a command (style each of
       // three headings): take the one whose selection matches, and only report
       // a selection miss when the command fits but no selection does.
-      const actionFits = candidates.filter((i) => {
+      const ways = (i: number) => {
         const s = t.steps[i];
-        return commitMatches(s.action, c) || (s.alt ?? []).some((a) => commitMatches(a, c));
-      });
-      const hit = actionFits.find((i) => selectionMatches(t.steps[i].requires, u));
+        return [{ a: s.action, req: s.requires }, ...(s.alt ?? []).map((a) => ({ a: a as SimStep["action"], req: a.requires ?? s.requires }))].filter((w) => commitMatches(w.a, c));
+      };
+      const actionFits = candidates.filter((i) => ways(i).length > 0);
+      const hit = actionFits.find((i) => ways(i).some((w) => selectionMatches(w.req, u)));
       if (actionFits.length && hit === undefined) {
         miss(t.steps[actionFits[0]].selectHint ?? "Right command, but check what is selected first.");
         return;

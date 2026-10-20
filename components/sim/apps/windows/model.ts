@@ -136,7 +136,13 @@ export function clouds(doc: WinDoc): CloudCfg[] {
 
 export function cloudFor(doc: WinDoc, url: string): CloudCfg | undefined {
   const u = normUrl(url);
-  return clouds(doc).find((c) => u === c.host || u.startsWith(`${c.host}/`) || (c.provider === "gdrive" && (u.startsWith("docs.google.com") || u.startsWith("drive.google.com"))) || (c.provider === "onedrive" && (u.startsWith("onedrive.live.com") || u.startsWith("office.com/onedrive"))));
+  return clouds(doc).find(
+    (c) =>
+      u === c.host ||
+      u.startsWith(`${c.host}/`) ||
+      (c.provider === "gdrive" && (u.startsWith("docs.google.com") || u.startsWith("drive.google.com"))) ||
+      (c.provider === "onedrive" && (u === "onedrive.com" || u.startsWith("onedrive.com/") || u.startsWith("onedrive.live.com") || u.startsWith("office.com/onedrive") || u.startsWith("onedrive.cloud.microsoft"))),
+  );
 }
 
 export type Resolved =
@@ -430,6 +436,12 @@ function newItem(d: WinDoc, parentPath: string, name: string, folder: boolean): 
 function renameItem(d: WinDoc, target: string, value: string): string | null {
   let path = target;
   if (!getItem(d, path)) path = freshAlias(d, target) ?? target;
+  if (!getItem(d, path)) {
+    // "New folder" may be "New folder (2)" when several were created before renaming.
+    const parent = getItem(d, parentOf(target));
+    const hit = (parent?.children ?? []).filter((c) => normNewName(`${parentOf(target)}/${c.name}`).toLowerCase() === target.toLowerCase()).pop();
+    if (hit) path = `${realPath(d, parentOf(target))}/${hit.name}`;
+  }
   const it = getItem(d, path);
   const name = value.trim();
   if (!it || !name || INVALID_NAME.test(name)) return null;
@@ -789,7 +801,10 @@ export function applyWin(doc: WinDoc, c: SimCommit, ui: SimUi): { doc: WinDoc; u
     }
     case "win.focus": {
       const w = winOf(d, v);
-      if (!w) return { doc: d };
+      if (!w) {
+        if (!v) d.focus = null;
+        return { doc: d };
+      }
       if (deskOf(w) !== curDesk(d)) d.desk = deskOf(w);
       d.windows = [...d.windows.filter((x) => x.id !== v), w];
       w.min = false;

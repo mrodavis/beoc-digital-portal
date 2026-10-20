@@ -194,7 +194,7 @@ export const pptModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "End the show, then set up the slide show so only slides 1 through 5 are shown.",
-          hint: "Press Esc to end the show. Slide Show tab › Set Up Slide Show. Under Show slides choose From:, enter 1 To: 5, then click OK.",
+          hint: "Press Esc to end the show. Slide Show tab › Set Up Slide Show. Under Show slides choose From:, set From slide to 1 and To slide to 5, then click OK.",
           steps: [{ action: { kind: "dialog", id: "setupShow", values: { showSlides: "From:", from: 1, to: 5 } } }],
         },
       ],

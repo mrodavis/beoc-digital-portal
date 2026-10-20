@@ -114,8 +114,7 @@ function BuildDialog({ c, type, onClose }: { c: ACtx; type: AssistantFlow["type"
                 </div>
               )}
               <p className="text-[12px] text-[#616161]">
-                This flow will run: {every || "1"} {unit.toLowerCase()}
-                {every !== "1" ? "s" : ""}
+                This flow will run: Every {every && every !== "1" ? `${every} ${unit.toLowerCase()}s` : unit.toLowerCase()}
                 {unit === "Week" && days.length ? ` on ${DAYS.filter((d) => days.includes(d)).join(", ")}` : ""} at {at}
               </p>
             </>

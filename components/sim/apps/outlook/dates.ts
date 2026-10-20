@@ -126,6 +126,9 @@ export function parseTime(v: string): string | null {
 /** Every half hour, "12:00 AM" … "11:30 PM". */
 export const TIME_OPTIONS: string[] = Array.from({ length: 48 }, (_, i) => fmtTime(`2026-01-01T${pad(Math.floor(i / 2))}:${i % 2 ? "30" : "00"}`));
 
+/** Every quarter hour, for the Start/End time boxes in forms. */
+export const TIME_OPTIONS_15: string[] = Array.from({ length: 96 }, (_, i) => fmtTime(`2026-01-01T${pad(Math.floor(i / 4))}:${pad((i % 4) * 15)}`));
+
 /** "15 minutes", "1 hour", "2 days" from a minute count. */
 export function fmtDuration(min: number): string {
   if (min < 60) return `${min} minute${min === 1 ? "" : "s"}`;

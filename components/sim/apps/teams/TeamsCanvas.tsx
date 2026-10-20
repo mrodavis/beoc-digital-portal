@@ -66,11 +66,12 @@ export function TeamsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<TeamsDo
     });
   }, []);
 
-  const ctx: TeamsCtxValue = { doc, ui: u, go, act, cmd, openMenu, closeMenu, seen, markSeen };
+  const [overlayRoot, setOverlayRoot] = useState<HTMLElement | null>(null);
+  const ctx: TeamsCtxValue = { doc, ui: u, go, act, cmd, openMenu, closeMenu, seen, markSeen, overlayRoot };
 
   return (
     <TeamsCtx.Provider value={ctx}>
-      <div className="relative flex h-full flex-col overflow-hidden bg-[#ebebeb] text-[14px] text-[#242424]" style={{ fontFamily: "'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, sans-serif" }}>
+      <div ref={setOverlayRoot} className="relative flex h-full flex-col overflow-hidden bg-[#ebebeb] text-[14px] text-[#242424]" style={{ fontFamily: "'Segoe UI', 'Segoe UI Web (West European)', -apple-system, BlinkMacSystemFont, Roboto, sans-serif" }}>
         {doc.meeting ? (
           <MeetingWindow />
         ) : (
@@ -115,6 +116,7 @@ function TitleBar() {
   const { doc, go, openMenu } = useTeams();
   const [q, setQ] = useState("");
   const [profile, setProfile] = useState(false);
+  const [msgOpen, setMsgOpen] = useState(false);
   const results = useMemo(() => {
     const s = q.trim().toLowerCase();
     if (!s) return [];
@@ -138,7 +140,7 @@ function TitleBar() {
   };
 
   return (
-    <div className="relative flex h-12 shrink-0 items-center gap-2 px-3">
+    <div className="flex h-12 shrink-0 items-center gap-2 px-3">
       <div className="flex w-[52px] items-center gap-1 text-[#9e9e9e]" aria-hidden="true">
         <TIcon name="back" size={16} />
         <TIcon name="fwd" size={16} />
@@ -191,7 +193,16 @@ function TitleBar() {
         <TIcon name="maximize" size={13} />
         <TIcon name="close" size={14} />
       </span>
-      {profile && <ProfileCard onClose={() => setProfile(false)} />}
+      {profile && (
+        <ProfileCard
+          onClose={() => setProfile(false)}
+          onMessage={() => {
+            setProfile(false);
+            setMsgOpen(true);
+          }}
+        />
+      )}
+      {msgOpen && <StatusMessageDialog onClose={() => setMsgOpen(false)} />}
     </div>
   );
 }
@@ -205,11 +216,10 @@ const STATUS_OPTIONS: [string, TeamsDoc["me"]["presence"]][] = [
   ["Appear offline", "Offline"],
 ];
 
-function ProfileCard({ onClose }: { onClose: () => void }) {
+function ProfileCard({ onClose, onMessage }: { onClose: () => void; onMessage: () => void }) {
   const { doc, cmd, go } = useTeams();
   const [statusOpen, setStatusOpen] = useState(false);
-  const [msgOpen, setMsgOpen] = useState(false);
-  const ref = useOutsideClose(!msgOpen, onClose);
+  const ref = useOutsideClose(true, onClose);
   return (
     <>
       <div ref={ref} className="absolute right-3 top-12 z-[80] w-[320px] rounded-lg border border-[#e0e0e0] bg-white text-[14px] shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
@@ -253,7 +263,7 @@ function ProfileCard({ onClose }: { onClose: () => void }) {
               </button>
             </div>
           )}
-          <button type="button" onClick={() => setMsgOpen(true)} className="flex w-full items-center gap-3 px-4 py-2 text-left hover:bg-[#f5f5f5]">
+          <button type="button" onClick={onMessage} className="flex w-full items-center gap-3 px-4 py-2 text-left hover:bg-[#f5f5f5]">
             <TIcon name="edit" size={16} />
             <span className="flex-1">{doc.me.statusMessage ? "Edit status message" : "Set status message"}</span>
           </button>
@@ -270,7 +280,6 @@ function ProfileCard({ onClose }: { onClose: () => void }) {
           </button>
         </div>
       </div>
-      {msgOpen && <StatusMessageDialog onClose={() => setMsgOpen(false)} />}
     </>
   );
 }

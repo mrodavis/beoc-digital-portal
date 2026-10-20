@@ -129,7 +129,8 @@ export function personFor(doc: OutlookDoc, token: string): OlPerson {
   const t = token.trim();
   const g = (doc.groups ?? []).find((x) => x.name.toLowerCase() === t.toLowerCase());
   if (g) return { name: g.name, email: "" };
-  const p = people(doc).find((x) => x.email.toLowerCase() === t.toLowerCase());
+  const all = people(doc);
+  const p = all.find((x) => x.email.toLowerCase() === t.toLowerCase()) ?? all.find((x) => x.name.toLowerCase() === t.toLowerCase());
   return p ?? { name: t, email: t };
 }
 
@@ -2207,7 +2208,7 @@ export function outlookContextual(doc: OutlookDoc, ui: SimUi): string[] {
   }
   if (mod === "calendar") {
     const s = selEvent(doc, ui);
-    if (s) keys.push(s.evt.meeting ? "meetingSel" : "apptSel");
+    if (s) keys.push(s.evt.recurrence ? (s.evt.meeting ? "meetingOccSel" : "apptOccSel") : s.evt.meeting ? "meetingSel" : "apptSel");
   }
   return keys;
 }

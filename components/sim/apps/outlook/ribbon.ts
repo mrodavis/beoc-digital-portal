@@ -708,14 +708,14 @@ const insertForm: RibbonTab = {
 };
 
 /* Selected item in the calendar (Calendar Tools). */
-const deleteDropdown: RibbonControl = { type: "dropdown", id: "item.delete", label: "Delete", icon: "deleteCells", size: "large", split: true, options: [{ value: "Delete Occurrence", icon: "deleteCells" }, { value: "Delete Series", icon: "deleteCells" }] };
+const deleteDropdown: RibbonControl = { type: "dropdown", id: "item.delete", label: "Delete", icon: "deleteCells", size: "large", options: [{ value: "Delete Occurrence", icon: "deleteCells" }, { value: "Delete Series", icon: "deleteCells" }] };
 
 const apptSelTab: RibbonTab = {
   id: "calAppt",
   label: "Appointment",
   contextual: "apptSel",
   groups: [
-    { label: "Actions", controls: [{ type: "button", id: "item.open", label: "Open", icon: "open", size: "large" }, deleteDropdown, { type: "button", id: "event.forward", label: "Forward", icon: "redo", size: "large" }] },
+    { label: "Actions", controls: [{ type: "button", id: "item.open", label: "Open", icon: "open", size: "large" }, deleteBtn, { type: "button", id: "event.forward", label: "Forward", icon: "redo", size: "large" }] },
     optionsGroup("evtsel"),
     { label: "Tags", controls: [{ type: "toggle", id: "evtsel.private", label: "Private", icon: "protect", showLabel: true }, { type: "dropdown", id: "item.categorize", label: "Categorize", icon: "colors", showLabel: true, options: categorizeOptions() }] },
   ],
@@ -730,7 +730,7 @@ const meetingSelTab: RibbonTab = {
       label: "Actions",
       controls: [
         { type: "button", id: "event.cancelMeeting", label: "Cancel Meeting", icon: "close", size: "large" },
-        deleteDropdown,
+        deleteBtn,
         { type: "button", id: "item.open", label: "Open", icon: "open", size: "large" },
         { type: "button", id: "event.forward", label: "Forward", icon: "redo", size: "large" },
       ],
@@ -739,6 +739,19 @@ const meetingSelTab: RibbonTab = {
     optionsGroup("evtsel"),
     { label: "Tags", controls: [{ type: "toggle", id: "evtsel.private", label: "Private", icon: "protect", showLabel: true }, { type: "dropdown", id: "item.categorize", label: "Categorize", icon: "colors", showLabel: true, options: categorizeOptions() }] },
   ],
+};
+
+/* One occurrence of a recurring item selected: Delete asks Occurrence or Series. */
+const occurrenceTab = (meeting: boolean): RibbonTab => {
+  const base = meeting ? meetingSelTab : apptSelTab;
+  const swap = (c: RibbonControl): RibbonControl => (c.type === "button" && c.id === "item.delete" ? deleteDropdown : c);
+  return {
+    ...base,
+    id: meeting ? "calMeetingOcc" : "calApptOcc",
+    label: meeting ? "Meeting Occurrence" : "Appointment Occurrence",
+    contextual: meeting ? "meetingOccSel" : "apptOccSel",
+    groups: base.groups.map((g) => ({ ...g, controls: g.controls.map(swap) })),
+  };
 };
 
 /* Meeting request selected in the Inbox. */
@@ -1160,6 +1173,8 @@ export const outlookRibbon: RibbonTab[] = [
   inviteTab,
   apptSelTab,
   meetingSelTab,
+  occurrenceTab(false),
+  occurrenceTab(true),
   insertCompose,
   insertForm,
   optionsCompose,

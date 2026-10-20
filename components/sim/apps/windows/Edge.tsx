@@ -9,7 +9,7 @@ import { Caption, useFrame } from "./frame";
 import { NOW } from "./data";
 import { S, clouds, looksLikeUrl, net, normUrl, pageTitle, resolveUrl, userName, type CloudCfg } from "./model";
 import { baseOf, extOf, getItem, isFolder, parentOf, realPath, rootOf, sizeOf, splitPath } from "./fs";
-import { DND, dragOver } from "./Explorer";
+import { DND, dragOver, perItem } from "./Explorer";
 
 /* ------------------------------------------------------------------ */
 /* Helpers                                                             */
@@ -1086,9 +1086,8 @@ function CloudView({ cfg, tab }: { cfg: CloudCfg; tab: WinTab }) {
             e.preventDefault();
             try {
               const paths = JSON.parse(raw) as string[];
-              ctx.select(paths.map((p) => `file:${p}`).join(","));
               const inside = paths.every((p) => rootOf(doc, p)?.name === cfg.root);
-              ctx.cmd(inside ? "fs.move" : "fs.copyTo", realPath(doc, path));
+              perItem(ctx, paths, inside ? "fs.move" : "fs.copyTo", realPath(doc, path));
             } catch {
               /* ignore */
             }
@@ -1115,7 +1114,7 @@ function CloudView({ cfg, tab }: { cfg: CloudCfg; tab: WinTab }) {
               {one && oneIt && <button type="button" aria-label="Download" onClick={() => ctx.cmd("edge.download", oneIt.name)} className="rounded-full p-1.5 hover:bg-black/10"><G n="download" s={15} /></button>}
               {one && <button type="button" aria-label={g ? "Move" : "Move to"} onClick={() => ctx.modal(<MoveDialog path={one} cfg={cfg} />)} className="rounded-full p-1.5 hover:bg-black/10"><G n="open" s={15} /></button>}
               {one && oneIt && <button type="button" aria-label="Rename" onClick={() => ctx.modal(<NameDialog title="Rename" initial={oneIt.name} okLabel="OK" onOk={(v) => v !== oneIt.name && ctx.commit({ kind: "type", target: one, value: v })} />)} className="rounded-full p-1.5 hover:bg-black/10"><G n="rename" s={15} /></button>}
-              <button type="button" aria-label={g ? "Move to trash" : "Delete"} onClick={() => ctx.cmd("fs.delete")} className="rounded-full p-1.5 hover:bg-black/10"><G n="delete" s={15} /></button>
+              <button type="button" aria-label={g ? "Move to trash" : "Delete"} onClick={() => perItem(ctx, sel, "fs.delete")} className="rounded-full p-1.5 hover:bg-black/10"><G n="delete" s={15} /></button>
               {one && oneIt && !isFolder(oneIt) && <button type="button" aria-label="Version history" onClick={() => ctx.modal(<VersionsDialog path={one} />)} className="rounded-full p-1.5 hover:bg-black/10"><G n="history" s={15} /></button>}
             </div>
           )}
@@ -1146,7 +1145,7 @@ function CloudView({ cfg, tab }: { cfg: CloudCfg; tab: WinTab }) {
                       draggable
                       onDragStart={(e) => { e.dataTransfer.setData(DND, JSON.stringify([p])); ctx.select(k); }}
                       onDragOver={isFolder(it) ? (e) => dragOver(e, doc, p) : undefined}
-                      onDrop={isFolder(it) ? (e) => { const raw = e.dataTransfer.getData(DND); if (!raw) return; e.preventDefault(); e.stopPropagation(); try { const ps = JSON.parse(raw) as string[]; if (ps.includes(p)) return; ctx.select(ps.map((x) => `file:${x}`).join(",")); ctx.cmd("fs.move", p); } catch { /* ignore */ } } : undefined}
+                      onDrop={isFolder(it) ? (e) => { const raw = e.dataTransfer.getData(DND); if (!raw) return; e.preventDefault(); e.stopPropagation(); try { const ps = JSON.parse(raw) as string[]; if (ps.includes(p)) return; perItem(ctx, ps, "fs.move", p); } catch { /* ignore */ } } : undefined}
                       onClick={(e) => ctx.select(e.ctrlKey || e.metaKey ? Array.from(new Set([...Array.from(keys), k])).join(",") : k)}
                       onDoubleClick={() => open(p)}
                       onContextMenu={(e) => { e.preventDefault(); rowMenu(e, p, it); }}
@@ -1210,6 +1209,7 @@ function FavoritesPane({ onClose, currentUrl }: { onClose: () => void; currentUr
         <>
           <button type="button" aria-label="Add this page to favorites" title="Add this page to favorites" onClick={() => { ctx.select(`page:${currentUrl}`); ctx.cmd("edge.favorite", "Favorites bar"); }} className="rounded p-1.5 hover:bg-[var(--w-hover)]"><G n="star" s={15} /></button>
           <button type="button" aria-label="Add folder" title="Add folder" onClick={() => setAdding(true)} className="rounded p-1.5 hover:bg-[var(--w-hover)]"><G n="newFolder" s={15} /></button>
+          <button type="button" aria-label="More options" title="More options" onClick={(e) => ctx.menu(e, [{ label: doc.showFavBar ? "Hide favorites bar" : "Show favorites bar", icon: "favorites", shortcut: "Ctrl+Shift+B", onClick: () => ctx.cmd("edge.favBar") }, { label: "Open favorites page", onClick: () => ctx.cmd("edge.nav", "edge://favorites") }])} className="rounded p-1.5 hover:bg-[var(--w-hover)]"><G n="more" s={15} /></button>
         </>
       }
     >
@@ -1499,9 +1499,9 @@ export function EdgeApp({ w }: { w: WinWindow }) {
   };
   const menu = (e: React.MouseEvent) =>
     ctx.menu(at(e), [
-      { label: "New tab", icon: "plus", shortcut: "Ctrl+T", onClick: () => ctx.cmd("edge.newTab") },
-      { label: "New window", icon: "app", shortcut: "Ctrl+N", disabled: true },
-      { label: "New InPrivate window", icon: "inPrivate", shortcut: "Ctrl+Shift+N", onClick: () => ctx.cmd("edge.inPrivate") },
+      { label: "New tab", icon: "plus", onClick: () => ctx.cmd("edge.newTab") },
+      { label: "New window", icon: "app", disabled: true },
+      { label: "New InPrivate window", icon: "inPrivate", onClick: () => ctx.cmd("edge.inPrivate") },
       { sep: true },
       { label: "Zoom          100%", icon: "zoomIn", onClick: () => ctx.cmd("edge.zoom") },
       { sep: true },
@@ -1511,7 +1511,7 @@ export function EdgeApp({ w }: { w: WinWindow }) {
       { label: "Apps", icon: "apps", sub: [{ label: "Install this site as an app", disabled: r.kind !== "page", onClick: () => ctx.cmd("edge.installApp", normUrl(url)) }, { label: "View apps", onClick: () => ctx.cmd("settings.nav", "apps/installed") }] },
       { label: "Extensions", icon: "apps", disabled: true },
       { sep: true },
-      { label: "Print", icon: "print", shortcut: "Ctrl+P", disabled: true },
+      { label: "Print", icon: "print", disabled: true },
       { label: "Find on page", icon: "search", shortcut: "Ctrl+F", disabled: true },
       { sep: true },
       { label: "Settings", icon: "gear", onClick: () => ctx.cmd("edge.nav", "edge://settings/privacy") },
@@ -1542,11 +1542,11 @@ export function EdgeApp({ w }: { w: WinWindow }) {
               >
                 <G n={resolveUrl(doc, t.url).kind === "page" && (resolveUrl(doc, t.url) as { page: WebPage }).page.unsafe ? "warn" : "globe"} s={13} />
                 <span className="min-w-0 flex-1 truncate">{pageTitle(doc, t.url)}</span>
-                <button type="button" aria-label={`Close tab ${pageTitle(doc, t.url)}`} title="Close tab (Ctrl+W)" onClick={(e) => { e.stopPropagation(); ctx.cmd("edge.closeTab", t.url); }} className="rounded p-0.5 hover:bg-[var(--w-press)]"><G n="close" s={10} /></button>
+                <button type="button" aria-label={`Close tab ${pageTitle(doc, t.url)}`} title="Close tab" onClick={(e) => { e.stopPropagation(); ctx.cmd("edge.closeTab", t.url); }} className="rounded p-0.5 hover:bg-[var(--w-press)]"><G n="close" s={10} /></button>
               </div>
             );
           })}
-          <button type="button" aria-label="New tab" title="New tab (Ctrl+T)" onMouseDown={(e) => e.stopPropagation()} onClick={() => ctx.cmd("edge.newTab")} className="mb-1.5 rounded p-1 hover:bg-[var(--w-hover)]"><G n="plus" s={14} /></button>
+          <button type="button" aria-label="New tab" title="New tab" onMouseDown={(e) => e.stopPropagation()} onClick={() => ctx.cmd("edge.newTab")} className="mb-1.5 rounded p-1 hover:bg-[var(--w-hover)]"><G n="plus" s={14} /></button>
           <span className="flex-1" />
         </div>
         <Caption private={priv} />
