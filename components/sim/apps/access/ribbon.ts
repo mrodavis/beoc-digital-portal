@@ -337,7 +337,7 @@ export const accessRibbon: RibbonTab[] = [
         label: "Import & Link",
         controls: [
           { type: "button", id: "external.savedImports", label: "Saved Imports", icon: "history", size: "large" },
-          { type: "button", id: "external.linkedTables", label: "Linked Table Manager", icon: "link", size: "large" },
+          { type: "button", id: "external.linkedTables", label: "Linked Tables", icon: "link", size: "large", tip: "Linked Table Manager" },
           {
             type: "dropdown",
             id: "external.newSource",
