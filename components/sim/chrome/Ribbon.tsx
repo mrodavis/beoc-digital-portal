@@ -313,6 +313,29 @@ function ControlView({
     );
   }
 
+  // A toggle with no icon is a checkbox in Office (Different First Page, Gridlines, Hide Background Graphics).
+  if (c.type === "toggle" && !c.icon) {
+    return (
+      <button
+        type="button"
+        role="checkbox"
+        aria-checked={pressed}
+        title={tip}
+        onClick={() => h.onCommand(c.id)}
+        className="flex h-[22px] items-center gap-1.5 rounded-sm border border-transparent px-1 text-[11.5px] leading-tight text-gray-800 hover:border-[#cce4f7] hover:bg-[#e5f1fb]"
+      >
+        <span className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-[2px] border ${pressed ? "border-[#0f6cbd] bg-[#0f6cbd]" : "border-gray-500 bg-white"}`} aria-hidden="true">
+          {pressed && (
+            <svg width="10" height="10" viewBox="0 0 10 10">
+              <path d="M2 5.2l2 2 4-4.4" stroke="#fff" strokeWidth="1.6" fill="none" />
+            </svg>
+          )}
+        </span>
+        <span className="whitespace-nowrap">{c.label}</span>
+      </button>
+    );
+  }
+
   const isDropdown = c.type === "dropdown";
   const split = isDropdown && c.split;
 
