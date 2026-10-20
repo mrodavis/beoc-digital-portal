@@ -144,7 +144,7 @@ export const wordModule1Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Change the revision label “Rev. 09/2026” to “Rev. 10/2026”.",
-          hint: "Double-click “Rev. 09/2026”, type Rev. 10/2026, and press Enter. With AutoSave on, there is nothing else to do: the change is saved.",
+          hint: "Double-click “Rev. 09/2026” to select it, type Rev. 10/2026 to replace it, and press Enter. With AutoSave on, there is nothing else to do: the change is saved.",
           steps: [{ action: { kind: "type", target: "p2.r1", value: "Rev. 10/2026" } }],
         },
         {
@@ -266,12 +266,12 @@ export const wordModule1Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Change the patient name “Daniel Whitaker” to “Rosa Ramirez”.",
-          hint: "Double-click “Daniel Whitaker” in the Re: line, type Rosa Ramirez, and press Enter.",
+          hint: "Double-click “Daniel Whitaker” in the Re: line to select it, type Rosa Ramirez to replace it, and press Enter.",
           steps: [{ action: { kind: "type", target: "p5.r2", value: "Rosa Ramirez" } }],
         },
         {
           instruction: "Change the claim number “#4471-2209” to “#5108-3374” and the visit date “August 27, 2026” to “October 2, 2026”.",
-          hint: "Double-click each one, type the new text, and press Enter. The claim number is in the Re: line; the visit date is in the first paragraph of the letter.",
+          hint: "Double-click each one to select it, type the new text to replace it, and press Enter. The claim number is in the Re: line; the visit date is in the first paragraph of the letter.",
           anyOrder: true,
           steps: [
             { action: { kind: "type", target: "p5.r1", value: "#5108-3374" } },

@@ -37,7 +37,7 @@ export const wordModule8Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Fix the typo “Pine Steet” so it reads “Pine Street”.",
-          hint: "Double-click “Pine Steet”, type Pine Street, and press Enter. Word for the web saves the change automatically.",
+          hint: "Double-click “Pine Steet” to select it, type Pine Street to replace it, and press Enter. Word for the web saves the change automatically.",
           steps: [{ action: { kind: "type", target: "p3.r1", value: "Pine Street" } }],
         },
         {
@@ -297,7 +297,7 @@ export const wordModule8Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Dictate heard “flew” instead of “flu” in the Notes section. Correct the word by typing.",
-          hint: "Double-click “flew”, type flu, and press Enter.",
+          hint: "Double-click “flew” to select it, type flu to replace it, and press Enter.",
           steps: [{ action: { kind: "type", target: "p7.r1", value: "flu" } }],
         },
         {

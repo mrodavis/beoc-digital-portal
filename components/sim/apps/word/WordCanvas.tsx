@@ -101,6 +101,22 @@ function editable(doc: WordDoc, key: string): boolean {
   return !p.kind || p.kind === "p";
 }
 
+/**
+ * What is open for typing: the selection key, the text so far, whether the
+ * original was placeholder text (`ph`, replaced as you type, with `phText`
+ * still showing until you do), and whether the text starts out selected.
+ */
+type Editing = { key: string; text: string; ph?: boolean; phText?: string; selectAll?: boolean };
+
+const isPlaceholderText = (t: string) => /^\[[^\]]*\]$/.test(t.trim()) || /^(\[Type here\]\s*)+$/.test(t.trim());
+
+function editState(doc: WordDoc, key: string, initial?: string, selectAll = false): Editing {
+  const cur = textAt(doc, key);
+  // Placeholder text ("[Type here]", "[Recipient Name]") is replaced as you type, like a content control.
+  const ph = isPlaceholderText(cur);
+  return { key, text: initial ?? (ph ? "" : cur), ph, phText: ph ? cur.trim() : undefined, selectAll: selectAll && initial === undefined && !ph && Boolean(cur) };
+}
+
 const SYNONYMS: Record<string, string[]> = {
   important: ["significant", "essential", "critical", "key"],
   help: ["assist", "support", "aid"],
@@ -147,13 +163,25 @@ const SHAPE_CLIP: Record<string, string> = {
 /* ------------------------------------------------------------------ */
 
 export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<WordDoc>) {
-  const [editing, setEditingState] = useState<{ key: string; text: string; ph?: boolean } | null>(null);
-  const editingRef = useRef<{ key: string; text: string; ph?: boolean } | null>(null);
-  const setEditing = (v: { key: string; text: string; ph?: boolean } | null) => {
+  const [editing, setEditingState] = useState<Editing | null>(null);
+  const editingRef = useRef<Editing | null>(null);
+  const setEditing = (v: Editing | null) => {
     editingRef.current = v;
     setEditingState(v);
   };
   const [findText, setFindText] = useState("");
+  /**
+   * The page whose header/footer is open for typing. The header and footer
+   * repeat on every page, but only this page's copy is an editor (the others
+   * show the same text, read-only), so exactly one text box ever has focus.
+   */
+  const [hfPage, setHfPage] = useState(0);
+  /** The page of the last body selection: Go to Header / Go to Footer open that page's header or footer. */
+  const bodyPageRef = useRef(0);
+  /** The selection as of the previous render (to tell "entered the header" from "moved within it"). */
+  const prevSelRef = useRef(ui.selection);
+  /** Last seen `flags.hfEdit`: the model bumps it when a command puts the cursor in the header or footer. */
+  const hfSeenRef = useRef(doc.flags?.hfEdit);
   const scrollRef = useRef<HTMLDivElement>(null);
   const focusRef = useRef<HTMLDivElement>(null);
   const z = (doc.zoom ?? 100) / 100;
@@ -164,13 +192,28 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
   const pageBg = doc.pageColor ?? "#fff";
 
   useEffect(() => {
-    // Insert Footnote / Insert Endnote put the cursor in the new, empty note.
     const key = ui.selection;
-    const next = /^(footnote|endnote):\d+$/.test(key) && !textAt(doc, key) ? { key, text: "" } : null;
+    let next: Editing | null = null;
+    // Insert Footnote / Insert Endnote put the cursor in the new, empty note.
+    if (/^(footnote|endnote):\d+$/.test(key) && !textAt(doc, key)) next = { key, text: "" };
+    // Insert › Header/Footer and Header & Footer › Go to Header/Footer put the cursor in the header or footer.
+    const bump = doc.flags?.hfEdit;
+    if (bump !== hfSeenRef.current) {
+      hfSeenRef.current = bump;
+      if ((key === "header" || key === "footer") && editable(doc, key)) {
+        // Coming from the body: the page the cursor was on. Moving between header and footer: stay on this page.
+        if (prevSelRef.current !== "header" && prevSelRef.current !== "footer") setHfPage(bodyPageRef.current);
+        next = editState(doc, key);
+      }
+    }
     editingRef.current = next;
     setEditingState(next);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doc]);
+  // Runs after the effect above in the same commit, so that one still sees the previous selection.
+  useEffect(() => {
+    prevSelRef.current = ui.selection;
+  });
 
   const focus = () => focusRef.current?.focus({ preventScroll: true });
 
@@ -196,14 +239,36 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     focus();
   };
 
-  const startEdit = (key: string, initial?: string) => {
+  /**
+   * Open `key` for typing. `initial` is the first key typed over a selection
+   * (it replaces the text). `selectAll` is a double-click: like Word selecting
+   * the word you double-click, the run's (or paragraph's, cell's, title's)
+   * text starts out selected, so typing replaces it; press End or click to
+   * add to it instead.
+   */
+  const startEdit = (key: string, initial?: string, selectAll = false) => {
     if (!editable(doc, key)) return;
+    // Already typing here (a double-click inside the text box): keep what has been typed.
+    if (editingRef.current?.key === key) return;
     onSelect({ selection: key });
-    const cur = textAt(doc, key);
-    // Placeholder text ("[Type here]", "[Recipient Name]") is replaced as you type, like a content control.
-    const placeholder = /^\[[^\]]*\]$/.test(cur.trim()) || /^(\[Type here\]\s*)+$/.test(cur.trim());
-    setEditing({ key, text: initial ?? (placeholder ? "" : cur), ph: placeholder });
+    setEditing(editState(doc, key, initial, selectAll));
   };
+
+  /** The text box for whatever is being edited (call only while `editing?.key === key`). */
+  const editorFor = (key: string, opts: { inline?: boolean; style?: React.CSSProperties; onTab?: (back: boolean) => void; reactKey?: number } = {}) => (
+    <InlineEditor
+      key={opts.reactKey}
+      value={editing?.text ?? ""}
+      placeholder={editing?.ph && !editing.text ? editing.phText : undefined}
+      selectAll={editing?.selectAll}
+      onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })}
+      onCommit={commitEdit}
+      onCancel={() => setEditing(null)}
+      onTab={opts.onTab}
+      inline={opts.inline}
+      style={opts.style}
+    />
+  );
 
   const commitEdit = () => {
     const e = editingRef.current;
@@ -468,7 +533,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
         </button>
       );
     } else if (editing && key && editing.key === key) {
-      body = <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} inline style={style} />;
+      body = editorFor(key, { inline: true, style });
     } else if (!r.text) {
       body = <span className="text-gray-500">{cc.type === "picture" ? "🖼 " : ""}{cc.placeholder}</span>;
     } else body = r.text;
@@ -483,7 +548,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
         className="relative cursor-text hover:outline hover:outline-1 hover:outline-[#a7c3e6]"
         onMouseDown={(e) => e.stopPropagation()}
         onClick={key ? (e) => { e.stopPropagation(); select(key, e); } : undefined}
-        onDoubleClick={key ? (e) => { e.stopPropagation(); startEdit(key); } : undefined}
+        onDoubleClick={key ? (e) => { e.stopPropagation(); startEdit(key, undefined, true); } : undefined}
         onContextMenu={key ? (e) => ctxMenu(e, key) : undefined}
       >
         {(design || isSel) && cc.title && (
@@ -525,7 +590,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     if (x.cc && textOverride === undefined) return renderControl(p, x, i, key, style);
     let text = textOverride ?? (r.field ? (record ? mergeValue(r.field, record) : `«${r.field}»`) : r.text);
     if (editing && key && editing.key === key && textOverride === undefined) {
-      return <InlineEditor key={i} value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} inline style={style} />;
+      return editorFor(key, { inline: true, style, reactKey: i });
     }
 
     const content: React.ReactNode[] = [];
@@ -557,7 +622,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
                 }
               : undefined
         }
-        onDoubleClick={key ? (e) => { e.stopPropagation(); startEdit(key); } : undefined}
+        onDoubleClick={key ? (e) => { e.stopPropagation(); startEdit(key, undefined, true); } : undefined}
         onContextMenu={key ? (e) => ctxMenu(e, key) : undefined}
         title={r.link ? `${r.link}\nCtrl+Click to follow link` : x.xref ? "Ctrl+Click to follow link" : x.note ? noteTextOf(x.note, r.text) || undefined : undefined}
       >
@@ -655,6 +720,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
   const pages = pagesOf(doc);
   type Page = (typeof pages)[number];
   const pageOf = (pid: string) => Math.max(0, pages.findIndex((pg) => pg.paras.some((p) => p.id === pid)));
+  if (sel.paras.length && ui.selection !== "all") bodyPageRef.current = pageOf(sel.paras[0]);
 
   const renderToc = (p: WordPara, isSel: boolean) => {
     const o = xp(p).tocOptions;
@@ -744,7 +810,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
                         key={c}
                         colSpan={merged ? row.length : undefined}
                         onClick={(e) => { e.stopPropagation(); select(key, e); }}
-                        onDoubleClick={(e) => { e.stopPropagation(); startEdit(key); }}
+                        onDoubleClick={(e) => { e.stopPropagation(); startEdit(key, undefined, true); }}
                         onContextMenu={(e) => ctxMenu(e, isCell ? ui.selection : key)}
                         className="border px-1.5 py-0.5 align-top"
                         style={{
@@ -759,7 +825,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
                         }}
                       >
                         {editing?.key === key ? (
-                          <InlineEditor value={editing.text} onChange={(tx) => setEditing({ ...editingRef.current!, key, text: tx })} onCommit={commitEdit} onCancel={() => setEditing(null)} onTab={(back) => { commitEdit(); tabInTable(key, back); }} />
+                          editorFor(key, { onTab: (back) => { commitEdit(); tabInTable(key, back); } })
                         ) : (
                           cell || " "
                         )}
@@ -851,10 +917,10 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
         <div
           className={`mb-1 text-center font-semibold ${dark ? "" : "text-gray-700"} ${isSel ? "cursor-text hover:outline hover:outline-1 hover:outline-gray-300" : ""}`}
           style={{ fontSize: 13 * z }}
-          onDoubleClick={(e) => { e.stopPropagation(); startEdit(titleKey); }}
+          onDoubleClick={(e) => { e.stopPropagation(); startEdit(titleKey, undefined, true); }}
           title="Double-click to edit the chart title"
         >
-          {editing?.key === titleKey ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: titleKey, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : ch.title ?? "Chart Title"}
+          {editing?.key === titleKey ? editorFor(titleKey) : ch.title ?? "Chart Title"}
         </div>
         {plot}
         {!/Bar|Pie|Doughnut/.test(ch.type) && <div className="mt-1 flex justify-around">{ch.series.map((s, i) => <span key={i}>{s.label}</span>)}</div>}
@@ -938,7 +1004,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             padding: o.label === "Oval" ? "18px 22px" : undefined,
           }}
         >
-          {editing?.key === p.id ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: p.id, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : o.text || " "}
+          {editing?.key === p.id ? editorFor(p.id) : o.text || " "}
         </div>
       );
     } else {
@@ -954,7 +1020,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             fontSize: 11 * PT * z,
           }}
         >
-          {editing?.key === p.id ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: p.id, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : o.text}
+          {editing?.key === p.id ? editorFor(p.id) : o.text}
         </div>
       );
     }
@@ -964,7 +1030,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
         key={p.id}
         style={box}
         onClick={(e) => { e.stopPropagation(); select(p.id, e); }}
-        onDoubleClick={(e) => { e.stopPropagation(); if (p.kind === "textbox" || p.kind === "shape") startEdit(p.id); }}
+        onDoubleClick={(e) => { e.stopPropagation(); if (p.kind === "textbox" || p.kind === "shape") startEdit(p.id, undefined, true); }}
         onContextMenu={(e) => ctxMenu(e, p.id)}
         className={`cursor-pointer ${isSel ? "outline outline-2 outline-offset-2 outline-[#2b579a]" : grouped ? "outline-dashed outline-1 outline-offset-2 outline-[#2b579a]" : ""}`}
         title={o.label}
@@ -1051,7 +1117,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
         data-para={p.id}
         style={style}
         onClick={(e) => select(p.id, e)}
-        onDoubleClick={() => startEdit(p.id)}
+        onDoubleClick={() => startEdit(p.id, undefined, true)}
         onContextMenu={(e) => ctxMenu(e, p.id)}
         className="cursor-text rounded-[1px]"
       >
@@ -1062,7 +1128,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
           </span>
         )}
         {editing?.key === p.id ? (
-          <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: p.id, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} />
+          editorFor(p.id)
         ) : empty ? (
           <span className="text-gray-400">{p.placeholder ?? " "}</span>
         ) : tabbed ? (
@@ -1121,11 +1187,34 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
   const footTexts = notesOf(doc, "footnote");
   const endTexts = notesOf(doc, "endnote");
 
-  /** Open the header or footer for typing (double-clicking the top or bottom margin works even when there is none yet). */
-  const openHf = (kind: "header" | "footer") => {
+  /** Which page's header/footer copy is the editor: the one chosen, or the next page that shows it (Different First Page hides page 1's). */
+  const hfOpenPage = (() => {
+    const n = Math.max(0, Math.min(hfPage, pages.length - 1));
+    return diffFirst && n === 0 && pages.length > 1 ? 1 : n;
+  })();
+  const hfEditingOn = (kind: "header" | "footer", i: number) => editing?.key === kind && i === hfOpenPage;
+  /** Header/footer text as every page shows it, updating live while it is typed on one page. */
+  const hfText = (kind: "header" | "footer") => (editing?.key === kind ? editing.text || (editing.ph ? editing.phText ?? "" : "") : doc[kind]);
+  // Show Document Text off: the body is hidden while you work in the header or footer.
+  const hideBody = Boolean(doc.flags?.hideDocText) && (ui.selection === "header" || ui.selection === "footer" || editing?.key === "header" || editing?.key === "footer");
+
+  /** Open the header or footer on page `i` for typing (double-clicking the top or bottom margin works even when there is none yet). */
+  const openHf = (kind: "header" | "footer", i: number) => {
     if (editingRef.current) commitEdit();
-    startEdit(kind);
+    setHfPage(i);
     focus();
+    startEdit(kind);
+  };
+
+  /** A click in a page's header or footer: select it there (typing then opens it on that page). */
+  const clickHf = (e: React.MouseEvent<HTMLElement>, kind: "header" | "footer", i: number) => {
+    e.stopPropagation();
+    if (hfEditingOn(kind, i)) {
+      e.currentTarget.querySelector("textarea")?.focus();
+      return;
+    }
+    setHfPage(i);
+    select(kind, e);
   };
 
   const renderNote = (kind: "footnote" | "endnote", n: number) => {
@@ -1142,7 +1231,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
         <sup className="pt-1">{noteLabel(kind, n)}</sup>
         <span className="min-w-0 flex-1 whitespace-pre-wrap">
           {editing?.key === key ? (
-            <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} />
+            editorFor(key)
           ) : (
             textAt(doc, key) || " "
           )}
@@ -1154,8 +1243,8 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
   const pageEl = (page: Page, i: number) => {
     const { w, h } = pageSize(doc, sectionProps(doc, page.section).orientation);
     const hideHf = diffFirst && i === 0;
-    const showHeader = !hideHf && (doc.header !== undefined || pageNumPos === "top" || ui.selection === "header");
-    const showFooter = !hideHf && (doc.footer !== undefined || pageNumPos === "bottom" || ui.selection === "footer");
+    const showHeader = (!hideHf && (doc.header !== undefined || pageNumPos === "top" || ui.selection === "header")) || hfEditingOn("header", i);
+    const showFooter = (!hideHf && (doc.footer !== undefined || pageNumPos === "bottom" || ui.selection === "footer")) || hfEditingOn("footer", i);
     const last = i === pages.length - 1;
     // Footnotes print at the bottom of the page that has their reference mark (any without a mark go on the last page).
     const notesHere = footRefs.filter((r) => page.paras.some((p) => p.id === r.para)).map((r) => r.n);
@@ -1191,7 +1280,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             title="Double-click to edit the header"
             className="absolute inset-x-0 top-0"
             style={{ height: m.t * PX_PER_IN * z * 0.85 }}
-            onDoubleClick={(e) => { e.stopPropagation(); openHf("header"); }}
+            onDoubleClick={(e) => { e.stopPropagation(); openHf("header", i); }}
           />
         )}
         {!showFooter && (
@@ -1200,7 +1289,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             title="Double-click to edit the footer"
             className="absolute inset-x-0 bottom-0"
             style={{ height: m.b * PX_PER_IN * z * 0.85 }}
-            onDoubleClick={(e) => { e.stopPropagation(); openHf("footer"); }}
+            onDoubleClick={(e) => { e.stopPropagation(); openHf("footer", i); }}
           />
         )}
         {hideHf && ui.selection === "header" && (
@@ -1210,19 +1299,21 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
         )}
         {showHeader && (
           <div
-            onClick={(e) => { e.stopPropagation(); select("header", e); }}
-            onDoubleClick={(e) => { e.stopPropagation(); startEdit("header"); }}
+            data-hf="header"
+            data-page={i + 1}
+            onClick={(e) => clickHf(e, "header", i)}
+            onDoubleClick={(e) => { e.stopPropagation(); if (!hfEditingOn("header", i)) openHf("header", i); }}
             className={`absolute inset-x-0 top-0 flex items-end px-[inherit] text-gray-600 ${ui.selection === "header" ? "border-b border-dashed border-[#2b579a] bg-[#eef4fb]" : ""}`}
             style={{ height: m.t * PX_PER_IN * z * 0.75, paddingLeft: m.l * PX_PER_IN * z, paddingRight: m.r * PX_PER_IN * z, fontSize: 11 * PT * z }}
           >
             {ui.selection === "header" && <span className="absolute -bottom-4 left-2 bg-[#2b579a] px-1 text-[9px] text-white">Header</span>}
             <span className="flex-1 whitespace-pre-wrap">
-              {editing?.key === "header" ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: "header", text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : doc.header}
+              {hfEditingOn("header", i) ? editorFor("header") : hfText("header")}
             </span>
             {pageNumPos === "top" && <span style={{ textAlign: pageNumAlign }}>{pageNumber(i)}</span>}
           </div>
         )}
-        <div>{renderBody(page.paras)}</div>
+        <div style={hideBody ? { visibility: "hidden" } : undefined}>{renderBody(page.paras)}</div>
         {last && endTexts.length > 0 && (
           <div className="mt-4 text-gray-800" style={{ fontSize: 10 * PT * z }} aria-label="Endnotes">
             <div className="mb-1 w-1/3 border-t border-gray-500" />
@@ -1237,14 +1328,16 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
         )}
         {showFooter && (
           <div
-            onClick={(e) => { e.stopPropagation(); select("footer", e); }}
-            onDoubleClick={(e) => { e.stopPropagation(); startEdit("footer"); }}
+            data-hf="footer"
+            data-page={i + 1}
+            onClick={(e) => clickHf(e, "footer", i)}
+            onDoubleClick={(e) => { e.stopPropagation(); if (!hfEditingOn("footer", i)) openHf("footer", i); }}
             className={`absolute inset-x-0 bottom-0 flex items-start pt-2 text-gray-600 ${ui.selection === "footer" ? "border-t border-dashed border-[#2b579a] bg-[#eef4fb]" : ""}`}
             style={{ height: m.b * PX_PER_IN * z * 0.75, paddingLeft: m.l * PX_PER_IN * z, paddingRight: m.r * PX_PER_IN * z, fontSize: 11 * PT * z }}
           >
             {ui.selection === "footer" && <span className="absolute -top-4 left-2 bg-[#2b579a] px-1 text-[9px] text-white">Footer</span>}
             <span className="flex-1 whitespace-pre-wrap">
-              {editing?.key === "footer" ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: "footer", text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : doc.footer}
+              {hfEditingOn("footer", i) ? editorFor("footer") : hfText("footer")}
             </span>
             {pageNumPos === "bottom" && <span className="absolute inset-x-0 bottom-3 px-[inherit]" style={{ textAlign: pageNumAlign, paddingLeft: m.l * PX_PER_IN * z, paddingRight: m.r * PX_PER_IN * z }}>{pageNumber(i)}</span>}
           </div>
@@ -1787,6 +1880,8 @@ function InlineEditor({
   onTab,
   inline,
   style,
+  selectAll,
+  placeholder,
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -1796,13 +1891,20 @@ function InlineEditor({
   onTab?: (back: boolean) => void;
   inline?: boolean;
   style?: React.CSSProperties;
+  /** Open with all of the text selected (a double-click), so typing replaces it. Otherwise the cursor goes at the end. */
+  selectAll?: boolean;
+  /** Placeholder text ("[Type here]") still showing until you type over it. */
+  placeholder?: string;
 }) {
   const ref = useRef<HTMLTextAreaElement>(null);
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
     el.focus();
-    el.setSelectionRange(el.value.length, el.value.length);
+    if (selectAll) el.select();
+    else el.setSelectionRange(el.value.length, el.value.length);
+    // Only when it opens.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useLayoutEffect(() => {
     const el = ref.current;
@@ -1815,9 +1917,18 @@ function InlineEditor({
       ref={ref}
       aria-label="Type here"
       value={value}
+      placeholder={placeholder}
       rows={1}
       onChange={(e) => onChange(e.target.value)}
       onClick={(e) => e.stopPropagation()}
+      // Double-click selects a word (and must not reopen the text); triple-click selects all of it, as in Word.
+      onDoubleClick={(e) => e.stopPropagation()}
+      onMouseDown={(e) => {
+        if (e.detail >= 3) {
+          e.preventDefault();
+          e.currentTarget.select();
+        }
+      }}
       onKeyDown={(e) => {
         e.stopPropagation();
         if (e.key === "Enter" && !e.shiftKey) {
@@ -1832,7 +1943,7 @@ function InlineEditor({
       }}
       onBlur={onCommit}
       className={`${inline ? "inline-block min-w-[4ch] align-baseline" : "block w-full"} resize-none overflow-hidden border-0 bg-[#fffbe6] p-0 outline outline-1 outline-[#2b579a]`}
-      style={{ font: "inherit", color: "inherit", lineHeight: "inherit", textAlign: "inherit", textIndent: 0, ...(style ?? {}), width: inline ? `${Math.max(4, value.length + 1)}ch` : undefined }}
+      style={{ font: "inherit", color: "inherit", lineHeight: "inherit", textAlign: "inherit", textIndent: 0, ...(style ?? {}), width: inline ? `${Math.max(4, value.length + 1, (placeholder?.length ?? 0) + 1)}ch` : undefined }}
     />
   );
 }
