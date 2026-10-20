@@ -1430,7 +1430,10 @@ function AddressBar({ tab, privateMode, onInfo, onStar, starred }: { tab: WinTab
         value={edit ?? shown}
         onFocus={(e) => {
           if (edit === null) setEdit(shown);
-          setTimeout(() => e.target.select(), 0);
+          const el = e.target;
+          el.select();
+          // Select again after the click settles, unless the learner has already started typing.
+          setTimeout(() => el.value === shown && el.select(), 0);
         }}
         onChange={(e) => setEdit(e.target.value)}
         onBlur={() => setEdit(null)}
@@ -1439,10 +1442,12 @@ function AddressBar({ tab, privateMode, onInfo, onStar, starred }: { tab: WinTab
           if (e.key === "Enter") {
             go((e.target as HTMLInputElement).value);
             (e.target as HTMLInputElement).blur();
+            ctx.focusRoot();
           }
           if (e.key === "Escape") {
             setEdit(null);
             (e.target as HTMLInputElement).blur();
+            ctx.focusRoot();
           }
         }}
         className="h-full min-w-0 flex-1 bg-transparent px-2 text-[12.5px] outline-none"

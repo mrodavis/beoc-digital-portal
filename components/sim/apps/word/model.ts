@@ -2425,7 +2425,12 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     /* ---------------- References ---------------- */
     case "references.toc": {
       if (sv === "Remove Table of Contents") { doc.paragraphs = doc.paragraphs.filter((p) => p.kind !== "toc"); return { doc }; }
-      if (doc.paragraphs.some((p) => p.kind === "toc")) return { doc: updateToc(doc, true) };
+      const cur = doc.paragraphs.find((p) => p.kind === "toc") as XPara | undefined;
+      if (cur) {
+        // Picking a gallery table replaces the one that's there (a custom one loses its settings).
+        if (sv) { cur.text = sv; delete cur.tocOptions; }
+        return { doc: updateToc(doc, true) };
+      }
       const s = parseSel(doc, ui.selection);
       const idx = Math.max(0, doc.paragraphs.findIndex((p) => p.id === s.paras[0]));
       const toc: XPara = { id: newId("toc", doc), kind: "toc", text: sv || "Automatic Table 1", entries: headingsOf(doc) };

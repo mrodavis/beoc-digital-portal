@@ -482,9 +482,16 @@ function openFile(d: WinDoc, path: string): Partial<SimUi> | undefined {
   else if ([".png", ".jpg", ".jpeg", ".gif", ".bmp"].includes(e)) openWin(d, "photos", { file: p });
   else if ([".pdf", ".htm", ".html"].includes(e)) {
     const w = openWin(d, "edge");
-    const id = `t${Date.now() % 100000}${(w.tabs ?? []).length}`;
-    w.tabs = [...(w.tabs ?? []), { id, url: `file:///${p}` }];
-    w.tab = id;
+    const tabs = w.tabs ?? [];
+    // A browser that only shows an empty new tab opens the file in that tab.
+    if (tabs.length === 1 && tabs[0].url === "edge://newtab" && !(tabs[0].back ?? []).length) {
+      tabs[0].url = `file:///${p}`;
+      w.tab = tabs[0].id;
+    } else {
+      const id = newTabId(w);
+      w.tabs = [...tabs, { id, url: `file:///${p}` }];
+      w.tab = id;
+    }
   } else if ([".exe", ".msi"].includes(e)) {
     d.flags = { ...(d.flags ?? {}), smartApp: it.name };
   } else openWin(d, "notepad", { file: p, text: it.text ?? "" });
