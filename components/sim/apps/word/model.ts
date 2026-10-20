@@ -831,6 +831,32 @@ export function recipientLabel(r: Record<string, string>): string {
   return [name || Object.values(r)[0] || "(blank)", ...extra].join(" · ");
 }
 
+/* ---------- AutoText ---------- */
+
+/** Insert › Quick Parts › AutoText: paragraph entries go after the current paragraph (as p<n>), text entries at the insertion point. */
+function insertAutoText(doc: WordDoc, ui: SimUi, e: AutoTextEntry): { doc: WordDoc; ui?: Partial<SimUi> } {
+  const s = parseSel(doc, ui.selection);
+  if (e.paras?.length && !s.header && !s.cell && !s.note) {
+    const anchor = s.run?.para ?? s.paras[s.paras.length - 1];
+    const idx = doc.paragraphs.findIndex((p) => p.id === anchor);
+    const taken = new Set<string>();
+    const copies = e.paras.map((p) => ({ ...clone(p), id: newId("p", doc, taken) }));
+    doc.paragraphs.splice(idx < 0 ? doc.paragraphs.length : idx + 1, 0, ...copies);
+    return { doc, ui: { selection: copies[0].id } };
+  }
+  const text = e.text ?? (e.paras ?? []).map(paraText).join(" ");
+  if (s.run) {
+    const r = doc.paragraphs.find((p) => p.id === s.run!.para)?.runs?.find((x) => x.id === s.run!.run);
+    // A bracketed placeholder is replaced, the way typing replaces it.
+    if (r && /^\s*\[[^\]]*\]\s*$/.test(r.text)) {
+      r.text = text;
+      return { doc };
+    }
+  }
+  insertInline(doc, ui, text, " ");
+  return { doc };
+}
+
 /* ---------- Styles ---------- */
 
 /** Apply a paragraph or character style (built-in or custom) to the selection. */
@@ -1413,7 +1439,17 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
         if (val.line !== undefined) patch.line = Boolean(val.line);
         const applyTo = String(val.applyTo ?? defs.applyTo);
         const all = Array.from({ length: sectionBreaks(doc).length + 1 }, (_, i) => i);
-        const secs = applyTo === "Whole document" ? all : applyTo === "This point forward" ? all.filter((i) => i >= selectedSections(doc, ui)[0]) : selectedSections(doc, ui);
+        if (applyTo === "Selected text" && sel.paras.length && !sel.header && !sel.note) {
+          // Like the Columns button: continuous section breaks around the selection.
+          const ids = sel.cell ? [sel.cell.para] : sel.paras;
+          columnsOnSelection(doc, ids, patch);
+          return { doc };
+        }
+        if (applyTo === "This point forward" && sel.paras.length) {
+          columnsFromHere(doc, sel.paras[0], patch);
+          return { doc };
+        }
+        const secs = applyTo === "Whole document" ? all : selectedSections(doc, ui);
         for (const i of secs) setSectionProps(doc, i, patch);
         return { doc };
       }
@@ -1465,17 +1501,123 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
       case "createStyle": {
         const name = String(val.name ?? "").trim() || "Style1";
         const d = xd(doc);
-        const def: StyleDef & { basedOn?: string } = { basedOn: String(val.basedOn ?? "Normal") };
+        const def: StyleDef & { basedOn?: string; type?: string } = { basedOn: String(val.basedOn ?? "Normal") };
+        if (val.type && val.type !== "Paragraph") def.type = String(val.type).startsWith("Character") ? "Character" : "Linked";
         if (val.font) def.font = String(val.font);
         if (val.size) def.size = Number(val.size);
         if (val.color && val.color !== "Automatic") def.color = String(val.color);
         if (val.bold) def.bold = true;
         if (val.italic) def.italic = true;
+        // The new style shows in the Styles gallery and the Styles pane from now on (see customStyleNames).
         d.customStyles = { ...(d.customStyles ?? {}), [name]: def };
+        if (def.type === "Character") {
+          applyStyle(doc, ui, name);
+          return { doc };
+        }
         for (const p of selectedParas(doc, ui)) {
           p.style = name;
           for (const k of CHAR_KEYS) delete (p as unknown as Record<string, unknown>)[k];
         }
+        return { doc };
+      }
+      case "bookmark": {
+        const name = String(val.name ?? "").trim().replace(/\s+/g, "_");
+        if (!name || sel.header || sel.note) return { doc };
+        const d = xd(doc);
+        d.bookmarks = [...(d.bookmarks ?? []).filter((b) => b.name.toLowerCase() !== name.toLowerCase()), { name, at: ui.selection === "all" ? doc.paragraphs[0]?.id ?? "" : sel.run ? ui.selection : sel.paras[0] }];
+        return { doc };
+      }
+      case "crossRef": {
+        const kind = String(val.refType ?? "Heading");
+        const item = String(val.item ?? "");
+        const heads = headingsOf(doc);
+        const marks = xd(doc).bookmarks ?? [];
+        const head = heads.find((h) => h.text === item) ?? (kind === "Heading" ? heads[0] : undefined);
+        const mark = marks.find((b) => b.name === item) ?? (kind === "Bookmark" ? marks[0] : undefined);
+        const at = kind === "Bookmark" ? (mark ? mark.at : head?.id) : head ? head.id : mark?.at;
+        if (!at) return { doc };
+        const target = at.split(".")[0];
+        let show = String(val.refTo ?? "Heading text");
+        if (show === "Bookmark text" || show === "Heading text") show = "Text";
+        const from = sel.run?.para ?? sel.paras[0];
+        let text = xrefText(doc, target, show, from);
+        if (show === "Text" && at.includes(".")) {
+          const r = doc.paragraphs.find((p) => p.id === target)?.runs?.find((x) => x.id === at.split(".")[1]);
+          if (r) text = r.text;
+        }
+        if (sel.header || sel.cell) {
+          insertInline(doc, ui, text);
+          return { doc };
+        }
+        const run: XRun = { text, xref: { target, show } };
+        if (!insertRunAt(doc, ui, run)) insertInline(doc, ui, text);
+        return { doc };
+      }
+      case "customToc": {
+        const opts: TocOptions = {
+          pageNumbers: val.pageNumbers !== false,
+          rightAlign: val.rightAlign !== false,
+          leader: ({ "(none)": "none", ".......": "dots", "-------": "dashes", _______: "line" } as Record<string, TocOptions["leader"]>)[String(val.leader ?? ".......")] ?? "dots",
+          format: String(val.format ?? "From template"),
+          levels: Math.max(1, Math.min(9, Number(val.levels ?? 3) || 3)),
+        };
+        const existing = doc.paragraphs.find((p) => p.kind === "toc") as XPara | undefined;
+        if (existing) {
+          // Word asks to replace the table of contents that's already there.
+          existing.tocOptions = opts;
+          existing.text = "Custom Table of Contents";
+          existing.entries = headingsOf(doc).filter((h) => h.level <= opts.levels!);
+          return { doc };
+        }
+        const idx = Math.max(0, doc.paragraphs.findIndex((p) => p.id === sel.paras[0]));
+        const toc: XPara = { id: newId("toc", doc), kind: "toc", text: "Custom Table of Contents", tocOptions: opts, entries: headingsOf(doc).filter((h) => h.level <= opts.levels!) };
+        doc.paragraphs.splice(idx, 0, toc);
+        return { doc };
+      }
+      case "editRecipients": {
+        const m: XMerge = { ...xm(doc) };
+        const recs = recipientsOf(doc);
+        m.excluded = recs.map((_, i) => i).filter((i) => val[`r${i + 1}`] === false);
+        const field = String(val.filterField ?? "(none)");
+        m.filter = field && field !== "(none)" ? { field, op: String(val.filterOp ?? "Equal to"), value: String(val.filterValue ?? "") } : null;
+        const sortBy = String(val.sortBy ?? "(none)");
+        m.sort = sortBy && sortBy !== "(none)" ? { field: sortBy, order: val.sortOrder === "Descending" ? "Descending" : "Ascending" } : null;
+        m.record = 0;
+        doc.merge = m;
+        return { doc };
+      }
+      case "autoText": {
+        const entries = xd(doc).autoText ?? [];
+        const e = entries.find((x) => x.name === String(val.entry ?? "")) ?? (val.entry === undefined ? entries[0] : undefined);
+        if (!e) return { doc };
+        return insertAutoText(doc, ui, e);
+      }
+      case "saveAutoText": {
+        const name = String(val.name ?? "").trim();
+        if (!name) return { doc };
+        const entry: AutoTextEntry = { name, gallery: String(val.gallery ?? "AutoText"), category: String(val.category ?? "General") };
+        if (sel.run) {
+          const r = doc.paragraphs.find((p) => p.id === sel.run!.para)?.runs?.find((x) => x.id === sel.run!.run);
+          entry.text = r?.text ?? "";
+        } else {
+          const ps = selectedParas(doc, ui).filter((p) => !p.kind || p.kind === "p");
+          if (!ps.length) return { doc };
+          entry.paras = clone(ps);
+        }
+        const d = xd(doc);
+        d.autoText = [...(d.autoText ?? []).filter((x) => x.name.toLowerCase() !== name.toLowerCase()), entry];
+        return { doc };
+      }
+      case "controlProperties": {
+        const r = selectedControl(doc, ui);
+        if (!r?.cc) return { doc };
+        const cc = { ...r.cc };
+        if (val.title !== undefined) cc.title = String(val.title) || undefined;
+        if (val.tag !== undefined) cc.tag = String(val.tag) || undefined;
+        if (val.items !== undefined && (cc.type === "dropDown" || cc.type === "comboBox")) cc.items = String(val.items).split(/[,;\n]/).map((x) => x.trim()).filter(Boolean);
+        if (val.lockDelete !== undefined) cc.lockDelete = Boolean(val.lockDelete) || undefined;
+        if (val.lockEdit !== undefined) cc.lockEdit = Boolean(val.lockEdit) || undefined;
+        r.cc = cc;
         return { doc };
       }
       case "saveStyleSet":
@@ -1508,15 +1650,29 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     /* ---------------- Clipboard ---------------- */
     case "home.cut":
     case "home.copy": {
+      const cut = c.id === "home.cut";
+      if (cut && !canTypeAt(doc, ui.selection)) return { doc };
       if (sel.run) {
         const p = doc.paragraphs.find((x) => x.id === sel.run!.para)!;
         const r = p.runs?.find((x) => x.id === sel.run!.run);
         doc.clipboard = { text: r?.text ?? "" };
-        if (c.id === "home.cut" && r) r.text = "";
+        // With Track Changes on, cut text stays in place, marked as a deletion (your own insertion just goes).
+        if (cut && r) {
+          if (doc.trackChanges && !r.ins) r.del = true;
+          else r.text = "";
+        }
       } else {
         const ps = selectedParas(doc, ui);
-        doc.clipboard = { paras: clone(ps) };
-        if (c.id === "home.cut") {
+        doc.clipboard = { paras: clone(ps).map((p) => (p.runs ? { ...p, runs: p.runs.filter((r) => !r.del).map((r) => ({ ...r, ins: undefined })) } : p)) };
+        if (cut && doc.trackChanges) {
+          for (const p of ps) {
+            if (p.kind && p.kind !== "p") continue;
+            p.runs = runsOf(p).filter((r) => !r.ins).map((r) => ({ ...r, del: true }));
+            p.text = undefined;
+          }
+          return { doc };
+        }
+        if (cut) {
           const ids = ps.map((p) => p.id);
           const idx = doc.paragraphs.findIndex((p) => p.id === ids[0]);
           doc.paragraphs = doc.paragraphs.filter((p) => !ids.includes(p.id));
@@ -1541,10 +1697,13 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
           const cp = clone(p);
           if (doc.paragraphs.some((x) => x.id === cp.id) || taken.has(cp.id)) cp.id = newId(`${cp.id}-`, doc, taken);
           else taken.add(cp.id);
-          if (sv === "Keep Text Only" || sv === "Merge Formatting") {
-            return { id: cp.id, text: paraText(cp) } as WordPara;
+          const out = sv === "Keep Text Only" || sv === "Merge Formatting" ? ({ id: cp.id, text: paraText(cp) } as WordPara) : cp;
+          // Pasted text is a tracked insertion while Track Changes is on.
+          if (doc.trackChanges && (!out.kind || out.kind === "p")) {
+            out.runs = runsOf(out).map((r) => ({ ...r, ins: true, del: undefined }));
+            out.text = undefined;
           }
-          return cp;
+          return out;
         });
         const anchor = sel.paras[0];
         const idx = doc.paragraphs.findIndex((p) => p.id === anchor);
@@ -1556,29 +1715,71 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     }
     case "home.formatPainter": {
       const t = firstTarget(doc, ui);
-      if (t) doc.painter = { bold: t.bold, italic: t.italic, underline: t.underline, font: t.font, size: t.size, color: t.color, highlight: t.highlight, style: t.style };
+      if (!t) return { doc };
+      const painter: XPainter = { bold: t.bold, italic: t.italic, underline: t.underline, font: t.font, size: t.size, color: t.color, highlight: t.highlight, style: t.style };
+      // A whole paragraph as the source: Word picks up its paragraph formatting too (alignment, indents, spacing).
+      const src = !sel.run && !sel.cell && !sel.header && !sel.note ? selectedParas(doc, ui)[0] : undefined;
+      if (src && (!src.kind || src.kind === "p")) {
+        const para: NonNullable<XPainter["para"]> = {};
+        for (const k of PARA_FMT_KEYS) para[k] = (src as XPara)[k] ?? null;
+        painter.para = para;
+      }
+      doc.painter = painter;
       return { doc };
     }
     case "home.formatPainter.apply": {
-      const pt = doc.painter;
+      const pt = doc.painter as XPainter | null | undefined;
       if (pt) {
-        editTargets(doc, ui, (t) => {
-          for (const k of ["bold", "italic", "underline", "font", "size", "color", "highlight"] as CharKey[]) {
-            if (pt[k] !== undefined) (t as unknown as Record<string, unknown>)[k] = pt[k];
+        const keys = ["bold", "italic", "underline", "font", "size", "color", "highlight"] as CharKey[];
+        editTargets(doc, ui, (t, isRun) => {
+          for (const k of keys) {
+            if (pt[k] === undefined) continue;
+            (t as unknown as Record<string, unknown>)[k] = pt[k];
+            // On a whole paragraph, the painted formatting replaces the runs' own formatting.
+            if (!isRun) (t as WordPara).runs?.forEach((r) => delete (r as unknown as Record<string, unknown>)[k]);
           }
         });
-        for (const p of selectedParas(doc, ui)) if (pt.style && !sel.run) p.style = pt.style;
+        if (!sel.run && !sel.cell && !sel.header) {
+          for (const p0 of selectedParas(doc, ui)) {
+            if (p0.kind && p0.kind !== "p") continue;
+            if (pt.style) p0.style = pt.style;
+            if (pt.para) {
+              const p = p0 as unknown as Record<string, unknown>;
+              for (const k of PARA_FMT_KEYS) {
+                const val = pt.para[k];
+                if (val === null || val === undefined) delete p[k];
+                else p[k] = val;
+              }
+            }
+          }
+        }
       }
       doc.painter = null;
       return { doc };
     }
 
     case "edit.delete": {
+      if (!canTypeAt(doc, ui.selection)) return { doc };
+      if (sel.note) {
+        // Deleting a note's text leaves an empty note, as in Word.
+        const list = [...notesOf(doc, sel.note.kind)];
+        if (list[sel.note.n - 1] !== undefined) list[sel.note.n - 1] = "";
+        if (sel.note.kind === "footnote") doc.footnotes = list;
+        else xd(doc).endnotes = list;
+        return { doc };
+      }
       if (sel.run) {
         const p = doc.paragraphs.find((x) => x.id === sel.run!.para);
         const r = p?.runs?.find((x) => x.id === sel.run!.run);
+        if (r && xr(r).cc) {
+          // Delete inside a content control empties it; the control stays.
+          r.text = "";
+          if (xr(r).cc!.type === "checkBox") xr(r).cc = { ...xr(r).cc!, checked: false };
+          return { doc };
+        }
         if (r) {
-          if (doc.trackChanges) r.del = true;
+          // With Track Changes on, Word marks the text as deleted (deleting your own insertion removes it).
+          if (doc.trackChanges && !r.ins) r.del = true;
           else r.text = "";
         }
         return { doc };
@@ -1591,8 +1792,12 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
         return { doc };
       }
       const ids = sel.paras;
-      if (doc.trackChanges) {
-        for (const p of selectedParas(doc, ui)) { p.runs = runsOf(p).map((r) => ({ ...r, del: true })); p.text = undefined; }
+      if (doc.trackChanges && selectedParas(doc, ui).some((p) => !p.kind || p.kind === "p")) {
+        for (const p of selectedParas(doc, ui)) {
+          if (p.kind && p.kind !== "p") continue;
+          p.runs = runsOf(p).filter((r) => !r.ins).map((r) => ({ ...r, del: true }));
+          p.text = undefined;
+        }
         return { doc };
       }
       const idx = doc.paragraphs.findIndex((p) => p.id === ids[0]);
@@ -1708,19 +1913,11 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     case "home.shading": for (const p of selectedParas(doc, ui)) p.shading = sv === "No Color" ? undefined : sv || "#D9E2F3"; return { doc };
     case "home.borders": for (const p of selectedParas(doc, ui)) p.border = sv === "No Border" ? undefined : "#000000"; return { doc };
     case "home.showMarks": doc.showMarks = !doc.showMarks; return { doc };
-    case "home.style": {
-      if (CHAR_STYLE_NAMES.includes(sv)) {
-        if (sv === "Strong" || sv === "Book Title") setChar(doc, ui, "bold", true);
-        if (sv === "Emphasis" || sv === "Subtle Emphasis" || sv === "Intense Emphasis") setChar(doc, ui, "italic", true);
-        return { doc };
-      }
-      for (const p of selectedParas(doc, ui)) {
-        p.style = sv;
-        // Applying a style replaces direct paragraph formatting of the same kind.
-        delete p.size; delete p.font; delete p.color; delete p.bold;
-      }
+    case "home.style":
+    case "home.customStyle":
+      // home.customStyle: a style made with Create a Style, picked in the Styles gallery or the Styles pane.
+      applyStyle(doc, ui, sv);
       return { doc };
-    }
     case "home.updateStyle": {
       const p = selectedParas(doc, ui)[0];
       if (!p) return { doc };
@@ -1832,6 +2029,12 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
       return { doc, ui: { selection: id } };
     }
     case "insert.pageNumber":
+      if (sv === "Remove Page Numbers") {
+        doc.pageNumbers = undefined;
+        return { doc };
+      }
+      if (sv === "Format Page Numbers..." || sv === "Page Margins") return { doc };
+      // "… - Plain Number 1|2|3" shows the number; "… - Bold Numbers 1|2|3" shows Page X of Y. 1 = left, 2 = center, 3 = right.
       doc.pageNumbers = sv || "Bottom of Page - Plain Number 2";
       return { doc };
     case "insert.header":
@@ -1866,12 +2069,34 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
       insertInline(doc, ui, sv || "©");
       return { doc };
     case "insert.footnote":
-    case "references.footnote": {
-      doc.footnotes = [...(doc.footnotes ?? []), sv || "Footnote text."];
-      const p = selectedParas(doc, ui)[0];
-      if (p) { p.runs = [...runsOf(p), { text: String(doc.footnotes.length), superscript: true }]; p.text = undefined; }
+    case "references.footnote":
+    case "references.endnote": {
+      // The reference mark goes at the insertion point and the cursor moves into the new, empty note:
+      // the learner types it there, committing { kind: "type", target: "footnote:<n>" } (or "endnote:<n>").
+      if (sel.header || sel.note) return { doc };
+      const kind = c.id === "references.endnote" ? "endnote" : "footnote";
+      const n = insertNote(doc, ui, kind, sv);
+      return { doc, ui: { selection: `${kind}:${n}` } };
+    }
+    case "references.nextFootnote": {
+      const refs = noteRefs(doc, "footnote");
+      if (!refs.length) return { doc };
+      const ids = doc.paragraphs.map((p) => p.id);
+      const cur = ids.indexOf(sel.run?.para ?? sel.paras[0] ?? "");
+      const next = refs.find((r) => ids.indexOf(r.para) > cur) ?? refs[0];
+      return { doc, ui: { selection: next.para } };
+    }
+    case "insert.bookmark": {
+      // The Ribbon button opens the Bookmark dialog; the command (value = name) adds one directly.
+      const name = sv.trim().replace(/\s+/g, "_");
+      if (name && !sel.header && !sel.note) xd(doc).bookmarks = [...(xd(doc).bookmarks ?? []).filter((b) => b.name !== name), { name, at: sel.run ? ui.selection : sel.paras[0] ?? "" }];
       return { doc };
     }
+    case "insert.quickParts":
+      // Older sims: Quick Parts › AutoText as a command inserts the first saved entry.
+      if (sv === "AutoText" && xd(doc).autoText?.length) return insertAutoText(doc, ui, xd(doc).autoText![0]);
+      doc.flags = { ...(doc.flags ?? {}), [c.id]: sv || true };
+      return { doc };
     case "link.remove": {
       if (sel.run) {
         const r = doc.paragraphs.find((x) => x.id === sel.run!.para)?.runs?.find((x) => x.id === sel.run!.run);
@@ -2265,12 +2490,15 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     case "mail.preview": doc.merge = { ...(doc.merge ?? {}), preview: !doc.merge?.preview, record: doc.merge?.record ?? 0 }; return { doc };
     case "mail.next":
     case "mail.prev": {
-      const n = doc.merge?.recipients?.length ?? 1;
+      // Previews step through the recipients the merge will use (checked, filtered, sorted).
+      const n = Math.max(1, activeRecipients(doc).length);
       const r = (doc.merge?.record ?? 0) + (c.id === "mail.next" ? 1 : -1);
       doc.merge = { ...(doc.merge ?? {}), record: Math.max(0, Math.min(n - 1, r)) };
       return { doc };
     }
-    case "mail.finish": doc.merge = { ...(doc.merge ?? {}), finished: sv }; return { doc };
+    case "mail.finish":
+      doc.merge = { ...(doc.merge ?? {}), finished: sv, merged: activeRecipients(doc).length } as XMerge;
+      return { doc };
     case "mail.editRecipients":
     case "mail.highlightFields":
     case "mail.envelopes":
@@ -2279,7 +2507,22 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
       return { doc };
 
     /* ---------------- Review ---------------- */
-    case "review.trackChanges": doc.trackChanges = !doc.trackChanges; return { doc };
+    case "review.trackChanges":
+      // Protected for tracked changes: Track Changes stays on until protection is stopped.
+      if (xd(doc).protection?.type === "Tracked changes") return { doc };
+      doc.trackChanges = !doc.trackChanges;
+      return { doc };
+    case "review.enforce": {
+      // Restrict Editing pane › Yes, Start Enforcing Protection. Value: the editing type the pane allows.
+      const type = (RESTRICT_TYPES as readonly string[]).includes(sv) ? (sv as Protection["type"]) : "No changes (Read only)";
+      xd(doc).protection = { type };
+      if (type === "Tracked changes") doc.trackChanges = true;
+      doc.pane = "Restrict Editing";
+      return { doc };
+    }
+    case "review.stopProtection":
+      xd(doc).protection = null;
+      return { doc };
     case "review.markup": {
       const map: Record<string, WordDoc["markup"]> = { "Simple Markup": "simple", "All Markup": "all", "No Markup": "none", Original: "original" };
       doc.markup = map[sv] ?? "all";
@@ -2340,6 +2583,46 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     case "references.smartLookup": doc.pane = "Search"; return { doc };
     case "references.researcher": doc.pane = "Researcher"; return { doc };
     case "review.restrict":
+      // Opens the Restrict Editing pane (the canvas draws it).
+      doc.flags = { ...(doc.flags ?? {}), [c.id]: sv || true };
+      doc.pane = "Restrict Editing";
+      return { doc };
+
+    /* ---------------- Developer ---------------- */
+    case "developer.richText":
+    case "developer.plainText":
+    case "developer.picture":
+    case "developer.checkBox":
+    case "developer.comboBox":
+    case "developer.dropDown":
+    case "developer.datePicker": {
+      if (xd(doc).protection) return { doc };
+      const nu = insertControl(doc, ui, CC_COMMANDS[c.id]);
+      return { doc, ui: nu };
+    }
+    case "developer.designMode":
+      doc.flags = { ...(doc.flags ?? {}), designMode: !doc.flags?.designMode };
+      return { doc };
+    case "contentControl.toggle": {
+      // Clicking a Check Box content control.
+      const r = selectedControl(doc, ui);
+      if (r?.cc?.type === "checkBox" && !r.cc.lockEdit && canTypeAt(doc, ui.selection)) r.cc = { ...r.cc, checked: !r.cc.checked };
+      return { doc };
+    }
+    case "contentControl.choose": {
+      // Picking an entry from a Drop-Down List, Combo Box or Date Picker content control.
+      const r = selectedControl(doc, ui);
+      if (r?.cc && !r.cc.lockEdit && canTypeAt(doc, ui.selection)) r.text = sv;
+      return { doc };
+    }
+    case "developer.visualBasic":
+    case "developer.addIns":
+    case "developer.blockAuthors":
+    case "developer.documentTemplate":
+    case "developer.xmlMapping":
+    case "developer.legacyTools":
+      doc.flags = { ...(doc.flags ?? {}), [c.id]: sv || true };
+      return { doc };
     case "review.compare":
     case "review.language":
     case "review.showComments":
@@ -2383,8 +2666,11 @@ function updateToc(doc: WordDoc, entire: boolean): WordDoc {
   const heads = headingsOf(doc);
   for (const p of doc.paragraphs) {
     if (p.kind !== "toc") continue;
-    if (entire) xp(p).entries = heads;
+    const levels = xp(p).tocOptions?.levels ?? 9;
+    if (entire) xp(p).entries = heads.filter((h) => h.level <= levels);
   }
+  // Update Field also refreshes cross-references.
+  updateXrefs(doc);
   doc.flags = { ...(doc.flags ?? {}), tocUpdated: entire ? "entire" : "pages" };
   return doc;
 }

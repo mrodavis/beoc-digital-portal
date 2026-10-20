@@ -236,7 +236,18 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
         return [st.action, ...(st.alt ?? [])].some((a) => commitSameCommand(a, c));
       });
       if (c.kind === "type") {
-        miss(near ? "Check your typing. Enter the text exactly as the task shows it." : "That's not where this task needs you to type.");
+        // Steps that check for required content rather than exact text get a content-focused message.
+        const loose = candidates.some((i) => {
+          const st = tasks[live.current.taskIdx].steps[i];
+          return [st.action, ...(st.alt ?? [])].some((a) => a.kind === "type" && commitSameCommand(a, c) && (a.match === "all" || a.match === "includes" || a.match === "similar"));
+        });
+        miss(
+          !near
+            ? "That's not where this task needs you to type."
+            : loose
+              ? "Not quite. Reread the task and make sure your text covers everything it asks for."
+              : "Check your typing. Enter the text exactly as the task shows it.",
+        );
       } else if (near) {
         miss("Right command, but not the right option. Look again at what the task asks for.");
       } else {
