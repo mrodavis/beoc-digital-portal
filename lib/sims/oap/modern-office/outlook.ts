@@ -226,7 +226,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           hint: "Select a SaaS Weekly message › Home tab › Rules › Create Rule... › From SaaS Weekly › Move the item to folder: Newsletters › Run this rule now › OK.",
           steps: [
             {
-              action: { kind: "dialog", id: "createRule", values: { fromOn: true, from: SAAS.email, moveOn: true, folder: "Newsletters", runNow: true } },
+              action: { kind: "dialog", id: "createRule", values: { fromOn: true, moveOn: true, folder: "Newsletters", runNow: true } },
               alt: [{ kind: "dialog", id: "alwaysMove", values: { folder: "Newsletters" } }],
               requires: { selection: ["msg:m6", "msg:m7"] },
               selectHint: "Select one of the SaaS Weekly messages first.",

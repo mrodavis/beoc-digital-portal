@@ -51,8 +51,8 @@ export const accessModule2Sims: Record<string, SimDefinition[]> = {
           steps: [typed("fname:Table1.new", "Category"), prop("Default Value", ['"Medical"', "Medical"], f("Category"), "Click the Category row first.")],
         },
         {
-          instruction: "Add a required Quantity field (Number) with the validation rule >=0 and the validation text Quantity cannot be negative.",
-          hint: "Type Quantity in the next empty row and choose Number as its data type. In Field Properties, set Required to Yes, Validation Rule to >=0, and type the message in Validation Text.",
+          instruction: "Add a required Quantity field (Number) with the validation rule >=0 and the validation text “Quantity cannot be negative.”",
+          hint: "Type Quantity in the next empty row and choose Number as its data type. In Field Properties, set Required to Yes, Validation Rule to >=0, and type the message in Validation Text without quotation marks (it is plain text).",
           anyOrder: true,
           steps: [
             typed("fname:Table1.new", "Quantity"),

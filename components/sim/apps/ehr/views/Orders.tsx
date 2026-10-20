@@ -67,7 +67,7 @@ export function OrdersTab({ p }: { p: EhrPatient }) {
   return (
     <div className="flex min-h-0 flex-1 gap-2 p-2.5">
       <div className="flex w-[250px] shrink-0 flex-col gap-2">
-        <Panel title="Place orders" bodyClass="p-0" className="flex min-h-0 flex-1 flex-col">
+        <Panel title="Place orders" bodyClass="flex min-h-0 flex-1 flex-col p-0" className="flex min-h-0 flex-1 flex-col overflow-hidden">
           <div className="space-y-1.5 border-b border-slate-200 p-2">
             <label className="relative block">
               <Icon name="search" size={13} className="absolute left-1.5 top-[6px] text-slate-400" />
@@ -98,7 +98,7 @@ export function OrdersTab({ p }: { p: EhrPatient }) {
             ))}
           </ul>
         </Panel>
-        <Panel title="Order sets" bodyClass="p-1">
+        <Panel title="Order sets" bodyClass="p-1" className="shrink-0">
           {ORDER_SETS.map((s) => (
             <div key={s.id} className="flex items-center justify-between gap-2 px-1.5 py-1 text-[12px]">
               <span>
@@ -254,9 +254,9 @@ export function OrdersTab({ p }: { p: EhrPatient }) {
                         </span>
                       ) : overdue ? (
                         <span className="font-semibold text-amber-800">No result after {age} days</span>
-                      ) : (
+                      ) : (o.kind === "lab" || o.kind === "img") && o.status !== "Canceled" ? (
                         <span className="text-slate-400">Pending</span>
-                      )}
+                      ) : null}
                     </Td>
                   </Row>
                 );

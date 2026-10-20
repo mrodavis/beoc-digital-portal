@@ -349,8 +349,8 @@ const module3: Record<string, SimDefinition[]> = {
           steps: [prop("Field Size", "30", designField("Appointments", "VisitType"), "Click the VisitType row first.")],
         },
         {
-          instruction: "Give AppointmentDate the validation rule >=Date() and the validation text Appointments cannot be scheduled in the past.",
-          hint: "Click the AppointmentDate row. In Field Properties, type >=Date() in Validation Rule, then type the message in Validation Text.",
+          instruction: "Give AppointmentDate the validation rule >=Date() and the validation text “Appointments cannot be scheduled in the past.”",
+          hint: "Click the AppointmentDate row. In Field Properties, type >=Date() in Validation Rule, then type the message in Validation Text without quotation marks (it is plain text).",
           anyOrder: true,
           steps: [
             prop("Validation Rule", ">=Date()", designField("Appointments", "AppointmentDate"), "Click the AppointmentDate row first."),
@@ -1023,8 +1023,8 @@ const module5: Record<string, SimDefinition[]> = {
           steps: [prop("Validation Rule", "<=Date()", designField("Patients", "DateOfBirth"), "Click the DateOfBirth row first.")],
         },
         {
-          instruction: "Set the validation text for DateOfBirth to Date of birth must be a past date. Please check the entry.",
-          hint: "With DateOfBirth selected, type the message in the Validation Text box in Field Properties.",
+          instruction: "Set the validation text for DateOfBirth to “Date of birth must be a past date. Please check the entry.”",
+          hint: "With DateOfBirth selected, click Validation Text in Field Properties and type the message without quotation marks. Validation Text is plain text that Access shows as the error message; only text values inside a Validation Rule go in quotes.",
           steps: [prop("Validation Text", "Date of birth must be a past date. Please check the entry.", designField("Patients", "DateOfBirth"), "Click the DateOfBirth row first.")],
         },
         {

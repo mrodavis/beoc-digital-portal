@@ -451,16 +451,24 @@ export function conflictsWith(doc: OutlookDoc, start: string, end: string, excep
     .filter((o) => toMs(o.start) < toMs(end) && toMs(o.end) > toMs(start));
 }
 
-/** Busy blocks for one attendee on one day (Scheduling Assistant). */
-export function busyFor(doc: OutlookDoc, email: string, date: string): { start: string; end: string; status: OlShowAs; title?: string }[] {
+/**
+ * Busy blocks for one attendee on one day (Scheduling Assistant). Someone whose
+ * free/busy you can see is also busy during the meetings on your calendar that
+ * they attend (the Tuesday status meeting shows on Jordan's row too).
+ * `exceptId` leaves out the meeting being edited, so it never conflicts with itself.
+ */
+export function busyFor(doc: OutlookDoc, email: string, date: string, exceptId?: string): { start: string; end: string; status: OlShowAs; title?: string }[] {
   const e = email.toLowerCase();
+  const mine = occurrences(doc, date, date).filter((o) => o.evt.id !== exceptId && !o.evt.calendar && !o.evt.allDay);
   if (e === doc.account.email.toLowerCase()) {
-    return occurrences(doc, date, date)
-      .filter((o) => !o.evt.calendar && !o.evt.allDay)
-      .map((o) => ({ start: o.start, end: o.end, status: o.evt.showAs ?? "Busy", title: o.evt.title }));
+    return mine.map((o) => ({ start: o.start, end: o.end, status: o.evt.showAs ?? "Busy", title: o.evt.title }));
   }
+  if (!hasFreeBusy(doc, email)) return [];
   const list = Object.entries(doc.freeBusy ?? {}).find(([k]) => k.toLowerCase() === e)?.[1] ?? [];
-  return list.filter((b) => dateOf(b.start) === date).map((b) => ({ start: b.start, end: b.end, status: b.status ?? "Busy", title: b.title }));
+  const shared = mine
+    .filter((o) => o.evt.meeting && [o.evt.organizer, ...(o.evt.required ?? []), ...(o.evt.optional ?? [])].some((p) => p?.email.toLowerCase() === e))
+    .map((o) => ({ start: o.start, end: o.end, status: "Busy" as OlShowAs, title: o.evt.title }));
+  return [...list.filter((b) => dateOf(b.start) === date).map((b) => ({ start: b.start, end: b.end, status: b.status ?? "Busy", title: b.title })), ...shared].sort((a, b) => toMs(a.start) - toMs(b.start));
 }
 export function hasFreeBusy(doc: OutlookDoc, email: string): boolean {
   const e = email.toLowerCase();
@@ -913,10 +921,12 @@ function applyDialog(doc: OutlookDoc, id: string, v: Record<string, SimValue>, u
     }
     case "createRule": {
       const rules = (doc.rules = doc.rules ?? []);
+      // Create Rule builds "From" from the selected message; Rules and Alerts types the address.
+      const from = s("from") || msgs[0]?.from.email || "";
       const r: OlRule = {
         id: nextId(rules, "r"),
-        name: v.fromOn ? personFor(doc, s("from")).name : v.subjectOn ? s("subject") : "Rule",
-        from: v.fromOn ? s("from") : undefined,
+        name: v.fromOn ? personFor(doc, from).name : v.subjectOn ? s("subject") : "Rule",
+        from: v.fromOn ? from : undefined,
         subject: v.subjectOn ? s("subject") : undefined,
         sentToMe: Boolean(v.sentToOn),
         moveTo: v.moveOn ? s("folder") : undefined,
@@ -2369,13 +2379,13 @@ export function outlookDialogDef(doc: OutlookDoc, ui: SimUi, id: string, base: D
       return withField({ ...base, title: "Rules and Alerts" }, "folder", { type: "list", key: "folder", label: `Always move messages from: ${m?.from.name ?? "this sender"}`, options: folders, height: 160 });
     case "createRule": {
       let d = withField(base, "fromOn", { type: "checkbox", key: "fromOn", label: `From ${m?.from.name ?? "sender"}` });
-      d = withField(d, "folder", { type: "select", key: "folder", label: "Move the item to folder:", options: folders.map((f) => f.trim()) });
+      d = withField(d, "folder", { type: "select", key: "folder", label: "Folder:", options: folders.map((f) => f.trim()) });
       return d;
     }
     case "rulesAlerts": {
       const list = (doc.rules ?? []).map((r) => `☑ ${r.name}${r.moveTo ? ` → move to ${r.moveTo}` : ""}`);
       let d = withField(base, "existing", { type: "note", text: list.length ? `Your rules: ${list.join(";  ")}` : "You have no rules yet. Fill in the conditions and actions below to create one." });
-      d = withField(d, "folder", { type: "select", key: "folder", label: "Move the item to folder:", options: folders.map((f) => f.trim()) });
+      d = withField(d, "folder", { type: "select", key: "folder", label: "Folder:", options: folders.map((f) => f.trim()) });
       return d;
     }
     case "attachFile": {

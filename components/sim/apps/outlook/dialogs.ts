@@ -27,6 +27,16 @@ const ruleFields = (fromLabel: string) => [
   { type: "checkbox" as const, key: "runNow", label: "Run this rule now on messages already in the current folder" },
 ];
 
+/**
+ * Create Rule (Home › Rules › Create Rule...) has only what Outlook's dialog
+ * has: From the selected sender (no address box), Subject contains, Sent to,
+ * and the alert, sound and move actions. Category and flag actions live in
+ * the Rules Wizard (Rules and Alerts). Fewer rows also keep "Run this rule
+ * now" in view without scrolling.
+ */
+const CREATE_RULE_SKIP = new Set(["from", "categoryOn", "category", "flagOn", "flag"]);
+const createRuleFields = ruleFields("From sender").filter((f) => !CREATE_RULE_SKIP.has((f as { key?: string }).key ?? ""));
+
 const qsActions = ["(none)", ...QS_ACTIONS];
 
 /** A note the data-driven dialog can replace (outlookDialogDef swaps fields by key). */
@@ -46,7 +56,7 @@ export const outlookDialogs: Record<string, DialogDef> = {
   moveTo: { id: "moveTo", title: "Move Items", width: 360, fields: [{ type: "text", key: "folder", label: "Move the selected items to the folder:" }] },
   copyTo: { id: "copyTo", title: "Copy Items", width: 360, fields: [{ type: "text", key: "folder", label: "Copy the selected items to the folder:" }] },
   alwaysMove: { id: "alwaysMove", title: "Rules and Alerts", width: 360, fields: [{ type: "text", key: "folder", label: "Always move messages from this sender to:" }] },
-  createRule: { id: "createRule", title: "Create Rule", width: 470, fields: ruleFields("From sender") },
+  createRule: { id: "createRule", title: "Create Rule", width: 470, fields: createRuleFields },
   rulesAlerts: {
     id: "rulesAlerts",
     title: "Rules and Alerts",

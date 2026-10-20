@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { PptDeck, PptObject, PptSlide, SimCommit, TextProps } from "@/types/sim";
 import { Icon } from "../../chrome/icons";
-import { ANIMATIONS, EXITS, animSequence, themeOf, type PptTheme } from "./model";
+import { ANIMATIONS, EXITS, animSequence, tableStyleColors, themeOf, type PptTheme } from "./model";
 import { bulletGlyph, clock, isContentPart, layoutBoxes, mediaLength, numberMarker, ox, readMaster, sx, type BodyPropsX, type Part } from "./ext";
 
 const PLACEHOLDER: Record<Part, string> = { title: "Click to add title", subtitle: "Click to add subtitle", body: "Click to add text", body2: "Click to add text" };
@@ -157,15 +157,6 @@ interface ObjectCtx {
   editor?: (key: string, multiline: boolean, tabMode?: "indent" | "cell") => React.ReactNode;
 }
 
-function tableStyleColors(style: string | undefined, accent: string) {
-  const m = /Accent (\d)/.exec(style ?? "");
-  const a = m ? ["#4472C4", "#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5", "#70AD47"][Number(m[1]) - 1] : accent;
-  if (/Light/.test(style ?? "")) return { head: "#ffffff", headText: a, band: `${a}22`, plain: "#ffffff", border: a };
-  if (/Dark/.test(style ?? "")) return { head: "#000000", headText: "#ffffff", band: `${a}cc`, plain: a, border: "#ffffff", text: "#ffffff" };
-  if (/Themed/.test(style ?? "")) return { head: a, headText: "#ffffff", band: `${a}33`, plain: "#ffffff", border: a };
-  return { head: a, headText: "#ffffff", band: `${a}40`, plain: `${a}1f`, border: "#ffffff" };
-}
-
 function TableBody({ o, ctx }: { o: PptObject; ctx: ObjectCtx }) {
   const rows = o.rows ?? [];
   const t = ox(o).table ?? {};
@@ -182,11 +173,15 @@ function TableBody({ o, ctx }: { o: PptObject; ctx: ObjectCtx }) {
     for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) if (r !== r1 || c !== c1) covered.add(`r${r}c${c}`);
   }
   const cols = rows[0]?.length ?? 1;
+  // Like PowerPoint, an empty row is never shorter than one line of its 18 pt text plus the
+  // 0.05" top and bottom cell margins; rows share the table's height evenly beyond that.
+  const rowMin = 18 * 1.2 + 2 * 3.6;
+  const rowH = Math.max(rowMin, ((o.h ?? 0) * 5.4 - 6) / Math.max(1, rows.length));
   return (
     <table className="h-full w-full border-collapse text-[18px]" style={{ fontFamily: `'${ctx.theme.font}', sans-serif`, tableLayout: t.distributed ? "fixed" : undefined }}>
       <tbody>
         {rows.map((r, i) => (
-          <tr key={i}>
+          <tr key={i} style={{ height: rowH }}>
             {r.map((cell, j) => {
               const ck = `r${i + 1}c${j + 1}`;
               if (covered.has(ck)) return null;
@@ -217,7 +212,7 @@ function TableBody({ o, ctx }: { o: PptObject; ctx: ObjectCtx }) {
                     verticalAlign: t.valign === "Center Vertically" ? "middle" : t.valign === "Align Bottom" ? "bottom" : "top",
                   }}
                 >
-                  {ctx.editing?.key === key ? ctx.editor?.(key, false, "cell") : cell || " "}
+                  {ctx.editing?.key === key ? ctx.editor?.(key, false, "cell") : cell || "\u00a0"}
                 </td>
               );
             })}

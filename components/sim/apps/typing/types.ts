@@ -18,6 +18,11 @@
  *                   commit on change
  * Commands: "form.verify" (the read-back checkbox), "form.submit" (Save record),
  * both with selection "ex:<formExerciseId>".
+ *
+ * A field with `minSentences` (the CRM summary) is checked for length too: a
+ * commit with fewer complete sentences is normalized to an empty value, so no
+ * step on that field matches it, while the text the learner typed is still the
+ * one the form keeps.
  */
 import type { SimAction, SimStep, SimValue } from "@/types/sim";
 
@@ -73,6 +78,12 @@ export type TypingField = {
   /** Grid width in a 6-column row (default 3). */
   span?: 1 | 2 | 3 | 4 | 5 | 6;
   required?: boolean;
+  /**
+   * The field needs at least this many sentences (each ending in . ! or ?).
+   * A shorter entry never matches a step on this field, so a fragment that
+   * happens to contain every keyword still counts as a miss.
+   */
+  minSentences?: number;
 };
 
 export type TypingFormExercise = {

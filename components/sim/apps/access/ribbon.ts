@@ -17,10 +17,40 @@ const colorOpts = (first: RibbonOption): RibbonOption[] => [
   ...THEME_COLORS.slice(10).map((c) => ({ value: c.color, label: c.label, color: c.color })),
 ];
 
+const viewOption = (v: string): RibbonOption => ({ value: v, icon: v === "Design View" ? "layout" : v === "SQL View" ? "fx" : v === "Print Preview" ? "preview" : v === "Layout View" ? "layout" : "table" });
+
+/**
+ * The views Access lists under Home › View for each kind of object, in
+ * Access's order. The static Ribbon lists every view (the validator walks
+ * it); `accessRibbonFor` narrows the menu to the active object's views.
+ */
+export const VIEWS_BY_KIND: Record<string, string[]> = {
+  table: ["Datasheet View", "Design View"],
+  query: ["Datasheet View", "SQL View", "Design View"],
+  form: ["Form View", "Layout View", "Design View"],
+  report: ["Report View", "Print Preview", "Layout View", "Design View"],
+};
+
 const viewGroup = (): RibbonGroup => ({
   label: "Views",
-  controls: [{ type: "dropdown", id: "home.view", label: "View", icon: "normalView", size: "large", split: true, faceValue: "toggle", options: VIEW_OPTIONS.map((v) => ({ value: v, icon: v === "Design View" ? "layout" : v === "SQL View" ? "fx" : v === "Print Preview" ? "preview" : v === "Layout View" ? "layout" : "table" })) }],
+  controls: [{ type: "dropdown", id: "home.view", label: "View", icon: "normalView", size: "large", split: true, faceValue: "toggle", options: VIEW_OPTIONS.map(viewOption) }],
 });
+
+/** The Ribbon with every View menu narrowed to the views of the object in the active tab. */
+const ribbonByKind = new Map<string, RibbonTab[]>();
+export function accessRibbonFor(kind: string | undefined): RibbonTab[] {
+  const views = kind ? VIEWS_BY_KIND[kind] : undefined;
+  if (!kind || !views) return accessRibbon;
+  const cached = ribbonByKind.get(kind);
+  if (cached) return cached;
+  const narrow = (c: RibbonControl): RibbonControl => (c.type === "dropdown" && c.id === "home.view" ? { ...c, options: views.map(viewOption) } : c);
+  const tabs = accessRibbon.map((t) => ({
+    ...t,
+    groups: t.groups.map((g) => (g.controls.some((c) => c.type === "dropdown" && c.id === "home.view") ? { ...g, controls: g.controls.map(narrow) } : g)),
+  }));
+  ribbonByKind.set(kind, tabs);
+  return tabs;
+}
 
 const fontRows = (): RibbonControl[][] => [
   [

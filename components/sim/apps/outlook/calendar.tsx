@@ -519,7 +519,7 @@ function SchedulingAssistant({ ctx, d }: { ctx: Ctx; d: FormDraft }) {
   ];
   const len = Math.max(30, minutesBetween(draftStart(d), draftEnd(d)));
   const exceptId = doc.form?.id;
-  const busyOf = (email: string) => busyFor(doc, email, date).filter((b) => !(email === doc.account.email && exceptId && b.title === doc.events?.find((e) => e.id === exceptId)?.title));
+  const busyOf = (email: string) => busyFor(doc, email, date, exceptId);
   const conflictsAt = (s: string, e: string) =>
     attendees.filter((a) => busyOf(a.token).some((b) => b.status !== "Free" && b.status !== "Working Elsewhere" && toMs(b.start) < toMs(e) && toMs(b.end) > toMs(s))).map((a) => a.name);
   const startMin = minutesOf(draftStart(d));
@@ -681,9 +681,10 @@ export function EventForm({ ctx }: { ctx: Ctx }) {
         <>
           <div className="flex gap-2 px-3 pt-2">
             {meeting && (
-              <button type="button" onClick={() => ctx.saveForm()} aria-label="Send" title="Send (Alt+S)" className="flex h-[52px] w-14 shrink-0 flex-col items-center justify-center gap-0.5 rounded border border-gray-300 bg-white text-[12px] hover:bg-[#e5f1fb]">
-                <OIcon name="send" size={20} className="text-[#0f6cbd]" />
-                Send
+              // A meeting that was already sent shows Send Update, as in Outlook.
+              <button type="button" onClick={() => ctx.saveForm()} aria-label={f.id ? "Send Update" : "Send"} title={`${f.id ? "Send Update" : "Send"} (Alt+S)`} className="flex h-[52px] w-14 shrink-0 flex-col items-center justify-center gap-0.5 rounded border border-gray-300 bg-white text-center text-[12px] leading-[1.1] hover:bg-[#e5f1fb]">
+                <OIcon name="send" size={f.id ? 18 : 20} className="shrink-0 text-[#0f6cbd]" />
+                {f.id ? "Send Update" : "Send"}
               </button>
             )}
             <div className="min-w-0 flex-1">

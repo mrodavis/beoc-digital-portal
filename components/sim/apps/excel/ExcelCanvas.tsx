@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { CellFormat, ExcelBook, ExcelChart, ExcelSheet } from "@/types/sim";
 import type { CanvasProps, MenuItem, StatusBarProps } from "../../types";
 import { Popover } from "../../chrome/Ribbon";
@@ -954,9 +954,11 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
             textOverflow: "clip",
             display: fmt.wrap ? "flex" : undefined,
             alignItems: fmt.wrap ? (fmt.valign === "top" ? "flex-start" : fmt.valign === "middle" ? "center" : "flex-end") : undefined,
-            zIndex: frozenRow || frozenCol ? 3 : cas ? 2 : overflowZ(nextEmpty, align),
+            zIndex: isEditing ? 8 : frozenRow || frozenCol ? 3 : cas ? 2 : overflowZ(nextEmpty, align),
             position: frozenRow || frozenCol ? "sticky" : "absolute",
             marginTop: frozenRow ? undefined : undefined,
+            // The in-cell editor grows to the right over the next cells, as in Excel.
+            ...(isEditing ? { overflow: "visible" } : {}),
           }}
         >
           {isEditing ? (
@@ -967,6 +969,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
               onCancel={() => { setEdit(null); focus(); }}
               suggest={(t) => autoComplete(ref, t)}
               suggestNow={edit!.typed}
+              maxWidth={colX[nCols + 1] - colX[c] - 4}
             />
           ) : (
             <>
@@ -1634,6 +1637,7 @@ function CellEditor({
   onCancel,
   suggest,
   suggestNow,
+  maxWidth,
 }: {
   value: string;
   onChange: (v: string) => void;
@@ -1642,10 +1646,35 @@ function CellEditor({
   suggest?: (typed: string) => string | null;
   /** Editing began with a keystroke: offer a completion for the first character too. */
   suggestNow?: boolean;
+  /** How far the editor may grow: from the cell's left edge to the last column's right edge. */
+  maxWidth?: number;
 }) {
   const ref = useRef<HTMLInputElement>(null);
   const [full, setFull] = useState<string | null>(() => (suggestNow && suggest ? suggest(value) : null));
   const tail = full && full.toLowerCase().startsWith(value.toLowerCase()) && full.length > value.length ? full.slice(value.length) : "";
+  // Like Excel, the editor widens to the right as the entry outgrows the cell, up to the
+  // right edge of the visible grid; past that the text scrolls inside the editor.
+  const [grow, setGrow] = useState<number | null>(null);
+  const baseW = useRef(0);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (!baseW.current) baseW.current = el.offsetWidth;
+    const cs = getComputedStyle(el);
+    const ctx = document.createElement("canvas").getContext("2d");
+    if (!ctx) return;
+    ctx.font = `${cs.fontStyle} ${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`;
+    const need = Math.ceil(ctx.measureText(value + tail).width) + 12;
+    if (need <= baseW.current) {
+      setGrow(null);
+      return;
+    }
+    let sc = el.parentElement;
+    while (sc && !/(auto|scroll|hidden)/.test(getComputedStyle(sc).overflowX)) sc = sc.parentElement;
+    const edge = sc ? sc.getBoundingClientRect().left + sc.clientWidth : window.innerWidth;
+    const room = Math.min(Math.floor(edge - el.getBoundingClientRect().left - 2), maxWidth ?? Infinity);
+    setGrow(Math.max(baseW.current, Math.min(need, room)));
+  }, [value, tail, maxWidth]);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -1689,7 +1718,7 @@ function CellEditor({
         }
       }}
       className="h-full w-full min-w-[60px] border-0 bg-white px-0.5 outline outline-2 outline-[#217346]"
-      style={{ font: "inherit", textAlign: "left" }}
+      style={{ font: "inherit", textAlign: "left", ...(grow ? { width: grow, position: "relative" } : {}) }}
     />
   );
 }

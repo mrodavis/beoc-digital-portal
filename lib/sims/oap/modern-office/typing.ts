@@ -28,7 +28,7 @@ function crmForm(id: string, record: string, source: TypingFormExercise["source"
         id: "s2",
         heading: "Details",
         fields: [
-          { name: "summary", label: "Summary (at least 3 sentences)", type: "textarea", span: 6, required: true },
+          { name: "summary", label: "Summary (at least 3 sentences)", type: "textarea", span: 6, required: true, minSentences: 3 },
           { name: "nextSteps", label: "Next Steps (owner and due date)", type: "textarea", span: 6, required: true },
         ],
       },
