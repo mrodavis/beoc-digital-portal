@@ -191,7 +191,7 @@ export const excelModule2Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "AutoFit column B so every vendor name fits.",
-          hint: "Select column B (click its header). Home tab › Cells group › Format › AutoFit Column Width.",
+          hint: "Select column B (click its header). Home tab › Cells group › Format › AutoFit Column Width. (Or double-click the right border of the column B header.)",
           steps: [
             {
               action: { kind: "command", id: "home.format", value: "AutoFit Column Width" },

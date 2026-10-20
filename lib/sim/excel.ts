@@ -1909,8 +1909,10 @@ export function computePivot(book: ExcelBook, sheet: ExcelSheet): PivotLayout {
   const c0 = at.c;
   let r = at.r;
   if (colLv.length) {
-    put(c0, r - 1, { v: nv === 1 ? labels[0] : "", fmt: PIVOT_HDR, kind: "header", vi: nv === 1 ? 0 : undefined });
-    put(c0 + 1, r - 1, { v: "Column Labels", fmt: PIVOT_HDR, kind: "header" });
+    // The report starts at its location: the value name and Column Labels first, then the item row.
+    put(c0, r, { v: nv === 1 ? labels[0] : "", fmt: PIVOT_HDR, kind: "header", vi: nv === 1 ? 0 : undefined });
+    put(c0 + 1, r, { v: "Column Labels", fmt: PIVOT_HDR, kind: "header" });
+    r += 1;
     if (nv <= 1) {
       put(c0, r, { v: hasRows ? "Row Labels" : "", fmt: PIVOT_HDR, kind: "header" });
       colKeys.forEach((ck, j) => put(c0 + 1 + j, r, { v: ck.label, fmt: { ...PIVOT_HDR, ...(ck.fmt ?? {}) }, kind: "colItem", colKey: ck.id, field: colLv[colLv.length - 1].name }));

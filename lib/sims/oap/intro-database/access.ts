@@ -1078,7 +1078,7 @@ const module5: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Compact and repair the database.",
-          hint: "Database Tools › Tools › Compact and Repair Database, or File › Info › Compact & Repair Database.",
+          hint: "Database Tools › Tools › Compact and Repair, or File › Info › Compact & Repair Database.",
           steps: [cmd("dbtools.compact")],
         },
         {

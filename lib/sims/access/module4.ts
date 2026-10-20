@@ -10,7 +10,8 @@ import { supplies } from "./lakeside";
  */
 
 const formSupplies = supplies();
-const categories = () => table("Categories", [fld.auto("CategoryID"), fld.text("CategoryName", 20, { required: true })], [[1, "Medical"], [2, "Office"], [3, "Cleaning"], [4, "Lab"]]);
+// One text column, so the combo box's bound column stores the name that Supplies.Category already holds.
+const categories = () => table("Categories", [fld.text("CategoryName", 20, { required: true })], [["Medical"], ["Office"], ["Cleaning"], ["Lab"]], { pk: ["CategoryName"] });
 
 const supplyCosts = (): AccQuery => ({
   name: "Supply Costs",
@@ -48,7 +49,7 @@ export const accessModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Delivery slips list the quantity before the category. Move the Quantity box above Category.",
-          hint: "In Layout View, click the Quantity box, then Form Layout Arrange › Move › Move Up (or right-click › Move Up).",
+          hint: "In Layout View, click the Quantity box, then Arrange › Move › Move Up (or right-click › Move Up).",
           steps: [cmd("arrange.moveUp", undefined, { requires: { selection: ctl("Supplies", "Quantity") }, selectHint: "Click the Quantity box first." })],
         },
         {

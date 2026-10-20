@@ -112,7 +112,7 @@ export const excelSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "AutoFit column A so every client name fits.",
-          hint: "Click the column A header. Home tab › Cells group › Format › AutoFit Column Width.",
+          hint: "Click the column A header. Home tab › Cells group › Format › AutoFit Column Width. (Or double-click the right border of the column A header.)",
           steps: [
             {
               action: { kind: "command", id: "home.format", value: "AutoFit Column Width" },
@@ -123,11 +123,11 @@ export const excelSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Sort the clients by Contract Start Date from earliest to latest, keeping each client's row together.",
-          hint: "Click one cell in the Contract Start Date column (not the whole column). Data tab › Sort & Filter group › Sort Oldest to Newest (Sort A to Z). Or Data tab › Sort, Sort by Contract Start Date, Smallest to Largest.",
+          hint: "Click one cell in the Contract Start Date column (not the whole column). Data tab › Sort & Filter group › Sort Oldest to Newest (Sort A to Z). Or Data tab › Sort, Sort by Contract Start Date, Order: Oldest to Newest.",
           steps: [
             {
               action: { kind: "command", id: "data.sortAsc" },
-              alt: [{ kind: "dialog", id: "sort", values: { sortBy: "Contract Start Date", order: "Smallest to Largest" } }],
+              alt: [{ kind: "dialog", id: "sort", values: { sortBy: "Contract Start Date", order: ["Oldest to Newest", "Smallest to Largest"] } }],
               requires: { selection: colCells("C", 1, 11) },
               selectHint: "Click a single cell in the Contract Start Date column. Selecting only the column would scramble the records.",
             },

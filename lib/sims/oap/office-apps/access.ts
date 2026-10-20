@@ -264,7 +264,7 @@ export const accessSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Create a form for the Supplies table in one click, then move Quantity above Category to match the delivery slip.",
-          hint: "Create › Forms › Form. In Layout View, click the Quantity box and choose Form Layout Arrange › Move › Move Up (or right-click › Move Up).",
+          hint: "Create › Forms › Form. In Layout View, click the Quantity box and choose Arrange › Move › Move Up (or right-click › Move Up).",
           steps: [
             cmd("create.form"),
             cmd("arrange.moveUp", undefined, { requires: { selection: ctl("Supplies", "Quantity") }, selectHint: "Click the Quantity box first." }),

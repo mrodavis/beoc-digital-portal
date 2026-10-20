@@ -5,7 +5,7 @@ import type { SimCommit } from "@/types/sim";
 import type { AccControl, AccessDoc, AccReport } from "./types";
 import { displayValue, findField, findReport, findTable } from "./data";
 import { parseSel } from "./model";
-import { sourceFields } from "./build";
+import { sourceFieldDef, sourceFields } from "./build";
 import { compare, formatDateSerial, formatValue, NOW, TODAY, type V } from "./sql";
 import { AccIcon } from "./icons";
 import { InlineEdit, Menu } from "./ui";
@@ -85,7 +85,7 @@ export function ReportView(props: ViewProps) {
   const isPreview = view === "Print Preview";
   const interactive = isLayout || isDesign;
   const table = findTable(doc, r.recordSource);
-  const fieldDef = (name: string) => findField(table, name);
+  const fieldDef = (name: string) => (table ? findField(table, name) : sourceFieldDef(doc, r.recordSource, name));
   const cap = (f: string) => r.captions?.[f] ?? fieldDef(f)?.caption ?? f;
   const fmt = (f: string, v: V) => {
     const fd = fieldDef(f);

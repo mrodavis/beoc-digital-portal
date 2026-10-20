@@ -1,4 +1,4 @@
-import type { ExcelCell, ExcelSheet, SimDefinition, SimStep } from "@/types/sim";
+import type { ExcelCell, ExcelPivot, ExcelSheet, SimDefinition, SimStep } from "@/types/sim";
 import { cells, colCells, column, DATE, fmtOnly, grid, MONEY, serial, TITLE } from "@/lib/sims/excel/helpers";
 
 /**
@@ -133,6 +133,39 @@ const EXPENSE_WIDTHS = { A: 56, B: 112, C: 104, D: 190, E: 84 };
 
 function expenseCells(): Record<string, ExcelCell> {
   return grid("A1", [["Month", "Department", "Category", "Vendor", "Amount"], ...EXPENSES], { header: true, colFmt: { E: { numFmt: "Number", decimals: 2 } } });
+}
+
+/** June bills, so the PivotTable practice spans three months. */
+const JUNE_EXPENSES: [string, string, string, string, number][] = [
+  ["Jun", "Medical", "Supplies", "Harbor Medical Supply", 1310],
+  ["Jun", "Nursing", "Supplies", "Harbor Medical Supply", 885],
+  ["Jun", "Administration", "Services", "Crestview IT Solutions", 1150],
+  ["Jun", "Facilities", "Utilities", "Metro Power and Light", 2240],
+  ["Jun", "Medical", "Equipment", "Pinecrest Equipment Co.", 980],
+  ["Jun", "Nursing", "Staff Training", "Summit Learning Group", 450],
+  ["Jun", "Facilities", "Services", "Clearwater Facility Services", 1405],
+  ["Jun", "Administration", "Supplies", "Northgate Office Products", 390],
+];
+
+/**
+ * The spring expense log with real invoice dates (bills are posted on the
+ * 5th, 15th and 25th), April through June, as an Excel Table named SpringExpenses.
+ */
+function datedExpenseSheet(): ExcelSheet {
+  const month = { Apr: 4, May: 5, Jun: 6 } as Record<string, number>;
+  const seen: Record<string, number> = {};
+  const rows = [...EXPENSES, ...JUNE_EXPENSES].map(([m, d, c, v, a]) => {
+    const k = (seen[m] = (seen[m] ?? -1) + 1);
+    return [serial(month[m], [5, 15, 25][k % 3]), d, c, v, a];
+  });
+  return {
+    name: "Expenses",
+    colWidths: { ...EXPENSE_WIDTHS, A: 78 },
+    rows: 40,
+    table: { range: `A1:E${rows.length + 1}`, style: "Table Style Medium 2", name: "SpringExpenses" },
+    filter: `A1:E${rows.length + 1}`,
+    cells: grid("A1", [["Date", "Department", "Category", "Vendor", "Amount"], ...rows], { header: true, colFmt: { A: DATE, E: { numFmt: "Number", decimals: 2 } } }),
+  };
 }
 
 /* Module 4 capstone: the May expense log. */
@@ -415,26 +448,36 @@ const m3Sims: Record<string, SimDefinition[]> = {
           ],
         },
         {
+          instruction: "Log one more order in row 13: 10/30/2026 in A13, \"Hand soap refill\" in B13, Cleaning in C13 and 6 in D13. In C13, type only Cl and let AutoComplete finish the word.",
+          hint: "Click A13 and type 10/30/2026, press Tab, type Hand soap refill, press Tab. In C13 type Cl: Excel suggests Cleaning from the entries above, so press Tab to accept it. Type 6 in D13 and press Enter.",
+          steps: [
+            { action: { kind: "type", target: "A13", value: ["10/30/2026", "10/30/26"] } },
+            { action: { kind: "type", target: "B13", value: "Hand soap refill" } },
+            { action: { kind: "type", target: "C13", value: "Cleaning" } },
+            { action: { kind: "type", target: "D13", value: "6" } },
+          ],
+        },
+        {
           instruction: "Type \"Keisha\" in G2, then use Flash Fill to fill in the rest of the first names.",
-          hint: "Click G2, type Keisha and press Enter. With G3 selected, Data tab › Data Tools group › Flash Fill (or press Ctrl+E).",
+          hint: "Click G2, type Keisha and press Enter. With G3 selected, Data tab › Data Tools group › Flash Fill (or press Ctrl+E). Flash Fill sees that Keisha is the first word of Keisha Morgan and does the same for every row.",
           steps: [
             { action: { kind: "type", target: "G2", value: "Keisha" } },
             {
               action: { kind: "command", id: "data.flashFill" },
               alt: [{ kind: "command", id: "home.fillSeries", value: "Flash Fill" }],
-              requires: { selection: ["G3", "G2", "G2:G11", "G3:G11", "G2:G12", "G3:G12"] },
+              requires: { selection: ["G3", "G2", "G2:G11", "G3:G11", "G2:G12", "G3:G12", "G2:G13", "G3:G13"] },
               selectHint: "Click G3, the first empty cell under your example, first.",
-              effects: [
-                { op: "set", path: "sheets.Purchases.cells.G3", value: { v: "Daniel" } },
-                { op: "set", path: "sheets.Purchases.cells.G4", value: { v: "Priya" } },
-                { op: "set", path: "sheets.Purchases.cells.G5", value: { v: "Keisha" } },
-                { op: "set", path: "sheets.Purchases.cells.G6", value: { v: "Marcus" } },
-                { op: "set", path: "sheets.Purchases.cells.G7", value: { v: "Daniel" } },
-                { op: "set", path: "sheets.Purchases.cells.G8", value: { v: "Lucia" } },
-                { op: "set", path: "sheets.Purchases.cells.G9", value: { v: "Priya" } },
-                { op: "set", path: "sheets.Purchases.cells.G10", value: { v: "Marcus" } },
-                { op: "set", path: "sheets.Purchases.cells.G11", value: { v: "Lucia" } },
-              ],
+            },
+          ],
+        },
+        {
+          instruction: "Show the order dates in A2:A13 with the custom format mm/dd/yyyy, so every date has two-digit months and days (10/01/2026).",
+          hint: "Select A2:A13 and press Ctrl+1. On the Number tab pick Custom, type mm/dd/yyyy in the Type box and click OK.",
+          steps: [
+            {
+              action: { kind: "dialog", id: "formatCells", values: { category: "Custom", custom: "mm/dd/yyyy" } },
+              requires: { selection: "A2:A13" },
+              selectHint: "Select the order dates in A2:A13 first.",
             },
           ],
         },
@@ -451,10 +494,11 @@ const m3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Deliveries come every Monday. Use AutoFill to continue the weekly dates in B2:B3 down through B9.",
-          hint: "Select B2:B3 so Excel can see the 7-day pattern, then drag the fill handle down to B9.",
+          hint: "Select B2:B3 so Excel can see the 7-day pattern, then drag the fill handle down to B9. (Or select B2:B9, Home tab › Editing group › Fill › Series, choose Date, Day and a Step value of 7.) Ctrl+D would only copy the first date.",
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "B2:B9" },
+              alt: [{ kind: "dialog", id: "series", values: { type: "Date", dateUnit: "Day", step: "7" }, requires: { selection: "B2:B9", sheet: "Delivery Schedule" } }],
               requires: { selection: "B2:B3", sheet: "Delivery Schedule" },
               selectHint: "Select both B2 and B3 first, so Excel can see the pattern.",
             },
@@ -550,7 +594,7 @@ const m3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "AutoFit column A so every item name fits.",
-          hint: "Click the column A header. Home tab › Cells group › Format › AutoFit Column Width.",
+          hint: "Click the column A header. Home tab › Cells group › Format › AutoFit Column Width. (Or double-click the right border of the column A header.)",
           steps: [
             {
               action: { kind: "command", id: "home.format", value: "AutoFit Column Width" },
@@ -954,8 +998,13 @@ const m3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Turn on the table's Total Row so it totals the Total Cost column.",
-          hint: "Click a cell in the table. Table Design tab › Table Style Options group › Total Row.",
+          hint: "Click a cell in the table. Table Design tab › Table Style Options group › Total Row. Excel adds row 20 with Total in A20 and a SUBTOTAL sum under Total Cost.",
           steps: [{ action: { kind: "command", id: "table.totalRow" }, requires: { selection: cells("A1:G19") }, selectHint: "Click a cell inside the table so the Table Design tab appears." }],
+        },
+        {
+          instruction: "Use the Total Row drop-down to show the average Unit Cost in F20.",
+          hint: "Click F20 in the Total Row. Click the drop-down arrow that appears beside the cell and pick Average. Excel writes =SUBTOTAL(101,Table1[Unit Cost]).",
+          steps: [{ action: { kind: "command", id: "table.totalFn", value: "Average" }, requires: { selection: "F20" }, selectHint: "Click F20, the Total Row cell under Unit Cost, first." }],
         },
         {
           instruction: "In J1, count the LOW items with a structured reference: =COUNTIF(Table1[Status],\"LOW\").",
@@ -979,11 +1028,24 @@ const m3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Add the page header \"Lakeside Medical Associates - Supply Reorder Report\".",
-          hint: "Page Layout tab › Page Setup group launcher (the small arrow) › Header/Footer tab. Type the text in Header, then OK.",
+          hint: "Insert tab › Text group › Header & Footer. Excel switches to Page Layout view with the cursor in the header: type the text, then click any cell. (Or Page Layout tab › Page Setup group launcher › Header/Footer tab, type it in Header, OK.)",
           steps: [
             {
-              action: { kind: "dialog", id: "pageSetupSheet", values: { header: "Lakeside Medical Associates - Supply Reorder Report" } },
-              alt: [{ kind: "type", target: "header", value: "Lakeside Medical Associates - Supply Reorder Report" }],
+              action: { kind: "type", target: "header", value: "Lakeside Medical Associates - Supply Reorder Report" },
+              alt: [{ kind: "dialog", id: "pageSetupSheet", values: { header: "Lakeside Medical Associates - Supply Reorder Report" } }],
+            },
+          ],
+        },
+        {
+          instruction: "Add a footer that numbers the pages as Page 1 of 1.",
+          hint: "With the header open, Header & Footer tab › Navigation group › Go to Footer. Then Header & Footer group › Footer › Page 1 of ?. (Or type Page 1 of 1 in Footer on the Page Setup Header/Footer tab.)",
+          steps: [
+            {
+              action: { kind: "command", id: "hf.footer", value: "Page &[Page] of &[Pages]" },
+              alt: [
+                { kind: "type", target: "footer", value: ["Page &[Page] of &[Pages]", "Page 1 of 1"] },
+                { kind: "dialog", id: "pageSetupSheet", values: { footer: ["Page &[Page] of &[Pages]", "Page 1 of 1"] } },
+              ],
             },
           ],
         },
@@ -1078,6 +1140,15 @@ const m3Sims: Record<string, SimDefinition[]> = {
           instruction: "Turn on the table's Total Row so the Total Cost column is summed.",
           hint: "Click a cell in the table. Table Design tab › Table Style Options group › Total Row.",
           steps: [{ action: { kind: "command", id: "table.totalRow" }, requires: { selection: cells("A1:G21") }, selectHint: "Click a cell inside the table so the Table Design tab appears." }],
+        },
+        {
+          instruction: "Finish the Total Row: show the AVERAGE of Unit Cost in D22 and a COUNT of the items in A22.",
+          hint: "Click D22, click its drop-down arrow and pick Average. Then click A22, click its drop-down arrow and pick Count (it replaces the word Total).",
+          anyOrder: true,
+          steps: [
+            { action: { kind: "command", id: "table.totalFn", value: "Average" }, requires: { selection: "D22" }, selectHint: "Click D22, the Total Row cell under Unit Cost, first." },
+            { action: { kind: "command", id: "table.totalFn", value: "Count" }, requires: { selection: "A22" }, selectHint: "Click A22, the Total Row cell under Item, first." },
+          ],
         },
         {
           instruction: "Sort the table by Status in the custom order OUT, LOW, OK, then by Category from A to Z.",
@@ -1219,7 +1290,7 @@ const m4Sims: Record<string, SimDefinition[]> = {
       app: "excel",
       title: "Chart supply expenses by department",
       scenario:
-        "Renee Alvarez is presenting six months of supply expenses at Thursday's provider meeting. Build a labeled column chart on its own sheet, and add a sparkline under the data so the Medical trend shows at a glance.",
+        "Renee Alvarez is presenting six months of supply expenses at Thursday's provider meeting. Build a labeled column chart on its own sheet, save its look as a template for next month, and add sparklines under the data so each department's trend shows at a glance.",
       fileName: "Quarterly Charts.xlsx",
       minutes: 6,
       initial: {
@@ -1242,7 +1313,7 @@ const m4Sims: Record<string, SimDefinition[]> = {
                 ],
                 { header: true, colFmt: { B: MONEY, C: MONEY, D: MONEY, E: MONEY } },
               ),
-              A9: { v: "Medical trend", fmt: { bold: true, italic: true } },
+              A9: { v: "Trend", fmt: { bold: true, italic: true } },
             },
           },
         ],
@@ -1281,18 +1352,51 @@ const m4Sims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "chart.style", value: "Style 2" } }],
         },
         {
+          instruction: "Show data labels on the Medical columns only, so the largest department's exact amounts are visible.",
+          hint: "Click the chart, then click one of the blue Medical columns: all six Medical columns are selected and nothing else. Chart Design tab › Add Chart Element › Data Labels. (Or right-click a Medical column › Add Data Labels.)",
+          steps: [
+            {
+              action: { kind: "command", id: "chart.addElement", value: "Data Labels" },
+              requires: { selection: "chart:c1.s1" },
+              selectHint: "Click the chart, then click a Medical (blue) column so only that series is selected.",
+            },
+          ],
+        },
+        {
+          instruction: "Save the formatted chart as a chart template named \"Lakeside Monthly Report\" for next month's report.",
+          hint: "Right-click the chart (not a column) and choose Save as Template. Type Lakeside Monthly Report as the file name and click Save. Next time, Insert tab › Recommended Charts › All Charts › Templates applies the same look.",
+          steps: [
+            {
+              action: { kind: "dialog", id: "saveChartTemplate", values: { name: "Lakeside Monthly Report" } },
+              requires: { selection: ["chart:c1", "chart:c1.s1", "chart:c1.s2", "chart:c1.s3", "chart:c1.s4"] },
+              selectHint: "Right-click the chart itself.",
+            },
+          ],
+        },
+        {
           instruction: "Move the chart to a new chart sheet named \"Department Chart\".",
           hint: "Click the chart. Chart Design tab › Location group › Move Chart. Choose New sheet, type Department Chart, OK.",
           steps: [{ action: { kind: "dialog", id: "moveChart", values: { location: "New sheet", name: "Department Chart" } } }],
         },
         {
-          instruction: "On the Data sheet, add a Line sparkline in B9 that shows the Medical department's trend in B2:B7.",
-          hint: "Click the Data tab. Insert tab › Sparklines group › Line. Data Range: B2:B7. Location Range: B9. OK.",
+          instruction: "On the Data sheet, add Line sparklines in B9:E9, one under each department, from the data in B2:E7.",
+          hint: "Click the Data tab and select B9:E9. Insert tab › Sparklines group › Line. Data Range: B2:E7. Location Range: B9:E9. OK. Excel draws one sparkline per column and groups them.",
           steps: [
             {
-              action: { kind: "dialog", id: "sparklines", values: { type: "Line", dataRange: ["B2:B7", "$B$2:$B$7"], location: ["B9", "$B$9"] } },
+              action: { kind: "dialog", id: "sparklines", values: { type: "Line", dataRange: ["B2:E7", "$B$2:$E$7"], location: ["B9:E9", "$B$9:$E$9"] } },
               requires: { sheet: "Data" },
               selectHint: "Switch to the Data sheet first.",
+            },
+          ],
+        },
+        {
+          instruction: "Mark the high point on the sparklines so each department's best month stands out.",
+          hint: "Click any sparkline in B9:E9. Sparkline tab › Show group › High Point. The whole group changes together.",
+          steps: [
+            {
+              action: { kind: "command", id: "sparkline.high" },
+              requires: { selection: ["B9", "C9", "D9", "E9", "B9:E9"], sheet: "Data" },
+              selectHint: "Click one of the sparklines in B9:E9 first.",
             },
           ],
         },
@@ -1392,19 +1496,19 @@ const m4Sims: Record<string, SimDefinition[]> = {
       app: "excel",
       title: "Answer the spending questions with a PivotTable",
       scenario:
-        "Renee Alvarez asks what each department spent in April and May. The expense log has 30 rows, so instead of writing formulas, build one PivotTable and rearrange it to answer her questions.",
+        "Renee Alvarez asks what each department spent in April, May and June. The expense log has 38 dated bills, so instead of writing formulas, build one PivotTable from the SpringExpenses table and shape it to answer her questions.",
       fileName: "Spring Expenses.xlsx",
-      minutes: 6,
-      initial: { active: "Expenses", sheets: [{ name: "Expenses", colWidths: EXPENSE_WIDTHS, rows: 32, cells: expenseCells() }] },
+      minutes: 7,
+      initial: { active: "Expenses", sheets: [datedExpenseSheet()] },
       tasks: [
         {
-          instruction: "Create a PivotTable from the expense data on a new worksheet.",
-          hint: "Click any cell in the data. Insert tab › Tables group › PivotTable. Keep New Worksheet and click OK.",
+          instruction: "Create a PivotTable from the SpringExpenses table on a new worksheet.",
+          hint: "Click any cell in the table. Insert tab › Tables group › PivotTable. Table/Range already shows SpringExpenses; keep New Worksheet and click OK.",
           steps: [
             {
               action: { kind: "dialog", id: "createPivot", values: { location: "New Worksheet" } },
-              requires: { selection: inData("A1:E31") },
-              selectHint: "Click a cell inside the expense data first.",
+              requires: { selection: inData("A1:E39") },
+              selectHint: "Click a cell inside the expense table first.",
             },
           ],
         },
@@ -1418,36 +1522,46 @@ const m4Sims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Add Month to the Columns area so April and May sit side by side.",
-          hint: "Drag Month from the field list into the Columns area (or use the arrow beside Month › Add to Column Labels).",
-          steps: [{ action: { kind: "command", id: "pivot.area", value: "Month>Columns" }, requires: { sheet: "Sheet2" } }],
+          instruction: "Add Date to the Columns area.",
+          hint: "Drag Date from the field list into the Columns area (or use the arrow beside Date › Add to Column Labels). Each invoice date gets its own column for now.",
+          steps: [{ action: { kind: "command", id: "pivot.area", value: "Date>Columns" }, requires: { sheet: "Sheet2" } }],
         },
         {
-          instruction: "Format the PivotTable values in B4:D8 as Currency.",
-          hint: "Select B4:D8. Home tab › Number group › Number Format box › Currency.",
+          instruction: "Group the dates by Months so April, May and June sit side by side.",
+          hint: "Right-click any date in the column labels (row 4) › Group. Select Months (clear Days if it is selected), OK. (Or PivotTable Analyze tab › Group › Group Field.) The months list in calendar order, not A to Z.",
           steps: [
             {
-              action: { kind: "command", id: "home.numberFormat", value: "Currency" },
-              alt: [{ kind: "dialog", id: "formatCells", values: { category: "Currency" } }],
-              requires: { selection: ["B4:D8", "B:D"], sheet: "Sheet2" },
-              selectHint: "Select the values, B4:D8, on the PivotTable sheet first.",
-            },
-          ],
-        },
-        {
-          instruction: "Now show the average expense instead of the total: summarize Amount by Average.",
-          hint: "Click a value in the PivotTable. PivotTable Analyze tab › Active Field group › Summarize Values By › Average (or right-click a value › Value Field Settings › Average).",
-          steps: [
-            {
-              action: { kind: "command", id: "pivot.summarize", value: "Average" },
-              alt: [{ kind: "dialog", id: "valueFieldSettings", values: { fn: "Average" } }],
+              action: { kind: "dialog", id: "pivotGroup", values: { months: true, days: false } },
               requires: { sheet: "Sheet2" },
             },
           ],
         },
         {
-          instruction: "The April utilities bill for Facilities was entered wrong. On the Expenses sheet, change E5 to 2080.",
-          hint: "Click the Expenses tab, click E5, type 2080 and press Enter.",
+          instruction: "Format the values as Currency with Value Field Settings, so the format stays when the PivotTable changes.",
+          hint: "Right-click any amount › Value Field Settings › Number Format › Currency, OK, OK. (Formatting B5:E9 with Home › Number Format also works until the layout changes.)",
+          steps: [
+            {
+              action: { kind: "dialog", id: "valueFieldSettings", values: { numberFormat: "Currency" } },
+              alt: [{ kind: "command", id: "home.numberFormat", value: "Currency", requires: { selection: ["B5:E9", "B:E"], sheet: "Sheet2" } }],
+              requires: { sheet: "Sheet2" },
+            },
+          ],
+        },
+        {
+          instruction: "Sort the departments by their totals, largest to smallest.",
+          hint: "Right-click a department's Grand Total amount (E5:E8) › Sort › Sort Largest to Smallest. (Or click one and use Data tab › Sort Z to A.)",
+          steps: [
+            {
+              action: { kind: "command", id: "pivot.sort", value: "Largest to Smallest" },
+              alt: [{ kind: "command", id: "data.sortDesc" }],
+              requires: { selection: cells("E5:E8"), sheet: "Sheet2" },
+              selectHint: "Click one of the departments' Grand Total amounts, E5:E8, first.",
+            },
+          ],
+        },
+        {
+          instruction: "The April 5 utilities bill for Facilities was entered wrong. On the Expenses sheet, change E5 to 2080.",
+          hint: "Click the Expenses tab, click E5, type 2080 and press Enter. Back on Sheet2 the PivotTable still shows the old total: it reads a saved copy of the data until you refresh it.",
           steps: [{ action: { kind: "type", target: "E5", value: ["2080", "2,080", "2080.00"] }, requires: { sheet: "Expenses" }, selectHint: "Switch to the Expenses sheet first." }],
         },
         {
@@ -1709,7 +1823,7 @@ const m4Sims: Record<string, SimDefinition[]> = {
       app: "excel",
       title: "Make the shared supply tracker error-proof",
       scenario:
-        "Three staff members now update the supply tracker. Last week someone typed \"office\" instead of \"Office\", someone entered a negative quantity, and a Total Cost formula was deleted. Add validation to the entry columns, then lock the formulas and the workbook structure.",
+        "Three staff members now update the supply tracker. Last week someone typed \"office\" instead of \"Office\", someone entered a negative quantity, and a Total Cost formula was deleted. Add validation to the entry columns, then hide and lock the formulas, give the nurse manager her own editable range, and protect the sheet and the workbook structure.",
       fileName: "Shared Supply Tracker.xlsx",
       minutes: 7,
       initial: {
@@ -1747,46 +1861,59 @@ const m4Sims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "For B2:B16, add the input message \"Select a category for this supply item.\" and a Stop error alert that says \"Pick a category from the list.\"",
-          hint: "Keep B2:B16 selected and open Data Validation again. On the Input Message tab type the message. On the Error Alert tab keep Style: Stop and type the error message. OK.",
+          instruction: "For B2:B16, add an input message titled \"Category Entry\" that says \"Select a category for this supply item.\", and a Stop error alert that says \"Category must be selected from the dropdown list only.\"",
+          hint: "Keep B2:B16 selected and open Data Validation again. On the Input Message tab type the title and the message. On the Error Alert tab keep Style: Stop and type the error message. OK.",
           steps: [
             {
-              action: { kind: "dialog", id: "dataValidation", values: { inputMessage: "Select a category for this supply item.", errorStyle: "Stop", errorMessage: "Pick a category from the list." } },
+              action: {
+                kind: "dialog",
+                id: "dataValidation",
+                values: { inputTitle: "Category Entry", inputMessage: "Select a category for this supply item.", errorStyle: "Stop", errorMessage: "Category must be selected from the dropdown list only." },
+              },
               requires: { selection: "B2:B16" },
               selectHint: "Select B2:B16 first.",
             },
           ],
         },
         {
-          instruction: "Restrict the quantities in C2:C16 to whole numbers between 0 and 9999.",
-          hint: "Select C2:C16. Data tab › Data Validation. Allow: Whole number, Data: between, Minimum 0, Maximum 9999. OK.",
+          instruction: "Restrict the quantities in C2:C16 to whole numbers between 0 and 9999, with a Stop alert that says \"Quantity cannot be negative. Enter 0 for out-of-stock items.\"",
+          hint: "Select C2:C16. Data tab › Data Validation. Settings tab: Allow: Whole number, Data: between, Minimum 0, Maximum 9999. Error Alert tab: Style Stop and the message. OK.",
           steps: [
             {
-              action: { kind: "dialog", id: "dataValidation", values: { allow: "Whole number", min: "0", max: "9999" } },
+              action: { kind: "dialog", id: "dataValidation", values: { allow: "Whole number", data: "between", min: "0", max: "9999", errorMessage: "Quantity cannot be negative. Enter 0 for out-of-stock items." } },
               requires: { selection: "C2:C16" },
               selectHint: "Select the quantities in C2:C16 first.",
             },
           ],
         },
         {
-          instruction: "Restrict the unit costs in D2:D16 to decimals between 0.01 and 500, with a Warning error alert so staff can override it.",
-          hint: "Select D2:D16. Data tab › Data Validation. Allow: Decimal, Data: between, Minimum 0.01, Maximum 500. On the Error Alert tab set Style to Warning. OK.",
+          instruction: "Restrict the unit costs in D2:D16 to decimals greater than or equal to 0.01, with a Warning error alert so staff can override it.",
+          hint: "Select D2:D16. Data tab › Data Validation. Allow: Decimal, Data: greater than or equal to, Minimum 0.01. On the Error Alert tab set Style to Warning. OK. A Warning asks Continue? and lets the entry stand if you click Yes.",
           steps: [
             {
-              action: { kind: "dialog", id: "dataValidation", values: { allow: "Decimal", min: ["0.01", ".01"], max: "500", errorStyle: "Warning" } },
+              action: { kind: "dialog", id: "dataValidation", values: { allow: "Decimal", data: "greater than or equal to", min: ["0.01", ".01"], errorStyle: "Warning" } },
               requires: { selection: "D2:D16" },
               selectHint: "Select the unit costs in D2:D16 first.",
             },
           ],
         },
         {
-          instruction: "Unlock the data entry cells A2:F16 so staff can still type in them after the sheet is protected.",
-          hint: "Select A2:F16 and press Ctrl+1. On the Protection tab, clear Locked, then OK.",
+          instruction: "Unlock the everyday entry cells so staff can still type in them after the sheet is protected: A2:D16 and F2:F16. Leave the Reorder Levels in column E locked.",
+          hint: "Select A2:D16 and press Ctrl+1. On the Protection tab, clear Locked, OK. Do the same for F2:F16.",
+          anyOrder: true,
+          steps: [
+            { action: { kind: "dialog", id: "formatCells", values: { locked: false } }, requires: { selection: "A2:D16" }, selectHint: "Select A2:D16 first." },
+            { action: { kind: "dialog", id: "formatCells", values: { locked: false } }, requires: { selection: "F2:F16" }, selectHint: "Select F2:F16 first." },
+          ],
+        },
+        {
+          instruction: "Let the nurse manager change the Reorder Levels with her own password: add an editable range titled \"Reorder Levels\" for E2:E16 with the password \"Nurse2026\".",
+          hint: "Select E2:E16. Review tab › Protect group › Allow Edit Ranges › New. Title: Reorder Levels, Refers to cells: =$E$2:$E$16, Range password: Nurse2026. OK.",
           steps: [
             {
-              action: { kind: "dialog", id: "formatCells", values: { locked: false } },
-              requires: { selection: "A2:F16" },
-              selectHint: "Select the entry cells, A2:F16, first.",
+              action: { kind: "dialog", id: "allowEditRanges", values: { title: "Reorder Levels", refersTo: ["=$E$2:$E$16", "$E$2:$E$16", "E2:E16", "=E2:E16"], password: "Nurse2026" } },
+              requires: { selection: ["E2:E16", ...cells("E2:E16")] },
+              selectHint: "Select the Reorder Levels, E2:E16, first.",
             },
           ],
         },
@@ -1870,8 +1997,8 @@ const m4Sims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Create a PivotTable from the table on a new worksheet.",
-          hint: "Click a cell in the table. Insert tab › Tables group › PivotTable (or Table Design › Summarize with PivotTable). Keep New Worksheet, OK.",
+          instruction: "Create a PivotTable from the ExpenseData table on a new worksheet.",
+          hint: "Click a cell in the table. Insert tab › Tables group › PivotTable (or Table Design › Summarize with PivotTable). Table/Range shows ExpenseData, so rows added to the table are included at the next refresh. Keep New Worksheet, OK.",
           steps: [
             {
               action: { kind: "dialog", id: "createPivot", values: { location: "New Worksheet" } },
@@ -1896,6 +2023,17 @@ const m4Sims: Record<string, SimDefinition[]> = {
           ],
         },
         {
+          instruction: "Format all the PivotTable values as Currency through Value Field Settings.",
+          hint: "Right-click any amount in the PivotTable › Value Field Settings › Number Format › Currency, OK, OK. The format belongs to the Sum of Amount field, so it stays when the PivotTable is refreshed or rearranged.",
+          steps: [
+            {
+              action: { kind: "dialog", id: "valueFieldSettings", values: { numberFormat: "Currency" } },
+              alt: [{ kind: "command", id: "home.numberFormat", value: "Currency", requires: { selection: ["B5:G9", "B:G"], sheet: "Analysis" } }],
+              requires: { sheet: "Analysis" },
+            },
+          ],
+        },
+        {
           instruction: "Insert a Clustered Column PivotChart of the spending matrix.",
           hint: "Click a cell in the PivotTable. PivotTable Analyze tab › Tools group › PivotChart › Clustered Column, OK.",
           steps: [
@@ -1905,6 +2043,11 @@ const m4Sims: Record<string, SimDefinition[]> = {
               requires: { sheet: "Analysis" },
             },
           ],
+        },
+        {
+          instruction: "Add data labels to the PivotChart so each bar shows its amount.",
+          hint: "Click the chart. Chart Design tab › Chart Layouts group › Add Chart Element › Data Labels.",
+          steps: [{ action: { kind: "command", id: "chart.addElement", value: "Data Labels" }, requires: { sheet: "Analysis" } }],
         },
       ],
     },
@@ -1923,7 +2066,15 @@ const m4Sims: Record<string, SimDefinition[]> = {
             name: "Analysis",
             rows: 22,
             colWidths: { A: 120, B: 84, C: 84, D: 84, E: 84, F: 100, G: 92 },
-            pivot: { source: { sheet: "Expense Data", range: "A1:E30" }, rows: ["Department"], columns: ["Category"], values: [{ field: "Amount", fn: "Sum" }], filters: [], at: "A3" },
+            pivot: {
+              source: { sheet: "Expense Data", range: "ExpenseData" },
+              rows: ["Department"],
+              columns: ["Category"],
+              // Currency from Value Field Settings › Number Format (set in the first capstone sim).
+              values: [{ field: "Amount", fn: "Sum", numFmt: "Currency" } as ExcelPivot["values"][number]],
+              filters: [],
+              at: "A3",
+            },
             charts: [{ id: "c1", type: "Clustered Column", title: "Expenses by Department", range: "PIVOT", at: "I3" }],
             cells: {
               A12: { v: "Department Summary", fmt: { bold: true, size: 12 } },
@@ -1947,7 +2098,7 @@ const m4Sims: Record<string, SimDefinition[]> = {
             cells: {
               A1: { v: "Lakeside Medical Associates - Monthly Expense Report", fmt: TITLE },
               A2: { v: "April and May 2026", fmt: { italic: true } },
-              ...grid("A4", [["Grand Total Spend"], ["Average Transaction"], ["Highest Department Spend"], ["Number of Transactions"]], { colFmt: { A: { bold: true } } }),
+              ...grid("A4", [["Grand Total Spend"], ["Average Transaction"], ["Highest Category Spend"], ["Number of Transactions"]], { colFmt: { A: { bold: true } } }),
               ...fmtOnly("B4:B6", MONEY),
             },
           },
@@ -1972,12 +2123,16 @@ const m4Sims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "On the Dashboard sheet, in B4 total the department summary with =SUM(Analysis!B14:B17), and in B6 find the highest department total with =MAX(Analysis!B14:B17).",
-          hint: "Click the Dashboard tab. In B4 type =SUM(Analysis!B14:B17), Enter. In B6 type =MAX(Analysis!B14:B17), Enter.",
+          instruction: "On the Dashboard sheet, in B4 total the department summary with =SUM(Analysis!B14:B17). In B6, find the highest category total from the PivotTable's Grand Total row with =MAX(Analysis!B9:F9).",
+          hint: "Click the Dashboard tab. In B4 type =SUM(Analysis!B14:B17), Enter. In B6 type =MAX(Analysis!B9:F9), Enter: B9:F9 is the Grand Total row of the PivotTable, one total per category. (For B4, =GETPIVOTDATA(\"Amount\",Analysis!$A$3) reads the PivotTable's grand total instead.)",
           anyOrder: true,
           steps: [
-            { action: { kind: "type", target: "B4", value: "=SUM(Analysis!B14:B17)", match: "formula" }, requires: { sheet: "Dashboard" }, selectHint: "Switch to the Dashboard sheet first." },
-            { action: { kind: "type", target: "B6", value: "=MAX(Analysis!B14:B17)", match: "formula" }, requires: { sheet: "Dashboard" }, selectHint: "Switch to the Dashboard sheet first." },
+            {
+              action: { kind: "type", target: "B4", value: ["=SUM(Analysis!B14:B17)", '=GETPIVOTDATA("Amount",Analysis!$A$3)', '=GETPIVOTDATA("Sum of Amount",Analysis!$A$3)', "=Analysis!G9"], match: "formula" },
+              requires: { sheet: "Dashboard" },
+              selectHint: "Switch to the Dashboard sheet first.",
+            },
+            { action: { kind: "type", target: "B6", value: ["=MAX(Analysis!B9:F9)", "=MAX(Analysis!$B$9:$F$9)"], match: "formula" }, requires: { sheet: "Dashboard" }, selectHint: "Switch to the Dashboard sheet first." },
           ],
         },
         {
@@ -2002,7 +2157,7 @@ const m4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Refresh the PivotTable on the Analysis sheet so it includes the new record.",
-          hint: "Click the Analysis tab and a cell in the PivotTable. PivotTable Analyze tab › Data group › Refresh (or Data tab › Refresh All).",
+          hint: "Click the Analysis tab and a cell in the PivotTable. PivotTable Analyze tab › Data group › Refresh (or Data tab › Refresh All). The SUMIF table already counted the new row; the PivotTable and Highest Category Spend change only after Refresh.",
           steps: [{ action: { kind: "command", id: "data.refresh" }, requires: { sheet: "Analysis" }, selectHint: "Switch to the Analysis sheet first." }],
         },
         {
