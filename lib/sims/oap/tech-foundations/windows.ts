@@ -46,8 +46,10 @@ const newFolder = (parent: string, name: string): SimStep[] => [cmd("fs.newFolde
 const ren = (path: string, value: string): SimStep => ({ action: { kind: "type", target: path, value } });
 const mv = (src: string, dest: string, hint: string): SimStep => onSel(cmd("fs.move", dest), `file:${src}`, hint);
 const cp = (src: string, dest: string, hint: string): SimStep => onSel(cmd("fs.copyTo", dest), `file:${src}`, hint);
-const saveNote = (path: string, value: string[]): SimStep => ({ action: { kind: "type", target: `notepad:${path}`, value, match: "all" } });
-const form = (id: string, value: string[]): SimStep => ({ action: { kind: "type", target: `form:${id}`, value, match: "all" } });
+/** Notepad saved text that contains `value`. */
+const saveNote = (path: string, value: string): SimStep => ({ action: { kind: "type", target: `notepad:${path}`, value, match: "includes" } });
+/** A web form submitted with these values ("Label: value | Label: value", in field order). */
+const form = (id: string, value: string): SimStep => ({ action: { kind: "type", target: `form:${id}`, value, match: "includes" } });
 const click = (id: string): SimStep => ({ action: { kind: "click", target: `web:${id}` } });
 
 const SEC_INFO: Record<string, WebPage> = {
@@ -148,9 +150,14 @@ export const windowsSims: Record<string, SimDefinition[]> = {
           steps: [cmd("settings.nav", "system/about")],
         },
         {
-          instruction: "In Vendor Ticket.txt, type \"Core i5\" after Processor, \"8 GB\" after RAM, and \"HDD\" after Drive type, then save the file.",
-          hint: "Switch to the Notepad window, click after each label and type the value, then press Ctrl+S (or File › Save).",
-          steps: [saveNote("Documents/Vendor Ticket.txt", ["Core i5", "8 GB", "HDD"])],
+          instruction: "In Vendor Ticket.txt, type \"8 GB\" after RAM, then save the file.",
+          hint: "Switch to the Notepad window, click at the end of the RAM line, type 8 GB, then press Ctrl+S (or File › Save).",
+          steps: [saveNote("Documents/Vendor Ticket.txt", "RAM: 8 GB")],
+        },
+        {
+          instruction: "Type \"HDD\" after Drive type in the ticket, then save the file again.",
+          hint: "Click at the end of the Drive type line, type HDD, then press Ctrl+S.",
+          steps: [saveNote("Documents/Vendor Ticket.txt", "Drive type: HDD")],
         },
         {
           instruction: "Restart the computer.",
@@ -1306,7 +1313,7 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         {
           instruction: "Add the Authenticator app as a sign-in method.",
           hint: "Select + Add sign-in method, choose Authenticator app in the Method box, then select Add.",
-          steps: [form("add-method", ["Method: Authenticator app"])],
+          steps: [form("add-method", "Method: Authenticator app")],
         },
         {
           instruction: "Open Recent activity and report the overseas sign-in as \"This wasn't me\".",
@@ -1426,7 +1433,7 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         {
           instruction: "Go to \"mysignins.microsoft.com/security-info\" and add the Authenticator app as a sign-in method.",
           hint: "In Edge, type the address and press Enter. Select + Add sign-in method, choose Authenticator app, then Add.",
-          steps: [cmd("edge.nav", "mysignins.microsoft.com/security-info"), form("add-method", ["Method: Authenticator app"])],
+          steps: [cmd("edge.nav", "mysignins.microsoft.com/security-info"), form("add-method", "Method: Authenticator app")],
         },
         {
           instruction: "Lock the computer, then sign back in with your new PIN.",
@@ -1534,9 +1541,14 @@ export const windowsSims: Record<string, SimDefinition[]> = {
           steps: [cmd("settings.nav", "bluetooth/devices")],
         },
         {
-          instruction: "In Device Inventory.txt, type the PC model \"Fabrikam OptiDesk 3060\" and the three Bluetooth devices (Contoso Phone 12, Fabrikam Band 4, Contoso Earbuds), then save.",
-          hint: "Switch to Notepad, type the names after the labels, then press Ctrl+S.",
-          steps: [saveNote("Documents/Device Inventory.txt", ["Fabrikam OptiDesk 3060", "Contoso Phone 12", "Fabrikam Band 4", "Contoso Earbuds"])],
+          instruction: "In Device Inventory.txt, type \"Fabrikam OptiDesk 3060\" after This PC (model), then save.",
+          hint: "Switch to Notepad, click at the end of the This PC (model) line, type the model, then press Ctrl+S.",
+          steps: [saveNote("Documents/Device Inventory.txt", "Fabrikam OptiDesk 3060")],
+        },
+        {
+          instruction: "After Bluetooth devices, type \"Contoso Phone 12, Fabrikam Band 4, Contoso Earbuds\", then save.",
+          hint: "Click at the end of the Bluetooth devices line, type the three names separated by commas, then press Ctrl+S.",
+          steps: [saveNote("Documents/Device Inventory.txt", "Contoso Phone 12, Fabrikam Band 4, Contoso Earbuds")],
         },
         {
           instruction: "The smartwatch isn't approved for work use yet. Disconnect \"Fabrikam Band 4\".",
@@ -1680,7 +1692,7 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         {
           instruction: "Open the camera's settings at 192.168.1.60 and change its default password \"admin\" to \"Rv-Lobby-Cam-7351\".",
           hint: "Select the camera settings link (or type 192.168.1.60). Enter admin as the current password, the new password twice, then Save password.",
-          steps: [cmd("edge.nav", "192.168.1.60"), form("cam-password", ["Current password: admin", "New password: Rv-Lobby-Cam-7351", "Confirm new password: Rv-Lobby-Cam-7351"])],
+          steps: [cmd("edge.nav", "192.168.1.60"), form("cam-password", "Current password: admin | New password: Rv-Lobby-Cam-7351 | Confirm new password: Rv-Lobby-Cam-7351")],
         },
         {
           instruction: "Turn off \"Remote access from the internet\" on the camera.",
@@ -1749,12 +1761,12 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         {
           instruction: "Create a guest network named \"Riverside-Guest\" with the password \"Welcome-Riverside-26\", and don't let guests access the local network.",
           hint: "Fill in Network name and Password, clear Allow guests to see each other and access my local network, then Save guest network.",
-          steps: [form("guest-net", ["Network name: Riverside-Guest", "Password: Welcome-Riverside-26", "access my local network: off"])],
+          steps: [form("guest-net", "Network name: Riverside-Guest | Password: Welcome-Riverside-26 | Allow guests to see each other and access my local network: off")],
         },
         {
           instruction: "Change the router's admin password from \"admin\" to \"Rv2-Router-Admin-88\".",
           hint: "Under Administration, enter admin, then the new password twice, and select Change password.",
-          steps: [form("admin-pw", ["Current password: admin", "New password: Rv2-Router-Admin-88", "Confirm new password: Rv2-Router-Admin-88"])],
+          steps: [form("admin-pw", "Current password: admin | New password: Rv2-Router-Admin-88 | Confirm new password: Rv2-Router-Admin-88")],
         },
         {
           instruction: "Set this PC's Ethernet network profile to Private so it can use the office printer and file sharing.",
