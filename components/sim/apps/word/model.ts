@@ -521,7 +521,7 @@ function changeCase(text: string, mode: string): string {
 function replaceAll(doc: WordDoc, find: string, repl: string, matchCase: boolean, whole: boolean): number {
   if (!find) return 0;
   const esc = find.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const re = new RegExp(whole ? `\\b${esc}\\b` : esc, matchCase ? "g" : "gi");
+  const re = new RegExp(whole ? `(?<![A-Za-z0-9_])${esc}(?![A-Za-z0-9_])` : esc, matchCase ? "g" : "gi");
   let n = 0;
   for (const p of doc.paragraphs) {
     if (p.kind === "table" && p.table) {
