@@ -334,6 +334,14 @@ export function AccessCanvas({ doc, ui, onSelect, onCommit, openDialog }: Canvas
     } else prevRun.current = cur;
   });
 
+  // Keep keyboard focus inside the window, so shortcuts such as Ctrl+S and F11 keep
+  // working after a view change removes the focused control or a box closes.
+  const rootRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const a = typeof document === "undefined" ? null : document.activeElement;
+    if (!a || a === document.body) rootRef.current?.focus({ preventScroll: true });
+  });
+
   if (doc.noDb) return <StartScreen doc={doc} onCommit={onCommit} />;
 
   const vp = (t: AccTab): ViewProps => ({ doc, ui, tab: t, onSelect, onCommit, openDialog, showMsg });
@@ -369,7 +377,7 @@ export function AccessCanvas({ doc, ui, onSelect, onCommit, openDialog }: Canvas
   };
 
   return (
-    <div className="relative flex h-full min-h-0 bg-[#f3f3f3] text-[12px] text-gray-900">
+    <div ref={rootRef} tabIndex={-1} className="relative flex h-full min-h-0 bg-[#f3f3f3] text-[12px] text-gray-900 outline-none">
       <NavPane doc={doc} ui={ui} onSelect={onSelect} onCommit={onCommit} openDialog={openDialog} showMsg={(t) => showMsg(t)} />
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         {doc.open.length > 0 && (

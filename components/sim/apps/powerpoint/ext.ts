@@ -21,6 +21,48 @@ export interface AnimMeta {
   effect?: string;
   duration?: number;
   delay?: number;
+  /** Effect Options dialog: Text Animation › Group text. */
+  sequence?: string;
+  /** Effect Options dialog: Timing › Repeat. */
+  repeat?: string;
+  /** Effect Options dialog: Effect › Sound and After animation. */
+  sound?: string;
+  after?: string;
+}
+
+/** A chart or worksheet pasted with Paste Link (or a Link Data paste option). */
+export interface DataLink {
+  /** Source workbook file name, e.g. "Expense Dashboard - May 2026.xlsx". */
+  file: string;
+  /** Where the workbook lives, shown in the Links dialog. */
+  path?: string;
+  /** The linked item inside the workbook, e.g. "Sheet1!Chart 1". */
+  item?: string;
+  type?: "Chart" | "Worksheet";
+  mode?: "Automatic" | "Manual";
+  /** Set by Update Now / Update Link. */
+  updated?: boolean;
+}
+
+/** Where a clipboard item came from (Office Clipboard icon, Paste Special source line). */
+export interface ClipSource {
+  app: string;
+  file?: string;
+  path?: string;
+  item?: string;
+}
+
+/** Slide Show › Custom Slide Show › Custom Shows. */
+export interface CustomShow {
+  name: string;
+  slides: string[];
+}
+
+/** The current content of a linked workbook, read by Update Now (flags.linkSources[file]). */
+export interface LinkSource {
+  series?: { label: string; value: number }[];
+  title?: string;
+  rows?: string[][];
 }
 
 export interface MediaOpts {
@@ -93,6 +135,14 @@ export type PptObjX = PptObject & {
   hidden?: boolean;
   flipH?: boolean;
   flipV?: boolean;
+  /** Paste Link / Link Data: the source workbook. */
+  dataLink?: DataLink;
+  /** Pasted as an Excel object (Paste Special), not a native chart: no Chart Design tab. */
+  ole?: string;
+  /** Keep Source Formatting: draw with the source file's colors, not this theme's. */
+  keepSource?: boolean;
+  /** Size and Rotation › Lock aspect ratio, when the learner changed it. */
+  lockAspect?: boolean;
 };
 
 export type BodyPropsX = NonNullable<PptSlide["bodyProps"]> & {
@@ -130,6 +180,12 @@ export type MasterX = NonNullable<PptDeck["master"]> & {
   layoutNames?: Record<string, string>;
   customLayouts?: string[];
   hideOn?: string[];
+  bodyColor?: string;
+  /** Text typed into the slide master's title and text placeholders. */
+  titleText?: string;
+  bodyText?: string[];
+  /** Prompt text typed into a layout's placeholders ("Click to add title"), by layout. */
+  layoutText?: Record<string, Partial<Record<"title" | "subtitle" | "body" | "body2", string>>>;
 };
 
 export const ox = (o: PptObject) => o as PptObjX;
@@ -313,7 +369,54 @@ export const ICONS: { name: string; glyph: string }[] = [
   { name: "Checkmark", glyph: "✔️" },
   { name: "Hospital", glyph: "🏥" },
   { name: "Group", glyph: "👥" },
+  { name: "Warning", glyph: "⚠️" },
+  { name: "Lock", glyph: "🔒" },
+  { name: "Computer", glyph: "💻" },
+  { name: "Email", glyph: "✉️" },
 ];
+
+/** Paste Special and Paste Options formats. */
+export const PASTE_OPTIONS = [
+  "Use Destination Theme",
+  "Keep Source Formatting",
+  "Use Destination Theme & Embed Workbook",
+  "Keep Source Formatting & Embed Workbook",
+  "Use Destination Theme & Link Data",
+  "Keep Source Formatting & Link Data",
+  "Picture",
+  "Keep Text Only",
+];
+export const PICTURE_FORMATS = ["Picture (PNG)", "Picture (Enhanced Metafile)", "Picture (Windows Metafile)", "Picture (GIF)", "Picture (JPEG)", "Bitmap", "Device Independent Bitmap"];
+export const PASTE_SPECIAL_FORMATS = [
+  "Microsoft Excel Chart Object",
+  "Microsoft Excel Worksheet Object",
+  "Microsoft Office Graphic Object",
+  "Microsoft PowerPoint Slide Object",
+  "HTML Format",
+  "Formatted Text (RTF)",
+  "Unformatted Text",
+  ...PICTURE_FORMATS,
+];
+
+/** Graphics Format › Graphics Styles gallery. */
+export const GRAPHIC_STYLES = ["Black Fill", "Colored Fill - Accent 1", "Colored Fill - Accent 2", "Colored Fill - Accent 6", "Colored Outline - Accent 1", "Colored Outline - Accent 2", "Black Outline, Colored Fill"];
+
+/** Objects whose Lock aspect ratio is on by default, so resizing keeps their proportions. */
+export function keepsAspect(o: PptObject): boolean {
+  const x = o as PptObjX;
+  if (x.lockAspect !== undefined) return x.lockAspect;
+  return o.kind === "image" || o.kind === "video" || o.kind === "icon" || o.kind === "chart" || o.kind === "smartart";
+}
+
+/** "layout:Title Only.o1" → ["layout:Title Only", "o1"]; "master.title" → ["master", "title"]. */
+export function splitMasterKey(key: string): [string, string, string | undefined] {
+  const from = key.startsWith("layout:") ? 7 : 0;
+  const dot = key.indexOf(".", from);
+  if (dot < 0) return [key, "", undefined];
+  const [part, sub] = key.slice(dot + 1).split(".");
+  return [key.slice(0, dot), part, sub];
+}
+export const isMasterKey = (key: string) => key === "master" || key.startsWith("master.") || key.startsWith("layout:");
 export const VIDEO_FILES = ["handwashing-steps.mp4", "welcome-message.mp4", "check-in-kiosk.mp4", "flu-shot-what-to-expect.mp4"];
 export const AUDIO_FILES = ["waiting-room-music.mp3", "intro-music.mp3", "narration-slide1.m4a", "chime.wav"];
 

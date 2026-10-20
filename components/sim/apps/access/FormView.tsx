@@ -177,6 +177,26 @@ export function FormView(props: ViewProps) {
     if (!existing) setPendingNew(recordId);
   };
 
+  /** The Detail controls in tab order (the form's Tab Order list, else their layout order). */
+  const tabSeq = (): AccControl[] => {
+    const detail = f.controls
+      .filter((c) => (c.section ?? "Detail") === "Detail" && c.kind !== "label" && c.kind !== "button" && c.tabStop !== false && c.enabled !== false)
+      .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+    if (!f.tabOrder?.length) return detail;
+    const listed = f.tabOrder.map((id) => detail.find((c) => c.id.toLowerCase() === id.toLowerCase())).filter((c): c is AccControl => Boolean(c));
+    return [...listed, ...detail.filter((c) => !listed.includes(c))];
+  };
+  /** Tab / Shift+Tab / Enter move to the next control, as in Form view. */
+  const moveFrom = (c: AccControl, how: string) => {
+    if (how !== "tab" && how !== "shiftTab" && how !== "enter") return;
+    const seq = tabSeq();
+    const i = seq.findIndex((x) => x.id === c.id);
+    const n = seq[i + (how === "shiftTab" ? -1 : 1)];
+    if (!n) return;
+    if (n.kind === "textbox" && !n.locked && !(n.source ?? "").startsWith("=")) setEditing(n.id);
+    else setTimeout(() => (document.querySelector(`[data-formctl="${CSS.escape(`${f.name}|${n.id}`)}"]`) as HTMLElement | null)?.focus(), 0);
+  };
+
   const ctlMenu = (e: React.MouseEvent, c: AccControl, label: boolean) => {
     e.preventDefault();
     e.stopPropagation();
@@ -266,7 +286,7 @@ export function FormView(props: ViewProps) {
     if (c.kind === "check") {
       return (
         <span className={`inline-flex h-[22px] items-center ${baseCls}`} onMouseDown={pick} onContextMenu={(e) => ctlMenu(e, c, false)}>
-          <input type="checkbox" aria-label={c.label ?? c.id} disabled={readOnly} checked={val === "Yes" || val === "True" || val === "On"} onChange={() => commitField(c, val === "Yes" || val === "True" || val === "On" ? "No" : "Yes")} />
+          <input type="checkbox" aria-label={c.label ?? c.id} data-formctl={`${f.name}|${c.id}`} disabled={readOnly} checked={val === "Yes" || val === "True" || val === "On"} onChange={() => commitField(c, val === "Yes" || val === "True" || val === "On" ? "No" : "Yes")} />
         </span>
       );
     }
@@ -275,6 +295,7 @@ export function FormView(props: ViewProps) {
       return (
         <select
           aria-label={c.label ?? c.id}
+          data-formctl={`${f.name}|${c.id}`}
           disabled={readOnly}
           value={opts.includes(val) ? val : ""}
           onMouseDown={(e) => { pick(e); e.stopPropagation(); }}
@@ -296,15 +317,18 @@ export function FormView(props: ViewProps) {
         style={{ width: c.width ? Math.round(c.width * 96) : undefined }}
         onMouseDown={(e) => {
           if (!isForm) { pick(e); return; }
-          if (!readOnly) setEditing(c.id);
+          if (readOnly || editingThis) return;
+          // Keep the browser from moving focus to the window behind the new text box.
+          e.preventDefault();
+          setEditing(c.id);
         }}
         onContextMenu={(e) => ctlMenu(e, c, false)}
       >
         {editingThis ? (
           fld?.inputMask && fld.type === "Short Text" ? (
-            <MaskedInput mask={fld.inputMask} initial={val} onCommit={(t) => commitField(c, t)} onCancel={() => setEditing(null)} />
+            <MaskedInput mask={fld.inputMask} initial={val} selectAll={Boolean(val)} onCommit={(t, how) => { commitField(c, t); moveFrom(c, how); }} onCancel={() => setEditing(null)} />
           ) : (
-            <InlineEdit ariaLabel={c.label ?? c.id} value={val} selectAll={false} onCommit={(t) => commitField(c, t)} onCancel={() => setEditing(null)} />
+            <InlineEdit ariaLabel={c.label ?? c.id} value={val} selectAll={false} onCommit={(t, how) => { commitField(c, t); moveFrom(c, how); }} onCancel={() => setEditing(null)} />
           )
         ) : (
           <span className={`block truncate px-1 leading-[20px] ${isDesign ? "text-gray-700" : ""}`} style={style}>{val}</span>

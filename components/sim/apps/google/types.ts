@@ -32,7 +32,7 @@
  *
  * Commands and dialogs are listed in core.ts.
  */
-import type { ExcelBook, PptDeck, SimValue, WordDoc } from "@/types/sim";
+import type { ExcelBook, PptDeck, SimValue, WordDoc, WordRun } from "@/types/sim";
 
 export type GSurface = "drive" | "docs" | "sheets" | "slides";
 export type GRole = "Viewer" | "Commenter" | "Editor";
@@ -90,6 +90,9 @@ export type GComment = {
 };
 
 export type GContent = WordDoc | ExcelBook | PptDeck;
+
+/** A Docs run that is a suggestion (`ins` or `del`) records who suggested it. */
+export type GRun = WordRun & { author?: string; time?: string };
 
 export type GVersion = {
   id: string;

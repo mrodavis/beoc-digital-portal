@@ -386,7 +386,7 @@ export const accessRibbon: RibbonTab[] = [
     id: "dbtools",
     label: "Database Tools",
     groups: [
-      { label: "Tools", controls: [{ type: "button", id: "dbtools.compact", label: "Compact and Repair Database", icon: "checkIssues", size: "large" }] },
+      { label: "Tools", controls: [{ type: "button", id: "dbtools.compact", label: "Compact and Repair", icon: "checkIssues", size: "large", tip: "Compact and Repair Database" }] },
       {
         label: "Macro",
         controls: [

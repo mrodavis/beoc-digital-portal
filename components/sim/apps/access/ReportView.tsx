@@ -357,13 +357,19 @@ export function ReportView(props: ViewProps) {
     const usable = pageH - pad * 2 - 60;
     const first = Math.max(5, Math.floor((usable - 70) / lineH));
     const per = Math.max(5, Math.floor(usable / lineH));
-    const pages: Line[][] = [];
-    let rest = lines.slice();
-    pages.push(rest.slice(0, first));
-    rest = rest.slice(first);
-    while (rest.length) {
-      pages.push(rest.slice(0, per));
-      rest = rest.slice(per);
+    const pages: Line[][] = [[]];
+    // Force New Page (Before Section) on a group header starts that group on a fresh page.
+    const breakBefore = (ln: Line) => {
+      if (ln.kind !== "gh") return false;
+      const g = (r.groups ?? [])[ln.level];
+      const fp = g?.forceNewPage ?? r.sectionProps?.[`${ln.field} Header`]?.["Force New Page"];
+      return Boolean(fp && /before/i.test(fp));
+    };
+    for (const ln of lines) {
+      const cur = pages[pages.length - 1];
+      const cap = pages.length === 1 ? first : per;
+      if (cur.length && (cur.length >= cap || breakBefore(ln))) pages.push([ln]);
+      else cur.push(ln);
     }
     const total = pages.length;
     const page = Math.min(total, Math.max(1, tab.page ?? 1));

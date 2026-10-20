@@ -86,10 +86,13 @@ export function tableForField(doc: AccessDoc, q: AccQuery, name: string): string
 export function colExpr(doc: AccessDoc, q: AccQuery, c: AccQueryCol): Expr {
   const { alias, expr } = splitField(c.field);
   if (expr === "*" || /\.\*$/.test(expr)) return { k: "star", table: c.table ?? (expr.endsWith(".*") ? expr.slice(0, -2) : undefined) };
-  if (!alias && isPlainName(expr)) {
+  if (!alias) {
     const name = expr.replace(/^\[|\]$/g, "");
-    const table = c.table ?? tableForField(doc, q, name);
-    return table ? { k: "ref", table, name } : { k: "ref", name };
+    // A real field name is a reference even when it holds spaces, hyphens or slashes ("E-mail Address").
+    const tb = c.table ? findTable(doc, c.table) : undefined;
+    const owner = tb && findField(tb, name) ? tb.name : tableForField(doc, q, name);
+    if (owner) return { k: "ref", table: owner, name };
+    if (isPlainName(expr)) return c.table ? { k: "ref", table: c.table, name } : { k: "ref", name };
   }
   return parseExpr(expr);
 }

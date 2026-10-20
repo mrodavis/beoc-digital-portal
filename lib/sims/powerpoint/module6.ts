@@ -95,7 +95,7 @@ export const pptModule6Sims: Record<string, SimDefinition[]> = {
         {
           instruction: "Make the title fly in from the left.",
           hint: "With the title selected: Animations tab › Effect Options › From Left.",
-          steps: [{ action: { kind: "command", id: "animation.effect", value: "From Left" }, requires: { slide: "s2", selection: "s2.title" }, selectHint: "Click the title “Four Stages of Check-In” first." }],
+          steps: [{ action: { kind: "command", id: "animation.effect", value: "From Left" }, alt: [{ kind: "dialog", id: "animEffect", values: { direction: "From Left" } }], requires: { slide: "s2", selection: ["s2.title", "s2.title.anim"] }, selectHint: "Click the title “Four Stages of Check-In” first (or its effect in the Animation Pane)." }],
         },
         {
           instruction: "Apply the Fade entrance animation to the bulleted list on slide 2.",
@@ -105,7 +105,7 @@ export const pptModule6Sims: Record<string, SimDefinition[]> = {
         {
           instruction: "Set the list's animation to start automatically after the title's animation.",
           hint: "With the list selected: Animations tab › Timing group › Start › After Previous.",
-          steps: [{ action: { kind: "command", id: "animation.start", value: "After Previous" }, requires: { slide: "s2", selection: "s2.body" }, selectHint: "Select the list placeholder on slide 2 first." }],
+          steps: [{ action: { kind: "command", id: "animation.start", value: "After Previous" }, alt: [{ kind: "dialog", id: "animTiming", values: { start: "After Previous" } }, { kind: "dialog", id: "animEffect", values: { start: "After Previous" } }], requires: { slide: "s2", selection: ["s2.body", "s2.body.anim"] }, selectHint: "Select the list placeholder on slide 2 first (or its effect in the Animation Pane)." }],
         },
         {
           instruction: "Open the Animation Pane to check the order of the animations.",
@@ -125,7 +125,7 @@ export const pptModule6Sims: Record<string, SimDefinition[]> = {
         {
           instruction: "Set the arrow's animation duration to 1 second.",
           hint: "With the arrow selected: Animations tab › Timing group › Duration: type 01.00 (or 1) and press Enter.",
-          steps: [{ action: { kind: "command", id: "animation.duration", value: "01.00" }, requires: { slide: "s3", selection: "s3.o2" }, selectHint: "Click the red “Kiosks” arrow on slide 3 first." }],
+          steps: [{ action: { kind: "command", id: "animation.duration", value: "01.00" }, alt: [{ kind: "dialog", id: "animTiming", values: { duration: 1 } }, { kind: "dialog", id: "animEffect", values: { duration: 1 } }], requires: { slide: "s3", selection: ["s3.o2", "s3.o2.anim"] }, selectHint: "Click the red “Kiosks” arrow on slide 3 first (or its effect in the Animation Pane)." }],
         },
       ],
     },

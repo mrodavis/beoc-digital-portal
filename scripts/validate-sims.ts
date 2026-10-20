@@ -83,6 +83,7 @@ function catalogFor(core: AppCore<unknown>): { cmds: Catalog; dialogs: Set<strin
   for (const id of BACKSTAGE_COMMANDS) add(id, undefined, true);
   for (const id of core.freeCommands ?? []) add(id, undefined, true);
   for (const id of core.canvasDialogs ?? []) dialogs.add(id);
+  for (const r of [...(core.backstage.info ?? []), ...(core.backstage.exports ?? [])]) add(r.command, r.value);
   return { cmds, dialogs };
 }
 

@@ -91,6 +91,15 @@ const excelChart = {
   chart: { title: "May Expenses by Department", showTitle: true, legend: null, seriesName: "Amount", gridlines: true },
 };
 
+/** Where the chart was copied from, so Paste Special can Paste Link it (module-6 sim). */
+const expenseWorkbook = "Expense Dashboard - May 2026.xlsx";
+const excelClip = { kind: "obj", objs: [excelChart], source: { app: "Excel", file: expenseWorkbook, path: "OneDrive › Documents › Lakeside", item: "Dashboard!Chart 1" } };
+/** Copied earlier from the Word report; waits on the Office Clipboard. */
+const reportSummary = "May expenses totaled $47,330, all within budget.";
+const wordClip = { kind: "text", lines: [reportSummary], source: { app: "Word", file: "Monthly Report - May 2026 - Lakeside Medical.docx" } };
+/** The workbook after Accounting's correction (Facilities 6,150 → 6,480): what Update Link reads. */
+const correctedWorkbook = { [expenseWorkbook]: { series: excelChart.series.map((s) => (s.label === "Facilities" ? { ...s, value: 6480 } : s)) } };
+
 /* ------------------------------------------------------------------ */
 /* Selections used more than once                                      */
 /* ------------------------------------------------------------------ */
@@ -184,7 +193,7 @@ export const powerpointSims: Record<string, SimDefinition[]> = {
       title: "Give the orientation deck one professional look",
       scenario: "Last year's orientation deck looks like seven different people formatted it, starting with a serif theme that blurs on the projector. Apply one clean theme, set the title font, title color, and footer once on the slide master, and clear the hand formatting that fights the theme.",
       fileName: "Staff Orientation - Redesign.pptx",
-      minutes: 6,
+      minutes: 7,
       initial: {
         active: "s1",
         theme: "Organic",
@@ -223,14 +232,32 @@ export const powerpointSims: Record<string, SimDefinition[]> = {
           hint: "With the master title placeholder still selected: Home tab › Font group › Font Color arrow › Dark Blue (under Standard Colors).",
           steps: [{
             action: { kind: "command", id: "home.fontColor", value: "#002060" },
+            alt: [{ kind: "dialog", id: "font", values: { color: "#002060" } }],
             requires: { slide: "master", selection: "master.title" },
             selectHint: "Click the title placeholder on the slide master first.",
           }],
         },
         {
-          instruction: "Add the footer “Lakeside Medical Associates | Confidential” to every slide except the title slide.",
-          hint: "Insert tab › Text group › Header & Footer. Check Footer, type the text, check Don't show on title slide, then click Apply to All.",
-          steps: [{ action: { kind: "dialog", id: "headerFooter", values: { footer: true, footerText: "Lakeside Medical Associates | Confidential", dontShowOnTitle: true } } }],
+          instruction: "On the slide master, add a text box with the footer “Lakeside Medical Associates | Confidential” and align it to the bottom of the slide.",
+          hint: "With the slide master selected (the large top thumbnail): Insert tab › Text group › Text Box. Type the footer, then click outside the box. With the text box still selected: Shape Format tab › Arrange group › Align › Align Bottom.",
+          steps: [
+            {
+              action: { kind: "command", id: "insert.textBox" },
+              requires: { slide: "master", selection: ["master", "master.title", "master.body"] },
+              selectHint: "Click the slide master, the large thumbnail at the top of the left pane, so the text box goes on every slide.",
+            },
+            typeIn("master.o1", "Lakeside Medical Associates | Confidential"),
+            {
+              action: { kind: "command", id: "object.align", value: "Align Bottom" },
+              requires: { slide: "master", selection: "master.o1" },
+              selectHint: "Click the footer text box on the slide master first.",
+            },
+          ],
+        },
+        {
+          instruction: "Keep the footer off the cover: hide the master's background graphics on the Title Slide layout.",
+          hint: "Click the Title Slide Layout thumbnail (the first one under the slide master). Slide Master tab › Background group › check Hide Background Graphics.",
+          steps: [{ action: { kind: "command", id: "master.hideBackground" }, requires: { slide: "layout:Title Slide" }, selectHint: "Click the Title Slide Layout thumbnail, the first one under the slide master." }],
         },
         {
           instruction: "Close Slide Master view.",
@@ -385,7 +412,7 @@ export const powerpointSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "On slide 3, line up the four department icons: give them the same vertical middle, then space them evenly across the row.",
-          hint: "Click the first icon, then Shift+click the other three. Shape Format tab › Arrange group › Align › Align Middle, then Align › Distribute Horizontally.",
+          hint: "Click the first icon, then Shift+click the other three. Graphics Format tab › Arrange group › Align › Align Middle, then Align › Distribute Horizontally (Home tab › Arrange › Align works too).",
           anyOrder: true,
           steps: [
             { action: { kind: "command", id: "object.align", value: "Align Middle" }, requires: { slide: "s3", selection: deptIcons }, selectHint: "Select all four icons: click one, then Shift+click the other three." },
@@ -448,8 +475,16 @@ export const powerpointSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "On slide 3, remove the bouncing animation from the title.",
-          hint: "Click the title on slide 3. Animations tab › Animation gallery › None.",
-          steps: [{ action: { kind: "command", id: "animation.apply", value: "None" }, requires: { slide: "s3", selection: "s3.title" }, selectHint: "Click the title “Patient Communication Standards” on slide 3 first." }],
+          hint: "Click the title on slide 3. Animations tab › Animation gallery › None. (In the Animation Pane you can also click the title's effect and press Delete.)",
+          steps: [{
+            action: { kind: "command", id: "animation.apply", value: "None" },
+            alt: [
+              { kind: "command", id: "edit.delete", requires: { slide: "s3", selection: "s3.title.anim" } },
+              { kind: "command", id: "animation.remove", requires: { slide: "s3", selection: ["s3.title.anim", "s3.title"] } },
+            ],
+            requires: { slide: "s3", selection: ["s3.title", "s3.title.anim"] },
+            selectHint: "Click the title “Patient Communication Standards” on slide 3 first (or its effect in the Animation Pane).",
+          }],
         },
         {
           instruction: "Apply the Fade entrance animation to the bulleted list on slide 3 so the bullets appear one click at a time.",
@@ -539,12 +574,25 @@ export const powerpointSims: Record<string, SimDefinition[]> = {
     {
       id: "oa-ppt-m5-presenting-2",
       app: "powerpoint",
-      title: "Time it, print it, and export it",
-      scenario: "Before Monday, find out how long the orientation runs, print packets for the four new hires and notes for yourself, and make copies for new hires who want to read ahead or watch from home.",
+      title: "Make a short version, time it, print it, and export it",
+      scenario: "Before Monday, set up a short version of the orientation for returning staff, find out how long the full session runs, print packets for the four new hires and notes for yourself, and make copies for new hires who want to read ahead or watch from home.",
       fileName: "New Staff Orientation - Monday.pptx",
-      minutes: 5,
+      minutes: 7,
       initial: { active: "s1", theme: "Facet", slides: monday },
       tasks: [
+        {
+          instruction: "Returning staff only need the overview. Create a custom show named “Orientation - Short Version” with slides 1, 2, 3, 4, and 10, in that order.",
+          hint: "Slide Show tab › Start Slide Show group › Custom Slide Show › Custom Shows… › New. Type the name in Slide show name, check slides 1, 2, 3, 4 and 10, click Add, then click OK.",
+          steps: [{ action: { kind: "dialog", id: "defineCustomShow", values: { name: "Orientation - Short Version", slides: "s1,s2,s3,s4,s10" } } }],
+        },
+        {
+          instruction: "Test the custom show: run “Orientation - Short Version”, then end the show.",
+          hint: "In the Custom Shows dialog, select Orientation - Short Version and click Show (reopen it from Slide Show tab › Custom Slide Show › Custom Shows… if you closed it). Click through the five slides to the end, or press Esc at any time.",
+          steps: [
+            { action: { kind: "command", id: "slideshow.customShow", value: "Orientation - Short Version" } },
+            { action: { kind: "command", id: "slideshow.end" } },
+          ],
+        },
         {
           instruction: "Rehearse the slide timings: run a rehearsal, click through every slide, end the show, and keep the timings.",
           hint: "Slide Show tab › Set Up group › Rehearse Timings. Click Next (or press the Right Arrow) on each slide, press Esc after the last one, then click Yes.",
@@ -642,7 +690,7 @@ export const powerpointSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Select all four icons on slide 6 and space them evenly across the row.",
-          hint: "Click the first icon, then Shift+click the other three. Shape Format tab › Arrange group › Align › Distribute Horizontally.",
+          hint: "Click the first icon, then Shift+click the other three. Graphics Format tab › Arrange group › Align › Distribute Horizontally (Home tab › Arrange › Align works too).",
           steps: [{ action: { kind: "command", id: "object.align", value: "Distribute Horizontally" }, requires: { slide: "s6", selection: systemIcons }, selectHint: "Select all four icons on slide 6: click one, then Shift+click the other three." }],
         },
       ],
@@ -731,15 +779,20 @@ export const powerpointSims: Record<string, SimDefinition[]> = {
     {
       id: "oa-ppt-m6-working-across-apps-1",
       app: "powerpoint",
-      title: "Bring the Excel expense chart into the monthly summary",
-      scenario: "You are building the PowerPoint part of the monthly operations package for Dr. Rachel Kim. The expense chart is already copied from the Excel dashboard. Put it on the summary slide, correct one number, add your observations, make a partner-safe copy of the chart, and get the file ready to share.",
+      title: "Link the Excel expense chart into the monthly summary",
+      scenario: "You are building the PowerPoint part of the monthly operations package for Dr. Rachel Kim. The expense chart is already copied from the Excel dashboard. Paste it on the summary slide with a link to the workbook so it stays current, pick up Accounting's correction, add your observations and the Word report's summary, make a partner-safe copy of the chart, and get the file ready to share.",
       fileName: "Monthly Summary - May 2026 - Lakeside Medical.pptx",
-      minutes: 7,
+      minutes: 8,
       initial: {
         active: "s1",
         theme: "Integral",
         saved: { name: "Monthly Summary - May 2026 - Lakeside Medical.pptx", location: "OneDrive - Personal", autosave: true },
-        flags: { clip: JSON.stringify({ kind: "obj", objs: [excelChart] }), clipCut: false },
+        flags: {
+          clip: JSON.stringify(excelClip),
+          clipCut: false,
+          clipHistory: JSON.stringify([excelClip, wordClip]),
+          linkSources: JSON.stringify(correctedWorkbook),
+        },
         slides: [
           { id: "s1", layout: "Title Slide", title: "Monthly Operations Summary", subtitle: "May 2026 · Lakeside Medical Associates" },
           { id: "s2", layout: "Title Only", title: "Monthly Expense Summary" },
@@ -748,28 +801,37 @@ export const powerpointSims: Record<string, SimDefinition[]> = {
       },
       tasks: [
         {
-          instruction: "Paste the chart you copied from Excel onto slide 2 so it takes on this presentation's theme.",
-          hint: "Click slide 2, “Monthly Expense Summary”. Home tab › Clipboard group › Paste arrow › Use Destination Theme (Ctrl+V also uses the destination theme).",
+          instruction: "Paste the chart you copied from Excel onto slide 2 with a link to the workbook, so the slide picks up changes made in Excel.",
+          hint: "Click slide 2, “Monthly Expense Summary”. Home tab › Clipboard group › Paste arrow › Paste Special… (or press Ctrl+Alt+V). Choose Paste link, keep Microsoft Excel Chart Object selected, then click OK.",
           steps: [{
-            action: { kind: "command", id: "home.paste", value: "Use Destination Theme" },
-            alt: [{ kind: "command", id: "home.paste", value: "" }],
+            action: { kind: "dialog", id: "pasteSpecial", values: { mode: "Paste link" } },
+            alt: [{ kind: "command", id: "home.paste", value: ["Use Destination Theme & Link Data", "Keep Source Formatting & Link Data"] }],
             requires: { slide: "s2" },
             selectHint: "Go to slide 2, “Monthly Expense Summary”, before you paste.",
           }],
         },
         {
-          instruction: "Accounting corrected the May Facilities total to 6,480. Open the chart's data, change the Facilities amount to 6480, and close the data sheet.",
-          hint: "Click the chart. Chart Design tab › Data group › Edit Data (or right-click the chart › Edit Data). Click the Facilities amount in cell B5, type 6480, press Enter, then click the ✕ to close the data sheet.",
-          steps: [
-            { action: { kind: "command", id: "chart.editData" }, requires: { slide: "s2", selection: "s2.o1" }, selectHint: "Click the chart on slide 2 first." },
-            typeIn("s2.o1.B5", ["6480", "6,480"]),
-            { action: { kind: "command", id: "pane.close" } },
-          ],
+          instruction: "Accounting just corrected the May Facilities total to 6,480 in the Excel workbook. Update the linked chart so slide 2 shows the new number.",
+          hint: "Right-click the chart › Update Link (or right-click › Linked Chart Object › Links…, then Update Now). If you pasted with a Link Data option instead, click the chart, then Chart Design tab › Data group › Refresh Data.",
+          steps: [{
+            action: { kind: "command", id: "links.update" },
+            alt: [{ kind: "command", id: "chart.refresh", requires: { slide: "s2", selection: "s2.o1" } }],
+          }],
         },
         {
           instruction: "On slide 3, type these observations as three bullets: “Medical is our largest expense”, “Facilities rose after the HVAC repair”, and “Every department stayed within budget”.",
           hint: "Click “Click to add text” on slide 3, type the first observation, press Enter, and type the next. Click outside the placeholder when you finish.",
           steps: [typeIn("s3.body", "Medical is our largest expense\nFacilities rose after the HVAC repair\nEvery department stayed within budget")],
+        },
+        {
+          instruction: `You copied the Word report's summary sentence earlier. Open the Office Clipboard and paste “${reportSummary}” into the slide 3 speaker notes.`,
+          hint: "Click in the Notes pane under slide 3 (“Click to add notes”). Home tab › Clipboard group › click the small arrow in the group's bottom right corner to open the Clipboard pane, then click the Word item that starts “May expenses totaled”.",
+          steps: [{
+            action: { kind: "command", id: "clipboard.paste", value: reportSummary },
+            alt: [{ kind: "dialog", id: "officeClipboard", values: { item: reportSummary } }],
+            requires: { slide: "s3", selection: "s3.notes" },
+            selectHint: "Click in the Notes pane under slide 3 first, so the sentence lands in the speaker notes.",
+          }],
         },
         {
           instruction: "After slide 3, add a Title Only slide titled “Expenses at a Glance: Partner Copy”.",
@@ -780,11 +842,16 @@ export const powerpointSims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Referral partners should see the chart but not the spreadsheet data stored inside it. Copy the corrected chart from slide 2 and paste it on slide 4 as a picture.",
-          hint: "On slide 2, click the chart and press Ctrl+C (Home › Copy). Go to slide 4, then Home tab › Paste arrow › Picture.",
+          instruction: "Referral partners should see the chart but not the workbook link or the data behind it. Copy the updated chart from slide 2 and paste it on slide 4 as a picture.",
+          hint: "On slide 2, click the chart and press Ctrl+C (Home › Copy). Go to slide 4, then Home tab › Paste arrow › Picture (or Paste Special… › Picture (PNG)).",
           steps: [
-            { action: { kind: "command", id: "home.copy" }, requires: { slide: "s2", selection: "s2.o1" }, selectHint: "Go to slide 2 and click the corrected chart before you copy." },
-            { action: { kind: "command", id: "home.paste", value: "Picture" }, requires: { slide: "s4" }, selectHint: "Go to slide 4, “Expenses at a Glance: Partner Copy”, before you paste." },
+            { action: { kind: "command", id: "home.copy" }, requires: { slide: "s2", selection: "s2.o1" }, selectHint: "Go to slide 2 and click the updated chart before you copy." },
+            {
+              action: { kind: "command", id: "home.paste", value: "Picture" },
+              alt: [{ kind: "dialog", id: "pasteSpecial", values: { mode: "Paste", as: ["Picture (PNG)", "Picture (Enhanced Metafile)", "Picture (GIF)", "Picture (JPEG)"] } }],
+              requires: { slide: "s4" },
+              selectHint: "Go to slide 4, “Expenses at a Glance: Partner Copy”, before you paste.",
+            },
           ],
         },
         {

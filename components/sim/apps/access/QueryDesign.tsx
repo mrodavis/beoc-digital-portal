@@ -357,7 +357,7 @@ function GridCell({ q, col, row, tables, fields, allFields, targetFields, onComm
       />
       {listId && (
         <datalist id={listId}>
-          {(col ? fields : allFields).map((f) => <option key={f} value={f} />)}
+          {Array.from(new Set(col ? fields : allFields)).map((f) => <option key={f} value={f} />)}
         </datalist>
       )}
     </>

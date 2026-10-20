@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { WordDoc, WordPara, WordRun } from "@/types/sim";
 import { dictationText, paraRange, paraText, parseSel, runsOf, wordCount, type XDoc, type XPara } from "../word/model";
 import { GIcon } from "./icons";
@@ -121,6 +121,8 @@ export interface PageProps {
   onContext?: (e: React.MouseEvent, key: string) => void;
   onCheck?: (pid: string) => void;
   onToc?: (pid: string) => void;
+  /** View › Show non-printing characters. */
+  nonPrinting?: boolean;
 }
 
 export function DocPages(props: PageProps) {
@@ -209,7 +211,7 @@ export function DocPages(props: PageProps) {
 
   const paraEl = (p: WordPara) => {
     const isSel = selected.has(p.id) && !sel.run && !sel.cell;
-    if (p.kind === "pageBreak") return interactive && viewOn({ surface: "docs", files: [], flags: w.flags }, "nonPrinting") ? <div key={p.id} className="my-2 border-t border-dashed border-[#9aa0a6] text-center text-[10px] text-[#5f6368]">Page break</div> : null;
+    if (p.kind === "pageBreak") return interactive && props.nonPrinting ? <div key={p.id} className="my-2 border-t border-dashed border-[#9aa0a6] text-center text-[10px] text-[#5f6368]">Page break</div> : null;
     if (p.kind === "sectionBreak") return <div key={p.id} className="my-2 flex items-center gap-2 text-[10px] text-[#5f6368]"><span className="flex-1 border-t border-dashed border-[#9aa0a6]" />Section break ({p.text === "Continuous" ? "continuous" : "next page"})<span className="flex-1 border-t border-dashed border-[#9aa0a6]" /></div>;
     if (p.kind === "toc") {
       const entries = (p as XPara).entries ?? outlineOf(w);
@@ -331,7 +333,7 @@ export function DocPages(props: PageProps) {
           </span>
         )}
         {props.editing?.key === p.id ? <InlineEdit {...props} /> : emptySel ? <span className="text-[#9aa0a6]">Type @ to insert</span> : runsOf(p).map((r, i) => runEl(p, r, i))}
-        {interactive && viewOn({ surface: "docs", files: [], flags: w.flags }, "nonPrinting") && <span className="text-[#9aa0a6]">¶</span>}
+        {interactive && props.nonPrinting && <span className="text-[#9aa0a6]">¶</span>}
       </div>
     );
   };
@@ -511,15 +513,11 @@ export function DocsSurface({ composer, setComposer }: { composer: boolean; setC
     if (e.text !== textAt(w, e.key)) g.onCommit({ kind: "type", target: e.key, value: e.text });
     g.focus();
   };
-  useEffect(() => {
-    const h = (ev: Event) => {
-      const k = (ev as CustomEvent<string>).detail;
-      if (k === "\n") { if (editableKey(w, ui.selection)) startEdit(ui.selection); }
-      else if (editableKey(w, ui.selection)) startEdit(ui.selection, k);
-    };
-    window.addEventListener("g-type", h);
-    return () => window.removeEventListener("g-type", h);
-  });
+  g.hooksRef.current.type = (k: string) => {
+    if (!editableKey(w, ui.selection)) return;
+    if (k === "\n") startEdit(ui.selection);
+    else startEdit(ui.selection, k);
+  };
 
   const context = (e: React.MouseEvent, key: string) => {
     e.preventDefault();
@@ -621,6 +619,7 @@ export function DocsSurface({ composer, setComposer }: { composer: boolean; setC
                 activeComment={activeComment}
                 mode={mode}
                 spelling={viewOn(doc, "spelling")}
+                nonPrinting={viewOn(doc, "nonPrinting")}
                 onSelect={(k, e) => select(k, e)}
                 onEdit={startEdit}
                 editing={editing}
@@ -864,4 +863,3 @@ export function ExplorePanel({ q }: { q: string }) {
   );
 }
 
-export { Fragment };

@@ -108,7 +108,7 @@ export const pptModule3Sims: Record<string, SimDefinition[]> = {
       title: "Put the practice logo on every slide at once",
       scenario: "The Lakeside Medical Associates logo must appear on every patient education slide in the same spot, except the title slide. Do it once on the slide master instead of forty times by hand.",
       fileName: "Patient Education Template.pptx",
-      minutes: 6,
+      minutes: 7,
       initial: {
         active: "s1",
         slides: [
@@ -120,29 +120,35 @@ export const pptModule3Sims: Record<string, SimDefinition[]> = {
       },
       tasks: [
         {
-          instruction: "Open Slide Master view.",
-          hint: "View tab › Master Views group › Slide Master.",
-          steps: [{ action: { kind: "command", id: "view.master" } }],
-        },
-        {
-          instruction: "On the slide master (the large top thumbnail), insert the picture lakeside-logo.png.",
-          hint: "Click the top thumbnail in the left pane. Insert tab › Pictures › This Device…, choose lakeside-logo.png, then click Insert.",
-          steps: [{ action: { kind: "dialog", id: "insertPicture", values: { file: "lakeside-logo.png" } }, requires: { slide: "master" }, selectHint: "Click the slide master, the large thumbnail at the top of the left pane, first." }],
+          instruction: "Open Slide Master view, then insert the picture lakeside-logo.png on the slide master (the large top thumbnail).",
+          hint: "View tab › Master Views group › Slide Master. Click the top thumbnail in the left pane, then Insert tab › Pictures › This Device…, choose lakeside-logo.png, and click Insert.",
+          steps: [
+            { action: { kind: "command", id: "view.master" } },
+            { action: { kind: "dialog", id: "insertPicture", values: { file: "lakeside-logo.png" } }, requires: { slide: "master" }, selectHint: "Click the slide master, the large thumbnail at the top of the left pane, first." },
+          ],
         },
         {
           instruction: "Make the logo 1.5\" wide and align it to the bottom right corner of the slide.",
           hint: "With the logo selected: Picture Format tab › Size › Width: 1.5. Then Picture Format › Arrange › Align › Align Right, and Align › Align Bottom.",
           anyOrder: true,
           steps: [
-            { action: { kind: "command", id: "object.size", value: "1.5" }, requires: { slide: "master" }, selectHint: "Click the logo on the slide master first." },
-            { action: { kind: "command", id: "object.align", value: "Align Right" }, requires: { slide: "master" }, selectHint: "Click the logo on the slide master first." },
-            { action: { kind: "command", id: "object.align", value: "Align Bottom" }, requires: { slide: "master" }, selectHint: "Click the logo on the slide master first." },
+            { action: { kind: "command", id: "object.size", value: "1.5" }, requires: { slide: "master", selection: "master.o1" }, selectHint: "Click the logo on the slide master first." },
+            { action: { kind: "command", id: "object.align", value: "Align Right" }, requires: { slide: "master", selection: "master.o1" }, selectHint: "Click the logo on the slide master first." },
+            { action: { kind: "command", id: "object.align", value: "Align Bottom" }, requires: { slide: "master", selection: "master.o1" }, selectHint: "Click the logo on the slide master first." },
           ],
         },
         {
           instruction: "Keep the logo off the title slide: hide background graphics on the Title Slide layout.",
           hint: "Click the Title Slide Layout thumbnail (first under the master). Slide Master tab › Background group › check Hide Background Graphics.",
           steps: [{ action: { kind: "command", id: "master.hideBackground" }, requires: { slide: "layout:Title Slide" }, selectHint: "Click the Title Slide Layout thumbnail, the first one under the slide master." }],
+        },
+        {
+          instruction: "Edit one layout only: on the Title Only layout, add a text box that says “Questions? Call (718) 555-0142”.",
+          hint: "Click the Title Only Layout thumbnail in the left pane. Insert tab › Text group › Text Box, type the text, then click outside the box. Only slides that use Title Only get it.",
+          steps: [
+            { action: { kind: "command", id: "insert.textBox" }, requires: { slide: "layout:Title Only" }, selectHint: "Click the Title Only Layout thumbnail in the left pane first, so only Title Only slides get the text box." },
+            { action: { kind: "type", target: "layout:Title Only.o1", value: "Questions? Call (718) 555-0142" } },
+          ],
         },
         {
           instruction: "Rename the Title Only layout to “Clinic Update”.",

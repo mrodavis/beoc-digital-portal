@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { PptDeck } from "@/types/sim";
-import type { CanvasProps } from "../../types";
-import { activeSlide, animSequence, slideText } from "./model";
+import type { CanvasProps, MenuItem } from "../../types";
+import { activeSlide, animKey, animSequence, clipApp, clipHistory, clipLabel, slideText, type AnimItem } from "./model";
 import { THESAURUS, ox, sx, type CommentX } from "./ext";
 
 type Props = {
@@ -13,7 +13,129 @@ type Props = {
   onCommit: CanvasProps<PptDeck>["onCommit"];
   openDialog: (id: string) => void;
   onSelect: CanvasProps<PptDeck>["onSelect"];
+  onContextMenu?: CanvasProps<PptDeck>["onContextMenu"];
 };
+
+/* ------------------------------------------------------------------ */
+/* Office Clipboard (Home › Clipboard dialog box launcher)             */
+/* ------------------------------------------------------------------ */
+
+const APP_BADGE: Record<string, { letter: string; color: string }> = {
+  Word: { letter: "W", color: "#2b579a" },
+  Excel: { letter: "X", color: "#217346" },
+  PowerPoint: { letter: "P", color: "#b7472a" },
+  Outlook: { letter: "O", color: "#0078d4" },
+};
+
+/**
+ * The Office Clipboard task pane, docked on the left like PowerPoint's. Click an item to paste it
+ * at the selection (a placeholder, the Notes pane, or the slide); each item's arrow has Paste and Delete.
+ */
+export function ClipboardPane({ deck, onCommit, onContextMenu }: { deck: PptDeck; onCommit: Props["onCommit"]; onContextMenu?: Props["onContextMenu"] }) {
+  const items = clipHistory(deck);
+  const itemMenu = (e: React.MouseEvent, label: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    onContextMenu?.(r.right - 8, r.bottom, [
+      { label: "Paste", icon: "paste", command: "clipboard.paste", value: label },
+      { label: "Delete", icon: "reject", command: "clipboard.delete", value: label },
+    ]);
+  };
+  return (
+    <aside className="flex w-56 shrink-0 flex-col border-r border-gray-300 bg-white text-[12px]" aria-label="Clipboard">
+      <div className="flex items-center justify-between border-b px-3 py-2">
+        <span className="text-[13px]">Clipboard</span>
+        <button type="button" aria-label="Close Clipboard" onClick={() => onCommit({ kind: "command", id: "pane.close" })} className="px-1 hover:bg-gray-100">✕</button>
+      </div>
+      <div className="flex gap-2 border-b px-3 py-1.5">
+        <button type="button" disabled={!items.length} onClick={() => onCommit({ kind: "command", id: "clipboard.pasteAll" })} className="rounded border border-gray-300 px-2 py-0.5 hover:bg-[#fde9d9] disabled:opacity-40">Paste All</button>
+        <button type="button" disabled={!items.length} onClick={() => onCommit({ kind: "command", id: "clipboard.clear" })} className="rounded border border-gray-300 px-2 py-0.5 hover:bg-[#fde9d9] disabled:opacity-40">Clear All</button>
+      </div>
+      <p className="px-3 pt-2 text-[11px] text-gray-500">{items.length ? "Click an Item to Paste:" : "Clipboard empty. Copy or cut to collect items."}</p>
+      <div className="flex-1 space-y-1 overflow-auto p-2">
+        {items.map((c, i) => {
+          const label = clipLabel(c);
+          const app = APP_BADGE[clipApp(c)] ?? APP_BADGE.PowerPoint;
+          return (
+            <div key={`${i}-${label}`} className="group relative">
+              <button type="button" title={label} aria-label={`Paste ${label}`} onClick={() => onCommit({ kind: "command", id: "clipboard.paste", value: label })} onContextMenu={(e) => itemMenu(e, label)} className="flex w-full items-start gap-2 rounded border border-gray-200 px-2 py-1.5 pr-6 text-left hover:border-[#c43e1c] hover:bg-[#fde9d9]">
+                <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-sm text-[9px] font-bold text-white" style={{ background: app.color }}>{app.letter}</span>
+                <span className="line-clamp-3 break-words">{c.kind === "obj" && c.objs[0]?.kind === "chart" ? "📊 " : ""}{label}</span>
+              </button>
+              <button type="button" aria-label={`Options for ${label}`} onClick={(e) => itemMenu(e, label)} className="absolute right-1 top-1 hidden rounded px-1 text-gray-600 hover:bg-gray-200 group-hover:block">▾</button>
+            </div>
+          );
+        })}
+      </div>
+      <div className="border-t px-3 py-1.5 text-[11px] text-gray-500">Options ▾</div>
+    </aside>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Animation Pane                                                      */
+/* ------------------------------------------------------------------ */
+
+function AnimationPane({ deck, ui, onCommit, onSelect, onContextMenu }: Pick<Props, "deck" | "ui" | "onCommit" | "onSelect" | "onContextMenu">) {
+  const slide = activeSlide(deck, ui)!;
+  const items = animSequence(slide);
+  const selKey = ui.selection;
+  const current = items.find((it) => animKey(it) === selKey);
+  const pick = (it: AnimItem) => onSelect({ selection: animKey(it), slide: slide.id });
+  const menu = (e: React.MouseEvent, it: AnimItem) => {
+    e.preventDefault();
+    e.stopPropagation();
+    pick(it);
+    const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const tick = (s: string) => (it.start === s ? "✓ " : "    ");
+    const items: MenuItem[] = [
+      { label: `${tick("On Click")}Start On Click`, command: "animation.start", value: "On Click" },
+      { label: `${tick("With Previous")}Start With Previous`, command: "animation.start", value: "With Previous" },
+      { label: `${tick("After Previous")}Start After Previous`, command: "animation.start", value: "After Previous" },
+      { separator: true },
+      { label: "Effect Options...", dialog: "animEffect" },
+      { label: "Timing...", dialog: "animTiming" },
+      { separator: true },
+      { label: "Remove", icon: "reject", command: "animation.remove" },
+    ];
+    onContextMenu?.(e.type === "contextmenu" ? e.clientX : r.right - 8, e.type === "contextmenu" ? e.clientY : r.bottom, items);
+  };
+  return (
+    <div className="flex h-full flex-col">
+      <div className="mb-2 flex items-center gap-1">
+        <button
+          type="button"
+          onClick={() => onCommit(current ? { kind: "command", id: "animation.playFrom", value: animKey(current) } : { kind: "command", id: "animation.preview" })}
+          className="rounded border border-gray-300 px-2 py-0.5 hover:bg-gray-50"
+        >
+          ▶ {current ? (items.indexOf(current) === 0 ? "Play All" : "Play From") : "Play All"}
+        </button>
+        <span className="flex-1" />
+        <button type="button" aria-label="Move Earlier" title="Move Earlier" disabled={!current || items.indexOf(current) === 0} onClick={() => onCommit({ kind: "command", id: "animation.earlier" })} className="rounded border border-gray-300 px-1.5 hover:bg-gray-50 disabled:opacity-40">▲</button>
+        <button type="button" aria-label="Move Later" title="Move Later" disabled={!current || items.indexOf(current) === items.length - 1} onClick={() => onCommit({ kind: "command", id: "animation.later" })} className="rounded border border-gray-300 px-1.5 hover:bg-gray-50 disabled:opacity-40">▼</button>
+      </div>
+      <div className="flex-1 space-y-0.5 overflow-auto">
+        {items.length ? items.map((it) => {
+          const on = animKey(it) === selKey;
+          return (
+            <div key={it.key} className={`group flex items-center rounded ${on ? "bg-[#fde9d9] outline outline-1 outline-[#e8a08a]" : "hover:bg-gray-50"}`}>
+              <button type="button" aria-label={`${it.group || ""} ${it.label} ${it.name}`.trim()} onClick={() => pick(it)} onDoubleClick={() => { pick(it); }} onContextMenu={(e) => menu(e, it)} className="flex min-w-0 flex-1 items-center gap-2 px-1 py-1 text-left">
+                <span className="w-4 text-gray-500">{it.start === "On Click" ? it.group : ""}</span>
+                <span className="text-[10px] text-gray-500" title={it.start}>{it.start === "On Click" ? "🖱" : it.start === "With Previous" ? "⇉" : "⏱"}</span>
+                <span className="text-emerald-700">★</span>
+                <span className="flex-1 truncate">{it.label}</span>
+                <span className="text-[10px] text-gray-500">{it.name}</span>
+              </button>
+              <button type="button" aria-label={`Options for ${it.label}`} title="Options" onClick={(e) => menu(e, it)} className={`px-1 text-gray-600 hover:bg-gray-200 ${on ? "" : "invisible group-hover:visible"}`}>▾</button>
+            </div>
+          );
+        }) : <p className="text-gray-500">No animations on this slide.</p>}
+      </div>
+      <p className="pt-2 text-[11px] text-gray-500">Click an effect to select it. Press Delete to remove it, or use its arrow for Start, Effect Options, Timing and Remove.</p>
+    </div>
+  );
+}
 
 function CommentCard({ c, i, onCommit, focused }: { c: CommentX; i: number; onCommit: Props["onCommit"]; focused: boolean }) {
   const [reply, setReply] = useState("");
@@ -104,7 +226,7 @@ function TextPane({ deck, ui, onCommit }: Pick<Props, "deck" | "ui" | "onCommit"
   );
 }
 
-export function PptPane({ deck, ui, pane, onCommit, openDialog, onSelect }: Props) {
+export function PptPane({ deck, ui, pane, onCommit, openDialog, onSelect, onContextMenu }: Props) {
   const slide = activeSlide(deck, ui)!;
   let title = pane;
   let body: React.ReactNode = <p className="text-gray-600">This feature is shown for practice.</p>;
@@ -151,21 +273,7 @@ export function PptPane({ deck, ui, pane, onCommit, openDialog, onSelect }: Prop
       </div>
     );
   } else if (pane === "Animation Pane") {
-    const items = animSequence(slide);
-    body = (
-      <div className="space-y-1">
-        <button type="button" onClick={() => onCommit({ kind: "command", id: "animation.preview" })} className="mb-1 rounded border border-gray-300 px-2 py-0.5 hover:bg-gray-50">▶ Play All</button>
-        {items.length ? items.map((it) => (
-          <button key={it.key} type="button" onClick={() => onSelect({ selection: it.key, slide: slide.id })} className={`flex w-full items-center gap-2 rounded px-1 py-1 text-left ${ui.selection === it.key ? "bg-[#fde9d9]" : "hover:bg-gray-50"}`}>
-            <span className="w-4 text-gray-500">{it.start === "On Click" ? it.group : ""}</span>
-            <span className="text-[10px] text-gray-500" title={it.start}>{it.start === "On Click" ? "🖱" : it.start === "With Previous" ? "⇉" : "⏱"}</span>
-            <span className="text-emerald-700">★</span>
-            <span className="flex-1 truncate">{it.label}</span>
-            <span className="text-[10px] text-gray-500">{it.name}</span>
-          </button>
-        )) : <p className="text-gray-500">No animations on this slide.</p>}
-      </div>
-    );
+    body = <AnimationPane deck={deck} ui={ui} onCommit={onCommit} onSelect={onSelect} onContextMenu={onContextMenu} />;
   } else if (pane === "Accessibility") {
     const missing = deck.slides.flatMap((s, i) => (s.objects ?? []).filter((o) => (o.kind === "image" || o.kind === "chart" || o.kind === "smartart" || o.kind === "video") && !o.alt && !ox(o).decorative).map((o) => ({ s, i: i + 1, o })));
     const untitled = deck.slides.map((s, i) => ({ s, i })).filter(({ s }) => !s.title && s.layout !== "Blank");
@@ -206,7 +314,7 @@ export function PptPane({ deck, ui, pane, onCommit, openDialog, onSelect }: Prop
           const k = `${slide.id}.${o.id}`;
           return (
             <button key={o.id} type="button" onClick={(e) => onSelect({ slide: slide.id, selection: e.shiftKey || e.ctrlKey ? Array.from(new Set([...Array.from(sel).filter((x) => x.startsWith(`${slide.id}.o`)), k])).join(",") : k })} className={`flex w-full items-center justify-between rounded px-2 py-1 text-left ${sel.has(k) ? "bg-[#cde4f7]" : "hover:bg-gray-50"}`}>
-              <span className="truncate">{o.kind === "image" ? "Picture" : o.kind === "textbox" ? "TextBox" : o.kind === "shape" ? o.label?.split(":")[0] : o.kind[0].toUpperCase() + o.kind.slice(1)} {o.id.slice(1)}{o.label && o.kind === "image" ? `: ${o.label}` : ""}</span>
+              <span className="truncate">{o.kind === "image" ? "Picture" : o.kind === "textbox" ? "TextBox" : o.kind === "shape" ? o.label?.split(":")[0] : o.kind === "icon" ? "Graphic" : ox(o).ole ? "Object" : o.kind[0].toUpperCase() + o.kind.slice(1)} {o.id.slice(1)}{o.label && (o.kind === "image" || o.kind === "icon") ? `: ${o.label}` : ""}</span>
               <span className="text-gray-400">👁</span>
             </button>
           );

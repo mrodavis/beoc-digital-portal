@@ -162,11 +162,13 @@ function MiniCalendar({ value, onPick, onClose }: { value: number | null; onPick
 }
 
 /** Text box with an input mask template, as Access shows it while typing. */
-export function MaskedInput({ mask, initial, onCommit, onCancel }: { mask: string; initial: string; onCommit: (v: string, how: "enter" | "blur" | "tab" | "shiftTab" | "up" | "down") => void; onCancel: () => void }) {
+export function MaskedInput({ mask, initial, selectAll, onCommit, onCancel }: { mask: string; initial: string; selectAll?: boolean; onCommit: (v: string, how: "enter" | "blur" | "tab" | "shiftTab" | "up" | "down") => void; onCancel: () => void }) {
   const { slots, placeholder } = maskSlots(mask);
   const lits = new Set(slots.filter((s) => s.lit !== undefined).map((s) => s.lit!));
   const [data, setData] = useState<string[]>(() => Array.from(initial).filter((c) => !lits.has(c) && c !== placeholder));
   const done = useRef(false);
+  /** While the whole value is selected, the next character replaces it (as when you tab into a field). */
+  const replacing = useRef(Boolean(selectAll && initial));
   const ref = useRef<HTMLInputElement>(null);
   const shown = (() => {
     let i = 0;
@@ -177,6 +179,10 @@ export function MaskedInput({ mask, initial, onCommit, onCancel }: { mask: strin
     ref.current?.focus();
   }, []);
   useEffect(() => {
+    if (replacing.current) {
+      ref.current?.setSelectionRange(0, ref.current.value.length);
+      return;
+    }
     // Caret after the last typed character.
     let i = 0, pos = 0;
     for (let k = 0; k < slots.length; k++) {
@@ -205,11 +211,24 @@ export function MaskedInput({ mask, initial, onCommit, onCancel }: { mask: strin
         if (e.key === "Enter") { e.preventDefault(); finish("enter"); return; }
         if (e.key === "Tab") { e.preventDefault(); finish(e.shiftKey ? "shiftTab" : "tab"); return; }
         if (e.key === "Escape") { e.preventDefault(); done.current = true; onCancel(); return; }
+        const el = ref.current;
+        const allSelected = replacing.current || Boolean(el && el.value.length && el.selectionStart === 0 && el.selectionEnd === el.value.length);
+        if ((e.key === "Backspace" || e.key === "Delete") && allSelected) { e.preventDefault(); replacing.current = false; setData([]); return; }
         if (e.key === "Backspace") { e.preventDefault(); setData((d) => d.slice(0, -1)); return; }
         if (e.key.length === 1 && !e.ctrlKey && !e.metaKey) {
           e.preventDefault();
           if (lits.has(e.key)) return;
+          if (allSelected) {
+            replacing.current = false;
+            setData([e.key]);
+            return;
+          }
           setData((d) => (d.length < inputSlots ? [...d, e.key] : d));
+        }
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "a") {
+          e.preventDefault();
+          replacing.current = true;
+          el?.setSelectionRange(0, el.value.length);
         }
       }}
       className="h-full w-full border-0 bg-white px-1 font-mono text-[12px] outline-none"
@@ -695,7 +714,7 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
                               {look.map((o) => <option key={o} value={o}>{o}</option>)}
                             </select>
                           ) : c.field?.inputMask && c.field.type === "Short Text" ? (
-                            <MaskedInput mask={c.field.inputMask} initial={edit.text ?? ""} onCommit={(t, how) => commitValue(row, ci, t, how)} onCancel={() => { setEdit(null); focus(); }} />
+                            <MaskedInput mask={c.field.inputMask} initial={edit.text ?? ""} selectAll={edit.text !== undefined && edit.text.length > 1} onCommit={(t, how) => commitValue(row, ci, t, how)} onCancel={() => { setEdit(null); focus(); }} />
                           ) : (
                             <div className="relative h-full">
                               <InlineEdit

@@ -1,7 +1,7 @@
 import type { DialogDef, RibbonOption, RibbonTab } from "@/types/sim";
 import { THEME_COLORS } from "../../chrome/colors";
 import { ANIMATIONS, EMPHASIS, EXITS, LAYOUTS, PPT_THEMES, PPT_THEME_NAMES, TRANSITIONS } from "./model";
-import { AUDIO_FILES, BACKGROUND_STYLES, BULLET_STYLES, COLOR_SETS, EFFECT_SETS, FONT_SETS, ICONS, NUMBER_FORMATS, ONLINE_PICTURES, PICTURE_FILES, SCREEN_WINDOWS, STOCK_IMAGES, VIDEO_FILES } from "./ext";
+import { AUDIO_FILES, BACKGROUND_STYLES, BULLET_STYLES, COLOR_SETS, EFFECT_SETS, FONT_SETS, GRAPHIC_STYLES, ICONS, NUMBER_FORMATS, ONLINE_PICTURES, PASTE_SPECIAL_FORMATS, PICTURE_FILES, SCREEN_WINDOWS, STOCK_IMAGES, VIDEO_FILES } from "./ext";
 
 const FONTS = ["Aptos", "Aptos Display", "Arial", "Calibri", "Calibri Light", "Cambria", "Candara", "Century Gothic", "Corbel", "Franklin Gothic Book", "Garamond", "Georgia", "Gill Sans MT", "Segoe UI", "Tahoma", "Times New Roman", "Trebuchet MS", "Tw Cen MT", "Verdana"];
 const SIZES = ["10", "12", "14", "16", "18", "20", "24", "28", "32", "36", "40", "44", "48", "54", "60", "72", "96"];
@@ -98,6 +98,15 @@ const variantOpts: RibbonOption[] = [
   { value: "Format Background...", label: "Format Background...", icon: "background", dialog: "formatBackground" },
 ];
 
+/** Paste arrow: the Paste Options for slides, text and objects, then the chart options, then Paste Special. */
+const pasteOpts: RibbonOption[] = [
+  { value: "Paste Options:", heading: true },
+  ...["Use Destination Theme", "Keep Source Formatting", "Picture", "Keep Text Only"].map((v) => ({ value: v, icon: "paste" })),
+  { value: "Charts:", heading: true },
+  ...["Use Destination Theme & Embed Workbook", "Keep Source Formatting & Embed Workbook", "Use Destination Theme & Link Data", "Keep Source Formatting & Link Data"].map((v) => ({ value: v, icon: v.includes("Link") ? "link" : "chart" })),
+  { value: "Paste Special...", dialog: "pasteSpecial", icon: "paste" },
+];
+
 const mediaVolume: RibbonOption[] = ["Low", "Medium", "High", "Mute"].map((v) => ({ value: v }));
 const mediaStart: RibbonOption[] = ["In Click Sequence", "Automatically", "When Clicked On"].map((v) => ({ value: v }));
 const fadeOpts: RibbonOption[] = ["00.00", "00.50", "01.00", "02.00"].map((v) => ({ value: v }));
@@ -109,8 +118,11 @@ export const pptRibbon: RibbonTab[] = [
     groups: [
       {
         label: "Clipboard",
+        // The launcher opens the Office Clipboard pane (the canvas turns the launcher click into
+        // home.clipboardPane); from Search it opens the Clipboard as a dialog.
+        launcher: "officeClipboard",
         controls: [
-          { type: "dropdown", id: "home.paste", label: "Paste", icon: "paste", size: "large", split: true, options: ["Use Destination Theme", "Keep Source Formatting", "Picture", "Keep Text Only"].map((v) => ({ value: v, icon: "paste" })) },
+          { type: "dropdown", id: "home.paste", label: "Paste", icon: "paste", size: "large", split: true, options: pasteOpts },
           { type: "button", id: "home.cut", label: "Cut", icon: "cut", shortcut: "Ctrl+X", showLabel: true },
           { type: "button", id: "home.copy", label: "Copy", icon: "copy", shortcut: "Ctrl+C", showLabel: true },
           { type: "button", id: "home.formatPainter", label: "Format Painter", icon: "formatPainter", showLabel: true },
@@ -418,6 +430,24 @@ export const pptRibbon: RibbonTab[] = [
     ],
   },
   {
+    // Icons (Insert › Icons) are graphics: they get Graphics Format, not Shape Format.
+    id: "graphicsFormat",
+    label: "Graphics Format",
+    contextual: "graphics",
+    groups: [
+      { label: "Change", controls: [{ type: "dropdown", id: "graphics.change", label: "Change Graphic", icon: "icons", size: "large", options: [{ value: "From Icons...", dialog: "changeGraphic", icon: "icons" }] }] },
+      { label: "Graphics Styles", controls: [
+        { type: "gallery", id: "graphics.style", label: "Graphics Styles", options: GRAPHIC_STYLES.map((v) => ({ value: v, label: v })), width: 260 },
+        { type: "dropdown", id: "graphics.fill", label: "Graphics Fill", icon: "fill", showLabel: true, gallery: "swatches", options: colorOpts([{ value: "No Fill", label: "No Fill" }]) },
+        { type: "dropdown", id: "graphics.outline", label: "Graphics Outline", icon: "pen", showLabel: true, gallery: "swatches", options: [...colorOpts([{ value: "No Outline", label: "No Outline" }]), { value: "Weight", heading: true }, ...["¼ pt", "1 pt", "3 pt", "6 pt"].map((w) => ({ value: `Weight: ${w}`, label: w }))] },
+        { type: "dropdown", id: "graphics.effects", label: "Graphics Effects", icon: "effects", showLabel: true, options: ["Shadow", "Reflection", "Glow", "Soft Edges"].map((v) => ({ value: v })) },
+      ] },
+      { label: "Accessibility", controls: [{ type: "button", id: "graphics.altText", label: "Alt Text", icon: "altText", size: "large", dialog: "altText" }] },
+      arrangeGroup,
+      sizeGroup(),
+    ],
+  },
+  {
     id: "pictureFormat",
     label: "Picture Format",
     contextual: "picture",
@@ -616,7 +646,16 @@ export const PPT_VIEW_ALIASES: Record<string, string> = {
   "view.mode.reading": "Reading View",
 };
 
-const DIALOG_COLORS = ["Automatic", ...THEME_COLORS.slice(4, 14).map((c) => c.color)];
+/** Font and bullet color pickers: Automatic, then every theme and standard color (Black, Dark Blue, ...). */
+const DIALOG_COLORS = ["Automatic", ...Array.from(new Set(THEME_COLORS.map((c) => c.color)))];
+
+/** Animation Pane › item menu › Timing (and the Timing tab of Effect Options). */
+const animTimingFields: NonNullable<DialogDef["fields"]> = [
+  { type: "select", key: "start", label: "Start:", options: ["On Click", "With Previous", "After Previous"] },
+  { type: "number", key: "delay", label: "Delay:", min: 0, step: 0.25, suffix: "seconds" },
+  { type: "number", key: "duration", label: "Duration:", min: 0.25, step: 0.25, suffix: "seconds" },
+  { type: "select", key: "repeat", label: "Repeat:", options: ["(none)", "2", "3", "4", "5", "10", "Until Next Click", "Until End of Slide"] },
+];
 
 export const pptDialogs: Record<string, DialogDef> = {
   font: {
@@ -680,7 +719,39 @@ export const pptDialogs: Record<string, DialogDef> = {
   changePicture: { id: "changePicture", title: "Insert Picture", okLabel: "Insert", width: 440, fields: [{ type: "note", text: "Change Picture › From a File" }, { type: "list", key: "file", label: "File name:", options: PICTURE_FILES, height: 150 }] },
   stockImages: { id: "stockImages", title: "Stock Images", okLabel: "Insert", width: 460, fields: [{ type: "text", key: "search", label: "Search:", placeholder: "Search for images" }, { type: "list", key: "image", label: "Images", options: STOCK_IMAGES, height: 160 }, { type: "note", text: "Stock images are free to use in your presentations." }] },
   onlinePictures: { id: "onlinePictures", title: "Online Pictures", okLabel: "Insert", width: 460, fields: [{ type: "text", key: "search", label: "Search Bing:", placeholder: "Search Bing" }, { type: "checkbox", key: "creativeCommons", label: "Creative Commons only", default: true }, { type: "list", key: "image", label: "Results", options: ONLINE_PICTURES, height: 120 }, { type: "note", text: "You're responsible for respecting others' rights, including copyright." }] },
-  insertIcons: { id: "insertIcons", title: "Icons", okLabel: "Insert", width: 380, fields: [{ type: "text", key: "search", label: "Search:", placeholder: "Search icons" }, { type: "list", key: "icon", label: "Icons", options: ICONS.map((i) => i.name), height: 160 }] },
+  // On screen the Icons dialog is a checkbox per icon so several can be inserted together
+  // (core.dialogDef); a commit carries `icon` (the first) and `icons` (all, comma separated).
+  insertIcons: { id: "insertIcons", title: "Icons", okLabel: "Insert", width: 380, fields: [{ type: "text", key: "search", label: "Search:", placeholder: "Search icons" }, { type: "list", key: "icon", label: "Icons", options: ICONS.map((i) => i.name), height: 160 }, { type: "text", key: "icons", label: "Selected:" }] },
+  changeGraphic: { id: "changeGraphic", title: "Icons", okLabel: "Insert", width: 380, fields: [{ type: "note", text: "Change Graphic › From Icons" }, { type: "list", key: "icon", label: "Icons", options: ICONS.map((i) => i.name), height: 160 }] },
+  pasteSpecial: {
+    id: "pasteSpecial",
+    title: "Paste Special",
+    width: 440,
+    fields: [
+      { type: "note", text: "Source: (the item on the Clipboard)" },
+      { type: "radio", key: "mode", label: "", options: ["Paste", "Paste link"], default: "Paste" },
+      { type: "list", key: "as", label: "As:", options: PASTE_SPECIAL_FORMATS, height: 130 },
+      { type: "note", text: "Result: Paste inserts the contents of the Clipboard. Paste link inserts a picture of the contents and creates a shortcut to the source file, so changes to the source file are reflected in your presentation." },
+    ],
+  },
+  officeClipboard: { id: "officeClipboard", title: "Clipboard", okLabel: "Paste", width: 360, fields: [{ type: "note", text: "Click an item to paste:" }, { type: "list", key: "item", label: "", options: [], height: 180 }] },
+  animEffect: {
+    id: "animEffect",
+    title: "Effect Options",
+    width: 400,
+    tabs: [
+      { label: "Effect", fields: [
+        { type: "select", key: "direction", label: "Direction:", options: ["From Bottom", "From Left", "From Right", "From Top", "From Bottom-Left", "From Top-Right"] },
+        { type: "select", key: "sound", label: "Sound:", options: ["[No Sound]", "Applause", "Chime", "Click", "Drum Roll"] },
+        { type: "select", key: "after", label: "After animation:", options: ["Don't Dim", "Hide After Animation", "Hide on Next Mouse Click"] },
+      ] },
+      { label: "Timing", fields: animTimingFields },
+      { label: "Text Animation", fields: [{ type: "select", key: "groupText", label: "Group text:", options: ["As One Object", "All Paragraphs At Once", "By 1st Level Paragraphs", "By 2nd Level Paragraphs"] }] },
+    ],
+  },
+  animTiming: { id: "animTiming", title: "Timing", width: 360, fields: animTimingFields },
+  // Drawn by the canvas (Custom Shows › New); listed so the validator knows its fields.
+  defineCustomShow: { id: "defineCustomShow", title: "Define Custom Show", width: 520, fields: [{ type: "text", key: "name", label: "Slide show name:" }, { type: "text", key: "slides", label: "Slides in custom show:" }, { type: "text", key: "original", label: "" }] },
   insertVideo: { id: "insertVideo", title: "Insert Video", okLabel: "Insert", width: 420, fields: [{ type: "note", text: "This PC › Videos › Training" }, { type: "list", key: "file", label: "File name:", options: VIDEO_FILES, height: 100 }] },
   onlineVideo: { id: "onlineVideo", title: "Online Video", okLabel: "Insert", width: 420, fields: [{ type: "text", key: "address", label: "Enter the address for the online video:", placeholder: "https://" }, { type: "note", text: "Online videos need an internet connection when you present." }] },
   insertAudio: { id: "insertAudio", title: "Insert Audio", okLabel: "Insert", width: 420, fields: [{ type: "note", text: "This PC › Music" }, { type: "list", key: "file", label: "File name:", options: AUDIO_FILES, height: 100 }] },
@@ -728,9 +799,10 @@ export const pptDialogs: Record<string, DialogDef> = {
       { type: "checkbox", key: "loop", label: "Loop continuously until 'Esc'" },
       { type: "checkbox", key: "noNarration", label: "Show without narration" },
       { type: "checkbox", key: "noAnimation", label: "Show without animation" },
-      { type: "radio", key: "showSlides", label: "Show slides", options: ["All", "From:"], default: "All" },
+      { type: "radio", key: "showSlides", label: "Show slides", options: ["All", "From:", "Custom show:"], default: "All" },
       { type: "number", key: "from", label: "From slide:", min: 1, default: 1 },
       { type: "number", key: "to", label: "To slide:", min: 1, default: 1 },
+      { type: "select", key: "customShow", label: "Custom show:", options: [] },
       { type: "radio", key: "advance", label: "Advance slides", options: ["Manually", "Using timings, if present"], default: "Using timings, if present" },
       { type: "checkbox", key: "presenterView", label: "Use Presenter View" },
     ],
@@ -751,7 +823,18 @@ export const pptDialogs: Record<string, DialogDef> = {
       { type: "radio", key: "resolution", label: "Resolution:", options: ["High fidelity", "HD (330 ppi)", "Print (220 ppi)", "Web (150 ppi)", "E-mail (96 ppi)", "Use default resolution"], default: "Use default resolution" },
     ],
   },
-  rotation: { id: "rotation", title: "Size and Rotation", width: 320, fields: [{ type: "number", key: "degrees", label: "Rotation:", step: 5, suffix: "°" }, { type: "number", key: "height", label: "Height:", step: 0.1, min: 0, suffix: '"' }, { type: "number", key: "width", label: "Width:", step: 0.1, min: 0, suffix: '"' }] },
+  rotation: {
+    id: "rotation",
+    title: "Size and Rotation",
+    width: 320,
+    fields: [
+      { type: "number", key: "height", label: "Height:", step: 0.1, min: 0, suffix: '"' },
+      { type: "number", key: "width", label: "Width:", step: 0.1, min: 0, suffix: '"' },
+      { type: "number", key: "degrees", label: "Rotation:", step: 5, suffix: "°" },
+      { type: "checkbox", key: "lockAspect", label: "Lock aspect ratio" },
+      { type: "note", text: "With Lock aspect ratio on, changing the width changes the height to match (and the other way around)." },
+    ],
+  },
   trimVideo: { id: "trimVideo", title: "Trim Video", width: 360, fields: [{ type: "note", text: "Drag the green and red markers, or type the start and end times in seconds." }, { type: "number", key: "start", label: "Start Time:", min: 0, step: 1, suffix: "seconds" }, { type: "number", key: "end", label: "End Time:", min: 0, step: 1, suffix: "seconds" }] },
   trimAudio: { id: "trimAudio", title: "Trim Audio", width: 360, fields: [{ type: "note", text: "Drag the green and red markers, or type the start and end times in seconds." }, { type: "number", key: "start", label: "Start Time:", min: 0, step: 1, suffix: "seconds" }, { type: "number", key: "end", label: "End Time:", min: 0, step: 1, suffix: "seconds" }] },
 };

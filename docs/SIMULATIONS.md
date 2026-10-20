@@ -241,6 +241,18 @@ file), `file.protect`, `file.inspect`, `file.versionHistory`, `file.email`,
 - Slide Show is `slideshow.fromBeginning` / `slideshow.fromCurrent`; inside
   the show, clicks and arrow keys advance for free.
 
+PowerPoint also has (ids listed at the top of `components/sim/apps/powerpoint/ribbon.ts`
+and `core.ts`): Paste Special (`pasteSpecial` dialog, Ctrl+Alt+V) and Paste
+link with a Links dialog (`links.edit`, `links.update`, `links.break`, …,
+also on File › Info › Edit Links to Files), the Office Clipboard pane
+(`home.clipboardPane`, `clipboard.paste`), custom shows (`defineCustomShow`
+dialog, `slideshow.customShow`), Animation Pane items (`sN.oN.anim`,
+`animation.remove`), and typing on the master and layouts (`master.title`,
+`layout:Name.oN`).
+
+`BackstageSpec.info` and `BackstageSpec.exports` add rows to File › Info and
+File › Export that commit a command.
+
 ## Checking your work
 
 ```bash

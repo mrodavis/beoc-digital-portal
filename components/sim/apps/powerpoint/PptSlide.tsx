@@ -233,7 +233,9 @@ function ChartBody({ o, ctx }: { o: PptObject; ctx: ObjectCtx }) {
   // Charts placed in a deck by hand carry no element settings: show them clean (no title, no legend).
   const ch = ox(o).chart ?? { showTitle: false, legend: null, gridlines: true };
   const type = o.label ?? "";
-  const palette = /Monochromatic/.test(ox(o).fx?.color ?? "") ? ["#1F3864", "#2F5597", "#4472C4", "#8FAADC", "#B4C7E7", "#DAE3F3"] : /Palette 2/.test(ox(o).fx?.color ?? "") ? ["#ED7D31", "#A5A5A5", "#FFC000", "#4472C4", "#70AD47", "#5B9BD5"] : PAL;
+  // A chart follows the presentation's theme colors unless it was pasted with Keep Source Formatting.
+  const themed = ox(o).keepSource ? PAL : [ctx.theme.accent, ...PAL.filter((c) => c.toLowerCase() !== ctx.theme.accent.toLowerCase())];
+  const palette = /Monochromatic/.test(ox(o).fx?.color ?? "") ? ["#1F3864", "#2F5597", "#4472C4", "#8FAADC", "#B4C7E7", "#DAE3F3"] : /Palette 2/.test(ox(o).fx?.color ?? "") ? ["#ED7D31", "#A5A5A5", "#FFC000", "#4472C4", "#70AD47", "#5B9BD5"] : themed;
   const max = Math.max(1, ...s.map((x) => x.value));
   const fmt = (v: number) => (Math.abs(v) >= 1000 ? v.toLocaleString("en-US") : String(v));
   const titleKey = `${ctx.slideId}.${o.id}.title`;
@@ -457,7 +459,15 @@ export function ObjectBody({ o, ctx, onMedia }: { o: PptObject; ctx: ObjectCtx; 
       </div>
     );
   }
-  if (o.kind === "icon") return <div className="flex h-full w-full items-center justify-center" style={{ fontSize: 60, color: o.color ?? theme.accent }}>{o.glyph ?? "★"}</div>;
+  if (o.kind === "icon") {
+    // Graphics Fill colors the icon; Graphics Outline and Effects draw around it.
+    const border = fx.border ? `${Math.max(1, Math.round((ox(o).outlineWeight ?? 1.5) * 1.333))}px solid ${fx.border}` : undefined;
+    return (
+      <div className="flex h-full w-full items-center justify-center" style={{ fontSize: 60, color: o.color && o.color !== "transparent" ? o.color : theme.accent, opacity: o.color === "transparent" ? 0.35 : undefined, outline: border, outlineOffset: -2, ...effectCss(fx.effects ?? ox(o).effect, theme.accent) }}>
+        {o.glyph ?? "★"}
+      </div>
+    );
+  }
   if (o.kind === "table") return <div className={`h-full w-full ${ctx.interactive ? "p-[3px]" : ""}`}><TableBody o={o} ctx={ctx} /></div>;
   if (o.kind === "chart") return <ChartBody o={o} ctx={ctx} />;
   if (o.kind === "smartart") {
@@ -545,6 +555,9 @@ export function SlideView(props: SlideViewProps) {
   const titleFont = m.titleFont ?? theme.titleFont;
   const bodyFont = m.bodyFont ?? theme.font;
   const titleColor = m.titleColor ?? theme.title;
+  const bodyColor = m.bodyColor ?? theme.body;
+  // Prompt text typed into this layout's placeholders in Slide Master view.
+  const prompts = m.layoutText?.[slide.layout] ?? {};
   const isTitle = slide.layout === "Title Slide";
   const seqList = animSequence(slide);
   const groupOf = (target: string) => seqList.find((a) => a.target === target);
@@ -587,8 +600,8 @@ export function SlideView(props: SlideViewProps) {
       part === "title"
         ? { font: titleFont, size: isTitle || slide.layout === "Section Header" ? 48 : slide.layout === "Content with Caption" ? 28 : 36, color: titleColor, align: isTitle ? "center" : "left" }
         : part === "subtitle"
-          ? { font: bodyFont, size: 20, color: theme.body, align: isTitle ? "center" : "left" }
-          : { font: bodyFont, size: slide.layout === "Content with Caption" && part === "body2" ? 16 : 24, color: theme.body };
+          ? { font: bodyFont, size: 20, color: bodyColor, align: isTitle ? "center" : "left" }
+          : { font: bodyFont, size: slide.layout === "Content with Caption" && part === "body2" ? 16 : 24, color: bodyColor };
     const text = part === "title" ? slide.title : part === "subtitle" ? slide.subtitle : part === "body" ? slide.body : slide.body2;
     const empty = !text || (Array.isArray(text) && text.every((t) => !t.trim()));
     if (empty && !interactive && !editingThis) return null;
@@ -616,7 +629,7 @@ export function SlideView(props: SlideViewProps) {
           editor(key, part === "body" || part === "body2", "indent")
         ) : empty ? (
           <>
-            <span style={{ color: "#8a8a8a" }}>{PLACEHOLDER[part]}</span>
+            <span style={{ color: "#8a8a8a" }}>{prompts[part] || PLACEHOLDER[part]}</span>
             {interactive && content && (
               <div className="absolute inset-0 flex items-center justify-center" onMouseDown={(e) => e.stopPropagation()}>
                 <div className="grid grid-cols-3 gap-3">
@@ -673,6 +686,7 @@ export function SlideView(props: SlideViewProps) {
         className="absolute left-0 top-0 origin-top-left"
         style={{ width: W, height: H, transform: `scale(${scale})`, background: slide.background ?? theme.bg }}
         onMouseDown={interactive ? () => props.onPart?.(slide.id, {} as React.MouseEvent) : undefined}
+        onContextMenu={interactive ? (e) => props.onContext?.(e, slide.id) : undefined}
       >
         {theme.band && !sx(slide).hideGraphics && (
           <div

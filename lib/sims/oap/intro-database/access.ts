@@ -506,7 +506,6 @@ const module3: Record<string, SimDefinition[]> = {
 /* Module 4                                                            */
 /* ------------------------------------------------------------------ */
 
-const regPatients = patientsReg();
 
 /** September appointments with provider and patient names (three tables joined). */
 const septemberQuery = (): AccQuery => ({
@@ -715,7 +714,7 @@ const module4: Record<string, SimDefinition[]> = {
           instruction: "Switch the form to Design View and change the PatientFirstName label to First Name.",
           hint: "Home › Views › View › Design View. Double-click the PatientFirstName label (on the left of its box), type First Name, and press Enter.",
           steps: [
-            cmd("view.switch", ["Design View", "Layout View"]),
+            viewSwitch("Design View", "Layout View"),
             typed("label:PatientRegistrationForm.PatientFirstName", "First Name", {
               alt: [{ kind: "type", target: "prop:Caption", value: "First Name", requires: { selection: "ctl:PatientRegistrationForm.PatientFirstName_Label" } }],
             }),
@@ -848,7 +847,7 @@ const module4: Record<string, SimDefinition[]> = {
           instruction: "Switch the report to Design View and change the title text to Monthly Appointment Summary.",
           hint: "Close Print Preview › Close Print Preview opens Design View (or Home › View › Design View). Double-click the title in the Report Header, type the new text, and press Enter.",
           steps: [
-            cmd("view.switch", ["Design View", "Layout View"], { alt: [{ kind: "command", id: "preview.close" }] }),
+            { ...viewSwitch("Design View", "Layout View"), alt: [{ kind: "command", id: "preview.close" }] },
             typed("label:MonthlyAppointmentSummary.Title", "Monthly Appointment Summary", {
               alt: [{ kind: "type", target: "prop:Caption", value: "Monthly Appointment Summary", requires: { selection: "ctl:MonthlyAppointmentSummary.Title" } }],
             }),
@@ -1212,12 +1211,565 @@ const module5: Record<string, SimDefinition[]> = {
   ],
 };
 
+/* ------------------------------------------------------------------ */
+/* Module 6                                                            */
+/* ------------------------------------------------------------------ */
+
+/** Patients with a text Status field, for the SQL lesson's examples. */
+const sqlPatients = (): AccTable => {
+  const p = patients();
+  return table(
+    "Patients",
+    [fld.auto("PatientID"), fld.text("LastName", 50, { required: true }), fld.text("FirstName", 50), fld.text("City", 30), fld.text("Status", 10, { defaultValue: '"Active"' })],
+    p.rows.map((r) => [r.PatientID, r.LastName, r.FirstName, r.City, r.IsActivePatient ? "Active" : "Inactive"]),
+  );
+};
+/* Thompson (Queens) is made inactive so the missing parentheses show up in the results. */
+const sqlPatientsTable = (() => {
+  const t = sqlPatients();
+  t.rows.find((r) => r.LastName === "Thompson")!.Status = "Inactive";
+  return t;
+})();
+
+const buggyQuery = (): AccQuery => ({
+  name: "Active Brooklyn and Queens Patients",
+  type: "Select",
+  tables: ["Patients"],
+  cols: [],
+  sql: "SELECT LastName, FirstName, City, Status\nFROM Patients\nWHERE Status = 'Active' AND City = 'Brooklyn' OR City = 'Queens'\nORDER BY LastName;",
+  saved: true,
+});
+
+const DATE_ANSWERS = (m: number, d: number) => [`${m}/${d}/2026`, `${String(m).padStart(2, "0")}/${String(d).padStart(2, "0")}/2026`, `${m}/${d}/26`];
+const TOTAL_COST = spaced("TotalCost: [Quantity]*[UnitCost]", "TotalCost: [UnitCost]*[Quantity]");
+
+const module6: Record<string, SimDefinition[]> = {
+  "module-6::understanding-sql": [
+    {
+      id: "access-id-m6-understanding-sql-1",
+      app: "access",
+      title: "Read and write SQL",
+      scenario:
+        "A query left by a previous employee returns inactive patients it should skip. You read its SQL to find the bug, then write two supply queries by hand in SQL View.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 9,
+      initial: accessDoc({ tables: [sqlPatientsTable, supplies()], queries: [buggyQuery()] }),
+      tasks: [
+        {
+          instruction: "Open the Active Brooklyn and Queens Patients query in SQL View.",
+          hint: "Right-click the query in the Navigation Pane and choose Design View, then Home › Views › View › SQL View.",
+          steps: [openIn("query", "Active Brooklyn and Queens Patients", "SQL View")],
+        },
+        {
+          instruction: "AND is applied before OR, so inactive Queens patients slip through. Put parentheses around the two City conditions, then run the query.",
+          hint: "Edit the WHERE line so it reads WHERE Status = 'Active' AND (City = 'Brooklyn' OR City = 'Queens'), then click Query Design › Results › Run.",
+          anyOrder: true,
+          steps: [
+            typed("sql:Active Brooklyn and Queens Patients", ["where", "status", "active", "and", "(", "brooklyn", "or", "queens", ")"], { match: "all" }),
+            runQuery(),
+          ],
+        },
+        {
+          instruction: "Start a new query and switch it to SQL View.",
+          hint: "Create › Queries › Query Design. Close the Add Tables pane, then Query Design › Results › SQL View (or Home › View › SQL View).",
+          steps: [cmd("create.queryDesign"), viewSwitch("SQL View")],
+        },
+        {
+          instruction: "Write a statement that returns ItemName, Category, Quantity and ReorderLevel from Supplies for items whose Quantity is below their ReorderLevel, sorted by Category. Run it.",
+          hint: "Type SELECT ItemName, Category, Quantity, ReorderLevel FROM Supplies WHERE Quantity < ReorderLevel ORDER BY Category; then click Run.",
+          anyOrder: true,
+          steps: [
+            typed("sql:Query1", ["select", "itemname", "category", "quantity", "reorderlevel", "from supplies", "where", "<", "order by"], { match: "all" }),
+            runQuery(),
+          ],
+        },
+        {
+          instruction: "Save the query as Below Reorder Level.",
+          hint: SAVE_HINT,
+          steps: [saveAs("Below Reorder Level")],
+        },
+        {
+          instruction: "In a new query, write SQL that returns ItemName and Category from Supplies for items whose name begins with Glove. Run it and save it as Glove Items.",
+          hint: "Create › Queries › Query Design, then View › SQL View. Type SELECT ItemName, Category FROM Supplies WHERE ItemName LIKE 'Glove*'; Run it, then press Ctrl+S and name it Glove Items.",
+          anyOrder: true,
+          steps: [
+            cmd("create.queryDesign"),
+            viewSwitch("SQL View"),
+            typed("sql:Query1", ["select", "itemname", "from supplies", "where", "like", "glove*"], { match: "all" }),
+            runQuery(),
+            saveAs("Glove Items"),
+          ],
+        },
+      ],
+    },
+  ],
+
+  "module-6::parameter-queries-and-calculated-fields": [
+    {
+      id: "access-id-m6-parameter-queries-1",
+      app: "access",
+      title: "One query for every date range",
+      scenario:
+        "The practice manager asks for supply orders by month, and the Navigation Pane already holds six nearly identical monthly queries. You replace them with one query that asks for the dates and calculates each order's total cost.",
+      fileName: "Lakeside_Supplies.accdb",
+      minutes: 8,
+      initial: accessDoc({ tables: [supplies()] }),
+      tasks: [
+        {
+          instruction: "Start a new query in Design View on the Supplies table.",
+          hint: "Create › Queries › Query Design, then double-click Supplies in the Add Tables pane.",
+          anyOrder: true,
+          steps: [cmd("create.queryDesign"), cmd("query.addTable", "Supplies")],
+        },
+        {
+          instruction: "Add ItemName, Category, Quantity, UnitCost and OrderDate to the grid.",
+          hint: "Double-click each field in the Supplies field list.",
+          anyOrder: true,
+          steps: ["ItemName", "Category", "Quantity", "UnitCost", "OrderDate"].map((f) => addQField("Query1", "Supplies", f)),
+        },
+        {
+          instruction: "Make the query ask for a date range on OrderDate with the prompts [Enter start date:] and [Enter end date:].",
+          hint: "In the Criteria row under OrderDate, type Between [Enter start date:] And [Enter end date:].",
+          steps: [qcell("Query1", "OrderDate", "Criteria", "Between [Enter start date:] And [Enter end date:]")],
+        },
+        {
+          instruction: "Add a calculated field named TotalCost that multiplies Quantity by UnitCost.",
+          hint: "In the first empty Field cell, type TotalCost: [Quantity]*[UnitCost] and press Enter.",
+          steps: [qcell("Query1", "new", "Field", TOTAL_COST)],
+        },
+        {
+          instruction: "Run the query for September 2026, entering 9/1/2026 as the start date and 9/30/2026 as the end date.",
+          hint: "Query Design › Results › Run. Type 9/1/2026 in the first box and click OK, then 9/30/2026 in the second and click OK.",
+          steps: [runQuery(), cmd("query.parameter", DATE_ANSWERS(9, 1)), cmd("query.parameter", DATE_ANSWERS(9, 30))],
+        },
+        {
+          instruction: "Save the query as Supply Orders by Date.",
+          hint: SAVE_HINT,
+          steps: [saveAs("Supply Orders by Date")],
+        },
+      ],
+    },
+    {
+      id: "access-id-m6-parameter-queries-2",
+      app: "access",
+      title: "Total supply spending by category",
+      scenario:
+        "The practice manager wants to know how many supply items each category has and what they are worth. A totals query answers both questions from current data every time it runs.",
+      fileName: "Lakeside_Supplies.accdb",
+      minutes: 6,
+      initial: accessDoc({ tables: [supplies()] }),
+      tasks: [
+        {
+          instruction: "Start a new query in Design View on Supplies and add the Category and ItemName fields.",
+          hint: "Create › Queries › Query Design, double-click Supplies, then double-click Category and ItemName.",
+          anyOrder: true,
+          steps: [cmd("create.queryDesign"), cmd("query.addTable", "Supplies"), addQField("Query1", "Supplies", "Category"), addQField("Query1", "Supplies", "ItemName")],
+        },
+        {
+          instruction: "Add a calculated field named TotalCost that multiplies Quantity by UnitCost.",
+          hint: "In the first empty Field cell, type TotalCost: [Quantity]*[UnitCost].",
+          steps: [qcell("Query1", "new", "Field", TOTAL_COST)],
+        },
+        {
+          instruction: "Turn the query into a totals query.",
+          hint: "Query Design › Show/Hide › Totals. A Total row appears in the grid.",
+          steps: [cmd("query.totals")],
+        },
+        {
+          instruction: "Keep Group By on Category, count the items with Count on ItemName, and add up TotalCost with Sum.",
+          hint: "In the Total row, choose Count under ItemName and Sum under TotalCost.",
+          anyOrder: true,
+          steps: [qcell("Query1", "ItemName", "Total", "Count"), qcell("Query1", "TotalCost", "Total", "Sum")],
+        },
+        {
+          instruction: "Run the query and save it as Spending by Category.",
+          hint: "Query Design › Results › Run, then press Ctrl+S, type Spending by Category, and click OK.",
+          anyOrder: true,
+          steps: [runQuery(), saveAs("Spending by Category")],
+        },
+      ],
+    },
+  ],
+};
+
+/* ------------------------------------------------------------------ */
+/* Module 7                                                            */
+/* ------------------------------------------------------------------ */
+
+const DEPTS = ["Front Desk", "Exam Rooms", "Lab", "Billing"];
+/** Supply orders by month and department, for the crosstab. */
+const deptOrders = (): AccTable => {
+  const rows: (string | number)[][] = [];
+  const amounts = [
+    [86.4, 212.75, 64.1, 41.99],
+    [92.15, 188.3, 71.6, 55.5],
+    [79.9, 240.1, 58.25, 41.99],
+  ];
+  ["2026-07", "2026-08", "2026-09"].forEach((month, mi) => DEPTS.forEach((dept, di) => rows.push([rows.length + 1, month, dept, amounts[mi][di]])));
+  return table("SupplyOrders", [fld.auto("OrderID"), fld.text("OrderMonth", 7), fld.text("Department", 30), fld.cur("TotalCost")], rows);
+};
+
+/** Orders from late 2025 and 2026, and an empty archive with the same fields. */
+const ORDER_FIELDS = () => [fld.auto("OrderID"), fld.date("OrderDate"), fld.text("Department", 30), fld.text("ItemName", 60), fld.cur("TotalCost")];
+const oldOrders = (): AccTable =>
+  table("SupplyOrders", ORDER_FIELDS(), [
+    [1, "2025-09-12", "Exam Rooms", "Exam Table Paper", 224],
+    [2, "2025-10-03", "Front Desk", "Appointment Cards", 60],
+    [3, "2025-11-12", "Exam Rooms", "Tongue Depressors", 46.5],
+    [4, "2025-12-03", "Front Desk", "Copy Paper (Case)", 125.97],
+    [5, "2025-12-18", "Lab", "Specimen Cups", 42.5],
+    [6, "2026-01-09", "Exam Rooms", "Gloves, Nitrile Medium", 179],
+    [7, "2026-02-20", "Billing", "File Folders (Box)", 73.75],
+    [8, "2026-04-11", "Lab", "Specimen Cups", 42.5],
+    [9, "2026-06-30", "Exam Rooms", "Exam Table Paper", 224],
+    [10, "2026-09-25", "Front Desk", "Copy Paper (Case)", 83.98],
+  ]);
+const ordersArchive = (): AccTable => {
+  const t = table("SupplyOrdersArchive", ORDER_FIELDS(), []);
+  t.fields[0] = fld.num("OrderID");
+  t.pk = ["OrderID"];
+  return t;
+};
+
+const supplyCosts = (): AccQuery => ({
+  name: "Supply Costs",
+  type: "Select",
+  tables: ["Supplies"],
+  cols: [
+    { field: "ItemName", table: "Supplies", show: true },
+    { field: "Category", table: "Supplies", show: true },
+    { field: "Vendor", table: "Supplies", show: true },
+    { field: "Quantity", table: "Supplies", show: true },
+    { field: "UnitCost", table: "Supplies", show: true },
+    { field: "TotalCost: [Quantity]*[UnitCost]", table: "Supplies", show: true, format: "Currency" },
+  ],
+  saved: true,
+});
+
+const ARCHIVE_FIELDS = ["OrderID", "OrderDate", "Department", "ItemName", "TotalCost"];
+
+const module7: Record<string, SimDefinition[]> = {
+  "module-7::advanced-query-types": [
+    {
+      id: "access-id-m7-advanced-query-types-1",
+      app: "access",
+      title: "Summarize spending and update prices",
+      scenario:
+        "The practice manager wants supply spending laid out with departments down the side and months across the top. Then the medical supplier announces a 5 percent price increase that has to go into the price list.",
+      fileName: "Lakeside_Supplies.accdb",
+      minutes: 8,
+      initial: accessDoc({ tables: [deptOrders(), supplies()] }),
+      tasks: [
+        {
+          instruction: "Use the Crosstab Query Wizard on the SupplyOrders table: Department as row headings, OrderMonth as column headings, and the Sum of TotalCost at each intersection. Name the query Spending by Department.",
+          hint: "Create › Queries › Query Wizard › Crosstab Query Wizard › OK. Pick Table: SupplyOrders, move Department to the row headings, click OrderMonth for the columns, choose TotalCost and Sum, then type the name and click Finish.",
+          steps: [
+            dlg("backstage:queryWizard", { wizard: "Crosstab Query Wizard", source: "Table: SupplyOrders", rowHeadings: "Department", columnHeading: "OrderMonth", value: "TotalCost", fn: "Sum", title: "Spending by Department" }),
+          ],
+        },
+        {
+          instruction: "Start a new query in Design View on the Supplies table and change it to an update query.",
+          hint: "Create › Queries › Query Design, double-click Supplies, then Query Design › Query Type › Update.",
+          anyOrder: true,
+          steps: [cmd("create.queryDesign"), cmd("query.addTable", "Supplies"), cmd("query.type", "Update")],
+        },
+        {
+          instruction: "For items in the Medical category only, update UnitCost to [UnitCost]*1.05",
+          hint: "Add Category and UnitCost to the grid. Type Medical in the Criteria row under Category, and [UnitCost]*1.05 in the Update To row under UnitCost.",
+          anyOrder: true,
+          steps: [
+            addQField("Query1", "Supplies", "Category"),
+            addQField("Query1", "Supplies", "UnitCost"),
+            qcell("Query1", "Category", "Criteria", '"Medical"'),
+            qcell("Query1", "UnitCost", "Update To", "[UnitCost]*1.05"),
+          ],
+        },
+        {
+          instruction: "Run the update query and confirm the change.",
+          hint: "Query Design › Results › Run, then click Yes in the message that asks you to confirm.",
+          steps: [cmd("query.run"), cmd("query.execute")],
+        },
+        {
+          instruction: "Save the query as Medical Price Increase.",
+          hint: SAVE_HINT,
+          steps: [saveAs("Medical Price Increase")],
+        },
+      ],
+    },
+    {
+      id: "access-id-m7-advanced-query-types-2",
+      app: "access",
+      title: "Archive last year's orders",
+      scenario:
+        "The SupplyOrders table has grown slow, and the manager wants orders from before 2026 moved into SupplyOrdersArchive. Action queries cannot be undone, so you back up first and check the records before changing anything.",
+      fileName: "Lakeside_Supplies.accdb",
+      minutes: 9,
+      initial: accessDoc({ tables: [oldOrders(), ordersArchive()] }),
+      tasks: [
+        {
+          instruction: "Back up the database before running any action query, keeping the suggested name and folder.",
+          hint: "File › Save As › Back Up Database › Save As, then click Save.",
+          steps: [dlg("file.saveAs", { format: "Back Up Database", name: "Lakeside_Supplies_2026-10-20" })],
+        },
+        {
+          instruction: "Start a new query in Design View on SupplyOrders with the OrderID, OrderDate, Department, ItemName and TotalCost fields.",
+          hint: "Create › Queries › Query Design, double-click SupplyOrders, then double-click each of the five fields.",
+          anyOrder: true,
+          steps: [cmd("create.queryDesign"), cmd("query.addTable", "SupplyOrders"), ...ARCHIVE_FIELDS.map((f) => addQField("Query1", "SupplyOrders", f))],
+        },
+        {
+          instruction: "Show only orders dated before 1/1/2026, and run the query to check exactly which records it selects.",
+          hint: "Type <#1/1/2026# in the Criteria row under OrderDate, then Query Design › Results › Run.",
+          anyOrder: true,
+          steps: [qcell("Query1", "OrderDate", "Criteria", "<#1/1/2026#"), runQuery()],
+        },
+        {
+          instruction: "Turn the query into an append query that adds these records to SupplyOrdersArchive, then run it.",
+          hint: "Home › View › Design View. Query Design › Query Type › Append, choose SupplyOrdersArchive, and click OK. Then click Run and choose Yes.",
+          steps: [dlg("appendTo", { name: "SupplyOrdersArchive" }), cmd("query.run"), cmd("query.execute")],
+        },
+        {
+          instruction: "With the archive copy made, change the same query to a delete query and run it to remove those orders from SupplyOrders.",
+          hint: "Query Design › Query Type › Delete, then Run and choose Yes. Using the same criteria guarantees you delete exactly what you archived.",
+          steps: [cmd("query.type", "Delete"), cmd("query.run"), cmd("query.execute")],
+        },
+        {
+          instruction: "Save the query as Archive Old Orders.",
+          hint: SAVE_HINT,
+          steps: [saveAs("Archive Old Orders")],
+        },
+      ],
+    },
+  ],
+
+  "module-7::designing-reports": [
+    {
+      id: "access-id-m7-designing-reports-1",
+      app: "access",
+      title: "Turn the supply list into a report",
+      scenario:
+        "Your first supply report printed 11 pages in entry order with headings only on page one. You rebuild it grouped by category, sorted by item, with totals and page numbers, so the manager can actually use it.",
+      fileName: "Lakeside_Supplies.accdb",
+      minutes: 9,
+      initial: accessDoc({ tables: [supplies()], queries: [supplyCosts()] }),
+      tasks: [
+        {
+          instruction: "Create a report from the Supply Costs query in one click.",
+          hint: "Click Supply Costs in the Navigation Pane, then Create › Reports › Report.",
+          steps: [cmd("create.report", undefined, { requires: { selection: "nav:query:Supply Costs" }, selectHint: "Click Supply Costs in the Navigation Pane first." })],
+        },
+        {
+          instruction: "Group the report by Category.",
+          hint: "Report Layout Design › Grouping & Totals › Group & Sort. In the pane at the bottom, click Add a group and choose Category.",
+          steps: [cmd("report.addGroup", "Category")],
+        },
+        {
+          instruction: "Within each category, sort the items by ItemName from A to Z.",
+          hint: "In the Group, Sort, and Total pane, click Add a sort and choose ItemName.",
+          steps: [cmd("report.addSort", "ItemName")],
+        },
+        {
+          instruction: "Add a sum of TotalCost for each category and for the whole report.",
+          hint: "Click any value in the TotalCost column, then Report Layout Design › Grouping & Totals › Totals › Sum.",
+          steps: [cmd("report.totals", "Sum", { requires: { selection: ctl("Supply Costs", "TotalCost") }, selectHint: "Click the TotalCost column first." })],
+        },
+        {
+          instruction: "Change the report title to Quarterly Supply Report.",
+          hint: "Double-click the title at the top of the report, type Quarterly Supply Report, and press Enter.",
+          steps: [
+            typed("label:Supply Costs.Title", "Quarterly Supply Report", {
+              alt: [{ kind: "type", target: "prop:Caption", value: "Quarterly Supply Report", requires: { selection: "ctl:Supply Costs.Title" } }],
+            }),
+          ],
+        },
+        {
+          instruction: "Number the pages in the Page N of M format at the bottom of each page, centered.",
+          hint: "Report Layout Design › Header / Footer › Page Numbers. Choose Page N of M, Bottom of Page [Footer], and Center, then click OK.",
+          steps: [dlg("pageNumbers", { format: "Page N of M", position: "Bottom of Page [Footer]", align: "Center" })],
+        },
+        {
+          instruction: "Preview the report, change it to Landscape, and save it as Quarterly Supply Report.",
+          hint: "Home › View › Print Preview, then Print Preview › Page Layout › Landscape. Press Ctrl+S, type Quarterly Supply Report, and click OK.",
+          anyOrder: true,
+          steps: [viewSwitch("Print Preview"), cmd("pageSetup.landscape", undefined, { alt: [{ kind: "dialog", id: "pageSetup", values: { orientation: "Landscape" } }] }), saveAs("Quarterly Supply Report")],
+        },
+      ],
+    },
+  ],
+};
+
+/* ------------------------------------------------------------------ */
+/* Module 8                                                            */
+/* ------------------------------------------------------------------ */
+
+const frontDeskForms = (): AccForm[] => [
+  {
+    name: "Appointments",
+    recordSource: "Appointments",
+    layout: "Columnar",
+    controls: [
+      { id: "Title", kind: "label", caption: "Appointments", section: "Form Header", order: 0, fontSize: 18 },
+      ...["AppointmentID", "PatientID", "ProviderID", "AppointmentDate", "VisitType", "Copay"].map((f, i) => ({ id: f, kind: "textbox" as const, source: f, label: f, section: "Detail", order: i + 1 })),
+    ],
+    saved: true,
+    allowAdditions: true,
+  },
+  {
+    name: "Patient Check-In",
+    recordSource: "Patients",
+    layout: "Columnar",
+    controls: [
+      { id: "Title", kind: "label", caption: "Patient Check-In", section: "Form Header", order: 0, fontSize: 18 },
+      ...["PatientID", "LastName", "FirstName", "Phone", "InsurancePlan"].map((f, i) => ({ id: f, kind: "textbox" as const, source: f, label: f, section: "Detail", order: i + 1 })),
+    ],
+    saved: true,
+    allowAdditions: true,
+  },
+  {
+    name: "Front Desk Menu",
+    recordSource: "",
+    layout: "Columnar",
+    controls: [
+      { id: "Title", kind: "label", caption: "Front Desk Menu", section: "Form Header", order: 0, fontSize: 18 },
+      { id: "cmdMorning", kind: "button", caption: "Start My Day", section: "Detail", order: 1 },
+    ],
+    saved: true,
+  },
+];
+
+const STOCK_TOOLS = `Option Compare Database
+Option Explicit
+
+Sub CountLowStock()
+    Dim db As DAO.Database
+    Dim rs As DAO.Recordset
+    Dim lowCount As Integer
+
+    Set db = CurrentDb
+    Set rs = db.OpenRecordset("SELECT * FROM Supplies")
+
+    lowCount = 0
+    Do Until rs.EOF
+        ' Count the items below their reorder level here.
+
+        rs.MoveNext
+    Loop
+
+    MsgBox lowCount & " items are below reorder level."
+
+    rs.Close
+    Set rs = Nothing
+    Set db = Nothing
+End Sub
+`;
+
+const module8: Record<string, SimDefinition[]> = {
+  "module-8::macros-and-automation": [
+    {
+      id: "access-id-m8-macros-and-automation-1",
+      app: "access",
+      title: "Automate the morning routine",
+      scenario:
+        "Every morning five front desk staff open the appointments form, filter it to today, and open the check-in form, and one of them keeps forgetting the filter. You turn the routine into a macro behind one button.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 9,
+      initial: accessDoc({ tables: [patients(), appointments(), providers()], relationships: apptRelationships(), forms: frontDeskForms() }),
+      tasks: [
+        {
+          instruction: "Create a new macro whose first action opens the Appointments form.",
+          hint: "Create › Macros & Code › Macro. In Add New Action, choose OpenForm, then choose Appointments in the Form Name box.",
+          steps: [cmd("create.macro"), cmd("macro.addAction", "OpenForm"), typed("marg:Macro1.1.Form Name", "Appointments")],
+        },
+        {
+          instruction: "Add an action that filters the form to today's appointments with the where condition [AppointmentDate]=Date()",
+          hint: "In Add New Action, choose ApplyFilter, then type [AppointmentDate]=Date() in Where Condition.",
+          steps: [cmd("macro.addAction", "ApplyFilter"), typed("marg:Macro1.2.Where Condition", spaced("[AppointmentDate]=Date()"))],
+        },
+        {
+          instruction: "Add a third action that opens the Patient Check-In form.",
+          hint: "In Add New Action, choose OpenForm, then choose Patient Check-In in the Form Name box.",
+          steps: [cmd("macro.addAction", "OpenForm"), typed("marg:Macro1.3.Form Name", "Patient Check-In")],
+        },
+        {
+          instruction: "Save the macro as Morning Routine.",
+          hint: SAVE_HINT,
+          steps: [saveAs("Morning Routine")],
+        },
+        {
+          instruction: "Run the macro to test it.",
+          hint: "Macro Design › Tools › Run.",
+          steps: [cmd("macro.run")],
+        },
+        {
+          instruction: "Open the Front Desk Menu form in Design View and set the On Click event of the Start My Day button to the Morning Routine macro.",
+          hint: "Right-click Front Desk Menu and choose Design View. Click the Start My Day button, open the Property Sheet (F4), and on the Event tab choose Morning Routine in On Click.",
+          steps: [
+            openIn("form", "Front Desk Menu", "Design View"),
+            prop("On Click", "Morning Routine", "ctl:Front Desk Menu.cmdMorning", "Click the Start My Day button first."),
+          ],
+        },
+        {
+          instruction: "Save the form, switch to Form View, and click Start My Day.",
+          hint: "Press Ctrl+S, then Home › View › Form View, and click the Start My Day button.",
+          anyOrder: true,
+          steps: [saveObj(), viewSwitch("Form View"), cmd("form.click", "Front Desk Menu.cmdMorning")],
+        },
+      ],
+    },
+  ],
+
+  "module-8::introduction-to-vba": [
+    {
+      id: "access-id-m8-introduction-to-vba-1",
+      app: "access",
+      title: "Write your first VBA procedures",
+      scenario:
+        "The manager wants a count of supply items below their reorder level, which means looping through every record. Macros cannot loop, so you finish a VBA procedure a coworker started.",
+      fileName: "Lakeside_Supplies.accdb",
+      minutes: 9,
+      initial: accessDoc({ tables: [supplies()], modules: [{ name: "StockTools", code: STOCK_TOOLS, kind: "standard", saved: true }] }),
+      tasks: [
+        {
+          instruction: "Open the Visual Basic Editor and turn on Require Variable Declaration.",
+          hint: "Press Alt+F11 (Database Tools › Macro › Visual Basic). In the editor, choose Tools › Options, check Require Variable Declaration, and click OK.",
+          steps: [cmd("vba.open"), cmd("file.options", "Require Variable Declaration: Yes")],
+        },
+        {
+          instruction: "Insert a new standard module.",
+          hint: "In the editor, choose Insert › Module. Option Explicit appears at the top automatically.",
+          steps: [cmd("create.module")],
+        },
+        {
+          instruction: 'In the new module, write a Sub named ShowGreeting that displays the message Supply check starting, then run it.',
+          hint: 'Below Option Explicit, type Sub ShowGreeting(), then MsgBox "Supply check starting" on the next line, then End Sub. Click inside the procedure and press F5 (Run › Run Sub/UserForm).',
+          steps: [typed("vba:Module1", ["sub showgreeting()", "msgbox", "supply check starting", "end sub"], { match: "all" }), cmd("vba.run", "ShowGreeting")],
+        },
+        {
+          instruction: "Open the StockTools module. Inside the loop of CountLowStock, add 1 to lowCount whenever Quantity is below ReorderLevel, then run CountLowStock.",
+          hint: "Double-click StockTools in the Project Explorer. Replace the comment line with If rs!Quantity < rs!ReorderLevel Then, then lowCount = lowCount + 1, then End If. Click inside the procedure and press F5.",
+          steps: [
+            cmd("vba.module", "StockTools"),
+            typed("vba:StockTools", ["if rs!quantity < rs!reorderlevel then", "lowcount = lowcount + 1", "end if"], { match: "all" }),
+            cmd("vba.run", "CountLowStock"),
+          ],
+        },
+        {
+          instruction: "Switch back to Module1 and save it as Greetings.",
+          hint: "Double-click Module1 in the Project Explorer, press Ctrl+S, type Greetings, and click OK.",
+          steps: [cmd("vba.module", "Module1"), saveAs("Greetings")],
+        },
+      ],
+    },
+  ],
+};
+
 export const accessSims: Record<string, SimDefinition[]> = {
   ...module1,
   ...module3,
   ...module4,
   ...module5,
+  ...module6,
+  ...module7,
+  ...module8,
 };
 
-void supplies;
-void regPatients;

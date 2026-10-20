@@ -62,6 +62,8 @@ export const tab = (kind: AccTab["kind"], name: string, view: AccView): AccTab =
 export const colSel = (t: AccTable, field: string) => [`col:${t.name}.${field}`, ...t.rows.map((r) => `cell:${t.name}.${r._id}.${field}`)];
 /** A record: its selector or any of its cells. */
 export const rowSel = (t: AccTable, id: string) => [`row:${t.name}.${id}`, ...t.fields.map((f) => `cell:${t.name}.${id}.${f.name}`)];
+/** The table picked in the Navigation Pane, or anything selected in its open datasheet. */
+export const tableOrSheet = (t: AccTable) => [`nav:table:${t.name}`, ...t.fields.map((f) => `col:${t.name}.${f.name}`), ...t.rows.flatMap((r) => [`row:${t.name}.${r._id}`, ...t.fields.map((f) => `cell:${t.name}.${r._id}.${f.name}`)])];
 /** The cells in a column that hold this value. */
 export const cellsWith = (t: AccTable, field: string, value: AccValue) => t.rows.filter((r) => r[field] === value).map((r) => `cell:${t.name}.${r._id}.${field}`);
 /** A field, picked in Design view or in Datasheet view. */
@@ -90,10 +92,15 @@ export const openObj = (kind: string, name: string): SimStep => cmd("nav.open", 
 /** Open an object in a given view (right-click in the Navigation Pane), or switch the open tab to it. */
 export const openIn = (kind: string, name: string, view: AccView): SimStep => ({
   action: { kind: "command", id: "nav.view", value: `${kind}:${name}|${view}` },
-  alt: [{ kind: "command", id: "view.switch", value: view }],
+  alt: [{ kind: "command", id: "view.switch", value: viewValues(view) }],
 });
+/**
+ * The values a view switch can arrive with: the view's name (View menu, status bar)
+ * or "toggle" (the face of the View button, which flips between the two main views).
+ */
+export const viewValues = (...views: AccView[]): string[] => [...views, ...(views.some((v) => v === "Design View" || v === "Datasheet View" || v === "Form View" || v === "Report View") ? ["toggle"] : [])];
 /** Switch the active tab's view (Home › View, the status bar buttons). */
-export const viewSwitch = (view: AccView): SimStep => cmd("view.switch", view);
+export const viewSwitch = (view: AccView, ...more: AccView[]): SimStep => cmd("view.switch", viewValues(view, ...more));
 /** Name and save a new object in the Save As box (Ctrl+S, F12, File › Save, or closing the tab). */
 export const saveAs = (name: string | string[]): SimStep => dlg("saveObject", { name });
 /** Save the active object (Ctrl+S, the Quick Access Toolbar, File › Save). */
@@ -107,7 +114,7 @@ export const addQField = (query: string, table: string, field: string): SimStep 
 /** Type into a query design grid cell. */
 export const qcell = (query: string, col: string, row: string, value: string | string[]): SimStep => typed(`qcell:${query}.${col}.${row}`, value);
 /** Run the query (Run, or Datasheet View). */
-export const runQuery = (): SimStep => ({ action: { kind: "command", id: "query.run" }, alt: [{ kind: "command", id: "view.switch", value: "Datasheet View" }] });
+export const runQuery = (): SimStep => ({ action: { kind: "command", id: "query.run" }, alt: [{ kind: "command", id: "view.switch", value: ["Datasheet View", "toggle"] }] });
 
 /** Type a value into a datasheet or form cell. */
 export const cell = (table: string, id: string, field: string, value: string | string[]): SimStep => typed(`cell:${table}.${id}.${field}`, value);

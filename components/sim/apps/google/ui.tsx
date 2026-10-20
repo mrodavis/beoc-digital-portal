@@ -29,6 +29,17 @@ export interface GCtx {
   resolve: (v: string) => string;
   /** Focus the canvas so keyboard shortcuts work. */
   focus: () => void;
+  /** Callbacks the surfaces register for the canvas's keyboard and menu actions. */
+  hooksRef: { current: Hooks };
+}
+
+export interface Hooks {
+  /** Start typing into the selection ("\n" opens it for editing without a first key). */
+  type?: (key: string) => void;
+  /** File › Rename in an editor: open the title box. */
+  rename?: () => void;
+  /** Insert › Function in Sheets: start a formula. */
+  fn?: (name: string) => void;
 }
 
 export const Ctx = createContext<GCtx | null>(null);
@@ -331,7 +342,7 @@ function ComboBox({ tool }: { tool: GTool }) {
   );
 }
 
-function ToolItem({ tool }: { tool: GTool }) {
+function ToolItem({ tool, onDone }: { tool: GTool; onDone?: () => void }) {
   const g = useG();
   const run = useRunItem();
   const [menu, setMenu] = useState<MenuPos | null>(null);
@@ -342,6 +353,7 @@ function ToolItem({ tool }: { tool: GTool }) {
   const pressed = tool.kind === "toggle" && Boolean(g.state[tool.stateKey ?? ""]);
   const icon = tool.stateKey === "alignIcon" ? String(g.state.alignIcon ?? tool.icon) : tool.icon;
   const face = () => {
+    onDone?.();
     if (tool.dialog) return g.dialog(tool.dialog);
     if (tool.action) return g.act(tool.action);
     if (tool.command) return g.cmd(tool.command, tool.value === undefined ? undefined : g.resolve(tool.value));
@@ -380,10 +392,10 @@ function ToolItem({ tool }: { tool: GTool }) {
       )}
       {menu && tool.items && (
         <Popup onClose={() => setMenu(null)}>
-          <MenuList entries={tool.items} pos={menu} state={g.state} resolve={g.resolve} width={tool.id === "align" ? 200 : 240} onPick={(i) => { setMenu(null); run(i); }} onClose={() => setMenu(null)} />
+          <MenuList entries={tool.items} pos={menu} state={g.state} resolve={g.resolve} width={tool.id === "align" ? 200 : 240} onPick={(i) => { setMenu(null); onDone?.(); run(i); }} onClose={() => setMenu(null)} />
         </Popup>
       )}
-      {colors && <ColorGrid pos={colors} resetLabel={tool.command === "home.highlight" ? "None" : "Reset"} onClose={() => setColors(null)} onPick={(hex) => { setColors(null); g.cmd(tool.command!, hex); }} />}
+      {colors && <ColorGrid pos={colors} resetLabel={tool.command === "home.highlight" ? "None" : "Reset"} onClose={() => setColors(null)} onPick={(hex) => { setColors(null); onDone?.(); g.cmd(tool.command!, hex); }} />}
     </>
   );
 }
@@ -424,7 +436,7 @@ export function Toolbar({ tools, right }: { tools: GTool[]; right?: React.ReactN
       {over && (
         <Popup onClose={() => setOver(null)}>
           <div className="fixed z-[200] flex max-w-[380px] flex-wrap items-center gap-[1px] rounded-md bg-white p-1.5" style={{ left: over.x, top: over.y, boxShadow: "0 2px 6px 2px rgba(60,64,67,.15)" }}>
-            {tools.slice(visibleCount).map((t, i) => <ToolItem key={i} tool={t} />)}
+            {tools.slice(visibleCount).map((t, i) => <ToolItem key={i} tool={t} onDone={() => setOver(null)} />)}
           </div>
         </Popup>
       )}
@@ -671,20 +683,20 @@ export function EditorHeader({ menus, extraRight }: { menus: Record<string, GEnt
   const g = useG();
   const { doc } = g;
   const f = openFile(doc)!;
-  const [editing, setEditing] = useState<string | null>(null);
+  const [editing, setEditingState] = useState<string | null>(null);
+  const live = useRef<string | null>(null);
+  const setEditing = (v: string | null) => { live.current = v; setEditingState(v); };
   const [status, setStatus] = useState(false);
   const surface = doc.surface as "docs" | "sheets" | "slides";
   const commitName = () => {
-    const v = editing;
+    // Enter commits and moves focus, which also blurs the box: commit once.
+    const v = live.current;
+    if (v === null) return;
     setEditing(null);
-    if (v !== null && v.trim() && v.trim() !== f.name) g.onCommit({ kind: "type", target: `rename:${f.id}`, value: v.trim() });
+    if (v.trim() && v.trim() !== f.name) g.onCommit({ kind: "type", target: `rename:${f.id}`, value: v.trim() });
     g.focus();
   };
-  useEffect(() => {
-    const h = () => setEditing(f.name);
-    window.addEventListener("g-rename", h);
-    return () => window.removeEventListener("g-rename", h);
-  }, [f.name]);
+  g.hooksRef.current.rename = () => setEditing(f.name);
   const others = (f.sharing?.people ?? []).length > 0 || (f.sharing?.access && f.sharing.access !== "Restricted");
   return (
     <div className="flex shrink-0 items-start gap-1 px-3 pt-2" style={{ fontFamily: TEXT_FONT }}>

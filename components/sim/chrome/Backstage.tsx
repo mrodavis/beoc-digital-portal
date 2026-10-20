@@ -177,6 +177,9 @@ export function Backstage({
                   onPick={(v) => commit({ kind: "command", id: "file.inspect", value: v })}
                 />
                 <InfoRow icon="history" title="Version History" text="View and restore previous versions." onClick={() => commit({ kind: "command", id: "file.versionHistory" })} />
+                {(spec.info ?? []).map((r) => (
+                  <InfoRow key={r.title} icon={r.icon ?? "link"} title={r.title} text={r.text} onClick={() => commit({ kind: "command", id: r.command, value: r.value })} />
+                ))}
               </div>
               <div className="w-56 text-[12px] text-gray-600">
                 <h3 className="mb-2 text-[13px] font-semibold text-gray-900">Properties</h3>
@@ -355,6 +358,11 @@ export function Backstage({
                 <button type="button" onClick={() => commit({ kind: "command", id: "file.changeType", value: spec.formats[1] ?? spec.formats[0] })} className="flex items-center gap-2 px-2 py-2 text-left hover:bg-gray-100">
                   <Icon name="new" size={22} /> Change File Type
                 </button>
+                {(spec.exports ?? []).map((x) => (
+                  <button key={x.label} type="button" onClick={() => commit({ kind: "command", id: x.command, value: x.value })} className="flex items-center gap-2 px-2 py-2 text-left hover:bg-gray-100">
+                    <Icon name={x.icon ?? "new"} size={22} /> {x.label}
+                  </button>
+                ))}
               </div>
               <div className="flex max-w-sm flex-col gap-3 text-[12px]">
                 <p>Preserves layout, formatting, fonts, and images. Content can&apos;t be easily changed.</p>

@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { PptDeck, PptObject, PptSlide } from "@/types/sim";
+import { createPortal } from "react-dom";
+import type { PptDeck, PptObject, PptSlide, SimCommit } from "@/types/sim";
 import type { CanvasProps, MenuItem, StatusBarProps } from "../../types";
 import { Icon } from "../../chrome/icons";
-import { LAYOUTS, activeSlide, layoutName, themeOf } from "./model";
+import { LAYOUTS, activeSlide, layoutName, readClip, themeOf } from "./model";
 import { flagJson, ox, readMaster } from "./ext";
 import { PartEditor, SlideView } from "./PptSlide";
-import { ChartDataSheet, PptPane } from "./PptPanes";
+import { ChartDataSheet, ClipboardPane, PptPane } from "./PptPanes";
 import { SlideShow } from "./PptShow";
+import { CustomShowsDialog, LinksDialog } from "./PptDialogs";
 
 const TEXT_PARTS = ["title", "subtitle", "body", "body2", "notes"];
 const isCell = (k: string) => /^[^.]+\.o\d+\.r\d+c\d+$/.test(k);
@@ -16,21 +18,31 @@ const cellRC = (k: string): [number, number] => {
   const m = /r(\d+)c(\d+)$/.exec(k);
   return m ? [Number(m[1]), Number(m[2])] : [1, 1];
 };
+const isMasterScope = (sid: string) => sid === "master" || sid.startsWith("layout:");
 
-/** A stand-in slide used to draw the slide master or one of its layouts. */
+/** A stand-in slide used to draw (and edit) the slide master or one of its layouts. */
 function masterSlide(deck: PptDeck, key: string): PptSlide {
   const m = readMaster(deck);
   if (key === "master") {
-    return { id: "master", layout: "Title and Content", title: "Click to edit Master title style", body: ["Click to edit Master text styles", "\tSecond level", "\t\tThird level"], objects: m.objects ?? [] };
+    return { id: "master", layout: "Title and Content", title: m.titleText || "Click to edit Master title style", body: m.bodyText?.length ? m.bodyText : ["Click to edit Master text styles", "\tSecond level", "\t\tThird level"], objects: m.objects ?? [] };
   }
   const name = key.replace(/^layout:/, "");
   const layout = LAYOUTS.includes(name) ? name : "Title and Content";
+  const typed = m.layoutText?.[name] ?? {};
   const s: PptSlide = { id: key, layout, objects: m.layoutObjects?.[name] ?? [] };
-  if (layout !== "Blank") s.title = "Click to edit Master title style";
-  if (layout === "Title Slide" || layout === "Section Header") s.subtitle = "Click to edit Master subtitle style";
-  if (!["Title Slide", "Section Header", "Title Only", "Blank", "Picture with Caption"].includes(layout)) s.body = ["Click to edit Master text styles", "\tSecond level"];
-  if (layout === "Two Content" || layout === "Comparison" || layout === "Content with Caption" || layout === "Picture with Caption") s.body2 = ["Click to edit Master text styles"];
+  if (layout !== "Blank") s.title = typed.title || "Click to edit Master title style";
+  if (layout === "Title Slide" || layout === "Section Header") s.subtitle = typed.subtitle || "Click to edit Master subtitle style";
+  if (!["Title Slide", "Section Header", "Title Only", "Blank", "Picture with Caption"].includes(layout)) s.body = typed.body ? typed.body.split("\n") : ["Click to edit Master text styles", "\tSecond level"];
+  if (layout === "Two Content" || layout === "Comparison" || layout === "Content with Caption" || layout === "Picture with Caption") s.body2 = typed.body2 ? typed.body2.split("\n") : ["Click to edit Master text styles"];
   return s;
+}
+
+/**
+ * The window a sim runs in (SimPlayer's root). Dialogs drawn by the canvas are portaled there so
+ * they cover the whole window like the player's own dialogs.
+ */
+function simRootOf(el: Element | null): HTMLElement | null {
+  return (el?.closest('[aria-label*="practice simulation"]') as HTMLElement | null) ?? null;
 }
 
 export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<PptDeck>) {
@@ -75,8 +87,31 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     return () => ro.disconnect();
   }, [view]);
 
-  const findSlide = (sid: string) => deck.slides.find((x) => x.id === sid);
+  // "master" and "layout:<name>" resolve to the stand-in slide drawn in Slide Master view, so
+  // typing into a master or layout placeholder or object works like typing on a slide.
+  const findSlide = (sid: string) => (isMasterScope(sid) ? (deck.view === "master" ? masterSlide(deck, sid) : undefined) : deck.slides.find((x) => x.id === sid));
   const findObj = (sid: string, oid: string) => findSlide(sid)?.objects?.find((o) => o.id === oid);
+
+  // The Clipboard group's dialog box launcher opens the Office Clipboard pane. The shared Ribbon's
+  // launchers can only open dialogs, so the canvas takes that one click (inside this sim's window)
+  // and runs the pane command instead. Search › "Clipboard" still opens the Clipboard dialog.
+  const commitRef = useRef(onCommit);
+  commitRef.current = onCommit;
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const btn = (e.target as Element | null)?.closest?.('button[aria-label="Clipboard dialog box launcher"]');
+      const root = simRootOf(focusRef.current);
+      if (!btn || !root || !root.contains(btn)) return;
+      e.preventDefault();
+      e.stopPropagation();
+      commitRef.current({ kind: "command", id: "home.clipboardPane" });
+    };
+    window.addEventListener("click", onClick, true);
+    return () => window.removeEventListener("click", onClick, true);
+  }, []);
+  // Canvas dialogs (Custom Shows, Links) cover the whole window, like the player's dialogs.
+  const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
+  useEffect(() => { setPortalRoot(simRootOf(focusRef.current)); }, [view]);
 
   const textOf = (key: string): string => {
     const [sid, part, sub] = key.split(".");
@@ -182,6 +217,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
       onCommit({ kind: "command", id: sel.includes(".") ? "edit.delete" : "slides.delete" });
       return;
     }
+    if (sel.endsWith(".anim")) return; // an Animation Pane item: Delete removes the effect; typing does nothing
     if (k === "Tab") {
       const parts = sel.split(".");
       if (parts.length === 3 && (parts[1] === "body" || parts[1] === "body2")) {
@@ -280,9 +316,44 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     ]);
   };
 
+  /** Paste Options for what is on the clipboard, then Paste Special (like the right-click Paste Options icons). */
+  const pasteItems = (textTarget: boolean): MenuItem[] => {
+    const clip = readClip(deck);
+    if (!clip) return [{ label: "Paste", icon: "paste", disabled: true, shortcut: "Ctrl+V" }];
+    const opt = (v: string): MenuItem => ({ label: `Paste Options: ${v}`, icon: v.includes("Link") ? "link" : "paste", command: "home.paste", value: v });
+    const chart = clip.kind === "obj" && clip.objs.length === 1 && clip.objs[0].kind === "chart" && !ox(clip.objs[0]).ole;
+    const linkable = Boolean(clip.source?.file);
+    const options = chart
+      ? ["Use Destination Theme & Embed Workbook", "Keep Source Formatting & Embed Workbook", ...(linkable ? ["Use Destination Theme & Link Data", "Keep Source Formatting & Link Data"] : []), "Picture"]
+      : clip.kind === "text" || textTarget ? ["Use Destination Theme", "Keep Source Formatting", "Picture", "Keep Text Only"] : ["Use Destination Theme", "Keep Source Formatting", "Picture"];
+    return [{ label: "Paste", icon: "paste", command: "home.paste", shortcut: "Ctrl+V" }, ...options.map(opt), { label: "Paste Special...", icon: "paste", dialog: "pasteSpecial", shortcut: "Ctrl+Alt+V" }];
+  };
+
+  /** Right-click on an empty part of the slide. */
+  const backgroundMenu = (e: React.MouseEvent, s: PptSlide) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (editRef.current) commitEdit();
+    onSelect({ slide: s.id, selection: s.id });
+    onContextMenu(e.clientX, e.clientY, [
+      ...pasteItems(false),
+      { separator: true },
+      ...LAYOUTS.map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
+      { label: "Reset Slide", icon: "reset", command: "slides.reset" },
+      { separator: true },
+      { label: "Format Background...", icon: "background", dialog: "formatBackground" },
+      { label: "New Comment", icon: "comment", dialog: "newComment" },
+    ]);
+  };
+
   const partMenu = (e: React.MouseEvent, key: string) => {
     e.preventDefault();
     e.stopPropagation();
+    if (!key.includes(".")) {
+      const bg = findSlide(key);
+      if (bg && !isMasterScope(key)) backgroundMenu(e, bg);
+      return;
+    }
     if (!ui.selection.split(",").includes(key)) onSelect({ selection: key, slide: key.split(".")[0] });
     const [sid, part, sub] = key.split(".");
     const s = findSlide(sid);
@@ -297,10 +368,13 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     items.push(
       { label: "Cut", icon: "cut", command: "home.cut", shortcut: "Ctrl+X" },
       { label: "Copy", icon: "copy", command: "home.copy", shortcut: "Ctrl+C" },
-      { label: "Paste", icon: "paste", command: "home.paste", shortcut: "Ctrl+V" },
-      { label: "Paste Options: Keep Text Only", icon: "paste", command: "home.paste", value: "Keep Text Only" },
+      ...pasteItems(TEXT_PARTS.includes(part)),
       { separator: true },
     );
+    if (part === "notes") {
+      onContextMenu(e.clientX, e.clientY, [...items, { label: "Font...", icon: "fontColor", dialog: "font" }, { label: "Paragraph...", icon: "lineSpacing", dialog: "paragraph" }]);
+      return;
+    }
     const o = s && !TEXT_PARTS.includes(part) && part !== "picture" ? s.objects?.find((x) => x.id === part) : undefined;
     if (!o) {
       items.push(
@@ -318,7 +392,17 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
       );
     } else {
       if (o.kind === "image") items.push({ label: "Change Picture...", icon: "picture", dialog: "changePicture" }, { label: "Crop", icon: "crop", command: "picture.crop" });
-      if (o.kind === "chart") items.push({ label: "Edit Data", icon: "table", command: "chart.editData" }, { label: "Change Chart Type...", icon: "chart", dialog: "changeChartType" });
+      // A Paste Special Excel object: Update Link and the Linked Chart Object submenu (Links... is Edit Links to Files).
+      if (ox(o).ole) {
+        const noun = o.kind === "table" ? "Worksheet" : "Chart";
+        if (ox(o).dataLink) items.push(
+          { label: "Update Link", icon: "reset", command: "links.update", value: `${sid}.${o.id}` },
+          { label: `Linked ${noun} Object: Open Link`, icon: "open", command: "links.openSource", value: `${sid}.${o.id}` },
+          { label: `Linked ${noun} Object: Links...`, icon: "link", command: "links.edit", value: `${sid}.${o.id}` },
+        );
+        else items.push({ label: `${noun} Object: Edit`, icon: "table", disabled: true });
+      } else if (o.kind === "chart") items.push({ label: "Edit Data", icon: "table", command: "chart.editData" }, { label: "Change Chart Type...", icon: "chart", dialog: "changeChartType" });
+      if (o.kind === "icon") items.push({ label: "Change Graphic: From Icons...", icon: "icons", dialog: "changeGraphic" });
       if (o.kind === "smartart") items.push({ label: "Reset Graphic", icon: "reset", command: "smartart.reset" }, { label: "Convert to Text", icon: "textbox", command: "smartart.convert", value: "Convert to Text" }, { label: "Show Text Pane", icon: "navPane", command: "smartart.textPane" });
       if (o.kind === "table") {
         items.push(
@@ -449,6 +533,16 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
 
   if (view === "show") return <SlideShow deck={deck} onCommit={onCommit} onContextMenu={onContextMenu} />;
 
+  /* ---------- dialogs drawn by the canvas (open while flags.pptDialog names them) ---------- */
+
+  const dlg = String(deck.flags?.pptDialog ?? "");
+  const dlgCommit = (c: SimCommit) => onCommit(c);
+  const dlgBody =
+    dlg === "customShows" ? <CustomShowsDialog deck={deck} onCommit={dlgCommit} /> :
+    dlg === "links" ? <LinksDialog deck={deck} onCommit={dlgCommit} /> :
+    null;
+  const modal = dlgBody ? (portalRoot ? createPortal(dlgBody, portalRoot) : dlgBody) : null;
+
   if (view === "reading") {
     return (
       <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex h-full flex-col bg-[#3a3a3a] outline-none">
@@ -470,6 +564,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
   if (view === "sorter") {
     return (
       <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="h-full overflow-auto bg-[#e7e7e7] p-4 outline-none">
+        {modal}
         <div className="flex flex-wrap gap-4">
           {deck.slides.map((s, i) => {
             const head = s.section && (i === 0 || deck.slides[i - 1].section !== s.section);
@@ -538,6 +633,8 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
 
   return (
     <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex h-full outline-none">
+      {modal}
+      {pane === "Clipboard" && <ClipboardPane deck={deck} onCommit={onCommit} onContextMenu={onContextMenu} />}
       {view === "outline" ? (
         <aside className="w-64 shrink-0 overflow-auto border-r border-gray-300 bg-white p-2 text-[12px]" aria-label="Outline">
           {deck.slides.map((s, i) => (
@@ -575,7 +672,6 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
                 width={fitW(40, 32)}
                 index={0}
                 {...slideProps}
-                onEditStart={() => undefined}
                 onInsertIcon={undefined}
                 onContext={(e: React.MouseEvent, key: string) => { e.preventDefault(); e.stopPropagation(); onSelect({ selection: key, slide: key.split(".")[0] }); }}
                 showBadges={false}
@@ -587,6 +683,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
               <div
                 onMouseDown={(e) => { e.stopPropagation(); onSelect({ selection: `${slide.id}.notes` }); }}
                 onDoubleClick={() => startEdit(`${slide.id}.notes`)}
+                onContextMenu={(e) => partMenu(e, `${slide.id}.notes`)}
                 className={`mt-4 min-h-[100px] border p-2 text-[13px] ${ui.selection === `${slide.id}.notes` ? "border-gray-600" : "border-dashed border-gray-300"}`}
               >
                 {editing?.key === `${slide.id}.notes` ? <PartEditor multiline value={editing.text} onChange={(t) => setEditing({ key: `${slide.id}.notes`, text: t })} onCommit={() => commitEdit()} onCancel={() => setEditing(null)} /> : slide.notes || <span className="text-gray-400">Click to add text</span>}
@@ -608,6 +705,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
           <div
             onMouseDown={() => onSelect({ selection: `${slide.id}.notes` })}
             onDoubleClick={() => startEdit(`${slide.id}.notes`)}
+            onContextMenu={(e) => partMenu(e, `${slide.id}.notes`)}
             className={`h-16 shrink-0 cursor-text overflow-auto border-t border-gray-300 bg-white px-4 py-2 text-[12px] ${ui.selection === `${slide.id}.notes` ? "outline outline-1 outline-gray-500" : ""}`}
             aria-label="Notes"
           >
@@ -623,7 +721,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
         {pane === "Chart Data" && <ChartDataSheet deck={deck} onCommit={onCommit} />}
       </div>
 
-      {pane && pane !== "Chart Data" && <PptPane deck={deck} ui={ui} pane={pane} onCommit={onCommit} openDialog={openDialog} onSelect={onSelect} />}
+      {pane && pane !== "Chart Data" && pane !== "Clipboard" && <PptPane deck={deck} ui={ui} pane={pane} onCommit={onCommit} openDialog={openDialog} onSelect={onSelect} onContextMenu={onContextMenu} />}
     </div>
   );
 }

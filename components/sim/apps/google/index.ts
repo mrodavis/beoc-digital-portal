@@ -1,4 +1,6 @@
-import { stubApp } from "../_stub/make";
+import type { AppModule } from "../../types";
+import { googleCore } from "./core";
+import { GoogleCanvas, GoogleStatusBar } from "./GoogleCanvas";
+import type { GoogleDoc } from "./types";
 
-/** Replaced by the real Google Workspace engine. */
-export const googleApp = stubApp("Google Workspace", "#1a73e8");
+export const googleApp: AppModule<GoogleDoc> = { ...googleCore, Canvas: GoogleCanvas, StatusBar: GoogleStatusBar };

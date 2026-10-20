@@ -6,7 +6,7 @@ import { applyWord, paraText, parseSel as wordSel } from "../word/model";
 import { activeCell, applyExcel, currentRegion, selRect, sheetOf, usedRect } from "../excel/model";
 import { applyPpt, activeSlide } from "../powerpoint/model";
 import { CF_STYLES, googleLayout } from "./menus";
-import type { GComment, GContent, GFile, GKind, GoogleDoc, GPerson, GProtected, GRole, GSurface } from "./types";
+import type { GComment, GContent, GFile, GKind, GoogleDoc, GPerson, GProtected, GRole, GRun, GSurface } from "./types";
 
 /* ------------------------------------------------------------------ */
 /* Basics                                                              */
@@ -740,7 +740,7 @@ function tagSuggestions(doc: GoogleDoc, r: { doc: WordDoc; ui?: Partial<SimUi> }
   return r;
 }
 
-export type SuggestRun = WordRun & { author?: string; time?: string };
+export type SuggestRun = GRun;
 
 /* ---------- Sheets ---------- */
 
@@ -926,7 +926,6 @@ function sheetsApply(doc: GoogleDoc, f: GFile, book: ExcelBook, c: SimCommit, ui
           [range]: { type, list: type === "List" ? list : undefined, min: v.min !== undefined && v.min !== "" ? Number(v.min) : undefined, max: v.max !== undefined && v.max !== "" ? Number(v.max) : undefined },
         };
         book.flags = { ...(book.flags ?? {}), [`vstyle:${sheet.name}!${range}`]: String(v.style ?? "Chip"), [`vreject:${sheet.name}!${range}`]: v.invalid === "Reject the input" };
-        doc.pane = null;
         return { doc: book };
       }
       case "g.cf": {

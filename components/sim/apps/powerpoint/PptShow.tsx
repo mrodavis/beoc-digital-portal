@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { PptDeck, SimCommit } from "@/types/sim";
 import type { MenuItem } from "../../types";
-import { animSequence, showSlideId } from "./model";
+import { animSequence, showSequence, showSlideId } from "./model";
 import { SlideView } from "./PptSlide";
 
 type Stroke = { color: string; width: number; pts: [number, number][] };
@@ -78,14 +78,16 @@ export function SlideShow({ deck, onCommit, onContextMenu }: { deck: PptDeck; on
     return () => clearTimeout(t);
   }, [curId, build, ended, f.timingsPrompt, f.advance, f.rehearsing]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const go = (dir: 1 | -1) => {
-    if (f.timingsPrompt) return;
-    if (dir > 0 && !ended && build < maxStep) { setBuild(build + 1); return; }
-    onCommit({ kind: "command", id: dir > 0 ? "slideshow.next" : "slideshow.prev" });
-  };
   const end = () => {
     if (f.rehearsing && !f.timingsPrompt) onCommit({ kind: "command", id: "slideshow.recordTimings", value: JSON.stringify(times.current) });
     onCommit({ kind: "command", id: "slideshow.end" });
+  };
+  const go = (dir: 1 | -1) => {
+    if (f.timingsPrompt) return;
+    if (dir > 0 && !ended && build < maxStep) { setBuild(build + 1); return; }
+    // Moving on from the black end screen ends the show, the same as a click there.
+    if (dir > 0 && ended) { end(); return; }
+    onCommit({ kind: "command", id: dir > 0 ? "slideshow.next" : "slideshow.prev" });
   };
   const cmd = (id: string, value?: string | number) => onCommit({ kind: "command", id, value });
 
@@ -272,7 +274,11 @@ export function SlideShow({ deck, onCommit, onContextMenu }: { deck: PptDeck; on
 
   if (presenter) {
     const visible = deck.slides.filter((s) => !s.hidden);
-    const nextSlide = deck.slides.slice(idx + 1).find((s) => !s.hidden);
+    // A custom show's next slide is the next one in its own list.
+    const seq = showSequence(deck);
+    const custom = Boolean(f.showCustom);
+    const at = seq.indexOf(slide?.id ?? "");
+    const nextSlide = custom ? deck.slides.find((s) => s.id === seq[at + 1]) : deck.slides.slice(idx + 1).find((s) => !s.hidden);
     const mainW = Math.max(240, Math.min(size.w * 0.58, (size.h - 90) * (16 / 9)));
     return (
       <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} onContextMenu={showMenu} className="flex h-full flex-col bg-[#1f1f1f] text-white outline-none">
@@ -295,7 +301,7 @@ export function SlideShow({ deck, onCommit, onContextMenu }: { deck: PptDeck; on
               </div>
               <div className="flex items-center gap-2 text-[13px]">
                 <button type="button" aria-label="Previous" onClick={() => go(-1)} className="rounded px-2 hover:bg-white/10">◀</button>
-                <span>Slide {idx + 1} of {deck.slides.length}</span>
+                <span>{custom && at >= 0 ? `Slide ${at + 1} of ${seq.length} (${String(f.showCustom)})` : `Slide ${idx + 1} of ${deck.slides.length}`}</span>
                 <button type="button" aria-label="Next" onClick={() => go(1)} className="rounded px-2 hover:bg-white/10">▶</button>
               </div>
             </div>

@@ -1,6 +1,6 @@
 import type { RibbonOption, RibbonTab } from "@/types/sim";
 import { THEME_COLORS } from "../../chrome/colors";
-import { TAB_COLORS } from "./model";
+import { SPARKLINE_COLORS, TAB_COLORS } from "./model";
 
 const FONTS = ["Aptos Narrow", "Aptos", "Calibri", "Arial", "Cambria", "Century Gothic", "Courier New", "Georgia", "Segoe UI", "Tahoma", "Times New Roman", "Verdana"];
 const SIZES = ["8", "9", "10", "11", "12", "14", "16", "18", "20", "24", "28", "36"];
@@ -225,7 +225,14 @@ export const excelRibbon: RibbonTab[] = [
         label: "Editing",
         controls: [
           { type: "dropdown", id: "home.autosum", label: "AutoSum", icon: "sum", showLabel: true, split: true, faceValue: "Sum", options: ["Sum", "Average", "Count Numbers", "Max", "Min"].map((v) => ({ value: v })).concat([{ value: "More Functions...", dialog: "insertFunction" } as RibbonOption]) },
-          { type: "dropdown", id: "home.fillSeries", label: "Fill", icon: "fillDown", showLabel: true, options: ["Down", "Right", "Up", "Left", "Series...", "Flash Fill"].map((v) => ({ value: v })) },
+          {
+            type: "dropdown",
+            id: "home.fillSeries",
+            label: "Fill",
+            icon: "fillDown",
+            showLabel: true,
+            options: [{ value: "Down" }, { value: "Right" }, { value: "Up" }, { value: "Left" }, { value: "Series...", dialog: "series" }, { value: "Flash Fill" }],
+          },
           { type: "dropdown", id: "home.clear", label: "Clear", icon: "clear", showLabel: true, options: ["Clear All", "Clear Formats", "Clear Contents", "Clear Comments and Notes", "Clear Hyperlinks"].map((v) => ({ value: v })) },
           {
             type: "dropdown",
@@ -236,7 +243,7 @@ export const excelRibbon: RibbonTab[] = [
             options: [
               { value: "Sort A to Z", command: "data.sortAsc", icon: "sortAsc" },
               { value: "Sort Z to A", command: "data.sortDesc", icon: "sortDesc" },
-              { value: "Custom Sort...", dialog: "sort", icon: "sort" },
+              { value: "Custom Sort...", command: "data.sort", icon: "sort" },
               { value: "Filter", command: "data.filter", icon: "filter" },
               { value: "Clear", command: "data.clearFilter", icon: "clear" },
               { value: "Reapply", command: "data.reapply", icon: "reset" },
@@ -382,7 +389,7 @@ export const excelRibbon: RibbonTab[] = [
         controls: [
           { type: "button", id: "data.sortAsc", label: "Sort A to Z", icon: "sortAsc", tip: "Sort Smallest to Largest" },
           { type: "button", id: "data.sortDesc", label: "Sort Z to A", icon: "sortDesc", tip: "Sort Largest to Smallest" },
-          { type: "button", id: "data.sort", label: "Sort", icon: "sort", size: "large", dialog: "sort" },
+          { type: "button", id: "data.sort", label: "Sort", icon: "sort", size: "large" },
           { type: "toggle", id: "data.filter", label: "Filter", icon: "filter", size: "large", shortcut: "Ctrl+Shift+L" },
           { type: "button", id: "data.clearFilter", label: "Clear", icon: "clear", showLabel: true },
           { type: "button", id: "data.reapply", label: "Reapply", icon: "reset", showLabel: true },
@@ -394,7 +401,18 @@ export const excelRibbon: RibbonTab[] = [
           { type: "button", id: "data.textToColumns", label: "Text to Columns", icon: "textToColumns", size: "large", dialog: "textToColumns" },
           { type: "button", id: "data.flashFill", label: "Flash Fill", icon: "fillDown", showLabel: true, shortcut: "Ctrl+E" },
           { type: "button", id: "data.removeDuplicates", label: "Remove Duplicates", icon: "removeDup", showLabel: true, dialog: "removeDuplicates" },
-          { type: "button", id: "data.validation", label: "Data Validation", icon: "validation", showLabel: true, dialog: "dataValidation" },
+          {
+            type: "dropdown",
+            id: "data.validation",
+            label: "Data Validation",
+            icon: "validation",
+            showLabel: true,
+            options: [
+              { value: "Data Validation...", dialog: "dataValidation", icon: "validation" },
+              { value: "Circle Invalid Data", command: "data.circleInvalid" },
+              { value: "Clear Validation Circles", command: "data.clearCircles" },
+            ],
+          },
           { type: "button", id: "data.consolidate", label: "Consolidate", icon: "table", showLabel: true },
         ],
       },
@@ -435,7 +453,7 @@ export const excelRibbon: RibbonTab[] = [
         controls: [
           { type: "button", id: "review.protectSheet", label: "Protect Sheet", icon: "protect", size: "large", dialog: "protectSheet" },
           { type: "button", id: "review.protectWorkbook", label: "Protect Workbook", icon: "protect", size: "large", dialog: "protectWorkbook" },
-          { type: "button", id: "review.allowEditRanges", label: "Allow Edit Ranges", icon: "protect", showLabel: true },
+          { type: "button", id: "review.allowEditRanges", label: "Allow Edit Ranges", icon: "protect", showLabel: true, dialog: "allowEditRanges" },
         ],
       },
     ],
@@ -509,10 +527,10 @@ export const excelRibbon: RibbonTab[] = [
     label: "Chart Design",
     contextual: "chart",
     groups: [
-      { label: "Chart Layouts", controls: [{ type: "dropdown", id: "chart.addElement", label: "Add Chart Element", icon: "chart", size: "large", options: ["Axes", "Axis Titles", "Chart Title: Above Chart", "Chart Title: None", "Data Labels", "Data Table", "Gridlines", "Legend: Right", "Legend: Bottom", "Legend: None"].map((v) => ({ value: v })) }, { type: "dropdown", id: "chart.layout", label: "Quick Layout", icon: "layout", size: "large", options: ["Layout 1", "Layout 2", "Layout 3", "Layout 5", "Layout 9"].map((v) => ({ value: v })) }] },
+      { label: "Chart Layouts", controls: [{ type: "dropdown", id: "chart.addElement", label: "Add Chart Element", icon: "chart", size: "large", options: ["Axes", "Axis Titles", "Chart Title: Above Chart", "Chart Title: None", "Data Labels", "Data Labels: None", "Data Table", "Gridlines", "Legend: Right", "Legend: Bottom", "Legend: None"].map((v) => ({ value: v })) }, { type: "dropdown", id: "chart.layout", label: "Quick Layout", icon: "layout", size: "large", options: ["Layout 1", "Layout 2", "Layout 3", "Layout 5", "Layout 9"].map((v) => ({ value: v })) }] },
       { label: "Chart Styles", controls: [{ type: "dropdown", id: "chart.colors", label: "Change Colors", icon: "colors", size: "large", options: ["Colorful Palette 1", "Colorful Palette 2", "Monochromatic Palette 1", "Monochromatic Palette 6"].map((v) => ({ value: v })) }, { type: "gallery", id: "chart.style", label: "Chart Styles", options: ["Style 1", "Style 2", "Style 3", "Style 4", "Style 5", "Style 6", "Style 7", "Style 8"].map((v) => ({ value: v, label: v })), width: 260 }] },
       { label: "Data", controls: [{ type: "button", id: "chart.switchRowCol", label: "Switch Row/Column", icon: "orientation", size: "large" }, { type: "button", id: "chart.selectData", label: "Select Data", icon: "sheet", size: "large" }] },
-      { label: "Type", controls: [{ type: "dropdown", id: "chart.type", label: "Change Chart Type", icon: "chart", size: "large", options: ALL_CHART_TYPES.map((v) => ({ value: v })) }] },
+      { label: "Type", controls: [{ type: "dropdown", id: "chart.type", label: "Change Chart Type", icon: "chart", size: "large", options: [...ALL_CHART_TYPES.map((v) => ({ value: v })), { value: "Templates", heading: true }, { value: "Change Chart Type...", dialog: "changeChartType" }] }] },
       { label: "Location", controls: [{ type: "button", id: "chart.move", label: "Move Chart", icon: "export", size: "large", dialog: "moveChart" }] },
     ],
   },
@@ -521,9 +539,10 @@ export const excelRibbon: RibbonTab[] = [
     label: "PivotTable Analyze",
     contextual: "pivot",
     groups: [
-      { label: "Active Field", controls: [{ type: "button", id: "pivot.fieldSettings", label: "Field Settings", icon: "options", size: "large", dialog: "valueFieldSettings" }, { type: "dropdown", id: "pivot.summarize", label: "Summarize Values By", icon: "sum", size: "large", options: ["Sum", "Count", "Average", "Max", "Min"].map((v) => ({ value: v })) }] },
+      { label: "Active Field", controls: [{ type: "button", id: "pivot.fieldSettings", label: "Field Settings", icon: "options", size: "large", dialog: "valueFieldSettings" }, { type: "dropdown", id: "pivot.summarize", label: "Summarize Values By", icon: "sum", size: "large", options: [...["Sum", "Count", "Average", "Max", "Min"].map((v) => ({ value: v })), { value: "More Options...", dialog: "valueFieldSettings" }] }] },
+      { label: "Group", controls: [{ type: "button", id: "pivot.groupField", label: "Group Field", icon: "group", showLabel: true, dialog: "pivotGroup" }, { type: "button", id: "pivot.ungroup", label: "Ungroup", icon: "group", showLabel: true }] },
       { label: "Filter", controls: [{ type: "button", id: "pivot.insertSlicer", label: "Insert Slicer", icon: "filter", size: "large", dialog: "insertSlicer" }, { type: "button", id: "insert.timeline", label: "Insert Timeline", icon: "date", showLabel: true }] },
-      { label: "Data", controls: [{ type: "button", id: "data.refresh", label: "Refresh", icon: "reset", size: "large" }, { type: "button", id: "pivot.changeSource", label: "Change Data Source", icon: "sheet", size: "large" }] },
+      { label: "Data", controls: [{ type: "button", id: "data.refresh", label: "Refresh", icon: "reset", size: "large" }, { type: "button", id: "pivot.changeSource", label: "Change Data Source", icon: "sheet", size: "large", dialog: "changeSource" }] },
       { label: "Actions", controls: [{ type: "button", id: "pivot.clear", label: "Clear", icon: "clear", size: "large" }] },
       { label: "Tools", controls: [{ type: "button", id: "insert.pivotChart", label: "PivotChart", icon: "chart", size: "large", dialog: "insertChart" }] },
     ],
@@ -548,6 +567,97 @@ excelRibbon.push({
     { label: "Accessibility", controls: [{ type: "button", id: "graphics.altText", label: "Alt Text", icon: "accessibility", size: "large", dialog: "altText" }] },
   ],
 });
+
+/** Sparkline: appears when the active cell holds a sparkline; settings apply to its group. */
+excelRibbon.push({
+  id: "sparklineTab",
+  label: "Sparkline",
+  contextual: "sparkline",
+  groups: [
+    {
+      label: "Type",
+      controls: [
+        { type: "toggle", id: "sparkline.typeLine", label: "Line", icon: "line", size: "large", stateKey: "sparkline.typeLine" },
+        { type: "toggle", id: "sparkline.typeColumn", label: "Column", icon: "chart", size: "large", stateKey: "sparkline.typeColumn" },
+        { type: "toggle", id: "sparkline.typeWinLoss", label: "Win/Loss", icon: "chart", size: "large", stateKey: "sparkline.typeWinLoss" },
+      ],
+    },
+    {
+      label: "Show",
+      controls: [
+        { type: "toggle", id: "sparkline.high", label: "High Point", showLabel: true },
+        { type: "toggle", id: "sparkline.low", label: "Low Point", showLabel: true },
+        { type: "toggle", id: "sparkline.negative", label: "Negative Points", showLabel: true },
+        { type: "toggle", id: "sparkline.first", label: "First Point", showLabel: true },
+        { type: "toggle", id: "sparkline.last", label: "Last Point", showLabel: true },
+        { type: "toggle", id: "sparkline.markers", label: "Markers", showLabel: true },
+      ],
+    },
+    {
+      label: "Style",
+      controls: [{ type: "dropdown", id: "sparkline.color", label: "Sparkline Color", icon: "fill", showLabel: true, gallery: "swatches", options: Object.entries(SPARKLINE_COLORS).map(([n, c]) => ({ value: n, label: n, color: c })) }],
+    },
+    {
+      label: "Group",
+      controls: [
+        { type: "button", id: "sparkline.group", label: "Group", icon: "group", showLabel: true },
+        { type: "button", id: "sparkline.ungroup", label: "Ungroup", icon: "group", showLabel: true },
+        { type: "dropdown", id: "sparkline.clear", label: "Clear", icon: "clear", showLabel: true, options: [{ value: "Clear Selected Sparklines" }, { value: "Clear Selected Sparkline Groups" }] },
+      ],
+    },
+  ],
+});
+
+/** Header & Footer: appears while the header or footer is being edited (Insert › Header & Footer). */
+const HF_PRESETS = [
+  { value: "(none)", label: "(none)" },
+  { value: "Page &[Page]", label: "Page 1" },
+  { value: "Page &[Page] of &[Pages]", label: "Page 1 of ?" },
+  { value: "&[Tab]", label: "Sheet name" },
+  { value: "&[File]", label: "File name" },
+  { value: "Confidential, &[Date], Page &[Page]", label: "Confidential, 10/20/2026, Page 1" },
+  { value: "Prepared by BEOC Student &[Date], Page &[Page]", label: "Prepared by BEOC Student 10/20/2026, Page 1" },
+];
+excelRibbon.push({
+  id: "headerFooterTab",
+  label: "Header & Footer",
+  contextual: "headerFooter",
+  groups: [
+    {
+      label: "Header & Footer",
+      controls: [
+        { type: "dropdown", id: "hf.header", label: "Header", icon: "header", size: "large", options: HF_PRESETS },
+        { type: "dropdown", id: "hf.footer", label: "Footer", icon: "footer", size: "large", options: HF_PRESETS },
+      ],
+    },
+    {
+      label: "Header & Footer Elements",
+      controls: [
+        { type: "button", id: "hf.pageNumber", label: "Page Number", icon: "pageNumber", size: "large" },
+        { type: "button", id: "hf.numberOfPages", label: "Number of Pages", icon: "multiplePages", size: "large" },
+        { type: "button", id: "hf.currentDate", label: "Current Date", icon: "date", size: "large" },
+        { type: "button", id: "hf.currentTime", label: "Current Time", icon: "date", size: "large" },
+        { type: "button", id: "hf.filePath", label: "File Path", icon: "folder", size: "large" },
+        { type: "button", id: "hf.fileName", label: "File Name", icon: "new", size: "large" },
+        { type: "button", id: "hf.sheetName", label: "Sheet Name", icon: "sheet", size: "large" },
+      ],
+    },
+    {
+      label: "Navigation",
+      controls: [
+        { type: "button", id: "hf.gotoHeader", label: "Go to Header", icon: "header", size: "large" },
+        { type: "button", id: "hf.gotoFooter", label: "Go to Footer", icon: "footer", size: "large" },
+      ],
+    },
+  ],
+});
+
+/** The three Sparkline type buttons commit sparkline.type with their type. */
+export const SPARKLINE_TYPE_ALIASES: Record<string, string> = {
+  "sparkline.typeLine": "Line",
+  "sparkline.typeColumn": "Column",
+  "sparkline.typeWinLoss": "Win/Loss",
+};
 
 export const EXCEL_VIEW_ALIASES: Record<string, string> = {
   "view.mode.normal": "Normal",

@@ -42,6 +42,10 @@ export interface BackstageSpec {
   recent: { name: string; location: string; when: string }[];
   formats: string[];
   ext: string;
+  /** Extra rows on File › Info (PowerPoint's Edit Links to Files), each committing a command. */
+  info?: { title: string; text: string; icon?: string; command: string; value?: SimValue }[];
+  /** Extra choices on File › Export, each committing a command. */
+  exports?: { label: string; icon?: string; command: string; value?: SimValue }[];
 }
 
 export type Shortcut =

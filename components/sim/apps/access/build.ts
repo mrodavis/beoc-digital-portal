@@ -11,7 +11,18 @@ export function sourceFields(doc: AccessDoc, source: string): { name: string; ty
   if (q) {
     try {
       const src = dataSource(doc).rows(q.name);
-      if (src) return src.fields.map((f) => ({ name: f.name, type: f.type }));
+      if (src) {
+        // Calculated columns have no declared type: infer one from their values.
+        const infer = (name: string): string | undefined => {
+          const vals = src.rows.map((r) => r[name]).filter((v) => v !== null && v !== undefined && v !== "");
+          if (!vals.length) return undefined;
+          if (vals.every((v) => typeof v === "number")) return "Number";
+          if (vals.every((v) => typeof v === "boolean")) return "Yes/No";
+          if (vals.every((v) => typeof v === "object" || (typeof v === "string" && /^\d{4}-\d{2}-\d{2}/.test(v)))) return "Date/Time";
+          return "Short Text";
+        };
+        return src.fields.map((f) => ({ name: f.name, type: f.type ?? infer(f.name) }));
+      }
     } catch {
       return [];
     }

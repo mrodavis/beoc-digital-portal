@@ -6,23 +6,32 @@ import {
   BACKGROUND_STYLES,
   COLOR_SETS,
   FONT_SETS,
+  GRAPHIC_STYLES,
   ICONS,
   MEDIA_SECONDS,
+  PICTURE_FORMATS,
   THESAURUS,
   bodyX,
   bulletStyleName,
   flagJson,
   isContentPart,
+  isMasterKey,
+  keepsAspect,
   layoutBoxes,
   masterX,
   mediaLength,
   numberFormatName,
   ox,
   readMaster,
+  splitMasterKey,
   sx,
   type AnimMeta,
   type AnimStart,
+  type ClipSource,
   type CommentX,
+  type CustomShow,
+  type DataLink,
+  type LinkSource,
   type MediaOpts,
   type PptObjX,
   type TableOpts,
@@ -106,10 +115,13 @@ const PARTS: PartKey[] = ["title", "subtitle", "body", "body2", "notes", "pictur
  *  "s2.body.3"          the third paragraph of a placeholder
  *  "s2.o1"              an object; "s2.o1,s2.o2" several ("s2.o1.o2" is the same thing)
  *  "s2.o1.r2c3"         a table cell; "s2.o1.r1c1,s2.o1.r1c2" a cell range
+ *  "s2.title.anim"      an animation picked in the Animation Pane (also "s2.body.anim",
+ *                       "s1.subtitle.anim", "s2.o3.anim"): the effect, not the text
  *  "master"             Slide Master view: the slide master thumbnail
  *  "master.title"       the master's title or body placeholder
  *  "master.o1"          an object on the slide master
- *  "layout:Title Only"  a layout thumbnail; "layout:Title Only.o1" an object on it
+ *  "layout:Title Only"  a layout thumbnail; "layout:Title Only.o1" an object on it,
+ *                       "layout:Title Only.title" its title placeholder
  */
 export interface PptSel {
   slide?: PptSlide;
@@ -119,7 +131,11 @@ export interface PptSel {
   cells?: string[];
   master?: "title" | "body" | "slide";
   layout?: string;
+  /** The placeholder of a layout ("layout:Title Only.title"). */
+  layoutPart?: string;
   thumb: boolean;
+  /** An Animation Pane item is selected: "title", "body" or an object id. */
+  anim?: string;
 }
 
 export function activeSlide(deck: PptDeck, ui: SimUi): PptSlide | undefined {
@@ -143,7 +159,7 @@ export function parseSel(deck: PptDeck, ui: SimUi): PptSel {
       const [name, oid] = first.slice(7).split(".");
       const list = m.layoutObjects?.[name] ?? [];
       const objs = oid ? (parts.map((p) => p.split(".")[1]).map((id) => list.find((o) => o.id === id)).filter(Boolean) as PptObject[]) : [];
-      return { layout: name, objs, thumb: false };
+      return { layout: name, objs, thumb: false, layoutPart: oid && !objs.length && (PARTS as string[]).includes(oid) ? oid : undefined };
     }
     const rest = first.slice(7);
     if (rest === "title" || rest === "body") return { master: rest, objs: [], thumb: false };
@@ -152,19 +168,45 @@ export function parseSel(deck: PptDeck, ui: SimUi): PptSel {
   }
   const parts = sel.split(",").map((s) => s.trim()).filter(Boolean);
   if (!parts.length) return { slide: activeSlide(deck, ui), objs: [], thumb: false };
-  const segs = parts[0].split(".");
+  let segs = parts[0].split(".");
+  // "s2.title.anim": the Animation Pane item for the title, not the title text.
+  const anim = parts.length === 1 && segs.length >= 3 && segs[segs.length - 1] === "anim";
+  if (anim) segs = segs.slice(0, -1);
   const [sid, part, sub] = segs;
   // A selection on a slide other than the one in view is left over from before: the slide in view wins.
   const inView = ui.slide ? deck.slides.find((s) => s.id === ui.slide) : undefined;
   if (inView && inView.id !== sid && deck.slides.some((s) => s.id === sid)) return { slide: inView, objs: [], thumb: !part };
   if (!part) return { slide: inView ?? deck.slides.find((s) => s.id === sid) ?? activeSlide(deck, ui), objs: [], thumb: true };
   const slide = deck.slides.find((s) => s.id === sid) ?? activeSlide(deck, ui);
-  if ((PARTS as string[]).includes(part)) return { slide, part: part as PartKey, line: sub && /^\d+$/.test(sub) ? Number(sub) : undefined, objs: [], thumb: false };
+  if ((PARTS as string[]).includes(part)) return { slide, part: part as PartKey, line: sub && /^\d+$/.test(sub) ? Number(sub) : undefined, objs: [], thumb: false, anim: anim ? (part === "title" ? "title" : "body") : undefined };
   // "s4.o1.o2.o3" is shorthand for "s4.o1,s4.o2,s4.o3".
   const ids = parts.length === 1 && segs.length > 2 && segs.slice(1).every((x) => /^o\d+$/.test(x)) ? segs.slice(1) : Array.from(new Set(parts.map((p) => p.split(".")[1])));
   const objs = ids.map((oid) => slide?.objects?.find((o) => o.id === oid)).filter(Boolean) as PptObject[];
   const cells = parts.map((p) => p.split(".")[2]).filter((c): c is string => Boolean(c && /^r\d+c\d+$/.test(c)));
-  return { slide, objs, cells: cells.length ? cells : undefined, thumb: false };
+  return { slide, objs, cells: cells.length ? cells : undefined, thumb: false, anim: anim ? part : undefined };
+}
+
+/** Does a selection key point at something in the deck? (Used by the validator.) */
+export function pptSelectionExists(deck: PptDeck, sel: string): boolean {
+  if (!sel) return true;
+  const m = readMaster(deck);
+  return sel.split(",").every((raw) => {
+    const p = raw.trim();
+    if (isMasterKey(p)) {
+      const [scope, part] = splitMasterKey(p);
+      if (!part) return true;
+      if ((PARTS as string[]).includes(part)) return true;
+      const list = scope === "master" ? m.objects ?? [] : m.layoutObjects?.[scope.slice(7)] ?? [];
+      return list.some((o) => o.id === part);
+    }
+    const segs = p.split(".").filter((x, i, a) => !(x === "anim" && i === a.length - 1 && a.length >= 3));
+    const [sid, ...rest] = segs;
+    const s = deck.slides.find((x) => x.id === sid);
+    if (!s) return false;
+    if (!rest.length || (PARTS as string[]).includes(rest[0])) return true;
+    const objs = rest.filter((r) => !/^(r\d+c\d+|\d+|[A-Z]{1,2}\d+|title|legend|data|axis|text)$/.test(r));
+    return objs.every((id) => s.objects?.some((o) => o.id === id));
+  });
 }
 
 /** The list of objects the selection lives in: a slide, the slide master, or a layout. */
@@ -220,15 +262,23 @@ function targets(deck: PptDeck, ui: SimUi): Target[] {
   return [];
 }
 
+/** Set a text property on the selection; `undefined` clears it (Font Color › Automatic). */
 function setProp(deck: PptDeck, ui: SimUi, key: keyof TextProps | "align", value: unknown) {
   const s = parseSel(deck, ui);
   if (s.master === "title" || s.master === "body") {
     const m = masterX(deck);
-    if (key === "font") s.master === "title" ? (m.titleFont = String(value)) : (m.bodyFont = String(value));
-    if (key === "color" && s.master === "title") m.titleColor = String(value);
+    if (key === "font" && value !== undefined) s.master === "title" ? (m.titleFont = String(value)) : (m.bodyFont = String(value));
+    if (key === "color") {
+      const prop = s.master === "title" ? "titleColor" : "bodyColor";
+      if (value === undefined || value === null || value === "") delete m[prop];
+      else m[prop] = String(value);
+    }
     return;
   }
-  for (const t of targets(deck, ui)) (t as Record<string, unknown>)[key] = value;
+  for (const t of targets(deck, ui)) {
+    if (value === undefined) delete (t as Record<string, unknown>)[key];
+    else (t as Record<string, unknown>)[key] = value;
+  }
 }
 
 function firstProps(deck: PptDeck, ui: SimUi): Target {
@@ -307,26 +357,53 @@ function inchesToPct(deck: PptDeck, inches: number, axis: "w" | "h"): number {
   return (inches / (deck.size === "4:3" ? 10 : 13.333)) * 100;
 }
 
-/** Add an object to the current slide (or master / layout), filling an empty content placeholder when one is selected. */
-function addObject(deck: PptDeck, sel: PptSel, slide: PptSlide | undefined, o: PptObject, extra?: Partial<PptDeck>): { doc: PptDeck; ui?: Partial<SimUi> } {
+/** A Picture with Caption slide whose picture placeholder already holds a picture. */
+function pictureTaken(slide: PptSlide): boolean {
+  return partTaken(slide, "picture") || (slide.objects ?? []).some((o) => o.kind === "image" && !ox(o).placeholder && slide.layout === "Picture with Caption" && o.x < 20);
+}
+
+/**
+ * The empty content placeholder an inserted object goes into when nothing on the slide is
+ * selected, the way PowerPoint fills the first empty "Click to add text" box.
+ */
+function emptyContentPart(slide: PptSlide, kind: PptObject["kind"]): string | undefined {
+  if (kind === "image" && slide.layout === "Picture with Caption" && !pictureTaken(slide)) return "picture";
+  return (["body", "body2"] as const).find((p) => isContentPart(slide.layout, p) && partEmpty(slide, p) && !partTaken(slide, p));
+}
+
+/**
+ * Add an object to the current slide (or master / layout), filling an empty content placeholder
+ * when one is selected, or (with `autoFill`) when nothing on the slide is selected.
+ */
+function addObject(deck: PptDeck, sel: PptSel, slide: PptSlide | undefined, o: PptObject, extra?: Partial<PptDeck>, opts?: { autoFill?: boolean }): { doc: PptDeck; ui?: Partial<SimUi> } {
   const sc = scopeOf(deck, sel, slide);
   if (!sc) return { doc: deck };
   o.id = nextObjId(sc.list);
-  if (deck.view !== "master" && slide && sel.part && ["body", "body2", "picture"].includes(sel.part) && isContentPart(slide.layout, sel.part) && partEmpty(slide, sel.part) && !partTaken(slide, sel.part)) {
-    const b = layoutBoxes(slide.layout)[sel.part as "body"];
+  let part: string | undefined = sel.part;
+  if (!part && opts?.autoFill && deck.view !== "master" && slide && !sel.objs.length && !sel.anim) part = emptyContentPart(slide, o.kind);
+  const fits = (p: string) => (p === "picture" ? o.kind === "image" && !pictureTaken(slide!) : partEmpty(slide!, p) && !partTaken(slide!, p));
+  if (deck.view !== "master" && slide && part && ["body", "body2", "picture"].includes(part) && isContentPart(slide.layout, part) && fits(part)) {
+    const b = layoutBoxes(slide.layout)[part as "body"];
     if (b) {
       if (o.kind === "video") {
         // Keep the video 16:9 inside the placeholder (on a 16:9 slide that is equal percents).
         const side = Math.min(b.w, b.h);
         Object.assign(o, { x: b.x + (b.w - side) / 2, y: b.y + (b.h - side) / 2, w: side, h: side });
+      } else if (o.kind === "icon") {
+        // Icons are square: the largest square that fits, centered.
+        const inches = Math.min((b.w / 100) * slideWidthIn(deck), (b.h / 100) * 7.5) * 0.8;
+        const w = (inches / slideWidthIn(deck)) * 100, h = (inches / 7.5) * 100;
+        Object.assign(o, { x: b.x + (b.w - w) / 2, y: b.y + (b.h - h) / 2, w, h });
       } else Object.assign(o, { x: b.x, y: b.y, w: b.w, h: b.h });
-      ox(o).placeholder = sel.part;
+      ox(o).placeholder = part;
     }
   }
   sc.set([...sc.list, o]);
   Object.assign(deck, extra ?? {});
   return { doc: deck, ui: { selection: `${sc.prefix}.${o.id}` } };
 }
+
+const slideWidthIn = (deck: PptDeck) => (deck.size === "4:3" ? 10 : 13.333);
 
 /* ---------- animations ---------- */
 
@@ -391,7 +468,44 @@ function getMeta(slide: PptSlide, t: "title" | "body" | PptObject): { name?: str
   return { name: t.animation, meta: (ox(t).anim = ox(t).anim ?? {}) };
 }
 
+/** Remove an animation effect (Animation Pane › Remove, or Delete with the effect selected). */
+function removeAnim(slide: PptSlide, t: "title" | "body" | PptObject) {
+  const s = sx(slide);
+  if (t === "title") { slide.titleAnimation = null; s.titleAnim = undefined; s.titleOrder = undefined; }
+  else if (t === "body") { slide.bodyAnimation = null; s.bodyAnim = undefined; s.bodyOrder = undefined; }
+  else { t.animation = null; t.animationOrder = undefined; ox(t).anim = undefined; }
+  renumber(slide, animSequence(slide));
+}
+
+/** The Animation Pane selection key for an effect ("s2.title.anim"). */
+export const animKey = (it: AnimItem) => `${it.key}.anim`;
+
 /* ---------- slide show ---------- */
+
+/** Custom shows defined in Slide Show › Custom Slide Show › Custom Shows. */
+export function customShows(deck: PptDeck): CustomShow[] {
+  return flagJson<CustomShow[]>(deck, "customShows", []).filter((c) => c && typeof c.name === "string" && Array.isArray(c.slides));
+}
+
+/** The slides a running custom show plays, in its order (hidden slides are skipped). */
+function customSequence(deck: PptDeck, name: string): string[] | undefined {
+  const cs = customShows(deck).find((c) => c.name === name);
+  if (!cs) return undefined;
+  return cs.slides.filter((id) => deck.slides.some((s) => s.id === id && !s.hidden));
+}
+
+/** The order the current slide show plays slides in (custom show, slide range or every visible slide). */
+export function showSequence(deck: PptDeck): string[] {
+  const custom = typeof deck.flags?.showCustom === "string" && deck.flags.showCustom ? customSequence(deck, deck.flags.showCustom) : undefined;
+  if (custom) return custom;
+  const range = deck.flags?.showRange;
+  let list = deck.slides;
+  if (typeof range === "string" && /^\d+-\d+$/.test(range)) {
+    const [a, b] = range.split("-").map(Number);
+    list = deck.slides.slice(a - 1, b);
+  }
+  return list.filter((s) => !s.hidden).map((s) => s.id);
+}
 
 /** The slide currently on screen in Slide Show view. */
 export function showSlideId(deck: PptDeck): string | undefined {
@@ -417,8 +531,17 @@ function startShow(deck: PptDeck, fromId: string | undefined, from: string, extr
     presenter: Boolean(deck.flags?.["slideshow.presenterView"]),
     rehearsing: false,
     timingsPrompt: false,
+    showCustom: "",
     ...extra,
   };
+}
+
+/** Start a custom show by name; false when there is no such show (or it has no visible slides). */
+function startCustomShow(deck: PptDeck, name: string): boolean {
+  const seq = customSequence(deck, name);
+  if (!seq?.length) return false;
+  startShow(deck, seq[0], "custom", { showCustom: name });
+  return true;
 }
 
 function firstShowSlide(deck: PptDeck): string | undefined {
@@ -437,6 +560,21 @@ function stepShow(deck: PptDeck, dir: 1 | -1): void {
   if (f.showScreen) { f.showScreen = ""; return; }
   const cur = showSlideId(deck);
   const i = deck.slides.findIndex((s) => s.id === cur);
+  // A custom show plays its own list of slides, in its own order.
+  const custom = typeof f.showCustom === "string" && f.showCustom ? customSequence(deck, f.showCustom) : undefined;
+  if (custom) {
+    const k = custom.indexOf(cur ?? "");
+    if (dir > 0) {
+      if (f.showEnd) { endShow(deck); return; }
+      if (k >= 0 && k < custom.length - 1) { f.showId = custom[k + 1]; return; }
+      if (f.loop || String(f.showType ?? "").includes("kiosk")) { f.showId = custom[0]; return; }
+      f.showEnd = true;
+      return;
+    }
+    if (f.showEnd) { f.showEnd = false; return; }
+    if (k > 0) f.showId = custom[k - 1];
+    return;
+  }
   if (dir > 0) {
     if (f.showEnd) { endShow(deck); return; }
     let lastIdx = deck.slides.length - 1;
@@ -466,6 +604,7 @@ function endShow(deck: PptDeck) {
   f.presenter = false;
   f.rehearsing = false;
   f.timingsPrompt = false;
+  f.showCustom = "";
 }
 
 /* ---------- sections ---------- */
@@ -480,12 +619,17 @@ function sectionRange(deck: PptDeck, index: number): [number, number] {
 
 /* ---------- clipboard ---------- */
 
-type Clip =
-  | { kind: "slide"; slides: PptSlide[] }
-  | { kind: "obj"; objs: PptObject[] }
-  | { kind: "text"; lines: string[] };
+/**
+ * What Copy or Cut put on the clipboard (flags.clip, JSON). `source` says where it came from
+ * (Excel for a chart copied from a workbook), which Paste Special and Paste Link use. The
+ * Office Clipboard keeps the last 24 items in flags.clipHistory (JSON, newest first).
+ */
+export type Clip =
+  | { kind: "slide"; slides: PptSlide[]; source?: ClipSource; label?: string }
+  | { kind: "obj"; objs: PptObject[]; source?: ClipSource; label?: string }
+  | { kind: "text"; lines: string[]; source?: ClipSource; label?: string };
 
-function readClip(deck: PptDeck): Clip | null {
+export function readClip(deck: PptDeck): Clip | null {
   const c = flagJson<Clip | null>(deck, "clip", null);
   if (c) return c;
   const legacy = deck.flags?.clipObj;
@@ -498,10 +642,68 @@ function readClip(deck: PptDeck): Clip | null {
   }
   return null;
 }
+
+/** The Office Clipboard, newest item first. */
+export function clipHistory(deck: PptDeck): Clip[] {
+  const h = flagJson<Clip[]>(deck, "clipHistory", []);
+  if (Array.isArray(h) && h.length) return h;
+  const c = readClip(deck);
+  return c ? [c] : [];
+}
+
+/** The text an Office Clipboard item shows (and the value clipboard.paste takes). */
+export function clipLabel(c: Clip): string {
+  if (c.label) return c.label;
+  const cut = (t: string) => (t.length > 60 ? `${t.slice(0, 57).trimEnd()}...` : t);
+  if (c.kind === "text") return cut(c.lines.map((l) => l.replace(/^\t+/, "")).join(" ").trim() || "(blank)");
+  if (c.kind === "slide") return cut(`Slide: ${c.slides[0]?.title ?? "Untitled"}`);
+  if (c.objs.length > 1) return `${c.objs.length} objects`;
+  const o = c.objs[0] as PptObjX | undefined;
+  if (!o) return "(empty)";
+  if (o.kind === "chart") return cut(`Chart: ${o.chart?.title ?? o.label ?? "Chart"}`);
+  if (o.kind === "table") return cut(`Table: ${(o.rows?.[0] ?? []).join(", ")}`);
+  if (o.kind === "smartart") return cut(`SmartArt: ${(o.items ?? []).join(", ")}`);
+  if (o.text) return cut(o.text.replace(/\n/g, " "));
+  return o.label ?? "Picture";
+}
+
+/** The app an Office Clipboard item came from (its icon). */
+export const clipApp = (c: Clip) => c.source?.app ?? "PowerPoint";
+
 function writeClip(deck: PptDeck, clip: Clip, cut: boolean) {
-  deck.flags = { ...(deck.flags ?? {}), clip: JSON.stringify(clip), clipCut: cut };
+  const history = clipHistory(deck);
+  const json = JSON.stringify(clip);
+  const next = [clip, ...history.filter((h, i) => !(i === 0 && JSON.stringify(h) === json))].slice(0, 24);
+  deck.flags = { ...(deck.flags ?? {}), clip: json, clipCut: cut, clipHistory: JSON.stringify(next) };
   if (clip.kind === "slide") deck.flags.clipSlide = clip.slides[0]?.id ?? "";
   if (clip.kind === "obj") deck.flags.clipObj = JSON.stringify(clip.objs[0]);
+}
+
+/** The workbooks' current data, keyed by file name (what Update Now reads). */
+export function linkSources(deck: PptDeck): Record<string, LinkSource> {
+  return flagJson<Record<string, LinkSource>>(deck, "linkSources", {});
+}
+
+/** Every linked object in the deck, for the Links dialog. */
+export function deckLinks(deck: PptDeck): { key: string; o: PptObject; link: DataLink }[] {
+  const out: { key: string; o: PptObject; link: DataLink }[] = [];
+  for (const s of deck.slides) for (const o of s.objects ?? []) { const l = ox(o).dataLink; if (l) out.push({ key: `${s.id}.${o.id}`, o, link: l }); }
+  return out;
+}
+
+/** The text of a clipboard item, for pasting into a text placeholder or the Notes pane. */
+function clipText(clip: Clip): string[] {
+  if (clip.kind === "text") return clip.lines;
+  if (clip.kind === "slide") return clip.slides.map((s) => s.title ?? "").filter(Boolean);
+  return clip.objs.flatMap((o) => (o.text ? o.text.split("\n") : o.items ? o.items : o.rows ? o.rows.map((r) => r.join("\t")) : []));
+}
+
+/** A plain picture made from pasted content (Paste › Picture): no chart data, text or table left on it. */
+function asPicture(src: PptObject): PptObject {
+  const glyph = src.kind === "chart" ? "📊" : src.kind === "table" ? "▦" : src.kind === "smartart" ? "🔷" : src.kind === "image" ? src.glyph ?? "🖼️" : "🖼️";
+  const pic: PptObject = { id: "", kind: "image", label: "Picture", glyph, x: src.x, y: src.y, w: src.w, h: src.h };
+  if (src.rotate) pic.rotate = src.rotate;
+  return pic;
 }
 
 /* ---------- stacking order ---------- */
@@ -573,6 +775,133 @@ function newPresentation(prev: PptDeck, template: string): { doc: PptDeck; ui?: 
 }
 
 /* ------------------------------------------------------------------ */
+/* Pasting                                                             */
+/* ------------------------------------------------------------------ */
+
+/**
+ * How a paste lands. dest: Use Destination Theme (Ctrl+V); keep: Keep Source Formatting;
+ * picture: a plain picture; text: Keep Text Only. `link` keeps a live link to the source
+ * workbook (Paste Link, Link Data); `ole` marks an Excel object from Paste Special.
+ */
+interface PasteMode {
+  as: "dest" | "keep" | "picture" | "text";
+  link?: boolean;
+  ole?: string;
+}
+
+function pasteMode(sv: string): PasteMode {
+  switch (sv) {
+    case "Keep Source Formatting":
+    case "Keep Source Formatting & Embed Workbook":
+      return { as: "keep" };
+    case "Use Destination Theme & Link Data":
+      return { as: "dest", link: true };
+    case "Keep Source Formatting & Link Data":
+      return { as: "keep", link: true };
+    case "Picture":
+      return { as: "picture" };
+    case "Keep Text Only":
+      return { as: "text" };
+    default:
+      return { as: "dest" };
+  }
+}
+
+/** Paste one clipboard item at the selection (a slide, a placeholder, the Notes pane, a text box). */
+function pasteClip(deck: PptDeck, selIn: PptSel, slide: PptSlide, clip: Clip, mode: PasteMode): { doc: PptDeck; ui?: Partial<SimUi> } {
+  // With an Animation Pane effect selected, the paste lands on the slide, not in that text.
+  const sel: PptSel = selIn.anim ? { ...selIn, part: undefined, line: undefined, objs: [], anim: undefined } : selIn;
+  // The Notes pane takes text only, whatever was copied.
+  if (sel.part === "notes") {
+    const add = clipText(clip).join("\n").trim();
+    if (!add) return { doc: deck };
+    const cur = slide.notes ?? "";
+    slide.notes = cur && !/\s$/.test(cur) ? `${cur} ${add}` : `${cur}${add}`;
+    return { doc: deck, ui: { selection: `${slide.id}.notes` } };
+  }
+  if (clip.kind === "slide" && !(mode.as === "picture" && !sel.thumb)) {
+    const i = deck.slides.findIndex((s) => s.id === slide.id);
+    let last = slide.id;
+    clip.slides.forEach((s, k) => {
+      const cp = clone(s);
+      cp.id = nextSlideId(deck);
+      if (mode.as === "dest") cp.background = s.background;
+      deck.slides.splice(i + 1 + k, 0, cp);
+      last = cp.id;
+    });
+    deck.active = last;
+    return { doc: deck, ui: { slide: last, selection: last } };
+  }
+  if (clip.kind === "slide") {
+    return addObject(deck, { ...sel, part: undefined }, slide, { id: "", kind: "image", label: "Picture", glyph: "🖼️", x: 25, y: 25, w: 50, h: 50 });
+  }
+  if (clip.kind === "text" || mode.as === "text") {
+    const textLines = clip.kind === "text" ? clip.lines : clipText(clip);
+    if (mode.as === "picture") return addObject(deck, { ...sel, part: undefined }, slide, { id: "", kind: "image", label: "Picture", glyph: "🖼️", x: 30, y: 40, w: 40, h: 14 });
+    if (!textLines.length) return { doc: deck };
+    if (sel.part === "body" || sel.part === "body2") {
+      const l = lines(slide, sel.part).slice();
+      const at = sel.line ? sel.line - 1 : l.length;
+      l.splice(at, 0, ...textLines);
+      setLines(slide, sel.part, l);
+      return { doc: deck, ui: { selection: `${slide.id}.${sel.part}.${at + 1}` } };
+    }
+    if (sel.part === "title") { slide.title = `${slide.title ?? ""}${textLines.join(" ")}`; return { doc: deck }; }
+    if (sel.part === "subtitle") { slide.subtitle = `${slide.subtitle ?? ""}${textLines.join(" ")}`; return { doc: deck }; }
+    const tb = sel.objs.find((o) => o.kind === "textbox" || o.kind === "shape");
+    if (tb) { tb.text = `${tb.text ?? ""}${textLines.join("\n")}`; return { doc: deck }; }
+    return addObject(deck, { ...sel, part: undefined }, slide, { id: "", kind: "textbox", label: "Text Box", text: textLines.join("\n"), x: 30, y: 40, w: 40, h: 14 });
+  }
+  const sc = scopeOf(deck, sel, slide);
+  if (!sc) return { doc: deck };
+  const added: string[] = [];
+  let list = sc.list;
+  for (const src of clip.objs) {
+    const o = (mode.as === "picture" ? asPicture(src) : clone(src)) as PptObjX;
+    o.id = nextObjId(list);
+    // Pasted where an identical copy already sits, the copy is offset so you can see it.
+    if (list.some((x) => x.x === o.x && x.y === o.y && x.w === o.w && x.h === o.h)) {
+      o.x = Math.min(80, o.x + 3);
+      o.y = Math.min(80, o.y + 3);
+    }
+    delete o.placeholder;
+    if (mode.as !== "picture") {
+      const src2 = clip.source;
+      if (mode.link && src2?.file && (o.kind === "chart" || o.kind === "table")) {
+        o.dataLink = { file: src2.file, path: src2.path, item: src2.item ?? (o.kind === "chart" ? "Chart 1" : "Sheet1"), type: o.kind === "chart" ? "Chart" : "Worksheet", mode: "Automatic" };
+      }
+      if (mode.ole && src2?.file) o.ole = mode.ole;
+      if (mode.as === "keep") o.keepSource = true;
+      else if (src2) delete o.keepSource;
+    }
+    list = [...list, o];
+    added.push(`${sc.prefix}.${o.id}`);
+  }
+  sc.set(list);
+  return { doc: deck, ui: { selection: added.join(",") } };
+}
+
+/** Update Now / Update Link / Refresh Data: read the linked workbook's current data into the object. */
+function updateLink(deck: PptDeck, o: PptObject) {
+  const link = ox(o).dataLink;
+  if (!link) return;
+  const src = linkSources(deck)[link.file];
+  if (src?.series && o.kind === "chart") o.series = clone(src.series);
+  if (src?.title && o.kind === "chart") ox(o).chart = { ...(ox(o).chart ?? {}), title: src.title };
+  if (src?.rows && o.kind === "table") o.rows = clone(src.rows);
+  link.updated = true;
+  deck.flags = { ...(deck.flags ?? {}), lastAction: "link updated" };
+}
+
+/** The icons an Icons dialog commit asks for: "icons" (a list), "icon", or checked "icon:<name>" boxes. */
+function iconNames(val: Record<string, SimValue>): string[] {
+  if (typeof val.icons === "string" && val.icons.trim()) return val.icons.split(",").map((s) => s.trim()).filter(Boolean);
+  const checked = ICONS.filter((i) => val[`icon:${i.name}`] === true).map((i) => i.name);
+  if (checked.length) return checked;
+  return val.icon ? [String(val.icon)] : [];
+}
+
+/* ------------------------------------------------------------------ */
 /* Built-in command handling                                           */
 /* ------------------------------------------------------------------ */
 
@@ -597,6 +926,51 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
 
   /* ================================================================ */
   if (c.kind === "type") {
+    const typeInto = (o: PptObject, sub: string | undefined) => {
+      if (o.kind === "table" && sub && /^r\d+c\d+$/.test(sub)) {
+        const [r, col] = cellRC(sub);
+        o.rows = o.rows ?? [];
+        while (o.rows.length < r) o.rows.push(Array.from({ length: o.rows[0]?.length ?? col }, () => ""));
+        while (o.rows[r - 1].length < col) o.rows[r - 1].push("");
+        o.rows[r - 1][col - 1] = c.value;
+      } else if (o.kind === "chart" && sub === "title") {
+        ox(o).chart = { ...(ox(o).chart ?? {}), title: c.value, showTitle: true };
+      } else if (o.kind === "chart" && sub && /^[A-Z]\d+$/.test(sub)) {
+        const col = sub[0];
+        const row = Number(sub.slice(1));
+        const series = (o.series = o.series ?? []);
+        if (row === 1) {
+          if (col === "B") ox(o).chart = { ...(ox(o).chart ?? {}), seriesName: c.value };
+        } else {
+          while (series.length < row - 1) series.push({ label: "", value: 0 });
+          const item = series[row - 2];
+          if (col === "A") item.label = c.value;
+          if (col === "B") item.value = Number(String(c.value).replace(/[$,\s]/g, "")) || 0;
+        }
+      } else if (o.kind === "smartart") {
+        o.items = c.value.split("\n").map((t) => t.trim()).filter((t) => t !== "");
+      } else o.text = c.value;
+    };
+    // Slide Master view: "master.o1", "master.title", "layout:Title Only.o2", "layout:Title Only.title".
+    if (isMasterKey(c.target)) {
+      const [scope, part, sub] = splitMasterKey(c.target);
+      const m = masterX(deck);
+      const layout = scope.startsWith("layout:") ? scope.slice(7) : "";
+      if (part === "title" || part === "subtitle" || part === "body" || part === "body2") {
+        if (!layout) {
+          if (part === "title") m.titleText = c.value;
+          else if (part === "body") m.bodyText = c.value.split("\n");
+        } else {
+          const lt = (m.layoutText = { ...(m.layoutText ?? {}) });
+          lt[layout] = { ...(lt[layout] ?? {}), [part]: c.value };
+        }
+        return { doc: deck };
+      }
+      const list = layout ? m.layoutObjects?.[layout] ?? [] : m.objects ?? [];
+      const o = list.find((x) => x.id === part);
+      if (o) typeInto(o, sub);
+      return { doc: deck };
+    }
     const [sid, part, sub] = c.target.split(".");
     const sl = deck.slides.find((s) => s.id === sid);
     if (!sl) return { doc: deck };
@@ -607,31 +981,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     else if (part === "notes") sl.notes = c.value;
     else {
       const o = sl.objects?.find((x) => x.id === part);
-      if (o) {
-        if (o.kind === "table" && sub && /^r\d+c\d+$/.test(sub)) {
-          const [r, col] = cellRC(sub);
-          o.rows = o.rows ?? [];
-          while (o.rows.length < r) o.rows.push(Array.from({ length: o.rows[0]?.length ?? col }, () => ""));
-          while (o.rows[r - 1].length < col) o.rows[r - 1].push("");
-          o.rows[r - 1][col - 1] = c.value;
-        } else if (o.kind === "chart" && sub === "title") {
-          ox(o).chart = { ...(ox(o).chart ?? {}), title: c.value, showTitle: true };
-        } else if (o.kind === "chart" && sub && /^[A-Z]\d+$/.test(sub)) {
-          const col = sub[0];
-          const row = Number(sub.slice(1));
-          const series = (o.series = o.series ?? []);
-          if (row === 1) {
-            if (col === "B") ox(o).chart = { ...(ox(o).chart ?? {}), seriesName: c.value };
-          } else {
-            while (series.length < row - 1) series.push({ label: "", value: 0 });
-            const item = series[row - 2];
-            if (col === "A") item.label = c.value;
-            if (col === "B") item.value = Number(String(c.value).replace(/[$,\s]/g, "")) || 0;
-          }
-        } else if (o.kind === "smartart") {
-          o.items = c.value.split("\n").map((t) => t.trim()).filter((t) => t !== "");
-        } else o.text = c.value;
-      }
+      if (o) typeInto(o, sub);
     }
     // Typing fixes misspellings it replaces.
     if (sl.spell) sl.spell = sl.spell.filter((w) => [sl.title, sl.subtitle, ...(sl.body ?? []), ...(sl.body2 ?? []), ...(sl.objects ?? []).map((o) => o.text)].some((t) => t?.includes(w.word)));
@@ -647,17 +997,41 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       case "insertPicture":
       case "stockImages":
       case "onlinePictures":
-        return addObject(deck, sel, slide, { id: "", kind: "image", label: String(val.file ?? val.image ?? "Picture").replace(/ \(Creative Commons\)$/, ""), glyph: "🖼️", x: 32, y: 28, w: 36, h: 48 });
+        return addObject(deck, sel, slide, { id: "", kind: "image", label: String(val.file ?? val.image ?? "Picture").replace(/ \(Creative Commons\)$/, ""), glyph: "🖼️", x: 32, y: 28, w: 36, h: 48 }, undefined, { autoFill: true });
       case "insertVideo":
       case "onlineVideo": {
         const label = c.id === "onlineVideo" ? String(val.address || "Online video") : String(val.file ?? "Video");
-        return addObject(deck, sel, slide, { id: "", kind: "video", label, glyph: "▶", x: 26, y: 28, w: 48, h: 48 });
+        return addObject(deck, sel, slide, { id: "", kind: "video", label, glyph: "▶", x: 26, y: 28, w: 48, h: 48 }, undefined, { autoFill: true });
       }
       case "insertAudio":
         return addObject(deck, sel, slide, { id: "", kind: "audio", label: String(val.file ?? "Audio"), glyph: "🔊", x: 46, y: 44, w: 8, h: 12 });
       case "insertIcons": {
-        const ic = ICONS.find((i) => i.name === String(val.icon)) ?? ICONS[0];
-        return addObject(deck, sel, slide, { id: "", kind: "icon", label: ic.name, glyph: ic.glyph, x: 44, y: 38, w: 12, h: 20, color: themeOf(deck).accent });
+        // One icon or several picked together (the Icons dialog allows a multiple selection).
+        const names = iconNames(val);
+        const icons = names.map((n) => ICONS.find((i) => i.name === n)).filter(Boolean) as typeof ICONS;
+        if (!icons.length) return { doc: deck };
+        const make = (ic: (typeof ICONS)[number]): PptObject => ({ id: "", kind: "icon", label: ic.name, glyph: ic.glyph, x: 44, y: 38, w: 12, h: 20, color: themeOf(deck).accent });
+        if (icons.length === 1) return addObject(deck, sel, slide, make(icons[0]), undefined, { autoFill: true });
+        const sc = scopeOf(deck, sel, slide);
+        if (!sc) return { doc: deck };
+        const gap = 4, w = 12;
+        const total = icons.length * w + (icons.length - 1) * gap;
+        let list = sc.list;
+        const added: string[] = [];
+        icons.forEach((ic, k) => {
+          const o = make(ic);
+          o.id = nextObjId(list);
+          o.x = Math.max(2, (100 - total) / 2 + k * (w + gap));
+          list = [...list, o];
+          added.push(`${sc.prefix}.${o.id}`);
+        });
+        sc.set(list);
+        return { doc: deck, ui: { selection: added.join(",") } };
+      }
+      case "changeGraphic": {
+        const ic = ICONS.find((i) => i.name === String(val.icon));
+        if (ic) for (const o of sel.objs) if (o.kind === "icon") { o.label = ic.name; o.glyph = ic.glyph; }
+        return { doc: deck };
       }
       case "changePicture": {
         for (const o of sel.objs) if (o.kind === "image") o.label = String(val.file ?? o.label);
@@ -665,10 +1039,59 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       }
       case "insertChart": {
         const o = sampleChart(String(val.type ?? "Clustered Column"));
-        const r = addObject(deck, sel, slide, o);
+        const r = addObject(deck, sel, slide, o, undefined, { autoFill: true });
         flag({ chartData: r.ui?.selection ?? "" });
         deck.pane = "Chart Data";
         return r;
+      }
+      case "pasteSpecial": {
+        const clip = readClip(deck);
+        if (!clip || !slide) return { doc: deck };
+        const as = String(val.as ?? "");
+        const link = String(val.mode ?? "Paste") === "Paste link" && Boolean(clip.source?.file);
+        const isTable = clip.kind === "obj" && clip.objs[0]?.kind === "table";
+        const mode: PasteMode = link
+          ? { as: "keep", link: true, ole: isTable ? "Microsoft Excel Worksheet Object" : "Microsoft Excel Chart Object" }
+          : PICTURE_FORMATS.includes(as) ? { as: "picture" }
+          : as === "Unformatted Text" ? { as: "text" }
+          : /^Microsoft Excel/.test(as) ? { as: "keep", ole: as }
+          : { as: "dest" };
+        return pasteClip(deck, sel, slide, clip, mode);
+      }
+      case "officeClipboard": {
+        // Fallback for the Clipboard launcher when it opens as a dialog: paste the item and dock the pane.
+        deck.pane = "Clipboard";
+        const item = clipHistory(deck).find((h) => clipLabel(h) === String(val.item ?? ""));
+        if (!item || !slide) return { doc: deck };
+        return pasteClip(deck, sel, slide, item, { as: "dest" });
+      }
+      case "defineCustomShow": {
+        const name = String(val.name ?? "").trim() || "Custom Show 1";
+        const slides = String(val.slides ?? "").split(",").map((x) => x.trim()).filter((id) => deck.slides.some((s) => s.id === id));
+        const original = String(val.original ?? "");
+        const list = customShows(deck).filter((cs) => cs.name !== name && (!original || cs.name !== original));
+        const at = original ? customShows(deck).findIndex((cs) => cs.name === original) : -1;
+        const next = list.slice();
+        next.splice(at >= 0 ? Math.min(at, next.length) : next.length, 0, { name, slides });
+        flag({ customShows: JSON.stringify(next), customShowFocus: name, pptDialog: "customShows" });
+        return { doc: deck };
+      }
+      case "animEffect":
+      case "animTiming": {
+        if (!slide) return { doc: deck };
+        for (const t of animTargets(sel)) {
+          const { name, meta } = getMeta(slide, t);
+          if (!name) continue;
+          if (val.direction !== undefined && val.direction !== "") meta.effect = String(val.direction);
+          if (val.sound !== undefined) meta.sound = String(val.sound);
+          if (val.after !== undefined) meta.after = String(val.after);
+          if (val.groupText !== undefined) meta.sequence = String(val.groupText);
+          if (val.start !== undefined && ["On Click", "With Previous", "After Previous"].includes(String(val.start))) meta.start = String(val.start) as AnimStart;
+          if (val.delay !== undefined && val.delay !== "") meta.delay = Math.max(0, Number(val.delay) || 0);
+          if (val.duration !== undefined && val.duration !== "") meta.duration = Math.max(0.01, Number(val.duration) || 0.5);
+          if (val.repeat !== undefined) meta.repeat = String(val.repeat);
+        }
+        return { doc: deck };
       }
       case "changeChartType":
         for (const o of sel.objs) if (o.kind === "chart") { o.label = String(val.type ?? o.label); o.style = o.label; }
@@ -692,14 +1115,14 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
           deck.pane = "Text Pane";
           return { doc: deck, ui: { selection: `${slide.id}.${o.id}` } };
         }
-        const r = addObject(deck, sel, slide, o);
+        const r = addObject(deck, sel, slide, o, undefined, { autoFill: true });
         deck.pane = "Text Pane";
         return r;
       }
       case "insertTable": {
         const cols = Math.max(1, Number(val.cols ?? 3)), rows = Math.max(1, Number(val.rows ?? 3));
         const o: PptObjX = { id: "", kind: "table", label: "Table", rows: Array.from({ length: rows }, () => Array.from({ length: cols }, () => "")), x: 8, y: 26, w: 84, h: Math.min(66, 9 * rows), table: { headerRow: true, bandedRows: true } };
-        const r = addObject(deck, sel, slide, o);
+        const r = addObject(deck, sel, slide, o, undefined, { autoFill: true });
         if (o.placeholder) o.h = Math.min(o.h, 9 * rows);
         return r.ui?.selection ? { ...r, ui: { selection: `${r.ui.selection}.r1c1` } } : r;
       }
@@ -813,9 +1236,11 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
         if (has("loop") || has("showType")) flag({ loop: Boolean(val.loop ?? deck.flags?.loop) || showType.includes("kiosk") });
         if (has("noNarration")) flag({ noNarration: Boolean(val.noNarration) });
         if (has("noAnimation")) flag({ noAnimation: Boolean(val.noAnimation) });
-        if (has("showSlides") || has("from") || has("to")) {
+        if (val.showSlides === "Custom show:") {
+          flag({ showRange: "", showCustomSetup: String(val.customShow || customShows(deck)[0]?.name || "") });
+        } else if (has("showSlides") || has("from") || has("to")) {
           const all = val.showSlides === "All" || (!has("showSlides") && !deck.flags?.showRange && !has("from") && !has("to"));
-          flag({ showRange: all ? "" : `${Number(val.from) || 1}-${Number(val.to) || deck.slides.length}` });
+          flag({ showRange: all ? "" : `${Number(val.from) || 1}-${Number(val.to) || deck.slides.length}`, showCustomSetup: "" });
         }
         if (has("advance")) flag({ advance: String(val.advance) });
         if (has("presenterView")) flag({ "slideshow.presenterView": Boolean(val.presenterView) });
@@ -850,7 +1275,8 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       case "font":
         if (val.font) setProp(deck, ui, "font", String(val.font));
         if (val.size) setProp(deck, ui, "size", Number(val.size));
-        if (val.color && val.color !== "Automatic") setProp(deck, ui, "color", String(val.color));
+        // Automatic clears the color so the text follows the theme again.
+        if (val.color) setProp(deck, ui, "color", val.color === "Automatic" ? undefined : String(val.color));
         if (val.style) {
           setProp(deck, ui, "bold", String(val.style).includes("Bold"));
           setProp(deck, ui, "italic", String(val.style).includes("Italic"));
@@ -865,7 +1291,8 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
         if (style === "None") { bp.bullets = false; bp.numbered = false; }
         else { bp.bullets = true; bp.numbered = false; bp.bulletStyle = style; }
         if (val.size) bp.bulletSize = Number(val.size) || 100;
-        if (val.color && val.color !== "Automatic") bp.bulletColor = String(val.color);
+        if (val.color === "Automatic") delete bp.bulletColor;
+        else if (val.color) bp.bulletColor = String(val.color);
         return { doc: deck };
       }
       case "numbering": {
@@ -876,7 +1303,8 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
         else { bp.numbered = true; bp.bullets = true; bp.numberFormat = style; }
         if (val.startAt !== undefined) bp.startAt = Math.max(1, Number(val.startAt) || 1);
         if (val.size) bp.bulletSize = Number(val.size) || 100;
-        if (val.color && val.color !== "Automatic") bp.bulletColor = String(val.color);
+        if (val.color === "Automatic") delete bp.bulletColor;
+        else if (val.color) bp.bulletColor = String(val.color);
         return { doc: deck };
       }
       case "saveTheme":
@@ -903,9 +1331,20 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       }
       case "rotation":
         if (val.degrees !== undefined && val.degrees !== "") for (const o of sel.objs) o.rotate = (((Number(val.degrees) || 0) % 360) + 360) % 360;
-        if (val.height || val.width) for (const o of sel.objs) {
-          if (Number(val.width)) o.w = inchesToPct(deck, Number(val.width), "w");
-          if (Number(val.height)) o.h = inchesToPct(deck, Number(val.height), "h");
+        for (const o of sel.objs) {
+          // Lock aspect ratio (on by default for pictures): a new width scales the height too, like Width on the Ribbon.
+          if (val.lockAspect !== undefined) ox(o).lockAspect = Boolean(val.lockAspect);
+          const lock = keepsAspect(o);
+          const curW = o.w / inchesToPct(deck, 1, "w"), curH = o.h / inchesToPct(deck, 1, "h");
+          const wIn = Number(val.width) || 0, hIn = Number(val.height) || 0;
+          const changedW = wIn > 0 && Math.abs(wIn - curW) > 0.005;
+          const changedH = hIn > 0 && Math.abs(hIn - curH) > 0.005;
+          if (lock && changedW) { const w = inchesToPct(deck, wIn, "w"); o.h = o.h * (w / o.w); o.w = w; }
+          else if (lock && changedH) { const h = inchesToPct(deck, hIn, "h"); o.w = o.w * (h / o.h); o.h = h; }
+          else {
+            if (changedW) o.w = inchesToPct(deck, wIn, "w");
+            if (changedH) o.h = inchesToPct(deck, hIn, "h");
+          }
         }
         return { doc: deck };
       case "trimAudio":
@@ -1015,6 +1454,14 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     case "home.cut":
     case "home.copy": {
       const cut = c.id === "home.cut";
+      // An Animation Pane item is an effect, not content: there is nothing to copy.
+      if (sel.anim) return { doc: deck };
+      if (slide && sel.part === "notes") {
+        if (!slide.notes) return { doc: deck };
+        writeClip(deck, { kind: "text", lines: slide.notes.split("\n") }, cut);
+        if (cut) slide.notes = "";
+        return { doc: deck };
+      }
       if (sel.thumb && slide) {
         writeClip(deck, { kind: "slide", slides: [clone(slide)] }, cut);
         if (cut && deck.slides.length > 1) return applyPpt(deck, { kind: "command", id: "slides.delete" }, ui);
@@ -1048,50 +1495,67 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     case "home.paste": {
       const clip = readClip(deck);
       if (!clip || !slide) return { doc: deck };
-      if (clip.kind === "slide") {
-        const i = deck.slides.findIndex((s) => s.id === slide.id);
-        let last = slide.id;
-        clip.slides.forEach((s, k) => {
-          const cp = clone(s);
-          cp.id = nextSlideId(deck);
-          if (sv === "Use Destination Theme" || !sv) cp.background = s.background;
-          deck.slides.splice(i + 1 + k, 0, cp);
-          last = cp.id;
-        });
-        deck.active = last;
-        return { doc: deck, ui: { slide: last, selection: last } };
-      }
-      if (clip.kind === "text") {
-        if (sel.part === "body" || sel.part === "body2") {
-          const l = lines(slide, sel.part).slice();
-          const at = sel.line ? sel.line - 1 : l.length;
-          l.splice(at, 0, ...clip.lines);
-          setLines(slide, sel.part, l);
-          return { doc: deck, ui: { selection: `${slide.id}.${sel.part}.${at + 1}` } };
-        }
-        if (sel.part === "title") { slide.title = `${slide.title ?? ""}${clip.lines.join(" ")}`; return { doc: deck }; }
-        if (sel.part === "subtitle") { slide.subtitle = `${slide.subtitle ?? ""}${clip.lines.join(" ")}`; return { doc: deck }; }
-        const tb = sel.objs.find((o) => o.kind === "textbox" || o.kind === "shape");
-        if (tb) { tb.text = `${tb.text ?? ""}${clip.lines.join("\n")}`; return { doc: deck }; }
-        return addObject(deck, { ...sel, part: undefined }, slide, { id: "", kind: "textbox", label: "Text Box", text: clip.lines.join("\n"), x: 30, y: 40, w: 40, h: 14 });
-      }
-      const sc = scopeOf(deck, sel, slide);
-      if (!sc) return { doc: deck };
-      const added: string[] = [];
-      let list = sc.list;
-      for (const src of clip.objs) {
-        const o = clone(src) as PptObjX;
-        o.id = nextObjId(list);
-        o.x = Math.min(80, o.x + 3);
-        o.y = Math.min(80, o.y + 3);
-        delete o.placeholder;
-        if (sv === "Picture") { o.kind = "image"; o.label = "Picture"; o.glyph = "🖼️"; }
-        list = [...list, o];
-        added.push(`${sc.prefix}.${o.id}`);
-      }
-      sc.set(list);
-      return { doc: deck, ui: { selection: added.join(",") } };
+      return pasteClip(deck, sel, slide, clip, pasteMode(sv));
     }
+
+    /* -------- Office Clipboard (Home › Clipboard launcher) -------- */
+    case "home.clipboardPane":
+      deck.pane = deck.pane === "Clipboard" ? null : "Clipboard";
+      return { doc: deck };
+    case "clipboard.paste": {
+      const history = clipHistory(deck);
+      const item = history.find((h) => clipLabel(h) === sv) ?? (/^\d+$/.test(sv) ? history[Number(sv) - 1] : undefined);
+      if (!item || !slide) return { doc: deck };
+      return pasteClip(deck, sel, slide, item, { as: "dest" });
+    }
+    case "clipboard.pasteAll": {
+      if (!slide) return { doc: deck };
+      let out: { doc: PptDeck; ui?: Partial<SimUi> } = { doc: deck };
+      for (const item of clipHistory(deck).slice().reverse()) {
+        const r = pasteClip(deck, parseSel(deck, ui), slide, item, { as: "dest" });
+        out = { doc: deck, ui: { ...(out.ui ?? {}), ...(r.ui ?? {}) } };
+      }
+      return out;
+    }
+    case "clipboard.clear":
+      flag({ clipHistory: "[]", clip: undefined, clipObj: undefined, clipSlide: undefined });
+      return { doc: deck };
+    case "clipboard.delete": {
+      const history = clipHistory(deck);
+      const i = history.findIndex((h) => clipLabel(h) === sv);
+      if (i >= 0) {
+        const next = history.filter((_, k) => k !== i);
+        flag({ clipHistory: JSON.stringify(next) });
+        if (i === 0) flag({ clip: next[0] ? JSON.stringify(next[0]) : undefined });
+      }
+      return { doc: deck };
+    }
+
+    /* -------- linked charts (Paste Link, Edit Links to Files) -------- */
+    case "links.edit":
+      flag({ pptDialog: "links", linkFocus: sv || deckLinks(deck)[0]?.key || "" });
+      return { doc: deck };
+    case "links.update":
+    case "links.openSource":
+    case "links.break":
+    case "links.mode":
+    case "links.changeSource": {
+      // value: "s2.o1" (one link), "s2.o1|Manual" / "s2.o1|Other.xlsx" (with an argument), or empty for every link.
+      const [key, arg] = sv.includes("|") ? sv.split("|") : /^s\d+\.o\d+$/.test(sv) ? [sv, ""] : ["", sv];
+      const all = deckLinks(deck);
+      const picked = key ? all.filter((l) => l.key === key) : sel.objs.some((o) => ox(o).dataLink) ? all.filter((l) => sel.objs.includes(l.o)) : all;
+      for (const { o, link } of picked) {
+        if (c.id === "links.update") updateLink(deck, o);
+        if (c.id === "links.openSource") flag({ openedSource: link.file, lastAction: `opened ${link.file} in Excel` });
+        if (c.id === "links.break") { delete ox(o).dataLink; flag({ linkBroken: true, lastAction: "link broken" }); }
+        if (c.id === "links.mode") link.mode = arg === "Manual" ? "Manual" : "Automatic";
+        if (c.id === "links.changeSource" && arg) { link.file = arg; updateLink(deck, o); }
+      }
+      return { doc: deck };
+    }
+    case "modal.close":
+      flag({ pptDialog: "" });
+      return { doc: deck };
     case "text.move": {
       // "s4.body.3@5": move paragraph 3 so it lands before paragraph 5.
       const [from, to] = sv.split("@");
@@ -1236,7 +1700,36 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     case "insert.dateTime":
       deck.footer = { ...(deck.footer ?? {}), date: true };
       return { doc: deck };
-    case "shape.fill": for (const o of sel.objs) o.fill = sv === "No Fill" ? "transparent" : sv; return { doc: deck };
+    case "shape.fill":
+      // An icon is filled by its color (Graphics Fill); other objects by their fill.
+      for (const o of sel.objs) {
+        if (o.kind === "icon") o.color = sv === "No Fill" ? "transparent" : sv;
+        else o.fill = sv === "No Fill" ? "transparent" : sv;
+      }
+      return { doc: deck };
+    case "graphics.fill":
+      for (const o of sel.objs) if (o.kind === "icon") o.color = sv === "No Fill" ? "transparent" : sv;
+      return { doc: deck };
+    case "graphics.outline":
+      for (const o of sel.objs) {
+        if (o.kind !== "icon") continue;
+        if (/^Weight: /.test(sv)) ox(o).outlineWeight = parseFloat(sv.replace("Weight: ", "").replace("¼", "0.25").replace("½", "0.5")) || 1;
+        else ox(o).fx = { ...(ox(o).fx ?? {}), border: sv === "No Outline" ? undefined : sv };
+      }
+      return { doc: deck };
+    case "graphics.effects":
+      for (const o of sel.objs) if (o.kind === "icon") { ox(o).effect = sv; ox(o).fx = { ...(ox(o).fx ?? {}), effects: sv }; }
+      return { doc: deck };
+    case "graphics.style":
+      for (const o of sel.objs) {
+        if (o.kind !== "icon" || !GRAPHIC_STYLES.includes(sv)) continue;
+        const m = /Accent (\d)/.exec(sv);
+        const accent = m ? ["#4472C4", "#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5", "#70AD47"][Number(m[1]) - 1] : "#000000";
+        o.style = `graphics:${sv}`;
+        if (/Outline/.test(sv) && !/Colored Fill/.test(sv)) { ox(o).fx = { ...(ox(o).fx ?? {}), border: accent }; o.color = "transparent"; }
+        else { o.color = sv === "Black Outline, Colored Fill" ? themeOf(deck).accent : accent; ox(o).fx = { ...(ox(o).fx ?? {}), border: /Black Outline/.test(sv) ? "#000000" : undefined }; }
+      }
+      return { doc: deck };
     case "shape.outline":
       for (const o of sel.objs) {
         if (/^Weight: /.test(sv)) ox(o).outlineWeight = parseFloat(sv.replace("Weight: ", "").replace("¼", "0.25").replace("½", "0.5")) || 1;
@@ -1366,7 +1859,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       for (const o of sel.objs) {
         const n = parseFloat(sv);
         if (!n) continue;
-        const keep = o.kind === "image" || o.kind === "video" || o.kind === "chart" || o.kind === "smartart";
+        const keep = keepsAspect(o);
         if (c.id === "object.size") {
           const w = Math.min(98, inchesToPct(deck, n, "w"));
           if (keep) o.h = o.h * (w / o.w);
@@ -1379,6 +1872,20 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       }
       return { doc: deck };
     case "edit.delete": {
+      // Delete with an Animation Pane item selected removes that effect, never the text or object.
+      if (sel.anim) {
+        if (!slide) return { doc: deck };
+        const t = sel.anim === "title" || sel.anim === "body" ? sel.anim : slide.objects?.find((o) => o.id === sel.anim);
+        if (t && getMetaRead(slide, t).name) {
+          const before = animSequence(slide);
+          const at = before.findIndex((a) => a.target === (typeof t === "string" ? t : t.id));
+          removeAnim(slide, t);
+          const after = animSequence(slide);
+          const next = after[Math.min(Math.max(0, at), after.length - 1)];
+          if (next) return { doc: deck, ui: { selection: animKey(next) } };
+        }
+        return { doc: deck };
+      }
       if (sel.objs.length) {
         if (sel.cells?.length && sel.objs[0]?.kind === "table") {
           const t = sel.objs[0];
@@ -1530,6 +2037,14 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       return { doc: deck };
     }
     case "animation.pane": deck.pane = deck.pane === "Animation Pane" ? null : "Animation Pane"; return { doc: deck };
+    case "animation.remove": {
+      if (!slide) return { doc: deck };
+      for (const t of animTargets(sel)) if (getMetaRead(slide, t).name) removeAnim(slide, t);
+      return { doc: deck };
+    }
+    case "animation.playFrom":
+      flag({ preview: Date.now(), playFrom: sv || ui.selection });
+      return { doc: deck };
     case "animation.painter": {
       if (!slide) return { doc: deck };
       const t = animTargets(sel)[0];
@@ -1554,9 +2069,35 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       return { doc: deck };
 
     /* -------- slide show -------- */
-    case "slideshow.fromBeginning":
+    case "slideshow.fromBeginning": {
+      // Set Up Show › Custom show: From Beginning plays that custom show.
+      const setup = deck.flags?.showCustomSetup;
+      if (typeof setup === "string" && setup && startCustomShow(deck, setup)) return { doc: deck };
       startShow(deck, firstShowSlide(deck), "beginning");
       return { doc: deck };
+    }
+    case "slideshow.custom":
+      // The Custom Slide Show menu: "Custom Shows..." opens the dialog; a show's name plays it.
+      if (sv && sv !== "Custom Shows..." && startCustomShow(deck, sv)) { flag({ pptDialog: "" }); return { doc: deck }; }
+      flag({ pptDialog: "customShows" });
+      return { doc: deck };
+    case "slideshow.customShow":
+      flag({ pptDialog: "" });
+      startCustomShow(deck, sv || customShows(deck)[0]?.name || "");
+      return { doc: deck };
+    case "customShow.remove":
+      flag({ customShows: JSON.stringify(customShows(deck).filter((cs) => cs.name !== sv)), customShowFocus: "" });
+      return { doc: deck };
+    case "customShow.copy": {
+      const list = customShows(deck);
+      const src = list.find((cs) => cs.name === sv);
+      if (!src) return { doc: deck };
+      let name = `Copy of ${src.name}`;
+      let n = 2;
+      while (list.some((cs) => cs.name === name)) name = `Copy (${n++}) of ${src.name}`;
+      flag({ customShows: JSON.stringify([...list, { name, slides: src.slides.slice() }]), customShowFocus: name });
+      return { doc: deck };
+    }
     case "slideshow.fromCurrent":
       startShow(deck, slide?.id, "current");
       return { doc: deck };
@@ -1610,7 +2151,6 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       flag({ "slideshow.presenterView": !deck.flags?.["slideshow.presenterView"] });
       return { doc: deck };
     case "slideshow.record":
-    case "slideshow.custom":
     case "slideshow.captions":
     case "slideshow.online":
       flag({ [c.id]: sv || true });
@@ -1955,9 +2495,13 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
         deck.pane = "Chart Data";
       }
       return { doc: deck };
+    case "chart.refresh":
+      // Refresh Data reads a linked chart's workbook again.
+      for (const o of sel.objs) if (o.kind === "chart") updateLink(deck, o);
+      flag({ [c.id]: true });
+      return { doc: deck };
     case "chart.switchRowColumn":
     case "chart.selectData":
-    case "chart.refresh":
       flag({ [c.id]: true });
       return { doc: deck };
 
@@ -2104,7 +2648,8 @@ export function pptContextual(deck: PptDeck, ui: SimUi): string[] {
     return out;
   }
   for (const o of s.objs) {
-    const k = o.kind === "image" ? "picture" : o.kind === "table" ? "table" : o.kind === "chart" ? "chart" : o.kind === "smartart" ? "smartart" : o.kind === "video" ? "video" : o.kind === "audio" ? "audio" : "shape";
+    // An Excel object from Paste Special is an embedded object, not a native chart or table: Shape Format only.
+    const k = ox(o).ole ? "shape" : o.kind === "image" ? "picture" : o.kind === "table" ? "table" : o.kind === "chart" ? "chart" : o.kind === "smartart" ? "smartart" : o.kind === "video" ? "video" : o.kind === "audio" ? "audio" : o.kind === "icon" ? "graphics" : "shape";
     if (!out.includes(k)) out.push(k);
   }
   return out;
@@ -2139,7 +2684,9 @@ export function pptDialogDefaults(deck: PptDeck, ui: SimUi, id: string): Record<
     case "font": {
       const p = firstProps(deck, ui);
       const st = pptRibbonState(deck, ui);
-      return { font: String(st["home.fontName"] ?? "Aptos"), size: String(st["home.fontSize"] ?? 18), style: p.bold && p.italic ? "Bold Italic" : p.bold ? "Bold" : p.italic ? "Italic" : "Regular", color: p.color ?? "Automatic", underline: p.underline ? "Single" : "(none)", strike: Boolean(p.strike) };
+      const mm = readMaster(deck);
+      const color = sel.master === "title" ? mm.titleColor : sel.master === "body" ? mm.bodyColor : p.color;
+      return { font: String(st["home.fontName"] ?? "Aptos"), size: String(st["home.fontSize"] ?? 18), style: p.bold && p.italic ? "Bold Italic" : p.bold ? "Bold" : p.italic ? "Italic" : "Regular", color: color ? color.toUpperCase() : "Automatic", underline: p.underline ? "Single" : "(none)", strike: Boolean(p.strike) };
     }
     case "bullets": {
       const bp = (slide?.bodyProps ?? {}) as ReturnType<typeof bodyX>;
@@ -2163,9 +2710,10 @@ export function pptDialogDefaults(deck: PptDeck, ui: SimUi, id: string): Record<
         loop: Boolean(deck.flags?.loop),
         noNarration: Boolean(deck.flags?.noNarration),
         noAnimation: Boolean(deck.flags?.noAnimation),
-        showSlides: range ? "From:" : "All",
+        showSlides: deck.flags?.showCustomSetup ? "Custom show:" : range ? "From:" : "All",
         from: range ? Number(range.split("-")[0]) : 1,
         to: range ? Number(range.split("-")[1]) : deck.slides.length,
+        customShow: String(deck.flags?.showCustomSetup || customShows(deck)[0]?.name || ""),
         advance: String(deck.flags?.advance || "Using timings, if present"),
         presenterView: Boolean(deck.flags?.["slideshow.presenterView"]),
       };
@@ -2185,14 +2733,59 @@ export function pptDialogDefaults(deck: PptDeck, ui: SimUi, id: string): Record<
       return { accent1: themeOf(deck).accent.toUpperCase(), name: "Custom 1" };
     case "compressPictures":
       return { applyOnly: true, deleteCropped: true, resolution: "Use default resolution" };
-    case "rotation":
-      return { degrees: o?.rotate ?? 0 };
+    case "rotation": {
+      const inch = (v: number) => Math.round(v * 100) / 100;
+      return o
+        ? { degrees: o.rotate ?? 0, height: inch(o.h / inchesToPct(deck, 1, "h")), width: inch(o.w / inchesToPct(deck, 1, "w")), lockAspect: keepsAspect(o) }
+        : { degrees: 0 };
+    }
+    case "pasteSpecial":
+      return { mode: "Paste", as: pasteSpecialInfo(deck).paste[0] ?? "" };
+    case "officeClipboard": {
+      const h = clipHistory(deck);
+      return { item: h[0] ? clipLabel(h[0]) : "" };
+    }
+    case "animEffect":
+    case "animTiming": {
+      const t = slide ? animTargets(sel)[0] : undefined;
+      const meta = slide && t ? getMetaRead(slide, t).meta : {};
+      return {
+        direction: meta.effect ?? "From Bottom",
+        sound: meta.sound ?? "[No Sound]",
+        after: meta.after ?? "Don't Dim",
+        groupText: meta.sequence ?? "By 1st Level Paragraphs",
+        start: meta.start ?? "On Click",
+        delay: meta.delay ?? 0,
+        duration: meta.duration ?? 0.5,
+        repeat: meta.repeat ?? "(none)",
+      };
+    }
+    case "changeGraphic":
+      return { icon: o?.kind === "icon" ? o.label ?? "" : "" };
     case "link":
       return { text: o?.text ?? (sel.part === "title" ? slide?.title ?? "" : ""), address: "" };
     case "changeChartType":
       return { type: o?.label ?? "Clustered Column" };
   }
   return {};
+}
+
+/**
+ * What Paste Special offers for the clipboard's content: the Source line, the Paste formats and
+ * the Paste link formats (empty when the content cannot be linked).
+ */
+export function pasteSpecialInfo(deck: PptDeck): { source: string; paste: string[]; link: string[] } {
+  const clip = readClip(deck);
+  if (!clip) return { source: "The Clipboard is empty.", paste: [], link: [] };
+  const src = clip.source;
+  const where = src?.file ? `${src.path ? `${src.path} › ` : ""}${src.file}${src.item ? `!${src.item}` : ""}` : "";
+  const pics = ["Picture (PNG)", "Picture (Enhanced Metafile)", "Picture (GIF)", "Picture (JPEG)"];
+  if (clip.kind === "text") return { source: `Source: ${src?.app === "Word" ? "Microsoft Word Document" : src?.app === "Excel" ? "Microsoft Excel Worksheet" : "Microsoft PowerPoint"}${where ? `  ${where}` : ""}`, paste: ["HTML Format", "Formatted Text (RTF)", "Unformatted Text", "Picture (Enhanced Metafile)", "Picture (PNG)"], link: [] };
+  if (clip.kind === "slide") return { source: "Source: Microsoft PowerPoint Slide", paste: ["Microsoft PowerPoint Slide Object", ...pics], link: [] };
+  const first = clip.objs[0];
+  if (src?.app === "Excel" && first?.kind === "chart") return { source: `Source: Microsoft Excel Chart  ${where}`, paste: ["Microsoft Excel Chart Object", ...pics, "Microsoft Office Graphic Object"], link: src.file ? ["Microsoft Excel Chart Object"] : [] };
+  if (src?.app === "Excel" && first?.kind === "table") return { source: `Source: Microsoft Excel Worksheet  ${where}`, paste: ["Microsoft Excel Worksheet Object", "HTML Format", "Formatted Text (RTF)", "Unformatted Text", ...pics, "Bitmap"], link: src.file ? ["Microsoft Excel Worksheet Object"] : [] };
+  return { source: `Source: ${src?.app ? `Microsoft ${src.app}` : "Microsoft PowerPoint"}${where ? `  ${where}` : ""}`, paste: ["Microsoft Office Graphic Object", ...pics], link: [] };
 }
 
 /** Every text string on a slide, for search and accessibility. */
