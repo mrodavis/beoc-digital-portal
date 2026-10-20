@@ -188,6 +188,9 @@ function Caret() {
   );
 }
 
+/** Combo boxes Office shows without a caption (everything else gets "Label:" like Indent Left or Duration). */
+const UNLABELED_COMBOS = new Set(["Font", "Font Size", "Number Format", "Display for Review"]);
+
 function ControlView({
   c,
   state,
@@ -269,8 +272,11 @@ function ControlView({
 
   if (c.type === "dropdown" && c.combo) {
     const val = String(state[c.stateKey ?? c.id] ?? "");
+    const labeled = "showLabel" in c && c.showLabel !== undefined ? Boolean(c.showLabel) : !UNLABELED_COMBOS.has(c.label);
     return (
-      <div className="flex h-[22px] items-stretch rounded-sm border border-gray-300 bg-white" style={{ width: c.width ?? 120 }} title={tip}>
+      <div className="flex items-center gap-1" title={tip}>
+      {labeled && <span className="whitespace-nowrap text-[11.5px] text-gray-700">{c.label}:</span>}
+      <div className="flex h-[22px] items-stretch rounded-sm border border-gray-300 bg-white" style={{ width: c.width ?? 120 }}>
         <input
           aria-label={c.label}
           value={comboText ?? val}
@@ -302,6 +308,7 @@ function ControlView({
         {menu && (
           <Popover anchor={menu} items={optionItems(c.options, c.id, h)} onClose={() => setMenu(null)} width={c.width ? Math.max(c.width, 180) : undefined} />
         )}
+      </div>
       </div>
     );
   }
@@ -338,14 +345,14 @@ function ControlView({
         onClick={onFace}
         className={
           large
-            ? `${base} h-[66px] min-w-[44px] max-w-[76px] flex-col justify-start gap-0.5 px-1 pt-1 text-center ${split ? "rounded-b-none" : ""}`
+            ? `${base} h-[66px] min-w-[44px] max-w-[84px] flex-col justify-start gap-0.5 px-1 pt-1 text-center ${split ? "rounded-b-none" : ""}`
             : `${base} h-[22px] gap-1 px-1`
         }
       >
         <Icon name={"icon" in c ? c.icon : undefined} size={large ? 30 : 16} />
         {showLabel && (
-          <span className={large ? "flex items-start gap-0.5 whitespace-normal" : "whitespace-nowrap"}>
-            {c.label}
+          <span className={large ? "flex items-start gap-0.5 whitespace-normal text-[11px]" : "whitespace-nowrap"}>
+            <span className={large ? "line-clamp-2" : undefined}>{c.label}</span>
             {isDropdown && !split && large && <span className="mt-1"><Caret /></span>}
           </span>
         )}
@@ -371,6 +378,66 @@ function ControlView({
           layout={(c as Extract<RibbonControl, { type: "dropdown" }>).gallery ?? "list"}
           onClose={() => setMenu(null)}
         />
+      )}
+    </div>
+  );
+}
+
+/** A group shrunk to one button when the Ribbon is too narrow; clicking it drops the full group down. */
+function CollapsedGroupView({ g, state, h }: { g: RibbonGroup; state: Record<string, SimValue | undefined>; h: RibbonHandlers }) {
+  const [open, setOpen] = useState<{ x: number; y: number } | null>(null);
+  const panel = useRef<HTMLDivElement>(null);
+  const first = [...(g.rows ?? []).flat(), ...g.controls].find((c) => c.type !== "separator" && "icon" in c && c.icon);
+  const icon = first && "icon" in first ? first.icon : undefined;
+  useEffect(() => {
+    if (!open) return;
+    const down = (e: MouseEvent) => {
+      if (panel.current && !panel.current.contains(e.target as Node)) setOpen(null);
+    };
+    const key = (e: KeyboardEvent) => e.key === "Escape" && setOpen(null);
+    const t = setTimeout(() => document.addEventListener("mousedown", down), 0);
+    document.addEventListener("keydown", key);
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener("mousedown", down);
+      document.removeEventListener("keydown", key);
+    };
+  }, [open]);
+  const closeAfter: RibbonHandlers = {
+    onCommand: (id, v) => {
+      setOpen(null);
+      h.onCommand(id, v);
+    },
+    onDialog: (id) => {
+      setOpen(null);
+      h.onDialog(id);
+    },
+  };
+  return (
+    <div className="relative flex h-full shrink-0 flex-col items-center border-r border-gray-200 px-1">
+      <button
+        type="button"
+        aria-haspopup="true"
+        aria-expanded={Boolean(open)}
+        title={g.label}
+        onClick={(e) => {
+          const r = e.currentTarget.getBoundingClientRect();
+          setOpen(open ? null : { x: r.left, y: r.bottom + 2 });
+        }}
+        className={`flex h-[66px] min-w-[52px] max-w-[84px] flex-col items-center justify-start gap-0.5 rounded-sm border px-1 pt-1 text-center text-[11px] leading-tight text-gray-800 ${
+          open ? "border-[#9cc3e5] bg-[#cce4f7]" : "border-transparent hover:border-[#cce4f7] hover:bg-[#e5f1fb]"
+        }`}
+      >
+        <Icon name={icon} size={30} />
+        <span className="flex items-start gap-0.5">
+          <span className="line-clamp-2">{g.label}</span>
+          <span className="mt-1"><Caret /></span>
+        </span>
+      </button>
+      {open && (
+        <div ref={panel} className="fixed z-[190] flex h-[92px] rounded-sm border border-gray-300 bg-white py-1 shadow-xl" style={{ left: open.x, top: open.y }}>
+          <GroupView g={g} state={state} h={closeAfter} />
+        </div>
       )}
     </div>
   );
@@ -461,6 +528,27 @@ export function Ribbon({
   const tab = tabs.find((t) => t.id === activeTab) ?? tabs[0];
   const showBody = !collapsed || peek;
 
+  // When the groups don't fit, shrink them one at a time from the right into
+  // single buttons, the way Office does in a narrow window, so nothing is
+  // hidden off the edge.
+  const panelRef = useRef<HTMLDivElement>(null);
+  const [shrunk, setShrunk] = useState(0);
+  const [width, setWidth] = useState(0);
+  const groupCount = tab?.groups.length ?? 0;
+  useLayoutEffect(() => setShrunk(0), [tab?.id, width, groupCount]);
+  useLayoutEffect(() => {
+    const el = panelRef.current;
+    if (!el) return;
+    if (el.scrollWidth > el.clientWidth + 1 && shrunk < groupCount) setShrunk((n) => n + 1);
+  });
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => setWidth(Math.round(el.clientWidth)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [showBody]);
+
   return (
     <div className="relative select-none border-b border-gray-300 bg-[#f3f3f3]">
       <div role="tablist" className="flex items-end gap-0.5 overflow-x-auto px-1 pt-1 text-[12.5px]">
@@ -499,11 +587,16 @@ export function Ribbon({
       {showBody && (
         <div
           role="tabpanel"
+          ref={panelRef}
           className={`flex h-[92px] items-stretch overflow-x-auto bg-white py-1 ${collapsed ? "absolute inset-x-0 top-full z-30 border-b border-gray-300 shadow-lg" : ""}`}
         >
-          {tab.groups.map((g, i) => (
-            <GroupView key={`${tab.id}-${i}`} g={g} state={state} h={handlers} />
-          ))}
+          {tab.groups.map((g, i) =>
+            i >= tab.groups.length - shrunk ? (
+              <CollapsedGroupView key={`${tab.id}-${i}-c`} g={g} state={state} h={handlers} />
+            ) : (
+              <GroupView key={`${tab.id}-${i}`} g={g} state={state} h={handlers} />
+            ),
+          )}
           <div className="flex-1" />
           <button
             type="button"

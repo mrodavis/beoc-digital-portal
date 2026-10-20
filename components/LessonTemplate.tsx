@@ -243,7 +243,11 @@ export default function ModuleTemplate({
             title="Practice Simulation"
             description="Practice what this lesson taught in a working copy of the app. Tasks appear under the window, just like GMetrix."
           />
-          <div className="space-y-10">
+          {/* Wider than the reading column on big screens, so the app has room for its full Ribbon. */}
+          <div
+            className="space-y-10"
+            style={{ width: "min(1360px, calc(100vw - 2rem))", marginLeft: "calc((100% - min(1360px, calc(100vw - 2rem))) / 2)" }}
+          >
             {sims.map((sim) => (
               <SimSlot key={sim.id} sim={sim} />
             ))}

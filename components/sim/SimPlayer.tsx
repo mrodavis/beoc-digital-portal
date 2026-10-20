@@ -567,7 +567,7 @@ export default function SimPlayer({ sim, app }: { sim: SimDefinition; app: AppMo
                   Practice again
                 </button>
                 <button type="button" onClick={() => setExploring(true)} className="rounded-lg border border-gray-300 px-4 py-2 font-semibold text-gray-700 hover:bg-gray-50">
-                  Explore the finished file
+                  {app.chrome === "bare" ? "Keep exploring" : "Explore the finished file"}
                 </button>
               </div>
             </div>
