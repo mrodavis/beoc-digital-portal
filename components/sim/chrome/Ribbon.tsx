@@ -113,6 +113,7 @@ export function Popover({
                 type="button"
                 role="menuitem"
                 disabled={it.disabled}
+                title={it.label}
                 onClick={() => { it.onPick?.(); onClose(); }}
                 className="flex w-[88px] flex-col items-center gap-1 rounded border border-transparent p-1.5 text-center hover:border-orange-300 hover:bg-orange-50"
               >
@@ -218,7 +219,7 @@ function ControlView({
   };
 
   if (c.type === "gallery") {
-    const visible = c.options.slice(0, 4);
+    const visible = c.options.filter((o) => !o.heading && !o.dialog).slice(0, 4);
     return (
       <div className="flex h-[62px] items-stretch rounded-sm border border-gray-300 bg-white" style={{ width: c.width ?? 300 }}>
         <div className="flex flex-1 items-stretch gap-0.5 overflow-hidden p-0.5">
@@ -368,7 +369,7 @@ function ControlView({
         onClick={onFace}
         className={
           large
-            ? `${base} h-[66px] min-w-[44px] max-w-[84px] flex-col justify-start gap-0.5 px-1 pt-1 text-center ${split ? "rounded-b-none" : ""}`
+            ? `${base} h-[66px] min-w-[44px] max-w-[96px] flex-col justify-start gap-0.5 px-1 pt-1 text-center ${split ? "rounded-b-none" : ""}`
             : `${base} h-[22px] gap-1 px-1`
         }
       >

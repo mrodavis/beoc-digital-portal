@@ -125,7 +125,7 @@ export const googleSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "In the copy, change the first step to “Unlock the front door at 8:15 AM.”",
-          hint: "Double-click the step “Unlock the front door at 7:45 AM.”, change the text, and press Enter. There is no Save button: Google Docs saves every change on its own.",
+          hint: "Double-click the step “Unlock the front door at 7:45 AM.” to edit it, change 7:45 to 8:15, and press Enter. There is no Save button: Google Docs saves every change on its own.",
           steps: [{ action: { kind: "type", target: "p3", value: "Unlock the front door at 8:15 AM." } }],
         },
       ],
@@ -202,7 +202,7 @@ export const googleSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Suggest changing the words “may post” to “may not post”.",
-          hint: "Double-click the words may post, type may not post, and press Enter. In Suggesting mode the change shows as a suggestion that Renee can accept or reject.",
+          hint: "Select the words may post (click them, or double-click them), type may not post to replace them, and press Enter. In Suggesting mode the change shows as a suggestion that Renee can accept or reject.",
           steps: [{ action: { kind: "type", target: "p3.r2", value: "may not post" } }],
         },
         {

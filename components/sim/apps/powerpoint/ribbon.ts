@@ -303,7 +303,7 @@ export const pptRibbon: RibbonTab[] = [
         // The More list groups effects under Emphasis and Exit headings, as PowerPoint does. The entrance
         // effects follow None without their own heading: the Ribbon's in-gallery row shows the first four
         // options as tiles (headings included), so a heading there would show up as a tile.
-        { type: "gallery", id: "animation.apply", label: "Animations", options: [...ANIMATIONS.map((a) => ({ value: a, label: a, preview: { color: "#2E7D32" } })), { value: "Emphasis", heading: true }, ...EMPHASIS.map((a) => ({ value: a, label: a, preview: { color: "#B8860B" } })), { value: "Exit", heading: true }, ...EXITS.map((a) => ({ value: a, label: a, preview: { color: "#C00000" } }))], width: 340 },
+        { type: "gallery", id: "animation.apply", label: "Animations", options: [...ANIMATIONS.map((a) => ({ value: a, label: a, preview: { color: "#2E7D32" } })).flatMap((o, i) => (i === 1 ? [{ value: "Entrance", heading: true }, o] : [o])), { value: "Emphasis", heading: true }, ...EMPHASIS.map((a) => ({ value: a, label: a, preview: { color: "#B8860B" } })), { value: "Exit", heading: true }, ...EXITS.map((a) => ({ value: a, label: a, preview: { color: "#C00000" } }))], width: 340 },
         { type: "dropdown", id: "animation.effect", label: "Effect Options", icon: "options", size: "large", options: [{ value: "Direction", heading: true }, ...["From Bottom", "From Left", "From Right", "From Top"].map((v) => ({ value: v })), { value: "Sequence", heading: true }, ...["As One Object", "All at Once", "By Paragraph"].map((v) => ({ value: v }))] },
       ] },
       { label: "Advanced Animation", controls: [
