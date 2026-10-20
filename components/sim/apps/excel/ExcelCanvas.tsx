@@ -18,53 +18,13 @@ import {
   numToCol,
   parseRange,
   parseRef,
-  pivotFieldList,
-  pivotLayoutOf,
-  pivotRecords,
-  pivotValueLabel,
-  rangeValues,
   rectToRange,
   refOf,
   shiftFormula,
-  withPivotCaches,
-  type PivotCell,
   type Rect,
-  type XPivot,
 } from "@/lib/sim/excel";
-import {
-  activeCell,
-  analyzeSuggestions,
-  centerAcrossRanges,
-  chartIdOf,
-  chartSeriesOf,
-  currentRegion,
-  DEFAULT_COLS,
-  DEFAULT_ROWS,
-  editRangeAt,
-  inTable,
-  invalidCells,
-  isDateFormat,
-  isFormulaHidden,
-  isUnlocked,
-  parseInput,
-  resolveHeaderFooter,
-  selRect,
-  seriesFromRange,
-  sheetOf,
-  sparklineAt,
-  TAB_COLORS,
-  tableRect,
-  TOTAL_FN_NAMES,
-  usedRect,
-  validationAllows,
-  validationAt,
-  validationList,
-  withTotalRows,
-  type XChart,
-  type XSparkline,
-  type XValidation,
-} from "./model";
-import { BUILT_IN_LISTS, SHOW_VALUES_AS, SORT_ORDERS_BY_TYPE } from "./dialogs";
+import { activeCell, analyzeSuggestions, centerAcrossRanges, currentRegion, DEFAULT_COLS, DEFAULT_ROWS, isUnlocked, parseInput, selRect, sheetOf, TAB_COLORS, usedRect } from "./model";
+import { SHOW_VALUES_AS } from "./dialogs";
 import { TABLE_STYLE_COLORS } from "./ribbon";
 
 const HEAD_W = 40;
@@ -88,8 +48,13 @@ function cellRaw(sheet: ExcelSheet, ref: string): string {
 }
 
 /* ------------------------------------------------------------------ */
-/* PivotTables and chart data                                          */
+/* Pivot computation                                                   */
 /* ------------------------------------------------------------------ */
+
+interface VirtualCell {
+  v: Val;
+  fmt?: CellFormat;
+}
 
 /** Items a PivotTable field is filtered to (report filter or slicer); null = all. */
 function pivotFilterItems(doc: ExcelBook, sheet: ExcelSheet, field: string): string[] | null {
@@ -97,32 +62,150 @@ function pivotFilterItems(doc: ExcelBook, sheet: ExcelSheet, field: string): str
   return v ? String(v).split("|") : null;
 }
 
-const numVals = (vals: Val[]) => vals.map((x) => (typeof x === "number" ? x : 0));
+/** Source records of a PivotTable, as field → value. */
+function pivotSource(doc: ExcelBook, sheet: ExcelSheet): { head: string[]; rows: Record<string, Val>[]; fmtOf: (f: string) => CellFormat | undefined } | null {
+  const pv = sheet.pivot;
+  if (!pv) return null;
+  const src = doc.sheets.find((s) => s.name === pv.source.sheet);
+  const rc = parseRange(pv.source.range);
+  if (!src || !rc) return null;
+  const head: string[] = [];
+  for (let c = rc.c1; c <= rc.c2; c++) head.push(String(src.cells[refOf(c, rc.r1)]?.v ?? numToCol(c)));
+  const rows: Record<string, Val>[] = [];
+  for (let r = rc.r1 + 1; r <= rc.r2; r++) {
+    const row: Record<string, Val> = {};
+    head.forEach((h, i) => (row[h] = evaluateCell(doc, src, refOf(rc.c1 + i, r))));
+    if (Object.values(row).every((x) => x === null || x === "")) continue;
+    rows.push(row);
+  }
+  return { head, rows, fmtOf: (f) => src.cells[refOf(rc.c1 + head.indexOf(f), rc.r1 + 1)]?.fmt };
+}
 
-/** Categories and series a chart plots: from its range, its own series list, or the PivotTable for a PivotChart. */
-function chartData(doc: ExcelBook, sheet: ExcelSheet, ch: ExcelChart): { cats: string[]; series: { name: string; vals: number[] }[] } | null {
+function computePivot(doc: ExcelBook, sheet: ExcelSheet): Record<string, VirtualCell> {
+  const pv = sheet.pivot;
+  const out: Record<string, VirtualCell> = {};
+  const source = pivotSource(doc, sheet);
+  if (!pv || !source) return out;
+  const { head } = source;
+  // Report filters and slicers narrow the records first.
+  const rows = source.rows.filter((r) => head.every((h) => {
+    const items = pivotFilterItems(doc, sheet, h);
+    return !items || items.some((it) => it.toLowerCase() === String(r[h] ?? "(blank)").toLowerCase());
+  }));
+  const at = parseRef(pv.at ?? "A3")!;
+  pv.filters.forEach((f, i) => {
+    const r = at.r - 2 - (pv.filters.length - 1 - i);
+    if (r < 1) return;
+    const items = pivotFilterItems(doc, sheet, f);
+    out[refOf(at.c, r)] = { v: f, fmt: { bold: true } };
+    out[refOf(at.c + 1, r)] = { v: !items ? "(All)" : items.length === 1 ? items[0] : "(Multiple Items)" };
+  });
+  const rowF = pv.rows[0];
+  const colF = pv.columns[0];
+  const val = pv.values[0];
+  if (!rowF && !val) return out;
+  const agg = (items: Record<string, Val>[]) => {
+    if (!val) return null;
+    const nums = items.map((x) => x[val.field]).filter((x): x is number => typeof x === "number");
+    switch (val.fn) {
+      case "Count": return items.filter((x) => x[val.field] !== null && x[val.field] !== "").length;
+      case "Average": return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : 0;
+      case "Max": return nums.length ? Math.max(...nums) : 0;
+      case "Min": return nums.length ? Math.min(...nums) : 0;
+      default: return nums.reduce((a, b) => a + b, 0);
+    }
+  };
+  const showAs = String(doc.flags?.[`pvShowAs:${sheet.name}`] ?? "");
+  const vf: CellFormat | undefined = val ? source.fmtOf(val.field) : undefined;
+  const pctFmt: CellFormat = { numFmt: "Percentage", decimals: 2 };
+  const fmtV = showAs && showAs !== "Running Total In" ? pctFmt : val?.fn === "Count" ? undefined : vf;
+  const hdr: CellFormat = { bold: true, fill: "#DDEBF7" };
+  const keyOf = (r: Record<string, Val>, f: string) => String(r[f] ?? "(blank)");
+  const sortKeys = (keys: string[]) => keys.sort((a, b) => {
+    const na = Number(a), nb = Number(b);
+    return !Number.isNaN(na) && !Number.isNaN(nb) ? na - nb : a.localeCompare(b, undefined, { sensitivity: "base" });
+  });
+  const rowKeys = rowF ? sortKeys(Array.from(new Set(rows.map((r) => keyOf(r, rowF))))) : [];
+  const colKeys = colF ? sortKeys(Array.from(new Set(rows.map((r) => keyOf(r, colF))))) : [];
+  const label = val ? `${val.fn} of ${val.field}` : "";
+  const grand = agg(rows) ?? 0;
+  const colTotal = (ck: string | null) => agg(ck === null ? rows : rows.filter((x) => keyOf(x, colF) === ck)) ?? 0;
+  const running: Record<string, number> = {};
+  const show = (v: number | null, rk: string | null, ck: string | null): Val => {
+    if (v === null) return null;
+    if (!showAs) return v;
+    if (showAs === "% of Grand Total") return grand ? v / grand : 0;
+    if (showAs === "% of Column Total") { const t = colTotal(ck); return t ? v / t : 0; }
+    if (showAs === "% of Row Total") {
+      if (rk === null) return grand ? v / grand : 0;
+      const t = agg(rows.filter((x) => keyOf(x, rowF) === rk)) ?? 0;
+      return t ? v / t : 0;
+    }
+    if (showAs === "Running Total In") {
+      const k = ck ?? "";
+      running[k] = (running[k] ?? 0) + v;
+      return running[k];
+    }
+    return v;
+  };
+  out[refOf(at.c, at.r)] = { v: rowF ? "Row Labels" : label, fmt: hdr };
+  if (colF) {
+    out[refOf(at.c, at.r - 1)] = { v: label, fmt: hdr };
+    out[refOf(at.c + 1, at.r - 1)] = { v: "Column Labels", fmt: hdr };
+    colKeys.forEach((k, i) => (out[refOf(at.c + 1 + i, at.r)] = { v: k, fmt: hdr }));
+    out[refOf(at.c + 1 + colKeys.length, at.r)] = { v: "Grand Total", fmt: hdr };
+  } else if (rowF && val) out[refOf(at.c + 1, at.r)] = { v: label, fmt: hdr };
+  if (!rowF && val) {
+    out[refOf(at.c, at.r + 1)] = { v: show(agg(rows), null, null), fmt: fmtV };
+    return out;
+  }
+  rowKeys.forEach((k, i) => {
+    const items = rows.filter((r) => keyOf(r, rowF) === k);
+    out[refOf(at.c, at.r + 1 + i)] = { v: k };
+    if (colF) {
+      colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, at.r + 1 + i)] = { v: show(agg(items.filter((x) => keyOf(x, colF) === ck)), k, ck), fmt: fmtV }));
+      out[refOf(at.c + 1 + colKeys.length, at.r + 1 + i)] = { v: showAs === "Running Total In" ? null : show(agg(items), k, null), fmt: fmtV };
+    } else if (val) out[refOf(at.c + 1, at.r + 1 + i)] = { v: show(agg(items), k, null), fmt: fmtV };
+  });
+  const gt = at.r + 1 + rowKeys.length;
+  out[refOf(at.c, gt)] = { v: "Grand Total", fmt: { bold: true, border: "top" } };
+  const gtFmt = { ...(fmtV ?? {}), bold: true, border: "top" as const };
+  if (colF) {
+    colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, gt)] = { v: showAs === "Running Total In" ? null : show(colTotal(ck), null, ck === null ? null : ck), fmt: gtFmt }));
+    out[refOf(at.c + 1 + colKeys.length, gt)] = { v: showAs === "Running Total In" ? null : show(grand, null, null), fmt: gtFmt };
+  } else if (val) out[refOf(at.c + 1, gt)] = { v: showAs === "Running Total In" ? null : show(grand, null, null), fmt: gtFmt };
+  return out;
+}
+
+/** Categories and series a chart plots: from its range, or from the PivotTable for a PivotChart. */
+function chartData(doc: ExcelBook, sheet: ExcelSheet, ch: ExcelChart, pivotCells: Record<string, VirtualCell>): { cats: string[]; series: { name: string; vals: number[] }[] } | null {
   let cats: string[] = [];
   let series: { name: string; vals: number[] }[] = [];
-  const xc = ch as XChart;
   if (ch.range === "PIVOT") {
-    const lay = sheet.pivot ? pivotLayoutOf(doc, sheet) : null;
-    if (!lay) return null;
-    cats = lay.chart.cats;
-    series = lay.chart.series;
-  } else if (xc.series?.length) {
-    // Series kept from Select Data Source: each has a name (text or =Sheet!$B$1) and values.
-    const nameOf = (n: string) => (n.trim().startsWith("=") ? String(rangeValues(doc, sheet, n)[0] ?? "") : n);
-    series = xc.series.map((s) => ({ name: nameOf(s.name), vals: numVals(rangeValues(doc, sheet, s.values)) }));
-    const n = Math.max(0, ...series.map((s) => s.vals.length));
-    cats = xc.categories ? rangeValues(doc, sheet, xc.categories).map((x) => (typeof x === "number" ? formatValue(x, undefined) : String(x ?? ""))) : Array.from({ length: n }, (_, i) => String(i + 1));
-    return { cats, series };
+    const at = parseRef(sheet.pivot?.at ?? "A3");
+    if (!at) return null;
+    const v = (c: number, r: number) => pivotCells[refOf(c, r)]?.v ?? null;
+    const hasRows = v(at.c, at.r) === "Row Labels";
+    let lastR = at.r + 1;
+    if (hasRows) {
+      for (let r = at.r + 1; v(at.c, r) !== null && v(at.c, r) !== "Grand Total"; r++) { cats.push(String(v(at.c, r))); lastR = r; }
+    } else cats = ["Total"];
+    const cols: { c: number; name: string }[] = [];
+    if (hasRows && v(at.c + 1, at.r - 1) === "Column Labels") {
+      for (let c = at.c + 1; v(c, at.r) !== null && v(c, at.r) !== "Grand Total"; c++) cols.push({ c, name: String(v(c, at.r)) });
+    } else cols.push({ c: hasRows ? at.c + 1 : at.c, name: String(v(hasRows ? at.c + 1 : at.c, at.r) ?? "Total") });
+    series = cols.map(({ c, name }) => ({
+      name,
+      vals: hasRows ? cats.map((_, i) => { const x = v(c, at.r + 1 + i); return typeof x === "number" ? x : 0; }) : [Number(v(at.c, at.r + 1)) || 0],
+    }));
+    void lastR;
   } else {
     // "Spending!A1:E6" on a chart sheet: read the data from its source sheet.
     const bang = ch.range.lastIndexOf("!");
     if (bang > 0) {
       const src = doc.sheets.find((x) => x.name === ch.range.slice(0, bang).replace(/^'|'$/g, ""));
       if (!src) return null;
-      return chartData(doc, src, { ...ch, range: ch.range.slice(bang + 1) });
+      return chartData(doc, src, { ...ch, range: ch.range.slice(bang + 1) }, pivotCells);
     }
     const rc = parseRange(ch.range);
     if (!rc) return null;
@@ -235,48 +318,17 @@ function cfStyles(doc: ExcelBook, sheet: ExcelSheet): Record<string, CfStyle> {
 
 const PALETTE = ["#4472C4", "#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5", "#70AD47"];
 
-function ChartView({
-  doc,
-  sheet,
-  ch,
-  selected,
-  selectedSeries,
-  onSelect,
-  onSelectSeries,
-  onTitleEdit,
-  onMenu,
-}: {
-  doc: ExcelBook;
-  sheet: ExcelSheet;
-  ch: ExcelChart;
-  selected: boolean;
-  /** 1-based series number when one series is selected. */
-  selectedSeries?: number;
-  onSelect: () => void;
-  onSelectSeries: (n: number) => void;
-  onTitleEdit: () => void;
-  onMenu: (e: React.MouseEvent, series?: number) => void;
-}) {
-  const data = chartData(doc, sheet, ch);
+function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit, pivotCells }: { doc: ExcelBook; sheet: ExcelSheet; ch: ExcelChart; selected: boolean; onSelect: () => void; onTitleEdit: () => void; pivotCells: Record<string, VirtualCell> }) {
+  const data = chartData(doc, sheet, ch, pivotCells);
   if (!data) return null;
   const { cats, series } = data;
-  const allLabels = Boolean(doc.flags?.[`chart:${ch.id}:labels`]);
-  // Data labels for the whole chart, or for one series (Add Chart Element › Data Labels with a series selected).
-  const labelsOn = (si: number) => allLabels || Boolean(doc.flags?.[`chart:${ch.id}:labels:s${si + 1}`]);
+  const labels = Boolean(doc.flags?.[`chart:${ch.id}:labels`]);
   const legend = String(doc.flags?.[`chart:${ch.id}:legend`] ?? "Bottom");
   const max = Math.max(1, ...series.flatMap((s) => s.vals));
   const W = 360, H = 200, P = 30;
   const isPie = /Pie|Doughnut/.test(ch.type);
   const isLine = /Line|Area|Scatter/.test(ch.type);
   const isBar = /Bar/.test(ch.type);
-  // First click selects the chart; a click on a series of the selected chart selects that series.
-  const seriesDown = (si: number) => (e: React.MouseEvent) => {
-    if (e.button === 2) return;
-    e.stopPropagation();
-    if (selected || selectedSeries) onSelectSeries(si + 1);
-    else onSelect();
-  };
-  const dim = (si: number) => (selectedSeries && selectedSeries !== si + 1 ? 0.45 : 1);
   let body: React.ReactNode;
   if (isPie) {
     const vals = series[0]?.vals ?? [];
@@ -291,13 +343,7 @@ function ChartView({
           const r = 62;
           const large = a1 - a0 > Math.PI ? 1 : 0;
           const d = `M0 0 L${r * Math.sin(a0)} ${-r * Math.cos(a0)} A${r} ${r} 0 ${large} 1 ${r * Math.sin(a1)} ${-r * Math.cos(a1)} Z`;
-          const mid = (a0 + a1) / 2;
-          return (
-            <g key={i} onMouseDown={seriesDown(0)}>
-              <path d={d} fill={PALETTE[i % PALETTE.length]} stroke={selectedSeries ? "#333" : "#fff"} />
-              {labelsOn(0) && v > 0 && <text x={r * 0.62 * Math.sin(mid)} y={-r * 0.62 * Math.cos(mid) + 3} fontSize="8" textAnchor="middle" fill="#fff">{formatValue(Math.round(v * 100) / 100, undefined)}</text>}
-            </g>
-          );
+          return <path key={i} d={d} fill={PALETTE[i % PALETTE.length]} stroke="#fff" />;
         })}
         {ch.type === "Doughnut" && <circle r="30" fill="#fff" />}
         {legend !== "None" && cats.map((c, i) => (
@@ -317,39 +363,27 @@ function ChartView({
         {[0.25, 0.5, 0.75, 1].map((t) => <line key={t} x1={P} x2={W - 10} y1={H - P - t * (H - P * 2)} y2={H - P - t * (H - P * 2)} stroke="#eee" />)}
         {isLine
           ? series.map((s, si) => (
-              <g key={si} onMouseDown={seriesDown(si)} onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); onSelectSeries(si + 1); onMenu(e, si + 1); }} opacity={dim(si)} className="cursor-pointer">
-                <polyline fill="none" stroke="transparent" strokeWidth="10" points={s.vals.map((v, i) => `${P + bandW * (i + 0.5)},${H - P - (v / max) * (H - P * 2)}`).join(" ")} />
-                <polyline fill="none" stroke={PALETTE[si % PALETTE.length]} strokeWidth={selectedSeries === si + 1 ? 3 : 2} points={s.vals.map((v, i) => `${P + bandW * (i + 0.5)},${H - P - (v / max) * (H - P * 2)}`).join(" ")} />
-                {/Markers/.test(ch.type) && s.vals.map((v, i) => <circle key={i} cx={P + bandW * (i + 0.5)} cy={H - P - (v / max) * (H - P * 2)} r="2.5" fill={PALETTE[si % PALETTE.length]} />)}
-              </g>
+              <polyline key={si} fill="none" stroke={PALETTE[si % PALETTE.length]} strokeWidth="2" points={s.vals.map((v, i) => `${P + bandW * (i + 0.5)},${H - P - (v / max) * (H - P * 2)}`).join(" ")} />
             ))
           : series.map((s, si) =>
               s.vals.map((v, i) => {
                 const bw = (bandW * 0.7) / series.length;
                 const x = P + bandW * i + bandW * 0.15 + bw * si;
                 const h = (v / max) * (H - P * 2);
-                const common = { onMouseDown: seriesDown(si), onContextMenu: (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); onSelectSeries(si + 1); onMenu(e, si + 1); }, fill: PALETTE[si % PALETTE.length], opacity: dim(si), stroke: selectedSeries === si + 1 ? "#333" : undefined, className: "cursor-pointer" };
                 return isBar ? (
-                  <rect key={`${si}-${i}`} x={P} y={20 + i * ((H - 50) / n) + si * 6} width={(v / max) * (W - P * 2)} height={Math.max(4, (H - 50) / n / series.length - 2)} {...common} />
+                  <rect key={`${si}-${i}`} x={P} y={20 + i * ((H - 50) / n) + si * 6} width={(v / max) * (W - P * 2)} height={Math.max(4, (H - 50) / n / series.length - 2)} fill={PALETTE[si % PALETTE.length]} />
                 ) : (
-                  <rect key={`${si}-${i}`} x={x} y={H - P - h} width={bw} height={h} {...common} />
+                  <rect key={`${si}-${i}`} x={x} y={H - P - h} width={bw} height={h} fill={PALETTE[si % PALETTE.length]} />
                 );
               }),
             )}
         {!isBar && cats.map((c, i) => <text key={i} x={P + bandW * (i + 0.5)} y={H - P + 12} fontSize="8.5" textAnchor="middle" fill="#555">{c.length > 10 ? `${c.slice(0, 9)}…` : c}</text>)}
-        {!isBar && series.map((s, si) =>
-          labelsOn(si)
-            ? s.vals.map((v, i) => {
-                const bw = (bandW * 0.7) / series.length;
-                const x = isLine ? P + bandW * (i + 0.5) : P + bandW * i + bandW * 0.15 + bw * (si + 0.5);
-                return <text key={`l${si}-${i}`} x={x} y={H - P - (v / max) * (H - P * 2) - 3} fontSize="7.5" textAnchor="middle" fill="#333">{formatValue(Math.round(v * 100) / 100, undefined)}</text>;
-              })
-            : null,
-        )}
-        {isBar && series.map((s, si) =>
-          labelsOn(si)
-            ? s.vals.map((v, i) => <text key={`b${si}-${i}`} x={P + (v / max) * (W - P * 2) + 3} y={20 + i * ((H - 50) / n) + si * 6 + 7} fontSize="7.5" fill="#333">{formatValue(Math.round(v * 100) / 100, undefined)}</text>)
-            : null,
+        {labels && !isBar && series.map((s, si) =>
+          s.vals.map((v, i) => {
+            const bw = (bandW * 0.7) / series.length;
+            const x = isLine ? P + bandW * (i + 0.5) : P + bandW * i + bandW * 0.15 + bw * (si + 0.5);
+            return <text key={`l${si}-${i}`} x={x} y={H - P - (v / max) * (H - P * 2) - 3} fontSize="7.5" textAnchor="middle" fill="#333">{formatValue(Math.round(v * 100) / 100, undefined)}</text>;
+          }),
         )}
         {series.length > 1 && legend !== "None" && series.map((s, si) => (
           <g key={si} transform={`translate(${P + si * 90},${H - 6})`}>
@@ -362,18 +396,14 @@ function ChartView({
   }
   return (
     <div
-      onMouseDown={(e) => { if (e.button === 2) return; e.stopPropagation(); onSelect(); }}
-      onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); if (!selected && !selectedSeries) onSelect(); onMenu(e, selectedSeries); }}
-      role="img"
-      aria-label={`Chart ${ch.title ?? ""}`}
-      className={`absolute z-20 bg-white shadow ${selected || selectedSeries ? "outline outline-2 outline-[#8a8a8a]" : "border border-gray-300"}`}
+      onMouseDown={(e) => { e.stopPropagation(); onSelect(); }}
+      className={`absolute z-20 bg-white shadow ${selected ? "outline outline-2 outline-[#8a8a8a]" : "border border-gray-300"}`}
       style={{ width: W, height: H + 26 }}
     >
       <div onDoubleClick={(e) => { e.stopPropagation(); onTitleEdit(); }} className="cursor-text pt-1 text-center text-[13px] text-gray-700">
-        {ch.title === "" ? " " : ch.title ?? "Chart Title"}
+        {ch.title === "" ? " " : ch.title ?? "Chart Title"}
       </div>
       <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>{body}</svg>
-      {selectedSeries && series[selectedSeries - 1] && <div className="pointer-events-none absolute left-1 top-1 rounded bg-gray-700/80 px-1 text-[9px] text-white">Series &quot;{series[selectedSeries - 1].name}&quot;</div>}
     </div>
   );
 }
@@ -382,9 +412,7 @@ function ChartView({
 /* Canvas                                                              */
 /* ------------------------------------------------------------------ */
 
-export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<ExcelBook>) {
-  // Draw the workbook the way the engine sees it: PivotTables with their cached data, Total Rows filled in.
-  const doc = useMemo(() => withTotalRows(withPivotCaches(rawDoc)), [rawDoc]);
+export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<ExcelBook>) {
   const sheet = sheetOf(doc, ui);
   const z = (sheet.zoom ?? 100) / 100;
   const sel = ui.selection || "A1";
@@ -397,12 +425,6 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const [listMenu, setListMenu] = useState<{ ref: string; x: number; y: number; items: string[] } | null>(null);
   const [pivotMenu, setPivotMenu] = useState<{ field: string; x: number; y: number } | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  /** A Data Validation error alert waiting for an answer. */
-  const [alert, setAlert] = useState<{ ref: string; text: string; rule: XValidation; move: "down" | "right" | "none" } | null>(null);
-  /** Allow Edit Ranges: a password prompt, and the ranges unlocked so far. */
-  const [unlock, setUnlock] = useState<{ ref: string; text?: string; title: string; password: string; tries: number } | null>(null);
-  const [unlocked, setUnlocked] = useState<Set<string>>(new Set());
-  const [totalMenu, setTotalMenu] = useState<{ x: number; y: number } | null>(null);
   const drag = useRef<{ mode: "select" | "fill" | "point" | "col" | "row"; anchor: string; src?: Rect; target?: Rect; pointStart?: number } | null>(null);
   const [fillPreview, setFillPreview] = useState<Rect | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -482,8 +504,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const rowY: number[] = [0, HEAD_H];
   for (let r = 1; r <= nRows; r++) rowY[r + 1] = rowY[r] + rowH(r);
 
-  const pivotLayout = useMemo(() => (sheet.pivot ? pivotLayoutOf(doc, sheet) : null), [doc, sheet]);
-  const pivotCells: Record<string, PivotCell> = pivotLayout?.cells ?? {};
+  const pivotCells = useMemo(() => computePivot(doc, sheet), [doc, sheet]);
   const cf = useMemo(() => cfStyles(doc, sheet), [doc, sheet]);
   const casRanges = centerAcrossRanges(doc, sheet);
 
