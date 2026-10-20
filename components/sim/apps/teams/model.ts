@@ -708,6 +708,8 @@ export function teamsSelectionExists(doc: TeamsDoc, sel: string): boolean {
     case "schedule":
     case "view":
       return true;
+    case "activity":
+      return Boolean(doc.activity?.some((a) => a.id === id));
     case "chat":
       return Boolean(findChat(doc, id));
     case "newchat":

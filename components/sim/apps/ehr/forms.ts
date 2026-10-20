@@ -186,7 +186,7 @@ export function buildForm(id: string, doc: EhrDoc | null, ctx: FormCtx = {}): Eh
           { type: "fixed", key: "patient", label: "Patient", value: pid ?? "", display: patientName(doc, pid) },
           { type: "select", key: "requester", label: "Requested by", options: opts(ROI_REQUESTERS), required: true, wide: true },
           { type: "checklist", key: "docs", label: "Documents to release (minimum necessary)", options: (p?.documents ?? []).map((d) => ({ value: d.id, label: `${d.date} · ${d.type}: ${d.title}` })), dynamic: true },
-          { type: "select", key: "format", label: "Format", options: opts(ROI_FORMATS), required: true, wide: true },
+          { type: "select", key: "format", label: "Format (when releasing)", options: opts(ROI_FORMATS), wide: true },
           { type: "radio", key: "decision", label: "Decision", options: opts(ROI_DECISIONS), required: true },
         ],
       };

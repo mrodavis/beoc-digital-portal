@@ -182,10 +182,10 @@ export function normalizeField(target: string, value: string): string {
 
 export function eligibilityResponse(doc: EhrDoc, p: EhrPatient, cov: EhrCoverage): { ok: boolean; lines: string[] } {
   const payer = payerOf(doc, cov.payer);
-  const e = cov.elig;
+  const e = cov.elig ?? doc.eligRecords?.find((r) => r.payer === cov.payer && r.memberId && normCode(r.memberId) === normCode(cov.memberId ?? ""));
   const head = `271 response from ${payer?.name ?? "payer"} · ${stamp(doc)}`;
-  if (!e) return { ok: false, lines: [head, "No eligibility record returned. Call the payer's provider line to verify coverage."] };
-  if (!cov.memberId || (e.memberId && normCode(cov.memberId) !== normCode(e.memberId))) {
+  if (!e && !cov.memberId) return { ok: false, lines: [head, "REJECTED: Invalid or missing subscriber ID.", "Enter the member ID from the insurance card and send the inquiry again."] };
+  if (!e || !cov.memberId || (e.memberId && normCode(cov.memberId) !== normCode(e.memberId))) {
     return { ok: false, lines: [head, "REJECTED: Subscriber/insured not found.", "Check the member ID against the insurance card and send the inquiry again."] };
   }
   const subDob = cov.subscriberDob || (cov.relationship === "Self" ? p.dob : "");
@@ -558,7 +558,13 @@ export function runReport(doc: EhrDoc, run: EhrReportRun): ReportOut {
     out.rows = out.rows.slice().sort((a, b) => {
       const x = a.cells[col];
       const y = b.cells[col];
-      const c = typeof x === "number" && typeof y === "number" ? x - y : String(x ?? "").localeCompare(String(y ?? ""));
+      const asDate = (v: unknown) => {
+        const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(String(v ?? ""));
+        return m ? `${m[3]}${m[1]}${m[2]}` : null;
+      };
+      const dx = asDate(x);
+      const dy = asDate(y);
+      const c = typeof x === "number" && typeof y === "number" ? x - y : dx && dy ? dx.localeCompare(dy) : String(x ?? "").localeCompare(String(y ?? ""));
       return dir === "desc" ? -c : c;
     });
   }
@@ -786,6 +792,7 @@ function createClaim(d: EhrDoc, eid: string): string {
     dx: e.dx.slice(),
     lines: clone(e.lines),
     status: "Draft",
+    outcome: e.outcome ? clone(e.outcome) : undefined,
     history: [`${stamp(d)} Claim created from encounter ${e.id}`],
   };
   d.claims = [...(d.claims ?? []), claim];

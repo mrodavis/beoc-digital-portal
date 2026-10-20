@@ -81,7 +81,7 @@ export const excelCore: AppCore<ExcelBook> = {
     // right-click Show Values As, Excel Options, Analyze Data cards, the Marked as Final bar.
     "home.insertCut", "spelling.changeAll", "outline.level", "pivot.filter", "pivot.showAs", "options.r1c1", "analyze.insert", "excel.editAnyway",
   ],
-  freeCommands: ["pane.close", "view.zoom", "view.zoomTo", "view.zoomSelection", "help.help", "file.browse", "file.options", "formulas.tracePrecedents", "formulas.traceDependents", "formulas.removeArrows", "excel.editAnyway"],
+  freeCommands: ["pane.close", "view.zoom", "view.zoomTo", "view.zoomSelection", "help.help", "file.browse", "file.options", "formulas.tracePrecedents", "formulas.traceDependents", "formulas.removeArrows", "excel.editAnyway", "formulas.function"],
   initialUi: (doc) => ({ selection: "A1", sheet: doc.active ?? doc.sheets[0]?.name }),
   normalize,
   apply: applyExcel,

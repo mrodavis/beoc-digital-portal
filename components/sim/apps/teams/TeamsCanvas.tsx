@@ -598,7 +598,7 @@ function lastPreview(doc: TeamsDoc, msgs: TeamsMessage[]): { text: string; time:
   if (m.system) return { text: m.system, time: m.time };
   if (m.deleted) return { text: "This message has been deleted.", time: m.time };
   const who = m.from === "me" ? "You: " : "";
-  const t = (m.text || (m.attachments?.length ? `Sent a file: ${m.attachments[0]}` : "")).replace(/\*\*|~~|\n/g, " ").replace(/^- /, "");
+  const t = (m.text || (m.attachments?.length ? `Sent a file: ${m.attachments[0]}` : "")).replace(/\*\*|~~|\n/g, " ").replace(/^- /, "").replace(/(^|\s)@(?=[A-Z])/g, "$1");
   return { text: who + t, time: m.time.replace(/^Yesterday.*/, "Yesterday") };
 }
 
@@ -1161,11 +1161,11 @@ function ActivityView() {
     if (!a) return;
     cmd(`view:activity`, "activity.open", id);
     const hit = a.target ? findMessage(doc, a.target) : null;
-    if (hit?.chat) go({ view: "activity", conv: hit.chat.id, tab: "chat", highlight: a.target, selection: `activity:${id}` });
-    else if (hit?.channel) go({ view: "activity", conv: hit.channel.id, tab: "posts", highlight: a.target, selection: `activity:${id}` });
-    else go({ selection: `activity:${id}` });
+    if (hit?.chat) go({ view: "activity", conv: hit.chat.id, tab: "chat", highlight: a.target, activity: id, selection: `activity:${id}` });
+    else if (hit?.channel) go({ view: "activity", conv: hit.channel.id, tab: "posts", highlight: a.target, activity: id, selection: `activity:${id}` });
+    else go({ activity: id, selection: `activity:${id}` });
   };
-  const selId = (ui.selection ?? "").startsWith("activity:") ? ui.selection.slice(9) : null;
+  const selId = ui.activity ?? null;
   const target = selId ? doc.activity?.find((a) => a.id === selId)?.target : undefined;
   const hit = target ? findMessage(doc, target) : null;
   return (

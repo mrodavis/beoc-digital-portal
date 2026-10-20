@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { TeamsFile } from "./types";
 import { FileIcon, FolderIcon, TIcon } from "./icons";
-import { findFile, personName, serializeForm } from "./model";
+import { findChannel, findFile, personName, serializeForm } from "./model";
 import { Field, IconBtn, Modal, PersonAvatar, PrimaryBtn, SecondaryBtn, inputCls, useAccepted, useTeams } from "./TeamsShared";
 
 /* ------------------------------------------------------------------ */
@@ -273,6 +273,10 @@ function fileMenuItems(ctx: ReturnType<typeof useTeams>, f: TeamsFile, opts: { c
   ];
 }
 
+function findChannelName(doc: ReturnType<typeof useTeams>["doc"], id: string) {
+  return findChannel(doc, id)?.channel.name ?? "General";
+}
+
 /* ------------------------------------------------------------------ */
 /* Channel Files tab                                                   */
 /* ------------------------------------------------------------------ */
@@ -295,7 +299,7 @@ export function ChannelFiles({ channelId }: { channelId: string }) {
           <TIcon name="view" size={16} /> Edit in grid view
         </span>
         <div className="flex-1" />
-        <span className="text-[12px] text-[#616161]">Documents › General</span>
+        <span className="text-[12px] text-[#616161]">Documents › {findChannelName(doc, channelId)}</span>
       </div>
       <div className="min-h-0 flex-1 overflow-auto px-5">
         <div className="flex border-b border-[#ebebeb] py-2 text-[12px] text-[#616161]">

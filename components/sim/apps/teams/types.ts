@@ -33,7 +33,7 @@
  * Message text uses **bold**, *italic*, ~~strike~~, "- " bullets, "1. " numbers
  * and "@Full Name" mentions; the committed value carries those markers.
  */
-import type { SimValue } from "@/types/sim";
+import type { SimAction, SimStep, SimValue } from "@/types/sim";
 
 export type TeamsPresence =
   | "Available"
@@ -266,6 +266,27 @@ export type TeamsUiState = {
   overlay?: "settings" | "schedule" | null;
   settingsPage?: string;
   highlight?: string;
+  /** Activity item open in the Activity view. */
+  activity?: string;
 };
 
 export const teamsDoc = (d: TeamsDoc) => d as unknown as Record<string, unknown>;
+
+/**
+ * A typing step graded with match "all": the learner passes with any text that
+ * contains every keyword (a keyword may be a list of alternatives, e.g.
+ * ["3 bullets", "three bullets"]). `sample` is one complete answer; it is the
+ * main action so the validator, which replays the main action, can play it.
+ */
+export function typeAll(target: string, sample: string, keywords: (string | string[])[], extra?: Omit<SimStep, "action" | "alt">): SimStep {
+  const norm = (x: string) => x.toLowerCase().replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/\s+/g, " ").trim();
+  let combos: string[][] = [[]];
+  for (const k of keywords) {
+    const opts = Array.isArray(k) ? k : [k];
+    combos = combos.flatMap((c) => opts.map((o) => [...c, o])).slice(0, 32);
+  }
+  const s = norm(sample);
+  if (!combos.some((c) => c.every((k) => s.includes(norm(k))))) throw new Error(`typeAll sample for ${target} is missing a keyword: ${sample}`);
+  const alt: SimAction[] = combos.map((c) => ({ kind: "type", target, value: c, match: "all" }));
+  return { action: { kind: "type", target, value: sample, match: "includes" }, alt, ...(extra ?? {}) };
+}

@@ -33,7 +33,7 @@
  *   flow.template (template name), flow.addAction (action name), flow.removeAction (step id),
  *   flow.save, flow.test (Manually), flow.turnOn, flow.turnOff, flow.delete.
  */
-import type { SimValue } from "@/types/sim";
+import type { SimAction, SimStep, SimValue } from "@/types/sim";
 
 export type AssistantSource = {
   title: string;
@@ -165,3 +165,22 @@ export type AssistantUiState = {
 };
 
 export const assistantDoc = (d: AssistantDoc) => d as unknown as Record<string, unknown>;
+
+/**
+ * A typing step graded with match "all": the learner passes with any text that
+ * contains every keyword (a keyword may be a list of alternatives, e.g.
+ * ["3 bullets", "three bullets"]). `sample` is one complete answer; it is the
+ * main action so the validator, which replays the main action, can play it.
+ */
+export function typeAll(target: string, sample: string, keywords: (string | string[])[], extra?: Omit<SimStep, "action" | "alt">): SimStep {
+  const norm = (x: string) => x.toLowerCase().replace(/[“”]/g, '"').replace(/[‘’]/g, "'").replace(/\s+/g, " ").trim();
+  let combos: string[][] = [[]];
+  for (const k of keywords) {
+    const opts = Array.isArray(k) ? k : [k];
+    combos = combos.flatMap((c) => opts.map((o) => [...c, o])).slice(0, 32);
+  }
+  const s = norm(sample);
+  if (!combos.some((c) => c.every((k) => s.includes(norm(k))))) throw new Error(`typeAll sample for ${target} is missing a keyword: ${sample}`);
+  const alt: SimAction[] = combos.map((c) => ({ kind: "type", target, value: c, match: "all" }));
+  return { action: { kind: "type", target, value: sample, match: "includes" }, alt, ...(extra ?? {}) };
+}

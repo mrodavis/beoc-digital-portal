@@ -200,6 +200,13 @@ function chartData(doc: ExcelBook, sheet: ExcelSheet, ch: ExcelChart, pivotCells
     }));
     void lastR;
   } else {
+    // "Spending!A1:E6" on a chart sheet: read the data from its source sheet.
+    const bang = ch.range.lastIndexOf("!");
+    if (bang > 0) {
+      const src = doc.sheets.find((x) => x.name === ch.range.slice(0, bang).replace(/^'|'$/g, ""));
+      if (!src) return null;
+      return chartData(doc, src, { ...ch, range: ch.range.slice(bang + 1) }, pivotCells);
+    }
     const rc = parseRange(ch.range);
     if (!rc) return null;
     const firstColText = typeof evaluateCell(doc, sheet, refOf(rc.c1, rc.r1 + 1)) !== "number";
@@ -475,8 +482,23 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
   const outW = (sheet.groups?.length ?? 0) > 0 ? 30 : 0;
   const headW = HEAD_W + outW;
 
+  // Rows grow to fit wrapped text unless a height was set by hand, as in Excel.
+  const autoH = useMemo(() => {
+    const out: Record<number, number> = {};
+    for (const [ref, cell] of Object.entries(sheet.cells)) {
+      if (!cell.fmt?.wrap || (cell.v === undefined && !cell.f)) continue;
+      const p = parseRef(ref);
+      if (!p || sheet.rowHeights?.[String(p.r)]) continue;
+      const text = formatValue((cell.f ? evaluateCell(doc, sheet, ref) : cell.v ?? null) as Val, cell.fmt);
+      const w = sheet.colWidths?.[numToCol(p.c)] ?? COL_W;
+      const per = Math.max(4, Math.floor((w - 6) / (6.2 * ((cell.fmt.size ?? 11) / 11))));
+      const lines = text.split("\n").reduce((n, part) => n + Math.max(1, Math.ceil(part.length / per)), 0);
+      out[p.r] = Math.max(out[p.r] ?? ROW_H, lines * 15 * ((cell.fmt.size ?? 11) / 11) + 6);
+    }
+    return out;
+  }, [doc, sheet]);
   const colW = (c: number) => (hiddenCols.has(numToCol(c)) ? 0 : (sheet.colWidths?.[numToCol(c)] ?? COL_W) * z);
-  const rowH = (r: number) => (hiddenRows.has(r) ? 0 : (sheet.rowHeights?.[String(r)] ?? ROW_H) * z);
+  const rowH = (r: number) => (hiddenRows.has(r) ? 0 : (sheet.rowHeights?.[String(r)] ?? autoH[r] ?? ROW_H) * z);
   const colX: number[] = [0, headW];
   for (let c = 1; c <= nCols; c++) colX[c + 1] = colX[c] + colW(c);
   const rowY: number[] = [0, HEAD_H];
@@ -860,7 +882,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
             textAlign: align,
             paddingLeft: 3 + (fmt.indent ?? 0) * 10,
             paddingRight: 3,
-            lineHeight: `${h}px`,
+            lineHeight: fmt.wrap ? `${15 * ((fmt.size ?? 11) / 11) * z}px` : `${h}px`,
             whiteSpace: fmt.wrap ? "normal" : "nowrap",
             overflow: cas ? "visible" : fmt.wrap || !nextEmpty || align !== "left" ? "hidden" : "visible",
             textOverflow: "clip",
@@ -1238,7 +1260,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                 </div>
               );
             })}
-            <Slicers doc={doc} sheet={sheet} left={colX[Math.min(nCols, (sheet.pivot ? parseRef(sheet.pivot.at ?? "A3")!.c : 1) + 4)] ?? 400} top={rowY[3] ?? 60} onCommit={onCommit} />
+            <Slicers doc={doc} sheet={sheet} left={sheet.pivot ? colX[Math.min(nCols, parseRef(sheet.pivot.at ?? "A3")!.c + 3)] ?? 400 : (colX[(sheet.table ? parseRange(sheet.table.range)!.c2 : 1) + 2] ?? 400)} top={rowY[sheet.pivot ? 3 : 1] ?? 60} onCommit={onCommit} />
             {sheet.pivot && Object.keys(pivotCells).length === 0 && (
               <div className="absolute z-[2] flex flex-col items-center justify-center border border-gray-400 bg-[#f7fbff] p-3 text-center text-[11px] text-gray-600" style={{ left: colX[parseRef(sheet.pivot.at ?? "A3")!.c], top: rowY[parseRef(sheet.pivot.at ?? "A3")!.r], width: 220, height: 120 }}>
                 <b className="mb-1 text-gray-800">PivotTable1</b>
@@ -1249,7 +1271,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
         </div>
 
         {sheet.pivot && <PivotPane doc={doc} sheet={sheet} onCommit={onCommit} />}
-        {((pane && !pane.startsWith("Excel Options")) || findTerm !== null) && <ExcelPane doc={doc} sheet={sheet} pane={pane} findTerm={findTerm} act={act} onCommit={onCommit} onSelect={(r) => onSelect({ selection: r })} />}
+        {((pane && !pane.startsWith("Excel Options") && !pane.startsWith("Function Arguments")) || findTerm !== null) && <ExcelPane doc={doc} sheet={sheet} pane={pane} findTerm={findTerm} act={act} onCommit={onCommit} onSelect={(r) => onSelect({ selection: r })} />}
       </div>
 
       {/* sheet tabs */}
@@ -1322,6 +1344,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
         <PivotFilterMenu doc={doc} sheet={sheet} field={pivotMenu.field} anchor={{ x: pivotMenu.x, y: pivotMenu.y }} onClose={() => setPivotMenu(null)} onCommit={(c) => { setPivotMenu(null); onCommit(c); }} />
       )}
       {pane?.startsWith("Excel Options") && <OptionsDialog doc={doc} start={pane.split("|")[1] ?? "General"} onCommit={onCommit} />}
+      {pane?.startsWith("Function Arguments|") && <FunctionArgsDialog spec={pane} onCommit={onCommit} />}
       {listMenu && (
         <Popover
           anchor={{ x: listMenu.x, y: listMenu.y }}
@@ -1706,6 +1729,55 @@ function Slicers({ doc, sheet, left, top, onCommit }: { doc: ExcelBook; sheet: E
         );
       })}
     </>
+  );
+}
+
+const FN_HELP: Record<string, string> = {
+  SUM: "Adds all the numbers in a range of cells.",
+  AVERAGE: "Returns the average (arithmetic mean) of its arguments.",
+  COUNT: "Counts the number of cells in a range that contain numbers.",
+  COUNTA: "Counts the number of cells in a range that are not empty.",
+  MAX: "Returns the largest value in a set of values.",
+  MIN: "Returns the smallest number in a set of values.",
+  MEDIAN: "Returns the median, or the number in the middle of the set of given numbers.",
+  IF: "Checks whether a condition is met, and returns one value if TRUE, and another value if FALSE.",
+  COUNTIF: "Counts the number of cells within a range that meet the given condition.",
+  VLOOKUP: "Looks for a value in the leftmost column of a table, and then returns a value in the same row from a column you specify.",
+  XLOOKUP: "Searches a range or an array for a match and returns the corresponding item from a second range or array.",
+  ROUND: "Rounds a number to a specified number of digits.",
+  NETWORKDAYS: "Returns the number of whole workdays between two dates.",
+};
+
+/** Formulas › Function Library: the Function Arguments dialog for the function picked. */
+function FunctionArgsDialog({ spec, onCommit }: { spec: string; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
+  const [, fn, target, guess] = spec.split("|");
+  const [args, setArgs] = useState(guess ?? "");
+  const ok = () => {
+    onCommit({ kind: "type", target, value: `=${fn}(${args.trim()})` });
+    onCommit({ kind: "command", id: "pane.close" });
+  };
+  return (
+    <div className="absolute inset-0 z-[90] flex items-center justify-center bg-black/10" onKeyDown={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label="Function Arguments" className="w-[440px] max-w-[95%] border border-gray-400 bg-[#f0f0f0] text-[12px] shadow-2xl">
+        <div className="flex items-center justify-between bg-white px-3 py-1.5">
+          <span>Function Arguments</span>
+          <button type="button" aria-label="Close" onClick={() => onCommit({ kind: "command", id: "pane.close" })} className="px-2 hover:bg-red-600 hover:text-white">✕</button>
+        </div>
+        <div className="flex flex-col gap-2 bg-white p-4">
+          <p className="font-semibold">{fn}</p>
+          <label className="flex items-center justify-between gap-3">
+            <span>Arguments</span>
+            <input autoFocus aria-label="Function arguments" value={args} onChange={(e) => setArgs(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") ok(); }} placeholder="B3:B17" className="w-64 border border-gray-400 px-1 py-0.5 font-mono" />
+          </label>
+          <p className="text-gray-600">{FN_HELP[fn] ?? "Separate arguments with commas."}</p>
+          <p className="text-gray-500">Formula result: ={fn}({args})</p>
+        </div>
+        <div className="flex justify-end gap-2 border-t border-gray-300 px-3 py-2">
+          <button type="button" onClick={ok} className="min-w-[72px] border border-[#0078d4] bg-[#e5f1fb] px-3 py-1 hover:bg-[#cce4f7]">OK</button>
+          <button type="button" onClick={() => onCommit({ kind: "command", id: "pane.close" })} className="min-w-[72px] border border-gray-400 bg-[#e1e1e1] px-3 py-1">Cancel</button>
+        </div>
+      </div>
+    </div>
   );
 }
 

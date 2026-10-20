@@ -1,4 +1,6 @@
-import { stubApp } from "../_stub/make";
+import type { AppModule } from "../../types";
+import type { AssistantDoc } from "./types";
+import { assistantCore } from "./core";
+import { AssistantCanvas, AssistantStatusBar } from "./AssistantCanvas";
 
-/** Replaced by the real Assistant engine. */
-export const assistantApp = stubApp("Assistant", "#6d28d9");
+export const assistantApp = { ...assistantCore, Canvas: AssistantCanvas, StatusBar: AssistantStatusBar } as AppModule<AssistantDoc> as unknown as AppModule<Record<string, unknown>>;

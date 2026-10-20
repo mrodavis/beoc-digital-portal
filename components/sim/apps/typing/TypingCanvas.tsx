@@ -54,7 +54,7 @@ function Keyboard({ next, intro }: { next: string | null; intro?: string[] }) {
   const nk = next !== null ? keyFor(next) : null;
   const introSet = new Set((intro ?? []).map((k) => k.toLowerCase()));
   return (
-    <div className="mx-auto w-full max-w-[720px] select-none rounded-xl bg-[#e5e7eb] p-2 shadow-inner" aria-hidden="true">
+    <div className="mx-auto w-full max-w-[680px] select-none rounded-xl bg-[#e5e7eb] p-1.5 shadow-inner" aria-hidden="true">
       {ROWS.map((row, i) => (
         <div key={i} className="mb-1 flex gap-1 last:mb-0" style={{ justifyContent: i === 4 ? "center" : undefined }}>
           {row.map((r) => {
@@ -63,7 +63,7 @@ function Keyboard({ next, intro }: { next: string | null; intro?: string[] }) {
             return (
               <div
                 key={r.k}
-                className={`relative flex h-9 items-center justify-center rounded-md border text-[12px] font-medium transition-colors ${isNext ? "border-[#0f766e] text-white shadow-[0_0_0_2px_#5eead4]" : "border-black/10 text-[#374151]"} ${introSet.has(r.k) && !isNext ? "font-bold" : ""}`}
+                className={`relative flex h-8 items-center justify-center rounded-md border text-[11px] font-medium transition-colors ${isNext ? "border-[#0f766e] text-white shadow-[0_0_0_2px_#5eead4]" : "border-black/10 text-[#374151]"} ${introSet.has(r.k) && !isNext ? "font-bold" : ""}`}
                 style={{ flex: r.w ?? 1, background: isNext ? TEAL : FINGER_COLOR[r.f], opacity: introSet.size && !introSet.has(r.k) && r.k.length === 1 && r.k !== " " && !isNext ? 0.55 : 1 }}
               >
                 {r.label ?? r.k.toUpperCase()}
@@ -202,27 +202,27 @@ function Drill({ ex, onCommit, onNext, best }: { ex: TypingKeysExercise | Typing
   const progress = Math.round((typed.length / text.length) * 100);
 
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-auto px-8 py-5">
-      <div className="mb-4 flex flex-wrap items-end gap-3">
+    <div className="flex min-h-0 flex-1 flex-col overflow-auto px-7 py-3">
+      <div className="mb-2 flex flex-wrap items-end gap-3">
         <div className="min-w-0 flex-1">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-[#0f766e]">{isKeys ? "Key drill" : "Passage drill"}</div>
-          <h2 className="text-[22px] font-bold text-[#0f172a]">{ex.title}</h2>
+          <h2 className="text-[20px] font-bold leading-tight text-[#0f172a]">{ex.title}</h2>
           {ex.subtitle && <p className="text-[13px] text-[#475569]">{ex.subtitle}</p>}
         </div>
         <button type="button" onClick={reset} className="rounded-lg border border-[#cbd5e1] bg-white px-3 py-1.5 text-[13px] font-semibold text-[#334155] hover:bg-[#f1f5f9]">
           ↻ Restart
         </button>
       </div>
-      <div className="mb-4 grid grid-cols-4 gap-3">
+      <div className="mb-2 grid grid-cols-4 gap-2.5">
         {[
           ["WPM", String(wpm), goalWpm ? `Goal ${goalWpm}` : "words per minute"],
           ["Accuracy", `${accuracy}%`, goalAcc ? `Goal ${goalAcc}%` : "correct keystrokes"],
           ["Time", fmtSecs(elapsed), start === null ? "starts on first key" : "elapsed"],
           ["Progress", `${progress}%`, `${typed.length} of ${text.length} characters`],
         ].map(([k, v, s]) => (
-          <div key={k} className="rounded-xl border border-[#e2e8f0] bg-white px-4 py-2.5 shadow-sm">
+          <div key={k} className="rounded-xl border border-[#e2e8f0] bg-white px-3.5 py-1.5 shadow-sm">
             <div className="text-[11px] font-semibold uppercase tracking-wide text-[#64748b]">{k}</div>
-            <div className="text-[24px] font-bold leading-tight text-[#0f172a]" aria-live="off">
+            <div className="text-[20px] font-bold leading-tight text-[#0f172a]" aria-live="off">
               {v}
             </div>
             <div className="text-[11px] text-[#94a3b8]">{s}</div>
@@ -232,7 +232,7 @@ function Drill({ ex, onCommit, onNext, best }: { ex: TypingKeysExercise | Typing
       <div className="mb-1 h-1.5 overflow-hidden rounded-full bg-[#e2e8f0]">
         <div className="h-full rounded-full bg-[#14b8a6] transition-all" style={{ width: `${progress}%` }} />
       </div>
-      <div className="relative mb-4 mt-3" onClick={() => input.current?.focus()}>
+      <div className="relative mb-2 mt-2" onClick={() => input.current?.focus()}>
         <input
           ref={input}
           aria-label={`Type the ${isKeys ? "drill" : "passage"} here`}
@@ -248,7 +248,7 @@ function Drill({ ex, onCommit, onNext, best }: { ex: TypingKeysExercise | Typing
         />
         <div
           ref={textBox}
-          className={`max-h-[180px] overflow-auto rounded-xl border-2 bg-white px-6 py-5 leading-[1.7] shadow-sm transition-colors ${focused ? "border-[#14b8a6]" : "border-[#e2e8f0]"} ${flash ? "bg-[#fef2f2]" : ""} ${isKeys ? "font-mono text-[30px] tracking-[0.08em]" : "text-[21px]"}`}
+          className={`max-h-[150px] overflow-auto rounded-xl border-2 bg-white px-5 py-3.5 leading-[1.6] shadow-sm transition-colors ${focused ? "border-[#14b8a6]" : "border-[#e2e8f0]"} ${flash ? "bg-[#fef2f2]" : ""} ${isKeys ? "font-mono text-[26px] tracking-[0.08em]" : "text-[19px]"}`}
           style={{ fontFamily: isKeys ? "Consolas, 'Cascadia Mono', Menlo, monospace" : "'Segoe UI', system-ui, sans-serif" }}
         >
           {text.split("").map((ch, i) => {
@@ -274,7 +274,7 @@ function Drill({ ex, onCommit, onNext, best }: { ex: TypingKeysExercise | Typing
       </div>
       {showKeyboard && !result && (
         <>
-          <div className="mb-2 text-center text-[13px] text-[#475569]" aria-live="polite">
+          <div className="mb-1.5 text-center text-[13px] text-[#475569]" aria-live="polite">
             {hint || " "}
           </div>
           <Keyboard next={next} intro={isKeys ? (ex as TypingKeysExercise).keys : undefined} />
@@ -288,7 +288,7 @@ function Drill({ ex, onCommit, onNext, best }: { ex: TypingKeysExercise | Typing
           </div>
         </>
       )}
-      {ex.tip && !result && <p className="mt-3 rounded-lg bg-[#f0fdfa] px-4 py-2 text-[13px] text-[#115e59]">Tip: {ex.tip}</p>}
+      {ex.tip && !result && <p className="mt-2 rounded-lg bg-[#f0fdfa] px-4 py-1.5 text-[12px] text-[#115e59]">Tip: {ex.tip}</p>}
       {result && (
         <div className="mx-auto mt-2 w-full max-w-[560px] rounded-2xl border border-[#e2e8f0] bg-white p-6 text-center shadow-lg" role="status">
           <div className="mb-1 text-[12px] font-semibold uppercase tracking-wider text-[#0f766e]">Exercise complete</div>
@@ -571,6 +571,7 @@ export function TypingCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Typing
         </span>
       </div>
       <div className="flex min-h-0 flex-1">
+        {doc.exercises.length > 1 && (
         <nav className="w-[230px] shrink-0 overflow-auto border-r border-[#e2e8f0] bg-white py-3" aria-label="Exercises">
           <div className="px-4 pb-2 text-[11px] font-semibold uppercase tracking-wider text-[#64748b]">Exercises</div>
           {doc.exercises.map((e, i) => {
@@ -591,6 +592,7 @@ export function TypingCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Typing
             );
           })}
         </nav>
+        )}
         <main className="flex min-w-0 flex-1 flex-col">
           {ex && ex.kind !== "form" && (
             <Drill

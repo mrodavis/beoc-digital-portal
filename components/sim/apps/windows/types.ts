@@ -187,7 +187,7 @@ export type WebField = {
 
 export type WebBlock =
   | { t: "h1" | "h2" | "h3" | "p" | "small"; text: string }
-  | { t: "link"; text: string; href: string; download?: WinDownload; note?: string }
+  | { t: "link"; text: string; href: string; download?: WinDownload; note?: string; /** Draw it as a button (still free navigation). */ button?: boolean }
   | { t: "button"; id: string; text: string; goto?: string; toast?: string; style?: "primary" | "danger" | "default"; download?: WinDownload }
   | { t: "form"; id: string; title?: string; fields: WebField[]; submit: string; goto?: string; toast?: string }
   | { t: "toggle"; id: string; label: string; on?: boolean; note?: string }

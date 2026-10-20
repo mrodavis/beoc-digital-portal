@@ -104,7 +104,7 @@ const PARTS: PartKey[] = ["title", "subtitle", "body", "body2", "notes", "pictur
  *  "s2"                 the slide thumbnail
  *  "s2.title"           a placeholder (title, subtitle, body, body2, notes, picture)
  *  "s2.body.3"          the third paragraph of a placeholder
- *  "s2.o1"              an object; "s2.o1,s2.o2" several
+ *  "s2.o1"              an object; "s2.o1,s2.o2" several ("s2.o1.o2" is the same thing)
  *  "s2.o1.r2c3"         a table cell; "s2.o1.r1c1,s2.o1.r1c2" a cell range
  *  "master"             Slide Master view: the slide master thumbnail
  *  "master.title"       the master's title or body placeholder
@@ -127,7 +127,13 @@ export function activeSlide(deck: PptDeck, ui: SimUi): PptSlide | undefined {
 }
 
 export function parseSel(deck: PptDeck, ui: SimUi): PptSel {
-  const sel = (ui.selection ?? "").trim();
+  let sel = (ui.selection ?? "").trim();
+  // Slide Master view: the master or layout thumbnail in view wins over a selection left from elsewhere.
+  const shown = ui.slide ?? "";
+  if (deck.view === "master" && (shown === "master" || shown.startsWith("layout:"))) {
+    const inShown = sel === shown || sel.startsWith(`${shown}.`) || (shown === "master" && sel.startsWith("master."));
+    if (!inShown) sel = shown;
+  }
   if (sel === "master") return { master: "slide", objs: [], thumb: false };
   if (sel.startsWith("master.") || sel.startsWith("layout:")) {
     const parts = sel.split(",").map((s) => s.trim()).filter(Boolean);
@@ -146,11 +152,16 @@ export function parseSel(deck: PptDeck, ui: SimUi): PptSel {
   }
   const parts = sel.split(",").map((s) => s.trim()).filter(Boolean);
   if (!parts.length) return { slide: activeSlide(deck, ui), objs: [], thumb: false };
-  const [sid, part, sub] = parts[0].split(".");
+  const segs = parts[0].split(".");
+  const [sid, part, sub] = segs;
+  // A selection on a slide other than the one in view is left over from before: the slide in view wins.
+  const inView = ui.slide ? deck.slides.find((s) => s.id === ui.slide) : undefined;
+  if (inView && inView.id !== sid && deck.slides.some((s) => s.id === sid)) return { slide: inView, objs: [], thumb: !part };
+  if (!part) return { slide: inView ?? deck.slides.find((s) => s.id === sid) ?? activeSlide(deck, ui), objs: [], thumb: true };
   const slide = deck.slides.find((s) => s.id === sid) ?? activeSlide(deck, ui);
-  if (!part) return { slide, objs: [], thumb: true };
   if ((PARTS as string[]).includes(part)) return { slide, part: part as PartKey, line: sub && /^\d+$/.test(sub) ? Number(sub) : undefined, objs: [], thumb: false };
-  const ids = Array.from(new Set(parts.map((p) => p.split(".")[1])));
+  // "s4.o1.o2.o3" is shorthand for "s4.o1,s4.o2,s4.o3".
+  const ids = parts.length === 1 && segs.length > 2 && segs.slice(1).every((x) => /^o\d+$/.test(x)) ? segs.slice(1) : Array.from(new Set(parts.map((p) => p.split(".")[1])));
   const objs = ids.map((oid) => slide?.objects?.find((o) => o.id === oid)).filter(Boolean) as PptObject[];
   const cells = parts.map((p) => p.split(".")[2]).filter((c): c is string => Boolean(c && /^r\d+c\d+$/.test(c)));
   return { slide, objs, cells: cells.length ? cells : undefined, thumb: false };
@@ -493,6 +504,19 @@ function writeClip(deck: PptDeck, clip: Clip, cut: boolean) {
   if (clip.kind === "obj") deck.flags.clipObj = JSON.stringify(clip.objs[0]);
 }
 
+/* ---------- stacking order ---------- */
+
+/** Reorder objects front-to-back the way Bring Forward / Send Backward do, then renumber z. */
+function restack(list: PptObject[], ids: Set<string>, op: "bringForward" | "bringToFront" | "sendBackward" | "sendToBack") {
+  let order = list.map((o, i) => ({ o, i })).sort((a, b) => (a.o.z ?? 0) - (b.o.z ?? 0) || a.i - b.i).map((x) => x.o);
+  const picked = (o: PptObject) => ids.has(o.id);
+  if (op === "bringToFront") order = [...order.filter((o) => !picked(o)), ...order.filter(picked)];
+  if (op === "sendToBack") order = [...order.filter(picked), ...order.filter((o) => !picked(o))];
+  if (op === "bringForward") for (let k = order.length - 2; k >= 0; k--) if (picked(order[k]) && !picked(order[k + 1])) [order[k], order[k + 1]] = [order[k + 1], order[k]];
+  if (op === "sendBackward") for (let k = 1; k < order.length; k++) if (picked(order[k]) && !picked(order[k - 1])) [order[k], order[k - 1]] = [order[k - 1], order[k]];
+  order.forEach((o, k) => (o.z = k));
+}
+
 /* ---------- tables ---------- */
 
 function cellRC(c: string): [number, number] {
@@ -605,7 +629,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
             if (col === "B") item.value = Number(String(c.value).replace(/[$,\s]/g, "")) || 0;
           }
         } else if (o.kind === "smartart") {
-          o.items = c.value.split("\n").map((t) => t.replace(/\s+$/, "")).filter((t) => t.trim() !== "");
+          o.items = c.value.split("\n").map((t) => t.trim()).filter((t) => t !== "");
         } else o.text = c.value;
       }
     }
@@ -685,7 +709,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
         return { doc: deck };
       }
       case "formatBackground": {
-        const color = String(val.color ?? "#ffffff");
+        const color = String(val.color ?? slide?.background ?? themeOf(deck).bg);
         if (deck.view === "master" && sel.layout) deck.slides.filter((s) => s.layout === sel.layout).forEach((s) => (s.background = color));
         else if (deck.view === "master" || val.applyToAll) deck.slides.forEach((s) => (s.background = color));
         else if (slide) slide.background = color;
@@ -782,9 +806,19 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
         deck.size = String(val.size ?? "16:9").includes("4:3") ? "4:3" : "16:9";
         return { doc: deck };
       case "setupShow": {
-        const range = val.showSlides === "From:" ? `${Number(val.from) || 1}-${Number(val.to) || deck.slides.length}` : "";
-        flag({ showType: String(val.showType ?? ""), loop: Boolean(val.loop) || String(val.showType ?? "").includes("kiosk"), noNarration: Boolean(val.noNarration), noAnimation: Boolean(val.noAnimation), showRange: range, advance: String(val.advance ?? "") });
-        if (val.presenterView !== undefined) flag({ "slideshow.presenterView": Boolean(val.presenterView) });
+        // Fields left out of the commit keep their current setting.
+        const has = (k: string) => val[k] !== undefined;
+        const showType = has("showType") ? String(val.showType) : String(deck.flags?.showType ?? "");
+        if (has("showType")) flag({ showType });
+        if (has("loop") || has("showType")) flag({ loop: Boolean(val.loop ?? deck.flags?.loop) || showType.includes("kiosk") });
+        if (has("noNarration")) flag({ noNarration: Boolean(val.noNarration) });
+        if (has("noAnimation")) flag({ noAnimation: Boolean(val.noAnimation) });
+        if (has("showSlides") || has("from") || has("to")) {
+          const all = val.showSlides === "All" || (!has("showSlides") && !deck.flags?.showRange && !has("from") && !has("to"));
+          flag({ showRange: all ? "" : `${Number(val.from) || 1}-${Number(val.to) || deck.slides.length}` });
+        }
+        if (has("advance")) flag({ advance: String(val.advance) });
+        if (has("presenterView")) flag({ "slideshow.presenterView": Boolean(val.presenterView) });
         return { doc: deck };
       }
       case "zoom":
@@ -827,7 +861,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       case "bullets": {
         if (!slide) return { doc: deck };
         const bp = bodyX(slide);
-        const style = String(val.style ?? "Filled Round Bullets");
+        const style = val.style === undefined ? (bp.bullets === false && !bp.numbered ? "None" : bp.bulletStyle ?? "Filled Round Bullets") : String(val.style);
         if (style === "None") { bp.bullets = false; bp.numbered = false; }
         else { bp.bullets = true; bp.numbered = false; bp.bulletStyle = style; }
         if (val.size) bp.bulletSize = Number(val.size) || 100;
@@ -837,10 +871,10 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       case "numbering": {
         if (!slide) return { doc: deck };
         const bp = bodyX(slide);
-        const style = String(val.style ?? "1. 2. 3.");
+        const style = val.style === undefined ? bp.numberFormat ?? "1. 2. 3." : String(val.style);
         if (style === "None") { bp.numbered = false; bp.bullets = false; }
         else { bp.numbered = true; bp.bullets = true; bp.numberFormat = style; }
-        bp.startAt = Math.max(1, Number(val.startAt) || 1);
+        if (val.startAt !== undefined) bp.startAt = Math.max(1, Number(val.startAt) || 1);
         if (val.size) bp.bulletSize = Number(val.size) || 100;
         if (val.color && val.color !== "Automatic") bp.bulletColor = String(val.color);
         return { doc: deck };
@@ -868,7 +902,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
         return { doc: deck };
       }
       case "rotation":
-        for (const o of sel.objs) o.rotate = (((Number(val.degrees) || 0) % 360) + 360) % 360;
+        if (val.degrees !== undefined && val.degrees !== "") for (const o of sel.objs) o.rotate = (((Number(val.degrees) || 0) % 360) + 360) % 360;
         if (val.height || val.width) for (const o of sel.objs) {
           if (Number(val.width)) o.w = inchesToPct(deck, Number(val.width), "w");
           if (Number(val.height)) o.h = inchesToPct(deck, Number(val.height), "h");
@@ -927,13 +961,17 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       if (slide) slide.hidden = !slide.hidden;
       return { doc: deck };
     case "slides.move": {
-      const [id, pos] = sv.split("@");
+      // "s4@2" puts slide s4 at position 2; "s4@5|Results" also files it under the Results section
+      // (a drop on a section heading lands at the end of the section above it).
+      const [move, section] = sv.split("|");
+      const [id, pos] = move.split("@");
       const i = deck.slides.findIndex((s) => s.id === id);
       if (i >= 0) {
         const p = Math.max(1, Math.min(deck.slides.length, Number(pos) || 1));
         const target = deck.slides[p - 1];
         const [s] = deck.slides.splice(i, 1);
-        if (target && target.id !== s.id && deck.slides.some((x) => x.section)) s.section = target.section;
+        if (section !== undefined) s.section = section || undefined;
+        else if (target && target.id !== s.id && deck.slides.some((x) => x.section)) s.section = target.section;
         deck.slides.splice(p - 1, 0, s);
       }
       return { doc: deck };
@@ -1081,6 +1119,8 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     }
     case "home.selectAll": {
       if (!slide) return { doc: deck };
+      // Inside a text placeholder, Select All selects all of its text.
+      if (sel.part && sel.part !== "picture") return { doc: deck, ui: { selection: `${slide.id}.${sel.part}` } };
       const objs = (slide.objects ?? []).map((o) => `${slide.id}.${o.id}`);
       return { doc: deck, ui: { selection: objs.length ? objs.join(",") : slide.id } };
     }
@@ -1266,12 +1306,13 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     case "picture.reset": for (const o of sel.objs) { o.style = undefined; ox(o).fx = undefined; o.crop = false; } return { doc: deck };
     case "object.bringForward":
     case "object.bringToFront":
-      for (const o of sel.objs) o.z = (o.z ?? 0) + (c.id === "object.bringToFront" ? 10 : 1);
-      return { doc: deck };
     case "object.sendBackward":
-    case "object.sendToBack":
-      for (const o of sel.objs) o.z = (o.z ?? 0) - (c.id === "object.sendToBack" ? 10 : 1);
+    case "object.sendToBack": {
+      const sc = scopeOf(deck, sel, slide);
+      if (!sc || !sel.objs.length) return { doc: deck };
+      restack(sc.list, new Set(sel.objs.map((o) => o.id)), c.id.split(".")[1] as "bringForward");
       return { doc: deck };
+    }
     case "object.align": {
       if (sv === "Align to Slide" || sv === "Align Selected Objects") {
         flag({ alignTo: sv === "Align to Slide" ? "slide" : "selected" });
@@ -1401,7 +1442,10 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
 
     /* -------- transitions -------- */
     case "transition.apply":
-      if (slide) slide.transition = sv === "None" ? null : sv;
+      if (slide) {
+        if ((slide.transition ?? null) !== (sv === "None" ? null : sv) && slide.transitionOptions?.effect) slide.transitionOptions = { ...slide.transitionOptions, effect: undefined };
+        slide.transition = sv === "None" ? null : sv;
+      }
       return { doc: deck };
     case "transition.applyAll": {
       const t = slide?.transition ?? null;
@@ -1697,7 +1741,12 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     /* -------- view -------- */
     case "view.mode": {
       const map: Record<string, PptDeck["view"]> = { Normal: "normal", "Outline View": "outline", "Slide Sorter": "sorter", "Notes Page": "notes", "Reading View": "reading" };
+      const wasMaster = deck.view === "master";
       deck.view = map[sv] ?? "normal";
+      if (wasMaster) {
+        const back = deck.slides.find((s) => s.id === deck.active) ?? deck.slides[0];
+        return { doc: deck, ui: { slide: back.id, selection: back.id } };
+      }
       return { doc: deck };
     }
     case "view.master": deck.view = "master"; return { doc: deck, ui: { slide: "master", selection: "master" } };

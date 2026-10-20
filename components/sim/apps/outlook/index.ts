@@ -1,4 +1,7 @@
-import { stubApp } from "../_stub/make";
+import type { AppModule } from "../../types";
+import type { OutlookDoc } from "./types";
+import { outlookCore } from "./core";
+import { OutlookCanvas, OutlookStatusBar } from "./OutlookCanvas";
+import { OutlookBackstage } from "./OutlookBackstage";
 
-/** Replaced by the real Outlook engine. */
-export const outlookApp = stubApp("Outlook", "#0f6cbd");
+export const outlookApp: AppModule<OutlookDoc> = { ...outlookCore, Canvas: OutlookCanvas, StatusBar: OutlookStatusBar, BackstageView: OutlookBackstage };

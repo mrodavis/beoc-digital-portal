@@ -198,13 +198,20 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
       const remaining = t.steps.map((_, i) => i).filter((i) => !live.current.stepsDone.has(i));
       const candidates = t.anyOrder ? remaining : remaining.slice(0, 1);
 
-      for (const i of candidates) {
+      // In an any-order task several steps can share a command (style each of
+      // three headings): take the one whose selection matches, and only report
+      // a selection miss when the command fits but no selection does.
+      const actionFits = candidates.filter((i) => {
         const s = t.steps[i];
-        if (!commitMatches(s.action, c) && !(s.alt ?? []).some((a) => commitMatches(a, c))) continue;
-        if (!selectionMatches(s.requires, u)) {
-          miss(s.selectHint ?? "Right command, but check what is selected first.");
-          return;
-        }
+        return commitMatches(s.action, c) || (s.alt ?? []).some((a) => commitMatches(a, c));
+      });
+      const hit = actionFits.find((i) => selectionMatches(t.steps[i].requires, u));
+      if (actionFits.length && hit === undefined) {
+        miss(t.steps[actionFits[0]].selectHint ?? "Right command, but check what is selected first.");
+        return;
+      }
+      for (const i of hit === undefined ? [] : [hit]) {
+        const s = t.steps[i];
         const r = s.replaceBuiltIn ? { doc: d, ui: u } : runBuiltIn(d);
         const nd = applyOps(r.doc, s.effects);
         commitDoc(nd, r.ui);
@@ -252,7 +259,10 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
     const sc = app.shortcuts[k];
     if (!sc) return;
     e.preventDefault();
-    if ("command" in sc) onCommand(sc.command, sc.value);
+    // Ctrl+S on a file that was never saved opens Save As, like Office does.
+    const savedLoc = (live.current.doc as { saved?: { location?: string } }).saved?.location;
+    if ("command" in sc && sc.command === "file.save" && !savedLoc && !app.BackstageView && app.chrome !== "bare") setBackstage("saveAs");
+    else if ("command" in sc) onCommand(sc.command, sc.value);
     else if ("dialog" in sc) openDialog(sc.dialog);
     else setBackstage(sc.backstage);
   };

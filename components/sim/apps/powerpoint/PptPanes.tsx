@@ -321,6 +321,7 @@ export function ChartDataSheet({ deck, onCommit }: { deck: PptDeck; onCommit: Ca
                           if (e.key === "Escape") { e.preventDefault(); setEdit(null); }
                         }}
                         onBlur={() => commit(null)}
+                        onFocus={(e) => e.currentTarget.select()}
                         className="w-full outline-none"
                       />
                     ) : valueOf(cell)}

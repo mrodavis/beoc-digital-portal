@@ -105,7 +105,7 @@ export const pptCore: AppCore<PptDeck> = {
     "pane.close", "view.zoom", "view.fit", "slideshow.next", "slideshow.prev", "slideshow.end", "help.help", "file.browse", "file.options", "transition.preview", "animation.preview", "review.showComments", "view.notes",
     "view.mode", "view.ruler", "view.gridlines", "view.guides", "view.selectionPane", "animation.pane", "smartart.textPane",
     "section.toggle", "slideshow.goto", "slideshow.seeAll", "slideshow.pointer", "slideshow.erase", "slideshow.ink", "slideshow.screen", "slideshow.showPresenter", "slideshow.recordTimings",
-    "comment.focus", "media.play", "media.seek", "table.tabRow",
+    "comment.focus", "media.play", "media.seek", "table.tabRow", "slides.move", "home.selectAll",
   ],
   initialUi: (deck) => {
     const s = deck.slides.find((x) => x.id === deck.active) ?? deck.slides[0];

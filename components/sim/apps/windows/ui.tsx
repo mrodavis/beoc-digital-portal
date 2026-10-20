@@ -108,6 +108,8 @@ export type WinCtxValue = {
   saveAs: (o: SaveOpts) => void;
   share: (path: string, provider?: "ms" | "google") => void;
   startSnip: () => void;
+  /** Apps register keyboard handlers here; the shell calls the focused app's handler. */
+  keys: React.MutableRefObject<Record<string, (e: React.KeyboardEvent) => boolean>>;
 };
 
 export const WinCtx = createContext<WinCtxValue | null>(null);

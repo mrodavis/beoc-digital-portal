@@ -324,6 +324,13 @@ function tokenize(src: string): Tok[] {
       i += fieldM[0].length;
       continue;
     }
+    // Mixed and absolute references ($B4, C$3, $E$2) before plain words, or "C" in C$3 reads as a name.
+    const mixedRef = /^\$[A-Za-z]{1,3}\$?\d+(?![A-Za-z0-9_(])|^[A-Za-z]{1,3}\$\d+(?![A-Za-z0-9_(])/.exec(src.slice(i));
+    if (mixedRef) {
+      out.push({ t: "ref", v: mixedRef[0] });
+      i += mixedRef[0].length;
+      continue;
+    }
     const wordM = /^[A-Za-z_][A-Za-z0-9_.]*/.exec(src.slice(i));
     if (wordM) {
       const w = wordM[0];

@@ -667,7 +667,8 @@ export function SettingsPage() {
     const t = setTimeout(() => setTesting(false), 1600);
     return () => clearTimeout(t);
   }, [testing]);
-  const audioDevice = d ? (d.speaker.split(" (")[0] === d.microphone.split(" (")[0] ? d.speaker.split(" (")[0] : "Custom setup") : "";
+  const devName = (x: string) => (x.includes("(") ? x.slice(x.indexOf("(") + 1).replace(/\)\s*$/, "") : x);
+  const audioDevice = d ? (devName(d.speaker) === devName(d.microphone) ? devName(d.speaker) : "Custom setup") : "";
   return (
     <div className="absolute inset-0 z-[70] flex flex-col bg-white" role="dialog" aria-label="Settings">
       <div className="flex h-12 shrink-0 items-center gap-2 border-b border-[#e0e0e0] px-4">

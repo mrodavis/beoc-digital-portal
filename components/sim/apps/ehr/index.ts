@@ -1,4 +1,7 @@
-import { stubApp } from "../_stub/make";
+import type { AppModule } from "../../types";
+import type { EhrDoc } from "./types";
+import { ehrCore } from "./core";
+import { EhrCanvas, EhrStatusBar } from "./EhrCanvas";
 
-/** Replaced by the real EHR practice engine. */
-export const ehrApp = stubApp("Northstar EHR", "#c2410c");
+/** Northstar EHR practice engine (bare chrome; the canvas draws the workstation). */
+export const ehrApp: AppModule<EhrDoc> = { ...ehrCore, Canvas: EhrCanvas, StatusBar: EhrStatusBar };

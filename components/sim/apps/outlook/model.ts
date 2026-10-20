@@ -307,7 +307,7 @@ export function sortMessages(doc: OutlookDoc, list: OlMessage[]): OlMessage[] {
     if (x.pinned !== y.pinned) return x.pinned ? -1 : 1;
     const kx = key(x), ky = key(y);
     if (kx === ky) return toMs(y.date) - toMs(x.date);
-    return (kx > ky ? -1 : 1) * d;
+    return (kx < ky ? -1 : 1) * d;
   });
 }
 
@@ -351,6 +351,23 @@ export function recurrenceText(r?: OlRecurrence | null): string {
       return "Yearly";
   }
   return "";
+}
+
+/** Inverse of recurrenceText for the canonical strings it produces. */
+export function recurrenceFromText(t: string | undefined, start: string): OlRecurrence | null {
+  const v = String(t ?? "").trim();
+  if (!v || v === "None") return null;
+  const dayIdx = (list: string) => list.split(/,\s*|\s+and\s+/).map((d) => DAY_NAMES.findIndex((n) => n.toLowerCase() === d.trim().toLowerCase())).filter((i) => i >= 0);
+  let m: RegExpExecArray | null;
+  if (/^daily$/i.test(v)) return { freq: "daily", interval: 1 };
+  if ((m = /^every (\d+) days$/i.exec(v))) return { freq: "daily", interval: +m[1] };
+  if (/^every weekday$/i.test(v)) return { freq: "daily", weekdays: true };
+  if ((m = /^weekly on (.+)$/i.exec(v))) return { freq: "weekly", interval: 1, days: dayIdx(m[1]) };
+  if ((m = /^every (\d+) weeks on (.+)$/i.exec(v))) return { freq: "weekly", interval: +m[1], days: dayIdx(m[2]) };
+  if ((m = /^monthly on day (\d+)$/i.exec(v))) return { freq: "monthly", interval: 1, day: +m[1] };
+  if ((m = /^every (\d+) months on day (\d+)$/i.exec(v))) return { freq: "monthly", interval: +m[1], day: +m[2] };
+  if (/^yearly$/i.test(v)) return { freq: "yearly" };
+  return { freq: "weekly", interval: 1, days: [dow(start)] };
 }
 
 export function recurrenceEndText(r?: OlRecurrence | null): string {
@@ -707,6 +724,15 @@ function formEvent(doc: OutlookDoc, f: OlForm, values: Record<string, SimValue>)
   const meeting = f.kind === "meeting" || req.length > 0 || opt.length > 0;
   const teams = values.teams !== undefined ? Boolean(values.teams) : Boolean(d.teams);
   const location = sv("location") ?? d.location ?? "";
+  const recurrence = d.recurrence ?? recurrenceFromText(sv("recurrence"), start);
+  if (recurrence?.freq === "weekly" && recurrence.days?.length && !recurrence.days.includes(dow(start))) {
+    // Outlook moves the first occurrence to the next day in the pattern.
+    const len = minutesBetween(start, end);
+    let n = 1;
+    while (n < 7 && !recurrence.days.includes(dow(addDays(start, n)))) n++;
+    start = `${addDays(start, n)}T${timeOf(start)}`;
+    end = addMinutes(start, len);
+  }
   return {
     id: f.id ?? nextId(doc.events, "e"),
     title: sv("title") ?? d.title ?? "",
@@ -722,7 +748,7 @@ function formEvent(doc: OutlookDoc, f: OlForm, values: Record<string, SimValue>)
     teams,
     reminder: sv("reminder") ?? d.reminder ?? "15 minutes",
     showAs: (sv("showAs") as OlShowAs | undefined) ?? d.showAs ?? (allDay ? "Free" : "Busy"),
-    recurrence: d.recurrence ?? null,
+    recurrence,
     categories: d.categories,
     private: values.private !== undefined ? Boolean(values.private) : d.private,
   };

@@ -247,6 +247,27 @@ function insertLines(sheet: ExcelSheet, axis: "row" | "col", at: number, count: 
     next[refOf(c, r)] = cell.f ? { ...cell, f: shiftRefs(cell.f, axis, count > 0 ? at : at + -count, count) } : cell;
   }
   sheet.cells = next;
+  // Column widths, row heights and hidden rows/columns travel with their columns and rows.
+  const moveIndex = (k: number): number | null => {
+    if (count > 0) return k >= at ? k + count : k;
+    if (k >= at && k < at - count) return null;
+    return k >= at - count ? k + count : k;
+  };
+  if (axis === "col") {
+    if (sheet.colWidths) {
+      const w: Record<string, number> = {};
+      for (const [col, px] of Object.entries(sheet.colWidths)) { const k = moveIndex(colToNum(col)); if (k) w[numToCol(k)] = px; }
+      sheet.colWidths = w;
+    }
+    if (sheet.hiddenCols) sheet.hiddenCols = sheet.hiddenCols.map((col) => moveIndex(colToNum(col))).filter((k): k is number => Boolean(k)).map(numToCol);
+  } else {
+    if (sheet.rowHeights) {
+      const h: Record<string, number> = {};
+      for (const [row, px] of Object.entries(sheet.rowHeights)) { const k = moveIndex(Number(row)); if (k) h[String(k)] = px; }
+      sheet.rowHeights = h;
+    }
+    if (sheet.hiddenRows) sheet.hiddenRows = sheet.hiddenRows.map((r) => moveIndex(r)).filter((k): k is number => Boolean(k));
+  }
   // Ranges that describe the sheet's structure grow, shrink and move with it.
   const adj = (range: string | null | undefined) => (range ? adjustRange(range, axis, at, count) : range);
   if (sheet.table) {
@@ -487,7 +508,7 @@ function goalSeek(doc: ExcelBook, sheet: ExcelSheet, setCell: string, target: nu
     const x2 = x1 - (f1 * (x1 - x0)) / d;
     x0 = x1; f0 = f1; x1 = x2; f1 = f(x1);
   }
-  sheet.cells[changing] = { ...(sheet.cells[changing] ?? {}), v: Math.round(x1 * 100) / 100 };
+  sheet.cells[changing] = { ...(sheet.cells[changing] ?? {}), v: Math.round(x1 * 1e9) / 1e9 };
 }
 
 const CF_FORMATS: Record<string, { fill?: string; color?: string }> = {
@@ -763,8 +784,11 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       case "pageSetupSheet":
         if (val.orientation) sheet.orientation = String(val.orientation).toLowerCase() as "portrait" | "landscape";
         if (val.printTitles !== undefined) sheet.printTitles = String(val.printTitles) || null;
-        if (val.fitTo) sheet.fitTo = String(val.fitTo);
+        if (val.fitTo) sheet.fitTo = val.fitTo === "Adjust to 100%" ? undefined : String(val.fitTo);
         if (val.gridlines !== undefined) sheet.printGridlines = Boolean(val.gridlines);
+        if (val.header !== undefined) sheet.header = String(val.header);
+        if (val.footer !== undefined) sheet.footer = String(val.footer);
+        if (val.printArea !== undefined) sheet.printArea = String(val.printArea).trim() ? normalizeRange(String(val.printArea).replace(/^=/, "")) : null;
         return { doc };
       case "newComment":
         sheet.cells[act] = { ...(sheet.cells[act] ?? {}), comment: String(val.text ?? "") };
@@ -822,7 +846,9 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
         if (ch && String(val.location) === "New sheet") {
           sheet.charts = sheet.charts?.filter((x) => x.id !== ch.id);
           const name = String(val.name || "Chart1");
-          doc.sheets.splice(doc.sheets.findIndex((s) => s.name === sheet.name), 0, { name, cells: {}, charts: [{ ...ch, at: "A1" }], gridlines: false });
+          // A chart sheet has no cells of its own: the chart keeps pointing at its source sheet.
+          const range = ch.range === "PIVOT" || ch.range.includes("!") ? ch.range : `${sheet.name}!${ch.range}`;
+          doc.sheets.splice(doc.sheets.findIndex((s) => s.name === sheet.name), 0, { name, cells: {}, charts: [{ ...ch, range, at: "A1" }], gridlines: false });
           return { doc, ui: { sheet: name, selection: `chart:${ch.id}` } };
         }
         return { doc };
@@ -1196,10 +1222,13 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
     case "data.clearFilter": sheet.filterValues = {}; return { doc };
     case "data.reapply": return { doc };
     case "filter.by": {
-      // value "C=Paid|Pending" or "C=*" (Select All)
-      const [col, vals] = sv.split("=");
+      // value "C=Paid|Pending", "C=*" (Select All), or a Text/Number/Date filter "F~>=100"
+      const m = /^([A-Z]+)(=|~)(.*)$/i.exec(sv);
       const fv = { ...(sheet.filterValues ?? {}) };
-      if (!vals || vals === "*") delete fv[col];
+      if (!m) return { doc };
+      const col = m[1].toUpperCase(), vals = m[3];
+      if (m[2] === "~") fv[col] = [`~${vals}`];
+      else if (!vals || vals === "*") delete fv[col];
       else fv[col] = vals.split("|");
       sheet.filterValues = fv;
       return { doc };
@@ -1319,11 +1348,12 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
 
     /* -------- formulas -------- */
     case "formulas.function": {
-      // Excel opens Function Arguments with the adjacent range guessed, like AutoSum.
+      // Picking a function from the Function Library opens Function Arguments;
+      // statistical functions start with the adjacent range guessed, like AutoSum.
       const fn = sv.toUpperCase();
-      if (["SUM", "AVERAGE", "COUNT", "COUNTA", "MAX", "MIN", "MEDIAN", "PRODUCT"].includes(fn)) setCellInput(sheet, act, `=${fn}(${autoSumRange(sheet, act) ?? ""})`);
-      else if (["TODAY", "NOW"].includes(fn)) setCellInput(sheet, act, `=${fn}()`);
-      else setCellInput(sheet, act, `=${fn}()`);
+      if (["TODAY", "NOW"].includes(fn)) { setCellInput(sheet, act, `=${fn}()`); return { doc }; }
+      const guess = ["SUM", "AVERAGE", "COUNT", "COUNTA", "MAX", "MIN", "MEDIAN", "PRODUCT"].includes(fn) ? autoSumRange(sheet, act) ?? "" : "";
+      doc.pane = `Function Arguments|${fn}|${act}|${guess}`;
       return { doc };
     }
     case "formulas.showFormulas": sheet.showFormulas = !sheet.showFormulas; return { doc };
@@ -1780,6 +1810,21 @@ export function excelDialogDefaults(doc: ExcelBook, ui: SimUi, id: string): Reco
       return { text: String(doc.flags?.[`alt:${ui.selection.startsWith("obj:") ? ui.selection.slice(4) : ui.selection}`] ?? "") };
     case "goalSeek":
       return { setCell: act };
+    case "dataValidation": {
+      // Reopening Data Validation shows the rule already on the selection.
+      const rule = sheet.validation?.[normalizeRange(ui.selection || act)];
+      return rule ? { allow: rule.type, min: rule.min ?? "", max: rule.max ?? "", source: (rule.list ?? []).join(","), inputMessage: rule.message ?? "" } : {};
+    }
+    case "pageSetupSheet":
+      return {
+        orientation: sheet.orientation === "landscape" ? "Landscape" : "Portrait",
+        fitTo: sheet.fitTo ?? "Adjust to 100%",
+        printTitles: sheet.printTitles ?? "",
+        printArea: sheet.printArea ?? "",
+        gridlines: Boolean(sheet.printGridlines),
+        header: sheet.header ?? "",
+        footer: sheet.footer ?? "",
+      };
     case "zoom":
       return { percent: sheet.zoom ?? 100 };
     case "columnWidth":

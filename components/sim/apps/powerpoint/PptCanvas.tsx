@@ -57,6 +57,14 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
   useEffect(() => {
     if (view === "reading") focusRef.current?.focus({ preventScroll: true });
   }, [view]);
+  // Like PowerPoint, the slide gets the keyboard back after a command runs (so you can type into a
+  // new table or text box right away), unless you are typing somewhere else or a dialog is open.
+  useEffect(() => {
+    if (view === "show" || editRef.current) return;
+    const ae = document.activeElement as HTMLElement | null;
+    if (ae && (["INPUT", "TEXTAREA", "SELECT"].includes(ae.tagName) || ae.closest('[role="dialog"],[role="menu"]'))) return;
+    focusRef.current?.focus({ preventScroll: true });
+  }, [deck, ui.selection, view]);
   useEffect(() => {
     const el = mainRef.current;
     if (!el) return;
@@ -392,7 +400,16 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
                 onClick={() => onCommit({ kind: "command", id: "section.toggle", value: s.section })}
                 onContextMenu={(e) => sectionMenu(e, s)}
                 onDragOver={(e) => e.preventDefault()}
-                onDrop={() => { if (dragFrom && dragFrom !== s.id) onCommit({ kind: "command", id: "slides.move", value: `${dragFrom}@${i + 1}` }); setDragFrom(null); }}
+                onDrop={() => {
+                  if (dragFrom) {
+                    // Dropping on a heading lands the slide at the end of the section above it.
+                    const f = deck.slides.findIndex((x) => x.id === dragFrom);
+                    const pos = f < i ? i : i + 1;
+                    const into = i > 0 ? deck.slides[i - 1].section ?? "" : s.section ?? "";
+                    onCommit({ kind: "command", id: "slides.move", value: `${dragFrom}@${Math.max(1, pos)}|${into}` });
+                  }
+                  setDragFrom(null);
+                }}
                 className="flex w-full items-center gap-1 px-2 pb-1 pt-2 text-left text-[11px] font-semibold text-gray-600 hover:text-gray-900"
                 title={`${s.section} (right-click for section options)`}
               >
@@ -580,7 +597,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
               {rulerOn && <div className="mb-0.5 h-[14px] bg-white text-[8px] text-gray-500" style={{ width: slideW, marginLeft: 16, backgroundImage: "repeating-linear-gradient(90deg,#999 0 1px,transparent 1px 7.2%)" }} />}
               <div className="flex">
                 {rulerOn && <div className="mr-0.5 w-[14px] bg-white" style={{ backgroundImage: "repeating-linear-gradient(180deg,#999 0 1px,transparent 1px 13.3%)" }} />}
-                <div className="shadow-[0_0_0_1px_#c8c8c8,0_2px_8px_rgba(0,0,0,.18)]">
+                <div className="shadow-[0_0_0_1px_#c8c8c8,0_2px_8px_rgba(0,0,0,.18)]" style={{ filter: deck.flags?.["view.grayscale"] === "Grayscale" ? "grayscale(1)" : deck.flags?.["view.grayscale"] === "Black and White" ? "grayscale(1) contrast(3)" : undefined }}>
                   <SlideView deck={deck} slide={slide} width={slideW} index={idx} {...slideProps} />
                 </div>
               </div>

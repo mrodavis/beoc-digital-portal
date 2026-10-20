@@ -84,6 +84,8 @@ export type AccField = {
   /** Lookup (combo box) settings from the Lookup Wizard. */
   lookup?: { values?: string[]; table?: string; field?: string; limitToList?: boolean; multi?: boolean };
   newValues?: "Increment" | "Random";
+  /** Other properties set in the Field Properties pane (Text Align, Show Date Picker, ...). */
+  props?: Record<string, string>;
 };
 
 export type AccRecord = { _id: string } & Record<string, AccValue>;
@@ -122,6 +124,8 @@ export type AccTable = {
   /** Linked to an external file (Get External Data › Link). */
   linked?: string;
   hidden?: boolean;
+  /** False while it is still "Table1" and has never been saved. */
+  saved?: boolean;
 };
 
 export type QueryType = "Select" | "Make Table" | "Append" | "Update" | "Crosstab" | "Delete";
@@ -333,6 +337,8 @@ export type AccTab = {
   doc?: string[];
   /** The view to come back to when Print Preview closes. */
   prevView?: AccView;
+  /** The object as it was when its design was opened (JSON), restored by "No" on close. */
+  orig?: string;
 };
 
 export type ExternalFile = {
@@ -363,8 +369,17 @@ export type AccPrompt = {
   objectKind?: string;
   objectName?: string;
   defaultName?: string;
-  /** Run after a successful save (e.g. switch to Design view). */
+  /** Run after a successful save (e.g. switch to Design view, close the tab). */
   thenView?: AccView;
+  thenClose?: boolean;
+  /** Parameter prompts: what to open once every value is entered. */
+  then?: { kind: "query" | "form" | "report"; name: string; view?: AccView; run?: boolean };
+  pending?: string[];
+  collected?: Record<string, string>;
+  /** Parameter values an action query confirmation runs with. */
+  params?: Record<string, string>;
+  /** Messages waiting behind this one (several MsgBox calls). */
+  queue?: AccPrompt[];
   nonce?: number;
 };
 
@@ -410,6 +425,10 @@ export type AccessDoc = {
   tool?: string | null;
   /** Message on the status bar after the last action. */
   status?: string;
+  /** Set each time a query runs, so the window can report its results. */
+  lastRun?: { query: string; n: number } | null;
+  /** Table Design › Insert Rows: where the next new field goes. */
+  designInsert?: { table: string; index: number } | null;
 };
 
 /** Partial doc accepted by accessDoc(); everything but tables is optional. */

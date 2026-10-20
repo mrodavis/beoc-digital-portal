@@ -237,6 +237,8 @@ export type EhrEncounter = {
   visit?: string;
   /** The provider's canned reply to a coding query. */
   queryAnswer?: string;
+  /** What the payer does with the claim made from this encounter (copied to the claim). */
+  outcome?: EhrClaim["outcome"];
   query?: { question: string; answer: string } | null;
 };
 
@@ -403,6 +405,8 @@ export type EhrDoc = {
   alert?: EhrAlert | null;
   claims?: EhrClaim[];
   remits?: EhrRemit[];
+  /** The payers' eligibility databases, for coverage added during a sim (matched by payer and member ID). */
+  eligRecords?: (EhrEligibility & { payer: string })[];
   /** Practice fee schedule overrides, code → dollars. */
   fees?: Record<string, number>;
   reportData?: EhrReportData;

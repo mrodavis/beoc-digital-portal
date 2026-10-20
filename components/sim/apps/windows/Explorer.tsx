@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useMemo, useRef, useState } from "react";
 import type { WinBinItem, WinDoc, WinItem, WinRoot, WinWindow } from "./types";
 import { FileArt, G, kindForName } from "./icons";
-import { Btn, Modal, T, TextIn, type MItem, type WinCtxValue, useWin } from "./ui";
+import { Btn, Modal, T, TextIn, WinCtx, type MItem, type WinCtxValue, useWin } from "./ui";
 import { TitleBar } from "./frame";
 import {
   INVALID_NAME,
@@ -1156,16 +1156,18 @@ function EntryTile({ e, onDown, selected, big }: { e: Entry; onDown: (ev: React.
   );
 }
 
-export function useItemSelect(entries: Entry[]) {
-  const ctx = useWin();
+export function useItemSelect(entries: Entry[], override?: { sel: string; select: (s: string) => void }) {
+  const c = useContext(WinCtx);
   const anchor = useRef<string | null>(null);
+  const sel = override?.sel ?? c?.sel ?? "";
+  const select = override?.select ?? c?.select ?? (() => undefined);
   return (ev: React.MouseEvent, en: Entry) => {
     if (ev.button === 2) return;
     ev.stopPropagation();
-    const cur = ctx.sel ? ctx.sel.split(",").filter(Boolean) : [];
+    const cur = sel ? sel.split(",").filter(Boolean) : [];
     if (ev.ctrlKey || ev.metaKey) {
       const next = cur.includes(en.key) ? cur.filter((k) => k !== en.key) : [...cur, en.key];
-      ctx.select(next.join(","));
+      select(next.join(","));
       anchor.current = en.key;
       return;
     }
@@ -1174,13 +1176,13 @@ export function useItemSelect(entries: Entry[]) {
       const b = entries.findIndex((x) => x.key === en.key);
       if (a >= 0 && b >= 0) {
         const [lo, hi] = a < b ? [a, b] : [b, a];
-        ctx.select(entries.slice(lo, hi + 1).map((x) => x.key).join(","));
+        select(entries.slice(lo, hi + 1).map((x) => x.key).join(","));
         return;
       }
     }
     anchor.current = en.key;
     if (cur.length > 1 && cur.includes(en.key)) return; // keep a multi-selection for dragging
-    ctx.select(en.key);
+    select(en.key);
   };
 }
 

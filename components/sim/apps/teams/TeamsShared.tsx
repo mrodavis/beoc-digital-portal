@@ -399,8 +399,20 @@ export function Composer({
   const [caret, setCaret] = useState(0);
   const [mIdx, setMIdx] = useState(0);
   const ta = useRef<HTMLTextAreaElement>(null);
+  const pendingSel = useRef<[number, number] | null>(null);
   const accepted = useAccepted(doc);
   const attachments = doc.drafts?.[target] ?? [];
+
+  // Place the caret right after React applies a programmatic edit.
+  useLayoutEffect(() => {
+    const el = ta.current;
+    if (!el || !pendingSel.current) return;
+    const [a, b] = pendingSel.current;
+    pendingSel.current = null;
+    el.focus();
+    el.setSelectionRange(a, b);
+    setCaret(b);
+  }, [text]);
 
   useEffect(() => {
     if (autoFocus) ta.current?.focus();
@@ -427,13 +439,9 @@ export function Composer({
   const insertMention = (name: string) => {
     const start = before.lastIndexOf("@");
     const next = `${text.slice(0, start)}@${name} ${text.slice(caret)}`;
-    setText(next);
     const pos = start + name.length + 2;
-    setTimeout(() => {
-      ta.current?.focus();
-      ta.current?.setSelectionRange(pos, pos);
-      setCaret(pos);
-    }, 0);
+    pendingSel.current = [pos, pos];
+    setText(next);
   };
 
   const wrap = (mark: string) => {
@@ -443,11 +451,8 @@ export function Composer({
     const e = el.selectionEnd;
     const sel = text.slice(s, e) || "text";
     const next = text.slice(0, s) + mark + sel + mark + text.slice(e);
+    pendingSel.current = [s + mark.length, s + mark.length + sel.length];
     setText(next);
-    setTimeout(() => {
-      el.focus();
-      el.setSelectionRange(s + mark.length, s + mark.length + sel.length);
-    }, 0);
   };
 
   const listify = (kind: "bullet" | "number") => {
@@ -465,11 +470,8 @@ export function Composer({
   const insert = (s: string) => {
     const el = ta.current;
     const p = el?.selectionStart ?? text.length;
+    pendingSel.current = [p + s.length, p + s.length];
     setText(text.slice(0, p) + s + text.slice(p));
-    setTimeout(() => {
-      el?.focus();
-      el?.setSelectionRange(p + s.length, p + s.length);
-    }, 0);
   };
 
   const send = () => {
