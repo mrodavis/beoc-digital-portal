@@ -235,7 +235,9 @@ export function SlidesSurface({ composer, setComposer }: { composer: boolean; se
             )}
             <div className="flex min-w-0 flex-1 flex-col">
               <div ref={mainRef} className="relative flex min-h-0 flex-1 items-center justify-center overflow-auto bg-[#f9fbfd] p-4" onMouseDown={() => { if (editRef.current) commitEdit(); g.onSelect({ selection: slide.id, slide: slide.id }); }}>
-                <div style={{ width: slideW, maxHeight: "100%" }} className="shadow-[0_1px_3px_1px_rgba(60,64,67,.15)]">
+                <div style={{ width: slideW, maxHeight: "100%" }} className="g-slide-canvas shadow-[0_1px_3px_1px_rgba(60,64,67,.15)]">
+                  {/* Google Slides placeholders show only their prompt, not PowerPoint's Insert icons. */}
+                  <style>{`.g-slide-canvas div:has(> button[aria-label="Insert Table"]){display:none}`}</style>
                   <SlideView
                     deck={rdeck}
                     slide={rslide}

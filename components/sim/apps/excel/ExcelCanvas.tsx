@@ -88,13 +88,8 @@ function cellRaw(sheet: ExcelSheet, ref: string): string {
 }
 
 /* ------------------------------------------------------------------ */
-/* Pivot computation                                                   */
+/* PivotTables and chart data                                          */
 /* ------------------------------------------------------------------ */
-
-interface VirtualCell {
-  v: Val;
-  fmt?: CellFormat;
-}
 
 /** Items a PivotTable field is filtered to (report filter or slicer); null = all. */
 function pivotFilterItems(doc: ExcelBook, sheet: ExcelSheet, field: string): string[] | null {
@@ -102,150 +97,32 @@ function pivotFilterItems(doc: ExcelBook, sheet: ExcelSheet, field: string): str
   return v ? String(v).split("|") : null;
 }
 
-/** Source records of a PivotTable, as field → value. */
-function pivotSource(doc: ExcelBook, sheet: ExcelSheet): { head: string[]; rows: Record<string, Val>[]; fmtOf: (f: string) => CellFormat | undefined } | null {
-  const pv = sheet.pivot;
-  if (!pv) return null;
-  const src = doc.sheets.find((s) => s.name === pv.source.sheet);
-  const rc = parseRange(pv.source.range);
-  if (!src || !rc) return null;
-  const head: string[] = [];
-  for (let c = rc.c1; c <= rc.c2; c++) head.push(String(src.cells[refOf(c, rc.r1)]?.v ?? numToCol(c)));
-  const rows: Record<string, Val>[] = [];
-  for (let r = rc.r1 + 1; r <= rc.r2; r++) {
-    const row: Record<string, Val> = {};
-    head.forEach((h, i) => (row[h] = evaluateCell(doc, src, refOf(rc.c1 + i, r))));
-    if (Object.values(row).every((x) => x === null || x === "")) continue;
-    rows.push(row);
-  }
-  return { head, rows, fmtOf: (f) => src.cells[refOf(rc.c1 + head.indexOf(f), rc.r1 + 1)]?.fmt };
-}
+const numVals = (vals: Val[]) => vals.map((x) => (typeof x === "number" ? x : 0));
 
-function computePivot(doc: ExcelBook, sheet: ExcelSheet): Record<string, VirtualCell> {
-  const pv = sheet.pivot;
-  const out: Record<string, VirtualCell> = {};
-  const source = pivotSource(doc, sheet);
-  if (!pv || !source) return out;
-  const { head } = source;
-  // Report filters and slicers narrow the records first.
-  const rows = source.rows.filter((r) => head.every((h) => {
-    const items = pivotFilterItems(doc, sheet, h);
-    return !items || items.some((it) => it.toLowerCase() === String(r[h] ?? "(blank)").toLowerCase());
-  }));
-  const at = parseRef(pv.at ?? "A3")!;
-  pv.filters.forEach((f, i) => {
-    const r = at.r - 2 - (pv.filters.length - 1 - i);
-    if (r < 1) return;
-    const items = pivotFilterItems(doc, sheet, f);
-    out[refOf(at.c, r)] = { v: f, fmt: { bold: true } };
-    out[refOf(at.c + 1, r)] = { v: !items ? "(All)" : items.length === 1 ? items[0] : "(Multiple Items)" };
-  });
-  const rowF = pv.rows[0];
-  const colF = pv.columns[0];
-  const val = pv.values[0];
-  if (!rowF && !val) return out;
-  const agg = (items: Record<string, Val>[]) => {
-    if (!val) return null;
-    const nums = items.map((x) => x[val.field]).filter((x): x is number => typeof x === "number");
-    switch (val.fn) {
-      case "Count": return items.filter((x) => x[val.field] !== null && x[val.field] !== "").length;
-      case "Average": return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : 0;
-      case "Max": return nums.length ? Math.max(...nums) : 0;
-      case "Min": return nums.length ? Math.min(...nums) : 0;
-      default: return nums.reduce((a, b) => a + b, 0);
-    }
-  };
-  const showAs = String(doc.flags?.[`pvShowAs:${sheet.name}`] ?? "");
-  const vf: CellFormat | undefined = val ? source.fmtOf(val.field) : undefined;
-  const pctFmt: CellFormat = { numFmt: "Percentage", decimals: 2 };
-  const fmtV = showAs && showAs !== "Running Total In" ? pctFmt : val?.fn === "Count" ? undefined : vf;
-  const hdr: CellFormat = { bold: true, fill: "#DDEBF7" };
-  const keyOf = (r: Record<string, Val>, f: string) => String(r[f] ?? "(blank)");
-  const sortKeys = (keys: string[]) => keys.sort((a, b) => {
-    const na = Number(a), nb = Number(b);
-    return !Number.isNaN(na) && !Number.isNaN(nb) ? na - nb : a.localeCompare(b, undefined, { sensitivity: "base" });
-  });
-  const rowKeys = rowF ? sortKeys(Array.from(new Set(rows.map((r) => keyOf(r, rowF))))) : [];
-  const colKeys = colF ? sortKeys(Array.from(new Set(rows.map((r) => keyOf(r, colF))))) : [];
-  const label = val ? `${val.fn} of ${val.field}` : "";
-  const grand = agg(rows) ?? 0;
-  const colTotal = (ck: string | null) => agg(ck === null ? rows : rows.filter((x) => keyOf(x, colF) === ck)) ?? 0;
-  const running: Record<string, number> = {};
-  const show = (v: number | null, rk: string | null, ck: string | null): Val => {
-    if (v === null) return null;
-    if (!showAs) return v;
-    if (showAs === "% of Grand Total") return grand ? v / grand : 0;
-    if (showAs === "% of Column Total") { const t = colTotal(ck); return t ? v / t : 0; }
-    if (showAs === "% of Row Total") {
-      if (rk === null) return grand ? v / grand : 0;
-      const t = agg(rows.filter((x) => keyOf(x, rowF) === rk)) ?? 0;
-      return t ? v / t : 0;
-    }
-    if (showAs === "Running Total In") {
-      const k = ck ?? "";
-      running[k] = (running[k] ?? 0) + v;
-      return running[k];
-    }
-    return v;
-  };
-  out[refOf(at.c, at.r)] = { v: rowF ? "Row Labels" : label, fmt: hdr };
-  if (colF) {
-    out[refOf(at.c, at.r - 1)] = { v: label, fmt: hdr };
-    out[refOf(at.c + 1, at.r - 1)] = { v: "Column Labels", fmt: hdr };
-    colKeys.forEach((k, i) => (out[refOf(at.c + 1 + i, at.r)] = { v: k, fmt: hdr }));
-    out[refOf(at.c + 1 + colKeys.length, at.r)] = { v: "Grand Total", fmt: hdr };
-  } else if (rowF && val) out[refOf(at.c + 1, at.r)] = { v: label, fmt: hdr };
-  if (!rowF && val) {
-    out[refOf(at.c, at.r + 1)] = { v: show(agg(rows), null, null), fmt: fmtV };
-    return out;
-  }
-  rowKeys.forEach((k, i) => {
-    const items = rows.filter((r) => keyOf(r, rowF) === k);
-    out[refOf(at.c, at.r + 1 + i)] = { v: k };
-    if (colF) {
-      colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, at.r + 1 + i)] = { v: show(agg(items.filter((x) => keyOf(x, colF) === ck)), k, ck), fmt: fmtV }));
-      out[refOf(at.c + 1 + colKeys.length, at.r + 1 + i)] = { v: showAs === "Running Total In" ? null : show(agg(items), k, null), fmt: fmtV };
-    } else if (val) out[refOf(at.c + 1, at.r + 1 + i)] = { v: show(agg(items), k, null), fmt: fmtV };
-  });
-  const gt = at.r + 1 + rowKeys.length;
-  out[refOf(at.c, gt)] = { v: "Grand Total", fmt: { bold: true, border: "top" } };
-  const gtFmt = { ...(fmtV ?? {}), bold: true, border: "top" as const };
-  if (colF) {
-    colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, gt)] = { v: showAs === "Running Total In" ? null : show(colTotal(ck), null, ck === null ? null : ck), fmt: gtFmt }));
-    out[refOf(at.c + 1 + colKeys.length, gt)] = { v: showAs === "Running Total In" ? null : show(grand, null, null), fmt: gtFmt };
-  } else if (val) out[refOf(at.c + 1, gt)] = { v: showAs === "Running Total In" ? null : show(grand, null, null), fmt: gtFmt };
-  return out;
-}
-
-/** Categories and series a chart plots: from its range, or from the PivotTable for a PivotChart. */
-function chartData(doc: ExcelBook, sheet: ExcelSheet, ch: ExcelChart, pivotCells: Record<string, VirtualCell>): { cats: string[]; series: { name: string; vals: number[] }[] } | null {
+/** Categories and series a chart plots: from its range, its own series list, or the PivotTable for a PivotChart. */
+function chartData(doc: ExcelBook, sheet: ExcelSheet, ch: ExcelChart): { cats: string[]; series: { name: string; vals: number[] }[] } | null {
   let cats: string[] = [];
   let series: { name: string; vals: number[] }[] = [];
+  const xc = ch as XChart;
   if (ch.range === "PIVOT") {
-    const at = parseRef(sheet.pivot?.at ?? "A3");
-    if (!at) return null;
-    const v = (c: number, r: number) => pivotCells[refOf(c, r)]?.v ?? null;
-    const hasRows = v(at.c, at.r) === "Row Labels";
-    let lastR = at.r + 1;
-    if (hasRows) {
-      for (let r = at.r + 1; v(at.c, r) !== null && v(at.c, r) !== "Grand Total"; r++) { cats.push(String(v(at.c, r))); lastR = r; }
-    } else cats = ["Total"];
-    const cols: { c: number; name: string }[] = [];
-    if (hasRows && v(at.c + 1, at.r - 1) === "Column Labels") {
-      for (let c = at.c + 1; v(c, at.r) !== null && v(c, at.r) !== "Grand Total"; c++) cols.push({ c, name: String(v(c, at.r)) });
-    } else cols.push({ c: hasRows ? at.c + 1 : at.c, name: String(v(hasRows ? at.c + 1 : at.c, at.r) ?? "Total") });
-    series = cols.map(({ c, name }) => ({
-      name,
-      vals: hasRows ? cats.map((_, i) => { const x = v(c, at.r + 1 + i); return typeof x === "number" ? x : 0; }) : [Number(v(at.c, at.r + 1)) || 0],
-    }));
-    void lastR;
+    const lay = sheet.pivot ? pivotLayoutOf(doc, sheet) : null;
+    if (!lay) return null;
+    cats = lay.chart.cats;
+    series = lay.chart.series;
+  } else if (xc.series?.length) {
+    // Series kept from Select Data Source: each has a name (text or =Sheet!$B$1) and values.
+    const nameOf = (n: string) => (n.trim().startsWith("=") ? String(rangeValues(doc, sheet, n)[0] ?? "") : n);
+    series = xc.series.map((s) => ({ name: nameOf(s.name), vals: numVals(rangeValues(doc, sheet, s.values)) }));
+    const n = Math.max(0, ...series.map((s) => s.vals.length));
+    cats = xc.categories ? rangeValues(doc, sheet, xc.categories).map((x) => (typeof x === "number" ? formatValue(x, undefined) : String(x ?? ""))) : Array.from({ length: n }, (_, i) => String(i + 1));
+    return { cats, series };
   } else {
     // "Spending!A1:E6" on a chart sheet: read the data from its source sheet.
     const bang = ch.range.lastIndexOf("!");
     if (bang > 0) {
       const src = doc.sheets.find((x) => x.name === ch.range.slice(0, bang).replace(/^'|'$/g, ""));
       if (!src) return null;
-      return chartData(doc, src, { ...ch, range: ch.range.slice(bang + 1) }, pivotCells);
+      return chartData(doc, src, { ...ch, range: ch.range.slice(bang + 1) });
     }
     const rc = parseRange(ch.range);
     if (!rc) return null;
