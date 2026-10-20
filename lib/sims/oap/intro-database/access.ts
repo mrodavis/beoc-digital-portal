@@ -202,7 +202,7 @@ const entryAppts = appointments();
 const draftAppointments = (): AccTable =>
   table(
     "Appointments",
-    [fld.auto("AppointmentID"), fld.text("PatientID", 255), fld.text("ProviderID", 50), fld.date("AppointmentDate"), fld.text("VisitType", 255), fld.text("Notes", 255)],
+    [fld.auto("AppointmentID"), fld.text("PatientID", 255), fld.num("ProviderID"), fld.date("AppointmentDate"), fld.text("VisitType", 255), fld.text("Notes", 255)],
     [],
   );
 

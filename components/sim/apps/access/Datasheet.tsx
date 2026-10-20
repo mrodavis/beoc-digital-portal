@@ -276,20 +276,23 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
   }, [table, sel]);
 
   const focus = () => focusRef.current?.focus({ preventScroll: true });
+  /** Leaving a new record checks its required fields; false keeps the learner on it. */
+  const leaveNew = (rowKey: string): boolean => {
+    if (!dirtyNew || rowKey === dirtyNew || !table) return true;
+    const r = table.rows.find((x) => x._id === dirtyNew);
+    const miss = r ? missingRequired(table, r) : null;
+    if (miss) {
+      showMsg(`You must enter a value in the '${table.name}.${miss}' field.`);
+      onSelect({ selection: `cell:${name}.${dirtyNew}.${miss}` });
+      return false;
+    }
+    setDirtyNew(null);
+    return true;
+  };
   const selectCell = (rowKey: string, ci: number) => {
     const c = cols[ci];
     if (!c) return;
-    // Leaving a new record checks its required fields.
-    if (dirtyNew && rowKey !== dirtyNew && table) {
-      const r = table.rows.find((x) => x._id === dirtyNew);
-      const miss = r ? missingRequired(table, r) : null;
-      if (miss) {
-        showMsg(`You must enter a value in the '${table.name}.${miss}' field.`);
-        onSelect({ selection: `cell:${name}.${dirtyNew}.${miss}` });
-        return;
-      }
-      setDirtyNew(null);
-    }
+    if (!leaveNew(rowKey)) return;
     onSelect({ selection: `cell:${name}.${rowKey}.${c.name}` });
   };
 
@@ -665,7 +668,7 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
                     className={`sticky left-0 z-[5] cursor-pointer border-b border-r border-[#c6c6c6] text-center ${rowSel ? "bg-[#c9daf0]" : isCur ? "bg-[#fde5b4]" : "bg-[#f3f3f3]"}`}
                     onMouseDown={(e) => {
                       if (e.button !== 0) return;
-                      if (!row.isNew) onSelect({ selection: `row:${name}.${row.key}` });
+                      if (!row.isNew) { if (leaveNew(row.key)) onSelect({ selection: `row:${name}.${row.key}` }); }
                       else selectCell(row.key, 0);
                       focus();
                     }}

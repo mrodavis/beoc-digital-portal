@@ -323,8 +323,21 @@ export default function SimPlayer({ sim, app }: { sim: SimDefinition; app: AppMo
   const ribbonTabs = useMemo(() => (app.ribbonFor ? app.ribbonFor(doc, ui) : app.ribbon), [app, doc, ui]);
   const tabs = ribbonTabs.filter((t) => !t.contextual || contextual.includes(t.contextual));
   useEffect(() => {
-    if (!tabs.some((t) => t.id === activeTab)) setActiveTab(tabs[0].id);
+    if (!tabs.some((t) => t.id === activeTab)) setActiveTab(tabs[0]?.id ?? "");
   }, [tabs, activeTab]);
+  // Apps that opt in switch to a contextual tab when it first appears (Access
+  // opens Table Design when you enter Design View).
+  const prevContextual = useRef<string[]>(contextual);
+  const contextualKey = contextual.join("|");
+  useEffect(() => {
+    const before = prevContextual.current;
+    prevContextual.current = contextual;
+    if (!app.autoContextual) return;
+    const fresh = contextual.filter((k) => !before.includes(k));
+    const tab = tabs.find((t) => t.contextual && !t.plain && fresh.includes(t.contextual));
+    if (tab) setActiveTab(tab.id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [contextualKey]);
 
   const ribbonState = useMemo(() => app.ribbonState(doc, ui), [app, doc, ui]);
   const hits = useMemo(() => searchRibbon(tabs, search), [tabs, search]);
@@ -465,7 +478,7 @@ export default function SimPlayer({ sim, app }: { sim: SimDefinition; app: AppMo
         )}
 
         {backstage && app.BackstageView && (
-          <app.BackstageView doc={doc} accent={app.accent} fileName={fileName} startPage={backstage} onCommit={handleCommit} onClose={() => setBackstage(null)} />
+          <app.BackstageView doc={doc} ui={ui} accent={app.accent} fileName={fileName} startPage={backstage} onCommit={handleCommit} onClose={() => setBackstage(null)} />
         )}
         {backstage && !app.BackstageView && (
           <Backstage
