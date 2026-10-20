@@ -1946,6 +1946,7 @@ export function applyAccess(doc: AccessDoc, c: SimCommit, ui: SimUi): { doc: Acc
       const base = kind === "button" ? "Command" : kind === "label" ? "Label" : kind === "combo" ? "Combo" : kind === "check" ? "Check" : kind === "listbox" ? "List" : "Text";
       const id = nextCtlId(controls, base);
       controls.push({ id, kind, section: section || "Detail", order: 99, caption: kind === "button" ? id : kind === "label" ? "" : undefined, label: kind === "textbox" || kind === "combo" ? `${id}:` : undefined });
+      d.tool = null;
       markDirty(d);
       return out({ selection: `ctl:${owner.name}.${id}` });
     }
@@ -2271,9 +2272,12 @@ function applyType(d: D, target: string, value: string, ui: SimUi): { doc: D; ui
       const owner = form ?? report;
       if (!owner || !value.trim()) return out();
       const controls = form ? form.controls : (report!.controls = report!.controls ?? []);
-      const id = nextCtlId(controls, "Text");
       const v = value.trim();
-      controls.push({ id, kind: v.startsWith("=") || !/^"/.test(v) ? "textbox" : "label", source: v.startsWith("=") ? v : undefined, caption: v.startsWith("=") ? undefined : v.replace(/^"(.*)"$/, "$1"), section, order: 99 });
+      const asLabel = /label/i.test(d.tool ?? "") || (!d.tool && /^"/.test(v));
+      const id = nextCtlId(controls, asLabel ? "Label" : "Text");
+      if (asLabel) controls.push({ id, kind: "label", caption: v.replace(/^"(.*)"$/, "$1"), section, order: 99 });
+      else controls.push({ id, kind: "textbox", source: v, section, order: 99 });
+      d.tool = null;
       markDirty(d);
       return out({ selection: `ctl:${owner.name}.${id}` });
     }
@@ -2331,14 +2335,25 @@ function applyProp(d: D, prop: string, value: string, ui: SimUi): { doc: D; ui?:
   }
   if (s.k === "ctl") {
     const { form, report } = designObj(d, s.obj);
+    const renamed = (ctl: AccControl) => (eq(prop, "Name") && ctl.id !== s.id.replace(/_Label$/, "") ? { doc: d, ui: { selection: `ctl:${s.obj}.${ctl.id}${/_Label$/.test(s.id) ? "_Label" : ""}` } } : null);
     if (form) {
       const ctl = form.controls.find((x) => eq(x.id, s.id.replace(/_Label$/, "")));
-      if (ctl) setControlProp(ctl, prop, value, form);
+      if (ctl) {
+        setControlProp(ctl, prop, value, form);
+        markDirty(d);
+        const r = renamed(ctl);
+        if (r) return r;
+      }
     }
     if (report) {
       const id = s.id.replace(/_Label$/, "");
       const ctl = (report.controls ?? []).find((x) => eq(x.id, id));
-      if (ctl) setControlProp(ctl, prop, value, { controls: report.controls ?? [] });
+      if (ctl) {
+        setControlProp(ctl, prop, value, { controls: report.controls ?? [] });
+        markDirty(d);
+        const r = renamed(ctl);
+        if (r) return r;
+      }
       else if (eq(prop, "Caption") && (report.fields.some((x) => eq(x, id)) || eq(id, "Title"))) {
         if (eq(id, "Title")) report.title = value;
         else report.captions = { ...(report.captions ?? {}), [id]: value };

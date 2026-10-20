@@ -1,6 +1,23 @@
-import type { DialogDef } from "@/types/sim";
+import type { DialogDef, DialogField, WordDoc } from "@/types/sim";
+import type { SimUi } from "../../types";
 import { FONTS, PICTURE_FILES, SIZE_OPTS, THEME_COLORS } from "./ribbon";
-import { PARA_STYLE_NAMES } from "./model";
+import {
+  CHAR_STYLE_NAMES,
+  FILTER_OPS,
+  PARA_STYLE_NAMES,
+  columnsApplyTo,
+  customStyleNames,
+  headingsOf,
+  mergeFieldNames,
+  recipientLabel,
+  recipientsOf,
+  selectionFontInfo,
+  type XDoc,
+  type XMerge,
+} from "./model";
+
+/** Merge fields offered when the document has no data source yet (also on Insert Merge Field). */
+const MERGE_FIELDS = ["First_Name", "Last_Name", "Address", "City", "State", "ZIP", "Appointment_Date", "Appointment_Time", "Provider"];
 
 /** Online Pictures (Bing) results the sim offers. */
 export const ONLINE_PICTURES = ["Nurse giving a flu shot (illustration)", "Hand washing steps (icon set)", "Doctor talking with a patient (photo)", "Healthy plate (illustration)", "Calendar with reminder (icon)", "Clinic waiting room (photo)"];
@@ -186,7 +203,8 @@ export const wordDialogs: Record<string, DialogDef> = {
       { type: "number", key: "spacing", label: "Spacing:", default: 0.5, min: 0, step: 0.1, suffix: '"' },
       { type: "checkbox", key: "equal", label: "Equal column width", default: true },
       { type: "checkbox", key: "line", label: "Line between" },
-      { type: "select", key: "applyTo", label: "Apply to:", options: ["Whole document", "This section", "This point forward"] },
+      // The choices shown depend on the selection (wordDialogDef): "Selected text" wraps it in continuous section breaks.
+      { type: "select", key: "applyTo", label: "Apply to:", options: ["Whole document", "This section", "This point forward", "Selected text"] },
     ],
   },
   modifyStyle: {
@@ -363,7 +381,110 @@ export const wordDialogs: Record<string, DialogDef> = {
     title: "Styles",
     okLabel: "Apply",
     width: 280,
-    fields: [{ type: "list", key: "style", label: "Styles", options: PARA_STYLE_NAMES, height: 200 }],
+    // The pane also lists the document's custom styles (wordDialogDef). OK commits home.style / home.customStyle.
+    fields: [{ type: "list", key: "style", label: "Styles", options: [...PARA_STYLE_NAMES, ...CHAR_STYLE_NAMES], height: 200 }],
+  },
+  bookmark: {
+    id: "bookmark",
+    title: "Bookmark",
+    okLabel: "Add",
+    width: 360,
+    fields: [
+      { type: "text", key: "name", label: "Bookmark name:", placeholder: "No spaces, for example RecordsPolicy" },
+      { type: "note", text: "The bookmark marks what is selected (or the paragraph with the insertion point)." },
+    ],
+  },
+  crossRef: {
+    id: "crossRef",
+    title: "Cross-reference",
+    okLabel: "Insert",
+    width: 440,
+    fields: [
+      { type: "select", key: "refType", label: "Reference type:", options: ["Heading", "Bookmark"] },
+      { type: "select", key: "refTo", label: "Insert reference to:", options: ["Heading text", "Page number", "Bookmark text", "Above/below"] },
+      { type: "checkbox", key: "hyperlink", label: "Insert as hyperlink", default: true },
+      // Lists the document's headings and bookmarks (wordDialogDef); any value is accepted here.
+      { type: "list", key: "item", label: "For which heading or bookmark:", options: [], height: 130 },
+    ],
+  },
+  customToc: {
+    id: "customToc",
+    title: "Table of Contents",
+    width: 400,
+    fields: [
+      { type: "checkbox", key: "pageNumbers", label: "Show page numbers", default: true },
+      { type: "checkbox", key: "rightAlign", label: "Right align page numbers", default: true },
+      { type: "select", key: "leader", label: "Tab leader:", options: [".......", "-------", "_______", "(none)"], default: "......." },
+      { type: "select", key: "format", label: "Formats:", options: ["From template", "Classic", "Distinctive", "Fancy", "Modern", "Formal", "Simple"] },
+      { type: "number", key: "levels", label: "Show levels:", default: 3, min: 1, max: 9 },
+    ],
+  },
+  editRecipients: {
+    id: "editRecipients",
+    title: "Mail Merge Recipients",
+    width: 480,
+    tabs: [
+      {
+        label: "Recipients",
+        fields: [
+          { type: "note", text: "This is the list of recipients that will be used in your merge. Use the checkboxes to add or remove recipients from the merge." },
+          // One checkbox per recipient, r1 = the first record (wordDialogDef labels them from the data source).
+          ...Array.from({ length: 12 }, (_, i) => ({ type: "checkbox" as const, key: `r${i + 1}`, label: `Recipient ${i + 1}`, default: true })),
+        ],
+      },
+      {
+        label: "Filter Records",
+        fields: [
+          { type: "note", text: "Show only the recipients that match. Choose (none) to clear the filter." },
+          { type: "select", key: "filterField", label: "Field:", options: ["(none)", ...MERGE_FIELDS] },
+          { type: "select", key: "filterOp", label: "Comparison:", options: FILTER_OPS },
+          { type: "text", key: "filterValue", label: "Compare to:" },
+        ],
+      },
+      {
+        label: "Sort Records",
+        fields: [
+          { type: "select", key: "sortBy", label: "Sort by:", options: ["(none)", ...MERGE_FIELDS] },
+          { type: "radio", key: "sortOrder", label: "", options: ["Ascending", "Descending"], default: "Ascending" },
+        ],
+      },
+    ],
+  },
+  autoText: {
+    id: "autoText",
+    title: "AutoText",
+    okLabel: "Insert",
+    width: 380,
+    fields: [
+      // The entries saved in the document (doc.autoText), listed by wordDialogDef.
+      { type: "list", key: "entry", label: "AutoText entries:", options: [], height: 140 },
+    ],
+  },
+  saveAutoText: {
+    id: "saveAutoText",
+    title: "Create New Building Block",
+    width: 400,
+    fields: [
+      { type: "text", key: "name", label: "Name:" },
+      { type: "select", key: "gallery", label: "Gallery:", options: ["AutoText", "Quick Parts"] },
+      { type: "select", key: "category", label: "Category:", options: ["General"] },
+      { type: "text", key: "description", label: "Description:" },
+      { type: "select", key: "saveIn", label: "Save in:", options: ["Normal", "Building Blocks"] },
+      { type: "select", key: "options", label: "Options:", options: ["Insert content only", "Insert content in its own paragraph", "Insert content in its own page"] },
+    ],
+  },
+  controlProperties: {
+    id: "controlProperties",
+    title: "Content Control Properties",
+    width: 420,
+    fields: [
+      { type: "text", key: "title", label: "Title:" },
+      { type: "text", key: "tag", label: "Tag:" },
+      { type: "text", key: "items", label: "Drop-down list items:", placeholder: "Medicare, Medicaid, Self-Pay" },
+      { type: "note", text: "Separate drop-down list items with commas. (In Word: Drop-Down List Properties › Add…)" },
+      { type: "checkbox", key: "lockDelete", label: "Content control cannot be deleted" },
+      { type: "checkbox", key: "lockEdit", label: "Contents cannot be edited" },
+    ],
   },
   pageSetup: {
     id: "pageSetup",
@@ -414,3 +535,72 @@ export const wordDialogs: Record<string, DialogDef> = {
     ],
   },
 };
+
+const withOptions = (def: DialogDef, key: string, patch: (f: DialogField) => DialogField): DialogDef => {
+  const map = (fs: DialogField[]) => fs.map((f) => ("key" in f && f.key === key ? patch(f) : f));
+  return { ...def, fields: def.fields ? map(def.fields) : undefined, tabs: def.tabs?.map((t) => ({ ...t, fields: map(t.fields) })) };
+};
+
+/**
+ * Dialogs whose choices come from the document: the Styles pane and Modify
+ * Style list custom styles, Mail Merge Recipients lists the data source,
+ * Cross-reference lists headings and bookmarks, AutoText lists saved entries,
+ * Columns › Apply to depends on the selection, and the Font dialog gets a blank
+ * Font / Size choice when the selection mixes them.
+ */
+export function wordDialogDef(doc: WordDoc, ui: SimUi, id: string): DialogDef | undefined {
+  const base = wordDialogs[id];
+  if (!base) return undefined;
+  const d = doc as XDoc;
+  switch (id) {
+    case "font": {
+      const fi = selectionFontInfo(doc, ui);
+      let def = base;
+      if (fi.font === undefined) def = withOptions(def, "font", (f) => ({ ...f, options: ["", ...FONTS] }) as DialogField);
+      if (fi.size === undefined) def = withOptions(def, "size", (f) => ({ ...f, options: ["", ...SIZE_OPTS] }) as DialogField);
+      return def;
+    }
+    case "stylesPane":
+      return withOptions(base, "style", (f) => ({ ...f, options: [...PARA_STYLE_NAMES, ...CHAR_STYLE_NAMES, ...customStyleNames(doc)] }) as DialogField);
+    case "modifyStyle":
+      return withOptions(base, "style", (f) => ({ ...f, options: [...PARA_STYLE_NAMES, ...customStyleNames(doc)] }) as DialogField);
+    case "columns":
+      return withOptions(base, "applyTo", (f) => ({ ...f, options: columnsApplyTo(doc, ui) }) as DialogField);
+    case "crossRef": {
+      const items = [...headingsOf(doc).map((h) => h.text), ...(d.bookmarks ?? []).map((b) => b.name)];
+      return withOptions(base, "item", (f) => ({ ...f, options: items.length ? Array.from(new Set(items)) : ["(no headings or bookmarks)"] }) as DialogField);
+    }
+    case "bookmark": {
+      const names = (d.bookmarks ?? []).map((b) => b.name);
+      return { ...base, fields: [...(base.fields ?? []), { type: "note", text: names.length ? `Bookmarks in this document: ${names.join(", ")}` : "This document has no bookmarks yet." }] };
+    }
+    case "autoText": {
+      const names = (d.autoText ?? []).map((e) => e.name);
+      return names.length
+        ? withOptions(base, "entry", (f) => ({ ...f, options: names }) as DialogField)
+        : { ...base, fields: [{ type: "note", text: "No AutoText entries yet. Select text, then Quick Parts › Save Selection to AutoText Gallery." }] };
+    }
+    case "selectRecipients": {
+      const files = (doc.merge as XMerge | undefined)?.files;
+      return files?.length ? withOptions(base, "file", (f) => ({ ...f, options: files }) as DialogField) : base;
+    }
+    case "editRecipients": {
+      const recs = recipientsOf(doc);
+      const fields = mergeFieldNames(doc);
+      const tabs = base.tabs!.map((t) => {
+        if (t.label === "Recipients") {
+          return {
+            ...t,
+            fields: recs.length
+              ? [t.fields[0], ...recs.map((r, i): DialogField => ({ type: "checkbox", key: `r${i + 1}`, label: recipientLabel(r), default: true }))]
+              : [{ type: "note", text: "There is no recipient list yet. Use Mailings › Select Recipients first." } as DialogField],
+          };
+        }
+        const fieldOpts = ["(none)", ...(fields.length ? fields : MERGE_FIELDS)];
+        return { ...t, fields: t.fields.map((f) => ("key" in f && (f.key === "filterField" || f.key === "sortBy") ? ({ ...f, options: fieldOpts } as DialogField) : f)) };
+      });
+      return { ...base, tabs };
+    }
+  }
+  return base;
+}

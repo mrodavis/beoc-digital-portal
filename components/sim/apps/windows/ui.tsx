@@ -323,8 +323,19 @@ export function Btn({ children, onClick, primary, disabled, label, className = "
 }
 
 export function TextIn({ value, onChange, label, placeholder, type = "text", onEnter, autoFocus, width, className = "", mono }: { value: string; onChange: (v: string) => void; label: string; placeholder?: string; type?: string; onEnter?: () => void; autoFocus?: boolean; width?: number | string; className?: string; mono?: boolean }) {
+  const ref = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (!autoFocus) return;
+    // Focus and select the starting text, the way Windows and web apps do in naming dialogs.
+    const t = setTimeout(() => {
+      ref.current?.focus();
+      ref.current?.select();
+    }, 10);
+    return () => clearTimeout(t);
+  }, [autoFocus]);
   return (
     <input
+      ref={ref}
       aria-label={label}
       value={value}
       type={type}
@@ -343,6 +354,18 @@ export function TextIn({ value, onChange, label, placeholder, type = "text", onE
 
 /** A modal dialog drawn inside the canvas. */
 export function Modal({ title, children, footer, onClose, width = 420, icon }: { title: string; children: ReactNode; footer?: ReactNode; onClose: () => void; width?: number; icon?: ReactNode }) {
+  const close = useRef(onClose);
+  close.current = onClose;
+  useEffect(() => {
+    // Esc closes the dialog, as it does in Windows (inputs inside stop key propagation, so listen on the document).
+    const h = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      e.preventDefault();
+      close.current();
+    };
+    document.addEventListener("keydown", h, true);
+    return () => document.removeEventListener("keydown", h, true);
+  }, []);
   return (
     <div className="absolute inset-0 z-[500] flex items-center justify-center bg-black/25" onMouseDown={(e) => e.stopPropagation()}>
       <div role="dialog" aria-label={title} className="w11-pop max-h-[92%] overflow-hidden rounded-lg shadow-2xl" style={{ width, maxWidth: "94%", background: T.panel, color: T.text, border: `1px solid ${T.line}` }}>

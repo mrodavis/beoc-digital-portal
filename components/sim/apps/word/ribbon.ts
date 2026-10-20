@@ -1,5 +1,36 @@
 import type { RibbonControl, RibbonOption, RibbonTab } from "@/types/sim";
-import { CHAR_STYLE_NAMES, COLOR_SETS, FONT_SETS, PARA_STYLE_NAMES, STYLE_SETS, THEMES, THEME_NAMES } from "./model";
+import { CHAR_STYLE_NAMES, COLOR_SETS, FONT_SETS, PARA_STYLE_NAMES, STYLE_SETS, THEMES, THEME_NAMES, customStyleNames } from "./model";
+
+/*
+ * Command and dialog ids added for references, templates and forms (all
+ * handled in model.ts › applyWord):
+ *
+ * Commands
+ * - home.customStyle (value = style name): apply a style made with Create a
+ *   Style. The Styles gallery and Styles pane list custom styles; core.normalize
+ *   turns a `home.style` commit with a non-built-in name into this id.
+ * - insert.pageNumber values "Top of Page - Bold Numbers 1|2|3" and
+ *   "Bottom of Page - Bold Numbers 1|2|3": Page X of Y ("Page 1 of 3").
+ * - references.footnote / references.endnote: insert a reference mark and move
+ *   the cursor into the empty note (selection "footnote:<n>" / "endnote:<n>");
+ *   the typed note is { kind: "type", target: "footnote:<n>" }.
+ * - developer.plainText, developer.richText, developer.checkBox,
+ *   developer.dropDown, developer.comboBox, developer.datePicker,
+ *   developer.picture: insert a content control. On a selected run the control
+ *   wraps it (same selection key); on a paragraph it is added at the end as run
+ *   `cc<n>` ("p5.cc1"), which becomes the selection. developer.designMode toggles.
+ * - contentControl.toggle (check box) and contentControl.choose (value = list
+ *   entry or date): emitted by clicking a control on the page.
+ * - review.restrict opens the Restrict Editing pane; its Yes, Start Enforcing
+ *   Protection button emits review.enforce with value "Filling in forms",
+ *   "No changes (Read only)", "Comments" or "Tracked changes";
+ *   review.stopProtection turns it off.
+ *
+ * Dialogs (see dialogs.ts): bookmark, crossRef, customToc, editRecipients
+ * (Mail Merge Recipients with Filter Records and Sort Records tabs), autoText,
+ * saveAutoText, controlProperties. The columns dialog's applyTo now includes
+ * "Selected text" and "This point forward".
+ */
 
 export const FONTS = ["Calibri", "Calibri Light", "Aptos", "Arial", "Arial Black", "Cambria", "Century Gothic", "Comic Sans MS", "Courier New", "Garamond", "Georgia", "Gill Sans MT", "Segoe UI", "Tahoma", "Times New Roman", "Trebuchet MS", "Verdana"];
 export const SIZE_OPTS = ["8", "9", "10", "10.5", "11", "12", "14", "16", "18", "20", "22", "24", "26", "28", "36", "48", "72"];
@@ -46,7 +77,7 @@ export const HIGHLIGHTS: RibbonOption[] = [
   { value: "No Color", label: "No Color" },
 ];
 
-const styleOpts: RibbonOption[] = [...PARA_STYLE_NAMES, ...CHAR_STYLE_NAMES].map((n): RibbonOption => ({
+const builtInStyleOpts: RibbonOption[] = [...PARA_STYLE_NAMES, ...CHAR_STYLE_NAMES].map((n): RibbonOption => ({
   value: n,
   preview:
     n === "Title" ? { size: 18 } :
@@ -56,13 +87,25 @@ const styleOpts: RibbonOption[] = [...PARA_STYLE_NAMES, ...CHAR_STYLE_NAMES].map
     n === "Subtitle" ? { color: "#5A5A5A" } :
     n === "Strong" ? { bold: true } :
     n.includes("Emphasis") || n.includes("Quote") ? { italic: true } : undefined,
-})).concat([
+}));
+const styleCommandOpts: RibbonOption[] = [
   { value: "Style commands", heading: true },
   { value: "Create a Style", icon: "styles", dialog: "createStyle" },
   { value: "Clear Formatting", icon: "clearFormat", command: "home.clearFormatting" },
   { value: "Update Style to Match Selection", icon: "styles", command: "home.updateStyle" },
   { value: "Modify Style...", icon: "styles", dialog: "modifyStyle" },
-]);
+];
+
+/** Home › Styles gallery: built-in styles, then the document's own (Create a Style), then the style commands. */
+const stylesGallery = { type: "gallery", id: "home.style", label: "Styles", options: [], width: 330 } as RibbonControl & { type: "gallery" };
+Object.defineProperty(stylesGallery, "options", {
+  enumerable: true,
+  get: (): RibbonOption[] => [
+    ...builtInStyleOpts,
+    ...customStyleNames().map((n): RibbonOption => ({ value: n, command: "home.customStyle" })),
+    ...styleCommandOpts,
+  ],
+});
 
 export const DICTATION_LANGUAGES = ["English (United States)", "English (United Kingdom)", "Spanish (Spain)", "Spanish (Mexico)", "French (France)", "Portuguese (Brazil)", "Chinese (China)", "German (Germany)", "Italian (Italy)", "Japanese (Japan)"];
 
@@ -81,15 +124,22 @@ const POSITION_OPTS: RibbonOption[] = [
   ...["Top Left", "Top Center", "Top Right", "Middle Left", "Middle Center", "Middle Right", "Bottom Left", "Bottom Center", "Bottom Right"].map((v) => ({ value: `Position in ${v}`, icon: "position" })),
 ];
 const ALIGN_OPTS = ["Align Left", "Align Center", "Align Right", "Align Top", "Align Middle", "Align Bottom", "Distribute Horizontally", "Distribute Vertically"];
+/** Insert › Page Number. Plain Number 1/2/3 = left/center/right; Page X of Y uses Bold Numbers 1/2/3 ("Page 1 of 3"). */
 const PAGE_NUMBER_OPTS: RibbonOption[] = [
   { value: "Top of Page", heading: true },
   { value: "Top of Page - Plain Number 1" },
   { value: "Top of Page - Plain Number 2" },
   { value: "Top of Page - Plain Number 3" },
+  { value: "Top of Page - Bold Numbers 1", label: "Top of Page - Page X of Y, Bold Numbers 1" },
+  { value: "Top of Page - Bold Numbers 2", label: "Top of Page - Page X of Y, Bold Numbers 2" },
+  { value: "Top of Page - Bold Numbers 3", label: "Top of Page - Page X of Y, Bold Numbers 3" },
   { value: "Bottom of Page", heading: true },
   { value: "Bottom of Page - Plain Number 1" },
   { value: "Bottom of Page - Plain Number 2" },
   { value: "Bottom of Page - Plain Number 3" },
+  { value: "Bottom of Page - Bold Numbers 1", label: "Bottom of Page - Page X of Y, Bold Numbers 1" },
+  { value: "Bottom of Page - Bold Numbers 2", label: "Bottom of Page - Page X of Y, Bold Numbers 2" },
+  { value: "Bottom of Page - Bold Numbers 3", label: "Bottom of Page - Page X of Y, Bold Numbers 3" },
   { value: "Page Margins" },
   { value: "Format Page Numbers..." },
   { value: "Remove Page Numbers" },
@@ -274,7 +324,7 @@ export const wordRibbon: RibbonTab[] = [
       {
         label: "Styles",
         launcher: "stylesPane",
-        controls: [{ type: "gallery", id: "home.style", label: "Styles", options: styleOpts, width: 330 }],
+        controls: [stylesGallery],
       },
       {
         label: "Editing",
@@ -372,8 +422,8 @@ export const wordRibbon: RibbonTab[] = [
         label: "Links",
         controls: [
           { type: "button", id: "insert.link", label: "Link", icon: "link", size: "large", dialog: "link", shortcut: "Ctrl+K" },
-          { type: "button", id: "insert.bookmark", label: "Bookmark", icon: "link", showLabel: true },
-          { type: "button", id: "insert.crossRef", label: "Cross-reference", icon: "link", showLabel: true },
+          { type: "button", id: "insert.bookmark", label: "Bookmark", icon: "link", showLabel: true, dialog: "bookmark" },
+          { type: "button", id: "insert.crossRef", label: "Cross-reference", icon: "link", showLabel: true, dialog: "crossRef" },
         ],
       },
       { label: "Comments", controls: [{ type: "button", id: "insert.comment", label: "Comment", icon: "comment", size: "large", dialog: "newComment" }] },
@@ -396,7 +446,20 @@ export const wordRibbon: RibbonTab[] = [
         label: "Text",
         controls: [
           { type: "dropdown", id: "insert.textBox", label: "Text Box", icon: "textbox", size: "large", gallery: "grid", options: ["Simple Text Box", "Austin Quote", "Banded Sidebar", "Draw Text Box"].map((v) => ({ value: v, icon: "textbox" })) },
-          { type: "dropdown", id: "insert.quickParts", label: "Quick Parts", icon: "field", showLabel: true, options: [{ value: "AutoText" }, { value: "Document Property" }, { value: "Field..." }] },
+          {
+            type: "dropdown",
+            id: "insert.quickParts",
+            label: "Quick Parts",
+            icon: "field",
+            showLabel: true,
+            options: [
+              // AutoText opens the gallery of entries saved in the document (doc.autoText); pick one and Insert.
+              { value: "AutoText", icon: "field", dialog: "autoText" },
+              { value: "Document Property" },
+              { value: "Field..." },
+              { value: "Save Selection to AutoText Gallery...", icon: "save", dialog: "saveAutoText" },
+            ],
+          },
           { type: "dropdown", id: "insert.wordArt", label: "WordArt", icon: "wordart", showLabel: true, options: [{ value: "Fill: Black, Text color 1; Shadow" }, { value: "Fill: Blue, Accent color 1; Shadow" }, { value: "Gradient Fill: Gold" }] },
           { type: "dropdown", id: "insert.dropCap", label: "Drop Cap", icon: "dropcap", showLabel: true, options: [{ value: "None" }, { value: "Dropped" }, { value: "In margin" }] },
           { type: "button", id: "insert.signature", label: "Signature Line", icon: "pen", showLabel: true },
@@ -560,7 +623,15 @@ export const wordRibbon: RibbonTab[] = [
       {
         label: "Table of Contents",
         controls: [
-          { type: "dropdown", id: "references.toc", label: "Table of Contents", icon: "toc", size: "large", gallery: "grid", options: ["Automatic Table 1", "Automatic Table 2", "Manual Table", "Custom Table of Contents...", "Remove Table of Contents"].map((v) => ({ value: v, icon: "toc" })) },
+          {
+            type: "dropdown",
+            id: "references.toc",
+            label: "Table of Contents",
+            icon: "toc",
+            size: "large",
+            gallery: "grid",
+            options: ["Automatic Table 1", "Automatic Table 2", "Manual Table", "Custom Table of Contents...", "Remove Table of Contents"].map((v) => (v === "Custom Table of Contents..." ? { value: v, icon: "toc", dialog: "customToc" } : { value: v, icon: "toc" })),
+          },
           { type: "dropdown", id: "references.addText", label: "Add Text", icon: "toc", showLabel: true, options: ["Do Not Show in Table of Contents", "Level 1", "Level 2", "Level 3"].map((v) => ({ value: v })) },
           { type: "button", id: "references.updateToc", label: "Update Table", icon: "reset", showLabel: true, dialog: "updateToc", tip: "Update Table (F9)" },
         ],
@@ -569,7 +640,7 @@ export const wordRibbon: RibbonTab[] = [
         label: "Footnotes",
         controls: [
           { type: "button", id: "references.footnote", label: "Insert Footnote", icon: "footnote", size: "large", shortcut: "Alt+Ctrl+F" },
-          { type: "button", id: "references.endnote", label: "Insert Endnote", icon: "footnote", showLabel: true },
+          { type: "button", id: "references.endnote", label: "Insert Endnote", icon: "footnote", showLabel: true, shortcut: "Alt+Ctrl+D" },
           { type: "button", id: "references.nextFootnote", label: "Next Footnote", icon: "footnote", showLabel: true },
         ],
       },
@@ -583,7 +654,14 @@ export const wordRibbon: RibbonTab[] = [
           { type: "dropdown", id: "references.bibliography", label: "Bibliography", icon: "toc", showLabel: true, options: ["Bibliography", "References", "Works Cited"].map((v) => ({ value: v })) },
         ],
       },
-      { label: "Captions", controls: [{ type: "button", id: "references.caption", label: "Insert Caption", icon: "caption", size: "large" }, { type: "button", id: "references.tableOfFigures", label: "Insert Table of Figures", icon: "toc", showLabel: true }] },
+      {
+        label: "Captions",
+        controls: [
+          { type: "button", id: "references.caption", label: "Insert Caption", icon: "caption", size: "large" },
+          { type: "button", id: "references.tableOfFigures", label: "Insert Table of Figures", icon: "toc", showLabel: true },
+          { type: "button", id: "insert.crossRef", label: "Cross-reference", icon: "link", showLabel: true, dialog: "crossRef" },
+        ],
+      },
       { label: "Index", controls: [{ type: "button", id: "references.markEntry", label: "Mark Entry", icon: "pen", size: "large" }, { type: "button", id: "references.index", label: "Insert Index", icon: "toc", showLabel: true }] },
     ],
   },
@@ -597,7 +675,8 @@ export const wordRibbon: RibbonTab[] = [
         controls: [
           { type: "dropdown", id: "mail.start", label: "Start Mail Merge", icon: "mailMerge", size: "large", options: ["Letters", "E-mail Messages", "Envelopes...", "Labels...", "Directory", "Normal Word Document", "Step-by-Step Mail Merge Wizard..."].map((v) => ({ value: v })) },
           { type: "dropdown", id: "mail.recipients", label: "Select Recipients", icon: "recipients", size: "large", options: [{ value: "Type a New List..." }, { value: "Use an Existing List...", dialog: "selectRecipients" }, { value: "Choose from Outlook Contacts..." }] },
-          { type: "button", id: "mail.editRecipients", label: "Edit Recipient List", icon: "recipients", size: "large" },
+          // Opens Mail Merge Recipients: a checkbox per recipient, plus Filter Records and Sort Records.
+          { type: "button", id: "mail.editRecipients", label: "Edit Recipient List", icon: "recipients", size: "large", dialog: "editRecipients" },
         ],
       },
       {
@@ -713,6 +792,45 @@ export const wordRibbon: RibbonTab[] = [
         ],
       },
       { label: "Macros", controls: [{ type: "dropdown", id: "view.macros", label: "Macros", icon: "macros", size: "large", options: [{ value: "View Macros" }, { value: "Record Macro..." }] }] },
+    ],
+  },
+  {
+    // Word shows this tab once File › Options › Customize Ribbon › Developer is checked; the sim always shows it.
+    id: "developer",
+    label: "Developer",
+    groups: [
+      {
+        label: "Code",
+        controls: [
+          { type: "button", id: "developer.visualBasic", label: "Visual Basic", icon: "macros", size: "large" },
+          { type: "dropdown", id: "view.macros", label: "Macros", icon: "macros", size: "large", options: [{ value: "View Macros" }, { value: "Record Macro..." }] },
+        ],
+      },
+      { label: "Add-ins", controls: [{ type: "button", id: "developer.addIns", label: "Word Add-ins", icon: "addIns", size: "large" }] },
+      {
+        label: "Controls",
+        controls: [
+          { type: "button", id: "developer.richText", label: "Rich Text Content Control", icon: "textbox", tip: "Rich Text Content Control: formatted text, several paragraphs" },
+          { type: "button", id: "developer.plainText", label: "Plain Text Content Control", icon: "field", tip: "Plain Text Content Control: one line of plain text" },
+          { type: "button", id: "developer.picture", label: "Picture Content Control", icon: "picture" },
+          { type: "button", id: "developer.checkBox", label: "Check Box Content Control", icon: "accept" },
+          { type: "button", id: "developer.comboBox", label: "Combo Box Content Control", icon: "select" },
+          { type: "button", id: "developer.dropDown", label: "Drop-Down List Content Control", icon: "select" },
+          { type: "button", id: "developer.datePicker", label: "Date Picker Content Control", icon: "date" },
+          { type: "button", id: "developer.legacyTools", label: "Legacy Tools", icon: "options" },
+          { type: "toggle", id: "developer.designMode", label: "Design Mode", icon: "pen", showLabel: true },
+          { type: "button", id: "developer.properties", label: "Properties", icon: "options", showLabel: true, dialog: "controlProperties" },
+        ],
+      },
+      { label: "Mapping", controls: [{ type: "button", id: "developer.xmlMapping", label: "XML Mapping Pane", icon: "navPane", size: "large" }] },
+      {
+        label: "Protect",
+        controls: [
+          { type: "button", id: "developer.blockAuthors", label: "Block Authors", icon: "protect", size: "large" },
+          { type: "button", id: "review.restrict", label: "Restrict Editing", icon: "protect", size: "large" },
+        ],
+      },
+      { label: "Templates", controls: [{ type: "button", id: "developer.documentTemplate", label: "Document Template", icon: "new", size: "large" }] },
     ],
   },
   {

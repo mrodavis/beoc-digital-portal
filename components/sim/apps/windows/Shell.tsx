@@ -130,7 +130,11 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
   const deskRef = useRef<HTMLDivElement>(null);
   const [menu, setMenu] = useState<{ x: number; y: number; items: MItem[]; top?: MItem[] } | null>(null);
   const [modal, setModal] = useState<ReactNode | null>(null);
-  const [renaming, setRenaming] = useState<string | null>(null);
+  const [renaming, setRenamingRaw] = useState<string | null>(null);
+  // Remember whether the learner was last working on the desktop, so that renaming a
+  // Desktop item opens one rename box (on the desktop or in File Explorer), never both.
+  const deskActive = useRef(false);
+  const setRenaming = useCallback((p: string | null) => setRenamingRaw(p && deskActive.current ? `desk:${p}` : p), []);
   const [flyout, setFlyout] = useState<null | "start" | "search" | "quick" | "notify" | "tray" | "onedrive" | "clip" | "power" | "user">(null);
   const [startAll, setStartAll] = useState(false);
   const [query, setQuery] = useState("");
@@ -155,7 +159,17 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
   const scale = (parseInt(S(doc, "display.scale"), 10) || 100) / 100;
   const sel = ui.selection ?? "";
 
-  const focusRoot = useCallback(() => setTimeout(() => rootRef.current?.focus(), 0), []);
+  const focusRoot = useCallback(
+    () =>
+      setTimeout(() => {
+        const root = rootRef.current;
+        const a = typeof document !== "undefined" ? document.activeElement : null;
+        // Leave focus alone when a dialog or rename box has just taken it.
+        if (root && a && a !== root && root.contains(a) && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+        root?.focus();
+      }, 0),
+    [],
+  );
   const select = useCallback((s: string) => onSelect({ selection: s }), [onSelect]);
   const cmd = useCallback((id: string, value?: SimValue) => onCommit({ kind: "command", id, value }), [onCommit]);
   const commit = useCallback((c: SimCommit) => onCommit(c), [onCommit]);
@@ -489,6 +503,9 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
   const desktop = (
     <div
       className="absolute inset-0"
+      onMouseDownCapture={() => {
+        deskActive.current = true;
+      }}
       onMouseDown={(e) => {
         if (e.target !== e.currentTarget) return;
         closeFly();
@@ -542,7 +559,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
             shortcut={Boolean(en.item?.app)}
             appIcon={en.item?.app}
             selected={deskSel.has(en.key)}
-            renaming={renaming !== null && renaming.toLowerCase() === en.path.toLowerCase() ? en : null}
+            renaming={renaming !== null && renaming.toLowerCase() === `desk:${en.path}`.toLowerCase() ? en : null}
             onDown={(e) => onDeskDown(e, en)}
             onOpen={() => cmd("fs.open", en.path)}
             onMenu={(e) => { if (!deskSel.has(en.key)) select(en.key); itemMenu(ctx, e, en); }}
@@ -1327,6 +1344,9 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
         onKeyDown={onKeyDown}
         className="relative h-full w-full select-none overflow-hidden outline-none"
         style={{ ...(THEME_VARS(dark) as React.CSSProperties), background: "#000", fontFamily: "'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif" }}
+        onMouseDownCapture={(e) => {
+          if (!(e.target as HTMLElement).closest?.('[role="menu"]')) deskActive.current = false;
+        }}
         onMouseDown={() => setMenu(null)}
         onContextMenu={(e) => e.preventDefault()}
       >

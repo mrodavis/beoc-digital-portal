@@ -2684,6 +2684,15 @@ function applyType(doc: WordDoc, target: string, value: string): { doc: WordDoc;
     return { doc };
   }
   const s = parseSel(doc, target);
+  if (s.note) {
+    // The text of a footnote or endnote, typed at the bottom of the page or the end of the document.
+    const list = [...notesOf(doc, s.note.kind)];
+    while (list.length < s.note.n) list.push("");
+    list[s.note.n - 1] = value;
+    if (s.note.kind === "footnote") doc.footnotes = list;
+    else xd(doc).endnotes = list;
+    return { doc };
+  }
   if (s.cell) {
     const p = doc.paragraphs.find((x) => x.id === s.cell!.para);
     if (p?.table && s.cell.r > 0 && s.cell.c > 0) {
@@ -2695,6 +2704,11 @@ function applyType(doc: WordDoc, target: string, value: string): { doc: WordDoc;
   if (s.run) {
     const p = doc.paragraphs.find((x) => x.id === s.run!.para);
     const r = p?.runs?.find((x) => x.id === s.run!.run);
+    if (p && r && xr(r).cc) {
+      // Filling in a content control.
+      if (xr(r).cc!.type !== "checkBox") r.text = value;
+      return { doc };
+    }
     if (p && r) {
       if (doc.trackChanges && r.text && r.text !== value) {
         const idx = p.runs!.indexOf(r);
@@ -2738,12 +2752,16 @@ function applyType(doc: WordDoc, target: string, value: string): { doc: WordDoc;
 /* ------------------------------------------------------------------ */
 
 export function wordRibbonState(doc: WordDoc, ui: SimUi): Record<string, SimValue | undefined> {
+  setActiveWordDoc(doc);
   const t = firstTarget(doc, ui);
   const p = selectedParas(doc, ui)[0];
   const align = p ? paraLook(doc, p).align : "left";
+  const fi = selectionFontInfo(doc, ui);
   return {
-    "home.fontName": t?.font ?? themeOf(doc).bodyFont,
-    "home.fontSize": t?.size ?? 11,
+    // Blank when the selection mixes fonts or sizes, as in Word.
+    "home.fontName": fi.font ?? (t ? "" : themeOf(doc).bodyFont),
+    "home.fontSize": fi.size ?? (t ? "" : 11),
+    "developer.designMode": Boolean(doc.flags?.designMode),
     "home.bold": Boolean(t?.bold),
     "home.italic": Boolean(t?.italic),
     "home.underline": Boolean(t?.underline),
@@ -2784,6 +2802,7 @@ export function wordRibbonState(doc: WordDoc, ui: SimUi): Record<string, SimValu
 }
 
 export function wordContextual(doc: WordDoc, ui: SimUi): string[] {
+  setActiveWordDoc(doc);
   const s = parseSel(doc, ui.selection);
   if (s.header) return ["header"];
   const p = doc.paragraphs.find((x) => x.id === s.paras[0]);
@@ -2800,11 +2819,13 @@ export function wordDialogDefaults(doc: WordDoc, ui: SimUi, id: string): Record<
   const p = selectedParas(doc, ui)[0];
   const look = p ? paraLook(doc, p) : undefined;
   switch (id) {
-    case "font":
+    case "font": {
+      // A selection that mixes fonts or sizes leaves those boxes blank, so whatever is picked applies to all of it.
+      const fi = selectionFontInfo(doc, ui);
       return {
-        font: t?.font ?? "Calibri",
+        font: fi.font ?? (t ? "" : "Calibri"),
         style: t?.bold && t?.italic ? "Bold Italic" : t?.bold ? "Bold" : t?.italic ? "Italic" : "Regular",
-        size: t?.size ?? 11,
+        size: fi.size ?? (t ? "" : 11),
         color: t?.color ?? "Automatic",
         underline: t?.underline ? "Single" : "(none)",
         strike: Boolean(t?.strike),
@@ -2812,6 +2833,7 @@ export function wordDialogDefaults(doc: WordDoc, ui: SimUi, id: string): Record<
         subscript: Boolean(t?.subscript),
         allCaps: t?.caps === "upper",
       };
+    }
     case "paragraph":
       return {
         alignment: ({ left: "Left", center: "Centered", right: "Right", justify: "Justified" } as const)[look?.align ?? "left"],
@@ -2866,11 +2888,11 @@ export function wordDialogDefaults(doc: WordDoc, ui: SimUi, id: string): Record<
         spacing: sp.spacing ?? 0.5,
         line: Boolean(sp.line),
         equal: true,
-        applyTo: sectionBreaks(doc).length ? "This section" : "Whole document",
+        applyTo: columnsApplyTo(doc, ui)[0],
       };
     }
     case "modifyStyle": {
-      const name = p?.style && PARA_STYLE_NAMES.includes(p.style) ? p.style : "Normal";
+      const name = p?.style && (PARA_STYLE_NAMES.includes(p.style) || customStyleNames(doc).includes(p.style)) ? p.style : "Normal";
       const st = styleDef(doc, name);
       const lk = paraLook(doc, { id: "_", style: name });
       return {
@@ -2896,6 +2918,58 @@ export function wordDialogDefaults(doc: WordDoc, ui: SimUi, id: string): Record<
       const ch = chartOf(p);
       return { text: (p?.kind === "image" ? o?.text : o?.alt) ?? ch?.alt ?? "", decorative: Boolean(o?.decorative ?? ch?.decorative) };
     }
+    case "stylesPane":
+      return { style: t?.style ?? "Normal" };
+    case "bookmark":
+      return { name: "" };
+    case "crossRef": {
+      const heads = headingsOf(doc);
+      const marks = xd(doc).bookmarks ?? [];
+      return { refType: heads.length || !marks.length ? "Heading" : "Bookmark", refTo: heads.length || !marks.length ? "Heading text" : "Bookmark text", hyperlink: true, item: heads[0]?.text ?? marks[0]?.name ?? "" };
+    }
+    case "customToc": {
+      const o = (doc.paragraphs.find((x) => x.kind === "toc") as XPara | undefined)?.tocOptions;
+      return {
+        pageNumbers: o?.pageNumbers ?? true,
+        rightAlign: o?.rightAlign ?? true,
+        leader: ({ none: "(none)", dots: ".......", dashes: "-------", line: "_______" } as const)[o?.leader ?? "dots"],
+        format: o?.format ?? "From template",
+        levels: o?.levels ?? 3,
+      };
+    }
+    case "editRecipients": {
+      const m = xm(doc);
+      const out: Record<string, SimValue> = {
+        filterField: m.filter?.field ?? "(none)",
+        filterOp: m.filter?.op ?? "Equal to",
+        filterValue: m.filter?.value ?? "",
+        sortBy: m.sort?.field ?? "(none)",
+        sortOrder: m.sort?.order ?? "Ascending",
+      };
+      recipientsOf(doc).forEach((_, i) => (out[`r${i + 1}`] = !(m.excluded ?? []).includes(i)));
+      return out;
+    }
+    case "autoText":
+      return { entry: xd(doc).autoText?.[0]?.name ?? "" };
+    case "saveAutoText": {
+      const s = parseSel(doc, ui.selection);
+      const r = s.run ? doc.paragraphs.find((x) => x.id === s.run!.para)?.runs?.find((x) => x.id === s.run!.run) : undefined;
+      const text = r ? r.text : p ? paraText(p) : "";
+      // Word suggests the first words of the selection as the name.
+      return { name: text.replace(/[^\w\s'-]/g, " ").trim().split(/\s+/).slice(0, 3).join(" "), gallery: "AutoText", category: "General", saveIn: "Normal", options: "Insert content only" };
+    }
+    case "controlProperties": {
+      const cc = selectedControl(doc, ui)?.cc;
+      return { title: cc?.title ?? "", tag: cc?.tag ?? "", items: (cc?.items ?? []).join(", "), lockDelete: Boolean(cc?.lockDelete), lockEdit: Boolean(cc?.lockEdit) };
+    }
   }
   return {};
+}
+
+/** Columns dialog › Apply to: the choices Word offers for this selection (the first is the default). */
+export function columnsApplyTo(doc: WordDoc, ui: SimUi): string[] {
+  const s = parseSel(doc, ui.selection);
+  const text = s.paras.length > 1 && ui.selection !== "all" && s.paras.length < doc.paragraphs.length;
+  if (text) return ["Selected text", "Whole document"];
+  return sectionBreaks(doc).length ? ["This section", "This point forward", "Whole document"] : ["Whole document", "This point forward"];
 }

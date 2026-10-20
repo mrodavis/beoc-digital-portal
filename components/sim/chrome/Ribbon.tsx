@@ -487,10 +487,10 @@ export function Ribbon({
               onDoubleClick={onToggleCollapse}
               className={`relative whitespace-nowrap rounded-t-sm px-3 py-1 ${
                 active ? "bg-white font-medium shadow-[0_-1px_0_#d1d1d1,1px_0_0_#d1d1d1,-1px_0_0_#d1d1d1]" : "hover:bg-white/70"
-              } ${t.contextual ? "text-[#7a3f00]" : "text-gray-800"}`}
-              style={active ? { color: t.contextual ? "#7a3f00" : accent } : undefined}
+              } ${t.contextual && !t.plain ? "text-[#7a3f00]" : "text-gray-800"}`}
+              style={active ? { color: t.contextual && !t.plain ? "#7a3f00" : accent } : undefined}
             >
-              {t.contextual && <span className="absolute inset-x-1 top-0 h-0.5 bg-amber-500" aria-hidden="true" />}
+              {t.contextual && !t.plain && <span className="absolute inset-x-1 top-0 h-0.5 bg-amber-500" aria-hidden="true" />}
               {t.label}
             </button>
           );

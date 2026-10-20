@@ -1,7 +1,7 @@
 import type { SimDefinition } from "@/types/sim";
 import { outlookDoc } from "@/components/sim/apps/outlook/types";
 import type { OlEvent, OlMessage, OutlookDoc } from "@/components/sim/apps/outlook/types";
-import { ACCEPT, autoRepliesStep, mentions, msg, person, recipients, signaturesStep } from "@/components/sim/apps/outlook/simkit";
+import { ACCEPT, OPEN, autoRepliesStep, mentions, msg, person, recipients, signaturesStep } from "@/components/sim/apps/outlook/simkit";
 
 /*
  * Office Productivity Applications, Module 6: Outlook & Integration.
@@ -160,7 +160,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Create a new message to Dr. Sarah Nguyen. Attach "Referral Request Form.docx", use the subject "Referral Follow-Up: Records Request for James Whitfield", and begin with "Dear Dr. Nguyen, I am writing to request the medical records for James Whitfield before his November 12 procedure." Then send it.',
           hint: "Home tab › New Email (Ctrl+N) › Message tab › Attach File › Browse This PC... › Referral Request Form.docx › Insert. Fill in To, Subject, and the text, then click Send.",
           steps: [
-            { action: { kind: "command", id: "mail.newEmail" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.email,
             { action: { kind: "dialog", id: "attachFile", values: { file: "Referral Request Form.docx" } } },
             { action: { kind: "type", target: "compose.to", value: recipients(NGUYEN.email) } },
             { action: { kind: "type", target: "compose.subject", value: "Referral Follow-Up: Records Request for James Whitfield" } },
@@ -173,7 +173,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Send the flu clinic reminder so patients cannot see each other\'s addresses: To yourself, the "Flu Clinic Patients" contact group in Bcc, subject "Reminder: Flu Shot Clinic on Saturday, October 24", and the text "Walk-ins are welcome from 9:00 AM to 12:00 PM."',
           hint: "New Email › Options tab › Show Fields › Bcc. Put your own address in To and the group in Bcc, type the subject and text, then click Send.",
           steps: [
-            { action: { kind: "command", id: "mail.newEmail" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.email,
             { action: { kind: "type", target: "compose.to", value: recipients(ME.email) } },
             { action: { kind: "type", target: "compose.bcc", value: recipients("Flu Clinic Patients") } },
             { action: { kind: "type", target: "compose.subject", value: "Reminder: Flu Shot Clinic on Saturday, October 24" } },
@@ -321,7 +321,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           instruction: 'Create an appointment titled "Submit Weekly Supply Order" on Friday, October 23 from 2:00 PM to 2:30 PM with a 30-minute reminder, repeating every Friday.',
           hint: "Home tab › New Appointment (Ctrl+N). Type the title, set the date and times, Appointment tab › Options › Reminder: 30 minutes › Recurrence › Weekly, Friday › OK › Save & Close.",
           steps: [
-            { action: { kind: "command", id: "cal.newAppointment" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.appointment,
             { action: { kind: "dialog", id: "event.save", values: { title: "Submit Weekly Supply Order", startDate: "10/23/2026", startTime: "2:00 PM", endTime: "2:30 PM", reminder: "30 minutes", recurrence: "Weekly on Friday" } } },
           ],
         },
@@ -330,7 +330,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Schedule a meeting titled "Monthly Provider Staff Meeting" in "Conference Room A" on Tuesday, October 27. Invite Dr. Patel, Dr. Chen, and Dr. Okafor as required and Monica Reyes as optional. Add the agenda "1. Patient volume 2. Flu clinic staffing". Use the Scheduling Assistant to choose the first 30-minute time when all three providers are free, then send it.',
           hint: "Home tab › New Meeting. Add the doctors in Required and Monica in Optional. Click Scheduling Assistant to see busy times, click the first open half hour (or a Suggested time with no conflicts), then go back to Meeting, type the title, location, and agenda, and click Send.",
           steps: [
-            { action: { kind: "command", id: "cal.newMeeting" } },
+            OPEN.meeting,
             { action: { kind: "type", target: "event.required", value: recipients(PATEL.email, CHEN.email, OKAFOR.email) } },
             { action: { kind: "type", target: "event.optional", value: recipients(MONICA.email) } },
             mentions("event.body", "1. Patient volume 2. Flu clinic staffing", ["Patient volume", "Flu clinic staffing"]),
@@ -377,7 +377,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Schedule a 60-minute meeting titled "Quarterly Billing Review" on Wednesday, November 4 at 9:00 AM with Monica Reyes and Derek Simmons as required attendees and the agenda "Review denied claims and payer trends." Then send it.',
           hint: "Home tab › New Meeting › Required: Monica Reyes; Derek Simmons › type the title › Start 11/4/2026 9:00 AM, End 10:00 AM › type the agenda › Send.",
           steps: [
-            { action: { kind: "command", id: "cal.newMeeting" } },
+            OPEN.meeting,
             { action: { kind: "type", target: "event.required", value: recipients(MONICA.email, DEREK.email) } },
             mentions("event.body", "Review denied claims and payer trends.", ["denied claims"]),
             { action: { kind: "dialog", id: "event.save", values: { title: "Quarterly Billing Review", startDate: "11/4/2026", startTime: "9:00 AM", endTime: "10:00 AM" } } },
@@ -387,7 +387,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           instruction: 'Set up a recurring 15-minute meeting titled "Friday Supply Check-In" with Paula Grant every Friday at 11:00 AM, starting Friday, October 23.',
           hint: "New Meeting › Required: Paula Grant › title › Start 10/23/2026 11:00 AM, End 11:15 AM › Meeting tab › Recurrence › Weekly, Friday › OK › Send.",
           steps: [
-            { action: { kind: "command", id: "cal.newMeeting" } },
+            OPEN.meeting,
             { action: { kind: "type", target: "event.required", value: recipients(PAULA.email) } },
             { action: { kind: "dialog", id: "event.save", values: { title: "Friday Supply Check-In", startDate: "10/23/2026", startTime: "11:00 AM", endTime: "11:15 AM", recurrence: "Weekly on Friday" } } },
           ],
@@ -451,7 +451,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           hint: "Home tab › New Email › Message tab › Include group › Attach File › Browse This PC... › pick the PDF › Insert. Repeat for the PowerPoint.",
           anyOrder: true,
           steps: [
-            { action: { kind: "command", id: "mail.newEmail" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.email,
             { action: { kind: "dialog", id: "attachFile", values: { file: "Monthly Report - May 2026 - Lakeside Medical.pdf" } } },
             { action: { kind: "dialog", id: "attachFile", values: { file: "Monthly Summary - May 2026 - Lakeside Medical.pptx" } } },
           ],
@@ -482,7 +482,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Send a meeting titled "May Operations Report Review" to Dr. Kim and Monica Reyes on Tuesday, October 27 from 2:00 PM to 2:30 PM in "Conference Room A", with the agenda "1. Expense trends 2. June priorities".',
           hint: "Calendar › Home tab › New Meeting › Required: Dr. Rachel Kim; Monica Reyes › title, location, date, and times › type the agenda › Send. The Scheduling Assistant shows that 2:00 PM is open for both.",
           steps: [
-            { action: { kind: "command", id: "cal.newMeeting" } },
+            OPEN.meeting,
             { action: { kind: "type", target: "event.required", value: recipients(KIM.email, MONICA.email) } },
             mentions("event.body", "1. Expense trends 2. June priorities", ["Expense trends", "June priorities"]),
             { action: { kind: "dialog", id: "event.save", values: { title: "May Operations Report Review", location: "Conference Room A", startDate: "10/27/2026", startTime: "2:00 PM", endTime: "2:30 PM" } } },
@@ -523,7 +523,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           hint: "Home tab › New Email › Message tab › Include group › Attach File › Browse This PC... (once for each file).",
           anyOrder: true,
           steps: [
-            { action: { kind: "command", id: "mail.newEmail" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.email,
             { action: { kind: "dialog", id: "attachFile", values: { file: "Monthly Appointment Activity Report - May 2026.pdf" } } },
             { action: { kind: "dialog", id: "attachFile", values: { file: "Appointment Summary - May 2026.pptx" } } },
           ],
@@ -544,7 +544,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Create a 45-minute meeting titled "Monthly Activity Report Review - May 2026" with Dr. Kim next Thursday, October 29, at 10:00 AM with a 15-minute reminder and the agenda "1. Volume by provider 2. Revenue 3. June goals". Check the Scheduling Assistant first, then send it.',
           hint: "Calendar › New Meeting › Required: Dr. Rachel Kim › Scheduling Assistant shows 10:00 AM is open › title › Start 10/29/2026 10:00 AM, End 10:45 AM › Reminder: 15 minutes › agenda › Send.",
           steps: [
-            { action: { kind: "command", id: "cal.newMeeting" } },
+            OPEN.meeting,
             { action: { kind: "type", target: "event.required", value: recipients(KIM.email) } },
             mentions("event.body", "1. Volume by provider 2. Revenue 3. June goals", ["Volume by provider", "Revenue", "June goals"]),
             { action: { kind: "dialog", id: "event.save", values: { title: "Monthly Activity Report Review - May 2026", startDate: "10/29/2026", startTime: "10:00 AM", endTime: "10:45 AM", reminder: "15 minutes" } } },

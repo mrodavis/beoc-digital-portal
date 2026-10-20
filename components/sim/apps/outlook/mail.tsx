@@ -11,8 +11,6 @@ import {
 } from "./model";
 import { addDays, dateGroup, dateOf, fmtDate, fmtListDate, fmtLong, fmtTime, toMs } from "./dates";
 
-const FOLDER_ICONS: Record<string, string> = { inbox: "inbox", drafts: "draft", sent: "send", deleted: "trash", archive: "archive", junk: "junk", outbox: "outbox" };
-
 /* ------------------------------------------------------------------ */
 /* Navigation bar (Mail · Calendar · People · Tasks)                  */
 /* ------------------------------------------------------------------ */
@@ -182,7 +180,7 @@ function preview(body: string) {
   return body.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\s+/g, " ").trim().slice(0, 140);
 }
 
-function displayFrom(ctx: Ctx, m: OlMessage): string {
+function displayFrom(m: OlMessage): string {
   if (m.folder === "sent" || m.folder === "drafts" || m.folder === "outbox") return (m.to ?? []).map((p) => p.name).join("; ") || "(No recipients)";
   return m.from.name;
 }
@@ -221,7 +219,7 @@ function MessageRow({
     <div
       role="option"
       aria-selected={selected}
-      aria-label={`${unread ? "Unread. " : ""}${displayFrom(ctx, m)}. ${m.subject}`}
+      aria-label={`${unread ? "Unread. " : ""}${displayFrom(m)}. ${m.subject}`}
       draggable
       onDragStart={(e) => {
         const drag = ids.includes(m.id) ? ids : [m.id];
@@ -248,7 +246,7 @@ function MessageRow({
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-1">
           {m.folder === "drafts" && <span className="text-[#c50f1f]">[Draft]</span>}
-          <span className={`min-w-0 flex-1 truncate ${unread ? "font-semibold" : ""} text-[13px]`}>{displayFrom(ctx, m)}</span>
+          <span className={`min-w-0 flex-1 truncate ${unread ? "font-semibold" : ""} text-[13px]`}>{displayFrom(m)}</span>
           {count && count > 1 ? <span className="text-[11px] text-gray-500">({count})</span> : null}
           <span className="flex items-center gap-1 text-gray-500 group-hover:hidden">
             {m.replied && <OIcon name={m.replied === "forwarded" ? "forward" : "reply"} size={12} />}

@@ -1,7 +1,7 @@
 import type { SimDefinition } from "@/types/sim";
 import { outlookDoc } from "@/components/sim/apps/outlook/types";
 import type { OlMessage, OutlookDoc } from "@/components/sim/apps/outlook/types";
-import { autoRepliesStep, mentions, msg, person, recipients, signaturesStep } from "@/components/sim/apps/outlook/simkit";
+import { OPEN, autoRepliesStep, mentions, msg, person, recipients, signaturesStep } from "@/components/sim/apps/outlook/simkit";
 
 /*
  * Tech Foundations (INFO3020) Outlook sims. General school and workplace
@@ -110,7 +110,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           instruction: 'Test your signature: send a new message to yourself (alex.rivera@northgate.example.com) with the subject "Signature Test - Alex Rivera" and the text "Testing my new signature."',
           hint: "Home tab › New Email (or Ctrl+N). In To, type your own address. Type the subject, then type the text above your signature and click Send. The test arrives in your Inbox.",
           steps: [
-            { action: { kind: "command", id: "mail.newEmail" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.email,
             { action: { kind: "type", target: "compose.to", value: recipients(ME.email) } },
             { action: { kind: "type", target: "compose.subject", value: "Signature Test - Alex Rivera" } },
             mentions("compose.body", "Testing my new signature.", ["Testing my new signature"]),
@@ -153,7 +153,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           instruction: 'Create a new message to Priya Shah with a copy (Cc) to Dana Brooks. Use the subject "Transcript Request: Maria Lopez, Needed by October 27" and begin the message with "I am writing to follow up on Maria Lopez\'s transcript request." Then send it.',
           hint: "Home tab › New Email (Ctrl+N). Type Priya in To and pick her from the list, type Dana in Cc, type the subject, type the first sentence, and click Send.",
           steps: [
-            { action: { kind: "command", id: "mail.newEmail" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.email,
             { action: { kind: "type", target: "compose.to", value: recipients(PRIYA.email) } },
             { action: { kind: "type", target: "compose.cc", value: recipients(DANA.email) } },
             { action: { kind: "type", target: "compose.subject", value: "Transcript Request: Maria Lopez, Needed by October 27" } },
@@ -175,7 +175,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           instruction: 'Create a new message to Bayside Office Supply (orders@baysidesupply.example.com). Attach "Supply Quote Request.docx", use the subject "Quote Request: Copy Paper and Toner, Reply by October 27", type "Please see the attached request for a price quote.", and send it.',
           hint: "New Email › Message tab › Include group › Attach File › Browse This PC... › Supply Quote Request.docx › Insert. Attach first, then fill in To, Subject, and the text, and click Send.",
           steps: [
-            { action: { kind: "command", id: "mail.newEmail" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.email,
             { action: { kind: "dialog", id: "attachFile", values: { file: "Supply Quote Request.docx" } } },
             { action: { kind: "type", target: "compose.to", value: recipients(BAYSIDE.email) } },
             { action: { kind: "type", target: "compose.subject", value: "Quote Request: Copy Paper and Toner, Reply by October 27" } },
@@ -365,7 +365,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           instruction: 'Send an update to the Orientation Volunteers without showing their addresses to each other: new message, To yourself, the "Orientation Volunteers" contact group in Bcc, subject "Saturday Orientation: Arrive at 8:30 AM", and the text "Please arrive at 8:30 AM instead of 9:00 AM."',
           hint: "New Email › Options tab › Show Fields group › Bcc. Put your own address in To, type Orientation in Bcc and pick the group, type the subject and text, and click Send.",
           steps: [
-            { action: { kind: "command", id: "mail.newEmail" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.email,
             { action: { kind: "type", target: "compose.to", value: recipients(ME.email) } },
             { action: { kind: "type", target: "compose.bcc", value: recipients("Orientation Volunteers") } },
             { action: { kind: "type", target: "compose.subject", value: "Saturday Orientation: Arrive at 8:30 AM" } },
@@ -496,7 +496,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Verify the password notice another way: send a new message to helpdesk@northgate.example.com with the subject "Did IT send a password notice today?" and the text "I received a password notice from it-helpdesk@northgate-support.example.net. Is it real?"',
           hint: "Home tab › New Email (Ctrl+N). Type the Help Desk address in To, type the subject and text, and click Send. Never reply to the suspicious message itself.",
           steps: [
-            { action: { kind: "command", id: "mail.newEmail" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.email,
             { action: { kind: "type", target: "compose.to", value: recipients(HELP.email) } },
             { action: { kind: "type", target: "compose.subject", value: "Did IT send a password notice today?" } },
             mentions("compose.body", "I received a password notice from it-helpdesk@northgate-support.example.net. Is it real?", ["northgate-support.example.net"]),

@@ -168,8 +168,14 @@ export function resolveUrl(doc: WinDoc, url: string): Resolved {
   return { kind: "error", url: u };
 }
 
-export function pageTitle(doc: WinDoc, url: string): string {
+export function pageTitle(doc: WinDoc, url: string, file?: string): string {
   const r = resolveUrl(doc, url);
+  if (r.kind === "cloud" && file) {
+    const n = baseOf(file);
+    if (r.cfg.provider !== "gdrive") return n;
+    const e = extOf(n);
+    return `${e ? n.slice(0, -e.length) : n} - ${e === ".xlsx" ? "Google Sheets" : e === ".pptx" ? "Google Slides" : "Google Docs"}`;
+  }
   switch (r.kind) {
     case "newtab": return "New tab";
     case "search": return `${r.q} - Search`;

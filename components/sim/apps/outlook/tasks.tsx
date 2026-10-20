@@ -7,7 +7,7 @@ import { CategoryChips, OIcon } from "./parts";
 import { flaggedMenu, taskMenu } from "./menus";
 import { MessageView, RecipientField } from "./mail";
 import { PRIORITIES, TASK_STATUS, selKeys, todayOf } from "./model";
-import { TIME_OPTIONS, addDays, dow, fmtDate, fmtLong, toMs, weekStart } from "./dates";
+import { TIME_OPTIONS, addDays, fmtDate, fmtLong, parseUsDate, toMs, weekStart } from "./dates";
 
 type Item = { key: string; subject: string; due?: string; start?: string; kind: "task" | "msg" | "contact"; task?: OlTask; msg?: OlMessage; contact?: OlContact; done: boolean; cats?: string[]; priority?: string; status?: string; percent?: number; owner?: string };
 
@@ -263,12 +263,10 @@ export function TaskForm({ ctx }: { ctx: Ctx }) {
   const d = ctx.fdraft;
   if (!d) return null;
   const today = todayOf(ctx.doc);
-  const dueIso = d.tDue ? (/^\d{4}/.test(d.tDue) ? d.tDue : null) : null;
-  void dueIso;
   const sel = "border border-gray-300 bg-white px-1 py-0.5 text-[12px]";
   const lab = "w-20 shrink-0 text-[12px] text-gray-700";
-  const due = d.tDue && /\d+\/\d+\/\d+/.test(d.tDue) ? d.tDue : "";
-  const dueDays = due ? Math.round((Date.parse(due) - Date.parse(`${+today.slice(5, 7)}/${+today.slice(8, 10)}/${today.slice(0, 4)}`)) / 86400000) : null;
+  const due = d.tDue ? parseUsDate(d.tDue) : null;
+  const dueDays = due ? Math.round((toMs(due) - toMs(today)) / 86400000) : null;
   return (
     <div className="flex min-h-0 flex-1 flex-col bg-white" aria-label="Task">
       <div className="flex items-center justify-end border-b border-gray-200 px-2 py-0.5">
@@ -334,7 +332,7 @@ export function TaskForm({ ctx }: { ctx: Ctx }) {
             </select>
             <span className="ml-3 text-[12px] text-gray-600">Owner: {ctx.doc.account.name}</span>
           </div>
-          <p className="text-[11px] text-gray-500">Type dates as M/D/YYYY (for example {fmtDate(addDays(today, 3))}). Leave a date blank for None.{dow(today) ? "" : ""}</p>
+          <p className="text-[11px] text-gray-500">Type dates as M/D/YYYY (for example {fmtDate(addDays(today, 3))}). Leave a date blank for None.</p>
           <textarea aria-label="Task notes" value={d.notes} onChange={(e) => ctx.setFdraft({ notes: e.target.value })} onKeyDown={(e) => e.stopPropagation()} className="mt-1 min-h-[90px] w-full flex-1 resize-none border border-gray-200 p-1.5 text-[13px] outline-none focus:border-[#0f6cbd]" />
         </div>
       )}

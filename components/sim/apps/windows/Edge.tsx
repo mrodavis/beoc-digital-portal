@@ -240,6 +240,24 @@ function Blocks({ blocks, onHover }: { blocks: WebBlock[]; onHover: (u: string |
                 </div>
               </div>
             );
+          case "cart": {
+            const picked: { name: string; price: string }[] = [];
+            const walk = (bs: WebBlock[]) => bs.forEach((x) => (x.t === "cols" ? x.cols.forEach(walk) : x.t === "product" && st[x.id] === "clicked" && picked.push({ name: x.name, price: x.price })));
+            Object.values(ctx.doc.web ?? {}).forEach((pg) => walk(pg.blocks));
+            const total = picked.reduce((n, x) => n + (parseFloat(x.price.replace(/[^0-9.]/g, "")) || 0), 0);
+            return picked.length ? (
+              <table key={i} className="my-2 w-full max-w-xl border-collapse text-[12.5px]">
+                <tbody>
+                  {picked.map((x) => (
+                    <tr key={x.name} className="border-b border-[#e3e7ec]"><td className="py-1.5 pr-3">{x.name}</td><td className="py-1.5 text-right">{x.price}</td></tr>
+                  ))}
+                  <tr><td className="py-1.5 pr-3 font-semibold">Subtotal</td><td className="py-1.5 text-right font-semibold">${total.toLocaleString("en-US", { minimumFractionDigits: 0, maximumFractionDigits: 2 })}</td></tr>
+                </tbody>
+              </table>
+            ) : (
+              <p key={i} className="mb-2.5 text-[13px] text-[#666]">{b.empty ?? "Your cart is empty."}</p>
+            );
+          }
           case "image":
             return (
               <div key={i} className="my-2 flex h-32 max-w-md items-center justify-center rounded bg-gradient-to-br from-[#dfe9f5] to-[#c4d6ec] text-[13px] text-[#334]">
@@ -931,8 +949,8 @@ function DocEditor({ path, cfg }: { path: string; cfg: CloudCfg }) {
             {pending.map((s) => (
               <div key={s.id} className="mb-2 rounded-lg bg-white p-3 text-[12px] text-black shadow">
                 <div className="mb-1 flex items-center gap-2"><Avatar name={s.by} s={22} /><span className="flex-1 font-semibold">{s.by}</span>
-                  <button type="button" aria-label={`Accept suggestion ${s.id}`} title="Accept suggestion" onClick={() => { sel(); ctx.cmd("doc.accept", s.id); }} className="rounded p-1 text-[#137333] hover:bg-[#e6f4ea]"><G n="check" s={15} /></button>
-                  <button type="button" aria-label={`Reject suggestion ${s.id}`} title="Reject suggestion" onClick={() => { sel(); ctx.cmd("doc.reject", s.id); }} className="rounded p-1 text-[#c5221f] hover:bg-[#fce8e6]"><G n="close" s={13} /></button>
+                  <button type="button" aria-label={`Accept suggestion from ${s.by}`} title="Accept suggestion" onClick={() => { sel(); ctx.cmd("doc.accept", s.id); }} className="rounded p-1 text-[#137333] hover:bg-[#e6f4ea]"><G n="check" s={15} /></button>
+                  <button type="button" aria-label={`Reject suggestion from ${s.by}`} title="Reject suggestion" onClick={() => { sel(); ctx.cmd("doc.reject", s.id); }} className="rounded p-1 text-[#c5221f] hover:bg-[#fce8e6]"><G n="close" s={13} /></button>
                 </div>
                 <div>Add: &quot;<span className="text-[#137333]">{s.text}</span>&quot;</div>
               </div>
@@ -1533,7 +1551,7 @@ export function EdgeApp({ w }: { w: WinWindow }) {
                 key={t.id}
                 role="tab"
                 aria-selected={act}
-                aria-label={pageTitle(doc, t.url)}
+                aria-label={pageTitle(doc, t.url, t.file)}
                 onMouseDown={(e) => e.stopPropagation()}
                 onClick={() => !act && ctx.cmd("edge.tab", t.url)}
                 onAuxClick={(e) => e.button === 1 && ctx.cmd("edge.closeTab", t.url)}
@@ -1541,8 +1559,8 @@ export function EdgeApp({ w }: { w: WinWindow }) {
                 style={{ background: act ? (priv ? "#3b3b3b" : T.panel) : "transparent" }}
               >
                 <G n={resolveUrl(doc, t.url).kind === "page" && (resolveUrl(doc, t.url) as { page: WebPage }).page.unsafe ? "warn" : "globe"} s={13} />
-                <span className="min-w-0 flex-1 truncate">{pageTitle(doc, t.url)}</span>
-                <button type="button" aria-label={`Close tab ${pageTitle(doc, t.url)}`} title="Close tab" onClick={(e) => { e.stopPropagation(); ctx.cmd("edge.closeTab", t.url); }} className="rounded p-0.5 hover:bg-[var(--w-press)]"><G n="close" s={10} /></button>
+                <span className="min-w-0 flex-1 truncate">{pageTitle(doc, t.url, t.file)}</span>
+                <button type="button" aria-label={`Close tab ${pageTitle(doc, t.url, t.file)}`} title="Close tab" onClick={(e) => { e.stopPropagation(); ctx.cmd("edge.closeTab", t.url); }} className="rounded p-0.5 hover:bg-[var(--w-press)]"><G n="close" s={10} /></button>
               </div>
             );
           })}

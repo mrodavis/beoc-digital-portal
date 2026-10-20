@@ -22,6 +22,23 @@ export const ACCEPT = ["Accept", "Accept (Edit)", "Accept (No Response)"];
 export const TENTATIVE = ["Tentative", "Tentative (Edit)", "Tentative (No Response)"];
 export const DECLINE = ["Decline", "Decline (Edit)", "Decline (No Response)"];
 
+const cmd = (id: string) => ({ kind: "command" as const, id });
+
+/**
+ * Opener steps. Opening a form is free, and tasks run in order, so an opener
+ * must list every way in (ribbon, New Items, Ctrl+N in the right module,
+ * contact card buttons); otherwise a learner who takes another route is stuck.
+ * An extra route that opens the wrong form is harmless: it is free.
+ */
+export const OPEN: Record<"email" | "meeting" | "appointment" | "task" | "contact" | "group", Pick<SimStep, "action" | "alt">> = {
+  email: { action: cmd("mail.newEmail"), alt: [cmd("item.new"), cmd("contact.emailTo")] },
+  meeting: { action: cmd("cal.newMeeting"), alt: [cmd("cal.newTeamsMeeting"), cmd("cal.newAppointment"), cmd("item.new"), cmd("contact.meetingWith")] },
+  appointment: { action: cmd("cal.newAppointment"), alt: [cmd("item.new")] },
+  task: { action: cmd("tasks.newTask"), alt: [cmd("item.new")] },
+  contact: { action: cmd("people.newContact"), alt: [cmd("item.new")] },
+  group: { action: cmd("people.newGroup") },
+};
+
 /** Canonical recipients value for compose.to / compose.cc / event.required … */
 export const recipients = (...tokens: string[]) => joinTokens(tokens);
 

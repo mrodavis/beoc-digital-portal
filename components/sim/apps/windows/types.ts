@@ -198,6 +198,8 @@ export type WebBlock =
   | { t: "list"; items: string[]; ordered?: boolean }
   | { t: "product"; id: string; name: string; price: string; specs: string[]; button?: string; href?: string; badge?: string }
   | { t: "image"; label: string; glyph?: string }
+  /** Lists every product block (on any page) the learner has added, with a subtotal. */
+  | { t: "cart"; empty?: string }
   | { t: "hr" }
   | { t: "cols"; cols: WebBlock[][] };
 

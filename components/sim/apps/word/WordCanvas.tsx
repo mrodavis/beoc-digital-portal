@@ -4,9 +4,16 @@ import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { WordDoc, WordPara, WordRun } from "@/types/sim";
 import type { CanvasProps, MenuItem, StatusBarProps } from "../../types";
 import {
+  RESTRICT_TYPES,
+  activeRecipients,
+  canTypeAt,
   dictationText,
   headingsOf,
   marginsOf,
+  noteLabel,
+  noteRefs,
+  notesOf,
+  pagesOf,
   paraLook,
   paraRange,
   paraText,
@@ -22,6 +29,7 @@ import {
   type XDoc,
   type XObject,
   type XPara,
+  type XRun,
   type XTable,
 } from "./model";
 import { Icon } from "../../chrome/icons";
@@ -58,6 +66,7 @@ function textAt(doc: WordDoc, key: string): string {
   if (key === "header") return doc.header ?? "";
   if (key === "footer") return doc.footer ?? "";
   const s = parseSel(doc, key);
+  if (s.note) return notesOf(doc, s.note.kind)[s.note.n - 1] ?? "";
   if (s.cell) {
     const p = doc.paragraphs.find((x) => x.id === s.cell!.para);
     return p?.table?.rows[s.cell.r - 1]?.[s.cell.c - 1] ?? "";
@@ -75,10 +84,17 @@ function textAt(doc: WordDoc, key: string): string {
 
 function editable(doc: WordDoc, key: string): boolean {
   if (!key || key === "all" || key.includes(",")) return false;
+  // Restrict Editing: a protected form only lets you type in its content controls.
+  if (!canTypeAt(doc, key)) return false;
   if (key === "header" || key === "footer") return true;
   const s = parseSel(doc, key);
+  if (s.note) return true;
   if (s.cell) return s.cell.r > 0 && s.cell.c > 0;
-  if (s.run) return true;
+  if (s.run) {
+    const r = doc.paragraphs.find((x) => x.id === s.run!.para)?.runs?.find((x) => x.id === s.run!.run) as XRun | undefined;
+    // Check boxes and pictures are clicked, not typed into.
+    return !(r?.cc && (r.cc.type === "checkBox" || r.cc.type === "picture" || r.cc.lockEdit));
+  }
   const p = doc.paragraphs.find((x) => x.id === s.paras[0]);
   if (!p) return false;
   if (p.kind === "textbox" || p.kind === "shape" || p.kind === "chart") return true;
@@ -148,8 +164,12 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
   const pageBg = doc.pageColor ?? "#fff";
 
   useEffect(() => {
-    editingRef.current = null;
-    setEditingState(null);
+    // Insert Footnote / Insert Endnote put the cursor in the new, empty note.
+    const key = ui.selection;
+    const next = /^(footnote|endnote):\d+$/.test(key) && !textAt(doc, key) ? { key, text: "" } : null;
+    editingRef.current = next;
+    setEditingState(next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doc]);
 
   const focus = () => focusRef.current?.focus({ preventScroll: true });
@@ -295,6 +315,19 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
       { separator: true },
     );
     const p = doc.paragraphs.find((x) => x.id === s.paras[0]);
+    // A tracked change under the pointer: accept or reject it right here.
+    if ((run && (run.ins || run.del)) || (!s.run && p && runsOf(p).some((r) => r.ins || r.del))) {
+      items.push(
+        { label: "Accept Change", icon: "accept", command: "review.accept", value: "Accept This Change" },
+        { label: "Reject Change", icon: "reject", command: "review.reject", value: "Reject Change" },
+        { separator: true },
+      );
+    }
+    const cc = (run as XRun | undefined)?.cc;
+    if (cc) {
+      if (cc.type === "dropDown" || cc.type === "comboBox") (cc.items ?? []).forEach((it) => items.push({ label: it, command: "contentControl.choose", value: it }));
+      items.push({ label: "Properties...", icon: "options", dialog: "controlProperties" }, { separator: true });
+    }
     if (s.cell || p?.kind === "table") {
       const wide = s.cell && (s.cell.r === 0 || s.cell.c === 0);
       items.push(
@@ -398,16 +431,103 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     return style;
   };
 
+  const renderControl = (p: WordPara, r: XRun, i: number, key: string | undefined, style: React.CSSProperties) => {
+    const cc = r.cc!;
+    const isSel = Boolean(key) && ui.selection === key;
+    const design = Boolean(doc.flags?.designMode);
+    const openList = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      if (!key) return;
+      select(key, e);
+      const items: MenuItem[] =
+        cc.type === "datePicker"
+          ? ["10/20/2026", "10/21/2026", "10/22/2026", "10/23/2026", "10/26/2026", "10/27/2026", "10/30/2026"].map((d) => ({ label: d, icon: "date", command: "contentControl.choose", value: d }))
+          : (cc.items ?? []).length
+            ? cc.items!.map((it) => ({ label: it, command: "contentControl.choose", value: it }))
+            : [{ label: "(No items: add them in Developer › Properties)", disabled: true }];
+      onContextMenu(e.clientX, e.clientY, items);
+    };
+    let body: React.ReactNode;
+    if (cc.type === "checkBox") {
+      body = (
+        <button
+          type="button"
+          role="checkbox"
+          aria-checked={Boolean(cc.checked)}
+          aria-label={cc.title ?? "Check box"}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!key) return;
+            select(key, e);
+            onCommit({ kind: "command", id: "contentControl.toggle" });
+          }}
+          className="px-0.5 leading-none"
+          style={{ font: "inherit" }}
+        >
+          {cc.checked ? "☒" : "☐"}
+        </button>
+      );
+    } else if (editing && key && editing.key === key) {
+      body = <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} inline style={style} />;
+    } else if (!r.text) {
+      body = <span className="text-gray-500">{cc.type === "picture" ? "🖼 " : ""}{cc.placeholder}</span>;
+    } else body = r.text;
+    const hasList = cc.type === "dropDown" || cc.type === "comboBox" || cc.type === "datePicker";
+    return (
+      <span
+        key={i}
+        data-run={key}
+        data-control={cc.type}
+        title={cc.title}
+        style={{ ...style, background: isSel ? "#e8f0fe" : style.background === "rgba(0,120,215,.28)" ? undefined : style.background, outline: isSel || design ? "1px solid #7da7d9" : undefined, borderRadius: 2, padding: "0 1px" }}
+        className="relative cursor-text hover:outline hover:outline-1 hover:outline-[#a7c3e6]"
+        onMouseDown={(e) => e.stopPropagation()}
+        onClick={key ? (e) => { e.stopPropagation(); select(key, e); } : undefined}
+        onDoubleClick={key ? (e) => { e.stopPropagation(); startEdit(key); } : undefined}
+        onContextMenu={key ? (e) => ctxMenu(e, key) : undefined}
+      >
+        {(design || isSel) && cc.title && (
+          <span className="absolute -top-3.5 left-0 whitespace-nowrap rounded-t bg-[#7da7d9] px-1 text-[9px] leading-[14px] text-white" style={{ fontStyle: "normal", fontWeight: 400 }}>
+            {cc.title}
+          </span>
+        )}
+        {design && <span className="text-[#7da7d9]" aria-hidden="true">[</span>}
+        {body}
+        {design && <span className="text-[#7da7d9]" aria-hidden="true">]</span>}
+        {hasList && (
+          <button type="button" aria-label={cc.type === "datePicker" ? "Choose a date" : "Choose an item"} onClick={openList} className="ml-0.5 border-l border-[#a7c3e6] px-0.5 text-[0.8em] text-gray-600">
+            ▾
+          </button>
+        )}
+      </span>
+    );
+  };
+
+  /** A reference mark's note text (shown when you point at the mark). */
+  const noteTextOf = (kind: "footnote" | "endnote", label: string): string => {
+    const list = notesOf(doc, kind);
+    const i = list.findIndex((_, k) => noteLabel(kind, k + 1) === label);
+    return i >= 0 ? list[i] : "";
+  };
+
+  const mergeRecord = (() => {
+    if (!doc.merge?.preview) return undefined;
+    const list = activeRecipients(doc);
+    return list[Math.min(doc.merge.record ?? 0, Math.max(0, list.length - 1))];
+  })();
+
   const renderRun = (p: WordPara, r: WordRun, i: number, textOverride?: string) => {
     const key = r.id ? `${p.id}.${r.id}` : undefined;
-    const merge = doc.merge;
-    const record = merge?.preview ? merge.recipients?.[merge.record ?? 0] : undefined;
+    const x = r as XRun;
+    const record = mergeRecord;
     const findTerm = doc.pane?.startsWith("Find:") ? doc.pane.slice(5).toLowerCase() : "";
     const style = runStyle(p, r, key);
+    if (x.cc && textOverride === undefined) return renderControl(p, x, i, key, style);
     let text = textOverride ?? (r.field ? (record ? mergeValue(r.field, record) : `«${r.field}»`) : r.text);
     if (editing && key && editing.key === key && textOverride === undefined) {
       return <InlineEditor key={i} value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} inline style={style} />;
     }
+
     const content: React.ReactNode[] = [];
     if (findTerm && text.toLowerCase().includes(findTerm)) {
       const parts = text.split(new RegExp(`(${findTerm.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "i"));
@@ -425,20 +545,21 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             ? (e) => {
                 e.stopPropagation();
                 if (r.link && (e.ctrlKey || e.metaKey)) onCommit({ kind: "click", target: `link:${r.link}` });
+                else if (x.xref && (e.ctrlKey || e.metaKey)) onCommit({ kind: "click", target: `goto:${x.xref.target}` });
                 select(key, e);
               }
-            : r.link
+            : r.link || x.xref
               ? (e) => {
                   if (e.ctrlKey || e.metaKey) {
                     e.stopPropagation();
-                    onCommit({ kind: "click", target: `link:${r.link}` });
+                    onCommit({ kind: "click", target: r.link ? `link:${r.link}` : `goto:${x.xref!.target}` });
                   }
                 }
               : undefined
         }
         onDoubleClick={key ? (e) => { e.stopPropagation(); startEdit(key); } : undefined}
         onContextMenu={key ? (e) => ctxMenu(e, key) : undefined}
-        title={r.link ? `${r.link}\nCtrl+Click to follow link` : undefined}
+        title={r.link ? `${r.link}\nCtrl+Click to follow link` : x.xref ? "Ctrl+Click to follow link" : x.note ? noteTextOf(x.note, r.text) || undefined : undefined}
       >
         {content}
       </span>
@@ -531,22 +652,28 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
 
   /* ---------- pages ---------- */
 
-  type Page = { paras: WordPara[]; section: number };
-  const pages: Page[] = [{ paras: [], section: 0 }];
-  {
-    let sec = 0;
-    for (const p of doc.paragraphs) {
-      const cur = pages[pages.length - 1];
-      if (xp(p).pageBreakBefore && cur.paras.length) pages.push({ paras: [], section: sec });
-      pages[pages.length - 1].paras.push(p);
-      if (p.kind === "sectionBreak") sec++;
-      if (p.kind === "pageBreak" || (p.kind === "sectionBreak" && p.text !== "Continuous")) pages.push({ paras: [], section: sec });
-    }
-  }
+  const pages = pagesOf(doc);
+  type Page = (typeof pages)[number];
   const pageOf = (pid: string) => Math.max(0, pages.findIndex((pg) => pg.paras.some((p) => p.id === pid)));
 
   const renderToc = (p: WordPara, isSel: boolean) => {
-    const entries = xp(p).entries ?? liveHeadings;
+    const o = xp(p).tocOptions;
+    const entries = xp(p).entries ?? liveHeadings.filter((h) => h.level <= (o?.levels ?? 9));
+    // A custom table of contents has no "Contents" title; Automatic Table 2 says "Table of Contents".
+    const title = o ? null : p.text === "Automatic Table 2" ? "Table of Contents" : "Contents";
+    const showNum = o?.pageNumbers ?? true;
+    const right = o?.rightAlign ?? true;
+    const leader = o?.leader ?? "dots";
+    const fmt = o?.format ?? "From template";
+    const entryStyle = (level: number): React.CSSProperties => {
+      if (level !== 1) return fmt === "Distinctive" || fmt === "Fancy" ? { fontStyle: "italic" } : {};
+      if (fmt === "Classic") return { fontVariant: "small-caps", letterSpacing: 0.3 };
+      if (fmt === "Distinctive") return { fontWeight: 700 };
+      if (fmt === "Fancy") return { fontWeight: 700, fontSize: 12 * PT * z };
+      if (fmt === "Modern") return { fontWeight: 700, color: themeOf(doc).accent };
+      if (fmt === "Formal") return { textTransform: "uppercase", letterSpacing: 0.5 };
+      return {};
+    };
     return (
       <div
         key={p.id}
@@ -564,13 +691,13 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             <Icon name="reset" size={10} /> Update Table...
           </button>
         )}
-        <div style={{ color: themeOf(doc).heading, fontFamily: cssFont(themeOf(doc).headingFont), fontSize: 16 * PT * z }} className="mb-1">Contents</div>
+        {title && <div style={{ color: themeOf(doc).heading, fontFamily: cssFont(themeOf(doc).headingFont), fontSize: 16 * PT * z }} className="mb-1">{title}</div>}
         {entries.length === 0 && <div className="italic text-gray-500">No table of contents entries found.</div>}
         {entries.map((h) => (
           <div
             key={h.id}
             className="flex items-end gap-1"
-            style={{ paddingLeft: (h.level - 1) * 0.25 * PX_PER_IN * z }}
+            style={{ paddingLeft: (h.level - 1) * 0.25 * PX_PER_IN * z, ...entryStyle(h.level) }}
             title="Ctrl+Click to follow link"
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) {
@@ -580,8 +707,12 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             }}
           >
             <span className="whitespace-nowrap">{h.text}</span>
-            <span className="mb-1 flex-1 border-b border-dotted border-gray-500" />
-            <span>{pageOf(h.id) + 1}</span>
+            {showNum && right && (
+              <span
+                className={`mb-1 flex-1 border-b ${leader === "dots" ? "border-dotted border-gray-500" : leader === "dashes" ? "border-dashed border-gray-500" : leader === "line" ? "border-solid border-gray-600" : "border-transparent"}`}
+              />
+            )}
+            {showNum && <span className={right ? "" : "ml-1"}>{pageOf(h.id) + 1}</span>}
           </div>
         ))}
       </div>
@@ -982,11 +1113,54 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     });
   };
 
+  // Page X of Y ("… - Bold Numbers 1|2|3") or a plain number.
+  const pageXofY = /Bold Numbers/.test(doc.pageNumbers ?? "");
+  const pageNumber = (i: number) => (pageXofY ? <>Page <b>{i + 1}</b> of <b>{pages.length}</b></> : i + 1);
+
+  const footRefs = noteRefs(doc, "footnote");
+  const footTexts = notesOf(doc, "footnote");
+  const endTexts = notesOf(doc, "endnote");
+
+  /** Open the header or footer for typing (double-clicking the top or bottom margin works even when there is none yet). */
+  const openHf = (kind: "header" | "footer") => {
+    if (editingRef.current) commitEdit();
+    startEdit(kind);
+    focus();
+  };
+
+  const renderNote = (kind: "footnote" | "endnote", n: number) => {
+    const key = `${kind}:${n}`;
+    const isSel = ui.selection === key;
+    return (
+      <div
+        key={key}
+        data-note={key}
+        className={`flex cursor-text gap-1 rounded-[1px] ${isSel ? "bg-[#eef4fb]" : ""}`}
+        onClick={(e) => { e.stopPropagation(); if (editingRef.current && editingRef.current.key !== key) commitEdit(); onSelect({ selection: key }); focus(); }}
+        onDoubleClick={(e) => { e.stopPropagation(); startEdit(key); }}
+      >
+        <sup className="pt-1">{noteLabel(kind, n)}</sup>
+        <span className="min-w-0 flex-1 whitespace-pre-wrap">
+          {editing?.key === key ? (
+            <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} />
+          ) : (
+            textAt(doc, key) || " "
+          )}
+        </span>
+      </div>
+    );
+  };
+
   const pageEl = (page: Page, i: number) => {
     const { w, h } = pageSize(doc, sectionProps(doc, page.section).orientation);
     const hideHf = diffFirst && i === 0;
-    const showHeader = !hideHf && (doc.header !== undefined || pageNumPos === "top");
-    const showFooter = !hideHf && (doc.footer !== undefined || pageNumPos === "bottom");
+    const showHeader = !hideHf && (doc.header !== undefined || pageNumPos === "top" || ui.selection === "header");
+    const showFooter = !hideHf && (doc.footer !== undefined || pageNumPos === "bottom" || ui.selection === "footer");
+    const last = i === pages.length - 1;
+    // Footnotes print at the bottom of the page that has their reference mark (any without a mark go on the last page).
+    const notesHere = footRefs.filter((r) => page.paras.some((p) => p.id === r.para)).map((r) => r.n);
+    if (last) for (let n = footRefs.length + 1; n <= footTexts.length; n++) notesHere.push(n);
+    const flexCol = view === "print";
     return (
       <div
         key={i}
@@ -998,8 +1172,8 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
           padding: `${m.t * PX_PER_IN * z}px ${m.r * PX_PER_IN * z}px ${m.b * PX_PER_IN * z}px ${m.l * PX_PER_IN * z}px`,
           backgroundImage: doc.gridlines ? "linear-gradient(#e5e7eb 1px, transparent 1px), linear-gradient(90deg, #e5e7eb 1px, transparent 1px)" : undefined,
           backgroundSize: doc.gridlines ? `${0.25 * PX_PER_IN * z}px ${0.25 * PX_PER_IN * z}px` : undefined,
-          display: vCenter && view === "print" ? "flex" : undefined,
-          flexDirection: vCenter && view === "print" ? "column" : undefined,
+          display: flexCol ? "flex" : undefined,
+          flexDirection: flexCol ? "column" : undefined,
           justifyContent: vCenter && view === "print" ? "center" : undefined,
         }}
         onClick={() => onSelect({ selection: "" })}
@@ -1010,8 +1184,27 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             <span className="select-none font-bold text-gray-300/70" style={{ fontSize: 72 * z, transform: "rotate(-40deg)" }}>{doc.watermark}</span>
           </div>
         )}
+        {/* The top and bottom margins: double-click to open the header or footer, even before one exists. */}
+        {!showHeader && (
+          <div
+            aria-label="Header area"
+            title="Double-click to edit the header"
+            className="absolute inset-x-0 top-0"
+            style={{ height: m.t * PX_PER_IN * z * 0.85 }}
+            onDoubleClick={(e) => { e.stopPropagation(); openHf("header"); }}
+          />
+        )}
+        {!showFooter && (
+          <div
+            aria-label="Footer area"
+            title="Double-click to edit the footer"
+            className="absolute inset-x-0 bottom-0"
+            style={{ height: m.b * PX_PER_IN * z * 0.85 }}
+            onDoubleClick={(e) => { e.stopPropagation(); openHf("footer"); }}
+          />
+        )}
         {hideHf && ui.selection === "header" && (
-          <div className="absolute inset-x-0 top-0 border-b border-dashed border-[#2b579a] bg-[#eef4fb]" style={{ height: m.t * PX_PER_IN * z * 0.75 }}>
+          <div className="pointer-events-none absolute inset-x-0 top-0 border-b border-dashed border-[#2b579a] bg-[#eef4fb]" style={{ height: m.t * PX_PER_IN * z * 0.75 }}>
             <span className="absolute -bottom-4 left-2 bg-[#2b579a] px-1 text-[9px] text-white">First Page Header</span>
           </div>
         )}
@@ -1026,10 +1219,22 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             <span className="flex-1 whitespace-pre-wrap">
               {editing?.key === "header" ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: "header", text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : doc.header}
             </span>
-            {pageNumPos === "top" && <span style={{ textAlign: pageNumAlign }}>{i + 1}</span>}
+            {pageNumPos === "top" && <span style={{ textAlign: pageNumAlign }}>{pageNumber(i)}</span>}
           </div>
         )}
         <div>{renderBody(page.paras)}</div>
+        {last && endTexts.length > 0 && (
+          <div className="mt-4 text-gray-800" style={{ fontSize: 10 * PT * z }} aria-label="Endnotes">
+            <div className="mb-1 w-1/3 border-t border-gray-500" />
+            {endTexts.map((_, k) => renderNote("endnote", k + 1))}
+          </div>
+        )}
+        {notesHere.length > 0 && (
+          <div className="pt-6 text-gray-800" style={{ fontSize: 10 * PT * z, marginTop: flexCol && !vCenter ? "auto" : undefined }} aria-label="Footnotes">
+            <div className="mb-1 w-1/3 border-t border-gray-500" />
+            {notesHere.map((n) => renderNote("footnote", n))}
+          </div>
+        )}
         {showFooter && (
           <div
             onClick={(e) => { e.stopPropagation(); select("footer", e); }}
@@ -1041,12 +1246,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             <span className="flex-1 whitespace-pre-wrap">
               {editing?.key === "footer" ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: "footer", text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : doc.footer}
             </span>
-            {pageNumPos === "bottom" && <span className="absolute inset-x-0 bottom-3 px-[inherit]" style={{ textAlign: pageNumAlign, paddingLeft: m.l * PX_PER_IN * z, paddingRight: m.r * PX_PER_IN * z }}>{i + 1}</span>}
-          </div>
-        )}
-        {doc.footnotes && doc.footnotes.length > 0 && i === pages.length - 1 && (
-          <div className="mt-6 border-t border-gray-400 pt-1 text-gray-700" style={{ fontSize: 9 * PT * z, width: "35%" }}>
-            {doc.footnotes.map((f, k) => <div key={k}><sup>{k + 1}</sup> {f}</div>)}
+            {pageNumPos === "bottom" && <span className="absolute inset-x-0 bottom-3 px-[inherit]" style={{ textAlign: pageNumAlign, paddingLeft: m.l * PX_PER_IN * z, paddingRight: m.r * PX_PER_IN * z }}>{pageNumber(i)}</span>}
           </div>
         )}
       </div>
@@ -1303,7 +1503,7 @@ function SidePane({ doc, ui, pane, onCommit, onSelect, openDialog }: { doc: Word
       <table className="w-full text-[12px]">
         <tbody>
           {[
-            ["Pages", String(1 + doc.paragraphs.filter((p) => p.kind === "pageBreak" || (p.kind === "sectionBreak" && p.text !== "Continuous")).length)],
+            ["Pages", String(pagesOf(doc).length)],
             ["Words", String(wordCount(doc))],
             ["Characters (with spaces)", String(chars)],
             ["Paragraphs", String(doc.paragraphs.filter((p) => !p.kind || p.kind === "p").length)],
@@ -1461,6 +1661,9 @@ function SidePane({ doc, ui, pane, onCommit, onSelect, openDialog }: { doc: Word
         <p className="text-gray-700">Reading: “{para ? paraText(para).slice(0, 120) : ""}”</p>
       </div>
     );
+  } else if (pane === "Restrict Editing") {
+    title = "Restrict Editing";
+    body = <RestrictPane doc={doc} onCommit={onCommit} />;
   } else if (pane === "Inspect Document") {
     body = <p className="text-gray-700">Document Inspector found: Comments, Revisions, Document Properties and Personal Information. Use Remove All to clear them before sharing.</p>;
   } else if (pane === "Version History") {
@@ -1479,6 +1682,102 @@ function SidePane({ doc, ui, pane, onCommit, onSelect, openDialog }: { doc: Word
 }
 
 const xdoc = (d: WordDoc) => d as XDoc;
+
+const PERMISSIONS: Record<string, string> = {
+  "Filling in forms": "This document is protected from unintentional editing. You may only fill in forms in this region.",
+  "No changes (Read only)": "This document is protected from unintentional editing. You may only view this region.",
+  Comments: "This document is protected from unintentional editing. You may only insert comments into this document.",
+  "Tracked changes": "You may edit in this region, but all changes will be tracked.",
+};
+
+/** Review › Restrict Editing task pane. */
+function RestrictPane({ doc, onCommit }: { doc: WordDoc; onCommit: CanvasProps<WordDoc>["onCommit"] }) {
+  const prot = xdoc(doc).protection;
+  const [allow, setAllow] = useState(false);
+  const [type, setType] = useState<string>("No changes (Read only)");
+  const [limitFmt, setLimitFmt] = useState(false);
+  const [prompt, setPrompt] = useState(false);
+  const [pw, setPw] = useState("");
+  const [pw2, setPw2] = useState("");
+  if (prot) {
+    return (
+      <div className="space-y-3">
+        <p className="font-semibold">Your permissions</p>
+        <p className="text-gray-700">{PERMISSIONS[prot.type]}</p>
+        <button type="button" onClick={() => onCommit({ kind: "command", id: "review.stopProtection" })} className="rounded border border-gray-400 px-2 py-1 hover:bg-gray-100">
+          Stop Protection
+        </button>
+      </div>
+    );
+  }
+  const mismatch = pw !== pw2;
+  return (
+    <div className="space-y-4">
+      <section className="space-y-1">
+        <p className="font-semibold">1. Formatting restrictions</p>
+        <label className="flex items-start gap-2">
+          <input type="checkbox" checked={limitFmt} onChange={(e) => setLimitFmt(e.target.checked)} className="mt-0.5" />
+          <span>Limit formatting to a selection of styles</span>
+        </label>
+      </section>
+      <section className="space-y-1">
+        <p className="font-semibold">2. Editing restrictions</p>
+        <label className="flex items-start gap-2">
+          <input type="checkbox" checked={allow} onChange={(e) => setAllow(e.target.checked)} className="mt-0.5" />
+          <span>Allow only this type of editing in the document:</span>
+        </label>
+        <select aria-label="Type of editing allowed" disabled={!allow} value={type} onChange={(e) => setType(e.target.value)} className="w-full border border-gray-400 bg-white px-1 py-0.5 disabled:opacity-50">
+          {RESTRICT_TYPES.map((t) => <option key={t} value={t}>{t}</option>)}
+        </select>
+      </section>
+      <section className="space-y-1">
+        <p className="font-semibold">3. Start enforcement</p>
+        <p className="text-gray-600">Are you ready to apply these settings? (You can turn them off later)</p>
+        <button type="button" disabled={!allow} onClick={() => setPrompt(true)} className="rounded border border-gray-400 px-2 py-1 hover:bg-gray-100 disabled:opacity-40">
+          Yes, Start Enforcing Protection
+        </button>
+      </section>
+      {prompt && (
+        <div className="absolute inset-0 z-40 flex items-center justify-center bg-black/10" onKeyDown={(e) => e.stopPropagation()}>
+          <div role="dialog" aria-label="Start Enforcing Protection" className="w-80 border border-gray-400 bg-[#f0f0f0] text-[12px] shadow-2xl">
+            <div className="flex items-center justify-between bg-white px-3 py-1.5">
+              <span>Start Enforcing Protection</span>
+              <button type="button" aria-label="Close" onClick={() => setPrompt(false)} className="px-2 hover:bg-red-600 hover:text-white">✕</button>
+            </div>
+            <div className="space-y-2 bg-white p-4">
+              <p>Protection method: Password (optional). The document is not encrypted.</p>
+              <label className="flex items-center justify-between gap-2">
+                <span>Enter new password (optional):</span>
+                <input type="password" aria-label="Enter new password (optional)" value={pw} onChange={(e) => setPw(e.target.value)} className="w-28 border border-gray-400 px-1 py-0.5" />
+              </label>
+              <label className="flex items-center justify-between gap-2">
+                <span>Reenter password to confirm:</span>
+                <input type="password" aria-label="Reenter password to confirm" value={pw2} onChange={(e) => setPw2(e.target.value)} className="w-28 border border-gray-400 px-1 py-0.5" />
+              </label>
+              {mismatch && pw2 && <p className="text-red-700">The passwords don't match.</p>}
+            </div>
+            <div className="flex justify-end gap-2 border-t border-gray-300 px-3 py-2">
+              <button
+                type="button"
+                disabled={mismatch}
+                onClick={() => {
+                  setPrompt(false);
+                  onCommit({ kind: "command", id: "review.enforce", value: type });
+                }}
+                className="min-w-[72px] border border-[#0078d4] bg-[#e5f1fb] px-3 py-1 hover:bg-[#cce4f7] disabled:opacity-40"
+              >
+                OK
+              </button>
+              <button type="button" onClick={() => setPrompt(false)} className="min-w-[72px] border border-gray-400 bg-[#e1e1e1] px-3 py-1 hover:bg-[#e5f1fb]">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function InlineEditor({
   value,
@@ -1540,9 +1839,11 @@ function InlineEditor({
 
 export function WordStatusBar({ doc, onCommit }: StatusBarProps<WordDoc>) {
   const zoom = doc.zoom ?? 100;
-  const pages = 1 + doc.paragraphs.filter((p) => p.kind === "pageBreak" || (p.kind === "sectionBreak" && p.text !== "Continuous")).length;
+  const pages = pagesOf(doc).length;
   const sections = 1 + doc.paragraphs.filter((p) => p.kind === "sectionBreak").length;
   const merge = doc.merge;
+  const mergeCount = merge?.preview ? activeRecipients(doc).length : 0;
+  const protection = (doc as XDoc).protection;
   return (
     <div className="flex h-6 shrink-0 items-center gap-4 border-t border-gray-300 bg-[#f3f3f3] px-3 text-[11px] text-gray-700">
       <span>Page 1 of {pages}</span>
@@ -1550,7 +1851,8 @@ export function WordStatusBar({ doc, onCommit }: StatusBarProps<WordDoc>) {
       <button type="button" onClick={() => onCommit({ kind: "command", id: "review.wordCount" })} className="hover:bg-gray-200">{wordCount(doc)} words</button>
       <span className="hidden sm:inline">English (United States)</span>
       {doc.trackChanges && <span className="rounded bg-amber-100 px-1 text-amber-800">Track Changes: On</span>}
-      {merge?.preview && <span className="rounded bg-sky-100 px-1 text-sky-800">Record {(merge.record ?? 0) + 1} of {merge.recipients?.length ?? 1}</span>}
+      {merge?.preview && <span className="rounded bg-sky-100 px-1 text-sky-800">Record {Math.min((merge.record ?? 0) + 1, Math.max(1, mergeCount))} of {mergeCount}</span>}
+      {protection && <span className="rounded bg-amber-100 px-1 text-amber-800">Restricted: {protection.type}</span>}
       {doc.pane === "Dictation" && <span className="rounded bg-sky-100 px-1 text-sky-800">Dictation: listening</span>}
       {doc.flags?.lastAction && <span className="hidden text-gray-500 sm:inline">Last action: {String(doc.flags.lastAction)}</span>}
       <span className="flex-1" />

@@ -7,7 +7,7 @@ import { SimDialog } from "../../chrome/Dialog";
 import { Icon } from "../../chrome/icons";
 import { AutoRepliesDialog, SignaturesDialog } from "./canvasDialogs";
 import { outlookDialogs } from "./dialogs";
-import { outlookDialogDef, outlookDialogDefaults, selMessage } from "./model";
+import { outlookDialogDef, outlookDialogDefaults } from "./model";
 import { OIcon } from "./parts";
 import { fmtDate, fmtTime } from "./dates";
 
@@ -29,8 +29,6 @@ export function OutlookBackstage({ doc, accent, startPage, onCommit, onClose }: 
   const [optCat, setOptCat] = useState("Mail");
   const docRef = useRef(doc);
   docRef.current = doc;
-  const sel = selMessage(doc, { selection: "" });
-  void sel;
   const [saveName, setSaveName] = useState("Message");
   const [saveType, setSaveType] = useState("Outlook Message Format - Unicode (*.msg)");
   const [printer, setPrinter] = useState("BEOC-Lab-Printer on 14BP");

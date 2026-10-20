@@ -134,6 +134,13 @@ export const accessCore: AppCore<AccessDoc> = {
   },
   canvasCommands: ACCESS_CANVAS,
   freeCommands: ACCESS_FREE,
+  canvasDialogs: [
+    "saveObject", "pasteTableAs", "find", "file.saveAs", "file.print",
+    "backstage:formWizard", "backstage:reportWizard", "backstage:queryWizard", "backstage:importExcel",
+    "backstage:exportExcel", "backstage:exportPdf", "backstage:exportText", "backstage:savedExports",
+    "backstage:lookupWizard", "backstage:editRelationship", "backstage:documenter", "backstage:analyzeTable",
+    "backstage:tabOrder", "backstage:buttonWizard", "backstage:options",
+  ],
   initialUi: (doc) => {
     const t = activeTab(doc);
     if (t?.kind === "table" && t.view === "Datasheet View") {

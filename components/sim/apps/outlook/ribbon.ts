@@ -944,6 +944,7 @@ const searchTab: RibbonTab = {
 const sendReceiveTab: RibbonTab = {
   id: "sendReceive",
   label: "Send / Receive",
+  contextual: "main",
   groups: [
     {
       label: "Send & Receive",
@@ -1126,6 +1127,7 @@ const viewTasks: RibbonTab = {
 const helpTab: RibbonTab = {
   id: "help",
   label: "Help",
+  contextual: "main",
   groups: [
     {
       label: "Help",
@@ -1156,6 +1158,13 @@ const canvasRegistry: RibbonTab = {
     },
   ],
 };
+
+/**
+ * Contexts whose tabs are ordinary tabs in real Outlook: the per-module Home,
+ * Folder and View tabs, Send / Receive and Help ("main", hidden while a form
+ * window is open), and every tab of a pop-out compose or item window.
+ */
+const PLAIN_CONTEXTS = new Set(["mail", "calendar", "people", "tasks", "main", "compose", "readWindow", "apptForm", "meetingForm", "eventForm", "contactForm", "taskForm", "groupForm"]);
 
 export const outlookRibbon: RibbonTab[] = [
   homeMail,
@@ -1190,4 +1199,4 @@ export const outlookRibbon: RibbonTab[] = [
   viewTasks,
   helpTab,
   canvasRegistry,
-];
+].map((t) => (PLAIN_CONTEXTS.has(t.contextual ?? "") ? { ...t, plain: true } : t));

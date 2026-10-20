@@ -1,7 +1,7 @@
 import type { SimDefinition } from "@/types/sim";
 import { outlookDoc } from "@/components/sim/apps/outlook/types";
 import type { OlContact, OlEvent, OlMessage, OlTask, OutlookDoc } from "@/components/sim/apps/outlook/types";
-import { ACCEPT, activityStep, mentions, msg, person, recipients } from "@/components/sim/apps/outlook/simkit";
+import { ACCEPT, OPEN, activityStep, mentions, msg, person, recipients } from "@/components/sim/apps/outlook/simkit";
 
 /*
  * Modern Office (Office Assistant Professional): Communication Systems
@@ -47,11 +47,10 @@ function base(messages: OlMessage[], extra: Partial<OutlookDoc> = {}): Record<st
 }
 
 const steps = {
-  newEmail: { action: { kind: "command" as const, id: "mail.newEmail" }, alt: [{ kind: "command" as const, id: "item.new" }] },
-  newEmailOrContact: { action: { kind: "command" as const, id: "mail.newEmail" }, alt: [{ kind: "command" as const, id: "item.new" }, { kind: "command" as const, id: "contact.emailTo" }] },
-  newMeeting: { action: { kind: "command" as const, id: "cal.newMeeting" }, alt: [{ kind: "command" as const, id: "cal.newTeamsMeeting" }] },
-  newAppt: { action: { kind: "command" as const, id: "cal.newAppointment" }, alt: [{ kind: "command" as const, id: "item.new" }] },
-  newTask: { action: { kind: "command" as const, id: "tasks.newTask" }, alt: [{ kind: "command" as const, id: "item.new" }] },
+  newEmail: OPEN.email,
+  newMeeting: OPEN.meeting,
+  newAppt: OPEN.appointment,
+  newTask: OPEN.task,
   send: { action: { kind: "command" as const, id: "compose.send" } },
 };
 
@@ -637,7 +636,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         {
           instruction: 'Time-block the report: add an appointment titled "Focus: Client Report" today, October 20, from 10:00 AM to 12:00 PM.',
           hint: "Home tab › New Items › Appointment (or Ctrl+Shift+A) › title › Start 10/20/2026 10:00 AM, End 12:00 PM › Save & Close.",
-          steps: [{ action: { kind: "command", id: "cal.newAppointment" } }, { action: { kind: "dialog", id: "event.save", values: { title: "Focus: Client Report", startDate: "10/20/2026", startTime: "10:00 AM", endTime: "12:00 PM" } } }],
+          steps: [steps.newAppt, { action: { kind: "dialog", id: "event.save", values: { title: "Focus: Client Report", startDate: "10/20/2026", startTime: "10:00 AM", endTime: "12:00 PM" } } }],
         },
         {
           instruction: 'Schedule the Q2 task "Reorganize shared drive" for next week.',
@@ -846,7 +845,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           instruction: 'Email Marcus Webb from his contact card with the subject "Welcome to TOR Tech" and the text "Hi Marcus, welcome aboard. Your onboarding call is Thursday at 10:00 AM."',
           hint: "Select Marcus Webb › Email (on his card or Home tab › Communicate › Email) › type the subject and text › Send.",
           steps: [
-            { action: { kind: "command", id: "contact.emailTo" }, alt: [{ kind: "command", id: "mail.newEmail" }, { kind: "command", id: "item.new" }], requires: { selection: "contact:c3" }, selectHint: "Select Marcus Webb first." },
+            steps.newEmail,
             { action: { kind: "type", target: "compose.to", value: recipients(MARCUS.email) } },
             { action: { kind: "type", target: "compose.subject", value: "Welcome to TOR Tech" } },
             mentions("compose.body", "Hi Marcus, welcome aboard. Your onboarding call is Thursday at 10:00 AM.", ["welcome aboard", "Thursday at 10:00 AM"]),
@@ -891,7 +890,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Create a new contact for his colleague: Full Name "Ana Ruiz", Company "Webb Logistics", Job title "Accounts Payable Manager", E-mail "ana.ruiz@webblogistics.example.com", Business phone "(555) 410-2290".',
           hint: "Home tab › New Contact (Ctrl+N) › fill in each field › Save & Close.",
           steps: [
-            { action: { kind: "command", id: "people.newContact" }, alt: [{ kind: "command", id: "item.new" }] },
+            OPEN.contact,
             { action: { kind: "dialog", id: "contact.save", values: { name: "Ana Ruiz", company: "Webb Logistics", jobTitle: "Accounts Payable Manager", email: "ana.ruiz@webblogistics.example.com", phone: "(555) 410-2290" } } },
           ],
         },
@@ -899,7 +898,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           instruction: 'Create a contact group named "Webb Logistics Team" with Marcus Webb and Ana Ruiz.',
           hint: "Home tab › New Contact Group › Name › Add Members › From Outlook Contacts › pick both › OK › Save & Close.",
           steps: [
-            { action: { kind: "command", id: "people.newGroup" } },
+            OPEN.group,
             { action: { kind: "type", target: "group.members", value: recipients(MARCUS.email, "ana.ruiz@webblogistics.example.com") } },
             { action: { kind: "dialog", id: "group.save", values: { name: "Webb Logistics Team" } } },
           ],
@@ -954,7 +953,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Send Helen the follow-up: subject "Follow-Up: Q3 Contract Renewal Call, Next Steps". Thank her for "today\'s call", state the next step "revised proposal by Friday", and invite corrections with "Please let me know if I missed anything."',
           hint: "With Helen Ward selected, click Email on her card (or Mail › New Email) › subject › thank you, recap, next step, and the correction line › Send.",
           steps: [
-            steps.newEmailOrContact,
+            steps.newEmail,
             { action: { kind: "type", target: "compose.to", value: recipients(HELEN.email) } },
             { action: { kind: "type", target: "compose.subject", value: "Follow-Up: Q3 Contract Renewal Call, Next Steps" } },
             mentions(
@@ -969,7 +968,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           instruction: 'Set a reminder that fires before the deadline: create a task "Send revised proposal to Helen Ward" due 10/23/2026 with a reminder on 10/21/2026 at 9:00 AM.',
           hint: "New Items › Task (or Tasks › New Task) › Subject › Due date 10/23/2026 › check Reminder › 10/21/2026, 9:00 AM › Save & Close.",
           steps: [
-            { action: { kind: "command", id: "tasks.newTask" }, alt: [{ kind: "command", id: "item.new" }] },
+            steps.newTask,
             { action: { kind: "dialog", id: "task.save", values: { subject: "Send revised proposal to Helen Ward", dueDate: "10/23/2026", reminder: true, reminderDate: "10/21/2026", reminderTime: "9:00 AM" } } },
           ],
         },
@@ -1034,7 +1033,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
             'Send Tanya Brooks a meeting recap with the subject "Recap: Pricing Meeting and Next Steps" that recaps the "mid-tier plan", lists the next step "quote by Friday", and ends with "Please let me know if I missed anything."',
           hint: "Select Tanya Brooks › Email (or Mail › New Email) › subject › recap and next step › correction line › Send.",
           steps: [
-            steps.newEmailOrContact,
+            steps.newEmail,
             { action: { kind: "type", target: "compose.to", value: recipients(TANYA.email) } },
             { action: { kind: "type", target: "compose.subject", value: "Recap: Pricing Meeting and Next Steps" } },
             mentions(

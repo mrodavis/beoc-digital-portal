@@ -394,7 +394,8 @@ export const windowsSims: Record<string, SimDefinition[]> = {
             nav: [{ text: "Business desktops", href: "adventureworks-tech.com/business-desktops" }, { text: "Monitors", href: "adventureworks-tech.com/monitors" }, { text: "Cart", href: "adventureworks-tech.com/cart" }],
             blocks: [
               { t: "h1", text: "Your cart" },
-              { t: "p", text: "Review your order. Business support covers parts, labor, and next-day on-site service." },
+              { t: "cart", empty: "Your cart is empty. Add a desktop and a monitor first." },
+              { t: "p", text: "Business support covers parts, labor, and next-day on-site service." },
               { t: "select", id: "warranty", label: "Warranty", options: ["1-year limited warranty", "3-year business support (+$59)"], value: "1-year limited warranty" },
               { t: "form", id: "order-note", title: "Order note for your manager", fields: [{ name: "note", label: "Justification" }], submit: "Submit for approval", toast: "Order submitted for approval." },
             ],

@@ -622,6 +622,12 @@ export interface RibbonTab {
   groups: RibbonGroup[];
   /** Contextual tabs (Table Design, Picture Format) appear only when relevant. */
   contextual?: string;
+  /**
+   * Shown only when its `contextual` key is active, but drawn like a normal
+   * tab (no amber marker): Outlook's per-module Home and View tabs, and the
+   * tabs of a pop-out form window.
+   */
+  plain?: boolean;
 }
 
 /* ------------------------------------------------------------------ */

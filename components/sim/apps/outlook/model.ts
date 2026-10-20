@@ -712,10 +712,17 @@ function formEvent(doc: OutlookDoc, f: OlForm, values: Record<string, SimValue>)
   const d = f.data;
   const sv = (k: string) => (values[k] === undefined ? undefined : String(values[k]));
   const allDay = values.allDay !== undefined ? Boolean(values.allDay) : Boolean(d.allDay);
-  const sd = parseUsDate(sv("startDate") ?? "") ?? dateOf(d.start ?? nextSlot(doc));
-  const ed = parseUsDate(sv("endDate") ?? "") ?? dateOf(d.end ?? d.start ?? nextSlot(doc));
-  const st = parseTime(sv("startTime") ?? "") ?? timeOf(d.start ?? nextSlot(doc));
-  const et = parseTime(sv("endTime") ?? "") ?? timeOf(d.end ?? addMinutes(d.start ?? nextSlot(doc), 30));
+  // Like the form, moving the start keeps the duration unless an end is given.
+  const oldStart = d.start ?? nextSlot(doc);
+  const oldEnd = d.end && toMs(d.end) > toMs(oldStart) ? d.end : addMinutes(oldStart, 30);
+  const daySpan = Math.max(0, Math.round((toMs(dateOf(oldEnd)) - toMs(dateOf(oldStart))) / 86400000) - (d.allDay ? 1 : 0));
+  const sd = parseUsDate(sv("startDate") ?? "") ?? dateOf(oldStart);
+  const st = parseTime(sv("startTime") ?? "") ?? timeOf(oldStart);
+  const edGiven = parseUsDate(sv("endDate") ?? "");
+  const etGiven = parseTime(sv("endTime") ?? "");
+  const shifted = addMinutes(`${sd}T${st}`, d.allDay ? 30 : minutesBetween(oldStart, oldEnd));
+  const ed = edGiven ?? (allDay ? addDays(sd, daySpan) : etGiven ? addDays(sd, d.allDay ? 0 : daySpan) : dateOf(shifted));
+  const et = etGiven ?? timeOf(shifted);
   let start = allDay ? `${sd}T00:00` : `${sd}T${st}`;
   let end = allDay ? `${addDays(ed, 1)}T00:00` : `${ed}T${et}`;
   if (toMs(end) <= toMs(start)) end = allDay ? `${addDays(sd, 1)}T00:00` : addMinutes(start, 30);
@@ -748,7 +755,10 @@ function formEvent(doc: OutlookDoc, f: OlForm, values: Record<string, SimValue>)
     optional: meeting && opt.length ? opt.map((t) => personFor(doc, t)) : undefined,
     teams,
     reminder: sv("reminder") ?? d.reminder ?? "15 minutes",
-    showAs: (sv("showAs") as OlShowAs | undefined) ?? d.showAs ?? (allDay ? "Free" : "Busy"),
+    // Checking All day event switches Show As to Free (and back to Busy), as in Outlook.
+    showAs:
+      (sv("showAs") as OlShowAs | undefined) ??
+      (values.allDay !== undefined && allDay !== Boolean(d.allDay) ? (allDay ? "Free" : "Busy") : d.showAs ?? (allDay ? "Free" : "Busy")),
     recurrence,
     categories: d.categories,
     private: values.private !== undefined ? Boolean(values.private) : d.private,
@@ -796,7 +806,7 @@ export function applyOutlook(input: OutlookDoc, c: SimCommit, ui: SimUi): Res {
   }
   const doc = clone(input);
   doc.messages = doc.messages ?? [];
-  if (c.kind === "type") return applyType(doc, c.target, c.value, ui);
+  if (c.kind === "type") return applyType(doc, c.target, c.value);
   if (c.kind === "dialog") return applyDialog(doc, c.id, c.values, ui);
   if (c.kind === "click") {
     doc.flags = { ...(doc.flags ?? {}), clicked: c.target };
@@ -805,7 +815,7 @@ export function applyOutlook(input: OutlookDoc, c: SimCommit, ui: SimUi): Res {
   return applyCommand(doc, c.id, c.value, ui);
 }
 
-function applyType(doc: OutlookDoc, target: string, value: string, ui: SimUi): Res {
+function applyType(doc: OutlookDoc, target: string, value: string): Res {
   const comp = doc.compose;
   switch (target) {
     case "compose.to":
@@ -882,7 +892,6 @@ function applyType(doc: OutlookDoc, target: string, value: string, ui: SimUi): R
     doc.dialog = null;
     return { doc, ui: { selection: `contact:${act[1]}` } };
   }
-  void ui;
   return { doc };
 }
 
@@ -906,7 +915,7 @@ function applyDialog(doc: OutlookDoc, id: string, v: Record<string, SimValue>, u
       const rules = (doc.rules = doc.rules ?? []);
       const r: OlRule = {
         id: nextId(rules, "r"),
-        name: v.fromOn ? s("from") : v.subjectOn ? s("subject") : "Rule",
+        name: v.fromOn ? personFor(doc, s("from")).name : v.subjectOn ? s("subject") : "Rule",
         from: v.fromOn ? s("from") : undefined,
         subject: v.subjectOn ? s("subject") : undefined,
         sentToMe: Boolean(v.sentToOn),
@@ -929,7 +938,7 @@ function applyDialog(doc: OutlookDoc, id: string, v: Record<string, SimValue>, u
       const m = msgs[0];
       if (!m) return { doc };
       const rules = (doc.rules = doc.rules ?? []);
-      const r: OlRule = { id: nextId(rules, "r"), name: m.from.email, from: m.from.email, moveTo: s("folder") };
+      const r: OlRule = { id: nextId(rules, "r"), name: m.from.name || m.from.email, from: m.from.email, moveTo: s("folder") };
       rules.push(r);
       const before = visibleMessages(doc);
       runRule(doc, r, messagesIn(doc, currentFolder(doc)));
@@ -2205,7 +2214,7 @@ export function outlookContextual(doc: OutlookDoc, ui: SimUi): string[] {
   }
   if (doc.window) return ["readWindow"];
   const mod = moduleOf(doc);
-  const keys: string[] = [mod];
+  const keys: string[] = [mod, "main"];
   if (mod === "mail") {
     if (doc.search) keys.push("search");
     if (composeVisible(doc, ui)) keys.push("composeInline");

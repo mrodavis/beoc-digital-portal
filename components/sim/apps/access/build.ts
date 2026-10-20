@@ -170,7 +170,10 @@ export function importSheet(doc: AccessDoc, spec: ImportSpec): { table?: AccTabl
 /** The rows an object exports (tables, queries, forms and reports use their data). */
 export function exportRows(doc: AccessDoc, object: string): (string | number | null)[][] {
   const t = findTable(doc, object);
-  if (t) return [t.fields.map((f) => f.name), ...t.rows.map((r) => t.fields.map((f) => displayValue(f, dataSource(doc).rows(t.name)!.rows[t.rows.indexOf(r)][f.name] as V)))];
+  if (t) {
+    const src = dataSource(doc).rows(t.name)!.rows;
+    return [t.fields.map((f) => f.name), ...t.rows.map((_, i) => t.fields.map((f) => displayValue(f, src[i][f.name] as V)))];
+  }
   const q = findQuery(doc, object);
   if (q) {
     const r = runQuery(doc, q, {}, { previewOnly: true });

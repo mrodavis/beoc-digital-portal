@@ -1,15 +1,40 @@
 import type { SimCommit, WordDoc } from "@/types/sim";
 import type { AppCore } from "../../types";
-import { applyWord, wordContextual, wordDialogDefaults, wordRibbonState, paraText, parseSel } from "./model";
+import { applyWord, isBuiltInStyle, notesOf, wordContextual, wordDialogDefaults, wordRibbonState, paraText, parseSel } from "./model";
 import { wordRibbon, VIEW_ALIASES } from "./ribbon";
-import { wordDialogs } from "./dialogs";
+import { wordDialogDef, wordDialogs } from "./dialogs";
+
+/** A style name from the gallery or the Styles pane: built-in styles are home.style, custom ones home.customStyle. */
+function styleCommand(value: unknown): SimCommit {
+  const v = String(value ?? "");
+  return { kind: "command", id: v && !isBuiltInStyle(v) ? "home.customStyle" : "home.style", value: v };
+}
+
+/** Does a selection key point at something in the document? (Used by the validator.) */
+function selectionExists(doc: WordDoc, sel: string): boolean {
+  if (!sel || sel === "all" || sel === "header" || sel === "footer") return true;
+  const note = /^(footnote|endnote):(\d+)$/.exec(sel);
+  if (note) return Number(note[2]) >= 1 && Number(note[2]) <= notesOf(doc, note[1] as "footnote" | "endnote").length;
+  const cell = /^([^.,]+)\.r(\d+)c(\d+)$/.exec(sel);
+  if (cell) {
+    const p = doc.paragraphs.find((x) => x.id === cell[1]);
+    return Boolean(p?.table && p.table.rows.length >= Number(cell[2]) && (p.table.rows[0]?.length ?? 0) >= Number(cell[3]));
+  }
+  return sel.split(",").every((part) => {
+    const [pid, rid] = part.trim().split(".");
+    const p = doc.paragraphs.find((x) => x.id === pid);
+    if (!p) return false;
+    return rid ? Boolean(p.runs?.some((r) => r.id === rid)) : true;
+  });
+}
 
 function normalize(c: SimCommit): SimCommit {
   if (c.kind === "command" && VIEW_ALIASES[c.id]) return { kind: "command", id: "view.mode", value: VIEW_ALIASES[c.id] };
   if (c.kind === "command" && c.id === "review.accessibility" && (c.value === undefined || c.value === "Check Accessibility")) return { kind: "command", id: "review.accessibility" };
   if (c.kind === "command" && c.id === "home.find" && (c.value === undefined || c.value === "Find")) return { kind: "command", id: "home.find" };
   if (c.kind === "command" && c.id === "home.paste" && c.value === undefined) return { kind: "command", id: "home.paste" };
-  if (c.kind === "dialog" && c.id === "stylesPane") return { kind: "command", id: "home.style", value: c.values.style };
+  if (c.kind === "dialog" && c.id === "stylesPane") return styleCommand(c.values.style);
+  if (c.kind === "command" && c.id === "home.style" && c.value !== undefined) return styleCommand(c.value);
   if (c.kind === "command" && c.id === "home.deleteComment") return { kind: "command", id: "review.deleteComment", value: c.value };
   // Right-click › Open Hyperlink does what Ctrl+Click does.
   if (c.kind === "command" && c.id === "link.open") return { kind: "click", target: `link:${String(c.value ?? "")}` };
@@ -90,6 +115,8 @@ export const wordCore: AppCore<WordDoc> = {
     "Ctrl+F1": { command: "view.ribbonCollapse" },
     "Alt+Ctrl+F": { command: "references.footnote" },
     "Ctrl+Alt+F": { command: "references.footnote" },
+    "Alt+Ctrl+D": { command: "references.endnote" },
+    "Ctrl+Alt+D": { command: "references.endnote" },
     F7: { command: "review.spelling" },
     "Shift+F7": { command: "review.thesaurus" },
     F1: { command: "help.help" },
@@ -104,7 +131,7 @@ export const wordCore: AppCore<WordDoc> = {
     "home.showMarks", "view.ruler", "view.navPane", "view.gridlines", "review.thesaurus", "help.help", "review.nextComment",
     "review.prevComment", "review.nextChange", "review.prevChange", "mail.next", "mail.prev", "home.selectAll", "file.browse", "file.options",
     "table.select", "header.gotoHeader", "header.gotoFooter", "object.selectionPane", "review.smartLookup", "references.smartLookup",
-    "references.researcher", "review.readAloud", "review.showComments", "header.showDocText",
+    "references.researcher", "review.readAloud", "review.showComments", "header.showDocText", "references.nextFootnote",
   ],
   initialUi: (doc) => ({ selection: doc.paragraphs[0]?.id ?? "" }),
   normalize,
@@ -112,6 +139,8 @@ export const wordCore: AppCore<WordDoc> = {
   ribbonState: wordRibbonState,
   contextualTabs: wordContextual,
   dialogDefaults: wordDialogDefaults,
+  dialogDef: wordDialogDef,
+  selectionExists,
   describeSelection: (doc, ui) => {
     const s = parseSel(doc, ui.selection);
     const p = doc.paragraphs.find((x) => x.id === s.paras[0]);
@@ -122,6 +151,12 @@ export const wordCore: AppCore<WordDoc> = {
     "pane.close", "view.navPane", "review.wordCount", "qat.undo", "qat.redo", "qat.autosave", "view.ribbonCollapse",
     // Right-click menu items (numbered lists, links), the comment card's Reply box, Researcher's Add button.
     "list.restart", "list.continue", "link.remove", "comment.reply", "researcher.add",
+    // Custom styles (Styles gallery / Styles pane entries that come from the document, so any name).
+    "home.customStyle",
+    // Clicking a content control on the page: a check box, or an entry of a drop-down list or date picker.
+    "contentControl.toggle", "contentControl.choose",
+    // The Restrict Editing pane's Yes, Start Enforcing Protection (value = editing type) and Stop Protection.
+    "review.enforce", "review.stopProtection",
   ],
   fullScreen: (doc) => doc.view === "read",
 };
