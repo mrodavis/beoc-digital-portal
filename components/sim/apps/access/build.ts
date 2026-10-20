@@ -101,7 +101,7 @@ export function buildReport(doc: AccessDoc, name: string, source: string): AccRe
     pageSize: "Letter",
     margins: "Normal",
     title: name,
-    totals: all.length ? [{ field: all[0].name, fn: "Count" }] : [],
+    totals: all.length ? [{ field: all[0].name, fn: "Count", scope: "report" }] : [],
     pageNumbers: { format: "Page N of M", position: "Bottom of Page [Footer]", align: "Right" },
     dateTime: { date: "Long Date", time: "Long Time" },
     saved: false,

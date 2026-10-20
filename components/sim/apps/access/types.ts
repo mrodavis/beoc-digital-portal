@@ -259,8 +259,10 @@ export type AccReport = {
   groups?: AccReportGroup[];
   sorts?: { field: string; dir: "asc" | "desc" }[];
   /** Summary totals shown in group footers and the report footer. */
-  totals?: { field: string; fn: "Sum" | "Avg" | "Count" | "Min" | "Max" }[];
+  totals?: { field: string; fn: "Sum" | "Avg" | "Count" | "Min" | "Max"; /** Report footer only (the Report tool's record count). */ scope?: "report" }[];
   summaryOnly?: boolean;
+  /** The Report Wizard's "Summary for ..." line in each group footer. */
+  summaryLine?: boolean;
   layout: "Stepped" | "Block" | "Outline" | "Tabular" | "Columnar" | "Justified";
   orientation: "Portrait" | "Landscape";
   pageSize?: "Letter" | "Legal" | "A4" | "Tabloid" | "Executive";
