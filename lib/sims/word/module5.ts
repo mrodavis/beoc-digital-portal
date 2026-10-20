@@ -266,7 +266,7 @@ export const wordModule5Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Change the chart title to “Monthly Supply Spending, April to September 2026”.",
-          hint: "Double-click the chart title, type the new title, and press Enter.",
+          hint: "Double-click the chart title to select its text, type the new title to replace it, and press Enter.",
           steps: [{ action: { kind: "type", target: "ch1", value: "Monthly Supply Spending, April to September 2026" } }],
         },
         {

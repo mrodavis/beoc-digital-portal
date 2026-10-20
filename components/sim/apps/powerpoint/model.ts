@@ -95,6 +95,34 @@ export const ANIMATIONS = ["None", "Appear", "Fade", "Fly In", "Float In", "Spli
 export const EMPHASIS = ["Pulse", "Color Pulse", "Teeter", "Spin", "Grow/Shrink", "Desaturate", "Darken", "Lighten", "Transparency"];
 export const EXITS = ["Disappear", "Fade Out", "Fly Out", "Float Out", "Split Out", "Wipe Out", "Zoom Out"];
 
+/** Table Styles gallery, in PowerPoint's order (Medium Style 2 - Accent 1 is the default for a new table). */
+export const TABLE_STYLES = ["Medium Style 2 - Accent 1", "Medium Style 2 - Accent 2", "Medium Style 2 - Accent 6", "Light Style 1 - Accent 1", "Light Style 2 - Accent 4", "Themed Style 1 - Accent 6", "Dark Style 1 - Accent 1"];
+
+const OFFICE_ACCENTS = ["#4472C4", "#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5", "#70AD47"];
+
+/** Header, banded-row, plain-row, border and text colors of a table style (a slide table and its gallery swatch). */
+export function tableStyleColors(style: string | undefined, accent: string): { head: string; headText: string; band: string; plain: string; border: string; text?: string } {
+  const m = /Accent (\d)/.exec(style ?? "");
+  const a = m ? OFFICE_ACCENTS[Number(m[1]) - 1] : accent;
+  if (/Light/.test(style ?? "")) return { head: "#ffffff", headText: a, band: `${a}22`, plain: "#ffffff", border: a };
+  if (/Dark/.test(style ?? "")) return { head: "#000000", headText: "#ffffff", band: `${a}cc`, plain: a, border: "#ffffff", text: "#ffffff" };
+  if (/Themed/.test(style ?? "")) return { head: a, headText: "#ffffff", band: `${a}33`, plain: "#ffffff", border: a };
+  return { head: a, headText: "#ffffff", band: `${a}40`, plain: `${a}1f`, border: "#ffffff" };
+}
+
+/**
+ * A CSS background that draws a style's gallery thumbnail: a five-row striped table
+ * (header row, banded rows, column lines) in the style's colors.
+ */
+export function tableStyleSwatch(style: string): string {
+  const c = tableStyleColors(style, OFFICE_ACCENTS[0]);
+  const cols = `repeating-linear-gradient(to right, transparent 0 calc(25% - 1px), ${c.border} calc(25% - 1px) 25%)`;
+  const head = `linear-gradient(to bottom, ${c.head} 0 20%, transparent 20%)`;
+  const rule = /Light/.test(style) ? `linear-gradient(to bottom, transparent 0 19%, ${c.border} 19% 21%, transparent 21%)` : "";
+  const bands = `repeating-linear-gradient(to bottom, ${c.band} 0 20%, ${c.plain} 20% 40%)`;
+  return [rule, head, cols, bands].filter(Boolean).join(", ");
+}
+
 /** Display name of a layout, after Slide Master › Rename. */
 export function layoutName(deck: PptDeck, layout: string): string {
   return readMaster(deck).layoutNames?.[layout] ?? layout;

@@ -1213,6 +1213,15 @@ const LEADERS: Record<string, TabStop["leader"]> = { "2 .......": "dots", "3 ---
 /* Built-in command handling                                           */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Insert › Header/Footer and Go to Header/Footer put the cursor in the header
+ * or footer, ready to type. The canvas opens its text box when this counter
+ * changes (it can't see which command ran).
+ */
+function enterHeaderFooter(doc: WordDoc) {
+  doc.flags = { ...(doc.flags ?? {}), hfEdit: Number(doc.flags?.hfEdit ?? 0) + 1 };
+}
+
 export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordDoc; ui?: Partial<SimUi> } {
   const common = applyCommonCommit(input, c, ".docx");
   if (common) {
@@ -2039,19 +2048,27 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
       return { doc };
     case "insert.header":
       if (sv === "Remove Header") doc.header = undefined;
-      else doc.header = doc.header ?? (sv === "Blank (Three Columns)" ? "[Type here]    [Type here]    [Type here]" : "[Type here]");
+      else {
+        doc.header = doc.header ?? (sv === "Blank (Three Columns)" ? "[Type here]    [Type here]    [Type here]" : "[Type here]");
+        enterHeaderFooter(doc);
+      }
       return { doc, ui: sv === "Remove Header" ? undefined : { selection: "header" } };
     case "insert.footer":
       if (sv === "Remove Footer") doc.footer = undefined;
-      else doc.footer = doc.footer ?? (sv === "Blank (Three Columns)" ? "[Type here]    [Type here]    [Type here]" : "[Type here]");
+      else {
+        doc.footer = doc.footer ?? (sv === "Blank (Three Columns)" ? "[Type here]    [Type here]    [Type here]" : "[Type here]");
+        enterHeaderFooter(doc);
+      }
       return { doc, ui: sv === "Remove Footer" ? undefined : { selection: "footer" } };
     case "header.close":
       return { doc, ui: { selection: doc.paragraphs[0]?.id ?? "" } };
     case "header.gotoHeader":
       doc.header = doc.header ?? "[Type here]";
+      enterHeaderFooter(doc);
       return { doc, ui: { selection: "header" } };
     case "header.gotoFooter":
       doc.footer = doc.footer ?? "[Type here]";
+      enterHeaderFooter(doc);
       return { doc, ui: { selection: "footer" } };
     case "header.differentFirst":
     case "header.differentOddEven": {
@@ -2059,6 +2076,10 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
       doc.flags = { ...(doc.flags ?? {}), [k]: !doc.flags?.[k] };
       return { doc };
     }
+    case "header.showDocText":
+      // Checked by default in Word; unchecking hides the body while you work in the header and footer.
+      doc.flags = { ...(doc.flags ?? {}), hideDocText: !doc.flags?.hideDocText };
+      return { doc };
     case "insert.dropCap":
       doc.flags = { ...(doc.flags ?? {}), dropCap: sv };
       return { doc };
@@ -2782,6 +2803,7 @@ export function wordRibbonState(doc: WordDoc, ui: SimUi): Record<string, SimValu
     "mail.preview": Boolean(doc.merge?.preview),
     "header.differentFirst": Boolean(doc.flags?.differentFirst),
     "header.differentOddEven": Boolean(doc.flags?.differentOddEven),
+    "header.showDocText": !doc.flags?.hideDocText,
     "layout.indentLeft": p?.indentLeft ?? 0,
     "layout.indentRight": p ? xp(p).indentRight ?? 0 : 0,
     "layout.spaceBefore": p ? paraLook(doc, p).spaceBefore : 0,

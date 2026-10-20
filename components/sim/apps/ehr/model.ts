@@ -77,7 +77,8 @@ export function ageOf(dob: string, todayIso: string): number {
 }
 
 export function money(n: number | undefined): string {
-  const v = n ?? 0;
+  // Round to cents first so a float remainder (340 - 148.8 - 154 - 37.2) reads $0.00, not -$0.00.
+  const v = Math.round((n ?? 0) * 100) / 100;
   const s = Math.abs(v).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return v < 0 ? `-$${s}` : `$${s}`;
 }

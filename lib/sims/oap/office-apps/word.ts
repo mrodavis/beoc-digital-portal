@@ -699,7 +699,7 @@ export const wordSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Change the date “10/20/26” to the full written format, “October 20, 2026”.",
-          hint: "Double-click the date line, type October 20, 2026, and press Enter.",
+          hint: "Triple-click the date line “10/20/26” to select the whole line (double-clicking it works here too), type October 20, 2026 to replace it, and press Enter.",
           steps: [{ action: { kind: "type", target: "p3", value: "October 20, 2026" } }],
         },
         {
@@ -1063,7 +1063,7 @@ export const wordSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Rename the heading “Phone Calls” to “Telephone Communication Standards”.",
-          hint: "Double-click the heading “Phone Calls”, type Telephone Communication Standards, and press Enter.",
+          hint: "Triple-click the heading “Phone Calls” to select the whole heading (double-clicking it works here too), type Telephone Communication Standards to replace it, and press Enter.",
           steps: [{ action: { kind: "type", target: "p10", value: "Telephone Communication Standards" } }],
         },
         {
@@ -1150,7 +1150,7 @@ export const wordSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "In the Screens and Computers section, change “five” to “two”.",
-          hint: "Double-click the word “five”, type two, and press Enter. Word marks the old word as deleted and the new word as inserted.",
+          hint: "Double-click the word “five” to select it, type two to replace it, and press Enter. Word marks the old word as deleted and the new word as inserted.",
           steps: [{ action: { kind: "type", target: "p8.r1", value: "two" } }],
         },
         {

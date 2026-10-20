@@ -196,8 +196,8 @@ export const typingSims: Record<string, SimDefinition[]> = {
                 heading: "Mailing Address",
                 fields: [
                   { name: "street", label: "Street Address", span: 6 },
-                  { name: "city", label: "City", span: 3 },
-                  { name: "state", label: "State", type: "select", options: ["CT", "NJ", "NY", "PA"], span: 1 },
+                  { name: "city", label: "City", span: 2 },
+                  { name: "state", label: "State", type: "select", options: ["CT", "NJ", "NY", "PA"], span: 2 },
                   { name: "zip", label: "ZIP Code", span: 2 },
                 ],
               },
@@ -225,22 +225,17 @@ export const typingSims: Record<string, SimDefinition[]> = {
       }),
       tasks: [
         {
-          instruction: "Enter the applicant's first name, last name, and email address exactly as they are written on the scanned form.",
-          hint: "Click First Name and type “Keisha”, press Tab, type “Okafor-Bennett” (with the hyphen), then click Email and type the address. Tab moves to the next field and saves the one you left.",
+          // One any-order task for the whole Applicant section: a learner who fills it top to bottom
+          // (names, then date of birth and phone, then email) never types ahead of the task.
+          instruction: "Enter the applicant's first name, last name, date of birth, phone number, and email address exactly as they are written on the scanned form. Read each number back against the form before you move on.",
+          hint: "Click First Name and type “Keisha”, press Tab, and type “Okafor-Bennett” (with the hyphen). Press Tab and type “03/14/1997” in Date of Birth, then “(347) 555-0186” in Phone, then the email address. Tab moves to the next field and saves the one you left.",
           anyOrder: true,
           steps: [
             { action: { kind: "type", target: "field:firstName", value: "Keisha" }, requires: { selection: "ex:f1" }, selectHint: "Work in the New Applicant Record form." },
             { action: { kind: "type", target: "field:lastName", value: "Okafor-Bennett" }, requires: { selection: "ex:f1" }, selectHint: "Work in the New Applicant Record form." },
-            { action: { kind: "type", target: "field:email", value: "keisha.okafor.b@mailbox.example" }, requires: { selection: "ex:f1" }, selectHint: "Work in the New Applicant Record form." },
-          ],
-        },
-        {
-          instruction: "Enter the date of birth and the phone number. Read each number back against the form before you move on.",
-          hint: "Click Date of Birth and type “03/14/1997”. Press Tab and type the phone number “(347) 555-0186”. Compare each digit with the form before you press Tab.",
-          anyOrder: true,
-          steps: [
             { action: { kind: "type", target: "field:dob", value: ["03/14/1997", "3/14/1997"] }, requires: { selection: "ex:f1" }, selectHint: "Work in the New Applicant Record form." },
             { action: { kind: "type", target: "field:phone", value: PHONE_KEISHA }, requires: { selection: "ex:f1" }, selectHint: "Work in the New Applicant Record form." },
+            { action: { kind: "type", target: "field:email", value: "keisha.okafor.b@mailbox.example" }, requires: { selection: "ex:f1" }, selectHint: "Work in the New Applicant Record form." },
           ],
         },
         {

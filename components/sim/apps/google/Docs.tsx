@@ -114,7 +114,8 @@ export interface PageProps {
   spelling?: boolean;
   onSelect?: (key: string, e?: React.MouseEvent) => void;
   onEdit?: (key: string, initial?: string) => void;
-  editing?: { key: string; text: string } | null;
+  /** `selectAll`: the editor opened on a run by double-click, with the run's words selected. */
+  editing?: { key: string; text: string; selectAll?: boolean } | null;
   setEditText?: (t: string) => void;
   commitEdit?: () => void;
   cancelEdit?: () => void;
@@ -403,8 +404,10 @@ function InlineEdit(props: PageProps & { inline?: boolean; style?: React.CSSProp
     const el = ref.current;
     if (!el) return;
     el.focus();
-    el.setSelectionRange(el.value.length, el.value.length);
-  }, []);
+    // Double-clicking words selects them, as in Docs, so typing replaces them; otherwise the caret goes to the end.
+    if (props.editing?.selectAll) el.select();
+    else el.setSelectionRange(el.value.length, el.value.length);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -470,9 +473,10 @@ export function DocsSurface({ composer, setComposer }: { composer: boolean; setC
   const f = openFile(doc)!;
   const w = asWord(f);
   const mode: GMode = doc.mode ?? "Editing";
-  const [editing, setEditingState] = useState<{ key: string; text: string } | null>(null);
-  const editRef = useRef<{ key: string; text: string } | null>(null);
-  const setEditing = (v: { key: string; text: string } | null) => { editRef.current = v; setEditingState(v); };
+  type Editing = { key: string; text: string; selectAll?: boolean };
+  const [editing, setEditingState] = useState<Editing | null>(null);
+  const editRef = useRef<Editing | null>(null);
+  const setEditing = (v: Editing | null) => { editRef.current = v; setEditingState(v); };
   const scrollRef = useRef<HTMLDivElement>(null);
   const width = useWidth(scrollRef, 900);
   const [ctx, setCtx] = useState<{ pos: MenuPos; key: string } | null>(null);
@@ -504,7 +508,7 @@ export function DocsSurface({ composer, setComposer }: { composer: boolean; setC
   const startEdit = (key: string, initial?: string) => {
     if (mode === "Viewing" || !editableKey(w, key)) return;
     g.onSelect({ selection: key });
-    setEditing({ key, text: initial ?? textAt(w, key) });
+    setEditing({ key, text: initial ?? textAt(w, key), ...(initial === undefined && parseSel(w, key).run ? { selectAll: true } : {}) });
   };
   const commitEdit = () => {
     const e = editRef.current;

@@ -34,9 +34,18 @@ export const wordModule4Sims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "insert.header", value: "Blank" } }],
         },
         {
-          instruction: "In the header, type “Lakeside Medical Associates · Referral Packet for Rosa Ramirez”.",
+          instruction: "In the header, type “Lakeside Medical Associates - Referral Packet for Rosa Ramirez”.",
           hint: "Click [Type here] in the header (double-click the header area if you closed it), type the text, and press Enter.",
-          steps: [{ action: { kind: "type", target: "header", value: "Lakeside Medical Associates · Referral Packet for Rosa Ramirez" } }],
+          steps: [
+            {
+              action: {
+                kind: "type",
+                target: "header",
+                // The hyphen in the instruction; a dash, bar, middle dot or plain spaces between the two parts are fine too.
+                value: [" - ", " – ", " — ", " | ", " · ", "  "].map((sep) => `Lakeside Medical Associates${sep}Referral Packet for Rosa Ramirez`),
+              },
+            },
+          ],
         },
         {
           instruction: "At the end of the header text, insert today's date in the format “October 20, 2026”, set to update automatically.",
@@ -123,7 +132,7 @@ export const wordModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "In the Who May Visit section, change “two” to “one”.",
-          hint: "Double-click the word “two”, type one, and press Enter. Word marks the old word as deleted and the new word as inserted.",
+          hint: "Double-click the word “two” to select it, type one to replace it, and press Enter. Word marks the old word as deleted and the new word as inserted.",
           steps: [{ action: { kind: "type", target: "p6.r1", value: "one" } }],
         },
         {

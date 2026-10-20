@@ -1,6 +1,6 @@
 import type { DialogDef, RibbonOption, RibbonTab } from "@/types/sim";
 import { THEME_COLORS } from "../../chrome/colors";
-import { ANIMATIONS, EMPHASIS, EXITS, LAYOUTS, PPT_THEMES, PPT_THEME_NAMES, TRANSITIONS } from "./model";
+import { ANIMATIONS, EMPHASIS, EXITS, LAYOUTS, PPT_THEMES, PPT_THEME_NAMES, TABLE_STYLES, TRANSITIONS, tableStyleSwatch } from "./model";
 import { AUDIO_FILES, BACKGROUND_STYLES, BULLET_STYLES, COLOR_SETS, EFFECT_SETS, FONT_SETS, GRAPHIC_STYLES, ICONS, NUMBER_FORMATS, ONLINE_PICTURES, PASTE_SPECIAL_FORMATS, PICTURE_FILES, SCREEN_WINDOWS, STOCK_IMAGES, VIDEO_FILES } from "./ext";
 
 const FONTS = ["Aptos", "Aptos Display", "Arial", "Calibri", "Calibri Light", "Cambria", "Candara", "Century Gothic", "Corbel", "Franklin Gothic Book", "Garamond", "Georgia", "Gill Sans MT", "Segoe UI", "Tahoma", "Times New Roman", "Trebuchet MS", "Tw Cen MT", "Verdana"];
@@ -300,7 +300,10 @@ export const pptRibbon: RibbonTab[] = [
     groups: [
       { label: "Preview", controls: [{ type: "button", id: "animation.preview", label: "Preview", icon: "preview", size: "large" }] },
       { label: "Animation", controls: [
-        { type: "gallery", id: "animation.apply", label: "Animations", options: [...ANIMATIONS.map((a) => ({ value: a, label: a, preview: { color: "#2E7D32" } })), ...EMPHASIS.map((a) => ({ value: a, label: a, preview: { color: "#B8860B" } })), ...EXITS.map((a) => ({ value: a, label: a, preview: { color: "#C00000" } }))], width: 340 },
+        // The More list groups effects under Emphasis and Exit headings, as PowerPoint does. The entrance
+        // effects follow None without their own heading: the Ribbon's in-gallery row shows the first four
+        // options as tiles (headings included), so a heading there would show up as a tile.
+        { type: "gallery", id: "animation.apply", label: "Animations", options: [...ANIMATIONS.map((a) => ({ value: a, label: a, preview: { color: "#2E7D32" } })).flatMap((o, i) => (i === 1 ? [{ value: "Entrance", heading: true }, o] : [o])), { value: "Emphasis", heading: true }, ...EMPHASIS.map((a) => ({ value: a, label: a, preview: { color: "#B8860B" } })), { value: "Exit", heading: true }, ...EXITS.map((a) => ({ value: a, label: a, preview: { color: "#C00000" } }))], width: 340 },
         { type: "dropdown", id: "animation.effect", label: "Effect Options", icon: "options", size: "large", options: [{ value: "Direction", heading: true }, ...["From Bottom", "From Left", "From Right", "From Top"].map((v) => ({ value: v })), { value: "Sequence", heading: true }, ...["As One Object", "All at Once", "By Paragraph"].map((v) => ({ value: v }))] },
       ] },
       { label: "Advanced Animation", controls: [
@@ -494,7 +497,9 @@ export const pptRibbon: RibbonTab[] = [
         { type: "toggle", id: "table.lastColumn", label: "Last Column", showLabel: true },
         { type: "toggle", id: "table.bandedColumns", label: "Banded Columns", showLabel: true },
       ] },
-      { label: "Table Styles", controls: [{ type: "gallery", id: "table.style", label: "Table Styles", options: ["Medium Style 2 - Accent 1", "Medium Style 2 - Accent 2", "Medium Style 2 - Accent 6", "Light Style 1 - Accent 1", "Light Style 2 - Accent 4", "Themed Style 1 - Accent 6", "Dark Style 1 - Accent 1"].map((v) => ({ value: v, label: v })), width: 300 }] },
+      // Thumbnails like PowerPoint's: a striped table in the style's colors, the name only as the tooltip
+      // (and accessible name); the near-zero preview size keeps the caption from showing under the swatch.
+      { label: "Table Styles", controls: [{ type: "gallery", id: "table.style", label: "Table Styles", options: TABLE_STYLES.map((v) => ({ value: v, label: v, color: tableStyleSwatch(v), preview: { size: 0.01 } })), width: 300 }] },
     ],
   },
   {

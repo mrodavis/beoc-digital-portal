@@ -1,7 +1,7 @@
 import type { SimCommit } from "@/types/sim";
 import type { AppCore } from "../../types";
 import type { AccessDoc } from "./types";
-import { accessRibbon } from "./ribbon";
+import { accessRibbon, accessRibbonFor } from "./ribbon";
 import { accessDialogs } from "./dialogs";
 import {
   activeTab,
@@ -159,6 +159,7 @@ export const accessCore: AppCore<AccessDoc> = {
   normalize,
   apply: applyAccess,
   ribbonState: accessRibbonState,
+  ribbonFor: (doc) => accessRibbonFor(activeTab(doc)?.kind),
   contextualTabs: (doc) => accessContextual(doc),
   dialogDef: (doc, ui, id) => accessDialogDef(doc, ui, id, accessDialogs[id]),
   dialogDefaults: accessDialogDefaults,

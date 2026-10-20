@@ -113,6 +113,7 @@ export function Popover({
                 type="button"
                 role="menuitem"
                 disabled={it.disabled}
+                title={it.label}
                 onClick={() => { it.onPick?.(); onClose(); }}
                 className="flex w-[88px] flex-col items-center gap-1 rounded border border-transparent p-1.5 text-center hover:border-orange-300 hover:bg-orange-50"
               >
@@ -218,7 +219,7 @@ function ControlView({
   };
 
   if (c.type === "gallery") {
-    const visible = c.options.slice(0, 4);
+    const visible = c.options.filter((o) => !o.heading && !o.dialog).slice(0, 4);
     return (
       <div className="flex h-[62px] items-stretch rounded-sm border border-gray-300 bg-white" style={{ width: c.width ?? 300 }}>
         <div className="flex flex-1 items-stretch gap-0.5 overflow-hidden p-0.5">
@@ -313,6 +314,29 @@ function ControlView({
     );
   }
 
+  // A toggle with no icon is a checkbox in Office (Different First Page, Gridlines, Hide Background Graphics).
+  if (c.type === "toggle" && !c.icon) {
+    return (
+      <button
+        type="button"
+        role="checkbox"
+        aria-checked={pressed}
+        title={tip}
+        onClick={() => h.onCommand(c.id)}
+        className="flex h-[22px] items-center gap-1.5 rounded-sm border border-transparent px-1 text-[11.5px] leading-tight text-gray-800 hover:border-[#cce4f7] hover:bg-[#e5f1fb]"
+      >
+        <span className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-[2px] border ${pressed ? "border-[#0f6cbd] bg-[#0f6cbd]" : "border-gray-500 bg-white"}`} aria-hidden="true">
+          {pressed && (
+            <svg width="10" height="10" viewBox="0 0 10 10">
+              <path d="M2 5.2l2 2 4-4.4" stroke="#fff" strokeWidth="1.6" fill="none" />
+            </svg>
+          )}
+        </span>
+        <span className="whitespace-nowrap">{c.label}</span>
+      </button>
+    );
+  }
+
   const isDropdown = c.type === "dropdown";
   const split = isDropdown && c.split;
 
@@ -345,7 +369,7 @@ function ControlView({
         onClick={onFace}
         className={
           large
-            ? `${base} h-[66px] min-w-[44px] max-w-[84px] flex-col justify-start gap-0.5 px-1 pt-1 text-center ${split ? "rounded-b-none" : ""}`
+            ? `${base} h-[66px] min-w-[44px] max-w-[96px] flex-col justify-start gap-0.5 px-1 pt-1 text-center ${split ? "rounded-b-none" : ""}`
             : `${base} h-[22px] gap-1 px-1`
         }
       >

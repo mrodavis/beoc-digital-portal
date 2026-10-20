@@ -354,7 +354,7 @@ function ClaimForm() {
 }
 
 function Era() {
-  const { doc, sel, select, cmd, openForm } = useEhr();
+  const { doc, sel, select, cmd, openForm, menu } = useEhr();
   const remits = doc.remits ?? [];
   const picked = sel.startsWith("era:") ? sel.slice(4) : "";
   const pickedLine = remits.flatMap((r) => r.lines).find((l) => l.id === picked);
@@ -379,10 +379,34 @@ function Era() {
             {r.lines.map((l) => {
               const p = patientOf(doc, l.patient);
               return (
-                <Row key={l.id} label={`ERA line ${l.id}`} selected={picked === l.id} onClick={() => select(`era:${l.id}`)} onDoubleClick={() => !l.posted && (select(`era:${l.id}`), openForm("ehr.post", { line: l.id }))}>
-                  <Td mono>
-                    <button type="button" className="text-sky-700 underline decoration-dotted" onClick={(e) => (e.stopPropagation(), cmd("ehr.claim.open", l.claim))}>
-                      {l.claim}
+                <Row
+                  key={l.id}
+                  label={`ERA line ${l.id}, claim ${l.claim}`}
+                  selected={picked === l.id}
+                  onClick={() => select(`era:${l.id}`)}
+                  onDoubleClick={() => !l.posted && (select(`era:${l.id}`), openForm("ehr.post", { line: l.id }))}
+                  onContextMenu={(e) => {
+                    e.preventDefault();
+                    select(`era:${l.id}`);
+                    menu(e, [
+                      { label: "Post line…", onPick: () => openForm("ehr.post", { line: l.id }), disabled: Boolean(l.posted) },
+                      { separator: true },
+                      { label: `Open claim ${l.claim}`, onPick: () => cmd("ehr.claim.open", l.claim) },
+                    ]);
+                  }}
+                >
+                  <Td mono className="whitespace-nowrap">
+                    {/* Clicking the claim number selects the line like the rest of the row; the jump to the claim is its own small link. */}
+                    <span className="font-semibold">{l.claim}</span>
+                    <button
+                      type="button"
+                      aria-label={`Open claim ${l.claim}`}
+                      title={`Open claim ${l.claim} (CMS-1500)`}
+                      className="ml-1 inline-flex translate-y-[2px] items-center rounded-[2px] text-sky-700 hover:bg-sky-100 hover:text-sky-900"
+                      onClick={(e) => (e.stopPropagation(), cmd("ehr.claim.open", l.claim))}
+                      onDoubleClick={(e) => e.stopPropagation()}
+                    >
+                      <Icon name="claim" size={12} />
                     </button>
                   </Td>
                   <Td>

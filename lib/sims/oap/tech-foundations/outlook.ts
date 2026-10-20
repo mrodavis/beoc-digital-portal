@@ -225,7 +225,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           hint: "Select a Campus Tech Weekly message, then Home tab › Move group › Rules › Create Rule... › check From Campus Tech Weekly › check Move the item to folder › Newsletters › check Run this rule now › OK. (Rules › Always Move Messages From Sender... also works.)",
           steps: [
             {
-              action: { kind: "dialog", id: "createRule", values: { fromOn: true, from: NEWS.email, moveOn: true, folder: "Newsletters", runNow: true } },
+              action: { kind: "dialog", id: "createRule", values: { fromOn: true, moveOn: true, folder: "Newsletters", runNow: true } },
               alt: [{ kind: "dialog", id: "alwaysMove", values: { folder: "Newsletters" } }],
               requires: { selection: ["msg:m4", "msg:m5"] },
               selectHint: "Select one of the Campus Tech Weekly messages first, so the rule is built from that sender.",

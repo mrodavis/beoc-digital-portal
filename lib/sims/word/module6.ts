@@ -161,11 +161,12 @@ export const wordModule6Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Indent the Key Rule quote 0.5 inch from the left margin.",
-          hint: "Click the quote. Layout tab › Paragraph group › Indent Left › 0.5 (or use the Paragraph dialog).",
+          hint: "Click the quote. Layout tab › Paragraph group › Indent Left › 0.5 (or the Paragraph dialog, or Home tab › Paragraph group › Increase Indent once, which indents 0.5 inch; Ctrl+M).",
           steps: [
             {
               action: { kind: "command", id: "layout.indentLeft", value: "0.5" },
-              alt: [{ kind: "dialog", id: "paragraph", values: { indentLeft: 0.5 } }],
+              // Increase Indent (Ctrl+M) moves the left indent to the next 0.5" stop: from 0 that is exactly 0.5".
+              alt: [{ kind: "dialog", id: "paragraph", values: { indentLeft: 0.5 } }, { kind: "command", id: "home.indentInc" }],
               requires: { selection: "p6" },
               selectHint: "Click the quote under “The Key Rule” first.",
             },

@@ -28,7 +28,7 @@ function crmForm(id: string, record: string, source: TypingFormExercise["source"
         id: "s2",
         heading: "Details",
         fields: [
-          { name: "summary", label: "Summary (at least 3 sentences)", type: "textarea", span: 6, required: true },
+          { name: "summary", label: "Summary (at least 3 sentences)", type: "textarea", span: 6, required: true, minSentences: 3 },
           { name: "nextSteps", label: "Next Steps (owner and due date)", type: "textarea", span: 6, required: true },
         ],
       },
@@ -82,18 +82,14 @@ export const typingSims: Record<string, SimDefinition[]> = {
       }),
       tasks: [
         {
-          instruction: "Enter the date of the call and the participants (both names).",
-          hint: "Type “10/16/2026” in Date. In Participants, type “Marcus Webb, Dana Cole” and press Tab.",
+          instruction: "Enter the date of the call, the interaction type (Phone call) and the participants (both names).",
+          hint: "Type “10/16/2026” in Date, pick Phone call in the Interaction Type list, then type “Marcus Webb, Dana Cole” in Participants and press Tab.",
           anyOrder: true,
           steps: [
             { action: { kind: "type", target: "field:interactionDate", value: ["10/16/2026", "10/16/26"] }, requires: { selection: "ex:crm1" }, selectHint: HINT_FORM },
+            { action: { kind: "type", target: "field:interactionType", value: "Phone call" }, requires: { selection: "ex:crm1" }, selectHint: HINT_FORM },
             typeAll("field:participants", "Marcus Webb, Dana Cole", ["marcus webb", "dana cole"], { requires: { selection: "ex:crm1" }, selectHint: HINT_FORM }),
           ],
-        },
-        {
-          instruction: "Select Phone call as the interaction type.",
-          hint: "Interaction Type list › Phone call.",
-          steps: [{ action: { kind: "type", target: "field:interactionType", value: "Phone call" }, requires: { selection: "ex:crm1" }, selectHint: HINT_FORM }],
         },
         {
           instruction: "Write a summary of at least three sentences. It must mention the renewal, the two added workstations, and the Q3 Contract Review on Wednesday.",
