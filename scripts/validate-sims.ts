@@ -82,6 +82,7 @@ function catalogFor(core: AppCore<unknown>): { cmds: Catalog; dialogs: Set<strin
   for (const id of core.canvasCommands) add(id, undefined, true);
   for (const id of BACKSTAGE_COMMANDS) add(id, undefined, true);
   for (const id of core.freeCommands ?? []) add(id, undefined, true);
+  for (const id of core.canvasDialogs ?? []) dialogs.add(id);
   return { cmds, dialogs };
 }
 
@@ -97,7 +98,7 @@ function commitFor(a: SimAction): SimCommit | null {
       for (const [k, v] of Object.entries(a.values ?? {})) values[k] = firstVal(v) as SimValue;
       return { kind: "dialog", id: a.id, values };
     }
-    case "type": return { kind: "type", target: a.target, value: Array.isArray(a.value) ? a.value[0] : a.value };
+    case "type": return { kind: "type", target: a.target, value: Array.isArray(a.value) ? (a.match === "all" ? a.value.join(" ") : a.value[0]) : a.value };
     case "click": return { kind: "click", target: a.target };
     case "select": return null;
   }
@@ -133,11 +134,18 @@ function selectionExists(app: string, doc: unknown, sel: string): boolean {
     return /^[A-Z]{1,3}\d+(:[A-Z]{1,3}\d+)?$|^[A-Z]+:[A-Z]+$|^\d+:\d+$/i.test(sel.replace(/\$/g, ""));
   }
   if (app === "powerpoint") {
-    const [sid, part] = sel.split(".");
-    const s = d.slides.find((x: { id: string }) => x.id === sid);
-    if (!s) return false;
-    if (!part || part === "title" || part === "body" || part === "body2" || part === "subtitle" || part === "notes") return true;
-    return Boolean(s.objects?.some((o: { id: string }) => o.id === part));
+    // "s2", "s2.title", "s2.body.1" (a line), "s2.o1", "s2.o1.o2" / "s2.o1,s2.o2" (several objects),
+    // "s2.o3.r1c2" (a table cell), "master", "master.title", "layout:Title Slide".
+    return sel.split(",").every((raw) => {
+      const p = raw.trim();
+      if (p === "master" || p.startsWith("master.") || p.startsWith("layout:")) return true;
+      const [sid, ...rest] = p.split(".");
+      const s = d.slides.find((x: { id: string }) => x.id === sid);
+      if (!s) return false;
+      if (!rest.length || ["title", "body", "body2", "subtitle", "notes"].includes(rest[0])) return true;
+      const objs = rest.filter((r) => !/^(r\d+c\d+|\d+|[A-Z]{1,2}\d+)$/.test(r));
+      return objs.every((id) => s.objects?.some((o: { id: string }) => o.id === id));
+    });
   }
   return true;
 }
@@ -236,7 +244,7 @@ for (const [courseId, byLesson] of Object.entries(REGISTRY)) {
             ui = { ...ui, selection: t };
           }
           if (step.requires?.sheet) ui = { ...ui, sheet: step.requires.sheet };
-          if (step.requires?.slide) ui = { ...ui, slide: step.requires.slide };
+          if (step.requires?.slide) ui = { ...ui, slide: step.requires.slide, ...(step.requires.selection === undefined ? { selection: step.requires.slide } : {}) };
           if (a.kind === "type" && !selectionExists(sim.app, doc, a.target) && !["header", "footer", "find"].includes(a.target) && !/^(s\d+|[a-z]+\d*)\.(title|body|body2|subtitle|notes)$/.test(a.target)) {
             warn(`${tag}: type target "${a.target}" not found in the document at this point`);
           }

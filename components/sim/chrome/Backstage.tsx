@@ -47,7 +47,7 @@ export function Backstage({
   const [print, setPrint] = useState<Record<string, SimValue>>({
     copies: 1,
     printer: "BEOC-Lab-Printer on 14BP",
-    range: "Print All Pages",
+    range: app === "PowerPoint" ? "Print All Slides" : app === "Excel" ? "Print Active Sheets" : "Print All Pages",
     pages: "",
     sides: "Print One Sided",
     collate: "Collated",

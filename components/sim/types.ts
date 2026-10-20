@@ -93,6 +93,8 @@ export interface AppCore<D> {
    * complete a step that asks for them.
    */
   freeCommands?: string[];
+  /** Dialog ids the canvas opens itself (forms, wizards), for the validator. */
+  canvasDialogs?: string[];
   /** Rewrite a raw commit (e.g. three view buttons → one "view.mode" command with a value). */
   normalize?(c: SimCommit): SimCommit;
   /** The app's built-in reaction to a committed action. */

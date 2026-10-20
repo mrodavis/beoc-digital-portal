@@ -395,7 +395,7 @@ function SourceDoc({ src }: { src: TypingSource }) {
         )}
       </div>
       {src.stamp && (
-        <div className="absolute right-5 top-14 rotate-[8deg] rounded border-[3px] border-[#c0392b]/70 px-2 py-0.5 text-center text-[11px] font-bold uppercase leading-tight tracking-wider text-[#c0392b]/75" style={{ fontFamily: "Arial, sans-serif" }}>
+        <div className="absolute right-4 top-[86px] rotate-[8deg] whitespace-pre-line rounded border-[3px] border-[#c0392b]/70 bg-[#fdfcf6]/40 px-2 py-0.5 text-center text-[10px] font-bold uppercase leading-tight tracking-wider text-[#c0392b]/75" style={{ fontFamily: "Arial, sans-serif" }}>
           {src.stamp}
         </div>
       )}

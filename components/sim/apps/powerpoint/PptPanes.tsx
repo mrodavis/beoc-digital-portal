@@ -85,7 +85,19 @@ function TextPane({ deck, ui, onCommit }: Pick<Props, "deck" | "ui" | "onCommit"
         onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter" && e.ctrlKey) { e.preventDefault(); commit(); } }}
         onBlur={commit}
         className="min-h-[160px] flex-1 resize-none rounded border border-gray-300 p-2 font-[inherit] leading-6"
-        style={{ backgroundImage: "radial-gradient(circle at 6px 12px, #555 2px, transparent 2.5px)", backgroundSize: "100% 24px", backgroundRepeat: "repeat-y", paddingLeft: 18 }}
+        style={(() => {
+          // One bullet per line of text, not a bullet on every empty row of the box.
+          const lines = Math.max(1, draft.split("\n").length);
+          const dot = "radial-gradient(circle at 6px 12px, #555 2px, transparent 2.5px)";
+          return {
+            backgroundImage: Array(lines).fill(dot).join(","),
+            backgroundSize: "12px 24px",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: Array.from({ length: lines }, (_, i) => `0 ${8 + i * 24}px`).join(","),
+            backgroundAttachment: "local",
+            paddingLeft: 18,
+          };
+        })()}
       />
       <p className="text-[11px] text-gray-500">{o.label}</p>
     </div>

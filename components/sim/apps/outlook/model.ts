@@ -811,7 +811,10 @@ function applyType(doc: OutlookDoc, target: string, value: string, ui: SimUi): R
     case "compose.to":
     case "compose.cc":
     case "compose.bcc":
-      if (comp) comp[target.slice(8) as "to" | "cc" | "bcc"] = tokensOf(value);
+      if (comp) {
+        comp[target.slice(8) as "to" | "cc" | "bcc"] = tokensOf(value);
+        if (target === "compose.to") comp.prefilled = false;
+      }
       return { doc };
     case "compose.subject":
       if (comp) comp.subject = value;
@@ -1207,12 +1210,12 @@ function runQuickStep(doc: OutlookDoc, name: string, ui: SimUi): Res {
     case "To Manager":
       if (msgs[0] && doc.manager) {
         bumpCompose(doc);
-        doc.compose = { ...composeFor(doc, "forward", msgs[0]), to: [doc.manager.email], inline: false };
+        doc.compose = { ...composeFor(doc, "forward", msgs[0]), to: [doc.manager.email], inline: false, prefilled: true };
       }
       return { doc };
     case "Team Email":
       bumpCompose(doc);
-      doc.compose = { ...composeFor(doc, "new"), to: doc.team ?? [] };
+      doc.compose = { ...composeFor(doc, "new"), to: doc.team ?? [], prefilled: Boolean(doc.team?.length) };
       return { doc };
     case "Done":
       for (const m of msgs) {
@@ -1522,7 +1525,7 @@ function applyCommand(doc: OutlookDoc, id: string, value: SimValue | undefined, 
     case "contact.emailTo": {
       const to = contactEmails(doc, ui);
       bumpCompose(doc);
-      doc.compose = { ...composeFor(doc, "new"), to };
+      doc.compose = { ...composeFor(doc, "new"), to, prefilled: to.length > 0 };
       return { doc };
     }
     case "contact.meetingWith":
@@ -2019,7 +2022,9 @@ function applyCommand(doc: OutlookDoc, id: string, value: SimValue | undefined, 
       if (!s) return { doc };
       const base = sv.split(" (")[0];
       if (base === "Decline") {
-        doc.events = (doc.events ?? []).filter((e) => e.id !== s.evt.id);
+        if (s.evt.recurrence && s.date) s.evt.exceptions = Array.from(new Set([...(s.evt.exceptions ?? []), s.date]));
+        else doc.events = (doc.events ?? []).filter((e) => e.id !== s.evt.id);
+        if (s.evt.organizer && s.evt.organizer.email !== doc.account.email) sentCopy(doc, [s.evt.organizer], `Declined: ${s.evt.title}`, s.date && s.evt.recurrence ? `Declined the occurrence on ${fmtLong(s.date)}.` : "");
         return { doc, ui: { selection: "" } };
       }
       s.evt.response = base === "Tentative" ? "Tentative" : "Accepted";

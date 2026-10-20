@@ -26,6 +26,16 @@ export interface SectionProps {
   /** Line between columns. */
   line?: boolean;
 }
+/** References › Table of Contents › Custom Table of Contents. */
+export interface TocOptions {
+  pageNumbers?: boolean;
+  rightAlign?: boolean;
+  leader?: "dots" | "dashes" | "line" | "none";
+  /** Formats box: From template, Classic, Distinctive, Fancy, Modern, Formal, Simple. */
+  format?: string;
+  /** Show levels (1-9). */
+  levels?: number;
+}
 export type XPara = WordPara & {
   numberStart?: number;
   numberContinue?: boolean;
@@ -39,7 +49,73 @@ export type XPara = WordPara & {
   section?: SectionProps;
   /** Table of contents entries as of the last insert/update. */
   entries?: { id: string; text: string; level: number }[];
+  /** Custom Table of Contents settings (kind "toc"). */
+  tocOptions?: TocOptions;
 };
+
+/** Developer tab content controls. A control is a run with `cc` (selection key "p5.cc1"). */
+export type ContentControlType = "richText" | "plainText" | "picture" | "checkBox" | "comboBox" | "dropDown" | "datePicker";
+export interface ContentControl {
+  type: ContentControlType;
+  title?: string;
+  tag?: string;
+  /** Drop-Down List / Combo Box entries. */
+  items?: string[];
+  /** Check Box state. */
+  checked?: boolean;
+  /** Gray text shown while the control is empty. */
+  placeholder?: string;
+  lockDelete?: boolean;
+  lockEdit?: boolean;
+}
+/**
+ * Extra run fields: `note` marks a footnote/endnote reference mark (its text
+ * is the number), `cc` a content control, `xref` a cross-reference (the
+ * paragraph it points at, plus what it shows).
+ */
+export type XRun = WordRun & {
+  note?: "footnote" | "endnote";
+  cc?: ContentControl;
+  xref?: { target: string; show: string };
+};
+/** Insert › Quick Parts › AutoText entries. `paras` inserts whole paragraphs; `text` inserts inline. */
+export interface AutoTextEntry {
+  name: string;
+  text?: string;
+  paras?: WordPara[];
+  gallery?: string;
+  category?: string;
+}
+/** Insert › Bookmark. `at` is the selection key the bookmark marks (a paragraph or run). */
+export interface Bookmark {
+  name: string;
+  at: string;
+}
+/** Review › Restrict Editing. */
+export const RESTRICT_TYPES = ["Tracked changes", "Comments", "Filling in forms", "No changes (Read only)"] as const;
+export interface Protection {
+  type: (typeof RESTRICT_TYPES)[number];
+  password?: boolean;
+}
+/** Mailings › Edit Recipient List: filter and sort (Filter and Sort dialog). */
+export interface MergeFilter {
+  field: string;
+  op: string;
+  value: string;
+}
+export type XMerge = NonNullable<WordDoc["merge"]> & {
+  /** Recipients (by index into `recipients`) whose checkbox was cleared. */
+  excluded?: number[];
+  filter?: MergeFilter | null;
+  sort?: { field: string; order: "Ascending" | "Descending" } | null;
+  /** File names offered by Select Recipients › Use an Existing List. */
+  files?: string[];
+  /** Number of documents Finish & Merge produced. */
+  merged?: number;
+};
+/** Format Painter: character formatting, plus paragraph formatting when the source was a whole paragraph. */
+export type XPainter = TextProps & { style?: string; para?: Partial<Record<(typeof PARA_FMT_KEYS)[number], unknown>> };
+const PARA_FMT_KEYS = ["align", "spaceBefore", "spaceAfter", "lineSpacing", "indentLeft", "indentRight", "firstLine", "hanging"] as const;
 export type XObject = WordObject & {
   flipH?: boolean;
   flipV?: boolean;
@@ -66,13 +142,21 @@ export interface Source {
 }
 export type XDoc = WordDoc & {
   styleDefs?: Record<string, StyleDef>;
-  customStyles?: Record<string, StyleDef & { basedOn?: string }>;
+  customStyles?: Record<string, StyleDef & { basedOn?: string; type?: string }>;
   sources?: Source[];
+  /** Endnotes, in document order (footnotes live on `footnotes`). */
+  endnotes?: string[];
+  autoText?: AutoTextEntry[];
+  bookmarks?: Bookmark[];
+  /** Review › Restrict Editing, once Yes, Start Enforcing Protection is clicked. */
+  protection?: Protection | null;
 };
 
 const xp = (p: WordPara) => p as XPara;
 const xo = (o: WordObject) => o as XObject;
 const xd = (d: WordDoc) => d as XDoc;
+const xr = (r: WordRun) => r as XRun;
+const xm = (d: WordDoc) => (d.merge ?? {}) as XMerge;
 
 /* ------------------------------------------------------------------ */
 /* Styles and themes                                                   */
@@ -184,6 +268,29 @@ export const STYLES: Record<string, StyleDef> = {
 
 export const PARA_STYLE_NAMES = ["Normal", "No Spacing", "Heading 1", "Heading 2", "Heading 3", "Title", "Subtitle", "Quote", "Intense Quote", "List Paragraph"];
 export const CHAR_STYLE_NAMES = ["Strong", "Emphasis", "Subtle Emphasis", "Intense Emphasis", "Book Title"];
+
+/** Built-in styles. A `home.style` value that isn't one of these is a custom style: core.normalize turns it into `home.customStyle`. */
+export const BUILTIN_STYLE_NAMES = Array.from(new Set([...PARA_STYLE_NAMES, ...CHAR_STYLE_NAMES, ...Object.keys(STYLES)]));
+export function isBuiltInStyle(name: string): boolean {
+  const n = name.trim().toLowerCase();
+  return BUILTIN_STYLE_NAMES.some((s) => s.toLowerCase() === n);
+}
+
+/*
+ * The Ribbon is static data, but the Styles gallery lists the document's own
+ * styles too (Create a Style adds one). The gallery reads them from the
+ * document the player rendered last (set from ribbonState / contextualTabs,
+ * which the player calls on every render, just before it draws the Ribbon).
+ */
+let activeDoc: WordDoc | null = null;
+export function setActiveWordDoc(doc: WordDoc) {
+  activeDoc = doc;
+}
+/** Names of the custom styles (Create a Style) in a document, or in the document the player is showing. */
+export function customStyleNames(doc?: WordDoc | null): string[] {
+  const d = doc ?? activeDoc;
+  return d ? Object.keys(xd(d).customStyles ?? {}) : [];
+}
 
 export const STYLE_SETS = ["Default", "Basic (Elegant)", "Basic (Simple)", "Basic (Stylish)", "Casual", "Centered", "Lines (Distinctive)", "Lines (Simple)", "Lines (Stylish)", "Minimalist", "Shaded"];
 
@@ -335,6 +442,31 @@ function setSectionProps(doc: WordDoc, i: number, patch: SectionProps) {
   if (b) b.section = { ...sectionProps(doc, i), ...patch };
 }
 
+/** Pages of Print Layout: a manual page break, a Next Page/Even/Odd section break or "Page break before" starts a new page. */
+export function pagesOf(doc: WordDoc): { paras: WordPara[]; section: number }[] {
+  const pages: { paras: WordPara[]; section: number }[] = [{ paras: [], section: 0 }];
+  let sec = 0;
+  for (const p of doc.paragraphs) {
+    const cur = pages[pages.length - 1];
+    if (xp(p).pageBreakBefore && cur.paras.length) pages.push({ paras: [], section: sec });
+    pages[pages.length - 1].paras.push(p);
+    if (p.kind === "sectionBreak") sec++;
+    if (p.kind === "pageBreak" || (p.kind === "sectionBreak" && p.text !== "Continuous")) pages.push({ paras: [], section: sec });
+  }
+  return pages;
+}
+
+/** 0-based page a paragraph is on. */
+export function pageIndexOf(doc: WordDoc, pid: string): number {
+  return Math.max(0, pagesOf(doc).findIndex((pg) => pg.paras.some((p) => p.id === pid)));
+}
+
+const ROMAN = ["", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx"];
+/** Endnote numbers use i, ii, iii like Word. */
+export function noteLabel(kind: "footnote" | "endnote", n: number): string {
+  return kind === "endnote" ? ROMAN[n] ?? String(n) : String(n);
+}
+
 /** Sections the current selection touches. */
 function selectedSections(doc: WordDoc, ui: SimUi): number[] {
   const s = parseSel(doc, ui.selection);
@@ -353,12 +485,16 @@ export interface ParsedSel {
   /** A table cell. r = 0 means a whole column, c = 0 a whole row, both 0 the whole table. */
   cell?: { para: string; r: number; c: number };
   header?: "header" | "footer";
+  /** The text of a footnote or endnote ("footnote:1", "endnote:2"). */
+  note?: { kind: "footnote" | "endnote"; n: number };
 }
 
 export function parseSel(doc: WordDoc, sel: string): ParsedSel {
   if (!sel) return { paras: [] };
   if (sel === "all") return { paras: doc.paragraphs.map((p) => p.id) };
   if (sel === "header" || sel === "footer") return { paras: [], header: sel };
+  const noteM = /^(footnote|endnote):(\d+)$/.exec(sel);
+  if (noteM) return { paras: [], note: { kind: noteM[1] as "footnote" | "endnote", n: Number(noteM[2]) } };
   const cellM = /^([^.,]+)\.r(\d+)c(\d+)$/.exec(sel);
   if (cellM) return { paras: [cellM[1]], cell: { para: cellM[1], r: Number(cellM[2]), c: Number(cellM[3]) } };
   if (sel.includes(",")) return { paras: sel.split(",").map((s) => s.trim()).filter(Boolean) };
@@ -445,6 +581,349 @@ function toggleChar(doc: WordDoc, ui: SimUi, key: "bold" | "italic" | "underline
 function selectedParas(doc: WordDoc, ui: SimUi): WordPara[] {
   const s = parseSel(doc, ui.selection);
   return s.paras.map((id) => doc.paragraphs.find((p) => p.id === id)).filter(Boolean) as WordPara[];
+}
+
+/**
+ * Font and size of everything selected. When the selected paragraphs or runs
+ * differ, `font` / `size` are undefined and the Font dialog (and the Ribbon's
+ * Font box) shows a blank, so whatever the learner picks applies to all of them.
+ */
+export function selectionFontInfo(doc: WordDoc, ui: SimUi): { font?: string; size?: number } {
+  const s = parseSel(doc, ui.selection);
+  const fonts = new Set<string>();
+  const sizes = new Set<number>();
+  const add = (f?: string, z?: number) => {
+    if (f) fonts.add(f);
+    if (z !== undefined) sizes.add(z);
+  };
+  if (!s.run && !s.header && !s.note && !s.cell) {
+    for (const p of selectedParas(doc, ui)) {
+      if (p.kind && p.kind !== "p") continue;
+      const look = paraLook(doc, p);
+      const rs = runsOf(p).filter((r) => !r.del && (r.text || r.field));
+      if (!rs.length) add(look.font, look.size);
+      for (const r of rs) add(r.font ?? look.font, r.size ?? look.size);
+    }
+  }
+  if (!fonts.size && !sizes.size) {
+    const t = firstTarget(doc, ui);
+    add(t?.font, t?.size);
+  }
+  return { font: fonts.size === 1 ? Array.from(fonts)[0] : undefined, size: sizes.size === 1 ? Array.from(sizes)[0] : undefined };
+}
+
+/** Insert a run at the insertion point: after a selected run, else at the end of the selected paragraph. */
+function insertRunAt(doc: WordDoc, ui: SimUi, run: WordRun): WordPara | undefined {
+  const s = parseSel(doc, ui.selection);
+  if (s.run) {
+    const p = doc.paragraphs.find((x) => x.id === s.run!.para);
+    const idx = p?.runs?.findIndex((r) => r.id === s.run!.run) ?? -1;
+    if (!p?.runs || idx < 0) return undefined;
+    p.runs.splice(idx + 1, 0, run);
+    return p;
+  }
+  const p = selectedParas(doc, ui)[0];
+  if (!p || (p.kind && p.kind !== "p")) return undefined;
+  p.runs = [...runsOf(p).filter((r) => r.text || r.field || r.id || xr(r).cc || xr(r).note), run];
+  p.text = undefined;
+  return p;
+}
+
+/** First free run id `${prefix}<n>` across the whole document ("cc1", "cc2", …). */
+function nextRunId(doc: WordDoc, prefix: string): string {
+  const ids = new Set(doc.paragraphs.flatMap((p) => (p.runs ?? []).map((r) => r.id).filter(Boolean)));
+  let n = 1;
+  while (ids.has(`${prefix}${n}`)) n++;
+  return `${prefix}${n}`;
+}
+
+/* ---------- Footnotes and endnotes ---------- */
+
+/** Reference marks are numbered in document order (footnotes 1, 2, 3; endnotes i, ii, iii). */
+function relabelNotes(doc: WordDoc) {
+  const n = { footnote: 0, endnote: 0 };
+  for (const p of doc.paragraphs) {
+    for (const r of p.runs ?? []) {
+      const k = xr(r).note;
+      if (!k) continue;
+      n[k] += 1;
+      r.text = noteLabel(k, n[k]);
+      r.superscript = true;
+    }
+  }
+}
+
+/** Number (1-based, document order) of every note reference, by paragraph. */
+export function noteRefs(doc: WordDoc, kind: "footnote" | "endnote"): { para: string; n: number }[] {
+  const out: { para: string; n: number }[] = [];
+  for (const p of doc.paragraphs) for (const r of p.runs ?? []) if (xr(r).note === kind) out.push({ para: p.id, n: out.length + 1 });
+  return out;
+}
+
+export function notesOf(doc: WordDoc, kind: "footnote" | "endnote"): string[] {
+  return (kind === "footnote" ? doc.footnotes : xd(doc).endnotes) ?? [];
+}
+
+/** References › Insert Footnote / Insert Endnote: a reference mark at the insertion point and an empty note. Returns the note's number. */
+function insertNote(doc: WordDoc, ui: SimUi, kind: "footnote" | "endnote", text: string): number {
+  const list = [...notesOf(doc, kind)];
+  const run: XRun = { text: "", note: kind, superscript: true };
+  const p = insertRunAt(doc, ui, run);
+  let k = list.length + 1;
+  if (p) {
+    k = 0;
+    outer: for (const q of doc.paragraphs) {
+      for (const r of q.runs ?? []) {
+        if (xr(r).note !== kind) continue;
+        k++;
+        if (r === run) break outer;
+      }
+    }
+  }
+  list.splice(k - 1, 0, text);
+  if (kind === "footnote") doc.footnotes = list;
+  else xd(doc).endnotes = list;
+  relabelNotes(doc);
+  return k;
+}
+
+/* ---------- Content controls ---------- */
+
+const CC_PLACEHOLDER: Record<ContentControlType, string> = {
+  richText: "Click or tap here to enter text.",
+  plainText: "Click or tap here to enter text.",
+  comboBox: "Choose an item.",
+  dropDown: "Choose an item.",
+  datePicker: "Click or tap to enter a date.",
+  picture: "Click or tap to insert a picture.",
+  checkBox: "",
+};
+
+export const CC_COMMANDS: Record<string, ContentControlType> = {
+  "developer.richText": "richText",
+  "developer.plainText": "plainText",
+  "developer.picture": "picture",
+  "developer.checkBox": "checkBox",
+  "developer.comboBox": "comboBox",
+  "developer.dropDown": "dropDown",
+  "developer.datePicker": "datePicker",
+};
+
+/** The selected run, if it is a content control. */
+export function selectedControl(doc: WordDoc, ui: SimUi): XRun | undefined {
+  const s = parseSel(doc, ui.selection);
+  if (!s.run) return undefined;
+  const r = doc.paragraphs.find((p) => p.id === s.run!.para)?.runs?.find((x) => x.id === s.run!.run);
+  return r && xr(r).cc ? xr(r) : undefined;
+}
+
+/**
+ * Developer › Controls. With a run selected the control wraps it (a bracketed
+ * placeholder such as “[Recipient Name]” becomes the control's gray placeholder
+ * text, like Word's own templates); with a paragraph selected it goes at the
+ * end of the paragraph as run `cc<n>`, which becomes the selection.
+ */
+function insertControl(doc: WordDoc, ui: SimUi, type: ContentControlType): Partial<SimUi> | undefined {
+  const s = parseSel(doc, ui.selection);
+  const make = (cur?: string): { text: string; cc: ContentControl } => {
+    const isPh = cur !== undefined && /^\s*\[[^\]]*\]\s*$/.test(cur);
+    const cc: ContentControl = { type, placeholder: isPh ? cur!.trim() : CC_PLACEHOLDER[type] };
+    if (type === "checkBox") cc.checked = false;
+    if (type === "dropDown" || type === "comboBox") cc.items = [];
+    return { text: type === "checkBox" || isPh ? "" : cur ?? "", cc };
+  };
+  if (s.run) {
+    const p = doc.paragraphs.find((x) => x.id === s.run!.para);
+    const r = p?.runs?.find((x) => x.id === s.run!.run);
+    if (!r) return undefined;
+    const m = make(r.text);
+    r.text = m.text;
+    xr(r).cc = m.cc;
+    r.misspelled = undefined;
+    return undefined;
+  }
+  const p = selectedParas(doc, ui)[0];
+  if (!p || (p.kind && p.kind !== "p")) return undefined;
+  const id = nextRunId(doc, "cc");
+  const cur = paraText(p);
+  const lead: WordRun[] = cur && !/\s$/.test(cur) ? [{ text: " " }] : [];
+  p.runs = [...runsOf(p).filter((r) => r.text || r.field || r.id || xr(r).cc || xr(r).note), ...lead, { id, ...make() } as WordRun];
+  p.text = undefined;
+  return { selection: `${p.id}.${id}` };
+}
+
+/* ---------- Mail merge recipients ---------- */
+
+/** Recipient lists for Select Recipients › Use an Existing List, used when the sim document doesn't provide its own. */
+export const SAMPLE_SOURCES: Record<string, Record<string, string>[]> = {
+  "Patient Reminder List.xlsx": [
+    { First_Name: "Grace", Last_Name: "Okoye", Address: "22 Elm Street", City: "Lakeside", State: "CA", ZIP: "90210", Appointment_Date: "November 9, 2026", Appointment_Time: "9:00 AM", Provider: "Dr. Sarah Chen" },
+    { First_Name: "Peter", Last_Name: "Lindqvist", Address: "8 Bayview Court", City: "Lakeside", State: "CA", ZIP: "90211", Appointment_Date: "November 10, 2026", Appointment_Time: "1:30 PM", Provider: "Dr. Ravi Patel" },
+    { First_Name: "Imani", Last_Name: "Carter", Address: "415 Willow Lane", City: "Lakeside", State: "CA", ZIP: "90212", Appointment_Date: "November 12, 2026", Appointment_Time: "10:15 AM", Provider: "Dr. Femi Okafor" },
+    { First_Name: "Tomas", Last_Name: "Reyes", Address: "61 Harbor View Road", City: "Lakeside", State: "CA", ZIP: "90210", Appointment_Date: "November 13, 2026", Appointment_Time: "3:45 PM", Provider: "Dr. Sarah Chen" },
+  ],
+  "Flu Clinic Signups.xlsx": [
+    { First_Name: "Helen", Last_Name: "Park", Address: "19 Cedar Street", City: "Lakeside", State: "CA", ZIP: "90211", Appointment_Date: "November 2, 2026", Appointment_Time: "9:15 AM", Provider: "Dr. Ravi Patel" },
+    { First_Name: "Marco", Last_Name: "Silva", Address: "730 Lakeview Drive", City: "Lakeside", State: "CA", ZIP: "90210", Appointment_Date: "November 2, 2026", Appointment_Time: "10:30 AM", Provider: "Dr. Sarah Chen" },
+    { First_Name: "Ruth", Last_Name: "Adeyemi", Address: "5 Orchard Lane", City: "Lakeside", State: "CA", ZIP: "90212", Appointment_Date: "November 3, 2026", Appointment_Time: "2:00 PM", Provider: "Dr. Femi Okafor" },
+  ],
+  "Provider Directory.xlsx": [
+    { First_Name: "Sarah", Last_Name: "Chen", Title: "MD", Department: "Family Medicine", Extension: "210" },
+    { First_Name: "Ravi", Last_Name: "Patel", Title: "MD", Department: "Internal Medicine", Extension: "212" },
+    { First_Name: "Femi", Last_Name: "Okafor", Title: "DO", Department: "Family Medicine", Extension: "214" },
+  ],
+};
+
+/** The data source: the sim document's recipients, or the sample list for the file chosen in Select Recipients. */
+export function recipientsOf(doc: WordDoc): Record<string, string>[] {
+  const m = doc.merge;
+  if (m?.recipients?.length) return m.recipients;
+  return (m?.source ? SAMPLE_SOURCES[m.source] : undefined) ?? [];
+}
+
+/** Column names of the data source, in the order they first appear. */
+export function mergeFieldNames(doc: WordDoc): string[] {
+  const out: string[] = [];
+  for (const r of recipientsOf(doc)) for (const k of Object.keys(r)) if (!out.includes(k)) out.push(k);
+  return out;
+}
+
+export const FILTER_OPS = ["Equal to", "Not equal to", "Less than", "Greater than", "Less than or equal", "Greater than or equal", "Is blank", "Is not blank", "Contains", "Does not contain"];
+
+function filterMatches(rec: Record<string, string>, f: MergeFilter): boolean {
+  const a = String(rec[f.field] ?? "").trim();
+  const b = f.value.trim();
+  const al = a.toLowerCase(), bl = b.toLowerCase();
+  const na = Number(a.replace(/[$,]/g, "")), nb = Number(b.replace(/[$,]/g, ""));
+  const cmp = a !== "" && b !== "" && !Number.isNaN(na) && !Number.isNaN(nb) ? na - nb : al.localeCompare(bl);
+  switch (f.op) {
+    case "Equal to": return al === bl;
+    case "Not equal to": return al !== bl;
+    case "Less than": return cmp < 0;
+    case "Greater than": return cmp > 0;
+    case "Less than or equal": return cmp <= 0;
+    case "Greater than or equal": return cmp >= 0;
+    case "Is blank": return a === "";
+    case "Is not blank": return a !== "";
+    case "Contains": return al.includes(bl);
+    case "Does not contain": return !al.includes(bl);
+  }
+  return true;
+}
+
+/** Recipients the merge will use: checked in Edit Recipient List, matching its filter, in its sort order. */
+export function activeRecipients(doc: WordDoc): Record<string, string>[] {
+  const m = xm(doc);
+  const excluded = new Set(m.excluded ?? []);
+  let list = recipientsOf(doc).filter((r, i) => !excluded.has(i) && (!m.filter || filterMatches(r, m.filter)));
+  if (m.sort?.field) {
+    const k = m.sort.field;
+    list = list.slice().sort((a, b) => String(a[k] ?? "").localeCompare(String(b[k] ?? ""), undefined, { numeric: true }));
+    if (m.sort.order === "Descending") list.reverse();
+  }
+  return list;
+}
+
+/** How a recipient is labeled in the Mail Merge Recipients list. */
+export function recipientLabel(r: Record<string, string>): string {
+  const name = [r.Last_Name, r.First_Name].filter(Boolean).join(", ");
+  const extra = ["Provider", "Appointment_Date", "Department", "City"].filter((k) => r[k]).slice(0, 2).map((k) => r[k]);
+  return [name || Object.values(r)[0] || "(blank)", ...extra].join(" · ");
+}
+
+/* ---------- Styles ---------- */
+
+/** Apply a paragraph or character style (built-in or custom) to the selection. */
+function applyStyle(doc: WordDoc, ui: SimUi, name: string) {
+  const custom = xd(doc).customStyles?.[name];
+  if (CHAR_STYLE_NAMES.includes(name)) {
+    if (name === "Strong" || name === "Book Title") setChar(doc, ui, "bold", true);
+    if (name === "Emphasis" || name === "Subtle Emphasis" || name === "Intense Emphasis") setChar(doc, ui, "italic", true);
+    return;
+  }
+  if (custom?.type === "Character") {
+    for (const k of CHAR_KEYS) if (custom[k] !== undefined) setChar(doc, ui, k, custom[k]);
+    return;
+  }
+  for (const p of selectedParas(doc, ui)) {
+    p.style = name;
+    // Applying a style replaces direct paragraph formatting of the same kind.
+    delete p.size; delete p.font; delete p.color; delete p.bold;
+  }
+}
+
+/* ---------- Columns ---------- */
+
+/** Columns on a selection: Word wraps the selected paragraphs in continuous section breaks. */
+function columnsOnSelection(doc: WordDoc, ids: string[], patch: SectionProps) {
+  const firstIdx = doc.paragraphs.findIndex((p) => p.id === ids[0]);
+  const lastIdx = doc.paragraphs.findIndex((p) => p.id === ids[ids.length - 1]);
+  if (firstIdx < 0 || lastIdx < 0) return;
+  if (firstIdx === 0 && lastIdx === doc.paragraphs.length - 1) {
+    for (let i = 0; i <= sectionBreaks(doc).length; i++) setSectionProps(doc, i, patch);
+    return;
+  }
+  const orig = sectionProps(doc, sectionIndex(doc, ids[0]));
+  const keep: SectionProps = { orientation: orig.orientation, columns: orig.columns, spacing: orig.spacing, line: orig.line };
+  const taken = new Set<string>();
+  const prev = doc.paragraphs[firstIdx - 1];
+  const needBefore = firstIdx > 0 && prev?.kind !== "sectionBreak";
+  const next = doc.paragraphs[lastIdx + 1];
+  const needAfter = Boolean(next) && next.kind !== "sectionBreak";
+  // Ids in document order: the break before the selection, then the one after it.
+  const beforeId = needBefore ? newId("sb", doc, taken) : "";
+  const afterId = needAfter ? newId("sb", doc, taken) : "";
+  if (needAfter) doc.paragraphs.splice(lastIdx + 1, 0, { id: afterId, kind: "sectionBreak", text: "Continuous", section: keep } as XPara);
+  if (needBefore) {
+    doc.paragraphs.splice(firstIdx, 0, { id: beforeId, kind: "sectionBreak", text: "Continuous", section: { ...keep, ...patch } } as XPara);
+    return;
+  }
+  setSectionProps(doc, sectionIndex(doc, ids[0]), patch);
+}
+
+/** Columns › This point forward: a continuous section break at the insertion point, then every section after it. */
+function columnsFromHere(doc: WordDoc, pid: string, patch: SectionProps) {
+  const idx = doc.paragraphs.findIndex((p) => p.id === pid);
+  let from = sectionIndex(doc, pid);
+  if (idx > 0 && doc.paragraphs[idx - 1].kind !== "sectionBreak") {
+    const sp = sectionProps(doc, from);
+    doc.paragraphs.splice(idx, 0, { id: newId("sb", doc), kind: "sectionBreak", text: "Continuous", section: { orientation: sp.orientation, columns: sp.columns, spacing: sp.spacing, line: sp.line } } as XPara);
+    from += 1;
+  }
+  for (let i = from; i <= sectionBreaks(doc).length; i++) setSectionProps(doc, i, patch);
+}
+
+/* ---------- Fields ---------- */
+
+/** Text a cross-reference shows. */
+function xrefText(doc: WordDoc, target: string, show: string, from?: string): string {
+  const p = doc.paragraphs.find((x) => x.id === target);
+  if (!p) return "Error! Reference source not found.";
+  if (show === "Page number") return String(pageIndexOf(doc, target) + 1);
+  if (show === "Above/below") {
+    const ids = doc.paragraphs.map((x) => x.id);
+    return from !== undefined && ids.indexOf(target) < ids.indexOf(from) ? "above" : "below";
+  }
+  return paraText(p);
+}
+
+/** F9 / Update Field: cross-references show their target's current text or page. */
+function updateXrefs(doc: WordDoc) {
+  for (const p of doc.paragraphs) for (const r of p.runs ?? []) {
+    const x = xr(r).xref;
+    if (x) r.text = xrefText(doc, x.target, x.show, p.id);
+  }
+}
+
+/** Review › Restrict Editing: may this selection key be typed into? */
+export function canTypeAt(doc: WordDoc, key: string): boolean {
+  const pr = xd(doc).protection;
+  if (!pr || pr.type === "Tracked changes") return true;
+  if (pr.type !== "Filling in forms") return false;
+  const s = parseSel(doc, key);
+  if (!s.run) return false;
+  const r = doc.paragraphs.find((p) => p.id === s.run!.para)?.runs?.find((x) => x.id === s.run!.run);
+  return Boolean(r && xr(r).cc && !xr(r).cc!.lockEdit);
 }
 
 let uid = 0;
@@ -710,7 +1189,11 @@ const LEADERS: Record<string, TabStop["leader"]> = { "2 .......": "dots", "3 ---
 
 export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordDoc; ui?: Partial<SimUi> } {
   const common = applyCommonCommit(input, c, ".docx");
-  if (common) return { doc: common };
+  if (common) {
+    // File › Info › Protect Document › Restrict Editing opens the same pane as Review › Restrict Editing.
+    if (c.kind === "command" && c.id === "file.protect" && c.value === "Restrict Editing") return { doc: { ...common, pane: "Restrict Editing" } };
+    return { doc: common };
+  }
 
   const doc = clone(input);
   const v = c.kind === "command" ? c.value : undefined;
@@ -718,12 +1201,16 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
   const sel = parseSel(doc, ui.selection);
 
   if (c.kind === "type") {
+    // Restrict Editing: only content controls take typing in a form; nothing does when read-only.
+    if (c.target !== "find" && !canTypeAt(doc, c.target)) return { doc };
     return applyType(doc, c.target, c.value);
   }
 
   if (c.kind === "click") {
     if (c.target.startsWith("link:")) doc.flags = { ...(doc.flags ?? {}), followed: c.target.slice(5) };
+    // Ctrl+Click a table of contents entry or a cross-reference: jump to its paragraph.
     if (c.target.startsWith("toc:")) return { doc, ui: { selection: c.target.slice(4) } };
+    if (c.target.startsWith("goto:")) return { doc, ui: { selection: c.target.slice(5) } };
     return { doc };
   }
 

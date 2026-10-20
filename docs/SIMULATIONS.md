@@ -291,3 +291,19 @@ every interactive element reachable with the mouse, and give buttons
 
 Selection keys are your own strings (`file:report.docx`, `msg:m3`,
 `chat:c2`). Describe them in a comment at the top of your `types.ts`.
+
+## Other engines
+
+Each of these documents its doc type, selection keys, type targets and
+command ids at the top of its own `types.ts` and `core.ts`:
+
+- `windows` (Windows 11 desktop, File Explorer, Settings, Edge), `outlook`,
+  `teams`, `typing`, `assistant` (Copilot-style chat and a flow builder),
+  `access`, `google` (Drive, Docs, Sheets, Slides) and `ehr` (the Northstar
+  Medical Center practice EHR: registration, scheduling, preauthorization,
+  encoder, charges, CPOE, claims, reports). EHR sims share fixtures in
+  `lib/sims/ehr/practice.ts`.
+- `SimTask.judgeFree: true` makes the app's free commands count in that task
+  (a compliance task where opening the wrong chart is the mistake).
+- `AppCore.canvasDialogs` lists dialog ids the canvas opens itself (forms,
+  wizards) so the validator knows they can be reached.

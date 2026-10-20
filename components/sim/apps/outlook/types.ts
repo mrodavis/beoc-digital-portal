@@ -270,6 +270,8 @@ export type OlCompose = {
   sendSeq?: number;
   /** Ctrl+S: the canvas saves the draft with what the learner typed. */
   saveSeq?: number;
+  /** To was filled in by the learner's choice (Email from a contact card, a Quick Step): commit it on Send. */
+  prefilled?: boolean;
   /** Address Book open. */
   addressBook?: string | null;
 };

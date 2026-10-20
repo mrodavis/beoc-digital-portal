@@ -707,7 +707,15 @@ export function EventForm({ ctx }: { ctx: Ctx }) {
                 <DateField label="Start date" value={d.startDate} onChange={(v) => setStart(ctx, d, v, d.startTime)} />
                 <TimeSelect label="Start time" disabled={d.allDay} value={d.startTime} onChange={(v) => setStart(ctx, d, d.startDate, v)} />
                 <label className="ml-2 flex items-center gap-1 text-[12px]">
-                  <input type="checkbox" checked={d.allDay} onChange={(e) => ctx.setFdraft({ allDay: e.target.checked, endDate: e.target.checked ? d.startDate : d.endDate })} /> All day event
+                  <input
+                    type="checkbox"
+                    checked={d.allDay}
+                    onChange={(e) => {
+                      ctx.setFdraft({ allDay: e.target.checked, endDate: e.target.checked ? d.startDate : d.endDate });
+                      ctx.cmd("event.showAs", e.target.checked ? "Free" : "Busy");
+                    }}
+                  />{" "}
+                  All day event
                 </label>
                 <button type="button" onClick={() => ctx.openDialog("recurrence")} className="ml-1 flex items-center gap-1 rounded border border-gray-300 px-1.5 py-0.5 text-[11.5px] hover:bg-gray-100">
                   <OIcon name="recur" size={12} /> {r ? "Edit Recurrence" : "Make Recurring"}

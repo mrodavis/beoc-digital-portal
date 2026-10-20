@@ -144,7 +144,7 @@ export function OutlookCanvas({ doc, ui, accent, onSelect, onCommit, openDialog 
         const steps: { commit: SimCommit; ok: (x: OutlookDoc) => boolean }[] = [];
         for (const f of ["to", "cc", "bcc"] as const) {
           const v = joinTokens(lists[f]);
-          if (v !== joinTokens(cur[f])) steps.push({ commit: { kind: "type", target: `compose.${f}`, value: v }, ok: (x) => joinTokens(x.compose?.[f]) === v });
+          if (v !== joinTokens(cur[f]) || (f === "to" && cur.prefilled && v)) steps.push({ commit: { kind: "type", target: `compose.${f}`, value: v }, ok: (x) => joinTokens(x.compose?.[f]) === v && !(f === "to" && x.compose?.prefilled) });
         }
         if (d.subject !== cur.subject) steps.push({ commit: { kind: "type", target: "compose.subject", value: d.subject }, ok: (x) => x.compose?.subject === d.subject });
         if (d.body !== cur.body) steps.push({ commit: { kind: "type", target: "compose.body", value: d.body }, ok: (x) => x.compose?.body === d.body });

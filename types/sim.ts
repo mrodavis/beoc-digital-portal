@@ -148,6 +148,11 @@ export interface SimTask {
   steps: SimStep[];
   /** Steps may be done in any order (e.g. apply Heading 1 to three titles). */
   anyOrder?: boolean;
+  /**
+   * Judge the app's free commands in this task too, so a wrong one counts as
+   * a miss (a compliance task where opening the wrong chart is the mistake).
+   */
+  judgeFree?: boolean;
 }
 
 /* ------------------------------------------------------------------ */

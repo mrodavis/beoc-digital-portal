@@ -425,10 +425,12 @@ export function ObjectBody({ o, ctx, onMedia }: { o: PptObject; ctx: ObjectCtx; 
           ...crop,
           filter: pictureFilter(o),
           clipPath: crop.clipPath ?? (o.crop ? "inset(8% 8% 8% 8%)" : undefined),
+          containerType: "size",
         }}
       >
-        <span style={{ fontSize: 44 }}>{fx.artistic === "Background Removed" ? "🧍" : o.glyph ?? "🖼️"}</span>
-        <span className="px-2 text-[15px] text-gray-700">{o.label}</span>
+        {/* Icon and file name shrink with the picture so a small logo is not clipped. */}
+        <span style={{ fontSize: "min(44px, 42cqh)", lineHeight: 1.1 }}>{fx.artistic === "Background Removed" ? "🧍" : o.glyph ?? "🖼️"}</span>
+        <span className="max-w-full truncate px-2 text-gray-700" style={{ fontSize: "min(15px, 16cqh)" }}>{o.label}</span>
       </div>
     );
   }

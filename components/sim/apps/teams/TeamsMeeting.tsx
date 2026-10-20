@@ -46,7 +46,7 @@ export function VideoPreview({ name, camera, background, big }: { name: string; 
         <path d="M18 80c2-20 16-28 32-28s30 8 32 28Z" fill="#3d5a80" />
         <path d="M44 52h12l-6 9Z" fill="#e8e8e8" />
       </svg>
-      {blur && <span className="absolute left-2 top-2 rounded bg-black/40 px-1.5 py-0.5 text-[10px] text-white">Background blurred</span>}
+      {blur && <span className="absolute right-2 top-2 rounded bg-black/40 px-1.5 py-0.5 text-[10px] text-white">Background blurred</span>}
     </div>
   );
 }
@@ -474,14 +474,14 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
               </div>
               <div className="mt-2 flex h-20 shrink-0 gap-2">
                 {tiles.slice(0, 5).map((t) => (
-                  <Tile key={t.id} id={t.id} muted={t.muted} hand={t.hand} m={m} small speaking={t.id === speaking} />
+                  <Tile key={t.id} id={t.id} muted={t.muted} hand={t.hand} m={m} small speaking={t.id === speaking} reaction={t.id === "me" ? floating : null} />
                 ))}
               </div>
             </div>
           ) : (
             <div className="grid min-h-0 flex-1 gap-2" style={{ gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))`, gridAutoRows: "minmax(0, 1fr)" }}>
               {tiles.map((t) => (
-                <Tile key={t.id} id={t.id} muted={t.muted} hand={t.hand} m={m} speaking={t.id === speaking} />
+                <Tile key={t.id} id={t.id} muted={t.muted} hand={t.hand} m={m} speaking={t.id === speaking} reaction={t.id === "me" ? floating : null} />
               ))}
             </div>
           )}
@@ -489,11 +489,6 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
             <div className={`pointer-events-none absolute left-1/2 w-[70%] -translate-x-1/2 rounded-md bg-black/75 px-4 py-2 text-[13px] ${m.sharing ? "bottom-28" : "bottom-5"}`}>
               <span className="font-semibold text-[#a6a8ff]">{speaking ? personName(doc, speaking) : "Live captions"}: </span>
               {speaking ? "Thanks, everyone. Let's start with the first item on the agenda." : "Captions will appear here when someone speaks."}
-            </div>
-          )}
-          {floating && (
-            <div key={floating.k} className="pointer-events-none absolute bottom-10 left-10 animate-bounce text-[44px]" aria-hidden="true">
-              {floating.em}
             </div>
           )}
         </div>
@@ -618,7 +613,7 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
   );
 }
 
-function Tile({ id, muted, hand, m, small, speaking }: { id: string; muted?: boolean; hand?: boolean; m: TeamsMeeting; small?: boolean; speaking?: boolean }) {
+function Tile({ id, muted, hand, m, small, speaking, reaction }: { id: string; muted?: boolean; hand?: boolean; m: TeamsMeeting; small?: boolean; speaking?: boolean; reaction?: { k: number; em: string } | null }) {
   const { doc } = useTeams();
   const me = id === "me";
   const name = me ? doc.me.name : personName(doc, id);
@@ -638,6 +633,11 @@ function Tile({ id, muted, hand, m, small, speaking }: { id: string; muted?: boo
       {hand && (
         <div className="absolute left-1.5 top-1.5 rounded-full bg-[#ffaa44] p-1 text-[#242424]" aria-label="Hand raised">
           <TIcon name="hand" size={14} />
+        </div>
+      )}
+      {reaction && (
+        <div key={reaction.k} className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-[40px]" aria-hidden="true">
+          {reaction.em}
         </div>
       )}
     </div>

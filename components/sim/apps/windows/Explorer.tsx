@@ -216,8 +216,8 @@ export function pasteInto(ctx: WinCtxValue, dest: string) {
   perItem(ctx, cb.paths, cb.mode === "cut" ? "fs.move" : "fs.copyTo", realPath(ctx.doc, dest));
 }
 
-export function deleteSelected(ctx: WinCtxValue, permanent: boolean) {
-  const paths = selPaths(ctx.sel);
+export function deleteSelected(ctx: WinCtxValue, permanent: boolean, only?: string[]) {
+  const paths = only ?? selPaths(ctx.sel);
   if (!paths.length) return;
   const removable = paths.some((p) => ["usb", "network"].includes(rootOf(ctx.doc, p)?.root ?? ""));
   if (permanent || removable) {
@@ -266,8 +266,8 @@ function ConfirmDelete({ count, item, onYes, onNo }: { count: number; item: WinI
   );
 }
 
-export function openProperties(ctx: WinCtxValue) {
-  const p = selPaths(ctx.sel)[0];
+export function openProperties(ctx: WinCtxValue, path?: string) {
+  const p = path ?? selPaths(ctx.sel)[0];
   if (!p) return;
   ctx.modal(<PropertiesDialog path={p} />);
 }
@@ -281,6 +281,7 @@ function PropertiesDialog({ path }: { path: string }) {
   const r = ctx.doc.fs.find((x) => x.name === realPath(ctx.doc, path));
   const drive = r && ["drive", "usb", "network"].includes(r.root);
   const apply = () => {
+    ctx.select(`file:${realPath(ctx.doc, path)}`);
     if (ro !== Boolean(it.readonly)) ctx.cmd("fs.attr", `readonly=${ro ? "on" : "off"}`);
     if (hid !== Boolean(it.hidden)) ctx.cmd("fs.attr", `hidden=${hid ? "on" : "off"}`);
   };
@@ -339,8 +340,8 @@ function PropertiesDialog({ path }: { path: string }) {
   );
 }
 
-export function openExtract(ctx: WinCtxValue) {
-  const p = selPaths(ctx.sel)[0];
+export function openExtract(ctx: WinCtxValue, path?: string) {
+  const p = path ?? selPaths(ctx.sel)[0];
   if (!p) return;
   ctx.modal(<ExtractDialog path={p} />);
 }
@@ -357,7 +358,7 @@ function ExtractDialog({ path }: { path: string }) {
       onClose={() => ctx.modal(null)}
       footer={
         <>
-          <Btn primary label="Extract" onClick={() => { ctx.modal(null); ctx.cmd("fs.extract", parseAddress(ctx.doc, dest)); }}>Extract</Btn>
+          <Btn primary label="Extract" onClick={() => { ctx.modal(null); ctx.select(`file:${real}`); ctx.cmd("fs.extract", parseAddress(ctx.doc, dest)); }}>Extract</Btn>
           <Btn label="Cancel" onClick={() => ctx.modal(null)}>Cancel</Btn>
         </>
       }
@@ -401,8 +402,8 @@ function ShareSheet({ name }: { name: string }) {
   );
 }
 
-export function shareSelected(ctx: WinCtxValue) {
-  const p = selPaths(ctx.sel)[0];
+export function shareSelected(ctx: WinCtxValue, path?: string) {
+  const p = path ?? selPaths(ctx.sel)[0];
   if (!p) return;
   const r = rootOf(ctx.doc, p);
   if (r?.root === "onedrive" || r?.root === "gdrive") ctx.share(realPath(ctx.doc, p), r.root === "gdrive" ? "google" : "ms");
@@ -460,52 +461,56 @@ export function sortItems(ctx: WinCtxValue, w: WinWindow | undefined): MItem[] {
   ];
 }
 
-/** Right-click menu for selected items. */
+/** Right-click menu for an item (and the rest of the selection when it is part of it). */
 export function itemMenu(ctx: WinCtxValue, e: { clientX: number; clientY: number }, entry: Entry, opts: { bin?: boolean } = {}) {
   const doc = ctx.doc;
-  const paths = selPaths(ctx.sel);
-  const single = paths.length <= 1;
   if (opts.bin || entry.bin) {
+    const cur = selPaths(ctx.sel, "bin:");
+    const names = cur.includes(entry.name) ? cur : [entry.name];
     ctx.menu(e, [
-      { label: "Restore", icon: "restoreItem", onClick: () => perItem(ctx, selPaths(ctx.sel, "bin:"), "bin.restore", undefined, "bin:") },
+      { label: "Restore", icon: "restoreItem", onClick: () => perItem(ctx, names, "bin.restore", undefined, "bin:") },
       { sep: true },
-      { label: "Delete", icon: "delete", onClick: () => ctx.modal(<ConfirmDelete count={1} item={entry.item ?? null} onYes={() => { ctx.modal(null); perItem(ctx, selPaths(ctx.sel, "bin:"), "bin.delete", undefined, "bin:"); }} onNo={() => ctx.modal(null)} />) },
+      { label: "Delete", icon: "delete", onClick: () => ctx.modal(<ConfirmDelete count={names.length} item={entry.item ?? null} onYes={() => { ctx.modal(null); perItem(ctx, names, "bin.delete", undefined, "bin:"); }} onNo={() => ctx.modal(null)} />) },
       { label: "Properties", icon: "properties", disabled: true },
     ]);
     return;
   }
+  const cur = selPaths(ctx.sel);
+  const paths = cur.some((p) => p.toLowerCase() === entry.path.toLowerCase()) ? cur : [entry.path];
+  const single = paths.length <= 1;
+  const selectAll = () => ctx.select(paths.map((p) => `file:${p}`).join(","));
   const r = rootOf(doc, entry.path);
   const od = r?.root === "onedrive";
   const isZip = extOf(entry.name) === ".zip";
   const rootItem = Boolean(entry.root);
   const quick = (doc.quick ?? []).includes(entry.path);
   const top: MItem[] = [
-    { label: "Cut", icon: "cut", disabled: rootItem, onClick: () => ctx.cmd("fs.cut") },
-    { label: "Copy", icon: "copy", onClick: () => ctx.cmd("fs.copy") },
-    { label: "Rename", icon: "rename", disabled: !single || rootItem, onClick: () => ctx.setRenaming(entry.path) },
-    { label: "Share", icon: "share", disabled: entry.folder && !od, onClick: () => shareSelected(ctx) },
-    { label: "Delete", icon: "delete", disabled: rootItem, onClick: () => deleteSelected(ctx, false) },
+    { label: "Cut", icon: "cut", disabled: rootItem, onClick: () => { selectAll(); ctx.cmd("fs.cut"); } },
+    { label: "Copy", icon: "copy", onClick: () => { selectAll(); ctx.cmd("fs.copy"); } },
+    { label: "Rename", icon: "rename", disabled: !single || rootItem, onClick: () => { ctx.select(entry.key); ctx.setRenaming(entry.path); } },
+    { label: "Share", icon: "share", disabled: entry.folder && !od, onClick: () => shareSelected(ctx, entry.path) },
+    { label: "Delete", icon: "delete", disabled: rootItem, onClick: () => deleteSelected(ctx, false, paths) },
   ];
   const items: MItem[] = [
     { label: "Open", icon: "open", shortcut: "Enter", onClick: () => ctx.cmd("fs.open", entry.path) },
   ];
   if (!entry.folder) items.push({ label: "Open with", icon: "app", sub: [{ label: "Notepad", onClick: () => ctx.cmd("win.open", "notepad") }, { label: "Microsoft Edge", onClick: () => ctx.cmd("fs.open", entry.path) }, { label: "Choose another app", disabled: true }] });
-  if (isZip) items.push({ label: "Extract All...", icon: "extract", onClick: () => openExtract(ctx) });
-  if (!rootItem) items.push({ label: "Compress to ZIP file", icon: "compress", onClick: () => ctx.cmd("fs.compress") });
+  if (isZip) items.push({ label: "Extract All...", icon: "extract", onClick: () => openExtract(ctx, entry.path) });
+  if (!rootItem) items.push({ label: "Compress to ZIP file", icon: "compress", onClick: () => { selectAll(); ctx.cmd("fs.compress"); } });
   items.push({ label: "Copy as path", icon: "link", shortcut: "Ctrl+Shift+C", onClick: () => ctx.addClip(`"${addressText(doc, entry.path)}"`) });
-  if (entry.folder) items.push(quick ? { label: "Unpin from Quick access", icon: "pin", onClick: () => ctx.cmd("fs.unpinQuick", entry.path) } : { label: "Pin to Quick access", icon: "pin", onClick: () => perItem(ctx, selPaths(ctx.sel), "fs.pinQuick") });
-  else items.push({ label: "Add to Favorites", icon: "star", onClick: () => perItem(ctx, selPaths(ctx.sel), "fs.pinQuick") });
-  items.push({ label: "Properties", icon: "properties", shortcut: "Alt+Enter", onClick: () => openProperties(ctx) });
+  if (entry.folder) items.push(quick ? { label: "Unpin from Quick access", icon: "pin", onClick: () => ctx.cmd("fs.unpinQuick", entry.path) } : { label: "Pin to Quick access", icon: "pin", onClick: () => perItem(ctx, paths, "fs.pinQuick") });
+  else items.push({ label: "Add to Favorites", icon: "star", onClick: () => perItem(ctx, paths, "fs.pinQuick") });
+  items.push({ label: "Properties", icon: "properties", shortcut: "Alt+Enter", onClick: () => openProperties(ctx, entry.path) });
   if (od) {
     items.push(
       { sep: true },
-      { label: "Share", icon: "share", onClick: () => shareSelected(ctx) },
-      { label: "Manage access", icon: "people", onClick: () => shareSelected(ctx) },
-      { label: "View online", icon: "globe", onClick: () => { ctx.cmd("edge.nav", "onedrive.live.com"); ctx.cmd("cloud.open", entry.folder ? entry.path : parentOf(entry.path)); } },
+      { label: "Share", icon: "share", onClick: () => shareSelected(ctx, entry.path) },
+      { label: "Manage access", icon: "people", onClick: () => shareSelected(ctx, entry.path) },
+      { label: "View online", icon: "globe", onClick: () => { ctx.cmd("edge.nav", "onedrive.live.com"); ctx.cmd("cloud.open", entry.folder ? entry.path : parentOf(entry.path)); if (!entry.folder) ctx.cmd("cloud.open", entry.path); } },
       { label: "Version history", icon: "history", disabled: entry.folder, onClick: () => { ctx.cmd("edge.nav", "onedrive.live.com"); ctx.cmd("cloud.open", entry.path); } },
       { sep: true },
-      { label: "Always keep on this device", icon: "cloudCheck", check: entry.item?.sync === "always", onClick: () => perItem(ctx, selPaths(ctx.sel), "od.keep") },
-      { label: "Free up space", icon: "cloud", onClick: () => perItem(ctx, selPaths(ctx.sel), "od.free") },
+      { label: "Always keep on this device", icon: "cloudCheck", check: entry.item?.sync === "always", onClick: () => perItem(ctx, paths, "od.keep") },
+      { label: "Free up space", icon: "cloud", onClick: () => perItem(ctx, paths, "od.free") },
     );
   }
   items.push({ sep: true }, { label: "Show more options", icon: "more", disabled: true });

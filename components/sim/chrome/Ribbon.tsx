@@ -61,12 +61,17 @@ export function Popover({
     };
     const t = setTimeout(() => document.addEventListener("mousedown", down), 0);
     document.addEventListener("keydown", key);
-    window.addEventListener("scroll", onClose, true);
+    // Close when the page scrolls, but not when the popover's own list scrolls.
+    const scroll = (e: Event) => {
+      if (ref.current && e.target instanceof Node && ref.current.contains(e.target)) return;
+      onClose();
+    };
+    window.addEventListener("scroll", scroll, true);
     return () => {
       clearTimeout(t);
       document.removeEventListener("mousedown", down);
       document.removeEventListener("keydown", key);
-      window.removeEventListener("scroll", onClose, true);
+      window.removeEventListener("scroll", scroll, true);
     };
   }, [onClose]);
 

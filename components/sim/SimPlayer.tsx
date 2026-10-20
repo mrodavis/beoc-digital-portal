@@ -51,7 +51,9 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [started, setStarted] = useState(false);
   const [finished, setFinished] = useState(false);
-  const [activeTab, setActiveTab] = useState(app.ribbon[0].id);
+  /** After the last task: hide the results card and let the learner look around (still finished). */
+  const [exploring, setExploring] = useState(false);
+  const [activeTab, setActiveTab] = useState(app.ribbon[0]?.id ?? "");
   const [dialog, setDialog] = useState<string | null>(null);
   const [backstage, setBackstage] = useState<string | null>(null);
   const [menu, setMenu] = useState<{ x: number; y: number; items: MenuItem[] } | null>(null);
@@ -222,7 +224,7 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
       }
 
       // Viewing/navigation commands are free: apply without judging.
-      if (c.kind === "command" && app.freeCommands?.includes(c.id)) {
+      if (c.kind === "command" && app.freeCommands?.includes(c.id) && !t.judgeFree) {
         const r = runBuiltIn(d);
         commitDoc(r.doc, r.ui);
         return;
@@ -279,11 +281,12 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
     setShowHint(false);
     setFeedback(null);
     setFinished(false);
+    setExploring(false);
     setHistory([]);
     setFuture([]);
     setDialog(null);
     setBackstage(null);
-    setActiveTab(app.ribbon[0].id);
+    setActiveTab(app.ribbon[0]?.id ?? "");
     taskStart.current = { doc: sim.initial, ui: u0 };
     setStarted(true);
     setTimeout(() => rootRef.current?.focus(), 0);
@@ -494,7 +497,7 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
               <p className="mb-4 text-[14px] leading-relaxed text-gray-700">{sim.scenario}</p>
               <ul className="mb-5 space-y-1 text-[13px] text-gray-600">
                 <li>• {tasks.length} task{tasks.length === 1 ? "" : "s"}{sim.minutes ? ` · about ${sim.minutes} min` : ""}</li>
-                <li>• Work in the app the way you would in {app.name}: Ribbon, right-click, keyboard shortcuts.</li>
+                <li>• Work in the app the way you would in {app.name}{app.chrome === "bare" ? ": click, double-click, right-click and type." : ": Ribbon, right-click, keyboard shortcuts."}</li>
                 <li>• Each task appears in the bar under the window. Use Hint if you get stuck.</li>
               </ul>
               <button
@@ -510,7 +513,7 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
         )}
 
         {/* Finish card */}
-        {finished && (
+        {finished && !exploring && (
           <div className="absolute inset-0 z-[60] flex items-center justify-center bg-slate-900/55 p-4">
             <div className="max-h-full w-full max-w-lg overflow-auto rounded-xl bg-white p-6 shadow-2xl">
               <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-700">Simulation complete</div>
@@ -539,7 +542,7 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
                 <button type="button" onClick={restart} className="rounded-lg px-4 py-2 font-semibold text-white" style={{ background: app.accent }}>
                   Practice again
                 </button>
-                <button type="button" onClick={() => setFinished(false)} className="rounded-lg border border-gray-300 px-4 py-2 font-semibold text-gray-700 hover:bg-gray-50">
+                <button type="button" onClick={() => setExploring(true)} className="rounded-lg border border-gray-300 px-4 py-2 font-semibold text-gray-700 hover:bg-gray-50">
                   Explore the finished file
                 </button>
               </div>
