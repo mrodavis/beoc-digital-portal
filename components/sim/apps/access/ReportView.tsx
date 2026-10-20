@@ -148,6 +148,8 @@ export function ReportView(props: ViewProps) {
     if (!interactive) return;
     if (e.target !== e.currentTarget) return;
     if (doc.tool === "Text Box" || doc.tool === "Label") {
+      // The new control's text box takes the focus; keep the browser from moving it back to the window.
+      e.preventDefault();
       setPlacing(section);
       return;
     }

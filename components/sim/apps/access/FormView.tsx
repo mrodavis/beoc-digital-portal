@@ -222,9 +222,11 @@ export function FormView(props: ViewProps) {
     setMenu({ x: e.clientX, y: e.clientY, items });
   };
 
-  const placeAt = (section: string) => {
+  const placeAt = (section: string, e?: React.MouseEvent) => {
     const tool = doc.tool;
     if (!tool || isForm) return false;
+    // The new control's text box takes the focus; keep the browser from moving it back to the window.
+    e?.preventDefault();
     if (tool === "Button" && !doc.flags?.noWizards) {
       openDialog(`backstage:buttonWizard|${section}`);
       onCommit(cmd("form.tool", ""));
@@ -395,7 +397,7 @@ export function FormView(props: ViewProps) {
     <div
       className={`flex min-h-[46px] items-center gap-2 px-3 py-2 ${isDesign ? "" : ""}`}
       style={{ background: isDesign ? "#fff" : `${color}22`, borderBottom: `3px solid ${color}`, ...(grid ?? {}) }}
-      onMouseDown={(e) => { if (e.target === e.currentTarget && !placeAt("Form Header") && !isForm) onSelect({ selection: `sec:${f.name}.Form Header` }); }}
+      onMouseDown={(e) => { if (e.target === e.currentTarget && !placeAt("Form Header", e) && !isForm) onSelect({ selection: `sec:${f.name}.Form Header` }); }}
     >
       {!isDesign && <AccIcon name="form" size={26} />}
       {header.map((c) => (
@@ -408,7 +410,7 @@ export function FormView(props: ViewProps) {
   );
 
   const columnar = (
-    <div className="flex flex-col gap-[5px] px-4 py-3" style={grid} onMouseDown={(e) => { if (e.target === e.currentTarget) { if (!placeAt("Detail") && !isForm) onSelect({ selection: `sec:${f.name}.Detail` }); } }}>
+    <div className="flex flex-col gap-[5px] px-4 py-3" style={grid} onMouseDown={(e) => { if (e.target === e.currentTarget) { if (!placeAt("Detail", e) && !isForm) onSelect({ selection: `sec:${f.name}.Detail` }); } }}>
       {detail.map((c) => (
         <div key={c.id} className="flex items-center gap-3">
           <div className="w-[130px] shrink-0 text-right">{labelFor(c)}</div>
@@ -462,7 +464,7 @@ export function FormView(props: ViewProps) {
         {(footer.length > 0 || isDesign) && (
           <>
             {isDesign && sectionBar("Form Footer")}
-            <div className="flex min-h-[30px] items-center gap-2 border-t border-gray-200 px-4 py-1.5" style={grid} onMouseDown={(e) => { if (e.target === e.currentTarget && !placeAt("Form Footer") && !isForm) onSelect({ selection: `sec:${f.name}.Form Footer` }); }}>
+            <div className="flex min-h-[30px] items-center gap-2 border-t border-gray-200 px-4 py-1.5" style={grid} onMouseDown={(e) => { if (e.target === e.currentTarget && !placeAt("Form Footer", e) && !isForm) onSelect({ selection: `sec:${f.name}.Form Footer` }); }}>
               {footer.map((c) => <span key={c.id}>{renderControl(c)}</span>)}
               {placeInput("Form Footer")}
             </div>
@@ -477,12 +479,11 @@ export function FormView(props: ViewProps) {
     <div className="flex h-full min-h-0 bg-white text-[12px]">
       <div className="flex min-h-0 min-w-0 flex-1 flex-col">
         {isDesign && (
-          <div className="flex h-[16px] shrink-0 items-end border-b border-gray-300 bg-[#f3f3f3] pl-6 text-[9px] text-gray-500">
+          <div className="flex h-[16px] shrink-0 items-end border-b border-gray-300 bg-[#f3f3f3] text-[9px] text-gray-500">
+            {/* The form selector: the box where the rulers meet. */}
+            <button type="button" aria-label="Form selector" title="Form selector" onMouseDown={() => onSelect({ selection: `form:${f.name}` })} className={`mr-1.5 h-[16px] w-[18px] shrink-0 border-r border-gray-400 ${ui.selection === `form:${f.name}` ? "bg-black" : "bg-[#e6e6e6] hover:bg-[#d0d0d0]"}`} />
             {Array.from({ length: 9 }).map((_, i) => <span key={i} className="w-[96px] border-l border-gray-400 pl-0.5">{i}</span>)}
           </div>
-        )}
-        {isDesign && (
-          <button type="button" aria-label="Form selector" onMouseDown={() => onSelect({ selection: `form:${f.name}` })} className={`absolute ml-0 mt-[-16px] h-[16px] w-[18px] border border-gray-400 ${ui.selection === `form:${f.name}` ? "bg-black" : "bg-[#e6e6e6]"}`} />
         )}
         {body}
         {showNav && (

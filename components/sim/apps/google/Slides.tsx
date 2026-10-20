@@ -7,7 +7,7 @@ import { activeSlide, showSlideId } from "../powerpoint/model";
 import { GIcon } from "./icons";
 import { ANIMATION_STARTS, ANIMATIONS, gTheme, LAYOUT_NAMES, pptLayout, SLIDES_MENUS, SLIDES_TOOLBAR, THEME_NAMES, TRANSITIONS } from "./menus";
 import { asDeck, openFile, viewOn } from "./model";
-import { CommentCard, CommentComposer, CommentsPanel, DetailsPanel, EditorHeader, IconBtn, KeyboardShortcuts, MenuList, PillBtn, Popup, SidePanel, TEXT_FONT, Toolbar, useG, useWidth, type MenuPos } from "./ui";
+import { CommentCard, CommentComposer, CommentsPanel, DetailsPanel, EditorHeader, IconBtn, KeyboardShortcuts, MenuList, PillBtn, Popup, SidePanel, TEXT_FONT, Toolbar, useG, useHeight, useWidth, type MenuPos } from "./ui";
 import { ExplorePanel } from "./Docs";
 
 const TEXT_PARTS = ["title", "subtitle", "body", "body2", "notes"];
@@ -66,6 +66,7 @@ export function SlidesSurface({ composer, setComposer }: { composer: boolean; se
   const setEditing = (v: { key: string; text: string } | null) => { editRef.current = v; setEditingState(v); };
   const mainRef = useRef<HTMLDivElement>(null);
   const mainW = useWidth(mainRef, 640);
+  const mainH = useHeight(mainRef, 400);
   const [menu, setMenu] = useState<{ pos: MenuPos; kind: "thumb" | "part" | "show"; sid?: string } | null>(null);
   const [dragFrom, setDragFrom] = useState<string | null>(null);
   const [notesEdit, setNotesEdit] = useState<string | null>(null);
@@ -108,7 +109,8 @@ export function SlidesSurface({ composer, setComposer }: { composer: boolean; se
   const showNotes = viewOn(doc, "notes");
   const showStrip = viewOn(doc, "filmstrip");
   const zoomPct = Number(deck.flags?.zoom ?? 100) / 100;
-  const slideW = Math.max(260, Math.min(mainW - 48, 1100)) * Math.min(1, zoomPct);
+  // Fit the slide to the space above the speaker notes, as Slides does at Fit zoom.
+  const slideW = Math.max(260, Math.min(mainW - 48, (mainH - 32) * ratio, 1100)) * Math.min(1, zoomPct);
   const pane = doc.pane;
   const side = pane && ["Themes", "Motion", "Comments", "Explore", "Details"].includes(pane) ? pane : null;
   const textSelected = /\.(title|subtitle|body|body2)$|\.o\d+$/.test(ui.selection.split(",")[0]) && !ui.selection.endsWith(".notes");

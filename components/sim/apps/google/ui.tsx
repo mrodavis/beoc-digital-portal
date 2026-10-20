@@ -956,6 +956,19 @@ export function useWidth(ref: React.RefObject<HTMLElement | null>, initial: numb
   return w;
 }
 
+export function useHeight(ref: React.RefObject<HTMLElement | null>, initial: number) {
+  const [h, setH] = useState(initial);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(() => setH(el.clientHeight));
+    ro.observe(el);
+    setH(el.clientHeight || initial);
+    return () => ro.disconnect();
+  }, [ref, initial]);
+  return h;
+}
+
 export function KeyboardShortcuts() {
   const g = useG();
   const rows: [string, string][] = [

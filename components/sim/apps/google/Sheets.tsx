@@ -734,7 +734,7 @@ export function SheetsSurface({ composer, setComposer, noteFor, setNoteFor }: { 
     for (let r = rc.r1; r <= Math.min(rc.r2, rc.r1 + 300); r++) for (let c = rc.c1; c <= rc.c2; c++) { const v = evaluateCell(book, sheet, refOf(c, r)); if (typeof v === "number") { if (!n) first = sheet.cells[refOf(c, r)]?.fmt as CellFormat | undefined; sum += v; n++; } }
     if (!n) return null;
     // Sheets shows the sum in the format of the first number in the selection.
-    const shown = first?.numberFormat && first.numberFormat !== "General" ? formatValue(Math.round(sum * 100) / 100, first) : sum.toLocaleString("en-US", { maximumFractionDigits: 2 });
+    const shown = first?.numFmt && first.numFmt !== "General" ? formatValue(Math.round(sum * 100) / 100, first) : sum.toLocaleString("en-US", { maximumFractionDigits: 2 });
     return `Sum: ${shown}`;
   })();
 
