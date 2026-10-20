@@ -1,4 +1,4 @@
-import type { ExcelCell, ExcelSheet, ExcelBook, CellFormat } from "@/types/sim";
+import type { ExcelCell, ExcelSheet, ExcelBook, CellFormat, ExcelPivot } from "@/types/sim";
 
 /* ------------------------------------------------------------------ */
 /* A1 references                                                       */
@@ -118,6 +118,12 @@ function sheetByName(book: ExcelBook, name: string): ExcelSheet | undefined {
 function cellValue(ctx: Ctx, sheet: ExcelSheet, ref: string): Val {
   const key = `${sheet.name}!${ref}`;
   if (ctx.seen.has(key)) throw new FormulaError("#CIRC!");
+  // A PivotTable's cells are its report: formulas (=Analysis!G8) read the
+  // values the PivotTable shows, from its cached snapshot of the source.
+  if (sheet.pivot && (sheet.pivot as unknown as XPivot).cache) {
+    const pc = pivotLayoutOf(ctx.book, sheet)?.cells[ref];
+    if (pc) return pc.v === undefined ? null : pc.v;
+  }
   const cell = sheet.cells[ref];
   if (!cell) return null;
   if (cell.f) {
@@ -492,8 +498,21 @@ const FNS: Record<string, (args: Val[], raw: Tok[][], ctx: Ctx) => Val> = {
   SUBTOTAL: (a) => {
     const code = toNum(a[0]) % 100;
     const rest = a.slice(1);
-    const fn = ({ 1: "AVERAGE", 2: "COUNT", 3: "COUNTA", 4: "MAX", 5: "MIN", 9: "SUM" } as Record<number, string>)[code] ?? "SUM";
+    const fn = SUBTOTAL_FNS[code] ?? "SUM";
     return FNS[fn](rest, [], undefined as unknown as Ctx);
+  },
+  STDEV: (a) => stdev(nums(a), true),
+  "STDEV.S": (a) => stdev(nums(a), true),
+  STDEVP: (a) => stdev(nums(a), false),
+  "STDEV.P": (a) => stdev(nums(a), false),
+  VAR: (a) => variance(nums(a), true),
+  "VAR.S": (a) => variance(nums(a), true),
+  VARP: (a) => variance(nums(a), false),
+  "VAR.P": (a) => variance(nums(a), false),
+  /** TEXT(value, format_text) uses the same custom format codes as Format Cells › Custom. */
+  TEXT: (a) => {
+    const v = Array.isArray(a[0]) ? flat([a[0]])[0] ?? null : a[0];
+    return formatCustom(typeof v === "number" || typeof v === "string" ? v : toNum(v ?? 0), String(a[1] ?? "General"));
   },
   SUMIFS: (a) => {
     const sum = flat([a[0]]);
@@ -684,6 +703,19 @@ const FNS: Record<string, (args: Val[], raw: Tok[][], ctx: Ctx) => Val> = {
   },
   WEEKDAY: (a) => new Date(Date.UTC(1899, 11, 30) + Math.floor(toNum(a[0])) * 86400000).getUTCDay() + 1,
 };
+
+/** SUBTOTAL function codes (1-11; add 100 to also skip hidden rows). */
+const SUBTOTAL_FNS: Record<number, string> = { 1: "AVERAGE", 2: "COUNT", 3: "COUNTA", 4: "MAX", 5: "MIN", 6: "PRODUCT", 7: "STDEV", 8: "STDEVP", 9: "SUM", 10: "VAR", 11: "VARP" };
+
+function variance(n: number[], sample: boolean): number {
+  if (n.length < (sample ? 2 : 1)) throw new FormulaError("#DIV/0!");
+  const mean = n.reduce((x, y) => x + y, 0) / n.length;
+  return n.reduce((t, x) => t + (x - mean) * (x - mean), 0) / (n.length - (sample ? 1 : 0));
+}
+
+function stdev(n: number[], sample: boolean): number {
+  return Math.sqrt(variance(n, sample));
+}
 
 /* Grids ------------------------------------------------------------- */
 
@@ -952,6 +984,21 @@ function evalNode(n: Node, ctx: Ctx): Val {
         }
       }
       if (n.name === "SUBTOTAL") return subtotalFn(n.args, ctx);
+      if (n.name === "GETPIVOTDATA") {
+        // GETPIVOTDATA(data_field, pivot_table, [field1, item1], ...): pivot_table is any cell of the report.
+        const dataField = String(evalNode(n.args[0] ?? { k: "omit" }, ctx) ?? "");
+        const area = n.args[1] ? areaOf(n.args[1], ctx) : null;
+        if (!area?.sheet.pivot) throw new FormulaError("#REF!");
+        const pairs: [string, Scalar][] = [];
+        for (let i = 2; i + 1 < n.args.length; i += 2) {
+          const f = evalNode(n.args[i], ctx);
+          const it = evalNode(n.args[i + 1], ctx);
+          pairs.push([String(Array.isArray(f) ? flat([f])[0] ?? "" : f ?? ""), (Array.isArray(it) ? flat([it])[0] ?? null : it) as Scalar]);
+        }
+        const r = getPivotData(ctx.book, area.sheet, dataField, pairs);
+        if (typeof r === "string" && r.startsWith("#")) throw new FormulaError(r);
+        return r;
+      }
       const fn = FNS[n.name];
       if (!fn) throw new FormulaError("#NAME?");
       return fn(n.args.map((a) => evalNode(a, ctx)), [], ctx);
@@ -986,7 +1033,7 @@ function areaOf(n: Node, ctx: Ctx): { sheet: ExcelSheet; rect: Rect } | null {
  */
 function subtotalFn(args: Node[], ctx: Ctx): Val {
   const code = toNum(evalNode(args[0] ?? { k: "omit" }, ctx));
-  const fnName = ({ 1: "AVERAGE", 2: "COUNT", 3: "COUNTA", 4: "MAX", 5: "MIN", 6: "PRODUCT", 9: "SUM" } as Record<number, string>)[code % 100];
+  const fnName = SUBTOTAL_FNS[code % 100];
   if (!fnName) throw new FormulaError("#VALUE!");
   const vals: Val[] = [];
   for (const arg of args.slice(1)) {
@@ -1097,6 +1144,8 @@ function excelDate(serial: number, long: boolean): string {
 export function formatValue(v: string | number | boolean | null, fmt?: CellFormat): string {
   if (v === null || v === undefined) return "";
   if (typeof v === "boolean") return v ? "TRUE" : "FALSE";
+  const custom = (fmt as XCellFormat | undefined)?.custom;
+  if (custom && !/^general$/i.test(custom.trim()) && !(typeof v === "string" && v.startsWith("#"))) return formatCustom(v, custom);
   if (typeof v === "string") return v;
   const nf = fmt?.numFmt ?? "General";
   const dec = fmt?.decimals;
@@ -1127,6 +1176,242 @@ export function formatValue(v: string | number | boolean | null, fmt?: CellForma
   }
 }
 
+/* ------------------------------------------------------------------ */
+/* Custom number formats (Format Cells › Number › Custom)              */
+/* ------------------------------------------------------------------ */
+
+/** A cell format that may carry a custom format code such as "yyyy-mm-dd" or "$"#,##0.00. */
+export type XCellFormat = CellFormat & { custom?: string };
+
+const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+/** Split a format code into its ; sections, ignoring ; inside quotes. */
+function splitSections(code: string): string[] {
+  const out: string[] = [];
+  let cur = "";
+  let q = false;
+  for (let i = 0; i < code.length; i++) {
+    const ch = code[i];
+    if (ch === '"') { q = !q; cur += ch; continue; }
+    if (!q && ch === "\\") { cur += ch + (code[i + 1] ?? ""); i++; continue; }
+    if (!q && ch === ";") { out.push(cur); cur = ""; continue; }
+    cur += ch;
+  }
+  out.push(cur);
+  return out;
+}
+
+/** The section text without quoted literals, escapes and [tags], for classifying it. */
+function bareSection(s: string): string {
+  return s.replace(/"[^"]*"/g, "").replace(/\\./g, "").replace(/\[[^\]]*\]/g, "").replace(/_.|\*./g, "");
+}
+
+function isDateSection(s: string): boolean {
+  const b = bareSection(s);
+  return /[ydhs]/i.test(b) || /m/i.test(b.replace(/AM\/PM|A\/P/gi, "")) || /AM\/PM|A\/P/i.test(b);
+}
+
+/** Format a date/time serial with a code such as yyyy-mm-dd, mmmm d, yyyy or h:mm AM/PM. */
+function formatDateCode(serial: number, code: string): string {
+  const day = Math.floor(serial);
+  const d = new Date(Date.UTC(1899, 11, 30) + day * 86400000);
+  const secs = Math.round((serial - day) * 86400);
+  const hh = Math.floor(secs / 3600) % 24, mi = Math.floor((secs % 3600) / 60), ss = secs % 60;
+  const toks = code.match(/"[^"]*"|\\.|\[[^\]]*\]|yyyy|yyy|yy|y|mmmmm|mmmm|mmm|mm|m|dddd|ddd|dd|d|hh|h|ss|s|AM\/PM|am\/pm|A\/P|a\/p|_.|\*.|./gi) ?? [];
+  const twelve = toks.some((t) => /^(AM\/PM|A\/P)$/i.test(t));
+  const out: string[] = [];
+  toks.forEach((t, i) => {
+    const low = t.toLowerCase();
+    if (t.startsWith('"')) { out.push(t.slice(1, -1)); return; }
+    if (t.startsWith("\\")) { out.push(t.slice(1)); return; }
+    if (t.startsWith("[")) return;
+    if (t.startsWith("_")) { out.push(" "); return; }
+    if (t.startsWith("*")) return;
+    if (/^m{1,2}$/.test(low)) {
+      // m/mm right after an hour or right before seconds means minutes.
+      const prev = toks.slice(0, i).reverse().find((x) => /^[a-z]/i.test(x) && !/^(AM\/PM|A\/P)$/i.test(x));
+      const next = toks.slice(i + 1).find((x) => /^[a-z]/i.test(x) && !/^(AM\/PM|A\/P)$/i.test(x));
+      if ((prev && /^h+$/i.test(prev)) || (next && /^s+$/i.test(next))) { out.push(low === "mm" ? String(mi).padStart(2, "0") : String(mi)); return; }
+      out.push(low === "mm" ? String(d.getUTCMonth() + 1).padStart(2, "0") : String(d.getUTCMonth() + 1));
+      return;
+    }
+    switch (low) {
+      case "yyyy": case "yyy": out.push(String(d.getUTCFullYear())); return;
+      case "yy": case "y": out.push(String(d.getUTCFullYear() % 100).padStart(2, "0")); return;
+      case "mmmmm": out.push(MONTH_NAMES[d.getUTCMonth()][0]); return;
+      case "mmmm": out.push(MONTH_NAMES[d.getUTCMonth()]); return;
+      case "mmm": out.push(MONTH_NAMES[d.getUTCMonth()].slice(0, 3)); return;
+      case "dddd": out.push(DAY_NAMES[d.getUTCDay()]); return;
+      case "ddd": out.push(DAY_NAMES[d.getUTCDay()].slice(0, 3)); return;
+      case "dd": out.push(String(d.getUTCDate()).padStart(2, "0")); return;
+      case "d": out.push(String(d.getUTCDate())); return;
+      case "hh": case "h": {
+        const h = twelve ? ((hh + 11) % 12) + 1 : hh;
+        out.push(low === "hh" ? String(h).padStart(2, "0") : String(h));
+        return;
+      }
+      case "ss": out.push(String(ss).padStart(2, "0")); return;
+      case "s": out.push(String(ss)); return;
+      case "am/pm": out.push(hh >= 12 ? (t === "am/pm" ? "pm" : "PM") : t === "am/pm" ? "am" : "AM"); return;
+      case "a/p": out.push(hh >= 12 ? (t === "a/p" ? "p" : "P") : t === "a/p" ? "a" : "A"); return;
+    }
+    out.push(t);
+  });
+  return out.join("");
+}
+
+type NumTok = { t: "lit"; s: string } | { t: "ph"; ch: string } | { t: "dot" } | { t: "comma" };
+
+/** Format a number with a code such as #,##0.00, "$"#,##0.00, 0.0%, 000-00-0000 or 0.00E+00. */
+function formatNumberCode(n: number, code: string): string {
+  if (/^\s*general\s*$/i.test(bareSection(code))) return formatValue(n);
+  const frac = /([#0?]*)\s*([#0?]+)\/([#0?]+|\d+)/.exec(bareSection(code));
+  if (frac) {
+    // Fractions: # ?/? (up to one-digit denominators), # ??/??, or a fixed denominator (# ?/8).
+    const a = Math.abs(n);
+    const whole = frac[1] ? Math.trunc(a) : 0;
+    const rest = a - whole;
+    let best = { p: 0, q: 1, err: rest };
+    const fixed = /^\d+$/.test(frac[3]) ? Number(frac[3]) : 0;
+    const maxQ = fixed || Math.pow(10, frac[3].length) - 1;
+    for (let q = fixed || 1; q <= maxQ; q++) {
+      const p = Math.round(rest * q);
+      if (Math.abs(rest - p / q) < best.err - 1e-12) best = { p, q, err: Math.abs(rest - p / q) };
+      if (fixed) break;
+    }
+    if (best.p === best.q) return String(whole + 1);
+    if (best.p === 0) return frac[1] ? String(whole) : "0";
+    return `${frac[1] && whole ? `${whole} ` : ""}${best.p}/${best.q}`;
+  }
+  const toks: NumTok[] = [];
+  let pct = 0;
+  for (let i = 0; i < code.length; i++) {
+    const ch = code[i];
+    if (ch === '"') {
+      const j = code.indexOf('"', i + 1);
+      toks.push({ t: "lit", s: code.slice(i + 1, j < 0 ? code.length : j) });
+      i = j < 0 ? code.length : j;
+      continue;
+    }
+    if (ch === "\\") { toks.push({ t: "lit", s: code[i + 1] ?? "" }); i++; continue; }
+    if (ch === "[") {
+      const j = code.indexOf("]", i);
+      const tag = code.slice(i + 1, j < 0 ? code.length : j);
+      // [$$-409] and [$€-x-euro] carry a currency symbol; colors and conditions show nothing.
+      if (tag.startsWith("$")) toks.push({ t: "lit", s: tag.slice(1).split("-")[0] });
+      i = j < 0 ? code.length : j;
+      continue;
+    }
+    if (ch === "_") { toks.push({ t: "lit", s: " " }); i++; continue; }
+    if (ch === "*") { i++; continue; }
+    if (ch === "0" || ch === "#" || ch === "?") { toks.push({ t: "ph", ch }); continue; }
+    if (ch === ".") { toks.push({ t: "dot" }); continue; }
+    if (ch === ",") { toks.push({ t: "comma" }); continue; }
+    if (ch === "%") { pct++; toks.push({ t: "lit", s: "%" }); continue; }
+    if ((ch === "E" || ch === "e") && (code[i + 1] === "+" || code[i + 1] === "-")) {
+      const m = /^[Ee][+-]([0#]+)/.exec(code.slice(i));
+      const expDigits = m ? m[1].length : 2;
+      const dot = toks.findIndex((t) => t.t === "dot");
+      const fd = dot < 0 ? 0 : toks.slice(dot + 1).filter((t) => t.t === "ph").length;
+      const [mStr, eStr] = Math.abs(n).toExponential(fd).split("e");
+      const e = Number(eStr);
+      const pre = toks.slice(0, Math.max(0, toks.findIndex((t) => t.t === "ph"))).map((t) => (t.t === "lit" ? t.s : "")).join("");
+      return `${pre}${mStr}E${e < 0 ? "-" : "+"}${String(Math.abs(e)).padStart(expDigits, "0")}`;
+    }
+    toks.push({ t: "lit", s: ch });
+  }
+  let v = Math.abs(n) * Math.pow(100, pct);
+  const first = toks.findIndex((t) => t.t === "ph");
+  if (first < 0) return toks.map((t) => (t.t === "lit" ? t.s : t.t === "dot" ? "." : t.t === "comma" ? "," : "")).join("");
+  let last = toks.length - 1;
+  while (last > first && toks[last].t !== "ph") last--;
+  // Commas right after the last digit placeholder divide by 1,000 each.
+  let k = last + 1;
+  while (k < toks.length && toks[k].t === "comma") { v /= 1000; k++; }
+  const region = toks.slice(first, last + 1);
+  const dotAt = region.findIndex((t) => t.t === "dot");
+  const intPart = dotAt < 0 ? region : region.slice(0, dotAt);
+  const fracPart = dotAt < 0 ? [] : region.slice(dotAt + 1);
+  const fracPh = fracPart.filter((t): t is { t: "ph"; ch: string } => t.t === "ph");
+  const intPh = intPart.filter((t): t is { t: "ph"; ch: string } => t.t === "ph");
+  const thousands = intPart.some((t) => t.t === "comma");
+  const rounded = Number(v.toFixed(fracPh.length));
+  let intStr = String(Math.floor(rounded));
+  let fracStr = fracPh.length ? rounded.toFixed(fracPh.length).split(".")[1] ?? "" : "";
+  // Trailing # drop zeros, ? pad with spaces, 0 keep them.
+  for (let i = fracPh.length - 1; i >= 0 && fracStr[i] === "0" && fracPh[i].ch !== "0"; i--) fracStr = fracStr.slice(0, i) + (fracPh[i].ch === "?" ? " " : "") + fracStr.slice(i + 1);
+  const minInt = intPh.filter((t) => t.ch === "0").length;
+  if (intStr === "0" && minInt === 0) intStr = "";
+  intStr = intStr.padStart(minInt, "0");
+  const hasInnerLit = intPart.some((t) => t.t === "lit");
+  let body: string;
+  if (hasInnerLit) {
+    // Digit placement (phone numbers, IDs): fill the placeholders from the right.
+    const digits = intStr.split("");
+    const outParts: string[] = [];
+    for (let i = intPart.length - 1; i >= 0; i--) {
+      const t = intPart[i];
+      if (t.t === "ph") outParts.unshift(digits.length ? digits.pop()! : t.ch === "0" ? "0" : t.ch === "?" ? " " : "");
+      else if (t.t === "lit") outParts.unshift(t.s);
+      else if (t.t === "comma") outParts.unshift(",");
+    }
+    body = digits.join("") + outParts.join("");
+  } else {
+    body = thousands ? intStr.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : intStr;
+  }
+  if (dotAt >= 0) {
+    const fracLits = fracPart.filter((t) => t.t === "lit").map((t) => (t as { s: string }).s).join("");
+    body += (fracStr.trim() || fracPh.some((t) => t.ch === "0") || fracPh.length ? "." : "") + fracStr + fracLits;
+  }
+  const lit = (ts: NumTok[]) => ts.map((t) => (t.t === "lit" ? t.s : t.t === "dot" ? "." : "")).join("");
+  return lit(toks.slice(0, first)) + body + lit(toks.slice(k));
+}
+
+/**
+ * Apply an Excel custom number format code. Supports up to four sections
+ * (positive;negative;zero;text), quoted text, \ escapes, [color] tags,
+ * digit placeholders 0 # ?, thousands separators, %, scientific, and date
+ * and time codes (yyyy, mmm, dd, h:mm AM/PM).
+ */
+export function formatCustom(v: number | string, code: string): string {
+  const sections = splitSections(code);
+  if (typeof v === "string") {
+    const textSec = sections.length >= 4 ? sections[3] : sections.find((s) => s.includes("@"));
+    if (!textSec) return v;
+    return textSec.replace(/"([^"]*)"/g, "$1").replace(/\\(.)/g, "$1").replace(/\[[^\]]*\]/g, "").replace(/@/g, v);
+  }
+  let sec = sections[0];
+  let neg = false;
+  if (v < 0 && sections.length >= 2 && sections[1] !== "") sec = sections[1];
+  else if (v < 0) neg = true;
+  else if (v === 0 && sections.length >= 3 && sections[2] !== "") sec = sections[2];
+  if (isDateSection(sec)) return formatDateCode(v, sec);
+  const s = formatNumberCode(v < 0 && sections.length >= 2 && sections[1] !== "" ? -v : v, sec);
+  return neg && /[1-9]/.test(s) ? `-${s}` : s;
+}
+
+/** The custom code Format Cells › Custom shows for a built-in format. */
+export function builtinFormatCode(fmt?: CellFormat): string {
+  const custom = (fmt as XCellFormat | undefined)?.custom;
+  if (custom) return custom;
+  const d = fmt?.decimals;
+  const dec = (n: number) => (n > 0 ? `.${"0".repeat(n)}` : "");
+  switch (fmt?.numFmt) {
+    case "Number": return `0${dec(d ?? 2)}`;
+    case "Comma": return `#,##0${dec(d ?? 2)}`;
+    case "Currency": return `"$"#,##0${dec(d ?? 2)}`;
+    case "Accounting": return `_("$"* #,##0${dec(d ?? 2)}_)`;
+    case "Short Date": return "m/d/yyyy";
+    case "Long Date": return "dddd, mmmm d, yyyy";
+    case "Time": return "h:mm AM/PM";
+    case "Percentage": return `0${dec(d ?? 0)}%`;
+    case "Scientific": return `0${dec(d ?? 2)}E+00`;
+    case "Text": return "@";
+    default: return "General";
+  }
+}
+
 /** Normalize a formula for comparison. */
 export function normalizeFormula(f: string, strictRefs = false): string {
   let s = f.trim().toUpperCase().replace(/\s+/g, "");
@@ -1152,4 +1437,661 @@ export function shiftFormula(f: string, dc: number, dr: number): string {
 
 export function cellAt(sheet: ExcelSheet, ref: string): ExcelCell | undefined {
   return sheet.cells[ref];
+}
+
+/** Resolve "B2:B7", "$B$2:$B$7", "=Data!$B$2:$B$7" or "'Q1 Sales'!B2" to a sheet and rectangle. */
+export function resolveRef(book: ExcelBook, sheet: ExcelSheet, ref: string): { sheet: ExcelSheet; rect: Rect } | null {
+  let r = String(ref ?? "").trim().replace(/^=/, "");
+  let sh: ExcelSheet | undefined = sheet;
+  const bang = r.lastIndexOf("!");
+  if (bang > 0) {
+    sh = sheetByName(book, r.slice(0, bang).replace(/^'|'$/g, ""));
+    r = r.slice(bang + 1);
+  }
+  const rect = parseRange(r.replace(/\$/g, ""));
+  return sh && rect ? { sheet: sh, rect } : null;
+}
+
+/** The values in a reference, row by row (chart series, sparklines, list sources). */
+export function rangeValues(book: ExcelBook, sheet: ExcelSheet, ref: string): Scalar[] {
+  const t = resolveRef(book, sheet, ref);
+  if (!t) return [];
+  const out: Scalar[] = [];
+  for (let r = t.rect.r1; r <= Math.min(t.rect.r2, t.rect.r1 + 500); r++)
+    for (let c = t.rect.c1; c <= Math.min(t.rect.c2, t.rect.c1 + 60); c++) out.push(evaluateCell(book, t.sheet, refOf(c, r)));
+  return out;
+}
+
+/* ------------------------------------------------------------------ */
+/* PivotTables                                                         */
+/* ------------------------------------------------------------------ */
+
+/**
+ * A PivotTable works from its own snapshot of the source (the pivot cache),
+ * as in Excel: it shows what the source held when it was created or last
+ * refreshed, so a change to the source shows up only after Refresh. The
+ * source may name an Excel Table ("ExpenseData"), so rows added to the table
+ * are picked up by the next refresh.
+ *
+ * Extra fields kept on `sheet.pivot` (see XPivot): `cache`, `groups` (date
+ * grouping by Years/Quarters/Months/Days, per field), `sort` (per row or
+ * column field: by "label" or by a value field's label), and per value field
+ * `numFmt`/`decimals`/`custom` (Value Field Settings › Number Format),
+ * `showAs` and `name`.
+ */
+export interface XPivotValue {
+  field: string;
+  fn: string;
+  numFmt?: CellFormat["numFmt"];
+  decimals?: number;
+  custom?: string;
+  /** Show Values As; "" is No Calculation. Falls back to the sheet's pvShowAs flag for the first value field. */
+  showAs?: string;
+  name?: string;
+}
+
+export interface PivotCache {
+  head: string[];
+  rows: Scalar[][];
+  fmts: (CellFormat | null)[];
+}
+
+export type XPivot = Omit<ExcelPivot, "values"> & {
+  values: XPivotValue[];
+  cache?: PivotCache;
+  groups?: Record<string, string[]>;
+  sort?: Record<string, { by: string; desc: boolean }>;
+};
+
+/** Summary functions offered by Value Field Settings. */
+export const PIVOT_FNS = ["Sum", "Count", "Average", "Max", "Min", "Product", "Count Numbers", "StdDev", "StdDevp", "Var", "Varp"];
+/** Date grouping units, coarsest first. */
+export const GROUP_UNITS = ["Years", "Quarters", "Months", "Days"];
+
+const MON3 = MONTH_NAMES.map((m) => m.slice(0, 3));
+const DAY3 = DAY_NAMES.map((d) => d.slice(0, 3));
+
+/** "Sum of Amount"; a field added to Values twice is numbered, as in Excel ("Sum of Amount2"). */
+export function pivotValueLabel(pv: XPivot, i: number): string {
+  const v = pv.values[i];
+  if (!v) return "";
+  if (v.name) return v.name;
+  const base = `${v.fn === "Count Numbers" ? "Count" : v.fn} of ${v.field}`;
+  const dup = pv.values.slice(0, i).filter((x) => x.field === v.field).length;
+  return dup ? `${base}${dup + 1}` : base;
+}
+
+/** The sheet and rectangle a PivotTable reads: a table by name, or a range. */
+export function pivotSourceArea(book: ExcelBook, pv: { source: { sheet: string; range: string } }): { sheet: ExcelSheet; rect: Rect } | null {
+  let rng = String(pv.source?.range ?? "").trim().replace(/^=/, "");
+  let sheetName = pv.source?.sheet;
+  const bang = rng.lastIndexOf("!");
+  if (bang > 0) {
+    sheetName = rng.slice(0, bang).replace(/^'|'$/g, "");
+    rng = rng.slice(bang + 1);
+  }
+  const table = findTable(book, rng);
+  if (table) return table;
+  const rect = parseRange(rng.replace(/\$/g, ""));
+  const sheet = sheetName ? sheetByName(book, sheetName) : undefined;
+  if (!rect || !sheet) return null;
+  // Whole columns stop at the last used row.
+  const last = Object.keys(sheet.cells).reduce((m, ref) => Math.max(m, parseRef(ref)?.r ?? 0), rect.r1);
+  return { sheet, rect: { ...rect, r2: Math.min(rect.r2, last) } };
+}
+
+/** Read the source now: what Refresh stores in the pivot cache. */
+export function pivotSnapshot(book: ExcelBook, pv: { source: { sheet: string; range: string } }): PivotCache | null {
+  const area = pivotSourceArea(book, pv);
+  if (!area) return null;
+  const { sheet: src, rect } = area;
+  const c2 = Math.min(rect.c2, rect.c1 + 60);
+  const r2 = Math.min(rect.r2, rect.r1 + 2000);
+  const head: string[] = [];
+  for (let c = rect.c1; c <= c2; c++) head.push(String(src.cells[refOf(c, rect.r1)]?.v ?? numToCol(c)));
+  const rows: Scalar[][] = [];
+  for (let r = rect.r1 + 1; r <= r2; r++) {
+    const row = head.map((_, i) => evaluateCell(book, src, refOf(rect.c1 + i, r)));
+    if (row.every((x) => x === null || x === "")) continue;
+    rows.push(row);
+  }
+  const fmts = head.map((_, i) => {
+    const f = src.cells[refOf(rect.c1 + i, rect.r1 + 1)]?.fmt;
+    return f ? { ...f } : null;
+  });
+  return { head, rows, fmts };
+}
+
+export interface PivotRecords {
+  head: string[];
+  rows: Record<string, Scalar>[];
+  fmtOf(field: string): CellFormat | undefined;
+  isNumeric(field: string): boolean;
+  isDate(field: string): boolean;
+}
+
+const SNAP_BUSY = new Set<object>();
+
+/** The records a PivotTable summarizes: its cache, or the live source when it has none yet. */
+export function pivotRecords(book: ExcelBook, pv: XPivot): PivotRecords | null {
+  let cache = pv.cache;
+  if (!cache) {
+    if (SNAP_BUSY.has(pv)) return null;
+    SNAP_BUSY.add(pv);
+    try {
+      cache = pivotSnapshot(book, pv) ?? undefined;
+    } finally {
+      SNAP_BUSY.delete(pv);
+    }
+  }
+  if (!cache) return null;
+  const c = cache;
+  const idx = (f: string) => c.head.findIndex((h) => h.toLowerCase() === f.toLowerCase());
+  const fmtOf = (f: string) => c.fmts[idx(f)] ?? undefined;
+  return {
+    head: c.head,
+    rows: c.rows.map((r) => Object.fromEntries(c.head.map((h, i) => [h, r[i] ?? null]))),
+    fmtOf,
+    isNumeric: (f) => {
+      const i = idx(f);
+      const first = c.rows.map((r) => r[i]).find((v) => v !== null && v !== "" && v !== undefined);
+      return typeof first === "number";
+    },
+    isDate: (f) => {
+      const fm = fmtOf(f) as XCellFormat | undefined;
+      return Boolean(fm && (fm.numFmt === "Short Date" || fm.numFmt === "Long Date" || (fm.custom && isDateSection(fm.custom))));
+    },
+  };
+}
+
+interface PLevel {
+  /** Name shown in the report and used by GETPIVOTDATA ("Years" for a derived level). */
+  name: string;
+  field: string;
+  unit?: string;
+}
+
+function levelsFor(pv: XPivot, f: string): PLevel[] {
+  const g = pv.groups?.[f];
+  if (!g?.length) return [{ name: f, field: f }];
+  const units = GROUP_UNITS.filter((u) => g.includes(u));
+  return units.map((u, i) => ({ name: i === units.length - 1 ? f : u, field: f, unit: u }));
+}
+
+/** Field list entries: the source columns plus Years/Quarters fields made by grouping a date. */
+export function pivotFieldList(book: ExcelBook, pv: XPivot): { name: string; derived?: boolean }[] {
+  const recs = pivotRecords(book, pv);
+  if (!recs) return [];
+  const out: { name: string; derived?: boolean }[] = [];
+  for (const h of recs.head) {
+    out.push({ name: h });
+    for (const lv of levelsFor(pv, h)) if (lv.name !== h) out.push({ name: lv.name, derived: true });
+  }
+  return out;
+}
+
+interface PKey {
+  id: string;
+  v: Scalar;
+  order?: number;
+  fmt?: CellFormat;
+}
+
+function numberFormatOnly(f?: CellFormat | null): CellFormat | undefined {
+  if (!f) return undefined;
+  const out: XCellFormat = {};
+  if (f.numFmt) out.numFmt = f.numFmt;
+  if (f.decimals !== undefined) out.decimals = f.decimals;
+  if ((f as XCellFormat).custom) out.custom = (f as XCellFormat).custom;
+  return Object.keys(out).length ? out : undefined;
+}
+
+function pivotKey(rec: Record<string, Scalar>, lv: PLevel, recs: PivotRecords): PKey {
+  const raw = rec[lv.field] ?? null;
+  if (raw === null || raw === "") return { id: "(blank)", v: "(blank)", order: Number.MAX_SAFE_INTEGER };
+  if (lv.unit && typeof raw === "number") {
+    const d = new Date(Date.UTC(1899, 11, 30) + Math.floor(raw) * 86400000);
+    const y = d.getUTCFullYear(), m = d.getUTCMonth(), day = d.getUTCDate();
+    const q = Math.floor(m / 3) + 1;
+    switch (lv.unit) {
+      case "Years": return { id: String(y), v: String(y), order: y };
+      case "Quarters": return { id: `Qtr${q}`, v: `Qtr${q}`, order: q };
+      case "Months": return { id: MON3[m], v: MON3[m], order: m };
+      default: return { id: `${day}-${MON3[m]}`, v: `${day}-${MON3[m]}`, order: m * 32 + day };
+    }
+  }
+  return { id: String(raw), v: raw, fmt: typeof raw === "number" ? numberFormatOnly(recs.fmtOf(lv.field)) : undefined };
+}
+
+/** Position of a month or weekday name in Excel's built-in custom lists, or -1. */
+function calendarIndex(id: string): number {
+  const s = id.toLowerCase();
+  for (const list of [MONTH_NAMES, MON3]) {
+    const i = list.findIndex((m) => m.toLowerCase() === s);
+    if (i >= 0) return i;
+  }
+  for (const list of [DAY_NAMES, DAY3]) {
+    const i = list.findIndex((m) => m.toLowerCase() === s);
+    if (i >= 0) return 100 + i;
+  }
+  return -1;
+}
+
+/** Item order: grouped units by calendar, months and weekdays by calendar (custom lists), numbers, then text A to Z. */
+function sortPivotKeys(keys: PKey[]): PKey[] {
+  const real = keys.filter((k) => k.id !== "(blank)");
+  const calendar = real.length > 0 && real.every((k) => calendarIndex(k.id) >= 0);
+  return keys.slice().sort((a, b) => {
+    if (a.id === "(blank)" || b.id === "(blank)") return a.id === b.id ? 0 : a.id === "(blank)" ? 1 : -1;
+    if (a.order !== undefined && b.order !== undefined) return a.order - b.order;
+    if (calendar) return calendarIndex(a.id) - calendarIndex(b.id);
+    if (typeof a.v === "number" && typeof b.v === "number") return a.v - b.v;
+    if (typeof a.v === "number") return -1;
+    if (typeof b.v === "number") return 1;
+    return a.id.localeCompare(b.id, undefined, { sensitivity: "base", numeric: true });
+  });
+}
+
+function pivotAggregate(vals: Scalar[], fn: string): number | null {
+  const n = vals.filter((x): x is number => typeof x === "number");
+  const sum = () => n.reduce((a, b) => a + b, 0);
+  switch (fn) {
+    case "Count": return vals.filter((x) => x !== null && x !== "").length;
+    case "Count Numbers": return n.length;
+    case "Average": return n.length ? sum() / n.length : null;
+    case "Max": return n.length ? Math.max(...n) : null;
+    case "Min": return n.length ? Math.min(...n) : null;
+    case "Product": return n.length ? n.reduce((a, b) => a * b, 1) : null;
+    case "StdDev": return n.length > 1 ? stdev(n, true) : null;
+    case "StdDevp": return n.length ? stdev(n, false) : null;
+    case "Var": return n.length > 1 ? variance(n, true) : null;
+    case "Varp": return n.length ? variance(n, false) : null;
+    default: return sum();
+  }
+}
+
+/** One cell of a PivotTable report. */
+export interface PivotCell {
+  v: Scalar;
+  fmt?: CellFormat;
+  kind: "filter" | "header" | "rowItem" | "colItem" | "value" | "grand";
+  /** Value field index for value, grand and value-header cells. */
+  vi?: number;
+  rowPath?: string[];
+  colKey?: string | null;
+  /** Row or column field of an item cell (or of a filter cell). */
+  field?: string;
+  depth?: number;
+}
+
+export interface PivotLayout {
+  cells: Record<string, PivotCell>;
+  rect: Rect | null;
+  /** What a PivotChart plots: one category per innermost row item, one series per column item (or value field). */
+  chart: { cats: string[]; series: { name: string; vals: number[] }[] };
+  rowFields: string[];
+  colFields: string[];
+}
+
+const PIVOT_HDR: CellFormat = { bold: true, fill: "#DDEBF7" };
+
+function pivotFlag(book: ExcelBook, sheet: ExcelSheet, field: string): string[] | null {
+  const v = book.flags?.[`pvf:${sheet.name}:${field}`];
+  return v ? String(v).split("|") : null;
+}
+
+interface PRec {
+  r: Record<string, Scalar>;
+  col: string;
+  rk: PKey[];
+}
+
+interface PNode {
+  key: PKey;
+  path: string[];
+  items: PRec[];
+  children: PNode[];
+  depth: number;
+}
+
+/** Lay out a PivotTable report (compact form, subtotals at the top of each group, grand totals). */
+export function computePivot(book: ExcelBook, sheet: ExcelSheet): PivotLayout {
+  const empty: PivotLayout = { cells: {}, rect: null, chart: { cats: [], series: [] }, rowFields: [], colFields: [] };
+  const pv = sheet.pivot as unknown as XPivot | null | undefined;
+  if (!pv) return empty;
+  const recs = pivotRecords(book, pv);
+  if (!recs) return empty;
+  const out: Record<string, PivotCell> = {};
+  const put = (c: number, r: number, cell: PivotCell) => {
+    if (c >= 1 && r >= 1) out[refOf(c, r)] = cell;
+  };
+  // Report filters and slicers narrow the records first.
+  const kept = recs.rows.filter((r) =>
+    recs.head.every((h) => {
+      const items = pivotFlag(book, sheet, h);
+      return !items || items.some((it) => it.toLowerCase() === String(r[h] ?? "(blank)").toLowerCase());
+    }),
+  );
+  const at = parseRef(pv.at ?? "A3") ?? { c: 1, r: 3 };
+  pv.filters.forEach((f, i) => {
+    const r = at.r - 2 - (pv.filters.length - 1 - i);
+    const items = pivotFlag(book, sheet, f);
+    put(at.c, r, { v: f, fmt: { bold: true }, kind: "filter", field: f });
+    put(at.c + 1, r, { v: !items ? "(All)" : items.length === 1 ? items[0] : "(Multiple Items)", kind: "filter", field: f });
+  });
+  const rowLv = pv.rows.flatMap((f) => levelsFor(pv, f));
+  const colLv = pv.columns.flatMap((f) => levelsFor(pv, f));
+  const vals = pv.values ?? [];
+  const nv = vals.length;
+  const labels = vals.map((_, i) => pivotValueLabel(pv, i));
+  const finish = (chart: PivotLayout["chart"]): PivotLayout => {
+    let rect: Rect | null = null;
+    for (const ref of Object.keys(out)) {
+      const p = parseRef(ref)!;
+      rect = rect ? { c1: Math.min(rect.c1, p.c), r1: Math.min(rect.r1, p.r), c2: Math.max(rect.c2, p.c), r2: Math.max(rect.r2, p.r) } : { c1: p.c, r1: p.r, c2: p.c, r2: p.r };
+    }
+    return { cells: out, rect, chart, rowFields: rowLv.map((l) => l.name), colFields: colLv.map((l) => l.name) };
+  };
+  if (!rowLv.length && !colLv.length && !nv) return finish({ cats: [], series: [] });
+
+  const all: PRec[] = kept.map((r) => ({
+    r,
+    col: colLv.map((l) => pivotKey(r, l, recs).id).join("\u0001"),
+    rk: rowLv.map((l) => pivotKey(r, l, recs)),
+  }));
+  const aggOf = (items: PRec[], i: number): number | null => (items.length && vals[i] ? pivotAggregate(items.map((x) => x.r[vals[i].field] ?? null), vals[i].fn) : null);
+  const sortSpec = (name: string) => pv.sort?.[name];
+  const byValue = (list: { key: PKey; items: PRec[] }[], spec: { by: string; desc: boolean }) => {
+    const vi = vals.findIndex((_, i) => labels[i].toLowerCase() === spec.by.toLowerCase());
+    if (vi < 0) return;
+    list.sort((a, b) => {
+      const x = aggOf(a.items, vi) ?? Number.NEGATIVE_INFINITY, y = aggOf(b.items, vi) ?? Number.NEGATIVE_INFINITY;
+      return spec.desc ? y - x : x - y;
+    });
+  };
+
+  // Column items (several column fields combine into one item per combination).
+  type CK = { id: string; label: Scalar; fmt?: CellFormat };
+  let colKeys: CK[] = [];
+  if (colLv.length) {
+    const seen = new Map<string, { id: string; key: PKey; parts: PKey[]; items: PRec[] }>();
+    for (const x of all) {
+      const parts = colLv.map((l) => pivotKey(x.r, l, recs));
+      const g = seen.get(x.col);
+      if (g) g.items.push(x);
+      else seen.set(x.col, { id: x.col, key: parts[parts.length - 1], parts, items: [x] });
+    }
+    let groups = Array.from(seen.values());
+    // Sort by each level in turn (outer level first).
+    for (let li = colLv.length - 1; li >= 0; li--) {
+      const order = sortPivotKeys(groups.map((g) => g.parts[li])).map((k) => k.id);
+      const uniq = Array.from(new Set(order));
+      groups = groups.slice().sort((a, b) => uniq.indexOf(a.parts[li].id) - uniq.indexOf(b.parts[li].id));
+    }
+    const spec = sortSpec(colLv[colLv.length - 1].name);
+    if (spec?.by === "label" && spec.desc) groups.reverse();
+    else if (spec && spec.by !== "label") byValue(groups, spec);
+    colKeys = groups.map((g) => ({
+      id: g.id,
+      label: g.parts.length === 1 ? g.parts[0].v : g.parts.map((p) => p.id).join(" "),
+      fmt: g.parts.length === 1 ? g.parts[0].fmt : undefined,
+    }));
+  }
+
+  // Row items, as a tree.
+  const build = (items: PRec[], depth: number, path: string[]): PNode[] => {
+    if (depth >= rowLv.length) return [];
+    const groups = new Map<string, { key: PKey; items: PRec[] }>();
+    for (const it of items) {
+      const k = it.rk[depth];
+      const g = groups.get(k.id);
+      if (g) g.items.push(it);
+      else groups.set(k.id, { key: k, items: [it] });
+    }
+    const order = sortPivotKeys(Array.from(groups.values()).map((g) => g.key)).map((k) => k.id);
+    const list = order.map((id) => groups.get(id)!);
+    const spec = sortSpec(rowLv[depth].name);
+    if (spec?.by === "label" && spec.desc) list.reverse();
+    else if (spec && spec.by !== "label") byValue(list, spec);
+    return list.map((g) => ({ key: g.key, path: [...path, g.key.id], items: g.items, depth, children: build(g.items, depth + 1, [...path, g.key.id]) }));
+  };
+  const tree = build(all, 0, []);
+
+  // Value columns: each column item × value field, then the grand total columns.
+  type VCol = { ck: CK | null; vi: number; grand: boolean };
+  const vcols: VCol[] = [];
+  if (colLv.length) {
+    for (const ck of colKeys) for (let i = 0; i < Math.max(nv, 1); i++) vcols.push({ ck, vi: nv ? i : -1, grand: false });
+    for (let i = 0; i < Math.max(nv, 1); i++) vcols.push({ ck: null, vi: nv ? i : -1, grand: true });
+  } else for (let i = 0; i < nv; i++) vcols.push({ ck: null, vi: i, grand: false });
+
+  const flagShowAs = String(book.flags?.[`pvShowAs:${sheet.name}`] ?? "");
+  const showAsOf = (i: number) => (vals[i]?.showAs !== undefined ? vals[i].showAs! : i === 0 ? flagShowAs : "") || "";
+  const valueFmt = (i: number): CellFormat | undefined => {
+    const v = vals[i];
+    if (!v) return undefined;
+    if (showAsOf(i).startsWith("%")) return { numFmt: "Percentage", decimals: 2 };
+    if (v.custom) return { custom: v.custom } as XCellFormat;
+    if (v.numFmt) return v.decimals === undefined ? { numFmt: v.numFmt } : { numFmt: v.numFmt, decimals: v.decimals };
+    if (v.fn === "Count" || v.fn === "Count Numbers") return undefined;
+    return numberFormatOnly(recs.fmtOf(v.field));
+  };
+  const itemsIn = (items: PRec[], ck: CK | null) => (ck ? items.filter((x) => x.col === ck.id) : items);
+  const running = new Map<string, number>();
+  const show = (items: PRec[], i: number, node: PNode | null, ck: CK | null, grand: boolean): Scalar => {
+    const raw = aggOf(itemsIn(items, ck), i);
+    if (raw === null) return null;
+    const sa = showAsOf(i);
+    if (!sa) return raw;
+    if (sa === "% of Grand Total") {
+      const g = aggOf(all, i);
+      return g ? raw / g : 0;
+    }
+    if (sa === "% of Column Total") {
+      const t = aggOf(itemsIn(all, ck), i);
+      return t ? raw / t : 0;
+    }
+    if (sa === "% of Row Total") {
+      const t = aggOf(node ? node.items : all, i);
+      return t ? raw / t : 0;
+    }
+    if (sa === "Running Total In") {
+      if (grand || !node) return null;
+      const k = `${i}|${ck?.id ?? ""}|${node.depth}|${node.path.slice(0, -1).join("\u0001")}`;
+      const t = (running.get(k) ?? 0) + raw;
+      running.set(k, t);
+      return t;
+    }
+    return raw;
+  };
+
+  const hasRows = rowLv.length > 0;
+  const c0 = at.c;
+  let r = at.r;
+  if (colLv.length) {
+    // The report starts at its location: the value name and Column Labels first, then the item row.
+    put(c0, r, { v: nv === 1 ? labels[0] : "", fmt: PIVOT_HDR, kind: "header", vi: nv === 1 ? 0 : undefined });
+    put(c0 + 1, r, { v: "Column Labels", fmt: PIVOT_HDR, kind: "header" });
+    r += 1;
+    if (nv <= 1) {
+      put(c0, r, { v: hasRows ? "Row Labels" : "", fmt: PIVOT_HDR, kind: "header" });
+      colKeys.forEach((ck, j) => put(c0 + 1 + j, r, { v: ck.label, fmt: { ...PIVOT_HDR, ...(ck.fmt ?? {}) }, kind: "colItem", colKey: ck.id, field: colLv[colLv.length - 1].name }));
+      put(c0 + 1 + colKeys.length, r, { v: "Grand Total", fmt: PIVOT_HDR, kind: "header" });
+      r += 1;
+    } else {
+      vcols.forEach((vc, j) => put(c0 + 1 + j, r, { v: !vc.grand && j % nv === 0 ? vc.ck!.label : "", fmt: { ...PIVOT_HDR, ...(vc.ck?.fmt ?? {}) }, kind: vc.grand ? "header" : "colItem", colKey: vc.ck?.id ?? null, field: colLv[colLv.length - 1].name }));
+      put(c0, r, { v: "", fmt: PIVOT_HDR, kind: "header" });
+      r += 1;
+      put(c0, r, { v: hasRows ? "Row Labels" : "", fmt: PIVOT_HDR, kind: "header" });
+      vcols.forEach((vc, j) => put(c0 + 1 + j, r, { v: vc.grand ? `Total ${labels[vc.vi]}` : labels[vc.vi], fmt: PIVOT_HDR, kind: "header", vi: vc.vi }));
+      r += 1;
+    }
+  } else if (hasRows) {
+    put(c0, r, { v: "Row Labels", fmt: PIVOT_HDR, kind: "header" });
+    vcols.forEach((vc, j) => put(c0 + 1 + j, r, { v: labels[vc.vi], fmt: PIVOT_HDR, kind: "header", vi: vc.vi }));
+    r += 1;
+  } else {
+    vcols.forEach((vc, j) => put(c0 + j, r, { v: labels[vc.vi], fmt: PIVOT_HDR, kind: "header", vi: vc.vi }));
+    r += 1;
+  }
+  const firstVal = hasRows || colLv.length ? c0 + 1 : c0;
+
+  const leaves: PNode[] = [];
+  const rowOf = new Map<PNode, number>();
+  const emit = (nodes: PNode[]) => {
+    for (const nd of nodes) {
+      const parent = nd.children.length > 0;
+      put(c0, r, { v: nd.key.v, fmt: { ...(nd.key.fmt ?? {}), ...(parent ? { bold: true } : {}), ...(nd.depth ? { indent: nd.depth } : {}) }, kind: "rowItem", rowPath: nd.path, field: rowLv[nd.depth].name, depth: nd.depth });
+      vcols.forEach((vc, j) => {
+        if (vc.vi < 0) return;
+        put(firstVal + j, r, { v: show(nd.items, vc.vi, nd, vc.ck, vc.grand), fmt: { ...(valueFmt(vc.vi) ?? {}), ...(parent ? { bold: true } : {}) }, kind: "value", vi: vc.vi, rowPath: nd.path, colKey: vc.ck?.id ?? null });
+      });
+      rowOf.set(nd, r);
+      r++;
+      if (parent) emit(nd.children);
+      else leaves.push(nd);
+    }
+  };
+  let totalsRow = r;
+  if (hasRows) {
+    emit(tree);
+    totalsRow = r;
+    put(c0, r, { v: "Grand Total", fmt: { bold: true, border: "top" }, kind: "grand" });
+    vcols.forEach((vc, j) => {
+      if (vc.vi < 0) return;
+      put(firstVal + j, r, { v: show(all, vc.vi, null, vc.ck, true), fmt: { ...(valueFmt(vc.vi) ?? {}), bold: true, border: "top" }, kind: "grand", vi: vc.vi, colKey: vc.ck?.id ?? null });
+    });
+  } else if (nv) {
+    if (colLv.length && nv === 1) put(c0, r, { v: labels[0], fmt: { bold: true }, kind: "header", vi: 0 });
+    vcols.forEach((vc, j) => {
+      if (vc.vi < 0) return;
+      put(firstVal + j, r, { v: show(all, vc.vi, null, vc.ck, vc.grand), fmt: valueFmt(vc.vi), kind: vc.grand ? "grand" : "value", vi: vc.vi, colKey: vc.ck?.id ?? null });
+    });
+  }
+
+  // What a PivotChart plots.
+  const label = (k: PKey) => (typeof k.v === "number" && k.fmt ? formatValue(k.v, k.fmt) : String(k.v ?? ""));
+  const numAt = (c: number, rr: number) => {
+    const x = out[refOf(c, rr)]?.v;
+    return typeof x === "number" ? x : 0;
+  };
+  const plot = vcols.map((vc, j) => ({ vc, x: firstVal + j })).filter(({ vc }) => !vc.grand && vc.vi >= 0);
+  const chart: PivotLayout["chart"] = {
+    cats: hasRows ? leaves.map((nd) => (nd.depth ? [...nd.path.slice(0, -1), label(nd.key)].join(" ") : label(nd.key))) : ["Total"],
+    series: plot.map(({ vc, x }) => ({
+      name: vc.ck ? (nv > 1 ? `${typeof vc.ck.label === "number" && vc.ck.fmt ? formatValue(vc.ck.label, vc.ck.fmt) : String(vc.ck.label)} - ${labels[vc.vi]}` : typeof vc.ck.label === "number" && vc.ck.fmt ? formatValue(vc.ck.label, vc.ck.fmt) : String(vc.ck.label)) : labels[vc.vi],
+      vals: hasRows ? leaves.map((nd) => numAt(x, rowOf.get(nd)!)) : [numAt(x, totalsRow)],
+    })),
+  };
+  return finish(chart);
+}
+
+const PIVOT_MEMO = new WeakMap<object, { sig: string; cache: unknown; src: unknown; lay: PivotLayout }>();
+const LAYOUT_BUSY = new Set<object>();
+
+function pivotSig(book: ExcelBook, sheet: ExcelSheet): string {
+  const pv = sheet.pivot as unknown as XPivot;
+  const flags = Object.entries(book.flags ?? {}).filter(([k]) => k.startsWith(`pvf:${sheet.name}:`) || k === `pvShowAs:${sheet.name}`);
+  return JSON.stringify([pv.rows, pv.columns, pv.values, pv.filters, pv.at, pv.groups ?? null, pv.sort ?? null, pv.source, flags]);
+}
+
+/** The report a sheet's PivotTable shows (memoized per PivotTable and cache). */
+export function pivotLayoutOf(book: ExcelBook, sheet: ExcelSheet): PivotLayout | null {
+  const pv = sheet.pivot as unknown as XPivot | null | undefined;
+  if (!pv) return null;
+  const sig = pivotSig(book, sheet);
+  const src = pv.cache ? null : pivotSourceArea(book, pv)?.sheet ?? null;
+  const memo = PIVOT_MEMO.get(pv);
+  if (memo && memo.sig === sig && memo.cache === pv.cache && memo.src === src && (pv.cache || src)) return memo.lay;
+  if (LAYOUT_BUSY.has(pv)) return null;
+  LAYOUT_BUSY.add(pv);
+  try {
+    const lay = computePivot(book, sheet);
+    PIVOT_MEMO.set(pv, { sig, cache: pv.cache, src, lay });
+    return lay;
+  } finally {
+    LAYOUT_BUSY.delete(pv);
+  }
+}
+
+/**
+ * GETPIVOTDATA: the value a PivotTable shows for a value field ("Amount" or
+ * "Sum of Amount") and optional field/item pairs ("Department", "Medical").
+ * Returns "#REF!" when the field or item is not in the report.
+ */
+export function getPivotData(book: ExcelBook, sheet: ExcelSheet, dataField: string, pairs: [string, Scalar][]): Scalar {
+  const pv = sheet.pivot as unknown as XPivot | null | undefined;
+  if (!pv) return "#REF!";
+  const recs = pivotRecords(book, pv);
+  if (!recs) return "#REF!";
+  const want = dataField.trim().toLowerCase();
+  const vi = pv.values.findIndex((v, i) => pivotValueLabel(pv, i).toLowerCase() === want || v.field.toLowerCase() === want);
+  if (vi < 0) return "#REF!";
+  const val = pv.values[vi];
+  const levels = [...pv.rows, ...pv.columns].flatMap((f) => levelsFor(pv, f));
+  const rowNames = new Set(pv.rows.flatMap((f) => levelsFor(pv, f)).map((l) => l.name.toLowerCase()));
+  const kept = recs.rows.filter((r) =>
+    recs.head.every((h) => {
+      const items = pivotFlag(book, sheet, h);
+      return !items || items.some((it) => it.toLowerCase() === String(r[h] ?? "(blank)").toLowerCase());
+    }),
+  );
+  const matchers: { lv: PLevel; item: Scalar }[] = [];
+  for (const [field, item] of pairs) {
+    const lv = levels.find((l) => l.name.toLowerCase() === field.trim().toLowerCase());
+    if (!lv) return "#REF!";
+    matchers.push({ lv, item });
+  }
+  const hit = (r: Record<string, Scalar>, ms: { lv: PLevel; item: Scalar }[]) =>
+    ms.every(({ lv, item }) => {
+      const k = pivotKey(r, lv, recs);
+      if (typeof item === "number") return k.v === item || Number(k.id) === item || (typeof k.v === "string" && k.v === String(item));
+      const s = String(item ?? "").toLowerCase();
+      return k.id.toLowerCase() === s || (typeof k.v === "number" && k.fmt !== undefined && formatValue(k.v, k.fmt).toLowerCase() === s);
+    });
+  const items = kept.filter((r) => hit(r, matchers));
+  if (matchers.length && !items.length) return "#REF!";
+  const agg = (rs: Record<string, Scalar>[]) => (rs.length ? pivotAggregate(rs.map((x) => x[val.field] ?? null), val.fn) : null);
+  const raw = agg(items);
+  if (raw === null) return "#REF!";
+  const flagShowAs = String(book.flags?.[`pvShowAs:${sheet.name}`] ?? "");
+  const sa = (val.showAs !== undefined ? val.showAs : vi === 0 ? flagShowAs : "") || "";
+  if (sa === "% of Grand Total") {
+    const g = agg(kept);
+    return g ? raw / g : 0;
+  }
+  if (sa === "% of Column Total" || sa === "% of Row Total") {
+    const useRows = sa === "% of Row Total";
+    const base = kept.filter((r) => hit(r, matchers.filter((m) => rowNames.has(m.lv.name.toLowerCase()) === useRows)));
+    const t = agg(base);
+    return t ? raw / t : 0;
+  }
+  return raw;
+}
+
+/**
+ * Give every PivotTable that has no cache yet a snapshot of its source. The
+ * Excel engine calls this before and after each command, so a PivotTable
+ * keeps showing the data it was built from until Refresh.
+ */
+export function withPivotCaches(book: ExcelBook): ExcelBook {
+  if (!book.sheets.some((s) => s.pivot && !(s.pivot as unknown as XPivot).cache)) return book;
+  const next: ExcelBook = { ...book, sheets: book.sheets.map((s) => (s.pivot && !(s.pivot as unknown as XPivot).cache ? { ...s, pivot: { ...s.pivot } } : s)) };
+  for (const s of next.sheets) {
+    const pv = s.pivot as unknown as XPivot | null | undefined;
+    if (pv && !pv.cache) pv.cache = pivotSnapshot(next, pv) ?? { head: [], rows: [], fmts: [] };
+  }
+  return next;
+}
+
+/** Refresh (PivotTable Analyze › Refresh, Data › Refresh All): re-read the source of every cached PivotTable. Mutates `book`. */
+export function refreshPivots(book: ExcelBook, only?: ExcelSheet): number {
+  let n = 0;
+  for (const s of book.sheets) {
+    const pv = s.pivot as unknown as XPivot | null | undefined;
+    if (!pv || !pv.cache || (only && s !== only)) continue;
+    pv.cache = pivotSnapshot(book, pv) ?? pv.cache;
+    n++;
+  }
+  return n;
 }

@@ -1,10 +1,27 @@
 import type { DialogDef } from "@/types/sim";
+import { PIVOT_FNS } from "@/lib/sim/excel";
 import { THEME_COLORS } from "../../chrome/colors";
 import { ALL_CHART_TYPES, NUMBER_FORMATS } from "./ribbon";
 import { CF_FORMAT_NAMES, ICONS } from "./model";
 
-export const SORT_ORDERS = ["A to Z", "Z to A", "Smallest to Largest", "Largest to Smallest", "Custom List..."];
+/** Every Order the Sort dialog can show. The canvas's Sort dialog offers the ones that fit each column's type. */
+export const SORT_ORDERS = ["A to Z", "Z to A", "Smallest to Largest", "Largest to Smallest", "Oldest to Newest", "Newest to Oldest", "Custom List..."];
+/** The Order choices per column type, as in Excel's Sort dialog. */
+export const SORT_ORDERS_BY_TYPE: Record<"text" | "number" | "date", string[]> = {
+  text: ["A to Z", "Z to A", "Custom List..."],
+  number: ["Smallest to Largest", "Largest to Smallest", "Custom List..."],
+  date: ["Oldest to Newest", "Newest to Oldest", "Custom List..."],
+};
+/** Excel's built-in custom lists (File › Options › Advanced › Edit Custom Lists). */
+export const BUILT_IN_LISTS = [
+  "Sun, Mon, Tue, Wed, Thu, Fri, Sat",
+  "Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday",
+  "Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec",
+  "January, February, March, April, May, June, July, August, September, October, November, December",
+];
 export const SHOW_VALUES_AS = ["No Calculation", "% of Grand Total", "% of Column Total", "% of Row Total", "Running Total In"];
+export const VALIDATION_OPERATORS = ["between", "not between", "equal to", "not equal to", "greater than", "less than", "greater than or equal to", "less than or equal to"];
+const VFS_NUMBER_FORMATS = ["General", "Number", "Currency", "Accounting", "Percentage", "Comma", "Short Date", "Long Date", "Custom"];
 const ICON_NAMES = Object.keys(ICONS);
 const CF_RULE_TYPES = [
   "Format all cells based on their values",
@@ -26,9 +43,11 @@ export const excelDialogs: Record<string, DialogDef> = {
       {
         label: "Number",
         fields: [
-          { type: "list", key: "category", label: "Category:", options: NUMBER_FORMATS, height: 170 },
+          { type: "list", key: "category", label: "Category:", options: [...NUMBER_FORMATS, "Comma", "Custom"], height: 170 },
           { type: "number", key: "decimals", label: "Decimal places:", min: 0, max: 10 },
           { type: "select", key: "symbol", label: "Symbol:", options: ["$", "None", "€", "£"] },
+          { type: "text", key: "custom", label: "Type (Custom):", placeholder: "yyyy-mm-dd" },
+          { type: "note", text: "Custom codes: yyyy-mm-dd, mm/dd/yyyy, mmmm d, yyyy, \"$\"#,##0.00, #,##0, 0.0%, 000-00-0000, h:mm AM/PM. Pick Custom, then type the code." },
         ],
       },
       {
@@ -74,6 +93,43 @@ export const excelDialogs: Record<string, DialogDef> = {
     tabs: [
       { label: "Recommended Charts", fields: [{ type: "list", key: "type", label: "", options: ["Clustered Column", "Clustered Bar", "Line", "Pie", "Stacked Column"], height: 150 }] },
       { label: "All Charts", fields: [{ type: "list", key: "type", label: "", options: ALL_CHART_TYPES, height: 170 }] },
+      // Filled from the workbook's saved chart templates (core.dialogDef).
+      { label: "Templates", fields: [{ type: "note", text: "Chart templates you saved with Save as Template." }, { type: "list", key: "template", label: "My Templates", options: [], default: "", height: 120 }] },
+    ],
+  },
+  changeChartType: {
+    id: "changeChartType",
+    title: "Change Chart Type",
+    width: 420,
+    tabs: [
+      { label: "All Charts", fields: [{ type: "list", key: "type", label: "", options: ALL_CHART_TYPES, height: 170 }] },
+      { label: "Templates", fields: [{ type: "note", text: "Chart templates you saved with Save as Template." }, { type: "list", key: "template", label: "My Templates", options: [], default: "", height: 120 }] },
+    ],
+  },
+  saveChartTemplate: {
+    id: "saveChartTemplate",
+    title: "Save Chart Template",
+    okLabel: "Save",
+    width: 380,
+    fields: [
+      { type: "note", text: "Save in: Charts (Templates folder)" },
+      { type: "text", key: "name", label: "File name:" },
+      { type: "note", text: "Save as type: Chart Template Files (*.crtx)" },
+    ],
+  },
+  /** Select Data Source is drawn by the canvas (its series list changes as you work); this lists its fields. */
+  selectData: {
+    id: "selectData",
+    title: "Select Data Source",
+    width: 520,
+    fields: [
+      { type: "text", key: "range", label: "Chart data range:" },
+      { type: "text", key: "names", label: "Legend Entries (Series):" },
+      { type: "text", key: "series", label: "Series:" },
+      { type: "number", key: "count", label: "Number of series:" },
+      { type: "text", key: "categories", label: "Horizontal (Category) Axis Labels:" },
+      { type: "checkbox", key: "switched", label: "Switch Row/Column" },
+      { type: "checkbox", key: "edited", label: "Series edited" },
     ],
   },
   insertFunction: {
@@ -86,6 +142,7 @@ export const excelDialogs: Record<string, DialogDef> = {
       { type: "text", key: "args", label: "Function Arguments:", placeholder: "B2:B10" },
     ],
   },
+  /** The Sort dialog is drawn by the canvas (Data › Sort): its levels and Order lists follow each column's type. */
   sort: {
     id: "sort",
     title: "Sort",
@@ -93,12 +150,61 @@ export const excelDialogs: Record<string, DialogDef> = {
     fields: [
       { type: "checkbox", key: "headers", label: "My data has headers", default: true },
       { type: "select", key: "sortBy", label: "Sort by", options: [] },
-      { type: "select", key: "sortOn", label: "Sort On", options: ["Cell Values", "Cell Color", "Font Color"] },
+      { type: "select", key: "sortOn", label: "Sort On", options: ["Cell Values"] },
       { type: "select", key: "order", label: "Order", options: SORT_ORDERS },
-      { type: "note", text: "Add Level: then by" },
+      { type: "text", key: "customList", label: "Custom List entries:", placeholder: "Stat, Urgent, Routine" },
       { type: "select", key: "thenBy", label: "Then by", options: [] },
       { type: "select", key: "thenOrder", label: "Order", options: SORT_ORDERS },
-      { type: "text", key: "customList", label: "Custom List entries:", placeholder: "Stat, Urgent, Routine" },
+      { type: "text", key: "thenCustomList", label: "Custom List entries:" },
+      { type: "select", key: "then2By", label: "Then by", options: [] },
+      { type: "select", key: "then2Order", label: "Order", options: SORT_ORDERS },
+      { type: "text", key: "then2CustomList", label: "Custom List entries:" },
+    ],
+  },
+  series: {
+    id: "series",
+    title: "Series",
+    width: 400,
+    fields: [
+      { type: "radio", key: "seriesIn", label: "Series in", options: ["Rows", "Columns"], default: "Columns" },
+      { type: "radio", key: "type", label: "Type", options: ["Linear", "Growth", "Date", "AutoFill"], default: "Linear" },
+      { type: "radio", key: "dateUnit", label: "Date unit", options: ["Day", "Weekday", "Month", "Year"], default: "Day" },
+      { type: "checkbox", key: "trend", label: "Trend" },
+      { type: "text", key: "step", label: "Step value:", default: "1" },
+      { type: "text", key: "stop", label: "Stop value:" },
+    ],
+  },
+  pivotGroup: {
+    id: "pivotGroup",
+    title: "Grouping",
+    width: 320,
+    fields: [
+      { type: "note", text: "Auto: starting and ending at the first and last date in the data." },
+      { type: "note", text: "By (choose one or more):" },
+      { type: "checkbox", key: "days", label: "Days" },
+      { type: "checkbox", key: "months", label: "Months", default: true },
+      { type: "checkbox", key: "quarters", label: "Quarters" },
+      { type: "checkbox", key: "years", label: "Years" },
+    ],
+  },
+  changeSource: {
+    id: "changeSource",
+    title: "Change PivotTable Data Source",
+    width: 380,
+    fields: [
+      { type: "note", text: "Choose the data that you want to analyze" },
+      { type: "text", key: "range", label: "Table/Range:" },
+    ],
+  },
+  allowEditRanges: {
+    id: "allowEditRanges",
+    title: "New Range",
+    width: 360,
+    fields: [
+      { type: "note", text: "Allow Users to Edit Ranges › New: ranges unlocked by a password when the sheet is protected." },
+      { type: "text", key: "title", label: "Title:" },
+      { type: "text", key: "refersTo", label: "Refers to cells:" },
+      { type: "text", key: "password", label: "Range password:", password: true },
     ],
   },
   cfGreater: { id: "cfGreater", title: "Greater Than", width: 420, fields: [{ type: "text", key: "value", label: "Format cells that are GREATER THAN:" }, cfFormat] },
@@ -140,14 +246,31 @@ export const excelDialogs: Record<string, DialogDef> = {
         label: "Settings",
         fields: [
           { type: "select", key: "allow", label: "Allow:", options: ["Any value", "Whole number", "Decimal", "List", "Date", "Time", "Text length"] },
-          { type: "select", key: "data", label: "Data:", options: ["between", "not between", "equal to", "greater than", "less than"] },
-          { type: "text", key: "min", label: "Minimum:" },
-          { type: "text", key: "max", label: "Maximum:" },
-          { type: "text", key: "source", label: "Source (list items separated by commas):" },
+          { type: "checkbox", key: "ignoreBlank", label: "Ignore blank", default: true },
+          { type: "select", key: "data", label: "Data:", options: VALIDATION_OPERATORS },
+          { type: "text", key: "min", label: "Minimum (between, greater than):" },
+          { type: "text", key: "max", label: "Maximum (between, less than):" },
+          { type: "text", key: "value", label: "Value (equal to, not equal to):" },
+          { type: "text", key: "source", label: "Source (items separated by commas, or =$H$2:$H$5):" },
         ],
       },
-      { label: "Input Message", fields: [{ type: "checkbox", key: "showInput", label: "Show input message when cell is selected", default: true }, { type: "text", key: "inputMessage", label: "Input message:" }] },
-      { label: "Error Alert", fields: [{ type: "select", key: "errorStyle", label: "Style:", options: ["Stop", "Warning", "Information"] }, { type: "text", key: "errorMessage", label: "Error message:" }] },
+      {
+        label: "Input Message",
+        fields: [
+          { type: "checkbox", key: "showInput", label: "Show input message when cell is selected", default: true },
+          { type: "text", key: "inputTitle", label: "Title:" },
+          { type: "text", key: "inputMessage", label: "Input message:" },
+        ],
+      },
+      {
+        label: "Error Alert",
+        fields: [
+          { type: "checkbox", key: "showError", label: "Show error alert after invalid data is entered", default: true },
+          { type: "select", key: "errorStyle", label: "Style:", options: ["Stop", "Warning", "Information"] },
+          { type: "text", key: "errorTitle", label: "Title:" },
+          { type: "text", key: "errorMessage", label: "Error message:" },
+        ],
+      },
     ],
   },
   removeDuplicates: {
@@ -273,8 +396,23 @@ export const excelDialogs: Record<string, DialogDef> = {
     title: "Value Field Settings",
     width: 400,
     tabs: [
-      { label: "Summarize Values By", fields: [{ type: "list", key: "fn", label: "Summarize value field by", options: ["Sum", "Count", "Average", "Max", "Min"], height: 110 }] },
+      {
+        label: "Summarize Values By",
+        fields: [
+          { type: "text", key: "customName", label: "Custom Name:" },
+          { type: "list", key: "fn", label: "Summarize value field by", options: PIVOT_FNS, height: 130 },
+        ],
+      },
       { label: "Show Values As", fields: [{ type: "select", key: "showAs", label: "Show values as", options: SHOW_VALUES_AS }] },
+      {
+        // Number Format belongs to the value field, so it survives refreshes and layout changes.
+        label: "Number Format",
+        fields: [
+          { type: "list", key: "numberFormat", label: "Category:", options: VFS_NUMBER_FORMATS, height: 130 },
+          { type: "number", key: "decimals", label: "Decimal places:", min: 0, max: 10 },
+          { type: "text", key: "custom", label: "Type (Custom):", placeholder: "\"$\"#,##0.00" },
+        ],
+      },
     ],
   },
   insertSlicer: { id: "insertSlicer", title: "Insert Slicers", width: 300, fields: [{ type: "list", key: "field", label: "Choose a field:", options: [], height: 150 }] },

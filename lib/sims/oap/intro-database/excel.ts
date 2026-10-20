@@ -278,10 +278,10 @@ export const excelSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "In one sort, sort by ProviderID from A to Z, then by AppointmentDate from oldest to newest.",
-          hint: "Click a cell in the table. Data tab › Sort. Sort by ProviderID, A to Z. Add Level: Then by AppointmentDate, Smallest to Largest. OK.",
+          hint: "Click a cell in the table. Data tab › Sort. Sort by ProviderID, A to Z. Add Level: Then by AppointmentDate, Oldest to Newest. OK. (For a date column the Order list offers Oldest to Newest.)",
           steps: [
             {
-              action: { kind: "dialog", id: "sort", values: { sortBy: "ProviderID", order: "A to Z", thenBy: "AppointmentDate", thenOrder: "Smallest to Largest" } },
+              action: { kind: "dialog", id: "sort", values: { sortBy: "ProviderID", order: "A to Z", thenBy: "AppointmentDate", thenOrder: ["Oldest to Newest", "Smallest to Largest"] } },
               requires: { selection: cells("A1:G17") },
               selectHint: "Click a single cell inside the table first.",
             },
@@ -682,11 +682,23 @@ export const excelSims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Add the header \"Lakeside Medical Associates - Monthly Appointment Summary\" and the footer \"Prepared by the Front Desk\".",
-          hint: "Page Layout tab › Page Setup group launcher (the small arrow) › Header/Footer tab. Type the Header and Footer text, then OK.",
+          instruction: "Add the header \"Lakeside Medical Associates - Monthly Appointment Summary\".",
+          hint: "Page Layout tab › Page Setup group launcher (the small arrow) › Header/Footer tab. Type the text in Header, then OK. (Or Insert tab › Text group › Header & Footer, type in the header area and click a cell.)",
           steps: [
             {
-              action: { kind: "dialog", id: "pageSetupSheet", values: { header: "Lakeside Medical Associates - Monthly Appointment Summary", footer: "Prepared by the Front Desk" } },
+              action: { kind: "dialog", id: "pageSetupSheet", values: { header: "Lakeside Medical Associates - Monthly Appointment Summary" } },
+              alt: [{ kind: "type", target: "header", value: "Lakeside Medical Associates - Monthly Appointment Summary" }],
+              requires: { sheet: "Monthly Report" },
+            },
+          ],
+        },
+        {
+          instruction: "Add the footer \"Prepared by the Front Desk\".",
+          hint: "Page Layout tab › Page Setup group launcher › Header/Footer tab. Type the text in Footer, then OK. (Or, in Page Layout view, click the footer area at the bottom of the page and type it.)",
+          steps: [
+            {
+              action: { kind: "dialog", id: "pageSetupSheet", values: { footer: "Prepared by the Front Desk" } },
+              alt: [{ kind: "type", target: "footer", value: "Prepared by the Front Desk" }],
               requires: { sheet: "Monthly Report" },
             },
           ],

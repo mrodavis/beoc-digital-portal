@@ -18,13 +18,55 @@ import {
   numToCol,
   parseRange,
   parseRef,
+  pivotFieldList,
+  pivotLayoutOf,
+  pivotRecords,
+  pivotValueLabel,
+  rangeValues,
   rectToRange,
+  resolveRef,
   refOf,
   shiftFormula,
+  withPivotCaches,
+  type PivotCell,
   type Rect,
+  type XCellFormat,
+  type XPivot,
 } from "@/lib/sim/excel";
-import { activeCell, analyzeSuggestions, centerAcrossRanges, currentRegion, DEFAULT_COLS, DEFAULT_ROWS, isUnlocked, parseInput, selRect, sheetOf, TAB_COLORS, usedRect } from "./model";
-import { SHOW_VALUES_AS } from "./dialogs";
+import {
+  absRef,
+  activeCell,
+  analyzeSuggestions,
+  centerAcrossRanges,
+  chartIdOf,
+  chartSeriesOf,
+  currentRegion,
+  dataRegion,
+  DEFAULT_COLS,
+  DEFAULT_ROWS,
+  editRangeAt,
+  invalidCells,
+  isDateFormat,
+  isFormulaHidden,
+  isUnlocked,
+  parseInput,
+  resolveHeaderFooter,
+  selRect,
+  seriesFromRange,
+  sheetOf,
+  sparklineAt,
+  TAB_COLORS,
+  TOTAL_FN_NAMES,
+  usedRect,
+  validationAllows,
+  validationAt,
+  validationList,
+  withTotalRows,
+  type XChart,
+  type XSparkline,
+  type XValidation,
+} from "./model";
+import { BUILT_IN_LISTS, SHOW_VALUES_AS, SORT_ORDERS_BY_TYPE } from "./dialogs";
 import { TABLE_STYLE_COLORS } from "./ribbon";
 
 const HEAD_W = 40;
@@ -48,13 +90,8 @@ function cellRaw(sheet: ExcelSheet, ref: string): string {
 }
 
 /* ------------------------------------------------------------------ */
-/* Pivot computation                                                   */
+/* PivotTables and chart data                                          */
 /* ------------------------------------------------------------------ */
-
-interface VirtualCell {
-  v: Val;
-  fmt?: CellFormat;
-}
 
 /** Items a PivotTable field is filtered to (report filter or slicer); null = all. */
 function pivotFilterItems(doc: ExcelBook, sheet: ExcelSheet, field: string): string[] | null {
@@ -62,150 +99,32 @@ function pivotFilterItems(doc: ExcelBook, sheet: ExcelSheet, field: string): str
   return v ? String(v).split("|") : null;
 }
 
-/** Source records of a PivotTable, as field → value. */
-function pivotSource(doc: ExcelBook, sheet: ExcelSheet): { head: string[]; rows: Record<string, Val>[]; fmtOf: (f: string) => CellFormat | undefined } | null {
-  const pv = sheet.pivot;
-  if (!pv) return null;
-  const src = doc.sheets.find((s) => s.name === pv.source.sheet);
-  const rc = parseRange(pv.source.range);
-  if (!src || !rc) return null;
-  const head: string[] = [];
-  for (let c = rc.c1; c <= rc.c2; c++) head.push(String(src.cells[refOf(c, rc.r1)]?.v ?? numToCol(c)));
-  const rows: Record<string, Val>[] = [];
-  for (let r = rc.r1 + 1; r <= rc.r2; r++) {
-    const row: Record<string, Val> = {};
-    head.forEach((h, i) => (row[h] = evaluateCell(doc, src, refOf(rc.c1 + i, r))));
-    if (Object.values(row).every((x) => x === null || x === "")) continue;
-    rows.push(row);
-  }
-  return { head, rows, fmtOf: (f) => src.cells[refOf(rc.c1 + head.indexOf(f), rc.r1 + 1)]?.fmt };
-}
+const numVals = (vals: Val[]) => vals.map((x) => (typeof x === "number" ? x : 0));
 
-function computePivot(doc: ExcelBook, sheet: ExcelSheet): Record<string, VirtualCell> {
-  const pv = sheet.pivot;
-  const out: Record<string, VirtualCell> = {};
-  const source = pivotSource(doc, sheet);
-  if (!pv || !source) return out;
-  const { head } = source;
-  // Report filters and slicers narrow the records first.
-  const rows = source.rows.filter((r) => head.every((h) => {
-    const items = pivotFilterItems(doc, sheet, h);
-    return !items || items.some((it) => it.toLowerCase() === String(r[h] ?? "(blank)").toLowerCase());
-  }));
-  const at = parseRef(pv.at ?? "A3")!;
-  pv.filters.forEach((f, i) => {
-    const r = at.r - 2 - (pv.filters.length - 1 - i);
-    if (r < 1) return;
-    const items = pivotFilterItems(doc, sheet, f);
-    out[refOf(at.c, r)] = { v: f, fmt: { bold: true } };
-    out[refOf(at.c + 1, r)] = { v: !items ? "(All)" : items.length === 1 ? items[0] : "(Multiple Items)" };
-  });
-  const rowF = pv.rows[0];
-  const colF = pv.columns[0];
-  const val = pv.values[0];
-  if (!rowF && !val) return out;
-  const agg = (items: Record<string, Val>[]) => {
-    if (!val) return null;
-    const nums = items.map((x) => x[val.field]).filter((x): x is number => typeof x === "number");
-    switch (val.fn) {
-      case "Count": return items.filter((x) => x[val.field] !== null && x[val.field] !== "").length;
-      case "Average": return nums.length ? nums.reduce((a, b) => a + b, 0) / nums.length : 0;
-      case "Max": return nums.length ? Math.max(...nums) : 0;
-      case "Min": return nums.length ? Math.min(...nums) : 0;
-      default: return nums.reduce((a, b) => a + b, 0);
-    }
-  };
-  const showAs = String(doc.flags?.[`pvShowAs:${sheet.name}`] ?? "");
-  const vf: CellFormat | undefined = val ? source.fmtOf(val.field) : undefined;
-  const pctFmt: CellFormat = { numFmt: "Percentage", decimals: 2 };
-  const fmtV = showAs && showAs !== "Running Total In" ? pctFmt : val?.fn === "Count" ? undefined : vf;
-  const hdr: CellFormat = { bold: true, fill: "#DDEBF7" };
-  const keyOf = (r: Record<string, Val>, f: string) => String(r[f] ?? "(blank)");
-  const sortKeys = (keys: string[]) => keys.sort((a, b) => {
-    const na = Number(a), nb = Number(b);
-    return !Number.isNaN(na) && !Number.isNaN(nb) ? na - nb : a.localeCompare(b, undefined, { sensitivity: "base" });
-  });
-  const rowKeys = rowF ? sortKeys(Array.from(new Set(rows.map((r) => keyOf(r, rowF))))) : [];
-  const colKeys = colF ? sortKeys(Array.from(new Set(rows.map((r) => keyOf(r, colF))))) : [];
-  const label = val ? `${val.fn} of ${val.field}` : "";
-  const grand = agg(rows) ?? 0;
-  const colTotal = (ck: string | null) => agg(ck === null ? rows : rows.filter((x) => keyOf(x, colF) === ck)) ?? 0;
-  const running: Record<string, number> = {};
-  const show = (v: number | null, rk: string | null, ck: string | null): Val => {
-    if (v === null) return null;
-    if (!showAs) return v;
-    if (showAs === "% of Grand Total") return grand ? v / grand : 0;
-    if (showAs === "% of Column Total") { const t = colTotal(ck); return t ? v / t : 0; }
-    if (showAs === "% of Row Total") {
-      if (rk === null) return grand ? v / grand : 0;
-      const t = agg(rows.filter((x) => keyOf(x, rowF) === rk)) ?? 0;
-      return t ? v / t : 0;
-    }
-    if (showAs === "Running Total In") {
-      const k = ck ?? "";
-      running[k] = (running[k] ?? 0) + v;
-      return running[k];
-    }
-    return v;
-  };
-  out[refOf(at.c, at.r)] = { v: rowF ? "Row Labels" : label, fmt: hdr };
-  if (colF) {
-    out[refOf(at.c, at.r - 1)] = { v: label, fmt: hdr };
-    out[refOf(at.c + 1, at.r - 1)] = { v: "Column Labels", fmt: hdr };
-    colKeys.forEach((k, i) => (out[refOf(at.c + 1 + i, at.r)] = { v: k, fmt: hdr }));
-    out[refOf(at.c + 1 + colKeys.length, at.r)] = { v: "Grand Total", fmt: hdr };
-  } else if (rowF && val) out[refOf(at.c + 1, at.r)] = { v: label, fmt: hdr };
-  if (!rowF && val) {
-    out[refOf(at.c, at.r + 1)] = { v: show(agg(rows), null, null), fmt: fmtV };
-    return out;
-  }
-  rowKeys.forEach((k, i) => {
-    const items = rows.filter((r) => keyOf(r, rowF) === k);
-    out[refOf(at.c, at.r + 1 + i)] = { v: k };
-    if (colF) {
-      colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, at.r + 1 + i)] = { v: show(agg(items.filter((x) => keyOf(x, colF) === ck)), k, ck), fmt: fmtV }));
-      out[refOf(at.c + 1 + colKeys.length, at.r + 1 + i)] = { v: showAs === "Running Total In" ? null : show(agg(items), k, null), fmt: fmtV };
-    } else if (val) out[refOf(at.c + 1, at.r + 1 + i)] = { v: show(agg(items), k, null), fmt: fmtV };
-  });
-  const gt = at.r + 1 + rowKeys.length;
-  out[refOf(at.c, gt)] = { v: "Grand Total", fmt: { bold: true, border: "top" } };
-  const gtFmt = { ...(fmtV ?? {}), bold: true, border: "top" as const };
-  if (colF) {
-    colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, gt)] = { v: showAs === "Running Total In" ? null : show(colTotal(ck), null, ck === null ? null : ck), fmt: gtFmt }));
-    out[refOf(at.c + 1 + colKeys.length, gt)] = { v: showAs === "Running Total In" ? null : show(grand, null, null), fmt: gtFmt };
-  } else if (val) out[refOf(at.c + 1, gt)] = { v: showAs === "Running Total In" ? null : show(grand, null, null), fmt: gtFmt };
-  return out;
-}
-
-/** Categories and series a chart plots: from its range, or from the PivotTable for a PivotChart. */
-function chartData(doc: ExcelBook, sheet: ExcelSheet, ch: ExcelChart, pivotCells: Record<string, VirtualCell>): { cats: string[]; series: { name: string; vals: number[] }[] } | null {
+/** Categories and series a chart plots: from its range, its own series list, or the PivotTable for a PivotChart. */
+function chartData(doc: ExcelBook, sheet: ExcelSheet, ch: ExcelChart): { cats: string[]; series: { name: string; vals: number[] }[] } | null {
   let cats: string[] = [];
   let series: { name: string; vals: number[] }[] = [];
+  const xc = ch as XChart;
   if (ch.range === "PIVOT") {
-    const at = parseRef(sheet.pivot?.at ?? "A3");
-    if (!at) return null;
-    const v = (c: number, r: number) => pivotCells[refOf(c, r)]?.v ?? null;
-    const hasRows = v(at.c, at.r) === "Row Labels";
-    let lastR = at.r + 1;
-    if (hasRows) {
-      for (let r = at.r + 1; v(at.c, r) !== null && v(at.c, r) !== "Grand Total"; r++) { cats.push(String(v(at.c, r))); lastR = r; }
-    } else cats = ["Total"];
-    const cols: { c: number; name: string }[] = [];
-    if (hasRows && v(at.c + 1, at.r - 1) === "Column Labels") {
-      for (let c = at.c + 1; v(c, at.r) !== null && v(c, at.r) !== "Grand Total"; c++) cols.push({ c, name: String(v(c, at.r)) });
-    } else cols.push({ c: hasRows ? at.c + 1 : at.c, name: String(v(hasRows ? at.c + 1 : at.c, at.r) ?? "Total") });
-    series = cols.map(({ c, name }) => ({
-      name,
-      vals: hasRows ? cats.map((_, i) => { const x = v(c, at.r + 1 + i); return typeof x === "number" ? x : 0; }) : [Number(v(at.c, at.r + 1)) || 0],
-    }));
-    void lastR;
+    const lay = sheet.pivot ? pivotLayoutOf(doc, sheet) : null;
+    if (!lay) return null;
+    cats = lay.chart.cats;
+    series = lay.chart.series;
+  } else if (xc.series?.length) {
+    // Series kept from Select Data Source: each has a name (text or =Sheet!$B$1) and values.
+    const nameOf = (n: string) => (n.trim().startsWith("=") ? String(rangeValues(doc, sheet, n)[0] ?? "") : n);
+    series = xc.series.map((s) => ({ name: nameOf(s.name), vals: numVals(rangeValues(doc, sheet, s.values)) }));
+    const n = Math.max(0, ...series.map((s) => s.vals.length));
+    cats = xc.categories ? rangeValues(doc, sheet, xc.categories).map((x) => (typeof x === "number" ? formatValue(x, undefined) : String(x ?? ""))) : Array.from({ length: n }, (_, i) => String(i + 1));
+    return { cats, series };
   } else {
     // "Spending!A1:E6" on a chart sheet: read the data from its source sheet.
     const bang = ch.range.lastIndexOf("!");
     if (bang > 0) {
       const src = doc.sheets.find((x) => x.name === ch.range.slice(0, bang).replace(/^'|'$/g, ""));
       if (!src) return null;
-      return chartData(doc, src, { ...ch, range: ch.range.slice(bang + 1) }, pivotCells);
+      return chartData(doc, src, { ...ch, range: ch.range.slice(bang + 1) });
     }
     const rc = parseRange(ch.range);
     if (!rc) return null;
@@ -318,17 +237,48 @@ function cfStyles(doc: ExcelBook, sheet: ExcelSheet): Record<string, CfStyle> {
 
 const PALETTE = ["#4472C4", "#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5", "#70AD47"];
 
-function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit, pivotCells }: { doc: ExcelBook; sheet: ExcelSheet; ch: ExcelChart; selected: boolean; onSelect: () => void; onTitleEdit: () => void; pivotCells: Record<string, VirtualCell> }) {
-  const data = chartData(doc, sheet, ch, pivotCells);
+function ChartView({
+  doc,
+  sheet,
+  ch,
+  selected,
+  selectedSeries,
+  onSelect,
+  onSelectSeries,
+  onTitleEdit,
+  onMenu,
+}: {
+  doc: ExcelBook;
+  sheet: ExcelSheet;
+  ch: ExcelChart;
+  selected: boolean;
+  /** 1-based series number when one series is selected. */
+  selectedSeries?: number;
+  onSelect: () => void;
+  onSelectSeries: (n: number) => void;
+  onTitleEdit: () => void;
+  onMenu: (e: React.MouseEvent, series?: number) => void;
+}) {
+  const data = chartData(doc, sheet, ch);
   if (!data) return null;
   const { cats, series } = data;
-  const labels = Boolean(doc.flags?.[`chart:${ch.id}:labels`]);
+  const allLabels = Boolean(doc.flags?.[`chart:${ch.id}:labels`]);
+  // Data labels for the whole chart, or for one series (Add Chart Element › Data Labels with a series selected).
+  const labelsOn = (si: number) => allLabels || Boolean(doc.flags?.[`chart:${ch.id}:labels:s${si + 1}`]);
   const legend = String(doc.flags?.[`chart:${ch.id}:legend`] ?? "Bottom");
   const max = Math.max(1, ...series.flatMap((s) => s.vals));
   const W = 360, H = 200, P = 30;
   const isPie = /Pie|Doughnut/.test(ch.type);
   const isLine = /Line|Area|Scatter/.test(ch.type);
   const isBar = /Bar/.test(ch.type);
+  // First click selects the chart; a click on a series of the selected chart selects that series.
+  const seriesDown = (si: number) => (e: React.MouseEvent) => {
+    if (e.button === 2) return;
+    e.stopPropagation();
+    if (selected || selectedSeries) onSelectSeries(si + 1);
+    else onSelect();
+  };
+  const dim = (si: number) => (selectedSeries && selectedSeries !== si + 1 ? 0.45 : 1);
   let body: React.ReactNode;
   if (isPie) {
     const vals = series[0]?.vals ?? [];
@@ -343,7 +293,13 @@ function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit, pivotCells
           const r = 62;
           const large = a1 - a0 > Math.PI ? 1 : 0;
           const d = `M0 0 L${r * Math.sin(a0)} ${-r * Math.cos(a0)} A${r} ${r} 0 ${large} 1 ${r * Math.sin(a1)} ${-r * Math.cos(a1)} Z`;
-          return <path key={i} d={d} fill={PALETTE[i % PALETTE.length]} stroke="#fff" />;
+          const mid = (a0 + a1) / 2;
+          return (
+            <g key={i} onMouseDown={seriesDown(0)}>
+              <path d={d} fill={PALETTE[i % PALETTE.length]} stroke={selectedSeries ? "#333" : "#fff"} />
+              {labelsOn(0) && v > 0 && <text x={r * 0.62 * Math.sin(mid)} y={-r * 0.62 * Math.cos(mid) + 3} fontSize="8" textAnchor="middle" fill="#fff">{formatValue(Math.round(v * 100) / 100, undefined)}</text>}
+            </g>
+          );
         })}
         {ch.type === "Doughnut" && <circle r="30" fill="#fff" />}
         {legend !== "None" && cats.map((c, i) => (
@@ -363,27 +319,39 @@ function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit, pivotCells
         {[0.25, 0.5, 0.75, 1].map((t) => <line key={t} x1={P} x2={W - 10} y1={H - P - t * (H - P * 2)} y2={H - P - t * (H - P * 2)} stroke="#eee" />)}
         {isLine
           ? series.map((s, si) => (
-              <polyline key={si} fill="none" stroke={PALETTE[si % PALETTE.length]} strokeWidth="2" points={s.vals.map((v, i) => `${P + bandW * (i + 0.5)},${H - P - (v / max) * (H - P * 2)}`).join(" ")} />
+              <g key={si} onMouseDown={seriesDown(si)} onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); onSelectSeries(si + 1); onMenu(e, si + 1); }} opacity={dim(si)} className="cursor-pointer">
+                <polyline fill="none" stroke="transparent" strokeWidth="10" points={s.vals.map((v, i) => `${P + bandW * (i + 0.5)},${H - P - (v / max) * (H - P * 2)}`).join(" ")} />
+                <polyline fill="none" stroke={PALETTE[si % PALETTE.length]} strokeWidth={selectedSeries === si + 1 ? 3 : 2} points={s.vals.map((v, i) => `${P + bandW * (i + 0.5)},${H - P - (v / max) * (H - P * 2)}`).join(" ")} />
+                {/Markers/.test(ch.type) && s.vals.map((v, i) => <circle key={i} cx={P + bandW * (i + 0.5)} cy={H - P - (v / max) * (H - P * 2)} r="2.5" fill={PALETTE[si % PALETTE.length]} />)}
+              </g>
             ))
           : series.map((s, si) =>
               s.vals.map((v, i) => {
                 const bw = (bandW * 0.7) / series.length;
                 const x = P + bandW * i + bandW * 0.15 + bw * si;
                 const h = (v / max) * (H - P * 2);
+                const common = { onMouseDown: seriesDown(si), onContextMenu: (e: React.MouseEvent) => { e.preventDefault(); e.stopPropagation(); onSelectSeries(si + 1); onMenu(e, si + 1); }, fill: PALETTE[si % PALETTE.length], opacity: dim(si), stroke: selectedSeries === si + 1 ? "#333" : undefined, className: "cursor-pointer" };
                 return isBar ? (
-                  <rect key={`${si}-${i}`} x={P} y={20 + i * ((H - 50) / n) + si * 6} width={(v / max) * (W - P * 2)} height={Math.max(4, (H - 50) / n / series.length - 2)} fill={PALETTE[si % PALETTE.length]} />
+                  <rect key={`${si}-${i}`} x={P} y={20 + i * ((H - 50) / n) + si * 6} width={(v / max) * (W - P * 2)} height={Math.max(4, (H - 50) / n / series.length - 2)} {...common} />
                 ) : (
-                  <rect key={`${si}-${i}`} x={x} y={H - P - h} width={bw} height={h} fill={PALETTE[si % PALETTE.length]} />
+                  <rect key={`${si}-${i}`} x={x} y={H - P - h} width={bw} height={h} {...common} />
                 );
               }),
             )}
         {!isBar && cats.map((c, i) => <text key={i} x={P + bandW * (i + 0.5)} y={H - P + 12} fontSize="8.5" textAnchor="middle" fill="#555">{c.length > 10 ? `${c.slice(0, 9)}…` : c}</text>)}
-        {labels && !isBar && series.map((s, si) =>
-          s.vals.map((v, i) => {
-            const bw = (bandW * 0.7) / series.length;
-            const x = isLine ? P + bandW * (i + 0.5) : P + bandW * i + bandW * 0.15 + bw * (si + 0.5);
-            return <text key={`l${si}-${i}`} x={x} y={H - P - (v / max) * (H - P * 2) - 3} fontSize="7.5" textAnchor="middle" fill="#333">{formatValue(Math.round(v * 100) / 100, undefined)}</text>;
-          }),
+        {!isBar && series.map((s, si) =>
+          labelsOn(si)
+            ? s.vals.map((v, i) => {
+                const bw = (bandW * 0.7) / series.length;
+                const x = isLine ? P + bandW * (i + 0.5) : P + bandW * i + bandW * 0.15 + bw * (si + 0.5);
+                return <text key={`l${si}-${i}`} x={x} y={H - P - (v / max) * (H - P * 2) - 3} fontSize="7.5" textAnchor="middle" fill="#333">{formatValue(Math.round(v * 100) / 100, undefined)}</text>;
+              })
+            : null,
+        )}
+        {isBar && series.map((s, si) =>
+          labelsOn(si)
+            ? s.vals.map((v, i) => <text key={`b${si}-${i}`} x={P + (v / max) * (W - P * 2) + 3} y={20 + i * ((H - 50) / n) + si * 6 + 7} fontSize="7.5" fill="#333">{formatValue(Math.round(v * 100) / 100, undefined)}</text>)
+            : null,
         )}
         {series.length > 1 && legend !== "None" && series.map((s, si) => (
           <g key={si} transform={`translate(${P + si * 90},${H - 6})`}>
@@ -396,14 +364,18 @@ function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit, pivotCells
   }
   return (
     <div
-      onMouseDown={(e) => { e.stopPropagation(); onSelect(); }}
-      className={`absolute z-20 bg-white shadow ${selected ? "outline outline-2 outline-[#8a8a8a]" : "border border-gray-300"}`}
+      onMouseDown={(e) => { if (e.button === 2) return; e.stopPropagation(); onSelect(); }}
+      onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); if (!selected && !selectedSeries) onSelect(); onMenu(e, selectedSeries); }}
+      role="img"
+      aria-label={`Chart ${ch.title ?? ""}`}
+      className={`absolute z-20 bg-white shadow ${selected || selectedSeries ? "outline outline-2 outline-[#8a8a8a]" : "border border-gray-300"}`}
       style={{ width: W, height: H + 26 }}
     >
       <div onDoubleClick={(e) => { e.stopPropagation(); onTitleEdit(); }} className="cursor-text pt-1 text-center text-[13px] text-gray-700">
-        {ch.title === "" ? " " : ch.title ?? "Chart Title"}
+        {ch.title === "" ? " " : ch.title ?? "Chart Title"}
       </div>
       <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`}>{body}</svg>
+      {selectedSeries && series[selectedSeries - 1] && <div className="pointer-events-none absolute left-1 top-1 rounded bg-gray-700/80 px-1 text-[9px] text-white">Series &quot;{series[selectedSeries - 1].name}&quot;</div>}
     </div>
   );
 }
@@ -412,12 +384,15 @@ function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit, pivotCells
 /* Canvas                                                              */
 /* ------------------------------------------------------------------ */
 
-export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<ExcelBook>) {
+export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<ExcelBook>) {
+  // Draw the workbook the way the engine sees it: PivotTables with their cached data, Total Rows filled in.
+  const doc = useMemo(() => withTotalRows(withPivotCaches(rawDoc)), [rawDoc]);
   const sheet = sheetOf(doc, ui);
   const z = (sheet.zoom ?? 100) / 100;
   const sel = ui.selection || "A1";
   const act = activeCell(ui);
-  const [edit, setEdit] = useState<{ ref: string; text: string; bar?: boolean } | null>(null);
+  /** The cell being edited; `typed` when editing began with a keystroke (AutoComplete applies). */
+  const [edit, setEdit] = useState<{ ref: string; text: string; bar?: boolean; typed?: boolean } | null>(null);
   const editRef = useRef(edit);
   editRef.current = edit;
   const [renaming, setRenaming] = useState<{ name: string; text: string } | null>(null);
@@ -425,6 +400,12 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
   const [listMenu, setListMenu] = useState<{ ref: string; x: number; y: number; items: string[] } | null>(null);
   const [pivotMenu, setPivotMenu] = useState<{ field: string; x: number; y: number } | null>(null);
   const [message, setMessage] = useState<string | null>(null);
+  /** A Data Validation error alert waiting for an answer. */
+  const [alert, setAlert] = useState<{ ref: string; text: string; rule: XValidation; move: "down" | "right" | "none" } | null>(null);
+  /** Allow Edit Ranges: a password prompt, and the ranges unlocked so far. */
+  const [unlock, setUnlock] = useState<{ ref: string; text?: string; title: string; password: string; tries: number } | null>(null);
+  const [unlocked, setUnlocked] = useState<Set<string>>(new Set());
+  const [totalMenu, setTotalMenu] = useState<{ x: number; y: number } | null>(null);
   const drag = useRef<{ mode: "select" | "fill" | "point" | "col" | "row"; anchor: string; src?: Rect; target?: Rect; pointStart?: number } | null>(null);
   const [fillPreview, setFillPreview] = useState<Rect | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -504,7 +485,8 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
   const rowY: number[] = [0, HEAD_H];
   for (let r = 1; r <= nRows; r++) rowY[r + 1] = rowY[r] + rowH(r);
 
-  const pivotCells = useMemo(() => computePivot(doc, sheet), [doc, sheet]);
+  const pivotLayout = useMemo(() => (sheet.pivot ? pivotLayoutOf(doc, sheet) : null), [doc, sheet]);
+  const pivotCells: Record<string, PivotCell> = pivotLayout?.cells ?? {};
   const cf = useMemo(() => cfStyles(doc, sheet), [doc, sheet]);
   const casRanges = centerAcrossRanges(doc, sheet);
 
@@ -525,60 +507,82 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
     if (doc.painter) onCommit({ kind: "command", id: "home.formatPainter.apply" });
   };
 
-  const commitEdit = (move: "down" | "right" | "none" = "down") => {
+  /** Enter what was typed (or the AutoComplete text), checking Data Validation first. */
+  const commitEdit = (move: "down" | "right" | "none" = "down", textOverride?: string) => {
     const e = editRef.current;
     if (!e) return;
+    const text = textOverride ?? e.text;
     setEdit(null);
     editRef.current = null;
     if (blockedEdit(e.ref)) return;
-    if (e.text !== cellRaw(sheet, e.ref) && !validEntry(e.ref, e.text)) {
-      // Data Validation's default Stop alert: the entry is rejected and the cell keeps its value.
-      setMessage("This value doesn't match the data validation restrictions defined for this cell.");
-      return;
+    const changed = text !== cellRaw(sheet, e.ref);
+    if (changed && /^[A-Z]+\d+$/.test(e.ref)) {
+      const v = validationAt(sheet, e.ref);
+      // The Error Alert: Stop rejects the entry, Warning asks, Information only tells.
+      if (v && v.rule.showError !== false && !validationAllows(doc, sheet, v.rule, text)) {
+        setAlert({ ref: e.ref, text, rule: v.rule, move });
+        return;
+      }
     }
-    if (e.text !== cellRaw(sheet, e.ref)) onCommit({ kind: "type", target: e.ref, value: e.text });
-    const p = parseRef(e.ref)!;
+    finishEntry(e.ref, text, changed, move);
+  };
+
+  const finishEntry = (ref: string, text: string, changed: boolean, move: "down" | "right" | "none") => {
+    if (changed) onCommit({ kind: "type", target: ref, value: text });
+    const p = parseRef(ref)!;
     if (move === "down") onSelect({ selection: refOf(p.c, p.r + 1) });
     if (move === "right") onSelect({ selection: refOf(p.c + 1, p.r) });
     focus();
   };
 
-  /** Protected sheets allow edits only in unlocked cells; a workbook marked as final allows none. */
-  const blockedEdit = (ref: string) => {
+  /**
+   * Protected sheets allow edits only in unlocked cells and in Allow Edit
+   * Ranges (after their password, if they have one); a workbook marked as
+   * final allows none.
+   */
+  const blockedEdit = (ref: string, text?: string) => {
     if (markedFinal && /^[A-Z]+\d+$/.test(ref)) {
       setMessage("An author has marked this workbook as final to discourage editing. Click Edit Anyway on the yellow bar to edit it.");
       return true;
     }
     if (sheet.protected && /^[A-Z]+\d+$/.test(ref) && !isUnlocked(doc, sheet, ref)) {
+      const range = editRangeAt(doc, sheet, ref);
+      if (range) {
+        if (!range.password || unlocked.has(`${sheet.name}:${range.title}`)) return false;
+        setUnlock({ ref, text, title: range.title, password: "", tries: 0 });
+        return true;
+      }
       setMessage("The cell or chart you're trying to change is on a protected sheet. To make a change, unprotect the sheet (Review › Unprotect Sheet).");
       return true;
     }
     return false;
   };
 
-  /** Does typed text satisfy the Data Validation rule on this cell (if any)? */
-  const validEntry = (ref: string, text: string) => {
-    if (!/^[A-Z]+\d+$/.test(ref) || text.trim() === "" || text.startsWith("=")) return true;
-    const p = parseRef(ref)!;
-    const rule = Object.entries(sheet.validation ?? {}).find(([rng]) => { const rc = parseRange(rng); return rc && p.c >= rc.c1 && p.c <= rc.c2 && p.r >= rc.r1 && p.r <= rc.r2; })?.[1];
-    if (!rule || rule.type === "Any value") return true;
-    const v = parseInput(text).v;
-    const inRange = (n: number) => (rule.min === undefined || n >= rule.min) && (rule.max === undefined || n <= rule.max);
-    switch (rule.type) {
-      case "Whole number": return typeof v === "number" && Number.isInteger(v) && inRange(v);
-      case "Decimal":
-      case "Date":
-      case "Time": return typeof v === "number" && inRange(v);
-      case "List": return (rule.list ?? []).some((x) => x.toLowerCase() === text.trim().toLowerCase());
-      case "Text length": return inRange(text.length);
-    }
-    return true;
+  /** AutoComplete: the one entry in this column's list that starts with what was typed. */
+  const autoComplete = (ref: string, typed: string): string | null => {
+    const t = typed.toLowerCase();
+    if (!t.trim() || t.startsWith("=") || /^[\d.,$%+\-(]/.test(t)) return null;
+    const p = parseRef(ref);
+    if (!p) return null;
+    const entries: string[] = [];
+    const take = (r: number) => {
+      const v = sheet.cells[refOf(p.c, r)]?.v;
+      if (v === undefined || v === "") return false;
+      if (typeof v === "string") entries.push(v);
+      return true;
+    };
+    for (let r = p.r - 1; r >= 1 && take(r); r--);
+    for (let r = p.r + 1; r <= nRows && take(r); r++);
+    const hits = entries.filter((x) => x.toLowerCase().startsWith(t));
+    const distinct = Array.from(new Set(hits.map((h) => h.toLowerCase())));
+    if (distinct.length !== 1 || distinct[0].length <= t.length) return null;
+    return hits[0];
   };
 
   const startEdit = (text?: string) => {
-    if (sel.startsWith("chart:") || sel.startsWith("obj:")) return;
-    if (blockedEdit(act)) return;
-    setEdit({ ref: act, text: text ?? cellRaw(sheet, act) });
+    if (sel.startsWith("chart:") || sel.startsWith("obj:") || sel === "header" || sel === "footer") return;
+    if (blockedEdit(act, text)) return;
+    setEdit({ ref: act, text: text ?? cellRaw(sheet, act), typed: text !== undefined && text.length === 1 });
   };
 
   const insertRef = (ref: string) => {
@@ -670,6 +674,19 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
     focus();
   };
 
+  /**
+   * Double-click a column header's right border (a row header's bottom
+   * border): AutoFit that column, or every selected column when it is one of
+   * them, the same command as Home › Format › AutoFit Column Width.
+   */
+  const autoFitAt = (kind: "col" | "row", n: number) => {
+    if (edit) commitEdit("none");
+    const whole = kind === "col" ? /^[A-Z]+:[A-Z]+$/.test(sel) : /^\d+:\d+$/.test(sel);
+    const inSel = whole && selR && (kind === "col" ? n >= selR.c1 && n <= selR.c2 : n >= selR.r1 && n <= selR.r2);
+    if (!inSel) onSelect({ selection: kind === "col" ? `${numToCol(n)}:${numToCol(n)}` : `${n}:${n}` });
+    onCommit({ kind: "command", id: "home.format", value: kind === "col" ? "AutoFit Column Width" : "AutoFit Row Height" });
+  };
+
   /* ---------- keyboard ---------- */
 
   const move = (dc: number, dr: number, extend: boolean, jump: boolean) => {
@@ -744,8 +761,14 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
     // After a Cut, Excel offers to insert the cut cells here and shift the rest.
     if (doc.clipboard?.cut) items.push({ label: "Insert Cut Cells", icon: "insertCells", command: "home.insertCut" });
     if (kind === "cell" && sheet.pivot && pivotCells[ref]) {
+      const pc = pivotCells[ref];
+      const byValue = pc.kind === "value" || pc.kind === "grand" || (pc.kind === "header" && pc.vi !== undefined);
       items.push(
         { label: "Refresh", icon: "reset", command: "data.refresh" },
+        ...(byValue
+          ? [{ label: "Sort › Sort Smallest to Largest", icon: "sortAsc", command: "pivot.sort", value: "Smallest to Largest" }, { label: "Sort › Sort Largest to Smallest", icon: "sortDesc", command: "pivot.sort", value: "Largest to Smallest" }]
+          : [{ label: "Sort › Sort A to Z", icon: "sortAsc", command: "pivot.sort", value: "A to Z" }, { label: "Sort › Sort Z to A", icon: "sortDesc", command: "pivot.sort", value: "Z to A" }]),
+        ...(pc.kind === "rowItem" || pc.kind === "colItem" ? [{ label: "Group...", icon: "group", dialog: "pivotGroup" }, { label: "Ungroup...", command: "pivot.ungroup" }] : []),
         { separator: true },
         ...["Sum", "Count", "Average", "Max", "Min"].map((v) => ({ label: `Summarize Values By › ${v}`, command: "pivot.summarize", value: v })),
         ...SHOW_VALUES_AS.map((v) => ({ label: `Show Values As › ${v}`, command: "pivot.showAs", value: v })),
@@ -797,6 +820,24 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
     onContextMenu(e.clientX, e.clientY, items);
   };
 
+  /** Right-click a chart (or one of its series). */
+  const chartMenu = (e: React.MouseEvent, series?: number) => {
+    const items: MenuItem[] = [
+      { label: "Delete", icon: "deleteCells", command: "chart.delete" },
+      { separator: true },
+    ];
+    if (series) items.push({ label: "Add Data Labels", icon: "chart", command: "chart.addElement", value: "Data Labels" }, { label: "Delete Data Labels", command: "chart.addElement", value: "Data Labels: None" }, { separator: true });
+    items.push(
+      { label: "Change Chart Type...", icon: "chart", dialog: "changeChartType" },
+      { label: "Save as Template...", icon: "save", dialog: "saveChartTemplate" },
+      { label: "Select Data...", icon: "sheet", command: "chart.selectData" },
+      { label: "Move Chart...", icon: "export", dialog: "moveChart" },
+      { separator: true },
+      { label: "Edit Alt Text...", icon: "accessibility", dialog: "altText" },
+    );
+    onContextMenu(e.clientX, e.clientY, items);
+  };
+
   /* ---------- render ---------- */
 
   const tabColorMenu = (name: string): MenuItem[] => [
@@ -814,9 +855,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
   ].map((m) => (m.command === "__rename" ? { ...m, command: undefined, dialog: `__rename:${name}` } : m));
 
   const actP = parseRef(act);
+  // Format Cells › Protection › Hidden: once the sheet is protected, the formula bar shows nothing.
+  const formulaHidden = (ref: string) => Boolean(sheet.protected && sheet.cells[ref]?.f && isFormulaHidden(doc, sheet, ref));
   const formulaText = edit
     ? edit.text
-    : sel.startsWith("chart:") || sel.startsWith("obj:")
+    : sel.startsWith("chart:") || sel.startsWith("obj:") || sel === "header" || sel === "footer" || formulaHidden(act)
       ? ""
       : r1c1 && sheet.cells[act]?.f && actP
         ? formulaToR1C1(sheet.cells[act].f!, actP.r, actP.c)
@@ -834,12 +877,18 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
       const cell = sheet.cells[ref];
       const virtual = pivotCells[ref];
       const fmt: CellFormat = { ...(virtual?.fmt ?? {}), ...(cell?.fmt ?? {}) };
+      if (virtual?.fmt?.numFmt === "Percentage" && (virtual.kind === "value" || virtual.kind === "grand")) {
+        // Show Values As percentages keep their own number format, whatever the cells were formatted as.
+        fmt.numFmt = "Percentage";
+        fmt.decimals = virtual.fmt.decimals;
+        delete (fmt as XCellFormat).custom;
+      }
       let value: Val = virtual ? virtual.v : spill.out[ref] !== undefined ? spill.out[ref] : cell ? (cell.f ? (spill.blocked.has(ref) ? "#SPILL!" : evaluateCell(doc, sheet, ref)) : cell.v ?? null) : null;
       const geo = typeof value === "string" && isLinkedGeography(doc, sheet, ref);
       // Center Across Selection: the text in the first cell is centered over the whole range.
       const cas = typeof value === "string" || typeof value === "number" ? casRanges.find((rc) => r >= rc.r1 && r <= rc.r2 && c >= rc.c1 && c <= rc.c2) : undefined;
       const pivotFilterField = sheet.pivot && virtual && c === parseRef(sheet.pivot.at ?? "A3")!.c + 1 && sheet.pivot.filters.includes(String(pivotCells[refOf(c - 1, r)]?.v ?? "")) ? String(pivotCells[refOf(c - 1, r)]?.v) : null;
-      let text = sheet.showFormulas && cell?.f ? cell.f : formatValue(value as Val, fmt);
+      let text = sheet.showFormulas && cell?.f && !formulaHidden(ref) ? cell.f : formatValue(value as Val, fmt);
       const isNum = typeof value === "number";
       const isErr = typeof value === "string" && value.startsWith("#");
       // Header/banding for tables
@@ -850,17 +899,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
         if (r === tbl.r1) { bg = bg ?? tblColor; color = color ?? (tblColor === "#d9d9d9" ? "#000" : "#fff"); bold = true; }
         else if (!doc.flags?.["table.bandedRows"] && (r - tbl.r1) % 2 === 0) bg = bg ?? `${tblColor}26`;
       }
-      if (tbl && sheet.table?.totalRow && r === tbl.r2 + 1 && c >= tbl.c1 && c <= tbl.c2) {
+      // The Total Row holds real cells (SUBTOTAL formulas); it is styled as part of the table.
+      const totalCell = Boolean(tbl && sheet.table?.totalRow && r === tbl.r2 + 1 && c >= tbl.c1 && c <= tbl.c2);
+      if (totalCell) {
         bold = true;
-        bg = `${tblColor}33`;
-        if (c === tbl.c1) text = "Total";
-        else if (c === tbl.c2) {
-          let s = 0;
-          // The total row uses SUBTOTAL(109, …), so rows hidden by a filter are left out.
-          for (let rr = tbl.r1 + 1; rr <= tbl.r2; rr++) { if (filtered.has(rr)) continue; const v = evaluateCell(doc, sheet, refOf(c, rr)); if (typeof v === "number") s += v; }
-          value = s;
-          text = formatValue(s, sheet.cells[refOf(c, tbl.r2)]?.fmt);
-        }
+        bg = bg ?? `${tblColor}33`;
       }
       const cfs = cf[ref];
       const align = fmt.align ?? (isNum ? "right" : isErr || typeof value === "boolean" ? "center" : "left");
@@ -871,8 +914,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
       const frozenCol = freeze && c < freeze.c;
       const isEditing = edit?.ref === ref && !edit.bar;
       const hasFilter = filterRect && r === filterRect.r1 && c >= filterRect.c1 && c <= filterRect.c2;
-      const validation = Object.entries(sheet.validation ?? {}).find(([rng]) => { const rc = parseRange(rng); return rc && c >= rc.c1 && c <= rc.c2 && r >= rc.r1 && r <= rc.r2; })?.[1];
-      const spark = sheet.sparklines?.find((s) => s.at === ref);
+      const spark = sparklineAt(sheet, ref);
       const border = fmt.border;
       cells.push(
         <div
@@ -880,9 +922,9 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
           data-cell={ref}
           onMouseDown={(e) => cellDown(e, ref)}
           onMouseEnter={() => cellEnter(ref)}
-          onDoubleClick={() => { onSelect({ selection: ref }); setEdit({ ref, text: cellRaw(sheet, ref) }); }}
+          onDoubleClick={() => { onSelect({ selection: ref }); if (!blockedEdit(ref)) setEdit({ ref, text: cellRaw(sheet, ref) }); }}
           onContextMenu={(e) => cellMenu(e, ref, "cell")}
-          title={cell?.note ?? cell?.comment ?? (validation?.message ?? undefined)}
+          title={cell?.note ?? cell?.comment ?? undefined}
           className="absolute select-none"
           style={{
             left: colX[c],
@@ -893,7 +935,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
             backgroundImage: cfs?.backgroundImage,
             borderRight: sheet.gridlines === false ? undefined : "1px solid #e1e1e1",
             borderBottom: border === "thickBottom" ? "2px solid #000" : border === "bottom" || border === "all" ? "1px solid #000" : sheet.gridlines === false ? undefined : "1px solid #e1e1e1",
-            borderTop: border === "top" || border === "all" ? "1px solid #000" : undefined,
+            borderTop: totalCell ? `2px double ${tblColor}` : border === "top" || border === "all" ? "1px solid #000" : undefined,
             borderLeft: border === "all" ? "1px solid #000" : undefined,
             outline: border === "outside" ? "1px solid #000" : undefined,
             outlineOffset: -1,
@@ -920,9 +962,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
           {isEditing ? (
             <CellEditor
               value={edit!.text}
-              onChange={(t) => setEdit({ ref, text: t })}
-              onCommit={(m) => commitEdit(m)}
+              onChange={(t) => setEdit({ ref, text: t, typed: true })}
+              onCommit={(m, full) => commitEdit(m, full)}
               onCancel={() => { setEdit(null); focus(); }}
+              suggest={(t) => autoComplete(ref, t)}
+              suggestNow={edit!.typed}
             />
           ) : (
             <>
@@ -934,7 +978,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                 ))}
               {geo && <span className="mr-1 text-[10px]" title="Geography data type">🗺</span>}
               {spark ? (
-                <Sparkline doc={doc} sheet={sheet} range={spark.range} type={spark.type} h={h} />
+                <Sparkline doc={doc} sheet={sheet} sp={spark} w={w} h={h} />
               ) : cas ? (
                 <span className="pointer-events-none absolute top-0 text-center" style={{ left: colX[cas.c1] - colX[c], width: colX[cas.c2 + 1] - colX[cas.c1] }}>{text}</span>
               ) : (
@@ -961,16 +1005,6 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
               className="absolute right-0.5 top-1/2 flex h-4 w-4 -translate-y-1/2 items-center justify-center border border-gray-400 bg-white text-[9px] text-gray-700"
             >
               {doc.flags?.[`pvf:${sheet.name}:${pivotFilterField}`] ? "⏷" : "▾"}
-            </button>
-          )}
-          {validation?.list && ref === act && !isEditing && (
-            <button
-              type="button"
-              aria-label="Show list"
-              onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); const rr = (e.currentTarget as HTMLElement).getBoundingClientRect(); setListMenu({ ref, x: rr.left - 100, y: rr.bottom, items: validation.list! }); }}
-              className="absolute -right-5 top-0 flex h-full w-4 items-center justify-center border border-gray-400 bg-white text-[9px]"
-            >
-              ▾
             </button>
           )}
         </div>,
@@ -1005,7 +1039,10 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
   void stats;
 
   const pageLayout = sheet.view === "pageLayout";
+  const fileName = doc.saved?.name ?? "Book1.xlsx";
   const pane = doc.pane && !doc.pane.startsWith("Find:") ? doc.pane : null;
+  // Panes the canvas draws as dialogs or message boxes rather than in the side pane.
+  const dialogPane = (x: string) => x.startsWith("Excel Options") || x.startsWith("Function Arguments") || x === "Sort" || x.startsWith("Select Data Source") || x.startsWith("Flash Fill:") || x.startsWith("Location reference");
   const findTerm = doc.pane?.startsWith("Find:") ? doc.pane.slice(5) : null;
 
   return (
@@ -1041,7 +1078,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
           <input
             aria-label="Formula Bar"
             value={formulaText}
-            onFocus={() => { if (!edit && !sel.startsWith("chart:") && !sel.startsWith("obj:")) setEdit({ ref: act, text: cellRaw(sheet, act), bar: true }); }}
+            onFocus={(e) => {
+              if (edit || sel.startsWith("chart:") || sel.startsWith("obj:") || sel === "header" || sel === "footer") return;
+              if (blockedEdit(act)) { e.currentTarget.blur(); return; }
+              setEdit({ ref: act, text: formulaHidden(act) ? "" : cellRaw(sheet, act), bar: true });
+            }}
             onChange={(e) => setEdit({ ref: act, text: e.target.value, bar: true })}
             onKeyDown={(e) => {
               e.stopPropagation();
@@ -1077,18 +1118,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
         <div ref={gridRef} className={`relative min-w-0 flex-1 overflow-auto ${pageLayout ? "bg-[#e7e7e7] p-6" : ""}`}>
           {pageLayout && (
             <div className="mx-auto mb-1 bg-white px-10 pt-4 text-center text-[12px] text-gray-500" style={{ width: Math.max(gridW, 600) }}>
-              <button
-                type="button"
-                onClick={() => onSelect({ selection: "header" })}
-                onDoubleClick={() => setEdit({ ref: "header", text: sheet.header ?? "", bar: true })}
-                className={`w-full border border-dashed py-2 ${sel === "header" ? "border-[#217346] bg-[#e9f5ee]" : "border-transparent hover:border-gray-300"}`}
-              >
-                {edit?.ref === "header" ? (
-                  <CellEditor value={edit.text} onChange={(t) => setEdit({ ref: "header", text: t, bar: true })} onCommit={() => { const e = editRef.current; setEdit(null); if (e) onCommit({ kind: "type", target: "header", value: e.text }); }} onCancel={() => setEdit(null)} />
-                ) : (
-                  sheet.header || "Add header"
-                )}
-              </button>
+              <HeaderBox kind="header" text={sheet.header ?? ""} shown={resolveHeaderFooter(sheet.header ?? "", sheet.name, fileName)} selected={sel === "header"} onSelect={() => onSelect({ selection: "header" })} onCommit={onCommit} />
             </div>
           )}
           <div className={`relative ${pageLayout ? "mx-auto bg-white shadow" : ""}`} style={{ width: gridW, height: gridH }}>
@@ -1118,6 +1148,13 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                       style={{ left: colX[c], width: colW(c), height: HEAD_H }}
                     >
                       {r1c1 ? c : numToCol(c)}
+                      <span
+                        aria-label={`Right border of column ${numToCol(c)}`}
+                        title="Double-click to AutoFit"
+                        onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); }}
+                        onDoubleClick={(e) => { e.stopPropagation(); autoFitAt("col", c); }}
+                        className="absolute -right-[3px] top-0 z-[1] h-full w-[6px] cursor-col-resize"
+                      />
                     </div>
                   ),
                 )}
@@ -1136,6 +1173,13 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                       style={{ left: outW, top: rowY[r], width: HEAD_W, height: rowH(r) }}
                     >
                       {r}
+                      <span
+                        aria-label={`Bottom border of row ${r}`}
+                        title="Double-click to AutoFit"
+                        onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); }}
+                        onDoubleClick={(e) => { e.stopPropagation(); autoFitAt("row", r); }}
+                        className="absolute -bottom-[3px] left-0 z-[1] h-[6px] w-full cursor-row-resize"
+                      />
                     </div>
                   ),
                 )}
@@ -1183,10 +1227,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
             {/* Data Validation input message for the active cell */}
             {(() => {
               if (!ap || edit) return null;
-              const rule = Object.entries(sheet.validation ?? {}).find(([rng]) => { const rc = parseRange(rng); return rc && ap.c >= rc.c1 && ap.c <= rc.c2 && ap.r >= rc.r1 && ap.r <= rc.r2; })?.[1];
-              if (!rule?.message) return null;
+              const rule = validationAt(sheet, act)?.rule;
+              if (!rule || rule.showInput === false || (!rule.message && !rule.inputTitle)) return null;
               return (
-                <div className="pointer-events-none absolute z-[9] max-w-[200px] border border-gray-500 bg-[#ffffe1] px-2 py-1 text-[11px] leading-snug text-gray-800 shadow" style={{ left: (colX[ap.c] ?? 0) + 12, top: (rowY[ap.r + 1] ?? 0) + 4 }}>
+                <div role="tooltip" className="pointer-events-none absolute z-[9] max-w-[220px] border border-gray-500 bg-[#ffffe1] px-2 py-1 text-[11px] leading-snug text-gray-800 shadow" style={{ left: (colX[ap.c] ?? 0) + 12, top: (rowY[ap.r + 1] ?? 0) + 4 }}>
+                  {rule.inputTitle && <b className="block">{rule.inputTitle}</b>}
                   {rule.message}
                 </div>
               );
@@ -1211,11 +1256,15 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
             {freeze && freeze.r > 1 && <div className="pointer-events-none absolute z-[4] h-px bg-gray-500" style={{ left: 0, top: rowY[freeze.r], width: gridW }} />}
             {freeze && freeze.c > 1 && <div className="pointer-events-none absolute z-[4] w-px bg-gray-500" style={{ top: 0, left: colX[freeze.c], height: gridH }} />}
             {/* print area / page break preview */}
-            {(sheet.view === "pageBreak" || sheet.printArea) && used && (
-              <div className="pointer-events-none absolute z-[4] border-2 border-dashed border-[#2b579a]" style={{ left: colX[(sheet.printArea ? parseRange(sheet.printArea)! : used).c1], top: rowY[(sheet.printArea ? parseRange(sheet.printArea)! : used).r1], width: colX[(sheet.printArea ? parseRange(sheet.printArea)! : used).c2 + 1] - colX[(sheet.printArea ? parseRange(sheet.printArea)! : used).c1], height: rowY[(sheet.printArea ? parseRange(sheet.printArea)! : used).r2 + 1] - rowY[(sheet.printArea ? parseRange(sheet.printArea)! : used).r1] }}>
-                {sheet.view === "pageBreak" && <span className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-gray-300">Page 1</span>}
-              </div>
-            )}
+            {(sheet.view === "pageBreak" || sheet.printArea) && used && (() => {
+              const pa = sheet.printArea ? parseRange(sheet.printArea) ?? used : used;
+              const c2 = Math.min(pa.c2, nCols), r2 = Math.min(pa.r2, nRows);
+              return (
+                <div className="pointer-events-none absolute z-[4] border-2 border-dashed border-[#2b579a]" style={{ left: colX[pa.c1], top: rowY[pa.r1], width: colX[c2 + 1] - colX[pa.c1], height: rowY[r2 + 1] - rowY[pa.r1] }}>
+                  {sheet.view === "pageBreak" && <span className="absolute inset-0 flex items-center justify-center text-4xl font-bold text-gray-300">Page 1</span>}
+                </div>
+              );
+            })()}
             {/* selection */}
             {selBox && (
               <div className="pointer-events-none absolute z-[7] border-2" style={{ ...selBox, borderColor: GREEN, background: selR && (selR.c1 !== selR.c2 || selR.r1 !== selR.r2) ? "rgba(33,115,70,.08)" : undefined }}>
@@ -1236,6 +1285,38 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                 />
               </div>
             )}
+            {/* the drop-down button beside the active cell: a Data Validation list, or a Total Row function */}
+            {ap && !edit && (() => {
+              const rule = validationAt(sheet, act)?.rule;
+              const isTotal = Boolean(tbl && sheet.table?.totalRow && ap.r === tbl.r2 + 1 && ap.c >= tbl.c1 && ap.c <= tbl.c2);
+              if (rule?.type !== "List" && !isTotal) return null;
+              return (
+                <button
+                  type="button"
+                  aria-label={isTotal ? "Total Row function" : "Show list"}
+                  title={isTotal ? "Choose a function for this total" : undefined}
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    const rr = (e.currentTarget as HTMLElement).getBoundingClientRect();
+                    if (isTotal) { setTotalMenu({ x: rr.left - 100, y: rr.bottom }); return; }
+                    if (blockedEdit(act)) return;
+                    setListMenu({ ref: act, x: rr.left - 100, y: rr.bottom, items: validationList(doc, sheet, rule!) });
+                  }}
+                  className="absolute z-[9] flex w-4 items-center justify-center border border-gray-400 bg-white text-[9px] text-gray-700"
+                  style={{ left: colX[ap.c] + colW(ap.c) + 1, top: rowY[ap.r], height: rowH(ap.r) }}
+                >
+                  ▾
+                </button>
+              );
+            })()}
+            {/* Circle Invalid Data */}
+            {doc.flags?.[`circles:${sheet.name}`] &&
+              invalidCells(doc, sheet).map((ref) => {
+                const p = parseRef(ref)!;
+                if (hiddenRows.has(p.r) || hiddenCols.has(numToCol(p.c))) return null;
+                return <div key={`circle-${ref}`} aria-label={`Invalid data in ${ref}`} className="pointer-events-none absolute z-[8] rounded-[50%] border-2 border-red-600" style={{ left: colX[p.c] - 3, top: rowY[p.r] - 2, width: colW(p.c) + 6, height: rowH(p.r) + 4 }} />;
+              })}
             {actBox && selR && (selR.c1 !== selR.c2 || selR.r1 !== selR.r2) && <div className="pointer-events-none absolute z-[7] bg-white/60" style={{ ...actBox, mixBlendMode: "lighten" }} />}
             {fillPreview && <div className="pointer-events-none absolute z-[8] border border-dashed border-gray-700" style={{ left: colX[fillPreview.c1], top: rowY[fillPreview.r1], width: colX[fillPreview.c2 + 1] - colX[fillPreview.c1], height: rowY[fillPreview.r2 + 1] - rowY[fillPreview.r1] }} />}
             {/* charts */}
@@ -1248,9 +1329,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                     sheet={sheet}
                     ch={ch}
                     selected={sel === `chart:${ch.id}`}
+                    selectedSeries={chartIdOf(sel) === ch.id ? chartSeriesOf(sel) : undefined}
                     onSelect={() => onSelect({ selection: `chart:${ch.id}` })}
+                    onSelectSeries={(n) => onSelect({ selection: `chart:${ch.id}.s${n}` })}
                     onTitleEdit={() => setEdit({ ref: `chart:${ch.id}.title`, text: ch.title ?? "", bar: true })}
-                    pivotCells={pivotCells}
+                    onMenu={(e, n) => chartMenu(e, n)}
                   />
                   {edit?.ref === `chart:${ch.id}.title` && (
                     <div className="absolute inset-x-8 top-1 z-30">
@@ -1303,10 +1386,15 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
               </div>
             )}
           </div>
+          {pageLayout && (
+            <div className="mx-auto mt-1 bg-white px-10 pb-4 text-center text-[12px] text-gray-500" style={{ width: Math.max(gridW, 600) }}>
+              <HeaderBox kind="footer" text={sheet.footer ?? ""} shown={resolveHeaderFooter(sheet.footer ?? "", sheet.name, fileName)} selected={sel === "footer"} onSelect={() => onSelect({ selection: "footer" })} onCommit={onCommit} />
+            </div>
+          )}
         </div>
 
         {sheet.pivot && <PivotPane doc={doc} sheet={sheet} onCommit={onCommit} />}
-        {((pane && !pane.startsWith("Excel Options") && !pane.startsWith("Function Arguments")) || findTerm !== null) && <ExcelPane doc={doc} sheet={sheet} pane={pane} findTerm={findTerm} act={act} onCommit={onCommit} onSelect={(r) => onSelect({ selection: r })} />}
+        {((pane && !dialogPane(pane)) || findTerm !== null) && <ExcelPane doc={doc} sheet={sheet} pane={pane} findTerm={findTerm} act={act} onCommit={onCommit} onSelect={(r) => onSelect({ selection: r })} />}
       </div>
 
       {/* sheet tabs */}
@@ -1380,6 +1468,59 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
       )}
       {pane?.startsWith("Excel Options") && <OptionsDialog doc={doc} start={pane.split("|")[1] ?? "General"} onCommit={onCommit} />}
       {pane?.startsWith("Function Arguments|") && <FunctionArgsDialog spec={pane} onCommit={onCommit} />}
+      {pane === "Sort" && <SortDialog doc={doc} sheet={sheet} act={act} onCommit={onCommit} />}
+      {pane?.startsWith("Select Data Source") && <SelectDataDialog doc={doc} sheet={sheet} chartId={pane.split("|")[1] ?? chartIdOf(sel) ?? ""} onCommit={onCommit} />}
+      {(pane?.startsWith("Flash Fill:") || pane?.startsWith("Location reference")) && (
+        <MessageBox title={pane.startsWith("Flash Fill:") ? "Microsoft Excel" : "Create Sparklines"} icon="info" text={pane.startsWith("Flash Fill:") ? pane.slice(11).trim() : pane} buttons={["OK"]} onPick={() => onCommit({ kind: "command", id: "pane.close" })} />
+      )}
+      {alert && (
+        <MessageBox
+          title={alert.rule.errorTitle || "Microsoft Excel"}
+          icon={alert.rule.errorStyle === "Warning" ? "warning" : alert.rule.errorStyle === "Information" ? "info" : "stop"}
+          text={`${alert.rule.errorMessage || "This value doesn't match the data validation restrictions defined for this cell."}${alert.rule.errorStyle === "Warning" ? "\n\nContinue?" : ""}`}
+          buttons={alert.rule.errorStyle === "Warning" ? ["Yes", "No", "Cancel"] : alert.rule.errorStyle === "Information" ? ["OK", "Cancel"] : ["Retry", "Cancel"]}
+          onPick={(b) => {
+            const a = alert;
+            setAlert(null);
+            // Yes (Warning) and OK (Information) keep the entry; Retry and No go back to editing it.
+            if (b === "Yes" || b === "OK") finishEntry(a.ref, a.text, true, a.move);
+            else if (b === "Retry" || b === "No") { onSelect({ selection: a.ref }); setEdit({ ref: a.ref, text: a.text }); }
+            else focus();
+          }}
+        />
+      )}
+      {unlock && (
+        <PasswordPrompt
+          title="Unlock Range"
+          text={`A range you are trying to change requires a password.${unlock.tries ? " The password you supplied is not correct." : ""}`}
+          onCancel={() => { setUnlock(null); focus(); }}
+          onOk={(pw) => {
+            const range = editRangeAt(doc, sheet, unlock.ref);
+            if (!range || pw !== range.password) { setUnlock({ ...unlock, tries: unlock.tries + 1 }); return; }
+            const next = new Set(unlocked);
+            next.add(`${sheet.name}:${range.title}`);
+            setUnlocked(next);
+            const u = unlock;
+            setUnlock(null);
+            setEdit({ ref: u.ref, text: u.text ?? cellRaw(sheet, u.ref), typed: u.text !== undefined });
+          }}
+        />
+      )}
+      {totalMenu && (
+        <Popover
+          anchor={{ x: totalMenu.x, y: totalMenu.y }}
+          onClose={() => setTotalMenu(null)}
+          items={TOTAL_FN_NAMES.map((fn) => ({
+            key: fn,
+            label: fn,
+            onPick: () => {
+              setTotalMenu(null);
+              if (fn === "More Functions...") openDialog("insertFunction");
+              else onCommit({ kind: "command", id: "table.totalFn", value: fn });
+            },
+          }))}
+        />
+      )}
       {listMenu && (
         <Popover
           anchor={{ x: listMenu.x, y: listMenu.y }}
@@ -1391,19 +1532,73 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
   );
 }
 
-function Sparkline({ doc, sheet, range, type, h }: { doc: ExcelBook; sheet: ExcelSheet; range: string; type: string; h: number }) {
-  const rc = parseRange(range);
-  if (!rc) return null;
-  const vals: number[] = [];
-  for (let r = rc.r1; r <= rc.r2; r++) for (let c = rc.c1; c <= rc.c2; c++) { const v = evaluateCell(doc, sheet, refOf(c, r)); vals.push(typeof v === "number" ? v : 0); }
-  const max = Math.max(...vals, 1), min = Math.min(...vals, 0);
-  const W = 60, H = Math.max(10, h - 6);
+/** A header or footer area in Page Layout view: click it to type; Enter or clicking away enters the text. */
+function HeaderBox({ kind, text, shown, selected, onSelect, onCommit }: { kind: "header" | "footer"; text: string; shown: string; selected: boolean; onSelect: () => void; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
+  const [draft, setDraft] = useState(text);
+  const done = useRef(false);
+  useEffect(() => {
+    setDraft(text);
+    done.current = false;
+  }, [text, selected]);
+  const commit = () => {
+    if (done.current) return;
+    done.current = true;
+    if (draft !== text) onCommit({ kind: "type", target: kind, value: draft });
+  };
+  const label = kind === "header" ? "Header" : "Footer";
+  if (selected)
+    return (
+      <div className="w-full border border-dashed border-[#217346] bg-[#e9f5ee] py-1.5">
+        <input
+          autoFocus
+          aria-label={label}
+          value={draft}
+          onChange={(e) => { done.current = false; setDraft(e.target.value); }}
+          onKeyDown={(e) => {
+            e.stopPropagation();
+            if (e.key === "Enter") { e.preventDefault(); commit(); }
+            if (e.key === "Escape") { done.current = true; setDraft(text); }
+          }}
+          onBlur={commit}
+          placeholder={`Type the ${kind}`}
+          className="w-2/3 border-0 bg-transparent text-center text-[12px] text-gray-800 outline-none"
+        />
+      </div>
+    );
   return (
-    <svg width={W} height={H} className="inline-block align-middle">
+    <button type="button" aria-label={label} onClick={onSelect} className="w-full border border-dashed border-transparent py-2 hover:border-gray-300">
+      {shown || (kind === "header" ? "Add header" : "Add footer")}
+    </button>
+  );
+}
+
+function Sparkline({ doc, sheet, sp, w, h }: { doc: ExcelBook; sheet: ExcelSheet; sp: XSparkline; w: number; h: number }) {
+  const vals = numVals(rangeValues(doc, sheet, sp.range));
+  if (!vals.length) return null;
+  const W = Math.max(24, w - 8), H = Math.max(10, h - 6);
+  const color = sp.color ?? "#4472C4";
+  const markColor = "#C00000";
+  const hi = Math.max(...vals), lo = Math.min(...vals);
+  const max = Math.max(hi, 0), min = Math.min(lo, 0);
+  const n = vals.length;
+  // Points the Show group turns on: High, Low, First, Last and Negative points.
+  const marked = (v: number, i: number) => (sp.high && v === hi) || (sp.low && v === lo) || (sp.first && i === 0) || (sp.last && i === n - 1) || (sp.negative && v < 0);
+  const y = (v: number) => H - ((v - min) / (max - min || 1)) * H;
+  const type = sp.type === "Win/Loss" || sp.type === "WinLoss" ? "Win/Loss" : sp.type === "Column" ? "Column" : "Line";
+  return (
+    <svg width={W} height={H} className="inline-block align-middle" role="img" aria-label={`${type} sparkline`}>
       {type === "Line" ? (
-        <polyline fill="none" stroke="#4472C4" strokeWidth="1.5" points={vals.map((v, i) => `${(i / Math.max(1, vals.length - 1)) * W},${H - ((v - min) / (max - min || 1)) * H}`).join(" ")} />
+        <>
+          <polyline fill="none" stroke={color} strokeWidth="1.5" points={vals.map((v, i) => `${2 + (i / Math.max(1, n - 1)) * (W - 4)},${y(v)}`).join(" ")} />
+          {vals.map((v, i) => (sp.markers || marked(v, i) ? <circle key={i} cx={2 + (i / Math.max(1, n - 1)) * (W - 4)} cy={y(v)} r={2} fill={marked(v, i) ? markColor : color} /> : null))}
+        </>
+      ) : type === "Column" ? (
+        vals.map((v, i) => {
+          const top = Math.min(y(v), y(0));
+          return <rect key={i} x={(i * W) / n} width={Math.max(1, W / n - 1)} y={top} height={Math.max(1, Math.abs(y(v) - y(0)))} fill={marked(v, i) ? markColor : color} />;
+        })
       ) : (
-        vals.map((v, i) => <rect key={i} x={(i * W) / vals.length} width={W / vals.length - 1} y={H - ((v - min) / (max - min || 1)) * H} height={((v - min) / (max - min || 1)) * H} fill="#4472C4" />)
+        vals.map((v, i) => <rect key={i} x={(i * W) / n} width={Math.max(1, W / n - 1)} y={v >= 0 ? 0 : H / 2} height={H / 2 - 1} fill={v < 0 || marked(v, i) ? markColor : color} />)
       )}
     </svg>
   );
@@ -1427,31 +1622,68 @@ function cycleRef(text: string, caret: number): { text: string; caret: number } 
   return { text: out, caret: hit.index + next.length };
 }
 
-function CellEditor({ value, onChange, onCommit, onCancel }: { value: string; onChange: (v: string) => void; onCommit: (move: "down" | "right" | "none") => void; onCancel: () => void }) {
+/**
+ * The in-cell editor. With `suggest`, AutoComplete offers the rest of a
+ * matching entry from the same column (selected, so typing replaces it);
+ * Enter or Tab accepts it, Backspace or Delete removes it.
+ */
+function CellEditor({
+  value,
+  onChange,
+  onCommit,
+  onCancel,
+  suggest,
+  suggestNow,
+}: {
+  value: string;
+  onChange: (v: string) => void;
+  onCommit: (move: "down" | "right" | "none", full?: string) => void;
+  onCancel: () => void;
+  suggest?: (typed: string) => string | null;
+  /** Editing began with a keystroke: offer a completion for the first character too. */
+  suggestNow?: boolean;
+}) {
   const ref = useRef<HTMLInputElement>(null);
+  const [full, setFull] = useState<string | null>(() => (suggestNow && suggest ? suggest(value) : null));
+  const tail = full && full.toLowerCase().startsWith(value.toLowerCase()) && full.length > value.length ? full.slice(value.length) : "";
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     el.focus();
     el.setSelectionRange(el.value.length, el.value.length);
   }, []);
+  useEffect(() => {
+    const el = ref.current;
+    if (el && tail) el.setSelectionRange(value.length, value.length + tail.length);
+  }, [value, tail]);
+  const accept = () => (tail ? full ?? undefined : undefined);
   return (
     <input
       ref={ref}
       aria-label="Cell editor"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
+      value={value + tail}
+      onChange={(e) => {
+        const t = e.target.value;
+        const deleting = /^delete/.test(String((e.nativeEvent as InputEvent).inputType ?? ""));
+        setFull(!deleting && suggest ? suggest(t) : null);
+        onChange(t);
+      }}
       onMouseDown={(e) => e.stopPropagation()}
       onKeyDown={(e) => {
         e.stopPropagation();
-        if (e.key === "Enter") { e.preventDefault(); onCommit("down"); }
-        if (e.key === "Tab") { e.preventDefault(); onCommit("right"); }
+        if (e.key === "Enter") { e.preventDefault(); onCommit("down", accept()); }
+        if (e.key === "Tab") { e.preventDefault(); onCommit("right", accept()); }
         if (e.key === "Escape") onCancel();
+        if ((e.key === "Backspace" || e.key === "Delete") && tail) {
+          // The first Backspace removes the suggestion only.
+          e.preventDefault();
+          setFull(null);
+        }
         if (e.key === "F4") {
           // F4 cycles the reference at the cursor: A1 → $A$1 → A$1 → $A1 → A1.
           e.preventDefault();
           const el = e.currentTarget;
-          const out = cycleRef(el.value, el.selectionStart ?? el.value.length);
+          const out = cycleRef(value, el.selectionStart ?? value.length);
           onChange(out.text);
           setTimeout(() => el.setSelectionRange(out.caret, out.caret), 0);
         }
@@ -1596,32 +1828,33 @@ function FilterMenu({ doc, sheet, col, anchor, onClose, onCommit }: { doc: Excel
 const AREA_KEYS: Record<string, string> = { Filters: "Filters", Columns: "Columns", Rows: "Rows", Values: "Values" };
 
 function PivotPane({ doc, sheet, onCommit }: { doc: ExcelBook; sheet: ExcelSheet; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
-  const pv = sheet.pivot!;
-  const src = doc.sheets.find((s) => s.name === pv.source.sheet);
-  const rc = parseRange(pv.source.range);
-  const fields: string[] = [];
-  if (src && rc) for (let c = rc.c1; c <= rc.c2; c++) fields.push(String(src.cells[refOf(c, rc.r1)]?.v ?? numToCol(c)));
-  const on = (f: string) => pv.rows.includes(f) || pv.columns.includes(f) || pv.filters.includes(f) || pv.values.some((v) => v.field === f);
+  const pv = sheet.pivot as unknown as XPivot;
+  // The field list comes from the pivot cache, plus Years/Quarters fields made by grouping dates.
+  const fields = pivotFieldList(doc, pv);
+  const grouped = (f: string) => Object.entries(pv.groups ?? {}).some(([src, units]) => src !== f && units.includes(f) && [...pv.rows, ...pv.columns].includes(src));
+  const on = (f: string) => pv.rows.includes(f) || pv.columns.includes(f) || pv.filters.includes(f) || pv.values.some((v) => v.field === f) || grouped(f);
   const [over, setOver] = useState<string | null>(null);
-  const moveTo = (field: string, areaKey: string) => onCommit({ kind: "command", id: "pivot.area", value: `${field.replace(/^(Sum|Count|Average|Max|Min) of /, "")}>${areaKey}` });
-  const area = (label: string, items: string[]) => (
+  const moveTo = (field: string, areaKey: string) => onCommit({ kind: "command", id: "pivot.area", value: `${field}>${areaKey}` });
+  const area = (label: string, items: { label: string; field: string }[]) => (
     <div
       onDragOver={(e) => { e.preventDefault(); setOver(label); }}
       onDragLeave={() => setOver(null)}
-      onDrop={(e) => { e.preventDefault(); setOver(null); const f = e.dataTransfer.getData("text/pivot-field"); if (f) moveTo(f, AREA_KEYS[label]); }}
+      onDrop={(e) => {
+        e.preventDefault();
+        setOver(null);
+        const f = e.dataTransfer.getData("text/pivot-field");
+        const from = e.dataTransfer.getData("text/pivot-from");
+        // Dropping an item back in its own area changes nothing.
+        if (f && from !== label) moveTo(f, AREA_KEYS[label]);
+      }}
       aria-label={`${label} area`}
       className={`flex-1 rounded border p-1 ${over === label ? "border-[#217346] bg-[#e9f5ee]" : "border-gray-300"}`}
     >
       <div className="mb-1 text-[10px] font-semibold uppercase text-gray-500">{label}</div>
-      {items.map((it) => (
-        <div key={it} draggable onDragStart={(e) => e.dataTransfer.setData("text/pivot-field", it)} className="mb-0.5 flex cursor-grab items-center justify-between rounded bg-[#e9f5ee] px-1 py-0.5">
-          <span className="truncate">{it}</span>
-          <select
-            aria-label={`Move ${it}`}
-            value=""
-            onChange={(e) => e.target.value && moveTo(it, e.target.value)}
-            className="w-4 bg-transparent text-[10px]"
-          >
+      {items.map((it, i) => (
+        <div key={`${it.label}-${i}`} draggable onDragStart={(e) => { e.dataTransfer.setData("text/pivot-field", it.field); e.dataTransfer.setData("text/pivot-from", label); }} className="mb-0.5 flex cursor-grab items-center justify-between rounded bg-[#e9f5ee] px-1 py-0.5">
+          <span className="truncate">{it.label}</span>
+          <select aria-label={`Move ${it.label}`} value="" onChange={(e) => e.target.value && e.target.value !== label && moveTo(it.field, e.target.value)} className="w-4 bg-transparent text-[10px]">
             <option value="">▾</option>
             <option value="Rows">Move to Row Labels</option>
             <option value="Columns">Move to Column Labels</option>
@@ -1632,47 +1865,52 @@ function PivotPane({ doc, sheet, onCommit }: { doc: ExcelBook; sheet: ExcelSheet
       ))}
     </div>
   );
+  const plain = (list: string[]) => list.map((f) => ({ label: f, field: f }));
   return (
     <aside className="flex w-64 shrink-0 flex-col border-l border-gray-300 bg-white text-[12px]">
       <div className="border-b px-3 py-2 text-[13px]">PivotTable Fields</div>
       <div className="px-3 py-1 text-[11px] text-gray-500">Choose fields to add to report:</div>
       <div className="max-h-40 overflow-auto px-3">
-        {fields.map((f) => (
-          <div key={f} draggable onDragStart={(e) => e.dataTransfer.setData("text/pivot-field", f)} className="flex cursor-grab items-center gap-2 py-0.5">
-            <input type="checkbox" aria-label={f} checked={on(f)} onChange={() => onCommit({ kind: "command", id: "pivot.field", value: f })} />
+        {fields.map(({ name: f, derived }) => (
+          <div key={f} draggable={!derived} onDragStart={(e) => { e.dataTransfer.setData("text/pivot-field", f); e.dataTransfer.setData("text/pivot-from", "list"); }} className={`flex items-center gap-2 py-0.5 ${derived ? "pl-3 text-gray-500" : "cursor-grab"}`}>
+            <input type="checkbox" aria-label={f} checked={on(f)} disabled={derived} onChange={() => onCommit({ kind: "command", id: "pivot.field", value: f })} />
             <span className="flex-1">{f}</span>
-            <select
-              aria-label={`Add ${f} to an area`}
-              title="Add to Report Filter, Row Labels, Column Labels or Values"
-              value=""
-              onChange={(e) => e.target.value && moveTo(f, e.target.value)}
-              className="w-4 bg-transparent text-[10px]"
-            >
-              <option value="">▾</option>
-              <option value="Filters">Add to Report Filter</option>
-              <option value="Rows">Add to Row Labels</option>
-              <option value="Columns">Add to Column Labels</option>
-              <option value="Values">Add to Values</option>
-            </select>
+            {!derived && (
+              <select aria-label={`Add ${f} to an area`} title="Add to Report Filter, Row Labels, Column Labels or Values" value="" onChange={(e) => e.target.value && moveTo(f, e.target.value)} className="w-4 bg-transparent text-[10px]">
+                <option value="">▾</option>
+                <option value="Filters">Add to Report Filter</option>
+                <option value="Rows">Add to Row Labels</option>
+                <option value="Columns">Add to Column Labels</option>
+                <option value="Values">Add to Values</option>
+              </select>
+            )}
           </div>
         ))}
       </div>
       <div className="mt-2 px-3 text-[11px] text-gray-500">Drag fields between areas below:</div>
       <div className="grid flex-1 grid-cols-2 gap-1 p-2">
-        {area("Filters", pv.filters)}
-        {area("Columns", pv.columns)}
-        {area("Rows", pv.rows)}
-        {area("Values", pv.values.map((v) => `${v.fn} of ${v.field}`))}
+        {area("Filters", plain(pv.filters))}
+        {area("Columns", plain(pv.columns))}
+        {area("Rows", plain(pv.rows))}
+        {area("Values", pv.values.map((v, i) => ({ label: pivotValueLabel(pv, i), field: v.field })))}
       </div>
     </aside>
   );
 }
 
+const MONTH_ORDER = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+const monthIndex = (s: string) => {
+  const t = s.toLowerCase();
+  const i = MONTH_ORDER.indexOf(t);
+  return i >= 0 ? i : MONTH_ORDER.findIndex((m) => t.length === 3 && m.startsWith(t));
+};
+
 /** Distinct values of a PivotTable source field (or table column), for filter lists and slicers. */
 function fieldItems(doc: ExcelBook, sheet: ExcelSheet, field: string): string[] {
-  const src = pivotSource(doc, sheet);
+  const pv = sheet.pivot as unknown as XPivot | undefined;
+  const recs = pv ? pivotRecords(doc, pv) : null;
   let vals: string[] = [];
-  if (src) vals = src.rows.map((r) => String(r[field] ?? "(blank)"));
+  if (recs) vals = recs.rows.map((r) => (r[field] === null || r[field] === "" || r[field] === undefined ? "(blank)" : String(r[field])));
   else if (sheet.table) {
     const rc = parseRange(sheet.table.range)!;
     for (let c = rc.c1; c <= rc.c2; c++) {
@@ -1680,7 +1918,10 @@ function fieldItems(doc: ExcelBook, sheet: ExcelSheet, field: string): string[] 
       for (let r = rc.r1 + 1; r <= rc.r2; r++) vals.push(String(evaluateCell(doc, sheet, refOf(c, r)) ?? "(blank)"));
     }
   }
-  return Array.from(new Set(vals)).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+  const out = Array.from(new Set(vals));
+  // Month names list in calendar order, as Excel's built-in custom list sorts them.
+  if (out.length && out.every((v) => monthIndex(v) >= 0)) return out.sort((a, b) => monthIndex(a) - monthIndex(b));
+  return out.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base", numeric: true }));
 }
 
 /** The report filter dropdown on a PivotTable (always multi-select). */
@@ -1764,6 +2005,344 @@ function Slicers({ doc, sheet, left, top, onCommit }: { doc: ExcelBook; sheet: E
         );
       })}
     </>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Dialogs the canvas draws                                            */
+/* ------------------------------------------------------------------ */
+
+const BTN = "min-w-[72px] border px-3 py-1";
+const BTN_OK = `${BTN} border-[#0078d4] bg-[#e5f1fb] hover:bg-[#cce4f7]`;
+const BTN_PLAIN = `${BTN} border-gray-400 bg-[#e1e1e1] hover:bg-[#d5d5d5] disabled:opacity-40`;
+
+/** An Excel message box: the Data Validation error alert, Flash Fill's message, and others. */
+function MessageBox({ title, icon, text, buttons, onPick }: { title: string; icon: "stop" | "warning" | "info"; text: string; buttons: string[]; onPick: (button: string) => void }) {
+  const glyph = icon === "stop" ? { ch: "✕", cls: "rounded-full bg-[#c42b1c] text-white" } : icon === "warning" ? { ch: "!", cls: "bg-[#f2c811] text-black [clip-path:polygon(50%_0,100%_100%,0_100%)] pt-2" } : { ch: "i", cls: "rounded-full bg-[#0078d4] text-white" };
+  const close = buttons.includes("Cancel") ? "Cancel" : buttons[buttons.length - 1];
+  return (
+    <div className="absolute inset-0 z-[95] flex items-center justify-center bg-black/10" onKeyDown={(e) => e.stopPropagation()}>
+      <div role="alertdialog" aria-modal="true" aria-label={title} className="w-[420px] max-w-[95%] border border-gray-400 bg-white text-[12px] shadow-2xl">
+        <div className="flex items-center justify-between px-3 py-1.5">
+          <span>{title}</span>
+          <button type="button" aria-label="Close" onClick={() => onPick(close)} className="px-2 hover:bg-red-600 hover:text-white">✕</button>
+        </div>
+        <div className="flex items-start gap-3 px-4 pb-4 pt-2">
+          <span aria-hidden="true" className={`flex h-8 w-8 shrink-0 items-center justify-center text-[15px] font-bold ${glyph.cls}`}>{glyph.ch}</span>
+          <p className="whitespace-pre-line pt-1 leading-snug">{text}</p>
+        </div>
+        <div className="flex justify-end gap-2 bg-[#f0f0f0] px-3 py-2">
+          {buttons.map((b, i) => (
+            <button key={b} type="button" autoFocus={i === 0} onClick={() => onPick(b)} className={i === 0 ? BTN_OK : BTN_PLAIN}>{b}</button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Allow Edit Ranges: the password asked for before editing a protected range. */
+function PasswordPrompt({ title, text, onOk, onCancel }: { title: string; text: string; onOk: (pw: string) => void; onCancel: () => void }) {
+  const [pw, setPw] = useState("");
+  return (
+    <div className="absolute inset-0 z-[95] flex items-center justify-center bg-black/10" onKeyDown={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label={title} className="w-[360px] max-w-[95%] border border-gray-400 bg-[#f0f0f0] text-[12px] shadow-2xl">
+        <div className="flex items-center justify-between bg-white px-3 py-1.5">
+          <span>{title}</span>
+          <button type="button" aria-label="Close" onClick={onCancel} className="px-2 hover:bg-red-600 hover:text-white">✕</button>
+        </div>
+        <div className="flex flex-col gap-2 bg-white p-4">
+          <p>{text}</p>
+          <label className="flex flex-col gap-1">
+            Enter the password to change this cell:
+            <input autoFocus type="password" aria-label="Password" value={pw} onChange={(e) => setPw(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") onOk(pw); }} className="border border-gray-400 px-1 py-0.5" />
+          </label>
+        </div>
+        <div className="flex justify-end gap-2 border-t border-gray-300 px-3 py-2">
+          <button type="button" onClick={() => onOk(pw)} className={BTN_OK}>OK</button>
+          <button type="button" onClick={onCancel} className={BTN_PLAIN}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type SortLevel = { col: number; order: string; list: string };
+
+/**
+ * Data › Sort: the Sort dialog. Each level picks a column, and its Order list
+ * follows the column's type (A to Z for text, Smallest to Largest for
+ * numbers, Oldest to Newest for dates), with Custom List... for any of them.
+ * OK commits dialog "sort".
+ */
+function SortDialog({ doc, sheet, act, onCommit }: { doc: ExcelBook; sheet: ExcelSheet; act: string; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
+  const rc = dataRegion(sheet, act) ?? currentRegion(sheet, act);
+  const cols: number[] = [];
+  if (rc) for (let c = rc.c1; c <= rc.c2; c++) cols.push(c);
+  const [headers, setHeaders] = useState(() => Boolean(rc && !cols.some((c) => typeof evaluateCell(doc, sheet, refOf(c, rc.r1)) === "number")));
+  const nameOf = (c: number) => (headers && rc ? String(evaluateCell(doc, sheet, refOf(c, rc.r1)) ?? "") || `Column ${numToCol(c)}` : `Column ${numToCol(c)}`);
+  const typeOf = (c: number): "text" | "number" | "date" => {
+    if (!rc) return "text";
+    for (let r = rc.r1 + (headers ? 1 : 0); r <= rc.r2; r++) {
+      const v = evaluateCell(doc, sheet, refOf(c, r));
+      if (v === null || v === "") continue;
+      if (typeof v === "number") return isDateFormat(sheet.cells[refOf(c, r)]?.fmt) ? "date" : "number";
+      return "text";
+    }
+    return "text";
+  };
+  const actC = parseRef(act)?.c ?? cols[0] ?? 1;
+  const startCol = cols.includes(actC) ? actC : cols[0] ?? 1;
+  const [levels, setLevels] = useState<SortLevel[]>([{ col: startCol, order: SORT_ORDERS_BY_TYPE[typeOf(startCol)][0], list: "" }]);
+  const [pick, setPick] = useState(0);
+  const [listFor, setListFor] = useState<number | null>(null);
+  const [listPick, setListPick] = useState<string>("NEW LIST");
+  const [listText, setListText] = useState("");
+  const close = () => onCommit({ kind: "command", id: "pane.close" });
+  const setLevel = (i: number, patch: Partial<SortLevel>) => setLevels(levels.map((l, j) => (j === i ? { ...l, ...patch } : l)));
+  const ok = () => {
+    const [a, b, c] = levels;
+    onCommit({
+      kind: "dialog",
+      id: "sort",
+      values: {
+        headers,
+        sortBy: nameOf(a.col),
+        sortOn: "Cell Values",
+        order: a.order,
+        customList: a.list,
+        thenBy: b ? nameOf(b.col) : "(none)",
+        thenOrder: b?.order ?? "A to Z",
+        thenCustomList: b?.list ?? "",
+        then2By: c ? nameOf(c.col) : "(none)",
+        then2Order: c?.order ?? "A to Z",
+        then2CustomList: c?.list ?? "",
+      },
+    });
+  };
+  const sel = "border border-gray-400 bg-white px-1 py-0.5";
+  return (
+    <div className="absolute inset-0 z-[90] flex items-center justify-center bg-black/10" onKeyDown={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label="Sort" className="w-[560px] max-w-[96%] border border-gray-400 bg-[#f0f0f0] text-[12px] shadow-2xl">
+        <div className="flex items-center justify-between bg-white px-3 py-1.5">
+          <span>Sort</span>
+          <button type="button" aria-label="Close" onClick={close} className="px-2 hover:bg-red-600 hover:text-white">✕</button>
+        </div>
+        <div className="flex flex-wrap items-center gap-1 px-3 py-2">
+          <button type="button" disabled={levels.length >= 3} onClick={() => { const c = cols.find((x) => !levels.some((l) => l.col === x)) ?? startCol; setLevels([...levels, { col: c, order: SORT_ORDERS_BY_TYPE[typeOf(c)][0], list: "" }]); setPick(levels.length); }} className="border border-gray-400 bg-white px-2 py-0.5 hover:bg-[#e5f1fb] disabled:opacity-40">+ Add Level</button>
+          <button type="button" disabled={levels.length <= 1} onClick={() => { setLevels(levels.filter((_, j) => j !== pick)); setPick(Math.max(0, pick - 1)); }} className="border border-gray-400 bg-white px-2 py-0.5 hover:bg-[#e5f1fb] disabled:opacity-40">✕ Delete Level</button>
+          <button type="button" disabled={levels.length >= 3} onClick={() => { setLevels([...levels.slice(0, pick + 1), { ...levels[pick] }, ...levels.slice(pick + 1)]); setPick(pick + 1); }} className="border border-gray-400 bg-white px-2 py-0.5 hover:bg-[#e5f1fb] disabled:opacity-40">Copy Level</button>
+          <button type="button" aria-label="Move Up" disabled={pick === 0} onClick={() => { const n = levels.slice(); [n[pick - 1], n[pick]] = [n[pick], n[pick - 1]]; setLevels(n); setPick(pick - 1); }} className="border border-gray-400 bg-white px-1.5 py-0.5 disabled:opacity-40">▲</button>
+          <button type="button" aria-label="Move Down" disabled={pick >= levels.length - 1} onClick={() => { const n = levels.slice(); [n[pick + 1], n[pick]] = [n[pick], n[pick + 1]]; setLevels(n); setPick(pick + 1); }} className="border border-gray-400 bg-white px-1.5 py-0.5 disabled:opacity-40">▼</button>
+          <span className="flex-1" />
+          <label className="flex items-center gap-1"><input type="checkbox" checked={headers} onChange={(e) => setHeaders(e.target.checked)} /> My data has headers</label>
+        </div>
+        <div className="mx-3 border border-gray-400 bg-white">
+          <div className="grid grid-cols-[1.2fr_1fr_1.2fr] gap-2 border-b border-gray-300 px-2 py-1 font-semibold text-gray-700">
+            <span>Column</span>
+            <span>Sort On</span>
+            <span>Order</span>
+          </div>
+          {levels.map((l, i) => {
+            const orders = SORT_ORDERS_BY_TYPE[typeOf(l.col)];
+            return (
+              <div key={i} onMouseDown={() => setPick(i)} className={`grid grid-cols-[1.2fr_1fr_1.2fr] items-center gap-2 px-2 py-1 ${pick === i ? "bg-[#cce4f7]" : ""}`}>
+                <label className="flex items-center gap-1">
+                  <span className="w-12 shrink-0">{i === 0 ? "Sort by" : "Then by"}</span>
+                  <select aria-label={i === 0 ? "Sort by" : `Then by ${i}`} value={l.col} onChange={(e) => { const c = Number(e.target.value); const o = SORT_ORDERS_BY_TYPE[typeOf(c)]; setLevel(i, { col: c, order: o.includes(l.order) ? l.order : o[0], list: "" }); }} className={`${sel} min-w-0 flex-1`}>
+                    {cols.map((c) => <option key={c} value={c}>{nameOf(c)}</option>)}
+                  </select>
+                </label>
+                <select aria-label={`Sort On ${i + 1}`} value="Cell Values" onChange={() => undefined} className={sel}>
+                  <option>Cell Values</option>
+                  <option disabled>Cell Color</option>
+                  <option disabled>Font Color</option>
+                  <option disabled>Conditional Formatting Icon</option>
+                </select>
+                <select
+                  aria-label={`Order ${i + 1}`}
+                  value={orders.includes(l.order) ? l.order : orders[0]}
+                  onChange={(e) => {
+                    const o = e.target.value;
+                    setLevel(i, { order: o });
+                    if (o === "Custom List...") { setListFor(i); setListPick(BUILT_IN_LISTS.includes(l.list) ? l.list : "NEW LIST"); setListText(l.list); }
+                  }}
+                  className={sel}
+                >
+                  {orders.map((o) => <option key={o} value={o}>{o === "Custom List..." && l.order === o && l.list ? l.list : o}</option>)}
+                </select>
+              </div>
+            );
+          })}
+        </div>
+        {listFor !== null && (
+          <div role="group" aria-label="Custom Lists" className="mx-3 mt-2 border border-gray-400 bg-white p-2">
+            <p className="mb-1 font-semibold">Custom Lists</p>
+            <div className="flex gap-3">
+              <div role="listbox" aria-label="Custom lists" className="h-28 w-56 overflow-auto border border-gray-300">
+                {["NEW LIST", ...BUILT_IN_LISTS].map((x) => (
+                  <button key={x} type="button" role="option" aria-selected={listPick === x} onClick={() => { setListPick(x); setListText(x === "NEW LIST" ? "" : x); }} className={`block w-full truncate px-1 text-left ${listPick === x ? "bg-[#0078d4] text-white" : "hover:bg-[#e5f1fb]"}`}>{x}</button>
+                ))}
+              </div>
+              <label className="flex flex-1 flex-col gap-1">
+                List entries:
+                <textarea aria-label="List entries" value={listText.split(/\s*,\s*/).join("\n")} readOnly={listPick !== "NEW LIST"} onChange={(e) => setListText(e.target.value.split(/\n/).map((x) => x.trim()).filter(Boolean).join(", "))} className="h-24 resize-none border border-gray-400 px-1 py-0.5" />
+              </label>
+            </div>
+            <div className="mt-2 flex justify-end gap-2">
+              <button type="button" disabled={!listText.trim()} onClick={() => { setLevel(listFor, { order: "Custom List...", list: listText }); setListFor(null); }} className={BTN_OK}>OK</button>
+              <button type="button" onClick={() => { const l = levels[listFor]; if (!l.list) setLevel(listFor, { order: SORT_ORDERS_BY_TYPE[typeOf(l.col)][0] }); setListFor(null); }} className={BTN_PLAIN}>Cancel</button>
+            </div>
+          </div>
+        )}
+        <div className="flex justify-end gap-2 px-3 py-2">
+          <button type="button" disabled={!rc || listFor !== null} onClick={ok} className={BTN_OK}>OK</button>
+          <button type="button" onClick={close} className={BTN_PLAIN}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+type SeriesRef = { name: string; values: string };
+
+/**
+ * Chart Design › Select Data: the chart data range, Switch Row/Column, the
+ * series (Add, Edit, Remove, reorder) and the category axis labels. OK
+ * commits dialog "selectData".
+ */
+function SelectDataDialog({ doc, sheet, chartId, onCommit }: { doc: ExcelBook; sheet: ExcelSheet; chartId: string; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
+  const ch = sheet.charts?.find((x) => x.id === chartId) as XChart | undefined;
+  const close = () => onCommit({ kind: "command", id: "pane.close" });
+  const absText = (r: string) => {
+    const bang = r.lastIndexOf("!");
+    const name = bang > 0 ? r.slice(0, bang).replace(/^'|'$/g, "") : sheet.name;
+    const rc = parseRange(bang > 0 ? r.slice(bang + 1) : r);
+    return rc ? absRef(name, rc) : r;
+  };
+  const [range, setRange] = useState(() => (ch && ch.range !== "PIVOT" ? absText(ch.range) : ""));
+  const [lastRange, setLastRange] = useState(range);
+  const [switched, setSwitched] = useState(Boolean(ch && doc.flags?.[`chart:${ch.id}:switch`]));
+  const fromRange = (rng: string, sw: boolean) => seriesFromRange(doc, sheet, rng, sw);
+  const [list, setList] = useState<SeriesRef[]>(() => (ch?.series?.length ? ch.series : fromRange(range, switched).series));
+  const [categories, setCategories] = useState(() => (ch?.series?.length ? ch.categories ?? "" : fromRange(range, switched).categories));
+  const [edited, setEdited] = useState(Boolean(ch?.series?.length));
+  const [pick, setPick] = useState(0);
+  const [sub, setSub] = useState<{ mode: "add" | "edit" | "axis"; name: string; values: string } | null>(null);
+  if (!ch) return <MessageBox title="Select Data Source" icon="info" text="Select a chart first." buttons={["OK"]} onPick={close} />;
+  if (ch.range === "PIVOT")
+    return <MessageBox title="Select Data Source" icon="info" text="This is a PivotChart. To change the data it shows, change the fields in the PivotTable Fields pane." buttons={["OK"]} onPick={close} />;
+  const resolveName = (n: string) => (n.trim().startsWith("=") ? String(rangeValues(doc, sheet, n)[0] ?? "") : n);
+  const catLabels = categories ? rangeValues(doc, sheet, categories).map((v) => (typeof v === "number" ? formatValue(v, undefined) : String(v ?? ""))) : Array.from({ length: Math.max(0, ...list.map((x) => rangeValues(doc, sheet, x.values).length)) }, (_, i) => String(i + 1));
+  const applyRange = (rng: string, sw: boolean) => {
+    if (!resolveRef(doc, sheet, rng)) return;
+    const r = fromRange(rng, sw);
+    setList(r.series);
+    setCategories(r.categories);
+    setEdited(false);
+    setPick(0);
+    setLastRange(rng);
+  };
+  const ok = () => {
+    onCommit({
+      kind: "dialog",
+      id: "selectData",
+      values: { range: edited ? "" : range, switched, edited, series: JSON.stringify(list), names: list.map((x) => resolveName(x.name)).join(", "), count: list.length, categories },
+    });
+  };
+  const small = "border border-gray-400 bg-white px-2 py-0.5 hover:bg-[#e5f1fb] disabled:opacity-40";
+  return (
+    <div className="absolute inset-0 z-[90] flex items-center justify-center bg-black/10" onKeyDown={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label="Select Data Source" className="w-[600px] max-w-[96%] border border-gray-400 bg-[#f0f0f0] text-[12px] shadow-2xl">
+        <div className="flex items-center justify-between bg-white px-3 py-1.5">
+          <span>Select Data Source</span>
+          <button type="button" aria-label="Close" onClick={close} className="px-2 hover:bg-red-600 hover:text-white">✕</button>
+        </div>
+        <div className="flex flex-col gap-2 p-3">
+          <label className="flex items-center gap-2">
+            <span className="shrink-0">Chart data range:</span>
+            <input
+              aria-label="Chart data range"
+              value={edited && range === lastRange ? "" : range}
+              placeholder={edited ? "The data range is too complex to be displayed." : undefined}
+              onChange={(e) => setRange(e.target.value)}
+              onBlur={() => { if (range.trim() && range !== lastRange) applyRange(range, switched); }}
+              onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter" && range.trim()) applyRange(range, switched); }}
+              className="flex-1 border border-gray-400 bg-white px-1 py-0.5 font-mono"
+            />
+          </label>
+          <div className="flex justify-center">
+            <button type="button" onClick={() => { const sw = !switched; setSwitched(sw); applyRange(lastRange || range, sw); }} className={small}>⇄ Switch Row/Column</button>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="flex flex-col border border-gray-300 bg-white">
+              <p className="border-b px-2 py-1 font-semibold">Legend Entries (Series)</p>
+              <div className="flex gap-1 border-b px-2 py-1">
+                <button type="button" onClick={() => setSub({ mode: "add", name: "", values: "" })} className={small}>Add</button>
+                <button type="button" disabled={!list[pick]} onClick={() => setSub({ mode: "edit", name: list[pick].name, values: list[pick].values })} className={small}>Edit</button>
+                <button type="button" disabled={!list[pick]} onClick={() => { setList(list.filter((_, j) => j !== pick)); setEdited(true); setPick(Math.max(0, pick - 1)); }} className={small}>Remove</button>
+                <button type="button" aria-label="Move Up" disabled={pick === 0} onClick={() => { const n = list.slice(); [n[pick - 1], n[pick]] = [n[pick], n[pick - 1]]; setList(n); setEdited(true); setPick(pick - 1); }} className={small}>▲</button>
+                <button type="button" aria-label="Move Down" disabled={pick >= list.length - 1} onClick={() => { const n = list.slice(); [n[pick + 1], n[pick]] = [n[pick], n[pick + 1]]; setList(n); setEdited(true); setPick(pick + 1); }} className={small}>▼</button>
+              </div>
+              <div role="listbox" aria-label="Series" className="h-32 overflow-auto">
+                {list.map((x, i) => (
+                  <button key={`${x.values}-${i}`} type="button" role="option" aria-selected={pick === i} onClick={() => setPick(i)} onDoubleClick={() => setSub({ mode: "edit", name: x.name, values: x.values })} className={`block w-full truncate px-2 py-0.5 text-left ${pick === i ? "bg-[#cce4f7]" : "hover:bg-[#e5f1fb]"}`}>
+                    ☑ {resolveName(x.name) || `Series${i + 1}`}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col border border-gray-300 bg-white">
+              <p className="border-b px-2 py-1 font-semibold">Horizontal (Category) Axis Labels</p>
+              <div className="flex gap-1 border-b px-2 py-1">
+                <button type="button" onClick={() => setSub({ mode: "axis", name: "", values: categories })} className={small}>Edit</button>
+              </div>
+              <div className="h-32 overflow-auto px-2 py-0.5">
+                {catLabels.map((c, i) => <p key={i} className="truncate">☑ {c}</p>)}
+              </div>
+            </div>
+          </div>
+          {sub && (
+            <div role="group" aria-label={sub.mode === "axis" ? "Axis Labels" : "Edit Series"} className="border border-gray-400 bg-white p-2">
+              <p className="mb-1 font-semibold">{sub.mode === "axis" ? "Axis Labels" : "Edit Series"}</p>
+              {sub.mode !== "axis" && (
+                <label className="mb-1 flex flex-col gap-0.5">
+                  Series name:
+                  <input autoFocus aria-label="Series name" value={sub.name} onChange={(e) => setSub({ ...sub, name: e.target.value })} onKeyDown={(e) => e.stopPropagation()} placeholder="=Sheet1!$B$1" className="border border-gray-400 px-1 py-0.5 font-mono" />
+                </label>
+              )}
+              <label className="flex flex-col gap-0.5">
+                {sub.mode === "axis" ? "Axis label range:" : "Series values:"}
+                <input autoFocus={sub.mode === "axis"} aria-label={sub.mode === "axis" ? "Axis label range" : "Series values"} value={sub.values} onChange={(e) => setSub({ ...sub, values: e.target.value })} onKeyDown={(e) => e.stopPropagation()} placeholder="=Sheet1!$B$2:$B$7" className="border border-gray-400 px-1 py-0.5 font-mono" />
+              </label>
+              <div className="mt-2 flex justify-end gap-2">
+                <button
+                  type="button"
+                  disabled={!resolveRef(doc, sheet, sub.values)}
+                  onClick={() => {
+                    const values = sub.values.trim().startsWith("=") ? sub.values.trim() : `=${sub.values.trim()}`;
+                    if (sub.mode === "axis") setCategories(values);
+                    else if (sub.mode === "add") { setList([...list, { name: sub.name.trim(), values }]); setPick(list.length); }
+                    else setList(list.map((x, j) => (j === pick ? { name: sub.name.trim(), values } : x)));
+                    setEdited(true);
+                    setSub(null);
+                  }}
+                  className={BTN_OK}
+                >
+                  OK
+                </button>
+                <button type="button" onClick={() => setSub(null)} className={BTN_PLAIN}>Cancel</button>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="flex items-center gap-2 border-t border-gray-300 px-3 py-2">
+          <button type="button" disabled className={`${small} mr-auto`}>Hidden and Empty Cells</button>
+          <button type="button" disabled={sub !== null} onClick={ok} className={BTN_OK}>OK</button>
+          <button type="button" onClick={close} className={BTN_PLAIN}>Cancel</button>
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -1999,7 +2578,8 @@ function ExcelPane({ doc, sheet, pane, findTerm, act, onCommit, onSelect }: { do
   );
 }
 
-export function ExcelStatusBar({ doc, ui, onCommit }: StatusBarProps<ExcelBook>) {
+export function ExcelStatusBar({ doc: rawDoc, ui, onCommit }: StatusBarProps<ExcelBook>) {
+  const doc = useMemo(() => withTotalRows(withPivotCaches(rawDoc)), [rawDoc]);
   const sheet = sheetOf(doc, ui);
   const zoom = sheet.zoom ?? 100;
   const rc = selRect(sheet, ui.selection || "A1");
@@ -2021,6 +2601,7 @@ export function ExcelStatusBar({ doc, ui, onCommit }: StatusBarProps<ExcelBook>)
       <span>Ready</span>
       <span className="hidden sm:inline">Accessibility: Good to go</span>
       {doc.flags?.lastAction && <span className="hidden text-gray-500 sm:inline">Last action: {String(doc.flags.lastAction)}</span>}
+      {doc.flags?.flashFillCount !== undefined && doc.flags.flashFill === activeCell(ui) && <span>Flash Fill Changed Cells: {String(doc.flags.flashFillCount)}</span>}
       <span className="flex-1" />
       {stats && (
         <span className="flex gap-4">

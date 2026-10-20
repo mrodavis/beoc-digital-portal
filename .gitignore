@@ -3,5 +3,5 @@
 # GitHub's 100MB file limit. The rendered .next output stays tracked.
 .next/cache/
 
-# Installed packages
-node_modules/
+# Installed packages (no trailing slash, so a symlinked node_modules is ignored too)
+node_modules

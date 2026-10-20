@@ -79,10 +79,11 @@ export const excelModule3Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Insert a new worksheet directly after the March sheet.",
-          hint: "Click the March tab, then click New sheet (+) to the right of the tabs (or press Shift+F11).",
+          hint: "Click the March tab, then click New sheet (+) to the right of the tabs: the new sheet goes after the active one. (Shift+F11 and Home › Insert › Insert Sheet put the new sheet in front of the active one, so use them with the Expenses Summary tab active.)",
           steps: [
             {
               action: { kind: "command", id: "sheet.add" },
+              alt: [{ kind: "command", id: "home.insert", value: "Insert Sheet", requires: { sheet: "Expenses Summary" } }],
               requires: { sheet: "March" },
               selectHint: "Click the March tab first: a new sheet is added after the active sheet.",
             },
@@ -303,7 +304,7 @@ export const excelModule3Sims: Record<string, SimDefinition[]> = {
           hint: "Select D2:D15. Data tab › Data Tools group › Data Validation. Allow: Whole number, Data: between, Minimum 1, Maximum 500, OK.",
           steps: [
             {
-              action: { kind: "dialog", id: "dataValidation", values: { allow: "Whole number", min: "1", max: "500" } },
+              action: { kind: "dialog", id: "dataValidation", values: { allow: "Whole number", data: "between", min: "1", max: "500" } },
               requires: { selection: "D2:D15" },
               selectHint: "Select the quantities in D2:D15 first.",
             },
@@ -315,6 +316,17 @@ export const excelModule3Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "dialog", id: "dataValidation", values: { inputMessage: "Enter a quantity from 1 to 500." } },
+              requires: { selection: "D2:D15" },
+              selectHint: "Select D2:D15 first.",
+            },
+          ],
+        },
+        {
+          instruction: "Write your own error alert for D2:D15: a Stop alert titled \"Invalid Quantity\" that says \"Quantities must be whole numbers from 1 to 500.\"",
+          hint: "Keep D2:D15 selected. Data tab › Data Validation › Error Alert tab. Keep Style: Stop, type the Title and the Error message, OK. Typing 1200 in D2 now shows your message.",
+          steps: [
+            {
+              action: { kind: "dialog", id: "dataValidation", values: { errorStyle: "Stop", errorTitle: "Invalid Quantity", errorMessage: "Quantities must be whole numbers from 1 to 500." } },
               requires: { selection: "D2:D15" },
               selectHint: "Select D2:D15 first.",
             },

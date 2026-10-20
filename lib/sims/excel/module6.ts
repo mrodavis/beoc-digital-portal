@@ -276,13 +276,14 @@ export const excelModule6Sims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "pivot.area", value: "Month>Columns" }, requires: { sheet: "Sheet2" } }],
         },
         {
-          instruction: "Format the PivotTable values in B4:D8 as Currency.",
-          hint: "Select B4:D8. Home tab › Number group › Number Format box › Currency.",
+          instruction: "Format the PivotTable values in B5:D9 as Currency.",
+          hint: "Select B5:D9. Home tab › Number group › Number Format box › Currency. (Or right-click a value › Value Field Settings › Number Format › Currency, which keeps the format when the PivotTable changes.)",
           steps: [
             {
               action: { kind: "command", id: "home.numberFormat", value: "Currency" },
-              requires: { selection: ["B4:D8", "B:D"], sheet: "Sheet2" },
-              selectHint: "Select the values, B4:D8, on the PivotTable sheet first.",
+              alt: [{ kind: "dialog", id: "valueFieldSettings", values: { numberFormat: "Currency" }, requires: { sheet: "Sheet2" } }],
+              requires: { selection: ["B5:D9", "B:D"], sheet: "Sheet2" },
+              selectHint: "Select the values, B5:D9, on the PivotTable sheet first.",
             },
           ],
         },
