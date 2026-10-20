@@ -1,7 +1,7 @@
 import type { SimCommit, WordDoc } from "@/types/sim";
 import type { AppCore } from "../../types";
 import { applyWord, isBuiltInStyle, notesOf, wordContextual, wordDialogDefaults, wordRibbonState, paraText, parseSel } from "./model";
-import { wordRibbon, VIEW_ALIASES } from "./ribbon";
+import { wordRibbon, wordRibbonFor, VIEW_ALIASES } from "./ribbon";
 import { wordDialogDef, wordDialogs } from "./dialogs";
 
 /** A style name from the gallery or the Styles pane: built-in styles are home.style, custom ones home.customStyle. */
@@ -52,6 +52,7 @@ export const wordCore: AppCore<WordDoc> = {
   name: "Word",
   accent: "#2b579a",
   ribbon: wordRibbon,
+  ribbonFor: (doc) => wordRibbonFor(doc),
   dialogs: wordDialogs,
   backstage: {
     templates: [

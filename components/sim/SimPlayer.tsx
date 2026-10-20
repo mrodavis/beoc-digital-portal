@@ -152,7 +152,7 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
 
   const handleCommit = useCallback(
     (raw: SimCommit) => {
-      const c = app.normalize ? app.normalize(raw) : raw;
+      const c = app.normalize ? app.normalize(raw, live.current.doc) : raw;
       setMenu(null);
       const { doc: d, ui: u, finished: fin, started: st } = live.current;
       if (!st) return;
@@ -322,7 +322,8 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
   };
 
   const contextual = app.contextualTabs?.(doc, ui) ?? [];
-  const tabs = app.ribbon.filter((t) => !t.contextual || contextual.includes(t.contextual));
+  const ribbonTabs = useMemo(() => (app.ribbonFor ? app.ribbonFor(doc, ui) : app.ribbon), [app, doc, ui]);
+  const tabs = ribbonTabs.filter((t) => !t.contextual || contextual.includes(t.contextual));
   useEffect(() => {
     if (!tabs.some((t) => t.id === activeTab)) setActiveTab(tabs[0].id);
   }, [tabs, activeTab]);
@@ -437,7 +438,8 @@ export default function SimPlayer({ sim }: { sim: SimDefinition }) {
           />
         )}
 
-        <div className="relative min-h-0 flex-1">
+        {/* isolate: an engine's own z-index layers stay inside the canvas, under the player's cards. */}
+        <div className="relative isolate min-h-0 flex-1">
           <Canvas
             doc={doc}
             ui={ui}

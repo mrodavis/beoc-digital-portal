@@ -173,6 +173,18 @@ const TABLE_STYLE_COLORS: Record<string, string> = {
 
 export const PICTURE_FILES = ["clinic-front-desk.jpg", "lakeside-logo.png", "handwashing-poster.png", "team-photo.jpg", "flu-shot-clinic.jpg", "map-directions.png"];
 
+/** The Ribbon with this document's custom styles in the Styles gallery (no shared state between players). */
+export function wordRibbonFor(doc: Parameters<typeof customStyleNames>[0]): RibbonTab[] {
+  const own = customStyleNames(doc ?? null);
+  if (!own.length) return wordRibbon.map((t) => t);
+  const options: RibbonOption[] = [...builtInStyleOpts, ...own.map((n): RibbonOption => ({ value: n, command: "home.customStyle" })), ...styleCommandOpts];
+  return wordRibbon.map((t) =>
+    t.groups.some((g) => g.controls.includes(stylesGallery))
+      ? { ...t, groups: t.groups.map((g) => (g.controls.includes(stylesGallery) ? { ...g, controls: g.controls.map((c) => (c === stylesGallery ? { ...stylesGallery, options } : c)) } : g)) }
+      : t,
+  );
+}
+
 export const wordRibbon: RibbonTab[] = [
   {
     id: "home",

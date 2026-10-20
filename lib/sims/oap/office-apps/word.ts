@@ -1,5 +1,5 @@
-import type { SimDefinition, WordPara } from "@/types/sim";
-import type { XDoc } from "@/components/sim/apps/word/model";
+import type { SimDefinition, WordPara, WordRun } from "@/types/sim";
+import type { XDoc, XRun } from "@/components/sim/apps/word/model";
 
 /**
  * office-apps sims that run in the Word engine. Keys are "<moduleSlug>::<lessonSlug>".
@@ -43,17 +43,21 @@ const RECORDS_DRAFT_IDS = ["p1", "p2", "p3", "p4", "p5", "p6", "p7", "p8", "p9",
 
 /* ---------- Module 2: templates ---------- */
 
+/** A placeholder that is already a content control, as in Word's own templates. */
+const control = (placeholder: string, type: "plainText" | "richText" = "plainText"): WordRun => ({ id: "r1", text: "", cc: { type, placeholder } }) as XRun;
+
 const FAX_TEMPLATE: WordPara[] = [
   { id: "p1", style: "Title", text: "FAX" },
   { id: "p2", bold: true, size: 14, spaceAfter: 0, runs: [{ id: "r1", text: "[Company Name]" }] },
   { id: "p3", runs: [{ text: "Phone: " }, { id: "r1", text: "[Phone]" }, { text: "    Fax: " }, { id: "r2", text: "[Fax]" }] },
   { id: "p4", text: "Date:" },
+  // The recipient lines came in as plain text; the learner turns them into content controls.
   { id: "p5", runs: [{ text: "To: " }, { id: "r1", text: "[Recipient Name]" }] },
   { id: "p6", runs: [{ text: "Fax number: " }, { id: "r1", text: "[Recipient Fax]" }] },
-  { id: "p7", runs: [{ text: "From: " }, { id: "r1", text: "[Your Name]" }] },
-  { id: "p8", runs: [{ text: "Pages, including cover: " }, { id: "r1", text: "[Number]" }] },
-  { id: "p9", runs: [{ text: "Re: " }, { id: "r1", text: "[Subject]" }] },
-  { id: "p10", runs: [{ id: "r1", text: "[Comments]" }] },
+  { id: "p7", runs: [{ text: "From: " }, control("[Your Name]")] },
+  { id: "p8", runs: [{ text: "Pages, including cover: " }, control("[Number]")] },
+  { id: "p9", runs: [{ text: "Re: " }, control("[Subject]")] },
+  { id: "p10", runs: [control("[Comments]", "richText")] },
 ];
 
 const FAX_NOTICE =
@@ -1354,7 +1358,7 @@ export const wordSims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Turn the “[Recipient Name]” and “[Recipient Fax]” placeholders into plain text content controls, so staff can fill them in once the form is protected.",
+          instruction: "Turn the “[Recipient Name]” and “[Recipient Fax]” placeholders into plain text content controls, like the other blanks on the cover sheet.",
           hint: "Click “[Recipient Name]”. Developer tab › Controls group › Plain Text Content Control. Do the same for “[Recipient Fax]”. (In Word, turn the Developer tab on first: File › Options › Customize Ribbon › check Developer.)",
           anyOrder: true,
           steps: [

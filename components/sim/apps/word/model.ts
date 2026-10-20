@@ -2151,24 +2151,7 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
       }
       if (ids.length > 1) {
         // Columns on a selection: Word wraps the selection in continuous section breaks.
-        const firstIdx = doc.paragraphs.findIndex((p) => p.id === ids[0]);
-        const lastIdx = doc.paragraphs.findIndex((p) => p.id === ids[ids.length - 1]);
-        const orig = sectionProps(doc, sectionIndex(doc, ids[0]));
-        const keep: SectionProps = { orientation: orig.orientation, columns: orig.columns, spacing: orig.spacing, line: orig.line };
-        const taken = new Set<string>();
-        const prev = doc.paragraphs[firstIdx - 1];
-        const needBefore = firstIdx > 0 && prev?.kind !== "sectionBreak";
-        const next = doc.paragraphs[lastIdx + 1];
-        const needAfter = Boolean(next) && next.kind !== "sectionBreak";
-        // Ids in document order: the break before the selection, then the one after it.
-        const beforeId = needBefore ? newId("sb", doc, taken) : "";
-        const afterId = needAfter ? newId("sb", doc, taken) : "";
-        if (needAfter) doc.paragraphs.splice(lastIdx + 1, 0, { id: afterId, kind: "sectionBreak", text: "Continuous", section: keep } as XPara);
-        if (needBefore) {
-          doc.paragraphs.splice(firstIdx, 0, { id: beforeId, kind: "sectionBreak", text: "Continuous", section: { ...keep, columns: n } } as XPara);
-          return { doc };
-        }
-        setSectionProps(doc, sectionIndex(doc, ids[0]), { columns: n });
+        columnsOnSelection(doc, ids, { columns: n });
         return { doc };
       }
       for (const i of selectedSections(doc, ui)) setSectionProps(doc, i, { columns: n });

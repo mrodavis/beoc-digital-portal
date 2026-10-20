@@ -68,13 +68,13 @@ const CH_Z = "Chapter 21: Factors influencing health status and contact with hea
 const INJURY_INCLUDES = (site: string): IcdNote => ({
   kind: "includes",
   items: [
-    `avulsion of joint or ligament at ${site}`,
-    `laceration of cartilage, joint or ligament at ${site}`,
-    `sprain of cartilage, joint or ligament at ${site}`,
-    `traumatic hemarthrosis of joint or ligament at ${site}`,
-    `traumatic rupture of joint or ligament at ${site}`,
-    `traumatic subluxation of joint or ligament at ${site}`,
-    `traumatic tear of joint or ligament at ${site}`,
+    `avulsion of joint or ligament of ${site}`,
+    `laceration of cartilage, joint or ligament of ${site}`,
+    `sprain of cartilage, joint or ligament of ${site}`,
+    `traumatic hemarthrosis of joint or ligament of ${site}`,
+    `traumatic rupture of joint or ligament of ${site}`,
+    `traumatic subluxation of joint or ligament of ${site}`,
+    `traumatic tear of joint or ligament of ${site}`,
   ],
 });
 
@@ -170,7 +170,7 @@ export const ICD_CATEGORIES: IcdCategory[] = [
     title: "Pneumonia, unspecified organism",
     chapter: CH_RESP,
     block: { title: "Influenza and pneumonia", range: "J09-J18" },
-    notes: [{ kind: "excludes1", items: ["aspiration pneumonia NOS (J69.0)", "lipid pneumonia (J69.1)"], partial: true }],
+    notes: [{ kind: "excludes2", items: ["aspiration pneumonia NOS (J69.0)", "lipid pneumonia (J69.1)"], partial: true }],
     children: [
       { code: "J18.0", title: "Bronchopneumonia, unspecified organism" },
       { code: "J18.1", title: "Lobar pneumonia, unspecified organism" },
@@ -308,7 +308,7 @@ export const ICD_CATEGORIES: IcdCategory[] = [
         ],
       },
       { kind: "excludes1", items: ["traumatic amputation of forearm (S58.-)"] },
-      { kind: "excludes2", items: ["fracture at wrist and hand level (S62.-)"] },
+      { kind: "excludes2", items: ["fracture at wrist and hand level (S62.-)", "periprosthetic fracture around internal prosthetic elbow joint (M97.4)"] },
     ],
     seventh: FRACTURE_7TH,
     children: [
@@ -372,7 +372,7 @@ export const ICD_CATEGORIES: IcdCategory[] = [
     chapter: CH_INJURY,
     block: { title: "Injuries to the ankle and foot", range: "S90-S99" },
     notes: [
-      INJURY_INCLUDES("ankle, foot and toe level"),
+      INJURY_INCLUDES("ankle, foot and toe"),
       { kind: "codeAlso", items: ["any associated open wound"] },
       { kind: "excludes2", items: ["strain of muscle and tendon of ankle and foot (S96.-)"] },
     ],

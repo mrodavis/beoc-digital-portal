@@ -305,5 +305,11 @@ command ids at the top of its own `types.ts` and `core.ts`:
   `lib/sims/ehr/practice.ts`.
 - `SimTask.judgeFree: true` makes the app's free commands count in that task
   (a compliance task where opening the wrong chart is the mistake).
+- `AppCore.normalize(commit, doc)` receives the current document as well.
+- `AppCore.ribbonFor(doc, ui)` returns the Ribbon for the current document
+  when galleries list the document's own items (Word's custom styles).
+- Windows/Edge: URL values in sims are normalized (lowercase, no protocol,
+  no `www`, no trailing slash). Never ask for Ctrl+T, Ctrl+W or Ctrl+N: the
+  browser keeps them.
 - `AppCore.canvasDialogs` lists dialog ids the canvas opens itself (forms,
   wizards) so the validator knows they can be reached.

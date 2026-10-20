@@ -93,10 +93,16 @@ export interface AppCore<D> {
    * complete a step that asks for them.
    */
   freeCommands?: string[];
+  /**
+   * The Ribbon for the current document, when galleries or dropdowns list the
+   * document's own items (custom styles, folders, signatures). Defaults to
+   * `ribbon`; the validator still walks `ribbon`.
+   */
+  ribbonFor?(doc: D, ui: SimUi): RibbonTab[];
   /** Dialog ids the canvas opens itself (forms, wizards), for the validator. */
   canvasDialogs?: string[];
   /** Rewrite a raw commit (e.g. three view buttons → one "view.mode" command with a value). */
-  normalize?(c: SimCommit): SimCommit;
+  normalize?(c: SimCommit, doc?: D): SimCommit;
   /** The app's built-in reaction to a committed action. */
   apply(doc: D, commit: SimCommit, ui: SimUi): { doc: D; ui?: Partial<SimUi> };
   /** Pressed toggles and combo values for the Ribbon, keyed by control id / stateKey. */

@@ -555,3 +555,121 @@ export function immediate(doc: AccessDoc, line: string, code = ""): string[] {
 export function runnableSubs(code: string): string[] {
   return procedures(code).filter((p) => p.kind === "sub" && p.params.length === 0).map((p) => p.name);
 }
+
+/* ------------------------------------------------------------------ */
+/* Pretty-printing (what the editor does when you leave a line)        */
+/* ------------------------------------------------------------------ */
+
+const VBA_KEYWORDS = [
+  "And", "As", "Boolean", "ByRef", "ByVal", "Call", "Case", "Compare", "Const", "Currency", "Database", "Date", "Debug", "Dim", "Do", "DoCmd", "Double",
+  "Each", "Else", "ElseIf", "End", "Error", "Exit", "Explicit", "False", "For", "Function", "GoTo", "If", "In", "Integer", "Is", "Long", "Loop", "Me",
+  "Mod", "MsgBox", "New", "Next", "Not", "Nothing", "Object", "On", "Option", "Or", "Print", "Private", "Public", "Resume", "Select", "Set", "Single",
+  "Step", "String", "Sub", "Then", "To", "True", "Until", "Variant", "Wend", "While", "With", "CurrentDb", "Recordset", "DAO", "Nz", "Len", "Trim",
+];
+const KW = new Map(VBA_KEYWORDS.map((k) => [k.toLowerCase(), k]));
+const UNARY_AFTER = new Set(["", "(", ",", "=", "<", ">", "<=", ">=", "<>", "+", "-", "*", "/", "\\", "&", "^", ":=", "then", "to", "step", "and", "or", "not", "mod", "return", "is", "case", "print"]);
+
+/** Space one line of VBA the way the editor does: `x=x+1` → `x = x + 1`, `if a<b then` → `If a < b Then`. */
+export function prettyVbaLine(line: string): string {
+  const indent = /^\s*/.exec(line)?.[0] ?? "";
+  const body = line.slice(indent.length);
+  if (!body.trim() || /^rem\b/i.test(body)) return line.replace(/\s+$/, "");
+  // Split off a trailing comment ('...) that is not inside a string.
+  let code = body;
+  let comment = "";
+  let inStr = false;
+  for (let i = 0; i < body.length; i++) {
+    if (body[i] === '"') inStr = !inStr;
+    else if (body[i] === "'" && !inStr) {
+      code = body.slice(0, i);
+      comment = body.slice(i);
+      break;
+    }
+  }
+  if (inStr) return line.replace(/\s+$/, "");
+  type T = { k: "str" | "date" | "word" | "num" | "op" | "punc" | "cont"; v: string };
+  const toks: T[] = [];
+  let i = 0;
+  while (i < code.length) {
+    const c = code[i];
+    if (/\s/.test(c)) { i++; continue; }
+    if (c === '"') {
+      let j = i + 1;
+      while (j < code.length && !(code[j] === '"' && code[j + 1] !== '"')) j += code[j] === '"' ? 2 : 1;
+      toks.push({ k: "str", v: code.slice(i, j + 1) });
+      i = j + 1;
+      continue;
+    }
+    if (c === "#" && /^#[^#\n]+#/.test(code.slice(i))) {
+      const m = /^#[^#\n]+#/.exec(code.slice(i))![0];
+      toks.push({ k: "date", v: m });
+      i += m.length;
+      continue;
+    }
+    if (c === "_" && /^_\s*$/.test(code.slice(i))) { toks.push({ k: "cont", v: "_" }); break; }
+    if (/[A-Za-z_]/.test(c)) {
+      // Keep a!b, a.b and [Field] chains together as one word.
+      let w = /^[A-Za-z_]\w*/.exec(code.slice(i))![0];
+      let j = i + w.length;
+      while (j < code.length && (code[j] === "." || code[j] === "!") && /[A-Za-z_[]/.test(code[j + 1] ?? "")) {
+        const rest = code.slice(j + 1);
+        const part = rest.startsWith("[") ? (/^\[[^\]]*\]/.exec(rest)?.[0] ?? "") : (/^[A-Za-z_]\w*/.exec(rest)?.[0] ?? "");
+        if (!part) break;
+        w += code[j] + part;
+        j += 1 + part.length;
+      }
+      toks.push({ k: "word", v: w });
+      i = j;
+      continue;
+    }
+    if (c === "[") {
+      const m = /^\[[^\]]*\]/.exec(code.slice(i))?.[0] ?? c;
+      toks.push({ k: "word", v: m });
+      i += m.length;
+      continue;
+    }
+    if (/\d/.test(c) || (c === "." && /\d/.test(code[i + 1] ?? ""))) {
+      const m = /^\d*\.?\d+(e[+-]?\d+)?[#!@%&]?/i.exec(code.slice(i))![0];
+      toks.push({ k: "num", v: m });
+      i += m.length;
+      continue;
+    }
+    const two = code.slice(i, i + 2);
+    if (["<=", ">=", "<>", ":="].includes(two)) { toks.push({ k: "op", v: two }); i += 2; continue; }
+    if ("=<>+-*/\\&^".includes(c)) { toks.push({ k: "op", v: c }); i++; continue; }
+    toks.push({ k: "punc", v: c });
+    i++;
+  }
+  let out = "";
+  let prev: T | null = null;
+  for (let k = 0; k < toks.length; k++) {
+    const t = toks[k];
+    let v = t.v;
+    if (t.k === "word" && !/[.!]/.test(v) && KW.has(v.toLowerCase())) v = KW.get(v.toLowerCase())!;
+    if (t.k === "word" && /^end(if|sub|function|select|with)$/i.test(v)) v = `End ${KW.get(v.slice(3).toLowerCase()) ?? v.slice(3)}`;
+    const pv = prev ? (prev.k === "word" ? prev.v.toLowerCase() : prev.v) : "";
+    let sep = " ";
+    if (!prev) sep = "";
+    else if (t.k === "punc" && v === "," && prev.k === "punc" && prev.v === ",") sep = " ";
+    else if (t.k === "punc" && (v === "," || v === ")" || v === ";")) sep = "";
+    else if (prev.k === "punc" && prev.v === "(") sep = "";
+    else if (t.k === "punc" && v === "(" && (prev.k === "word" && !KW.has(pv) || prev.k === "punc" && prev.v === ")")) sep = "";
+    else if (t.k === "op" && v === ":=") sep = "";
+    else if (prev.k === "op" && prev.v === ":=") sep = "";
+    else if (prev.k === "op" && prev.v === "-" && (k < 2 || UNARY_AFTER.has(toks[k - 2].k === "word" ? toks[k - 2].v.toLowerCase() : toks[k - 2].v)) && !(k >= 2 && (toks[k - 2].k === "word" && !KW.has(toks[k - 2].v.toLowerCase()) || toks[k - 2].k === "num" || toks[k - 2].k === "str" || (toks[k - 2].k === "punc" && toks[k - 2].v === ")")))) sep = "";
+    else if (t.k === "punc" && v === ":") sep = "";
+    out += sep + v;
+    prev = { ...t, v };
+  }
+  const tail = comment ? `${out ? " " : ""}${comment}` : "";
+  return indent + out + tail;
+}
+
+/** Pretty-print every line of a module. */
+export function prettyVba(code: string): string {
+  return code
+    .replace(/\r/g, "")
+    .split("\n")
+    .map(prettyVbaLine)
+    .join("\n");
+}

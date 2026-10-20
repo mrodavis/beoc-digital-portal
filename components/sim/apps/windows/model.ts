@@ -658,8 +658,9 @@ export function runCmd(doc: WinDoc, raw: string): string[] {
     if (offline) return [`Ping request could not find host ${host}. Please check the name and try again.`, ""];
     if (!ip) return [`Ping request could not find host ${host}. Please check the name and try again.`, ""];
     const down = (n.down ?? []).includes(host) || (n.down ?? []).includes(ip);
-    const lan = ip.startsWith("192.168.") || ip.startsWith("10.");
-    const vpnNeeded = ip.startsWith("10.") && !n.vpns.some((v) => v.connected) && !n.ip.startsWith("10.");
+    const viaVpn = ip.startsWith("10.") && !n.ip.startsWith("10.");
+    const lan = !viaVpn && (ip.startsWith("192.168.") || ip.startsWith("10."));
+    const vpnNeeded = viaVpn && !n.vpns.some((v) => v.connected);
     const name = /^\d/.test(host) ? ip : `${host} [${ip}]`;
     const out = ["", `Pinging ${name} with 32 bytes of data:`];
     if (down || vpnNeeded) {
@@ -667,9 +668,9 @@ export function runCmd(doc: WinDoc, raw: string): string[] {
       out.push("", `Ping statistics for ${ip}:`, "    Packets: Sent = 4, Received = 0, Lost = 4 (100% loss),", "");
       return out;
     }
-    const base = lan ? 1 : ip.startsWith("10.") ? 18 : 12;
+    const base = lan ? 1 : viaVpn ? 24 : 12;
     const times = [base, base + 2, base + 1, base + 3].map((t) => (lan ? "<1" : String(t)));
-    for (const t of times) out.push(`Reply from ${ip}: bytes=32 time${t === "<1" ? "<1" : `=${t}`}ms TTL=${lan ? 64 : 117}`);
+    for (const t of times) out.push(`Reply from ${ip}: bytes=32 time${t === "<1" ? "<1" : `=${t}`}ms TTL=${lan ? 64 : viaVpn ? 126 : 117}`);
     out.push("", `Ping statistics for ${ip}:`, "    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),", "Approximate round trip times in milli-seconds:", lan ? "    Minimum = 0ms, Maximum = 1ms, Average = 0ms" : `    Minimum = ${base}ms, Maximum = ${base + 3}ms, Average = ${base + 1}ms`, "");
     return out;
   }

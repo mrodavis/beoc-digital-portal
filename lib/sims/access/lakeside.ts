@@ -137,3 +137,38 @@ export const supplies = (): AccTable =>
     ],
     SUPPLY_ROWS,
   );
+
+/** Providers with prefixed names, for queries that also show patient names: ProviderID, ProviderLastName, ProviderFirstName, Specialty. */
+export const providersP = (): AccTable =>
+  table(
+    "Providers",
+    [fld.auto("ProviderID"), fld.text("ProviderLastName", 50, { required: true }), fld.text("ProviderFirstName", 50), fld.text("Specialty", 50)],
+    [
+      [1, "Walsh", "Karen", "Family Medicine"],
+      [2, "Rivera", "Daniel", "Internal Medicine"],
+      [3, "Okafor", "Emeka", "Pediatrics"],
+      [4, "Chen", "Lisa", "Cardiology"],
+    ],
+  );
+
+const EMAIL = (first: string, last: string) => `${first[0].toLowerCase()}${last.toLowerCase()}@example.com`;
+
+/**
+ * Patients as the registration lessons name them: PatientID, PatientFirstName,
+ * PatientLastName, DateOfBirth, PhoneNumber, Email, InsurancePlan, PrimaryProviderID.
+ */
+export const patientsReg = (): AccTable =>
+  table(
+    "Patients",
+    [
+      fld.auto("PatientID"),
+      fld.text("PatientFirstName", 50, { required: true }),
+      fld.text("PatientLastName", 50, { required: true }),
+      fld.date("DateOfBirth", { required: true }),
+      fld.text("PhoneNumber", 14),
+      fld.text("Email", 80),
+      fld.text("InsurancePlan", 50),
+      fld.num("PrimaryProviderID"),
+    ],
+    PATIENT_ROWS.map((r, i) => [r[0], r[2], r[1], r[3], r[4], EMAIL(String(r[2]), String(r[1])), r[6], (i % 4) + 1]),
+  );

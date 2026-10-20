@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { SimCommit } from "@/types/sim";
 import type { AccessDoc } from "./types";
 import { findModule } from "./data";
-import { procedures, runnableSubs } from "./vba";
+import { prettyVba, procedures, runnableSubs } from "./vba";
 import { AccIcon } from "./icons";
 import { Btn, Win, ListBox, Check } from "./ui";
 import { Icon } from "../../chrome/icons";
@@ -29,7 +29,7 @@ export function Vbe({ doc, dbName, onCommit }: { doc: AccessDoc; dbName: string;
   useEffect(() => {
     setText(mod?.code ?? "");
     lastSent.current = mod?.code ?? "";
-    if (mod && judged.current[mod.name] === undefined) judged.current[mod.name] = mod.code;
+    if (mod && judged.current[mod.name] === undefined) judged.current[mod.name] = prettyVba(mod.code);
   }, [modName]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (mod && mod.code !== lastSent.current && mod.code !== text) {
@@ -48,10 +48,13 @@ export function Vbe({ doc, dbName, onCommit }: { doc: AccessDoc; dbName: string;
   };
   /** Code is judged when it is saved, run, or the editor is closed. */
   const judge = () => {
-    flush();
-    if (mod && judged.current[mod.name] !== text) {
-      judged.current[mod.name] = text;
-      onCommit({ kind: "type", target: `vba:${mod.name}`, value: text });
+    // Like the real editor, tidy spacing and keyword case before the code is checked.
+    const pretty = prettyVba(text);
+    if (pretty !== text) setText(pretty);
+    flush(pretty);
+    if (mod && judged.current[mod.name] !== pretty) {
+      judged.current[mod.name] = pretty;
+      onCommit({ kind: "type", target: `vba:${mod.name}`, value: pretty });
     }
   };
   const procAtCursor = (): string | null => {

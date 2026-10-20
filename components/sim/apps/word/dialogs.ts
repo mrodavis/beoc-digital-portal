@@ -16,7 +16,18 @@ import {
   type XMerge,
 } from "./model";
 
-/** Merge fields offered when the document has no data source yet (also on Insert Merge Field). */
+/*
+ * Dialog ids a step can judge ({ kind: "dialog", id, values }). Added for
+ * references, mail merge and forms: bookmark (name), crossRef (refType, refTo,
+ * hyperlink, item = heading text or bookmark name), customToc (pageNumbers,
+ * rightAlign, leader, format, levels), editRecipients (r1…r12 checkboxes,
+ * filterField, filterOp, filterValue, sortBy, sortOrder), autoText (entry),
+ * saveAutoText (name, gallery, …), controlProperties (title, tag, items,
+ * lockDelete, lockEdit). wordDialogDef (bottom of this file) fills in the
+ * choices that come from the document.
+ */
+
+/** Merge fields offered when the document has no data source yet (the names Insert Merge Field lists). */
 const MERGE_FIELDS = ["First_Name", "Last_Name", "Address", "City", "State", "ZIP", "Appointment_Date", "Appointment_Time", "Provider"];
 
 /** Online Pictures (Bing) results the sim offers. */

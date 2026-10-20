@@ -2826,7 +2826,7 @@ function applyDialog(d: D, id: string, v: Record<string, SimValue>, ui: SimUi): 
     }
     case "backstage:importExcel": {
       const spec = {
-        file: sv(v.file),
+        file: sv(v.file) || (d.files ?? []).find((x) => x.kind === "xlsx" || x.kind === "csv")?.name || "",
         sheet: sv(v.sheet) || undefined,
         headings: v.headings === undefined ? true : sb(v.headings),
         mode: (/append/i.test(sv(v.mode)) ? "append" : /link/i.test(sv(v.mode)) ? "link" : "new") as "new" | "append" | "link",
@@ -2860,8 +2860,10 @@ function applyDialog(d: D, id: string, v: Record<string, SimValue>, ui: SimUi): 
     case "backstage:exportExcel":
     case "backstage:exportPdf":
     case "backstage:exportText": {
-      const object = sv(v.object);
-      const file = sv(v.file).trim();
+      const sel = parseSel(ui.selection);
+      const object = sv(v.object) || (sel.k === "nav" ? sel.name : tab?.name ?? "");
+      const ext = id === "backstage:exportPdf" ? "pdf" : id === "backstage:exportText" ? "txt" : "xlsx";
+      const file = sv(v.file).trim() || `C:\\Users\\Student\\Documents\\${object}.${ext}`;
       if (!object || !file) return out();
       const kind = id === "backstage:exportPdf" ? "pdf" : id === "backstage:exportText" ? (/\.csv$/i.test(file) ? "csv" : "txt") : "xlsx";
       const fmt = id === "backstage:exportPdf" ? "PDF" : id === "backstage:exportText" ? "Text File" : "Excel Workbook";

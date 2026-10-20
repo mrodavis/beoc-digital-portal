@@ -353,9 +353,9 @@ export const windowsSims: Record<string, SimDefinition[]> = {
     {
       id: "win-mo-m1-building-a-virtual-computer-1",
       app: "windows",
-      title: "Spec a $900 front desk workstation",
+      title: "Spec a front desk workstation on a budget",
       scenario:
-        "Lakeside Medical Associates is replacing four front desk workstations at about $900 each. They run an EHR, Office, and a browser with a dozen tabs, all day, for five years. Start from the workload, not the price list: check the current machine, then shop the vendor's site.",
+        "Lakeside Medical Associates is replacing four front desk workstations with a budget of $1,000 each, including a monitor and support. They run an EHR, Office, and a browser with a dozen tabs, all day, for five years. Start from the workload, not the price list: check the current machine, then shop the vendor's site.",
       fileName: "Windows",
       minutes: 6,
       initial: winDoc({
@@ -613,7 +613,6 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         web: { "ehr.lakesidemedical.org": { title: "Lakeside EHR | Schedule", site: "Lakeside EHR", color: "#0f766e", blocks: [{ t: "h1", text: "Today's schedule" }, { t: "table", head: ["Time", "Patient", "Provider"], rows: [["9:00 AM", "Appointment 1", "Dr. Patel"], ["9:30 AM", "Appointment 2", "Dr. Kim"]] }] } },
         fs: pc({ documents: [F("Daily Schedule.xlsx")] }),
         windows: [
-          { id: "excel", app: "excel", file: "Documents/Daily Schedule.xlsx" },
           { id: "edge", app: "edge", tabs: [{ id: "t1", url: "ehr.lakesidemedical.org" }], tab: "t1" },
           { id: "outlook", app: "outlook" },
         ],
@@ -637,7 +636,7 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "On the new desktop, open Excel.",
-          hint: "Select Excel on the taskbar. It moves to the desktop you are on.",
+          hint: "Select Excel on the taskbar (or Start › Excel). It opens on the desktop you are on.",
           steps: [cmd("win.open", "excel")],
         },
         {

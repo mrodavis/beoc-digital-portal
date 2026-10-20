@@ -251,7 +251,7 @@ for (const [courseId, byLesson] of Object.entries(REGISTRY)) {
 
           const c0 = commitFor(a);
           if (!c0) return;
-          const c = core.normalize ? core.normalize(c0) : c0;
+          const c = core.normalize ? core.normalize(c0, doc) : c0;
           if (!commitMatches(a, c)) err(`${tag}: the expected action doesn't match itself after normalize (use the normalized id)`);
           if (!selectionMatches(step.requires, ui)) err(`${tag}: selection check fails even with the required selection`);
           try {

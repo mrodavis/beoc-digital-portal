@@ -48,14 +48,19 @@ function BlankDbPanel({ onCreate, onCancel, location, template }: { onCreate: (v
 function SaveFileDialog({ title, defaultName, ext, folder, onSave, onCancel }: { title: string; defaultName: string; ext: string; folder: string; onSave: (name: string, folder: string) => void; onCancel: () => void }) {
   const [name, setName] = useState(defaultName);
   const [loc, setLoc] = useState(folder);
-  const places = ["C:\\Users\\Student\\Documents", "C:\\Users\\Student\\Documents\\Backups", "C:\\Users\\Student\\OneDrive - BEOC\\Documents", "S:\\Lakeside Shared"];
+  const places: { path: string; label: string }[] = [
+    { path: "C:\\Users\\Student\\Documents", label: "Documents" },
+    { path: "C:\\Users\\Student\\Documents\\Backups", label: "Documents\\Backups" },
+    { path: "C:\\Users\\Student\\OneDrive - BEOC\\Documents", label: "OneDrive - BEOC" },
+    { path: "S:\\Lakeside Shared", label: "Lakeside Shared (S:)" },
+  ];
   return (
     <Win title={title} width={520} onClose={onCancel} footer={<><Btn primary onClick={() => onSave(name, loc)}>Save</Btn><Btn onClick={onCancel}>Cancel</Btn></>}>
       <div className="mb-2 flex items-center gap-1 border border-[#c6c6c6] bg-white px-2 py-1 text-[11.5px]"><AccIcon name="folder" size={13} />{loc}</div>
       <div className="flex gap-2">
         <div className="flex w-44 flex-col border border-[#c6c6c6] bg-white py-1">
           {places.map((p) => (
-            <button key={p} type="button" onClick={() => setLoc(p)} className={`flex items-center gap-1 truncate px-2 py-[2px] text-left ${loc === p ? "bg-[#cce4f7]" : "hover:bg-[#e5f1fb]"}`}><AccIcon name="folder" size={12} />{p.split("\\").slice(-1)[0]}</button>
+            <button key={p.path} type="button" title={p.path} onClick={() => setLoc(p.path)} className={`flex items-center gap-1 truncate px-2 py-[2px] text-left ${loc === p.path ? "bg-[#cce4f7]" : "hover:bg-[#e5f1fb]"}`}><AccIcon name="folder" size={12} />{p.label}</button>
           ))}
         </div>
         <div className="h-[110px] flex-1 border border-[#c6c6c6] bg-white p-1 text-[11px] text-gray-500">This folder is empty.</div>

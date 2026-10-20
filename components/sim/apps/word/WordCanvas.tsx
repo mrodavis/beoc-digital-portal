@@ -1041,7 +1041,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     };
     const marker = p.list === "bullet" ? p.bulletChar ?? ((p.listLevel ?? 0) === 1 ? "○" : (p.listLevel ?? 0) === 2 ? "■" : "•") : p.list === "number" ? numbers[p.id] : null;
     const text = paraText(p);
-    const empty = !text && !runsOf(p).some((r) => r.field);
+    const empty = !text && !runsOf(p).some((r) => r.field || (r as XRun).cc || (r as XRun).note);
     const hasChange = runsOf(p).some((r) => r.ins || r.del);
     const tabbed = x.tabStops?.length && text.includes("\t") && editing?.key !== p.id;
 
