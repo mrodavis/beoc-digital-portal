@@ -56,6 +56,17 @@ export default async function PracticeCenterPage({
           immediately, and no results are recorded or submitted. Graded work is
           in Brightspace.
         </p>
+
+        <p className="mt-3 max-w-[68ch] text-[0.9375rem] leading-relaxed text-eng-navy-600">
+          Looking for a page from class?{" "}
+          <Link
+            href="/eng0300/class-exercises"
+            className="font-semibold text-eng-teal-700 hover:text-eng-teal-900"
+          >
+            Class Exercises
+          </Link>{" "}
+          has the in-class practice, skill labs, and TABE review by week.
+        </p>
       </header>
 
       <PracticeBrowser

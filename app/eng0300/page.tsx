@@ -5,6 +5,7 @@ import { eng0300Roadmap } from "@/lib/content/eng0300/roadmap";
 import { practiceStats } from "@/lib/content/eng0300/practice";
 import { writingTiers } from "@/lib/content/eng0300/writing/tiers";
 import { sentenceBankTotal } from "@/lib/content/eng0300/writing/sentence-skills";
+import { eng0300ClassExerciseCount } from "@/lib/content/class-exercises";
 import {
   brightspaceRelationship,
   eng0300Course,
@@ -18,6 +19,14 @@ const centers = [
     description:
       "Every practice set in the lab, filterable by skill, difficulty, and passage type. Ungraded, with instant feedback.",
     meta: `${practiceStats.setCount} sets · ${practiceStats.questionCount} questions`,
+  },
+  {
+    href: "/eng0300/class-exercises",
+    icon: "🗂️",
+    title: "Class Exercises",
+    description:
+      "The in-class practice pages, skill labs, and TABE review from our sessions, organized by week.",
+    meta: `${eng0300ClassExerciseCount} pages · Weeks 1-6 + TABE`,
   },
   {
     href: "/eng0300/tabe",
@@ -244,7 +253,7 @@ export default function Eng0300Dashboard() {
         <h2 className="mb-6 font-display text-3xl font-bold text-eng-navy-900">
           Practice, prep, and resources
         </h2>
-        <ul className="grid gap-5 md:grid-cols-3">
+        <ul className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {centers.map((center) => (
             <li key={center.href}>
               <Link

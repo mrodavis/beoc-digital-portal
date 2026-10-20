@@ -40,7 +40,7 @@ export const introToEHRModules: IntroToEHRModule[] = [
       "How to navigate the BEOC EHR Simulator for the first time",
     ],
     scenario:
-      "You just started as an administrative support specialist at Brooklyn Community Health Center. On Day 1, your supervisor walks you through how a patient flows from the waiting room through billing. By Thursday, you are signing in to the EHR for the first time.",
+      "You just started as an administrative support specialist at Brooklyn Community Health Center. On Day 1, your supervisor walks you through how a patient flows from the waiting room through billing. By the end of the week, you are signing in to the EHR for the first time.",
   },
   {
     moduleNumber: 2,

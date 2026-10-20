@@ -194,7 +194,7 @@ export default function EHRProgramPage() {
                 Practice in the BEOC EHR Simulator
               </h3>
               <p className="text-sm text-gray-600">
-                Apply every concept in a working EHR simulation every Thursday, graded on the steps you take.
+                Apply every concept in a working EHR simulation each week, graded on the steps you take.
               </p>
             </div>
           </div>

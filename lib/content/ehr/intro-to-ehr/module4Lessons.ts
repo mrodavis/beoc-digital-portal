@@ -145,7 +145,7 @@ export const module4Lessons: Lesson[] = [
     slug: "midterm-review",
     title: "Course Review & Midterm Exam Preparation",
     description:
-      "Review all major concepts from Weeks 1–4 in preparation for the midterm exam.",
+      "Review all major concepts from Modules 1–4 in preparation for the midterm exam.",
     objectives: [
       "Review the workflow, revenue cycle, and code sets covered so far",
       "Identify which topics you can explain and which you can only recognize",

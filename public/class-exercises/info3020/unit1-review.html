@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNIT 1 Review: Tech Foundations Practice | BEOC Digital</title>
+<style>
+*{box-sizing:border-box;}
+body{color:#202122;font-family:Arial,Helvetica,sans-serif;line-height:1.6;background:#ffffff;margin:0;padding:14px;}
+.wrap{max-width:1040px;margin:0 auto;}
+.fade-in{opacity:0;transform:translateY(20px);animation:fadeInUp .8s ease forwards;}
+@keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
+.hero-section{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:42px 26px;text-align:center;}
+.hero-eyebrow{letter-spacing:3px;font-size:13px;text-transform:uppercase;color:#ffd942;font-weight:700;margin:0 0 4px;}
+.hero-title{font-size:38px;line-height:1.2;font-weight:800;text-shadow:0 0 15px rgba(255,255,255,.35);margin:0;}
+.hero-title-highlight{color:#ffd942;}
+.hero-divider{width:80px;height:4px;background:#ffd942;border:none;margin:17px auto;}
+.hero-sub{font-size:17px;opacity:.92;margin:0;}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:24px 26px;margin-top:22px;}
+.card h2{font-weight:800;color:#203a43;font-size:24px;margin:0 0 6px;}
+.pill{display:inline-block;background:#eef3f6;color:#203a43;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;margin:0 6px 8px 0;}
+.pill-gold{background:#fff6cc;color:#7a5c00;}
+.board{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0;}
+.tile{flex:1 1 180px;background:#f8fafb;border-left:5px solid #ffd942;border-radius:8px;padding:10px 14px;}
+.tile span{display:block;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#2c5364;}
+.tile b{display:block;font-size:24px;color:#203a43;line-height:1.3;}
+.tile.done{border-left-color:#4a8f00;background:#f4faee;}
+.mnav{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 0;}
+.mn{border:2px solid #2c5364;background:#fff;color:#203a43;border-radius:999px;padding:5px 14px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;text-decoration:none;}
+.mn:hover{background:#eef3f6;}
+.mn.ok{border-color:#4a8f00;color:#2f6b00;}
+.q{border:2px solid #e6ecef;border-radius:10px;padding:12px 14px;margin:10px 0;}
+.q.ok{border-color:#4a8f00;background:#f4faee;}
+.q.no{border-color:#c9302c;background:#fdf3f2;}
+.qt{font-weight:700;margin:0 0 6px;color:#0f2027;}
+.qn{display:inline-block;background:#203a43;color:#ffd942;border-radius:50%;width:26px;height:26px;line-height:26px;text-align:center;font-size:13px;margin-right:8px;}
+.opt{display:block;padding:5px 8px;border-radius:6px;cursor:pointer;}
+.opt:hover{background:#eef3f6;}
+.fb{font-size:14px;font-weight:700;margin-top:6px;min-height:4px;}
+.fb.good{color:#2f6b00;}.fb.bad{color:#b02a26;}
+.mod-h{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+.mod-h small{font-weight:700;color:#2c5364;}
+.btn-gold{background:#ffd942;color:#0f2027;font-weight:800;border-radius:999px;padding:10px 26px;display:inline-block;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.15);border:none;font-size:15px;cursor:pointer;margin:10px 8px 0 0;font-family:inherit;}
+.btn-gold:hover{background:#ffe574;}
+.btn-dark{background:#203a43;color:#fff;}
+.btn-dark:hover{background:#2c5364;}
+.due-card{background:linear-gradient(135deg,#1d4d00,#4a8f00);color:#fff;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.15);padding:24px 26px;margin-top:22px;}
+.due-card h2{color:#fff;margin:0 0 6px;font-size:24px;}
+.due-card a.btn-gold{color:#0f2027;}
+.footer-note{font-size:13px;color:#6b7a82;text-align:center;margin:30px 0 10px;}
+@media (max-width:600px){.hero-title{font-size:28px;}.card{padding:20px 16px;}}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#1d4ed8;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/learning-paths/office-assistant/tech-foundations"><span class="beoc-tb-badge">BEOC</span><span>&larr; Technology Foundations</span></a><a class="beoc-tb-link" href="/learning-paths/office-assistant/tech-foundations/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div class="wrap">
+<div class="hero-section fade-in">
+<p class="hero-eyebrow">Week 8 &middot; Review It! &middot; Not graded</p>
+<h1 class="hero-title">UNIT 1 <span class="hero-title-highlight">Review</span></h1>
+<hr class="hero-divider">
+<p class="hero-sub">24 practice questions &middot; 3 from each Tech Foundations module &middot; instant feedback</p>
+</div>
+
+<section class="card fade-in">
+<h2>How This Works</h2>
+<p>Click an answer. You see right away if it is correct, and why. Try again as many times as you want. These are practice questions, not the exam questions, but they cover the same skills.</p>
+<span class="pill pill-gold">Not graded</span><span class="pill">Instant feedback</span><span class="pill">Modules 1 to 8</span>
+<div class="board">
+<div class="tile" id="tAns"><span>Answered</span><b id="nAns">0 / 24</b></div>
+<div class="tile" id="tOk"><span>Correct on first try</span><b id="nOk">0</b></div>
+</div>
+<div class="mnav" id="mnav"></div>
+</section>
+
+<div id="mods"></div>
+
+<section class="due-card">
+<h2>Ready for the UNIT 1 EXAM?</h2>
+<p id="final">Answer all 24 questions to see your review score.</p>
+<p>Missed a question? Open that module's lesson notes in <strong>Tech Foundations - Keep the Full Course</strong> and read the Knowledge Check again.</p>
+<button type="button" class="btn-gold" id="resetBtn">Start the review again</button>
+</section>
+
+<p class="footer-note">INFO3020 Digital Literacy I &middot; Week 8 &middot; UNIT 1 Review &middot; Practice only, not graded</p>
+</div>
+
+<script>
+(function(){
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+var M=[
+{n:1,t:'Computers & Operating Systems',q:[
+ {t:'Which part of the computer is its short-term working memory?',o:['CPU','RAM','SSD','Power supply'],a:1,w:'RAM holds the programs and files you are using right now. More RAM means more programs open without slowing down.'},
+ {t:'Which shortcut cycles through all your open windows?',o:['Ctrl+Tab','Ctrl+W','Alt+Tab','Windows key+E'],a:2,w:'Hold Alt and press Tab to move through open windows. Let go of Alt on the one you want.'},
+ {t:'Windows Update needs a restart. Your shift starts in 30 minutes. What do you do?',o:['Restart now, in the middle of your work','Use Schedule the restart to set it for after work hours','Cancel the update. Security patches are optional.','Unplug the computer'],a:1,w:'Schedule the restart for a time outside work hours. Never force a restart without saving your work.'}]},
+{n:2,t:'File Management & Organization',q:[
+ {t:'Which file extension is a Word document?',o:['.xlsx','.pdf','.docx','.jpg'],a:2,w:'.docx is Word, .xlsx is Excel, .pdf is PDF, and .jpg is a photo.'},
+ {t:'In File Explorer, what does Shift+click do?',o:['Deletes the file forever','Selects a continuous range of files','Renames the file','Opens the file in a new window'],a:1,w:'Shift+click selects everything between two files. Ctrl+click picks files that are not next to each other.'},
+ {t:'Where should the date go in a professional file name?',o:['At the end, as YYYY-MM-DD or YYYY-MM','At the start, written out as a word','Nowhere. Dates are not needed.','In the middle, as MM-DD-YY'],a:0,w:'A date at the end in YYYY-MM-DD format makes files sort in time order.'}]},
+{n:3,t:'The Internet & Web Browsing',q:[
+ {t:'What is the real domain in https://cms-gov.billing-help.net/update ?',o:['cms.gov','billing-help.net','cms-gov','update'],a:1,w:'Read the part right before the first single slash. Here it is billing-help.net, not cms.gov.'},
+ {t:'Which network should office computers use?',o:['The guest Wi-Fi in the waiting room','Any free public Wi-Fi','The staff-only office network','A neighbor\'s Wi-Fi'],a:2,w:'Office work belongs on the private staff network. The guest network is for visitors.'},
+ {t:'In a web browser, what does Ctrl+D do?',o:['Bookmarks the current page','Deletes your history','Downloads the page','Closes the tab'],a:0,w:'Ctrl+D bookmarks the page. Ctrl+W closes a tab. Ctrl+H opens history.'}]},
+{n:4,t:'Professional Email Communication',q:[
+ {t:'Which subject line is the most professional?',o:['Question','RE: RE: RE: Schedule','URGENT!!! READ NOW','Schedule Change Request - Friday, October 30'],a:3,w:'A good subject line is specific and puts the key information first.'},
+ {t:'An email goes to 15 coworkers asking who can cover the front desk Friday. You can. How do you reply?',o:['Reply All','Reply only to the sender','Forward it to your friends','Do not reply'],a:1,w:'Only the sender needs your answer, so use Reply. Reply All would fill 15 inboxes.'},
+ {t:'What does BCC do?',o:['Sends a copy that other recipients cannot see','Makes the email urgent','Adds a signature','Blocks the sender'],a:0,w:'BCC sends a copy without the other recipients knowing. Never use it to deceive.'}]},
+{n:5,t:'Keyboard Skills & Typing Efficiency',q:[
+ {t:'Which keys are the home row for the LEFT hand?',o:['Q W E R','A S D F','Z X C V','1 2 3 4'],a:1,w:'The left hand rests on A S D F. Feel the bump on F to find home without looking.'},
+ {t:'What does Ctrl+F do?',o:['Opens Find, so you can search for a word','Saves the file','Prints the page','Changes the font'],a:0,w:'Ctrl+F opens Find. Ctrl+S saves. Ctrl+P prints.'},
+ {t:'For data entry at work, which comes first?',o:['Speed. Always type as fast as you can.','Accuracy. Check your work, then build speed.','Neither one matters','Using the mouse for everything'],a:1,w:'Accuracy first. Mistakes in records cause rework and real problems.'}]},
+{n:6,t:'Workplace Hardware & Equipment',q:[
+ {t:'You need to scan a fragile original ID card. Which part of the scanner do you use?',o:['The flatbed glass','The automatic document feeder (ADF)','The print queue','The paper tray'],a:0,w:'Use the flatbed glass for fragile, wrinkled, or one-of-a-kind originals. Use the ADF for stacks of normal pages.'},
+ {t:'How do you stop echo in a video meeting?',o:['Turn the speakers up','Use a headset','Sit closer to the window','Share your whole screen'],a:1,w:'A headset keeps your speakers from feeding back into your microphone.'},
+ {t:'Your monitor shows no picture. What do you check first?',o:['Open the computer case','The power light and the cables','Buy a new monitor','Change your password'],a:1,w:'Check the simple things first: power and connections. Then restart and test.'}]},
+{n:7,t:'Cloud Storage & Collaboration',q:[
+ {t:'A green check mark next to a OneDrive file means:',o:['Sync failed','The file is synced. The computer copy and the cloud copy match.','The file is shared with everyone','The file is in the Recycle Bin'],a:1,w:'Green check = synced. Red X = sync failed. Blue arrows = syncing now.'},
+ {t:'Where do files the whole team uses every day belong?',o:['Your personal OneDrive','SharePoint (or the Teams Files tab)','Your desktop','A USB drive'],a:1,w:'SharePoint is the shared team filing cabinet. OneDrive is your own desk drawer.'},
+ {t:'Two people type in the same document at the same time. This is called:',o:['Syncing','Archiving','Co-authoring','Attaching'],a:2,w:'Co-authoring works when the file is in OneDrive or SharePoint and shared with edit access.'}]},
+{n:8,t:'Cybersecurity Fundamentals',q:[
+ {t:'You find a USB drive in the parking lot. What do you do?',o:['Plug it in to see whose it is','Take it home and check it','Give it to IT without plugging it in','Plug it in for one minute'],a:2,w:'A found USB drive may be a USB drop attack. Never plug it in. Give it to IT.'},
+ {t:'Who may you share your work password with?',o:['Your supervisor','IT staff','A trusted coworker','No one'],a:3,w:'Never share your password. Real IT staff do not need it.'},
+ {t:'A caller says he is from IT and asks for the code on your phone. What do you do?',o:['Read him the code','Say no, hang up, and call IT at the official number','Text him the code instead','Ask him to call back tomorrow, then give it'],a:1,w:'This is social engineering. Never give out codes. Check by calling IT at a number you know is real.'}]}
+];
+var S,TOTAL=24;
+function init(){S={ans:{},first:{}};}
+function render(){var h='',nav='';M.forEach(function(m,mi){nav+='<a class="mn" id="nav'+mi+'" href="#mod'+mi+'">M'+m.n+'</a>';h+='<section class="card" id="mod'+mi+'"><div class="mod-h"><h2>Module '+m.n+': '+esc(m.t)+'</h2><small id="ms'+mi+'">0 of 3</small></div>';m.q.forEach(function(q,qi){var id=mi+'_'+qi;h+='<div class="q" id="q'+id+'"><p class="qt"><span class="qn">'+(mi*3+qi+1)+'</span>'+esc(q.t)+'</p>';q.o.forEach(function(o,oi){h+='<label class="opt"><input type="radio" name="r'+id+'" value="'+oi+'"> '+esc(o)+'</label>';});h+='<div class="fb" id="f'+id+'"></div></div>';});h+='</section>';});$('mods').innerHTML=h;$('mnav').innerHTML=nav;tally();}
+function tally(){var a=0,ok=0;Object.keys(S.ans).forEach(function(k){a++;});Object.keys(S.first).forEach(function(k){if(S.first[k])ok++;});$('nAns').textContent=a+' / '+TOTAL;$('nOk').textContent=ok;$('tAns').className='tile'+(a===TOTAL?' done':'');
+ M.forEach(function(m,mi){var c=0;m.q.forEach(function(q,qi){if(S.ans[mi+'_'+qi]===q.a)c++;});$('ms'+mi).textContent=c+' of 3 correct';$('nav'+mi).className='mn'+(c===3?' ok':'');});
+ if(a===TOTAL){var pct=Math.round(ok/TOTAL*100);$('final').innerHTML='You got <strong>'+ok+' of 24</strong> right on the first try ('+pct+'%). '+(pct>=80?'Great work. You are ready.':'Review the modules where you missed questions, then try again.');}else{$('final').textContent='Answer all 24 questions to see your review score. ('+a+' of 24 answered)';}}
+$('mods').addEventListener('change',function(e){if(e.target.type!=='radio')return;var id=e.target.name.slice(1),p=id.split('_'),q=M[+p[0]].q[+p[1]],v=parseInt(e.target.value,10),ok=(v===q.a);if(!(id in S.first))S.first[id]=ok;S.ans[id]=v;var box=$('q'+id);box.className='q '+(ok?'ok':'no');var f=$('f'+id);f.className='fb '+(ok?'good':'bad');f.textContent=ok?('Correct. '+q.w):'Not quite. Try another answer.';tally();});
+$('resetBtn').addEventListener('click',function(){init();render();window.scrollTo(0,0);});
+init();render();
+})();
+</script>
+</body>
+</html>

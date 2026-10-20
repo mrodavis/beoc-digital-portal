@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In-Class Practice: Evidence &amp; Weak Arguments (Oct 19) | BEOC Digital</title>
+<style>
+body{margin:0;font-family:Lato,'Segoe UI',Arial,sans-serif;background:#eef2f8;color:#202122;font-size:17px;line-height:1.6;}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px 70px;}
+.hero{background:linear-gradient(135deg,#0f2a52 0%,#26518f 100%);color:#fff;border-radius:0 0 18px 18px;padding:30px 26px 24px;margin:0 -16px 18px;}
+.hero h1{margin:0 0 6px;font-size:27px;line-height:1.25;}
+.hero p{margin:0 0 6px;color:#d9e4f5;}
+.gold{display:inline-block;background:#d4a72c;color:#1b2a44;font-weight:900;border-radius:999px;padding:3px 14px;font-size:13px;letter-spacing:1.5px;margin-bottom:10px;}
+.scorebar{position:sticky;top:0;z-index:50;background:#1b3a6b;color:#fff;border-radius:12px;padding:10px 18px;margin:0 0 18px;display:flex;flex-wrap:wrap;gap:6px 14px;justify-content:space-between;align-items:center;box-shadow:0 4px 14px rgba(15,42,82,.25);}
+.scorebar b{color:#ffd766;}
+.timer{font-size:14px;white-space:nowrap;}
+.timer .tlab{color:#d9e4f5;margin-right:2px;}
+.tbtn{background:transparent;border:1px solid #ffd766;color:#ffd766;border-radius:6px;padding:1px 8px;margin-left:4px;font:inherit;font-size:13px;cursor:pointer;}
+.tbtn:hover{background:#ffd766;color:#1b3a6b;}
+#tleft{display:inline-block;min-width:48px;margin-left:8px;color:#fff;}
+#tleft.up{color:#ffd766;}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(27,58,107,.08);padding:20px 22px;margin:0 0 20px;border-top:5px solid #26518f;transition:box-shadow .15s;}
+.card:hover{box-shadow:0 6px 18px rgba(27,58,107,.16);}
+.card.goals{border-top-color:#d4a72c;}
+.card.sum{border-top-color:#17806d;}
+.card.write{border-top-color:#b8860b;}
+.ptag{display:inline-block;background:#eef3fb;color:#26518f;font-weight:900;border-radius:8px;padding:2px 10px;font-size:13px;letter-spacing:1px;margin-bottom:6px;}
+.card h2{margin:0 0 4px;color:#1b3a6b;font-size:20px;}
+.card h3{margin:14px 0 4px;color:#1b3a6b;font-size:17px;}
+.mins{color:#7b8494;font-size:14px;font-weight:700;}
+.notebook{background:#fdf6e3;border-left:4px solid #d4a72c;padding:8px 14px;border-radius:6px;margin:10px 0;font-size:15px;}
+.talk{background:#e8f6f3;border-left:4px solid #17806d;padding:8px 14px;border-radius:6px;margin:10px 0;font-size:15px;}
+.talk b.t{color:#17806d;}
+.passage{background:#f4f7fb;border-radius:10px;padding:14px 18px;color:#32333a;margin:8px 0;}
+.passage .ttl{display:block;font-weight:900;color:#1b3a6b;font-style:normal;margin-bottom:4px;}
+.passage p{margin:0 0 6px;font-style:italic;}
+.sn{display:inline-block;min-width:22px;height:22px;line-height:22px;text-align:center;background:#26518f;color:#fff;border-radius:50%;font-style:normal;font-weight:900;font-size:13px;margin-right:4px;}
+.mcq{margin:14px 0;}
+.mcq p.q{margin:0 0 4px;font-weight:700;}
+.opt{display:block;width:100%;text-align:left;background:#f6f8fc;border:2px solid #d7e0ef;border-radius:10px;padding:9px 14px;margin:6px 0;font:inherit;cursor:pointer;color:#202122;}
+.opt:hover{border-color:#26518f;}
+.opt.right{background:#e6f4ea;border-color:#1e7e34;font-weight:700;}
+.opt.wrong{background:#fdecea;border-color:#b00020;}
+.opt:disabled{cursor:default;}
+.expl{display:none;background:#eef3fb;border-radius:8px;padding:10px 14px;margin:8px 0 2px;color:#1b3a6b;font-size:15px;}
+.cf{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:#f6f8fc;border:2px solid #d7e0ef;border-radius:10px;padding:8px 12px;margin:6px 0;}
+.cf .stmt{flex:1 1 300px;font-style:italic;}
+.chip{display:inline-block;background:#fff;border:2px solid #26518f;color:#1b3a6b;border-radius:999px;padding:6px 14px;margin:4px;font:inherit;font-weight:700;cursor:pointer;user-select:none;}
+.chip.sel{background:#26518f;color:#fff;}
+.chip.right,.chip.done{background:#e6f4ea;border-color:#1e7e34;color:#1e7e34;cursor:default;}
+.chip.wrong{background:#fdecea;border-color:#b00020;color:#b00020;}
+.chip:disabled{cursor:default;}
+.flaws{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:10px 0;}
+@media(max-width:700px){.flaws{grid-template-columns:1fr;}}
+.flaw{background:#f6f8fc;border:2px solid #d7e0ef;border-radius:12px;padding:12px 14px;font-size:15px;transition:transform .12s,border-color .12s;}
+.flaw:hover{transform:translateY(-2px);border-color:#26518f;}
+.flaw b.n{display:block;color:#1b3a6b;font-size:16px;}
+.flaw .ex{font-style:italic;color:#32333a;display:block;margin:4px 0;}
+.flaw .ask{color:#7a5a12;font-weight:700;}
+.pool{min-height:44px;background:#fff;border:2px solid #d7e0ef;border-radius:12px;padding:8px;margin:8px 0;}
+.buckets{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+@media(max-width:700px){.buckets{grid-template-columns:1fr;}}
+.bucket{border:2px dashed #9db3d6;border-radius:12px;padding:10px 12px;cursor:pointer;background:#f8fafd;min-height:90px;}
+.bucket:hover{background:#eef3fb;}
+.bucket b{color:#1b3a6b;display:block;margin-bottom:4px;}
+.bucket .in{font-size:14px;color:#1e7e34;font-weight:700;}
+.bucket .in div{margin:3px 0;}
+.sortmsg{font-weight:700;color:#1b3a6b;min-height:24px;font-size:15px;}
+table.plan{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0;}
+table.plan th,table.plan td{border:1px solid #d7e0ef;padding:8px 10px;text-align:left;vertical-align:top;}
+table.plan th{background:#eef3fb;color:#1b3a6b;}
+table.plan td:first-child{white-space:nowrap;font-weight:700;color:#1b3a6b;}
+table.plan tr.brk td{background:#fdf6e3;}
+.tag{display:inline-block;font-size:12px;font-weight:900;border-radius:6px;padding:0 7px;margin-left:4px;letter-spacing:.3px;}
+.tag.h{background:#fdf0d0;color:#7a5a12;}
+.tag.m{background:#e6f4ea;color:#1e7e34;}
+.tag.o{background:#eef3fb;color:#26518f;}
+.frame{background:#fff;border:2px dashed #d4a72c;border-radius:10px;padding:10px 16px;margin:8px 0;}
+.frame ol,.frame ul{margin:4px 0;padding-left:22px;}
+.ck{background:#f6f8fc;border:2px solid #d7e0ef;border-radius:10px;padding:9px 14px;margin:6px 0;cursor:pointer;}
+.ck .num{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;background:#26518f;color:#fff;border-radius:50%;font-weight:900;margin-right:10px;}
+.ck.on{background:#e6f4ea;border-color:#1e7e34;}
+.ck.on .num{background:#1e7e34;}
+.handin{background:linear-gradient(135deg,#7a5a12,#b8860b);color:#fff;border-radius:14px;padding:18px 22px;margin:0 0 20px;}
+.handin a{color:#ffe9b3;font-weight:900;}
+.handin p{margin:0 0 6px;}
+.cee{display:grid;grid-template-columns:130px 1fr;gap:0;border:1px solid #d7e0ef;border-radius:10px;overflow:hidden;margin:10px 0;font-size:15px;}
+.cee div{padding:8px 12px;border-bottom:1px solid #d7e0ef;}
+.cee .k{background:#eef3fb;color:#1b3a6b;font-weight:900;}
+.cee div:nth-last-child(-n+2){border-bottom:none;}
+.model{background:#f4f7fb;border-radius:10px;padding:12px 16px;margin:8px 0;font-size:15px;}
+.model .c{background:#fdf0d0;border-radius:4px;padding:0 3px;}
+.model .e{background:#e6f4ea;border-radius:4px;padding:0 3px;}
+.model .x{background:#e7eefb;border-radius:4px;padding:0 3px;}
+.key{font-size:13px;color:#555;}
+.key span{border-radius:4px;padding:0 5px;margin-right:6px;}
+.btn{background:#1b3a6b;color:#fff;border:none;border-radius:8px;padding:9px 18px;font:inherit;font-weight:700;cursor:pointer;margin:6px 6px 0 0;}
+.btn.ghost{background:#fff;color:#1b3a6b;border:2px solid #1b3a6b;}
+.reveal{display:none;background:#eef3fb;border-radius:8px;padding:10px 14px;margin:8px 0;color:#1b3a6b;font-size:15px;}
+.goallist{margin:4px 0 8px;padding-left:24px;}
+.goallist li{margin:2px 0;}
+.next{background:#f4f7fb;border-radius:8px;padding:10px 14px;margin:8px 0;font-size:15px;}
+a{color:#26518f;}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#0f766e;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/eng0300"><span class="beoc-tb-badge">BEOC</span><span>&larr; ENG0300 Reading Lab</span></a><a class="beoc-tb-link" href="/eng0300/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div class="wrap">
+
+<div class="hero">
+  <span class="gold">WEEK 6 · EVIDENCE &amp; ARGUMENT QUALITY · MON OCT 19</span>
+  <h1>In-Class Practice: Evidence &amp; Weak Arguments</h1>
+  <p>Good arguments give reasons and proof. Weak arguments only sound good. Today you will find the claim, check the evidence, and name what is wrong when an argument does not hold up.</p>
+  <p>Write each answer in your notebook first, then tap to check. The page keeps your score as you go.</p>
+</div>
+
+<div class="scorebar">
+  <span>Your score: <b id="score">0</b> / <b id="total">0</b> checks</span>
+  <span class="timer"><span class="tlab">Timer</span>
+    <button class="tbtn" data-t="60">1 min</button><button class="tbtn" data-t="120">2 min</button><button class="tbtn" data-t="300">5 min</button><span id="tleft"></span></span>
+</div>
+
+<div class="handin">
+  <p><b>HAND IN FOR 10 POINTS (Classwork 9):</b> Parts 2, 3, 4, 6, and 7.</p>
+  <p>Take a photo of your notebook pages (or type your answers) and upload it to <strong class="beoc-bs-inline">Classwork 9 - Evidence &amp; Weak Arguments (Oct 19)</strong><span class="beoc-bs-tag"> (in Brightspace)</span> before you leave today. The box closes tonight, <b>Monday, October 19, at 11:59 PM</b>.</p>
+  <p style="margin:0">Your Part 5 paragraph goes to <strong class="beoc-bs-inline">Week 6 Writing - CEE Paragraph (Draft 1)</strong><span class="beoc-bs-tag"> (in Brightspace)</span> instead, by <b>Tuesday, October 20, at 11:59 PM</b>. Bring it on Wednesday for peer review.</p>
+</div>
+
+<!-- START HERE -->
+<div class="card goals">
+  <span class="ptag">START HERE</span> <span class="mins">about 5 minutes</span>
+  <h2>Today's Goals</h2>
+  <p><b>Where we are:</b> You finished the TABE. Thank you for your hard work. Remember: to complete this course you need a <b>563 in TABE Reading, or a C+ or better in this class</b>. That means every class and every assignment from now until October 26 counts.</p>
+  <p><b>By the end of today, I can:</b></p>
+  <ul class="goallist">
+    <li>Tell the difference between a <b>claim</b> and a <b>fact</b>.</li>
+    <li>Find an author's <b>reasons</b> and <b>evidence</b>.</li>
+    <li>Decide if evidence is <b>strong</b> or <b>weak</b>, and say why.</li>
+    <li>Name five common <b>weak spots</b> in an argument.</li>
+    <li>Write a Claim, Evidence, Explanation (CEE) paragraph.</li>
+  </ul>
+  <div class="talk"><b class="t">Talk frames for today:</b> "I think the claim is ___ because ___." · "This evidence is strong because ___." · "This evidence is weak because ___." · "The weak spot here is ___."</div>
+</div>
+
+<!-- PLAN -->
+<div class="card">
+  <span class="ptag">TODAY</span> <span class="mins">10:30 AM - 1:20 PM</span>
+  <h2>Today's Plan</h2>
+  <p style="margin:0;font-size:15px;color:#555">Times are approximate. We keep this order and adjust as we go.</p>
+  <table class="plan">
+    <tr><th>About</th><th>What we do</th></tr>
+    <tr><td>5 min</td><td>Start Here: Today's Goals</td></tr>
+    <tr><td>10 min</td><td>Part 1: Warm-Up, Claim or Fact? <span class="tag o">talk it out</span></td></tr>
+    <tr><td>15 min</td><td>Part 2: Claim, Reasons, Evidence <span class="tag o">together</span> <span class="tag h">hand in</span></td></tr>
+    <tr><td>20 min</td><td>Part 3: The Five Weak Spots + Sort It <span class="tag h">hand in</span></td></tr>
+    <tr><td>20 min</td><td>Part 4: Practice Set, TABE-Style <span class="tag o">on your own, then pair check</span> <span class="tag h">hand in</span></td></tr>
+    <tr><td>5 min</td><td>Stop and Sum It Up</td></tr>
+    <tr class="brk"><td>10 min</td><td>Break</td></tr>
+    <tr><td>40 min</td><td>Part 5: WRITE IT! CEE Paragraph, Draft 1</td></tr>
+    <tr><td>15 min</td><td>Part 6: Review Sprint <span class="tag h">hand in</span></td></tr>
+    <tr><td>10 min</td><td>Part 7: Exit Ticket <span class="tag h">hand in</span></td></tr>
+    <tr><td>10 min</td><td>Submit Classwork 9 and Before You Leave</td></tr>
+  </table>
+</div>
+
+<!-- PART 1 -->
+<div class="card">
+  <span class="ptag">PART 1</span> <span class="mins">about 10 minutes · talk it out</span>
+  <h2>Warm-Up: Claim or Fact?</h2>
+  <p>A <b>fact</b> can be checked and proven. A <b>claim</b> is something a reasonable person could <b>disagree</b> with. Every argument starts with a claim.</p>
+  <div class="notebook">Quick test: Could someone say "No, I disagree"? If yes, it is a claim.</div>
+  <div id="cf"></div>
+</div>
+
+<!-- PART 2 -->
+<div class="card">
+  <span class="ptag">PART 2</span> <span class="mins">about 15 minutes · we do this one together · hand in</span>
+  <h2>Claim, Reasons, Evidence</h2>
+  <p>An argument has three parts. Learn these three words today. You will use them in your writing, too.</p>
+  <div class="cee">
+    <div class="k">Claim</div><div>What the author wants you to believe. Someone could disagree.</div>
+    <div class="k">Reason</div><div>Why the author believes it. A reason answers "Why?"</div>
+    <div class="k">Evidence</div><div>The proof: facts, numbers, expert sources, or examples that back up the reason.</div>
+  </div>
+  <p>Read the passage. The sentences are numbered.</p>
+  <div class="passage">
+    <span class="ttl">Every Medical Office Worker Should Know CPR</span>
+    <p><span class="sn">1</span> Every worker in a medical office, including front-desk and billing staff, should be trained in CPR. <span class="sn">2</span> A patient can collapse anywhere in the building, not just in an exam room. <span class="sn">3</span> In many offices, the first person to see a patient in trouble is the person at the front desk. <span class="sn">4</span> According to the American Heart Association, CPR given right away can double or triple a person's chance of survival. <span class="sn">5</span> A basic CPR class takes only a few hours, and many classes are finished in a single day. <span class="sn">6</span> For these reasons, training the whole staff is a small cost for a skill that can save a life.</p>
+  </div>
+  <div class="notebook">Notebook: Number 1 to 4. Write your answer, then tap to check.</div>
+  <div class="mcq" data-ans="0">
+    <p class="q">1. Which sentence states the author's claim?</p>
+    <button class="opt">Sentence 1</button><button class="opt">Sentence 2</button><button class="opt">Sentence 4</button><button class="opt">Sentence 5</button>
+    <div class="expl">Sentence 1 is the claim. It says what the author wants: CPR training for every worker. Someone could disagree, so it is a claim, not a fact.</div>
+  </div>
+  <div class="mcq" data-ans="2">
+    <p class="q">2. Which sentence gives evidence from an expert source?</p>
+    <button class="opt">Sentence 2</button><button class="opt">Sentence 3</button><button class="opt">Sentence 4</button><button class="opt">Sentence 6</button>
+    <div class="expl">Sentence 4 names an expert source, the American Heart Association. Evidence from an expert source is usually strong evidence.</div>
+  </div>
+  <div class="mcq" data-ans="1">
+    <p class="q">3. Sentence 3 is mainly a...</p>
+    <button class="opt">claim</button><button class="opt">reason that explains why front-desk staff need training</button><button class="opt">number from a study</button><button class="opt">story about one patient</button>
+    <div class="expl">Sentence 3 answers "Why front-desk staff?" Because they are often the first person to see a patient in trouble. That is a reason.</div>
+  </div>
+  <div class="mcq" data-ans="1">
+    <p class="q">4. Which fact, if true, would make this argument WEAKER?</p>
+    <button class="opt">Many front-desk workers want to learn CPR.</button>
+    <button class="opt">In this office, a nurse is always less than 30 seconds away from every room, including the front desk.</button>
+    <button class="opt">CPR classes are offered on weekends.</button>
+    <button class="opt">The American Heart Association teaches CPR classes.</button>
+    <div class="expl">If a trained nurse can always reach any patient in 30 seconds, the reason in Sentences 2 and 3 matters less. Strong readers ask: "What would make this argument weaker?"</div>
+  </div>
+</div>
+
+<!-- PART 3 -->
+<div class="card">
+  <span class="ptag">PART 3</span> <span class="mins">about 20 minutes · hand in</span>
+  <h2>The Five Weak Spots</h2>
+  <p>Some arguments sound good but do not hold up. Here are five weak spots to look for. Copy the five names into your notebook.</p>
+  <div class="flaws">
+    <div class="flaw"><b class="n">1. No Proof</b>The writer makes a claim but gives no evidence, or says "everyone knows."<span class="ex">"This tea cures colds. Everyone knows it."</span><span class="ask">Ask: Where is the proof?</span></div>
+    <div class="flaw"><b class="n">2. Too Big</b>The writer uses one person or one story to say something about everyone.<span class="ex">"My cousin waited two hours at that clinic, so the clinic is terrible."</span><span class="ask">Ask: Is one example enough?</span></div>
+    <div class="flaw"><b class="n">3. Off Topic</b>The evidence is true, but it does not connect to the claim.<span class="ex">"Dr. Lee should run the clinic because she loves gardening."</span><span class="ask">Ask: Does this detail support THIS claim?</span></div>
+    <div class="flaw"><b class="n">4. Only Two Choices</b>The writer says there are only two options when there are more.<span class="ex">"Either we close on weekends, or the clinic goes out of business."</span><span class="ask">Ask: Are there other choices?</span></div>
+    <div class="flaw"><b class="n">5. Wrong Cause</b>One thing happened after another, so the writer says the first thing caused the second.<span class="ex">"I wore my lucky scrubs and passed the test, so the scrubs work."</span><span class="ask">Ask: Could something else be the cause?</span></div>
+  </div>
+
+  <h3>Sort It: Strong or Weak?</h3>
+  <p><b>The claim:</b> <i>Our clinic should offer evening hours two nights a week.</i></p>
+  <p style="font-size:15px">Tap a statement, then tap <b>Strong</b> or <b>Weak</b>. In your notebook, write S or W for each one.</p>
+  <div class="pool" id="pool"></div>
+  <div class="sortmsg" id="sortmsg"></div>
+  <div class="buckets">
+    <div class="bucket" data-b="S"><b>Strong support</b><div class="in"></div></div>
+    <div class="bucket" data-b="W"><b>Weak support</b><div class="in"></div></div>
+  </div>
+
+  <h3>Name the Weak Spot</h3>
+  <p style="font-size:15px">Now look at the four weak statements. Which weak spot does each one have? Write the name in your notebook.</p>
+  <div class="mcq" data-ans="1">
+    <p class="q">5. "My neighbor said she would like evening hours."</p>
+    <button class="opt">No Proof</button><button class="opt">Too Big</button><button class="opt">Off Topic</button><button class="opt">Only Two Choices</button>
+    <div class="expl">Too Big. One neighbor is not enough to show what all patients need.</div>
+  </div>
+  <div class="mcq" data-ans="0">
+    <p class="q">6. "Everyone knows evening hours are better."</p>
+    <button class="opt">No Proof</button><button class="opt">Wrong Cause</button><button class="opt">Off Topic</button><button class="opt">Only Two Choices</button>
+    <div class="expl">No Proof. "Everyone knows" is not evidence. It gives no facts, numbers, or sources.</div>
+  </div>
+  <div class="mcq" data-ans="2">
+    <p class="q">7. "Our clinic has the nicest waiting room in Brooklyn."</p>
+    <button class="opt">Too Big</button><button class="opt">Only Two Choices</button><button class="opt">Off Topic</button><button class="opt">Wrong Cause</button>
+    <div class="expl">Off Topic. A nice waiting room has nothing to do with whether patients need evening hours.</div>
+  </div>
+  <div class="mcq" data-ans="3">
+    <p class="q">8. "If we don't add evening hours, the clinic will have to close."</p>
+    <button class="opt">Too Big</button><button class="opt">No Proof</button><button class="opt">Off Topic</button><button class="opt">Only Two Choices</button>
+    <div class="expl">Only Two Choices. The clinic could also add Saturday hours, telehealth visits, or other options. The writer only shows two.</div>
+  </div>
+</div>
+
+<!-- PART 4 -->
+<div class="card">
+  <span class="ptag">PART 4</span> <span class="mins">about 20 minutes · on your own, then pair check · hand in</span>
+  <h2>Practice Set: TABE-Style</h2>
+  <p>Read each passage. Answer in your notebook first. Then check your answers with a partner. Then tap to check.</p>
+
+  <div class="passage">
+    <span class="ttl">Passage A: A Letter to the Editor</span>
+    <p>Hospitals should not allow visitors after 8 PM. Last month, my father's roommate had visitors until 10 PM, and my father could not sleep. Patients need rest to heal. Either hospitals stop late visits, or patients will keep getting sicker. I hope hospital leaders will listen.</p>
+  </div>
+  <div class="mcq" data-ans="2">
+    <p class="q">9. What is the writer's claim?</p>
+    <button class="opt">Patients need rest to heal.</button><button class="opt">The writer's father could not sleep.</button><button class="opt">Hospitals should not allow visitors after 8 PM.</button><button class="opt">Hospital leaders do not listen.</button>
+    <div class="expl">The claim is the first sentence. The other sentences try to support it.</div>
+  </div>
+  <div class="mcq" data-ans="1">
+    <p class="q">10. The story about the father's roommate is weak evidence because...</p>
+    <button class="opt">it is not about a hospital.</button><button class="opt">it is only one example, so it cannot show what happens in all hospitals.</button><button class="opt">it gives too many numbers.</button><button class="opt">it comes from an expert.</button>
+    <div class="expl">This is the Too Big weak spot. One night in one room does not prove the problem is everywhere.</div>
+  </div>
+  <div class="mcq" data-ans="3">
+    <p class="q">11. "Either hospitals stop late visits, or patients will keep getting sicker." Which weak spot is this?</p>
+    <button class="opt">No Proof</button><button class="opt">Off Topic</button><button class="opt">Wrong Cause</button><button class="opt">Only Two Choices</button>
+    <div class="expl">Only Two Choices. Hospitals have other options, like quiet hours, ear plugs, or limits on how many visitors can come at night.</div>
+  </div>
+  <div class="mcq" data-ans="0">
+    <p class="q">12. Which evidence would make this letter STRONGER?</p>
+    <button class="opt">A study showing that patients on quiet units slept longer and went home sooner.</button>
+    <button class="opt">A second story about a different roommate.</button>
+    <button class="opt">A sentence saying that the writer is very upset.</button>
+    <button class="opt">A fact about how many parking spaces the hospital has.</button>
+    <div class="expl">A study of many patients is much stronger than one story. Parking spaces are off topic, and feelings are not evidence.</div>
+  </div>
+
+  <div class="passage">
+    <span class="ttl">Passage B: Clean Hands, Fewer Infections</span>
+    <p>Germs can travel from one patient to another on the hands of health care workers. The Centers for Disease Control and Prevention (CDC) says that clean hands are one of the most important ways to prevent infections in health care settings. At one hospital, staff put hand sanitizer next to every patient room door and posted reminder signs. Over the next year, the number of infections at the hospital went down. The hospital director said the sanitizer stations were the reason. However, that same year, the hospital also hired more cleaning staff and started a new training program for nurses.</p>
+  </div>
+  <div class="mcq" data-ans="1">
+    <p class="q">13. Which detail is the strongest evidence that clean hands help prevent infections?</p>
+    <button class="opt">Staff posted reminder signs.</button><button class="opt">The CDC says clean hands are one of the most important ways to prevent infections.</button><button class="opt">The hospital director gave an opinion.</button><button class="opt">The hospital hired more cleaning staff.</button>
+    <div class="expl">The CDC is an expert national source, and it speaks about health care settings in general, not just one hospital.</div>
+  </div>
+  <div class="mcq" data-ans="2">
+    <p class="q">14. The director says the sanitizer stations caused the drop in infections. Why is this NOT fully supported?</p>
+    <button class="opt">The hospital did not have any infections.</button><button class="opt">The CDC does not talk about hands.</button><button class="opt">Other changes happened the same year, so they could also be the cause.</button><button class="opt">Sanitizer is too expensive.</button>
+    <div class="expl">This is the Wrong Cause weak spot. More cleaning staff and new nurse training happened too. We cannot be sure the sanitizer alone made the difference.</div>
+  </div>
+  <div class="mcq" data-ans="3">
+    <p class="q">15. Why did the author most likely include the last sentence, starting with "However"?</p>
+    <button class="opt">To prove the director is right</button><button class="opt">To tell a story about a nurse</button><button class="opt">To change the topic to cleaning jobs</button><button class="opt">To show the reader there may be other causes</button>
+    <div class="expl">"However" signals a turn. The author wants the reader to think carefully before believing the director's claim.</div>
+  </div>
+</div>
+
+<!-- SUM IT UP -->
+<div class="card sum">
+  <span class="ptag">SUM IT UP</span> <span class="mins">about 5 minutes · before the break</span>
+  <h2>Stop and Sum It Up</h2>
+  <p>Turn to a partner. Finish these sentences out loud, then write one of them in your notebook.</p>
+  <div class="frame"><ol>
+    <li>A claim is different from a fact because ___.</li>
+    <li>Strong evidence is ___.</li>
+    <li>The weak spot I will remember is ___ because ___.</li>
+  </ol></div>
+  <button class="btn ghost" data-reveal="sum1">Show a model answer</button>
+  <div class="reveal" id="sum1">1. A claim is different from a fact because someone could disagree with it. 2. Strong evidence is proof that connects to the claim, like numbers, research, or an expert source. 3. The weak spot I will remember is Too Big because one story does not prove something about everyone.</div>
+</div>
+
+<!-- PART 5 -->
+<div class="card write">
+  <span class="ptag">PART 5</span> <span class="mins">about 40 minutes · WRITE IT!</span>
+  <h2>WRITE IT! CEE Paragraph, Draft 1</h2>
+  <p><b>Your question:</b> Look back at <b>"Every Medical Office Worker Should Know CPR"</b> in Part 2. <b>Is the author's argument well supported?</b></p>
+  <p>Write <b>one paragraph</b>. Make a claim. Give <b>two pieces of evidence</b> from the passage. After each piece of evidence, <b>explain</b> how it supports your claim.</p>
+  <div class="cee">
+    <div class="k">Claim</div><div>One sentence that answers the question. Someone could disagree with it.</div>
+    <div class="k">Evidence 1</div><div>A short quote or detail from the passage. Name where it comes from.</div>
+    <div class="k">Explanation 1</div><div>How does this evidence support your claim? This is the most important sentence. Do not skip it.</div>
+    <div class="k">Evidence 2</div><div>A second quote or detail.</div>
+    <div class="k">Explanation 2</div><div>How does this evidence support your claim?</div>
+    <div class="k">Closing</div><div>One sentence that brings it back to your claim.</div>
+  </div>
+  <div class="frame"><b>Sentence frames</b><ul>
+    <li>The author's argument is (well supported / not fully supported) because ___. <i>(claim)</i></li>
+    <li>The author writes, "___." <i>(evidence)</i></li>
+    <li>This supports my claim because ___. <i>(explanation)</i></li>
+    <li>Also, in sentence ___, the author states that ___. <i>(evidence)</i></li>
+    <li>This shows that ___. <i>(explanation)</i></li>
+    <li>For these reasons, ___. <i>(closing)</i></li>
+  </ul></div>
+  <button class="btn ghost" data-reveal="model1">Show a model paragraph (on a different topic)</button>
+  <div class="reveal" id="model1">
+    <div class="key"><span class="c">claim</span><span class="e">evidence</span><span class="x">explanation</span></div>
+    <div class="model"><span class="c">The argument in "Clean Hands, Fewer Infections" is only partly supported.</span> <span class="e">The author writes that the CDC says clean hands are "one of the most important ways to prevent infections in health care settings."</span> <span class="x">This supports the idea that handwashing matters, because the CDC is an expert source that studies many hospitals, not just one.</span> <span class="e">However, the author also says that the hospital "hired more cleaning staff and started a new training program for nurses" in the same year.</span> <span class="x">This shows that the director cannot be sure the sanitizer stations alone lowered infections, because other changes could be the cause.</span> For these reasons, the main idea is strong, but the director's conclusion needs more proof.</div>
+  </div>
+  <h3>Before you upload, check your paragraph:</h3>
+  <div class="ck"><span class="num">1</span>My first sentence is a claim that answers the question.</div>
+  <div class="ck"><span class="num">2</span>I used two pieces of evidence from the passage, in quotation marks or with the sentence number.</div>
+  <div class="ck"><span class="num">3</span>After each piece of evidence, I wrote a sentence that starts like "This shows..." or "This supports..."</div>
+  <div class="ck"><span class="num">4</span>I have a closing sentence.</div>
+  <div class="ck"><span class="num">5</span>I read it out loud (quietly) and fixed one thing.</div>
+  <div class="notebook"><b>Scored on the 10-point Writing Rubric</b> (7/10 is passing). Upload to <strong class="beoc-bs-inline">Week 6 Writing - CEE Paragraph (Draft 1)</strong><span class="beoc-bs-tag"> (in Brightspace)</span> by <b>Tuesday, October 20, at 11:59 PM</b>. Bring a copy on Wednesday: you will trade with a partner for peer review, then revise it into your final piece in Week 7.</div>
+</div>
+
+<!-- PART 6 -->
+<div class="card">
+  <span class="ptag">PART 6</span> <span class="mins">about 15 minutes · hand in</span>
+  <h2>Review Sprint</h2>
+  <p>Five quick TABE-style questions. Use the timer: 2 minutes per question. Write the letter of your answer in your notebook, then tap to check.</p>
+  <div class="mcq" data-ans="1">
+    <p class="q">16. Which detail best supports the claim "Walking every day is good for your health"?</p>
+    <button class="opt">A. Walking shoes come in many colors.</button><button class="opt">B. Research shows that regular walking can lower the risk of heart disease.</button><button class="opt">C. My friend walks to work every day.</button><button class="opt">D. Walking is more fun with music.</button>
+    <div class="expl">B is research about health. A and D are off topic. C is only one person (Too Big).</div>
+  </div>
+  <div class="mcq" data-ans="2">
+    <p class="q">17. "Everyone who works in a hospital is unhappy with their job." This statement is...</p>
+    <button class="opt">A. a fact, because it can be proven</button><button class="opt">B. strong evidence</button><button class="opt">C. too big: it says something about everyone without proof</button><button class="opt">D. an expert opinion</button>
+    <div class="expl">Words like "everyone," "all," "never," and "always" are a warning sign. They often mean the claim is Too Big.</div>
+  </div>
+  <div class="mcq" data-ans="0">
+    <p class="q">18. Which sentence is a fact, not a claim?</p>
+    <button class="opt">A. The clinic's front desk opens at 8:00 AM.</button><button class="opt">B. The clinic should open earlier.</button><button class="opt">C. The clinic has the friendliest staff in the city.</button><button class="opt">D. Patients should arrive 30 minutes early.</button>
+    <div class="expl">A can be checked and proven. B, C, and D are things people could disagree with.</div>
+  </div>
+  <div class="mcq" data-ans="3">
+    <p class="q">19. "Since the new manager started in January, the clinic phones have rung more. The new manager must be bringing in more patients." What is the problem with this reasoning?</p>
+    <button class="opt">A. It gives too many numbers.</button><button class="opt">B. It only gives two choices.</button><button class="opt">C. It uses an expert source.</button><button class="opt">D. Something else, like flu season, could make the phones ring more.</button>
+    <div class="expl">Wrong Cause. The phones ringing more after January does not prove the manager is the reason. Winter is flu season.</div>
+  </div>
+  <div class="mcq" data-ans="2">
+    <p class="q">20. Which evidence is most relevant to the claim "Our clinic needs a receptionist who speaks Spanish"?</p>
+    <button class="opt">A. The clinic was painted last year.</button><button class="opt">B. Spanish is a beautiful language.</button><button class="opt">C. Almost half of our patients list Spanish as their first language.</button><button class="opt">D. The current receptionist is very kind.</button>
+    <div class="expl">C connects directly to the claim. It shows a real need. The others are off topic or opinions.</div>
+  </div>
+</div>
+
+<!-- PART 7 -->
+<div class="card sum">
+  <span class="ptag">PART 7</span> <span class="mins">about 10 minutes · hand in</span>
+  <h2>Exit Ticket</h2>
+  <p>Answer in your notebook in complete sentences.</p>
+  <div class="frame"><ol>
+    <li>In your own words, what makes evidence <b>strong</b>? <i>Strong evidence is ___.</i></li>
+    <li>Pick one of the five weak spots. Write your own example of it. <i>An example of ___ is "___."</i></li>
+    <li>Rate yourself: How well can you find weak spots in an argument? (1 = not yet, 5 = I can teach it) <i>I give myself a ___ because ___.</i></li>
+  </ol></div>
+</div>
+
+<!-- BEFORE YOU LEAVE -->
+<div class="card goals">
+  <span class="ptag">BEFORE YOU LEAVE</span> <span class="mins">about 10 minutes</span>
+  <h2>Before You Leave</h2>
+  <p style="font-size:15px">Tap each box when it is done.</p>
+  <div class="ck"><span class="num">1</span>I can tell a claim from a fact.</div>
+  <div class="ck"><span class="num">2</span>I can name the five weak spots: No Proof, Too Big, Off Topic, Only Two Choices, Wrong Cause.</div>
+  <div class="ck"><span class="num">3</span>I uploaded Parts 2, 3, 4, 6, and 7 to <strong class="beoc-bs-inline">Classwork 9</strong><span class="beoc-bs-tag"> (in Brightspace)</span> (closes tonight at 11:59 PM).</div>
+  <div class="ck"><span class="num">4</span>My CEE Paragraph Draft 1 is started. I will finish it and upload it by Tuesday at 11:59 PM, and bring it Wednesday.</div>
+  <div class="next"><b>Next class, Wednesday, October 21:</b> Week 7, Connecting Text to Charts and Graphs. This is our last new reading skill. Bring your CEE draft for peer review.</div>
+</div>
+
+</div>
+
+<script>
+(function(){
+  var score=0,total=0;
+  var S=document.getElementById('score'),T=document.getElementById('total');
+  function upd(){S.textContent=score;T.textContent=total;}
+
+  // Part 1: claim or fact
+  var cfItems=[
+    ["Hospitals in New York must follow state health rules.","Fact"],
+    ["Every high school student should learn first aid.","Claim"],
+    ["Medical assistants often take vital signs and update patient records.","Fact"],
+    ["Twelve-hour shifts are the best schedule for nurses.","Claim"],
+    ["The TABE Reading test has multiple-choice questions.","Fact"],
+    ["Clinics should stay open on weekends.","Claim"]
+  ];
+  var cf=document.getElementById('cf');
+  cfItems.forEach(function(it,i){
+    total++;
+    var row=document.createElement('div');row.className='cf';
+    row.innerHTML='<span class="stmt">'+(i+1)+'. '+it[0]+'</span>';
+    ['Claim','Fact'].forEach(function(lbl){
+      var b=document.createElement('button');b.className='chip';b.textContent=lbl;
+      b.onclick=function(){
+        var btns=row.querySelectorAll('button');
+        if(lbl===it[1]){b.className='chip right';if(!row.dataset.miss)score++;btns.forEach(function(x){x.disabled=true;});upd();}
+        else{b.className='chip wrong';row.dataset.miss='1';}
+      };
+      row.appendChild(b);
+    });
+    cf.appendChild(row);
+  });
+
+  // Multiple choice
+  document.querySelectorAll('.mcq').forEach(function(q){
+    total++;
+    var ans=parseInt(q.getAttribute('data-ans'),10);
+    var opts=q.querySelectorAll('.opt');var ex=q.querySelector('.expl');var missed=false;
+    opts.forEach(function(o,i){
+      o.onclick=function(){
+        if(i===ans){
+          o.classList.add('right');opts.forEach(function(x){x.disabled=true;});
+          if(!missed)score++;upd();if(ex)ex.style.display='block';
+        }else{o.classList.add('wrong');o.disabled=true;missed=true;}
+      };
+    });
+  });
+
+  // Sort It
+  var sortItems=[
+    ["A survey of 300 of our patients found that 62% cannot come in during work hours.","S"],
+    ["Our front desk logged 85 calls last month from patients asking for later appointments.","S"],
+    ["Hospital records show 140 of our patients went to the emergency room last year for problems our clinic could have treated.","S"],
+    ["A clinic nearby added evening hours, and its missed appointments went down by one-third.","S"],
+    ["My neighbor said she would like evening hours.","W"],
+    ["Everyone knows evening hours are better.","W"],
+    ["Our clinic has the nicest waiting room in Brooklyn.","W"],
+    ["If we don't add evening hours, the clinic will have to close.","W"]
+  ];
+  // shuffle in a fixed mixed order so strong and weak are not grouped
+  var order=[4,0,6,2,5,1,7,3];
+  var pool=document.getElementById('pool'),msg=document.getElementById('sortmsg');
+  var selected=null;
+  order.forEach(function(idx){
+    var it=sortItems[idx];total++;
+    var c=document.createElement('button');c.className='chip';c.textContent=it[0];c.dataset.k=it[1];
+    c.onclick=function(){
+      if(c.disabled)return;
+      if(selected)selected.classList.remove('sel');
+      selected=c;c.classList.add('sel');msg.textContent='Now tap Strong or Weak.';
+    };
+    pool.appendChild(c);
+  });
+  document.querySelectorAll('.bucket').forEach(function(bk){
+    bk.onclick=function(){
+      if(!selected){msg.textContent='Tap a statement first.';return;}
+      var c=selected;
+      if(c.dataset.k===bk.getAttribute('data-b')){
+        if(!c.dataset.miss)score++;upd();
+        var d=document.createElement('div');d.textContent='✓ '+c.textContent;
+        bk.querySelector('.in').appendChild(d);
+        c.remove();selected=null;
+        msg.textContent=pool.children.length?'Correct! Pick the next one.':'All sorted. Nice work!';
+      }else{
+        c.dataset.miss='1';c.classList.remove('sel');c.classList.add('wrong');selected=null;
+        msg.textContent=(c.dataset.k==='S')?'Not quite. Look again: does it give real numbers or records? Try again.':'Not quite. Look again: is there a weak spot? Try again.';
+        setTimeout(function(){c.classList.remove('wrong');},900);
+      }
+    };
+  });
+
+  // Reveal buttons
+  document.querySelectorAll('[data-reveal]').forEach(function(b){
+    b.onclick=function(){var r=document.getElementById(b.getAttribute('data-reveal'));var open=r.style.display==='block';r.style.display=open?'none':'block';};
+  });
+
+  // Checklists
+  document.querySelectorAll('.ck').forEach(function(c){
+    c.onclick=function(e){if(e.target.tagName==='A')return;c.classList.toggle('on');};
+  });
+
+  // Timer
+  var tl=document.getElementById('tleft'),tid=null;
+  document.querySelectorAll('.tbtn').forEach(function(b){
+    b.onclick=function(){
+      var s=parseInt(b.getAttribute('data-t'),10);clearInterval(tid);tl.className='';
+      function show(){var m=Math.floor(s/60),x=s%60;tl.textContent=m+':'+(x<10?'0':'')+x;}
+      show();
+      tid=setInterval(function(){s--;if(s<=0){clearInterval(tid);tl.textContent="Time's up!";tl.className='up';return;}show();},1000);
+    };
+  });
+
+  upd();
+})();
+</script>
+</body>
+</html>

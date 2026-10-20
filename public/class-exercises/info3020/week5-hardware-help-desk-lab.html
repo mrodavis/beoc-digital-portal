@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 5 In-Class Exercises: Hardware Help Desk Lab | BEOC Digital</title>
+<style>
+*{box-sizing:border-box;}
+body{color:#202122;font-family:Arial,Helvetica,sans-serif;line-height:1.6;background:#ffffff;margin:0;padding:14px;}
+.wrap{max-width:1040px;margin:0 auto;}
+.fade-in{opacity:0;transform:translateY(20px);animation:fadeInUp .8s ease forwards;}
+@keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
+.hero-section{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:42px 26px;text-align:center;}
+.hero-eyebrow{letter-spacing:3px;font-size:13px;text-transform:uppercase;color:#ffd942;font-weight:700;margin:0 0 4px;}
+.hero-title{font-size:38px;line-height:1.2;font-weight:800;text-shadow:0 0 15px rgba(255,255,255,.35);margin:0;}
+.hero-title-highlight{color:#ffd942;}
+.hero-divider{width:80px;height:4px;background:#ffd942;border:none;margin:17px auto;}
+.hero-sub{font-size:17px;opacity:.92;margin:0;}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.08);transition:transform .3s ease,box-shadow .3s ease;padding:24px 26px;margin-top:22px;}
+.card:hover{box-shadow:0 10px 26px rgba(0,0,0,.14);}
+.card h2{font-weight:800;color:#203a43;font-size:24px;margin:0 0 6px;}
+.card h3{font-weight:800;color:#203a43;font-size:18px;margin:20px 0 8px;}
+.pill{display:inline-block;background:#eef3f6;color:#203a43;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;margin:0 6px 8px 0;}
+.pill-gold{background:#fff6cc;color:#7a5c00;}
+.scenario{border-left:5px solid #ffd942;background:#f8fafb;border-radius:8px;padding:12px 16px;margin:12px 0;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:12px;}
+.step{background:#f8fafb;border-left:5px solid #ffd942;border-radius:8px;padding:10px 12px;font-size:14px;}
+.step b{display:block;color:#0f2027;font-size:15px;}
+.step span{color:#2c5364;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;}
+.q{border:2px solid #e6ecef;border-radius:10px;padding:12px 14px;margin:10px 0;}
+.q.ok{border-color:#4a8f00;background:#f4faee;}
+.q.no{border-color:#c9302c;background:#fdf3f2;}
+.qt{font-weight:700;margin:0 0 6px;color:#0f2027;}
+.qn{display:inline-block;background:#203a43;color:#ffd942;border-radius:50%;width:26px;height:26px;line-height:26px;text-align:center;font-size:13px;margin-right:8px;}
+.opt{display:block;padding:5px 8px;border-radius:6px;cursor:pointer;}
+.opt:hover{background:#eef3f6;}
+.fb{font-size:14px;font-weight:700;margin-top:6px;min-height:4px;}
+.fb.good{color:#2f6b00;}.fb.bad{color:#b02a26;}.fb.warn{color:#7a5c00;}
+.row{display:flex;gap:12px;align-items:center;border-bottom:1px solid #e6ecef;padding:9px 0;flex-wrap:wrap;}
+.row .txt{flex:1 1 300px;}
+.row select{font-size:16px;padding:6px 8px;border-radius:6px;border:2px solid #b9c6cc;}
+.row label{margin-right:10px;font-size:14px;white-space:nowrap;}
+label.fld{display:block;font-weight:700;color:#0f2027;margin:14px 0 4px;}
+input[type=text],textarea{width:100%;font-family:inherit;font-size:16px;padding:10px 12px;border:2px solid #b9c6cc;border-radius:8px;}
+input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:#2c5364;box-shadow:0 0 0 3px rgba(255,217,66,.5);}
+textarea{min-height:84px;resize:vertical;}
+.btn-gold{background:#ffd942;color:#0f2027;font-weight:800;border-radius:999px;padding:10px 26px;display:inline-block;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.15);border:none;font-size:15px;cursor:pointer;margin:10px 8px 0 0;}
+.btn-gold:hover{background:#ffe574;}
+.btn-dark{background:#203a43;color:#fff;}
+.btn-dark:hover{background:#2c5364;}
+.score{display:inline-block;font-weight:800;color:#203a43;margin-left:6px;}
+.due-card{background:linear-gradient(135deg,#1d4d00,#4a8f00);color:#fff;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.15);padding:24px 26px;margin-top:22px;}
+.due-card h2{color:#fff;margin:0 0 6px;font-size:24px;}
+.due-card ol{margin:8px 0 0 20px;padding:0;}
+.due-card li{margin-bottom:6px;}
+#missing{font-weight:700;color:#7a5c00;background:#fff6cc;border-radius:8px;padding:10px 14px;margin-top:12px;display:none;}
+#packetBox{display:none;margin-top:14px;}
+#packetText{min-height:260px;font-family:Consolas,Menlo,monospace;font-size:13px;}
+.footer-note{font-size:13px;color:#6b7a82;text-align:center;margin:30px 0 10px;}
+@media (max-width:600px){.hero-title{font-size:28px;}}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#1d4ed8;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/learning-paths/office-assistant/tech-foundations"><span class="beoc-tb-badge">BEOC</span><span>&larr; Technology Foundations</span></a><a class="beoc-tb-link" href="/learning-paths/office-assistant/tech-foundations/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div class="wrap">
+
+<section class="hero-section fade-in">
+  <p class="hero-eyebrow">Week 5 &middot; Practice It! &middot; In Class Thursday 10/1</p>
+  <h1 class="hero-title">Hardware <span class="hero-title-highlight">Help Desk</span> Lab</h1>
+  <hr class="hero-divider">
+  <p class="hero-sub">Five exercises &middot; about 60 minutes &middot; 10 points &middot; one packet to submit</p>
+</section>
+
+<section class="card">
+  <h2>Your Job Today</h2>
+  <div class="scenario"><strong>The scenario:</strong> You are the new office assistant at Lakeside Medical Associates. It is Monday morning. The printer is jammed, a monitor is black, the scanner will not send, and a staff video meeting starts soon. Your team needs you to stay calm and fix what you can.</div>
+  <p><span class="pill pill-gold">10 points</span><span class="pill">2 points per exercise</span><span class="pill">Work with a partner</span><span class="pill">Not finished? Finish it for homework</span></p>
+  <div class="grid">
+    <div class="step"><span>8 min</span><b>1. Know Your Equipment</b>Quick check of key words.</div>
+    <div class="step"><span>12 min</span><b>2. Fix It First</b>Put the steps in order. Solve 5 problems.</div>
+    <div class="step"><span>12 min</span><b>3. Workstation Check</b>Check and fix your own desk.</div>
+    <div class="step"><span>15 min</span><b>4. Incident Report</b>Write a clear report to IT.</div>
+    <div class="step"><span>10 min</span><b>5. Video Call Ready?</b>Find the mistakes. Write your rules.</div>
+    <div class="step"><span>3 min</span><b>Exit Ticket</b>Build your packet and submit.</div>
+  </div>
+  <label class="fld" for="name">Your full name</label>
+  <input type="text" id="name" placeholder="First and last name">
+  <label class="fld" for="partner">Your partner's name (write "none" if you worked alone)</label>
+  <input type="text" id="partner" placeholder="Partner name">
+  <p style="font-size:14px;color:#5a6a72;margin:10px 0 0;">Your answers are saved on this computer while you work. Do not close the page until you download your packet.</p>
+</section>
+
+<section class="card">
+  <span class="pill pill-gold">Exercise 1 &middot; 8 minutes &middot; 2 points</span>
+  <h2>Know Your Equipment</h2>
+  <p>Choose the best answer for each question. Then click <strong>Check My Answers</strong>. You can change an answer and check again.</p>
+  <div id="ex1"></div>
+  <button type="button" class="btn-gold" id="check1">Check My Answers</button><span class="score" id="score1"></span>
+</section>
+
+<section class="card">
+  <span class="pill pill-gold">Exercise 2 &middot; 12 minutes &middot; 2 points</span>
+  <h2>Fix It First</h2>
+  <h3>Part A: Put the five troubleshooting steps in order</h3>
+  <p>Pick a number for each step. Step 1 is what you do first. Step 5 is what you do last.</p>
+  <div id="ex2a"></div>
+  <button type="button" class="btn-gold" id="check2a">Check My Order</button><span class="score" id="score2a"></span>
+  <h3>Part B: What do you do first?</h3>
+  <p>Read each problem. Choose the best first move.</p>
+  <div id="ex2b"></div>
+  <button type="button" class="btn-gold" id="check2b">Check My Answers</button><span class="score" id="score2b"></span>
+</section>
+
+<section class="card">
+  <span class="pill pill-gold">Exercise 3 &middot; 12 minutes &middot; 2 points</span>
+  <h2>Workstation Check</h2>
+  <p>This one is hands-on. Sit the way you normally sit. Ask your partner to look at your setup. Mark each line. If the answer is No, try to fix it, then mark <strong>Fixed</strong>.</p>
+  <div id="ex3"></div>
+  <label class="fld" for="e3changes">What two changes did you make (or would you make) to your workstation?</label>
+  <textarea id="e3changes" placeholder="1. I ...   2. I ..."></textarea>
+  <label class="fld" for="e3feel">In two sentences, tell why a good setup matters for someone who works at a desk all day.</label>
+  <textarea id="e3feel" placeholder="Write two full sentences."></textarea>
+</section>
+
+<section class="card">
+  <span class="pill pill-gold">Exercise 4 &middot; 15 minutes &middot; 2 points</span>
+  <h2>Write the Incident Report</h2>
+  <div class="scenario"><strong>What happened:</strong> It is 9:10 AM. The multifunction printer in the reception area will not send scans to email. The screen says <em>Send Error</em>. Dr. Patel needs a patient referral form scanned before 10:00 AM. You checked the network cable. You turned the machine off, waited 30 seconds, and turned it on. You also tried scan-to-folder. Nothing worked.</div>
+  <p>IT can only help quickly if your report is clear. Fill in every box. Use full sentences.</p>
+  <label class="fld" for="e4device">1. Device and location: What is broken, and where is it?</label>
+  <input type="text" id="e4device" placeholder="Example: The ... in the ...">
+  <label class="fld" for="e4symptom">2. Exact symptom: What do you see? What does the screen say? When did it start?</label>
+  <textarea id="e4symptom"></textarea>
+  <label class="fld" for="e4tried">3. What you already tried: List the three things from the scenario.</label>
+  <textarea id="e4tried" placeholder="1.   2.   3."></textarea>
+  <label class="fld" for="e4need">4. What you need from IT, and how urgent it is. Explain why.</label>
+  <textarea id="e4need"></textarea>
+  <label class="fld" for="e4phi">5. Privacy: The form has patient information (PHI). Name one thing you must NOT do while the scanner is broken.</label>
+  <textarea id="e4phi"></textarea>
+</section>
+
+<section class="card">
+  <span class="pill pill-gold">Exercise 5 &middot; 10 minutes &middot; 2 points</span>
+  <h2>Video Call Ready?</h2>
+  <div class="scenario"><strong>Read about Jordan:</strong> Jordan joins the staff video meeting from the front desk 4 minutes late. The laptop sits low on the desk, so the camera looks up at Jordan's chin. A bright window is behind Jordan. Jordan tested the microphone before the meeting, but uses the laptop speakers with no headset, and people hear an echo. The patient sign-in sheet is on the wall behind Jordan. Jordan stays muted while other people talk. When asked to share a document, Jordan shares the whole screen, and the email inbox shows. Jordan eats lunch on camera.</div>
+  <h3>Part A: Check every problem you find</h3>
+  <p>Be careful. Two of these are things Jordan did right.</p>
+  <div id="ex5"></div>
+  <button type="button" class="btn-gold" id="check5">Check My Answers</button><span class="score" id="score5"></span>
+  <label class="fld" for="e5rules">Part B: Write three rules for your own "before the call" checklist.</label>
+  <textarea id="e5rules" placeholder="1.   2.   3."></textarea>
+</section>
+
+<section class="card">
+  <span class="pill pill-gold">Exit Ticket &middot; 3 minutes</span>
+  <h2>Before You Go</h2>
+  <label class="fld" for="exit1">One hardware problem I can now try to fix by myself:</label>
+  <textarea id="exit1"></textarea>
+  <label class="fld" for="exit2">One question I still have:</label>
+  <textarea id="exit2"></textarea>
+</section>
+
+<section class="due-card">
+  <h2>Submit Your Packet (10 points)</h2>
+<p><strong>Did not finish in class?</strong> Finish the packet for homework and submit it before our next class: Thursday, October 8 at 6:00 PM. This packet is the only Week 5 submission.</p>
+<p><strong>Working on a different computer?</strong> Your answers are saved only in the browser you used in class. On another computer, type your answers again before you build your packet.</p>
+  <ol>
+    <li>Click <strong>Build My Packet</strong>. Read it. Fix anything that is missing.</li>
+    <li>Click <strong>Download My Packet</strong>. The file goes to your Downloads folder.</li>
+    <li>Click <strong>Open the Submit Folder</strong>. Click Add a File, choose your packet, then click Submit.</li>
+  </ol>
+  <button type="button" class="btn-gold" id="build">Build My Packet</button>
+  <button type="button" class="btn-gold btn-dark" id="dl">Download My Packet</button>
+  <span class="beoc-bs-note" role="note"><span aria-hidden="true">&#128229;</span> Submit your work in Brightspace</span>
+  <div id="missing"></div>
+  <div id="packetBox">
+    <p style="margin:0 0 6px;"><strong>Your packet.</strong> If the download does not work, click Copy Packet Text, paste it into a Word document, save it, and upload that file.</p>
+    <textarea id="packetText" readonly></textarea>
+    <button type="button" class="btn-gold" id="copy">Copy Packet Text</button>
+  </div>
+</section>
+
+<p class="footer-note">INFO3020 Digital Literacy I &middot; Week 5: Workplace Hardware &amp; Equipment &middot; Due before our next class: Thursday, October 8 at 6:00 PM</p>
+</div>
+
+<script>
+(function(){
+var KEY='info3020_w5_packet_v1';
+var state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function el(id){return document.getElementById(id);}
+
+var EX1=[
+{q:"The list of documents waiting to print is called the:",o:["Print queue","Paper path","Default printer","Scan folder"],a:0,why:"The print queue shows every job that is waiting."},
+{q:"Printing on both sides of the paper is called:",o:["Landscape","Duplex","Collate","Draft mode"],a:1,why:"Duplex means two-sided printing."},
+{q:"You must scan a 20-page packet quickly. Which part of the scanner do you use?",o:["The flatbed glass, one page at a time","The automatic document feeder (ADF)","The paper tray","The USB port"],a:1,why:"The ADF pulls in many pages for you."},
+{q:"Which scan setting gives a clear document and a small file?",o:["72 DPI","200 to 300 DPI","1200 DPI","2400 DPI"],a:1,why:"200 to 300 DPI is clear and easy to email."},
+{q:"To reseat a cable means to:",o:["Buy a new cable","Unplug it and plug it back in firmly","Tape it to the desk","Cut it shorter"],a:1,why:"Loose cables cause many problems."},
+{q:"Which Windows tool shows a warning icon next to a device with a driver problem?",o:["File Explorer","Task Scheduler","Device Manager","Notepad"],a:2,why:"Right-click the Start button to open Device Manager."},
+{q:"Where should the top of your monitor be?",o:["Above your head","At or a little below eye level","At chest level","Flat on the desk"],a:1,why:"This keeps your neck straight."},
+{q:"What is the best way to stop echo on a video call?",o:["Turn the volume all the way up","Sit closer to the laptop","Wear a headset or headphones","Turn off your camera"],a:2,why:"A headset keeps the speaker sound out of your microphone."}
+];
+var STEPS=[
+{t:"Restart the device. Turn it off, wait 30 seconds, turn it on.",n:3},
+{t:"Write down what you tried and report the problem to IT.",n:5},
+{t:"Describe the exact problem. What do you see or hear?",n:1},
+{t:"Swap in a part you know works to find the bad part.",n:4},
+{t:"Check the power, the cables and the connections.",n:2}
+];
+var EX2B=[
+{q:"The monitor is black, but the computer power light is on.",o:["Call IT right away","Check the monitor power button and reseat the video cable","Order a new monitor","Reinstall Windows"],a:1,why:"Always check power and cables before anything else."},
+{q:"The wireless mouse stopped moving.",o:["Check the batteries, the power switch and the USB receiver","Restart the printer","Clean the monitor","Replace the keyboard"],a:0,why:"Wireless devices need power and a connected receiver."},
+{q:"You cleared a paper jam. The printer jams again on the next page.",o:["Print the job five more times","Use scissors to reach inside","Open every panel and look for small torn pieces of paper","Add more paper to the tray"],a:2,why:"A torn piece left inside causes repeat jams. Use your hands, never sharp tools."},
+{q:"You plug in a USB flash drive. The computer does not see it.",o:["Throw the drive away","Try a different USB port","Delete your files","Unplug the monitor"],a:1,why:"Testing another port tells you if the port or the drive is the problem."},
+{q:"You tried every step. The front desk scanner still fails. Patients are waiting.",o:["Keep trying the same steps","Take the scanner apart","Escalate to IT and tell them what you already tried","Ignore it until tomorrow"],a:2,why:"Knowing when to escalate is a professional skill."}
+];
+var ERGO=[
+"The top of the monitor is at or a little below eye level.",
+"The screen is about one arm's length away (20 to 28 inches).",
+"The screen tilts back a little.",
+"Elbows bend at about 90 degrees while typing.",
+"Wrists stay straight, not bent up or down.",
+"Feet are flat on the floor. Knees bend at about 90 degrees.",
+"The chair supports the lower back.",
+"The mouse is close to the keyboard and at the same height."
+];
+var EX5=[
+{t:"Jordan joined the meeting late.",p:true},
+{t:"The camera is too low and looks up at Jordan.",p:true},
+{t:"A bright window is behind Jordan.",p:true},
+{t:"Jordan tested the microphone before the meeting.",p:false},
+{t:"Laptop speakers with no headset caused an echo.",p:true},
+{t:"Patient information (PHI) can be seen in the background.",p:true},
+{t:"Jordan stayed muted while other people talked.",p:false},
+{t:"Jordan shared the whole screen instead of one window.",p:true},
+{t:"Jordan ate lunch on camera.",p:true}
+];
+
+function renderMC(hostId,prefix,items){
+  var h='';
+  for(var i=0;i<items.length;i++){
+    h+='<div class="q" id="'+prefix+i+'"><p class="qt"><span class="qn">'+(i+1)+'</span>'+items[i].q+'</p>';
+    for(var j=0;j<items[i].o.length;j++){h+='<label class="opt"><input type="radio" name="'+prefix+i+'" value="'+j+'"> '+items[i].o[j]+'</label>';}
+    h+='<div class="fb" id="'+prefix+i+'fb"></div></div>';
+  }
+  el(hostId).innerHTML=h;
+}
+function pick(name){var s=document.querySelector('input[name="'+name+'"]:checked');return s?Number(s.value):-1;}
+function checkMC(prefix,items,outId){
+  var score=0;
+  for(var i=0;i<items.length;i++){
+    var v=pick(prefix+i),fb=el(prefix+i+'fb'),box=el(prefix+i);
+    if(v<0){box.className='q';fb.className='fb warn';fb.textContent='Choose an answer.';}
+    else if(v===items[i].a){score++;box.className='q ok';fb.className='fb good';fb.textContent='Correct. '+items[i].why;}
+    else{box.className='q no';fb.className='fb bad';fb.textContent='Not yet. Read the question again and try another answer.';}
+  }
+  var s=score+' / '+items.length;el(outId).textContent='Score: '+s;state['s_'+prefix]=s;save();
+}
+renderMC('ex1','a',EX1);
+renderMC('ex2b','b',EX2B);
+
+var h='',i,j;
+for(i=0;i<STEPS.length;i++){
+  h+='<div class="row"><select id="ord'+i+'" aria-label="Step number"><option value="">Step ?</option>';
+  for(j=1;j<=5;j++){h+='<option value="'+j+'">'+j+'</option>';}
+  h+='</select><div class="txt">'+STEPS[i].t+'</div><div class="fb" id="ord'+i+'fb"></div></div>';
+}
+el('ex2a').innerHTML=h;
+h='';
+for(i=0;i<ERGO.length;i++){
+  h+='<div class="row"><div class="txt">'+(i+1)+'. '+ERGO[i]+'</div><div>';
+  var L=['Yes','No','Fixed'];
+  for(j=0;j<3;j++){h+='<label><input type="radio" name="g'+i+'" value="'+j+'"> '+L[j]+'</label>';}
+  h+='</div></div>';
+}
+el('ex3').innerHTML=h;
+h='';
+for(i=0;i<EX5.length;i++){h+='<label class="opt" id="v'+i+'l"><input type="checkbox" id="v'+i+'"> '+EX5[i].t+'</label>';}
+el('ex5').innerHTML=h;
+
+el('check1').onclick=function(){checkMC('a',EX1,'score1');};
+el('check2b').onclick=function(){checkMC('b',EX2B,'score2b');};
+el('check2a').onclick=function(){
+  var score=0;
+  for(var i=0;i<STEPS.length;i++){
+    var v=Number(el('ord'+i).value||0),fb=el('ord'+i+'fb');
+    if(!v){fb.className='fb warn';fb.textContent='Pick a number.';}
+    else if(v===STEPS[i].n){score++;fb.className='fb good';fb.textContent='Correct';}
+    else{fb.className='fb bad';fb.textContent='Try again';}
+  }
+  var s=score+' / 5';el('score2a').textContent='Score: '+s;state.s_ord=s;save();
+};
+el('check5').onclick=function(){
+  var score=0;
+  for(var i=0;i<EX5.length;i++){
+    var c=el('v'+i).checked,lab=el('v'+i+'l');
+    if(c===EX5[i].p){score++;lab.style.background='#f4faee';}else{lab.style.background='#fdf3f2';}
+  }
+  var s=score+' / '+EX5.length;el('score5').textContent='Score: '+s+'. Green lines are right. Red lines need another look.';state.s_v=s;save();
+};
+
+document.addEventListener('change',remember);
+document.addEventListener('input',remember);
+function remember(e){
+  var t=e.target;if(!t||t.id==='packetText')return;
+  if(t.type==='radio'){state['r_'+t.name]=t.value;}
+  else if(t.type==='checkbox'){state['c_'+t.id]=t.checked;}
+  else if(t.id){state['t_'+t.id]=t.value;}
+  save();
+}
+(function restore(){
+  for(var k in state){
+    if(!Object.prototype.hasOwnProperty.call(state,k))continue;
+    var id=k.slice(2),n;
+    if(k.indexOf('r_')===0){n=document.querySelector('input[name="'+id+'"][value="'+state[k]+'"]');if(n)n.checked=true;}
+    else if(k.indexOf('c_')===0){n=el(id);if(n)n.checked=!!state[k];}
+    else if(k.indexOf('t_')===0){n=el(id);if(n)n.value=state[k];}
+  }
+})();
+
+function val(id){return (el(id).value||'').replace(/^\s+|\s+$/g,'');}
+function buildPacket(){
+  var miss=[],out=[],i,v;
+  function line(s){out.push(s);}
+  function need(id,label){var x=val(id);if(!x)miss.push(label);return x||'(no answer)';}
+  line('WEEK 5 - IN-CLASS EXERCISE PACKET');
+  line('INFO3020 Digital Literacy I - Thursday 10/1 - Hardware Help Desk Lab');
+  line('Name: '+need('name','Your name'));
+  line('Partner: '+need('partner','Partner name'));
+  line('');
+  line('EXERCISE 1 - KNOW YOUR EQUIPMENT   Last checked score: '+(state.s_a||'not checked'));
+  for(i=0;i<EX1.length;i++){v=pick('a'+i);if(v<0)miss.push('Exercise 1, question '+(i+1));line((i+1)+'. '+EX1[i].q+' -> '+(v<0?'(no answer)':EX1[i].o[v]));}
+  line('');
+  line('EXERCISE 2A - TROUBLESHOOTING ORDER   Last checked score: '+(state.s_ord||'not checked'));
+  for(i=0;i<STEPS.length;i++){v=el('ord'+i).value;if(!v)miss.push('Exercise 2A, line '+(i+1));line('Step '+(v||'?')+': '+STEPS[i].t);}
+  line('');
+  line('EXERCISE 2B - WHAT DO YOU DO FIRST?   Last checked score: '+(state.s_b||'not checked'));
+  for(i=0;i<EX2B.length;i++){v=pick('b'+i);if(v<0)miss.push('Exercise 2B, problem '+(i+1));line((i+1)+'. '+EX2B[i].q+' -> '+(v<0?'(no answer)':EX2B[i].o[v]));}
+  line('');
+  line('EXERCISE 3 - WORKSTATION CHECK');
+  var L=['Yes','No','Fixed'];
+  for(i=0;i<ERGO.length;i++){v=pick('g'+i);if(v<0)miss.push('Exercise 3, line '+(i+1));line((i+1)+'. '+ERGO[i]+' -> '+(v<0?'(not marked)':L[v]));}
+  line('Changes: '+need('e3changes','Exercise 3, two changes'));
+  line('Why it matters: '+need('e3feel','Exercise 3, two sentences'));
+  line('');
+  line('EXERCISE 4 - INCIDENT REPORT');
+  line('1. Device and location: '+need('e4device','Exercise 4, box 1'));
+  line('2. Exact symptom: '+need('e4symptom','Exercise 4, box 2'));
+  line('3. Already tried: '+need('e4tried','Exercise 4, box 3'));
+  line('4. Need from IT and urgency: '+need('e4need','Exercise 4, box 4'));
+  line('5. Privacy rule: '+need('e4phi','Exercise 4, box 5'));
+  line('');
+  line('EXERCISE 5 - VIDEO CALL READY?   Last checked score: '+(state.s_v||'not checked'));
+  line('Problems I checked:');
+  var any=false;
+  for(i=0;i<EX5.length;i++){if(el('v'+i).checked){any=true;line(' - '+EX5[i].t);}}
+  if(!any){line(' (none checked)');miss.push('Exercise 5, Part A');}
+  line('My three rules: '+need('e5rules','Exercise 5, Part B'));
+  line('');
+  line('EXIT TICKET');
+  line('I can now fix: '+need('exit1','Exit Ticket, first box'));
+  line('My question: '+need('exit2','Exit Ticket, second box'));
+  var m=el('missing');
+  if(miss.length){m.style.display='block';m.textContent='Still missing ('+miss.length+'): '+miss.join('; ')+'. Finish these, then build your packet again.';}
+  else{m.style.display='block';m.textContent='Your packet is complete. Download it and submit it.';}
+  el('packetBox').style.display='block';
+  el('packetText').value=out.join('\n');
+  return out.join('\r\n');
+}
+el('build').onclick=function(){buildPacket();el('packetBox').scrollIntoView({behavior:'smooth'});};
+el('dl').onclick=function(){
+  var text=buildPacket();
+  var nm=(val('name')||'YourName').replace(/[^A-Za-z0-9]+/g,'_');
+  try{
+    var blob=new Blob([text],{type:'text/plain'});
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download='Week5_Packet_'+nm+'.txt';
+    document.body.appendChild(a);a.click();
+    setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);},800);
+  }catch(e){el('missing').style.display='block';el('missing').textContent='The download did not work. Click Copy Packet Text and paste it into a Word document.';}
+};
+el('copy').onclick=function(){
+  var t=el('packetText');t.focus();t.select();
+  var ok=false;try{ok=document.execCommand('copy');}catch(e){}
+  if(!ok&&navigator.clipboard){navigator.clipboard.writeText(t.value).then(function(){},function(){});}
+  el('copy').textContent='Copied. Now paste it into Word.';
+};
+})();
+</script>
+</body>
+</html>

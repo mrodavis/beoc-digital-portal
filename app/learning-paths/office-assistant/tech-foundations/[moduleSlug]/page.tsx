@@ -1,6 +1,11 @@
 import { notFound } from "next/navigation";
 import ModuleIndexTemplate from "@/components/ModuleIndexTemplate";
+import Link from "next/link";
 import { techFoundationsModules } from "@/lib/content/office-assistant/tech-foundations";
+import {
+  classExerciseHref,
+  techFoundationsExercisesForModule,
+} from "@/lib/content/class-exercises";
 
 export default async function ModulePage({
   params,
@@ -13,6 +18,8 @@ export default async function ModulePage({
   const module = modules.find((m) => m.moduleSlug === moduleSlug);
 
   if (!module) return notFound();
+
+  const classExercises = techFoundationsExercisesForModule(moduleSlug);
 
   const currentIndex = modules.findIndex((m) => m.moduleSlug === moduleSlug);
   const prevModule = currentIndex > 0 ? modules[currentIndex - 1] : undefined;
@@ -72,6 +79,43 @@ export default async function ModulePage({
             </h3>
             <p className="text-gray-700">{module.scenario}</p>
           </div>
+          {classExercises.length > 0 && (
+            <div className="bg-primary-50 border border-primary-200 p-6 rounded-xl">
+              <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                Practice from Class
+              </h3>
+              <p className="text-sm text-gray-600 mb-4">
+                The in-class lab and simulators for this module. Submit graded
+                work in Brightspace.
+              </p>
+              <ul className="grid gap-3 sm:grid-cols-2">
+                {classExercises.map((exercise) => (
+                  <li key={exercise.slug}>
+                    <a
+                      href={classExerciseHref("info3020", exercise.slug)}
+                      className="group block h-full bg-white border border-gray-200 rounded-lg p-4 transition-shadow hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500"
+                    >
+                      <span className="text-xs font-bold uppercase tracking-wide text-gray-500">
+                        {exercise.group.label} · {exercise.kind}
+                      </span>
+                      <span className="mt-1 block font-semibold text-gray-900 group-hover:text-primary-700">
+                        {exercise.title}
+                      </span>
+                      <span className="mt-1 block text-sm text-gray-600">
+                        {exercise.features}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/learning-paths/office-assistant/tech-foundations/class-exercises"
+                className="mt-4 inline-block text-sm font-semibold text-primary-600 hover:text-primary-800"
+              >
+                All class exercises →
+              </Link>
+            </div>
+          )}
         </div>
       }
     />

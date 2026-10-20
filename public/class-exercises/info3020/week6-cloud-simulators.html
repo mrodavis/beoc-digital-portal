@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 6 Interactive Practice: Cloud Simulators and Sorting Games | BEOC Digital</title>
+<style>
+*{box-sizing:border-box;}
+body{color:#202122;font-family:Arial,Helvetica,sans-serif;line-height:1.6;background:#ffffff;margin:0;padding:14px;}
+.wrap{max-width:1040px;margin:0 auto;}
+.fade-in{opacity:0;transform:translateY(20px);animation:fadeInUp .8s ease forwards;}
+@keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
+.hero-section{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:42px 26px;text-align:center;}
+.hero-eyebrow{letter-spacing:3px;font-size:13px;text-transform:uppercase;color:#ffd942;font-weight:700;margin:0 0 4px;}
+.hero-title{font-size:38px;line-height:1.2;font-weight:800;text-shadow:0 0 15px rgba(255,255,255,.35);margin:0;}
+.hero-title-highlight{color:#ffd942;}
+.hero-divider{width:80px;height:4px;background:#ffd942;border:none;margin:17px auto;}
+.hero-sub{font-size:17px;opacity:.92;margin:0;}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:24px 26px;margin-top:22px;}
+.card h2{font-weight:800;color:#203a43;font-size:24px;margin:0 0 6px;}
+.card h3{font-weight:800;color:#203a43;font-size:18px;margin:14px 0 8px;}
+.pill{display:inline-block;background:#eef3f6;color:#203a43;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;margin:0 6px 8px 0;}
+.pill-gold{background:#fff6cc;color:#7a5c00;}
+.note{font-size:14px;color:#5a6a72;margin:10px 0 0;}
+.fb{font-size:15px;font-weight:700;margin:10px 0 0;min-height:24px;}
+.fb.good{color:#2f6b00;}.fb.bad{color:#b02a26;}.fb.warn{color:#7a5c00;}
+.btn-gold{background:#ffd942;color:#0f2027;font-weight:800;border-radius:999px;padding:10px 26px;display:inline-block;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.15);border:none;font-size:15px;cursor:pointer;margin:10px 8px 0 0;font-family:inherit;}
+.btn-gold:hover{background:#ffe574;}
+.btn-dark{background:#203a43;color:#fff;}
+.btn-dark:hover{background:#2c5364;}
+.score{display:inline-block;font-weight:800;color:#203a43;margin-left:6px;}
+.board{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0;}
+.tile{flex:1 1 180px;background:#f8fafb;border-left:5px solid #ffd942;border-radius:8px;padding:10px 14px;}
+.tile span{display:block;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#2c5364;}
+.tile b{display:block;font-size:24px;color:#203a43;line-height:1.3;}
+.tile i{font-style:normal;font-size:13px;color:#5a6a72;}
+.tile.done{border-left-color:#4a8f00;background:#f4faee;}
+/* sorting games */
+.rnav{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;}
+.rn{border:2px solid #2c5364;background:#fff;color:#203a43;border-radius:999px;padding:5px 16px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;}
+.rn.on{background:#203a43;color:#ffd942;}
+.rn.ok{border-color:#4a8f00;}
+.tray{display:flex;flex-wrap:wrap;gap:10px;min-height:70px;padding:12px;border:2px dashed #b9c6cc;border-radius:10px;background:#f8fafb;margin:10px 0 14px;}
+.trayok{color:#2f6b00;font-weight:700;}
+.dcard{background:#fff;border:2px solid #203a43;border-radius:10px;padding:7px 11px;font-size:14px;line-height:1.4;cursor:grab;max-width:310px;box-shadow:0 2px 6px rgba(0,0,0,.12);-webkit-user-select:none;user-select:none;}
+.dcard:hover{background:#fffbe6;}
+.dcard.sel{border-color:#e0a100;box-shadow:0 0 0 4px rgba(255,217,66,.7);}
+.dcard.shake{animation:shake .4s;border-color:#c9302c;}
+@keyframes shake{25%{transform:translateX(-7px);}75%{transform:translateX(7px);}}
+.buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;}
+.bucket{border:3px solid #2c5364;border-radius:12px;min-height:160px;background:#fff;cursor:pointer;display:flex;flex-direction:column;}
+.bucket.over{background:#fff6cc;border-color:#e0a100;}
+.bl{background:#203a43;color:#fff;padding:8px 12px;border-radius:8px 8px 0 0;font-weight:800;}
+.bl small{display:block;font-weight:400;color:#ffd942;font-size:12px;}
+.bz{padding:8px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.chip{background:#f4faee;border:2px solid #4a8f00;border-radius:8px;padding:6px 9px;font-size:13px;line-height:1.35;}
+/* simulators */
+.simwrap{display:grid;grid-template-columns:280px minmax(0,1fr);gap:14px;align-items:start;margin-top:12px;}
+@media (max-width:820px){.simwrap{grid-template-columns:minmax(0,1fr);}}
+.missions{background:#f8fafb;border-radius:10px;padding:12px;}
+.missions h3{margin:0 0 8px;}
+.mi{display:flex;gap:8px;padding:8px;border-radius:8px;font-size:14px;margin-bottom:6px;border:2px solid transparent;line-height:1.4;}
+.mi .n{flex:0 0 26px;height:26px;border-radius:50%;background:#203a43;color:#ffd942;font-weight:800;text-align:center;line-height:26px;font-size:13px;}
+.mi.cur{background:#fff6cc;border-color:#ffd942;}
+.mi.ok{color:#2f6b00;}
+.mi.ok .n{background:#4a8f00;color:#fff;}
+.how{font-size:13px;background:#fff;border-left:4px solid #2c5364;border-radius:6px;padding:8px 10px;margin:2px 0 8px;line-height:1.5;}
+.sim{position:relative;border:2px solid #b9c6cc;border-radius:10px;overflow:hidden;min-height:540px;background:#fff;display:flex;flex-direction:column;}
+.simbar{background:#203a43;color:#fff;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.simbar b{font-size:16px;}
+.simbar span{font-size:12px;color:#ffd942;}
+.simbody{display:flex;flex:1;min-height:0;}
+.simnav{flex:0 0 122px;background:#eef3f6;padding:8px;}
+.navi{padding:8px 10px;border-radius:6px;font-size:14px;}
+.navi.on{background:#203a43;color:#fff;font-weight:700;}
+.navi.dim{color:#8696a0;}
+.simmain{flex:1;padding:12px;min-width:0;}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;position:relative;}
+.tb{background:#fff;border:2px solid #2c5364;color:#203a43;border-radius:8px;padding:6px 12px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;}
+.tb:hover{background:#eef3f6;}
+.tb:disabled{opacity:.45;cursor:not-allowed;}
+.tb.pri{background:#ffd942;border-color:#e0b800;}
+.tb.pri:hover{background:#ffe574;}
+.menu{position:absolute;top:38px;left:0;background:#fff;border:2px solid #2c5364;border-radius:8px;box-shadow:0 8px 20px rgba(0,0,0,.2);z-index:5;min-width:180px;overflow:hidden;}
+.mb{display:block;width:100%;text-align:left;border:none;background:none;padding:10px 12px;font-size:14px;cursor:pointer;font-family:inherit;}
+.mb:hover{background:#fff6cc;}
+table.files{width:100%;border-collapse:collapse;font-size:14px;}
+.files th{text-align:left;font-size:12px;color:#5a6a72;border-bottom:2px solid #e6ecef;padding:6px;}
+.files td{padding:8px 6px;border-bottom:1px solid #e6ecef;}
+.files tr.row{cursor:pointer;}
+.files tr.row:hover{background:#f8fafb;}
+.files tr.on,.files tr.on:hover{background:#fff6cc;}
+.fi{display:inline-block;width:24px;height:22px;border-radius:4px;color:#fff;font-size:11px;font-weight:800;text-align:center;line-height:22px;margin-right:8px;}
+.fi.folder{background:#c79600;}.fi.doc{background:#2c5ea8;}.fi.xls{background:#2f8f2f;}
+.st{font-weight:700;font-size:13px;}
+.st.okk{color:#2f6b00;}.st.sy{color:#1f6fd0;}
+.linkb{border:none;background:none;color:#1f5fa8;font-weight:700;cursor:pointer;font-size:14px;padding:0;font-family:inherit;text-decoration:underline;}
+.simmsg{margin-top:10px;font-weight:700;font-size:14px;border-radius:8px;padding:8px 12px;display:none;}
+.simmsg.good{display:block;background:#f4faee;color:#2f6b00;}
+.simmsg.warn{display:block;background:#fff6cc;color:#7a5c00;}
+.ov{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(15,32,39,.5);display:flex;align-items:flex-start;justify-content:center;padding:46px 14px;z-index:10;}
+.dlg{background:#fff;border-radius:12px;padding:18px;width:100%;max-width:440px;box-shadow:0 12px 30px rgba(0,0,0,.3);}
+.dlg h4{margin:0 0 10px;font-size:18px;color:#203a43;}
+.dlg label{display:block;font-weight:700;font-size:14px;margin:10px 0 4px;}
+.dlg label.ck{font-weight:400;margin:10px 0 0;}
+.dlg select,.dlg input[type=text],.comp input[type=text]{width:100%;font-size:15px;padding:8px;border:2px solid #b9c6cc;border-radius:8px;font-family:inherit;}
+.dlg select:focus,.dlg input:focus,.comp input:focus{outline:none;border-color:#2c5364;box-shadow:0 0 0 3px rgba(255,217,66,.5);}
+.derr{color:#b02a26;font-weight:700;font-size:13px;margin:8px 0;min-height:4px;}
+.prow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #e6ecef;padding:8px 0;font-size:14px;}
+.prow .pn{flex:1 1 130px;}
+.prow small{display:block;color:#5a6a72;}
+.prow select{width:auto;}
+.prow label.ck{margin:0;}
+/* teams */
+.rail{flex:0 0 88px;background:#203a43;padding:8px 6px;display:flex;flex-direction:column;gap:6px;}
+.rb{background:none;border:none;color:#cfdfe6;padding:11px 2px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;position:relative;font-family:inherit;}
+.rb:hover{background:#27495a;}
+.rb.on{background:#2c5364;color:#ffd942;}
+.dot{position:absolute;top:5px;right:8px;width:11px;height:11px;border-radius:50%;background:#e0392b;border:2px solid #203a43;}
+.list{flex:0 0 168px;background:#eef3f6;padding:8px;font-size:14px;}
+.list h5{margin:4px 6px 6px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#5a6a72;}
+.li{display:block;width:100%;text-align:left;border:none;background:none;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:14px;font-family:inherit;color:#202122;}
+.li small{display:block;color:#5a6a72;font-size:12px;}
+.li:hover{background:#dfe8ed;}
+.li.on{background:#fff;font-weight:700;box-shadow:0 1px 4px rgba(0,0,0,.12);}
+.pane{flex:1;display:flex;flex-direction:column;min-width:0;}
+.phead{padding:8px 14px;border-bottom:2px solid #e6ecef;font-weight:800;color:#203a43;display:flex;gap:14px;align-items:center;flex-wrap:wrap;min-height:46px;}
+.tabb{border:none;background:none;padding:6px 2px;font-weight:700;color:#5a6a72;cursor:pointer;border-bottom:3px solid transparent;font-family:inherit;font-size:14px;}
+.tabb.on{color:#203a43;border-bottom-color:#ffd942;}
+.msgs{flex:1;padding:12px 14px;overflow:auto;max-height:310px;min-height:230px;}
+.msg{margin-bottom:10px;max-width:86%;}
+.msg .who{font-size:12px;font-weight:700;color:#5a6a72;}
+.bub{background:#eef3f6;border-radius:10px;padding:8px 12px;display:inline-block;font-size:14px;text-align:left;}
+.msg.me{margin-left:auto;text-align:right;}
+.msg.me .bub{background:#203a43;color:#fff;}
+.like{font-size:12px;color:#5a6a72;margin-top:2px;}
+.at{color:#a86200;font-weight:800;}
+.msg.me .at{color:#ffd942;}
+.comp{border-top:2px solid #e6ecef;padding:10px 14px;}
+.rowc{display:flex;gap:8px;}
+.rowc input{flex:1;min-width:0;}
+.chips{margin-bottom:6px;font-size:13px;color:#5a6a72;}
+.chipb{border:2px solid #2c5364;background:#fff;color:#203a43;border-radius:999px;padding:2px 10px;font-size:13px;font-weight:700;cursor:pointer;margin:0 4px 4px 0;font-family:inherit;}
+.chipb:hover{background:#fff6cc;}
+.pmsg{margin:0 14px 10px;}
+.frow{display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #e6ecef;font-size:14px;}
+.cam{height:150px;border-radius:10px;background:#0f2027;color:#9db3bd;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:12px;text-align:center;padding:10px;}
+.cam.on{background:linear-gradient(135deg,#7a5c2e,#b98d4a 40%,#4f8aa0);color:#fff;}
+.cam.on.blur{background:linear-gradient(135deg,#8fa3ad,#b9c6cc);color:#203a43;}
+.tog{display:flex;justify-content:space-between;align-items:center;gap:10px;border:2px solid #e6ecef;border-radius:8px;padding:8px 12px;margin-bottom:8px;font-size:14px;}
+.tog b.y{color:#2f6b00;}.tog b.n{color:#b02a26;}
+.due-card{background:linear-gradient(135deg,#1d4d00,#4a8f00);color:#fff;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.15);padding:24px 26px;margin-top:22px;}
+.due-card h2{color:#fff;margin:0 0 6px;font-size:24px;}
+.footer-note{font-size:13px;color:#6b7a82;text-align:center;margin:30px 0 10px;}
+@media (max-width:640px){.hero-title{font-size:28px;}.list{flex-basis:120px;}.simnav{display:none;}.rail{flex-basis:70px;}}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#1d4ed8;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/learning-paths/office-assistant/tech-foundations"><span class="beoc-tb-badge">BEOC</span><span>&larr; Technology Foundations</span></a><a class="beoc-tb-link" href="/learning-paths/office-assistant/tech-foundations/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div class="wrap">
+
+<section class="hero-section fade-in">
+<p class="hero-eyebrow">Week 6 &middot; Practice It! &middot; Interactive Practice</p>
+<h1 class="hero-title">Cloud Skills <span class="hero-title-highlight">Simulator</span></h1>
+<hr class="hero-divider">
+<p class="hero-sub">Sorting games &middot; OneDrive simulator &middot; Teams simulator &middot; no sign-in needed</p>
+</section>
+
+<section class="card">
+<h2>How This Works</h2>
+<p>This page lets you practice with your hands. Drag cards, click buttons, share files, and send messages. Nothing here is real, so you cannot break anything. Try things.</p>
+<p><span class="pill pill-gold">Not graded</span><span class="pill">No sign-in</span><span class="pill">Try as many times as you want</span><span class="pill">Your packet is still the 10 points</span></p>
+<div class="board">
+<div class="tile" id="bG"><span>Part 1 &middot; Sorting Games</span><b>0 / 4</b><i>rounds done</i></div>
+<div class="tile" id="bO"><span>Part 2 &middot; OneDrive Simulator</span><b>0 / 6</b><i>missions done</i></div>
+<div class="tile" id="bT"><span>Part 3 &middot; Teams Simulator</span><b>0 / 6</b><i>missions done</i></div>
+</div>
+<button type="button" class="btn-gold" data-act="jump" data-to="games">Go to Sorting Games</button>
+<button type="button" class="btn-gold btn-dark" data-act="jump" data-to="odcard">Go to OneDrive</button>
+<button type="button" class="btn-gold btn-dark" data-act="jump" data-to="tmcard">Go to Teams</button>
+</section>
+
+<section class="card" id="games">
+<span class="pill pill-gold">Part 1 &middot; Drag and drop</span>
+<h2>Sorting Games</h2>
+<div id="round"></div>
+</section>
+
+<section class="card" id="odcard">
+<span class="pill pill-gold">Part 2 &middot; Click and practice</span>
+<h2>OneDrive Simulator</h2>
+<p>You work at Lakeside Medical Associates. Use this practice OneDrive to finish six missions. Start with mission 1.</p>
+<div class="simwrap">
+<div class="missions" id="odM"></div>
+<div class="sim" id="od"></div>
+</div>
+</section>
+
+<section class="card" id="tmcard">
+<span class="pill pill-gold">Part 3 &middot; Click and practice</span>
+<h2>Teams Simulator</h2>
+<p>This is your first week on the Front Desk team. Use this practice Teams to finish six missions.</p>
+<div class="simwrap">
+<div class="missions" id="tmM"></div>
+<div class="sim" id="tm"></div>
+</div>
+</section>
+
+<section class="due-card">
+<h2>Your Scoreboard</h2>
+<p id="sum" style="margin:0 0 6px;"></p>
+<p id="allDone" style="display:none;font-weight:800;font-size:18px;margin:0 0 6px;">You finished everything. Show this screen to Professor Davis.</p>
+<p style="margin:0;">This page is practice only. Your points come from the Week 6 In-Class Exercise Packet.</p>
+<a class="btn-gold" href="/class-exercises/info3020/week6-cloud-workspace-lab.html">Back to the Exercise Packet Page</a>
+</section>
+
+<p class="footer-note">INFO3020 Digital Literacy I &middot; Week 6: Cloud Storage &amp; Collaboration &middot; Interactive practice, not graded</p>
+</div>
+
+<script>
+(function(){
+function el(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function trim(s){return String(s||'').replace(/^\s+|\s+$/g,'');}
+function btn(act,label,cls,extra){return '<button type="button" class="'+(cls||'tb')+'" data-act="'+act+'"'+(extra||'')+'>'+label+'</button>';}
+function count(a){var n=0,i;for(i=0;i<a.length;i++){if(a[i])n++;}return n;}
+
+/* ================= PART 1: SORTING GAMES ================= */
+var ROUNDS=[
+{t:'Round 1: OneDrive or SharePoint?',p:'Where does each file belong?',
+b:[{k:'od',l:'OneDrive',s:'My own work'},{k:'sp',l:'SharePoint',s:'Shared team files'}],
+c:[
+['A report I am still writing by myself.','od','A draft that belongs to you goes in OneDrive.'],
+['The final staff handbook that everyone reads.','sp','Files for the whole team live in SharePoint.'],
+['My personal notes from today\'s training.','od','Your own notes stay in your OneDrive.'],
+['The patient intake form template for the front desk.','sp','Templates the team shares go in SharePoint.'],
+['An email I am drafting and have not sent yet.','od','Your own drafts go in OneDrive.'],
+['The office billing policy for all staff.','sp','Policies are shared team files.'],
+['The front desk schedule that every worker checks.','sp','Everyone needs it, so it goes in SharePoint.'],
+['My to-do list for this week.','od','Your personal list stays in OneDrive.']
+]},
+{t:'Round 2: Can view, Can edit, or Stop?',p:'Someone needs a file. What do you do?',
+b:[{k:'v',l:'Can view',s:'They can only read it'},{k:'e',l:'Can edit',s:'They can change it'},{k:'x',l:'Stop',s:'Do not share. Ask or remove.'}],
+c:[
+['The billing manager must add this month\'s numbers.','e','A coworker who must change the file needs Can edit.'],
+['An outside doctor\'s office needs to read the referral form.','v','Outside people get Can view.'],
+['A coworker is writing the report with you.','e','Co-authors need Can edit.'],
+['A vendor wants to look at the price list.','v','Looking only means Can view.'],
+['A worker who left the practice last month.','x','People who leave must lose access.'],
+['An outside office asks for a file with patient information (PHI).','x','Ask your supervisor before you share PHI.'],
+['A new hire needs to read the dress code policy.','v','Reading only means Can view.'],
+['A coworker asks for your password to open one file.','x','Never share your password. Share the file the right way.']
+]},
+{t:'Round 3: Where in Teams?',p:'Pick the best place for each message.',
+b:[{k:'c',l:'Private chat',s:'One person'},{k:'h',l:'Channel post',s:'The whole team'},{k:'m',l:'Meeting',s:'Talk and share a screen'},{k:'f',l:'Files tab',s:'Shared documents'},{k:'n',l:'Keep it out',s:'Not for Teams'}],
+c:[
+['Ask your supervisor if you can leave early today.','c','A private question goes in a private chat.'],
+['Tell the whole front desk that the phones are down.','h','News for everyone goes in a channel post.'],
+['Show four coworkers how the new check-in screen works.','m','A meeting lets you talk and share your screen.'],
+['The holiday schedule document that everyone needs.','f','Shared documents go in the Files tab.'],
+['Gossip about a coworker.','n','Teams messages are saved like email. Keep it out.'],
+['Thank one coworker for covering your shift.','c','A message for one person goes in a private chat.'],
+['Remind the billing team that reports are due Friday.','h','A reminder for the group goes in a channel post.'],
+['A patient\'s diagnosis, when Teams is not approved for PHI.','n','Do not put PHI in Teams unless IT says it is approved.']
+]},
+{t:'Round 4: Safe or Risky?',p:'Is each habit safe or risky for cloud files?',
+b:[{k:'s',l:'Safe',s:'Good cloud habit'},{k:'r',l:'Risky',s:'Could cause a data breach'}],
+c:[
+['Turn on MFA for your work account.','s','MFA stops a thief who only has your password.'],
+['Open patient files on coffee shop Wi-Fi.','r','Public Wi-Fi can be watched by other people.'],
+['Sign out when you finish on a shared computer.','s','Signing out closes your session.'],
+['Text your password to a coworker.','r','Never share your password with anyone.'],
+['Set an expiration date on a link for an outside office.','s','The link turns off when it is no longer needed.'],
+['Wait a few days to report a file you sent to the wrong person.','r','Report a wrong share right away.'],
+['Use the office VPN when you work from home.','s','A VPN protects your connection.'],
+['Give an outside vendor Can edit when they only need to read.','r','Give the least access a person needs.'],
+['Remove access for a worker who left the practice.','s','Old access is a common cause of data breaches.'],
+['Sign in to work email on a library computer.','r','Shared public computers can save what you type.']
+]}
+];
+var G={r:0,place:{},miss:{},sel:null,drag:null,shake:null,done:[],first:[],order:[],fb:null};
+function shuffle(n){var a=[],i,j,t;for(i=0;i<n;i++){a.push(i);}for(i=n-1;i>0;i--){j=Math.floor(Math.random()*(i+1));t=a[i];a[i]=a[j];a[j]=t;}return a;}
+function gStart(r){G.r=r;G.place={};G.miss={};G.sel=null;G.drag=null;G.fb=null;G.order=shuffle(ROUNDS[r].c.length);gRender();}
+function gRender(){
+var R=ROUNDS[G.r],n=R.c.length,placed=0,left=0,i,k,h='<div class="rnav">';
+for(i=0;i<n;i++){if(G.place[i])placed++;}
+for(i=0;i<ROUNDS.length;i++){h+='<button type="button" class="rn'+(i===G.r?' on':'')+(G.done[i]?' ok':'')+'" data-act="grnd" data-i="'+i+'">Round '+(i+1)+(G.done[i]?' &#10003;':'')+'</button>';}
+h+='</div><h3>'+R.t+'</h3><p style="margin:0;">'+R.p+' <strong>Drag</strong> a card into a box. You can also <strong>click</strong> a card, then click a box.</p>';
+h+='<div class="tray" id="tray">';
+for(k=0;k<n;k++){i=G.order[k];if(G.place[i])continue;left++;h+='<div class="dcard'+(G.sel===i?' sel':'')+(G.shake===i?' shake':'')+'" draggable="true" data-act="gsel" data-i="'+i+'" tabindex="0" role="button">'+R.c[i][0]+'</div>';}
+if(!left){h+='<span class="trayok">All cards are placed.</span>';}
+h+='</div><div class="buckets">';
+for(k=0;k<R.b.length;k++){
+h+='<div class="bucket" data-act="gdrop" data-b="'+R.b[k].k+'" tabindex="0" role="button" aria-label="Box: '+R.b[k].l+'"><div class="bl">'+R.b[k].l+'<small>'+R.b[k].s+'</small></div><div class="bz">';
+for(i=0;i<n;i++){if(G.place[i]===R.b[k].k){h+='<div class="chip">&#10003; '+R.c[i][0]+'</div>';}}
+h+='</div></div>';
+}
+h+='</div><div class="fb '+(G.fb?G.fb[0]:'')+'" id="gfb">'+(G.fb?G.fb[1]:'')+'</div><div>';
+h+=btn('greset','Start this round again','btn-gold btn-dark');
+if(G.r<ROUNDS.length-1){h+=btn('gnext','Next round','btn-gold');}
+h+='<span class="score">'+placed+' of '+n+' placed'+(G.done[G.r]&&placed===n?' &middot; first-try score '+G.first[G.r]+' / '+n:'')+'</span></div>';
+el('round').innerHTML=h;G.shake=null;
+}
+function gPlace(i,b){
+var R=ROUNDS[G.r],c=R.c[i],all=true,m=0,k;
+if(i===null||i===undefined||!c||G.place[i])return;
+if(c[1]===b){
+G.place[i]=b;G.sel=null;G.fb=['good','Correct. '+c[2]];
+for(k=0;k<R.c.length;k++){if(!G.place[k])all=false;if(G.miss[k])m++;}
+if(all){G.done[G.r]=true;G.first[G.r]=R.c.length-m;G.fb=['good','Round complete. First-try score: '+(R.c.length-m)+' / '+R.c.length+'. '+(G.r<ROUNDS.length-1?'Click Next round.':'You finished the sorting games. Scroll down to the OneDrive Simulator.')];}
+}else{G.miss[i]=true;G.shake=i;G.sel=null;G.fb=['bad','Not there. Read the card again and try a different box.'];}
+gRender();board();
+}
+function gAct(a,t){
+if(a==='gsel'){var i=Number(t.getAttribute('data-i'));G.sel=(G.sel===i?null:i);G.fb=(G.sel===null?null:['warn','Card picked. Now click a box.']);gRender();}
+else if(a==='gdrop'){if(G.sel===null){G.fb=['warn','Pick a card first. Then click a box.'];gRender();}else{gPlace(G.sel,t.getAttribute('data-b'));}}
+else if(a==='greset'){gStart(G.r);}
+else if(a==='gnext'){gStart(Math.min(G.r+1,ROUNDS.length-1));}
+else if(a==='grnd'){gStart(Number(t.getAttribute('data-i')));}
+}
+var rd=el('round');
+function up(e,sel){var t=e.target;if(t&&t.nodeType===3)t=t.parentNode;return t&&t.closest?t.closest(sel):null;}
+rd.addEventListener('dragstart',function(e){var c=up(e,'.dcard');if(!c)return;G.drag=Number(c.getAttribute('data-i'));try{e.dataTransfer.setData('text/plain',String(G.drag));e.dataTransfer.effectAllowed='move';}catch(x){}});
+rd.addEventListener('dragover',function(e){var b=up(e,'.bucket');if(b){e.preventDefault();b.classList.add('over');}});
+rd.addEventListener('dragleave',function(e){var b=up(e,'.bucket');if(b&&!b.contains(e.relatedTarget))b.classList.remove('over');});
+rd.addEventListener('drop',function(e){var b=up(e,'.bucket');if(!b)return;e.preventDefault();var i=G.drag;G.drag=null;if(i!==null)gPlace(i,b.getAttribute('data-b'));});
+rd.addEventListener('dragend',function(){G.drag=null;});
+
+/* ================= shared mission panel ================= */
+function missions(host,M,done,how,pre){
+var cur=-1,i,h='<h3>Your missions</h3>';
+for(i=0;i<M.length;i++){if(!done[i]&&cur<0)cur=i;}
+for(i=0;i<M.length;i++){
+h+='<div class="mi'+(done[i]?' ok':(i===cur?' cur':''))+'"><span class="n">'+(done[i]?'&#10003;':(i+1))+'</span><span>'+M[i][0]+'</span></div>';
+if(i===cur&&how){h+='<div class="how"><strong>How:</strong> '+M[i][1]+'</div>';}
+}
+if(cur<0){h+='<div class="fb good">All six missions complete. Nice work.</div>';}
+else{h+=btn(pre+'how',how?'Hide the steps':'Show me how','tb');}
+h+=' '+btn(pre+'reset','Start over','tb');
+el(host).innerHTML=h;
+}
+
+/* ================= PART 2: ONEDRIVE SIMULATOR ================= */
+var LMA='lma cloud practice';
+var PEOPLE=[['Maria Lopez','Front desk coworker'],['Sam Chen','Billing manager'],["Dr. Patel's Office",'Outside your company'],['Jordan Lee','Left the practice last week']];
+var ODM=[
+['Make a new folder in My files. Name it <strong>LMA Cloud Practice</strong>.','Click <strong>+ New</strong>. Choose <strong>Folder</strong>. Type the name. Click <strong>Create</strong>.'],
+['Open that folder. Make a Word document named <strong>CloudTest</strong>.','Click the folder name to open it. Click <strong>+ New</strong>. Choose <strong>Word document</strong>. Type CloudTest. Click <strong>Create</strong>.'],
+['Dr. Patel\'s office is outside your company. They need to <strong>read</strong> the Referral Form. Share it the safe way.','Click <strong>My files</strong> to go back. Click <strong>Referral Form</strong> to select it. Click <strong>Share</strong>. Choose Dr. Patel\'s Office. Choose <strong>Can view</strong>. Check the expiration date box. Click <strong>Send</strong>.'],
+['Sam Chen, the billing manager, must <strong>add numbers</strong> to the Expense Report. Share it so Sam can change it.','Select <strong>Expense Report</strong>. Click <strong>Share</strong>. Choose Sam Chen. Choose <strong>Can edit</strong>. Click <strong>Send</strong>.'],
+['Jordan Lee left the practice last week but can still open Front Desk Procedures. Fix it.','Select <strong>Front Desk Procedures</strong>. Click <strong>Manage access</strong>. Find Jordan Lee. Click <strong>Remove</strong>.'],
+['You saved over the Monthly Report by mistake at 2:15 PM. Bring back the <strong>9:05 AM</strong> version.','Select <strong>Monthly Report</strong>. Click <strong>Version history</strong>. Find Today 9:05 AM. Click <strong>Restore</strong>.']
+];
+function odInit(){return {path:'',sel:null,menu:false,dlg:null,msg:null,how:false,seq:0,items:[
+{id:'f1',type:'folder',name:'Documents',path:''},
+{id:'d1',type:'doc',name:'Referral Form.docx',path:'',st:'ok',share:[]},
+{id:'d2',type:'xls',name:'Expense Report.xlsx',path:'',st:'ok',share:[]},
+{id:'d3',type:'doc',name:'Front Desk Procedures.docx',path:'',st:'ok',share:[{who:'Maria Lopez',perm:'view',exp:false},{who:'Jordan Lee',perm:'edit',exp:false}]},
+{id:'d4',type:'doc',name:'Monthly Report.docx',path:'',st:'ok',share:[],cur:'v3',ver:[{k:'v3',t:'Today 2:15 PM',n:'Saved over by mistake'},{k:'v2',t:'Today 9:05 AM',n:'The complete report'},{k:'v1',t:'Yesterday 4:40 PM',n:'First draft'}]}
+]};}
+var OD=odInit();
+function odGet(id){var i;for(i=0;i<OD.items.length;i++){if(OD.items[i].id===id)return OD.items[i];}return null;}
+function odFolder(){var i,it;for(i=0;i<OD.items.length;i++){it=OD.items[i];if(it.type==='folder'&&it.name.toLowerCase()===LMA)return it;}return null;}
+function hasShare(it,who){var i;for(i=0;i<it.share.length;i++){if(it.share[i].who===who)return it.share[i];}return null;}
+function role(who){var i;for(i=0;i<PEOPLE.length;i++){if(PEOPLE[i][0]===who)return PEOPLE[i][1];}return '';}
+function odDone(){
+var f=odFolder(),d=[false,false,false,false,false,false],i,it,s;
+d[0]=!!f;
+if(f){for(i=0;i<OD.items.length;i++){it=OD.items[i];if(it.type==='doc'&&it.path===f.name&&it.name.toLowerCase().indexOf('cloudtest')===0)d[1]=true;}}
+s=hasShare(odGet('d1'),"Dr. Patel's Office");d[2]=!!(s&&s.perm==='view'&&s.exp);
+s=hasShare(odGet('d2'),'Sam Chen');d[3]=!!(s&&s.perm==='edit');
+d[4]=!hasShare(odGet('d3'),'Jordan Lee');
+d[5]=odGet('d4').cur==='v2';
+return d;
+}
+function stHTML(st){return st==='sync'?'<span class="st sy">&#8635; Syncing</span>':'<span class="st okk">&#10003; Synced</span>';}
+function odDialog(){
+var d=OD.dlg,it=OD.sel?odGet(OD.sel):null,h='<div class="ov"><div class="dlg" role="dialog">',i,s,v;
+if(d.type==='folder'||d.type==='doc'){
+h+='<h4>'+(d.type==='folder'?'New folder':'New Word document')+'</h4><label for="oddname">Name</label><input type="text" id="oddname" value="'+esc(d.name||'')+'" placeholder="'+(d.type==='folder'?'Folder name':'Document name')+'"><div class="derr">'+(d.err||'')+'</div>'+btn('oddlgok','Create','tb pri')+' '+btn('oddlgx','Cancel','tb');
+}else if(d.type==='share'){
+h+='<h4>Share &ldquo;'+esc(it.name)+'&rdquo;</h4><label for="odwho">Who needs this file?</label><select id="odwho"><option value="">Choose a person</option>';
+for(i=0;i<PEOPLE.length;i++){h+='<option value="'+esc(PEOPLE[i][0])+'"'+(d.who===PEOPLE[i][0]?' selected':'')+'>'+esc(PEOPLE[i][0])+' ('+PEOPLE[i][1]+')</option>';}
+h+='</select><label for="odperm">Permission</label><select id="odperm"><option value="edit"'+(d.perm!=='view'?' selected':'')+'>Can edit</option><option value="view"'+(d.perm==='view'?' selected':'')+'>Can view</option></select>';
+h+='<label class="ck"><input type="checkbox" id="odexp"'+(d.exp?' checked':'')+'> Set an expiration date. The link turns off in 7 days.</label><div class="derr">'+(d.err||'')+'</div>'+btn('oddlgok','Send','tb pri')+' '+btn('oddlgx','Cancel','tb');
+}else if(d.type==='access'){
+h+='<h4>Manage access: &ldquo;'+esc(it.name)+'&rdquo;</h4>';
+if(!it.share.length){h+='<p>Only you can open this file.</p>';}
+for(i=0;i<it.share.length;i++){s=it.share[i];
+h+='<div class="prow"><div class="pn"><strong>'+esc(s.who)+'</strong><small>'+role(s.who)+'</small></div><select data-chg="odperm" data-i="'+i+'" aria-label="Permission for '+esc(s.who)+'"><option value="view"'+(s.perm==='view'?' selected':'')+'>Can view</option><option value="edit"'+(s.perm==='edit'?' selected':'')+'>Can edit</option></select><label class="ck"><input type="checkbox" data-chg="odexp" data-i="'+i+'"'+(s.exp?' checked':'')+'> Expires</label>'+btn('odrm','Remove','tb',' data-i="'+i+'"')+'</div>';}
+h+='<div style="margin-top:12px;">'+btn('oddlgx','Done','tb pri')+'</div>';
+}else if(d.type==='ver'){
+h+='<h4>Version history: &ldquo;'+esc(it.name)+'&rdquo;</h4>';
+if(!it.ver){h+='<p>This file has 1 version. There is nothing to restore.</p>';}
+else{for(i=0;i<it.ver.length;i++){v=it.ver[i];h+='<div class="prow"><div class="pn"><strong>'+v.t+'</strong><small>'+v.n+'</small></div>'+(it.cur===v.k?'<span class="pill pill-gold" style="margin:0;">Current version</span>':btn('odrestore','Restore','tb',' data-k="'+v.k+'"'))+'</div>';}}
+h+='<div style="margin-top:12px;">'+btn('oddlgx','Close','tb pri')+'</div>';
+}
+return h+'</div></div>';
+}
+function odRender(){
+var h='',i,it,rows='',sel=OD.sel?odGet(OD.sel):null,isFile=!!(sel&&sel.type!=='folder'),dis=isFile?'':' disabled';
+h+='<div class="simbar"><b>OneDrive Practice</b><span>Simulation. This is not the real OneDrive.</span></div><div class="simbody"><div class="simnav"><div class="navi on">My files</div><div class="navi dim">Shared</div><div class="navi dim">Recycle bin</div></div><div class="simmain">';
+h+='<div class="crumb">'+(OD.path?'<button type="button" class="linkb" data-act="odroot">My files</button> &rsaquo; <strong>'+esc(OD.path)+'</strong>':'<strong>My files</strong>')+'</div>';
+h+='<div class="tools">'+btn('odnew','+ New','tb pri')+btn('odshare','Share','tb',dis)+btn('odaccess','Manage access','tb',dis)+btn('odver','Version history','tb',dis);
+if(OD.menu){h+='<div class="menu">'+btn('odnewfolder','Folder','mb')+btn('odnewdoc','Word document','mb')+'</div>';}
+h+='</div>';
+for(i=0;i<OD.items.length;i++){it=OD.items[i];if(it.path!==OD.path)continue;
+rows+='<tr class="row'+(OD.sel===it.id?' on':'')+'" data-act="odsel" data-id="'+it.id+'"><td><span class="fi '+it.type+'">'+(it.type==='folder'?'&#9776;':(it.type==='xls'?'X':'W'))+'</span>'+(it.type==='folder'?'<button type="button" class="linkb" data-act="odopen" data-id="'+it.id+'">'+esc(it.name)+'</button>':esc(it.name))+'</td><td id="odst-'+it.id+'">'+(it.type==='folder'?'':stHTML(it.st))+'</td><td>'+(it.type==='folder'?'':(it.share.length?'Shared with '+it.share.length:'Private'))+'</td></tr>';}
+h+='<table class="files"><tr><th>Name</th><th>Status</th><th>Sharing</th></tr>'+(rows||'<tr><td colspan="3">This folder is empty. Click + New.</td></tr>')+'</table>';
+h+='<p class="note">'+(isFile?'Selected: <strong>'+esc(sel.name)+'</strong>. Now choose Share, Manage access, or Version history.':'Click a file to select it. Then use the buttons above.')+'</p>';
+h+='<div class="simmsg '+(OD.msg?OD.msg[0]:'')+'" id="odmsg">'+(OD.msg?OD.msg[1]:'')+'</div></div></div>';
+if(OD.dlg){h+=odDialog();}
+el('od').innerHTML=h;
+missions('odM',ODM,odDone(),OD.how,'od');
+var inp=el('oddname');if(inp){inp.focus();try{inp.setSelectionRange(inp.value.length,inp.value.length);}catch(x){}}
+}
+function odSubmit(d,it){
+var done=odDone(),f=odFolder(),name,id,s,i,out;
+if(d.type==='folder'){
+name=trim(el('oddname').value);d.name=name;
+if(!name){d.err='Type a name for the folder.';return;}
+if(OD.path){d.err='Go back to My files first. Make the folder there.';return;}
+if(!done[0]&&name.toLowerCase()!==LMA){d.err='For this mission, name the folder exactly: LMA Cloud Practice';return;}
+for(i=0;i<OD.items.length;i++){if(OD.items[i].type==='folder'&&OD.items[i].name.toLowerCase()===name.toLowerCase()){d.err='A folder with that name is already here.';return;}}
+OD.items.push({id:'n'+(++OD.seq),type:'folder',name:name,path:''});OD.dlg=null;
+OD.msg=['good','Folder created: '+esc(name)+'. Click its name to open it.'];
+}else if(d.type==='doc'){
+name=trim(el('oddname').value);d.name=name;
+if(!name){d.err='Type a name for the document.';return;}
+if(!done[1]){
+if(!f||OD.path!==f.name){d.err='Open the LMA Cloud Practice folder first. Then make the document inside it.';return;}
+if(name.toLowerCase().indexOf('cloudtest')!==0){d.err='For this mission, name the document CloudTest.';return;}
+}
+if(!/\.docx$/i.test(name))name+='.docx';
+id='n'+(++OD.seq);OD.items.push({id:id,type:'doc',name:name,path:OD.path,st:'sync',share:[]});OD.dlg=null;OD.sel=id;
+OD.msg=['good','Document created. Watch the Status column change from Syncing to Synced. Synced means it is saved in the cloud.'];
+setTimeout(function(){var x=odGet(id),c;if(!x)return;x.st='ok';c=el('odst-'+id);if(c)c.innerHTML=stHTML('ok');},1800);
+}else if(d.type==='share'){
+d.who=el('odwho').value;d.perm=el('odperm').value;d.exp=el('odexp').checked;
+if(!d.who){d.err='Choose a person.';return;}
+if(d.who==='Jordan Lee'){d.err='Jordan Lee left the practice. Do not share files with people who have left.';return;}
+s=hasShare(it,d.who);if(s){s.perm=d.perm;s.exp=d.exp;}else{it.share.push({who:d.who,perm:d.perm,exp:d.exp});}
+OD.dlg=null;out=(d.who==="Dr. Patel's Office");
+if(out&&d.perm==='edit'){OD.msg=['warn','Sent, but there is a problem. An outside office should only read the file. Click Manage access and change it to Can view.'];}
+else if(out&&!d.exp){OD.msg=['warn','Sent, but a link for an outside office needs an expiration date. Click Manage access and check Expires.'];}
+else if(it.id==='d2'&&d.who==='Sam Chen'&&d.perm==='view'){OD.msg=['warn','Sent, but Sam must add numbers. Click Manage access and change Sam to Can edit.'];}
+else{OD.msg=['good','Sent. '+esc(d.who)+' got a link, not an attachment. Permission: '+(d.perm==='edit'?'Can edit':'Can view')+(d.exp?'. The link expires in 7 days.':'.')];}
+}
+}
+function odAfter(before){
+var after=odDone(),i,note='';
+for(i=0;i<after.length;i++){if(after[i]&&!before[i])note+='Mission '+(i+1)+' complete. ';}
+if(note){OD.msg=[(OD.msg&&OD.msg[0]==='warn')?'warn':'good',note+(OD.msg?OD.msg[1]:'')];}
+odRender();board();
+}
+function odAct(a,t){
+var it=OD.sel?odGet(OD.sel):null,isFile=!!(it&&it.type!=='folder'),d=OD.dlg,before=odDone(),i,v;
+if(a!=='odnew')OD.menu=false;
+if(a==='odroot'){OD.path='';OD.sel=null;}
+else if(a==='odopen'){it=odGet(t.getAttribute('data-id'));OD.path=it.name;OD.sel=null;OD.msg=null;}
+else if(a==='odsel'){OD.sel=t.getAttribute('data-id');}
+else if(a==='odnew'){OD.menu=!OD.menu;}
+else if(a==='odnewfolder'){OD.dlg={type:'folder'};}
+else if(a==='odnewdoc'){OD.dlg={type:'doc'};}
+else if(a==='odshare'&&isFile){OD.dlg={type:'share',perm:'edit'};}
+else if(a==='odaccess'&&isFile){OD.dlg={type:'access'};}
+else if(a==='odver'&&isFile){OD.dlg={type:'ver'};}
+else if(a==='oddlgx'){OD.dlg=null;}
+else if(a==='odhow'){OD.how=!OD.how;}
+else if(a==='odreset'){OD=odInit();before=odDone();}
+else if(a==='odrm'&&isFile){i=Number(t.getAttribute('data-i'));v=it.share[i].who;it.share.splice(i,1);OD.msg=['good',esc(v)+' can no longer open '+esc(it.name)+'.'];}
+else if(a==='odrestore'&&isFile){v=t.getAttribute('data-k');it.cur=v;OD.dlg=null;OD.msg=(it.id==='d4'&&v!=='v2')?['warn','Restored, but that is not the 9:05 AM version. Open Version history and try again.']:['good','Restored. The file is back to the version you chose.'];}
+else if(a==='oddlgok'&&d){odSubmit(d,it);}
+odAfter(before);
+}
+
+/* ================= PART 3: TEAMS SIMULATOR ================= */
+var TMM=[
+['Start of your shift. Open <strong>Activity</strong> to see who mentioned you.','Click <strong>Activity</strong> on the left side.'],
+['Ask your supervisor, Ms. Rivera, a <strong>private</strong> question: can you leave at 4:00 today?','Click <strong>Chat</strong>. Click <strong>Ms. Rivera</strong>. Type your question as a full sentence. Click <strong>Send</strong>.'],
+['Tell the <strong>whole team</strong> that the Friday schedule changed. Post it in the <strong>Scheduling</strong> channel.','Click <strong>Teams</strong>. Click <strong>Scheduling</strong>. Type your post. Click <strong>Post</strong>.'],
+['Get Maria\'s attention in a channel post. Use an <strong>@mention</strong>.','Click <strong>Teams</strong> and pick a channel. Click the <strong>@Maria Lopez</strong> button under Mention. Add your message. Click <strong>Post</strong>.'],
+['Put the <strong>Patient Intake Template</strong> where the whole team can find it.','Click <strong>Teams</strong>. Click <strong>General</strong>. Click the <strong>Files</strong> tab. Click <strong>Upload</strong>. Choose Patient Intake Template.'],
+['Join the 2:00 PM staff meeting like a professional: camera on, microphone muted, background blurred.','Click <strong>Calendar</strong>. Click <strong>Join</strong>. Turn the camera on. Mute the microphone. Turn on background blur. Click <strong>Join now</strong>.']
+];
+var TMGEN=0,TPL='Patient Intake Template.docx';
+function tmInit(){return {view:'chat',chat:'maria',ch:'general',tab:'posts',dlg:false,dlgErr:'',seen:false,how:false,msg:null,draft:'',meetOk:false,
+chats:{rivera:{n:'Ms. Rivera',r:'Your supervisor',m:[{f:'Ms. Rivera',t:'Good morning. Message me here if you need anything.'}]},maria:{n:'Maria Lopez',r:'Front desk coworker',m:[{f:'Maria Lopez',t:'Hi! Welcome to the team.'}]}},
+chs:{general:{n:'General',m:[{f:'Ms. Rivera',t:'Welcome to the Front Desk team channel.'}],files:['Front Desk Phone List.xlsx']},scheduling:{n:'Scheduling',m:[{f:'Ms. Rivera',t:'@You please confirm that you can cover Friday morning.'}],files:[]},announce:{n:'Announcements',m:[{f:'Ms. Rivera',t:'Reminder: staff meeting today at 2:00 PM.'}],files:[]}},
+meet:{stage:'none',cam:false,mic:true,blur:false}};}
+var TM=tmInit();
+function mine(list,test){var i;for(i=0;i<list.length;i++){if(list[i].f==='You'&&(!test||test(list[i].t)))return true;}return false;}
+function longEnough(t){return t.replace(/\s+/g,' ').length>=8;}
+function hasMaria(t){return /@maria/i.test(t);}
+function tmDone(){
+var d=[],k,m4=false,f5=false;
+d[0]=TM.seen;d[1]=mine(TM.chats.rivera.m,longEnough);d[2]=mine(TM.chs.scheduling.m,longEnough);
+for(k in TM.chs){if(Object.prototype.hasOwnProperty.call(TM.chs,k)){if(mine(TM.chs[k].m,hasMaria))m4=true;if(TM.chs[k].files.indexOf(TPL)>=0)f5=true;}}
+d[3]=m4;d[4]=f5;d[5]=TM.meetOk;return d;
+}
+function fmt(t){return esc(t).replace(/@(Maria Lopez|Ms\. Rivera|channel|You)/g,'<span class="at">@$1</span>');}
+function msgsHTML(list){var h='',i,m;for(i=0;i<list.length;i++){m=list[i];h+='<div class="msg'+(m.f==='You'?' me':'')+'"><div class="who">'+esc(m.f)+'</div><div class="bub">'+fmt(m.t)+'</div>'+(m.like?'<div class="like">&#128077; Maria Lopez liked this</div>':'')+'</div>';}return h;}
+function compose(label,ph,chips){
+var h='<div class="comp">';
+if(chips){h+='<div class="chips">Mention: <button type="button" class="chipb" data-act="tmchip" data-m="@Maria Lopez">@Maria Lopez</button><button type="button" class="chipb" data-act="tmchip" data-m="@Ms. Rivera">@Ms. Rivera</button><button type="button" class="chipb" data-act="tmchip" data-m="@channel">@channel</button></div>';}
+return h+'<div class="rowc"><input type="text" id="tmin" placeholder="'+ph+'" aria-label="'+ph+'">'+btn('tmsend',label,'tb pri')+'</div></div>';
+}
+function tmRender(){
+var inp=el('tmin'),foc=!!(inp&&document.activeElement===inp),V=[['activity','Activity'],['chat','Chat'],['teams','Teams'],['calendar','Calendar']],i,k,c,M=TM.meet,ms;
+if(inp)TM.draft=inp.value;
+var h='<div class="simbar"><b>Teams Practice</b><span>Simulation. This is not the real Teams.</span></div><div class="simbody"><div class="rail">';
+for(i=0;i<V.length;i++){h+='<button type="button" class="rb'+(TM.view===V[i][0]?' on':'')+'" data-act="tmview" data-v="'+V[i][0]+'">'+V[i][1]+(V[i][0]==='activity'&&!TM.seen?'<span class="dot" title="New"></span>':'')+'</button>';}
+h+='</div>';
+if(TM.view==='activity'){
+h+='<div class="pane"><div class="phead">Activity</div><div class="msgs"><p style="margin:0 0 8px;"><strong>Ms. Rivera mentioned you</strong> in Front Desk &rsaquo; Scheduling</p><div class="bub">'+fmt(TM.chs.scheduling.m[0].t)+'</div><p>'+btn('tmgoto','Go to the post','tb')+'</p><p class="note">The Activity feed shows every message that mentions you. Check it at the start of each shift.</p></div>';
+}else if(TM.view==='chat'){
+h+='<div class="list"><h5>Chats</h5>';
+for(k in TM.chats){if(Object.prototype.hasOwnProperty.call(TM.chats,k)){h+='<button type="button" class="li'+(TM.chat===k?' on':'')+'" data-act="tmchat" data-k="'+k+'">'+TM.chats[k].n+'<small>'+TM.chats[k].r+'</small></button>';}}
+c=TM.chats[TM.chat];
+h+='</div><div class="pane"><div class="phead">'+c.n+' <span class="pill" style="margin:0;">Private chat</span></div><div class="msgs" id="tmmsgs">'+msgsHTML(c.m)+'</div>'+compose('Send','Type a message to '+c.n,false);
+}else if(TM.view==='teams'){
+h+='<div class="list"><h5>Front Desk team</h5>';
+for(k in TM.chs){if(Object.prototype.hasOwnProperty.call(TM.chs,k)){h+='<button type="button" class="li'+(TM.ch===k?' on':'')+'" data-act="tmch" data-k="'+k+'"># '+TM.chs[k].n+'</button>';}}
+c=TM.chs[TM.ch];
+h+='</div><div class="pane"><div class="phead"># '+c.n+' <button type="button" class="tabb'+(TM.tab==='posts'?' on':'')+'" data-act="tmtab" data-t="posts">Posts</button><button type="button" class="tabb'+(TM.tab==='files'?' on':'')+'" data-act="tmtab" data-t="files">Files</button></div>';
+if(TM.tab==='posts'){h+='<div class="msgs" id="tmmsgs">'+msgsHTML(c.m)+'</div>'+compose('Post','Start a post in '+c.n,true);}
+else{h+='<div class="msgs"><p style="margin:0 0 8px;">'+btn('tmupload','Upload','tb pri')+'</p>';
+if(!c.files.length){h+='<p class="note">No files in this channel yet.</p>';}
+for(i=0;i<c.files.length;i++){h+='<div class="frow"><span class="fi '+(/xlsx$/.test(c.files[i])?'xls">X':'doc">W')+'</span>'+esc(c.files[i])+'</div>';}
+h+='<p class="note">Files here are stored for the whole team. Everyone on the Front Desk team can open them.</p></div>';}
+}else{
+h+='<div class="pane"><div class="phead">Calendar</div><div class="msgs" style="max-height:none;">';
+if(M.stage==='none'){h+='<p style="margin:0 0 8px;"><strong>Today</strong></p><div class="frow"><div style="flex:1;"><strong>Staff Meeting</strong><br><span class="note" style="margin:0;">2:00 PM &middot; Front Desk team &middot; Host: Ms. Rivera</span></div>'+btn('tmjoin','Join','tb pri')+'</div>';}
+else if(M.stage==='preview'){
+h+='<p style="margin:0 0 8px;"><strong>Before you join.</strong> Check your camera and microphone.</p><div class="cam'+(M.cam?' on':'')+(M.cam&&M.blur?' blur':'')+'">'+(M.cam?(M.blur?'Camera is on. Your background is blurred.':'Camera is on. People can see the room behind you.'):'Camera is off')+'</div>';
+h+='<div class="tog"><span>Camera: <b class="'+(M.cam?'y':'n')+'">'+(M.cam?'On':'Off')+'</b></span>'+btn('tmtog',M.cam?'Turn camera off':'Turn camera on','tb',' data-k="cam"')+'</div>';
+h+='<div class="tog"><span>Microphone: <b class="'+(M.mic?'n':'y')+'">'+(M.mic?'On. People can hear you.':'Muted')+'</b></span>'+btn('tmtog',M.mic?'Mute':'Unmute','tb',' data-k="mic"')+'</div>';
+h+='<div class="tog"><span>Background blur: <b class="'+(M.blur?'y':'n')+'">'+(M.blur?'On':'Off')+'</b></span>'+btn('tmtog',M.blur?'Turn blur off':'Turn blur on','tb',' data-k="blur"')+'</div>';
+h+=btn('tmjoinnow','Join now','tb pri')+' '+btn('tmleave','Cancel','tb');}
+else if(M.stage==='lobby'){h+='<div class="cam on'+(M.blur?' blur':'')+'">You are in the lobby.<br>Waiting for the host to let you in...</div>';}
+else{h+='<div class="cam on'+(M.blur?' blur':'')+'">You are in the Staff Meeting with 4 people.</div><p class="note" style="margin:0 0 10px;">Stay muted while other people talk. Unmute when it is your turn.</p>'+btn('tmtog',M.mic?'Mute':'Unmute','tb',' data-k="mic"')+' '+btn('tmleave','Leave','tb');}
+h+='</div>';
+}
+h+='<div class="simmsg pmsg '+(TM.msg?TM.msg[0]:'')+'" id="tmmsg">'+(TM.msg?TM.msg[1]:'')+'</div></div></div>';
+if(TM.dlg){
+h+='<div class="ov"><div class="dlg" role="dialog"><h4>Upload a file</h4><p style="margin:0 0 8px;">Choose a file from your computer.</p>';
+var PF=[TPL,'My Lunch Order.docx','Vacation Photo.jpg'];
+for(i=0;i<PF.length;i++){h+='<div class="prow"><div class="pn">'+PF[i]+'</div>'+btn('tmpick','Choose','tb',' data-n="'+PF[i]+'"')+'</div>';}
+h+='<div class="derr">'+TM.dlgErr+'</div>'+btn('tmdlgx','Cancel','tb')+'</div></div>';
+}
+el('tm').innerHTML=h;
+missions('tmM',TMM,tmDone(),TM.how,'tm');
+inp=el('tmin');
+if(inp){inp.value=TM.draft;if(foc){inp.focus();try{inp.setSelectionRange(inp.value.length,inp.value.length);}catch(x){}}}
+ms=el('tmmsgs');if(ms)ms.scrollTop=ms.scrollHeight;
+}
+function tmAfter(before){
+var after=tmDone(),i,note='';
+for(i=0;i<after.length;i++){if(after[i]&&!before[i])note+='Mission '+(i+1)+' complete. ';}
+if(note){TM.msg=[(TM.msg&&TM.msg[0]==='warn')?'warn':'good',note+(TM.msg?TM.msg[1]:'')];}
+tmRender();board();
+}
+function tip(txt){
+var letters=txt.replace(/[^A-Za-z]/g,'');
+if(/@channel/i.test(txt))return ['warn','Posted. Remember: use @channel only for urgent news that the whole team needs.'];
+if(letters.length>=6&&letters===letters.toUpperCase())return ['warn','Sent. Tip: all capital letters read like shouting. Use normal sentences.'];
+return null;
+}
+function clearIn(){var x=el('tmin');if(x)x.value='';TM.draft='';}
+function tmAct(a,t){
+var before=tmDone(),g=TMGEN,inp,txt,where,m,k,M=TM.meet;
+if(a==='tmview'){TM.view=t.getAttribute('data-v');TM.msg=null;clearIn();if(TM.view==='activity')TM.seen=true;if(M.stage==='preview'||M.stage==='lobby')M.stage='none';}
+else if(a==='tmgoto'){TM.view='teams';TM.ch='scheduling';TM.tab='posts';}
+else if(a==='tmchat'){TM.chat=t.getAttribute('data-k');TM.msg=null;clearIn();}
+else if(a==='tmch'){TM.ch=t.getAttribute('data-k');TM.tab='posts';TM.msg=null;clearIn();}
+else if(a==='tmtab'){TM.tab=t.getAttribute('data-t');TM.msg=null;}
+else if(a==='tmhow'){TM.how=!TM.how;}
+else if(a==='tmreset'){TMGEN++;clearIn();TM=tmInit();before=tmDone();}
+else if(a==='tmchip'){inp=el('tmin');if(inp){inp.value=(inp.value?inp.value.replace(/\s*$/,' '):'')+t.getAttribute('data-m')+' ';inp.focus();}return;}
+else if(a==='tmsend'){
+inp=el('tmin');txt=trim(inp?inp.value:'');
+if(!txt){TM.msg=['warn','Type a message first.'];}
+else{clearIn();
+if(TM.view==='chat'){where=TM.chat;TM.chats[where].m.push({f:'You',t:txt});
+TM.msg=tip(txt)||['good','Sent to '+TM.chats[where].n+' only. No one else can see this chat.'];
+setTimeout(function(){if(g!==TMGEN)return;TM.chats[where].m.push({f:TM.chats[where].n,t:(where==='rivera'?'Thanks for checking with me. I will get back to you soon.':'Got it. Thank you!')});tmRender();},1300);}
+else{where=TM.ch;m={f:'You',t:txt};TM.chs[where].m.push(m);
+TM.msg=tip(txt)||((!before[2]&&where!=='scheduling'&&!hasMaria(txt))?['warn','Posted in '+TM.chs[where].n+'. For the schedule news, use the Scheduling channel.']:['good','Posted in '+TM.chs[where].n+'. Everyone on the Front Desk team can see it.']);
+setTimeout(function(){if(g!==TMGEN)return;m.like=true;tmRender();},1200);}
+}}
+else if(a==='tmupload'){TM.dlg=true;TM.dlgErr='';}
+else if(a==='tmdlgx'){TM.dlg=false;}
+else if(a==='tmpick'){k=t.getAttribute('data-n');
+if(k!==TPL){TM.dlgErr='That file is personal. It does not belong in the team Files tab. Choose the Patient Intake Template.';}
+else if(TM.chs[TM.ch].files.indexOf(TPL)>=0){TM.dlg=false;TM.msg=['warn','That file is already in this channel.'];}
+else{TM.chs[TM.ch].files.push(TPL);TM.dlg=false;TM.msg=['good','Uploaded to the Files tab of '+TM.chs[TM.ch].n+'. The whole team can open it.'];}}
+else if(a==='tmjoin'){M.stage='preview';M.cam=false;M.mic=true;M.blur=false;TM.msg=null;}
+else if(a==='tmtog'){k=t.getAttribute('data-k');M[k]=!M[k];TM.msg=null;}
+else if(a==='tmleave'){TM.msg=(M.stage==='in'?['good','You left the meeting.']:null);M.stage='none';}
+else if(a==='tmjoinnow'){
+if(M.cam&&!M.mic&&M.blur){M.stage='lobby';TM.msg=null;
+setTimeout(function(){if(g!==TMGEN||TM.meet.stage!=='lobby')return;var b=tmDone();TM.meet.stage='in';TM.meetOk=true;TM.msg=['good','The host let you in. You joined with your camera on, your microphone muted, and your background blurred.'];tmAfter(b);},1800);}
+else{TM.msg=['warn','Not ready yet. Check all three: camera on, microphone muted, background blur on.'];}
+}
+tmAfter(before);
+}
+
+/* ================= scoreboard and events ================= */
+function tile(id,n,m,w){var e=el(id);e.className='tile'+(n===m?' done':'');e.getElementsByTagName('b')[0].textContent=n+' / '+m;e.getElementsByTagName('i')[0].textContent=w+(n===m?' complete':' done');}
+function board(){
+var g=count(G.done),o=count(odDone()),t=count(tmDone());
+tile('bG',g,ROUNDS.length,'rounds');tile('bO',o,6,'missions');tile('bT',t,6,'missions');
+el('allDone').style.display=(g===ROUNDS.length&&o===6&&t===6)?'block':'none';
+el('sum').textContent='Sorting Games: '+g+' of '+ROUNDS.length+' rounds. OneDrive Simulator: '+o+' of 6 missions. Teams Simulator: '+t+' of 6 missions.';
+}
+function run(a,t){
+if(a==='jump'){var s=el(t.getAttribute('data-to'));if(s&&s.scrollIntoView)s.scrollIntoView({behavior:'smooth',block:'start'});}
+else if(a.charAt(0)==='g'){gAct(a,t);}
+else if(a.indexOf('od')===0){odAct(a,t);}
+else if(a.indexOf('tm')===0){tmAct(a,t);}
+}
+document.addEventListener('click',function(e){
+var t=up(e,'[data-act]');
+if(!t){if(OD.menu){OD.menu=false;odRender();}return;}
+if(t.disabled)return;
+run(t.getAttribute('data-act'),t);
+});
+document.addEventListener('change',function(e){
+var t=e.target,c=t&&t.getAttribute?t.getAttribute('data-chg'):null,it,s,before;
+if(!c)return;
+it=OD.sel?odGet(OD.sel):null;if(!it)return;
+s=it.share[Number(t.getAttribute('data-i'))];if(!s)return;
+before=odDone();
+if(c==='odperm'){s.perm=t.value;}else if(c==='odexp'){s.exp=t.checked;}
+OD.msg=['good','Access updated for '+esc(s.who)+'.'];
+odAfter(before);
+});
+document.addEventListener('keydown',function(e){
+var t=e.target,k=e.key;
+if(!t)return;
+if(k==='Enter'&&t.id==='oddname'){e.preventDefault();odAct('oddlgok',t);}
+else if(k==='Enter'&&t.id==='tmin'){e.preventDefault();tmAct('tmsend',t);}
+else if((k==='Enter'||k===' ')&&t.classList&&(t.classList.contains('dcard')||t.classList.contains('bucket'))){e.preventDefault();gAct(t.getAttribute('data-act'),t);}
+});
+gStart(0);odRender();tmRender();board();
+})();
+</script>
+</body>
+</html>

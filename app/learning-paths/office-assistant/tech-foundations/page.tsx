@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { techFoundationsModules } from "@/lib/content/office-assistant/tech-foundations";
+import { techFoundationsClassExerciseCount } from "@/lib/content/class-exercises";
 
 export default function TechFoundationsPage() {
   // Derived from the module data so these figures cannot drift out of
@@ -71,6 +72,28 @@ export default function TechFoundationsPage() {
 
       </div>
 
+
+      {/* Class exercises ported from Brightspace (INFO3020) */}
+      <Link
+        href="/learning-paths/office-assistant/tech-foundations/class-exercises"
+        className="group mb-12 flex flex-col gap-4 rounded-xl border-2 border-primary-200 bg-primary-50 p-6 transition-all hover:border-primary-400 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 sm:flex-row sm:items-center"
+      >
+        <span className="text-4xl" aria-hidden="true">
+          🧪
+        </span>
+        <span className="flex-1">
+          <span className="block text-xl font-bold text-gray-900 group-hover:text-primary-700">
+            Class Exercises
+          </span>
+          <span className="mt-1 block text-gray-600">
+            {techFoundationsClassExerciseCount} in-class labs, simulators, and the
+            Unit 1 review, organized by week. Practice here, submit in Brightspace.
+          </span>
+        </span>
+        <span className="font-semibold text-primary-600 group-hover:text-primary-800">
+          Open →
+        </span>
+      </Link>
 
       <SectionHeader
         title="Course Modules"

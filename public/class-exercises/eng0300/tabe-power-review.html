@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TABE Reading Power Review | BEOC Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef2f8;--ink:#202122;--navy:#0f2a52;--navy2:#1b3a6b;--blue:#26518f;--gold:#d4a72c;--gold2:#ffd766;--soft:#eef3fb;--muted:#5d6676;--cream:#fdf6e3;--okbg:#e6f4ea;--ok:#1e7e34;--line:#d7e0ef;--badbg:#fdecea;--bad:#b00020;}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:Lato,'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:17px;line-height:1.6;}
+button{font:inherit;color:inherit}
+a{color:var(--blue)}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px 70px;}
+.hero{background:linear-gradient(135deg,#0f2a52 0%,#26518f 100%);color:#fff;border-radius:0 0 18px 18px;padding:30px 26px 24px;margin:0 -16px 18px;}
+.hero h1{margin:0 0 6px;font-size:27px;line-height:1.25;}
+.hero p{margin:0;color:#d9e4f5;}
+.hero .meta{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+.hero .meta span{background:rgba(255,255,255,.14);border-radius:999px;padding:2px 12px;font-size:14px;font-weight:700}
+.gold{display:inline-block;background:var(--gold);color:#1b2a44;font-weight:900;border-radius:999px;padding:3px 14px;font-size:13px;letter-spacing:1.5px;margin-bottom:10px;}
+.gold.new{background:#fff;color:#7a5a12;box-shadow:0 0 0 2px var(--gold) inset}
+.scorebar{position:sticky;top:0;z-index:50;background:var(--navy2);color:#fff;border-radius:12px;padding:10px 18px;margin:0 0 18px;display:flex;justify-content:space-between;align-items:center;gap:6px 16px;flex-wrap:wrap;box-shadow:0 4px 14px rgba(15,42,82,.25);}
+.scorebar b{color:var(--gold2);}
+.scorebar .bar{flex-basis:100%;height:8px;background:rgba(255,255,255,.18);border-radius:4px;overflow:hidden}
+.scorebar .bar i{display:block;height:100%;background:var(--gold2);border-radius:4px;transition:width .3s}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(27,58,107,.08);padding:20px 22px;margin:0 0 20px;border-top:5px solid var(--blue);}
+.card h2{margin:0 0 4px;color:var(--navy2);font-size:20px;}
+.card.learn{border-top-color:var(--gold);}
+.card.done{border-top-color:var(--ok)}
+.ptag{display:inline-block;background:var(--soft);color:var(--blue);font-weight:900;border-radius:8px;padding:2px 10px;font-size:13px;letter-spacing:1px;margin-bottom:6px;}
+.card.done .ptag{background:var(--okbg);color:var(--ok)}
+.prompt{margin:4px 0 10px}
+.notebook{background:var(--cream);border-left:4px solid var(--gold);padding:8px 14px;border-radius:6px;margin:10px 0;font-size:15px;}
+.handin{background:linear-gradient(135deg,#7a5a12,#b8860b);color:#fff;border-radius:14px;padding:16px 22px;margin:0 0 20px;}
+.handin b{color:#ffe9b3}
+.passage{background:#f4f7fb;border-radius:10px;padding:14px 18px;color:#32333a;margin:8px 0 12px;border-left:4px solid #9db3d6}
+.btn{background:var(--navy2);color:#fff;border:2px solid var(--navy2);border-radius:8px;padding:9px 18px;font-weight:700;cursor:pointer;margin:6px 6px 0 0;}
+.btn:hover{background:var(--navy)}
+.btn.ghost{background:#fff;color:var(--navy2);}
+.btn.ghost:hover{background:var(--soft)}
+.btn.goldb{background:var(--gold);border-color:var(--gold);color:#1b2a44}
+:focus-visible{outline:3px solid #f0a500;outline-offset:2px;}
+/* home grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;margin-bottom:20px}
+.tile{display:flex;flex-direction:column;text-align:left;background:#fff;border:0;border-top:5px solid var(--blue);border-radius:14px;box-shadow:0 2px 10px rgba(27,58,107,.08);padding:16px 18px;cursor:pointer;min-height:150px}
+.tile:hover{box-shadow:0 6px 18px rgba(27,58,107,.18)}
+.tile.new{border-top-color:var(--gold)}
+.tile.done{border-top-color:var(--ok)}
+.tile .n{font-size:13px;font-weight:900;letter-spacing:1px;color:var(--blue)}
+.tile.new .n{color:#7a5a12}
+.tile b{font-size:19px;color:var(--navy2);line-height:1.25;margin:2px 0 4px}
+.tile small{color:var(--muted);font-size:14.5px;line-height:1.4}
+.tile .foot{margin-top:auto;padding-top:10px;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;color:var(--muted)}
+.tile .pbar{flex:1;height:8px;background:var(--soft);border-radius:4px;margin:0 10px;overflow:hidden}
+.tile .pbar i{display:block;height:100%;background:var(--blue);border-radius:4px}
+.tile.done .pbar i{background:var(--ok)}
+.tile.done .foot{color:var(--ok)}
+/* learn */
+.learn ul,.learn ol{margin:8px 0;padding-left:22px}.learn li{margin:5px 0}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:10px 0}
+.facts div{background:var(--soft);border-radius:12px;padding:10px 12px;text-align:center}
+.facts b{display:block;font-size:34px;line-height:1.1;color:var(--navy2)}
+.facts span{font-size:14px;color:var(--muted);line-height:1.3;display:block}
+.traps{background:var(--cream);border-left:4px solid var(--gold);border-radius:6px;padding:10px 14px;margin:12px 0 4px}
+.traps>b{display:block;color:#5c4308;margin-bottom:4px}
+.traps span{display:block;margin:3px 0}
+.traps i{font-style:normal;font-weight:900;font-size:12.5px;letter-spacing:.8px;background:#fff;border:1px solid var(--gold);border-radius:6px;padding:1px 7px;margin-right:6px;color:#5c4308;white-space:nowrap}
+.formula{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:12px 0}
+.formula span{background:var(--soft);border:2px solid #9db3d6;border-radius:10px;padding:6px 12px;font-weight:900;color:var(--navy2);font-size:15px}
+.formula span.g{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.formula b{font-size:22px;color:var(--blue)}
+table.mini{border-collapse:collapse;width:100%;margin:10px 0;font-size:15.5px}
+table.mini th{background:var(--navy2);color:#fff;text-align:left;padding:6px 10px;font-size:14px}
+table.mini td{border-bottom:1px solid var(--line);padding:6px 10px;vertical-align:top}
+table.mini td:first-child{font-weight:900;color:var(--navy2);white-space:nowrap}
+.parts3{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:10px 0}
+.parts3 div{border-radius:12px;padding:10px 14px;background:var(--soft);border-top:4px solid var(--blue)}
+.parts3 b{display:block;color:var(--navy2);letter-spacing:1px}
+.parts3 span{font-size:15px;line-height:1.4;display:block}
+.example{background:#f4f7fb;border-radius:10px;padding:12px 16px;margin:10px 0;line-height:2}
+.lab{font-size:12px;font-weight:900;letter-spacing:.8px;border-radius:6px;padding:2px 7px;color:#fff;margin-right:2px;white-space:nowrap}
+.lab.c{background:var(--navy2)}.lab.r{background:#6b4fa0}.lab.e{background:var(--ok)}
+ol.steps{counter-reset:s;list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}
+ol.steps li{counter-increment:s;background:var(--soft);border-radius:12px;padding:10px 14px 10px 46px;position:relative;margin:0;font-size:15.5px;line-height:1.4}
+ol.steps li::before{content:counter(s);position:absolute;left:12px;top:10px;width:26px;height:26px;line-height:26px;text-align:center;background:var(--blue);color:#fff;border-radius:50%;font-weight:900}
+ol.steps li b{display:block;color:var(--navy2);letter-spacing:.8px}
+/* sort */
+.tray{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0;min-height:20px}
+.item{background:#fff;border:2px solid var(--blue);color:var(--navy2);border-radius:12px;padding:8px 14px;font-weight:700;cursor:grab;user-select:none;-webkit-user-select:none;touch-action:none;text-align:left;line-height:1.4;max-width:100%}
+.item.chip{border-radius:999px;padding:6px 14px}
+.item.sel{background:var(--blue);color:#fff;box-shadow:0 0 0 3px var(--gold2)}
+.item.dragging{opacity:.35}
+.item.extra{border-style:dashed;border-color:#9aa5b8;color:var(--muted);cursor:default}
+.dragghost{position:fixed;z-index:999;pointer-events:none;box-shadow:0 10px 26px rgba(15,42,82,.35);transform:rotate(-2deg);margin:0}
+.buckets{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.buckets.paras{grid-template-columns:1fr}
+.bucket{border:2px dashed #9db3d6;border-radius:12px;padding:10px 12px;background:#f8fafd;cursor:pointer;text-align:left;width:100%;display:block;min-height:74px}
+.bucket:hover,.bucket.over{background:var(--soft);border-color:var(--blue)}
+.bucket.over{border-style:solid;box-shadow:0 0 0 3px var(--gold2)}
+.bucket>b{color:var(--navy2);letter-spacing:.6px}
+.bucket>small{display:block;color:var(--muted);font-size:14px;line-height:1.3}
+.bucket .ptxt{display:block;margin:4px 0 6px;color:#32333a}
+.bucket .slot{display:block;border:2px dashed #c3cfe3;border-radius:999px;padding:3px 12px;color:var(--muted);font-size:14px;width:max-content;max-width:100%}
+.placed{display:block;background:var(--okbg);border:2px solid var(--ok);color:var(--ok);border-radius:10px;padding:5px 10px;font-weight:700;margin-top:6px;font-size:15.5px;line-height:1.4}
+.placed.chip{display:inline-block;border-radius:999px;margin-right:6px}
+.bucket.shake{animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-6px)}50%{transform:translateX(6px)}75%{transform:translateX(-4px)}}
+.fb{border-radius:8px;padding:9px 14px;margin:10px 0 2px;font-size:15.5px;min-height:20px}
+.fb.ok{background:var(--okbg);color:#14561f}
+.fb.no{background:var(--badbg);color:#7d0017}
+.fb.info{background:var(--soft);color:var(--navy2)}
+.fb:empty{display:none}
+.count{font-size:14px;font-weight:900;color:var(--muted);letter-spacing:.5px}
+/* mc */
+.stem{font-weight:700;margin:6px 0 8px}
+.opt{display:block;width:100%;text-align:left;background:#f6f8fc;border:2px solid var(--line);border-radius:10px;padding:9px 14px;margin:6px 0;cursor:pointer;}
+.opt:hover:not(:disabled){border-color:var(--blue);}
+.opt .l{font-weight:900;color:var(--blue);margin-right:8px}
+.opt.right{background:var(--okbg);border-color:var(--ok);}
+.opt.wrong{background:var(--badbg);border-color:var(--bad);}
+.opt:disabled{cursor:default;color:var(--ink)}
+.opt .why{display:block;font-size:15px;color:#33415a;margin-top:3px;font-weight:400}
+.locked{background:#f4f7fb;border-radius:10px;padding:10px 14px;color:var(--muted);margin-top:10px}
+/* tap */
+.units{margin:10px 0}
+.unit{display:block;width:100%;text-align:left;background:#f6f8fc;border:2px solid var(--line);border-radius:10px;padding:9px 14px;margin:6px 0;cursor:pointer}
+.unit:hover:not(:disabled){border-color:var(--blue)}
+.unit.hit{background:var(--okbg);border-color:var(--ok)}
+.unit.miss{background:var(--badbg);border-color:var(--bad)}
+.unit:disabled{cursor:default;color:var(--ink)}
+.ask{background:var(--navy2);color:#fff;border-radius:10px;padding:10px 14px;margin:8px 0;font-weight:700}
+.ask small{display:block;color:var(--gold2);font-weight:900;letter-spacing:1px;font-size:12.5px}
+.sentence{background:#f4f7fb;border-radius:10px;padding:14px 16px;line-height:2.5;margin:8px 0}
+.chunk{display:inline;background:#fff;border:2px solid var(--line);border-radius:8px;padding:4px 8px;margin:0 2px;cursor:pointer;line-height:1.5}
+.chunk:hover:not(:disabled){border-color:var(--blue)}
+.chunk.word{background:var(--gold2);border-color:var(--gold);font-weight:900;cursor:default}
+.chunk.hit{background:var(--okbg);border-color:var(--ok);font-weight:700}
+.chunk.miss{background:var(--badbg);border-color:var(--bad)}
+.words{background:#f4f7fb;border-radius:10px;padding:14px 16px;line-height:2.3;margin:8px 0}
+.w{background:none;border:0;border-bottom:2px solid transparent;border-radius:6px;padding:2px 3px;cursor:pointer}
+.w:hover:not(:disabled){background:#fff;border-bottom-color:var(--blue)}
+.w.hit{background:var(--gold2);font-weight:900;border-bottom-color:var(--gold)}
+.w.miss{background:var(--badbg)}
+.w:disabled{cursor:default;color:var(--ink)}
+/* chart + table */
+figure.chart{margin:8px 0 10px;border:1px solid var(--line);border-radius:10px;background:#fff;padding:10px 12px 6px}
+.ctitle{display:block;width:100%;background:none;border:2px solid transparent;border-radius:8px;font-weight:900;color:var(--navy2);font-size:15.5px;line-height:1.35;text-align:left;padding:4px 6px;cursor:pointer}
+.ctitle:hover{border-color:var(--line)}
+.ctitle.hit{background:var(--okbg);border-color:var(--ok)}
+.ctitle.miss{background:var(--badbg);border-color:var(--bad)}
+figure.chart svg{width:100%;height:auto;display:block;max-width:620px;margin:0 auto}
+.bar{cursor:pointer}
+.bar .hitbox{fill:transparent}
+.bar:hover .hitbox{fill:#eef3fb}
+.bar.hit .hitbox{fill:#e6f4ea}
+.bar.miss .hitbox{fill:#fdecea}
+.bar:focus-visible .hitbox{stroke:#f0a500;stroke-width:3}
+.bar:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.tblwrap{overflow-x:auto}
+table.data{border-collapse:separate;border-spacing:4px;width:100%;margin:8px 0}
+table.data caption{font-weight:900;color:var(--navy2);text-align:left;padding:2px 4px 6px}
+table.data th{background:var(--navy2);color:#fff;padding:7px 10px;border-radius:8px;font-size:15px;text-align:left}
+table.data th[scope=row]{background:var(--soft);color:var(--navy2)}
+table.data td{padding:0}
+.cell{display:block;width:100%;background:#f6f8fc;border:2px solid var(--line);border-radius:8px;padding:7px 10px;cursor:pointer;text-align:left;font-variant-numeric:tabular-nums}
+.cell:hover{border-color:var(--blue)}
+.cell.hit{background:var(--okbg);border-color:var(--ok);font-weight:900}
+.cell.miss{background:var(--badbg);border-color:var(--bad)}
+/* flip + checklist + goal */
+.flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:10px}
+.flipc{min-height:128px;border-radius:12px;border:2px solid var(--blue);background:var(--navy2);color:#fff;padding:14px 16px;cursor:pointer;text-align:left;display:flex;flex-direction:column;justify-content:center}
+.flipc b{font-size:19px;line-height:1.3}
+.flipc small{color:var(--gold2);font-weight:900;letter-spacing:1px;font-size:12px;margin-top:6px}
+.flipc.on{background:#fff;color:var(--ink);border-color:var(--gold)}
+.flipc.on small{color:#7a5a12}
+.tick{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#f6f8fc;border:2px solid var(--line);border-radius:10px;padding:9px 14px;margin:6px 0;cursor:pointer}
+.tick .box{flex:none;width:24px;height:24px;border:2px solid var(--blue);border-radius:6px;background:#fff;text-align:center;line-height:20px;font-weight:900;color:#fff}
+.tick[aria-pressed=true]{background:var(--okbg);border-color:var(--ok)}
+.tick[aria-pressed=true] .box{background:var(--ok);border-color:var(--ok)}
+.pick{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));margin-top:10px}
+.choice{display:block;width:100%;text-align:left;background:#f6f8fc;border:2px solid var(--line);border-radius:12px;padding:10px 14px;cursor:pointer;}
+.choice:hover{border-color:var(--blue)}
+.choice[aria-pressed=true]{background:var(--soft);border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue);}
+.choice b{color:var(--navy2);display:block;line-height:1.3}
+.choice small{color:var(--muted);font-size:14px}
+.target{background:var(--navy2);color:#fff;border-radius:12px;padding:12px 18px;margin-top:12px;}
+.target b{color:var(--gold2)}
+.snav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.fine{color:var(--muted);font-size:14px}
+@media (max-width:600px){.scorebar{font-size:14.5px;padding:7px 12px;border-radius:0 0 12px 12px}.scorebar span:nth-child(3){display:none}body{font-size:16.5px}.hero h1{font-size:23px}.card{padding:16px 16px}table.mini{font-size:14.5px}table.mini td:first-child{white-space:normal}}
+@media (prefers-reduced-motion:reduce){.bucket.shake{animation:none}.scorebar .bar i{transition:none}}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#0f766e;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/eng0300"><span class="beoc-tb-badge">BEOC</span><span>&larr; ENG0300 Reading Lab</span></a><a class="beoc-tb-link" href="/eng0300/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div id="app" class="wrap"></div>
+<div id="live" class="sr" aria-live="polite"></div>
+<script type="application/json" id="data">[{"id":"s0","num":0,"title":"Know Your Test","tag":"START HERE","mins":4,"blurb":"What the test looks like and the score you need.","acts":[{"k":"learn","title":"The TABE Reading test in 30 seconds","html":"\u003cdiv class=\"facts\">\u003cdiv>\u003cb>39\u003c/b>\u003cspan>questions\u003c/span>\u003c/div>\u003cdiv>\u003cb>2\u003c/b>\u003cspan>parts\u003c/span>\u003c/div>\u003cdiv>\u003cb>50\u003c/b>\u003cspan>minutes for each part\u003c/span>\u003c/div>\u003cdiv>\u003cb>2&frac12;\u003c/b>\u003cspan>minutes for each question\u003c/span>\u003c/div>\u003c/div>\u003cul>\u003cli>You take it \u003cb>on a computer\u003c/b>. You read a passage, then answer multiple-choice questions about it.\u003c/li>\u003cli>Every answer can be \u003cb>proven from the passage\u003c/b>. You do not need to know the topic already.\u003c/li>\u003cli>A wrong answer \u003cb>does not take points away\u003c/b>. Answer every question.\u003c/li>\u003cli>Your three choices for test day: \u003cb>Tuesday evening, October 13\u003c/b>, \u003cb>Wednesday morning, October 14\u003c/b>, or \u003cb>Thursday morning, October 15\u003c/b>.\u003c/li>\u003cli>The test is \u003cb>not in our classroom\u003c/b>. It is on the \u003cb>3rd floor\u003c/b>, in the designated \u003cb>TABE Testing rooms\u003c/b>.\u003c/li>\u003c/ul>"},{"k":"goal","id":"goal","title":"Tap your program to see your target"},{"k":"sort","id":"s0-tf","title":"True or False: Test Facts","prompt":"Drag each statement into TRUE or FALSE. On a phone, tap a statement, then tap a box.","buckets":[{"id":"t","label":"TRUE"},{"id":"f","label":"FALSE"}],"items":[{"t":"The Reading test has two parts.","b":"t","why":"True. Two parts, 50 minutes each."},{"t":"A wrong answer takes points away.","b":"f","why":"False. Wrong answers do not take points away. Never leave a blank."},{"t":"Every answer can be proven from the passage or its chart.","b":"t","why":"True. Go back to the passage and find the line."},{"t":"It is smart to spend 10 minutes on one hard question.","b":"f","why":"False. Pick your best answer, mark the question for review, and move on. You have about 2 and a half minutes for each question."},{"t":"You have about 2 and a half minutes for each question.","b":"t","why":"True. 50 minutes for about 20 questions, including reading time."},{"t":"You should leave the paired questions blank.","b":"f","why":"False. Paired questions count like any others. Station 2 shows you how to answer them."}]}]},{"id":"s1","num":1,"title":"Main Ideas & Details","tag":"WEEK 1 SKILL","mins":8,"weight":"Key Ideas and Details: almost half of the test","blurb":"Find the one point the whole passage makes.","acts":[{"k":"learn","title":"Know it in 60 seconds","html":"\u003cul>\u003cli>The \u003cb>central idea\u003c/b> (main idea) is the one point that the \u003cb>whole\u003c/b> passage makes.\u003c/li>\u003cli>Test words: \u003ci>central idea\u003c/i>, \u003ci>main idea\u003c/i>, \u003ci>best summary\u003c/i>, and \u003ci>theme\u003c/i> (for stories).\u003c/li>\u003cli>A \u003cb>theme\u003c/b> is a lesson about life. It is not a detail about one character.\u003c/li>\u003cli>A good \u003cb>summary\u003c/b> gives the main idea and key details. It has \u003cb>no opinion\u003c/b> in it.\u003c/li>\u003c/ul>\u003cdiv class=\"traps\">\u003cb>Three traps in the wrong answers\u003c/b>\u003cspan>\u003ci>TOO NARROW\u003c/i> It is only one detail.\u003c/span>\u003cspan>\u003ci>TOO BROAD\u003c/i> It is bigger than the passage.\u003c/span>\u003cspan>\u003ci>NOT IN THE TEXT\u003c/i> The passage never says it.\u003c/span>\u003c/div>"},{"k":"sort","id":"s1-fit","title":"Game: Just Right?","prompt":"Read the passage. Then put each statement in the box that describes it. Only one is the main idea.","passage":"Community health workers do not wear white coats, and most are not nurses or doctors. They are trusted neighbors who are trained to connect people with care. A community health worker might help an older adult get a ride to the clinic, explain a prescription label in the patient's own language, or check on a new mother at home. Because they come from the neighborhoods they serve, people often tell them things they would not tell a stranger.","buckets":[{"id":"ok","label":"JUST RIGHT","sub":"the main idea"},{"id":"nar","label":"TOO NARROW","sub":"only one detail"},{"id":"bro","label":"TOO BROAD","sub":"bigger than the passage"},{"id":"not","label":"NOT IN THE TEXT","sub":"the passage never says it"}],"items":[{"t":"A community health worker might explain a prescription label.","b":"nar","why":"Too narrow. This is one example from the third sentence."},{"t":"Community health workers are trusted neighbors who connect people with health care.","b":"ok","why":"Just right. Every sentence in the passage supports this point."},{"t":"Many different people work in health care.","b":"bro","why":"Too broad. Health care has many kinds of workers. The passage is only about community health workers."},{"t":"Community health workers earn more than nurses.","b":"not","why":"Not in the text. The passage never talks about pay."}]},{"k":"mc","id":"s1-sum","title":"TABE-style: Best summary","passageRef":"s1-fit","stem":"Which sentence is the best summary of the passage about community health workers?","options":[{"t":"Community health workers are the most important people in health care and deserve higher pay for the work they do in clinics.","why":"This adds an opinion. The passage never says \"most important\" or talks about pay."},{"t":"Community health workers are trusted neighbors who connect people with care by helping with rides, prescriptions, and home visits.","why":"Correct. It gives the main idea and the key details, with no opinion.","ok":true},{"t":"A community health worker might check on a new mother at home.","why":"Too narrow. This is one detail, not a summary."},{"t":"Community health workers are nurses who are trained to work in neighborhood clinics.","why":"The passage says most are not nurses or doctors."}]},{"k":"mc","id":"s1-theme","title":"TABE-style: Theme of a story","passage":"Tomas practiced the same short piece of music every night for a month. At the recital, his fingers slipped in the second line. He stopped, took a breath, and started the piece again from the beginning. This time every note was right. Afterward, his teacher did not talk about the mistake. She said, \"Now you know you can recover.\"","stem":"Which statement best expresses a theme of the story?","options":[{"t":"Enough practice will always prevent mistakes.","why":"The story shows the opposite. He practiced for a month and still slipped."},{"t":"Being able to recover from a mistake is a strength.","why":"Correct. Tomas slips, starts again, and succeeds. The teacher's last words point to the lesson.","ok":true},{"t":"Tomas practiced one piece of music for a month.","why":"This is a detail about the character. A theme is a lesson about life."},{"t":"Teachers should point out every mistake a student makes.","why":"The teacher chose not to talk about the mistake."}]}]},{"id":"s2","num":2,"title":"Inferences & Proof","tag":"WEEK 2 SKILL","mins":10,"weight":"Key Ideas and Details: almost half of the test","blurb":"Find what the text does not say directly, then find the line that proves it.","acts":[{"k":"learn","title":"Know it in 60 seconds","html":"\u003cul>\u003cli>An \u003cb>inference\u003c/b> is something the text does not say directly, but the clues prove it.\u003c/li>\u003cli>Test words: \u003ci>infer\u003c/i>, \u003ci>conclude\u003c/i>, \u003ci>suggests\u003c/i>, \u003ci>most likely\u003c/i>.\u003c/li>\u003cli>A good inference stays \u003cb>close to the clues\u003c/b>. If you cannot point to a line that proves it, it goes too far.\u003c/li>\u003c/ul>\u003cdiv class=\"formula\">\u003cspan>CLUE in the text\u003c/span>\u003cb>+\u003c/b>\u003cspan>WHAT YOU KNOW\u003c/span>\u003cb>=\u003c/b>\u003cspan class=\"g\">INFERENCE\u003c/span>\u003c/div>\u003cdiv class=\"traps\">\u003cb>On the TABE: two questions that go together\u003c/b>\u003cspan>\u003ci>THE TEST SAYS\u003c/i> \"Answer the next two questions together.\"\u003c/span>\u003cspan>\u003ci>FIRST\u003c/i> It asks what you can conclude.\u003c/span>\u003cspan>\u003ci>SECOND\u003c/i> It asks which sentence supports your first answer.\u003c/span>\u003cspan>\u003ci>TIP\u003c/i> If no sentence proves your first answer, change it.\u003c/span>\u003c/div>"},{"k":"tap","id":"s2-prove","title":"Game: Prove It","unit":"sentence","prompt":"Each round gives you an inference. Tap a sentence that proves it. One round has two.","units":[{"id":"a","t":"The delivery arrived at 6 a.m., forty boxes on two pallets."},{"id":"b","t":"Marcus did not reach for the checklist taped to the wall."},{"id":"c","t":"He sorted the cold items first, sliding each box into place without reading the shelf labels."},{"id":"d","t":"Tasha, who had started on Monday, followed behind him with the instruction sheet in her hand."},{"id":"e","t":"By the time the pharmacy opened, the floor was clear."}],"rounds":[{"ask":"Marcus has done this job many times.","targets":["b","c"],"why":"He does not need the checklist or the labels. Someone who remembers every step has done the job many times.","miss":"That sentence does not show experience. Look for something Marcus does without help."},{"ask":"Tasha is still learning the job.","targets":["d"],"why":"She started on Monday, she follows him, and she holds the instructions.","miss":"Find the sentence about Tasha."},{"ask":"The two workers finished on time.","targets":["e"],"why":"The floor was clear when the pharmacy opened, so the work was done before customers came.","miss":"Look for the sentence that tells how the morning ended."}]},{"k":"sort","id":"s2-far","title":"Game: Supported, or Too Far?","prompt":"Read the passage. Do the clues support each statement, or does the statement go too far?","passage":"Devon's lunch break is thirty minutes. Today he ate at his desk in ten, then spent the other twenty on the phone with his son's daycare. When he hung up, he rubbed his eyes and asked his supervisor if he could leave an hour early.","buckets":[{"id":"p","label":"THE TEXT SUPPORTS IT","sub":"you can point to the clues"},{"id":"f","label":"GOES TOO FAR","sub":"it says more than the clues show"}],"items":[{"t":"Something at the daycare needs Devon's attention.","b":"p","why":"Supported. He spends twenty minutes on the phone with the daycare, then asks to leave early."},{"t":"Devon's son is seriously ill.","b":"f","why":"Too far. The text never says what the call was about. It could be many things."},{"t":"Devon is worried or tired.","b":"p","why":"Supported. He rubs his eyes and asks to leave early."},{"t":"The supervisor will say no.","b":"f","why":"Too far. The passage ends before the supervisor answers."},{"t":"Devon dislikes his job.","b":"f","why":"Too far. Nothing in the text is about how he feels about his job."}]},{"k":"pair","id":"s2-pair","title":"TABE-style: Two questions that go together","passage":"When the power went out on Dean Street, Mrs. Alvarez did not look for candles. She went straight to the hall closet, took out a cooler, and began moving small boxes from her refrigerator into it. Then she knocked on the door of apartment 3B. \"Do you still have that bag of ice?\" she asked. Her neighbor handed it over without a question. Mrs. Alvarez packed the ice around the boxes, checked the clock, and wrote the time on a piece of tape.","a":{"stem":"First question. What can the reader conclude about Mrs. Alvarez?","options":[{"t":"She is protecting something that must stay cold.","why":"Correct. She moves boxes from the refrigerator to a cooler and packs ice around them.","ok":true},{"t":"She is getting ready for a party.","why":"Nothing in the passage is about a party. She acts quickly because the power is out."},{"t":"She is not friendly with her neighbor.","why":"Her neighbor helps her right away, \"without a question.\""},{"t":"She is afraid of the dark.","why":"The first sentence says she did not look for candles."}]},"b":{"stem":"Second question. Which sentence from the passage best supports the answer to the first question?","options":[{"t":"\"Her neighbor handed it over without a question.\"","why":"This is about the neighbor. It does not show why the boxes matter."},{"t":"\"When the power went out on Dean Street, Mrs. Alvarez did not look for candles.\"","why":"This shows what she did not do. It does not prove what she is protecting."},{"t":"\"Mrs. Alvarez packed the ice around the boxes, checked the clock, and wrote the time on a piece of tape.\"","why":"Correct. Packing ice around the boxes and writing down the time shows that keeping them cold matters.","ok":true},{"t":"\"Then she knocked on the door of apartment 3B.\"","why":"This tells where she went. By itself it proves nothing about the boxes."}]}}]},{"id":"s3","num":3,"title":"Vocabulary in Context","tag":"WEEK 3 SKILL","mins":8,"weight":"Craft and Structure: about 4 of every 10 questions","blurb":"Use the words around a hard word to find its meaning.","acts":[{"k":"learn","title":"Know it in 60 seconds","html":"\u003cul>\u003cli>Do not guess from the word alone. Read the sentences \u003cb>before and after\u003c/b> it too.\u003c/li>\u003cli>Many words have \u003cb>more than one meaning\u003c/b>. Put each answer choice into the sentence. Choose the one that fits \u003cb>this\u003c/b> sentence.\u003c/li>\u003cli>\u003cb>Figurative language\u003c/b> does not mean exactly what it says. \"The waiting room was a zoo\" means the room was loud and crowded.\u003c/li>\u003c/ul>\u003ctable class=\"mini\">\u003ctr>\u003cth>Kind of clue\u003c/th>\u003cth>Signal words\u003c/th>\u003c/tr>\u003ctr>\u003ctd>Definition\u003c/td>\u003ctd>\u003ci>which means\u003c/i>, \u003ci>or\u003c/i>, \u003ci>is called\u003c/i>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>Example\u003c/td>\u003ctd>\u003ci>such as\u003c/i>, \u003ci>for example\u003c/i>, \u003ci>including\u003c/i>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>Contrast\u003c/td>\u003ctd>\u003ci>but\u003c/i>, \u003ci>unlike\u003c/i>, \u003ci>however\u003c/i>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>Logic\u003c/td>\u003ctd>What would make sense here?\u003c/td>\u003c/tr>\u003c/table>"},{"k":"clue","id":"s3-c1","title":"Game: Clue Hunter, round 1","word":"reticent","prompt":"Tap the part of the sentence that tells you what \u003cb>reticent\u003c/b> means.","units":[{"id":"a","t":"Unlike her"},{"id":"w","t":"reticent","word":true},{"id":"b","t":"brother,"},{"id":"c","t":"who rarely said a word,"},{"id":"d","t":"Kim talked to everyone"},{"id":"e","t":"in the waiting room."}],"targets":["c"],"near":{"d":"Close. This shows what Kim is like, and \"unlike\" tells you her brother is the opposite. Now find the words that describe the brother directly."},"why":"Two clues work together. \"Who rarely said a word\" describes the brother. \"Unlike\" shows that Kim is the opposite.","stem":"\"Reticent\" most nearly means","options":[{"t":"impatient","why":"Nothing in the sentence is about being in a hurry. It is about talking."},{"t":"friendly","why":"That describes Kim. \"Unlike\" tells you the brother is the opposite."},{"t":"quiet","why":"Correct. He \"rarely said a word.\"","ok":true},{"t":"younger","why":"Nothing in the sentence is about age."}]},{"k":"clue","id":"s3-c2","title":"Clue Hunter, round 2","word":"vital signs","prompt":"Tap the part of the sentence that tells you what \u003cb>vital signs\u003c/b> are.","units":[{"id":"a","t":"The medical assistant records each patient's"},{"id":"w","t":"vital signs,","word":true},{"id":"b","t":"such as temperature, pulse, and blood pressure,"},{"id":"c","t":"before the doctor comes in."}],"targets":["b"],"why":"An example clue. \"Such as\" introduces three examples of vital signs.","stem":"\"Vital signs\" most nearly means","options":[{"t":"questions about a patient's insurance","why":"The examples are temperature, pulse, and blood pressure. None is about insurance."},{"t":"basic measurements of how the body is working","why":"Correct. Temperature, pulse, and blood pressure are all measurements of the body.","ok":true},{"t":"important papers that a patient must sign","why":"This uses another meaning of \"sign.\" The examples are measurements, not papers."},{"t":"posters on the wall of the exam room","why":"This uses another meaning of \"sign.\" You cannot \"record\" a poster for each patient."}]},{"k":"clue","id":"s3-c3","title":"Clue Hunter, round 3","word":"saturated","prompt":"Tap the part of the sentence that helps you understand \u003cb>saturated\u003c/b>.","units":[{"id":"a","t":"After the pipe burst,"},{"id":"b","t":"water"},{"id":"w","t":"saturated","word":true},{"id":"c","t":"the carpet,"},{"id":"d","t":"and it took three days to dry."}],"targets":["d"],"near":{"a":"Close. A burst pipe means a lot of water. Now find the words that show what the water did to the carpet."},"why":"A logic clue. If the carpet needed three days to dry, it must have been completely soaked.","stem":"\"Saturated\" most nearly means","options":[{"t":"cleaned","why":"A burst pipe is an accident. Nothing suggests cleaning."},{"t":"stained a dark color","why":"The clue is about drying, not about color."},{"t":"soaked completely","why":"Correct. A carpet that takes three days to dry was soaked all the way through.","ok":true},{"t":"touched lightly","why":"A light touch of water would not take three days to dry."}]},{"k":"sort","id":"s3-multi","title":"Game: One Word, Three Meanings","prompt":"The word \u003cb>charge\u003c/b> changes meaning from sentence to sentence. Put each sentence in the box with the right meaning.","promptHtml":true,"buckets":[{"id":"cost","label":"MONEY","sub":"a price, or to ask for payment"},{"id":"ctrl","label":"CONTROL","sub":"responsibility for something"},{"id":"pow","label":"POWER","sub":"to fill with electricity"}],"items":[{"t":"There is no charge for the flu shot.","b":"cost","why":"Here \"charge\" is a price."},{"t":"Ms. Reid is in charge of the night shift.","b":"ctrl","why":"\"In charge of\" means responsible for."},{"t":"Charge the phone before your shift starts.","b":"pow","why":"Here \"charge\" means to fill the battery."},{"t":"The office will charge a fee for a missed visit.","b":"cost","why":"Here \"charge\" means to ask for payment."}]},{"k":"mc","id":"s3-fig","title":"TABE-style: Figurative language","stem":"Read this sentence: \"After a double shift, Renee's feet were bricks.\" What does the sentence mean?","options":[{"t":"Her shoes were made of a hard material.","why":"This takes the words literally. The sentence compares a feeling, not her shoes."},{"t":"Her feet were strong and steady.","why":"Bricks are strong, but \"after a double shift\" points to being tired, not strong."},{"t":"Her feet were cold.","why":"Nothing in the sentence is about temperature."},{"t":"Her feet felt heavy and tired.","why":"Correct. Bricks are heavy. After a double shift, her feet feel heavy and hard to lift.","ok":true}]}]},{"id":"s4","num":4,"title":"Text Structure","tag":"WEEK 4 SKILL","mins":8,"weight":"Craft and Structure: about 4 of every 10 questions","blurb":"See how a passage is built and what job each paragraph does.","acts":[{"k":"learn","title":"Know it in 60 seconds","html":"\u003ctable class=\"mini\">\u003ctr>\u003cth>Pattern\u003c/th>\u003cth>What it does\u003c/th>\u003cth>Signal words\u003c/th>\u003c/tr>\u003ctr>\u003ctd>Chronology\u003c/td>\u003ctd>tells events in time order\u003c/td>\u003ctd>\u003ci>first, then, by spring, finally\u003c/i>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>Comparison\u003c/td>\u003ctd>shows how things are alike or different\u003c/td>\u003ctd>\u003ci>similarly, however, on the other hand\u003c/i>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>Cause and effect\u003c/td>\u003ctd>shows why something happened\u003c/td>\u003ctd>\u003ci>because, as a result, leads to\u003c/i>\u003c/td>\u003c/tr>\u003ctr>\u003ctd>Problem and solution\u003c/td>\u003ctd>names a problem, then a fix\u003c/td>\u003ctd>\u003ci>the problem, to fix this, the solution\u003c/i>\u003c/td>\u003c/tr>\u003c/table>\u003cdiv class=\"traps\">\u003cb>The TABE also asks: \"How does paragraph 3 contribute to the passage?\"\u003c/b>\u003cspan>\u003ci>ASK YOURSELF\u003c/i> What \u003cb>job\u003c/b> does this paragraph do? Does it state a problem, explain a cause, give an example, offer a solution, or show a result?\u003c/span>\u003c/div>"},{"k":"sort","id":"s4-sig","title":"Warm-up: Signal Word Sort","prompt":"This game is from class on September 28. Sort all eight as fast as you can.","chips":true,"buckets":[{"id":"chr","label":"CHRONOLOGY","sub":"time order"},{"id":"cmp","label":"COMPARISON","sub":"alike and different"},{"id":"ce","label":"CAUSE AND EFFECT"},{"id":"ps","label":"PROBLEM AND SOLUTION"}],"items":[{"t":"as a result","b":"ce","why":"\"As a result\" introduces an effect."},{"t":"afterward","b":"chr","why":"\"Afterward\" tells when."},{"t":"on the other hand","b":"cmp","why":"\"On the other hand\" introduces a difference."},{"t":"to fix this","b":"ps","why":"\"To fix this\" introduces a solution."},{"t":"because of this","b":"ce","why":"\"Because of this\" links a cause to its effect."},{"t":"similarly","b":"cmp","why":"\"Similarly\" shows two things are alike."},{"t":"the solution was","b":"ps","why":"This phrase names the fix."},{"t":"by the next morning","b":"chr","why":"This phrase tells when."}]},{"k":"sort","id":"s4-job","title":"Game: What Job Does Each Paragraph Do?","prompt":"Put each job label on the paragraph that does that job. One label is extra. Do not use it.","chips":true,"paraBuckets":true,"buckets":[{"id":"p1","label":"Paragraph 1","text":"Every winter, the walkway outside the Lincoln Senior Center turned to ice, and every winter someone fell."},{"id":"p2","label":"Paragraph 2","text":"A broken gutter was to blame. Melting snow dripped from the roof all day and froze on the walkway each night."},{"id":"p3","label":"Paragraph 3","text":"Last fall, volunteers repaired the gutter and added a handrail along the walkway."},{"id":"p4","label":"Paragraph 4","text":"This winter, the center has not recorded a single fall."}],"items":[{"t":"SHOWS THE RESULT","b":"p4","why":"Paragraph 4 tells what happened after the fix: no falls."},{"t":"STATES THE PROBLEM","b":"p1","why":"Paragraph 1 names what was wrong: ice, and people falling."},{"t":"GIVES THE OTHER SIDE","b":null,"why":"Extra label. No paragraph gives an opposing view."},{"t":"EXPLAINS THE CAUSE","b":"p2","why":"Paragraph 2 tells why the ice formed: a broken gutter."},{"t":"DESCRIBES THE SOLUTION","b":"p3","why":"Paragraph 3 tells what people did to fix it."}]},{"k":"mc","id":"s4-whole","title":"TABE-style: The whole passage","passageRef":"s4-job","stem":"How is the whole passage about the Lincoln Senior Center organized?","options":[{"t":"steps in a process","why":"The passage does not teach the reader how to do something step by step."},{"t":"problem and solution","why":"Correct. It names a problem (ice and falls), explains it, and then tells how it was fixed. It also moves in time order, but every paragraph is about the problem or its fix.","ok":true},{"t":"an argument with reasons","why":"The passage reports what happened. It does not try to convince the reader of a claim."},{"t":"comparison","why":"It does compare this winter with earlier winters, but only to show that the solution worked."}]},{"k":"mc","id":"s4-contrib","title":"TABE-style: One paragraph's job","passageRef":"s4-job","stem":"How does paragraph 2 contribute to the passage about the Lincoln Senior Center?","options":[{"t":"It explains what caused the problem described in paragraph 1.","why":"Correct. \"A broken gutter was to blame\" gives the cause of the ice.","ok":true},{"t":"It describes the solution that the volunteers chose.","why":"That is paragraph 3."},{"t":"It shows that the repair was successful.","why":"That is paragraph 4."},{"t":"It introduces a second problem at the center.","why":"There is only one problem. Paragraph 2 explains where it came from."}]}]},{"id":"s5","num":5,"title":"Point of View & Purpose","tag":"WEEK 5 SKILL","mins":8,"weight":"Craft and Structure: about 4 of every 10 questions","blurb":"Decide why the author wrote it and how the author feels.","acts":[{"k":"learn","title":"Know it in 60 seconds","html":"\u003cul>\u003cli>\u003cb>Purpose\u003c/b> is why the author wrote the text: to \u003cb>inform\u003c/b> (teach facts), to \u003cb>persuade\u003c/b> (change your mind), or to \u003cb>entertain\u003c/b> (tell a story).\u003c/li>\u003cli>\u003cb>Point of view\u003c/b> is how the author feels about the topic. Look for \u003cb>loaded words\u003c/b> (words with strong feeling). Look at which facts the author uses. A \u003cb>neutral\u003c/b> writer does not take a side.\u003c/li>\u003cli>Test words: \u003ci>point of view\u003c/i>, \u003ci>purpose\u003c/i>, \u003ci>attitude\u003c/i> (how the author feels).\u003c/li>\u003c/ul>\u003cdiv class=\"traps\">\u003cb>The TABE asks how an author answers people who disagree\u003c/b>\u003cspan>\u003ci>THE USUAL PATTERN\u003c/i> \"It is true that ..., \u003cb>but\u003c/b> ...\" The author accepts one point, then answers it.\u003c/span>\u003cspan>\u003ci>TIP\u003c/i> Find the word \u003cb>but\u003c/b>, \u003cb>however\u003c/b>, or \u003cb>still\u003c/b>. The author's real opinion comes after it.\u003c/span>\u003c/div>"},{"k":"tap","id":"s5-load","title":"Game: Loaded Words","unit":"word","multi":true,"prompt":"This writer is not neutral. Tap the \u003cb>four\u003c/b> words that show strong feeling.","text":"The council's plan is a careless gamble. It would cram two hundred more cars onto streets where children walk to school, all so that a few greedy developers can build faster.","targets":["careless","gamble","cram","greedy"],"whyEach":{"careless":"\"Careless\" judges the plan. A neutral writer would just say \"plan.\"","gamble":"\"Gamble\" makes the plan sound like a big risk.","cram":"\"Cram\" sounds forced and crowded. A neutral word is \"add.\"","greedy":"\"Greedy\" attacks the developers. A neutral writer would say \"developers.\""},"miss":"That word only states a fact. Look for words that judge or attack.","done":"All four found. Take those words out and the sentence becomes neutral: \"The council's plan would add two hundred more cars...\""},{"k":"mc","id":"s5-pov","title":"TABE-style: Point of view","passageRef":"s5-load","stem":"Based on the word choices in the passage, what is the writer's attitude toward the council's plan?","options":[{"t":"The writer strongly opposes it.","why":"Correct. \"Careless gamble,\" \"cram,\" and \"greedy\" all show strong disapproval.","ok":true},{"t":"The writer has not formed an opinion yet.","why":"The loaded words make the opinion very clear."},{"t":"The writer supports it with some doubts.","why":"No word in the passage praises the plan."},{"t":"The writer is neutral and only reports facts.","why":"A neutral writer would not use words like \"careless\" and \"greedy.\""}]},{"k":"sort","id":"s5-purp","title":"Game: Why Did the Author Write It?","prompt":"Read each opening. What is the author most likely trying to do?","buckets":[{"id":"inf","label":"INFORM","sub":"teach facts"},{"id":"per","label":"PERSUADE","sub":"change your mind"},{"id":"ent","label":"ENTERTAIN","sub":"tell a story"}],"items":[{"t":"Every worker in this city deserves paid sick leave, and the council must act now.","b":"per","why":"Persuade. \"Deserves\" and \"must act now\" push the reader toward an opinion."},{"t":"The clinic is open Monday to Friday from 8 a.m. to 5 p.m.","b":"inf","why":"Inform. It gives facts with no opinion."},{"t":"The elevator stopped between floors, and that was when Mrs. Ortiz began to sing.","b":"ent","why":"Entertain. It opens a story and makes you curious."},{"t":"A pulse oximeter measures oxygen in the blood by shining light through a finger.","b":"inf","why":"Inform. It explains how something works."},{"t":"You should take the evening class. It is the best decision you will make this year.","b":"per","why":"Persuade. \"You should\" and \"best decision\" try to change what you do."}]},{"k":"mc","id":"s5-resp","title":"TABE-style: Answering the other side","passage":"Some neighbors say the new shelter will bring noise to the block. That worry is understandable. But the shelter that opened in Oakdale two years ago has drawn almost no complaints, and its neighbors now volunteer there.","stem":"How does the author respond to neighbors who are worried about noise?","options":[{"t":"The author says the worried neighbors do not care about people in need and should be ignored.","why":"The author never attacks the neighbors. The author calls their worry understandable."},{"t":"The author agrees that the shelter should not be built.","why":"After the word \"But,\" the author gives a reason to support the shelter."},{"t":"The author ignores the worry and changes the subject.","why":"The author names the worry in the first sentence and answers it directly."},{"t":"The author accepts that the worry is reasonable, then gives an example to answer it.","why":"Correct. \"That worry is understandable. But...\" Then the author points to the Oakdale shelter.","ok":true}]}]},{"id":"s6","num":6,"title":"Evidence & Arguments","tag":"NEW SKILL","isNew":true,"mins":10,"weight":"Integration of Knowledge: about 5 or 6 questions (Stations 6 and 7 together)","blurb":"A quick lesson: claims, evidence, and weak arguments.","acts":[{"k":"learn","title":"Quick lesson: a new skill","html":"\u003cp>On the test, an \u003cb>argument\u003c/b> is not a fight. It is writing that tries to prove a point. It has three parts.\u003c/p>\u003cdiv class=\"parts3\">\u003cdiv>\u003cb>CLAIM\u003c/b>\u003cspan>What the author wants you to believe.\u003c/span>\u003c/div>\u003cdiv>\u003cb>REASON\u003c/b>\u003cspan>Why the author believes it.\u003c/span>\u003c/div>\u003cdiv>\u003cb>EVIDENCE\u003c/b>\u003cspan>The proof: facts, numbers, examples, expert statements.\u003c/span>\u003c/div>\u003c/div>\u003cdiv class=\"example\">\u003cspan class=\"lab c\">CLAIM\u003c/span> Our clinic should offer flu shots on Saturdays. \u003cspan class=\"lab r\">REASON\u003c/span> Many patients cannot come on weekdays. \u003cspan class=\"lab e\">EVIDENCE\u003c/span> Last year, 6 of every 10 patients who skipped the shot said they could not leave work.\u003c/div>\u003cul>\u003cli>Strong evidence is \u003cb>relevant\u003c/b>: it is about the claim.\u003c/li>\u003cli>Strong evidence is \u003cb>sufficient\u003c/b>: there is enough of it. One person's story is not enough.\u003c/li>\u003cli>Weak support: an opinion said twice, \"everyone knows,\" a fact about something else, or one person's story.\u003c/li>\u003cli>A \u003cb>fact\u003c/b> can be checked. An \u003cb>opinion\u003c/b> is what someone thinks or feels.\u003c/li>\u003cli>Test words: \u003ci>claim\u003c/i>, \u003ci>supports\u003c/i>, \u003ci>strongest evidence\u003c/i>, \u003ci>relevant\u003c/i>, \u003ci>weakness in the argument\u003c/i>.\u003c/li>\u003c/ul>"},{"k":"sort","id":"s6-parts","title":"Game: Claim, Evidence, or Not Evidence?","prompt":"The library closes at 6 p.m. A writer wants it to stay open later. Sort each sentence from the letter. Only one sentence is the claim.","buckets":[{"id":"c","label":"CLAIM","sub":"the one point the writer wants to prove"},{"id":"e","label":"EVIDENCE","sub":"facts that support the claim"},{"id":"n","label":"NOT EVIDENCE","sub":"an opinion, or about something else"}],"items":[{"t":"In an October survey, 7 of every 10 library users said they work until 6 p.m.","b":"e","why":"Evidence. A number from a survey, and it is about the claim."},{"t":"The library should stay open until 9 p.m.","b":"c","why":"Claim. This is the point the writer wants to prove."},{"t":"Everyone knows that longer hours are better.","b":"n","why":"Not evidence. \"Everyone knows\" is not proof."},{"t":"When the Pine Street branch added evening hours, visits rose by one quarter.","b":"e","why":"Evidence. A real example with a number, and it is about evening hours."},{"t":"The library was built in 1962.","b":"n","why":"Not evidence. It is a fact, but it has nothing to do with opening hours."},{"t":"Evening hours would be wonderful.","b":"n","why":"Not evidence. It only repeats the writer's opinion. It gives no proof."}]},{"k":"sort","id":"s6-rel","title":"Game: Relevant or Not?","prompt":"\u003cb>Claim:\u003c/b> The city should add a crosswalk at the corner of Dell Street. Which facts are relevant to that claim?","promptHtml":true,"buckets":[{"id":"r","label":"RELEVANT","sub":"it helps prove the claim"},{"id":"n","label":"NOT RELEVANT","sub":"true, but about something else"}],"items":[{"t":"Three people were hit by cars at that corner last year.","b":"r","why":"Relevant. It shows the corner is dangerous for people crossing."},{"t":"The mayor grew up in another state.","b":"n","why":"Not relevant. It says nothing about the corner."},{"t":"An elementary school is one block from the corner.","b":"r","why":"Relevant. Many children probably cross there, so safety matters more."},{"t":"Dell Street was named more than a hundred years ago.","b":"n","why":"Not relevant. The age of the name has nothing to do with safety."},{"t":"Drivers on Dell Street often go faster than the speed limit.","b":"r","why":"Relevant. Fast cars make crossing more dangerous."}]},{"k":"pair","id":"s6-pair","title":"TABE-style: Find the claim, then the proof","passage":"The evening program should give every student a free bus pass. In a survey last fall, 4 of every 10 students who left the program said that the cost of travel was the main reason. A bus pass costs the program very little. The program also painted its classrooms last year. Students who can get to class are students who can finish.","a":{"stem":"First question. Which statement is a claim the author makes about bus passes?","options":[{"t":"They cost more than the program can pay.","why":"The passage says the opposite. A pass costs the program very little."},{"t":"They should be given only to new students.","why":"The author says \"every student,\" not only new students."},{"t":"The program should give one to every student.","why":"Correct. This is the point the author wants to prove. The other sentences support it.","ok":true},{"t":"Most students in the program already have one.","why":"The passage never says this."}]},"b":{"stem":"Second question. Which sentence from the passage best supports the answer to the first question? (Remember: \"supports\" means it gives proof.)","options":[{"t":"\"In a survey last fall, 4 of every 10 students who left the program said that the cost of travel was the main reason.\"","why":"Correct. A number from a survey shows that the cost of travel makes students leave. That is strong evidence for giving bus passes.","ok":true},{"t":"\"Students who can get to class are students who can finish.\"","why":"This sounds good, but it is a general statement with no fact or number behind it."},{"t":"\"The evening program should give every student a free bus pass.\"","why":"This is the claim itself. A claim cannot be its own proof."},{"t":"\"The program also painted its classrooms last year.\"","why":"Not relevant. Paint has nothing to do with bus passes."}]}},{"k":"mc","id":"s6-strong","title":"TABE-style: Strongest evidence","stem":"A writer claims: \"Walking every day helps people sleep better.\" Which sentence would be the strongest evidence for this claim?","options":[{"t":"My cousin started walking every morning last year, and she says she has never slept better in her life.","why":"It is relevant, but one person is not enough evidence."},{"t":"Walking is the best exercise there is.","why":"This is an opinion, and it is not about sleep."},{"t":"Many stores sell shoes that are made for walking.","why":"Not relevant. It says nothing about sleep."},{"t":"In a study of 2,000 adults, the people who walked daily fell asleep faster than the others.","why":"Correct. It is about the claim (relevant) and it is based on many people (sufficient).","ok":true}]},{"k":"mc","id":"s6-weak","title":"TABE-style: Weakness in an argument","passage":"The new schedule is a failure. I do not like it, and my friend on the night shift does not like it either.","stem":"What is the main weakness in this argument?","options":[{"t":"It supports the claim with the opinions of two people, not with facts.","why":"Correct. \"I do not like it\" is an opinion. Two opinions are not enough to prove a failure.","ok":true},{"t":"It gives the other side too much attention.","why":"It never mentions the other side."},{"t":"It does not make a claim.","why":"It does. The claim is the first sentence: \"The new schedule is a failure.\""},{"t":"It uses too many numbers and statistics.","why":"It uses none. Facts and numbers are exactly what is missing."}]}]},{"id":"s7","num":7,"title":"Charts & Data","tag":"NEW SKILL","isNew":true,"mins":8,"weight":"Integration of Knowledge: about 5 or 6 questions (Stations 6 and 7 together)","blurb":"A quick lesson: read a chart, then connect it to the text.","acts":[{"k":"learn","title":"Quick lesson: a new skill","html":"\u003cp>Some passages come with a chart, graph, or table. Read it in four steps.\u003c/p>\u003col class=\"steps\">\u003cli>\u003cb>TITLE\u003c/b> What is this chart about?\u003c/li>\u003cli>\u003cb>LABELS\u003c/b> What do the bottom and the side show?\u003c/li>\u003cli>\u003cb>NUMBERS\u003c/b> How tall is each bar? Read the numbers on the side.\u003c/li>\u003cli>\u003cb>COMPARE\u003c/b> Which is the most? The least? What is the difference? What is the total?\u003c/li>\u003c/ol>\u003cul>\u003cli>Then \u003cb>connect\u003c/b> it to the text. Does the chart prove what the writer says?\u003c/li>\u003cli>A chart can prove a \u003cb>fact\u003c/b>. It can \u003cb>support\u003c/b> a plan or an opinion, but it cannot prove one alone.\u003c/li>\u003cli>Test words: \u003ci>according to the chart\u003c/i>, \u003ci>supported by the graph\u003c/i>, \u003ci>based on the passage and the table\u003c/i>.\u003c/li>\u003c/ul>"},{"k":"chart","id":"s7-chart","title":"Game: Read the Chart","prompt":"Tap the right part of the chart for each question.","chart":{"title":"Patients Seen at Elm Street Clinic, by Day (First Week of May)","yLabel":"Number of patients","xLabel":"Day of the week","max":80,"step":20,"bars":[{"id":"mon","label":"Monday","value":62},{"id":"tue","label":"Tuesday","value":48},{"id":"wed","label":"Wednesday","value":55},{"id":"thu","label":"Thursday","value":40},{"id":"fri","label":"Friday","value":71}]},"rounds":[{"ask":"Tap the TITLE of the chart.","targets":["title"],"why":"The title tells you what the chart counts, where, and when.","miss":"The title is the line of words above the bars."},{"ask":"Tap the bar for the BUSIEST day (the most patients).","targets":["fri"],"why":"Friday is the tallest bar: 71 patients.","miss":"The busiest day has the tallest bar."},{"ask":"Tap the bar for the SLOWEST day (the fewest patients).","targets":["thu"],"why":"Thursday is the shortest bar: 40 patients.","miss":"The slowest day has the shortest bar."},{"ask":"Tap the day that had exactly 55 patients.","targets":["wed"],"why":"The Wednesday bar is labeled 55.","miss":"Read the number above each bar."}]},{"k":"mc","id":"s7-diff","title":"TABE-style: Compare","chartRef":"s7-chart","stem":"According to the chart, how many more patients came on Friday than on Thursday?","options":[{"t":"31","why":"Correct. Friday is 71 and Thursday is 40. 71 minus 40 is 31.","ok":true},{"t":"40","why":"This is the Thursday bar alone. \"How many more\" means subtract."},{"t":"71","why":"This is the Friday bar alone. You still need to subtract Thursday."},{"t":"111","why":"This adds the two days. \"How many more\" means subtract."}]},{"k":"mc","id":"s7-total","title":"TABE-style: Supported by the chart","chartRef":"s7-chart","stem":"Which statement is supported by the chart?","options":[{"t":"The clinic is closed on weekends.","why":"The chart shows only Monday to Friday. It does not say why."},{"t":"Monday and Friday were the two busiest days.","why":"Correct. Friday (71) and Monday (62) are the two tallest bars.","ok":true},{"t":"Tuesday was busier than Wednesday.","why":"Tuesday is 48 and Wednesday is 55. Wednesday was busier."},{"t":"Monday was the slowest day of the week.","why":"Monday is 62, the second tallest bar. Thursday was the slowest."}]},{"k":"mc","id":"s7-check","title":"TABE-style: Check the text against the chart","chartRef":"s7-chart","passage":"A report about the clinic says: (1) Friday was the busiest day. (2) Thursday was the slowest day. (3) Fewer patients came each day as the week went on. (4) More than 60 patients came on Monday.","stem":"Which sentence in the report is NOT supported by the chart?","options":[{"t":"Sentence 1","why":"Supported. Friday is the tallest bar: 71."},{"t":"Sentence 2","why":"Supported. Thursday is the shortest bar: 40."},{"t":"Sentence 3","why":"Correct. The numbers do not go down every day. They go up on Wednesday (55) and again on Friday (71).","ok":true},{"t":"Sentence 4","why":"Supported. The Monday bar shows 62."}]},{"k":"mc","id":"s7-connect","title":"TABE-style: Connect the chart to the text","chartRef":"s7-chart","passage":"The office manager wrote: \"Friday was our busiest day that week, so we should schedule one more medical assistant on Fridays.\"","stem":"Which part of the manager's sentence does the chart prove?","options":[{"t":"Only the first part: Friday was the busiest day.","why":"Correct. The chart proves the fact. \"We should schedule\" is the manager's opinion about what to do. A chart alone cannot prove it.","ok":true},{"t":"Only the second part: the clinic should schedule one more medical assistant.","why":"This is the manager's opinion about what to do. The chart has no information about staff."},{"t":"Both parts of the sentence.","why":"The chart proves that Friday was busiest. It cannot prove what the clinic should do about it."},{"t":"Neither part of the sentence.","why":"The first part is proven. Friday is the tallest bar."}]},{"k":"table","id":"s7-table","title":"Game: Read the Table","prompt":"Read the title first. Rows go across. Columns go down. A cell is one box. Tap the right cell.","table":{"title":"Route 12 Bus Service from Main Street","cols":["First bus","Last bus","Buses each hour"],"rows":[{"h":"Weekdays","c":["5:30 a.m.","11:30 p.m.","6"]},{"h":"Saturday","c":["6:30 a.m.","11:00 p.m.","4"]},{"h":"Sunday","c":["7:30 a.m.","9:30 p.m.","2"]}]},"rounds":[{"ask":"Tap the cell that shows when the LAST bus leaves on SUNDAY.","targets":["2-1"],"why":"Row \"Sunday,\" column \"Last bus\": 9:30 p.m.","miss":"Find the Sunday row first. Then move across to the \"Last bus\" column."},{"ask":"Tap the cell that shows how many buses run each hour on SATURDAY.","targets":["1-2"],"why":"Row \"Saturday,\" column \"Buses each hour\": 4.","miss":"Find the Saturday row first. Then move across to the \"Buses each hour\" column."}]},{"k":"mc","id":"s7-apply","title":"TABE-style: Use the table","tableRef":"s7-table","stem":"Ana rides Route 12 home from Main Street. She finishes work at 10:15 p.m. on Sunday. Which statement does the table support?","options":[{"t":"She can wait about half an hour for the next bus, because two buses run each hour on Sunday.","why":"Two buses run each hour, but only until 9:30 p.m. No buses leave after that on Sunday."},{"t":"She can take the 11:30 p.m. bus.","why":"11:30 p.m. is the last bus on weekdays, not Sunday."},{"t":"She can take the 11:00 p.m. bus.","why":"11:00 p.m. is the last bus on Saturday, not Sunday."},{"t":"She needs another way home, because the last bus leaves at 9:30 p.m.","why":"Correct. On Sunday the last bus leaves at 9:30 p.m., before she finishes work.","ok":true}]}]},{"id":"s8","num":8,"title":"Test Day Game Plan","tag":"FINISH HERE","mins":4,"blurb":"Six moves that protect your score, and what to do the night before.","acts":[{"k":"flip","id":"s8-flip","title":"Six moves that protect your score","prompt":"Tap each card to turn it over.","cards":[{"f":"Long passage?","b":"Read the question on the screen first. Then you know what to look for when you read."},{"f":"Not sure of an answer?","b":"Go back to the passage and find the line that proves it. The proof is always there."},{"f":"Two answers look right?","b":"One of them is only partly right. Cross out the choices you know are wrong, then compare what is left."},{"f":"Two questions together?","b":"Answer the first one. Then find the sentence that supports it. If no sentence proves your first answer, change it."},{"f":"Stuck on one question?","b":"Choose your best answer, mark the question for review, and move on. Come back only if you have time left in that part."},{"f":"Five minutes left?","b":"Click an answer for every blank question. A wrong answer does not take points away. A blank is always wrong."}]},{"k":"mc","id":"s8-pace","title":"Pace check","stem":"A part has 20 questions and 50 minutes. When 25 minutes are left, about how many questions should you have finished?","options":[{"t":"5 questions","why":"Too slow. At this pace you would not finish the part."},{"t":"10 questions","why":"Correct. Half the time is gone, so you should be about halfway through the questions.","ok":true},{"t":"15 questions","why":"This is faster than you need. It is fine to be ahead, but do not rush the reading."},{"t":"20 questions","why":"This is much faster than you need. Slow down and prove each answer from the passage."}]},{"k":"checklist","id":"s8-list","title":"The night before and the day of the test","prompt":"Tap each one when you are ready for it.","items":["I know my test day and time: Tuesday evening, October 13, Wednesday morning, October 14, or Thursday morning, October 15.","I know where to go: the TABE Testing rooms on the 3rd floor. The test is not in our classroom.","I will sleep at least 7 hours the night before.","I will eat before the test.","I will arrive 15 minutes early.","I have my glasses, if I wear them.","I will bring what BEOC told me to bring."]},{"k":"links","title":"What to do next","html":"\u003cp>\u003cb>Next step:\u003c/b> take the \u003cb>TABE Reading Mock Test\u003c/b>, a full practice test. It is the next page in this module. It has 39 questions and a timer, and it shows which skills to review.\u003c/p>\u003cp>Want to see the real test screen? The test publisher has free practice. Use a computer, not a phone.\u003c/p>\u003cul>\u003cli>\u003ca href=\"https://tabetest.com/resources-2/testing-information/online-tools-training/\" target=\"_blank\" rel=\"noopener\">TABE Online Tools Training\u003c/a> lets you try the tools on the real testing screen. Use the Chrome browser.\u003c/li>\u003cli>\u003ca href=\"https://tabetest.com/resources-2/testing-information/tabe-1314-practice/\" target=\"_blank\" rel=\"noopener\">TABE 13&amp;14 practice items\u003c/a> are sample questions from the publisher. Under Reading, choose Level D. It opens a PDF.\u003c/li>\u003c/ul>"}]}]</script>
+<script>
+(function(){
+'use strict';
+var ST = JSON.parse(document.getElementById('data').textContent);
+var app = document.getElementById('app'), live = document.getElementById('live');
+var KEY = 'eng0300-tabe-review-v1', GKEY = 'eng0300-tabe-goal';
+var L = 'ABCD';
+var GOALS = {
+  ma:  { name: 'Medical Assisting', score: 563, raw: 33 },
+  pct: { name: 'Patient Care Technician', score: 563, raw: 33 },
+  mbc: { name: 'Medical Billing & Coding', score: 576, raw: 35 },
+  emt: { name: 'EMT', score: 576, raw: 35, extra: 'EMT also requires TABE Math 596.' },
+  pht: { name: 'Pharmacy Technician', score: 576, raw: 35, extra: 'Pharmacy Technician also requires TABE Math 596.' },
+  oap: { name: 'Office Administrative Professional', score: 520, raw: 22 },
+  eng: { name: 'Not sure yet', score: 563, raw: 33, extra: '563 is the ENG0300 course target.' }
+};
+function load(){ try { var s = JSON.parse(localStorage.getItem(KEY)); if (s && s.v === 1) return s; } catch (e) {} return null; }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(P)); } catch (e) {} }
+var P = load() || { v: 1, done: {}, first: {}, ticks: {}, goal: '' };
+try { if (!P.goal) P.goal = localStorage.getItem(GKEY) || ''; } catch (e) {}
+var T = {};      // per-activity UI state (not saved)
+var view = 'home';
+var ACT = {};    // id -> activity
+ST.forEach(function(s){ s.acts.forEach(function(a){ if (a.id) { ACT[a.id] = a; a.st = s; } }); });
+
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function say(t){ live.textContent=''; setTimeout(function(){ live.textContent=t; },30); }
+function tmp(id){ return T[id] || (T[id] = { missed: {}, msg: '', cls: '' }); }
+function norm(w){ return w.toLowerCase().replace(/[^a-z']/g,''); }
+
+/* ───── checks ───── */
+function checks(a){
+  switch(a.k){
+    case 'sort': return a.items.map(function(it,i){ return it.b==null?null:a.id+':'+i; }).filter(Boolean);
+    case 'mc': return [a.id];
+    case 'pair': return [a.id+':a', a.id+':b'];
+    case 'clue': return [a.id+':clue', a.id+':mean'];
+    case 'tap': return a.multi ? a.targets.map(function(t){ return a.id+':'+t; }) : a.rounds.map(function(r,i){ return a.id+':'+i; });
+    case 'chart': case 'table': return a.rounds.map(function(r,i){ return a.id+':'+i; });
+    default: return [];
+  }
+}
+function stChecks(s){ var o=[]; s.acts.forEach(function(a){ o=o.concat(checks(a)); }); return o; }
+var ALL = []; ST.forEach(function(s){ ALL = ALL.concat(stChecks(s)); });
+function nDone(list){ return list.filter(function(c){ return P.done[c]; }).length; }
+function actDone(a){ var c=checks(a); return c.length>0 && nDone(c)===c.length; }
+function stDone(s){ var c=stChecks(s); return c.length>0 && nDone(c)===c.length; }
+function mark(id, first){ if(!P.done[id]){ P.done[id]=1; if(first) P.first[id]=1; save(); paintScore(); } }
+
+/* ───── score bar ───── */
+function scoreHTML(){
+  var d=nDone(ALL), f=ALL.filter(function(c){ return P.first[c]; }).length, s=ST.filter(stDone).length, tot=ST.filter(function(x){ return stChecks(x).length; }).length;
+  return '<span>Checks done: <b>'+d+'</b> of '+ALL.length+'</span><span>Right on the first try: <b>'+f+'</b></span><span>Stations complete: <b>'+s+'</b> of '+tot+'</span><span class="bar" aria-hidden="true"><i style="width:'+(d/ALL.length*100).toFixed(1)+'%"></i></span>';
+}
+function paintScore(){ var el=document.getElementById('score'); if(el) el.innerHTML=scoreHTML(); }
+
+/* ───── home ───── */
+function renderHome(){
+  var h='<div class="hero"><span class="gold">TABE PREP · INTERACTIVE REVIEW · NOT GRADED</span><h1>TABE Reading Power Review</h1><p>Seven skills and one game plan. Tap, drag, and check your way through everything the TABE Reading test asks.</p></div>';
+  h+='<div class="scorebar" id="score" role="status">'+scoreHTML()+'</div>';
+  h+='<div class="handin"><b>Short on time?</b> Do <b>Station 2</b> first. It covers the biggest part of the test and the questions that go together in pairs. Then do <b>Stations 6 and 7</b>. Those two skills are new.</div>';
+  h+='<div class="grid">';
+  ST.forEach(function(s){ var c=stChecks(s), d=nDone(c), done=c.length&&d===c.length;
+    h+='<button class="tile'+(s.isNew?' new':'')+(done?' done':'')+'" data-act="open" data-s="'+s.id+'"><span class="n">'+(s.num===0?'START':'STATION '+s.num)+' · '+esc(s.tag)+'</span><b>'+esc(s.title)+'</b><small>'+esc(s.blurb)+'</small>'
+      +'<span class="foot"><span>'+s.mins+' min</span>'+(c.length?'<span class="pbar"><i style="width:'+(d/c.length*100)+'%"></i></span><span>'+(done?'✓ Done':d+' of '+c.length)+'</span>':'')+'</span></button>'; });
+  h+='</div>';
+  h+='<div class="card"><span class="ptag">HOW THIS PAGE WORKS</span><h2>Practice, not a grade</h2><p style="margin:4px 0 0">Every game checks itself and tells you why an answer is right or wrong. If you miss, read the hint and try again. Your progress is saved on this device, so you can stop and come back. Nothing here is graded, and nothing is sent to your instructor.</p>'
+    +'<p class="notebook"><b>After the review:</b> take the <b>TABE Reading Mock Test</b>, the next page in this module. It is a full practice test with 39 questions and a timer, like the real test.</p>'
+    +'<button class="btn ghost" data-act="reset">Clear my progress and start over</button></div>';
+  h+='<p class="fine">Practice material written for ENG0300 Reading/Writing for Academics. Original passages and questions, not real TABE questions. This page is not produced or endorsed by the publisher of the TABE test.</p>';
+  app.innerHTML=h;
+}
+
+/* ───── station ───── */
+function renderStation(s){
+  var i=ST.indexOf(s), c=stChecks(s);
+  var h='<div class="hero"><span class="gold'+(s.isNew?' new':'')+'">'+(s.num===0?'START':'STATION '+s.num)+' · '+esc(s.tag)+'</span><h1>'+esc(s.title)+'</h1><p>'+esc(s.blurb)+'</p><div class="meta"><span>About '+s.mins+' minutes</span>'+(s.weight?'<span>'+esc(s.weight)+'</span>':'')+(c.length?'<span>'+c.length+' checks</span>':'')+'</div></div>';
+  h+='<div class="scorebar" id="score" role="status">'+scoreHTML()+'</div>';
+  h+='<p style="margin:0 0 14px"><button class="btn ghost" data-act="home" style="margin:0">← All stations</button></p>';
+  s.acts.forEach(function(a,j){ h+='<div class="actwrap" id="w-'+s.id+'-'+j+'" data-j="'+j+'">'+actHTML(s,a,j)+'</div>'; });
+  h+='<div id="stdone">'+doneHTML(s)+'</div>';
+  h+='<div class="snav">'+(i>0?'<button class="btn ghost" data-act="open" data-s="'+ST[i-1].id+'">← '+esc(ST[i-1].title)+'</button>':'<span></span>')+(i<ST.length-1?'<button class="btn" data-act="open" data-s="'+ST[i+1].id+'">Next: '+esc(ST[i+1].title)+' →</button>':'<button class="btn" data-act="home">Back to all stations</button>')+'</div>';
+  app.innerHTML=h;
+}
+function doneHTML(s){ return stDone(s)?'<div class="handin" role="status"><b>Station complete.</b> '+(ST.indexOf(s)<ST.length-1?'Nice work. Go on to the next station.':'You finished the review. Take the TABE Reading Mock Test next.')+'</div>':''; }
+function repaint(a){
+  var s=a.st, j=s.acts.indexOf(a), w=document.getElementById('w-'+s.id+'-'+j); if(!w) return;
+  w.innerHTML=actHTML(s,a,j);
+  var d=document.getElementById('stdone'); if(d) d.innerHTML=doneHTML(s);
+}
+function head(a, tag){ var d=actDone(a); return '<div class="card'+(d?' done':'')+'" data-a="'+(a.id||'')+'"><span class="ptag">'+(d?'✓ DONE':tag)+'</span><h2>'+esc(a.title)+'</h2>'; }
+function fbHTML(a){ var t=tmp(a.id); return '<div class="fb '+(t.cls||'')+'" role="status">'+(t.msg||'')+'</div>'; }
+
+function actHTML(s,a,j){
+  switch(a.k){
+    case 'learn': return '<div class="card learn"><span class="ptag">LEARN IT</span><h2>'+esc(a.title)+'</h2>'+a.html+'</div>';
+    case 'links': return '<div class="card learn"><span class="ptag">NEXT</span><h2>'+esc(a.title)+'</h2>'+a.html+'</div>';
+    case 'goal': return goalHTML(a);
+    case 'sort': return sortHTML(a);
+    case 'mc': return head(a,'TABE-STYLE QUESTION')+refHTML(a)+(a.passage?'<div class="passage">'+esc(a.passage)+'</div>':'')+mcHTML(a.id, a, a.id)+'</div>';
+    case 'pair': return pairHTML(a);
+    case 'clue': return clueHTML(a);
+    case 'tap': return a.multi?wordsHTML(a):roundsHTML(a);
+    case 'chart': case 'table': return roundsHTML(a);
+    case 'flip': return flipHTML(a);
+    case 'checklist': return listHTML(a);
+  }
+  return '';
+}
+
+/* a question can show the passage, chart or table from an earlier game again */
+function refHTML(a){
+  var h='', r;
+  if(a.passageRef){ r=ACT[a.passageRef];
+    if(r.passage) h+='<div class="passage">'+esc(r.passage)+'</div>';
+    else if(r.text) h+='<div class="passage">'+esc(r.text)+'</div>';
+    else if(r.paraBuckets) h+='<div class="passage">'+r.buckets.map(function(b,i){ return '<p style="margin:0 0 6px"><b>'+(i+1)+'</b>&nbsp; '+esc(b.text)+'</p>'; }).join('')+'</div>'; }
+  if(a.chartRef){ r=ACT[a.chartRef]; h+=chartHTML(r, [], { missed:{} }, true, true); }
+  if(a.tableRef){ r=ACT[a.tableRef]; h+=tableHTML(r, [], { missed:{} }, true, true); }
+  return h;
+}
+
+/* goal */
+function goalHTML(a){
+  var h='<div class="card"><span class="ptag">YOUR TARGET</span><h2>'+esc(a.title)+'</h2><p class="prompt">Each BEOC program needs a different TABE Reading score.</p><div class="pick">';
+  Object.keys(GOALS).forEach(function(k){ var g=GOALS[k]; h+='<button class="choice" data-act="goal" data-k="'+k+'" aria-pressed="'+(P.goal===k)+'"><b>'+esc(g.name)+'</b><small>Reading '+g.score+'</small></button>'; });
+  h+='</div>'; var g=GOALS[P.goal];
+  if(g) h+='<div class="target" role="status">Your target is TABE Reading <b>'+g.score+'</b>. On the real test, that is about <b>'+g.raw+' of 39</b> questions correct. '+(g.raw>=35?'You can miss only about 4 questions, so every question matters.':g.raw>=33?'You can miss about 6 questions.':'')+(g.extra?' '+esc(g.extra):'')+'</div>';
+  return h+'</div>';
+}
+
+/* sort */
+function sortHTML(a){
+  var t=tmp(a.id), rem=[], h=head(a,'GAME');
+  h+='<p class="prompt">'+(a.promptHtml?a.prompt:esc(a.prompt))+'</p>';
+  if(a.passage) h+='<div class="passage">'+esc(a.passage)+'</div>';
+  var total=checks(a).length, done=nDone(checks(a));
+  h+='<div class="count">'+done+' OF '+total+' PLACED</div><div class="tray">';
+  a.items.forEach(function(it,i){
+    if(it.b==null){ h+= done===total ? '<span class="item'+(a.chips?' chip':'')+' extra">'+esc(it.t)+' (extra)</span>' : '<button class="item'+(a.chips?' chip':'')+(t.sel===i?' sel':'')+'" data-act="pickitem" data-a="'+a.id+'" data-i="'+i+'" aria-pressed="'+(t.sel===i)+'">'+esc(it.t)+'</button>'; return; }
+    if(P.done[a.id+':'+i]) return;
+    h+='<button class="item'+(a.chips?' chip':'')+(t.sel===i?' sel':'')+'" data-act="pickitem" data-a="'+a.id+'" data-i="'+i+'" aria-pressed="'+(t.sel===i)+'">'+esc(it.t)+'</button>';
+  });
+  h+='</div><div class="buckets'+(a.paraBuckets?' paras':'')+'">';
+  a.buckets.forEach(function(b){
+    var placed=''; a.items.forEach(function(it,i){ if(it.b===b.id && P.done[a.id+':'+i]) placed+='<span class="placed'+(a.chips&&!a.paraBuckets?' chip':'')+'">✓ '+esc(it.t)+'</span>'; });
+    h+='<button class="bucket" data-act="drop" data-a="'+a.id+'" data-b="'+b.id+'"><b>'+esc(b.label)+'</b>'+(b.sub?'<small>'+esc(b.sub)+'</small>':'')+(b.text?'<span class="ptxt">'+esc(b.text)+'</span>':'')+(a.paraBuckets&&!placed?'<span class="slot">Drop a job label here</span>':'')+placed+'</button>';
+  });
+  return h+'</div>'+fbHTML(a)+'</div>';
+}
+function attempt(a, i, bid){
+  var t=tmp(a.id), it=a.items[i]; t.sel=null;
+  if(it.b===bid){ mark(a.id+':'+i, !t.missed[i]); t.msg='✓ '+esc(it.why); t.cls='ok'; if(actDone(a)) t.msg+=' <b>All placed.</b>'; say('Correct. '+it.why); }
+  else if(it.b==null){ t.msg='✗ Not here. One label is extra, and this may be the one. Place the others first.'; t.cls='no'; t.shake=bid; say('Not here.'); }
+  else { t.missed[i]=1; t.msg='✗ Not that box. Read the statement again and try a different one.'; t.cls='no'; t.shake=bid; say('Not that box. Try again.'); }
+  repaint(a);
+  if(t.shake){ var el=app.querySelector('.bucket[data-a="'+a.id+'"][data-b="'+t.shake+'"]'); if(el){ el.classList.add('shake'); } t.shake=null; }
+}
+
+/* multiple choice (shared by mc, pair, clue) */
+function mcHTML(cid, q, aid){
+  var t=tmp(cid), solved=!!P.done[cid], h='<div class="stem" id="st-'+cid+'">'+esc(q.stem)+'</div><div role="group" aria-labelledby="st-'+cid+'">';
+  q.options.forEach(function(o,i){
+    var tried=t.missed[i], cls=solved&&o.ok?' right':tried?' wrong':'';
+    h+='<button class="opt'+cls+'" data-act="mc" data-c="'+cid+'" data-a="'+aid+'" data-i="'+i+'"'+((solved||tried)?' disabled':'')+'><span class="l">'+L[i]+'.</span>'+esc(o.t)+((solved||tried)?'<span class="why">'+(o.ok?'✓ ':'✗ ')+esc(o.why)+'</span>':'')+'</button>';
+  });
+  return h+'</div>';
+}
+function qFor(cid){ var p=cid.split(':'), a=ACT[p[0]]; if(a.k==='pair') return a[p[1]]; return a; }
+
+function pairHTML(a){
+  var h=head(a,'TABE-STYLE QUESTION')+'<div class="passage">'+esc(a.passage)+'</div>'+mcHTML(a.id+':a', a.a, a.id);
+  h+= P.done[a.id+':a'] ? '<hr style="border:0;border-top:2px solid var(--line);margin:16px 0 10px">'+mcHTML(a.id+':b', a.b, a.id) : '<div class="locked">🔒 The second question opens when you answer the first one correctly.</div>';
+  return h+'</div>';
+}
+
+/* clue hunter */
+function clueHTML(a){
+  var t=tmp(a.id), found=!!P.done[a.id+':clue'], h=head(a,'GAME')+'<p class="prompt">'+a.prompt+'</p><div class="sentence">';
+  a.units.forEach(function(u){
+    if(u.word){ h+='<span class="chunk word">'+esc(u.t)+'</span> '; return; }
+    var hit=found&&a.targets.indexOf(u.id)>=0, miss=t.missed[u.id];
+    h+='<button class="chunk'+(hit?' hit':miss?' miss':'')+'" data-act="clue" data-a="'+a.id+'" data-u="'+u.id+'"'+(found?' disabled':'')+'>'+esc(u.t)+'</button> ';
+  });
+  h+='</div>'+fbHTML(a);
+  h+= found ? mcHTML(a.id+':mean', a, a.id) : '<div class="locked">🔒 Find the clue first. Then you choose the meaning.</div>';
+  return h+'</div>';
+}
+
+/* rounds: sentence tap, chart, table */
+function curRound(a){ for(var i=0;i<a.rounds.length;i++) if(!P.done[a.id+':'+i]) return i; return -1; }
+function roundsHTML(a){
+  var t=tmp(a.id), r=curRound(a), h=head(a,'GAME')+'<p class="prompt">'+esc(a.prompt)+'</p>';
+  var rd = r>=0 ? a.rounds[r] : null;
+  if(t.pending!=null){ rd=a.rounds[t.pending]; }
+  if(rd) h+='<div class="ask"><small>ROUND '+((t.pending!=null?t.pending:r)+1)+' OF '+a.rounds.length+'</small>'+(a.k==='tap'?'Tap a sentence that proves this: "'+esc(rd.ask)+'"':esc(rd.ask))+'</div>';
+  var hits = t.pending!=null ? a.rounds[t.pending].targets : [];
+  var lock = t.pending!=null || r<0;
+  if(a.k==='tap'){
+    h+='<div class="units">'; a.units.forEach(function(u){ var hit=hits.indexOf(u.id)>=0, miss=t.missed[u.id]&&t.pending==null; h+='<button class="unit'+(hit?' hit':miss?' miss':'')+'" data-act="unit" data-a="'+a.id+'" data-u="'+u.id+'"'+(lock?' disabled':'')+'>'+esc(u.t)+'</button>'; }); h+='</div>';
+  } else if(a.k==='chart'){ h+=chartHTML(a, hits, t, lock); }
+  else { h+=tableHTML(a, hits, t, lock); }
+  h+=fbHTML(a);
+  if(t.pending!=null) h+='<button class="btn" data-act="nextround" data-a="'+a.id+'">'+(t.pending<a.rounds.length-1?'Next round →':'Finish')+'</button>';
+  return h+'</div>';
+}
+function tapUnit(a, uid){
+  var t=tmp(a.id), r=curRound(a); if(r<0||t.pending!=null) return;
+  var rd=a.rounds[r];
+  if(rd.targets.indexOf(uid)>=0){ var first=!t.wrongThisRound; mark(a.id+':'+r, first); t.pending=r; t.missed={}; t.wrongThisRound=false; t.msg='✓ '+esc(rd.why); t.cls='ok'; say('Correct. '+rd.why); }
+  else { t.missed[uid]=1; t.wrongThisRound=true; t.msg='✗ '+esc(rd.miss||'Not that one. Try again.'); t.cls='no'; say('Not that one. '+(rd.miss||'')); }
+  repaint(a);
+  var nb=app.querySelector('[data-act=nextround][data-a="'+a.id+'"]'); if(nb) nb.focus();
+}
+function chartHTML(a, hits, t, lock, still){
+  var narrow=window.innerWidth<620, c=a.chart, W=narrow?360:560,H=narrow?286:300,l=narrow?30:54,r=narrow?6:12,tp=narrow?36:20,b=58,pw=W-l-r,ph=H-tp-b,n=c.bars.length,slot=pw/n,bw=Math.min(54,slot*.52);
+  var y=function(v){ return tp+ph-(v/c.max)*ph; }, g='', bars='';
+  for(var v=0;v<=c.max;v+=c.step){ g+='<line x1="'+l+'" x2="'+(W-r)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="'+(v===0?'#8794ab':'#e3e9f3')+'"/><text x="'+(l-8)+'" y="'+(y(v)+4)+'" text-anchor="end" font-size="12" fill="#5d6676">'+v+'</text>'; }
+  c.bars.forEach(function(d,i){
+    var x=l+slot*i+(slot-bw)/2, top=y(d.value), rr=4, hit=hits.indexOf(d.id)>=0, miss=t.missed[d.id]&&t.pending==null;
+    bars+=(still?'<g>':'<g class="bar'+(hit?' hit':miss?' miss':'')+'" data-act="unit" data-a="'+a.id+'" data-u="'+d.id+'" role="button" tabindex="'+(lock?-1:0)+'" aria-label="'+esc(d.label)+', '+d.value+' patients"><rect class="hitbox" x="'+(l+slot*i+2)+'" y="'+tp+'" width="'+(slot-4)+'" height="'+(ph+42)+'" rx="8"/>')
+      +'<path d="M'+x+','+(tp+ph)+' V'+(top+rr)+' Q'+x+','+top+' '+(x+rr)+','+top+' H'+(x+bw-rr)+' Q'+(x+bw)+','+top+' '+(x+bw)+','+(top+rr)+' V'+(tp+ph)+' Z" fill="#26518f"/>'
+      +'<text x="'+(x+bw/2)+'" y="'+(top-6)+'" text-anchor="middle" font-size="14" font-weight="900" fill="#202122">'+d.value+'</text>'
+      +'<text x="'+(x+bw/2)+'" y="'+(tp+ph+20)+'" text-anchor="middle" font-size="13.5" font-weight="700" fill="#202122">'+esc(narrow?d.label.slice(0,3):d.label)+'</text></g>';
+  });
+  var titleHit=hits.indexOf('title')>=0, titleMiss=t.missed.title&&t.pending==null;
+  var tbl='<div class="sr"><table><caption>'+esc(c.title)+'</caption>'+c.bars.map(function(d){ return '<tr><th>'+esc(d.label)+'</th><td>'+d.value+'</td></tr>'; }).join('')+'</table></div>';
+  return '<figure class="chart">'+(still?'<figcaption class="ctitle" style="cursor:default">'+esc(c.title)+'</figcaption>':'<button class="ctitle'+(titleHit?' hit':titleMiss?' miss':'')+'" data-act="unit" data-a="'+a.id+'" data-u="title"'+(lock?' disabled':'')+'>'+esc(c.title)+'</button>')
+    +'<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Bar chart. '+c.bars.map(function(d){ return d.label+' '+d.value; }).join(', ')+'.">'+g+bars+(narrow?'<text x="2" y="12" font-size="12" fill="#5d6676">'+esc(c.yLabel)+'</text>':'<text transform="translate(13,'+(tp+ph/2)+') rotate(-90)" text-anchor="middle" font-size="12" fill="#5d6676">'+esc(c.yLabel)+'</text>')+'<text x="'+(l+pw/2)+'" y="'+(H-6)+'" text-anchor="middle" font-size="12" fill="#5d6676">'+esc(c.xLabel)+'</text></svg>'+(still?tbl:'')+'</figure>';
+}
+function tableHTML(a, hits, t, lock, still){
+  var d=a.table, h='<div class="tblwrap"><table class="data"><caption>'+esc(d.title)+'</caption><tr><th></th>'+d.cols.map(function(c){ return '<th scope="col">'+esc(c)+'</th>'; }).join('')+'</tr>';
+  d.rows.forEach(function(row,ri){ h+='<tr><th scope="row">'+esc(row.h)+'</th>'+row.c.map(function(c,ci){ var id=ri+'-'+ci, hit=hits.indexOf(id)>=0, miss=t.missed[id]&&t.pending==null; return still?'<td><span class="cell" style="cursor:default">'+esc(c)+'</span></td>':'<td><button class="cell'+(hit?' hit':miss?' miss':'')+'" data-act="unit" data-a="'+a.id+'" data-u="'+id+'"'+(lock?' disabled':'')+' aria-label="'+esc(row.h)+', '+esc(d.cols[ci])+': '+esc(c)+'">'+esc(c)+'</button></td>'; }).join('')+'</tr>'; });
+  return h+'</table></div>';
+}
+
+/* loaded words */
+function wordsHTML(a){
+  var t=tmp(a.id), cs=checks(a), d=nDone(cs), h=head(a,'GAME')+'<p class="prompt">'+a.prompt+'</p><div class="count">'+d+' OF '+cs.length+' FOUND</div><div class="words">';
+  a.text.split(' ').forEach(function(w,i){ var k=norm(w), hit=a.targets.indexOf(k)>=0&&P.done[a.id+':'+k], miss=t.missed[i];
+    h+='<button class="w'+(hit?' hit':miss?' miss':'')+'" data-act="word" data-a="'+a.id+'" data-i="'+i+'" data-w="'+esc(k)+'"'+((hit||d===cs.length)?' disabled':'')+'>'+esc(w)+'</button> '; });
+  return h+'</div>'+fbHTML(a)+'</div>';
+}
+
+/* flip + checklist */
+function flipHTML(a){
+  var t=tmp(a.id), h='<div class="card"><span class="ptag">STRATEGY CARDS</span><h2>'+esc(a.title)+'</h2><p class="prompt">'+esc(a.prompt)+'</p><div class="flips">';
+  a.cards.forEach(function(c,i){ var on=t['f'+i]; h+='<button class="flipc'+(on?' on':'')+'" data-act="flip" data-a="'+a.id+'" data-i="'+i+'" aria-pressed="'+(!!on)+'">'+(on?'<span>'+esc(c.b)+'</span><small>TAP TO TURN BACK</small>':'<b>'+esc(c.f)+'</b><small>TAP TO SEE THE MOVE</small>')+'</button>'; });
+  return h+'</div></div>';
+}
+function listHTML(a){
+  var h='<div class="card"><span class="ptag">CHECKLIST</span><h2>'+esc(a.title)+'</h2><p class="prompt">'+esc(a.prompt)+'</p>';
+  a.items.forEach(function(it,i){ var on=!!P.ticks[a.id+':'+i]; h+='<button class="tick" data-act="tick" data-a="'+a.id+'" data-i="'+i+'" aria-pressed="'+on+'"><span class="box" aria-hidden="true">'+(on?'✓':'')+'</span><span>'+esc(it)+'</span></button>'; });
+  return h+'</div>';
+}
+
+/* ───── events ───── */
+function render(){ if(view==='home') renderHome(); else renderStation(ST.filter(function(s){ return s.id===view; })[0]); }
+function top(){
+  var y=app.getBoundingClientRect().top, w=window;
+  try { while(w.frameElement && w.parent!==w){ y+=w.frameElement.getBoundingClientRect().top; w=w.parent; } } catch(e) { w=null; }
+  if(w && w!==window) w.scrollBy(0, y-70); else { window.scrollTo(0,0); try{ app.scrollIntoView({block:'start'}); }catch(e){} }
+}
+var suppress=false;
+document.addEventListener('click', function(e){
+  if(suppress){ suppress=false; return; }
+  var b=e.target.closest('[data-act]'); if(!b||b.disabled) return;
+  var act=b.dataset.act, a=ACT[b.dataset.a], t, i;
+  switch(act){
+    case 'open': view=b.dataset.s; render(); top(); break;
+    case 'home': view='home'; render(); top(); break;
+    case 'reset': if(b.dataset.sure){ P={ v:1, done:{}, first:{}, ticks:{}, goal:P.goal }; T={}; save(); render(); } else { b.dataset.sure='1'; b.textContent='Tap again to clear everything'; } break;
+    case 'goal': P.goal=b.dataset.k; save(); try{ localStorage.setItem(GKEY,P.goal); }catch(err){} var w=b.closest('.actwrap'); w.innerHTML=goalHTML(ST[0].acts[+w.dataset.j]); break;
+    case 'pickitem': t=tmp(a.id); i=+b.dataset.i; t.sel=(t.sel===i?null:i); t.msg=t.sel!=null?'Now tap the box where it belongs.':''; t.cls='info'; repaint(a); var again=app.querySelector('.item.sel'); if(again) again.focus(); break;
+    case 'drop': t=tmp(a.id); if(t.sel==null){ t.msg='First tap a statement above. Then tap a box.'; t.cls='info'; repaint(a); } else attempt(a, t.sel, b.dataset.b); break;
+    case 'mc':
+      var cid=b.dataset.c, q=qFor(cid); t=tmp(cid); i=+b.dataset.i;
+      if(q.options[i].ok){ mark(cid, Object.keys(t.missed).length===0); say('Correct. '+q.options[i].why); } else { t.missed[i]=1; say('Not quite. '+q.options[i].why); }
+      repaint(a); break;
+    case 'clue':
+      t=tmp(a.id); var u=b.dataset.u;
+      if(a.targets.indexOf(u)>=0){ mark(a.id+':clue', Object.keys(t.missed).length===0); t.missed={}; t.msg='✓ '+esc(a.why); t.cls='ok'; say('Correct. '+a.why); }
+      else { t.missed[u]=1; t.msg='✗ '+esc((a.near&&a.near[u])||'That part does not tell you what the word means. Try another part.'); t.cls='no'; say('Not that part.'); }
+      repaint(a); break;
+    case 'unit': tapUnit(a, b.dataset.u); break;
+    case 'nextround': t=tmp(a.id); t.pending=null; t.msg=''; if(actDone(a)){ t.msg='✓ <b>All rounds complete.</b>'; t.cls='ok'; } repaint(a); break;
+    case 'word':
+      t=tmp(a.id); var k=b.dataset.w;
+      if(a.targets.indexOf(k)>=0){ mark(a.id+':'+k, !t.wrongSince); t.wrongSince=false; t.missed={}; t.msg='✓ '+esc(a.whyEach[k])+(actDone(a)?'<br><b>'+esc(a.done)+'</b>':''); t.cls='ok'; say('Correct. '+a.whyEach[k]); }
+      else { t.missed[+b.dataset.i]=1; t.wrongSince=true; t.msg='✗ '+esc(a.miss); t.cls='no'; say(a.miss); }
+      repaint(a); break;
+    case 'flip': t=tmp(a.id); t['f'+b.dataset.i]=!t['f'+b.dataset.i]; repaint(a); var fc=app.querySelector('[data-act=flip][data-a="'+a.id+'"][data-i="'+b.dataset.i+'"]'); if(fc) fc.focus(); break;
+    case 'tick': var id=a.id+':'+b.dataset.i; if(P.ticks[id]) delete P.ticks[id]; else P.ticks[id]=1; save(); b.setAttribute('aria-pressed', !!P.ticks[id]); b.querySelector('.box').textContent=P.ticks[id]?'✓':''; break;
+  }
+});
+document.addEventListener('keydown', function(e){ if((e.key==='Enter'||e.key===' ') && e.target.classList && e.target.classList.contains('bar')){ e.preventDefault(); e.target.dispatchEvent(new MouseEvent('click',{bubbles:true})); } });
+
+/* ───── drag and drop (pointer events; tap-then-tap still works) ───── */
+var drag=null, scrollT=null;
+function edgeScroll(){
+  if(!drag||!drag.moved) return;
+  var w=window, y=drag.cy;
+  try { while(w.frameElement && w.parent!==w){ y+=w.frameElement.getBoundingClientRect().top; w=w.parent; } } catch(err) {}
+  var h=w.innerHeight, d = y<70 ? -16 : y>h-70 ? 16 : 0;
+  if(d) { try { w.scrollBy(0,d); } catch(err) {} }
+}
+function overBucket(x,y,aid){ var el=document.elementFromPoint(x,y); var bk=el&&el.closest?el.closest('.bucket'):null; return (bk&&bk.dataset.a===aid)?bk:null; }
+document.addEventListener('pointerdown', function(e){
+  var it=e.target.closest&&e.target.closest('button.item'); if(!it) return;
+  drag={ el:it, aid:it.dataset.a, i:+it.dataset.i, x:e.clientX, y:e.clientY, pid:e.pointerId, moved:false, ghost:null, over:null };
+});
+document.addEventListener('pointermove', function(e){
+  if(!drag||e.pointerId!==drag.pid) return;
+  if(!drag.moved){ if(Math.abs(e.clientX-drag.x)+Math.abs(e.clientY-drag.y)<9) return;
+    drag.moved=true; var r=drag.el.getBoundingClientRect(); drag.ox=drag.x-r.left; drag.oy=drag.y-r.top;
+    var g=drag.el.cloneNode(true); g.classList.add('dragghost'); g.classList.remove('sel'); g.style.width=r.width+'px'; document.body.appendChild(g); drag.ghost=g; drag.el.classList.add('dragging'); }
+  drag.cy=e.clientY; if(!scrollT) scrollT=setInterval(edgeScroll,30);
+  drag.ghost.style.left=(e.clientX-drag.ox)+'px'; drag.ghost.style.top=(e.clientY-drag.oy)+'px';
+  var bk=overBucket(e.clientX,e.clientY,drag.aid);
+  if(bk!==drag.over){ if(drag.over) drag.over.classList.remove('over'); if(bk) bk.classList.add('over'); drag.over=bk; }
+  e.preventDefault();
+});
+function endDrag(e, cancel){
+  if(!drag||(e&&e.pointerId!==drag.pid)) return;
+  var d=drag; drag=null;
+  if(scrollT){ clearInterval(scrollT); scrollT=null; }
+  if(!d.moved) return;
+  if(d.ghost) d.ghost.remove(); d.el.classList.remove('dragging'); if(d.over) d.over.classList.remove('over');
+  suppress=true; setTimeout(function(){ suppress=false; },0);
+  if(cancel) return;
+  var bk=overBucket(e.clientX,e.clientY,d.aid);
+  if(bk) attempt(ACT[d.aid], d.i, bk.dataset.b);
+}
+document.addEventListener('pointerup', function(e){ endDrag(e,false); });
+document.addEventListener('pointercancel', function(e){ endDrag(e,true); });
+
+render();
+})();
+</script>
+</body>
+</html>

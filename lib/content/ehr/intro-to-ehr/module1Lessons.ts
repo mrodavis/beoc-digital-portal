@@ -129,7 +129,7 @@ export const module1Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "This course introduces you to Electronic Health Records — the digital systems that power modern healthcare. Over nine weeks you will learn patient workflow, the healthcare revenue cycle, medical coding, legal compliance, and weekly hands-on labs in the BEOC EHR Simulator.",
+            text: "This course introduces you to Electronic Health Records — the digital systems that power modern healthcare. Over the course you will learn patient workflow, the healthcare revenue cycle, medical coding, legal compliance, and weekly hands-on labs in the BEOC EHR Simulator.",
           },
           {
             type: "list",
@@ -149,16 +149,17 @@ export const module1Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Midterm Exam — 25%",
-              "Final Exam — 25%",
-              "Participation — 25%",
-              "Homework & Lab Assignments — 25%",
+              "Professionalism (attendance and participation) — 20%",
+              "Classwork & Homework — 20%",
+              "EHR Simulator Labs — 20%",
+              "Midterm Exam — 20%",
+              "Final Exam — 20%",
             ],
           },
           {
             type: "callout",
             variant: "info",
-            text: "Thursday lab sessions in the BEOC EHR Simulator, including its graded simulations, count toward your Homework & Lab Assignments grade. Come prepared and sign in before class starts.",
+            text: "Lab sessions in the BEOC EHR Simulator, including its graded simulations, count toward your EHR Simulator Labs grade. Come prepared and sign in before class starts.",
           },
         ],
       },
@@ -166,20 +167,20 @@ export const module1Lessons: Lesson[] = [
     challenge: [
       {
         type: "knowledge-check",
-        question: "Which component accounts for 25% of your final grade?",
+        question: "How much of your final grade comes from the EHR Simulator labs?",
         options: [
-          "Attendance only",
-          "Midterm Exam",
-          "Weekly quizzes",
-          "Simulator login streak",
+          "None. The labs are practice only.",
+          "20%, the same weight as each of the other four categories",
+          "50%, because the course is hands-on",
+          "It depends on how many times you sign in",
         ],
         correctIndex: 1,
-        explanation: "Check your syllabus for the exact weighting, which is authoritative. The point of knowing it is practical: the midterm carries enough weight that preparation for it should start well before Module 4's review session.",
+        explanation: "The grade has five categories at 20% each: Professionalism, Classwork & Homework, EHR Simulator Labs, the Midterm, and the Final. Brightspace is the authoritative record. The point of knowing it is practical: the labs carry as much weight as an exam, so a skipped lab costs about as much as a weak test.",
         optionRationales: [
-          "Attendance matters and is recorded, but it is not the largest single component.",
-          "Correct per the course syllabus. Confirm the exact figure against your syllabus, which is the authoritative source.",
-          "Quizzes contribute, but not at this weight.",
-          "Not a graded component. Signing in to the simulator matters because the labs are where the skills are built, not because attendance in the software is scored.",
+          "The labs are graded. Each graded simulation and lab is a grade item in Brightspace.",
+          "Correct. Five categories, 20% each, so the labs weigh the same as the midterm.",
+          "No single category is worth half. The weight is split evenly across five categories.",
+          "Signing in is not scored. The simulator grades the steps you take inside a lab, not how often you log in.",
         ],
       },
     ],

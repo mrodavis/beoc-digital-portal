@@ -27,11 +27,11 @@ export const module9Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "The final exam is administered in class by Mr. Gera. It is cumulative and covers all material from Weeks 1–8. It includes multiple choice, true/false, and short answer questions.",
+            text: "The final exam is taken in class on Brightspace. It is cumulative and covers all material from Modules 1–8. It includes multiple choice, true/false, and short answer questions.",
           },
           {
             type: "paragraph",
-            text: "The final exam counts for 25% of your final grade. Review all previous modules, your EHR Simulator lab notes and debriefs, and the midterm feedback from your instructor.",
+            text: "The final exam counts for 20% of your final grade. Review all previous modules, your EHR Simulator lab notes and debriefs, and the midterm feedback from your instructor.",
           },
         ],
       },
