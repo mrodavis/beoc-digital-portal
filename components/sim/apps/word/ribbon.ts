@@ -426,7 +426,7 @@ export const wordRibbon: RibbonTab[] = [
     label: "Design",
     groups: [
       {
-        label: "Themes",
+        label: "Document Formatting",
         controls: [
           {
             type: "dropdown",
@@ -441,11 +441,6 @@ export const wordRibbon: RibbonTab[] = [
               { value: "Save Current Theme...", icon: "save", dialog: "saveTheme" },
             ],
           },
-        ],
-      },
-      {
-        label: "Document Formatting",
-        controls: [
           {
             type: "gallery",
             id: "design.styleSet",
@@ -769,7 +764,7 @@ export const wordRibbon: RibbonTab[] = [
   },
   {
     id: "tableLayout",
-    label: "Layout",
+    label: "Table Layout",
     contextual: "table",
     groups: [
       { label: "Table", controls: [{ type: "dropdown", id: "table.select", label: "Select", icon: "select", showLabel: true, options: ["Select Cell", "Select Column", "Select Row", "Select Table"].map((v) => ({ value: v })) }, { type: "toggle", id: "table.gridlines", label: "View Gridlines", icon: "gridlines", showLabel: true }, { type: "button", id: "table.properties", label: "Properties", icon: "options", showLabel: true }] },

@@ -1,427 +1,61 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { PptDeck, PptObject, PptSlide, TextProps } from "@/types/sim";
+import { useEffect, useRef, useState } from "react";
+import type { PptDeck, PptObject, PptSlide } from "@/types/sim";
 import type { CanvasProps, MenuItem, StatusBarProps } from "../../types";
 import { Icon } from "../../chrome/icons";
-import { activeSlide, LAYOUTS, parseSel, slideText, themeOf, type PptTheme } from "./model";
+import { LAYOUTS, activeSlide, layoutName, themeOf } from "./model";
+import { flagJson, ox, readMaster } from "./ext";
+import { PartEditor, SlideView } from "./PptSlide";
+import { ChartDataSheet, PptPane } from "./PptPanes";
+import { SlideShow } from "./PptShow";
 
-type Part = "title" | "subtitle" | "body" | "body2";
-interface Box { x: number; y: number; w: number; h: number }
+const TEXT_PARTS = ["title", "subtitle", "body", "body2", "notes"];
+const isCell = (k: string) => /^[^.]+\.o\d+\.r\d+c\d+$/.test(k);
+const cellRC = (k: string): [number, number] => {
+  const m = /r(\d+)c(\d+)$/.exec(k);
+  return m ? [Number(m[1]), Number(m[2])] : [1, 1];
+};
 
-function layoutBoxes(layout: string): Partial<Record<Part | "picture", Box>> {
-  switch (layout) {
-    case "Title Slide": return { title: { x: 10, y: 26, w: 80, h: 24 }, subtitle: { x: 15, y: 54, w: 70, h: 14 } };
-    case "Section Header": return { title: { x: 8, y: 34, w: 84, h: 22 }, subtitle: { x: 8, y: 58, w: 84, h: 12 } };
-    case "Two Content":
-    case "Comparison": return { title: { x: 6, y: 5, w: 88, h: 16 }, body: { x: 6, y: 25, w: 43, h: 66 }, body2: { x: 51, y: 25, w: 43, h: 66 } };
-    case "Title Only": return { title: { x: 6, y: 5, w: 88, h: 16 } };
-    case "Blank": return {};
-    case "Content with Caption": return { title: { x: 6, y: 8, w: 34, h: 18 }, body2: { x: 6, y: 28, w: 34, h: 60 }, body: { x: 44, y: 8, w: 50, h: 84 } };
-    case "Picture with Caption": return { picture: { x: 6, y: 6, w: 88, h: 56 }, title: { x: 6, y: 65, w: 88, h: 12 }, body2: { x: 6, y: 78, w: 88, h: 12 } };
-    default: return { title: { x: 6, y: 5, w: 88, h: 16 }, body: { x: 6, y: 25, w: 88, h: 66 } };
+/** A stand-in slide used to draw the slide master or one of its layouts. */
+function masterSlide(deck: PptDeck, key: string): PptSlide {
+  const m = readMaster(deck);
+  if (key === "master") {
+    return { id: "master", layout: "Title and Content", title: "Click to edit Master title style", body: ["Click to edit Master text styles", "\tSecond level", "\t\tThird level"], objects: m.objects ?? [] };
   }
+  const name = key.replace(/^layout:/, "");
+  const layout = LAYOUTS.includes(name) ? name : "Title and Content";
+  const s: PptSlide = { id: key, layout, objects: m.layoutObjects?.[name] ?? [] };
+  if (layout !== "Blank") s.title = "Click to edit Master title style";
+  if (layout === "Title Slide" || layout === "Section Header") s.subtitle = "Click to edit Master subtitle style";
+  if (!["Title Slide", "Section Header", "Title Only", "Blank", "Picture with Caption"].includes(layout)) s.body = ["Click to edit Master text styles", "\tSecond level"];
+  if (layout === "Two Content" || layout === "Comparison" || layout === "Content with Caption" || layout === "Picture with Caption") s.body2 = ["Click to edit Master text styles"];
+  return s;
 }
-
-const PLACEHOLDER: Record<Part, string> = { title: "Click to add title", subtitle: "Click to add subtitle", body: "Click to add text", body2: "Click to add text" };
-
-function textStyle(p: (TextProps & { align?: string }) | undefined, base: { font: string; size: number; color: string; align?: string }): React.CSSProperties {
-  return {
-    fontFamily: `'${p?.font ?? base.font}', Aptos, Calibri, 'Segoe UI', sans-serif`,
-    fontSize: (p?.size ?? base.size) * 1.333,
-    color: p?.color ?? base.color,
-    fontWeight: p?.bold ? 700 : undefined,
-    fontStyle: p?.italic ? "italic" : undefined,
-    textDecoration: [p?.underline ? "underline" : "", p?.strike ? "line-through" : ""].filter(Boolean).join(" ") || undefined,
-    textAlign: (p?.align ?? base.align ?? "left") as React.CSSProperties["textAlign"],
-    textShadow: (p as { shadow?: boolean } | undefined)?.shadow ? "1px 1px 2px rgba(0,0,0,.4)" : undefined,
-  };
-}
-
-function shapeCss(o: PptObject): React.CSSProperties {
-  switch (o.shape) {
-    case "oval": return { borderRadius: "50%" };
-    case "rounded": return { borderRadius: 18 };
-    case "arrow": return { clipPath: "polygon(0 25%, 65% 25%, 65% 0, 100% 50%, 65% 100%, 65% 75%, 0 75%)" };
-    case "star": return { clipPath: "polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)" };
-    case "callout": return { borderRadius: 12 };
-    default: return /Triangle/.test(o.label ?? "") ? { clipPath: "polygon(50% 0,100% 100%,0 100%)" } : {};
-  }
-}
-
-const PAL = ["#4472C4", "#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5", "#70AD47"];
-
-function ObjectBody({ o, theme }: { o: PptObject; theme: PptTheme }) {
-  const style = o.style ?? "";
-  if (o.kind === "image") {
-    const shadow = /Shadow|Reflected/.test(style);
-    const rounded = /Rounded|Oval/.test(style);
-    const frame = /Frame/.test(style);
-    return (
-      <div
-        className="flex h-full w-full flex-col items-center justify-center bg-gradient-to-br from-sky-200 to-emerald-200 text-center"
-        style={{
-          boxShadow: shadow ? "0 10px 22px rgba(0,0,0,.4)" : undefined,
-          borderRadius: rounded ? (/Oval/.test(style) ? "50%" : 22) : undefined,
-          border: frame ? "10px solid #fff" : /border:/.test(style) ? `4px solid ${style.split(":")[1]}` : undefined,
-          outline: frame ? "1px solid #bbb" : undefined,
-          filter: /Grayscale/.test(style) ? "grayscale(1)" : /Sepia/.test(style) ? "sepia(1)" : /Washout/.test(style) ? "opacity(.5)" : /Blur/.test(style) ? "blur(1.5px)" : undefined,
-          clipPath: o.crop ? "inset(8% 8% 8% 8%)" : undefined,
-        }}
-      >
-        <span style={{ fontSize: 44 }}>{o.glyph ?? "🖼️"}</span>
-        <span className="px-2 text-[15px] text-gray-700">{o.label}</span>
-      </div>
-    );
-  }
-  if (o.kind === "video") return <div className="flex h-full w-full items-center justify-center bg-black text-5xl text-white/80">▶<span className="ml-3 text-sm text-white/70">{o.label}</span></div>;
-  if (o.kind === "audio") return <div className="flex h-full w-full items-center justify-center text-5xl">🔊</div>;
-  if (o.kind === "icon") return <div className="flex h-full w-full items-center justify-center" style={{ fontSize: 60, color: o.color ?? theme.accent }}>{o.glyph ?? "★"}</div>;
-  if (o.kind === "table") {
-    const rows = o.rows ?? [];
-    return (
-      <table className="h-full w-full border-collapse text-[18px]" style={{ fontFamily: `'${theme.font}', sans-serif` }}>
-        <tbody>
-          {rows.map((r, i) => (
-            <tr key={i}>
-              {r.map((c, j) => (
-                <td key={j} className="border border-white px-2 py-1" style={{ background: i === 0 ? theme.accent : i % 2 ? "#D9E2F3" : "#E9EFF7", color: i === 0 ? "#fff" : "#000", fontWeight: i === 0 ? 700 : 400 }}>
-                  {c || " "}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
-  }
-  if (o.kind === "chart") {
-    const s = o.series ?? [];
-    const max = Math.max(1, ...s.map((x) => x.value));
-    const type = o.label ?? "";
-    if (/Pie|Doughnut/.test(type)) {
-      const total = s.reduce((a, b) => a + b.value, 0) || 1;
-      let acc = 0;
-      const stops = s.map((x, i) => { const a = (acc / total) * 100; acc += x.value; return `${PAL[i % PAL.length]} ${a}% ${(acc / total) * 100}%`; }).join(",");
-      return (
-        <div className="flex h-full w-full items-center justify-center gap-6 bg-white">
-          <div className="relative aspect-square h-[80%] rounded-full" style={{ background: `conic-gradient(${stops})` }}>
-            {/Doughnut/.test(type) && <div className="absolute inset-[28%] rounded-full bg-white" />}
-          </div>
-          <div className="space-y-1 text-[14px]">{s.map((x, i) => <div key={i} className="flex items-center gap-2"><span className="h-3 w-3" style={{ background: PAL[i % PAL.length] }} />{x.label}</div>)}</div>
-        </div>
-      );
-    }
-    return (
-      <div className="flex h-full w-full flex-col bg-white p-3">
-        <div className="mb-1 text-center text-[16px] text-gray-600">Chart Title</div>
-        <div className="flex flex-1 items-end gap-4 border-b border-l border-gray-300 px-4">
-          {s.map((x, i) =>
-            /Line/.test(type) ? null : (
-              <div key={i} className="flex flex-1 flex-col items-center justify-end">
-                <div className="w-3/5" style={{ height: `${(x.value / max) * 100}%`, background: PAL[0] }} />
-              </div>
-            ),
-          )}
-          {/Line/.test(type) && (
-            <svg className="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <polyline fill="none" stroke={PAL[0]} strokeWidth="2" points={s.map((x, i) => `${(i + 0.5) * (100 / s.length)},${100 - (x.value / max) * 95}`).join(" ")} />
-            </svg>
-          )}
-        </div>
-        <div className="flex justify-around px-4 pt-1 text-[13px] text-gray-600">{s.map((x, i) => <span key={i}>{x.label}</span>)}</div>
-      </div>
-    );
-  }
-  if (o.kind === "smartart") {
-    const items = o.items ?? [];
-    const layout = o.label ?? o.style ?? "";
-    const colorful = /Colorful/.test(style);
-    const fill = (i: number) => (colorful ? PAL[i % PAL.length] : theme.accent);
-    if (/Process/.test(layout)) {
-      return (
-        <div className="flex h-full w-full items-center justify-center gap-2">
-          {items.map((t, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <div className="flex h-24 w-36 items-center justify-center rounded p-2 text-center text-[17px] text-white" style={{ background: fill(i) }}>{t}</div>
-              {i < items.length - 1 && <span className="text-3xl" style={{ color: theme.accent }}>➜</span>}
-            </div>
-          ))}
-        </div>
-      );
-    }
-    if (/Cycle/.test(layout)) {
-      return (
-        <div className="relative h-full w-full">
-          {items.map((t, i) => {
-            const a = (i / Math.max(1, items.length)) * Math.PI * 2 - Math.PI / 2;
-            return (
-              <div key={i} className="absolute flex h-20 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full p-2 text-center text-[15px] text-white" style={{ left: `${50 + 34 * Math.cos(a)}%`, top: `${50 + 38 * Math.sin(a)}%`, background: fill(i) }}>
-                {t}
-              </div>
-            );
-          })}
-        </div>
-      );
-    }
-    if (/Vertical/.test(layout)) {
-      return (
-        <div className="flex h-full w-full flex-col justify-center gap-2">
-          {items.map((t, i) => <div key={i} className="rounded px-4 py-2 text-[18px] text-white" style={{ background: fill(i) }}>{t}</div>)}
-        </div>
-      );
-    }
-    if (/Hierarchy/.test(layout)) {
-      return (
-        <div className="flex h-full w-full flex-col items-center justify-center gap-6">
-          <div className="rounded px-6 py-3 text-[18px] text-white" style={{ background: fill(0) }}>{items[0]}</div>
-          <div className="flex gap-4">{items.slice(1).map((t, i) => <div key={i} className="rounded px-4 py-2 text-[16px] text-white" style={{ background: fill(i + 1) }}>{t}</div>)}</div>
-        </div>
-      );
-    }
-    return (
-      <div className="grid h-full w-full grid-cols-3 content-center gap-3">
-        {items.map((t, i) => <div key={i} className="flex h-24 items-center justify-center rounded p-2 text-center text-[17px] text-white" style={{ background: fill(i) }}>{t}</div>)}
-      </div>
-    );
-  }
-  // shape / textbox
-  const isShape = o.kind === "shape";
-  return (
-    <div
-      className="flex h-full w-full items-center justify-center p-2 text-center"
-      style={{
-        background: isShape ? (o.fill === "transparent" ? "transparent" : o.fill ?? theme.accent) : undefined,
-        border: o.color ? `3px solid ${o.color}` : undefined,
-        color: isShape ? "#fff" : theme.body,
-        ...shapeCss(o),
-        ...textStyle(o.props, { font: theme.font, size: isShape ? 18 : 20, color: isShape ? "#fff" : theme.body, align: isShape ? "center" : "left" }),
-        justifyContent: o.props?.align === "left" ? "flex-start" : o.props?.align === "right" ? "flex-end" : "center",
-        boxShadow: /Shadow|Intense/.test(style) ? "0 6px 12px rgba(0,0,0,.35)" : undefined,
-      }}
-    >
-      {o.text}
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-
-interface SlideViewProps {
-  deck: PptDeck;
-  slide: PptSlide;
-  width: number;
-  index: number;
-  interactive?: boolean;
-  selection?: string;
-  editing?: { key: string; text: string } | null;
-  onPart?: (key: string, e: React.MouseEvent) => void;
-  onEditStart?: (key: string) => void;
-  onEditChange?: (text: string) => void;
-  onEditCommit?: () => void;
-  onEditCancel?: () => void;
-  onContext?: (e: React.MouseEvent, key: string) => void;
-  showBadges?: boolean;
-  /** Slide Show build step: only animated items with order <= step are shown. */
-  buildStep?: number;
-  masterMode?: boolean;
-}
-
-export function SlideView(props: SlideViewProps) {
-  const { deck, slide, width, index, interactive, selection, editing } = props;
-  const theme = themeOf(deck);
-  const W = deck.size === "4:3" ? 720 : 960;
-  const H = 540;
-  const scale = width / W;
-  const boxes = layoutBoxes(slide.layout);
-  const sel = new Set((selection ?? "").split(",").map((s) => s.trim()));
-  const titleFont = deck.master?.titleFont ?? theme.titleFont;
-  const bodyFont = deck.master?.bodyFont ?? theme.font;
-  const titleColor = deck.master?.titleColor ?? theme.title;
-  const isTitle = slide.layout === "Title Slide";
-  const visible = (order?: number) => props.buildStep === undefined || !order || order <= props.buildStep;
-
-  const spellWords = (slide.spell ?? []).map((s) => s.word);
-  const marked = (t: string) => {
-    if (!spellWords.length || !interactive) return t;
-    const parts = t.split(new RegExp(`(${spellWords.map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`));
-    return parts.map((p, i) => (spellWords.includes(p) ? <span key={i} className="underline decoration-red-600 decoration-wavy">{p}</span> : p));
-  };
-
-  const placeholder = (part: Part) => {
-    const b = boxes[part];
-    if (!b) return null;
-    const key = `${slide.id}.${part}`;
-    const isSel = sel.has(key);
-    const editingThis = editing?.key === key;
-    const props_ = part === "title" ? slide.titleProps : part === "subtitle" ? slide.subtitleProps : slide.bodyProps;
-    const base =
-      part === "title"
-        ? { font: titleFont, size: isTitle || slide.layout === "Section Header" ? 48 : slide.layout === "Content with Caption" ? 28 : 36, color: titleColor, align: isTitle ? "center" : "left" }
-        : part === "subtitle"
-          ? { font: bodyFont, size: 20, color: theme.body, align: isTitle ? "center" : "left" }
-          : { font: bodyFont, size: slide.layout === "Content with Caption" && part === "body2" ? 16 : 24, color: theme.body };
-    const text = part === "title" ? slide.title : part === "subtitle" ? slide.subtitle : part === "body" ? slide.body : slide.body2;
-    const empty = !text || (Array.isArray(text) && text.every((t) => !t.trim()));
-    if (empty && !interactive && !editingThis) return null;
-    const anim = part === "title" ? slide.titleAnimation : slide.bodyAnimation;
-    const bullets = (part === "body" || part === "body2") && slide.bodyProps?.bullets !== false;
-    const numbered = (part === "body" || part === "body2") && slide.bodyProps?.numbered;
-    if (!visible(anim ? (part === "title" ? 1 : 2) : undefined)) return null;
-    return (
-      <div
-        key={part}
-        data-part={key}
-        onMouseDown={interactive ? (e) => { e.stopPropagation(); props.onPart?.(key, e); } : undefined}
-        onDoubleClick={interactive ? (e) => { e.stopPropagation(); props.onEditStart?.(key); } : undefined}
-        onContextMenu={interactive ? (e) => props.onContext?.(e, key) : undefined}
-        className={`absolute ${interactive ? "cursor-text" : ""} ${interactive && (isSel || empty) ? (isSel ? "outline outline-1 outline-[#888]" : "outline-dashed outline-1 outline-[#bbb]") : ""}`}
-        style={{ left: `${b.x}%`, top: `${b.y}%`, width: `${b.w}%`, height: `${b.h}%`, display: "flex", flexDirection: "column", justifyContent: part === "title" && !isTitle ? "center" : part === "title" ? "flex-end" : "flex-start", padding: 8, ...textStyle(props_, base), lineHeight: (part === "body" || part === "body2") ? 1.2 * (slide.bodyProps?.lineSpacing ?? 1) : 1.05 }}
-      >
-        {props.showBadges && anim && <span className="absolute -left-7 top-1 bg-gray-200 px-1 text-[16px] text-gray-700">{part === "title" ? 1 : 2}</span>}
-        {editingThis ? (
-          <PartEditor multiline={part === "body" || part === "body2"} value={editing!.text} onChange={(t) => props.onEditChange?.(t)} onCommit={() => props.onEditCommit?.()} onCancel={() => props.onEditCancel?.()} />
-        ) : empty ? (
-          <span style={{ color: "#8a8a8a" }}>{PLACEHOLDER[part]}</span>
-        ) : Array.isArray(text) ? (
-          <ul className="space-y-[0.35em]">
-            {text.map((line, i) => {
-              const lvl = (/^\t+/.exec(line)?.[0].length ?? 0);
-              return (
-                <li key={i} className="flex gap-3" style={{ paddingLeft: lvl * 36, fontSize: lvl ? "0.83em" : undefined }}>
-                  {bullets && <span style={{ color: theme.accent }}>{numbered ? `${i + 1}.` : lvl ? "–" : "•"}</span>}
-                  <span>{marked(line.replace(/^\t+/, ""))}</span>
-                </li>
-              );
-            })}
-          </ul>
-        ) : (
-          <span>{marked(text)}</span>
-        )}
-      </div>
-    );
-  };
-
-  const footer = deck.footer;
-  const hideFooter = isTitle && deck.flags?.dontShowOnTitle;
-  return (
-    <div className="relative overflow-hidden" style={{ width, height: H * scale }}>
-      <div
-        className="absolute left-0 top-0 origin-top-left"
-        style={{ width: W, height: H, transform: `scale(${scale})`, background: slide.background ?? theme.bg }}
-        onMouseDown={interactive ? () => props.onPart?.(slide.id, {} as React.MouseEvent) : undefined}
-      >
-        {theme.band && (
-          <div
-            className="absolute"
-            style={{
-              background: theme.band.color,
-              ...(theme.band.side === "left" ? { left: 0, top: 0, bottom: 0, width: `${theme.band.size}%` } : theme.band.side === "right" ? { right: 0, top: 0, bottom: 0, width: `${theme.band.size}%` } : theme.band.side === "top" ? { left: 0, right: 0, top: 0, height: `${theme.band.size}%` } : { left: 0, right: 0, bottom: 0, height: `${theme.band.size}%` }),
-            }}
-          />
-        )}
-        {props.masterMode && (
-          <div className="absolute inset-x-[6%] top-[5%] text-[13px] text-gray-500">Click to edit Master title style</div>
-        )}
-        {boxes.picture && !(slide.objects ?? []).some((o) => o.kind === "image") && interactive && (
-          <div className="absolute flex flex-col items-center justify-center border border-dashed border-gray-400 text-gray-500" style={{ left: `${boxes.picture.x}%`, top: `${boxes.picture.y}%`, width: `${boxes.picture.w}%`, height: `${boxes.picture.h}%` }}>
-            <Icon name="picture" size={40} />
-            <span className="text-[16px]">Click icon to add picture</span>
-          </div>
-        )}
-        {(["title", "subtitle", "body", "body2"] as Part[]).map(placeholder)}
-        {(slide.objects ?? [])
-          .slice()
-          .sort((a, b) => (a.z ?? 0) - (b.z ?? 0))
-          .map((o) => {
-            if (!visible(o.animation ? o.animationOrder : undefined)) return null;
-            const key = `${slide.id}.${o.id}`;
-            const isSel = sel.has(key);
-            return (
-              <div
-                key={o.id}
-                data-obj={key}
-                onMouseDown={interactive ? (e) => { e.stopPropagation(); props.onPart?.(key, e); } : undefined}
-                onDoubleClick={interactive && (o.kind === "textbox" || o.kind === "shape") ? (e) => { e.stopPropagation(); props.onEditStart?.(key); } : undefined}
-                onContextMenu={interactive ? (e) => props.onContext?.(e, key) : undefined}
-                className={`absolute ${interactive ? "cursor-move" : ""}`}
-                style={{ left: `${o.x}%`, top: `${o.y}%`, width: `${o.w}%`, height: `${o.h}%`, transform: o.rotate ? `rotate(${o.rotate}deg)` : undefined, outline: isSel ? "1.5px solid #6b6b6b" : o.kind === "textbox" && !o.text && interactive ? "1px dashed #bbb" : undefined, outlineOffset: 2 }}
-              >
-                {editing?.key === key ? (
-                  <PartEditor multiline value={editing.text} onChange={(t) => props.onEditChange?.(t)} onCommit={() => props.onEditCommit?.()} onCancel={() => props.onEditCancel?.()} />
-                ) : (
-                  <ObjectBody o={o} theme={theme} />
-                )}
-                {props.showBadges && o.animation && <span className="absolute -left-7 top-0 bg-gray-200 px-1 text-[16px] text-gray-700">{o.animationOrder ?? 1}</span>}
-                {isSel && ["-left-1.5 -top-1.5", "-right-1.5 -top-1.5", "-left-1.5 -bottom-1.5", "-right-1.5 -bottom-1.5"].map((c) => <span key={c} className={`absolute ${c} h-3 w-3 rounded-full border border-gray-500 bg-white`} />)}
-              </div>
-            );
-          })}
-        {footer && !hideFooter && (
-          <div className="absolute inset-x-[4%] bottom-[2%] flex items-center justify-between text-[14px]" style={{ color: theme.dark ? "#ddd" : "#7f7f7f", fontFamily: `'${bodyFont}', sans-serif` }}>
-            <span>{footer.date ? "10/20/2026" : ""}</span>
-            <span>{footer.text ?? ""}</span>
-            <span>{footer.slideNumber ? index + 1 : ""}</span>
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
-
-function PartEditor({ value, onChange, onCommit, onCancel, multiline }: { value: string; onChange: (v: string) => void; onCommit: () => void; onCancel: () => void; multiline?: boolean }) {
-  const ref = useRef<HTMLTextAreaElement>(null);
-  useLayoutEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    el.focus();
-    el.setSelectionRange(el.value.length, el.value.length);
-  }, []);
-  return (
-    <textarea
-      ref={ref}
-      aria-label="Type here"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      onMouseDown={(e) => e.stopPropagation()}
-      onKeyDown={(e) => {
-        e.stopPropagation();
-        if (e.key === "Enter" && (!multiline || e.ctrlKey)) { e.preventDefault(); onCommit(); }
-        if (e.key === "Escape") { e.preventDefault(); if (e.shiftKey) onCancel(); else onCommit(); }
-        if (e.key === "Tab" && multiline) {
-          e.preventDefault();
-          const el = e.currentTarget;
-          const start = el.value.lastIndexOf("\n", el.selectionStart - 1) + 1;
-          onChange(e.shiftKey ? el.value.slice(0, start) + el.value.slice(start).replace(/^\t/, "") : el.value.slice(0, start) + "\t" + el.value.slice(start));
-        }
-      }}
-      onBlur={onCommit}
-      className="h-full w-full resize-none border-0 bg-white/80 p-0 outline-none"
-      style={{ font: "inherit", color: "inherit", textAlign: "inherit", lineHeight: "inherit", tabSize: 2 }}
-    />
-  );
-}
-
-/* ------------------------------------------------------------------ */
 
 export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<PptDeck>) {
+  const view = deck.view ?? "normal";
   const slide = activeSlide(deck, ui)!;
   const idx = deck.slides.findIndex((s) => s.id === slide.id);
   const [editing, setEditingState] = useState<{ key: string; text: string } | null>(null);
   const editRef = useRef<{ key: string; text: string } | null>(null);
+  const keepKey = useRef<string | null>(null);
   const setEditing = (v: { key: string; text: string } | null) => { editRef.current = v; setEditingState(v); };
   const mainRef = useRef<HTMLDivElement>(null);
   const [mainW, setMainW] = useState(640);
   const [mainH, setMainH] = useState(360);
   const focusRef = useRef<HTMLDivElement>(null);
-  const [build, setBuild] = useState(0);
   const [dragFrom, setDragFrom] = useState<string | null>(null);
-  const view = deck.view ?? "normal";
+  const anchor = useRef<string | null>(null);
 
-  useEffect(() => { editRef.current = null; setEditingState(null); }, [deck]);
-  useEffect(() => { setBuild(0); }, [deck.flags?.showIndex, view]);
   useEffect(() => {
-    if (view === "show" || view === "reading") focusRef.current?.focus({ preventScroll: true });
+    if (keepKey.current && editRef.current?.key === keepKey.current) { keepKey.current = null; return; }
+    keepKey.current = null;
+    editRef.current = null;
+    setEditingState(null);
+  }, [deck]);
+  useEffect(() => {
+    if (view === "reading") focusRef.current?.focus({ preventScroll: true });
   }, [view]);
   useEffect(() => {
     const el = mainRef.current;
@@ -433,111 +67,184 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     return () => ro.disconnect();
   }, [view]);
 
+  const findSlide = (sid: string) => deck.slides.find((x) => x.id === sid);
+  const findObj = (sid: string, oid: string) => findSlide(sid)?.objects?.find((o) => o.id === oid);
+
   const textOf = (key: string): string => {
-    const [sid, part] = key.split(".");
-    const s = deck.slides.find((x) => x.id === sid);
+    const [sid, part, sub] = key.split(".");
+    const s = findSlide(sid);
     if (!s) return "";
     if (part === "title") return s.title ?? "";
     if (part === "subtitle") return s.subtitle ?? "";
     if (part === "body") return (s.body ?? []).join("\n");
     if (part === "body2") return (s.body2 ?? []).join("\n");
     if (part === "notes") return s.notes ?? "";
-    return s.objects?.find((o) => o.id === part)?.text ?? "";
+    const o = s.objects?.find((x) => x.id === part);
+    if (!o) return "";
+    if (sub && /^r\d+c\d+$/.test(sub)) { const [r, c] = cellRC(sub); return o.rows?.[r - 1]?.[c - 1] ?? ""; }
+    if (sub === "title") return ox(o).chart?.title ?? "Chart Title";
+    if (o.kind === "smartart") return (o.items ?? []).join("\n");
+    return o.text ?? "";
   };
   const editable = (key: string) => {
-    const [sid, part] = key.split(".");
-    if (!part) return false;
-    if (["title", "subtitle", "body", "body2", "notes"].includes(part)) return true;
-    const o = deck.slides.find((x) => x.id === sid)?.objects?.find((x) => x.id === part);
-    return o?.kind === "textbox" || o?.kind === "shape";
+    const [sid, part, sub] = key.split(".");
+    if (!part || !findSlide(sid)) return false;
+    if (TEXT_PARTS.includes(part)) return !sub;
+    const o = findObj(sid, part);
+    if (!o) return false;
+    if (sub) return (o.kind === "table" && /^r\d+c\d+$/.test(sub)) || (o.kind === "chart" && sub === "title");
+    return o.kind === "textbox" || o.kind === "shape" || o.kind === "smartart";
+  };
+  const startEdit = (key: string, text?: string) => {
+    if (!editable(key)) return;
+    onSelect({ selection: key, slide: key.split(".")[0] });
+    setEditing({ key, text: text ?? textOf(key) });
   };
 
-  const commitEdit = () => {
+  const commitEdit = (next?: "tab" | "shiftTab") => {
     const e = editRef.current;
     if (!e) return;
     setEditing(null);
-    if (e.text !== textOf(e.key)) onCommit({ kind: "type", target: e.key, value: e.text });
+    const changed = e.text !== textOf(e.key);
+    if (changed) onCommit({ kind: "type", target: e.key, value: e.text });
+    if (next && isCell(e.key)) {
+      const [sid, oid] = e.key.split(".");
+      const t = findObj(sid, oid);
+      const rows = t?.rows?.length ?? 1, cols = t?.rows?.[0]?.length ?? 1;
+      let [r, c] = cellRC(e.key);
+      if (next === "tab") { c++; if (c > cols) { c = 1; r++; } } else { c--; if (c < 1) { c = cols; r = Math.max(1, r - 1); } }
+      if (r > rows) onCommit({ kind: "command", id: "table.tabRow" });
+      const nk = `${sid}.${oid}.r${r}c${c}`;
+      keepKey.current = nk;
+      onSelect({ selection: nk, slide: sid });
+      setEditing({ key: nk, text: r > rows ? "" : textOf(nk) });
+      return;
+    }
     focusRef.current?.focus({ preventScroll: true });
   };
 
   const selectPart = (key: string, e: React.MouseEvent) => {
     if (editRef.current && editRef.current.key !== key) commitEdit();
     let next = key;
-    if ((e.shiftKey || e.ctrlKey || e.metaKey) && key.includes(".") && ui.selection.includes(".")) {
-      const set = new Set(ui.selection.split(","));
-      set.has(key) ? set.delete(key) : set.add(key);
-      next = Array.from(set).join(",");
+    const [sid, oid, sub] = key.split(".");
+    const multi = e.shiftKey || e.ctrlKey || e.metaKey;
+    if (oid && !TEXT_PARTS.includes(oid) && !sub) {
+      const o = findObj(sid, oid);
+      if (o?.group) next = (findSlide(sid)?.objects ?? []).filter((x) => x.group === o.group).map((x) => `${sid}.${x.id}`).join(",");
     }
+    if (multi && isCell(key) && anchor.current && isCell(anchor.current) && anchor.current.split(".").slice(0, 2).join(".") === key.split(".").slice(0, 2).join(".")) {
+      const [r1, c1] = cellRC(anchor.current), [r2, c2] = cellRC(key);
+      const keys: string[] = [];
+      for (let r = Math.min(r1, r2); r <= Math.max(r1, r2); r++) for (let c = Math.min(c1, c2); c <= Math.max(c1, c2); c++) keys.push(`${sid}.${oid}.r${r}c${c}`);
+      onSelect({ selection: keys.join(","), slide: sid });
+      return;
+    }
+    if (multi && key.includes(".") && ui.selection.includes(".") && !isCell(key) && !TEXT_PARTS.includes(oid ?? "")) {
+      const set = new Set(ui.selection.split(",").filter((k) => k.split(".").length === 2 && !TEXT_PARTS.includes(k.split(".")[1])));
+      for (const k of next.split(",")) set.has(k) ? set.delete(k) : set.add(k);
+      next = Array.from(set).join(",") || key;
+    }
+    anchor.current = key;
     onSelect({ selection: next, slide: key.split(".")[0] });
-    if (deck.flags?.painter) onCommit({ kind: "command", id: "home.formatPainter.apply" });
+    if (key.includes(".") && deck.flags?.painter) onCommit({ kind: "command", id: "home.formatPainter.apply" });
+    else if (key.includes(".") && deck.flags?.animPainter) onCommit({ kind: "command", id: "animation.painter.apply" });
     focusRef.current?.focus({ preventScroll: true });
   };
 
   const onKeyDown = (e: React.KeyboardEvent) => {
-    if (editing) return;
+    if (editing || view === "show") return;
     const k = e.key;
-    if (view === "show" || view === "reading") {
-      if (k === "Escape") { e.preventDefault(); onCommit({ kind: "command", id: view === "show" ? "slideshow.end" : "view.mode", value: view === "show" ? undefined : "Normal" }); return; }
-      if (["ArrowRight", "ArrowDown", " ", "Enter", "PageDown", "n"].includes(k)) { e.preventDefault(); advance(1); return; }
-      if (["ArrowLeft", "ArrowUp", "Backspace", "PageUp", "p"].includes(k)) { e.preventDefault(); advance(-1); return; }
+    if (view === "reading") {
+      if (k === "Escape") { e.preventDefault(); onCommit({ kind: "command", id: "view.mode", value: "Normal" }); return; }
+      if (["ArrowRight", "ArrowDown", " ", "Enter", "PageDown"].includes(k)) { e.preventDefault(); nav(1); return; }
+      if (["ArrowLeft", "ArrowUp", "Backspace", "PageUp"].includes(k)) { e.preventDefault(); nav(-1); return; }
+      return;
+    }
+    const sel = ui.selection;
+    if (e.ctrlKey && !sel.includes(".") && (k === "ArrowUp" || k === "ArrowDown") && view !== "master") {
+      e.preventDefault();
+      const to = k === "ArrowUp" ? idx : idx + 2;
+      if (to >= 1 && to <= deck.slides.length) onCommit({ kind: "command", id: "slides.move", value: `${slide.id}@${to}` });
       return;
     }
     if (e.ctrlKey || e.metaKey || e.altKey) return;
     if (k === "Delete" || k === "Backspace") {
       e.preventDefault();
-      onCommit({ kind: "command", id: ui.selection.includes(".") ? "edit.delete" : "slides.delete" });
+      if (view === "master" && !sel.includes(".")) return;
+      onCommit({ kind: "command", id: sel.includes(".") ? "edit.delete" : "slides.delete" });
       return;
     }
-    if (!ui.selection.includes(".") && (k === "ArrowDown" || k === "ArrowUp")) {
+    if (k === "Tab") {
+      const parts = sel.split(".");
+      if (parts.length === 3 && (parts[1] === "body" || parts[1] === "body2")) {
+        e.preventDefault();
+        onCommit({ kind: "command", id: e.shiftKey ? "home.indentDec" : "home.indentInc" });
+        return;
+      }
+      if (isCell(sel)) {
+        e.preventDefault();
+        const [sid, oid] = sel.split(".");
+        const t = findObj(sid, oid);
+        const cols = t?.rows?.[0]?.length ?? 1, rows = t?.rows?.length ?? 1;
+        let [r, c] = cellRC(sel);
+        if (e.shiftKey) { c--; if (c < 1) { c = cols; r = Math.max(1, r - 1); } } else { c++; if (c > cols) { c = 1; r = Math.min(rows, r + 1); } }
+        onSelect({ selection: `${sid}.${oid}.r${r}c${c}`, slide: sid });
+        return;
+      }
+      const objs = (slide.objects ?? []).map((o) => `${slide.id}.${o.id}`);
+      if (objs.length && view === "normal") {
+        e.preventDefault();
+        const i = objs.indexOf(sel);
+        onSelect({ selection: objs[(i + (e.shiftKey ? objs.length - 1 : 1)) % objs.length] ?? objs[0], slide: slide.id });
+      }
+      return;
+    }
+    if (!sel.includes(".") && view !== "master" && (k === "ArrowDown" || k === "ArrowUp")) {
       e.preventDefault();
       const n = deck.slides[Math.max(0, Math.min(deck.slides.length - 1, idx + (k === "ArrowDown" ? 1 : -1)))];
       onSelect({ slide: n.id, selection: n.id });
       return;
     }
-    if (!ui.selection.includes(".") && k === "Enter") {
+    if (!sel.includes(".") && view !== "master" && k === "Enter") {
       e.preventDefault();
       onCommit({ kind: "command", id: "slides.new", value: "Title and Content" });
       return;
     }
     if (k === "F2" || k === "Enter") {
-      if (editable(ui.selection)) { e.preventDefault(); setEditing({ key: ui.selection, text: textOf(ui.selection) }); }
+      const target = sel.split(".").length === 3 && !isCell(sel) ? sel.split(".").slice(0, 2).join(".") : sel;
+      if (editable(target)) { e.preventDefault(); startEdit(target); }
       return;
     }
-    if (k.length === 1 && editable(ui.selection)) {
+    if (k.length === 1 && editable(sel)) {
       e.preventDefault();
-      setEditing({ key: ui.selection, text: k });
+      startEdit(sel, k);
     }
   };
 
   const ratio = deck.size === "4:3" ? 4 / 3 : 16 / 9;
   const fitW = (padW: number, padH: number, max = 1100) => Math.max(240, Math.min(mainW - padW, (mainH - padH) * ratio, max));
-  const visibleSlides = deck.slides.filter((s) => !s.hidden);
-  const showIndex = Number(deck.flags?.showIndex ?? 0);
-  const advance = (dir: number) => {
-    if (view === "show") {
-      const s = visibleSlides[showIndex];
-      const maxStep = Math.max(0, ...(s?.objects ?? []).filter((o) => o.animation).map((o) => o.animationOrder ?? 1), s?.titleAnimation ? 1 : 0, s?.bodyAnimation ? 2 : 0);
-      if (dir > 0 && build < maxStep) { setBuild(build + 1); return; }
-      onCommit({ kind: "command", id: dir > 0 ? "slideshow.next" : "slideshow.prev" });
-      return;
-    }
+  const nav = (dir: number) => {
     const n = deck.slides[Math.max(0, Math.min(deck.slides.length - 1, idx + dir))];
     onSelect({ slide: n.id, selection: n.id });
   };
 
+  /* ---------- context menus ---------- */
+
   const thumbMenu = (e: React.MouseEvent, s: PptSlide) => {
     e.preventDefault();
     onSelect({ slide: s.id, selection: s.id });
+    const hasClip = Boolean(deck.flags?.clip || deck.flags?.clipObj);
     const items: MenuItem[] = [
-      { label: "Cut", icon: "cut", command: "home.cut" },
-      { label: "Copy", icon: "copy", command: "home.copy" },
+      { label: "Cut", icon: "cut", command: "home.cut", shortcut: "Ctrl+X" },
+      { label: "Copy", icon: "copy", command: "home.copy", shortcut: "Ctrl+C" },
+      { label: "Paste", icon: "paste", command: "home.paste", shortcut: "Ctrl+V", disabled: !hasClip },
       { separator: true },
       { label: "New Slide", icon: "newSlide", command: "slides.new", value: "Title and Content" },
       { label: "Duplicate Slide", icon: "copy", command: "slides.duplicate" },
       { label: "Delete Slide", icon: "deleteCells", command: "slides.delete" },
       { label: "Add Section", icon: "section", dialog: "addSection" },
       { separator: true },
-      ...LAYOUTS.slice(0, 7).map((l) => ({ label: `Layout: ${l}`, icon: "layout", command: "slides.layout", value: l })),
+      ...LAYOUTS.map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
       { label: "Reset Slide", icon: "reset", command: "slides.reset" },
       { separator: true },
       { label: "Format Background...", icon: "background", dialog: "formatBackground" },
@@ -547,57 +254,174 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     onContextMenu(e.clientX, e.clientY, items);
   };
 
+  const sectionMenu = (e: React.MouseEvent, first: PptSlide) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onSelect({ slide: first.id, selection: first.id });
+    onContextMenu(e.clientX, e.clientY, [
+      { label: "Rename Section", icon: "textbox", dialog: "renameSection" },
+      { label: "Remove Section", icon: "reject", command: "slides.section", value: "Remove Section" },
+      { label: "Remove Section & Slides", icon: "deleteCells", command: "slides.section", value: "Remove Section & Slides" },
+      { label: "Remove All Sections", icon: "reject", command: "slides.section", value: "Remove All Sections" },
+      { separator: true },
+      { label: "Move Section Up", icon: "undo", command: "slides.section", value: "Move Section Up" },
+      { label: "Move Section Down", icon: "redo", command: "slides.section", value: "Move Section Down" },
+      { separator: true },
+      { label: "Collapse All", command: "slides.section", value: "Collapse All" },
+      { label: "Expand All", command: "slides.section", value: "Expand All" },
+    ]);
+  };
+
   const partMenu = (e: React.MouseEvent, key: string) => {
     e.preventDefault();
     e.stopPropagation();
     if (!ui.selection.split(",").includes(key)) onSelect({ selection: key, slide: key.split(".")[0] });
-    const isObj = !["title", "subtitle", "body", "body2"].includes(key.split(".")[1] ?? "");
-    const items: MenuItem[] = [
-      { label: "Cut", icon: "cut", command: "home.cut" },
-      { label: "Copy", icon: "copy", command: "home.copy" },
-      { label: "Paste", icon: "paste", command: "home.paste" },
+    const [sid, part, sub] = key.split(".");
+    const s = findSlide(sid);
+    const items: MenuItem[] = [];
+    if (s && TEXT_PARTS.includes(part)) {
+      const text = textOf(`${sid}.${part}`);
+      const w = (s.spell ?? []).find((x) => text.includes(x.word));
+      if (w) {
+        items.push(...w.suggestions.map((sg) => ({ label: sg, command: "spelling.change", value: sg })), { label: "Ignore All", command: "spelling.ignoreAll", value: w.word }, { separator: true });
+      }
+    }
+    items.push(
+      { label: "Cut", icon: "cut", command: "home.cut", shortcut: "Ctrl+X" },
+      { label: "Copy", icon: "copy", command: "home.copy", shortcut: "Ctrl+C" },
+      { label: "Paste", icon: "paste", command: "home.paste", shortcut: "Ctrl+V" },
+      { label: "Paste Options: Keep Text Only", icon: "paste", command: "home.paste", value: "Keep Text Only" },
       { separator: true },
-    ];
-    if (isObj) {
+    );
+    const o = s && !TEXT_PARTS.includes(part) && part !== "picture" ? s.objects?.find((x) => x.id === part) : undefined;
+    if (!o) {
       items.push(
-        { label: "Bring to Front", icon: "bringForward", command: "object.bringToFront" },
-        { label: "Send to Back", icon: "sendBackward", command: "object.sendToBack" },
-        { label: "Group", icon: "groupObjects", command: "object.group" },
-        { label: "Edit Alt Text...", icon: "altText", dialog: "altText" },
-        { label: "Link", icon: "link", dialog: "link" },
+        { label: "Font...", icon: "fontColor", dialog: "font" },
+        { label: "Paragraph...", icon: "lineSpacing", dialog: "paragraph" },
+        { label: "Bullets: Filled Round Bullets", icon: "bullets", command: "home.bullets", value: "Filled Round Bullets" },
+        { label: "Numbering: 1. 2. 3.", icon: "numbering", command: "home.numbering", value: "1. 2. 3." },
+        { label: "Convert to SmartArt: Basic Process", icon: "smartart", command: "home.convertSmartArt", value: "Basic Process" },
+        { label: "Convert to SmartArt: Vertical Bullet List", icon: "smartart", command: "home.convertSmartArt", value: "Vertical Bullet List" },
+        { label: "Convert to SmartArt: Basic Block List", icon: "smartart", command: "home.convertSmartArt", value: "Basic Block List" },
+        { label: "More SmartArt Graphics...", icon: "smartart", dialog: "convertSmartArt" },
+        { label: "Link...", icon: "link", dialog: "link", shortcut: "Ctrl+K" },
+        { label: "Synonyms (Thesaurus)", icon: "thesaurus", command: "review.thesaurus", shortcut: "Shift+F7" },
         { separator: true },
       );
     } else {
-      items.push({ label: "Font...", icon: "fontColor", dialog: "font" }, { label: "Paragraph...", icon: "lineSpacing", dialog: "paragraph" }, { label: "Convert to SmartArt", icon: "smartart", command: "home.convertSmartArt", value: "Basic Block List" }, { separator: true });
+      if (o.kind === "image") items.push({ label: "Change Picture...", icon: "picture", dialog: "changePicture" }, { label: "Crop", icon: "crop", command: "picture.crop" });
+      if (o.kind === "chart") items.push({ label: "Edit Data", icon: "table", command: "chart.editData" }, { label: "Change Chart Type...", icon: "chart", dialog: "changeChartType" });
+      if (o.kind === "smartart") items.push({ label: "Reset Graphic", icon: "reset", command: "smartart.reset" }, { label: "Convert to Text", icon: "textbox", command: "smartart.convert", value: "Convert to Text" }, { label: "Show Text Pane", icon: "navPane", command: "smartart.textPane" });
+      if (o.kind === "table") {
+        items.push(
+          { label: "Insert Rows Above", icon: "insertCells", command: "table.insertAbove" },
+          { label: "Insert Rows Below", icon: "insertCells", command: "table.insertBelow" },
+          { label: "Insert Columns to the Left", icon: "insertCells", command: "table.insertLeft" },
+          { label: "Insert Columns to the Right", icon: "insertCells", command: "table.insertRight" },
+          { label: "Delete Rows", icon: "deleteCells", command: "table.delete", value: "Delete Rows" },
+          { label: "Delete Columns", icon: "deleteCells", command: "table.delete", value: "Delete Columns" },
+          { label: "Merge Cells", icon: "merge", command: "table.merge", disabled: ui.selection.split(",").length < 2 },
+        );
+      }
+      if (o.kind === "video") items.push({ label: "Trim", icon: "crop", dialog: "trimVideo" });
+      if (o.kind === "audio") items.push({ label: "Trim", icon: "crop", dialog: "trimAudio" });
+      items.push(
+        { separator: true },
+        o.group ? { label: "Ungroup", icon: "groupObjects", command: "object.ungroup" } : { label: "Group", icon: "groupObjects", command: "object.group", disabled: ui.selection.split(",").length < 2 },
+        { label: "Bring to Front", icon: "bringForward", command: "object.bringToFront" },
+        { label: "Send to Back", icon: "sendBackward", command: "object.sendToBack" },
+        { label: "Link...", icon: "link", dialog: "link" },
+        { label: "Edit Alt Text...", icon: "altText", dialog: "altText" },
+        { label: "Size and Position...", icon: "rotate", dialog: "rotation" },
+        { separator: true },
+      );
     }
     items.push({ label: "New Comment", icon: "comment", dialog: "newComment" });
     onContextMenu(e.clientX, e.clientY, items);
   };
 
+  const chartMenu = (key: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    const [sid, oid] = key.split(".");
+    const o = findObj(sid, oid);
+    const ch = (o && ox(o).chart) ?? {};
+    const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const box = (on: boolean, label: string) => `${on ? "☑" : "☐"}  ${label}`;
+    onContextMenu(r.right + 4, r.top, [
+      { label: "Chart Elements", disabled: true },
+      { label: box(Boolean(ch.axisTitles), "Axis Titles"), command: "chart.addElement", value: ch.axisTitles ? "Axis Titles: None" : "Axis Titles: Primary Horizontal" },
+      { label: box(ch.showTitle !== false, "Chart Title"), command: "chart.addElement", value: ch.showTitle !== false ? "Chart Title: None" : "Chart Title: Above Chart" },
+      { label: box(Boolean(ch.dataLabels), "Data Labels"), command: "chart.addElement", value: ch.dataLabels ? "Data Labels: None" : "Data Labels: Outside End" },
+      { label: box(ch.gridlines !== false, "Gridlines"), command: "chart.addElement", value: ch.gridlines !== false ? "Gridlines: None" : "Gridlines: Primary Major Horizontal" },
+      { label: box(Boolean(ch.legend), "Legend"), command: "chart.addElement", value: ch.legend ? "Legend: None" : "Legend: Bottom" },
+    ]);
+  };
+
+  const slideProps = {
+    interactive: true,
+    selection: ui.selection,
+    editing,
+    onPart: (key: string, e: React.MouseEvent) => selectPart(key, e),
+    onEditStart: (key: string) => startEdit(key),
+    onEditChange: (t: string) => editRef.current && setEditing({ key: editRef.current.key, text: t }),
+    onEditCommit: commitEdit,
+    onEditCancel: () => setEditing(null),
+    onContext: partMenu,
+    onLineDrop: (from: string, to: number) => onCommit({ kind: "command", id: "text.move", value: `${from}@${to}` }),
+    onInsertIcon: (part: string, dialog: string) => { onSelect({ selection: `${slide.id}.${part}`, slide: slide.id }); openDialog(dialog); },
+    onChartButton: chartMenu,
+    onMedia: onCommit,
+    showBadges: true,
+  };
+
+  /* ---------- thumbnails ---------- */
+
+  const collapsed = new Set(flagJson<string[]>(deck, "collapsed", []));
   const thumbs = (
     <aside className="w-44 shrink-0 overflow-auto border-r border-gray-300 bg-[#f3f3f3] py-2" aria-label="Slide thumbnails">
       {deck.slides.map((s, i) => {
         const showSection = s.section && (i === 0 || deck.slides[i - 1].section !== s.section);
+        const isCollapsed = Boolean(s.section && collapsed.has(s.section));
         const active = s.id === slide.id;
+        const count = s.section ? deck.slides.filter((x) => x.section === s.section).length : 0;
         return (
           <div key={s.id}>
-            {showSection && <div className="px-2 pb-1 pt-2 text-[11px] font-semibold text-gray-600">▾ {s.section}</div>}
-            <div
-              draggable
-              onDragStart={() => setDragFrom(s.id)}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={() => { if (dragFrom && dragFrom !== s.id) onCommit({ kind: "command", id: "slides.move", value: `${dragFrom}@${i + 1}` }); setDragFrom(null); }}
-              onClick={() => { if (editRef.current) commitEdit(); onSelect({ slide: s.id, selection: s.id }); focusRef.current?.focus({ preventScroll: true }); }}
-              onContextMenu={(e) => thumbMenu(e, s)}
-              data-thumb={s.id}
-              className="flex cursor-pointer gap-1.5 px-2 py-1.5"
-            >
-              <span className={`w-4 text-right text-[11px] ${s.hidden ? "text-gray-400 line-through" : "text-gray-600"}`}>{i + 1}</span>
-              <div className={`border-2 ${active ? "border-[#c43e1c]" : "border-transparent hover:border-[#f4b183]"} ${s.hidden ? "opacity-50" : ""}`}>
-                <SlideView deck={deck} slide={s} width={128} index={i} />
+            {showSection && (
+              <button
+                type="button"
+                onClick={() => onCommit({ kind: "command", id: "section.toggle", value: s.section })}
+                onContextMenu={(e) => sectionMenu(e, s)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => { if (dragFrom && dragFrom !== s.id) onCommit({ kind: "command", id: "slides.move", value: `${dragFrom}@${i + 1}` }); setDragFrom(null); }}
+                className="flex w-full items-center gap-1 px-2 pb-1 pt-2 text-left text-[11px] font-semibold text-gray-600 hover:text-gray-900"
+                title={`${s.section} (right-click for section options)`}
+              >
+                <span>{isCollapsed ? "▸" : "▾"}</span>
+                <span className="truncate">{s.section}</span>
+                {isCollapsed && <span className="font-normal text-gray-500">({count})</span>}
+              </button>
+            )}
+            {!isCollapsed && (
+              <div
+                draggable
+                onDragStart={() => setDragFrom(s.id)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => { if (dragFrom && dragFrom !== s.id) onCommit({ kind: "command", id: "slides.move", value: `${dragFrom}@${i + 1}` }); setDragFrom(null); }}
+                onClick={() => { if (editRef.current) commitEdit(); onSelect({ slide: s.id, selection: s.id }); focusRef.current?.focus({ preventScroll: true }); }}
+                onContextMenu={(e) => thumbMenu(e, s)}
+                data-thumb={s.id}
+                className="flex cursor-pointer gap-1.5 px-2 py-1.5"
+              >
+                <span className={`w-4 text-right text-[11px] ${s.hidden ? "text-gray-400 line-through" : "text-gray-600"}`}>{i + 1}</span>
+                <div className={`border-2 ${active ? (ui.selection === s.id ? "border-[#c43e1c]" : "border-[#e8a08a]") : "border-transparent hover:border-[#f4b183]"} ${s.hidden ? "opacity-50" : ""}`}>
+                  <SlideView deck={deck} slide={s} width={128} index={i} />
+                </div>
+                <span className="flex w-3 flex-col gap-0.5 text-[10px] text-gray-500">
+                  {s.transition && <span title={`Transition: ${s.transition}`}>★</span>}
+                  {(s.comments?.length ?? 0) > 0 && <span title="Comments">💬</span>}
+                </span>
               </div>
-              {s.transition && <span className="text-[10px] text-gray-500" title={`Transition: ${s.transition}`}>★</span>}
-            </div>
+            )}
           </div>
         );
       })}
@@ -606,27 +430,22 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
 
   /* ---------- views ---------- */
 
-  if (view === "show" || view === "reading") {
-    const s = view === "show" ? visibleSlides[Math.min(showIndex, visibleSlides.length - 1)] : slide;
-    const i = deck.slides.findIndex((x) => x.id === s?.id);
+  if (view === "show") return <SlideShow deck={deck} onCommit={onCommit} onContextMenu={onContextMenu} />;
+
+  if (view === "reading") {
     return (
-      <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex h-full flex-col bg-black outline-none" onClick={() => view === "show" && advance(1)}>
-        <div ref={mainRef} className="flex flex-1 items-center justify-center overflow-hidden p-2">
-          {s && (
-            <div key={`${s.id}-${build}`} className={s.transition && view === "show" ? "animate-[simfade_.6s_ease-out]" : ""}>
-              <SlideView deck={deck} slide={s} width={fitW(16, 16)} index={i} buildStep={view === "show" ? build : undefined} />
-            </div>
-          )}
+      <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex h-full flex-col bg-[#3a3a3a] outline-none">
+        <div ref={mainRef} className="flex flex-1 items-center justify-center overflow-hidden p-2" onClick={() => nav(1)}>
+          <SlideView deck={deck} slide={slide} width={fitW(16, 16)} index={idx} />
         </div>
-        <div className="flex items-center justify-between bg-black/80 px-3 py-1 text-[11px] text-white/70">
-          <span>{view === "show" ? "Slide Show" : "Reading View"} · Slide {i + 1} of {deck.slides.length}</span>
+        <div className="flex items-center justify-between bg-[#f3f3f3] px-3 py-1 text-[11px] text-gray-700">
+          <span>Reading View · Slide {idx + 1} of {deck.slides.length}</span>
           <span className="flex gap-2">
-            <button type="button" onClick={(e) => { e.stopPropagation(); advance(-1); }} className="px-2 hover:text-white">◀</button>
-            <button type="button" onClick={(e) => { e.stopPropagation(); advance(1); }} className="px-2 hover:text-white">▶</button>
-            <button type="button" onClick={(e) => { e.stopPropagation(); onCommit({ kind: "command", id: view === "show" ? "slideshow.end" : "view.mode", value: view === "show" ? undefined : "Normal" }); }} className="px-2 hover:text-white">End (Esc)</button>
+            <button type="button" aria-label="Previous slide" onClick={() => nav(-1)} className="px-2 hover:bg-gray-200">◀</button>
+            <button type="button" aria-label="Next slide" onClick={() => nav(1)} className="px-2 hover:bg-gray-200">▶</button>
+            <button type="button" onClick={() => onCommit({ kind: "command", id: "view.mode", value: "Normal" })} className="px-2 hover:bg-gray-200">Normal (Esc)</button>
           </span>
         </div>
-        <style>{"@keyframes simfade{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}"}</style>
       </div>
     );
   }
@@ -635,126 +454,148 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     return (
       <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="h-full overflow-auto bg-[#e7e7e7] p-4 outline-none">
         <div className="flex flex-wrap gap-4">
-          {deck.slides.map((s, i) => (
-            <div
-              key={s.id}
-              draggable
-              onDragStart={() => setDragFrom(s.id)}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={() => { if (dragFrom && dragFrom !== s.id) onCommit({ kind: "command", id: "slides.move", value: `${dragFrom}@${i + 1}` }); setDragFrom(null); }}
-              onClick={() => onSelect({ slide: s.id, selection: s.id })}
-              onDoubleClick={() => onCommit({ kind: "command", id: "view.mode", value: "Normal" })}
-              onContextMenu={(e) => thumbMenu(e, s)}
-              data-thumb={s.id}
-              className="cursor-pointer"
-            >
-              {s.section && (i === 0 || deck.slides[i - 1].section !== s.section) && <div className="mb-1 text-[11px] font-semibold text-gray-600">{s.section}</div>}
-              <div className={`border-[3px] ${s.id === slide.id ? "border-[#c43e1c]" : "border-transparent"} ${s.hidden ? "opacity-50" : ""}`}>
-                <SlideView deck={deck} slide={s} width={200} index={i} />
+          {deck.slides.map((s, i) => {
+            const head = s.section && (i === 0 || deck.slides[i - 1].section !== s.section);
+            const isCollapsed = Boolean(s.section && collapsed.has(s.section));
+            return (
+              <div key={s.id} className="contents">
+                {head && (
+                  <button type="button" onClick={() => onCommit({ kind: "command", id: "section.toggle", value: s.section })} onContextMenu={(e) => sectionMenu(e, s)} className="w-full text-left text-[12px] font-semibold text-gray-700">
+                    {isCollapsed ? "▸" : "▾"} {s.section}
+                  </button>
+                )}
+                {!isCollapsed && (
+                  <div
+                    draggable
+                    onDragStart={() => setDragFrom(s.id)}
+                    onDragOver={(e) => e.preventDefault()}
+                    onDrop={() => { if (dragFrom && dragFrom !== s.id) onCommit({ kind: "command", id: "slides.move", value: `${dragFrom}@${i + 1}` }); setDragFrom(null); }}
+                    onClick={() => onSelect({ slide: s.id, selection: s.id })}
+                    onDoubleClick={() => onCommit({ kind: "command", id: "view.mode", value: "Normal" })}
+                    onContextMenu={(e) => thumbMenu(e, s)}
+                    data-thumb={s.id}
+                    className="cursor-pointer"
+                  >
+                    <div className={`border-[3px] ${s.id === slide.id ? "border-[#c43e1c]" : "border-transparent"} ${s.hidden ? "opacity-50" : ""}`}>
+                      <SlideView deck={deck} slide={s} width={200} index={i} />
+                    </div>
+                    <div className="mt-1 flex justify-between text-[11px] text-gray-600">
+                      <span className={s.hidden ? "line-through" : ""}>{i + 1}</span>
+                      <span>{s.transition ? `★ ${s.transition}` : ""}{s.transitionOptions?.advanceAfter ? `  ${String(Math.floor(s.transitionOptions.advanceAfter / 60)).padStart(2, "0")}:${String(Math.round(s.transitionOptions.advanceAfter % 60)).padStart(2, "0")}` : ""}</span>
+                    </div>
+                  </div>
+                )}
               </div>
-              <div className="mt-1 flex justify-between text-[11px] text-gray-600">
-                <span className={s.hidden ? "line-through" : ""}>{i + 1}</span>
-                {s.transition && <span>★ {s.transition}</span>}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     );
   }
 
   const pane = deck.pane;
-  const showNotes = !deck.flags?.hideNotes && view !== "notes";
+  const showNotes = !deck.flags?.hideNotes && view !== "notes" && view !== "master";
+  const m = readMaster(deck);
+  const masterKey = view === "master" ? (ui.slide === "master" || ui.slide?.startsWith("layout:") ? ui.slide : "master") : "";
+
+  const masterPane = view === "master" && (
+    <aside className="w-48 shrink-0 overflow-auto border-r border-gray-300 bg-[#f3f3f3] py-2 text-[11px]" aria-label="Slide Master thumbnails">
+      {["master", ...LAYOUTS.map((l) => `layout:${l}`), ...(m.customLayouts ?? []).map((l) => `layout:${l}`)].map((k, i) => {
+        const name = k === "master" ? `${deck.theme ?? "Office Theme"} Slide Master` : layoutName(deck, k.slice(7));
+        const selected = masterKey === k;
+        const used = k === "master" ? deck.slides.length : deck.slides.filter((s) => s.layout === k.slice(7)).length;
+        return (
+          <button key={k} type="button" title={`${name}: used by ${used} slide${used === 1 ? "" : "s"}`} onClick={() => onSelect({ slide: k, selection: k })} className={`mb-1.5 block ${i ? "ml-5 w-[78%]" : "ml-1 w-[90%]"} text-left`}>
+            <div className={`border-2 ${selected ? "border-[#c43e1c]" : "border-transparent hover:border-[#f4b183]"}`}>
+              <SlideView deck={deck} slide={masterSlide(deck, k)} width={i ? 130 : 152} index={0} />
+            </div>
+            <div className="truncate pt-0.5">{name}</div>
+          </button>
+        );
+      })}
+    </aside>
+  );
+
+  const rulerOn = Boolean(deck.flags?.["view.ruler"]) && view === "normal";
+  const slideW = fitW(40 + (rulerOn ? 18 : 0), 32 + (rulerOn ? 18 : 0)) * Number(deck.flags?.zoom ?? 100) / 100;
 
   return (
     <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex h-full outline-none">
       {view === "outline" ? (
-        <aside className="w-60 shrink-0 overflow-auto border-r border-gray-300 bg-white p-2 text-[12px]">
+        <aside className="w-64 shrink-0 overflow-auto border-r border-gray-300 bg-white p-2 text-[12px]" aria-label="Outline">
           {deck.slides.map((s, i) => (
-            <div key={s.id} className={`mb-2 cursor-pointer rounded p-1 ${s.id === slide.id ? "bg-[#fde9d9]" : ""}`} onClick={() => onSelect({ slide: s.id, selection: `${s.id}.title` })}>
-              <div className="flex gap-2 font-semibold"><span className="text-gray-500">{i + 1}</span><Icon name="newSlide" size={14} />{s.title || "(untitled)"}</div>
-              {(s.body ?? []).map((b, j) => <div key={j} className="pl-8 text-gray-700">• {b.replace(/^\t+/, "")}</div>)}
+            <div key={s.id} className={`mb-2 rounded p-1 ${s.id === slide.id ? "bg-[#fde9d9]" : ""}`}>
+              <div
+                className="flex cursor-text gap-2 font-semibold"
+                onClick={() => onSelect({ slide: s.id, selection: `${s.id}.title` })}
+                onDoubleClick={() => startEdit(`${s.id}.title`)}
+              >
+                <span className="text-gray-500">{i + 1}</span>
+                <Icon name="newSlide" size={14} />
+                {editing?.key === `${s.id}.title` && view === "outline" ? (
+                  <div className="flex-1"><PartEditor value={editing.text} onChange={(t) => setEditing({ key: `${s.id}.title`, text: t })} onCommit={() => commitEdit()} onCancel={() => setEditing(null)} /></div>
+                ) : (s.title || <span className="font-normal text-gray-400">(untitled)</span>)}
+              </div>
+              <div onClick={() => onSelect({ slide: s.id, selection: `${s.id}.body` })} onDoubleClick={() => startEdit(`${s.id}.body`)} className="cursor-text">
+                {editing?.key === `${s.id}.body` && view === "outline" ? (
+                  <div className="ml-8 h-24"><PartEditor multiline tabMode="indent" value={editing.text} onChange={(t) => setEditing({ key: `${s.id}.body`, text: t })} onCommit={() => commitEdit()} onCancel={() => setEditing(null)} /></div>
+                ) : (s.body ?? []).map((b, j) => <div key={j} className="text-gray-700" style={{ paddingLeft: 32 + (/^\t+/.exec(b)?.[0].length ?? 0) * 16 }}>• {b.replace(/^\t+/, "")}</div>)}
+              </div>
             </div>
           ))}
         </aside>
-      ) : view === "master" ? (
-        <aside className="w-44 shrink-0 overflow-auto border-r border-gray-300 bg-[#f3f3f3] py-2 text-[11px]">
-          <div className="px-2 pb-1 font-semibold">Slide Master</div>
-          {["Office Theme Slide Master", ...LAYOUTS.slice(0, 7)].map((l, i) => (
-            <button key={l} type="button" onClick={() => onSelect({ selection: i === 0 ? "master.title" : "master.body" })} className={`mb-1 ${i ? "ml-4" : "ml-1"} block w-[85%] border-2 bg-white p-1 text-left ${i === 0 && ui.selection === "master.title" ? "border-[#c43e1c]" : "border-transparent"}`}>
-              <div className="h-12 border border-gray-200 p-1" style={{ background: themeOf(deck).bg }}>
-                <div className="h-2 w-2/3" style={{ background: deck.master?.titleColor ?? themeOf(deck).title }} />
-              </div>
-              <div className="truncate pt-0.5">{l}</div>
-            </button>
-          ))}
-        </aside>
-      ) : (
+      ) : view === "master" ? masterPane : (
         thumbs
       )}
 
-      <div className="flex min-w-0 flex-1 flex-col bg-[#e7e7e7]">
+      <div className="relative flex min-w-0 flex-1 flex-col bg-[#e7e7e7]">
         <div ref={mainRef} className="flex min-h-0 flex-1 items-center justify-center overflow-auto p-4" onMouseDown={() => { if (editRef.current) commitEdit(); }}>
           {view === "master" ? (
-            <div className="bg-white shadow">
-              <div
-                onMouseDown={(e) => { e.stopPropagation(); onSelect({ selection: "master.title" }); }}
-                className={`m-6 cursor-pointer border p-3 ${ui.selection === "master.title" ? "border-gray-600" : "border-dashed border-gray-300"}`}
-                style={{ fontFamily: `'${deck.master?.titleFont ?? themeOf(deck).titleFont}', sans-serif`, color: deck.master?.titleColor ?? themeOf(deck).title, fontSize: 28, width: Math.min(mainW - 80, 700) }}
-              >
-                Click to edit Master title style
-              </div>
-              <div
-                onMouseDown={(e) => { e.stopPropagation(); onSelect({ selection: "master.body" }); }}
-                className={`m-6 cursor-pointer border p-3 text-[18px] ${ui.selection === "master.body" ? "border-gray-600" : "border-dashed border-gray-300"}`}
-                style={{ fontFamily: `'${deck.master?.bodyFont ?? themeOf(deck).font}', sans-serif`, color: themeOf(deck).body, minHeight: 180 }}
-              >
-                • Click to edit Master text styles
-                <div className="pl-6 text-[16px]">– Second level</div>
-                <div className="pl-12 text-[14px]">• Third level</div>
-              </div>
+            <div className="shadow-[0_0_0_1px_#c8c8c8,0_2px_8px_rgba(0,0,0,.18)]">
+              <SlideView
+                deck={{ ...deck, master: (masterKey === "master" || !masterKey ? { ...m, objects: [], layoutObjects: {} } : { ...m, layoutObjects: {} }) as PptDeck["master"] }}
+                slide={masterSlide(deck, masterKey || "master")}
+                width={fitW(40, 32)}
+                index={0}
+                {...slideProps}
+                onEditStart={() => undefined}
+                onInsertIcon={undefined}
+                onContext={(e: React.MouseEvent, key: string) => { e.preventDefault(); e.stopPropagation(); onSelect({ selection: key, slide: key.split(".")[0] }); }}
+                showBadges={false}
+              />
             </div>
           ) : view === "notes" ? (
             <div className="bg-white p-6 shadow" style={{ width: Math.min(mainW - 40, 620) }}>
               <SlideView deck={deck} slide={slide} width={Math.min(mainW - 88, 572)} index={idx} />
               <div
                 onMouseDown={(e) => { e.stopPropagation(); onSelect({ selection: `${slide.id}.notes` }); }}
-                onDoubleClick={() => setEditing({ key: `${slide.id}.notes`, text: slide.notes ?? "" })}
+                onDoubleClick={() => startEdit(`${slide.id}.notes`)}
                 className={`mt-4 min-h-[100px] border p-2 text-[13px] ${ui.selection === `${slide.id}.notes` ? "border-gray-600" : "border-dashed border-gray-300"}`}
               >
-                {editing?.key === `${slide.id}.notes` ? <PartEditor multiline value={editing.text} onChange={(t) => setEditing({ key: `${slide.id}.notes`, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : slide.notes || <span className="text-gray-400">Click to add text</span>}
+                {editing?.key === `${slide.id}.notes` ? <PartEditor multiline value={editing.text} onChange={(t) => setEditing({ key: `${slide.id}.notes`, text: t })} onCommit={() => commitEdit()} onCancel={() => setEditing(null)} /> : slide.notes || <span className="text-gray-400">Click to add text</span>}
               </div>
             </div>
           ) : (
-            <div className="shadow-[0_0_0_1px_#c8c8c8,0_2px_8px_rgba(0,0,0,.18)]">
-              <SlideView
-                deck={deck}
-                slide={slide}
-                width={fitW(40, 32) * Number(deck.flags?.zoom ?? 100) / 100}
-                index={idx}
-                interactive
-                selection={ui.selection}
-                editing={editing}
-                onPart={(key, e) => selectPart(key, e)}
-                onEditStart={(key) => { onSelect({ selection: key, slide: key.split(".")[0] }); setEditing({ key, text: textOf(key) }); }}
-                onEditChange={(t) => setEditing({ key: editRef.current!.key, text: t })}
-                onEditCommit={commitEdit}
-                onEditCancel={() => setEditing(null)}
-                onContext={partMenu}
-                showBadges
-              />
+            <div className="flex flex-col">
+              {rulerOn && <div className="mb-0.5 h-[14px] bg-white text-[8px] text-gray-500" style={{ width: slideW, marginLeft: 16, backgroundImage: "repeating-linear-gradient(90deg,#999 0 1px,transparent 1px 7.2%)" }} />}
+              <div className="flex">
+                {rulerOn && <div className="mr-0.5 w-[14px] bg-white" style={{ backgroundImage: "repeating-linear-gradient(180deg,#999 0 1px,transparent 1px 13.3%)" }} />}
+                <div className="shadow-[0_0_0_1px_#c8c8c8,0_2px_8px_rgba(0,0,0,.18)]">
+                  <SlideView deck={deck} slide={slide} width={slideW} index={idx} {...slideProps} />
+                </div>
+              </div>
             </div>
           )}
         </div>
-        {showNotes && view !== "master" && (
+        {showNotes && (
           <div
             onMouseDown={() => onSelect({ selection: `${slide.id}.notes` })}
-            onDoubleClick={() => setEditing({ key: `${slide.id}.notes`, text: slide.notes ?? "" })}
+            onDoubleClick={() => startEdit(`${slide.id}.notes`)}
             className={`h-16 shrink-0 cursor-text overflow-auto border-t border-gray-300 bg-white px-4 py-2 text-[12px] ${ui.selection === `${slide.id}.notes` ? "outline outline-1 outline-gray-500" : ""}`}
             aria-label="Notes"
           >
             {editing?.key === `${slide.id}.notes` ? (
-              <PartEditor multiline value={editing.text} onChange={(t) => setEditing({ key: `${slide.id}.notes`, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} />
+              <PartEditor multiline value={editing.text} onChange={(t) => setEditing({ key: `${slide.id}.notes`, text: t })} onCommit={() => commitEdit()} onCancel={() => setEditing(null)} />
             ) : slide.notes ? (
               slide.notes
             ) : (
@@ -762,95 +603,11 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
             )}
           </div>
         )}
+        {pane === "Chart Data" && <ChartDataSheet deck={deck} onCommit={onCommit} />}
       </div>
 
-      {pane && <PptPane deck={deck} ui={ui} pane={pane} onCommit={onCommit} openDialog={openDialog} onSelect={onSelect} />}
+      {pane && pane !== "Chart Data" && <PptPane deck={deck} ui={ui} pane={pane} onCommit={onCommit} openDialog={openDialog} onSelect={onSelect} />}
     </div>
-  );
-}
-
-function PptPane({ deck, ui, pane, onCommit, openDialog, onSelect }: { deck: PptDeck; ui: CanvasProps<PptDeck>["ui"]; pane: string; onCommit: CanvasProps<PptDeck>["onCommit"]; openDialog: (id: string) => void; onSelect: CanvasProps<PptDeck>["onSelect"] }) {
-  const slide = activeSlide(deck, ui)!;
-  let title = pane;
-  let body: React.ReactNode = <p className="text-gray-600">This feature is shown for practice.</p>;
-  if (pane === "Designer") {
-    title = "Designer";
-    body = (
-      <div className="space-y-3">
-        <p className="text-gray-600">Design Ideas for this slide</p>
-        {[1, 2, 3].map((n) => (
-          <button key={n} type="button" onClick={() => onCommit({ kind: "command", id: "design.idea", value: `Design Idea ${n}` })} className="block w-full border border-gray-300 hover:border-[#c43e1c]" aria-label={`Design Idea ${n}`}>
-            <div className="h-20 p-2" style={{ background: n === 1 ? "#1F3864" : n === 2 ? "linear-gradient(90deg,#c43e1c 0 30%,#fff 30%)" : "#F2F2F2" }}>
-              <div className={`h-2.5 w-2/3 ${n === 1 ? "bg-white" : "bg-gray-700"}`} />
-              <div className="mt-2 h-1.5 w-1/2 bg-gray-400" />
-            </div>
-          </button>
-        ))}
-      </div>
-    );
-  } else if (pane === "Spelling") {
-    const s = deck.slides.find((x) => x.spell?.length);
-    const w = s?.spell?.[0];
-    body = w ? (
-      <div className="space-y-2">
-        <p className="text-[11px] uppercase text-gray-500">Spelling</p>
-        <p className="text-[14px]"><span className="underline decoration-red-600 decoration-wavy">{w.word}</span></p>
-        {w.suggestions.map((sg) => <button key={sg} type="button" onClick={() => onCommit({ kind: "command", id: "spelling.change", value: sg })} className="block w-full rounded border border-gray-300 px-2 py-1 text-left hover:bg-[#fde9d9]">{sg}</button>)}
-        <button type="button" onClick={() => onCommit({ kind: "command", id: "spelling.ignore" })} className="text-[#c43e1c] hover:underline">Ignore Once</button>
-      </div>
-    ) : <p>Spelling check complete.</p>;
-  } else if (pane === "Spelling: done") {
-    title = "Spelling";
-    body = <p>Spelling check complete. You&apos;re good to go!</p>;
-  } else if (pane === "Comments") {
-    body = (
-      <div className="space-y-2">
-        {(slide.comments ?? []).length === 0 && <p className="text-gray-500">No comments on this slide.</p>}
-        {(slide.comments ?? []).map((c, i) => <div key={i} className="rounded border border-gray-300 p-2"><b>{c.author}</b><p>{c.text}</p></div>)}
-        <button type="button" onClick={() => openDialog("newComment")} className="rounded border border-gray-300 px-2 py-1 hover:bg-gray-50">+ New</button>
-      </div>
-    );
-  } else if (pane === "Animation Pane") {
-    const items: { label: string; anim: string; order: number; key: string }[] = [];
-    if (slide.titleAnimation) items.push({ label: `Title: ${slide.title ?? ""}`, anim: slide.titleAnimation, order: 1, key: `${slide.id}.title` });
-    if (slide.bodyAnimation) items.push({ label: "Content Placeholder", anim: slide.bodyAnimation, order: 2, key: `${slide.id}.body` });
-    (slide.objects ?? []).filter((o) => o.animation).forEach((o) => items.push({ label: o.label ?? o.id, anim: o.animation!, order: o.animationOrder ?? 1, key: `${slide.id}.${o.id}` }));
-    items.sort((a, b) => a.order - b.order);
-    body = items.length ? (
-      <div className="space-y-1">
-        {items.map((it) => (
-          <button key={it.key} type="button" onClick={() => onSelect({ selection: it.key })} className={`flex w-full items-center gap-2 rounded px-1 py-1 text-left ${ui.selection === it.key ? "bg-[#fde9d9]" : "hover:bg-gray-50"}`}>
-            <span className="w-4 text-gray-500">{it.order}</span>
-            <span className="text-emerald-700">★</span>
-            <span className="flex-1 truncate">{it.label}</span>
-            <span className="text-[10px] text-gray-500">{it.anim}</span>
-          </button>
-        ))}
-      </div>
-    ) : <p className="text-gray-500">No animations on this slide.</p>;
-  } else if (pane === "Accessibility") {
-    const missing = deck.slides.flatMap((s, i) => (s.objects ?? []).filter((o) => (o.kind === "image" || o.kind === "chart" || o.kind === "smartart") && !o.alt).map((o) => ({ s: i + 1, o })));
-    const untitled = deck.slides.map((s, i) => ({ s, i })).filter(({ s }) => !s.title && s.layout !== "Blank");
-    body = missing.length + untitled.length === 0 ? <p className="text-emerald-700">No accessibility issues found.</p> : (
-      <div className="space-y-2">
-        {missing.map(({ s, o }) => <button key={`${s}${o.id}`} type="button" onClick={() => openDialog("altText")} className="block w-full rounded border border-red-200 bg-red-50 px-2 py-1 text-left">Missing alternative text: {o.label} (Slide {s})</button>)}
-        {untitled.map(({ i }) => <p key={i} className="rounded border border-amber-200 bg-amber-50 px-2 py-1">Missing slide title: Slide {i + 1}</p>)}
-      </div>
-    );
-  } else if (pane.startsWith("Replace")) {
-    title = "Replace";
-    body = <p>{pane.replace("Replace: ", "")} made.</p>;
-  } else if (pane === "Thesaurus" || pane === "Search" || pane === "Translator" || pane === "Help" || pane === "Find") {
-    body = <p className="text-gray-700">{pane === "Find" ? `Searching ${deck.slides.length} slides: ${deck.slides.map(slideText).join(" ").length} characters of text.` : "Results for the selected text appear here."}</p>;
-  }
-  return (
-    <aside className="flex w-60 shrink-0 flex-col border-l border-gray-300 bg-white text-[12px]">
-      <div className="flex items-center justify-between border-b px-3 py-2">
-        <span className="text-[13px]">{title}</span>
-        <button type="button" aria-label={`Close ${title}`} onClick={() => onCommit({ kind: "command", id: "pane.close" })} className="px-1 hover:bg-gray-100">✕</button>
-      </div>
-      <div className="flex-1 overflow-auto p-3">{body}</div>
-    </aside>
   );
 }
 
@@ -863,12 +620,14 @@ export function PptStatusBar({ doc: deck, ui, onCommit }: StatusBarProps<PptDeck
     ["Slide Sorter", "sorter", "sorter"],
     ["Reading View", "readMode", "reading"],
   ];
+  const t = themeOf(deck);
   return (
     <div className="flex h-6 shrink-0 items-center gap-4 border-t border-gray-300 bg-[#f3f3f3] px-3 text-[11px] text-gray-700">
-      <span>Slide {idx + 1} of {deck.slides.length}</span>
+      <span>{deck.view === "master" ? "Slide Master" : `Slide ${idx + 1} of ${deck.slides.length}`}</span>
       <span className="hidden sm:inline">English (United States)</span>
       {deck.flags?.lastAction && <span className="hidden text-gray-500 sm:inline">Last action: {String(deck.flags.lastAction)}</span>}
       <span className="flex-1" />
+      <span className="hidden text-gray-400 md:inline" title="Theme">{deck.theme ?? "Office Theme"}{t.dark ? " (dark)" : ""}</span>
       <button type="button" onClick={() => onCommit({ kind: "command", id: "view.notes" })} className="hover:bg-gray-200">Notes</button>
       <button type="button" onClick={() => onCommit({ kind: "command", id: "review.showComments" })} className="hover:bg-gray-200">Comments</button>
       <span className="flex items-center gap-1">
@@ -886,7 +645,10 @@ export function PptStatusBar({ doc: deck, ui, onCommit }: StatusBarProps<PptDeck
         <input type="range" aria-label="Zoom" min={40} max={150} step={10} value={zoom} onChange={(e) => onCommit({ kind: "command", id: "view.zoom", value: e.target.value })} className="h-1 w-20 accent-gray-600" />
         <button type="button" aria-label="Zoom in" onClick={() => onCommit({ kind: "command", id: "view.zoom", value: String(Math.min(150, zoom + 10)) })} className="px-1 hover:bg-gray-200">+</button>
         <span className="w-9 text-right">{zoom}%</span>
+        <button type="button" title="Fit slide to current window" aria-label="Fit slide to current window" onClick={() => onCommit({ kind: "command", id: "view.fit" })} className="rounded p-0.5 hover:bg-gray-200"><Icon name="pageWidth" size={14} /></button>
       </span>
     </div>
   );
 }
+
+export type { PptObject };

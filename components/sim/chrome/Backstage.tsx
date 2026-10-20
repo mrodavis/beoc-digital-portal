@@ -277,7 +277,16 @@ export function Backstage({
               />
               <label className="flex items-center gap-2">
                 {app === "PowerPoint" ? "Slides:" : "Pages:"}
-                <input value={String(print.pages)} onChange={(e) => sel("pages", e.target.value)} onKeyDown={(e) => e.stopPropagation()} className="flex-1 border border-gray-400 px-1" />
+                <input
+                  value={String(print.pages)}
+                  onChange={(e) => {
+                    const v = e.target.value;
+                    // Like Office: typing a page range switches Settings to the custom option.
+                    setPrint((p) => ({ ...p, pages: v, ...(v.trim() && app === "Word" ? { range: "Custom Print" } : v.trim() && app === "PowerPoint" ? { range: "Custom Range" } : {}) }));
+                  }}
+                  onKeyDown={(e) => e.stopPropagation()}
+                  className="flex-1 border border-gray-400 px-1"
+                />
               </label>
               {app === "PowerPoint" && (
                 <PSelect value={print.layout ?? "Full Page Slides"} onChange={(v) => sel("layout", v)} options={["Full Page Slides", "Notes Pages", "Outline", "3 Slides (Handouts)", "6 Slides Horizontal (Handouts)"]} />

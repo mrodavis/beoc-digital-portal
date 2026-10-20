@@ -9,15 +9,22 @@ import {
   colToNum,
   evaluateCell,
   evaluateSpill,
+  evaluateSpillGrid,
+  filterAllows as filterAllowsCanvas,
+  filterHiddenRows,
   formatValue,
+  formulaToR1C1,
+  isLinkedGeography,
   numToCol,
   parseRange,
   parseRef,
   rectToRange,
   refOf,
+  shiftFormula,
   type Rect,
 } from "@/lib/sim/excel";
-import { activeCell, currentRegion, DEFAULT_COLS, DEFAULT_ROWS, selRect, sheetOf, TAB_COLORS, usedRect } from "./model";
+import { activeCell, analyzeSuggestions, centerAcrossRanges, currentRegion, DEFAULT_COLS, DEFAULT_ROWS, isUnlocked, parseInput, selRect, sheetOf, TAB_COLORS, usedRect } from "./model";
+import { SHOW_VALUES_AS } from "./dialogs";
 import { TABLE_STYLE_COLORS } from "./ribbon";
 
 const HEAD_W = 40;
@@ -49,22 +56,50 @@ interface VirtualCell {
   fmt?: CellFormat;
 }
 
-function computePivot(doc: ExcelBook, sheet: ExcelSheet): Record<string, VirtualCell> {
+/** Items a PivotTable field is filtered to (report filter or slicer); null = all. */
+function pivotFilterItems(doc: ExcelBook, sheet: ExcelSheet, field: string): string[] | null {
+  const v = doc.flags?.[`pvf:${sheet.name}:${field}`];
+  return v ? String(v).split("|") : null;
+}
+
+/** Source records of a PivotTable, as field → value. */
+function pivotSource(doc: ExcelBook, sheet: ExcelSheet): { head: string[]; rows: Record<string, Val>[]; fmtOf: (f: string) => CellFormat | undefined } | null {
   const pv = sheet.pivot;
-  const out: Record<string, VirtualCell> = {};
-  if (!pv) return out;
+  if (!pv) return null;
   const src = doc.sheets.find((s) => s.name === pv.source.sheet);
   const rc = parseRange(pv.source.range);
-  if (!src || !rc) return out;
+  if (!src || !rc) return null;
   const head: string[] = [];
   for (let c = rc.c1; c <= rc.c2; c++) head.push(String(src.cells[refOf(c, rc.r1)]?.v ?? numToCol(c)));
   const rows: Record<string, Val>[] = [];
   for (let r = rc.r1 + 1; r <= rc.r2; r++) {
     const row: Record<string, Val> = {};
     head.forEach((h, i) => (row[h] = evaluateCell(doc, src, refOf(rc.c1 + i, r))));
+    if (Object.values(row).every((x) => x === null || x === "")) continue;
     rows.push(row);
   }
+  return { head, rows, fmtOf: (f) => src.cells[refOf(rc.c1 + head.indexOf(f), rc.r1 + 1)]?.fmt };
+}
+
+function computePivot(doc: ExcelBook, sheet: ExcelSheet): Record<string, VirtualCell> {
+  const pv = sheet.pivot;
+  const out: Record<string, VirtualCell> = {};
+  const source = pivotSource(doc, sheet);
+  if (!pv || !source) return out;
+  const { head } = source;
+  // Report filters and slicers narrow the records first.
+  const rows = source.rows.filter((r) => head.every((h) => {
+    const items = pivotFilterItems(doc, sheet, h);
+    return !items || items.some((it) => it.toLowerCase() === String(r[h] ?? "(blank)").toLowerCase());
+  }));
   const at = parseRef(pv.at ?? "A3")!;
+  pv.filters.forEach((f, i) => {
+    const r = at.r - 2 - (pv.filters.length - 1 - i);
+    if (r < 1) return;
+    const items = pivotFilterItems(doc, sheet, f);
+    out[refOf(at.c, r)] = { v: f, fmt: { bold: true } };
+    out[refOf(at.c + 1, r)] = { v: !items ? "(All)" : items.length === 1 ? items[0] : "(Multiple Items)" };
+  });
   const rowF = pv.rows[0];
   const colF = pv.columns[0];
   const val = pv.values[0];
@@ -80,45 +115,125 @@ function computePivot(doc: ExcelBook, sheet: ExcelSheet): Record<string, Virtual
       default: return nums.reduce((a, b) => a + b, 0);
     }
   };
-  const vf: CellFormat | undefined = val ? src.cells[refOf(rc.c1 + head.indexOf(val.field), rc.r1 + 1)]?.fmt : undefined;
-  const fmtV = val?.fn === "Count" ? undefined : vf;
+  const showAs = String(doc.flags?.[`pvShowAs:${sheet.name}`] ?? "");
+  const vf: CellFormat | undefined = val ? source.fmtOf(val.field) : undefined;
+  const pctFmt: CellFormat = { numFmt: "Percentage", decimals: 2 };
+  const fmtV = showAs && showAs !== "Running Total In" ? pctFmt : val?.fn === "Count" ? undefined : vf;
   const hdr: CellFormat = { bold: true, fill: "#DDEBF7" };
-  const rowKeys = rowF ? Array.from(new Set(rows.map((r) => String(r[rowF] ?? "(blank)")))).sort() : [];
-  const colKeys = colF ? Array.from(new Set(rows.map((r) => String(r[colF] ?? "(blank)")))).sort() : [];
+  const keyOf = (r: Record<string, Val>, f: string) => String(r[f] ?? "(blank)");
+  const sortKeys = (keys: string[]) => keys.sort((a, b) => {
+    const na = Number(a), nb = Number(b);
+    return !Number.isNaN(na) && !Number.isNaN(nb) ? na - nb : a.localeCompare(b, undefined, { sensitivity: "base" });
+  });
+  const rowKeys = rowF ? sortKeys(Array.from(new Set(rows.map((r) => keyOf(r, rowF))))) : [];
+  const colKeys = colF ? sortKeys(Array.from(new Set(rows.map((r) => keyOf(r, colF))))) : [];
   const label = val ? `${val.fn} of ${val.field}` : "";
+  const grand = agg(rows) ?? 0;
+  const colTotal = (ck: string | null) => agg(ck === null ? rows : rows.filter((x) => keyOf(x, colF) === ck)) ?? 0;
+  const running: Record<string, number> = {};
+  const show = (v: number | null, rk: string | null, ck: string | null): Val => {
+    if (v === null) return null;
+    if (!showAs) return v;
+    if (showAs === "% of Grand Total") return grand ? v / grand : 0;
+    if (showAs === "% of Column Total") { const t = colTotal(ck); return t ? v / t : 0; }
+    if (showAs === "% of Row Total") {
+      if (rk === null) return grand ? v / grand : 0;
+      const t = agg(rows.filter((x) => keyOf(x, rowF) === rk)) ?? 0;
+      return t ? v / t : 0;
+    }
+    if (showAs === "Running Total In") {
+      const k = ck ?? "";
+      running[k] = (running[k] ?? 0) + v;
+      return running[k];
+    }
+    return v;
+  };
   out[refOf(at.c, at.r)] = { v: rowF ? "Row Labels" : label, fmt: hdr };
   if (colF) {
+    out[refOf(at.c, at.r - 1)] = { v: label, fmt: hdr };
     out[refOf(at.c + 1, at.r - 1)] = { v: "Column Labels", fmt: hdr };
     colKeys.forEach((k, i) => (out[refOf(at.c + 1 + i, at.r)] = { v: k, fmt: hdr }));
     out[refOf(at.c + 1 + colKeys.length, at.r)] = { v: "Grand Total", fmt: hdr };
   } else if (rowF && val) out[refOf(at.c + 1, at.r)] = { v: label, fmt: hdr };
   if (!rowF && val) {
-    out[refOf(at.c, at.r + 1)] = { v: agg(rows), fmt: fmtV };
+    out[refOf(at.c, at.r + 1)] = { v: show(agg(rows), null, null), fmt: fmtV };
     return out;
   }
   rowKeys.forEach((k, i) => {
-    const items = rows.filter((r) => String(r[rowF] ?? "(blank)") === k);
+    const items = rows.filter((r) => keyOf(r, rowF) === k);
     out[refOf(at.c, at.r + 1 + i)] = { v: k };
     if (colF) {
-      colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, at.r + 1 + i)] = { v: agg(items.filter((x) => String(x[colF] ?? "(blank)") === ck)), fmt: fmtV }));
-      out[refOf(at.c + 1 + colKeys.length, at.r + 1 + i)] = { v: agg(items), fmt: fmtV };
-    } else if (val) out[refOf(at.c + 1, at.r + 1 + i)] = { v: agg(items), fmt: fmtV };
+      colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, at.r + 1 + i)] = { v: show(agg(items.filter((x) => keyOf(x, colF) === ck)), k, ck), fmt: fmtV }));
+      out[refOf(at.c + 1 + colKeys.length, at.r + 1 + i)] = { v: showAs === "Running Total In" ? null : show(agg(items), k, null), fmt: fmtV };
+    } else if (val) out[refOf(at.c + 1, at.r + 1 + i)] = { v: show(agg(items), k, null), fmt: fmtV };
   });
   const gt = at.r + 1 + rowKeys.length;
   out[refOf(at.c, gt)] = { v: "Grand Total", fmt: { bold: true, border: "top" } };
+  const gtFmt = { ...(fmtV ?? {}), bold: true, border: "top" as const };
   if (colF) {
-    colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, gt)] = { v: agg(rows.filter((x) => String(x[colF] ?? "(blank)") === ck)), fmt: { ...(fmtV ?? {}), bold: true, border: "top" } }));
-    out[refOf(at.c + 1 + colKeys.length, gt)] = { v: agg(rows), fmt: { ...(fmtV ?? {}), bold: true, border: "top" } };
-  } else if (val) out[refOf(at.c + 1, gt)] = { v: agg(rows), fmt: { ...(fmtV ?? {}), bold: true, border: "top" } };
+    colKeys.forEach((ck, j) => (out[refOf(at.c + 1 + j, gt)] = { v: showAs === "Running Total In" ? null : show(colTotal(ck), null, ck === null ? null : ck), fmt: gtFmt }));
+    out[refOf(at.c + 1 + colKeys.length, gt)] = { v: showAs === "Running Total In" ? null : show(grand, null, null), fmt: gtFmt };
+  } else if (val) out[refOf(at.c + 1, gt)] = { v: showAs === "Running Total In" ? null : show(grand, null, null), fmt: gtFmt };
   return out;
+}
+
+/** Categories and series a chart plots: from its range, or from the PivotTable for a PivotChart. */
+function chartData(doc: ExcelBook, sheet: ExcelSheet, ch: ExcelChart, pivotCells: Record<string, VirtualCell>): { cats: string[]; series: { name: string; vals: number[] }[] } | null {
+  let cats: string[] = [];
+  let series: { name: string; vals: number[] }[] = [];
+  if (ch.range === "PIVOT") {
+    const at = parseRef(sheet.pivot?.at ?? "A3");
+    if (!at) return null;
+    const v = (c: number, r: number) => pivotCells[refOf(c, r)]?.v ?? null;
+    const hasRows = v(at.c, at.r) === "Row Labels";
+    let lastR = at.r + 1;
+    if (hasRows) {
+      for (let r = at.r + 1; v(at.c, r) !== null && v(at.c, r) !== "Grand Total"; r++) { cats.push(String(v(at.c, r))); lastR = r; }
+    } else cats = ["Total"];
+    const cols: { c: number; name: string }[] = [];
+    if (hasRows && v(at.c + 1, at.r - 1) === "Column Labels") {
+      for (let c = at.c + 1; v(c, at.r) !== null && v(c, at.r) !== "Grand Total"; c++) cols.push({ c, name: String(v(c, at.r)) });
+    } else cols.push({ c: hasRows ? at.c + 1 : at.c, name: String(v(hasRows ? at.c + 1 : at.c, at.r) ?? "Total") });
+    series = cols.map(({ c, name }) => ({
+      name,
+      vals: hasRows ? cats.map((_, i) => { const x = v(c, at.r + 1 + i); return typeof x === "number" ? x : 0; }) : [Number(v(at.c, at.r + 1)) || 0],
+    }));
+    void lastR;
+  } else {
+    const rc = parseRange(ch.range);
+    if (!rc) return null;
+    const firstColText = typeof evaluateCell(doc, sheet, refOf(rc.c1, rc.r1 + 1)) !== "number";
+    const headerRow = typeof evaluateCell(doc, sheet, refOf(rc.c2, rc.r1)) !== "number";
+    const catCol = firstColText ? rc.c1 : null;
+    const startRow = headerRow ? rc.r1 + 1 : rc.r1;
+    for (let r = startRow; r <= rc.r2; r++) cats.push(catCol ? String(evaluateCell(doc, sheet, refOf(catCol, r)) ?? "") : String(r - startRow + 1));
+    for (let c = catCol ? rc.c1 + 1 : rc.c1; c <= rc.c2; c++) {
+      const vals: number[] = [];
+      for (let r = startRow; r <= rc.r2; r++) {
+        const x = evaluateCell(doc, sheet, refOf(c, r));
+        vals.push(typeof x === "number" ? x : 0);
+      }
+      series.push({ name: headerRow ? String(evaluateCell(doc, sheet, refOf(c, rc.r1)) ?? "") : `Series${series.length + 1}`, vals });
+    }
+  }
+  if (doc.flags?.[`chart:${ch.id}:switch`]) {
+    // Switch Row/Column: categories become series and series become categories.
+    const nextCats = series.map((x) => x.name);
+    const nextSeries = cats.map((name, i) => ({ name, vals: series.map((x) => x.vals[i] ?? 0) }));
+    cats = nextCats;
+    series = nextSeries;
+  }
+  return { cats, series };
 }
 
 /* ------------------------------------------------------------------ */
 /* Conditional formatting                                              */
 /* ------------------------------------------------------------------ */
 
-function cfStyles(doc: ExcelBook, sheet: ExcelSheet): Record<string, React.CSSProperties & { icon?: string }> {
-  const out: Record<string, React.CSSProperties & { icon?: string }> = {};
+type CfStyle = React.CSSProperties & { icon?: string; iconColor?: string };
+
+function cfStyles(doc: ExcelBook, sheet: ExcelSheet): Record<string, CfStyle> {
+  const out: Record<string, CfStyle> = {};
   for (const rule of sheet.cf ?? []) {
     const rc = parseRange(rule.range);
     if (!rc) continue;
@@ -147,20 +262,39 @@ function cfStyles(doc: ExcelBook, sheet: ExcelSheet): Record<string, React.CSSPr
         case "Duplicate Values": hit = v !== null && v !== "" && vals.filter((x) => String(x).toLowerCase() === String(v).toLowerCase()).length > 1; break;
         case "Top 10": hit = typeof v === "number" && sorted.indexOf(v) > -1 && sorted.indexOf(v) < Number(rule.value ?? 10); break;
         case "Above Average": hit = n > avg; break;
+        case "Formula": {
+          // The formula is written for the range's top-left cell and adjusts for every other cell.
+          const p = parseRef(ref)!;
+          const res = evaluateSpill(doc, sheet, shiftFormula(String(rule.value ?? ""), p.c - rc.c1, p.r - rc.r1), ref)[0];
+          hit = res === true || (typeof res === "number" && res !== 0) || (typeof res === "string" && res.toUpperCase() === "TRUE");
+          break;
+        }
         default: {
           if (typeof v !== "number") return;
           const t = max === min ? 1 : (v - min) / (max - min);
           if (rule.rule.includes("Data Bar")) {
-            const col = rule.rule.includes("Green") ? "#63BE7B" : "#638EC6";
+            const col = rule.rule.includes("Green") ? "#63BE7B" : rule.rule.includes("Orange") ? "#FFB628" : "#638EC6";
             out[ref] = { ...out[ref], backgroundImage: `linear-gradient(90deg, ${col}88 ${t * 100}%, transparent ${t * 100}%)` };
           } else if (rule.rule.includes("Color Scale")) {
+            if (rule.rule.startsWith("Red")) {
+              // Red - Yellow - Green puts red on the highest values.
+              const tt = 1 - t;
+              const g2 = tt > 0.5 ? [99, 190, 123] : [255, 235, 132];
+              const r2 = tt > 0.5 ? [255, 235, 132] : [248, 105, 107];
+              const k2 = tt > 0.5 ? (tt - 0.5) * 2 : tt * 2;
+              out[ref] = { ...out[ref], background: `rgb(${r2.map((x, j) => Math.round(x + (g2[j] - x) * k2)).join(",")})` };
+              return;
+            }
             const g = t > 0.5 ? [99, 190, 123] : [255, 235, 132];
             const r = t > 0.5 ? [255, 235, 132] : [248, 105, 107];
             const k = t > 0.5 ? (t - 0.5) * 2 : t * 2;
             const mix = r.map((x, j) => Math.round(x + (g[j] - x) * k));
             out[ref] = { ...out[ref], background: `rgb(${mix.join(",")})` };
-          } else if (rule.rule.includes("Traffic") || rule.rule.includes("Arrows")) {
-            out[ref] = { ...out[ref], icon: rule.rule.includes("Arrows") ? (t > 0.66 ? "▲" : t > 0.33 ? "▶" : "▼") : t > 0.66 ? "🟢" : t > 0.33 ? "🟡" : "🔴" };
+          } else if (/Traffic|Arrows|Symbols|Flags/.test(rule.rule)) {
+            // Icon sets split the range into thirds: top, middle, bottom.
+            const tier = t >= 0.67 ? 0 : t >= 0.33 ? 1 : 2;
+            const glyphs = rule.rule.includes("Arrows") ? ["▲", "▶", "▼"] : rule.rule.includes("Symbols") ? ["✔", "!", "✖"] : rule.rule.includes("Flags") ? ["⚑", "⚑", "⚑"] : ["●", "●", "●"];
+            out[ref] = { ...out[ref], icon: glyphs[tier], iconColor: ["#00A651", "#E8A33D", "#D9302C"][tier] };
           }
           return;
         }
@@ -177,24 +311,12 @@ function cfStyles(doc: ExcelBook, sheet: ExcelSheet): Record<string, React.CSSPr
 
 const PALETTE = ["#4472C4", "#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5", "#70AD47"];
 
-function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit }: { doc: ExcelBook; sheet: ExcelSheet; ch: ExcelChart; selected: boolean; onSelect: () => void; onTitleEdit: () => void }) {
-  const rc = parseRange(ch.range);
-  if (!rc) return null;
-  const firstColText = typeof evaluateCell(doc, sheet, refOf(rc.c1, rc.r1 + 1)) !== "number";
-  const headerRow = typeof evaluateCell(doc, sheet, refOf(rc.c2, rc.r1)) !== "number";
-  const catCol = firstColText ? rc.c1 : null;
-  const startRow = headerRow ? rc.r1 + 1 : rc.r1;
-  const cats: string[] = [];
-  for (let r = startRow; r <= rc.r2; r++) cats.push(catCol ? String(evaluateCell(doc, sheet, refOf(catCol, r)) ?? "") : String(r - startRow + 1));
-  const series: { name: string; vals: number[] }[] = [];
-  for (let c = catCol ? rc.c1 + 1 : rc.c1; c <= rc.c2; c++) {
-    const vals: number[] = [];
-    for (let r = startRow; r <= rc.r2; r++) {
-      const v = evaluateCell(doc, sheet, refOf(c, r));
-      vals.push(typeof v === "number" ? v : 0);
-    }
-    series.push({ name: headerRow ? String(evaluateCell(doc, sheet, refOf(c, rc.r1)) ?? "") : `Series${series.length + 1}`, vals });
-  }
+function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit, pivotCells }: { doc: ExcelBook; sheet: ExcelSheet; ch: ExcelChart; selected: boolean; onSelect: () => void; onTitleEdit: () => void; pivotCells: Record<string, VirtualCell> }) {
+  const data = chartData(doc, sheet, ch, pivotCells);
+  if (!data) return null;
+  const { cats, series } = data;
+  const labels = Boolean(doc.flags?.[`chart:${ch.id}:labels`]);
+  const legend = String(doc.flags?.[`chart:${ch.id}:legend`] ?? "Bottom");
   const max = Math.max(1, ...series.flatMap((s) => s.vals));
   const W = 360, H = 200, P = 30;
   const isPie = /Pie|Doughnut/.test(ch.type);
@@ -217,7 +339,7 @@ function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit }: { doc: E
           return <path key={i} d={d} fill={PALETTE[i % PALETTE.length]} stroke="#fff" />;
         })}
         {ch.type === "Doughnut" && <circle r="30" fill="#fff" />}
-        {cats.map((c, i) => (
+        {legend !== "None" && cats.map((c, i) => (
           <g key={i} transform={`translate(90,${-50 + i * 14})`}>
             <rect width="8" height="8" fill={PALETTE[i % PALETTE.length]} />
             <text x="12" y="8" fontSize="9" fill="#444">{c}</text>
@@ -249,7 +371,14 @@ function ChartView({ doc, sheet, ch, selected, onSelect, onTitleEdit }: { doc: E
               }),
             )}
         {!isBar && cats.map((c, i) => <text key={i} x={P + bandW * (i + 0.5)} y={H - P + 12} fontSize="8.5" textAnchor="middle" fill="#555">{c.length > 10 ? `${c.slice(0, 9)}…` : c}</text>)}
-        {series.length > 1 && series.map((s, si) => (
+        {labels && !isBar && series.map((s, si) =>
+          s.vals.map((v, i) => {
+            const bw = (bandW * 0.7) / series.length;
+            const x = isLine ? P + bandW * (i + 0.5) : P + bandW * i + bandW * 0.15 + bw * (si + 0.5);
+            return <text key={`l${si}-${i}`} x={x} y={H - P - (v / max) * (H - P * 2) - 3} fontSize="7.5" textAnchor="middle" fill="#333">{formatValue(Math.round(v * 100) / 100, undefined)}</text>;
+          }),
+        )}
+        {series.length > 1 && legend !== "None" && series.map((s, si) => (
           <g key={si} transform={`translate(${P + si * 90},${H - 6})`}>
             <rect width="8" height="8" y="-7" fill={PALETTE[si % PALETTE.length]} />
             <text x="11" fontSize="8.5" fill="#444">{s.name}</text>
@@ -287,6 +416,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
   const [renaming, setRenaming] = useState<{ name: string; text: string } | null>(null);
   const [filterMenu, setFilterMenu] = useState<{ col: string; x: number; y: number } | null>(null);
   const [listMenu, setListMenu] = useState<{ ref: string; x: number; y: number; items: string[] } | null>(null);
+  const [pivotMenu, setPivotMenu] = useState<{ field: string; x: number; y: number } | null>(null);
   const [message, setMessage] = useState<string | null>(null);
   const drag = useRef<{ mode: "select" | "fill" | "point" | "col" | "row"; anchor: string; src?: Rect; target?: Rect; pointStart?: number } | null>(null);
   const [fillPreview, setFillPreview] = useState<Rect | null>(null);
@@ -299,45 +429,62 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
     setEdit(null);
   }, [doc]);
 
+  // Dynamic array results spill into the cells below/right; anything in the way gives #SPILL!.
+  const spill = useMemo(() => {
+    const out: Record<string, Val> = {};
+    const blocked = new Set<string>();
+    const ranges: Record<string, Rect> = {};
+    for (const [ref, cell] of Object.entries(sheet.cells)) {
+      if (!cell.f || !/\b(UNIQUE|SORT|SORTBY|FILTER|SEQUENCE)\(/i.test(cell.f)) continue;
+      const grid = evaluateSpillGrid(doc, sheet, cell.f, ref);
+      const p = parseRef(ref)!;
+      const targets: [string, Val][] = [];
+      let block = false;
+      grid.forEach((row, i) =>
+        row.forEach((v, j) => {
+          if (i === 0 && j === 0) return;
+          const t = refOf(p.c + j, p.r + i);
+          const tc = sheet.cells[t];
+          if ((tc && (tc.f || (tc.v !== undefined && tc.v !== ""))) || out[t] !== undefined) block = true;
+          targets.push([t, v]);
+        }),
+      );
+      if (block) blocked.add(ref);
+      else {
+        for (const [t, v] of targets) out[t] = v;
+        if (targets.length) ranges[ref] = { c1: p.c, r1: p.r, c2: p.c + Math.max(0, ...grid.map((r) => r.length)) - 1, r2: p.r + grid.length - 1 };
+      }
+    }
+    return { out, blocked, ranges };
+  }, [doc, sheet]);
+
   const used = usedRect(sheet);
-  const nCols = Math.max(sheet.cols ?? DEFAULT_COLS, (used?.c2 ?? 0) + 2, ...(sheet.charts ?? []).map(() => 0));
-  const nRows = Math.max(sheet.rows ?? DEFAULT_ROWS, (used?.r2 ?? 0) + 3);
+  const spillMax = Object.values(spill.ranges).reduce((m, r) => ({ c: Math.max(m.c, r.c2), r: Math.max(m.r, r.r2) }), { c: 0, r: 0 });
+  const nCols = Math.max(sheet.cols ?? DEFAULT_COLS, (used?.c2 ?? 0) + 2, spillMax.c + 1);
+  const nRows = Math.max(sheet.rows ?? DEFAULT_ROWS, (used?.r2 ?? 0) + 3, spillMax.r + 2);
   const hiddenRows = new Set(sheet.hiddenRows ?? []);
   const hiddenCols = new Set(sheet.hiddenCols ?? []);
   const filterRect = sheet.filter ? parseRange(sheet.filter) : null;
   // Rows hidden by an AutoFilter
-  if (filterRect && sheet.filterValues) {
-    for (let r = filterRect.r1 + 1; r <= filterRect.r2; r++) {
-      for (const [col, allowed] of Object.entries(sheet.filterValues)) {
-        const v = evaluateCell(doc, sheet, `${col}${r}`);
-        const shown = formatValue(v as Val, sheet.cells[`${col}${r}`]?.fmt);
-        if (!allowed.some((a) => a.toLowerCase() === shown.toLowerCase() || a.toLowerCase() === String(v ?? "").toLowerCase())) hiddenRows.add(r);
-      }
-    }
-  }
+  const filtered = filterHiddenRows(doc, sheet);
+  for (const r of filtered) hiddenRows.add(r);
+  const r1c1 = Boolean(doc.flags?.r1c1);
+  const markedFinal = doc.flags?.protect === "Mark as Final";
+  const sheetView = doc.flags?.sheetView ? String(doc.flags.sheetView) : "";
+  // The outline bar (groups and subtotals) sits left of the row numbers.
+  const outW = (sheet.groups?.length ?? 0) > 0 ? 30 : 0;
+  const headW = HEAD_W + outW;
 
   const colW = (c: number) => (hiddenCols.has(numToCol(c)) ? 0 : (sheet.colWidths?.[numToCol(c)] ?? COL_W) * z);
   const rowH = (r: number) => (hiddenRows.has(r) ? 0 : (sheet.rowHeights?.[String(r)] ?? ROW_H) * z);
-  const colX: number[] = [0, HEAD_W];
+  const colX: number[] = [0, headW];
   for (let c = 1; c <= nCols; c++) colX[c + 1] = colX[c] + colW(c);
   const rowY: number[] = [0, HEAD_H];
   for (let r = 1; r <= nRows; r++) rowY[r + 1] = rowY[r] + rowH(r);
 
   const pivotCells = useMemo(() => computePivot(doc, sheet), [doc, sheet]);
   const cf = useMemo(() => cfStyles(doc, sheet), [doc, sheet]);
-  const spill = useMemo(() => {
-    const out: Record<string, Val> = {};
-    for (const [ref, cell] of Object.entries(sheet.cells)) {
-      if (!cell.f || !/\b(UNIQUE|SORT|FILTER|SEQUENCE)\(/i.test(cell.f)) continue;
-      const vals = evaluateSpill(doc, sheet, cell.f);
-      const p = parseRef(ref)!;
-      vals.slice(1).forEach((v, i) => {
-        const r = refOf(p.c, p.r + 1 + i);
-        if (!sheet.cells[r]) out[r] = v;
-      });
-    }
-    return out;
-  }, [doc, sheet]);
+  const casRanges = centerAcrossRanges(doc, sheet);
 
   const merges = (sheet.merges ?? []).map((m) => parseRange(m)).filter(Boolean) as Rect[];
   const coveredBy = (c: number, r: number) => merges.find((m) => c >= m.c1 && c <= m.c2 && r >= m.r1 && r <= m.r2);
@@ -361,10 +508,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
     if (!e) return;
     setEdit(null);
     editRef.current = null;
-    if (sheet.protected) {
-      setMessage("The cell or chart you're trying to change is on a protected sheet. To make a change, unprotect the sheet (Review › Unprotect Sheet).");
-      return;
-    }
+    if (blockedEdit(e.ref)) return;
     if (e.text !== cellRaw(sheet, e.ref)) onCommit({ kind: "type", target: e.ref, value: e.text });
     const p = parseRef(e.ref)!;
     if (move === "down") onSelect({ selection: refOf(p.c, p.r + 1) });
@@ -372,12 +516,22 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
     focus();
   };
 
+  /** Protected sheets allow edits only in unlocked cells; a workbook marked as final allows none. */
+  const blockedEdit = (ref: string) => {
+    if (markedFinal && /^[A-Z]+\d+$/.test(ref)) {
+      setMessage("An author has marked this workbook as final to discourage editing. Click Edit Anyway on the yellow bar to edit it.");
+      return true;
+    }
+    if (sheet.protected && /^[A-Z]+\d+$/.test(ref) && !isUnlocked(doc, sheet, ref)) {
+      setMessage("The cell or chart you're trying to change is on a protected sheet. To make a change, unprotect the sheet (Review › Unprotect Sheet).");
+      return true;
+    }
+    return false;
+  };
+
   const startEdit = (text?: string) => {
     if (sel.startsWith("chart:") || sel.startsWith("obj:")) return;
-    if (sheet.protected) {
-      setMessage("The cell or chart you're trying to change is on a protected sheet. To make a change, unprotect the sheet (Review › Unprotect Sheet).");
-      return;
-    }
+    if (blockedEdit(act)) return;
     setEdit({ ref: act, text: text ?? cellRaw(sheet, act) });
   };
 
@@ -541,6 +695,18 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
       { label: "Paste Transpose", icon: "orientation", command: "home.paste", value: "Transpose" },
       { separator: true },
     ];
+    // After a Cut, Excel offers to insert the cut cells here and shift the rest.
+    if (doc.clipboard?.cut) items.push({ label: "Insert Cut Cells", icon: "insertCells", command: "home.insertCut" });
+    if (kind === "cell" && sheet.pivot && pivotCells[ref]) {
+      items.push(
+        { label: "Refresh", icon: "reset", command: "data.refresh" },
+        { separator: true },
+        ...["Sum", "Count", "Average", "Max", "Min"].map((v) => ({ label: `Summarize Values By › ${v}`, command: "pivot.summarize", value: v })),
+        ...SHOW_VALUES_AS.map((v) => ({ label: `Show Values As › ${v}`, command: "pivot.showAs", value: v })),
+        { label: "Value Field Settings...", icon: "options", dialog: "valueFieldSettings" },
+        { separator: true },
+      );
+    }
     if (kind === "col") {
       items.push(
         { label: "Insert", icon: "insertCells", command: "home.insert", value: "Insert Sheet Columns" },
@@ -601,7 +767,15 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
     { label: "Protect Sheet...", icon: "protect", dialog: "protectSheet" },
   ].map((m) => (m.command === "__rename" ? { ...m, command: undefined, dialog: `__rename:${name}` } : m));
 
-  const formulaText = edit ? edit.text : sel.startsWith("chart:") ? "" : cellRaw(sheet, act);
+  const actP = parseRef(act);
+  const formulaText = edit
+    ? edit.text
+    : sel.startsWith("chart:") || sel.startsWith("obj:")
+      ? ""
+      : r1c1 && sheet.cells[act]?.f && actP
+        ? formulaToR1C1(sheet.cells[act].f!, actP.r, actP.c)
+        : cellRaw(sheet, act);
+  const nameBoxText = sel.startsWith("chart:") ? `Chart ${sel.slice(7)}` : sel.startsWith("obj:") ? `Graphic ${sel.slice(5)}` : r1c1 && actP ? `R${actP.r}C${actP.c}` : sel.includes(":") ? act : sel;
 
   const cells: React.ReactNode[] = [];
   for (let r = 1; r <= nRows; r++) {
@@ -614,7 +788,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
       const cell = sheet.cells[ref];
       const virtual = pivotCells[ref];
       const fmt: CellFormat = { ...(virtual?.fmt ?? {}), ...(cell?.fmt ?? {}) };
-      let value: Val = virtual ? virtual.v : spill[ref] !== undefined ? spill[ref] : cell ? (cell.f ? evaluateCell(doc, sheet, ref) : cell.v ?? null) : null;
+      let value: Val = virtual ? virtual.v : spill.out[ref] !== undefined ? spill.out[ref] : cell ? (cell.f ? (spill.blocked.has(ref) ? "#SPILL!" : evaluateCell(doc, sheet, ref)) : cell.v ?? null) : null;
+      const geo = typeof value === "string" && isLinkedGeography(doc, sheet, ref);
+      // Center Across Selection: the text in the first cell is centered over the whole range.
+      const cas = typeof value === "string" || typeof value === "number" ? casRanges.find((rc) => r >= rc.r1 && r <= rc.r2 && c >= rc.c1 && c <= rc.c2) : undefined;
+      const pivotFilterField = sheet.pivot && virtual && c === parseRef(sheet.pivot.at ?? "A3")!.c + 1 && sheet.pivot.filters.includes(String(pivotCells[refOf(c - 1, r)]?.v ?? "")) ? String(pivotCells[refOf(c - 1, r)]?.v) : null;
       let text = sheet.showFormulas && cell?.f ? cell.f : formatValue(value as Val, fmt);
       const isNum = typeof value === "number";
       const isErr = typeof value === "string" && value.startsWith("#");
@@ -632,7 +810,8 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
         if (c === tbl.c1) text = "Total";
         else if (c === tbl.c2) {
           let s = 0;
-          for (let rr = tbl.r1 + 1; rr <= tbl.r2; rr++) { const v = evaluateCell(doc, sheet, refOf(c, rr)); if (typeof v === "number") s += v; }
+          // The total row uses SUBTOTAL(109, …), so rows hidden by a filter are left out.
+          for (let rr = tbl.r1 + 1; rr <= tbl.r2; rr++) { if (filtered.has(rr)) continue; const v = evaluateCell(doc, sheet, refOf(c, rr)); if (typeof v === "number") s += v; }
           value = s;
           text = formatValue(s, sheet.cells[refOf(c, tbl.r2)]?.fmt);
         }
@@ -683,11 +862,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
             paddingRight: 3,
             lineHeight: `${h}px`,
             whiteSpace: fmt.wrap ? "normal" : "nowrap",
-            overflow: fmt.wrap || !nextEmpty || align !== "left" ? "hidden" : "visible",
+            overflow: cas ? "visible" : fmt.wrap || !nextEmpty || align !== "left" ? "hidden" : "visible",
             textOverflow: "clip",
             display: fmt.wrap ? "flex" : undefined,
             alignItems: fmt.wrap ? (fmt.valign === "top" ? "flex-start" : fmt.valign === "middle" ? "center" : "flex-end") : undefined,
-            zIndex: frozenRow || frozenCol ? 3 : overflowZ(nextEmpty, align),
+            zIndex: frozenRow || frozenCol ? 3 : cas ? 2 : overflowZ(nextEmpty, align),
             position: frozenRow || frozenCol ? "sticky" : "absolute",
             marginTop: frozenRow ? undefined : undefined,
           }}
@@ -701,8 +880,20 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
             />
           ) : (
             <>
-              {cfs?.icon && <span className="mr-1 text-[10px]">{cfs.icon}</span>}
-              {spark ? <Sparkline doc={doc} sheet={sheet} range={spark.range} type={spark.type} h={h} /> : text}
+              {cfs?.icon &&
+                (["✔", "!", "✖"].includes(cfs.icon) ? (
+                  <span className="mr-1 inline-flex h-3 w-3 items-center justify-center rounded-full align-middle text-[8px] font-bold text-white" style={{ background: cfs.iconColor }}>{cfs.icon}</span>
+                ) : (
+                  <span className="mr-1 text-[10px]" style={{ color: cfs.iconColor }}>{cfs.icon}</span>
+                ))}
+              {geo && <span className="mr-1 text-[10px]" title="Geography data type">🗺</span>}
+              {spark ? (
+                <Sparkline doc={doc} sheet={sheet} range={spark.range} type={spark.type} h={h} />
+              ) : cas ? (
+                <span className="pointer-events-none absolute top-0 text-center" style={{ left: colX[cas.c1] - colX[c], width: colX[cas.c2 + 1] - colX[cas.c1] }}>{text}</span>
+              ) : (
+                text
+              )}
             </>
           )}
           {(cell?.comment || cell?.note) && <span className="absolute right-0 top-0 h-0 w-0 border-l-[6px] border-t-[6px] border-l-transparent" style={{ borderTopColor: cell?.comment ? "#7030a0" : "#c00000" }} />}
@@ -714,6 +905,16 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
               className="absolute right-0.5 top-1/2 flex h-4 w-4 -translate-y-1/2 items-center justify-center border border-gray-400 bg-white text-[9px] text-gray-700"
             >
               {sheet.filterValues?.[numToCol(c)] ? "⏷" : "▾"}
+            </button>
+          )}
+          {pivotFilterField && (
+            <button
+              type="button"
+              aria-label={`Filter ${pivotFilterField}`}
+              onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); const rr = (e.currentTarget as HTMLElement).getBoundingClientRect(); setPivotMenu({ field: pivotFilterField, x: rr.left, y: rr.bottom }); }}
+              className="absolute right-0.5 top-1/2 flex h-4 w-4 -translate-y-1/2 items-center justify-center border border-gray-400 bg-white text-[9px] text-gray-700"
+            >
+              {doc.flags?.[`pvf:${sheet.name}:${pivotFilterField}`] ? "⏷" : "▾"}
             </button>
           )}
           {validation?.list && ref === act && !isEditing && (
@@ -768,7 +969,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
           <input
             ref={nameBoxRef}
             aria-label="Name Box"
-            value={nameBox ?? (sel.startsWith("chart:") ? `Chart ${sel.slice(7)}` : sel.includes(":") ? act : sel)}
+            value={nameBox ?? nameBoxText}
             onChange={(e) => setNameBox(e.target.value)}
             onFocus={(e) => { setNameBox(e.target.value); e.target.select(); }}
             onBlur={() => setNameBox(null)}
@@ -776,7 +977,9 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
               e.stopPropagation();
               if (e.key === "Enter" && nameBox) {
                 const t = nameBox.trim().toUpperCase();
-                if (/^[A-Z]{1,3}\d+(:[A-Z]{1,3}\d+)?$/.test(t)) onSelect({ selection: t });
+                const rc1 = /^R(\d+)C(\d+)$/.exec(t);
+                if (rc1) onSelect({ selection: refOf(Number(rc1[2]), Number(rc1[1])) });
+                else if (/^[A-Z]{1,3}\d+(:[A-Z]{1,3}\d+)?$/.test(t)) onSelect({ selection: t });
                 else if (doc.names?.[nameBox.trim()]) onSelect({ selection: doc.names[nameBox.trim()].replace(/^.*!/, "").replace(/\$/g, "") });
                 setNameBox(null);
                 focus();
@@ -792,10 +995,11 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
           <input
             aria-label="Formula Bar"
             value={formulaText}
-            onFocus={() => { if (!edit && !sel.startsWith("chart:")) setEdit({ ref: act, text: cellRaw(sheet, act), bar: true }); }}
+            onFocus={() => { if (!edit && !sel.startsWith("chart:") && !sel.startsWith("obj:")) setEdit({ ref: act, text: cellRaw(sheet, act), bar: true }); }}
             onChange={(e) => setEdit({ ref: act, text: e.target.value, bar: true })}
             onKeyDown={(e) => {
               e.stopPropagation();
+              if (e.key === "F4") { e.preventDefault(); const el = e.currentTarget; const out = cycleRef(el.value, el.selectionStart ?? el.value.length); setEdit({ ref: act, text: out.text, bar: true }); setTimeout(() => el.setSelectionRange(out.caret, out.caret), 0); }
               if (e.key === "Enter") { e.preventDefault(); commitEdit("down"); (e.target as HTMLInputElement).blur(); }
               if (e.key === "Escape") { setEdit(null); (e.target as HTMLInputElement).blur(); }
             }}
@@ -807,6 +1011,20 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
         <div role="alert" className="flex items-start gap-2 border-b border-amber-300 bg-amber-50 px-3 py-1.5 text-[12px] text-amber-900">
           <span className="flex-1">{message}</span>
           <button type="button" onClick={() => setMessage(null)} aria-label="Dismiss">✕</button>
+        </div>
+      )}
+      {markedFinal && (
+        <div className="flex items-center gap-3 border-b border-amber-300 bg-[#fff4ce] px-3 py-1.5 text-[12px] text-gray-800">
+          <b>MARKED AS FINAL</b>
+          <span className="flex-1">An author has marked this workbook as final to discourage editing.</span>
+          <button type="button" onClick={() => onCommit({ kind: "command", id: "excel.editAnyway" })} className="border border-gray-400 bg-white px-2 py-0.5 hover:bg-gray-50">Edit Anyway</button>
+        </div>
+      )}
+      {sheetView && (
+        <div className="flex items-center gap-2 border-b border-gray-700 bg-[#3b3b3b] px-3 py-1 text-[12px] text-white">
+          <span aria-hidden="true">👁</span>
+          <span className="flex-1">Sheet View: {sheetView}. Sorting and filtering here change only your view, not what co-authors see.</span>
+          <button type="button" onClick={() => onCommit({ kind: "command", id: "view.sheetViewExit" })} className="border border-white/50 px-2 py-0.5 hover:bg-white/10">Exit</button>
         </div>
       )}
       <div className="flex min-h-0 flex-1">
@@ -830,7 +1048,16 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
           <div className={`relative ${pageLayout ? "mx-auto bg-white shadow" : ""}`} style={{ width: gridW, height: gridH }}>
             {/* column headers */}
             <div className="sticky top-0 z-[6] h-0">
-              <div className="absolute left-0 top-0 border-b border-r border-gray-300 bg-[#f3f3f3]" style={{ width: HEAD_W, height: HEAD_H }}>
+              {outW > 0 && (
+                <div className="absolute left-0 top-0 flex items-center justify-center gap-px border-b border-r border-gray-300 bg-[#f3f3f3]" style={{ width: outW, height: HEAD_H }}>
+                  {Array.from({ length: doc.flags?.[`outline:${sheet.name}`] ? 3 : 2 }, (_, i) => i + 1).map((lv) => (
+                    <button key={lv} type="button" aria-label={`Outline level ${lv}`} title={`Level ${lv}`} onClick={() => onCommit({ kind: "command", id: "outline.level", value: String(lv) })} className="h-3.5 w-2.5 border border-gray-400 bg-white text-[8px] leading-none text-gray-700 hover:bg-[#e5f1fb]">
+                      {lv}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <div className={`absolute top-0 border-b border-r border-gray-300 ${sheetView ? "bg-[#3b3b3b]" : "bg-[#f3f3f3]"}`} style={{ left: outW, width: HEAD_W, height: HEAD_H }}>
                 <button type="button" aria-label="Select All" onClick={() => onSelect({ selection: `A1:${numToCol(nCols)}${nRows}` })} className="h-full w-full" />
               </div>
               {sheet.headings !== false &&
@@ -841,10 +1068,10 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                       onMouseDown={(e) => colDown(e, c)}
                       onMouseEnter={() => drag.current?.mode === "col" && onSelect({ selection: `${numToCol(Math.min(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}:${numToCol(Math.max(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}` })}
                       onContextMenu={(e) => cellMenu(e, `${numToCol(c)}1`, "col")}
-                      className={`absolute top-0 flex cursor-s-resize select-none items-center justify-center border-b border-r border-gray-300 text-[11px] ${selR && c >= selR.c1 && c <= selR.c2 ? "bg-[#d3e7dc] font-semibold text-[#217346]" : "bg-[#f3f3f3] text-gray-600"}`}
+                      className={`absolute top-0 flex cursor-s-resize select-none items-center justify-center border-b border-r border-gray-300 text-[11px] ${selR && c >= selR.c1 && c <= selR.c2 ? "bg-[#d3e7dc] font-semibold text-[#217346]" : sheetView ? "bg-[#3b3b3b] text-gray-100" : "bg-[#f3f3f3] text-gray-600"}`}
                       style={{ left: colX[c], width: colW(c), height: HEAD_H }}
                     >
-                      {numToCol(c)}
+                      {r1c1 ? c : numToCol(c)}
                     </div>
                   ),
                 )}
@@ -859,15 +1086,70 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                       onMouseDown={(e) => rowDown(e, r)}
                       onMouseEnter={() => drag.current?.mode === "row" && onSelect({ selection: `${Math.min(Number(drag.current.anchor.slice(1)), r)}:${Math.max(Number(drag.current.anchor.slice(1)), r)}` })}
                       onContextMenu={(e) => cellMenu(e, `A${r}`, "row")}
-                      className={`absolute left-0 flex cursor-e-resize select-none items-center justify-center border-b border-r border-gray-300 text-[11px] ${selR && r >= selR.r1 && r <= selR.r2 ? "bg-[#d3e7dc] font-semibold text-[#217346]" : "bg-[#f3f3f3] text-gray-600"}`}
-                      style={{ top: rowY[r], width: HEAD_W, height: rowH(r) }}
+                      className={`absolute flex cursor-e-resize select-none items-center justify-center border-b border-r border-gray-300 text-[11px] ${selR && r >= selR.r1 && r <= selR.r2 ? "bg-[#d3e7dc] font-semibold text-[#217346]" : sheetView ? "bg-[#3b3b3b] text-gray-100" : "bg-[#f3f3f3] text-gray-600"}`}
+                      style={{ left: outW, top: rowY[r], width: HEAD_W, height: rowH(r) }}
                     >
                       {r}
                     </div>
                   ),
                 )}
             </div>
+            {/* outline bar: one bracket and +/- button per group */}
+            {outW > 0 && (
+              <div className="sticky left-0 z-[5] w-0">
+                <div className="absolute left-0 bg-[#f3f3f3]" style={{ top: HEAD_H, width: outW, height: gridH - HEAD_H }} />
+                {(sheet.groups ?? []).map((g) => {
+                  const [a, b] = g.rows.split(":").map(Number);
+                  const top = rowY[a] ?? HEAD_H;
+                  const bottom = rowY[b + 1] ?? top;
+                  const btnTop = rowY[Math.min(b + 1, nRows)] ?? bottom;
+                  return (
+                    <div key={g.rows}>
+                      {!g.collapsed && <div className="pointer-events-none absolute border-l border-t border-gray-500" style={{ left: 14, top: top + 4, width: 5, height: Math.max(0, bottom - top - 4) }} />}
+                      <button
+                        type="button"
+                        aria-label={g.collapsed ? `Show detail rows ${g.rows}` : `Hide detail rows ${g.rows}`}
+                        onClick={() => onCommit({ kind: "command", id: "outline.toggle", value: g.rows })}
+                        className="absolute flex h-3.5 w-3.5 items-center justify-center border border-gray-500 bg-white text-[10px] leading-none text-gray-700 hover:bg-[#e5f1fb]"
+                        style={{ left: 8, top: btnTop + 4 }}
+                      >
+                        {g.collapsed ? "+" : "−"}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
             {cells}
+            {/* split bars */}
+            {(() => {
+              const sp = sheet.split ? parseRef(String(doc.flags?.[`split:${sheet.name}`] || "")) : null;
+              if (!sp) return null;
+              const midR = sp.r === 1 && sp.c === 1 ? Math.ceil(nRows / 2) : sp.r;
+              const midC = sp.r === 1 && sp.c === 1 ? Math.ceil(nCols / 2) : sp.c;
+              return (
+                <>
+                  {midR > 1 && <div className="pointer-events-none absolute z-[4] h-[4px] bg-[#c6c6c6]" style={{ left: 0, top: rowY[midR] - 2, width: gridW }} />}
+                  {midC > 1 && <div className="pointer-events-none absolute z-[4] w-[4px] bg-[#c6c6c6]" style={{ top: 0, left: colX[midC] - 2, height: gridH }} />}
+                </>
+              );
+            })()}
+            {/* spill range border */}
+            {spill.ranges[act] && (
+              <div className="pointer-events-none absolute z-[6] border border-[#4472C4]" style={{ left: colX[spill.ranges[act].c1], top: rowY[spill.ranges[act].r1], width: colX[spill.ranges[act].c2 + 1] - colX[spill.ranges[act].c1], height: rowY[spill.ranges[act].r2 + 1] - rowY[spill.ranges[act].r1] }} />
+            )}
+            {/* notes shown with Review › Notes › Show All Notes */}
+            {doc.flags?.showNotes &&
+              Object.entries(sheet.cells)
+                .filter(([, x]) => x.note)
+                .map(([ref, x]) => {
+                  const p = parseRef(ref)!;
+                  return (
+                    <div key={`note-${ref}`} className="pointer-events-none absolute z-[9] w-40 border border-gray-500 bg-[#ffffe1] px-1.5 py-1 text-[11px] leading-snug text-gray-800 shadow" style={{ left: (colX[p.c + 1] ?? 0) + 8, top: rowY[p.r] }}>
+                      {x.note}
+                    </div>
+                  );
+                })}
             {/* freeze lines */}
             {freeze && freeze.r > 1 && <div className="pointer-events-none absolute z-[4] h-px bg-gray-500" style={{ left: 0, top: rowY[freeze.r], width: gridW }} />}
             {freeze && freeze.c > 1 && <div className="pointer-events-none absolute z-[4] w-px bg-gray-500" style={{ top: 0, left: colX[freeze.c], height: gridH }} />}
@@ -911,6 +1193,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                     selected={sel === `chart:${ch.id}`}
                     onSelect={() => onSelect({ selection: `chart:${ch.id}` })}
                     onTitleEdit={() => setEdit({ ref: `chart:${ch.id}.title`, text: ch.title ?? "", bar: true })}
+                    pivotCells={pivotCells}
                   />
                   {edit?.ref === `chart:${ch.id}.title` && (
                     <div className="absolute inset-x-8 top-1 z-30">
@@ -927,6 +1210,22 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
             })}
             {(sheet.objects ?? []).map((o) => {
               const a = parseRef(o.at) ?? { c: 6, r: 2 };
+              if (o.kind === "icon") {
+                const fill = doc.flags?.[`objfill:${o.id}`];
+                return (
+                  <div
+                    key={o.id}
+                    role="img"
+                    aria-label={String(doc.flags?.[`alt:${o.id}`] || o.label)}
+                    title={String(doc.flags?.[`alt:${o.id}`] || o.label)}
+                    onMouseDown={(e) => { e.stopPropagation(); onSelect({ selection: `obj:${o.id}` }); }}
+                    className={`absolute z-20 flex h-10 w-10 items-center justify-center text-[28px] leading-none ${sel === `obj:${o.id}` ? "outline outline-1 outline-gray-500" : ""}`}
+                    style={{ left: colX[a.c] + 2, top: rowY[a.r], color: fill ? String(fill) : "#000" }}
+                  >
+                    {o.glyph ?? "★"}
+                  </div>
+                );
+              }
               return (
                 <div
                   key={o.id}
@@ -939,6 +1238,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                 </div>
               );
             })}
+            <Slicers doc={doc} sheet={sheet} left={colX[Math.min(nCols, (sheet.pivot ? parseRef(sheet.pivot.at ?? "A3")!.c : 1) + 4)] ?? 400} top={rowY[3] ?? 60} onCommit={onCommit} />
             {sheet.pivot && Object.keys(pivotCells).length === 0 && (
               <div className="absolute z-[2] flex flex-col items-center justify-center border border-gray-400 bg-[#f7fbff] p-3 text-center text-[11px] text-gray-600" style={{ left: colX[parseRef(sheet.pivot.at ?? "A3")!.c], top: rowY[parseRef(sheet.pivot.at ?? "A3")!.r], width: 220, height: 120 }}>
                 <b className="mb-1 text-gray-800">PivotTable1</b>
@@ -949,7 +1249,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
         </div>
 
         {sheet.pivot && <PivotPane doc={doc} sheet={sheet} onCommit={onCommit} />}
-        {(pane || findTerm !== null) && <ExcelPane doc={doc} sheet={sheet} pane={pane} findTerm={findTerm} act={act} onCommit={onCommit} onSelect={(r) => onSelect({ selection: r })} />}
+        {((pane && !pane.startsWith("Excel Options")) || findTerm !== null) && <ExcelPane doc={doc} sheet={sheet} pane={pane} findTerm={findTerm} act={act} onCommit={onCommit} onSelect={(r) => onSelect({ selection: r })} />}
       </div>
 
       {/* sheet tabs */}
@@ -970,7 +1270,7 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
                 e.preventDefault();
                 if (!active) onSelect({ sheet: s.name, selection: "A1" });
                 const items = tabColorMenu(s.name);
-                onContextMenu(e.clientX, e.clientY - 280, items.map((m) => (m.dialog?.startsWith("__rename:") ? { ...m, dialog: undefined, command: "__noop" } : m)));
+                onContextMenu(e.clientX, e.clientY - 280, items.map((m) => (m.dialog?.startsWith("__rename:") ? { ...m, dialog: undefined, command: undefined } : m)));
                 // Rename from the menu is handled by double-click; the menu item starts it too:
                 setTimeout(() => {
                   const btns = Array.from(document.querySelectorAll('[role="menuitem"]')) as HTMLElement[];
@@ -1018,6 +1318,10 @@ export function ExcelCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDi
           onCommit={(c) => { setFilterMenu(null); onCommit(c); }}
         />
       )}
+      {pivotMenu && (
+        <PivotFilterMenu doc={doc} sheet={sheet} field={pivotMenu.field} anchor={{ x: pivotMenu.x, y: pivotMenu.y }} onClose={() => setPivotMenu(null)} onCommit={(c) => { setPivotMenu(null); onCommit(c); }} />
+      )}
+      {pane?.startsWith("Excel Options") && <OptionsDialog doc={doc} start={pane.split("|")[1] ?? "General"} onCommit={onCommit} />}
       {listMenu && (
         <Popover
           anchor={{ x: listMenu.x, y: listMenu.y }}
@@ -1047,6 +1351,24 @@ function Sparkline({ doc, sheet, range, type, h }: { doc: ExcelBook; sheet: Exce
   );
 }
 
+/** F4 while editing a formula: cycle the reference at (or just before) the cursor through $ styles. */
+function cycleRef(text: string, caret: number): { text: string; caret: number } {
+  const re = /(\$?)([A-Za-z]{1,3})(\$?)(\d+)(?![A-Za-z0-9(])/g;
+  let hit: RegExpExecArray | null = null;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text))) {
+    const prev = m.index > 0 ? text[m.index - 1] : "";
+    if (/[A-Za-z0-9_]/.test(prev)) continue;
+    if (m.index <= caret) hit = m;
+    if (m.index <= caret && caret <= m.index + m[0].length) break;
+  }
+  if (!hit) return { text, caret };
+  const [all, d1, col, d2, row] = hit;
+  const next = !d1 && !d2 ? `$${col}$${row}` : d1 && d2 ? `${col}$${row}` : !d1 && d2 ? `$${col}${row}` : `${col}${row}`;
+  const out = text.slice(0, hit.index) + next + text.slice(hit.index + all.length);
+  return { text: out, caret: hit.index + next.length };
+}
+
 function CellEditor({ value, onChange, onCommit, onCancel }: { value: string; onChange: (v: string) => void; onCommit: (move: "down" | "right" | "none") => void; onCancel: () => void }) {
   const ref = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -1067,6 +1389,14 @@ function CellEditor({ value, onChange, onCommit, onCancel }: { value: string; on
         if (e.key === "Enter") { e.preventDefault(); onCommit("down"); }
         if (e.key === "Tab") { e.preventDefault(); onCommit("right"); }
         if (e.key === "Escape") onCancel();
+        if (e.key === "F4") {
+          // F4 cycles the reference at the cursor: A1 → $A$1 → A$1 → $A1 → A1.
+          e.preventDefault();
+          const el = e.currentTarget;
+          const out = cycleRef(el.value, el.selectionStart ?? el.value.length);
+          onChange(out.text);
+          setTimeout(() => el.setSelectionRange(out.caret, out.caret), 0);
+        }
       }}
       className="h-full w-full min-w-[60px] border-0 bg-white px-0.5 outline outline-2 outline-[#217346]"
       style={{ font: "inherit", textAlign: "left" }}
@@ -1074,42 +1404,138 @@ function CellEditor({ value, onChange, onCommit, onCancel }: { value: string; on
   );
 }
 
+const TEXT_OPS: [string, string][] = [["Equals...", "="], ["Does Not Equal...", "<>"], ["Begins With...", "begins "], ["Ends With...", "ends "], ["Contains...", "contains "], ["Does Not Contain...", "notcontains "]];
+const NUMBER_OPS: [string, string][] = [["Equals...", "="], ["Does Not Equal...", "<>"], ["Greater Than...", ">"], ["Greater Than Or Equal To...", ">="], ["Less Than...", "<"], ["Less Than Or Equal To...", "<="], ["Between...", "between "]];
+const DATE_OPS: [string, string][] = [["Equals...", "="], ["Before...", "<"], ["After...", ">"], ["Between...", "between "]];
+
+/** Sort order for a filter list: numbers by value, then text A to Z ignoring case, blanks last. */
+function listCompare(a: { v: Val; shown: string }, b: { v: Val; shown: string }) {
+  const rank = (x: Val) => (x === null || x === "" ? 2 : typeof x === "number" ? 0 : 1);
+  if (rank(a.v) !== rank(b.v)) return rank(a.v) - rank(b.v);
+  if (typeof a.v === "number" && typeof b.v === "number") return a.v - b.v;
+  return a.shown.localeCompare(b.shown, undefined, { sensitivity: "base" });
+}
+
 function FilterMenu({ doc, sheet, col, anchor, onClose, onCommit }: { doc: ExcelBook; sheet: ExcelSheet; col: string; anchor: { x: number; y: number }; onClose: () => void; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
   const rc = parseRange(sheet.filter ?? "")!;
-  const values = Array.from(new Set(Array.from({ length: rc.r2 - rc.r1 }, (_, i) => formatValue(evaluateCell(doc, sheet, `${col}${rc.r1 + 1 + i}`) as Val, sheet.cells[`${col}${rc.r1 + 1 + i}`]?.fmt)))).sort();
+  const header = String(sheet.cells[`${col}${rc.r1}`]?.v ?? `(Column ${col})`);
+  // Like Excel, the list only shows values still visible under the other columns' filters.
+  const others = Object.entries(sheet.filterValues ?? {}).filter(([k, spec]) => k !== col && spec?.length);
+  const entries: { v: Val; shown: string }[] = [];
+  const seen = new Set<string>();
+  let isNum = true, isDate = false;
+  for (let r = rc.r1 + 1; r <= rc.r2; r++) {
+    const hiddenByOther = others.some(([k, spec]) => {
+      const v = evaluateCell(doc, sheet, `${k}${r}`);
+      return !filterAllowsCanvas(spec, v as Val, formatValue(v as Val, sheet.cells[`${k}${r}`]?.fmt));
+    });
+    if (hiddenByOther) continue;
+    const v = evaluateCell(doc, sheet, `${col}${r}`) as Val;
+    const fmt = sheet.cells[`${col}${r}`]?.fmt;
+    if (v !== null && v !== "" && typeof v !== "number") isNum = false;
+    if (fmt?.numFmt === "Short Date" || fmt?.numFmt === "Long Date") isDate = true;
+    const shown = formatValue(v, fmt) || "(Blanks)";
+    if (seen.has(shown.toLowerCase())) continue;
+    seen.add(shown.toLowerCase());
+    entries.push({ v, shown });
+  }
+  entries.sort(listCompare);
+  const values = entries.map((e) => e.shown);
   const current = sheet.filterValues?.[col];
-  const [checked, setChecked] = useState<Set<string>>(new Set(current ?? values));
+  const criteria = current?.length === 1 && current[0].startsWith("~");
+  const [checked, setChecked] = useState<Set<string>>(new Set(current && !criteria ? values.filter((v) => current.some((c) => c.toLowerCase() === v.toLowerCase())) : values));
+  const [search, setSearch] = useState("");
+  const [menu, setMenu] = useState(false);
+  const [op, setOp] = useState<[string, string] | null>(null);
+  const [a, setA] = useState("");
+  const [b, setB] = useState("");
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const down = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) onClose(); };
     const t = setTimeout(() => document.addEventListener("mousedown", down), 0);
     return () => { clearTimeout(t); document.removeEventListener("mousedown", down); };
   }, [onClose]);
+  const kind = isDate ? "Date" : isNum ? "Number" : "Text";
+  const ops = isDate ? DATE_OPS : isNum ? NUMBER_OPS : TEXT_OPS;
+  const shownList = search ? values.filter((v) => v.toLowerCase().includes(search.toLowerCase())) : values;
   const all = checked.size === values.length;
+  const operand = (t: string) => {
+    if (kind === "Text") return t;
+    const parsed = parseInput(t).v;
+    return typeof parsed === "number" ? String(parsed) : t.replace(/[$,]/g, "");
+  };
+  const applyCustom = () => {
+    if (!op) return;
+    const code = op[1] === "between " ? `between ${operand(a)}|${operand(b)}` : `${op[1]}${operand(a)}`;
+    onCommit({ kind: "command", id: "filter.by", value: `${col}~${code}` });
+  };
+  const ok = () => {
+    if (search) {
+      onCommit({ kind: "command", id: "filter.by", value: shownList.length === values.length ? `${col}=*` : `${col}=${shownList.join("|")}` });
+      return;
+    }
+    const picked = values.filter((v) => checked.has(v));
+    onCommit({ kind: "command", id: "filter.by", value: all ? `${col}=*` : `${col}=${picked.join("|")}` });
+  };
   return (
-    <div ref={ref} role="dialog" aria-label={`Filter column ${col}`} className="fixed z-[200] w-60 border border-gray-300 bg-white text-[12px] shadow-xl" style={{ left: anchor.x, top: anchor.y }}>
-      <button type="button" onClick={() => onCommit({ kind: "command", id: "filter.sort", value: `${col}:asc` })} className="flex w-full items-center gap-2 px-3 py-1.5 text-left hover:bg-[#e5f1fb]"><Icon name="sortAsc" size={14} /> Sort A to Z</button>
-      <button type="button" onClick={() => onCommit({ kind: "command", id: "filter.sort", value: `${col}:desc` })} className="flex w-full items-center gap-2 px-3 py-1.5 text-left hover:bg-[#e5f1fb]"><Icon name="sortDesc" size={14} /> Sort Z to A</button>
-      {current && <button type="button" onClick={() => onCommit({ kind: "command", id: "filter.by", value: `${col}=*` })} className="flex w-full items-center gap-2 px-3 py-1.5 text-left hover:bg-[#e5f1fb]"><Icon name="clear" size={14} /> Clear Filter</button>}
-      <div className="mx-3 my-1 max-h-48 overflow-auto border border-gray-300 p-1">
-        <label className="flex items-center gap-2 py-0.5">
-          <input type="checkbox" checked={all} onChange={() => setChecked(all ? new Set() : new Set(values))} />
-          (Select All)
-        </label>
-        {values.map((v) => (
+    <div ref={ref} role="dialog" aria-label={`Filter column ${col}`} className="fixed z-[200] w-64 border border-gray-300 bg-white text-[12px] shadow-xl" style={{ left: anchor.x, top: anchor.y }}>
+      <button type="button" onClick={() => onCommit({ kind: "command", id: "filter.sort", value: `${col}:asc` })} className="flex w-full items-center gap-2 px-3 py-1.5 text-left hover:bg-[#e5f1fb]"><Icon name="sortAsc" size={14} /> {kind === "Text" ? "Sort A to Z" : kind === "Date" ? "Sort Oldest to Newest" : "Sort Smallest to Largest"}</button>
+      <button type="button" onClick={() => onCommit({ kind: "command", id: "filter.sort", value: `${col}:desc` })} className="flex w-full items-center gap-2 px-3 py-1.5 text-left hover:bg-[#e5f1fb]"><Icon name="sortDesc" size={14} /> {kind === "Text" ? "Sort Z to A" : kind === "Date" ? "Sort Newest to Oldest" : "Sort Largest to Smallest"}</button>
+      <button type="button" disabled={!current} onClick={() => onCommit({ kind: "command", id: "filter.by", value: `${col}=*` })} className="flex w-full items-center gap-2 px-3 py-1.5 text-left hover:bg-[#e5f1fb] disabled:opacity-40"><Icon name="clear" size={14} /> Clear Filter From &quot;{header}&quot;</button>
+      <button type="button" onClick={() => { setMenu((m) => !m); setOp(null); }} className="flex w-full items-center justify-between px-3 py-1.5 text-left hover:bg-[#e5f1fb]">
+        <span className="pl-[22px]">{kind} Filters</span>
+        <span aria-hidden="true">›</span>
+      </button>
+      {menu && !op && (
+        <div className="mx-3 mb-1 border border-gray-300 bg-white py-1">
+          {ops.map((o) => (
+            <button key={o[0]} type="button" onClick={() => { setOp(o); setA(""); setB(""); }} className="block w-full px-3 py-1 text-left hover:bg-[#e5f1fb]">{o[0]}</button>
+          ))}
+        </div>
+      )}
+      {op && (
+        <div className="mx-3 mb-2 border border-gray-300 bg-[#f7f7f7] p-2">
+          <div className="mb-1 font-semibold">Custom AutoFilter</div>
+          <div className="mb-1 text-gray-600">Show rows where: {header} {op[0].replace("...", "").toLowerCase()}</div>
+          <input autoFocus aria-label="Filter value" value={a} onChange={(e) => setA(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter" && op[1] !== "between ") applyCustom(); }} className="mb-1 w-full border border-gray-400 px-1 py-0.5" placeholder={kind === "Date" ? "m/d/yyyy" : ""} />
+          {op[1] === "between " && <input aria-label="And" value={b} onChange={(e) => setB(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") applyCustom(); }} className="mb-1 w-full border border-gray-400 px-1 py-0.5" placeholder="and" />}
+          <div className="flex justify-end gap-2">
+            <button type="button" onClick={applyCustom} className="border border-[#217346] bg-[#e9f5ee] px-3 py-0.5">OK</button>
+            <button type="button" onClick={() => setOp(null)} className="border border-gray-400 px-3 py-0.5">Cancel</button>
+          </div>
+        </div>
+      )}
+      <div className="mx-3 mt-1">
+        <input aria-label="Search" placeholder="Search" value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") ok(); }} className="w-full border border-gray-400 px-1 py-0.5" />
+      </div>
+      <div className="mx-3 my-1 max-h-44 overflow-auto border border-gray-300 p-1">
+        {search ? (
+          <label className="flex items-center gap-2 py-0.5 text-gray-600">
+            <input type="checkbox" checked readOnly />
+            (Select All Search Results)
+          </label>
+        ) : (
+          <label className="flex items-center gap-2 py-0.5">
+            <input type="checkbox" checked={all} onChange={() => setChecked(all ? new Set() : new Set(values))} />
+            (Select All)
+          </label>
+        )}
+        {shownList.map((v) => (
           <label key={v} className="flex items-center gap-2 py-0.5">
-            <input type="checkbox" checked={checked.has(v)} onChange={() => { const n = new Set(checked); n.has(v) ? n.delete(v) : n.add(v); setChecked(n); }} />
-            {v || "(Blanks)"}
+            <input type="checkbox" checked={search ? true : checked.has(v)} disabled={Boolean(search)} onChange={() => { const n = new Set(checked); n.has(v) ? n.delete(v) : n.add(v); setChecked(n); }} />
+            {v}
           </label>
         ))}
       </div>
       <div className="flex justify-end gap-2 px-3 py-2">
-        <button type="button" onClick={() => onCommit({ kind: "command", id: "filter.by", value: all ? `${col}=*` : `${col}=${Array.from(checked).join("|")}` })} className="border border-[#217346] bg-[#e9f5ee] px-3 py-0.5">OK</button>
+        <button type="button" onClick={ok} className="border border-[#217346] bg-[#e9f5ee] px-3 py-0.5">OK</button>
         <button type="button" onClick={onClose} className="border border-gray-400 px-3 py-0.5">Cancel</button>
       </div>
     </div>
   );
 }
+
+const AREA_KEYS: Record<string, string> = { Filters: "Filters", Columns: "Columns", Rows: "Rows", Values: "Values" };
 
 function PivotPane({ doc, sheet, onCommit }: { doc: ExcelBook; sheet: ExcelSheet; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
   const pv = sheet.pivot!;
@@ -1118,16 +1544,24 @@ function PivotPane({ doc, sheet, onCommit }: { doc: ExcelBook; sheet: ExcelSheet
   const fields: string[] = [];
   if (src && rc) for (let c = rc.c1; c <= rc.c2; c++) fields.push(String(src.cells[refOf(c, rc.r1)]?.v ?? numToCol(c)));
   const on = (f: string) => pv.rows.includes(f) || pv.columns.includes(f) || pv.filters.includes(f) || pv.values.some((v) => v.field === f);
+  const [over, setOver] = useState<string | null>(null);
+  const moveTo = (field: string, areaKey: string) => onCommit({ kind: "command", id: "pivot.area", value: `${field.replace(/^(Sum|Count|Average|Max|Min) of /, "")}>${areaKey}` });
   const area = (label: string, items: string[]) => (
-    <div className="flex-1 rounded border border-gray-300 p-1">
+    <div
+      onDragOver={(e) => { e.preventDefault(); setOver(label); }}
+      onDragLeave={() => setOver(null)}
+      onDrop={(e) => { e.preventDefault(); setOver(null); const f = e.dataTransfer.getData("text/pivot-field"); if (f) moveTo(f, AREA_KEYS[label]); }}
+      aria-label={`${label} area`}
+      className={`flex-1 rounded border p-1 ${over === label ? "border-[#217346] bg-[#e9f5ee]" : "border-gray-300"}`}
+    >
       <div className="mb-1 text-[10px] font-semibold uppercase text-gray-500">{label}</div>
       {items.map((it) => (
-        <div key={it} className="mb-0.5 flex items-center justify-between rounded bg-[#e9f5ee] px-1 py-0.5">
+        <div key={it} draggable onDragStart={(e) => e.dataTransfer.setData("text/pivot-field", it)} className="mb-0.5 flex cursor-grab items-center justify-between rounded bg-[#e9f5ee] px-1 py-0.5">
           <span className="truncate">{it}</span>
           <select
             aria-label={`Move ${it}`}
             value=""
-            onChange={(e) => e.target.value && onCommit({ kind: "command", id: "pivot.area", value: `${it.replace(/^(Sum|Count|Average|Max|Min) of /, "")}>${e.target.value}` })}
+            onChange={(e) => e.target.value && moveTo(it, e.target.value)}
             className="w-4 bg-transparent text-[10px]"
           >
             <option value="">▾</option>
@@ -1146,10 +1580,23 @@ function PivotPane({ doc, sheet, onCommit }: { doc: ExcelBook; sheet: ExcelSheet
       <div className="px-3 py-1 text-[11px] text-gray-500">Choose fields to add to report:</div>
       <div className="max-h-40 overflow-auto px-3">
         {fields.map((f) => (
-          <label key={f} className="flex items-center gap-2 py-0.5">
-            <input type="checkbox" checked={on(f)} onChange={() => onCommit({ kind: "command", id: "pivot.field", value: f })} />
-            {f}
-          </label>
+          <div key={f} draggable onDragStart={(e) => e.dataTransfer.setData("text/pivot-field", f)} className="flex cursor-grab items-center gap-2 py-0.5">
+            <input type="checkbox" aria-label={f} checked={on(f)} onChange={() => onCommit({ kind: "command", id: "pivot.field", value: f })} />
+            <span className="flex-1">{f}</span>
+            <select
+              aria-label={`Add ${f} to an area`}
+              title="Add to Report Filter, Row Labels, Column Labels or Values"
+              value=""
+              onChange={(e) => e.target.value && moveTo(f, e.target.value)}
+              className="w-4 bg-transparent text-[10px]"
+            >
+              <option value="">▾</option>
+              <option value="Filters">Add to Report Filter</option>
+              <option value="Rows">Add to Row Labels</option>
+              <option value="Columns">Add to Column Labels</option>
+              <option value="Values">Add to Values</option>
+            </select>
+          </div>
         ))}
       </div>
       <div className="mt-2 px-3 text-[11px] text-gray-500">Drag fields between areas below:</div>
@@ -1160,6 +1607,214 @@ function PivotPane({ doc, sheet, onCommit }: { doc: ExcelBook; sheet: ExcelSheet
         {area("Values", pv.values.map((v) => `${v.fn} of ${v.field}`))}
       </div>
     </aside>
+  );
+}
+
+/** Distinct values of a PivotTable source field (or table column), for filter lists and slicers. */
+function fieldItems(doc: ExcelBook, sheet: ExcelSheet, field: string): string[] {
+  const src = pivotSource(doc, sheet);
+  let vals: string[] = [];
+  if (src) vals = src.rows.map((r) => String(r[field] ?? "(blank)"));
+  else if (sheet.table) {
+    const rc = parseRange(sheet.table.range)!;
+    for (let c = rc.c1; c <= rc.c2; c++) {
+      if (String(sheet.cells[refOf(c, rc.r1)]?.v ?? "") !== field) continue;
+      for (let r = rc.r1 + 1; r <= rc.r2; r++) vals.push(String(evaluateCell(doc, sheet, refOf(c, r)) ?? "(blank)"));
+    }
+  }
+  return Array.from(new Set(vals)).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: "base" }));
+}
+
+/** The report filter dropdown on a PivotTable (always multi-select). */
+function PivotFilterMenu({ doc, sheet, field, anchor, onClose, onCommit }: { doc: ExcelBook; sheet: ExcelSheet; field: string; anchor: { x: number; y: number }; onClose: () => void; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
+  const items = fieldItems(doc, sheet, field);
+  const cur = pivotFilterItems(doc, sheet, field);
+  const [checked, setChecked] = useState<Set<string>>(new Set(cur ? items.filter((i) => cur.some((c) => c.toLowerCase() === i.toLowerCase())) : items));
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const down = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) onClose(); };
+    const t = setTimeout(() => document.addEventListener("mousedown", down), 0);
+    return () => { clearTimeout(t); document.removeEventListener("mousedown", down); };
+  }, [onClose]);
+  const all = checked.size === items.length;
+  return (
+    <div ref={ref} role="dialog" aria-label={`Filter ${field}`} className="fixed z-[200] w-56 border border-gray-300 bg-white text-[12px] shadow-xl" style={{ left: anchor.x, top: anchor.y }}>
+      <div className="mx-3 my-2 max-h-48 overflow-auto border border-gray-300 p-1">
+        <label className="flex items-center gap-2 py-0.5">
+          <input type="checkbox" checked={all} onChange={() => setChecked(all ? new Set() : new Set(items))} />
+          (All)
+        </label>
+        {items.map((v) => (
+          <label key={v} className="flex items-center gap-2 py-0.5">
+            <input type="checkbox" checked={checked.has(v)} onChange={() => { const n = new Set(checked); n.has(v) ? n.delete(v) : n.add(v); setChecked(n); }} />
+            {v}
+          </label>
+        ))}
+      </div>
+      <label className="mx-3 flex items-center gap-2 text-gray-600"><input type="checkbox" checked readOnly /> Select Multiple Items</label>
+      <div className="flex justify-end gap-2 px-3 py-2">
+        <button type="button" disabled={!checked.size} onClick={() => onCommit({ kind: "command", id: "pivot.filter", value: all ? `${field}=*` : `${field}=${items.filter((i) => checked.has(i)).join("|")}` })} className="border border-[#217346] bg-[#e9f5ee] px-3 py-0.5 disabled:opacity-40">OK</button>
+        <button type="button" onClick={onClose} className="border border-gray-400 px-3 py-0.5">Cancel</button>
+      </div>
+    </div>
+  );
+}
+
+/** Slicers: one panel of buttons per field; click filters to one item, Ctrl+click adds or removes items. */
+function Slicers({ doc, sheet, left, top, onCommit }: { doc: ExcelBook; sheet: ExcelSheet; left: number; top: number; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
+  const fields = String(doc.flags?.[`slicers:${sheet.name}`] ?? "").split(",").filter(Boolean);
+  if (!fields.length) return null;
+  const forTable = !sheet.pivot && sheet.table;
+  const tableCol = (field: string) => {
+    const rc = parseRange(sheet.table!.range)!;
+    for (let c = rc.c1; c <= rc.c2; c++) if (String(sheet.cells[refOf(c, rc.r1)]?.v ?? "") === field) return numToCol(c);
+    return "A";
+  };
+  return (
+    <>
+      {fields.map((f, i) => {
+        const items = fieldItems(doc, sheet, f);
+        const cur = forTable ? sheet.filterValues?.[tableCol(f)] ?? null : pivotFilterItems(doc, sheet, f);
+        const isOn = (it: string) => !cur || cur.some((c) => c.toLowerCase() === it.toLowerCase());
+        const send = (list: string[] | null) =>
+          onCommit({ kind: "command", id: forTable ? "filter.by" : "pivot.filter", value: forTable ? `${tableCol(f)}=${list ? list.join("|") : "*"}` : `${f}=${list ? list.join("|") : "*"}` });
+        return (
+          <div key={f} role="group" aria-label={`${f} slicer`} className="absolute z-[21] w-40 border border-gray-400 bg-white text-[11px] shadow-md" style={{ left: left + i * 170, top }}>
+            <div className="flex items-center justify-between border-b border-gray-200 px-2 py-1 font-semibold text-gray-800">
+              {f}
+              <button type="button" aria-label={`Clear filter from ${f}`} title="Clear Filter" disabled={!cur} onClick={() => send(null)} className="px-1 text-gray-500 hover:text-red-600 disabled:opacity-30">⊗</button>
+            </div>
+            <div className="flex flex-col gap-1 p-1.5">
+              {items.map((it) => (
+                <button
+                  key={it}
+                  type="button"
+                  onClick={(e) => {
+                    if (e.ctrlKey || e.metaKey) {
+                      const now = items.filter(isOn);
+                      const next = isOn(it) ? now.filter((x) => x !== it) : items.filter((x) => isOn(x) || x === it);
+                      send(next.length === items.length || !next.length ? null : next);
+                    } else send(cur && cur.length === 1 && isOn(it) ? null : [it]);
+                  }}
+                  className={`truncate border px-1.5 py-1 text-left ${isOn(it) ? "border-[#4472C4] bg-[#dbe5f1]" : "border-gray-200 bg-white text-gray-400"}`}
+                >
+                  {it}
+                </button>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+/** File › Options: the Excel Options dialog (Formulas holds the R1C1 setting). */
+function OptionsDialog({ doc, start, onCommit }: { doc: ExcelBook; start: string; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
+  const cats = ["General", "Formulas", "Data", "Proofing", "Save", "Language", "Accessibility", "Advanced", "Customize Ribbon", "Quick Access Toolbar", "Add-ins", "Trust Center"];
+  const [cat, setCat] = useState(cats.includes(start) ? start : "General");
+  const [r1c1, setR1c1] = useState(Boolean(doc.flags?.r1c1));
+  const ok = () => {
+    if (r1c1 !== Boolean(doc.flags?.r1c1)) onCommit({ kind: "command", id: "options.r1c1", value: r1c1 ? "On" : "Off" });
+    else onCommit({ kind: "command", id: "pane.close" });
+  };
+  return (
+    <div className="absolute inset-0 z-[90] flex items-center justify-center bg-black/10" onKeyDown={(e) => e.stopPropagation()}>
+      <div role="dialog" aria-modal="true" aria-label="Excel Options" className="flex h-[380px] w-[600px] max-w-[95%] flex-col border border-gray-400 bg-white text-[12px] shadow-2xl">
+        <div className="flex items-center justify-between border-b px-3 py-1.5">
+          <span>Excel Options</span>
+          <button type="button" aria-label="Close" onClick={() => onCommit({ kind: "command", id: "pane.close" })} className="px-2 hover:bg-red-600 hover:text-white">✕</button>
+        </div>
+        <div className="flex min-h-0 flex-1">
+          <nav className="w-40 shrink-0 overflow-auto border-r bg-[#f3f3f3] py-1">
+            {cats.map((c) => (
+              <button key={c} type="button" onClick={() => setCat(c)} className={`block w-full px-3 py-1 text-left ${cat === c ? "bg-[#cce4f7] font-semibold" : "hover:bg-[#e5f1fb]"}`}>{c}</button>
+            ))}
+          </nav>
+          <div className="flex-1 overflow-auto p-4">
+            {cat === "Formulas" ? (
+              <div className="flex flex-col gap-3">
+                <p className="text-gray-600">Change options related to formula calculation, performance, and error handling.</p>
+                <fieldset className="border-t pt-2">
+                  <legend className="pr-2 font-semibold">Calculation options</legend>
+                  <label className="flex items-center gap-2"><input type="radio" checked readOnly /> Automatic</label>
+                </fieldset>
+                <fieldset className="border-t pt-2">
+                  <legend className="pr-2 font-semibold">Working with formulas</legend>
+                  <label className="flex items-center gap-2">
+                    <input type="checkbox" checked={r1c1} onChange={(e) => setR1c1(e.target.checked)} />
+                    R1C1 reference style
+                  </label>
+                  <label className="flex items-center gap-2 text-gray-600"><input type="checkbox" checked readOnly /> Formula AutoComplete</label>
+                  <label className="flex items-center gap-2 text-gray-600"><input type="checkbox" checked readOnly /> Use table names in formulas</label>
+                </fieldset>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-2 text-gray-600">
+                <p className="font-semibold text-gray-800">{cat}</p>
+                {cat === "General" && <p>User name: BEOC Student</p>}
+                {cat === "Proofing" && <p>Ignore words in UPPERCASE: On</p>}
+                {cat === "Save" && <p>Save AutoRecover information every 10 minutes: On</p>}
+                {!["General", "Proofing", "Save"].includes(cat) && <p>No changes needed here for this course.</p>}
+              </div>
+            )}
+          </div>
+        </div>
+        <div className="flex justify-end gap-2 border-t px-3 py-2">
+          <button type="button" onClick={ok} className="min-w-[72px] border border-[#0078d4] bg-[#e5f1fb] px-3 py-1 hover:bg-[#cce4f7]">OK</button>
+          <button type="button" onClick={() => onCommit({ kind: "command", id: "pane.close" })} className="min-w-[72px] border border-gray-400 bg-[#e1e1e1] px-3 py-1">Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SpellingPane({ cell, onCommit }: { cell: { v?: string | number; spell?: string[] }; onCommit: CanvasProps<ExcelBook>["onCommit"] }) {
+  const [pick, setPick] = useState(cell.spell?.[0] ?? "");
+  useEffect(() => setPick(cell.spell?.[0] ?? ""), [cell]);
+  const btn = "block w-full rounded border border-gray-300 px-2 py-1 text-left hover:bg-[#e5f1fb]";
+  return (
+    <div className="space-y-2">
+      <p>Not in Dictionary: <b className="text-red-700">{String(cell.v)}</b></p>
+      <p className="text-[11px] text-gray-500">Suggestions:</p>
+      <div role="listbox" aria-label="Suggestions" className="border border-gray-300">
+        {(cell.spell ?? []).map((s) => (
+          <button key={s} type="button" role="option" aria-selected={pick === s} onClick={() => setPick(s)} onDoubleClick={() => onCommit({ kind: "command", id: "spelling.change", value: s })} className={`block w-full px-2 py-0.5 text-left ${pick === s ? "bg-[#0078d4] text-white" : "hover:bg-[#e5f1fb]"}`}>{s}</button>
+        ))}
+      </div>
+      <div className="grid grid-cols-2 gap-1">
+        <button type="button" onClick={() => onCommit({ kind: "command", id: "spelling.ignore" })} className={btn}>Ignore Once</button>
+        <button type="button" onClick={() => onCommit({ kind: "command", id: "spelling.ignore", value: "Ignore All" })} className={btn}>Ignore All</button>
+        <button type="button" onClick={() => onCommit({ kind: "command", id: "spelling.ignore", value: "Add to Dictionary" })} className={`${btn} col-span-2`}>Add to Dictionary</button>
+        <button type="button" disabled={!pick} onClick={() => onCommit({ kind: "command", id: "spelling.change", value: pick })} className={btn}>Change</button>
+        <button type="button" disabled={!pick} onClick={() => onCommit({ kind: "command", id: "spelling.changeAll", value: pick })} className={btn}>Change All</button>
+      </div>
+    </div>
+  );
+}
+
+/** Formulas › Evaluate Formula: the formula, then its references replaced by values, then the result. */
+function EvaluatePane({ doc, sheet, cellRef: ref }: { doc: ExcelBook; sheet: ExcelSheet; cellRef: string }) {
+  const [step, setStep] = useState(0);
+  useEffect(() => setStep(0), [ref]);
+  const f = sheet.cells[ref]?.f;
+  if (!f) return <p>Cell {ref} does not contain a formula.</p>;
+  const withValues = f.replace(/(^|[^A-Za-z0-9_:$!'.])(\$?[A-Za-z]{1,3}\$?\d+)(?![A-Za-z0-9_(:!])/g, (m, pre, r) => {
+    const v = evaluateCell(doc, sheet, r.replace(/\$/g, "").toUpperCase());
+    return `${pre}${typeof v === "string" ? `"${v}"` : v === null ? 0 : String(v)}`;
+  });
+  const result = evaluateCell(doc, sheet, ref);
+  const lines = [f, withValues, String(result ?? "")];
+  return (
+    <div className="space-y-2">
+      <p>Reference: <b>{sheet.name}!{ref}</b></p>
+      <p className="text-[11px] text-gray-500">Evaluation:</p>
+      <p className="break-all rounded border border-gray-300 bg-gray-50 p-2 font-mono text-[12px]">{lines[Math.min(step, 2)]}</p>
+      <div className="flex gap-2">
+        <button type="button" onClick={() => setStep((x) => (x >= 2 ? 0 : x + 1))} className="rounded border border-gray-400 px-3 py-1 hover:bg-[#e5f1fb]">{step >= 2 ? "Restart" : "Evaluate"}</button>
+      </div>
+      <p className="text-[11px] text-gray-500">Evaluate replaces each reference with its value, then shows the result.</p>
+    </div>
   );
 }
 
@@ -1177,24 +1832,55 @@ function ExcelPane({ doc, sheet, pane, findTerm, act, onCommit, onSelect }: { do
     );
   } else if (pane === "Spelling") {
     const cell = sheet.cells[act];
-    body = cell?.spell ? (
-      <div className="space-y-2">
-        <p>Not in Dictionary: <b className="text-red-700">{String(cell.v)}</b></p>
-        <p className="text-[11px] text-gray-500">Suggestions:</p>
-        {cell.spell.map((s) => <button key={s} type="button" onClick={() => onCommit({ kind: "command", id: "spelling.change", value: s })} className="block w-full rounded border border-gray-300 px-2 py-1 text-left hover:bg-[#e5f1fb]">{s}</button>)}
-        <button type="button" onClick={() => onCommit({ kind: "command", id: "spelling.ignore" })} className="text-[#217346] hover:underline">Ignore Once</button>
-      </div>
-    ) : <p>Select the next misspelled cell.</p>;
+    body = cell?.spell ? <SpellingPane cell={cell} onCommit={onCommit} /> : <p>Select the next misspelled cell.</p>;
   } else if (pane === "Spelling: done") {
     title = "Spelling";
     body = <p>The spelling check is complete for the entire sheet.</p>;
   } else if (pane === "Accessibility") {
     const charts = sheet.charts?.length ?? 0;
-    body = charts ? <p className="rounded border border-red-200 bg-red-50 p-2">Missing alternative text: {charts} chart(s)</p> : <p className="text-emerald-700">No accessibility issues found.</p>;
+    const objects = (sheet.objects ?? []).filter((o) => !doc.flags?.[`alt:${o.id}`]).length;
+    body = charts || objects ? (
+      <div className="space-y-1">
+        {charts > 0 && <p className="rounded border border-red-200 bg-red-50 p-2">Missing alternative text: {charts} chart(s)</p>}
+        {objects > 0 && <p className="rounded border border-red-200 bg-red-50 p-2">Missing alternative text: {objects} graphic(s)</p>}
+      </div>
+    ) : <p className="text-emerald-700">No accessibility issues found.</p>;
+  } else if (pane?.startsWith("Evaluate Formula|")) {
+    title = "Evaluate Formula";
+    body = <EvaluatePane doc={doc} sheet={sheet} cellRef={pane.split("|")[1]} />;
+  } else if (pane === "Analyze Data") {
+    const sugg = analyzeSuggestions(doc, sheet, act);
+    body = (
+      <div className="space-y-3">
+        <input aria-label="Ask a question about your data" placeholder="Ask a question about your data" className="w-full border border-gray-400 px-2 py-1" onKeyDown={(e) => e.stopPropagation()} />
+        <p className="text-[11px] text-gray-500">Discover insights</p>
+        {sugg.length === 0 && <p className="text-gray-600">Analyze Data could not find a pattern here. Check that the data has one header row and no blank rows or merged cells.</p>}
+        {sugg.map((x) => (
+          <div key={x.title} className="rounded border border-gray-300 p-2">
+            <p className="mb-1 font-semibold">{x.title}</p>
+            <div className="mb-2 flex h-12 items-end gap-1" aria-hidden="true">{[5, 9, 4, 7].map((h, i) => <span key={i} className="w-3 bg-[#4472C4]" style={{ height: h * 4 }} />)}</div>
+            <button type="button" onClick={() => onCommit({ kind: "command", id: "analyze.insert", value: x.title })} className="rounded border border-[#217346] px-2 py-0.5 text-[#217346] hover:bg-[#e9f5ee]">+ Insert PivotChart</button>
+          </div>
+        ))}
+      </div>
+    );
+  } else if (pane === "Comments") {
+    const list = Object.entries(sheet.cells).filter(([, c]) => c.comment);
+    body = list.length ? (
+      <div className="space-y-2">
+        {list.map(([ref, c]) => (
+          <button key={ref} type="button" onClick={() => onSelect(ref)} className="block w-full rounded border border-gray-300 p-2 text-left hover:bg-[#e5f1fb]">
+            <span className="block text-[11px] text-gray-500">{ref} · BEOC Student</span>
+            {String(c.comment)}
+          </button>
+        ))}
+      </div>
+    ) : <p className="text-gray-600">There are no comments on this sheet.</p>;
   } else if (pane?.startsWith("All done") || pane?.startsWith("Removed")) {
     title = "Microsoft Excel";
+  } else if (pane?.startsWith("Data Selector")) {
+    title = "Data Selector";
   }
-  void doc;
   return (
     <aside className="flex w-60 shrink-0 flex-col border-l border-gray-300 bg-white text-[12px]">
       <div className="flex items-center justify-between border-b px-3 py-2">

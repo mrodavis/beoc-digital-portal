@@ -1,4 +1,6 @@
-import { stubApp } from "../_stub/make";
+import type { AppModule } from "../../types";
+import type { TypingDoc } from "./types";
+import { typingCore } from "./core";
+import { TypingCanvas, TypingStatusBar } from "./TypingCanvas";
 
-/** Replaced by the real Typing engine. */
-export const typingApp = stubApp("Typing", "#0f766e");
+export const typingApp = { ...typingCore, Canvas: TypingCanvas, StatusBar: TypingStatusBar } as AppModule<TypingDoc> as unknown as AppModule<Record<string, unknown>>;

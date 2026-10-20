@@ -1,6 +1,6 @@
 import type { DialogDef, ExcelBook, SimCommit } from "@/types/sim";
 import type { AppCore } from "../../types";
-import { applyExcel, excelContextual, excelDialogDefaults, excelRibbonState, regionHeaders } from "./model";
+import { applyExcel, cfDescribe, excelContextual, excelDialogDefaults, excelRibbonState, pivotFieldNames, regionHeaders, sheetOf } from "./model";
 import { excelRibbon, EXCEL_VIEW_ALIASES } from "./ribbon";
 import { excelDialogs } from "./dialogs";
 
@@ -77,8 +77,11 @@ export const excelCore: AppCore<ExcelBook> = {
     "excel.fill", "edit.clearContents", "filter.by", "filter.sort", "sheet.add", "sheet.delete", "sheet.tabColor", "sheet.move",
     "sheet.duplicate", "sheet.hide", "pivot.field", "pivot.area", "home.formatPainter.apply", "spelling.change", "spelling.ignore",
     "view.mode", "view.zoom", "pane.close", "chart.delete", "outline.toggle", "qat.undo", "qat.redo", "qat.autosave", "view.ribbonCollapse",
+    // Right-click Insert Cut Cells, the outline level buttons, PivotTable filter/slicer buttons and
+    // right-click Show Values As, Excel Options, Analyze Data cards, the Marked as Final bar.
+    "home.insertCut", "spelling.changeAll", "outline.level", "pivot.filter", "pivot.showAs", "options.r1c1", "analyze.insert", "excel.editAnyway",
   ],
-  freeCommands: ["pane.close", "view.zoom", "view.zoomTo", "view.zoomSelection", "help.help", "file.browse", "file.options", "formulas.tracePrecedents", "formulas.traceDependents", "formulas.removeArrows"],
+  freeCommands: ["pane.close", "view.zoom", "view.zoomTo", "view.zoomSelection", "help.help", "file.browse", "file.options", "formulas.tracePrecedents", "formulas.traceDependents", "formulas.removeArrows", "excel.editAnyway"],
   initialUi: (doc) => ({ selection: "A1", sheet: doc.active ?? doc.sheets[0]?.name }),
   normalize,
   apply: applyExcel,
@@ -86,10 +89,19 @@ export const excelCore: AppCore<ExcelBook> = {
   contextualTabs: excelContextual,
   dialogDefaults: excelDialogDefaults,
   dialogDef: (doc, ui, id): DialogDef | undefined => {
-    if (id !== "sort") return undefined;
-    const base = excelDialogs.sort;
-    const heads = regionHeaders(doc, ui);
-    return { ...base, fields: (base.fields ?? []).map((f) => (f.type === "select" && f.key === "sortBy" ? { ...f, options: heads.length ? heads : ["Column A"] } : f)) };
+    // Dialogs whose lists come from the data: column headers, rules, PivotTable fields.
+    const withOptions = (base: DialogDef, opts: Record<string, string[]>): DialogDef => ({
+      ...base,
+      fields: (base.fields ?? []).map((f) => ("key" in f && opts[f.key] && (f.type === "select" || f.type === "list") ? { ...f, options: opts[f.key] } : f)),
+    });
+    if (id === "sort" || id === "subtotal") {
+      const heads = regionHeaders(doc, ui);
+      const h = heads.length ? heads : ["Column A"];
+      return id === "sort" ? withOptions(excelDialogs.sort, { sortBy: h, thenBy: ["(none)", ...h] }) : withOptions(excelDialogs.subtotal, { atEachChange: h, addTo: h });
+    }
+    if (id === "cfManage") return withOptions(excelDialogs.cfManage, { rule: (sheetOf(doc, ui).cf ?? []).map(cfDescribe) });
+    if (id === "insertSlicer") return withOptions(excelDialogs.insertSlicer, { field: pivotFieldNames(doc, ui) });
+    return undefined;
   },
   describeSelection: (_doc, ui) => ui.selection,
 };

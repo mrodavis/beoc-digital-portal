@@ -1,7 +1,19 @@
 import type { DialogDef } from "@/types/sim";
 import { THEME_COLORS } from "../../chrome/colors";
 import { ALL_CHART_TYPES, NUMBER_FORMATS } from "./ribbon";
-import { CF_FORMAT_NAMES } from "./model";
+import { CF_FORMAT_NAMES, ICONS } from "./model";
+
+export const SORT_ORDERS = ["A to Z", "Z to A", "Smallest to Largest", "Largest to Smallest", "Custom List..."];
+export const SHOW_VALUES_AS = ["No Calculation", "% of Grand Total", "% of Column Total", "% of Row Total", "Running Total In"];
+const ICON_NAMES = Object.keys(ICONS);
+const CF_RULE_TYPES = [
+  "Format all cells based on their values",
+  "Format only cells that contain",
+  "Format only top or bottom ranked values",
+  "Format only values that are above or below average",
+  "Format only unique or duplicate values",
+  "Use a formula to determine which cells to format",
+];
 
 const cfFormat = { type: "select" as const, key: "format", label: "with", options: CF_FORMAT_NAMES };
 
@@ -22,7 +34,7 @@ export const excelDialogs: Record<string, DialogDef> = {
       {
         label: "Alignment",
         fields: [
-          { type: "select", key: "horizontal", label: "Horizontal:", options: ["General", "Left", "Center", "Right", "Fill", "Justify"] },
+          { type: "select", key: "horizontal", label: "Horizontal:", options: ["General", "Left", "Center", "Right", "Fill", "Justify", "Center Across Selection"] },
           { type: "select", key: "vertical", label: "Vertical:", options: ["Bottom", "Center", "Top"] },
           { type: "checkbox", key: "wrap", label: "Wrap text" },
           { type: "checkbox", key: "shrink", label: "Shrink to fit" },
@@ -70,7 +82,7 @@ export const excelDialogs: Record<string, DialogDef> = {
     width: 420,
     fields: [
       { type: "select", key: "category", label: "Or select a category:", options: ["Most Recently Used", "All", "Financial", "Date & Time", "Math & Trig", "Statistical", "Lookup & Reference", "Text", "Logical"] },
-      { type: "list", key: "fn", label: "Select a function:", options: ["SUM", "AVERAGE", "COUNT", "COUNTA", "COUNTIF", "IF", "MAX", "MIN", "ROUND", "VLOOKUP", "XLOOKUP", "PMT", "TODAY", "CONCAT", "SUMIF"], height: 140 },
+      { type: "list", key: "fn", label: "Select a function:", options: ["SUM", "AVERAGE", "COUNT", "COUNTA", "COUNTBLANK", "COUNTIF", "IF", "MAX", "MIN", "MEDIAN", "ROUND", "SUBTOTAL", "VLOOKUP", "XLOOKUP", "FILTER", "SORT", "UNIQUE", "PMT", "TODAY", "NETWORKDAYS", "CONCAT", "SUMIF"], height: 140 },
       { type: "text", key: "args", label: "Function Arguments:", placeholder: "B2:B10" },
     ],
   },
@@ -82,7 +94,11 @@ export const excelDialogs: Record<string, DialogDef> = {
       { type: "checkbox", key: "headers", label: "My data has headers", default: true },
       { type: "select", key: "sortBy", label: "Sort by", options: [] },
       { type: "select", key: "sortOn", label: "Sort On", options: ["Cell Values", "Cell Color", "Font Color"] },
-      { type: "select", key: "order", label: "Order", options: ["A to Z", "Z to A", "Smallest to Largest", "Largest to Smallest"] },
+      { type: "select", key: "order", label: "Order", options: SORT_ORDERS },
+      { type: "note", text: "Add Level: then by" },
+      { type: "select", key: "thenBy", label: "Then by", options: [] },
+      { type: "select", key: "thenOrder", label: "Order", options: SORT_ORDERS },
+      { type: "text", key: "customList", label: "Custom List entries:", placeholder: "Stat, Urgent, Routine" },
     ],
   },
   cfGreater: { id: "cfGreater", title: "Greater Than", width: 420, fields: [{ type: "text", key: "value", label: "Format cells that are GREATER THAN:" }, cfFormat] },
@@ -108,9 +124,9 @@ export const excelDialogs: Record<string, DialogDef> = {
     title: "Subtotal",
     width: 320,
     fields: [
-      { type: "text", key: "atEachChange", label: "At each change in:" },
+      { type: "select", key: "atEachChange", label: "At each change in:", options: [] },
       { type: "select", key: "fn", label: "Use function:", options: ["Sum", "Count", "Average", "Max", "Min"] },
-      { type: "text", key: "addTo", label: "Add subtotal to:" },
+      { type: "select", key: "addTo", label: "Add subtotal to:", options: [] },
       { type: "checkbox", key: "replace", label: "Replace current subtotals", default: true },
       { type: "checkbox", key: "summaryBelow", label: "Summary below data", default: true },
     ],
@@ -221,5 +237,46 @@ export const excelDialogs: Record<string, DialogDef> = {
   sparklines: { id: "sparklines", title: "Create Sparklines", width: 340, fields: [{ type: "select", key: "type", label: "Type:", options: ["Line", "Column", "Win/Loss"] }, { type: "text", key: "dataRange", label: "Data Range:" }, { type: "text", key: "location", label: "Location Range:" }] },
   headerFooter: { id: "headerFooter", title: "Header/Footer", width: 380, fields: [{ type: "text", key: "header", label: "Header:" }, { type: "text", key: "footer", label: "Footer:" }] },
   moveChart: { id: "moveChart", title: "Move Chart", width: 360, fields: [{ type: "radio", key: "location", label: "Choose where you want the chart to be placed:", options: ["New sheet", "Object in"], default: "Object in" }, { type: "text", key: "name", label: "New sheet name:", default: "Chart1" }] },
+  cfNewRule: {
+    id: "cfNewRule",
+    title: "New Formatting Rule",
+    width: 460,
+    fields: [
+      { type: "list", key: "ruleType", label: "Select a Rule Type:", options: CF_RULE_TYPES, default: CF_RULE_TYPES[5], height: 110 },
+      { type: "text", key: "formula", label: "Format values where this formula is true:", placeholder: "=$C2<$D2" },
+      { type: "select", key: "format", label: "Format:", options: CF_FORMAT_NAMES },
+    ],
+  },
+  cfManage: {
+    id: "cfManage",
+    title: "Conditional Formatting Rules Manager",
+    okLabel: "Delete Rule",
+    width: 480,
+    fields: [
+      { type: "note", text: "Show formatting rules for: This Worksheet" },
+      { type: "list", key: "rule", label: "Rule (applied in order shown)", options: [], height: 130 },
+    ],
+  },
+  insertIcons: {
+    id: "insertIcons",
+    title: "Icons",
+    okLabel: "Insert",
+    width: 380,
+    fields: [
+      { type: "text", key: "search", label: "Search:", placeholder: "Search icons" },
+      { type: "list", key: "icon", label: "Icons", options: ICON_NAMES, height: 150 },
+    ],
+  },
+  altText: { id: "altText", title: "Alt Text", width: 360, fields: [{ type: "note", text: "How would you describe this object and its context to someone who is blind or low vision?" }, { type: "text", key: "text", label: "Description:" }, { type: "checkbox", key: "decorative", label: "Mark as decorative" }] },
+  valueFieldSettings: {
+    id: "valueFieldSettings",
+    title: "Value Field Settings",
+    width: 400,
+    tabs: [
+      { label: "Summarize Values By", fields: [{ type: "list", key: "fn", label: "Summarize value field by", options: ["Sum", "Count", "Average", "Max", "Min"], height: 110 }] },
+      { label: "Show Values As", fields: [{ type: "select", key: "showAs", label: "Show values as", options: SHOW_VALUES_AS }] },
+    ],
+  },
+  insertSlicer: { id: "insertSlicer", title: "Insert Slicers", width: 300, fields: [{ type: "list", key: "field", label: "Choose a field:", options: [], height: 150 }] },
   insertPicture: { id: "insertPicture", title: "Insert Picture", okLabel: "Insert", width: 400, fields: [{ type: "list", key: "file", label: "File name:", options: ["clinic-logo.png", "staff-photo.jpg", "chart-reference.png"], height: 100 }] },
 };

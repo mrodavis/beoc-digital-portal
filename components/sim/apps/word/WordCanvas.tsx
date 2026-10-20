@@ -131,9 +131,9 @@ const SHAPE_CLIP: Record<string, string> = {
 /* ------------------------------------------------------------------ */
 
 export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<WordDoc>) {
-  const [editing, setEditingState] = useState<{ key: string; text: string } | null>(null);
-  const editingRef = useRef<{ key: string; text: string } | null>(null);
-  const setEditing = (v: { key: string; text: string } | null) => {
+  const [editing, setEditingState] = useState<{ key: string; text: string; ph?: boolean } | null>(null);
+  const editingRef = useRef<{ key: string; text: string; ph?: boolean } | null>(null);
+  const setEditing = (v: { key: string; text: string; ph?: boolean } | null) => {
     editingRef.current = v;
     setEditingState(v);
   };
@@ -179,7 +179,10 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
   const startEdit = (key: string, initial?: string) => {
     if (!editable(doc, key)) return;
     onSelect({ selection: key });
-    setEditing({ key, text: initial ?? textAt(doc, key) });
+    const cur = textAt(doc, key);
+    // Placeholder text ("[Type here]", "[Recipient Name]") is replaced as you type, like a content control.
+    const placeholder = /^\[[^\]]*\]$/.test(cur.trim()) || /^(\[Type here\]\s*)+$/.test(cur.trim());
+    setEditing({ key, text: initial ?? (placeholder ? "" : cur), ph: placeholder });
   };
 
   const commitEdit = () => {
@@ -187,6 +190,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     if (!e) return;
     const orig = textAt(doc, e.key);
     setEditing(null);
+    if (e.ph && !e.text.trim()) return;
     if (e.text !== orig) onCommit({ kind: "type", target: e.key, value: e.text });
   };
 
@@ -402,7 +406,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     const style = runStyle(p, r, key);
     let text = textOverride ?? (r.field ? (record ? mergeValue(r.field, record) : `«${r.field}»`) : r.text);
     if (editing && key && editing.key === key && textOverride === undefined) {
-      return <InlineEditor key={i} value={editing.text} onChange={(t) => setEditing({ key, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} inline style={style} />;
+      return <InlineEditor key={i} value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} inline style={style} />;
     }
     const content: React.ReactNode[] = [];
     if (findTerm && text.toLowerCase().includes(findTerm)) {
@@ -624,7 +628,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
                         }}
                       >
                         {editing?.key === key ? (
-                          <InlineEditor value={editing.text} onChange={(tx) => setEditing({ key, text: tx })} onCommit={commitEdit} onCancel={() => setEditing(null)} onTab={(back) => { commitEdit(); tabInTable(key, back); }} />
+                          <InlineEditor value={editing.text} onChange={(tx) => setEditing({ ...editingRef.current!, key, text: tx })} onCommit={commitEdit} onCancel={() => setEditing(null)} onTab={(back) => { commitEdit(); tabInTable(key, back); }} />
                         ) : (
                           cell || " "
                         )}
@@ -719,7 +723,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
           onDoubleClick={(e) => { e.stopPropagation(); startEdit(titleKey); }}
           title="Double-click to edit the chart title"
         >
-          {editing?.key === titleKey ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ key: titleKey, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : ch.title ?? "Chart Title"}
+          {editing?.key === titleKey ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: titleKey, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : ch.title ?? "Chart Title"}
         </div>
         {plot}
         {!/Bar|Pie|Doughnut/.test(ch.type) && <div className="mt-1 flex justify-around">{ch.series.map((s, i) => <span key={i}>{s.label}</span>)}</div>}
@@ -764,7 +768,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     const box: React.CSSProperties = {
       width,
       float: floating && floatSide ? floatSide : undefined,
-      margin: floating ? (floatSide === "right" ? "4px 0 6px 12px" : "4px 12px 6px 0") : o.align === "center" ? "6px auto" : "6px 0",
+      margin: floating ? (floatSide === "right" ? "4px 0 6px 12px" : "4px 12px 6px 0") : o.align === "center" ? "6px auto" : o.align === "right" ? "6px 0 6px auto" : "6px 0",
       transform: transforms || undefined,
       boxShadow: shadow,
       border: frame ? "6px solid #fff" : o.border ? `2px solid ${o.border}` : undefined,
@@ -803,7 +807,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             padding: o.label === "Oval" ? "18px 22px" : undefined,
           }}
         >
-          {editing?.key === p.id ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ key: p.id, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : o.text || " "}
+          {editing?.key === p.id ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: p.id, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : o.text || " "}
         </div>
       );
     } else {
@@ -819,7 +823,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             fontSize: 11 * PT * z,
           }}
         >
-          {editing?.key === p.id ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ key: p.id, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : o.text}
+          {editing?.key === p.id ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: p.id, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : o.text}
         </div>
       );
     }
@@ -900,7 +904,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
       position: "relative",
       minHeight: fs * 1.2,
       whiteSpace: "pre-wrap",
-      tabSize: Math.round(0.5 * PX_PER_IN * z),
+      tabSize: `${Math.round(0.5 * PX_PER_IN * z)}px`,
       breakInside: "avoid-column",
       ...capsStyle(look.caps),
     };
@@ -927,7 +931,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
           </span>
         )}
         {editing?.key === p.id ? (
-          <InlineEditor value={editing.text} onChange={(t) => setEditing({ key: p.id, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} />
+          <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: p.id, text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} />
         ) : empty ? (
           <span className="text-gray-400">{p.placeholder ?? " "}</span>
         ) : tabbed ? (
@@ -1020,7 +1024,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
           >
             {ui.selection === "header" && <span className="absolute -bottom-4 left-2 bg-[#2b579a] px-1 text-[9px] text-white">Header</span>}
             <span className="flex-1 whitespace-pre-wrap">
-              {editing?.key === "header" ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ key: "header", text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : doc.header}
+              {editing?.key === "header" ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: "header", text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : doc.header}
             </span>
             {pageNumPos === "top" && <span style={{ textAlign: pageNumAlign }}>{i + 1}</span>}
           </div>
@@ -1035,7 +1039,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
           >
             {ui.selection === "footer" && <span className="absolute -top-4 left-2 bg-[#2b579a] px-1 text-[9px] text-white">Footer</span>}
             <span className="flex-1 whitespace-pre-wrap">
-              {editing?.key === "footer" ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ key: "footer", text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : doc.footer}
+              {editing?.key === "footer" ? <InlineEditor value={editing.text} onChange={(t) => setEditing({ ...editingRef.current!, key: "footer", text: t })} onCommit={commitEdit} onCancel={() => setEditing(null)} /> : doc.footer}
             </span>
             {pageNumPos === "bottom" && <span className="absolute inset-x-0 bottom-3 px-[inherit]" style={{ textAlign: pageNumAlign, paddingLeft: m.l * PX_PER_IN * z, paddingRight: m.r * PX_PER_IN * z }}>{i + 1}</span>}
           </div>
@@ -1312,7 +1316,9 @@ function SidePane({ doc, ui, pane, onCommit, onSelect, openDialog }: { doc: Word
   } else if (pane === "Accessibility" || pane === "Check Accessibility") {
     title = "Accessibility";
     const missing = doc.paragraphs.filter((p) => {
-      if (p.kind === "image" || p.kind === "shape") return !p.object?.text && !(p.object as XObject | undefined)?.decorative;
+      const o = p.object as XObject | undefined;
+      if (p.kind === "image") return !o?.text && !o?.decorative;
+      if (p.kind === "shape") return !o?.alt && !o?.text && !o?.decorative;
       if (p.kind === "chart") return !(p.chart as XChart | undefined)?.alt && !(p.chart as XChart | undefined)?.decorative;
       return false;
     });

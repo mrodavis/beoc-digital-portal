@@ -131,6 +131,22 @@ export const wordModule2Sims: Record<string, SimDefinition[]> = {
 - Track changes: runs with `ins` / `del`; Review › Accept/Reject.
 - Comments: `paragraph.comment`.
 - Mail merge: `merge.recipients` and runs with `field`.
+- Inserted objects get predictable ids so later steps can target them: the
+  first table a command inserts is `tbl1`, then pictures `img<n>`, shapes
+  `shp<n>`, text boxes `tb<n>`, charts `ch<n>`, breaks `br<n>`, section
+  breaks `sb<n>`, contents `toc1` (n counts up from what the doc already has).
+  Inserted pictures, shapes and charts become the selection.
+- Table selection keys: `tbl1.r2c3` is a cell, `tbl1.r2c0` is all of row 2,
+  `tbl1.r0c3` is all of column 3, `tbl1.r0c0` is the whole table.
+- Extra fields the engine keeps (typed in `model.ts` as `XPara`, `XObject`,
+  `XTable`, `XDoc`): list `numberStart` / `numberContinue` / `bulletColor`,
+  `indentRight`, `keepNext`, `tabStops`, per-section layout on section
+  breaks, object `flipH` / `flipV` / `crop` / `alt` / `decorative` / `group`
+  / `z`, table `merged` / `repeatHeader`, and doc `styleDefs`,
+  `customStyles`, `sources`. Cast through them when a sim's initial doc needs
+  one.
+- The Font and Paragraph dialogs apply only the fields the learner changed.
+- The table of contents stays as inserted until Update Table (or F9).
 
 Command ids and what they do are in `components/sim/apps/word/model.ts`
 (`applyWord`) and `ribbon.ts`. Canvas-only commands are listed in `core.ts`

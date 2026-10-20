@@ -152,14 +152,20 @@ export const excelRibbon: RibbonTab[] = [
               { value: "Data Bars", heading: true },
               { value: "Blue Data Bar" },
               { value: "Green Data Bar" },
+              { value: "Orange Data Bar" },
               { value: "Color Scales", heading: true },
               { value: "Green - Yellow - Red Color Scale" },
+              { value: "Red - Yellow - Green Color Scale" },
               { value: "Icon Sets", heading: true },
               { value: "3 Traffic Lights" },
               { value: "3 Arrows (Colored)" },
-              { value: "Clear Rules", heading: true },
+              { value: "3 Symbols (Circled)" },
+              { value: "3 Flags" },
+              { value: "Rules", heading: true },
+              { value: "New Rule...", dialog: "cfNewRule" },
               { value: "Clear Rules from Selected Cells" },
               { value: "Clear Rules from Entire Sheet" },
+              { value: "Manage Rules...", dialog: "cfManage" },
             ],
           },
           { type: "dropdown", id: "home.formatAsTable", label: "Format as Table", icon: "formatTable", size: "large", gallery: "grid", options: TABLE_STYLES.map((s) => ({ value: s, color: TABLE_STYLE_COLORS[s] })) },
@@ -259,7 +265,7 @@ export const excelRibbon: RibbonTab[] = [
         controls: [
           { type: "dropdown", id: "insert.pictures", label: "Pictures", icon: "picture", size: "large", options: [{ value: "Place in Cell", heading: true }, { value: "This Device...", dialog: "insertPicture" }, { value: "Stock Images...", command: "insert.onlinePictures" }] },
           { type: "dropdown", id: "insert.shape", label: "Shapes", icon: "shapes", showLabel: true, options: ["Rectangle", "Oval", "Right Arrow", "Callout"].map((v) => ({ value: v })) },
-          { type: "button", id: "insert.icons", label: "Icons", icon: "icons", showLabel: true },
+          { type: "button", id: "insert.icons", label: "Icons", icon: "icons", showLabel: true, dialog: "insertIcons" },
           { type: "button", id: "insert.smartArt", label: "SmartArt", icon: "smartart", showLabel: true },
         ],
       },
@@ -277,7 +283,7 @@ export const excelRibbon: RibbonTab[] = [
         ],
       },
       { label: "Sparklines", controls: [{ type: "button", id: "insert.sparkLine", label: "Line", icon: "line", showLabel: true, dialog: "sparklines" }, { type: "button", id: "insert.sparkColumn", label: "Column", icon: "chart", showLabel: true, dialog: "sparklines" }, { type: "button", id: "insert.sparkWinLoss", label: "Win/Loss", icon: "chart", showLabel: true, dialog: "sparklines" }] },
-      { label: "Filters", controls: [{ type: "button", id: "insert.slicer", label: "Slicer", icon: "filter", showLabel: true }, { type: "button", id: "insert.timeline", label: "Timeline", icon: "date", showLabel: true }] },
+      { label: "Filters", controls: [{ type: "button", id: "insert.slicer", label: "Slicer", icon: "filter", showLabel: true, dialog: "insertSlicer" }, { type: "button", id: "insert.timeline", label: "Timeline", icon: "date", showLabel: true }] },
       { label: "Links", controls: [{ type: "button", id: "insert.link", label: "Link", icon: "link", size: "large", dialog: "link", shortcut: "Ctrl+K" }] },
       { label: "Comments", controls: [{ type: "button", id: "insert.comment", label: "Comment", icon: "comment", size: "large", dialog: "newComment" }] },
       { label: "Text", controls: [{ type: "button", id: "insert.textBox", label: "Text Box", icon: "textbox", showLabel: true }, { type: "button", id: "insert.headerFooter", label: "Header & Footer", icon: "header", showLabel: true }, { type: "button", id: "insert.wordArt", label: "WordArt", icon: "wordart", showLabel: true }] },
@@ -420,6 +426,7 @@ export const excelRibbon: RibbonTab[] = [
           { type: "button", id: "review.deleteComment", label: "Delete", icon: "reject", showLabel: true },
           { type: "button", id: "review.prevComment", label: "Previous Comment", icon: "undo", showLabel: true },
           { type: "button", id: "review.nextComment", label: "Next Comment", icon: "redo", showLabel: true },
+          { type: "button", id: "review.showComments", label: "Show Comments", icon: "comment", size: "large" },
         ],
       },
       { label: "Notes", controls: [{ type: "dropdown", id: "review.notes", label: "Notes", icon: "notes", size: "large", options: [{ value: "New Note", dialog: "newNote" }, { value: "Show All Notes", command: "review.showNotes" }] }] },
@@ -437,6 +444,14 @@ export const excelRibbon: RibbonTab[] = [
     id: "view",
     label: "View",
     groups: [
+      {
+        label: "Sheet View",
+        controls: [
+          { type: "button", id: "view.sheetViewNew", label: "New", icon: "new", showLabel: true, tip: "New Sheet View: sort and filter without changing what others see" },
+          { type: "button", id: "view.sheetViewKeep", label: "Keep", icon: "save", showLabel: true },
+          { type: "button", id: "view.sheetViewExit", label: "Exit", icon: "close", showLabel: true },
+        ],
+      },
       {
         label: "Workbook Views",
         controls: [
@@ -473,8 +488,8 @@ export const excelRibbon: RibbonTab[] = [
     label: "Table Design",
     contextual: "table",
     groups: [
-      { label: "Properties", controls: [{ type: "button", id: "table.name", label: "Table Name", icon: "field", showLabel: true }, { type: "button", id: "table.resize", label: "Resize Table", icon: "size", showLabel: true }] },
-      { label: "Tools", controls: [{ type: "button", id: "table.summarizePivot", label: "Summarize with PivotTable", icon: "pivot", showLabel: true, dialog: "createPivot" }, { type: "button", id: "table.removeDuplicates", label: "Remove Duplicates", icon: "removeDup", showLabel: true }, { type: "button", id: "table.convertToRange", label: "Convert to Range", icon: "table", showLabel: true }, { type: "button", id: "insert.slicer", label: "Insert Slicer", icon: "filter", size: "large" }] },
+      { label: "Properties", controls: [{ type: "dropdown", id: "table.name", label: "Table Name", combo: true, width: 96, options: [] }, { type: "button", id: "table.resize", label: "Resize Table", icon: "size", showLabel: true }] },
+      { label: "Tools", controls: [{ type: "button", id: "table.summarizePivot", label: "Summarize with PivotTable", icon: "pivot", showLabel: true, dialog: "createPivot" }, { type: "button", id: "table.removeDuplicates", label: "Remove Duplicates", icon: "removeDup", showLabel: true }, { type: "button", id: "table.convertToRange", label: "Convert to Range", icon: "table", showLabel: true }, { type: "button", id: "insert.slicer", label: "Insert Slicer", icon: "filter", size: "large", dialog: "insertSlicer" }] },
       {
         label: "Table Style Options",
         controls: [
@@ -506,7 +521,8 @@ export const excelRibbon: RibbonTab[] = [
     label: "PivotTable Analyze",
     contextual: "pivot",
     groups: [
-      { label: "Active Field", controls: [{ type: "dropdown", id: "pivot.summarize", label: "Summarize Values By", icon: "sum", size: "large", options: ["Sum", "Count", "Average", "Max", "Min"].map((v) => ({ value: v })) }] },
+      { label: "Active Field", controls: [{ type: "button", id: "pivot.fieldSettings", label: "Field Settings", icon: "options", size: "large", dialog: "valueFieldSettings" }, { type: "dropdown", id: "pivot.summarize", label: "Summarize Values By", icon: "sum", size: "large", options: ["Sum", "Count", "Average", "Max", "Min"].map((v) => ({ value: v })) }] },
+      { label: "Filter", controls: [{ type: "button", id: "pivot.insertSlicer", label: "Insert Slicer", icon: "filter", size: "large", dialog: "insertSlicer" }, { type: "button", id: "insert.timeline", label: "Insert Timeline", icon: "date", showLabel: true }] },
       { label: "Data", controls: [{ type: "button", id: "data.refresh", label: "Refresh", icon: "reset", size: "large" }, { type: "button", id: "pivot.changeSource", label: "Change Data Source", icon: "sheet", size: "large" }] },
       { label: "Actions", controls: [{ type: "button", id: "pivot.clear", label: "Clear", icon: "clear", size: "large" }] },
       { label: "Tools", controls: [{ type: "button", id: "insert.pivotChart", label: "PivotChart", icon: "chart", size: "large", dialog: "insertChart" }] },
@@ -521,6 +537,17 @@ export const excelRibbon: RibbonTab[] = [
     ],
   },
 ];
+
+/** Graphics Format: appears when an icon or picture is selected. */
+excelRibbon.push({
+  id: "graphicsFormat",
+  label: "Graphics Format",
+  contextual: "graphics",
+  groups: [
+    { label: "Graphics Styles", controls: [{ type: "dropdown", id: "graphics.fill", label: "Graphics Fill", icon: "fill", showLabel: true, gallery: "swatches", options: colorOpts() }] },
+    { label: "Accessibility", controls: [{ type: "button", id: "graphics.altText", label: "Alt Text", icon: "accessibility", size: "large", dialog: "altText" }] },
+  ],
+});
 
 export const EXCEL_VIEW_ALIASES: Record<string, string> = {
   "view.mode.normal": "Normal",

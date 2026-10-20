@@ -1,4 +1,4 @@
-import type { CellFormat, ExcelBook, ExcelCell, ExcelSheet, SimCommit, SimValue } from "@/types/sim";
+import type { CellFormat, ExcelBook, ExcelCell, ExcelCF, ExcelSheet, SimCommit, SimValue } from "@/types/sim";
 import type { SimUi } from "../../types";
 import { applyCommonCommit } from "@/lib/sim/common";
 import { clone } from "@/lib/sim/ops";
@@ -6,6 +6,8 @@ import {
   cellsIn,
   colToNum,
   evaluateCell,
+  GEOGRAPHY,
+  geographyKey,
   normalizeRange,
   numToCol,
   parseRange,
@@ -101,25 +103,43 @@ function headerLike(sheet: ExcelSheet, rc: Rect): boolean {
 
 export function parseInput(raw: string): ExcelCell {
   const t = raw.trim();
+  // A leading apostrophe stores the rest as text and is not part of the value.
+  if (raw.startsWith("'")) return { v: raw.slice(1) };
   if (t.startsWith("=")) return { f: t };
   if (t === "") return {};
   const pct = /^(-?[\d,]*\.?\d+)\s*%$/.exec(t);
   if (pct) return { v: Number(pct[1].replace(/,/g, "")) / 100, fmt: { numFmt: "Percentage" } };
   const cur = /^\$\s?(-?[\d,]*\.?\d+)$/.exec(t);
   if (cur) return { v: Number(cur[1].replace(/,/g, "")), fmt: { numFmt: "Currency" } };
-  const date = /^(\d{1,2})\/(\d{1,2})\/(\d{2,4})$/.exec(t);
-  if (date) {
-    const y = Number(date[3].length === 2 ? `20${date[3]}` : date[3]);
+  const date = /^(\d{1,2})\/(\d{1,2})(?:\/(\d{2,4}))?$/.exec(t);
+  if (date && Number(date[1]) >= 1 && Number(date[1]) <= 12 && Number(date[2]) >= 1 && Number(date[2]) <= 31) {
+    // Month/day with no year takes the current year, as Excel does.
+    const y = date[3] ? Number(date[3].length === 2 ? `20${date[3]}` : date[3]) : 2026;
     const serial = Math.round((Date.UTC(y, Number(date[1]) - 1, Number(date[2])) - Date.UTC(1899, 11, 30)) / 86400000);
     return { v: serial, fmt: { numFmt: "Short Date" } };
   }
-  const num = /^-?[\d,]*\.?\d+$/.test(t) && !/^0\d/.test(t) ? Number(t.replace(/,/g, "")) : NaN;
+  const time = /^(\d{1,2}):(\d{2})\s*([AaPp][Mm])?$/.exec(t);
+  if (time && Number(time[1]) < 24 && Number(time[2]) < 60) {
+    let h = Number(time[1]) % (time[3] ? 12 : 24);
+    if (time[3] && /p/i.test(time[3])) h += 12;
+    return { v: (h * 60 + Number(time[2])) / 1440, fmt: { numFmt: "Time" } };
+  }
+  // Leading zeros are dropped from numbers in a General cell (00125 becomes 125).
+  const num = /^-?[\d,]*\.?\d+$/.test(t) ? Number(t.replace(/,/g, "")) : NaN;
   if (!Number.isNaN(num) && /\d/.test(t)) return { v: num };
   return { v: t };
 }
 
 function setCellInput(sheet: ExcelSheet, ref: string, raw: string) {
   const prev = sheet.cells[ref] ?? {};
+  if (prev.fmt?.numFmt === "Text") {
+    // A Text-formatted cell keeps exactly what was typed, formulas included.
+    const next: ExcelCell = { ...prev, v: raw.startsWith("'") ? raw.slice(1) : raw, spell: undefined };
+    delete next.f;
+    if (raw === "") delete next.v;
+    sheet.cells[ref] = next;
+    return;
+  }
   const parsed = parseInput(raw);
   const fmt = { ...(prev.fmt ?? {}), ...(parsed.fmt ?? {}) };
   if (parsed.fmt?.numFmt && prev.fmt?.numFmt && prev.fmt.numFmt !== "General") fmt.numFmt = prev.fmt.numFmt;
@@ -149,6 +169,49 @@ function fmtCells(sheet: ExcelSheet, sel: string, patch: Partial<CellFormat> | (
 
 function firstFmt(sheet: ExcelSheet, ui: SimUi): CellFormat {
   return sheet.cells[activeCell(ui)]?.fmt ?? {};
+}
+
+const DECIMAL_FORMATS: NonNullable<CellFormat["numFmt"]>[] = ["Number", "Currency", "Accounting", "Percentage", "Scientific", "Comma"];
+
+function rangesOverlap(a: string, b: string): boolean {
+  const x = parseRange(a), y = parseRange(b);
+  return Boolean(x && y && x.c1 <= y.c2 && y.c1 <= x.c2 && x.r1 <= y.r2 && y.r1 <= x.r2);
+}
+
+/* Cell protection: every cell is Locked unless listed here (Format Cells › Protection). */
+
+function unlockedRanges(doc: ExcelBook, sheet: ExcelSheet): string[] {
+  return String(doc.flags?.[`unlocked:${sheet.name}`] ?? "").split(",").filter(Boolean);
+}
+
+function setLocked(doc: ExcelBook, sheet: ExcelSheet, range: string, locked: boolean) {
+  let list = unlockedRanges(doc, sheet);
+  if (locked) {
+    const rc = parseRange(range);
+    list = list.filter((r) => {
+      const x = parseRange(r);
+      return !(x && rc && x.c1 >= rc.c1 && x.c2 <= rc.c2 && x.r1 >= rc.r1 && x.r2 <= rc.r2);
+    });
+  } else if (!list.includes(range)) list.push(range);
+  doc.flags = { ...(doc.flags ?? {}), [`unlocked:${sheet.name}`]: list.join(",") };
+}
+
+/** Can this cell be edited while its sheet is protected? */
+export function isUnlocked(doc: ExcelBook, sheet: ExcelSheet, ref: string): boolean {
+  return unlockedRanges(doc, sheet).some((r) => {
+    const rc = parseRange(r);
+    const p = parseRef(ref);
+    return Boolean(rc && p && p.c >= rc.c1 && p.c <= rc.c2 && p.r >= rc.r1 && p.r <= rc.r2);
+  });
+}
+
+/** Ranges with Center Across Selection, from Format Cells › Alignment. */
+export function centerAcrossRanges(doc: ExcelBook, sheet: ExcelSheet): Rect[] {
+  const pre = `cas:${sheet.name}!`;
+  return Object.keys(doc.flags ?? {})
+    .filter((k) => k.startsWith(pre) && doc.flags?.[k])
+    .map((k) => parseRange(k.slice(pre.length)))
+    .filter((r): r is Rect => Boolean(r));
 }
 
 /* ------------------------------------------------------------------ */
@@ -184,8 +247,91 @@ function insertLines(sheet: ExcelSheet, axis: "row" | "col", at: number, count: 
     next[refOf(c, r)] = cell.f ? { ...cell, f: shiftRefs(cell.f, axis, count > 0 ? at : at + -count, count) } : cell;
   }
   sheet.cells = next;
+  // Ranges that describe the sheet's structure grow, shrink and move with it.
+  const adj = (range: string | null | undefined) => (range ? adjustRange(range, axis, at, count) : range);
+  if (sheet.table) {
+    const t = adj(sheet.table.range);
+    sheet.table = t ? { ...sheet.table, range: t } : null;
+  }
+  if (sheet.filter) {
+    sheet.filter = adj(sheet.filter) ?? null;
+    if (count < 0 && sheet.filterValues && axis === "col") sheet.filterValues = {};
+  }
+  if (sheet.printArea) sheet.printArea = adj(sheet.printArea) ?? null;
+  if (sheet.merges) sheet.merges = sheet.merges.map((m) => adj(m)).filter((m): m is string => Boolean(m));
+  if (sheet.cf) sheet.cf = sheet.cf.map((x) => ({ ...x, range: adj(x.range) ?? "" })).filter((x) => x.range);
+  if (sheet.validation) {
+    const v: NonNullable<ExcelSheet["validation"]> = {};
+    for (const [k, rule] of Object.entries(sheet.validation)) { const nk = adj(k); if (nk) v[nk] = rule; }
+    sheet.validation = v;
+  }
+  if (sheet.charts) sheet.charts = sheet.charts.map((ch) => ({ ...ch, range: ch.range === "PIVOT" ? ch.range : adj(ch.range) ?? ch.range }));
   if (axis === "row") sheet.rows = Math.max(1, (sheet.rows ?? DEFAULT_ROWS) + Math.max(0, count));
   else sheet.cols = Math.max(1, (sheet.cols ?? DEFAULT_COLS) + Math.max(0, count));
+}
+
+/** A range after inserting (count > 0) or deleting (count < 0) rows/columns at `at`. Null when it is deleted entirely. */
+function adjustRange(range: string, axis: "row" | "col", at: number, count: number): string | null {
+  const whole = /^[A-Z]+:[A-Z]+$/i.test(range) || /^\d+:\d+$/.test(range);
+  const rc = parseRange(range);
+  if (!rc || whole) return range;
+  let [a, b] = axis === "row" ? [rc.r1, rc.r2] : [rc.c1, rc.c2];
+  if (count > 0) {
+    if (at <= a) { a += count; b += count; }
+    else if (at <= b) b += count;
+  } else {
+    const d1 = at, d2 = at - count - 1;
+    const removed = (x: number) => x >= d1 && x <= d2;
+    const shift = (x: number) => (x > d2 ? x + count : x);
+    if (removed(a) && removed(b) && a >= d1 && b <= d2) return null;
+    const na = removed(a) ? d1 : shift(a);
+    const nb = removed(b) ? d1 - 1 : shift(b);
+    if (nb < na) return null;
+    a = na; b = nb;
+  }
+  const out = axis === "row" ? { ...rc, r1: a, r2: b } : { ...rc, c1: a, c2: b };
+  return rectToRange(out);
+}
+
+/**
+ * Excel Tables grow when you type directly below or to the right of them,
+ * and a formula typed into an empty table column fills the whole column
+ * (a calculated column).
+ */
+function tableAfterTyping(sheet: ExcelSheet, ref: string) {
+  if (!sheet.table) return;
+  const rc = parseRange(sheet.table.range);
+  const p = parseRef(ref);
+  const cell = sheet.cells[ref];
+  if (!rc || !p || !cell || (cell.v === undefined && !cell.f)) return;
+  let grown: Rect | null = null;
+  if (!sheet.table.totalRow && p.r === rc.r2 + 1 && p.c >= rc.c1 && p.c <= rc.c2) grown = { ...rc, r2: rc.r2 + 1 };
+  else if (p.c === rc.c2 + 1 && p.r >= rc.r1 && p.r <= rc.r2) {
+    grown = { ...rc, c2: rc.c2 + 1 };
+    if (p.r !== rc.r1 && sheet.cells[refOf(p.c, rc.r1)]?.v === undefined) sheet.cells[refOf(p.c, rc.r1)] = { v: `Column${p.c - rc.c1 + 1}` };
+  }
+  if (grown) {
+    sheet.table = { ...sheet.table, range: rectToRange(grown) };
+    if (sheet.filter) sheet.filter = rectToRange(grown);
+    // Carry calculated columns into the new row.
+    if (grown.r2 > rc.r2) {
+      for (let c = rc.c1; c <= rc.c2; c++) {
+        const above = sheet.cells[refOf(c, rc.r2)];
+        const here = sheet.cells[refOf(c, grown.r2)];
+        if (above?.f && !here?.f && here?.v === undefined) sheet.cells[refOf(c, grown.r2)] = { ...above, f: shiftFormula(above.f, 0, 1) };
+      }
+    }
+  }
+  const t = grown ?? rc;
+  if (cell.f && p.r > t.r1 && p.r <= t.r2 && p.c >= t.c1 && p.c <= t.c2) {
+    let empty = true;
+    for (let r = t.r1 + 1; r <= t.r2; r++) {
+      if (r === p.r) continue;
+      const x = sheet.cells[refOf(p.c, r)];
+      if (x && (x.f || (x.v !== undefined && x.v !== ""))) empty = false;
+    }
+    if (empty) for (let r = t.r1 + 1; r <= t.r2; r++) if (r !== p.r) sheet.cells[refOf(p.c, r)] = { ...cell, f: shiftFormula(cell.f, 0, r - p.r) };
+  }
 }
 
 function moveRows(sheet: ExcelSheet, rc: Rect, order: number[]) {
@@ -203,28 +349,47 @@ function moveRows(sheet: ExcelSheet, rc: Rect, order: number[]) {
   });
 }
 
-function sortRegion(doc: ExcelBook, sheet: ExcelSheet, ui: SimUi, desc: boolean, byCol?: number, headers?: boolean) {
+interface SortKey {
+  col: number;
+  desc: boolean;
+  /** Custom list order (e.g. Stat, Urgent, Routine). */
+  list?: string[];
+}
+
+function sortRegion(doc: ExcelBook, sheet: ExcelSheet, ui: SimUi, desc: boolean, byCol?: number, headers?: boolean, more: SortKey[] = [], firstList?: string[]) {
   const sel = ui.selection;
   const single = !sel.includes(":");
   const rc = single ? currentRegion(sheet, activeCell(ui)) : selRect(sheet, sel);
   if (!rc) return;
   const hasHeader = headers ?? (sheet.table ? true : headerLike(sheet, rc));
   const body: Rect = { ...rc, r1: rc.r1 + (hasHeader ? 1 : 0) };
-  const key = byCol ?? parseRef(activeCell(ui))!.c;
+  const keys: SortKey[] = [{ col: byCol ?? parseRef(activeCell(ui))!.c, desc, list: firstList }, ...more];
   const rows: number[] = [];
   for (let r = body.r1; r <= body.r2; r++) rows.push(r);
-  const val = (r: number) => evaluateCell(doc, sheet, refOf(key, r));
-  rows.sort((a, b) => {
-    const x = val(a), y = val(b);
+  const cmpKey = (k: SortKey, a: number, b: number) => {
+    const x = evaluateCell(doc, sheet, refOf(k.col, a)), y = evaluateCell(doc, sheet, refOf(k.col, b));
+    if (x === null || x === "") return y === null || y === "" ? 0 : 1; // blanks always last
+    if (y === null || y === "") return -1;
     let cmp = 0;
-    if (typeof x === "number" && typeof y === "number") cmp = x - y;
-    else if (x === null || x === "") cmp = 1;
-    else if (y === null || y === "") cmp = -1;
-    else cmp = String(x).localeCompare(String(y));
-    return desc ? -cmp : cmp;
+    if (k.list) {
+      const ix = k.list.findIndex((w) => w.toLowerCase() === String(x).toLowerCase());
+      const iy = k.list.findIndex((w) => w.toLowerCase() === String(y).toLowerCase());
+      cmp = (ix < 0 ? 1e6 : ix) - (iy < 0 ? 1e6 : iy);
+    } else if (typeof x === "number" && typeof y === "number") cmp = x - y;
+    else if (typeof x === "number") cmp = -1;
+    else if (typeof y === "number") cmp = 1;
+    else cmp = String(x).localeCompare(String(y), undefined, { sensitivity: "base" });
+    return k.desc ? -cmp : cmp;
+  };
+  rows.sort((a, b) => {
+    for (const k of keys) {
+      const c = cmpKey(k, a, b);
+      if (c) return c;
+    }
+    return a - b;
   });
   moveRows(sheet, body, rows);
-  sheet.sortedBy = `${numToCol(key)} ${desc ? "desc" : "asc"}`;
+  sheet.sortedBy = keys.map((k) => `${numToCol(k.col)} ${k.desc ? "desc" : "asc"}`).join(", ");
 }
 
 function autoSumRange(sheet: ExcelSheet, ref: string): string | null {
@@ -335,14 +500,47 @@ const CF_FORMATS: Record<string, { fill?: string; color?: string }> = {
 };
 export const CF_FORMAT_NAMES = Object.keys(CF_FORMATS);
 
-let seq = 0;
-const nid = (p: string) => `${p}${++seq}`;
+/** How the Conditional Formatting Rules Manager lists a rule. */
+export function cfDescribe(r: ExcelCF): string {
+  const v = r.value === undefined ? "" : String(r.value);
+  const what =
+    r.rule === "Greater Than" ? `Cell Value > ${v}` :
+    r.rule === "Less Than" ? `Cell Value < ${v}` :
+    r.rule === "Equal To" ? `Cell Value = ${v}` :
+    r.rule === "Between" ? `Cell Value between ${v.replace("|", " and ")}` :
+    r.rule === "Text Contains" ? `Cell Value contains "${v}"` :
+    r.rule === "Top 10" ? `Top ${v || 10}` :
+    r.rule === "Formula" ? `Formula: ${v}` :
+    r.rule;
+  return `${what} (applies to ${r.range})`;
+}
+
+/** Insert › Icons library (searchable in Excel; a short list here). */
+export const ICONS: Record<string, string> = {
+  Warning: "⚠",
+  Checkmark: "✔",
+  "Medical cross": "✚",
+  Flag: "⚑",
+  Clipboard: "📋",
+  Calendar: "📅",
+  Truck: "🚚",
+  Telephone: "☎",
+};
+
+/** Next free object id on the sheet (o1, o2, ...), so ids stay the same every run. */
+function nid(sheet: ExcelSheet): string {
+  let n = 1;
+  while ((sheet.objects ?? []).some((o) => o.id === `o${n}`)) n++;
+  return `o${n}`;
+}
 
 /* ------------------------------------------------------------------ */
 /* Built-in command handling                                           */
 /* ------------------------------------------------------------------ */
 
 export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: ExcelBook; ui?: Partial<SimUi> } {
+  // File › Options opens the Excel Options dialog at the category picked.
+  if (c.kind === "command" && c.id === "file.options") return { doc: { ...input, pane: `Excel Options|${String(c.value ?? "General")}` } };
   const common = applyCommonCommit(input, c, ".xlsx");
   if (common) return { doc: common };
 
@@ -375,9 +573,10 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
     if (t === "footer") { sheet.footer = c.value; return { doc }; }
     if (t === "tableName") { if (sheet.table) sheet.table.name = c.value; return { doc }; }
     if (t === "find") { doc.pane = `Find:${c.value}`; return { doc }; }
-    const ref = t.includes("!") ? t.split("!")[1] : t;
+    const ref = (t.includes("!") ? t.split("!")[1] : t).toUpperCase();
     const target = t.includes("!") ? doc.sheets.find((s) => s.name === t.split("!")[0]) ?? sheet : sheet;
-    setCellInput(target, ref.toUpperCase(), c.value);
+    setCellInput(target, ref, c.value);
+    tableAfterTyping(target, ref);
     return { doc };
   }
 
@@ -390,17 +589,35 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
     const val = c.values;
     switch (c.id) {
       case "formatCells": {
+        // Like Excel, OK applies only what was changed in the dialog.
+        const before = excelDialogDefaults(input, ui, "formatCells");
+        const changed = (k: string) => val[k] !== undefined && String(val[k]) !== String(before[k] ?? "");
         const patch: Partial<CellFormat> = {};
-        if (val.category) patch.numFmt = String(val.category) as CellFormat["numFmt"];
-        if (val.decimals !== undefined && val.decimals !== "") patch.decimals = Number(val.decimals);
-        if (val.horizontal && val.horizontal !== "General") patch.align = String(val.horizontal).toLowerCase() as CellFormat["align"];
-        if (val.vertical) patch.valign = String(val.vertical).toLowerCase() as CellFormat["valign"];
-        if (val.wrap !== undefined) patch.wrap = Boolean(val.wrap);
-        if (val.bold !== undefined) patch.bold = Boolean(val.bold);
-        if (val.fill && val.fill !== "No Color") patch.fill = String(val.fill);
-        if (val.border && val.border !== "None") patch.border = String(val.border).toLowerCase().includes("outline") ? "outside" : "all";
-        fmtCells(sheet, sel, patch);
-        if (val.merge) { sheet.merges = [...(sheet.merges ?? []), normalizeRange(sel)]; }
+        const cat = String(val.category ?? before.category ?? "General") as NonNullable<CellFormat["numFmt"]>;
+        if (changed("category")) { patch.numFmt = cat; patch.decimals = undefined; }
+        if ((changed("category") || changed("decimals")) && DECIMAL_FORMATS.includes(cat) && val.decimals !== "" && val.decimals !== undefined) patch.decimals = Number(val.decimals);
+        if (changed("horizontal")) {
+          const h = String(val.horizontal);
+          patch.align = h === "General" ? undefined : h === "Center Across Selection" ? "center" : (h.toLowerCase() as CellFormat["align"]);
+        }
+        if (changed("vertical")) patch.valign = ({ Top: "top", Center: "middle", Bottom: "bottom" } as Record<string, CellFormat["valign"]>)[String(val.vertical)];
+        if (changed("wrap")) patch.wrap = Boolean(val.wrap) || undefined;
+        if (changed("bold")) patch.bold = Boolean(val.bold) || undefined;
+        if (changed("fontSize")) patch.size = Number(val.fontSize) || 11;
+        if (val.fill && val.fill !== "No Color" && changed("fill")) patch.fill = String(val.fill);
+        if (val.border && val.border !== "None" && changed("border")) patch.border = String(val.border).toLowerCase().includes("outline") ? "outside" : "all";
+        if (Object.keys(patch).length) fmtCells(sheet, sel, patch);
+        const range = normalizeRange(sel);
+        const casKey = `cas:${sheet.name}!${range}`;
+        if (changed("horizontal")) {
+          const flags = { ...(doc.flags ?? {}) };
+          for (const k of Object.keys(flags)) if (k.startsWith(`cas:${sheet.name}!`) && rangesOverlap(k.slice(`cas:${sheet.name}!`.length), range)) delete flags[k];
+          if (val.horizontal === "Center Across Selection") flags[casKey] = true;
+          doc.flags = flags;
+        }
+        if (changed("locked")) setLocked(doc, sheet, range, Boolean(val.locked));
+        if (val.merge && changed("merge")) sheet.merges = [...(sheet.merges ?? []).filter((m) => m !== range), range];
+        if (!val.merge && changed("merge")) sheet.merges = (sheet.merges ?? []).filter((m) => m !== range);
         return { doc };
       }
       case "createTable": {
@@ -436,16 +653,21 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
         return { doc };
       }
       case "sort": {
-        const col = String(val.sortBy ?? "");
         const rc = currentRegion(sheet, act);
-        let byCol: number | undefined;
-        if (rc) {
+        const colOf = (name: string): number | undefined => {
+          if (!rc || !name || name === "(none)") return undefined;
           for (let cc = rc.c1; cc <= rc.c2; cc++) {
             const h = sheet.cells[refOf(cc, rc.r1)]?.v;
-            if (String(h ?? "").toLowerCase() === col.toLowerCase() || `Column ${numToCol(cc)}`.toLowerCase() === col.toLowerCase()) byCol = cc;
+            if (String(h ?? "").toLowerCase() === name.toLowerCase() || `Column ${numToCol(cc)}`.toLowerCase() === name.toLowerCase()) return cc;
           }
-        }
-        sortRegion(doc, sheet, { ...ui, selection: act }, String(val.order ?? "").includes("Z to A") || String(val.order ?? "").includes("Largest to Smallest") || String(val.order ?? "") === "Descending", byCol, val.headers === undefined ? undefined : Boolean(val.headers));
+          return undefined;
+        };
+        const isDesc = (o: unknown) => /Z to A|Largest to Smallest|Newest to Oldest|Descending/.test(String(o ?? ""));
+        const list = (o: unknown) => (String(o ?? "") === "Custom List..." ? String(val.customList ?? "").split(",").map((x) => x.trim()).filter(Boolean) : undefined);
+        const more: SortKey[] = [];
+        const then = colOf(String(val.thenBy ?? ""));
+        if (then !== undefined) more.push({ col: then, desc: isDesc(val.thenOrder), list: list(val.thenOrder) });
+        sortRegion(doc, sheet, { ...ui, selection: act }, isDesc(val.order), colOf(String(val.sortBy ?? "")), val.headers === undefined ? undefined : Boolean(val.headers), more, list(val.order));
         return { doc };
       }
       case "cfGreater":
@@ -606,8 +828,45 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
         return { doc };
       }
       case "insertPicture":
-        sheet.objects = [...(sheet.objects ?? []), { id: nid("o"), kind: "image", label: String(val.file ?? "Picture"), glyph: "🖼️", at: act }];
+        sheet.objects = [...(sheet.objects ?? []), { id: nid(sheet), kind: "image", label: String(val.file ?? "Picture"), glyph: "🖼️", at: act }];
         return { doc };
+      case "insertIcons": {
+        const name = String(val.icon ?? "Warning");
+        const id = nid(sheet);
+        sheet.objects = [...(sheet.objects ?? []), { id, kind: "icon", label: name, glyph: ICONS[name] ?? "★", at: act }];
+        return { doc, ui: { selection: `obj:${id}` } };
+      }
+      case "altText": {
+        const id = sel.startsWith("obj:") ? sel.slice(4) : sel.startsWith("chart:") ? sel : "";
+        if (id) doc.flags = { ...(doc.flags ?? {}), [`alt:${id}`]: String(val.text ?? "") };
+        return { doc };
+      }
+      case "valueFieldSettings":
+        if (sheet.pivot?.values[0] && val.fn) sheet.pivot.values[0] = { ...sheet.pivot.values[0], fn: String(val.fn) as "Sum" };
+        if (val.showAs !== undefined) doc.flags = { ...(doc.flags ?? {}), [`pvShowAs:${sheet.name}`]: val.showAs === "No Calculation" ? "" : String(val.showAs) };
+        return { doc };
+      case "insertSlicer": {
+        const f = String(val.field ?? "");
+        const key = `slicers:${sheet.name}`;
+        const list = String(doc.flags?.[key] ?? "").split(",").filter(Boolean);
+        if (f && !list.includes(f)) list.push(f);
+        doc.flags = { ...(doc.flags ?? {}), [key]: list.join(",") };
+        return { doc };
+      }
+      case "cfNewRule": {
+        const fmt = CF_FORMATS[String(val.format ?? "Light Red Fill with Dark Red Text")] ?? CF_FORMATS["Light Red Fill with Dark Red Text"];
+        const formula = String(val.formula ?? "").trim();
+        if (!formula) return { doc };
+        sheet.cf = [...(sheet.cf ?? []), { range: normalizeRange(sel), rule: "Formula", value: formula.startsWith("=") ? formula : `=${formula}`, ...fmt }];
+        return { doc };
+      }
+      case "cfManage": {
+        const pick = String(val.rule ?? "");
+        const list = sheet.cf ?? [];
+        const i = list.findIndex((r) => cfDescribe(r) === pick);
+        if (i >= 0) sheet.cf = list.filter((_, j) => j !== i);
+        return { doc };
+      }
     }
     return { doc };
   }
@@ -630,8 +889,17 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       if (!cb) return { doc };
       const src = parseRange(cb.range)!;
       const dst = parseRef(act)!;
-      const dc = dst.c - src.c1, dr = dst.r - src.r1;
       const transpose = sv === "Transpose";
+      // Pasting into a larger selection repeats the copied block to fill it (copy one formula, paste down a column).
+      const selR = selRect(sheet, sel);
+      const sw = src.c2 - src.c1 + 1, sh = src.r2 - src.r1 + 1;
+      if (!cb.cut && !transpose && selR && (selR.c2 - selR.c1 + 1) % sw === 0 && (selR.r2 - selR.r1 + 1) % sh === 0 && (selR.c2 - selR.c1 + 1 > sw || selR.r2 - selR.r1 + 1 > sh) && !/^[A-Z]+:[A-Z]+$|^\d+:\d+$/i.test(sel)) {
+        let cur = doc;
+        for (let r = selR.r1; r <= selR.r2; r += sh)
+          for (let cc = selR.c1; cc <= selR.c2; cc += sw) cur = applyExcel(cur, { kind: "command", id: "home.paste", value: sv || undefined }, { ...ui, selection: refOf(cc, r) }).doc;
+        return { doc: cur, ui: { selection: rectToRange(selR) } };
+      }
+      const dc = dst.c - src.c1, dr = dst.r - src.r1;
       if (cb.cut) {
         const srcSheet = doc.sheets.find((s) => s.name === cb.sheet);
         if (srcSheet) for (const ref of Object.keys(cb.cells)) delete srcSheet.cells[ref];
@@ -701,7 +969,12 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
     case "home.indentDec": fmtCells(sheet, sel, (f) => ({ ...f, indent: Math.max(0, (f.indent ?? 0) - 1) || undefined })); return { doc };
     case "home.merge": {
       const r = normalizeRange(sel);
-      if (sv === "Unmerge Cells") { sheet.merges = (sheet.merges ?? []).filter((m) => m !== r); return { doc }; }
+      if (sv === "Unmerge Cells") { sheet.merges = (sheet.merges ?? []).filter((m) => !rangesOverlap(m, r)); return { doc }; }
+      // Merge & Center on a merged cell is a toggle: it unmerges.
+      if ((sv === "Merge & Center" || sv === "") && (sheet.merges ?? []).some((m) => rangesOverlap(m, r))) {
+        sheet.merges = (sheet.merges ?? []).filter((m) => !rangesOverlap(m, r));
+        return { doc };
+      }
       if (sv === "Merge Across") {
         const rc = selRect(sheet, sel);
         if (rc) for (let rr = rc.r1; rr <= rc.r2; rr++) sheet.merges = [...(sheet.merges ?? []), rectToRange({ c1: rc.c1, r1: rr, c2: rc.c2, r2: rr })];
@@ -770,6 +1043,33 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       if (sv === "Insert Sheet Columns" || /^[A-Z]+:[A-Z]+$/i.test(sel)) insertLines(sheet, "col", rc.c1, rc.c2 - rc.c1 + 1);
       else insertLines(sheet, "row", rc.r1, rc.r2 - rc.r1 + 1);
       return { doc };
+    }
+    case "home.insertCut": {
+      // Right-click › Insert Cut Cells: move the cut rows (or columns) to the selection, shifting the rest.
+      const cb = doc.clipboard;
+      const tgt = selRect(sheet, sel);
+      if (!cb?.cut || cb.sheet !== sheet.name || !tgt) return { doc };
+      const src = parseRange(cb.range)!;
+      const used = usedRect(sheet);
+      const byCols = /^[A-Z]+:[A-Z]+$/i.test(sel) || (src.r1 === 1 && used !== null && src.r2 >= used.r2 && !(src.c1 === 1 && src.c2 >= used.c2));
+      const axis: "row" | "col" = byCols ? "col" : "row";
+      const [s1, s2] = axis === "row" ? [src.r1, src.r2] : [src.c1, src.c2];
+      let at = axis === "row" ? tgt.r1 : tgt.c1;
+      if (at >= s1 && at <= s2 + 1) { doc.clipboard = null; return { doc }; }
+      const n = s2 - s1 + 1;
+      const snap: { off: number; other: number; cell: ExcelCell }[] = [];
+      for (const [ref, cell] of Object.entries(sheet.cells)) {
+        const p = parseRef(ref)!;
+        const k = axis === "row" ? p.r : p.c;
+        if (k >= s1 && k <= s2) snap.push({ off: k - s1, other: axis === "row" ? p.c : p.r, cell });
+      }
+      insertLines(sheet, axis, s1, -n);
+      if (at > s2) at -= n;
+      insertLines(sheet, axis, at, n);
+      for (const { off, other, cell } of snap) sheet.cells[axis === "row" ? refOf(other, at + off) : refOf(at + off, other)] = cell;
+      doc.clipboard = null;
+      const moved = axis === "row" ? `${at}:${at + n - 1}` : `${numToCol(at)}:${numToCol(at + n - 1)}`;
+      return { doc, ui: { selection: moved } };
     }
     case "home.delete": {
       const rc = selRect(sheet, sel)!;
@@ -919,7 +1219,7 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
     case "insert.smartArt":
     case "insert.onlinePictures": {
       const kind = c.id === "insert.textBox" ? "textbox" : c.id === "insert.icons" ? "icon" : c.id === "insert.smartArt" ? "smartart" : c.id === "insert.shape" ? "shape" : "image";
-      const id = nid("o");
+      const id = nid(sheet);
       sheet.objects = [...(sheet.objects ?? []), { id, kind, label: sv || kind, glyph: kind === "icon" ? "★" : kind === "image" ? "🖼️" : undefined, at: act, text: kind === "textbox" ? "" : undefined }];
       return { doc, ui: { selection: `obj:${id}` } };
     }
@@ -929,6 +1229,16 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       return { doc, ui: { selection: "header" } };
     case "insert.sparkline":
       return { doc };
+    case "graphics.fill": {
+      const id = sel.startsWith("obj:") ? sel.slice(4) : "";
+      if (id) doc.flags = { ...(doc.flags ?? {}), [`objfill:${id}`]: sv };
+      return { doc };
+    }
+    case "home.analyzeData":
+      doc.pane = "Analyze Data";
+      return { doc };
+    case "analyze.insert":
+      return analyzeInsert(doc, sheet, ui, sv);
 
     /* -------- chart -------- */
     case "chart.type":
@@ -940,10 +1250,24 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       const id = sel.startsWith("chart:") ? sel.slice(6) : sheet.charts?.[sheet.charts.length - 1]?.id;
       const ch = sheet.charts?.find((x) => x.id === id);
       if (ch) {
+        const flags = { ...(doc.flags ?? {}) };
         if (c.id === "chart.type") ch.type = sv;
         else if (c.id === "chart.style") ch.style = sv;
-        else if (c.id === "chart.addElement" && sv === "Chart Title: None") ch.title = "";
-        else doc.flags = { ...(doc.flags ?? {}), [`${c.id}`]: sv || true };
+        else if (c.id === "chart.switchRowCol") flags[`chart:${ch.id}:switch`] = !flags[`chart:${ch.id}:switch`];
+        else if (c.id === "chart.addElement") {
+          if (sv === "Chart Title: None") ch.title = "";
+          else if (sv === "Chart Title: Above Chart") ch.title = ch.title || "Chart Title";
+          else if (sv === "Data Labels") flags[`chart:${ch.id}:labels`] = true;
+          else if (sv.startsWith("Legend: ")) flags[`chart:${ch.id}:legend`] = sv.slice(8);
+          else if (sv === "Axis Titles") flags[`chart:${ch.id}:axisTitles`] = true;
+        } else if (c.id === "chart.layout") {
+          // Quick Layouts 1-3 add a title and legend; 2 and 5 add data labels.
+          ch.title = ch.title || "Chart Title";
+          if (sv === "Layout 2" || sv === "Layout 5") flags[`chart:${ch.id}:labels`] = true;
+          if (sv === "Layout 1" || sv === "Layout 9") flags[`chart:${ch.id}:axisTitles`] = true;
+        }
+        flags[c.id] = sv || true;
+        doc.flags = flags;
       }
       return { doc };
     }
@@ -962,6 +1286,7 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
     case "table.bandedColumns":
       doc.flags = { ...(doc.flags ?? {}), [c.id]: !doc.flags?.[c.id] };
       return { doc };
+    case "table.name": if (sheet.table && sv.trim()) sheet.table.name = sv.trim().replace(/\s+/g, "_"); return { doc };
     case "table.filterButton": sheet.filter = sheet.filter ? null : sheet.table?.range ?? null; return { doc };
     case "table.convertToRange": sheet.table = null; sheet.filter = null; return { doc };
     case "table.removeDuplicates": return applyExcel(doc, { kind: "dialog", id: "removeDuplicates", values: { headers: true } }, ui);
@@ -972,6 +1297,8 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
     case "pivot.summarize":
     case "pivot.style":
     case "pivot.clear":
+    case "pivot.filter":
+    case "pivot.showAs":
       return pivotCommand(doc, sheet, c.id, sv);
 
     /* -------- page layout -------- */
@@ -992,17 +1319,25 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
 
     /* -------- formulas -------- */
     case "formulas.function": {
+      // Excel opens Function Arguments with the adjacent range guessed, like AutoSum.
       const fn = sv.toUpperCase();
-      if (["SUM", "AVERAGE", "COUNT", "MAX", "MIN"].includes(fn)) setCellInput(sheet, act, `=${fn}(${autoSumRange(sheet, act) ?? ""})`);
+      if (["SUM", "AVERAGE", "COUNT", "COUNTA", "MAX", "MIN", "MEDIAN", "PRODUCT"].includes(fn)) setCellInput(sheet, act, `=${fn}(${autoSumRange(sheet, act) ?? ""})`);
+      else if (["TODAY", "NOW"].includes(fn)) setCellInput(sheet, act, `=${fn}()`);
       else setCellInput(sheet, act, `=${fn}()`);
       return { doc };
     }
     case "formulas.showFormulas": sheet.showFormulas = !sheet.showFormulas; return { doc };
+    case "formulas.evaluate":
+      doc.pane = `Evaluate Formula|${act}`;
+      return { doc };
+    case "options.r1c1":
+      doc.flags = { ...(doc.flags ?? {}), r1c1: sv === "On" };
+      doc.pane = null;
+      return { doc };
     case "formulas.tracePrecedents":
     case "formulas.traceDependents":
     case "formulas.removeArrows":
     case "formulas.errorChecking":
-    case "formulas.evaluate":
     case "formulas.calcNow":
     case "formulas.calcOptions":
     case "formulas.createFromSelection":
@@ -1017,7 +1352,16 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       if (rc) sheet.groups = [...(sheet.groups ?? []), { rows: `${rc.r1}:${rc.r2}` }];
       return { doc };
     }
-    case "data.ungroup": sheet.groups = []; return { doc };
+    case "data.ungroup": {
+      // Ungroup the selected rows; with nothing grouped there, clear the outline.
+      const rc = selRect(sheet, sel);
+      const keep = (sheet.groups ?? []).filter((g) => !(rc && rangesOverlap(`A${g.rows.split(":")[0]}:A${g.rows.split(":")[1]}`, `A${rc.r1}:A${rc.r2}`)));
+      sheet.groups = keep.length < (sheet.groups ?? []).length ? keep : [];
+      sheet.hiddenRows = [];
+      if (!sheet.groups.length) doc.flags = { ...(doc.flags ?? {}), [`outline:${sheet.name}`]: "" };
+      return { doc };
+    }
+    case "outline.level": outlineLevel(doc, sheet, Number(sv) || 1); return { doc };
     case "outline.toggle": {
       sheet.groups = (sheet.groups ?? []).map((g) => (g.rows === sv ? { ...g, collapsed: !g.collapsed } : g));
       const g = sheet.groups.find((x) => x.rows === sv);
@@ -1029,11 +1373,35 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       return { doc };
     }
     case "data.hideDetail":
-    case "data.showDetail":
+    case "data.showDetail": {
+      // Collapse or expand the group the active cell sits in (or summarizes, on the row below it).
+      const r = parseRef(act)!.r;
+      const g = (sheet.groups ?? []).find((x) => { const [a, b] = x.rows.split(":").map(Number); return r >= a && r <= b + 1; });
+      if (g && Boolean(g.collapsed) !== (c.id === "data.hideDetail")) return applyExcel(doc, { kind: "command", id: "outline.toggle", value: g.rows }, ui);
+      return { doc };
+    }
+    case "data.geography":
+    case "data.stocks": {
+      // Convert recognized text to a linked data type.
+      if (c.id === "data.geography") {
+        const flags = { ...(doc.flags ?? {}) };
+        let n = 0;
+        forEachCell(sheet, sel, (ref) => {
+          const key = geographyKey(sheet.cells[ref]?.v);
+          if (!key) return;
+          sheet.cells[ref] = { ...sheet.cells[ref], v: String(GEOGRAPHY[key].Name) };
+          flags[`geo:${sheet.name}!${ref}`] = true;
+          n++;
+        });
+        doc.flags = flags;
+        if (!n) doc.pane = "Data Selector: no matches. Check the spelling of the selected cells.";
+        return { doc };
+      }
+      doc.flags = { ...(doc.flags ?? {}), [c.id]: sv || true };
+      return { doc };
+    }
     case "data.refresh":
     case "data.getData":
-    case "data.stocks":
-    case "data.geography":
     case "data.consolidate":
     case "data.whatIf":
     case "data.forecastSheet":
@@ -1047,9 +1415,18 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       return { doc, ui: first ? { selection: first[0] } : undefined };
     }
     case "spelling.change":
+    case "spelling.changeAll":
     case "spelling.ignore": {
       const cell = sheet.cells[act];
-      if (cell?.spell) sheet.cells[act] = { ...cell, v: c.id === "spelling.change" ? sv || cell.spell[0] : cell.v, spell: undefined };
+      const word = String(cell?.v ?? "").toLowerCase();
+      if (cell?.spell) sheet.cells[act] = { ...cell, v: c.id === "spelling.ignore" ? cell.v : sv || cell.spell[0], spell: undefined };
+      // Change All, Ignore All and Add to Dictionary apply to every cell with the same word.
+      if (c.id === "spelling.changeAll" || (c.id === "spelling.ignore" && (sv === "Ignore All" || sv === "Add to Dictionary"))) {
+        for (const [ref, x] of Object.entries(sheet.cells)) {
+          if (!x.spell || String(x.v ?? "").toLowerCase() !== word) continue;
+          sheet.cells[ref] = { ...x, v: c.id === "spelling.changeAll" ? sv || x.spell[0] : x.v, spell: undefined };
+        }
+      }
       const next = Object.entries(sheet.cells).find(([, x]) => x.spell?.length);
       doc.pane = next ? "Spelling" : "Spelling: done";
       return { doc, ui: next ? { selection: next[0] } : undefined };
@@ -1058,6 +1435,8 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       forEachCell(sheet, sel, (ref) => { const cell = sheet.cells[ref]; if (cell) sheet.cells[ref] = { ...cell, comment: undefined }; });
       return { doc };
     case "review.showNotes": doc.flags = { ...(doc.flags ?? {}), showNotes: !doc.flags?.showNotes }; return { doc };
+    case "review.showComments": doc.pane = doc.pane === "Comments" ? null : "Comments"; return { doc };
+    case "excel.editAnyway": doc.flags = { ...(doc.flags ?? {}), protect: "" }; return { doc };
     case "review.accessibility": doc.pane = "Accessibility"; return { doc };
     case "review.thesaurus": doc.pane = "Thesaurus"; return { doc };
     case "review.smartLookup": doc.pane = "Search"; return { doc };
@@ -1083,7 +1462,19 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       else sheet.freeze = act === "A1" ? null : act;
       return { doc };
     }
-    case "view.split": sheet.split = !sheet.split; return { doc };
+    case "view.split":
+      sheet.split = !sheet.split;
+      doc.flags = { ...(doc.flags ?? {}), [`split:${sheet.name}`]: sheet.split ? act : "" };
+      return { doc };
+    case "view.sheetViewNew":
+      doc.flags = { ...(doc.flags ?? {}), sheetView: "Temporary View" };
+      return { doc };
+    case "view.sheetViewKeep":
+      if (doc.flags?.sheetView) doc.flags = { ...(doc.flags ?? {}), sheetView: "View1" };
+      return { doc };
+    case "view.sheetViewExit":
+      doc.flags = { ...(doc.flags ?? {}), sheetView: "" };
+      return { doc };
     case "view.newWindow":
     case "view.arrangeAll":
     case "view.hide":
@@ -1131,6 +1522,13 @@ function addSheet(doc: ExcelBook, after: string, before: boolean): { doc: ExcelB
 
 function addChart(doc: ExcelBook, sheet: ExcelSheet, ui: SimUi, type: string): { doc: ExcelBook; ui?: Partial<SimUi> } {
   const sel = ui.selection;
+  if (sheet.pivot) {
+    // A PivotChart plots the PivotTable and follows it as fields and filters change.
+    const id = `c${(sheet.charts?.length ?? 0) + 1}`;
+    const at = parseRef(sheet.pivot.at ?? "A3")!;
+    sheet.charts = [...(sheet.charts ?? []), { id, type, title: "Total", range: "PIVOT", at: refOf(at.c + 6, at.r) }];
+    return { doc, ui: { selection: `chart:${id}` } };
+  }
   const rc = sel.includes(":") ? selRect(sheet, sel) : currentRegion(sheet, activeCell(ui));
   if (!rc) return { doc };
   const id = `c${(sheet.charts?.length ?? 0) + 1}`;
@@ -1177,6 +1575,19 @@ function pivotCommand(doc: ExcelBook, sheet: ExcelSheet, id: string, sv: string)
     case "pivot.summarize":
       if (pv.values[0]) pv.values[0] = { ...pv.values[0], fn: sv as "Sum" };
       break;
+    case "pivot.filter": {
+      // "Department=Pediatrics|Family Medicine" (report filter or slicer); "Department=*" clears it.
+      const eq = sv.indexOf("=");
+      const f = sv.slice(0, eq), items = sv.slice(eq + 1);
+      const flags = { ...(doc.flags ?? {}) };
+      if (!items || items === "*") delete flags[`pvf:${sheet.name}:${f}`];
+      else flags[`pvf:${sheet.name}:${f}`] = items;
+      doc.flags = flags;
+      break;
+    }
+    case "pivot.showAs":
+      doc.flags = { ...(doc.flags ?? {}), [`pvShowAs:${sheet.name}`]: sv === "No Calculation" ? "" : sv };
+      break;
     case "pivot.style":
       pv.style = sv;
       break;
@@ -1203,8 +1614,12 @@ function subtotal(doc: ExcelBook, sheet: ExcelSheet, act: string, atEach: string
     for (let c = rc.c1; c <= rc.c2; c++) row[c] = sheet.cells[refOf(c, r)];
     rows.push({ cells: row });
   }
+  // Subtotal inserts whole rows, so anything below the list moves down rather than being overwritten.
+  let changes = 0;
+  rows.forEach((row, i) => { if (!rows[i + 1] || String(rows[i + 1].cells[groupCol]?.v ?? "") !== String(row.cells[groupCol]?.v ?? "")) changes++; });
+  insertLines(sheet, "row", rc.r2 + 1, changes + 1);
   // Clear body
-  for (let r = rc.r1 + 1; r <= rc.r2 + rows.length + 2; r++) for (let c = rc.c1; c <= rc.c2; c++) delete sheet.cells[refOf(c, r)];
+  for (let r = rc.r1 + 1; r <= rc.r2; r++) for (let c = rc.c1; c <= rc.c2; c++) delete sheet.cells[refOf(c, r)];
   let out = rc.r1 + 1;
   let groupStart = out;
   const groups: { rows: string }[] = [];
@@ -1224,9 +1639,33 @@ function subtotal(doc: ExcelBook, sheet: ExcelSheet, act: string, atEach: string
     }
   });
   sheet.cells[refOf(groupCol, out)] = { v: "Grand Total", fmt: { bold: true } };
-  sheet.cells[refOf(valueCol, out)] = { f: `=SUBTOTAL(${code},${refOf(valueCol, rc.r1 + 1)}:${refOf(valueCol, out - 1)})`, fmt: { bold: true } };
+  sheet.cells[refOf(valueCol, out)] = { f: `=SUBTOTAL(${code},${refOf(valueCol, rc.r1 + 1)}:${refOf(valueCol, out - 1)})`, fmt: { ...(sheet.cells[refOf(valueCol, rc.r1 + 1)]?.fmt ?? {}), bold: true } };
   sheet.groups = groups;
+  sheet.hiddenRows = [];
+  // Outline level 1 hides everything above the grand total.
+  doc.flags = { ...(doc.flags ?? {}), [`outline:${sheet.name}`]: `${rc.r1 + 1}:${out - 1}` };
   sheet.rows = Math.max(sheet.rows ?? DEFAULT_ROWS, out + 2);
+}
+
+/** The outline buttons 1, 2, 3 at the top of the outline bar. */
+function outlineLevel(doc: ExcelBook, sheet: ExcelSheet, level: number) {
+  const span = String(doc.flags?.[`outline:${sheet.name}`] ?? "");
+  const groups = sheet.groups ?? [];
+  const rowsOf = (g: string) => {
+    const [a, b] = g.split(":").map(Number);
+    return Array.from({ length: Math.max(0, b - a + 1) }, (_, i) => a + i);
+  };
+  const levels = span ? 3 : 2;
+  if (level >= levels) {
+    sheet.groups = groups.map((g) => ({ ...g, collapsed: false }));
+    sheet.hiddenRows = [];
+  } else if (level === levels - 1) {
+    sheet.groups = groups.map((g) => ({ ...g, collapsed: true }));
+    sheet.hiddenRows = Array.from(new Set(groups.flatMap((g) => rowsOf(g.rows))));
+  } else {
+    sheet.groups = groups.map((g) => ({ ...g, collapsed: true }));
+    sheet.hiddenRows = rowsOf(span);
+  }
 }
 
 /* ------------------------------------------------------------------ */
@@ -1261,6 +1700,8 @@ export function excelRibbonState(doc: ExcelBook, ui: SimUi): Record<string, SimV
     "layout.gridlinesPrint": Boolean(sheet.printGridlines),
     "layout.headingsPrint": Boolean(sheet.printHeadings),
     "table.totalRow": Boolean(sheet.table?.totalRow),
+    "table.name": sheet.table?.name ?? "",
+    "review.showComments": doc.pane === "Comments",
     "table.filterButton": Boolean(sheet.filter),
     "table.headerRow": true,
     "table.bandedRows": !doc.flags?.["table.bandedRows"],
@@ -1280,6 +1721,22 @@ export function excelContextual(doc: ExcelBook, ui: SimUi): string[] {
     if (rc && p && p.c >= rc.c1 && p.c <= rc.c2 && p.r >= rc.r1 && p.r <= rc.r2) out.push("table");
   }
   if (sheet.pivot) out.push("pivot");
+  if (ui.selection.startsWith("obj:")) {
+    const o = sheet.objects?.find((x) => x.id === ui.selection.slice(4));
+    if (o && (o.kind === "icon" || o.kind === "image")) out.push("graphics");
+  }
+  return out;
+}
+
+/** Field names a slicer can filter on: the PivotTable's source headers, or the table's. */
+export function pivotFieldNames(doc: ExcelBook, ui: SimUi): string[] {
+  const sheet = sheetOf(doc, ui);
+  const pv = sheet.pivot;
+  const src = pv ? doc.sheets.find((s) => s.name === pv.source.sheet) : sheet;
+  const rc = pv ? parseRange(pv.source.range) : sheet.table ? parseRange(sheet.table.range) : currentRegion(sheet, activeCell(ui));
+  if (!src || !rc) return [];
+  const out: string[] = [];
+  for (let c = rc.c1; c <= rc.c2; c++) out.push(String(src.cells[refOf(c, rc.r1)]?.v ?? numToCol(c)));
   return out;
 }
 
@@ -1288,8 +1745,22 @@ export function excelDialogDefaults(doc: ExcelBook, ui: SimUi, id: string): Reco
   const f = firstFmt(sheet, ui);
   const act = activeCell(ui);
   switch (id) {
-    case "formatCells":
-      return { category: f.numFmt ?? "General", decimals: f.decimals ?? 2, horizontal: f.align ? f.align[0].toUpperCase() + f.align.slice(1) : "General", wrap: Boolean(f.wrap) };
+    case "formatCells": {
+      const cas = centerAcrossRanges(doc, sheet).some((rc) => { const p = parseRef(act); return p && p.c >= rc.c1 && p.c <= rc.c2 && p.r >= rc.r1 && p.r <= rc.r2; });
+      return {
+        category: f.numFmt ?? "General",
+        decimals: f.decimals ?? 2,
+        horizontal: cas ? "Center Across Selection" : f.align ? f.align[0].toUpperCase() + f.align.slice(1) : "General",
+        vertical: f.valign === "top" ? "Top" : f.valign === "middle" ? "Center" : "Bottom",
+        wrap: Boolean(f.wrap),
+        merge: (sheet.merges ?? []).includes(normalizeRange(ui.selection || act)),
+        bold: Boolean(f.bold),
+        fontSize: String(f.size ?? 11),
+        border: "None",
+        fill: "No Color",
+        locked: !isUnlocked(doc, sheet, act),
+      };
+    }
     case "createTable": {
       const rc = ui.selection.includes(":") ? selRect(sheet, ui.selection) : currentRegion(sheet, act);
       return { range: rc ? `=$${numToCol(rc.c1)}$${rc.r1}:$${numToCol(rc.c2)}$${rc.r2}` : "", headers: true };
@@ -1297,8 +1768,16 @@ export function excelDialogDefaults(doc: ExcelBook, ui: SimUi, id: string): Reco
     case "sort": {
       const rc = currentRegion(sheet, act);
       const head = rc ? String(sheet.cells[refOf(parseRef(act)!.c, rc.r1)]?.v ?? "") : "";
-      return { sortBy: head, headers: true };
+      return { sortBy: head, headers: true, thenBy: "(none)" };
     }
+    case "subtotal": {
+      const heads = regionHeaders(doc, ui);
+      return { atEachChange: heads[0] ?? "", addTo: heads[heads.length - 1] ?? "", fn: "Sum" };
+    }
+    case "valueFieldSettings":
+      return { fn: sheet.pivot?.values[0]?.fn ?? "Sum", showAs: String(doc.flags?.[`pvShowAs:${sheet.name}`] || "No Calculation") };
+    case "altText":
+      return { text: String(doc.flags?.[`alt:${ui.selection.startsWith("obj:") ? ui.selection.slice(4) : ui.selection}`] ?? "") };
     case "goalSeek":
       return { setCell: act };
     case "zoom":
@@ -1319,4 +1798,57 @@ export function regionHeaders(doc: ExcelBook, ui: SimUi): string[] {
   const out: string[] = [];
   for (let c = rc.c1; c <= rc.c2; c++) out.push(String(sheet.cells[refOf(c, rc.r1)]?.v ?? `Column ${numToCol(c)}`));
   return out;
+}
+
+/* ------------------------------------------------------------------ */
+/* Analyze Data                                                        */
+/* ------------------------------------------------------------------ */
+
+export interface AnalyzeSuggestion {
+  title: string;
+  num: string;
+  cat: string;
+}
+
+/** What Home › Analyze Data proposes for the data around the active cell. */
+export function analyzeSuggestions(doc: ExcelBook, sheet: ExcelSheet, act: string): AnalyzeSuggestion[] {
+  const rc = currentRegion(sheet, act) ?? usedRect(sheet);
+  if (!rc || rc.r2 <= rc.r1) return [];
+  const nums: string[] = [];
+  const cats: string[] = [];
+  for (let c = rc.c1; c <= rc.c2; c++) {
+    const head = String(sheet.cells[refOf(c, rc.r1)]?.v ?? "");
+    const sample = sheet.cells[refOf(c, rc.r1 + 1)];
+    const v = evaluateCell(doc, sheet, refOf(c, rc.r1 + 1));
+    const isDate = sample?.fmt?.numFmt === "Short Date" || sample?.fmt?.numFmt === "Long Date";
+    if (!head) continue;
+    if (typeof v === "number" && !isDate) nums.push(head);
+    else if (typeof v === "string") {
+      const distinct = new Set<string>();
+      for (let r = rc.r1 + 1; r <= rc.r2; r++) distinct.add(String(evaluateCell(doc, sheet, refOf(c, r)) ?? ""));
+      if (distinct.size < rc.r2 - rc.r1 + 1) cats.push(head);
+    }
+  }
+  const out: AnalyzeSuggestion[] = [];
+  for (const cat of cats.slice(0, 2)) if (nums[0]) out.push({ title: `'${nums[0]}' by '${cat}'`, num: nums[0], cat });
+  if (nums[1] && cats[0]) out.push({ title: `'${nums[1]}' by '${cats[0]}'`, num: nums[1], cat: cats[0] });
+  return out.slice(0, 3);
+}
+
+function analyzeInsert(doc: ExcelBook, sheet: ExcelSheet, ui: SimUi, title: string): { doc: ExcelBook; ui?: Partial<SimUi> } {
+  const s = analyzeSuggestions(doc, sheet, activeCell(ui)).find((x) => x.title === title);
+  const rc = currentRegion(sheet, activeCell(ui)) ?? usedRect(sheet);
+  if (!s || !rc) return { doc };
+  let n = doc.sheets.length + 1;
+  while (doc.sheets.some((x) => x.name === `Sheet${n}`)) n++;
+  const name = `Sheet${n}`;
+  const idx = doc.sheets.findIndex((x) => x.name === sheet.name);
+  doc.sheets.splice(idx, 0, {
+    name,
+    cells: {},
+    pivot: { source: { sheet: sheet.name, range: rectToRange(rc) }, rows: [s.cat], columns: [], values: [{ field: s.num, fn: "Sum" }], filters: [], at: "A3" },
+    charts: [{ id: "c1", type: "Clustered Column", title: title.replace(/'/g, ""), range: "PIVOT", at: "D3" }],
+  });
+  doc.pane = null;
+  return { doc, ui: { sheet: name, selection: "A3" } };
 }

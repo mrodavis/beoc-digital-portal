@@ -51,6 +51,8 @@ export type XObject = WordObject & {
   group?: string;
   z?: number;
   textColor?: string;
+  /** Alt text for shapes and text boxes (their `text` is what they display). Pictures keep alt text in `text`. */
+  alt?: string;
 };
 export type XTable = WordTable & { merged?: number[]; repeatHeader?: boolean; autofit?: string };
 export type XChart = NonNullable<WordPara["chart"]> & { elements?: string[]; style?: string; colors?: string; alt?: string; decorative?: boolean };
@@ -628,13 +630,28 @@ function addCitation(doc: WordDoc, ui: SimUi, s: Source) {
   const d = xd(doc);
   d.sources = [...(d.sources ?? []).filter((x) => x.title !== s.title), s];
   const src = d.sources[d.sources.length - 1];
-  insertInline(doc, ui, citationText(doc, src), " ");
+  const cite = citationText(doc, src);
+  // With a whole sentence selected, the citation goes before its closing punctuation: "… high (Author, 2025)."
+  const sel = parseSel(doc, ui.selection);
+  const p = doc.paragraphs.find((x) => x.id === (sel.run?.para ?? sel.paras[0]));
+  const runs = p?.runs;
+  const idx = sel.run ? runs?.findIndex((r) => r.id === sel.run!.run) ?? -1 : runs ? runs.length - 1 : -1;
+  const r = runs && idx >= 0 ? runs[idx] : undefined;
+  const m = r ? /([.!?])\s*$/.exec(r.text) : null;
+  if (p && runs && r && m && !sel.cell && !sel.header) {
+    r.text = r.text.slice(0, m.index);
+    runs.splice(idx + 1, 0, { ...charProps(r), text: ` ${cite}` }, { ...charProps(r), text: m[1] });
+    return;
+  }
+  insertInline(doc, ui, cite, " ");
 }
 
 function bibEntry(doc: WordDoc, s: Source): string {
   const style = String(doc.flags?.citationStyle ?? "APA");
-  if (style === "MLA") return `${s.author}. "${s.title}." ${s.publisher ?? ""}, ${s.year}.`.replace(" , ", " ");
-  return `${s.author} (${s.year}). ${s.title}. ${s.publisher ?? ""}.${s.url ? ` ${s.url}` : ""}`.replace(" .", ".");
+  const author = s.author.endsWith(".") ? s.author : `${s.author}.`;
+  const pub = s.publisher && s.publisher !== s.author ? s.publisher : "";
+  if (style === "MLA") return `${author} "${s.title}." ${pub ? `${pub}, ` : ""}${s.year}.`;
+  return `${author} (${s.year}). ${s.title}.${pub ? ` ${pub}.` : ""}${s.url ? ` ${s.url}` : ""}`;
 }
 
 /* ---------- Dictation ---------- */
@@ -771,21 +788,22 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
         return { doc };
       }
       case "link": {
-        let addr = String(val.address ?? "");
+        // An address that isn't supplied leaves the current one alone (editing only the text to display).
+        let addr = val.address === undefined ? undefined : String(val.address);
         if (val.linkTo === "E-mail Address" && addr && !addr.startsWith("mailto:")) addr = `mailto:${addr}`;
         const text = String(val.text ?? "");
         if (sel.run) {
           const p = doc.paragraphs.find((x) => x.id === sel.run!.para)!;
           const r = p.runs?.find((x) => x.id === sel.run!.run);
           if (r) {
-            r.link = addr || undefined;
+            if (addr !== undefined) r.link = addr || undefined;
             if (text) r.text = text;
           }
         } else {
           for (const p of selectedParas(doc, ui)) {
-            if (!p.runs) p.runs = [{ text: text || p.text || addr }];
+            if (!p.runs) p.runs = [{ text: text || p.text || addr || "" }];
             else if (text && p.runs.length === 1) p.runs[0].text = text;
-            p.runs.forEach((r) => (r.link = addr || undefined));
+            if (addr !== undefined) p.runs.forEach((r) => (r.link = addr || undefined));
             p.text = undefined;
           }
         }
@@ -798,21 +816,24 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
       }
       case "insertPicture": {
         const file = String(val.file ?? "Picture");
-        insertAfterSelection(doc, ui, { id: newId("img", doc), kind: "image", object: { label: file, glyph: "🖼️", wrap: "inline", width: 45 } });
-        return { doc };
+        const id = newId("img", doc);
+        insertAfterSelection(doc, ui, { id, kind: "image", object: { label: file, glyph: "🖼️", wrap: "inline", width: 45 } });
+        return { doc, ui: { selection: id } };
       }
       case "onlinePictures": {
         const img = String(val.image ?? "Online picture");
-        insertAfterSelection(doc, ui, { id: newId("img", doc), kind: "image", object: { label: img, glyph: "🌐", wrap: "inline", width: 40 } });
-        return { doc };
+        const id = newId("img", doc);
+        insertAfterSelection(doc, ui, { id, kind: "image", object: { label: img, glyph: "🌐", wrap: "inline", width: 40 } });
+        return { doc, ui: { selection: id } };
       }
       case "insertChart": {
+        const id = newId("ch", doc);
         insertAfterSelection(doc, ui, {
-          id: newId("ch", doc),
+          id,
           kind: "chart",
           chart: { type: String(val.type ?? "Clustered Column"), title: "Chart Title", series: [{ label: "Category 1", value: 4.3 }, { label: "Category 2", value: 2.5 }, { label: "Category 3", value: 3.5 }, { label: "Category 4", value: 4.5 }] },
         });
-        return { doc };
+        return { doc, ui: { selection: id } };
       }
       case "insertTable": {
         const cols = Number(val.cols ?? 3), rows = Number(val.rows ?? 2);
@@ -835,7 +856,8 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
         const p = selectedParas(doc, ui)[0];
         const decorative = Boolean(val.decorative);
         const text = decorative ? "" : String(val.text ?? "");
-        if (p?.object) p.object = { ...p.object, text, ...(decorative ? { decorative: true } : { decorative: undefined }) } as XObject;
+        if (p?.object && p.kind === "image") p.object = { ...p.object, text, decorative: decorative || undefined } as XObject;
+        else if (p?.object) p.object = { ...p.object, alt: text, decorative: decorative || undefined } as XObject;
         else if (p?.chart) Object.assign(p.chart as XChart, { alt: text, decorative: decorative || undefined });
         doc.flags = { ...(doc.flags ?? {}), altText: decorative ? "(decorative)" : text };
         return { doc };
@@ -1215,8 +1237,9 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     case "home.updateStyle": {
       const p = selectedParas(doc, ui)[0];
       if (!p) return { doc };
-      const name = sv || p.style || "Normal";
       const d = xd(doc);
+      // The value is a style name only when one is passed explicitly (the gallery item passes its label).
+      const name = sv && (STYLES[sv] || PARA_STYLE_NAMES.includes(sv) || d.customStyles?.[sv]) ? sv : p.style || "Normal";
       const ov: StyleDef = { ...(d.styleDefs?.[name] ?? {}) };
       const rs = runsOf(p);
       for (const k of ["font", "size", "color", "bold", "italic", "underline"] as CharKey[]) {
@@ -1316,9 +1339,11 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     case "insert.icons":
     case "insert.smartArt":
     case "insert.onlinePictures":
-    case "insert.screenshot":
-      insertAfterSelection(doc, ui, { id: newId("img", doc), kind: "image", object: { label: sv || c.id.split(".")[1], glyph: c.id === "insert.icons" ? "★" : "🖼️", wrap: "inline", width: 30 } });
-      return { doc };
+    case "insert.screenshot": {
+      const id = newId("img", doc);
+      insertAfterSelection(doc, ui, { id, kind: "image", object: { label: sv || c.id.split(".")[1], glyph: c.id === "insert.icons" ? "★" : "🖼️", wrap: "inline", width: 30 } });
+      return { doc, ui: { selection: id } };
+    }
     case "insert.pageNumber":
       doc.pageNumbers = sv || "Bottom of Page - Plain Number 2";
       return { doc };
@@ -2096,7 +2121,7 @@ export function wordDialogDefaults(doc: WordDoc, ui: SimUi, id: string): Record<
     case "altText": {
       const o = p?.object as XObject | undefined;
       const ch = chartOf(p);
-      return { text: o?.text ?? ch?.alt ?? "", decorative: Boolean(o?.decorative ?? ch?.decorative) };
+      return { text: (p?.kind === "image" ? o?.text : o?.alt) ?? ch?.alt ?? "", decorative: Boolean(o?.decorative ?? ch?.decorative) };
     }
   }
   return {};

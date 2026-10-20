@@ -107,6 +107,8 @@ interface Ctx {
   sheet: ExcelSheet;
   depth: number;
   seen: Set<string>;
+  /** The cell whose formula is being evaluated (for [@Column] references). */
+  cur?: { sheet: ExcelSheet; ref: string };
 }
 
 function sheetByName(book: ExcelBook, name: string): ExcelSheet | undefined {
@@ -122,13 +124,134 @@ function cellValue(ctx: Ctx, sheet: ExcelSheet, ref: string): Val {
     if (ctx.depth > 40) throw new FormulaError("#CIRC!");
     ctx.seen.add(key);
     try {
-      return evalFormula(cell.f, { ...ctx, sheet, depth: ctx.depth + 1 });
+      return evalFormula(cell.f, { ...ctx, sheet, depth: ctx.depth + 1, cur: { sheet, ref } });
     } finally {
       ctx.seen.delete(key);
     }
   }
   if (cell.v === undefined || cell.v === "") return null;
   return cell.v;
+}
+
+/* Tables (structured references) ------------------------------------- */
+
+/** The sheet and range of an Excel Table, by name (case-insensitive). */
+export function findTable(book: ExcelBook, name: string): { sheet: ExcelSheet; rect: Rect } | null {
+  for (const s of book.sheets) {
+    if (s.table?.name && s.table.name.toLowerCase() === name.toLowerCase()) {
+      const rect = parseRange(s.table.range);
+      if (rect) return { sheet: s, rect };
+    }
+  }
+  return null;
+}
+
+function tableAt(sheet: ExcelSheet): Rect | null {
+  return sheet.table ? parseRange(sheet.table.range) : null;
+}
+
+function tableColumn(sheet: ExcelSheet, rect: Rect, col: string): number {
+  for (let c = rect.c1; c <= rect.c2; c++) {
+    const h = sheet.cells[refOf(c, rect.r1)]?.v;
+    if (String(h ?? "").trim().toLowerCase() === col.trim().toLowerCase()) return c;
+  }
+  throw new FormulaError("#REF!");
+}
+
+/* Linked data types --------------------------------------------------- */
+
+/**
+ * The records behind the Geography data type (Data › Geography). Population
+ * figures are 2020 U.S. Census counts. Only places used in practice files.
+ */
+export const GEOGRAPHY: Record<string, Record<string, string | number>> = {
+  albany: { Name: "Albany", "Admin Division 1 (State/province/other)": "New York", "Admin Division 2 (County/district/other)": "Albany County", "Country/region": "United States", Population: 99224, "Time zone(s)": "Eastern Time Zone" },
+  buffalo: { Name: "Buffalo", "Admin Division 1 (State/province/other)": "New York", "Admin Division 2 (County/district/other)": "Erie County", "Country/region": "United States", Population: 278349, "Time zone(s)": "Eastern Time Zone" },
+  rochester: { Name: "Rochester", "Admin Division 1 (State/province/other)": "New York", "Admin Division 2 (County/district/other)": "Monroe County", "Country/region": "United States", Population: 211328, "Time zone(s)": "Eastern Time Zone" },
+  syracuse: { Name: "Syracuse", "Admin Division 1 (State/province/other)": "New York", "Admin Division 2 (County/district/other)": "Onondaga County", "Country/region": "United States", Population: 148620, "Time zone(s)": "Eastern Time Zone" },
+  yonkers: { Name: "Yonkers", "Admin Division 1 (State/province/other)": "New York", "Admin Division 2 (County/district/other)": "Westchester County", "Country/region": "United States", Population: 211569, "Time zone(s)": "Eastern Time Zone" },
+};
+
+/** Match typed text ("Albany", "albany, ny") to a Geography record key. */
+export function geographyKey(text: unknown): string | null {
+  const t = String(text ?? "").trim().toLowerCase().replace(/,\s*(ny|new york)$/, "");
+  return GEOGRAPHY[t] ? t : null;
+}
+
+export function isLinkedGeography(book: ExcelBook, sheet: ExcelSheet, ref: string): boolean {
+  return Boolean(book.flags?.[`geo:${sheet.name}!${ref}`]);
+}
+
+/* AutoFilter ----------------------------------------------------------- */
+
+/**
+ * Does a filter specification let this value through? A specification is
+ * either the list of checked values (as displayed) or a single criterion
+ * from a Text/Number/Date filter, written "~>=100", "~between 5|10",
+ * "~contains Medline", "~notcontains gloves", "~begins Med", "~ends Co".
+ */
+export function filterAllows(spec: string[], v: string | number | boolean | null, shown: string): boolean {
+  if (spec.length === 1 && spec[0].startsWith("~")) return criterionMatches(spec[0].slice(1), v, shown);
+  const s = shown.toLowerCase();
+  const raw = String(v ?? "").toLowerCase();
+  return spec.some((a) => {
+    const x = a.toLowerCase();
+    return x === s || x === raw || (x === "(blanks)" && (v === null || v === ""));
+  });
+}
+
+function criterionMatches(c: string, v: string | number | boolean | null, shown: string): boolean {
+  const text = (typeof v === "string" ? v : shown).toLowerCase();
+  let m = /^between (.*)\|(.*)$/i.exec(c);
+  if (m) {
+    const lo = Number(m[1]), hi = Number(m[2]);
+    return typeof v === "number" && v >= Math.min(lo, hi) && v <= Math.max(lo, hi);
+  }
+  m = /^(contains|notcontains|begins|ends) (.*)$/i.exec(c);
+  if (m) {
+    const q = m[2].toLowerCase();
+    switch (m[1].toLowerCase()) {
+      case "contains": return text.includes(q);
+      case "notcontains": return !text.includes(q);
+      case "begins": return text.startsWith(q);
+      default: return text.endsWith(q);
+    }
+  }
+  m = /^(>=|<=|<>|>|<|=)(.*)$/.exec(c);
+  if (!m) return true;
+  const op = m[1];
+  const rhs = m[2].trim();
+  const n = Number(rhs.replace(/[$,]/g, ""));
+  if (rhs !== "" && !Number.isNaN(n) && typeof v === "number") {
+    switch (op) {
+      case ">=": return v >= n;
+      case "<=": return v <= n;
+      case ">": return v > n;
+      case "<": return v < n;
+      case "<>": return v !== n;
+      default: return v === n;
+    }
+  }
+  if (op === "=") return text === rhs.toLowerCase();
+  if (op === "<>") return text !== rhs.toLowerCase();
+  return false;
+}
+
+/** Rows an AutoFilter currently hides on a sheet. */
+export function filterHiddenRows(book: ExcelBook, sheet: ExcelSheet): Set<number> {
+  const out = new Set<number>();
+  const rc = sheet.filter ? parseRange(sheet.filter) : null;
+  if (!rc || !sheet.filterValues) return out;
+  for (const [col, spec] of Object.entries(sheet.filterValues)) {
+    if (!spec || !spec.length) continue;
+    for (let r: number = rc.r1 + 1; r <= rc.r2; r++) {
+      const ref = `${col}${r}`;
+      const v = evaluateCell(book, sheet, ref);
+      const shown = formatValue(v, sheet.cells[ref]?.fmt);
+      if (!filterAllows(spec, v, shown)) out.add(r);
+    }
+  }
+  return out;
 }
 
 /* Tokenizer --------------------------------------------------------- */
@@ -143,7 +266,13 @@ type Tok =
   | { t: "("; }
   | { t: ")"; }
   | { t: ","; }
-  | { t: "bool"; v: boolean };
+  | { t: "bool"; v: boolean }
+  /** Structured reference: Orders[Cost], [@Cost], Orders[@[Unit Cost]]. */
+  | { t: "sref"; table?: string; col: string; row: boolean }
+  /** Data type field: A2.Population, A2.[Time zone(s)]. */
+  | { t: "field"; ref: string; field: string }
+  /** Defined name or table name. */
+  | { t: "name"; v: string };
 
 function tokenize(src: string): Tok[] {
   const out: Tok[] = [];
@@ -175,10 +304,24 @@ function tokenize(src: string): Tok[] {
       i += sheetM[0].length;
       continue;
     }
+    // Structured references: Table[Column], [@Column], Table[@[Column Name]]
+    const srefM = /^([A-Za-z_][A-Za-z0-9_.]*)?\[(@?)(?:\[([^\]]+)\]|([^[\]]+))\]/.exec(src.slice(i));
+    if (srefM && (srefM[1] || srefM[2])) {
+      out.push({ t: "sref", table: srefM[1], col: (srefM[3] ?? srefM[4]).trim(), row: srefM[2] === "@" });
+      i += srefM[0].length;
+      continue;
+    }
     const rangeM = /^\$?[A-Za-z]{1,3}\$?\d+:\$?[A-Za-z]{1,3}\$?\d+/.exec(src.slice(i));
     if (rangeM) {
       out.push({ t: "range", v: rangeM[0] });
       i += rangeM[0].length;
+      continue;
+    }
+    // Data type field access: A2.Population or A2.[Admin Division 1 (State/province/other)]
+    const fieldM = /^(\$?[A-Za-z]{1,3}\$?\d+)\.(?:\[([^\]]+)\]|([A-Za-z_][A-Za-z0-9_]*))/.exec(src.slice(i));
+    if (fieldM) {
+      out.push({ t: "field", ref: fieldM[1].replace(/\$/g, "").toUpperCase(), field: (fieldM[2] ?? fieldM[3]).trim() });
+      i += fieldM[0].length;
       continue;
     }
     const wordM = /^[A-Za-z_][A-Za-z0-9_.]*/.exec(src.slice(i));
@@ -192,7 +335,7 @@ function tokenize(src: string): Tok[] {
       } else if (/^(TRUE|FALSE)$/i.test(w)) {
         out.push({ t: "bool", v: w.toUpperCase() === "TRUE" });
       } else {
-        throw new FormulaError("#NAME?");
+        out.push({ t: "name", v: w });
       }
       i += w.length;
       continue;
@@ -443,23 +586,152 @@ const FNS: Record<string, (args: Val[], raw: Tok[][], ctx: Ctx) => Val> = {
     if (idx < 0) throw new FormulaError("#N/A");
     return idx + 1;
   },
+  /* Dynamic arrays return a grid (rows of values) that spills. */
   UNIQUE: (a) => {
-    const seen: Val[] = [];
-    for (const v of flat([a[0]])) if (!seen.some((s) => eq(s, v))) seen.push(v);
-    return seen;
+    const g = toGrid(a[0] ?? null);
+    const seen = new Set<string>();
+    const out: Val[][] = [];
+    for (const row of g) {
+      const k = row.map((v) => String(v ?? "").toLowerCase()).join("\u0001");
+      if (!seen.has(k)) {
+        seen.add(k);
+        out.push(row);
+      }
+    }
+    return out;
   },
   SORT: (a) => {
-    const vals = flat([a[0]]).slice();
+    let g = toGrid(a[0] ?? null).map((r) => r.slice());
+    const idx = Math.max(1, toNum(a[1] ?? 1)) - 1;
     const desc = toNum(a[2] ?? 1) === -1;
-    vals.sort((x, y) => (typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y))));
-    return desc ? vals.reverse() : vals;
+    const byCol = a[3] !== undefined && truthy(a[3]);
+    if (byCol) g = transpose(g);
+    g.sort((r1, r2) => {
+      const c = sortCompare(r1[idx] ?? null, r2[idx] ?? null);
+      return desc ? -c : c;
+    });
+    return byCol ? transpose(g) : g;
+  },
+  SORTBY: (a) => {
+    const g = toGrid(a[0] ?? null);
+    const by = toGrid(a[1] ?? null).map((r) => r[0] ?? null);
+    const desc = toNum(a[2] ?? 1) === -1;
+    const order = g.map((_, i) => i);
+    order.sort((i, j) => {
+      const c = sortCompare(by[i] ?? null, by[j] ?? null);
+      return desc ? -c : c;
+    });
+    return order.map((i) => g[i]);
   },
   FILTER: (a) => {
-    const vals = flat([a[0]]);
-    const inc = flat([a[1]]);
-    return vals.filter((_, i) => truthy(inc[i]));
+    const arr = toGrid(a[0] ?? null);
+    const inc = toGrid(a[1] ?? null);
+    let out: Val[][];
+    if (inc.length === arr.length && (inc[0]?.length ?? 0) === 1) out = arr.filter((_, i) => truthy(inc[i][0]));
+    else if (inc.length === 1 && inc[0].length === (arr[0]?.length ?? 0)) {
+      const keep = inc[0].map(truthy);
+      out = arr.map((row) => row.filter((_, j) => keep[j]));
+      if (!out[0]?.length) out = [];
+    } else throw new FormulaError("#VALUE!");
+    if (!out.length) {
+      if (a[2] !== undefined) return a[2];
+      throw new FormulaError("#CALC!");
+    }
+    return out;
   },
+  SEQUENCE: (a) => {
+    const rows = Math.max(1, toNum(a[0] ?? 1));
+    const cols = Math.max(1, toNum(a[1] ?? 1));
+    const start = toNum(a[2] ?? 1);
+    const step = toNum(a[3] ?? 1);
+    return Array.from({ length: rows }, (_, r) => Array.from({ length: cols }, (_, c) => start + (r * cols + c) * step));
+  },
+  PRODUCT: (a) => nums(a).reduce((x, y) => x * y, 1),
+  IFS: (a) => {
+    for (let i = 0; i + 1 < a.length; i += 2) if (truthy(a[i])) return a[i + 1];
+    throw new FormulaError("#N/A");
+  },
+  FV: (a) => {
+    const rate = toNum(a[0]), n = toNum(a[1]), pmt = toNum(a[2]), pv = toNum(a[3] ?? 0);
+    if (rate === 0) return -(pv + pmt * n);
+    const f = Math.pow(1 + rate, n);
+    return -(pv * f + (pmt * (f - 1)) / rate);
+  },
+  PV: (a) => {
+    const rate = toNum(a[0]), n = toNum(a[1]), pmt = toNum(a[2]), fv = toNum(a[3] ?? 0);
+    if (rate === 0) return -(fv + pmt * n);
+    const f = Math.pow(1 + rate, n);
+    return -(fv + (pmt * (f - 1)) / rate) / f;
+  },
+  NETWORKDAYS: (a) => {
+    let s = Math.floor(toNum(a[0])), e = Math.floor(toNum(a[1]));
+    const sign = s <= e ? 1 : -1;
+    if (sign < 0) [s, e] = [e, s];
+    const hol = new Set(a[2] !== undefined ? nums([a[2]]).map(Math.floor) : []);
+    let n = 0;
+    for (let d = s; d <= e; d++) {
+      const wd = new Date(Date.UTC(1899, 11, 30) + d * 86400000).getUTCDay();
+      if (wd !== 0 && wd !== 6 && !hol.has(d)) n++;
+    }
+    return n * sign;
+  },
+  WEEKDAY: (a) => new Date(Date.UTC(1899, 11, 30) + Math.floor(toNum(a[0])) * 86400000).getUTCDay() + 1,
 };
+
+/* Grids ------------------------------------------------------------- */
+
+function toGrid(v: Val): Val[][] {
+  if (!Array.isArray(v)) return [[v]];
+  if (v.length === 0) return [];
+  if (Array.isArray(v[0])) return v as Val[][];
+  return (v as Val[]).map((x) => [x]);
+}
+
+function transpose(g: Val[][]): Val[][] {
+  const cols = Math.max(0, ...g.map((r) => r.length));
+  return Array.from({ length: cols }, (_, c) => g.map((r) => r[c] ?? null));
+}
+
+/** Excel's sort order: numbers, then text (case-insensitive), then logicals, blanks last. */
+function sortCompare(x: Val, y: Val): number {
+  const rank = (v: Val) => (v === null || v === "" ? 3 : typeof v === "number" ? 0 : typeof v === "boolean" ? 2 : 1);
+  const rx = rank(x), ry = rank(y);
+  if (rx !== ry) return rx - ry;
+  if (typeof x === "number" && typeof y === "number") return x - y;
+  return String(x ?? "").localeCompare(String(y ?? ""), undefined, { sensitivity: "base" });
+}
+
+/** Apply a scalar operation element by element (array formulas, FILTER conditions). */
+function elementwise(a: Val, b: Val, fn: (x: Val, y: Val) => Val): Val {
+  if (!Array.isArray(a) && !Array.isArray(b)) return fn(a, b);
+  const ga = toGrid(a), gb = toGrid(b);
+  const rows = Math.max(ga.length, gb.length);
+  const cols = Math.max(ga[0]?.length ?? 0, gb[0]?.length ?? 0);
+  const pick = (g: Val[][], r: number, c: number): Val | undefined => {
+    const row = g[g.length === 1 ? 0 : r];
+    if (!row) return undefined;
+    const cc = row.length === 1 ? 0 : c;
+    return cc < row.length ? row[cc] : undefined;
+  };
+  const out: Val[][] = [];
+  for (let r = 0; r < rows; r++) {
+    const row: Val[] = [];
+    for (let c = 0; c < cols; c++) {
+      const x = pick(ga, r, c), y = pick(gb, r, c);
+      if (x === undefined || y === undefined) {
+        row.push("#N/A");
+        continue;
+      }
+      try {
+        row.push(fn(x, y));
+      } catch (e) {
+        row.push(e instanceof FormulaError ? e.code : "#VALUE!");
+      }
+    }
+    out.push(row);
+  }
+  return out;
+}
 
 function eq(a: Val, b: Val): boolean {
   if (typeof a === "number" && typeof b === "number") return a === b;
@@ -481,7 +753,12 @@ type Node =
   | { k: "neg"; a: Node }
   | { k: "pct"; a: Node }
   | { k: "bin"; op: string; a: Node; b: Node }
-  | { k: "fn"; name: string; args: Node[] };
+  | { k: "fn"; name: string; args: Node[] }
+  | { k: "sref"; table?: string; col: string; row: boolean }
+  | { k: "field"; ref: string; field: string }
+  | { k: "name"; v: string }
+  /** An omitted argument, as in =SORT(A2:B9,,-1). */
+  | { k: "omit" };
 
 function parse(src: string): Node {
   const toks = tokenize(src);
@@ -497,6 +774,9 @@ function parse(src: string): Node {
       case "bool": return { k: "lit", v: t.v };
       case "ref": return { k: "ref", v: t.v.replace(/\$/g, "").toUpperCase(), sheet: t.sheet };
       case "range": return { k: "range", v: t.v, sheet: t.sheet };
+      case "sref": return { k: "sref", table: t.table, col: t.col, row: t.row };
+      case "field": return { k: "field", ref: t.ref, field: t.field };
+      case "name": return { k: "name", v: t.v };
       case "op":
         if (t.v === "-") return { k: "neg", a: unary() };
         if (t.v === "+") return unary();
@@ -514,7 +794,8 @@ function parse(src: string): Node {
         const args: Node[] = [];
         if (toks[pos]?.t !== ")") {
           for (;;) {
-            args.push(expr(0));
+            const nt = toks[pos]?.t;
+            args.push(nt === "," || nt === ")" ? { k: "omit" } : expr(0));
             if (toks[pos]?.t === ",") { pos++; continue; }
             break;
           }
@@ -604,12 +885,54 @@ function evalNode(n: Node, ctx: Ctx): Val {
       }
       return rows;
     }
-    case "neg": return -toNum(evalNode(n.a, ctx));
-    case "pct": return toNum(evalNode(n.a, ctx)) / 100;
-    case "bin": return binop(n.op, evalNode(n.a, ctx), evalNode(n.b, ctx));
+    case "neg": return elementwise(evalNode(n.a, ctx), null, (x) => -toNum(x));
+    case "pct": return elementwise(evalNode(n.a, ctx), null, (x) => toNum(x) / 100);
+    case "bin": return elementwise(evalNode(n.a, ctx), evalNode(n.b, ctx), (x, y) => binop(n.op, x, y));
+    case "omit": return undefined as unknown as Val;
+    case "sref": {
+      const t = n.table ? findTable(ctx.book, n.table) : (() => {
+        const s = ctx.cur?.sheet ?? ctx.sheet;
+        const rect = tableAt(s);
+        return rect ? { sheet: s, rect } : null;
+      })();
+      if (!t) throw new FormulaError("#REF!");
+      const col = tableColumn(t.sheet, t.rect, n.col);
+      if (n.row) {
+        const p = ctx.cur ? parseRef(ctx.cur.ref) : null;
+        if (!p || p.r <= t.rect.r1 || p.r > t.rect.r2) throw new FormulaError("#VALUE!");
+        return cellValue(ctx, t.sheet, refOf(col, p.r));
+      }
+      return evalNode({ k: "range", v: `${refOf(col, t.rect.r1 + 1)}:${refOf(col, t.rect.r2)}`, sheet: t.sheet.name }, ctx);
+    }
+    case "field": {
+      const sheet = ctx.cur?.sheet ?? ctx.sheet;
+      if (!isLinkedGeography(ctx.book, sheet, n.ref)) throw new FormulaError("#FIELD!");
+      const key = geographyKey(cellValue(ctx, sheet, n.ref));
+      const rec = key ? GEOGRAPHY[key] : null;
+      const f = rec ? Object.keys(rec).find((k) => k.toLowerCase() === n.field.toLowerCase()) : undefined;
+      if (!rec || !f) throw new FormulaError("#FIELD!");
+      return rec[f];
+    }
+    case "name": {
+      const names = ctx.book.names ?? {};
+      const key = Object.keys(names).find((k) => k.toLowerCase() === n.v.toLowerCase());
+      if (key) {
+        if (ctx.depth > 40) throw new FormulaError("#NAME?");
+        return evalNode(parse(names[key].replace(/^=/, "")), { ...ctx, depth: ctx.depth + 1 });
+      }
+      const t = findTable(ctx.book, n.v);
+      if (t) return evalNode({ k: "range", v: `${refOf(t.rect.c1, t.rect.r1 + 1)}:${refOf(t.rect.c2, t.rect.r2)}`, sheet: t.sheet.name }, ctx);
+      throw new FormulaError("#NAME?");
+    }
     case "fn": {
       if (n.name === "IF") {
-        const c = evalNode(n.args[0], ctx);
+        const c = evalNode(n.args[0] ?? { k: "omit" }, ctx);
+        if (Array.isArray(c)) {
+          // Array condition (e.g. =IF(C2:C9<D2:D9,"Reorder","OK")): evaluate per element.
+          const yes = n.args[1] ? evalNode(n.args[1], ctx) : true;
+          const no = n.args[2] ? evalNode(n.args[2], ctx) : false;
+          return elementwise(c, null, (x) => (truthy(x) ? (Array.isArray(yes) ? toGrid(yes)[0]?.[0] ?? null : yes) : Array.isArray(no) ? toGrid(no)[0]?.[0] ?? null : no));
+        }
         if (truthy(c)) return n.args[1] ? evalNode(n.args[1], ctx) : true;
         return n.args[2] ? evalNode(n.args[2], ctx) : false;
       }
@@ -621,11 +944,64 @@ function evalNode(n: Node, ctx: Ctx): Val {
           throw e;
         }
       }
+      if (n.name === "SUBTOTAL") return subtotalFn(n.args, ctx);
       const fn = FNS[n.name];
       if (!fn) throw new FormulaError("#NAME?");
       return fn(n.args.map((a) => evalNode(a, ctx)), [], ctx);
     }
   }
+}
+
+/** The sheet and rectangle a reference node points at (for SUBTOTAL). */
+function areaOf(n: Node, ctx: Ctx): { sheet: ExcelSheet; rect: Rect } | null {
+  if (n.k === "range" || n.k === "ref") {
+    const sheet = n.sheet ? sheetByName(ctx.book, n.sheet) : ctx.sheet;
+    const rect = parseRange(n.v);
+    return sheet && rect ? { sheet, rect } : null;
+  }
+  if (n.k === "sref" && !n.row) {
+    const t = n.table ? findTable(ctx.book, n.table) : (() => {
+      const s = ctx.cur?.sheet ?? ctx.sheet;
+      const rect = tableAt(s);
+      return rect ? { sheet: s, rect } : null;
+    })();
+    if (!t) return null;
+    const col = tableColumn(t.sheet, t.rect, n.col);
+    return { sheet: t.sheet, rect: { c1: col, c2: col, r1: t.rect.r1 + 1, r2: t.rect.r2 } };
+  }
+  return null;
+}
+
+/**
+ * SUBTOTAL ignores rows hidden by a filter, and with codes 101-111 also rows
+ * hidden by hand or by a collapsed outline. Like Excel, it skips other
+ * SUBTOTAL results inside its range so grand totals never double count.
+ */
+function subtotalFn(args: Node[], ctx: Ctx): Val {
+  const code = toNum(evalNode(args[0] ?? { k: "omit" }, ctx));
+  const fnName = ({ 1: "AVERAGE", 2: "COUNT", 3: "COUNTA", 4: "MAX", 5: "MIN", 6: "PRODUCT", 9: "SUM" } as Record<number, string>)[code % 100];
+  if (!fnName) throw new FormulaError("#VALUE!");
+  const vals: Val[] = [];
+  for (const arg of args.slice(1)) {
+    const area = areaOf(arg, ctx);
+    if (!area) {
+      vals.push(evalNode(arg, ctx));
+      continue;
+    }
+    const filtered = filterHiddenRows(ctx.book, area.sheet);
+    const manual = new Set(code > 100 ? area.sheet.hiddenRows ?? [] : []);
+    const r2 = Math.min(area.rect.r2, area.rect.r1 + 1000);
+    for (let r = area.rect.r1; r <= r2; r++) {
+      if (filtered.has(r) || manual.has(r)) continue;
+      for (let c = area.rect.c1; c <= Math.min(area.rect.c2, area.rect.c1 + 60); c++) {
+        const ref = refOf(c, r);
+        const cell = area.sheet.cells[ref];
+        if (cell?.f && /\bSUBTOTAL\s*\(/i.test(cell.f)) continue;
+        vals.push(cellValue(ctx, area.sheet, ref));
+      }
+    }
+  }
+  return FNS[fnName](vals, [], ctx);
 }
 
 const PARSE_CACHE = new Map<string, Node>();
@@ -657,13 +1033,46 @@ export function evaluateCell(book: ExcelBook, sheet: ExcelSheet, ref: string): s
 }
 
 /** Spill support for dynamic-array lessons: returns all values a formula produces. */
-export function evaluateSpill(book: ExcelBook, sheet: ExcelSheet, f: string): (string | number | boolean | null)[] {
+export function evaluateSpill(book: ExcelBook, sheet: ExcelSheet, f: string, at?: string): (string | number | boolean | null)[] {
   try {
-    const v = evalFormula(f, { book, sheet, depth: 0, seen: new Set() });
+    const v = evalFormula(f, { book, sheet, depth: 0, seen: new Set(), cur: at ? { sheet, ref: at } : undefined });
     return Array.isArray(v) ? (flat(v) as (string | number | boolean | null)[]) : [v as string | number | boolean | null];
   } catch (e) {
     return [e instanceof FormulaError ? e.code : "#ERROR!"];
   }
+}
+
+export type Scalar = string | number | boolean | null;
+
+/** The full grid a dynamic array formula returns (rows of values), for spilling. */
+export function evaluateSpillGrid(book: ExcelBook, sheet: ExcelSheet, f: string, at?: string): Scalar[][] {
+  try {
+    const v = evalFormula(f, { book, sheet, depth: 0, seen: new Set(), cur: at ? { sheet, ref: at } : undefined });
+    if (!Array.isArray(v)) return [[(v ?? null) as Scalar]];
+    return toGrid(v).map((row) => row.map((x) => (Array.isArray(x) ? (flat(x)[0] ?? null) : x) as Scalar));
+  } catch (e) {
+    return [[e instanceof FormulaError ? e.code : "#ERROR!"]];
+  }
+}
+
+/** Show a formula in R1C1 notation as seen from the cell at (row, col). */
+export function formulaToR1C1(f: string, row: number, col: number): string {
+  let inStr = false;
+  return f
+    .split('"')
+    .map((part) => {
+      const out = inStr
+        ? part
+        : part.replace(/(^|[^A-Za-z0-9_'.[])(\$?)([A-Za-z]{1,3})(\$?)(\d+)(?![A-Za-z0-9_(!])/g, (_m, pre, d1, colS, d2, rowS) => {
+            const c = colToNum(colS), r = Number(rowS);
+            const rs = d2 ? `R${r}` : r === row ? "R" : `R[${r - row}]`;
+            const cs = d1 ? `C${c}` : c === col ? "C" : `C[${c - col}]`;
+            return `${pre}${rs}${cs}`;
+          });
+      inStr = !inStr;
+      return out;
+    })
+    .join('"');
 }
 
 /* ------------------------------------------------------------------ */
@@ -724,7 +1133,9 @@ export function normalizeFormula(f: string, strictRefs = false): string {
 /* ------------------------------------------------------------------ */
 
 export function shiftFormula(f: string, dc: number, dr: number): string {
-  return f.replace(/(^|[^A-Za-z0-9_!'])(\$?)([A-Za-z]{1,3})(\$?)(\d+)(?![A-Za-z0-9_(])/g, (m, pre, d1, col, d2, row) => {
+  // Sheet-qualified references (Data!C7, 'Q3 Orders'!C7) shift too; a sheet
+  // name that looks like a cell (Q1!B4) is left alone.
+  return f.replace(/(^|[^A-Za-z0-9_'.[])(\$?)([A-Za-z]{1,3})(\$?)(\d+)(?![A-Za-z0-9_(!])/g, (m, pre, d1, col, d2, row) => {
     const c = d1 ? colToNum(col) : colToNum(col) + dc;
     const r = d2 ? Number(row) : Number(row) + dr;
     if (c < 1 || r < 1) return `${pre}#REF!`;
