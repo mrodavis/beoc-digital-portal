@@ -162,7 +162,7 @@ export const excelModule8Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "C2:C8" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "C2:C8" } }],
               requires: { selection: ["C2", "C2:C8"] },
               selectHint: "Start from C2 (or select C2:C8 for Ctrl+D).",
             },
@@ -179,7 +179,7 @@ export const excelModule8Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "D2:D8" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "D2:D8" } }],
               requires: { selection: ["D2", "D2:D8"] },
               selectHint: "Start from D2 (or select D2:D8 for Ctrl+D).",
             },
@@ -256,7 +256,7 @@ export const excelModule8Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "B2:B4" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "B2:B4" } }],
               requires: { selection: ["B2", "B2:B4"] },
               selectHint: "Start from B2 (or select B2:B4 for Ctrl+D).",
             },
@@ -336,7 +336,7 @@ export const excelModule8Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "D2:D8" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "D2:D8" } }],
               requires: { selection: ["D2", "D2:D8"] },
               selectHint: "Start from D2 (or select D2:D8 for Ctrl+D).",
             },

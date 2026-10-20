@@ -581,8 +581,11 @@ export function wordDialogDef(doc: WordDoc, ui: SimUi, id: string): DialogDef | 
         : { ...base, fields: [{ type: "note", text: "No AutoText entries yet. Select text, then Quick Parts › Save Selection to AutoText Gallery." }] };
     }
     case "selectRecipients": {
-      const files = (doc.merge as XMerge | undefined)?.files;
-      return files?.length ? withOptions(base, "file", (f) => ({ ...f, options: files }) as DialogField) : base;
+      // The sim document can name the files to offer (merge.files); a source it already uses is always listed.
+      const m = doc.merge as XMerge | undefined;
+      const stock = (base.fields!.find((f) => "key" in f && f.key === "file") as { options: string[] }).options;
+      const files = m?.files?.length ? m.files : m?.source && !stock.includes(m.source) ? [m.source, ...stock] : undefined;
+      return files ? withOptions(base, "file", (f) => ({ ...f, options: files }) as DialogField) : base;
     }
     case "editRecipients": {
       const recs = recipientsOf(doc);

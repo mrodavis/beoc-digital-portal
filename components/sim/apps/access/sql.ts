@@ -794,7 +794,7 @@ export function printExpr(e: Expr, impl = ""): string {
       const word = /^[a-z]/.test(e.op);
       const l = side(e.l, false);
       const r = side(e.r, true);
-      if (word) return `${l} ${opText(e.op)} ${r}`.trim();
+      if (word || e.op === "&") return `${l} ${opText(e.op)} ${r}`.trim();
       return `${l}${e.op}${r}`;
     }
   }

@@ -1803,7 +1803,7 @@ const m4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Protect the Supply Tracker sheet with the password \"Lakeside2026\", leaving Select locked cells and Select unlocked cells allowed.",
-          hint: "Review tab › Protect group › Protect Sheet. Type Lakeside2026 as the password, keep both Select options checked, OK, and confirm the password.",
+          hint: "Review tab › Protect group › Protect Sheet. Type Lakeside2026 as the password, keep both Select options checked, and click OK.",
           steps: [{ action: { kind: "dialog", id: "protectSheet", values: { password: "Lakeside2026", selectLocked: true, selectUnlocked: true } } }],
         },
         {

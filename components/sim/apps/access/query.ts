@@ -36,6 +36,24 @@ export function splitField(s: string): { alias?: string; expr: string } {
   return { expr: s.trim() };
 }
 
+/**
+ * Tidy a Field cell the way Access redisplays it when you leave the cell:
+ * "TotalCost:[Quantity] * UnitCost" → "TotalCost: [Quantity]*[UnitCost]".
+ * Plain field names and "Table.*" stay as typed.
+ */
+export function normalizeFieldCell(raw: string): string {
+  const s = raw.trim();
+  if (!s) return s;
+  const { alias, expr } = splitField(s);
+  if (!alias && (/^\[?[\w ]+\]?$/.test(expr) || /\*$/.test(expr) || /^[\w ]+\.[\w ]+$/.test(expr))) return s;
+  try {
+    const e = printExpr(parseExpr(expr));
+    return alias ? `${alias}: ${e}` : e;
+  } catch {
+    return s;
+  }
+}
+
 /** The visible name of a grid column, used in qcell targets. */
 export function colKey(c: AccQueryCol): string {
   const { alias, expr } = splitField(c.field);

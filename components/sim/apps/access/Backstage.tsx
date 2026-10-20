@@ -21,17 +21,20 @@ const TEMPLATES = [
   { name: "Task management", color: "#5c2d91" },
 ];
 
-function BlankDbPanel({ onCreate, onCancel, location }: { onCreate: (name: string) => void; onCancel: () => void; location: string }) {
-  const [name, setName] = useState("Database1.accdb");
+/** The panel that names a new database: blank, or built from a template. */
+function BlankDbPanel({ onCreate, onCancel, location, template }: { onCreate: (value: string) => void; onCancel: () => void; location: string; template?: string }) {
+  const isTemplate = Boolean(template && template !== "Blank database");
+  const [name, setName] = useState(isTemplate ? `${template}.accdb` : "Database1.accdb");
+  const create = () => onCreate(isTemplate ? `${template}|${name.trim()}` : name.trim());
   return (
-    <Win title="Blank database" width={380} onClose={onCancel} footer={<><Btn primary onClick={() => onCreate(name)}>Create</Btn><Btn onClick={onCancel}>Cancel</Btn></>}>
+    <Win title={isTemplate ? template! : "Blank database"} width={380} onClose={onCancel} footer={<><Btn primary onClick={create}>Create</Btn><Btn onClick={onCancel}>Cancel</Btn></>}>
       <div className="flex gap-3">
         <div className="flex h-24 w-20 shrink-0 items-center justify-center border border-gray-300 bg-white"><AccIcon name="accdb" size={36} /></div>
         <div className="flex flex-1 flex-col gap-1.5">
           <label className="flex flex-col gap-0.5">
             File Name
             <span className="flex items-center gap-1">
-              <TextIn ariaLabel="File Name" value={name} onChange={setName} onEnter={() => onCreate(name)} className="h-[24px] flex-1 border border-[#7a7a7a] bg-white px-1 outline-none" />
+              <TextIn ariaLabel="File Name" value={name} onChange={setName} onEnter={create} className="h-[24px] flex-1 border border-[#7a7a7a] bg-white px-1 outline-none" />
               <span title="Browse for a location to put your database" className="border border-gray-400 bg-white p-0.5"><AccIcon name="folder" size={14} /></span>
             </span>
           </label>
@@ -65,7 +68,7 @@ function SaveFileDialog({ title, defaultName, ext, folder, onSave, onCancel }: {
 
 export function StartScreen({ doc, onCommit }: { doc: AccessDoc; onCommit: (c: SimCommit) => void }) {
   const [page, setPage] = useState<"home" | "new" | "open">("home");
-  const [blank, setBlank] = useState(false);
+  const [blank, setBlank] = useState<string | null>(null);
   const name = doc.saved?.name ?? "Database1.accdb";
   return (
     <div className="absolute inset-0 z-20 flex bg-white text-[13px]">
@@ -87,7 +90,7 @@ export function StartScreen({ doc, onCommit }: { doc: AccessDoc; onCommit: (c: S
         {page !== "open" && (
           <div className="mb-6 flex flex-wrap gap-4">
             {TEMPLATES.map((t) => (
-              <button key={t.name} type="button" onClick={() => (t.name === "Blank database" ? setBlank(true) : onCommit(cmd("file.new", t.name)))} className="flex w-[118px] flex-col items-center gap-1.5 text-center text-[12px] hover:text-[#a4373a]">
+              <button key={t.name} type="button" onClick={() => setBlank(t.name)} className="flex w-[118px] flex-col items-center gap-1.5 text-center text-[12px] hover:text-[#a4373a]">
                 <span className="flex h-[118px] w-[110px] items-center justify-center border border-gray-300 bg-white shadow-sm hover:border-[#a4373a]" style={t.color ? { background: `linear-gradient(${t.color} 0 34%, #fff 34%)` } : undefined}>
                   {!t.color && <AccIcon name="table" size={34} />}
                 </span>
@@ -110,7 +113,7 @@ export function StartScreen({ doc, onCommit }: { doc: AccessDoc; onCommit: (c: S
           </>
         )}
       </div>
-      {blank && <BlankDbPanel location={doc.saved?.location ?? "C:\\Users\\Student\\Documents"} onCancel={() => setBlank(false)} onCreate={(n) => { setBlank(false); onCommit(cmd("file.new", n.trim())); }} />}
+      {blank && <BlankDbPanel template={blank} location={doc.saved?.location ?? "C:\\Users\\Student\\Documents"} onCancel={() => setBlank(null)} onCreate={(n) => { setBlank(null); onCommit(cmd("file.new", n)); }} />}
     </div>
   );
 }
@@ -125,7 +128,7 @@ export function AccessBackstage(props: BackstageProps<AccessDoc>) {
 
 function FileTab({ doc, fileName, startPage, onCommit, onClose }: { doc: AccessDoc; fileName: string; startPage: string; onCommit: (c: SimCommit) => void; onClose: () => void }) {
   const [page, setPage] = useState<Page>((["home", "new", "open", "info", "saveAs", "print", "account", "options"].includes(startPage) ? startPage : "home") as Page);
-  const [blank, setBlank] = useState(false);
+  const [blank, setBlank] = useState<string | null>(null);
   const [pw, setPw] = useState<{ a: string; b: string; err?: string } | null>(null);
   const [saveKind, setSaveKind] = useState<"db" | "object">("db");
   const [dbFmt, setDbFmt] = useState("Access Database");
@@ -203,7 +206,7 @@ function FileTab({ doc, fileName, startPage, onCommit, onClose }: { doc: AccessD
             <h2 className="mb-4 text-2xl font-light">{page === "home" ? "Good morning" : "New"}</h2>
             <div className="mb-6 flex flex-wrap gap-4">
               {TEMPLATES.map((t) => (
-                <button key={t.name} type="button" onClick={() => (t.name === "Blank database" ? setBlank(true) : commitClose(cmd("file.new", t.name)))} className="flex w-[118px] flex-col items-center gap-1.5 text-center text-[12px] hover:text-[#a4373a]">
+                <button key={t.name} type="button" onClick={() => setBlank(t.name)} className="flex w-[118px] flex-col items-center gap-1.5 text-center text-[12px] hover:text-[#a4373a]">
                   <span className="flex h-[118px] w-[110px] items-center justify-center border border-gray-300 bg-white shadow-sm hover:border-[#a4373a]" style={t.color ? { background: `linear-gradient(${t.color} 0 34%, #fff 34%)` } : undefined}>
                     {!t.color && <AccIcon name="table" size={34} />}
                   </span>
@@ -392,7 +395,7 @@ function FileTab({ doc, fileName, startPage, onCommit, onClose }: { doc: AccessD
             </div>
           </Win>
         )}
-        {blank && <BlankDbPanel location={loc} onCancel={() => setBlank(false)} onCreate={(n) => { setBlank(false); commitClose(cmd("file.new", n.trim())); }} />}
+        {blank && <BlankDbPanel template={blank} location={loc} onCancel={() => setBlank(null)} onCreate={(n) => { setBlank(null); commitClose(cmd("file.new", n)); }} />}
         {pw && (
           <Win
             title="Set Database Password"

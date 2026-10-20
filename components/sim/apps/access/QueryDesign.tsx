@@ -5,7 +5,7 @@ import type { SimCommit } from "@/types/sim";
 import type { AccessDoc, AccQuery, AccQueryCol } from "./types";
 import { TOTAL_FUNCS } from "./types";
 import { fieldNames, findQuery, findTable, dataSource } from "./data";
-import { colKey, queryText, splitField } from "./query";
+import { colKey, normalizeFieldCell, queryText, splitField } from "./query";
 import { parseSel } from "./model";
 import { normalizeCriteria } from "./sql";
 import { AccIcon } from "./icons";
@@ -149,6 +149,7 @@ export function QueryDesign({ doc, ui, tab, onSelect, onCommit, openDialog, show
     let v = raw;
     if (row === "Criteria" || row.startsWith("Or")) v = normalizeCriteria(raw, allFields);
     if (row === "Update To") v = normalizeCriteria(raw, allFields);
+    if (row === "Field") v = normalizeFieldCell(raw);
     if (!col && row !== "Field") return;
     const cur = col ? cellValue(col, row) : "";
     if (cur === v) return;

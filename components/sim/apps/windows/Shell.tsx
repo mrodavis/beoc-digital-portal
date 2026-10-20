@@ -36,6 +36,7 @@ import {
   itemMenu,
   listEntries,
   newMenu,
+  openItem,
   pasteInto,
   sortEntries,
   startItemDrag,
@@ -145,6 +146,13 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
   const altTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [snipping, setSnipping] = useState<null | "choose">(null);
   const [pinPanel, setPinPanel] = useState(false);
+  const pinRef = useRef<HTMLInputElement>(null);
+  const pinErr = Boolean(doc.flags?.pinError);
+  useEffect(() => {
+    if (!pinPanel || !doc.locked || pinErr) return;
+    const t = setTimeout(() => pinRef.current?.focus(), 30);
+    return () => clearTimeout(t);
+  }, [pinPanel, doc.locked, pinErr]);
   const [pin, setPin] = useState("");
   const [boot, setBoot] = useState(false);
   const [toastHidden, setToastHidden] = useState<number | null>(null);
@@ -484,7 +492,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
     setQuery("");
     if (h.kind === "app") cmd("win.open", h.id);
     else if (h.kind === "setting") cmd("settings.nav", h.id);
-    else if (h.kind === "file") cmd("fs.open", h.id);
+    else if (h.kind === "file") openItem(ctx, h.id);
     else cmd("edge.search", h.title);
   };
 
@@ -561,7 +569,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
             selected={deskSel.has(en.key)}
             renaming={renaming !== null && renaming.toLowerCase() === `desk:${en.path}`.toLowerCase() ? en : null}
             onDown={(e) => onDeskDown(e, en)}
-            onOpen={() => cmd("fs.open", en.path)}
+            onOpen={() => openItem(ctx, en.path)}
             onMenu={(e) => { if (!deskSel.has(en.key)) select(en.key); itemMenu(ctx, e, en); }}
             onDragStart={(e) => startItemDrag(e, ctx, en)}
             onDrop={en.folder ? (e) => dropOnto(e, ctx, en.path) : undefined}
@@ -626,7 +634,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
           {S(doc, "start.recent") === "on" && (doc.recent ?? []).length ? (
             <div className="grid grid-cols-2 gap-1 pb-3">
               {(doc.recent ?? []).filter((p) => getItem(doc, p)).slice(0, 6).map((p) => (
-                <button key={p} type="button" aria-label={baseOf(p)} onClick={() => { closeFly(); cmd("fs.open", p); }} className="flex items-center gap-3 rounded p-2 text-left hover:bg-[var(--w-hover)]">
+                <button key={p} type="button" aria-label={baseOf(p)} onClick={() => { closeFly(); openItem(ctx, p); }} className="flex items-center gap-3 rounded p-2 text-left hover:bg-[var(--w-hover)]">
                   <FileArt kind={entryOf(doc, p, false)?.art ?? "file"} s={28} />
                   <span className="min-w-0"><span className="block truncate text-[12px]">{baseOf(p)}</span><span className="block text-[10.5px]" style={{ color: T.sub }}>Recently opened</span></span>
                 </button>
@@ -1062,11 +1070,14 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
   const vpnOn = n.vpns.some((v) => v.connected);
   const taskbar = (
     <div
+      role="toolbar"
+      aria-label="Taskbar"
       className="absolute inset-x-0 bottom-0 z-[250] flex items-center px-2"
       style={{ height: TASKBAR_H, background: T.taskbar, borderTop: `1px solid ${T.line}`, backdropFilter: "blur(30px)", color: T.text }}
       onMouseDown={(e) => e.stopPropagation()}
       onContextMenu={(e) => {
-        if (e.target !== e.currentTarget) return;
+        // Empty taskbar space: the bar itself or the strip that holds the app buttons.
+        if (e.target !== e.currentTarget && !(e.target as HTMLElement).dataset?.tbEmpty) return;
         e.preventDefault();
         ctx.menu({ clientX: e.clientX, clientY: e.clientY - 80 }, [{ label: "Task Manager", icon: "chart", onClick: () => cmd("win.open", "taskmgr") }, { label: "Taskbar settings", icon: "gear", onClick: () => cmd("settings.nav", "personalization/taskbar") }]);
       }}
@@ -1077,7 +1088,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
           <span className="hidden leading-tight sm:block"><span className="block font-semibold">64°F</span><span style={{ color: T.sub }}>Partly sunny</span></span>
         </button>
       )}
-      <div className={`flex min-w-0 flex-1 items-center gap-0.5 ${align === "Left" ? "justify-start" : "justify-center"}`}>
+      <div data-tb-empty="1" className={`flex min-w-0 flex-1 items-center gap-0.5 ${align === "Left" ? "justify-start" : "justify-center"}`}>
         <button
           type="button"
           aria-label="Start"
@@ -1242,7 +1253,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
 
   const pinLen = pinOf(doc).length || 4;
   const lockLayer = doc.locked && (!doc.power || doc.power === "on") && (
-    <div className="absolute inset-0 z-[600] flex flex-col items-center text-white" style={{ background: WALLPAPERS[S(doc, "wallpaper")] ?? WALLPAPERS.Bloom }} onMouseDown={() => setPinPanel(true)} role="region" aria-label="Lock screen">
+    <div className="absolute inset-0 z-[600] flex flex-col items-center text-white" style={{ background: WALLPAPERS[S(doc, "wallpaper")] ?? WALLPAPERS.Bloom }} onMouseDown={(e) => { e.preventDefault(); setPinPanel(true); }} role="region" aria-label="Lock screen">
       <div className="absolute inset-0" style={{ background: pinPanel ? "rgba(0,0,0,.35)" : "rgba(0,0,0,.08)", backdropFilter: pinPanel ? "blur(14px)" : undefined }} />
       {!pinPanel ? (
         <div className="relative mt-[12%] text-center drop-shadow-lg">
@@ -1261,6 +1272,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
             </>
           ) : (
             <input
+              ref={pinRef}
               autoFocus
               aria-label="PIN"
               type="password"
@@ -1343,7 +1355,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
         tabIndex={0}
         onKeyDown={onKeyDown}
         className="relative h-full w-full select-none overflow-hidden outline-none"
-        style={{ ...(THEME_VARS(dark) as React.CSSProperties), background: "#000", fontFamily: "'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif" }}
+        style={{ ...(THEME_VARS(dark) as React.CSSProperties), isolation: "isolate", background: "#000", fontFamily: "'Segoe UI Variable Text', 'Segoe UI', system-ui, sans-serif" }}
         onMouseDownCapture={(e) => {
           if (!(e.target as HTMLElement).closest?.('[role="menu"]')) deskActive.current = false;
         }}

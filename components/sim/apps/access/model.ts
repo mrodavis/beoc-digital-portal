@@ -49,6 +49,7 @@ import {
 } from "./data";
 import { actionMessage, colKey, queryText, resultSignature, runQuery, splitField, sqlToGrid, tableForField } from "./query";
 import { buildForm, buildReport, controlForField, documenter, exportFile, importSheet, nextName, nextNumbered, sourceFields } from "./build";
+import { applyTemplate, TEMPLATE_NAMES } from "./templates";
 import { compare, formatValue, isDate, normalizeCriteria, parseCriteria, toText, type ActionEffect, type V } from "./sql";
 import { immediate, runVba, type VbaAction } from "./vba";
 import { DATE_SAMPLES, TIME_SAMPLES } from "./dialogs";
@@ -2078,7 +2079,17 @@ export function applyAccess(doc: AccessDoc, c: SimCommit, ui: SimUi): { doc: Acc
 
     /* ---------- File tab ---------- */
     case "file.new": {
-      const name = (val || "Database1").replace(/\.accdb$/i, "").trim() || "Database1";
+      // "Contacts|Office Contacts.accdb" (a template) or "Front Desk.accdb" (blank).
+      const bar = val.indexOf("|");
+      const template = bar >= 0 ? val.slice(0, bar).trim() : TEMPLATE_NAMES.find((t) => eq(t, val)) ?? "";
+      const rawName = bar >= 0 ? val.slice(bar + 1) : val;
+      const name = (rawName || template || "Database1").replace(/\.accdb$/i, "").trim() || "Database1";
+      if (template && TEMPLATE_NAMES.some((t) => eq(t, template))) {
+        const fromTemplate: AccessDoc = { tables: [], queries: [], forms: [], reports: [], macros: [], modules: [], relationships: [], open: [], active: null, saved: { name: `${name}.accdb`, location: d.saved?.location ?? "C:\\Users\\Student\\Documents" }, files: d.files };
+        const first = applyTemplate(fromTemplate, template);
+        if (first) openTab(fromTemplate, "form", first, "Form View");
+        return { doc: fromTemplate, ui: { selection: "" } };
+      }
       const fresh: AccessDoc = {
         tables: [{ name: "Table1", fields: [{ ...newField("ID", "AutoNumber") }], pk: ["ID"], rows: [], saved: false }],
         queries: [],

@@ -27,9 +27,11 @@ import { CHAR_STYLE_NAMES, COLOR_SETS, FONT_SETS, PARA_STYLE_NAMES, STYLE_SETS, 
  *   review.stopProtection turns it off.
  *
  * Dialogs (see dialogs.ts): bookmark, crossRef, customToc, editRecipients
- * (Mail Merge Recipients with Filter Records and Sort Records tabs), autoText,
- * saveAutoText, controlProperties. The columns dialog's applyTo now includes
- * "Selected text" and "This point forward".
+ * (Mail Merge Recipients: checkboxes r1, r2, … per recipient, filterField /
+ * filterOp / filterValue, sortBy / sortOrder; OK with nothing changed commits
+ * the older mail.editRecipients command), autoText (entry), saveAutoText,
+ * controlProperties. The columns dialog's applyTo now includes "Selected text"
+ * and "This point forward".
  */
 
 export const FONTS = ["Calibri", "Calibri Light", "Aptos", "Arial", "Arial Black", "Cambria", "Century Gothic", "Comic Sans MS", "Courier New", "Garamond", "Georgia", "Gill Sans MT", "Segoe UI", "Tahoma", "Times New Roman", "Trebuchet MS", "Verdana"];

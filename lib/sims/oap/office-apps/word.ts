@@ -1,4 +1,5 @@
 import type { SimDefinition, WordPara } from "@/types/sim";
+import type { XDoc } from "@/components/sim/apps/word/model";
 
 /**
  * office-apps sims that run in the Word engine. Keys are "<moduleSlug>::<lessonSlug>".
@@ -54,6 +55,9 @@ const FAX_TEMPLATE: WordPara[] = [
   { id: "p9", runs: [{ text: "Re: " }, { id: "r1", text: "[Subject]" }] },
   { id: "p10", runs: [{ id: "r1", text: "[Comments]" }] },
 ];
+
+const FAX_NOTICE =
+  "CONFIDENTIAL: This fax may contain protected health information. If you received it in error, call (555) 234-5678 and destroy all copies.";
 
 /* ---------- Module 2 capstone: the fall newsletter ---------- */
 
@@ -357,13 +361,24 @@ export const wordSims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "dialog", id: "modifyStyle", values: { style: "Heading 1", size: 14, bold: true, color: "#44546A" } } }],
         },
         {
-          instruction: "Create a new style named “Memo Label” with bold text and apply it to the four memo header lines, from “TO:” through “SUBJECT:”.",
-          hint: "Click the “TO:” line, then Shift+click the “SUBJECT:” line. Home tab › Styles gallery › More arrow › Create a Style › Name: Memo Label › check Bold › OK.",
+          instruction: "Create a new style named “Memo Label” with bold text from the “TO:” line.",
+          hint: "Click the “TO:” line. Home tab › Styles gallery › More arrow › Create a Style › Name: Memo Label › check Bold › OK.",
           steps: [
             {
               action: { kind: "dialog", id: "createStyle", values: { name: "Memo Label", bold: true } },
-              requires: { selection: "p2,p3,p4,p5" },
-              selectHint: "Select all four header lines first: click the “TO:” line, then Shift+click the “SUBJECT:” line.",
+              requires: { selection: "p2" },
+              selectHint: "Click the “TO:” line first, so the new style is built from it.",
+            },
+          ],
+        },
+        {
+          instruction: "Apply the Memo Label style to the “FROM:”, “DATE:”, and “SUBJECT:” lines.",
+          hint: "Click the “FROM:” line, then Shift+click the “SUBJECT:” line. Home tab › Styles gallery › More arrow › Memo Label. (The Styles pane, from the Styles group's dialog launcher, lists it too.)",
+          steps: [
+            {
+              action: { kind: "command", id: "home.customStyle", value: "Memo Label" },
+              requires: { selection: "p3,p4,p5" },
+              selectHint: "Select the three lines first: click the “FROM:” line, then Shift+click the “SUBJECT:” line.",
             },
           ],
         },
@@ -837,7 +852,7 @@ export const wordSims: Record<string, SimDefinition[]> = {
       app: "word",
       title: "Send the flu shot appointment reminders",
       scenario:
-        "Lakeside Medical Associates is mailing flu shot appointment reminders. Each letter needs the patient's first name, provider, appointment date, and time. Instead of typing each letter, connect this one letter to the flu clinic sign-up list, let mail merge fill in the details, and check the results before anything prints.",
+        "Lakeside Medical Associates is mailing flu shot appointment reminders. Each letter needs the patient's first name, provider, appointment date, and time. Dr. Sarah Chen asked for her patients' reminders to go out today; the other providers' letters go out next week. Connect this one letter to the flu clinic sign-up list, let mail merge fill in the details, merge only Dr. Chen's patients, and check the results before anything prints.",
       fileName: "Flu Shot Reminder Letter.docx",
       minutes: 6,
       initial: {
@@ -885,11 +900,6 @@ export const wordSims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "dialog", id: "selectRecipients", values: { file: "Flu Clinic Signups.xlsx" } } }],
         },
         {
-          instruction: "Open the recipient list so you can check the patient records before you insert any fields.",
-          hint: "Mailings tab › Start Mail Merge group › Edit Recipient List.",
-          steps: [{ action: { kind: "command", id: "mail.editRecipients" } }],
-        },
-        {
           instruction: "Replace “[First name]” in the greeting with the First_Name merge field.",
           hint: "Click “[First name]”. Mailings tab › Write & Insert Fields group › Insert Merge Field › First_Name.",
           steps: [
@@ -929,8 +939,21 @@ export const wordSims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Preview the merged letters, then move to the next recipient to check a second letter.",
-          hint: "Mailings tab › Preview Results group › Preview Results, then Next Record.",
+          instruction: "Filter the recipient list so the merge includes only Dr. Sarah Chen's patients: the records whose Provider is “Dr. Sarah Chen”.",
+          hint: "Mailings tab › Start Mail Merge group › Edit Recipient List › Filter Records tab › Field: Provider › Comparison: Equal to › Compare to: Dr. Sarah Chen › OK. (Clearing the checkboxes of the other patients on the Recipients tab works too.)",
+          steps: [
+            {
+              action: { kind: "dialog", id: "editRecipients", values: { filterField: "Provider", filterOp: "Equal to", filterValue: "Dr. Sarah Chen" } },
+              alt: [
+                { kind: "dialog", id: "editRecipients", values: { filterField: "Provider", filterOp: "Contains", filterValue: ["Chen", "Sarah Chen", "Dr. Sarah Chen"] } },
+                { kind: "dialog", id: "editRecipients", values: { r1: false, r2: true, r3: false, r4: true, r5: false } },
+              ],
+            },
+          ],
+        },
+        {
+          instruction: "Preview the merged letters, then move to the next recipient to check Dr. Chen's second patient.",
+          hint: "Mailings tab › Preview Results group › Preview Results, then Next Record. The status bar shows Record 1 of 2.",
           steps: [{ action: { kind: "command", id: "mail.preview" } }, { action: { kind: "command", id: "mail.next" } }],
         },
         {
@@ -996,30 +1019,41 @@ export const wordSims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Add a page number to the bottom center of every page.",
-          hint: "Header & Footer tab (or Insert tab) › Page Number › Bottom of Page › Plain Number 2.",
-          steps: [{ action: { kind: "command", id: "insert.pageNumber", value: "Bottom of Page - Plain Number 2" } }],
+          instruction: "Add page numbers in the format “Page 1 of 3” to the bottom center of every page.",
+          hint: "Header & Footer tab (or Insert tab) › Page Number › Bottom of Page › Page X of Y, Bold Numbers 2.",
+          steps: [{ action: { kind: "command", id: "insert.pageNumber", value: "Bottom of Page - Bold Numbers 2" } }],
         },
         {
-          instruction: "In the empty line on page 2, insert the Automatic Table 1 table of contents.",
-          hint: "Click the empty line on page 2, right after the cover page. References tab › Table of Contents group › Table of Contents › Automatic Table 1.",
+          instruction: "In the empty line on page 2, insert a custom table of contents that shows two heading levels, with right-aligned page numbers and dot leaders.",
+          hint: "Click the empty line on page 2, right after the cover page. References tab › Table of Contents › Custom Table of Contents… › keep Show page numbers, Right align page numbers and the dotted Tab leader › Show levels: 2 › OK.",
           steps: [
             {
-              action: { kind: "command", id: "references.toc", value: "Automatic Table 1" },
+              action: { kind: "dialog", id: "customToc", values: { levels: 2, pageNumbers: true, rightAlign: true, leader: "......." } },
               requires: { selection: "p4" },
               selectHint: "Click the empty line on page 2 first, so the table of contents goes there.",
             },
           ],
         },
         {
-          instruction: "Insert a footnote at the end of the sentence “Release only the minimum information needed for the purpose of the request.” (The citation text is filled in for you.)",
-          hint: "Click the sentence. References tab › Footnotes group › Insert Footnote (or press Alt+Ctrl+F).",
+          instruction: "Insert a footnote at the end of the sentence “Release only the minimum information needed for the purpose of the request.” In the footnote, type “45 CFR 164.502(b), the HIPAA minimum necessary standard.”",
+          hint: "Click the sentence. References tab › Footnotes group › Insert Footnote (or press Alt+Ctrl+F). Word puts the cursor in the new footnote at the bottom of the page: type the citation and press Enter.",
           steps: [
             {
               action: { kind: "command", id: "references.footnote" },
               requires: { selection: ["p13.r1", "p13"] },
               selectHint: "Click the sentence that begins “Release only the minimum information” first.",
-              effects: [{ op: "set", path: "footnotes", value: ["45 CFR § 164.502(b), the HIPAA minimum necessary standard."] }],
+            },
+            {
+              action: {
+                kind: "type",
+                target: "footnote:1",
+                value: [
+                  "45 CFR 164.502(b), the HIPAA minimum necessary standard.",
+                  "45 CFR 164.502(b), the HIPAA minimum necessary standard",
+                  "45 CFR § 164.502(b), the HIPAA minimum necessary standard.",
+                  "45 CFR § 164.502(b), the HIPAA minimum necessary standard",
+                ],
+              },
             },
           ],
         },
@@ -1238,13 +1272,14 @@ export const wordSims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "file.inspect", value: "Inspect Document" } }],
         },
         {
-          instruction: "Protect the notice so that staff who open it from the shared drive can't change it by accident.",
-          hint: "Review tab › Protect group › Restrict Editing. (File tab › Info › Protect Document › Restrict Editing works too.)",
+          instruction: "Protect the notice so that staff who open it from the shared drive can read it but can't change it by accident.",
+          hint: "Review tab › Protect group › Restrict Editing (File tab › Info › Protect Document › Restrict Editing works too). In the pane, check Allow only this type of editing in the document, choose No changes (Read only), click Yes, Start Enforcing Protection, and click OK. A password is optional.",
           steps: [
             {
               action: { kind: "command", id: "review.restrict" },
               alt: [{ kind: "command", id: "file.protect", value: "Restrict Editing" }],
             },
+            { action: { kind: "command", id: "review.enforce", value: "No changes (Read only)" } },
           ],
         },
       ],
@@ -1257,10 +1292,21 @@ export const wordSims: Record<string, SimDefinition[]> = {
       app: "word",
       title: "Build the practice fax cover sheet template",
       scenario:
-        "The front desk faxes insurers and specialists every day, and each person builds the cover sheet differently. Start from Word's fax cover sheet, fill in what is the same on every fax, add the practice's saved confidentiality notice, and save it as a template so no one can overwrite it by accident.",
+        "The front desk faxes insurers and specialists every day, and each person builds the cover sheet differently. Start from Word's fax cover sheet, fill in what is the same on every fax, add the practice's saved confidentiality notice, turn the recipient lines into form fields, and protect and save it as a template so no one can overwrite it by accident.",
       fileName: "Document1.docx",
-      minutes: 5,
-      initial: { paragraphs: [{ id: "p1", text: "" }] },
+      minutes: 7,
+      initial: {
+        paragraphs: [{ id: "p1", text: "" }],
+        // Building blocks saved in Word's Normal template, offered by Insert › Quick Parts › AutoText.
+        autoText: [
+          {
+            name: "Fax Confidentiality Notice",
+            gallery: "AutoText",
+            paras: [{ id: "at1", italic: true, size: 9, text: FAX_NOTICE }],
+          },
+          { name: "Lakeside Address", gallery: "AutoText", text: "123 Lakeview Drive, Suite 200, Lakeside, CA 90210" },
+        ],
+      } as XDoc,
       tasks: [
         {
           instruction: "Create a new document from the Fax cover sheet template.",
@@ -1276,15 +1322,11 @@ export const wordSims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Replace the placeholder “[Company Name]” with “Lakeside Medical Associates”.",
-          hint: "Double-click “[Company Name]”, type Lakeside Medical Associates, and press Enter.",
-          steps: [{ action: { kind: "type", target: "p2.r1", value: "Lakeside Medical Associates" } }],
-        },
-        {
-          instruction: "Replace “[Phone]” with “(555) 234-5678” and “[Fax]” with “(555) 234-5679”.",
-          hint: "Double-click each placeholder, type the number, and press Enter.",
+          instruction: "Replace “[Company Name]” with “Lakeside Medical Associates”, “[Phone]” with “(555) 234-5678”, and “[Fax]” with “(555) 234-5679”.",
+          hint: "Double-click each placeholder, type the new text, and press Enter.",
           anyOrder: true,
           steps: [
+            { action: { kind: "type", target: "p2.r1", value: "Lakeside Medical Associates" } },
             { action: { kind: "type", target: "p3.r1", value: "(555) 234-5678" } },
             { action: { kind: "type", target: "p3.r2", value: "(555) 234-5679" } },
           ],
@@ -1301,27 +1343,39 @@ export const wordSims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: "Below the “[Comments]” placeholder, insert the practice's saved AutoText entry, the fax confidentiality notice.",
-          hint: "Click “[Comments]”. Insert tab › Text group › Quick Parts › AutoText. (In Word, the AutoText menu lists the saved entries; you would click Fax Confidentiality Notice.)",
+          instruction: "Below the “[Comments]” placeholder, insert the practice's saved AutoText entry “Fax Confidentiality Notice”.",
+          hint: "Click “[Comments]”. Insert tab › Text group › Quick Parts › AutoText › Fax Confidentiality Notice › Insert.",
           steps: [
             {
-              action: { kind: "command", id: "insert.quickParts", value: "AutoText" },
+              action: { kind: "dialog", id: "autoText", values: { entry: "Fax Confidentiality Notice" } },
               requires: { selection: ["p10.r1", "p10"] },
               selectHint: "Click the “[Comments]” placeholder first, so the notice goes below it.",
-              effects: [
-                {
-                  op: "insert",
-                  path: "paragraphs",
-                  after: "p10",
-                  value: {
-                    id: "p11",
-                    italic: true,
-                    size: 9,
-                    text: "CONFIDENTIAL: This fax may contain protected health information. If you received it in error, call (555) 234-5678 and destroy all copies.",
-                  },
-                },
-              ],
             },
+          ],
+        },
+        {
+          instruction: "Turn the “[Recipient Name]” and “[Recipient Fax]” placeholders into plain text content controls, so staff can fill them in once the form is protected.",
+          hint: "Click “[Recipient Name]”. Developer tab › Controls group › Plain Text Content Control. Do the same for “[Recipient Fax]”. (In Word, turn the Developer tab on first: File › Options › Customize Ribbon › check Developer.)",
+          anyOrder: true,
+          steps: [
+            {
+              action: { kind: "command", id: "developer.plainText" },
+              requires: { selection: "p5.r1" },
+              selectHint: "Click the “[Recipient Name]” placeholder first, then insert the control.",
+            },
+            {
+              action: { kind: "command", id: "developer.plainText" },
+              requires: { selection: "p6.r1" },
+              selectHint: "Click the “[Recipient Fax]” placeholder first, then insert the control.",
+            },
+          ],
+        },
+        {
+          instruction: "Protect the cover sheet so that staff can only fill in its form fields. Don't set a password.",
+          hint: "Review tab › Protect group › Restrict Editing (Developer tab › Restrict Editing works too). In the pane, check Allow only this type of editing in the document, choose Filling in forms, click Yes, Start Enforcing Protection, leave both password boxes blank, and click OK.",
+          steps: [
+            { action: { kind: "command", id: "review.restrict" }, alt: [{ kind: "command", id: "file.protect", value: "Restrict Editing" }] },
+            { action: { kind: "command", id: "review.enforce", value: "Filling in forms" } },
           ],
         },
         {

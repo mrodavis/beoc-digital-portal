@@ -143,7 +143,7 @@ function selectionExists(app: string, doc: unknown, sel: string): boolean {
       const s = d.slides.find((x: { id: string }) => x.id === sid);
       if (!s) return false;
       if (!rest.length || ["title", "body", "body2", "subtitle", "notes"].includes(rest[0])) return true;
-      const objs = rest.filter((r) => !/^(r\d+c\d+|\d+|[A-Z]{1,2}\d+)$/.test(r));
+      const objs = rest.filter((r) => !/^(r\d+c\d+|\d+|[A-Z]{1,2}\d+|title|legend|data|axis|text)$/.test(r));
       return objs.every((id) => s.objects?.some((o: { id: string }) => o.id === id));
     });
   }

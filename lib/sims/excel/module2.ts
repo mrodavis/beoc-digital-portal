@@ -643,7 +643,7 @@ export const excelModule2Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "D4:D12" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "D4:D12" } }],
               requires: { selection: ["D4", "D4:D12"] },
               selectHint: "Start from D4, the cell with the formula (or select D4:D12 for Ctrl+D).",
             },
@@ -724,7 +724,7 @@ export const excelModule2Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "E2:E11" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "E2:E11" } }],
               requires: { selection: ["E2", "E2:E11"] },
               selectHint: "Start from E2, the cell that holds the formula (or select E2:E11 for Ctrl+D).",
             },

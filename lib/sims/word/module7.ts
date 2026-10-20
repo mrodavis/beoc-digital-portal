@@ -38,8 +38,8 @@ export const wordModule7Sims: Record<string, SimDefinition[]> = {
           hint: "Click each section title, then Home tab › Styles gallery › Heading 1 (or press Ctrl+Alt+1).",
           anyOrder: true,
           steps: [
-            { action: { kind: "command", id: "home.style", value: "Heading 1" }, requires: { selection: "p2" }, selectHint: "Click one section title at a time, then apply the style." },
-            { action: { kind: "command", id: "home.style", value: "Heading 1" }, requires: { selection: "p8" }, selectHint: "Click one section title at a time, then apply the style." },
+            { action: { kind: "command", id: "home.style", value: "Heading 1" }, requires: { selection: "p2" }, selectHint: "Click “Section 4: Patient Communication”, then apply Heading 1." },
+            { action: { kind: "command", id: "home.style", value: "Heading 1" }, requires: { selection: "p8" }, selectHint: "Click “Section 5: Records Requests”, then apply Heading 1." },
           ],
         },
         {
@@ -47,9 +47,9 @@ export const wordModule7Sims: Record<string, SimDefinition[]> = {
           hint: "Click each subsection title, then Home tab › Styles gallery › Heading 2 (or press Ctrl+Alt+2).",
           anyOrder: true,
           steps: [
-            { action: { kind: "command", id: "home.style", value: "Heading 2" }, requires: { selection: "p4" }, selectHint: "Click one subsection title at a time, then apply the style." },
-            { action: { kind: "command", id: "home.style", value: "Heading 2" }, requires: { selection: "p6" }, selectHint: "Click one subsection title at a time, then apply the style." },
-            { action: { kind: "command", id: "home.style", value: "Heading 2" }, requires: { selection: "p10" }, selectHint: "Click one subsection title at a time, then apply the style." },
+            { action: { kind: "command", id: "home.style", value: "Heading 2" }, requires: { selection: "p4" }, selectHint: "Click “4.1 Phone Calls”, then apply Heading 2." },
+            { action: { kind: "command", id: "home.style", value: "Heading 2" }, requires: { selection: "p6" }, selectHint: "Click “4.2 Patient Portal Messages”, then apply Heading 2." },
+            { action: { kind: "command", id: "home.style", value: "Heading 2" }, requires: { selection: "p10" }, selectHint: "Click “5.1 Requests from Patients”, then apply Heading 2." },
           ],
         },
         {
@@ -312,8 +312,8 @@ export const wordModule7Sims: Record<string, SimDefinition[]> = {
           hint: "Click each heading, then Home tab › Styles gallery › Heading 1 (or Ctrl+Alt+1).",
           anyOrder: true,
           steps: [
-            { action: { kind: "command", id: "home.style", value: "Heading 1" }, requires: { selection: "p7" }, selectHint: "Click one heading at a time, then apply the style." },
-            { action: { kind: "command", id: "home.style", value: "Heading 1" }, requires: { selection: "p14" }, selectHint: "Click one heading at a time, then apply the style." },
+            { action: { kind: "command", id: "home.style", value: "Heading 1" }, requires: { selection: "p7" }, selectHint: "Click “Attendance and Scheduling”, then apply Heading 1." },
+            { action: { kind: "command", id: "home.style", value: "Heading 1" }, requires: { selection: "p14" }, selectHint: "Click “Dress Code”, then apply Heading 1." },
           ],
         },
         {

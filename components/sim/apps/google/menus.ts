@@ -585,11 +585,12 @@ export function driveItemMenu(opts: { folder: boolean; starred: boolean; trashed
  *   menu      a button that opens `items`
  *   split     face commits command/value; arrow opens `items`
  *   combo     editable box (font, size, zoom) committing command with the typed value
+ *   select    dropdown box (styles) committing command with one of `options`
  *   colors    color grid committing command with a hex value
  *   sep       a divider
  */
 export type GTool = {
-  kind: "button" | "toggle" | "menu" | "split" | "combo" | "colors" | "sep";
+  kind: "button" | "toggle" | "menu" | "split" | "combo" | "select" | "colors" | "sep";
   id?: string;
   label?: string;
   icon?: string;
@@ -643,7 +644,7 @@ export const DOCS_TOOLBAR: GTool[] = [
   T({ kind: "toggle", label: "Paint format", icon: "paintFormat", command: "home.formatPainter", stateKey: "painter" }),
   T({ kind: "combo", id: "zoom", label: "Zoom", command: "g.zoom", options: ZOOMS, width: 48, stateKey: "zoom" }),
   SEPT,
-  T({ kind: "combo", id: "style", label: "Styles", command: "home.style", options: DOC_STYLES, width: 92, stateKey: "style" }),
+  T({ kind: "select", id: "style", label: "Styles", command: "home.style", options: DOC_STYLES, width: 92, stateKey: "style" }),
   SEPT,
   ...TEXT_TOOLS,
   SEPT,
@@ -751,6 +752,7 @@ function toolControls(tools: GTool[], out: RibbonControl[], key: { n: number }) 
   for (const t of tools) {
     if (t.kind === "sep") continue;
     if (t.kind === "combo" && t.command) out.push({ type: "dropdown", id: t.command, label: t.label ?? "", combo: true, options: [] });
+    if (t.kind === "select" && t.command) out.push({ type: "dropdown", id: t.command, label: t.label ?? "", options: (t.options ?? []).map((value) => ({ value })) });
     if (t.kind === "colors" && t.command) out.push({ type: "dropdown", id: t.command, label: t.label ?? "", options: [...PALETTE.map((p) => ({ value: p.hex })), { value: "Reset" }, { value: "None" }] });
     if ((t.kind === "button" || t.kind === "toggle" || t.kind === "split") && t.command) {
       if (t.value !== undefined) out.push({ type: "dropdown", id: t.command, label: t.label ?? "", options: [{ value: t.value }] });

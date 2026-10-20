@@ -750,7 +750,7 @@ export const excelModule5Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "G2:G16" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "G2:G16" } }],
               requires: { selection: ["G2", "G2:G16"] },
               selectHint: "Start from G2 (or select G2:G16 for Ctrl+D).",
             },

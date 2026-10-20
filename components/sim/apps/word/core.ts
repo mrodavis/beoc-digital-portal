@@ -36,6 +36,13 @@ function normalize(c: SimCommit): SimCommit {
   if (c.kind === "dialog" && c.id === "stylesPane") return styleCommand(c.values.style);
   if (c.kind === "command" && c.id === "home.style" && c.value !== undefined) return styleCommand(c.value);
   if (c.kind === "command" && c.id === "home.deleteComment") return { kind: "command", id: "review.deleteComment", value: c.value };
+  // OK in Mail Merge Recipients without filtering, sorting or clearing a checkbox is just checking the list:
+  // it commits the older mail.editRecipients command, so steps that ask only to open the list still work.
+  if (c.kind === "dialog" && c.id === "editRecipients") {
+    const v = c.values;
+    const none = (k: string) => v[k] === undefined || v[k] === "" || v[k] === "(none)";
+    if (none("filterField") && none("sortBy") && !Object.entries(v).some(([k, x]) => /^r\d+$/.test(k) && x === false)) return { kind: "command", id: "mail.editRecipients" };
+  }
   // Right-click › Open Hyperlink does what Ctrl+Click does.
   if (c.kind === "command" && c.id === "link.open") return { kind: "click", target: `link:${String(c.value ?? "")}` };
   return c;
@@ -157,6 +164,8 @@ export const wordCore: AppCore<WordDoc> = {
     "contentControl.toggle", "contentControl.choose",
     // The Restrict Editing pane's Yes, Start Enforcing Protection (value = editing type) and Stop Protection.
     "review.enforce", "review.stopProtection",
+    // Mail Merge Recipients › OK with the list unchanged (see normalize).
+    "mail.editRecipients",
   ],
   fullScreen: (doc) => doc.view === "read",
 };

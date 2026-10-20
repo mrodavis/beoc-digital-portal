@@ -203,6 +203,12 @@ export function canWrite(doc: WinDoc, loc: string): boolean {
  * Run a command once per selected item, selecting each one first. Moving three
  * files at once and moving them one by one then both satisfy per-file steps.
  */
+/** Open an item: folders navigate File Explorer (explorer.nav), everything else opens (fs.open). */
+export function openItem(ctx: WinCtxValue, path: string) {
+  const it = getItem(ctx.doc, path);
+  ctx.cmd(it && isFolder(it) && extOf(it.name) !== ".zip" ? "explorer.nav" : "fs.open", path);
+}
+
 export function perItem(ctx: WinCtxValue, paths: string[], id: string, value?: string, prefix = "file:") {
   for (const p of paths) {
     ctx.select(`${prefix}${p}`);
@@ -492,7 +498,7 @@ export function itemMenu(ctx: WinCtxValue, e: { clientX: number; clientY: number
     { label: "Delete", icon: "delete", disabled: rootItem, onClick: () => deleteSelected(ctx, false, paths) },
   ];
   const items: MItem[] = [
-    { label: "Open", icon: "open", shortcut: "Enter", onClick: () => ctx.cmd("fs.open", entry.path) },
+    { label: "Open", icon: "open", shortcut: "Enter", onClick: () => openItem(ctx, entry.path) },
   ];
   if (!entry.folder) items.push({ label: "Open with", icon: "app", sub: [{ label: "Notepad", onClick: () => ctx.cmd("win.open", "notepad") }, { label: "Microsoft Edge", onClick: () => ctx.cmd("fs.open", entry.path) }, { label: "Choose another app", disabled: true }] });
   if (isZip) items.push({ label: "Extract All...", icon: "extract", onClick: () => openExtract(ctx, entry.path) });
@@ -607,7 +613,7 @@ export function fileKeys(e: React.KeyboardEvent, ctx: WinCtxValue, loc: string, 
   }
   if (e.key === "Enter" && paths.length === 1) {
     if (e.altKey) openProperties(ctx);
-    else ctx.cmd("fs.open", paths[0]);
+    else openItem(ctx, paths[0]);
     return true;
   }
   if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "ArrowRight" || e.key === "ArrowLeft") {
@@ -1090,7 +1096,7 @@ function EntryRow({ e, w, cols, onDown, selected }: { e: Entry; w: WinWindow; co
       onDragLeave={() => setHint(null)}
       onDrop={drop ? (ev) => { setHint(null); dropOnto(ev, ctx, e.path); } : undefined}
       onMouseDown={(ev) => onDown(ev, e)}
-      onDoubleClick={() => (e.bin || e.key.startsWith("zip:") ? undefined : ctx.cmd("fs.open", e.path))}
+      onDoubleClick={() => (e.bin || e.key.startsWith("zip:") ? undefined : openItem(ctx, e.path))}
       onContextMenu={(ev) => {
         ev.preventDefault();
         ev.stopPropagation();
@@ -1148,7 +1154,7 @@ function EntryTile({ e, onDown, selected, big }: { e: Entry; onDown: (ev: React.
       onDragLeave={() => setHint(null)}
       onDrop={drop ? (ev) => { setHint(null); dropOnto(ev, ctx, e.path); } : undefined}
       onMouseDown={(ev) => onDown(ev, e)}
-      onDoubleClick={() => (e.bin ? undefined : ctx.cmd("fs.open", e.path))}
+      onDoubleClick={() => (e.bin ? undefined : openItem(ctx, e.path))}
       onContextMenu={(ev) => {
         ev.preventDefault();
         ev.stopPropagation();

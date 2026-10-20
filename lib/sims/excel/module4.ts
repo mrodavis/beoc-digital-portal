@@ -203,7 +203,7 @@ export const excelModule4Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "D4:D12" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "D4:D12" } }],
               requires: { selection: ["D4", "D4:D12"] },
               selectHint: "Start from D4 (or select D4:D12 for Ctrl+D).",
             },
@@ -280,7 +280,7 @@ export const excelModule4Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "C4:F4" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Right" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Right", requires: { selection: "C4:F4" } }],
               requires: { selection: ["C4", "C4:F4"] },
               selectHint: "Start from C4 (or select C4:F4 for Ctrl+R).",
             },
@@ -292,7 +292,7 @@ export const excelModule4Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "C4:F10" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "C4:F10" } }],
               requires: { selection: ["C4:F4", "C4:F10"] },
               selectHint: "Select C4:F4, the filled row, first (or C4:F10 for Ctrl+D).",
             },
@@ -355,7 +355,7 @@ export const excelModule4Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "F3:F17" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "F3:F17" } }],
               requires: { selection: ["F3", "F3:F17"] },
               selectHint: "Start from F3 (or select F3:F17 for Ctrl+D).",
             },
@@ -403,7 +403,7 @@ export const excelModule4Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "B18:F20" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Right" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Right", requires: { selection: "B18:F20" } }],
               requires: { selection: ["B18:B20", "B18:F20"] },
               selectHint: "Select B18:B20, the three summary formulas, first.",
             },
@@ -489,7 +489,7 @@ export const excelModule4Sims: Record<string, SimDefinition[]> = {
           steps: [
             {
               action: { kind: "command", id: "excel.fill", value: "D2:D14" },
-              alt: [{ kind: "command", id: "home.fillSeries", value: "Down" }],
+              alt: [{ kind: "command", id: "home.fillSeries", value: "Down", requires: { selection: "D2:D14" } }],
               requires: { selection: ["D2", "D2:D14"] },
               selectHint: "Start from D2 (or select D2:D14 for Ctrl+D).",
             },
