@@ -1,5 +1,5 @@
 import type { SimDefinition } from "@/types/sim";
-import { accessDoc, type AccTable } from "@/components/sim/apps/access/types";
+import { accessDoc, type AccForm, type AccQuery, type AccReport, type AccTable } from "@/components/sim/apps/access/types";
 import {
   addQField,
   anyField,
@@ -502,15 +502,452 @@ const module3: Record<string, SimDefinition[]> = {
   ],
 };
 
+/* ------------------------------------------------------------------ */
+/* Module 4                                                            */
+/* ------------------------------------------------------------------ */
+
+const regPatients = patientsReg();
+
+/** September appointments with provider and patient names (three tables joined). */
+const septemberQuery = (): AccQuery => ({
+  name: "SeptemberAppointments",
+  type: "Select",
+  tables: ["Providers", "Appointments", "Patients"],
+  joins: [
+    { left: "Providers", leftField: "ProviderID", right: "Appointments", rightField: "ProviderID", type: "inner" },
+    { left: "Patients", leftField: "PatientID", right: "Appointments", rightField: "PatientID", type: "inner" },
+  ],
+  cols: [
+    { field: "ProviderLastName", table: "Providers", show: true },
+    { field: "AppointmentDate", table: "Appointments", show: true, criteria: "Between #9/1/2026# And #9/30/2026#" },
+    { field: "PatientLastName", table: "Patients", show: true },
+    { field: "PatientFirstName", table: "Patients", show: true },
+    { field: "VisitType", table: "Appointments", show: true },
+  ],
+  saved: true,
+});
+
+const providerSchedule = (): AccQuery => ({
+  name: "Provider Schedule",
+  type: "Select",
+  tables: ["Providers", "Appointments"],
+  joins: [{ left: "Providers", leftField: "ProviderID", right: "Appointments", rightField: "ProviderID", type: "inner" }],
+  cols: [
+    { field: "ProviderLastName", table: "Providers", show: true },
+    { field: "AppointmentDate", table: "Appointments", show: true },
+    { field: "VisitType", table: "Appointments", show: true },
+    { field: "PatientID", table: "Appointments", show: true },
+  ],
+  saved: true,
+});
+
+const monthlyReport = (): AccReport => ({
+  name: "MonthlyAppointmentSummary",
+  recordSource: "SeptemberAppointments",
+  fields: ["AppointmentDate", "PatientLastName", "PatientFirstName", "VisitType"],
+  groups: [{ field: "ProviderLastName", dir: "asc", header: true, footer: true }],
+  sorts: [{ field: "AppointmentDate", dir: "asc" }],
+  totals: [{ field: "AppointmentDate", fn: "Count" }],
+  layout: "Stepped",
+  orientation: "Landscape",
+  pageSize: "Letter",
+  margins: "Normal",
+  title: "Monthly Appointment Summary",
+  pageNumbers: { format: "Page N of M", position: "Bottom of Page [Footer]", align: "Right" },
+  dateTime: { date: "Long Date" },
+  saved: true,
+});
+
+const REG_FIELDS: [string, string][] = [
+  ["PatientFirstName", "First Name"],
+  ["PatientLastName", "Last Name"],
+  ["DateOfBirth", "Date of Birth"],
+  ["PhoneNumber", "Phone Number"],
+  ["Email", "Email"],
+  ["InsurancePlan", "Insurance Plan"],
+];
+/** The registration form after the wizard, with a tab order that jumps from First Name to Insurance Plan. */
+const registrationForm = (): AccForm => ({
+  name: "PatientRegistrationForm",
+  recordSource: "Patients",
+  layout: "Columnar",
+  controls: [
+    { id: "Title", kind: "label", caption: "Patient Registration", section: "Form Header", order: 0, fontSize: 18 },
+    ...REG_FIELDS.map(([id, label], i) => ({ id, kind: "textbox" as const, source: id, label, section: "Detail", order: i + 1 })),
+  ],
+  tabOrder: ["PatientFirstName", "InsurancePlan", "PatientLastName", "DateOfBirth", "PhoneNumber", "Email"],
+  saved: true,
+  allowAdditions: true,
+  allowEdits: true,
+  allowDeletions: true,
+  navigationButtons: true,
+  recordSelectors: true,
+});
+
+const m4Tables = () => [patientsReg(), providersP(), appointments()];
+
+const module4: Record<string, SimDefinition[]> = {
+  "module-4::creating-queries": [
+    {
+      id: "access-id-m4-creating-queries-1",
+      app: "access",
+      title: "Find unbilled September appointments",
+      scenario:
+        "The billing manager spends hours each month matching appointments against bills by hand. You build a saved query that lists every September appointment that has not been billed yet, with the patient's name beside it.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 8,
+      initial: accessDoc({ tables: m4Tables(), relationships: apptRelationships() }),
+      tasks: [
+        {
+          instruction: "Start a new query in Design View that uses the Patients and Appointments tables.",
+          hint: "Create › Queries › Query Design. In the Add Tables pane, double-click Patients and then Appointments.",
+          anyOrder: true,
+          steps: [cmd("create.queryDesign"), cmd("query.addTable", "Patients"), cmd("query.addTable", "Appointments")],
+        },
+        {
+          instruction: "Add PatientLastName and PatientFirstName from Patients, then AppointmentDate, VisitType and BilledDate from Appointments.",
+          hint: "Double-click each field in the field lists, or drag it to an empty column of the grid.",
+          anyOrder: true,
+          steps: [
+            addQField("Query1", "Patients", "PatientLastName"),
+            addQField("Query1", "Patients", "PatientFirstName"),
+            addQField("Query1", "Appointments", "AppointmentDate"),
+            addQField("Query1", "Appointments", "VisitType"),
+            addQField("Query1", "Appointments", "BilledDate"),
+          ],
+        },
+        {
+          instruction: "Limit the results to appointments from 9/1/2026 through 9/30/2026.",
+          hint: "In the Criteria row under AppointmentDate, type Between #9/1/2026# And #9/30/2026#.",
+          steps: [qcell("Query1", "AppointmentDate", "Criteria", ["Between #9/1/2026# And #9/30/2026#", ">=#9/1/2026# And <=#9/30/2026#"])],
+        },
+        {
+          instruction: "On the same Criteria row, show only appointments that have no BilledDate yet.",
+          hint: "In the Criteria row under BilledDate, type Is Null.",
+          steps: [qcell("Query1", "BilledDate", "Criteria", "Is Null")],
+        },
+        {
+          instruction: "Sort the results by AppointmentDate from oldest to newest.",
+          hint: "In the Sort row under AppointmentDate, choose Ascending.",
+          steps: [qcell("Query1", "AppointmentDate", "Sort", "Ascending")],
+        },
+        {
+          instruction: "Run the query.",
+          hint: "Query Design › Results › Run (the red exclamation point).",
+          steps: [runQuery()],
+        },
+        {
+          instruction: "Save the query as SeptemberUnbilledAppointments.",
+          hint: SAVE_HINT,
+          steps: [saveAs("SeptemberUnbilledAppointments")],
+        },
+      ],
+    },
+    {
+      id: "access-id-m4-creating-queries-2",
+      app: "access",
+      title: "Show two providers' schedules",
+      scenario:
+        "The office manager wants one list of appointments for Dr. Rivera and Dr. Walsh, in date order. You edit the saved Provider Schedule query instead of building a new one.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 5,
+      initial: accessDoc({ tables: m4Tables(), relationships: apptRelationships(), queries: [providerSchedule()] }),
+      tasks: [
+        {
+          instruction: "Open the Provider Schedule query in Design View.",
+          hint: "Right-click Provider Schedule in the Navigation Pane and choose Design View.",
+          steps: [openIn("query", "Provider Schedule", "Design View")],
+        },
+        {
+          instruction: "Show only appointments where ProviderLastName is Rivera.",
+          hint: "In the Criteria row under ProviderLastName, type Rivera. Access adds the quotation marks.",
+          steps: [qcell("Provider Schedule", "ProviderLastName", "Criteria", '"Rivera"')],
+        },
+        {
+          instruction: "Also include appointments where ProviderLastName is Walsh.",
+          hint: "In the or row under ProviderLastName (just below Criteria), type Walsh.",
+          steps: [
+            {
+              ...qcell("Provider Schedule", "ProviderLastName", "Or", '"Walsh"'),
+              alt: [{ kind: "type", target: "qcell:Provider Schedule.ProviderLastName.Criteria", value: ['"Rivera" Or "Walsh"', '"Walsh" Or "Rivera"'] }],
+            },
+          ],
+        },
+        {
+          instruction: "Sort the results by AppointmentDate from oldest to newest.",
+          hint: "In the Sort row under AppointmentDate, choose Ascending.",
+          steps: [qcell("Provider Schedule", "AppointmentDate", "Sort", "Ascending")],
+        },
+        {
+          instruction: "Run the query and save your changes.",
+          hint: "Query Design › Results › Run, then press Ctrl+S.",
+          anyOrder: true,
+          steps: [runQuery(), saveObj()],
+        },
+      ],
+    },
+  ],
+
+  "module-4::designing-forms": [
+    {
+      id: "access-id-m4-designing-forms-1",
+      app: "access",
+      title: "Build the patient registration form",
+      scenario:
+        "Three staff members type new patients straight into the table, and dates and insurance names come out five different ways. You build a registration form with plain labels and a drop-down list for insurance plans.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 9,
+      initial: accessDoc({ tables: m4Tables() }),
+      tasks: [
+        {
+          instruction: "Use the Form Wizard to build a Columnar form from the Patients table with these fields in this order: PatientFirstName, PatientLastName, DateOfBirth, PhoneNumber, Email, InsurancePlan. Title it PatientRegistrationForm.",
+          hint: "Create › Forms › Form Wizard. Choose Table: Patients, move the six fields to Selected Fields in order with the > button, click Next, choose Columnar, click Next, type the title, and click Finish.",
+          steps: [
+            dlg("backstage:formWizard", {
+              source: "Table: Patients",
+              fields: "PatientFirstName,PatientLastName,DateOfBirth,PhoneNumber,Email,InsurancePlan",
+              layout: "Columnar",
+              title: "PatientRegistrationForm",
+            }),
+          ],
+        },
+        {
+          instruction: "Switch the form to Design View and change the PatientFirstName label to First Name.",
+          hint: "Home › Views › View › Design View. Double-click the PatientFirstName label (on the left of its box), type First Name, and press Enter.",
+          steps: [
+            cmd("view.switch", ["Design View", "Layout View"]),
+            typed("label:PatientRegistrationForm.PatientFirstName", "First Name", {
+              alt: [{ kind: "type", target: "prop:Caption", value: "First Name", requires: { selection: "ctl:PatientRegistrationForm.PatientFirstName_Label" } }],
+            }),
+          ],
+        },
+        {
+          instruction: "Change the PatientLastName label to Last Name and the DateOfBirth label to Date of Birth.",
+          hint: "Double-click each label, type the new text, and press Enter. You can also change Caption in the Property Sheet (F4).",
+          anyOrder: true,
+          steps: [
+            typed("label:PatientRegistrationForm.PatientLastName", "Last Name", {
+              alt: [{ kind: "type", target: "prop:Caption", value: "Last Name", requires: { selection: "ctl:PatientRegistrationForm.PatientLastName_Label" } }],
+            }),
+            typed("label:PatientRegistrationForm.DateOfBirth", "Date of Birth", {
+              alt: [{ kind: "type", target: "prop:Caption", value: "Date of Birth", requires: { selection: "ctl:PatientRegistrationForm.DateOfBirth_Label" } }],
+            }),
+          ],
+        },
+        {
+          instruction: "Change the InsurancePlan text box into a combo box.",
+          hint: "Right-click the InsurancePlan box (not its label) and choose Change To › Combo Box.",
+          steps: [
+            cmd("form.changeTo", "Combo Box", { requires: { selection: "ctl:PatientRegistrationForm.InsurancePlan" }, selectHint: "Click the InsurancePlan box itself, not its label, first." }),
+          ],
+        },
+        {
+          instruction: "Make the combo box list the values BlueCross, Aetna and Medicare.",
+          hint: "With the combo box selected, open the Property Sheet (F4). On the Data tab, set Row Source Type to Value List, then type \"BlueCross\";\"Aetna\";\"Medicare\" in Row Source.",
+          anyOrder: true,
+          steps: [
+            prop("Row Source Type", "Value List", "ctl:PatientRegistrationForm.InsurancePlan", "Click the InsurancePlan combo box first."),
+            typed("prop:Row Source", ["BlueCross", "Aetna", "Medicare"], { match: "all", requires: { selection: "ctl:PatientRegistrationForm.InsurancePlan" }, selectHint: "Click the InsurancePlan combo box first." }),
+          ],
+        },
+        {
+          instruction: "Save the form.",
+          hint: "Press Ctrl+S, or click Save on the Quick Access Toolbar.",
+          steps: [saveObj()],
+        },
+        {
+          instruction: "Switch to Form View and register a new patient: First Name Grace, Last Name Adeyemi, Date of Birth 2/14/1992.",
+          hint: "Home › Views › View › Form View. Click New (blank) record on the navigation bar at the bottom, then type each value and press Tab.",
+          anyOrder: true,
+          steps: [
+            viewSwitch("Form View"),
+            cell("Patients", "r13", "PatientFirstName", "Grace"),
+            cell("Patients", "r13", "PatientLastName", "Adeyemi"),
+            cell("Patients", "r13", "DateOfBirth", "2/14/1992"),
+          ],
+        },
+      ],
+    },
+    {
+      id: "access-id-m4-designing-forms-2",
+      app: "access",
+      title: "Fix the registration form",
+      scenario:
+        "The front desk supervisor reports that pressing Tab on the registration form jumps from First Name straight to Insurance Plan. You fix the tab order, mark the required fields, and add a button for starting a new registration.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 7,
+      initial: accessDoc({ tables: m4Tables(), forms: [registrationForm()], open: [tab("form", "PatientRegistrationForm", "Form View")], active: "form:PatientRegistrationForm" }),
+      tasks: [
+        {
+          instruction: "Switch the PatientRegistrationForm form to Design View.",
+          hint: "Home › Views › View › Design View, or right-click the form's tab and choose Design View.",
+          steps: [viewSwitch("Design View")],
+        },
+        {
+          instruction: "Set the tab order so it follows the order of the fields on the form, top to bottom.",
+          hint: "Form Design › Tools › Tab Order. Click Auto Order, then click OK.",
+          steps: [dlg("backstage:tabOrder", { order: "PatientFirstName,PatientLastName,DateOfBirth,PhoneNumber,Email,InsurancePlan" })],
+        },
+        {
+          instruction: "Add a label to the Form Header that reads * Required fields",
+          hint: "Form Design › Controls › Label, click an empty spot in the Form Header section, type * Required fields, and press Enter.",
+          steps: [cmd("form.tool", "Label"), typed("section:PatientRegistrationForm.Form Header", "* Required fields")],
+        },
+        {
+          instruction: "Add a command button that goes to a new record. Show the text Add Patient on it and name it cmdAddPatient.",
+          hint: "Form Design › Controls › Button, then click in the Form Footer. In the wizard choose Record Operations › Add New Record, click Next, choose Text and type Add Patient, click Next, type cmdAddPatient as the name, and click Finish.",
+          steps: [dlg("backstage:buttonWizard", { action: "Add New Record", text: "Add Patient", name: "cmdAddPatient" })],
+        },
+        {
+          instruction: "Save the form and switch to Form View.",
+          hint: "Press Ctrl+S, then Home › Views › View › Form View.",
+          anyOrder: true,
+          steps: [saveObj(), viewSwitch("Form View")],
+        },
+        {
+          instruction: "Click Add Patient, then register First Name Samuel, Last Name Ortiz, Date of Birth 11/30/1986.",
+          hint: "Click the Add Patient button at the bottom of the form. Type each value in its box and press Tab to move on.",
+          anyOrder: true,
+          steps: [
+            cmd("form.click", "PatientRegistrationForm.cmdAddPatient"),
+            cell("Patients", "r13", "PatientFirstName", "Samuel"),
+            cell("Patients", "r13", "PatientLastName", "Ortiz"),
+            cell("Patients", "r13", "DateOfBirth", "11/30/1986"),
+          ],
+        },
+      ],
+    },
+  ],
+
+  "module-4::building-reports": [
+    {
+      id: "access-id-m4-building-reports-1",
+      app: "access",
+      title: "Build the monthly appointment summary",
+      scenario:
+        "Every month the office manager spends a Monday afternoon turning the appointment list into a printed summary by provider. You build an Access report that does it in seconds and save a PDF copy for the staff meeting.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 9,
+      initial: accessDoc({ tables: m4Tables(), relationships: apptRelationships(), queries: [septemberQuery()] }),
+      tasks: [
+        {
+          instruction: "Use the Report Wizard on the SeptemberAppointments query with these fields in this order: ProviderLastName, AppointmentDate, PatientLastName, PatientFirstName, VisitType. Group by ProviderLastName, sort by AppointmentDate ascending, use the Stepped layout, and title it MonthlyAppointmentSummary.",
+          hint: "Create › Reports › Report Wizard. Choose Query: SeptemberAppointments and move the five fields over in order. Add ProviderLastName as the grouping level, pick AppointmentDate in the first sort box, keep Stepped, type the title, and click Finish.",
+          steps: [
+            dlg("backstage:reportWizard", {
+              source: "Query: SeptemberAppointments",
+              fields: "ProviderLastName,AppointmentDate,PatientLastName,PatientFirstName,VisitType",
+              groups: "ProviderLastName",
+              sorts: "AppointmentDate:asc",
+              layout: "Stepped",
+              title: "MonthlyAppointmentSummary",
+            }),
+          ],
+        },
+        {
+          instruction: "Switch the report to Design View and change the title text to Monthly Appointment Summary.",
+          hint: "Close Print Preview › Close Print Preview opens Design View (or Home › View › Design View). Double-click the title in the Report Header, type the new text, and press Enter.",
+          steps: [
+            cmd("view.switch", ["Design View", "Layout View"], { alt: [{ kind: "command", id: "preview.close" }] }),
+            typed("label:MonthlyAppointmentSummary.Title", "Monthly Appointment Summary", {
+              alt: [{ kind: "type", target: "prop:Caption", value: "Monthly Appointment Summary", requires: { selection: "ctl:MonthlyAppointmentSummary.Title" } }],
+            }),
+          ],
+        },
+        {
+          instruction: "Give the ProviderLastName group a footer section.",
+          hint: "Report Design › Grouping & Totals › Group & Sort. On the Group on ProviderLastName bar, click More and change without a footer section to with a footer section.",
+          steps: [cmd("report.groupOption", "ProviderLastName|with a footer section")],
+        },
+        {
+          instruction: "In the ProviderLastName Footer, add a text box that counts each provider's appointments with =Count([AppointmentDate])",
+          hint: "Report Design › Controls › Text Box, click in the ProviderLastName Footer section, type =Count([AppointmentDate]), and press Enter.",
+          steps: [
+            typed("section:MonthlyAppointmentSummary.ProviderLastName Footer", spaced("=Count([AppointmentDate])", "=Count(*)"), {
+              alt: [{ kind: "command", id: "report.totals", value: ["Count Records", "Count Values"], requires: { selection: ctl("MonthlyAppointmentSummary", "AppointmentDate") } }],
+            }),
+          ],
+        },
+        {
+          instruction: "Preview the report and change its orientation to Landscape.",
+          hint: "Home › Views › View › Print Preview, then Print Preview › Page Layout › Landscape.",
+          steps: [viewSwitch("Print Preview"), cmd("pageSetup.landscape", undefined, { alt: [{ kind: "dialog", id: "pageSetup", values: { orientation: "Landscape" } }] })],
+        },
+        {
+          instruction: "Save the report, then export it as a PDF named MonthlyAppointmentSummary_September2026.pdf in the Documents folder.",
+          hint: "Press Ctrl+S. Then Print Preview › Data › PDF or XPS (or External Data › Export › PDF or XPS), type the file name, and click Publish.",
+          anyOrder: true,
+          steps: [
+            saveObj(),
+            dlg("backstage:exportPdf", { object: "MonthlyAppointmentSummary", file: [`${DOCS}\\MonthlyAppointmentSummary_September2026.pdf`, `${DOCS}\\MonthlyAppointmentSummary_September2026`] }, {
+              alt: [{ kind: "dialog", id: "file.saveAs", values: { format: "PDF or XPS", name: "MonthlyAppointmentSummary_September2026" } }],
+            }),
+          ],
+        },
+      ],
+    },
+  ],
+
+  "module-4::exporting-access-data": [
+    {
+      id: "access-id-m4-exporting-access-data-1",
+      app: "access",
+      title: "Send appointment data three ways",
+      scenario:
+        "Three people need the September appointments: the office manager wants Excel for a chart, the billing contractor needs a CSV file for her billing software, and the practice manager wants the summary report as a PDF.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 7,
+      initial: accessDoc({
+        tables: m4Tables(),
+        relationships: apptRelationships(),
+        queries: [septemberQuery()],
+        reports: [monthlyReport()],
+        savedExports: [{ name: "Monthly Appointments to Excel", object: "SeptemberAppointments", format: "Excel Workbook", file: "S:\\Lakeside Shared\\Appointments_Current.xlsx", description: "Office manager's monthly chart data" }],
+      }),
+      tasks: [
+        {
+          instruction: "Export the SeptemberAppointments query to an Excel workbook named SeptemberAppointments_Export.xlsx in the Documents folder, keeping its formatting and layout.",
+          hint: "Click SeptemberAppointments in the Navigation Pane, then External Data › Export › Excel. Change the file name to SeptemberAppointments_Export.xlsx, check Export data with formatting and layout, and click OK.",
+          steps: [dlg("backstage:exportExcel", { object: "SeptemberAppointments", file: `${DOCS}\\SeptemberAppointments_Export.xlsx`, formatting: true })],
+        },
+        {
+          instruction: "Export the same query as a comma-delimited text file named SeptemberAppointments.csv with field names in the first row. Save the export steps as SeptemberAppointmentsToBilling.",
+          hint: "External Data › Export › Text File. Change the file name to SeptemberAppointments.csv and click OK. Choose Delimited and Comma, check Include Field Names on First Row, and click Finish. Then check Save export steps, type the name, and click Save Export.",
+          steps: [
+            dlg("backstage:exportText", {
+              object: "SeptemberAppointments",
+              file: `${DOCS}\\SeptemberAppointments.csv`,
+              format: "Delimited",
+              delimiter: "Comma",
+              headings: true,
+              saveSteps: true,
+              saveName: "SeptemberAppointmentsToBilling",
+            }),
+          ],
+        },
+        {
+          instruction: "Run the saved export named Monthly Appointments to Excel.",
+          hint: "External Data › Export › Saved Exports. Click Monthly Appointments to Excel, then click Run.",
+          steps: [cmd("external.runSavedExport", "Monthly Appointments to Excel")],
+        },
+        {
+          instruction: "Export the MonthlyAppointmentSummary report as a PDF file named MonthlyAppointmentSummary.pdf in the Documents folder.",
+          hint: "Click MonthlyAppointmentSummary in the Navigation Pane, then External Data › Export › PDF or XPS, and click Publish.",
+          steps: [dlg("backstage:exportPdf", { object: "MonthlyAppointmentSummary", file: `${DOCS}\\MonthlyAppointmentSummary.pdf` })],
+        },
+      ],
+    },
+  ],
+};
+
 export const accessSims: Record<string, SimDefinition[]> = {
   ...module1,
   ...module3,
+  ...module4,
 };
 
-void ctl;
 void LOOKUP_SOURCES;
 void PHONE_MASK;
 void ONEDRIVE;
-void patientsReg;
-void providersP;
 void supplies;
+void regPatients;

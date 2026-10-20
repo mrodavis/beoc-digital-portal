@@ -458,29 +458,43 @@ export const ICD_INDEX: IcdIndexEntry[] = [
   },
   { term: "Examination", sub: [{ term: "medical (adult)", code: "Z00.00", sub: [{ term: "with abnormal findings", code: "Z00.01" }] }] },
   { term: "Fibrillation", sub: [{ term: "atrial or auricular (established)", code: "I48.91" }] },
-  { term: "Fracture, traumatic", sub: [{ term: "radius", sub: [{ term: "lower end", code: "S52.50-", sub: [{ term: "Colles'", code: "S52.53-" }] }] }] },
+  { term: "Fracture, traumatic", sub: [{ term: "radius", sub: [{ term: "lower end", code: "S52.50-", sub: [{ term: "Colles'", see: "Colles' fracture" }] }] }] },
   { term: "Hyperlipidemia", code: "E78.5" },
   { term: "Hypertension, hypertensive", mods: "(accelerated) (benign) (essential) (idiopathic) (malignant) (systemic)", code: "I10" },
   { term: "Infection", sub: [{ term: "urinary (tract)", code: "N39.0" }] },
-  { term: "Laceration", sub: [{ term: "hand", code: "S61.41-" }] },
+  { term: "Laceration", sub: [{ term: "hand", code: "S61.419" }] },
   {
     term: "Long-term (current) (prophylactic) drug therapy (use of)",
     sub: [
       { term: "anticoagulants", code: "Z79.01" },
       { term: "insulin", code: "Z79.4" },
-      { term: "oral hypoglycemic drugs", code: "Z79.84" },
+      {
+        term: "oral",
+        sub: [
+          { term: "antidiabetic", code: "Z79.84" },
+          { term: "hypoglycemic", code: "Z79.84" },
+        ],
+      },
     ],
   },
   {
     term: "Osteoarthritis",
     code: "M19.90",
     sub: [
-      { term: "knee", code: "M17.1-", sub: [{ term: "bilateral", code: "M17.0" }] },
+      {
+        term: "knee",
+        code: "M17.9",
+        sub: [
+          { term: "bilateral", code: "M17.0" },
+          { term: "primary", code: "M17.1-", sub: [{ term: "bilateral", code: "M17.0" }] },
+          { term: "unilateral", code: "M17.1-", sub: [{ term: "primary", code: "M17.1-" }] },
+        ],
+      },
       { term: "spine", see: "Spondylosis" },
     ],
   },
   { term: "Pain(s)", sub: [{ term: "joint", code: "M25.50", sub: [{ term: "knee", code: "M25.56-" }] }] },
-  { term: "Pharyngitis", mods: "(acute) (catarrhal) (gangrenous) (infective) (malignant) (membranous) (phlegmonous) (pseudomembranous) (simple) (subacute) (suppurative) (ulcerative) (viral)", code: "J02.9", sub: [{ term: "streptococcal", code: "J02.0" }] },
+  { term: "Pharyngitis", mods: "(acute) (catarrhal) (gangrenous) (infective) (malignant) (membranous) (phlegmonous) (pseudomembranous) (simple) (subacute) (suppurative) (ulcerative)", code: "J02.9", sub: [{ term: "streptococcal", code: "J02.0" }] },
   {
     term: "Pneumonia",
     mods: "(acute) (double) (migratory) (purulent) (septic) (unresolved)",
@@ -493,7 +507,7 @@ export const ICD_INDEX: IcdIndexEntry[] = [
       { term: "viral", code: "J12.9" },
     ],
   },
-  { term: "Spondylosis", sub: [{ term: "lumbar region", code: "M47.816" }] },
+  { term: "Spondylosis", sub: [{ term: "without myelopathy or radiculopathy", sub: [{ term: "lumbar region", code: "M47.816" }] }] },
   { term: "Sprain", mods: "(joint) (ligament)", sub: [{ term: "ankle", code: "S93.40-", sub: [{ term: "calcaneofibular ligament", code: "S93.41-" }] }] },
   { term: "Wheezing", code: "R06.2" },
 ];
@@ -557,12 +571,12 @@ export const EXCLUDES1_PAIRS: { a: string; b: string; note: string }[] = [
 export type CptSection = "Evaluation and Management" | "Anesthesia" | "Surgery" | "Radiology" | "Pathology and Laboratory" | "Medicine";
 
 export const CPT_SECTIONS: { name: CptSection; range: string; note?: string }[] = [
-  { name: "Evaluation and Management", range: "99202-99215 (office visits)", note: "Listed first in the book because it is used most, even though the numbers come last. Office visit level is chosen by medical decision making (MDM) or total time on the date of the encounter." },
+  { name: "Evaluation and Management", range: "99202-99215 (office visits)", note: "Listed first in the book because it is used most, even though its codes are numbered near the end. Office visit level is chosen by medical decision making (MDM) or total time on the date of the encounter." },
   { name: "Anesthesia", range: "00100-01999", note: "Reported by the anesthesia provider. No anesthesia services are billed by this clinic." },
-  { name: "Surgery", range: "10000-69999", note: "The largest section." },
-  { name: "Radiology", range: "70000-79999" },
-  { name: "Pathology and Laboratory", range: "80000-89999" },
-  { name: "Medicine", range: "90000-99199" },
+  { name: "Surgery", range: "10004-69990", note: "The largest section." },
+  { name: "Radiology", range: "70010-79999" },
+  { name: "Pathology and Laboratory", range: "80047-89398" },
+  { name: "Medicine", range: "90281-99199, 99500-99607" },
 ];
 
 export type ProcCode = {
@@ -593,7 +607,7 @@ export const PROC_CODES: ProcCode[] = [
   { code: "99215", set: "CPT", section: "Evaluation and Management", text: "Office visit, established patient: high MDM, or at least 40 minutes total time", fee: 310, em: true },
   // Surgery
   { code: "10060", set: "CPT", section: "Surgery", text: "Incision and drainage of a simple or single skin abscess", fee: 250, minor: true },
-  { code: "12001", set: "CPT", section: "Surgery", text: "Simple repair of superficial wounds (scalp, neck, trunk, arms, legs, hands or feet), total length 2.5 cm or less", fee: 210, minor: true },
+  { code: "12001", set: "CPT", section: "Surgery", text: "Simple repair of superficial wounds (sites such as the scalp, neck, trunk, arms, legs, hands or feet), total length 2.5 cm or less", fee: 210, minor: true },
   { code: "12002", set: "CPT", section: "Surgery", text: "Simple repair of superficial wounds (same sites), total length 2.6 cm to 7.5 cm", fee: 260, minor: true },
   { code: "17110", set: "CPT", section: "Surgery", text: "Destruction of benign skin lesions such as warts, up to 14 lesions", fee: 160, minor: true },
   { code: "20610", set: "CPT", section: "Surgery", text: "Injection or aspiration of a major joint or bursa (such as knee, hip or shoulder), without ultrasound guidance", fee: 180, minor: true },
@@ -633,7 +647,7 @@ export const PROC_CODES: ProcCode[] = [
   { code: "G0438", set: "HCPCS", section: "G", text: "Medicare annual wellness visit, initial, with personalized prevention plan", fee: 175 },
   { code: "G0439", set: "HCPCS", section: "G", text: "Medicare annual wellness visit, subsequent", fee: 120 },
   { code: "J0696", set: "HCPCS", section: "J", text: "Injection, ceftriaxone sodium", per: "per 250 mg", fee: 12 },
-  { code: "J1030", set: "HCPCS", section: "J", text: "Injection, methylprednisolone acetate", per: "40 mg", fee: 10 },
+  { code: "J1010", set: "HCPCS", section: "J", text: "Injection, methylprednisolone acetate", per: "per 1 mg", fee: 0.25 },
   { code: "J1100", set: "HCPCS", section: "J", text: "Injection, dexamethasone sodium phosphate", per: "1 mg", fee: 2 },
   { code: "J1885", set: "HCPCS", section: "J", text: "Injection, ketorolac tromethamine", per: "per 15 mg", fee: 8 },
   { code: "J3301", set: "HCPCS", section: "J", text: "Injection, triamcinolone acetonide, not otherwise specified", per: "per 10 mg", fee: 9 },
@@ -670,7 +684,7 @@ export const MODIFIERS: { code: string; means: string; attaches: string }[] = [
 
 /** NCCI-style pairs in this code set: the second code is a component of the first. */
 export const COMPONENT_PAIRS: { comprehensive: string; component: string; note: string }[] = [
-  { comprehensive: "80053", component: "80048", note: "Every test in the basic metabolic panel (80048) is part of the comprehensive panel (80053). Report 80053 only." },
+  { comprehensive: "80053", component: "80048", note: "Every test in the basic metabolic panel (80048) is part of the comprehensive panel (80053), and CPT does not allow two panels that share tests from the same specimen. Report 80053 only." },
 ];
 
 export function procCode(code: string): ProcCode | undefined {
@@ -684,7 +698,7 @@ export const CARC: Record<string, string> = {
   "CO-27": "Expenses incurred after coverage terminated",
   "CO-29": "The time limit for filing has expired",
   "CO-45": "Charge exceeds the fee schedule or maximum allowable (contractual adjustment)",
-  "CO-97": "Service is included in the payment for another service on the claim",
+  "CO-97": "Service is included in the payment for another service or procedure already adjudicated",
   "CO-197": "Precertification, authorization or notification absent",
   "PR-1": "Deductible amount",
   "PR-2": "Coinsurance amount",
