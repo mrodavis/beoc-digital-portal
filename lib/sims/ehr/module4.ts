@@ -155,7 +155,7 @@ export const ehrModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Code the fracture from the documentation. Use the Index and the Tabular List, and choose the 7th character for the initial encounter of a closed fracture.",
-          hint: "Encoder › ICD-10-CM › Alphabetic Index › fracture (or Colles') › radius › lower end › Colles' S52.53- › Tabular List › S52.531 (right radius) › 7th character A › Add to encounter.",
+          hint: "Encoder › ICD-10-CM › Alphabetic Index › type Colles' › Colles' fracture S52.53- (Fracture › radius › lower end › Colles' says see Colles' fracture) › Tabular List › S52.531 (right radius) › 7th character A › Add to encounter.",
           steps: [{ action: { kind: "command", id: "ehr.dx.add", value: "E1:S52.531A" } }],
         },
         {

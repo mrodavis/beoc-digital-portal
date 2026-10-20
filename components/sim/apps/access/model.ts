@@ -2727,7 +2727,9 @@ function applyDialog(d: D, id: string, v: Record<string, SimValue>, ui: SimUi): 
         saved: true,
       };
       d.reports.push(r);
-      openTab(d, "report", name, /modify/i.test(sv(v.open)) ? "Design View" : "Print Preview");
+      const rt = openTab(d, "report", name, /modify/i.test(sv(v.open)) ? "Design View" : "Print Preview");
+      // Close Print Preview after the wizard lands in Design view, as in Access.
+      if (rt.view === "Print Preview") rt.prevView = "Design View";
       return out({ selection: `nav:report:${name}` });
     }
     case "backstage:queryWizard": {

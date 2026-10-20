@@ -111,7 +111,7 @@ export const ehrModule2Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "In Preauth, replace the pended diagnosis on Rosa's request with the code for unilateral primary osteoarthritis of the left knee. Use the Encoder if you need to look it up.",
-          hint: "Encoder › ICD-10-CM › Alphabetic Index › osteoarthritis › knee M17.1- › Tabular List shows M17.12 for the left knee. Then Preauth › ICD-10-CM code › type M17.12 and press Enter.",
+          hint: "Encoder › ICD-10-CM › Alphabetic Index › osteoarthritis › knee › primary M17.1- (knee alone points to M17.9, the unspecified code that was pended) › Tabular List shows M17.12 for the left knee. Then Preauth › ICD-10-CM code › type M17.12 and press Enter.",
           steps: [{ action: { kind: "type", target: "PA1.icd", value: "M17.12" } }],
         },
         {
@@ -193,7 +193,7 @@ export const ehrModule2Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Add the code for unilateral primary osteoarthritis of the left knee. Find the main term in the Alphabetic Index, then confirm the code in the Tabular List.",
-          hint: "Encoder › ICD-10-CM › Alphabetic Index › type osteoarthritis › click M17.1- beside knee › Tabular List › click M17.12 › Add to encounter.",
+          hint: "Encoder › ICD-10-CM › Alphabetic Index › type osteoarthritis › under knee, click M17.1- beside primary (knee alone gives M17.9, the code you just removed) › Tabular List › click M17.12 › Add to encounter.",
           steps: [{ action: { kind: "command", id: "ehr.dx.add", value: "E1:M17.12" } }],
         },
         {

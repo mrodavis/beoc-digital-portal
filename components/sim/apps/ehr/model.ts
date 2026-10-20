@@ -358,12 +358,12 @@ export function scrubClaim(doc: EhrDoc, c: EhrClaim): ScrubIssue[] {
     }
     if (payer?.laterality?.includes(l.code) && !hasMod(l, "LT", "RT", "50")) out.push({ box: "24D", line: l.id, text: `Line ${n}: ${payer.name} requires a laterality modifier (LT, RT or 50) on ${l.code}.` });
     if (payer?.authRequired?.includes(l.code) && !c.auth) out.push({ box: "23", line: l.id, text: `Prior authorization number required for ${l.code} by ${payer.name}.` });
-    if (codes.indexOf(l.code) !== i && !hasMod(l, "76", "59", "XE", "XS", "XP", "XU")) out.push({ box: "24D", line: l.id, text: `Line ${n}: ${l.code} is billed twice for the same date of service (CO-97 risk).` });
+    if (codes.indexOf(l.code) !== i && !hasMod(l, "76", "59", "XE", "XS", "XP", "XU")) out.push({ box: "24D", line: l.id, text: `Line ${n}: ${l.code} is billed twice for the same date of service (duplicate service denial risk, CARC 18).` });
   });
   for (const cp of COMPONENT_PAIRS) {
     if (codes.includes(cp.comprehensive)) {
       const comp = c.lines.find((l) => l.code === cp.component);
-      if (comp) out.push({ box: "24D", line: comp.id, text: `NCCI edit: ${cp.note}` });
+      if (comp) out.push({ box: "24D", line: comp.id, text: `Panel bundling edit: ${cp.note}` });
     }
   }
   return out;

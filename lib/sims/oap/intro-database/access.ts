@@ -940,14 +940,284 @@ const module4: Record<string, SimDefinition[]> = {
   ],
 };
 
+/* ------------------------------------------------------------------ */
+/* Module 5                                                            */
+/* ------------------------------------------------------------------ */
+
+/** Appointments where PatientID is not yet required. */
+function apptsOptionalPatient(): AccTable {
+  const a = appointments();
+  a.fields.find((f) => f.name === "PatientID")!.required = false;
+  return a;
+}
+
+/** Appointments with two records that lost their PatientID. */
+function apptsWithGaps(): AccTable {
+  const a = apptsOptionalPatient();
+  for (const id of ["r3", "r12"]) delete a.rows.find((r) => r._id === id)!.PatientID;
+  return a;
+}
+
+const insurancePlans = (): AccTable => table("InsurancePlans", [fld.auto("PlanID"), fld.text("PlanName", 50, { required: true })], [[1, "BlueCross"], [2, "Aetna"], [3, "Medicare"], [4, "Medicaid"]]);
+
+const outstandingBilling = (): AccQuery => ({
+  name: "qry1",
+  type: "Select",
+  tables: ["Appointments"],
+  cols: [
+    { field: "AppointmentID", table: "Appointments", show: true },
+    { field: "AppointmentDate", table: "Appointments", show: true },
+    { field: "Copay", table: "Appointments", show: true },
+    { field: "BilledDate", table: "Appointments", show: true, criteria: "Is Null" },
+  ],
+  saved: true,
+});
+
+/** Patients with the date of their most recent visit, for the retention review. */
+const retentionPatients = (): AccTable =>
+  table(
+    "Patients",
+    [fld.auto("PatientID"), fld.text("LastName", 50, { required: true }), fld.text("FirstName", 50), fld.date("DateOfBirth"), fld.date("LastVisit"), fld.yes("IsActivePatient")],
+    [
+      [1001, "Rodriguez", "Maria", "1985-03-14", "2026-10-01", true],
+      [1002, "Thompson", "James", "1972-11-02", "2026-10-20", true],
+      [1003, "Nguyen", "Linh", "1990-07-21", "2026-10-07", true],
+      [1004, "Patel", "Priya", "1968-01-30", "2026-10-13", true],
+      [1005, "Delgado", "Rosa", "1955-09-09", "2026-09-11", true],
+      [1006, "Kim", "Daniel", "1999-04-17", "2026-10-20", true],
+      [1007, "Brooks", "Tanya", "1981-12-05", "2017-03-22", false],
+      [1008, "Haddad", "Omar", "1977-06-28", "2026-09-17", true],
+      [1009, "Fischer", "Anna", "1963-02-11", "2026-09-22", true],
+      [1013, "Lindqvist", "Erik", "1949-08-30", "2016-11-04", false],
+      [1014, "Okoro", "Ngozi", "1978-04-12", "2018-06-15", false],
+      [1015, "Sandoval", "Luis", "1983-01-07", "2021-02-26", true],
+    ],
+  );
+
+const retentionLog = (): AccTable =>
+  table(
+    "RetentionLog",
+    [fld.auto("LogID"), fld.date("ActionDate", { required: true }), fld.text("RecordType", 50), fld.text("Description", 255), fld.text("AuthorizedBy", 50)],
+    [[1, "2025-10-15", "Billing records", "Archived 2017 billing statements to Billing_Archive", "Practice Manager"]],
+  );
+
+const module5: Record<string, SimDefinition[]> = {
+  "module-5::data-validation-rules": [
+    {
+      id: "access-id-m5-data-validation-rules-1",
+      app: "access",
+      title: "Lock down patient data entry",
+      scenario:
+        "Six months in, the database holds birth dates in the future, four spellings of BlueCross, phone numbers in every format, and appointments with no patient. You add rules so these errors cannot get in at all.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 8,
+      initial: accessDoc({ tables: [patients(), apptsOptionalPatient(), providers()] }),
+      tasks: [
+        {
+          instruction: "Open the Patients table in Design View.",
+          hint: "Right-click Patients in the Navigation Pane and choose Design View.",
+          steps: [openIn("table", "Patients", "Design View")],
+        },
+        {
+          instruction: "Add the validation rule <=Date() to DateOfBirth, so a birth date cannot be in the future.",
+          hint: "Click the DateOfBirth row. In Field Properties, click Validation Rule and type <=Date().",
+          steps: [prop("Validation Rule", "<=Date()", designField("Patients", "DateOfBirth"), "Click the DateOfBirth row first.")],
+        },
+        {
+          instruction: "Set the validation text for DateOfBirth to Date of birth must be a past date. Please check the entry.",
+          hint: "With DateOfBirth selected, type the message in the Validation Text box in Field Properties.",
+          steps: [prop("Validation Text", "Date of birth must be a past date. Please check the entry.", designField("Patients", "DateOfBirth"), "Click the DateOfBirth row first.")],
+        },
+        {
+          instruction: 'Allow only three plans in InsurancePlan with the validation rule "BlueCross" Or "Aetna" Or "Medicare"',
+          hint: 'Click the InsurancePlan row and type "BlueCross" Or "Aetna" Or "Medicare" in Validation Rule.',
+          steps: [prop("Validation Rule", '"BlueCross" Or "Aetna" Or "Medicare"', designField("Patients", "InsurancePlan"), "Click the InsurancePlan row first.")],
+        },
+        {
+          instruction: "Give the Phone field the Phone Number input mask, storing the symbols with the data.",
+          hint: "Click the Phone row, click in Input Mask, and click the Build button (...). Choose Phone Number, click Next twice, choose With the symbols in the mask, and click Finish.",
+          steps: [prop("Input Mask", [PHONE_MASK, "(999) 000-0000;0;_", "!(999) 000-0000;0;_"], designField("Patients", "Phone"), "Click the Phone row first.")],
+        },
+        {
+          instruction: "Save the table design.",
+          hint: "Press Ctrl+S, or click Save on the Quick Access Toolbar.",
+          steps: [saveObj()],
+        },
+        {
+          instruction: "Open the Appointments table in Design View, make PatientID required, and save the table.",
+          hint: "Right-click Appointments and choose Design View. Click the PatientID row, set Required to Yes, and press Ctrl+S.",
+          steps: [
+            openIn("table", "Appointments", "Design View"),
+            prop("Required", "Yes", designField("Appointments", "PatientID"), "Click the PatientID row first."),
+            saveObj(),
+          ],
+        },
+      ],
+    },
+  ],
+
+  "module-5::backing-up-data": [
+    {
+      id: "access-id-m5-backing-up-data-1",
+      app: "access",
+      title: "Back up and protect the database",
+      scenario:
+        "Last week a power outage corrupted six hours of appointment entries, and there was no backup. You set up the protections the practice manager asked for: dated backups in a second location, a compact and repair, a password, and compacting on close.",
+      fileName: "Lakeside_Appointments.accdb",
+      minutes: 6,
+      initial: accessDoc({ tables: [patients(), appointments(), providers()], relationships: apptRelationships(), saved: { location: "S:\\Lakeside Shared" } }),
+      tasks: [
+        {
+          instruction: "Back up the database to the OneDrive - BEOC folder, keeping the suggested date-stamped file name.",
+          hint: "File › Save As › Back Up Database › Save As. In the Save As box, click OneDrive - BEOC, keep the name Lakeside_Appointments_2026-10-20, and click Save.",
+          steps: [dlg("file.saveAs", { format: "Back Up Database", name: "Lakeside_Appointments_2026-10-20", location: ONEDRIVE })],
+        },
+        {
+          instruction: "You are about to change a table design. First make a second backup in the same OneDrive - BEOC folder named Lakeside_Appointments_BeforeSchemaChange_2026-10-20.",
+          hint: "File › Save As › Back Up Database › Save As. Click OneDrive - BEOC, change the file name, and click Save.",
+          steps: [dlg("file.saveAs", { format: "Back Up Database", name: "Lakeside_Appointments_BeforeSchemaChange_2026-10-20", location: ONEDRIVE })],
+        },
+        {
+          instruction: "Compact and repair the database.",
+          hint: "Database Tools › Tools › Compact and Repair Database, or File › Info › Compact & Repair Database.",
+          steps: [cmd("dbtools.compact")],
+        },
+        {
+          instruction: "Encrypt the database with a password.",
+          hint: "File › Info › Encrypt with Password. Type a password in Password and again in Verify, then click OK.",
+          steps: [cmd("file.protect", "Encrypt with Password")],
+        },
+        {
+          instruction: "Set the database to compact automatically every time it closes.",
+          hint: "File › Options › Current Database. Check Compact on Close and click OK.",
+          steps: [cmd("file.options", "Compact on Close: Yes")],
+        },
+      ],
+    },
+  ],
+
+  "module-5::records-retention": [
+    {
+      id: "access-id-m5-records-retention-1",
+      app: "access",
+      title: "Archive records past the retention period",
+      scenario:
+        "Under the practice's seven-year policy for adult records, patients not seen since before 2019 can move out of the active database. You find them with a query, copy them to an archive table, and log the action for the compliance file.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 7,
+      initial: accessDoc({ tables: [retentionPatients(), retentionLog()] }),
+      tasks: [
+        {
+          instruction: "Start a new query in Design View based on the Patients table.",
+          hint: "Create › Queries › Query Design, then double-click Patients in the Add Tables pane.",
+          anyOrder: true,
+          steps: [cmd("create.queryDesign"), cmd("query.addTable", "Patients")],
+        },
+        {
+          instruction: "Add the PatientID, LastName, FirstName and LastVisit fields to the grid.",
+          hint: "Double-click each field in the Patients field list.",
+          anyOrder: true,
+          steps: [addQField("Query1", "Patients", "PatientID"), addQField("Query1", "Patients", "LastName"), addQField("Query1", "Patients", "FirstName"), addQField("Query1", "Patients", "LastVisit")],
+        },
+        {
+          instruction: "Show only patients whose last visit was before 1/1/2019.",
+          hint: "In the Criteria row under LastVisit, type <#1/1/2019#.",
+          steps: [qcell("Query1", "LastVisit", "Criteria", "<#1/1/2019#")],
+        },
+        {
+          instruction: "Run the query to check which records it finds, then save it as Archive Candidates.",
+          hint: "Query Design › Results › Run. Then press Ctrl+S, type Archive Candidates, and click OK.",
+          anyOrder: true,
+          steps: [runQuery(), saveAs("Archive Candidates")],
+        },
+        {
+          instruction: "Turn the query into a make-table query that creates a table named Patients_Archive, then run it.",
+          hint: "Home › View › Design View. Query Design › Query Type › Make Table, type Patients_Archive, and click OK. Then click Run and choose Yes to paste the rows.",
+          steps: [dlg("makeTable", { name: "Patients_Archive" }), cmd("query.run"), cmd("query.execute")],
+        },
+        {
+          instruction: "Log the archive in the RetentionLog table: ActionDate 10/20/2026, RecordType Patient records, Description Copied 3 patient records to Patients_Archive, AuthorizedBy Practice Manager.",
+          hint: "Double-click RetentionLog in the Navigation Pane. In the (New) row, type each value and press Tab to move to the next field.",
+          anyOrder: true,
+          steps: [
+            cell("RetentionLog", "r2", "ActionDate", "10/20/2026"),
+            cell("RetentionLog", "r2", "RecordType", "Patient records"),
+            cell("RetentionLog", "r2", "Description", "Copied 3 patient records to Patients_Archive"),
+            cell("RetentionLog", "r2", "AuthorizedBy", "Practice Manager"),
+          ],
+        },
+      ],
+    },
+  ],
+
+  "module-5::office-data-management-system": [
+    {
+      id: "access-id-m5-office-data-management-system-1",
+      app: "access",
+      title: "Run the weekly data-quality routine",
+      scenario:
+        "The new data management plan gives you a weekly checklist: find appointments missing a patient, keep object names readable, make insurance plans a controlled list, and back up the file.",
+      fileName: "Lakeside_Practice.accdb",
+      minutes: 9,
+      initial: accessDoc({ tables: [patients(), apptsWithGaps(), providers(), insurancePlans()], queries: [outstandingBilling()] }),
+      tasks: [
+        {
+          instruction: "Start a new query in Design View on the Appointments table with the AppointmentID, AppointmentDate and PatientID fields.",
+          hint: "Create › Queries › Query Design, double-click Appointments, then double-click each of the three fields.",
+          anyOrder: true,
+          steps: [
+            cmd("create.queryDesign"),
+            cmd("query.addTable", "Appointments"),
+            addQField("Query1", "Appointments", "AppointmentID"),
+            addQField("Query1", "Appointments", "AppointmentDate"),
+            addQField("Query1", "Appointments", "PatientID"),
+          ],
+        },
+        {
+          instruction: "Show only appointments that have no PatientID.",
+          hint: "In the Criteria row under PatientID, type Is Null.",
+          steps: [qcell("Query1", "PatientID", "Criteria", "Is Null")],
+        },
+        {
+          instruction: "Run the query and save it as Appointments Missing PatientID.",
+          hint: "Query Design › Results › Run, then press Ctrl+S, type the name, and click OK.",
+          anyOrder: true,
+          steps: [runQuery(), saveAs("Appointments Missing PatientID")],
+        },
+        {
+          instruction: "Rename the query qry1 to WeeklyOutstandingBilling so its purpose is clear.",
+          hint: "Right-click qry1 in the Navigation Pane, choose Rename, type WeeklyOutstandingBilling, and press Enter.",
+          steps: [typed("nav:query:qry1", "WeeklyOutstandingBilling")],
+        },
+        {
+          instruction: "In the Patients table, turn InsurancePlan into a lookup field that gets its values from the PlanName field of the InsurancePlans table.",
+          hint: "Open Patients in Design View. In the InsurancePlan row, choose Lookup Wizard in the Data Type list. Choose to get the values from another table, pick InsurancePlans, move only PlanName to Selected Fields, and click Finish.",
+          steps: [
+            openIn("table", "Patients", "Design View"),
+            dlg("backstage:lookupWizard", { table: "Patients", field: "InsurancePlan", source: LOOKUP_SOURCES[0], lookupTable: "InsurancePlans", lookupField: "PlanName" }),
+          ],
+        },
+        {
+          instruction: "Save the Patients table design.",
+          hint: "Press Ctrl+S, or click Save on the Quick Access Toolbar.",
+          steps: [saveObj()],
+        },
+        {
+          instruction: "Back up the database, keeping the suggested name and folder.",
+          hint: "File › Save As › Back Up Database › Save As, then click Save.",
+          steps: [dlg("file.saveAs", { format: "Back Up Database", name: "Lakeside_Practice_2026-10-20" })],
+        },
+      ],
+    },
+  ],
+};
+
 export const accessSims: Record<string, SimDefinition[]> = {
   ...module1,
   ...module3,
   ...module4,
+  ...module5,
 };
 
-void LOOKUP_SOURCES;
-void PHONE_MASK;
-void ONEDRIVE;
 void supplies;
 void regPatients;

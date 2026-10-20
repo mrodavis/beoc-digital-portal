@@ -93,7 +93,7 @@ export const EXPORT_FORMATS = ["PDF", "Excel (CSV)", "Print"];
 export const EXPORT_RECIPIENTS = ["Practice manager (internal)", "Care team (internal)", "Outside billing company (BAA on file)", "University researcher (outside)"];
 export const DELIVERY = ["Mail", "Patient portal", "Email"];
 export const QUERY_TYPES = [
-  "Does the documentation support a higher E/M level?",
+  "Clarify the medical decision making for this visit",
   "Clarify laterality (left or right)",
   "Clarify diagnosis specificity",
   "Clarify the service performed",
@@ -414,7 +414,7 @@ export function buildForm(id: string, doc: EhrDoc | null, ctx: FormCtx = {}): Eh
         okLabel: "Send query",
         fields: [
           { type: "fixed", key: "enc", label: "Encounter", value: e?.id ?? ctx.enc ?? "", display: e?.id },
-          { type: "note", tone: "info", text: "A query asks the provider a neutral question about the documentation. It never suggests the answer or a code." },
+          { type: "note", tone: "info", text: "A query asks the provider a neutral question about the documentation. It never suggests the answer, a code or a level, and never mentions payment." },
           { type: "select", key: "question", label: "Question", options: opts(QUERY_TYPES), required: true, wide: true },
           { type: "text", key: "detail", label: "Details", multiline: true },
         ],

@@ -39,7 +39,7 @@ export const module3Lessons: Lesson[] = [
               [
                 "Excludes1",
                 "Not coded here — the two conditions cannot occur together",
-                "Never report both codes for the same encounter",
+                "Don't report both, unless the two conditions are documented as unrelated (Official Guidelines I.A.12.a)",
               ],
               [
                 "Excludes2",
@@ -51,7 +51,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Payers apply Excludes1 edits automatically, so a claim carrying an Excludes1 pair is usually rejected without any human looking at it. The way to hold the distinction: Excludes1 means mutually exclusive; Excludes2 means not part of this code, so code both if both are present.",
+            text: "Claim scrubbers and payer edits often catch Excludes1 pairs, so a claim carrying one can be rejected before anyone reviews it. The way to hold the distinction: Excludes1 means mutually exclusive; Excludes2 means not part of this code, so code both if both are present.",
           },
           {
             type: "table",
@@ -81,7 +81,7 @@ export const module3Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Category I is divided into six sections: Evaluation and Management, Anesthesia, Surgery, Radiology, Pathology and Laboratory, and Medicine. Surgery is by far the largest. Note that the sections are not in strict numeric order — Evaluation and Management codes begin at 99202 but appear first in the book, because they are the most frequently used.",
+            text: "Category I is divided into six sections: Evaluation and Management, Anesthesia, Surgery, Radiology, Pathology and Laboratory, and Medicine. Surgery is by far the largest. Note that the sections are not in strict numeric order — Evaluation and Management codes sit near the end of the number range (the office visit codes most practices use are 99202 to 99215) but appear first in the book, because they are the most frequently used.",
           },
           {
             type: "callout",
@@ -118,11 +118,11 @@ export const module3Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Evaluation & Management (E/M): 99202–99215",
-              "Surgery codes: 10000–69999",
-              "Radiology: 70000–79999",
-              "Pathology & Laboratory: 80000–89999",
-              "Medicine: 90000–99199",
+              "Evaluation & Management (E/M), office and outpatient visits: 99202–99215",
+              "Surgery codes: 10004–69990",
+              "Radiology: 70010–79999",
+              "Pathology & Laboratory: 80047–89398",
+              "Medicine: 90281–99199 and 99500–99607",
             ],
           },
         ],
@@ -388,8 +388,8 @@ export const module3Lessons: Lesson[] = [
               ],
               [
                 "CO-97",
-                "Service is included in another service on the claim",
-                "Not billing the same procedure twice",
+                "Service is included in another service or procedure already adjudicated",
+                "Not billing a service that is bundled into another one (a duplicate of the same service is CARC 18)",
               ],
             ],
           },

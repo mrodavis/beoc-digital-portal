@@ -647,7 +647,7 @@ export const PROC_CODES: ProcCode[] = [
   { code: "G0438", set: "HCPCS", section: "G", text: "Medicare annual wellness visit, initial, with personalized prevention plan", fee: 175 },
   { code: "G0439", set: "HCPCS", section: "G", text: "Medicare annual wellness visit, subsequent", fee: 120 },
   { code: "J0696", set: "HCPCS", section: "J", text: "Injection, ceftriaxone sodium", per: "per 250 mg", fee: 12 },
-  { code: "J1010", set: "HCPCS", section: "J", text: "Injection, methylprednisolone acetate", per: "per 1 mg", fee: 0.25 },
+  { code: "J1010", set: "HCPCS", section: "J", text: "Injection, methylprednisolone acetate", per: "1 mg", fee: 0.25 },
   { code: "J1100", set: "HCPCS", section: "J", text: "Injection, dexamethasone sodium phosphate", per: "1 mg", fee: 2 },
   { code: "J1885", set: "HCPCS", section: "J", text: "Injection, ketorolac tromethamine", per: "per 15 mg", fee: 8 },
   { code: "J3301", set: "HCPCS", section: "J", text: "Injection, triamcinolone acetonide, not otherwise specified", per: "per 10 mg", fee: 9 },

@@ -141,9 +141,9 @@ export const ehrModule8Sims: Record<string, SimDefinition[]> = {
       }),
       tasks: [
         {
-          instruction: "Treat the 99215 request as a documentation question first. Send Dr. Okafor a query asking whether the documentation supports a higher E/M level.",
-          hint: "Charges › Provider documentation › Query provider › Question: Does the documentation support a higher E/M level? › Send query. A query is neutral; it never suggests a code.",
-          steps: [{ action: { kind: "dialog", id: "ehr.query", values: { enc: "E1", question: "Does the documentation support a higher E/M level?" } } }],
+          instruction: "Treat the 99215 request as a documentation question first. Send Dr. Okafor a neutral query asking her to clarify the medical decision making for this visit.",
+          hint: "Charges › Provider documentation › Query provider › Question: Clarify the medical decision making for this visit › Send query. A compliant query is neutral: it never names a code or a level and never mentions payment.",
+          steps: [{ action: { kind: "dialog", id: "ehr.query", values: { enc: "E1", question: "Clarify the medical decision making for this visit" } } }],
         },
         {
           instruction: "Dr. Okafor replied that no other work was done. Change line 1 to the code the documentation supports.",
