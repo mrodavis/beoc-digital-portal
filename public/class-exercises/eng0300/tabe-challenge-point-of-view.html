@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TABE Challenge: Point of View &amp; Purpose | BEOC Digital</title>
+<style>
+:root{--navy:#1b3a6b;--blue:#26518f;--ink:#202122;--muted:#55606f;--gold:#e3b23c;--bg:#eef2f7;--ok:#1b6e3f;--okbg:#e6f4ec;--no:#a3262f;--nobg:#fbeaea;--line:#cfd8e6}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Lato,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.55}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+.hero{background:linear-gradient(135deg,#14294d 0%,#26518f 100%);color:#fff;border-radius:14px;padding:24px 26px}
+.gold{display:inline-block;background:var(--gold);color:#3a2a00;font-weight:700;font-size:13px;letter-spacing:.08em;padding:4px 12px;border-radius:999px}
+.hero h1{margin:12px 0 6px;font-size:28px;line-height:1.2;color:#fff}
+.hero p{margin:0;font-size:17px}
+.note{background:linear-gradient(135deg,#5e4208 0%,#8f6a0c 100%);color:#fff;border-radius:12px;padding:14px 20px;margin:16px 0}
+.score{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin:16px 0;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center;color:var(--navy);font-weight:700}
+.score .msg{font-weight:400;color:var(--muted)}
+.card{background:#fff;border-top:5px solid var(--navy);border-radius:12px;padding:20px 22px;margin:18px 0;box-shadow:0 1px 3px rgba(20,41,77,.12)}
+.card h2{margin:10px 0 6px;color:var(--navy);font-size:22px;line-height:1.25}
+.ptag{display:inline-block;background:#e8eef8;color:var(--navy);font-weight:700;font-size:13px;letter-spacing:.06em;padding:3px 10px;border-radius:6px}
+.mins{color:var(--muted);font-size:14px;margin-left:6px}
+.passage{background:#f7f9fc;border-left:5px solid var(--gold);border-radius:8px;padding:14px 18px;margin:14px 0}
+.passage h3{margin:0 0 2px;color:var(--navy);font-size:19px}
+.passage p{margin:0 0 10px}
+.passage p:last-child{margin-bottom:0}
+.meta{color:var(--muted);font-size:14px}
+.pn{display:inline-block;min-width:1.4em;font-weight:700;color:var(--blue)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pair .passage{margin:0}
+.q{border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+.qhead{font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.stem{font-weight:700;margin:6px 0 10px}
+.opts{display:grid;gap:8px}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:10px;padding:11px 14px;min-height:46px;cursor:pointer}
+.opt:hover{border-color:var(--blue)}
+.opt:focus-visible,.btn:focus-visible,.tick:focus-visible,.resp:focus-visible{outline:3px solid #c98a00;outline-offset:2px}
+.opt.sel{border-color:var(--blue);background:#eaf1fb}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--no);background:var(--nobg)}
+.opt.missed{border-color:var(--ok);border-style:dashed}
+.opt[disabled]{cursor:default;color:var(--ink);opacity:1}
+.opt[disabled]:hover{border-color:var(--line)}
+.opt.right[disabled]:hover,.opt.missed[disabled]:hover{border-color:var(--ok)}
+.opt.wrong[disabled]:hover{border-color:var(--no)}
+.mark{display:block;font-weight:700;font-size:14px;margin-top:4px}
+.right .mark,.missed .mark{color:var(--ok)}
+.wrong .mark{color:var(--no)}
+.fb{margin-top:10px;padding:12px 14px;border-radius:10px;background:#f1f5fb;border-left:5px solid var(--blue)}
+.fb.ok{background:var(--okbg);border-left-color:var(--ok)}
+.fb.no{background:var(--nobg);border-left-color:var(--no)}
+.fb ul{margin:8px 0 0;padding-left:20px}
+.fb li{margin:4px 0}
+[hidden]{display:none!important}
+.btn{display:inline-block;font:inherit;font-weight:700;background:var(--navy);color:#fff;border:2px solid var(--navy);border-radius:10px;padding:9px 16px;min-height:46px;cursor:pointer;text-decoration:none;margin-top:10px}
+.btn.ghost{background:#fff;color:var(--navy)}
+.btn[disabled]{opacity:.55;cursor:default}
+.hint,.model{margin-top:10px;padding:12px 14px;border-radius:10px;background:#fff8e6;border-left:5px solid var(--gold)}
+.resp{display:block;width:100%;min-height:170px;font:inherit;padding:12px;border:2px solid var(--line);border-radius:10px;margin-top:8px}
+.count{color:var(--muted);font-size:14px;margin:4px 0 0}
+.tick{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;font:inherit;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:10px;padding:10px 14px;min-height:46px;cursor:pointer;margin-top:8px}
+.tick::before{content:"\2610";font-size:20px;line-height:1.2;color:var(--navy)}
+.tick[aria-pressed="true"]{border-color:var(--ok);background:var(--okbg)}
+.tick[aria-pressed="true"]::before{content:"\2611";color:var(--ok)}
+.moves{margin:8px 0 0;padding-left:22px}
+.foot{color:var(--muted);font-size:15px;text-align:center;margin:20px 0 8px}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+a{color:var(--blue)}
+@media (max-width:700px){.pair{grid-template-columns:1fr}.hero h1{font-size:24px}.card{padding:16px}}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#0f766e;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/eng0300"><span class="beoc-tb-badge">BEOC</span><span>&larr; ENG0300 Reading Lab</span></a><a class="beoc-tb-link" href="/eng0300/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div class="wrap">
+<div class="hero"><span class="gold">WEEK 5 &middot; OPTIONAL PRACTICE &middot; NOT GRADED</span><h1>TABE Challenge: Point of View &amp; Purpose</h1><p>One dense passage, four TABE-style questions. Read, answer, and check yourself right here.</p></div>
+<div class="note"><b>OPTIONAL PRACTICE (not graded):</b> there is nothing to hand in. This Challenge is extra practice to get you ready for the TABE, and it does not count toward your grade.</div>
+<div class="score" aria-live="polite"><span>Right on the first try: <span id="sFirst">0</span> of 3</span><span>Finished: <span id="sDone">0</span> of 3</span><span class="msg" id="sMsg">Let's go!</span></div>
+<div class="card"><span class="ptag">STEP 1</span> <span class="mins">Read</span><h2>Read the passage</h2><p>This is a new passage, not the one we read in class. It mixes facts and opinions, sometimes in the same paragraph. Read all of it, twice if you can, before you decide what the author wants you to think.</p>
+<div class="passage"><h3>What Shirley Chisholm Started</h3><p class="meta">Biography &middot; 285 words</p>
+<p><span class="pn">1</span>In 1968, voters in Brooklyn elected Shirley Chisholm to the United States House of Representatives. She was the first Black woman ever elected to Congress. Before she ran for office, she had spent years as a nursery school teacher and as the director of a child care center. No training could have prepared a lawmaker better for the work ahead.</p>
+<p><span class="pn">2</span>Chisholm served seven terms in the House, from 1969 to 1983. Early on, House leaders placed her on the Agriculture Committee, an odd assignment for a member from a city district. She objected and was moved to a different committee. During her years in Congress she worked to expand the food stamp program, and she helped create WIC, the program that helps low-income mothers, infants, and young children get healthy food.</p>
+<p><span class="pn">3</span>Most people who know her name remember one thing. In 1972 she became the first Black candidate to seek a major party's nomination for President, and the first woman to seek the Democratic nomination. Her slogan was "Unbought and Unbossed." Remembering only the campaign, though, sells her short. A campaign lasts a season. The programs she fought for still feed families every day.</p>
+<p><span class="pn">4</span>It is true that Chisholm did not come close to winning. She received 152 delegate votes at the Democratic convention, a small share of the total. But a first campaign is not measured only by its vote count, and it would be a mistake to call hers a failure.</p>
+<p><span class="pn">5</span>Chisholm left Congress in 1983 and went on to teach college students. She died in 2005. Ten years later, she was awarded the Presidential Medal of Freedom. Her work in Congress deserves to be as well known as her run for President.</p>
+<p class="meta">Original passage written for this class</p></div>
+</div>
+<div class="card"><span class="ptag">STEP 2</span> <span class="mins">Answer and check</span><h2>Three questions</h2><p>Choose your answer, then read the note. If you miss one, read why and try again.</p>
+<div class="q" data-type="mc">
+<div class="qhead">Question 1 &middot; Multiple choice &middot; TABE Ready</div>
+<p class="stem">What is the author's main purpose?</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-why="The convention gets one sentence. Nothing explains how a nomination is won."><b>A.</b> To inform readers about how a presidential nomination is won</button>
+<button type="button" class="opt" data-letter="B" data-why="Her teaching fills one sentence. The rest of the passage argues about how she should be remembered."><b>B.</b> To entertain readers with a story about a Brooklyn teacher</button>
+<button type="button" class="opt" data-letter="C" data-why="WIC is named and described in one clause. The passage never explains how it works."><b>C.</b> To explain how the WIC program works</button>
+<button type="button" class="opt" data-letter="D" data-right="1" data-why="The facts are real, but they are arranged to make a case. Paragraph 3 says remembering only the campaign &quot;sells her short,&quot; and the last sentence says her work in Congress &quot;deserves to be as well known as her run for President.&quot;"><b>D.</b> To persuade readers that Chisholm should be remembered for her work in Congress, not only for her 1972 campaign</button>
+</div><div class="fb" role="status" aria-live="polite" hidden></div></div>
+<div class="q" data-type="multi" data-key="Use one test on each statement: could a record settle it? An election result and a vote count are matters of record. How good a preparation was, whether a campaign failed, and what deserves to be known are judgments.">
+<div class="qhead">Question 2 &middot; Select all that apply &middot; Challenge</div>
+<p class="stem">Which statements from the passage are OPINIONS? Select all that apply.</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-why="Election results are public record. A statement can make someone look good and still be a fact."><b>A.</b> "She was the first Black woman ever elected to Congress."</button>
+<button type="button" class="opt" data-letter="B" data-right="1" data-why="How good a preparation was is a judgment. No record can settle it."><b>B.</b> "No training could have prepared a lawmaker better for the work ahead."</button>
+<button type="button" class="opt" data-letter="C" data-why="A vote count can be checked. A statement that sounds like bad news is not automatically an opinion."><b>C.</b> "She received 152 delegate votes at the Democratic convention."</button>
+<button type="button" class="opt" data-letter="D" data-right="1" data-why="Whether the campaign was a failure is a judgment about what counts as success."><b>D.</b> "It would be a mistake to call hers a failure."</button>
+<button type="button" class="opt" data-letter="E" data-right="1" data-why="&quot;Deserves&quot; signals a judgment about what ought to be, not a claim a record could check."><b>E.</b> "Her work in Congress deserves to be as well known as her run for President."</button>
+</div><button type="button" class="btn check">Check my answer</button>
+<div class="fb" role="status" aria-live="polite" hidden></div></div>
+<div class="q" data-type="mc">
+<div class="qhead">Question 3 &middot; Multiple choice &middot; Challenge</div>
+<p class="stem">Paragraph 4 says Chisholm received 152 delegate votes and did not come close to winning. How does the author's point of view shape the way this fact is presented?</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-why="The fact is in the passage, in paragraph 4. The author did not hide it."><b>A.</b> The author leaves the fact out so readers will not see it.</button>
+<button type="button" class="opt" data-letter="B" data-why="The author argues the opposite: &quot;it would be a mistake to call hers a failure.&quot;"><b>B.</b> The author uses the fact to argue that Chisholm should not have run.</button>
+<button type="button" class="opt" data-letter="C" data-right="1" data-why="A writer with a strong point of view can include an unwelcome fact and still control its effect. The loss gets two sentences, and the next one, &quot;But a first campaign is not measured only by its vote count,&quot; tells the reader how to judge it."><b>C.</b> The author states the fact once and then tells the reader not to count it against her, so a real loss reads like a small detail.</button>
+<button type="button" class="opt" data-letter="D" data-why="The vote count appears once. Her work in Congress comes back in paragraph 3 and again in the last sentence."><b>D.</b> The author repeats the fact in every paragraph to show how badly she lost.</button>
+</div><div class="fb" role="status" aria-live="polite" hidden></div></div>
+</div>
+<div class="card"><span class="ptag">STEP 3</span> <span class="mins">Write</span><h2>Question 4: short response</h2><p class="stem">In 3 to 4 full sentences, explain how the author's point of view toward Chisholm shapes this passage.</p><p><b>What a strong answer looks like:</b> it makes three moves.</p><ol class="moves"><li>It names the author's point of view toward Chisholm.</li><li>It quotes one statement of fact and one statement of opinion from the passage.</li><li>It explains one thing the author emphasizes or plays down because of that point of view.</li></ol><label for="resp" class="sr">Your short response</label><textarea id="resp" class="resp" placeholder="Type your 3 to 4 sentences here."></textarea><p class="count" id="respCount" aria-live="polite">0 sentences so far. Aim for 3 to 4.</p><p><b>Self-check.</b> Tap each line when your answer does it:</p><button type="button" class="tick" aria-pressed="false">I named the author's point of view.</button><button type="button" class="tick" aria-pressed="false">I quoted one fact and one opinion, in quotation marks.</button><button type="button" class="tick" aria-pressed="false">I explained one thing the author emphasizes or plays down.</button><button type="button" class="btn" data-toggle="model" data-show="I wrote my answer. Show a model answer" data-hide="Hide the model answer" aria-expanded="false">I wrote my answer. Show a model answer</button><div class="model" id="model" hidden><b>Model answer:</b> The author admires Chisholm, and that point of view decides which facts get the most room. The passage rests on checkable facts such as "Chisholm served seven terms in the House, from 1969 to 1983," but it adds judgments like "No training could have prepared a lawmaker better for the work ahead." Because of that point of view, her work in Congress is praised in paragraph 3 and again in the last sentence, while the fact that she "received 152 delegate votes" is stated once and excused in the very next sentence.</div></div>
+<div class="card"><span class="ptag">STEP 4</span><h2>Nothing to hand in</h2><p>This Challenge is optional practice. It is not graded, and you do not need to submit anything. If you want to keep your short response, copy it into your notebook so you can review it before the TABE.</p><button type="button" class="btn ghost" id="again">Start this page over</button></div>
+</div>
+<script>
+(function(){
+  var qs=[].slice.call(document.querySelectorAll('.q[data-type]'));
+  var total=qs.length, first=0, done=0;
+  var sFirst=document.getElementById('sFirst'), sDone=document.getElementById('sDone'), sMsg=document.getElementById('sMsg');
+  function upd(){
+    sFirst.textContent=first; sDone.textContent=done;
+    sMsg.textContent = done===0 ? "Let's go!" : (done<total ? 'Keep going.' : (first===total ? 'Every answer right on the first try. Excellent work.' : 'Finished. Reread the notes on the ones you missed.'));
+  }
+  function fb(q,cls,label,text,extra){
+    var box=q.querySelector('.fb'); box.className='fb '+cls; box.textContent='';
+    var b=document.createElement('b'); b.textContent=label+' '; box.appendChild(b);
+    box.appendChild(document.createTextNode(text));
+    if(extra){ box.appendChild(extra); }
+    box.hidden=false;
+  }
+  function mark(btn,cls,label){
+    btn.classList.remove('sel'); btn.classList.add(cls);
+    var m=btn.querySelector('.mark'); if(!m){ m=document.createElement('span'); m.className='mark'; btn.appendChild(m); }
+    m.textContent=label;
+  }
+  function review(q){
+    if(!q.dataset.review || q._tries<2) return null;
+    var p=document.createElement('p'); p.style.margin='8px 0 0';
+    var b=document.createElement('b'); b.textContent='Review: '; p.appendChild(b);
+    p.appendChild(document.createTextNode(q.dataset.review)); return p;
+  }
+  qs.forEach(function(q){
+    q._tries=0; q._done=false;
+    var opts=[].slice.call(q.querySelectorAll('.opt'));
+    if(q.dataset.type==='mc'){
+      opts.forEach(function(b){ b.addEventListener('click',function(){
+        if(q._done||b.disabled) return;
+        q._tries++;
+        if(b.dataset.right==='1'){
+          q._done=true; done++; if(q._tries===1) first++;
+          mark(b,'right','✓ Correct');
+          opts.forEach(function(o){ o.disabled=true; });
+          fb(q,'ok','Correct.',b.dataset.why,review(q));
+        } else {
+          mark(b,'wrong','✗ Not this one'); b.disabled=true;
+          fb(q,'no','Not this one.',b.dataset.why+' Try again.');
+        }
+        upd();
+      }); });
+    } else if(q.dataset.type==='multi'){
+      var check=q.querySelector('.check');
+      opts.forEach(function(b){ b.setAttribute('aria-pressed','false'); b.addEventListener('click',function(){
+        if(q._done) return;
+        var on=b.getAttribute('aria-pressed')==='true';
+        b.setAttribute('aria-pressed',on?'false':'true'); b.classList.toggle('sel',!on);
+      }); });
+      check.addEventListener('click',function(){
+        if(q._done) return;
+        var picked=opts.filter(function(o){ return o.classList.contains('sel'); });
+        if(!picked.length){ fb(q,'no','Choose first.','Tap every answer that belongs, then check.'); return; }
+        q._tries++;
+        var need=opts.filter(function(o){ return o.dataset.right==='1'; }).length;
+        var good=picked.filter(function(o){ return o.dataset.right==='1'; }).length;
+        var bad=picked.length-good;
+        var allRight=(good===need && bad===0);
+        if(!allRight && q._tries<2){
+          fb(q,'no','Not quite.','You picked '+good+' of the '+need+' right answers'+(bad?' and '+bad+' that '+(bad===1?'does':'do')+' not belong':'')+'. Change your choices and check one more time.');
+          return;
+        }
+        q._done=true; done++; if(allRight && q._tries===1) first++;
+        var ul=document.createElement('ul');
+        opts.forEach(function(o){
+          var isR=o.dataset.right==='1', sel=o.classList.contains('sel');
+          if(isR&&sel) mark(o,'right','✓ Correct'); else if(isR) mark(o,'missed','✓ This one belongs'); else if(sel) mark(o,'wrong','✗ Does not belong');
+          o.disabled=true;
+          var li=document.createElement('li'); var s=document.createElement('b'); s.textContent=o.dataset.letter+': '; li.appendChild(s); li.appendChild(document.createTextNode(o.dataset.why)); ul.appendChild(li);
+        });
+        check.disabled=true;
+        fb(q, allRight?'ok':'no', allRight?'Correct.':'Here is the full answer.', q.dataset.key||'', ul);
+        upd();
+      });
+    }
+  });
+  [].slice.call(document.querySelectorAll('[data-toggle]')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.getElementById(b.dataset.toggle); var show=t.hidden; t.hidden=!show;
+      b.setAttribute('aria-expanded',show?'true':'false');
+      b.textContent = show ? b.dataset.hide : b.dataset.show;
+    });
+  });
+  [].slice.call(document.querySelectorAll('.tick')).forEach(function(b){
+    b.addEventListener('click',function(){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); });
+  });
+  var resp=document.getElementById('resp'), cnt=document.getElementById('respCount');
+  if(resp&&cnt){ resp.addEventListener('input',function(){ var n=(resp.value.match(/[^.!?]+[.!?]+/g)||[]).length; cnt.textContent=n+' sentence'+(n===1?'':'s')+' so far. Aim for 3 to 4.'; }); }
+  var again=document.getElementById('again');
+  if(again){ again.addEventListener('click',function(){
+    first=0; done=0;
+    qs.forEach(function(q){ q._tries=0; q._done=false;
+      [].slice.call(q.querySelectorAll('.opt')).forEach(function(o){ o.disabled=false; o.classList.remove('sel','right','wrong','missed'); if(o.hasAttribute('aria-pressed')) o.setAttribute('aria-pressed','false'); var m=o.querySelector('.mark'); if(m) m.remove(); });
+      var c=q.querySelector('.check'); if(c) c.disabled=false;
+      var box=q.querySelector('.fb'); box.hidden=true; box.textContent=''; });
+    [].slice.call(document.querySelectorAll('[data-toggle]')).forEach(function(b){ document.getElementById(b.dataset.toggle).hidden=true; b.setAttribute('aria-expanded','false'); b.textContent=b.dataset.show; });
+    [].slice.call(document.querySelectorAll('.tick')).forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+    if(resp){ resp.value=''; if(cnt) cnt.textContent='0 sentences so far. Aim for 3 to 4.'; }
+    upd(); var top=document.querySelector('.hero'); if(top&&top.scrollIntoView) top.scrollIntoView();
+  }); }
+  upd();
+})();
+</script>
+</body>
+</html>

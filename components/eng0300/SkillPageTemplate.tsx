@@ -8,6 +8,10 @@ import AnswerReviewBlock from "./AnswerReviewBlock";
 import PendingContent from "./PendingContent";
 import SkillProgressControl from "./SkillProgressControl";
 import WriteItBlock from "./WriteItBlock";
+import {
+  classExerciseHref,
+  eng0300ExercisesForSkill,
+} from "@/lib/content/class-exercises";
 
 /**
  * The shared template behind all seven skill labs.
@@ -30,6 +34,12 @@ export default function SkillPageTemplate({
     skill.challenge ? { label: "Challenge", activity: skill.challenge } : null,
   ].filter((entry): entry is { label: string; activity: Activity } =>
     Boolean(entry)
+  );
+
+  // Brightspace in-class pages for this skill (TABE review pages excluded:
+  // they cover every skill and are linked from the TABE Prep Center).
+  const classExercises = eng0300ExercisesForSkill(skill.slug).filter(
+    (exercise) => exercise.group.id !== "tabe"
   );
 
   return (
@@ -223,6 +233,46 @@ export default function SkillPageTemplate({
         {/* Progress + resources */}
         <div className="mt-12 space-y-6">
           <SkillProgressControl skillId={skill.id} skillTitle={skill.title} />
+
+          {classExercises.length > 0 && (
+            <section
+              id="class-exercises"
+              className="scroll-mt-32 rounded-xl border border-eng-navy-200 bg-white p-5 sm:p-6"
+            >
+              <h2 className="font-display text-lg font-bold text-eng-navy-900">
+                Practice from class
+              </h2>
+              <p className="mt-1 text-sm text-eng-navy-600">
+                In-class pages for this skill. Each one keeps your score as you go.
+              </p>
+              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                {classExercises.map((exercise) => (
+                  <li key={exercise.slug}>
+                    <a
+                      href={classExerciseHref("eng0300", exercise.slug)}
+                      className="group block h-full rounded-lg border border-eng-navy-100 p-3 transition-colors hover:bg-eng-navy-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-teal-600"
+                    >
+                      <span className="text-xs font-bold uppercase tracking-wide text-eng-navy-400">
+                        {exercise.group.label} · {exercise.kind}
+                      </span>
+                      <span className="mt-1 block font-semibold text-eng-teal-800 group-hover:text-eng-teal-900">
+                        {exercise.title}
+                      </span>
+                      <span className="mt-1 block text-sm leading-relaxed text-eng-navy-600">
+                        {exercise.features}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <Link
+                href="/eng0300/class-exercises"
+                className="mt-4 inline-block text-sm font-semibold text-eng-teal-700 hover:text-eng-teal-900"
+              >
+                All class exercises →
+              </Link>
+            </section>
+          )}
 
           {skill.resources && skill.resources.length > 0 && (
             <section className="rounded-xl border border-eng-navy-200 bg-white p-5 sm:p-6">

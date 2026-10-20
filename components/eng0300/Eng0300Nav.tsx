@@ -8,6 +8,7 @@ const links = [
   { href: "/eng0300#skills", label: "Skill Labs", match: "/eng0300/skills" },
   { href: "/eng0300/writing-lab", label: "Writing Lab", match: "/eng0300/writing-lab" },
   { href: "/eng0300/practice", label: "Practice" },
+  { href: "/eng0300/class-exercises", label: "Class Exercises" },
   { href: "/eng0300/tabe", label: "TABE Prep", match: "/eng0300/tabe" },
   { href: "/eng0300/resources", label: "Resources" },
 ];

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>In-Class Practice: Text Structure | BEOC Digital</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Lato,'Segoe UI',Arial,sans-serif;background:#eef2f8;color:#202122;font-size:17px;line-height:1.6;}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px 70px;}
+.hero{background:linear-gradient(135deg,#0f2a52 0%,#26518f 100%);color:#fff;border-radius:0 0 18px 18px;padding:30px 26px 24px;margin:0 -16px 18px;}
+.hero h1{margin:0 0 6px;font-size:27px;line-height:1.25;}
+.hero p{margin:0;color:#d9e4f5;}
+.gold{display:inline-block;background:#d4a72c;color:#1b2a44;font-weight:900;border-radius:999px;padding:3px 14px;font-size:13px;letter-spacing:1.5px;margin-bottom:10px;}
+.scorebar{position:sticky;top:0;z-index:50;background:#1b3a6b;color:#fff;border-radius:12px;padding:10px 18px;margin:0 0 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 14px rgba(15,42,82,.25);}
+.scorebar b{color:#ffd766;}
+.card{background:#fff;border-radius:14px;box-shadow:0 2px 10px rgba(27,58,107,.08);padding:20px 22px;margin:0 0 20px;border-top:5px solid #26518f;transition:box-shadow .15s;}
+.card:hover{box-shadow:0 6px 18px rgba(27,58,107,.16);}
+.ptag{display:inline-block;background:#eef3fb;color:#26518f;font-weight:900;border-radius:8px;padding:2px 10px;font-size:13px;letter-spacing:1px;margin-bottom:6px;}
+.card h2{margin:0 0 4px;color:#1b3a6b;font-size:20px;}
+.mins{color:#7b8494;font-size:14px;font-weight:700;}
+.notebook{background:#fdf6e3;border-left:4px solid #d4a72c;padding:8px 14px;border-radius:6px;margin:10px 0;font-size:15px;}
+.chip{display:inline-block;background:#fff;border:2px solid #26518f;color:#1b3a6b;border-radius:999px;padding:6px 14px;margin:4px;font-weight:700;cursor:pointer;user-select:none;}
+.chip.sel{background:#26518f;color:#fff;}
+.chip.done{background:#e6f4ea;border-color:#1e7e34;color:#1e7e34;cursor:default;}
+.bucket{border:2px dashed #9db3d6;border-radius:12px;padding:10px 12px;margin:6px 0;cursor:pointer;background:#f8fafd;}
+.bucket:hover{background:#eef3fb;}
+.bucket b{color:#1b3a6b;}
+.bwords{color:#1e7e34;font-weight:700;font-size:15px;}
+.opt{display:block;width:100%;text-align:left;background:#f6f8fc;border:2px solid #d7e0ef;border-radius:10px;padding:9px 14px;margin:6px 0;font:inherit;cursor:pointer;}
+.opt:hover{border-color:#26518f;}
+.opt.right{background:#e6f4ea;border-color:#1e7e34;font-weight:700;}
+.opt.wrong{background:#fdecea;border-color:#b00020;}
+.opt:disabled{cursor:default;}
+.passage{background:#f4f7fb;border-radius:10px;padding:14px 18px;font-style:italic;color:#32333a;margin:8px 0;}
+.expl{display:none;background:#eef3fb;border-radius:8px;padding:10px 14px;margin:8px 0 2px;color:#1b3a6b;font-size:15px;}
+.fb{font-weight:900;margin-left:8px;}
+.sent{background:#f6f8fc;border:2px solid #d7e0ef;border-radius:10px;padding:9px 14px;margin:6px 0;cursor:pointer;font-style:italic;}
+.sent .num{display:inline-block;min-width:26px;height:26px;line-height:26px;text-align:center;background:#26518f;color:#fff;border-radius:50%;font-style:normal;font-weight:900;margin-right:10px;}
+.btn{background:#1b3a6b;color:#fff;border:none;border-radius:8px;padding:9px 18px;font:inherit;font-weight:700;cursor:pointer;margin:6px 6px 0 0;}
+.btn.ghost{background:#fff;color:#1b3a6b;border:2px solid #1b3a6b;}
+.handin{background:linear-gradient(135deg,#7a5a12,#b8860b);color:#fff;border-radius:14px;padding:18px 22px;margin:0 0 20px;}
+.handin a{color:#ffe9b3;font-weight:900;}
+.done-badge{color:#1e7e34;font-weight:900;display:none;}
+</style>
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#0f766e;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head><body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/eng0300"><span class="beoc-tb-badge">BEOC</span><span>&larr; ENG0300 Reading Lab</span></a><a class="beoc-tb-link" href="/eng0300/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+<div class="wrap">
+<div class="hero"><span class="gold">WEEK 4 &middot; MEETING 1 &middot; MON SEPT 28</span>
+<h1>In-Class Practice: Text Structure</h1>
+<p>Chronology &middot; Comparison &middot; Cause &amp; Effect &middot; Problem &amp; Solution. Write each answer in your notebook first, then tap to check. The page keeps your score as you go.</p></div>
+<div class="scorebar"><span>Your score: <b id="score">0</b> / 30 checks</span><span id="cheer">Let's go!</span></div>
+<div class="handin"><b>OPTIONAL HAND-IN (not graded):</b> nothing from this page needs to be submitted. Want feedback? Send a photo of your notebook answers for Parts 1, 3, 4, 6, and 7 &rarr; Assessments &gt; Assignments &gt; <b>Classwork 5 - Text Structure Practice (Sept 28)</b>, by Wednesday, September 30 at 12:00 PM.</div>
+
+<div class="card" id="p1card"><span class="ptag">PART 1</span> <span class="mins">10 minutes</span><span class="done-badge" id="p1done">&#10003; Complete</span>
+<h2>Warm-Up: Signal Word Sort</h2>
+<p>Tap a signal word, then tap the pattern it belongs to. Sort all 12.</p>
+<div class="notebook">Notebook first: write your four lists before you start tapping.</div>
+<div id="chips"></div>
+<div class="bucket" data-b="chron"><b>CHRONOLOGY</b> (time order) <div class="bwords" id="b-chron"></div></div>
+<div class="bucket" data-b="comp"><b>COMPARISON</b> (alike and different) <div class="bwords" id="b-comp"></div></div>
+<div class="bucket" data-b="cause"><b>CAUSE AND EFFECT</b> (one thing makes another happen) <div class="bwords" id="b-cause"></div></div>
+<div class="bucket" data-b="prob"><b>PROBLEM AND SOLUTION</b> (something is wrong, something fixes it) <div class="bwords" id="b-prob"></div></div>
+<p id="p1msg" style="font-weight:900;color:#26518f;"></p>
+</div>
+
+<div class="card"><span class="ptag">PART 2</span> <span class="mins">15 minutes &middot; we do this one together</span>
+<h2>Guided Example: Why the Waiting Room Filled Up</h2>
+<div class="passage">"On Tuesday morning, the clinic's check-in computer froze. Because staff could not pull up appointments, every patient had to be signed in by hand. As a result, check-in took four minutes per person instead of one. The waiting room filled quickly, and by ten o'clock patients were standing in the hallway. The slowdown also affected the pharmacy, since prescriptions could not be sent electronically. One frozen screen, in other words, produced a chain of delays that reached every corner of the building."</div>
+<p>Step 1: circle the signal words in your notebook. Step 2: name the pattern. Step 3: one cause, three effects. Step 4: predict what the next paragraph would talk about.</p>
+<button class="btn ghost" onclick="var e=document.getElementById('p2r');e.style.display=e.style.display==='block'?'none':'block'">Reveal the walkthrough</button>
+<div class="expl" id="p2r" style="display:none;">Signals: <b>Because, As a result, since, produced</b>. Pattern: <b>cause and effect</b>. Cause: the check-in computer froze. Effects: slow check-in, a crowded waiting room, pharmacy delays. Prediction: the fix, which would shift the passage toward problem and solution.</div>
+</div>
+
+<div class="card" id="p3card"><span class="ptag">PART 3</span> <span class="mins">25 minutes</span><span class="done-badge" id="p3done">&#10003; Complete</span>
+<h2>Practice Set A: Name That Pattern</h2>
+<p>Notebook first: pattern + two signal words that prove it. Then tap your answer.</p>
+<div class="passage"><b style="font-style:normal;color:#1b3a6b;">Passage A.</b> "Marisol decided to become a medical assistant in January. First, she enrolled in an evening program near her job. By spring, she had finished her classroom hours and moved on to a clinical placement. During the summer she studied for her certification exam, reviewing flashcards on the train each morning. Finally, in September, she passed the exam and posted her certificate above her desk. The whole journey took nine months from decision to diploma."</div>
+<div data-q="A" data-ans="Chronology"></div>
+<div class="expl">Chronology. Proof: First, By spring, During the summer, Finally.</div>
+<div class="passage"><b style="font-style:normal;color:#1b3a6b;">Passage B.</b> "Some students take notes on paper, while others type them on a laptop. Paper notes are slower to write, but that slowness forces the writer to choose only the most important ideas. Typed notes, on the other hand, capture almost everything, yet they are easy to forget because little thinking happens while copying. Both methods can work. The difference lies in what happens afterward: paper notes are usually reread, whereas typed notes often sit unopened in a folder."</div>
+<div data-q="B" data-ans="Comparison"></div>
+<div class="expl">Comparison. Proof: while, on the other hand, whereas, Both.</div>
+<div class="passage"><b style="font-style:normal;color:#1b3a6b;">Passage C.</b> "Riverside Clinic had a problem: nearly one in five patients missed their appointments each week. Missed visits wasted staff time and left other patients waiting weeks for an opening. The office manager proposed a solution. The clinic began sending text reminders two days before each visit and again that morning. Patients could confirm or rebook with one tap. Within two months, no-shows fell by half, and the schedule finally matched the people who actually walked through the door."</div>
+<div data-q="C" data-ans="Problem and Solution"></div>
+<div class="expl">Problem and solution. Proof: had a problem, proposed a solution, Within two months.</div>
+<div class="passage"><b style="font-style:normal;color:#1b3a6b;">Passage D.</b> "Last month the city rerouted the B41 bus away from Halsey Street. Because the nearest stop moved six blocks, many older riders in the neighborhood stopped taking the bus at all. Local shops felt the change immediately, since foot traffic thinned out by early evening. The reroute also caused crowding on the B44, which now carries riders from both corridors. One decision at the transit office, in short, set off effects that reached shopkeepers, riders, and a second bus line."</div>
+<div data-q="D" data-ans="Cause and Effect"></div>
+<div class="expl">Cause and effect. Proof: Because, since, caused, set off.</div>
+</div>
+
+<div class="card" id="p4card"><span class="ptag">PART 4</span> <span class="mins">20 minutes</span><span class="done-badge" id="p4done">&#10003; Complete</span>
+<h2>Practice Set B: TABE-Style Questions</h2>
+<div class="passage">"At Mercy Home Care, the day team and the night team once shared information through sticky notes left on a bulletin board. Notes fell off, handwriting was misread, and twice in one month a client's medication change never reached the night nurse. The agency needed a safer handoff. The solution came from a supervisor who had worked in a hospital: a fifteen-minute overlap shift. Now the day aide stays until the night aide arrives, and the two walk through each client's chart together. Since the change, no medication updates have been missed. The overlap costs the agency a small amount of extra pay each week, but managers consider it the cheapest insurance they have ever bought."</div>
+<div class="mcq" data-right="C"><p><b>1.</b> Which pattern organizes the passage overall?</p>
+<button class="opt" data-k="A">A. chronology</button><button class="opt" data-k="B">B. comparison</button><button class="opt" data-k="C">C. problem and solution</button><button class="opt" data-k="D">D. cause and effect</button>
+<div class="expl">A problem (missed medication changes) is described, then a solution (the overlap shift) and its results.</div></div>
+<div class="mcq" data-right="B"><p><b>2.</b> The first two sentences mostly describe:</p>
+<button class="opt" data-k="A">A. the solution</button><button class="opt" data-k="B">B. the problem</button><button class="opt" data-k="C">C. a comparison of two teams</button><button class="opt" data-k="D">D. the history of the agency</button>
+<div class="expl">Falling notes, misread handwriting, and a missed medication change are the problem.</div></div>
+<div class="mcq" data-right="B"><p><b>3.</b> Which words signal that the problem has been fixed?</p>
+<button class="opt" data-k="A">A. "once shared"</button><button class="opt" data-k="B">B. "Since the change, no medication updates have been missed"</button><button class="opt" data-k="C">C. "twice in one month"</button><button class="opt" data-k="D">D. "fell off"</button>
+<div class="expl">"Since the change" points at the result of the solution.</div></div>
+<div class="mcq" data-right="A"><p><b>4.</b> Why does the author include the sentence about extra pay?</p>
+<button class="opt" data-k="A">A. to show the solution has a cost but is worth it</button><button class="opt" data-k="B">B. to argue the solution failed</button><button class="opt" data-k="C">C. to compare two agencies</button><button class="opt" data-k="D">D. to give the order of events</button>
+<div class="expl">"The cheapest insurance they have ever bought" weighs the cost against the benefit.</div></div>
+<div class="mcq" data-right="B"><p><b>5.</b> If the passage continued, which sentence would most likely come next?</p>
+<button class="opt" data-k="A">A. "Sticky notes were invented in 1968."</button><button class="opt" data-k="B">B. "The agency is now testing the overlap idea in its two other offices."</button><button class="opt" data-k="C">C. "Night work pays more than day work."</button><button class="opt" data-k="D">D. "Mercy Home Care opened in 1998."</button>
+<div class="expl">Problem-and-solution passages usually extend the solution next. Structure lets you predict.</div></div>
+</div>
+
+<div class="card"><span class="ptag">PART 5</span> <span class="mins">25 minutes &middot; writing challenge</span>
+<h2>Structure Switch</h2>
+<p>Choose one pattern. Using the facts below, write 4 to 5 sentences organized in that pattern, with at least two signal words. Then trade with a partner: they name your pattern and circle your signal words. If they cannot tell, revise until they can.</p>
+<p><span class="chip" style="cursor:default;">the library added Saturday hours</span><span class="chip" style="cursor:default;">more students come on weekends</span><span class="chip" style="cursor:default;">the study rooms are full by noon</span><span class="chip" style="cursor:default;">the library hired two weekend aides</span></p>
+<div class="notebook">This warms up this week's WRITE IT! assignment, the Pattern Paragraph (assigned pattern: problem and solution, about a wait or backlog from your own life), due Sunday, October 4 at 11:59 PM.</div>
+</div>
+
+<div class="card" id="p6card"><span class="ptag">PART 6</span> <span class="mins">20 minutes</span><span class="done-badge" id="p6done">&#10003; Complete</span>
+<h2>Mixed Review Sprint: Weeks 1-4</h2>
+<p>Main idea, inference, vocabulary in context, and structure, all on today's passages (Parts 3 and 4). The Mid-Course Progress Check is Monday, October 5 - this is your warm-up.</p>
+<div class="mcq" data-right="B"><p><b>1.</b> Which sentence best states the main idea of Passage C?</p>
+<button class="opt" data-k="A">A. Texting is popular with patients.</button><button class="opt" data-k="B">B. Riverside Clinic cut its no-show rate with text reminders.</button><button class="opt" data-k="C">C. Patients dislike making appointments.</button><button class="opt" data-k="D">D. Clinics are busiest on Mondays.</button>
+<div class="expl">The main idea covers the whole passage: problem, reminder system, result.</div></div>
+<div class="mcq" data-right="B"><p><b>2.</b> From Passage D you can infer that before the reroute, many older riders:</p>
+<button class="opt" data-k="A">A. avoided the bus</button><button class="opt" data-k="B">B. used the B41 to reach the Halsey Street shops</button><button class="opt" data-k="C">C. preferred the B44</button><button class="opt" data-k="D">D. walked six blocks to the stop</button>
+<div class="expl">Shops lost foot traffic when riders stopped coming, so riders had been reaching the shops by bus.</div></div>
+<div class="mcq" data-right="B"><p><b>3.</b> In Passage D, "corridors" most nearly means:</p>
+<button class="opt" data-k="A">A. hallways in a building</button><button class="opt" data-k="B">B. bus routes through the neighborhood</button><button class="opt" data-k="C">C. waiting rooms</button><button class="opt" data-k="D">D. sidewalks</button>
+<div class="expl">Multi-meaning word: context ("carries riders from both corridors") points to routes.</div></div>
+<div class="mcq" data-right="B"><p><b>4.</b> In the Mercy passage, "handoff" most nearly means:</p>
+<button class="opt" data-k="A">A. a handshake</button><button class="opt" data-k="B">B. passing client information from one team to the other</button><button class="opt" data-k="C">C. ending a shift early</button><button class="opt" data-k="D">D. a type of chart</button>
+<div class="expl">The whole passage is about how information moves between the day and night teams.</div></div>
+<div class="mcq" data-right="B"><p><b>5.</b> The clinic most likely sends the second text on the morning of the visit because:</p>
+<button class="opt" data-k="A">A. staff have free time in the morning</button><button class="opt" data-k="B">B. a reminder close to the visit catches people who forgot</button><button class="opt" data-k="C">C. patients asked for two texts</button><button class="opt" data-k="D">D. the software requires it</button>
+<div class="expl">Inference: the passage never says why - you reason it out from the purpose of reminders.</div></div>
+<div class="mcq" data-right="B"><p><b>6.</b> Which detail from Passage C shows the solution worked?</p>
+<button class="opt" data-k="A">A. "one in five patients missed"</button><button class="opt" data-k="B">B. "no-shows fell by half"</button><button class="opt" data-k="C">C. "wasted staff time"</button><button class="opt" data-k="D">D. "with one tap"</button>
+<div class="expl">Evidence of the result, not the problem or the mechanism.</div></div>
+<div class="mcq" data-right="A"><p><b>7.</b> The author of the Mercy passage would most likely agree that:</p>
+<button class="opt" data-k="A">A. a small, cheap change can fix a serious problem</button><button class="opt" data-k="B">B. sticky notes are reliable</button><button class="opt" data-k="C">C. hospitals always do things better</button><button class="opt" data-k="D">D. night nurses need less information</button>
+<div class="expl">"The cheapest insurance they have ever bought" carries the author's point of view.</div></div>
+<div class="mcq" data-right="A"><p><b>8.</b> Passage A is organized by chronology. That structure best helps a reader answer which question?</p>
+<button class="opt" data-k="A">A. How long did each stage of Marisol's journey take?</button><button class="opt" data-k="B">B. Which program is cheapest?</button><button class="opt" data-k="C">C. Why do people become medical assistants?</button><button class="opt" data-k="D">D. What problems did Marisol face?</button>
+<div class="expl">Time order tells you when and how long - that is what the structure is built to show.</div></div>
+</div>
+
+<div class="card" id="p7card"><span class="ptag">PART 7</span> <span class="mins">10 minutes &middot; early finishers</span><span class="done-badge" id="p7done">&#10003; Complete</span>
+<h2>Structure Rebuild</h2>
+<p>These four sentences are scrambled. Tap them in the order that makes the structure work, then check.</p>
+<div id="p7list">
+<div class="sent" data-o="3"><span class="num">&nbsp;</span>"The lab manager applied for a small grant and bought two new printers."</div>
+<div class="sent" data-o="1"><span class="num">&nbsp;</span>"The computer lab had only one printer, and it jammed almost every day."</div>
+<div class="sent" data-o="4"><span class="num">&nbsp;</span>"Since then, the line has disappeared, and printing takes under a minute."</div>
+<div class="sent" data-o="2"><span class="num">&nbsp;</span>"Students missed deadlines while they waited in line to print."</div>
+</div>
+<button class="btn" id="p7check">Check my order</button><button class="btn ghost" id="p7reset">Reset</button>
+<p id="p7msg" style="font-weight:900;"></p>
+<div class="expl" id="p7expl">Pattern: problem and solution. Bonus: "To fix this," before the grant sentence; "As a result," before the missed-deadlines sentence.</div>
+</div>
+
+<div class="card" style="border-top-color:#b8860b;"><span class="ptag" style="background:#fdf6e3;color:#7a5a12;">EXIT TICKET</span> <span class="mins">5 minutes</span>
+<h2>Before You Leave</h2>
+<p>On a slip of paper: 1) the four patterns from memory, 2) one signal word for each, 3) which pattern is hardest for you to spot, and why. Hand the slip to me on your way out.</p>
+</div>
+<p style="font-size:14px;color:#5b6270;border-top:1px solid #dbe3ee;padding-top:12px;">When you finish, go back to the Meeting 1 page for the Reading Lab link and tonight's homework.</p>
+</div>
+<script>
+(function(){
+var score=0,total=30;
+var cheer=["Let's go!","Nice start!","Warming up!","On a roll!","Sharp reading!","Halfway hero!","Strong work!","Almost there!","So close!","Perfect finish!"];
+function bump(ok){ if(ok){score++; var s=document.getElementById('score'); s.textContent=score; document.getElementById('cheer').textContent=cheer[Math.min(Math.floor(score/3),cheer.length-1)]; } }
+// PART 1 sort
+var words=[["first","chron"],["meanwhile","chron"],["however","comp"],["as a result","cause"],["one answer is","prob"],["similarly","comp"],["before long","chron"],["leads to","cause"],["on the other hand","comp"],["to fix this","prob"],["finally","chron"],["because of this","cause"]];
+var chipsBox=document.getElementById('chips'); var selected=null; var placed=0;
+words.forEach(function(w,i){ var c=document.createElement('span'); c.className='chip'; c.textContent=w[0]; c.dataset.b=w[1];
+ c.onclick=function(){ if(c.classList.contains('done'))return; if(selected)selected.classList.remove('sel'); selected=c; c.classList.add('sel'); };
+ chipsBox.appendChild(c); });
+document.querySelectorAll('.bucket').forEach(function(bk){ bk.onclick=function(){ if(!selected)return;
+ if(selected.dataset.b===bk.dataset.b){ selected.classList.remove('sel'); selected.classList.add('done'); document.getElementById('b-'+bk.dataset.b).textContent+=(document.getElementById('b-'+bk.dataset.b).textContent?' \u00b7 ':'')+selected.textContent; bump(true); placed++; selected=null;
+   if(placed===12){ document.getElementById('p1done').style.display='inline'; document.getElementById('p1msg').textContent='All 12 sorted. Write the four lists in your notebook if you have not yet.'; }
+ } else { bk.style.background='#fdecea'; setTimeout(function(){bk.style.background='';},450); } }; });
+// PART 3 pattern pickers
+var pats=["Chronology","Comparison","Cause and Effect","Problem and Solution"]; var p3n=0;
+document.querySelectorAll('[data-q]').forEach(function(slot){ pats.forEach(function(p){ var b=document.createElement('button'); b.className='opt'; b.style.display='inline-block'; b.style.width='auto'; b.style.marginRight='6px'; b.textContent=p;
+ b.onclick=function(){ if(slot.dataset.done)return; slot.dataset.done=1; var right=p===slot.dataset.ans;
+  slot.querySelectorAll('.opt').forEach(function(x){ x.disabled=true; if(x.textContent===slot.dataset.ans)x.classList.add('right'); });
+  if(!right)b.classList.add('wrong'); bump(right); slot.nextElementSibling.style.display='block'; p3n++;
+  if(p3n===4)document.getElementById('p3done').style.display='inline'; };
+ slot.appendChild(b); }); });
+// MCQs (parts 4 and 6)
+var mcqDone={p4card:0,p6card:0};
+document.querySelectorAll('.mcq').forEach(function(q){ q.querySelectorAll('.opt').forEach(function(b){ b.onclick=function(){ if(q.dataset.done)return; q.dataset.done=1; var right=b.dataset.k===q.dataset.right;
+ q.querySelectorAll('.opt').forEach(function(x){ x.disabled=true; if(x.dataset.k===q.dataset.right)x.classList.add('right'); });
+ if(!right)b.classList.add('wrong'); bump(right); var ex=q.querySelector('.expl'); if(ex)ex.style.display='block';
+ var card=q.closest('.card'); mcqDone[card.id]=(mcqDone[card.id]||0)+1;
+ if(card.id==='p4card'&&mcqDone.p4card===5)document.getElementById('p4done').style.display='inline';
+ if(card.id==='p6card'&&mcqDone.p6card===8)document.getElementById('p6done').style.display='inline'; }; }); });
+// PART 7 reorder
+var order=[]; var p7ok=false;
+document.querySelectorAll('#p7list .sent').forEach(function(s){ s.onclick=function(){ if(s.dataset.n||p7ok)return; order.push(s); s.dataset.n=order.length; s.querySelector('.num').textContent=order.length; }; });
+document.getElementById('p7reset').onclick=function(){ order=[]; document.querySelectorAll('#p7list .sent').forEach(function(s){ delete s.dataset.n; s.querySelector('.num').innerHTML='&nbsp;'; s.style.borderColor='#d7e0ef'; }); document.getElementById('p7msg').textContent=''; };
+document.getElementById('p7check').onclick=function(){ if(p7ok)return; if(order.length<4){ document.getElementById('p7msg').textContent='Tap all four sentences first.'; document.getElementById('p7msg').style.color='#b00020'; return; }
+ var good=order.every(function(s,i){ return parseInt(s.dataset.o)===i+1; });
+ if(good){ p7ok=true; bump(true); document.getElementById('p7msg').textContent='Correct: problem, effect of the problem, solution, result.'; document.getElementById('p7msg').style.color='#1e7e34'; document.getElementById('p7expl').style.display='block'; document.getElementById('p7done').style.display='inline';
+  order.forEach(function(s){ s.style.borderColor='#1e7e34'; });
+ } else { document.getElementById('p7msg').textContent='Not yet. Think: which sentence names the problem itself? Reset and try again.'; document.getElementById('p7msg').style.color='#b00020'; } };
+})();
+</script></body></html>

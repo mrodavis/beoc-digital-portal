@@ -1,0 +1,23 @@
+/** Office theme and standard colors shared by every app's color menus. */
+export const THEME_COLORS: { label: string; color: string }[] = [
+  { label: "White", color: "#FFFFFF" },
+  { label: "Black", color: "#000000" },
+  { label: "Gray", color: "#E7E6E6" },
+  { label: "Dark Blue, Text 2", color: "#44546A" },
+  { label: "Blue, Accent 1", color: "#4472C4" },
+  { label: "Orange, Accent 2", color: "#ED7D31" },
+  { label: "Gray, Accent 3", color: "#A5A5A5" },
+  { label: "Gold, Accent 4", color: "#FFC000" },
+  { label: "Blue, Accent 5", color: "#5B9BD5" },
+  { label: "Green, Accent 6", color: "#70AD47" },
+  { label: "Dark Red", color: "#C00000" },
+  { label: "Red", color: "#FF0000" },
+  { label: "Orange", color: "#FFC000" },
+  { label: "Yellow", color: "#FFFF00" },
+  { label: "Light Green", color: "#92D050" },
+  { label: "Green", color: "#00B050" },
+  { label: "Light Blue", color: "#00B0F0" },
+  { label: "Blue", color: "#0070C0" },
+  { label: "Dark Blue", color: "#002060" },
+  { label: "Purple", color: "#7030A0" },
+];

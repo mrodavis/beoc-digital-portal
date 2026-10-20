@@ -61,29 +61,20 @@ export default function IntroToEHRPage() {
         </div>
       </div>
 
-      {/* Instructors */}
+      {/* Instructor */}
       <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-12">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Instruction Team</h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          <div>
-            <p className="font-semibold text-gray-900">Mr. Michael Gera — Lead Instructor</p>
-            <p className="text-sm text-gray-600">
-              Leads lecture and textbook-based instruction on Mondays and Tuesdays.
-            </p>
-          </div>
-          <div>
-            <p className="font-semibold text-gray-900">Mr. Orville Davis — Lab Instructor</p>
-            <p className="text-sm text-gray-600">
-              Leads the hands-on EHR Simulator labs every Thursday.
-            </p>
-          </div>
-        </div>
+        <h2 className="text-xl font-bold text-gray-900 mb-4">Your Instructor</h2>
+        <p className="font-semibold text-gray-900">Mr. Orville Davis</p>
+        <p className="text-sm text-gray-600">
+          Teaches every class meeting: the lectures that build each concept and the hands-on
+          labs in the BEOC EHR Simulator that put it into practice.
+        </p>
       </div>
 
       <EhrSimulatorCallout
         className="mb-12"
         heading="Your lab environment: the BEOC EHR Simulator"
-        text="Every Thursday lab happens in the simulator. Join with the class code Mr. Davis gives you before the first lab, then keep the lesson open in one tab and the simulator in another."
+        text="Every lab happens in the simulator. Join with the class code Mr. Davis gives you before the first lab, then keep the lesson open in one tab and the simulator in another."
       />
 
       <div className="mb-8">
@@ -101,7 +92,7 @@ export default function IntroToEHRPage() {
 
       <SectionHeader
         title="Course Modules"
-        description="Complete each module in order — lectures build the concepts, Thursday labs put them into practice."
+        description="Complete each module in order — lectures build the concepts, simulator labs put them into practice."
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">

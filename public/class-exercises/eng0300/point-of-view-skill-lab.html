@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skill Lab Practice: Point of View &amp; Purpose | BEOC Digital</title>
+<style>
+:root{--navy:#1b3a6b;--blue:#26518f;--ink:#202122;--muted:#55606f;--gold:#e3b23c;--bg:#eef2f7;--ok:#1b6e3f;--okbg:#e6f4ec;--no:#a3262f;--nobg:#fbeaea;--line:#cfd8e6}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Lato,"Segoe UI",Arial,sans-serif;font-size:17px;line-height:1.55}
+.wrap{max-width:900px;margin:0 auto;padding:16px}
+.hero{background:linear-gradient(135deg,#14294d 0%,#26518f 100%);color:#fff;border-radius:14px;padding:24px 26px}
+.gold{display:inline-block;background:var(--gold);color:#3a2a00;font-weight:700;font-size:13px;letter-spacing:.08em;padding:4px 12px;border-radius:999px}
+.hero h1{margin:12px 0 6px;font-size:28px;line-height:1.2;color:#fff}
+.hero p{margin:0;font-size:17px}
+.note{background:linear-gradient(135deg,#5e4208 0%,#8f6a0c 100%);color:#fff;border-radius:12px;padding:14px 20px;margin:16px 0}
+.score{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 16px;margin:16px 0;display:flex;gap:6px 18px;flex-wrap:wrap;align-items:center;color:var(--navy);font-weight:700}
+.score .msg{font-weight:400;color:var(--muted)}
+.card{background:#fff;border-top:5px solid var(--navy);border-radius:12px;padding:20px 22px;margin:18px 0;box-shadow:0 1px 3px rgba(20,41,77,.12)}
+.card h2{margin:10px 0 6px;color:var(--navy);font-size:22px;line-height:1.25}
+.ptag{display:inline-block;background:#e8eef8;color:var(--navy);font-weight:700;font-size:13px;letter-spacing:.06em;padding:3px 10px;border-radius:6px}
+.mins{color:var(--muted);font-size:14px;margin-left:6px}
+.passage{background:#f7f9fc;border-left:5px solid var(--gold);border-radius:8px;padding:14px 18px;margin:14px 0}
+.passage h3{margin:0 0 2px;color:var(--navy);font-size:19px}
+.passage p{margin:0 0 10px}
+.passage p:last-child{margin-bottom:0}
+.meta{color:var(--muted);font-size:14px}
+.pn{display:inline-block;min-width:1.4em;font-weight:700;color:var(--blue)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.pair .passage{margin:0}
+.q{border-top:1px solid var(--line);padding-top:16px;margin-top:20px}
+.qhead{font-size:13px;color:var(--muted);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.stem{font-weight:700;margin:6px 0 10px}
+.opts{display:grid;gap:8px}
+.opt{display:block;width:100%;text-align:left;font:inherit;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:10px;padding:11px 14px;min-height:46px;cursor:pointer}
+.opt:hover{border-color:var(--blue)}
+.opt:focus-visible,.btn:focus-visible,.tick:focus-visible,.resp:focus-visible{outline:3px solid #c98a00;outline-offset:2px}
+.opt.sel{border-color:var(--blue);background:#eaf1fb}
+.opt.right{border-color:var(--ok);background:var(--okbg)}
+.opt.wrong{border-color:var(--no);background:var(--nobg)}
+.opt.missed{border-color:var(--ok);border-style:dashed}
+.opt[disabled]{cursor:default;color:var(--ink);opacity:1}
+.opt[disabled]:hover{border-color:var(--line)}
+.opt.right[disabled]:hover,.opt.missed[disabled]:hover{border-color:var(--ok)}
+.opt.wrong[disabled]:hover{border-color:var(--no)}
+.mark{display:block;font-weight:700;font-size:14px;margin-top:4px}
+.right .mark,.missed .mark{color:var(--ok)}
+.wrong .mark{color:var(--no)}
+.fb{margin-top:10px;padding:12px 14px;border-radius:10px;background:#f1f5fb;border-left:5px solid var(--blue)}
+.fb.ok{background:var(--okbg);border-left-color:var(--ok)}
+.fb.no{background:var(--nobg);border-left-color:var(--no)}
+.fb ul{margin:8px 0 0;padding-left:20px}
+.fb li{margin:4px 0}
+[hidden]{display:none!important}
+.btn{display:inline-block;font:inherit;font-weight:700;background:var(--navy);color:#fff;border:2px solid var(--navy);border-radius:10px;padding:9px 16px;min-height:46px;cursor:pointer;text-decoration:none;margin-top:10px}
+.btn.ghost{background:#fff;color:var(--navy)}
+.btn[disabled]{opacity:.55;cursor:default}
+.hint,.model{margin-top:10px;padding:12px 14px;border-radius:10px;background:#fff8e6;border-left:5px solid var(--gold)}
+.resp{display:block;width:100%;min-height:170px;font:inherit;padding:12px;border:2px solid var(--line);border-radius:10px;margin-top:8px}
+.count{color:var(--muted);font-size:14px;margin:4px 0 0}
+.tick{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;font:inherit;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:10px;padding:10px 14px;min-height:46px;cursor:pointer;margin-top:8px}
+.tick::before{content:"\2610";font-size:20px;line-height:1.2;color:var(--navy)}
+.tick[aria-pressed="true"]{border-color:var(--ok);background:var(--okbg)}
+.tick[aria-pressed="true"]::before{content:"\2611";color:var(--ok)}
+.moves{margin:8px 0 0;padding-left:22px}
+.foot{color:var(--muted);font-size:15px;text-align:center;margin:20px 0 8px}
+.sr{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+a{color:var(--blue)}
+@media (max-width:700px){.pair{grid-template-columns:1fr}.hero h1{font-size:24px}.card{padding:16px}}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#0f766e;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/eng0300"><span class="beoc-tb-badge">BEOC</span><span>&larr; ENG0300 Reading Lab</span></a><a class="beoc-tb-link" href="/eng0300/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div class="wrap">
+<div class="hero"><span class="gold">WEEK 5 &middot; SKILL LAB PRACTICE &middot; NOT GRADED</span><h1>Skill Lab Practice: Point of View &amp; Purpose</h1><p>Try It, Practice, and the Mastery Check are all on this page. Read, choose your answer, and check it right away.</p></div>
+<div class="note"><b>NOT GRADED:</b> this page is practice. Nothing here is recorded and there is nothing to hand in. Use it to get ready for the Week 5 Skill Quiz and the TABE.</div>
+<div class="score" aria-live="polite"><span>Right on the first try: <span id="sFirst">0</span> of 8</span><span>Finished: <span id="sDone">0</span> of 8</span><span class="msg" id="sMsg">Let's go!</span></div>
+<div class="card"><span class="ptag">PART 1</span> <span class="mins">Try It</span><h2>Your turn, with support</h2><p>One question, with a hint if you need it.</p>
+<div class="passage"><h3>From an Employee Handbook</h3><p class="meta">Workplace &middot; 70 words</p>
+<p>You must submit your time sheet by 5:00 p.m. on the Friday that ends the pay period. If you are scheduled off that Friday, submit it on your last worked day of the week. Late time sheets are processed in the following cycle, which means your hours will appear on the next paycheck rather than the current one. Keep a copy of your submission confirmation until the corresponding paycheck arrives.</p>
+<p class="meta">Original passage &middot; BEOC Academic Bridge</p></div>
+<div class="q" data-type="mc" data-review="Point of view and author&#x27;s purpose, from Monday&#x27;s practice page.">
+<div class="qhead">Question 1 &middot; Multiple choice &middot; Foundation</div>
+<p class="stem">What is the point of view and the author's primary purpose in this passage?</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-why="There is no &quot;I&quot; or &quot;we&quot; in the passage, and it does not argue that anything is fair."><b>A.</b> First person; to persuade employees that the payroll system is fair</button>
+<button type="button" class="opt" data-letter="B" data-right="1" data-why="The passage speaks to &quot;you,&quot; which is second person. It gives steps and deadlines, so its purpose is to instruct."><b>B.</b> Second person; to instruct employees on how and when to submit time sheets</button>
+<button type="button" class="opt" data-letter="C" data-why="The passage talks to &quot;you.&quot; It never describes the payroll department&#x27;s workload."><b>C.</b> Third person limited; to describe the payroll department's workload</button>
+<button type="button" class="opt" data-letter="D" data-why="It is second person, but it gives rules and deadlines. It does not tell a story."><b>D.</b> Second person; to entertain employees with a story about payroll</button>
+</div><button type="button" class="btn ghost" data-toggle="hint1" data-show="Need a hint?" data-hide="Hide the hint" aria-expanded="false">Need a hint?</button><div class="hint" id="hint1" hidden><b>Hint:</b> Look at the pronouns. Who is the passage talking to? Then ask: is it telling a story, making an argument, or giving directions?</div><div class="fb" role="status" aria-live="polite" hidden></div></div>
+</div>
+<div class="card"><span class="ptag">PART 2</span> <span class="mins">Practice</span><h2>Practice on a full passage</h2><p>A longer passage with three questions. Check each answer as you go.</p>
+<div class="passage"><h3>What the Library Became</h3><p class="meta">Argument &middot; 171 words</p>
+<p><span class="pn">1</span>The branch library on my corner circulated 41,000 items last year. It also hosted 312 public programs, provided 9,400 sessions on its public computers, and served as a designated cooling center on eleven days.</p>
+<p><span class="pn">2</span>City budget discussions still describe library funding as spending on books. That description is decades out of date, and it quietly makes the case for cuts. If a library is a book warehouse, then a city with declining print circulation has an obvious place to save money.</p>
+<p><span class="pn">3</span>But the computer sessions are not incidental. For a resident applying for a job, renewing a benefit, or filing a form that no longer exists on paper, the branch is often the only free place to sit down with a keyboard and get help using it.</p>
+<p><span class="pn">4</span>I do not think the library should be exempt from budget scrutiny. Every department should have to justify what it costs. I think the justification should be measured against what the library actually does, and the current accounting does not measure that at all.</p>
+<p class="meta">Original passage &middot; BEOC Academic Bridge</p></div>
+<div class="q" data-type="mc" data-review="Author&#x27;s purpose: ask what the writer wants you to think or do.">
+<div class="qhead">Question 2 &middot; Multiple choice &middot; TABE Ready</div>
+<p class="stem">What is the author's primary purpose?</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-why="Circulation is one figure among several, and it is used to support an argument rather than to stand alone."><b>A.</b> To inform readers of the branch library's annual circulation figures</button>
+<button type="button" class="opt" data-letter="B" data-right="1" data-why="The statistics in paragraph 1 are evidence, not the point. Paragraphs 2 through 4 argue that the way library funding is described is wrong and should change."><b>B.</b> To persuade readers that library funding should be evaluated by the full range of services the library provides</button>
+<button type="button" class="opt" data-letter="C" data-why="No process is explained anywhere in the passage."><b>C.</b> To explain how to reserve a public computer at a branch library</button>
+<button type="button" class="opt" data-letter="D" data-why="The author writes in first person, but the passage argues rather than tells a story."><b>D.</b> To entertain readers with a personal story about a neighborhood library</button>
+</div><div class="fb" role="status" aria-live="polite" hidden></div></div>
+<div class="q" data-type="multi" data-key="A fact can be checked against a record. Circulation counts and cooling-center days both appear in library records." data-review="Fact or opinion: ask whether a record could settle it.">
+<div class="qhead">Question 3 &middot; Select all that apply &middot; Developing</div>
+<p class="stem">Select the TWO statements from the passage that are statements of FACT.</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-right="1" data-why="A countable figure that could be verified against library records."><b>A.</b> The branch circulated 41,000 items last year.</button>
+<button type="button" class="opt" data-letter="B" data-why="A judgment about how a description should be regarded. No record settles it."><b>B.</b> That description is decades out of date.</button>
+<button type="button" class="opt" data-letter="C" data-right="1" data-why="The number of days is documented and verifiable."><b>C.</b> The branch served as a designated cooling center on eleven days.</button>
+<button type="button" class="opt" data-letter="D" data-why="It contains &quot;should,&quot; which signals a value judgment rather than a verifiable claim."><b>D.</b> Every department should have to justify what it costs.</button>
+</div><button type="button" class="btn check">Check my answer</button>
+<div class="fb" role="status" aria-live="polite" hidden></div></div>
+<div class="q" data-type="mc" data-review="How point of view shapes a text, from Monday&#x27;s practice page.">
+<div class="qhead">Question 4 &middot; Multiple choice &middot; Challenge</div>
+<p class="stem">How does the author's use of first person in paragraph 4 affect the argument?</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-why="The factual evidence sits in paragraph 1. First person here marks the claim, not the evidence."><b>A.</b> It weakens the argument, because personal statements cannot be evidence.</button>
+<button type="button" class="opt" data-letter="B" data-right="1" data-why="Paragraph 4 uses &quot;I do not think&quot; and then &quot;I think.&quot; The author gives ground first (libraries should face scrutiny), then states the narrower claim (scrutiny should measure what libraries do). That makes the argument harder to dismiss."><b>B.</b> It signals that the author is conceding a point and separating their actual claim from a position they do not hold.</button>
+<button type="button" class="opt" data-letter="C" data-why="Nothing in the passage says the author is an employee. We only know the branch is on their corner."><b>C.</b> It shows the author works at the library.</button>
+<button type="button" class="opt" data-letter="D" data-why="Paragraph 4 is the clearest statement of the claim in the whole passage. That is argument, not narrative."><b>D.</b> It changes the passage from an argument into a personal narrative.</button>
+</div><div class="fb" role="status" aria-live="polite" hidden></div></div>
+</div>
+<div class="card"><span class="ptag">PART 3</span> <span class="mins">Mastery Check</span><h2>Check yourself</h2><p>Two short passages about the same event, four questions. If you miss one, the note under the answer tells you what to review.</p><div class="pair">
+<div class="passage"><h3>Passage 1: A Resident's Letter</h3><p class="meta">Argument &middot; 103 words</p>
+<p>The elevator in my building was out of service for nine days this month. I live on the sixth floor, and I managed the stairs. My neighbor across the hall uses a cane, and for those nine days she did not leave her apartment. We were given one notice, taped inside the lobby door, and it gave no date for the repair. I understand that parts take time. What I do not understand is why no one from the office knocked on a single door to ask who needed help getting groceries upstairs. A building this size should have a plan for this.</p>
+<p class="meta">Original passage &middot; BEOC Academic Bridge</p></div>
+<div class="passage"><h3>Passage 2: Notice from the Management Office</h3><p class="meta">Informational &middot; 93 words</p>
+<p>The building's elevator was taken out of service on March 4 after a routine inspection found a worn part in the motor. Because the elevator is more than thirty years old, the replacement part had to be made to order. The elevator returned to service on March 13 and passed a city safety inspection the same day. A notice was posted in the lobby on the first day of the outage. The repair was completed at no cost to residents. Management handled the repair as quickly and carefully as residents could reasonably expect.</p>
+<p class="meta">Original passage &middot; BEOC Academic Bridge</p></div>
+</div>
+<div class="q" data-type="mc" data-review="Point of view: look at the pronouns (I, you, he, she, they).">
+<div class="qhead">Question 5 &middot; Multiple choice &middot; Foundation</div>
+<p class="stem">From which point of view is Passage 1 written?</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-right="1" data-why="&quot;My building,&quot; &quot;I live,&quot; and &quot;my neighbor&quot; show the writer is part of the events. That is first person."><b>A.</b> First person</button>
+<button type="button" class="opt" data-letter="B" data-why="Second person speaks to &quot;you.&quot; This writer says &quot;I&quot; and &quot;my.&quot;"><b>B.</b> Second person</button>
+<button type="button" class="opt" data-letter="C" data-why="Third person uses &quot;he,&quot; &quot;she,&quot; or &quot;they,&quot; with a narrator outside the events. This writer is inside them."><b>C.</b> Third person limited</button>
+<button type="button" class="opt" data-letter="D" data-why="An omniscient narrator stands outside the events and knows everyone&#x27;s thoughts. This writer says &quot;I.&quot;"><b>D.</b> Third person omniscient</button>
+</div><div class="fb" role="status" aria-live="polite" hidden></div></div>
+<div class="q" data-type="mc" data-review="Fact or opinion: ask whether a record could settle it.">
+<div class="qhead">Question 6 &middot; Multiple choice &middot; Developing</div>
+<p class="stem">Which statement from Passage 2 is an opinion rather than a fact?</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-why="A date and an inspection result can both be checked against a record."><b>A.</b> "The elevator returned to service on March 13 and passed a city safety inspection the same day."</button>
+<button type="button" class="opt" data-letter="B" data-why="The age of the elevator and the special order can both be checked."><b>B.</b> "Because the elevator is more than thirty years old, the replacement part had to be made to order."</button>
+<button type="button" class="opt" data-letter="C" data-why="Whether a notice went up that day can be checked. The resident&#x27;s letter confirms there was one."><b>C.</b> "A notice was posted in the lobby on the first day of the outage."</button>
+<button type="button" class="opt" data-letter="D" data-right="1" data-why="&quot;As quickly and carefully as residents could reasonably expect&quot; is a judgment. No record can settle it."><b>D.</b> "Management handled the repair as quickly and carefully as residents could reasonably expect."</button>
+</div><div class="fb" role="status" aria-live="polite" hidden></div></div>
+<div class="q" data-type="mc" data-review="Author&#x27;s purpose: find the sentence that says what should happen.">
+<div class="qhead">Question 7 &middot; Multiple choice &middot; TABE Ready</div>
+<p class="stem">What is the primary purpose of Passage 1?</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-why="The nine days is a fact the writer uses as evidence. It is not her main point."><b>A.</b> To inform readers that the elevator was out of service for nine days</button>
+<button type="button" class="opt" data-letter="B" data-right="1" data-why="The last sentence states the claim: &quot;A building this size should have a plan for this.&quot; The nine days and the neighbor are the evidence."><b>B.</b> To persuade readers that the building needs a plan for checking on residents when the elevator is out</button>
+<button type="button" class="opt" data-letter="C" data-why="The neighbor is evidence for an argument, not a story told for fun."><b>C.</b> To entertain readers with a story about a neighbor who uses a cane</button>
+<button type="button" class="opt" data-letter="D" data-why="The letter never explains how repairs are scheduled or paid for."><b>D.</b> To explain how elevator repairs are scheduled and paid for</button>
+</div><div class="fb" role="status" aria-live="polite" hidden></div></div>
+<div class="q" data-type="mc" data-review="Comparing point of view: what each writer includes, leaves out, and emphasizes (Wednesday&#x27;s practice).">
+<div class="qhead">Question 8 &middot; Paired text &middot; TABE Ready</div>
+<p class="stem">How does the author of Passage 1 differ from the author of Passage 2?</p>
+<div class="opts">
+<button type="button" class="opt" data-letter="A" data-why="March 4 to March 13 is nine days. Both writers agree on what happened."><b>A.</b> They disagree about the facts: the resident says the elevator was out for nine days, while the management office says the repair was quick.</button>
+<button type="button" class="opt" data-letter="B" data-why="Passage 1 has facts (nine days, one notice). Passage 2 ends with an opinion."><b>B.</b> Passage 1 contains only opinions, while Passage 2 contains only facts.</button>
+<button type="button" class="opt" data-letter="C" data-right="1" data-why="Both say the elevator was out for nine days and that one notice was posted. The office gives its space to the part, the inspection, and the cost. The resident gives hers to the neighbor who could not leave."><b>C.</b> They agree on the basic facts but treat different facts as important: the office emphasizes the repair and its inspection, while the resident emphasizes the people stuck upstairs whom no one checked on.</button>
+<button type="button" class="opt" data-letter="D" data-why="The office never mentions checking on residents, and the resident says the one notice was not enough."><b>D.</b> The management office admits that no one checked on residents, while the resident argues that the lobby notice was enough.</button>
+</div><div class="fb" role="status" aria-live="polite" hidden></div></div>
+</div>
+<div class="card"><span class="ptag">WRAP UP</span><h2>How did it go?</h2><p><b>7 or 8 right on the first try:</b> you are ready for the Week 5 Skill Quiz.</p><p><b>5 or 6:</b> reread the note under each question you missed, then try this page again.</p><p><b>4 or fewer:</b> go back to <a href="/class-exercises/eng0300/point-of-view-practice.html">Monday's In-Class Practice</a> first, then come back and try again.</p><button type="button" class="btn ghost" id="again">Start this page over</button></div>
+<p class="foot">Practice on this page is for learning. Graded quizzes, submissions, and grades are in Brightspace too.</p>
+</div>
+<script>
+(function(){
+  var qs=[].slice.call(document.querySelectorAll('.q[data-type]'));
+  var total=qs.length, first=0, done=0;
+  var sFirst=document.getElementById('sFirst'), sDone=document.getElementById('sDone'), sMsg=document.getElementById('sMsg');
+  function upd(){
+    sFirst.textContent=first; sDone.textContent=done;
+    sMsg.textContent = done===0 ? "Let's go!" : (done<total ? 'Keep going.' : (first===total ? 'Every answer right on the first try. Excellent work.' : 'Finished. Reread the notes on the ones you missed.'));
+  }
+  function fb(q,cls,label,text,extra){
+    var box=q.querySelector('.fb'); box.className='fb '+cls; box.textContent='';
+    var b=document.createElement('b'); b.textContent=label+' '; box.appendChild(b);
+    box.appendChild(document.createTextNode(text));
+    if(extra){ box.appendChild(extra); }
+    box.hidden=false;
+  }
+  function mark(btn,cls,label){
+    btn.classList.remove('sel'); btn.classList.add(cls);
+    var m=btn.querySelector('.mark'); if(!m){ m=document.createElement('span'); m.className='mark'; btn.appendChild(m); }
+    m.textContent=label;
+  }
+  function review(q){
+    if(!q.dataset.review || q._tries<2) return null;
+    var p=document.createElement('p'); p.style.margin='8px 0 0';
+    var b=document.createElement('b'); b.textContent='Review: '; p.appendChild(b);
+    p.appendChild(document.createTextNode(q.dataset.review)); return p;
+  }
+  qs.forEach(function(q){
+    q._tries=0; q._done=false;
+    var opts=[].slice.call(q.querySelectorAll('.opt'));
+    if(q.dataset.type==='mc'){
+      opts.forEach(function(b){ b.addEventListener('click',function(){
+        if(q._done||b.disabled) return;
+        q._tries++;
+        if(b.dataset.right==='1'){
+          q._done=true; done++; if(q._tries===1) first++;
+          mark(b,'right','✓ Correct');
+          opts.forEach(function(o){ o.disabled=true; });
+          fb(q,'ok','Correct.',b.dataset.why,review(q));
+        } else {
+          mark(b,'wrong','✗ Not this one'); b.disabled=true;
+          fb(q,'no','Not this one.',b.dataset.why+' Try again.');
+        }
+        upd();
+      }); });
+    } else if(q.dataset.type==='multi'){
+      var check=q.querySelector('.check');
+      opts.forEach(function(b){ b.setAttribute('aria-pressed','false'); b.addEventListener('click',function(){
+        if(q._done) return;
+        var on=b.getAttribute('aria-pressed')==='true';
+        b.setAttribute('aria-pressed',on?'false':'true'); b.classList.toggle('sel',!on);
+      }); });
+      check.addEventListener('click',function(){
+        if(q._done) return;
+        var picked=opts.filter(function(o){ return o.classList.contains('sel'); });
+        if(!picked.length){ fb(q,'no','Choose first.','Tap every answer that belongs, then check.'); return; }
+        q._tries++;
+        var need=opts.filter(function(o){ return o.dataset.right==='1'; }).length;
+        var good=picked.filter(function(o){ return o.dataset.right==='1'; }).length;
+        var bad=picked.length-good;
+        var allRight=(good===need && bad===0);
+        if(!allRight && q._tries<2){
+          fb(q,'no','Not quite.','You picked '+good+' of the '+need+' right answers'+(bad?' and '+bad+' that '+(bad===1?'does':'do')+' not belong':'')+'. Change your choices and check one more time.');
+          return;
+        }
+        q._done=true; done++; if(allRight && q._tries===1) first++;
+        var ul=document.createElement('ul');
+        opts.forEach(function(o){
+          var isR=o.dataset.right==='1', sel=o.classList.contains('sel');
+          if(isR&&sel) mark(o,'right','✓ Correct'); else if(isR) mark(o,'missed','✓ This one belongs'); else if(sel) mark(o,'wrong','✗ Does not belong');
+          o.disabled=true;
+          var li=document.createElement('li'); var s=document.createElement('b'); s.textContent=o.dataset.letter+': '; li.appendChild(s); li.appendChild(document.createTextNode(o.dataset.why)); ul.appendChild(li);
+        });
+        check.disabled=true;
+        fb(q, allRight?'ok':'no', allRight?'Correct.':'Here is the full answer.', q.dataset.key||'', ul);
+        upd();
+      });
+    }
+  });
+  [].slice.call(document.querySelectorAll('[data-toggle]')).forEach(function(b){
+    b.addEventListener('click',function(){
+      var t=document.getElementById(b.dataset.toggle); var show=t.hidden; t.hidden=!show;
+      b.setAttribute('aria-expanded',show?'true':'false');
+      b.textContent = show ? b.dataset.hide : b.dataset.show;
+    });
+  });
+  [].slice.call(document.querySelectorAll('.tick')).forEach(function(b){
+    b.addEventListener('click',function(){ b.setAttribute('aria-pressed', b.getAttribute('aria-pressed')==='true'?'false':'true'); });
+  });
+  var resp=document.getElementById('resp'), cnt=document.getElementById('respCount');
+  if(resp&&cnt){ resp.addEventListener('input',function(){ var n=(resp.value.match(/[^.!?]+[.!?]+/g)||[]).length; cnt.textContent=n+' sentence'+(n===1?'':'s')+' so far. Aim for 3 to 4.'; }); }
+  var again=document.getElementById('again');
+  if(again){ again.addEventListener('click',function(){
+    first=0; done=0;
+    qs.forEach(function(q){ q._tries=0; q._done=false;
+      [].slice.call(q.querySelectorAll('.opt')).forEach(function(o){ o.disabled=false; o.classList.remove('sel','right','wrong','missed'); if(o.hasAttribute('aria-pressed')) o.setAttribute('aria-pressed','false'); var m=o.querySelector('.mark'); if(m) m.remove(); });
+      var c=q.querySelector('.check'); if(c) c.disabled=false;
+      var box=q.querySelector('.fb'); box.hidden=true; box.textContent=''; });
+    [].slice.call(document.querySelectorAll('[data-toggle]')).forEach(function(b){ document.getElementById(b.dataset.toggle).hidden=true; b.setAttribute('aria-expanded','false'); b.textContent=b.dataset.show; });
+    [].slice.call(document.querySelectorAll('.tick')).forEach(function(b){ b.setAttribute('aria-pressed','false'); });
+    if(resp){ resp.value=''; if(cnt) cnt.textContent='0 sentences so far. Aim for 3 to 4.'; }
+    upd(); var top=document.querySelector('.hero'); if(top&&top.scrollIntoView) top.scrollIntoView();
+  }); }
+  upd();
+})();
+</script>
+</body>
+</html>

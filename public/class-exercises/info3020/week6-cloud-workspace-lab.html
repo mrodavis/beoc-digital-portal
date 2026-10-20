@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 6 In-Class Exercises: Cloud Workspace Lab | BEOC Digital</title>
+<style>
+*{box-sizing:border-box;}
+body{color:#202122;font-family:Arial,Helvetica,sans-serif;line-height:1.6;background:#ffffff;margin:0;padding:14px;}
+.wrap{max-width:1040px;margin:0 auto;}
+.fade-in{opacity:0;transform:translateY(20px);animation:fadeInUp .8s ease forwards;}
+@keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
+.hero-section{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:42px 26px;text-align:center;}
+.hero-eyebrow{letter-spacing:3px;font-size:13px;text-transform:uppercase;color:#ffd942;font-weight:700;margin:0 0 4px;}
+.hero-title{font-size:38px;line-height:1.2;font-weight:800;text-shadow:0 0 15px rgba(255,255,255,.35);margin:0;}
+.hero-title-highlight{color:#ffd942;}
+.hero-divider{width:80px;height:4px;background:#ffd942;border:none;margin:17px auto;}
+.hero-sub{font-size:17px;opacity:.92;margin:0;}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.08);transition:transform .3s ease,box-shadow .3s ease;padding:24px 26px;margin-top:22px;}
+.card:hover{box-shadow:0 10px 26px rgba(0,0,0,.14);}
+.card h2{font-weight:800;color:#203a43;font-size:24px;margin:0 0 6px;}
+.card h3{font-weight:800;color:#203a43;font-size:18px;margin:20px 0 8px;}
+.pill{display:inline-block;background:#eef3f6;color:#203a43;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;margin:0 6px 8px 0;}
+.pill-gold{background:#fff6cc;color:#7a5c00;}
+.scenario{border-left:5px solid #ffd942;background:#f8fafb;border-radius:8px;padding:12px 16px;margin:12px 0;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:12px;}
+.step{background:#f8fafb;border-left:5px solid #ffd942;border-radius:8px;padding:10px 12px;font-size:14px;}
+.step b{display:block;color:#0f2027;font-size:15px;}
+.step span{color:#2c5364;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;}
+.q{border:2px solid #e6ecef;border-radius:10px;padding:12px 14px;margin:10px 0;}
+.q.ok{border-color:#4a8f00;background:#f4faee;}
+.q.no{border-color:#c9302c;background:#fdf3f2;}
+.qt{font-weight:700;margin:0 0 6px;color:#0f2027;}
+.qn{display:inline-block;background:#203a43;color:#ffd942;border-radius:50%;width:26px;height:26px;line-height:26px;text-align:center;font-size:13px;margin-right:8px;}
+.opt{display:block;padding:5px 8px;border-radius:6px;cursor:pointer;}
+.opt:hover{background:#eef3f6;}
+.fb{font-size:14px;font-weight:700;margin-top:6px;min-height:4px;}
+.fb.good{color:#2f6b00;}.fb.bad{color:#b02a26;}.fb.warn{color:#7a5c00;}
+.row{display:flex;gap:12px;align-items:center;border-bottom:1px solid #e6ecef;padding:9px 0;flex-wrap:wrap;}
+.row .txt{flex:1 1 300px;}
+.row select{font-size:16px;padding:6px 8px;border-radius:6px;border:2px solid #b9c6cc;max-width:100%;}
+.row label{margin-right:10px;font-size:14px;white-space:nowrap;}
+.row .fb{flex:1 1 100%;margin-top:0;}
+label.fld{display:block;font-weight:700;color:#0f2027;margin:14px 0 4px;}
+input[type=text],textarea{width:100%;font-family:inherit;font-size:16px;padding:10px 12px;border:2px solid #b9c6cc;border-radius:8px;}
+input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:#2c5364;box-shadow:0 0 0 3px rgba(255,217,66,.5);}
+textarea{min-height:84px;resize:vertical;}
+.btn-gold{background:#ffd942;color:#0f2027;font-weight:800;border-radius:999px;padding:10px 26px;display:inline-block;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.15);border:none;font-size:15px;cursor:pointer;margin:10px 8px 0 0;}
+.btn-gold:hover{background:#ffe574;}
+.btn-dark{background:#203a43;color:#fff;}
+.btn-dark:hover{background:#2c5364;}
+.score{display:inline-block;font-weight:800;color:#203a43;margin-left:6px;}
+.ico{display:inline-block;width:30px;height:30px;line-height:30px;border-radius:50%;color:#fff;font-weight:800;text-align:center;margin-right:10px;font-size:17px;vertical-align:middle;}
+.ico-green{background:#2f8f2f;}.ico-blue{background:#1f6fd0;}.ico-red{background:#c9302c;}
+.sn{display:inline-block;background:#ffd942;color:#0f2027;border-radius:50%;width:28px;height:28px;line-height:28px;text-align:center;font-size:14px;font-weight:800;margin-right:10px;}
+.say{font-family:Consolas,Menlo,monospace;background:#eef3f6;border-radius:6px;padding:2px 7px;font-size:15px;}
+.note{font-size:14px;color:#5a6a72;margin:10px 0 0;}
+.need{background:#fff6cc;color:#5c4600;border-radius:8px;padding:10px 14px;margin:14px 0 0;font-size:15px;}
+.due-card{background:linear-gradient(135deg,#1d4d00,#4a8f00);color:#fff;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.15);padding:24px 26px;margin-top:22px;}
+.due-card h2{color:#fff;margin:0 0 6px;font-size:24px;}
+.due-card ol{margin:8px 0 0 20px;padding:0;}
+.due-card li{margin-bottom:6px;}
+#missing{font-weight:700;color:#7a5c00;background:#fff6cc;border-radius:8px;padding:10px 14px;margin-top:12px;display:none;}
+#packetBox{display:none;margin-top:14px;}
+#packetText{min-height:260px;font-family:Consolas,Menlo,monospace;font-size:13px;}
+.footer-note{font-size:13px;color:#6b7a82;text-align:center;margin:30px 0 10px;}
+@media (max-width:600px){.hero-title{font-size:28px;}}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#1d4ed8;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/learning-paths/office-assistant/tech-foundations"><span class="beoc-tb-badge">BEOC</span><span>&larr; Technology Foundations</span></a><a class="beoc-tb-link" href="/learning-paths/office-assistant/tech-foundations/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div class="wrap">
+
+<section class="hero-section fade-in">
+<p class="hero-eyebrow">Week 6 &middot; Practice It! &middot; In Class Thursday 10/8</p>
+<h1 class="hero-title">Cloud <span class="hero-title-highlight">Workspace</span> Lab</h1>
+<hr class="hero-divider">
+<p class="hero-sub">Five exercises &middot; about 75 minutes &middot; 10 points &middot; one packet to submit</p>
+</section>
+
+<section class="card">
+<h2>Your Job Today</h2>
+<div class="scenario"><strong>The scenario:</strong> You are the office assistant at Lakeside Medical Associates. This week the office moved all of its files to Microsoft 365. Your supervisor gives you three new rules. Save your work in OneDrive. Share with a link, not an email attachment. Use Teams to talk with the team. Today you practice the new way to work.</div>
+<p><span class="pill pill-gold">10 points</span><span class="pill">2 points per exercise</span><span class="pill">Work with a partner</span><span class="pill">Not finished? Finish it for homework</span></p>
+<div class="grid">
+<div class="step"><span>8 min</span><b>1. Cloud Words</b>Quick check of key words.</div>
+<div class="step"><span>15 min</span><b>2. OneDrive in Action</b>Make a folder and a file in the cloud.</div>
+<div class="step"><span>20 min</span><b>3. Share It Right</b>Share with a partner. Change the permission.</div>
+<div class="step"><span>15 min</span><b>4. Teams Talk</b>Pick the right tool. Write two messages.</div>
+<div class="step"><span>12 min</span><b>5. Cloud Security Check</b>Find the mistakes. Write your checklist.</div>
+<div class="step"><span>3 min</span><b>Exit Ticket</b>Build your packet and submit.</div>
+</div>
+<div class="need"><strong>What you need:</strong> a web browser and the Microsoft account you use for class. You use OneDrive in Exercises 2 and 3. You do <strong>not</strong> sign in to Teams today.</div>
+<label class="fld" for="name">Your full name</label>
+<input type="text" id="name" placeholder="First and last name">
+<label class="fld" for="partner">Your partner's name (write "none" if you worked alone)</label>
+<input type="text" id="partner" placeholder="Partner name">
+<p class="note">Your answers are saved on this computer while you work. Do not close the page until you download your packet.</p>
+</section>
+
+<section class="card">
+<span class="pill pill-gold">Exercise 1 &middot; 8 minutes &middot; 2 points</span>
+<h2>Cloud Words</h2>
+<p>Choose the best answer for each question. Then click <strong>Check My Answers</strong>. You can change an answer and check again.</p>
+<div id="ex1"></div>
+<button type="button" class="btn-gold" id="check1">Check My Answers</button><span class="score" id="score1"></span>
+</section>
+
+<section class="card">
+<span class="pill pill-gold">Exercise 2 &middot; 15 minutes &middot; 2 points</span>
+<h2>OneDrive in Action</h2>
+<h3>Part A: Read the sync icons</h3>
+<p>In File Explorer, OneDrive puts a small icon next to each file. Pick the meaning of each icon.</p>
+<div id="ex2a"></div>
+<button type="button" class="btn-gold" id="check2a">Check My Answers</button><span class="score" id="score2a"></span>
+<h3>Part B: Build your cloud folder</h3>
+<p>This part is hands-on. Open a <strong>new browser tab</strong> for OneDrive. Keep this page open in its own tab. Mark each step when you finish it.</p>
+<div id="ex2b"></div>
+<p class="note">Could not do a step? Mark <strong>Could not do it</strong>, tell Professor Davis, and keep going.</p>
+<label class="fld" for="e2name">1. What is the exact name of your Word document?</label>
+<input type="text" id="e2name" placeholder="Example: CloudTest_...">
+<label class="fld" for="e2saved">2. After you stopped typing, what word at the top of Word told you the file was saved?</label>
+<input type="text" id="e2saved" placeholder="The top of the window said ...">
+<label class="fld" for="e2ver">3. What did Version history show you?</label>
+<textarea id="e2ver" placeholder="I saw ... The newest version was saved at ..."></textarea>
+<label class="fld" for="e2why">4. In two sentences, tell why saving in OneDrive is safer than saving only on the C: drive of one computer.</label>
+<textarea id="e2why" placeholder="Write two full sentences."></textarea>
+</section>
+
+<section class="card">
+<span class="pill pill-gold">Exercise 3 &middot; 20 minutes &middot; 2 points</span>
+<h2>Share It Right</h2>
+<h3>Part A: Pick the right move</h3>
+<p>Read each situation. Choose the best answer.</p>
+<div id="ex3a"></div>
+<button type="button" class="btn-gold" id="check3a">Check My Answers</button><span class="score" id="score3a"></span>
+<h3>Part B: Share with your partner</h3>
+<p>This part is hands-on. Person A shares first. Then switch roles, so each person shares their own CloudTest document. Mark each step when you finish it.</p>
+<div id="ex3b"></div>
+<p class="note">Is sharing blocked on your computer? Tell Professor Davis. Then write what you <strong>would</strong> do in each step and what you expect to see.</p>
+<label class="fld" for="e3who">1. Who did you share with? Which permission did you choose first?</label>
+<input type="text" id="e3who" placeholder="I shared with ... I chose ...">
+<label class="fld" for="e3view">2. What happened when your partner tried to type with Can view?</label>
+<textarea id="e3view"></textarea>
+<label class="fld" for="e3edit">3. What did you see on your screen when your partner typed with Can edit?</label>
+<textarea id="e3edit"></textarea>
+<label class="fld" for="e3removed">4. What did your partner see after you removed access?</label>
+<textarea id="e3removed"></textarea>
+<label class="fld" for="e3why">5. In two sentences, tell why Can view is the safer first choice.</label>
+<textarea id="e3why" placeholder="Write two full sentences."></textarea>
+</section>
+
+<section class="card">
+<span class="pill pill-gold">Exercise 4 &middot; 15 minutes &middot; 2 points</span>
+<h2>Teams Talk</h2>
+<p>You do not sign in to Teams for this exercise. Use what you learned in Lesson 3.</p>
+<h3>Part A: Where does it go?</h3>
+<p>Choose the best place for each message.</p>
+<div id="ex4a"></div>
+<button type="button" class="btn-gold" id="check4a">Check My Answers</button><span class="score" id="score4a"></span>
+<h3>Part B: Know the tools</h3>
+<div id="ex4b"></div>
+<button type="button" class="btn-gold" id="check4b">Check My Answers</button><span class="score" id="score4b"></span>
+<h3>Part C: Write it like a professional</h3>
+<div class="scenario"><strong>A coworker sent this Teams chat:</strong> <span class="say">hey where r the forms??? need them NOW</span></div>
+<label class="fld" for="e4rewrite">1. Rewrite this as a professional Teams chat to your coworker Maria. Start with @Maria. Say which form you need and when you need it.</label>
+<textarea id="e4rewrite" placeholder="@Maria ..."></textarea>
+<label class="fld" for="e4post">2. Write a post for the Front Desk channel. The news: the office closes at 3:00 PM this Friday for staff training. Use two or three full sentences.</label>
+<textarea id="e4post"></textarea>
+</section>
+
+<section class="card">
+<span class="pill pill-gold">Exercise 5 &middot; 12 minutes &middot; 2 points</span>
+<h2>Cloud Security Check</h2>
+<div class="scenario"><strong>Read about Morgan:</strong> Morgan works at the front desk. Morgan turned on MFA, so signing in takes a password and a code from a phone. On Saturday, Morgan goes to a coffee shop and uses the free public Wi-Fi with no VPN. Morgan signs in to the work Microsoft 365 account on the coffee shop's shared computer and opens the patient schedule. A coworker texts and asks for Morgan's password to check one file. Morgan sends it. Next, Morgan shares a folder with an outside vendor, picks Can edit, and sets no expiration date. Morgan sees that a coworker who left the practice last month still has access, and removes that person. Then Morgan sends a file with patient information to the wrong person and decides to wait and see if anyone notices. Morgan closes the browser and leaves without signing out.</div>
+<h3>Part A: Check every problem you find</h3>
+<p>Be careful. Two of these are things Morgan did right.</p>
+<div id="ex5"></div>
+<button type="button" class="btn-gold" id="check5">Check My Answers</button><span class="score" id="score5"></span>
+<label class="fld" for="e5first">Part B: Morgan sent patient information to the wrong person. What should Morgan do first? Tell why in two sentences.</label>
+<textarea id="e5first" placeholder="Write two full sentences."></textarea>
+<label class="fld" for="e5list">Part C: Write your own 5-point Cloud Security Checklist. Write five short rules you will follow at work.</label>
+<textarea id="e5list" placeholder="1. 2. 3. 4. 5." style="min-height:130px;"></textarea>
+</section>
+
+<section class="card">
+<span class="pill pill-gold">Exit Ticket &middot; 3 minutes</span>
+<h2>Before You Go</h2>
+<label class="fld" for="exit1">One thing I can now do in OneDrive by myself:</label>
+<textarea id="exit1"></textarea>
+<label class="fld" for="exit2">One question I still have:</label>
+<textarea id="exit2"></textarea>
+</section>
+
+<section class="due-card">
+<h2>Submit Your Packet (10 points)</h2>
+<p><strong>Did not finish in class?</strong> Finish the packet for homework and submit it before our next class: Thursday, October 15 at 6:00 PM.</p>
+<p><strong>Homework this week:</strong> You also have the Week 6 Deliverable: Shared Cloud Workspace in HOMEWORK! Exercises 2 and 3 get you ready for it.</p>
+<p><strong>Working on a different computer?</strong> Your answers are saved only in the browser you used in class. On another computer, type your answers again before you build your packet.</p>
+<ol>
+<li>Click <strong>Build My Packet</strong>. Read it. Fix anything that is missing.</li>
+<li>Click <strong>Download My Packet</strong>. The file goes to your Downloads folder.</li>
+<li>Click <strong>Open the Submit Folder</strong>. Click Add a File, choose your packet, then click Submit.</li>
+</ol>
+<button type="button" class="btn-gold" id="build">Build My Packet</button>
+<button type="button" class="btn-gold btn-dark" id="dl">Download My Packet</button>
+<span class="beoc-bs-note" role="note"><span aria-hidden="true">&#128229;</span> Submit your work in Brightspace</span>
+<div id="missing"></div>
+<div id="packetBox">
+<p style="margin:0 0 6px;"><strong>Your packet.</strong> If the download does not work, click Copy Packet Text, paste it into a Word document, save it, and upload that file.</p>
+<textarea id="packetText" readonly></textarea>
+<button type="button" class="btn-gold" id="copy">Copy Packet Text</button>
+</div>
+</section>
+
+<p class="footer-note">INFO3020 Digital Literacy I &middot; Week 6: Cloud Storage &amp; Collaboration &middot; Due before our next class: Thursday, October 15 at 6:00 PM</p>
+</div>
+
+<script>
+(function(){
+var KEY='info3020_w6_packet_v1';
+var state={};
+try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function el(id){return document.getElementById(id);}
+
+var EX1=[
+{q:"Cloud storage saves your files:",o:["Only on the C: drive of one computer","On remote servers you reach through the internet","On a USB flash drive","On paper in a filing cabinet"],a:1,why:"You can open the files from any device when you sign in."},
+{q:"Your work computer is stolen. Your files were saved in OneDrive. What happens to the files?",o:["They are gone forever","They are safe. You sign in on another device to open them.","They move to the Recycle Bin","They are sent to your email"],a:1,why:"OneDrive does not depend on one computer."},
+{q:"You saved over your work by mistake. Which OneDrive tool brings back an older copy of the file?",o:["Free up space","Manage access","Version history","Share"],a:2,why:"Right-click the file and choose Version history."},
+{q:"OneDrive is best for:",o:["Files the whole team must use every day","Your own files, like a draft you are still writing","Files you want everyone on the internet to see","Printing"],a:1,why:"OneDrive is your personal work space. Only you see a file until you share it."},
+{q:"SharePoint is best for:",o:["Your private notes","Shared team files, like templates and policies","Photos from your phone","Your passwords"],a:1,why:"SharePoint is the shared filing cabinet for the whole team."},
+{q:"When you share a file from OneDrive, the other person gets:",o:["A separate copy as an email attachment","A link to the one live file","A printed copy","Your password"],a:1,why:"Everyone works in the same file, so there is only one version."},
+{q:"Two people type in the same Word document at the same time. This is called:",o:["Syncing","Attaching","Co-authoring","Archiving"],a:2,why:"Each person's cursor shows in a different color."},
+{q:"In a file saved in OneDrive, AutoSave means:",o:["You must press Ctrl+S every minute","Your changes are saved for you as you work","The file is locked so no one can change it","The file is deleted after 30 days"],a:1,why:"Look for the word Saved at the top of the window."}
+];
+var MEAN=["Synced. The computer copy and the cloud copy match.","Online only. The file is in the cloud. It downloads when you open it.","Syncing now. Do not turn off the computer.","Sync failed. The file is not backed up. Fix it right away."];
+var ICONS=[
+{t:'<span class="ico ico-red">&#10005;</span><strong>Red X</strong>',p:"Red X",a:3},
+{t:'<span class="ico ico-green">&#10003;</span><strong>Green check mark</strong>',p:"Green check mark",a:0},
+{t:'<span class="ico ico-blue">&#8635;</span><strong>Blue circle arrows</strong>',p:"Blue circle arrows",a:2},
+{t:'<span class="ico ico-blue">&#9729;</span><strong>Blue cloud</strong>',p:"Blue cloud",a:1}
+];
+var STEPS2=[
+"Go to <strong>onedrive.com</strong>. Sign in with the Microsoft account you use for class.",
+"Click <strong>My files</strong>. Click <strong>+ Create or upload</strong> (it may say + Add new). Choose <strong>Folder</strong>. Name the folder <strong>LMA Cloud Practice</strong>.",
+"Open the folder. Click <strong>+ Create or upload</strong> again. Choose <strong>Word document</strong>. Word opens in a new tab.",
+"Click the file name at the top of Word. Change the name to <strong>CloudTest_YourName</strong>. Use your own name.",
+"Type two sentences that tell what cloud storage is. Stop typing. Look at the top of the window.",
+"Go back to the OneDrive tab. Find your document in LMA Cloud Practice. Right-click it and choose <strong>Version history</strong>."
+];
+var EX3A=[
+{q:"The billing manager must add this month's numbers to the expense report.",o:["Share a link with Can view","Share a link with Can edit","Give them your password","Print the report"],a:1,why:"A coworker who must change the file needs Can edit."},
+{q:"A doctor's office outside your company needs to read the new referral form. They must not change it.",o:["Share a link with Can edit","Share a link with Can view and set an expiration date","Give them access to your whole OneDrive","Post the form on social media"],a:1,why:"Outside people get Can view. The expiration date turns the link off later."},
+{q:"A coworker left the practice last week. Their name is still on your shared folder.",o:["Leave it. They may come back.","Open Manage access and remove them","Delete the whole folder","Change the folder name"],a:1,why:"People who leave must lose access right away."},
+{q:"You are reviewing a coworker's document. You want to suggest a change, but it is their document.",o:["Delete their sentence and type yours","Add a comment in the margin","Save a new copy with your name on it","Email them an attachment"],a:1,why:"A comment lets the owner accept or reject your idea."},
+{q:"An outside office asks you to share a file that has patient information (PHI).",o:["Share it fast with Can edit","Share it with Can view. No need to ask anyone.","Ask your supervisor before you share anything","Text them the file"],a:2,why:"Sharing PHI outside the practice needs approval first."}
+];
+var STEPS3=[
+"<strong>You:</strong> In OneDrive, click your CloudTest document one time to select it. Click <strong>Share</strong>.",
+"<strong>You:</strong> Type your partner's email address. Find the permission setting. Change it to <strong>Can view</strong>. Click <strong>Send</strong>.",
+"<strong>Partner:</strong> Open the link from your email, or look under <strong>Shared</strong> in OneDrive. Try to type in the document. See what happens.",
+"<strong>You:</strong> Select the document again. Click <strong>Manage access</strong>. Change your partner to <strong>Can edit</strong>.",
+"<strong>Partner:</strong> Refresh the page. If Word says Viewing, change it to Editing. Type one sentence that starts with your name. Both of you watch the screen.",
+"<strong>You:</strong> Open <strong>Manage access</strong> again. Remove your partner's access.",
+"<strong>Partner:</strong> Refresh the page. See what happens now. Then switch roles."
+];
+var PLACE=["Private chat","Channel post","Meeting","Files tab","Keep it out of Teams"];
+var EX4A=[
+{t:"A quick question that is only for your supervisor.",a:0,why:"A private chat is for one person."},
+{t:"News for the whole front desk team: the Friday schedule changed.",a:1,why:"A channel post reaches the whole group."},
+{t:"The billing team needs 30 minutes to talk and look at a spreadsheet together.",a:2,why:"A meeting lets people talk and share a screen."},
+{t:"A blank patient intake template that every front desk worker must use.",a:3,why:"The Files tab holds shared documents for the team."},
+{t:"A complaint about a coworker.",a:4,why:"Teams messages are saved like email. Talk to your supervisor in person."},
+{t:"A patient's name and diagnosis. You do not know if your Teams is approved for PHI.",a:4,why:"Ask your supervisor or IT before you put PHI in Teams."}
+];
+var EX4B=[
+{q:"At the start of your shift, where do you look to see every message that mentions you?",o:["The Files tab","The Activity feed (the bell)","The Calendar","The Recycle Bin"],a:1,why:"The Activity feed lists your mentions and replies."},
+{q:"You want one coworker to get a notification about your post. What do you type?",o:["Their name in ALL CAPS","@ and then their name","#urgent","Their phone number"],a:1,why:"An @mention sends that person a notification."},
+{q:"Before you join a meeting, Teams shows a preview screen. What do you do there?",o:["Check your camera and microphone","Share your whole screen","Start recording","Leave the meeting"],a:0,why:"Check them every time, before people can see or hear you."},
+{q:"When is it OK to use @channel to notify everyone?",o:["For every message","Only for urgent news that the whole team needs","To say good morning","Never"],a:1,why:"Too many alerts feel rude, and people stop reading them."}
+];
+var EX5=[
+{t:"Morgan turned on MFA (a password plus a code from a phone).",p:false},
+{t:"Morgan used free public Wi-Fi with no VPN to open work files.",p:true},
+{t:"Morgan signed in to a work account on a shared public computer.",p:true},
+{t:"Morgan gave a coworker the password.",p:true},
+{t:"Morgan gave an outside vendor Can edit access.",p:true},
+{t:"Morgan's sharing link has no expiration date.",p:true},
+{t:"Morgan removed access for a coworker who left the practice.",p:false},
+{t:"Morgan sent a file to the wrong person and did not report it.",p:true},
+{t:"Morgan closed the browser but did not sign out.",p:true}
+];
+
+function renderMC(hostId,prefix,items){
+var h='';
+for(var i=0;i<items.length;i++){
+h+='<div class="q" id="'+prefix+i+'"><p class="qt"><span class="qn">'+(i+1)+'</span>'+items[i].q+'</p>';
+for(var j=0;j<items[i].o.length;j++){h+='<label class="opt"><input type="radio" name="'+prefix+i+'" value="'+j+'"> '+items[i].o[j]+'</label>';}
+h+='<div class="fb" id="'+prefix+i+'fb"></div></div>';
+}
+el(hostId).innerHTML=h;
+}
+function pick(name){var s=document.querySelector('input[name="'+name+'"]:checked');return s?Number(s.value):-1;}
+function checkMC(prefix,items,outId){
+var score=0;
+for(var i=0;i<items.length;i++){
+var v=pick(prefix+i),fb=el(prefix+i+'fb'),box=el(prefix+i);
+if(v<0){box.className='q';fb.className='fb warn';fb.textContent='Choose an answer.';}
+else if(v===items[i].a){score++;box.className='q ok';fb.className='fb good';fb.textContent='Correct. '+items[i].why;}
+else{box.className='q no';fb.className='fb bad';fb.textContent='Not yet. Read the question again and try another answer.';}
+}
+var s=score+' / '+items.length;el(outId).textContent='Score: '+s;state['s_'+prefix]=s;save();
+}
+function renderSel(hostId,prefix,items,choices,ph){
+var h='';
+for(var i=0;i<items.length;i++){
+h+='<div class="row"><div class="txt">'+items[i].t+'</div><select id="'+prefix+i+'" aria-label="'+ph+'"><option value="">'+ph+'</option>';
+for(var j=0;j<choices.length;j++){h+='<option value="'+j+'">'+choices[j]+'</option>';}
+h+='</select><div class="fb" id="'+prefix+i+'fb"></div></div>';
+}
+el(hostId).innerHTML=h;
+}
+function selVal(id){var v=el(id).value;return v===''?-1:Number(v);}
+function checkSel(prefix,items,outId){
+var score=0;
+for(var i=0;i<items.length;i++){
+var v=selVal(prefix+i),fb=el(prefix+i+'fb');
+if(v<0){fb.className='fb warn';fb.textContent='Pick an answer.';}
+else if(v===items[i].a){score++;fb.className='fb good';fb.textContent='Correct.'+(items[i].why?' '+items[i].why:'');}
+else{fb.className='fb bad';fb.textContent='Try again.';}
+}
+var s=score+' / '+items.length;el(outId).textContent='Score: '+s;state['s_'+prefix]=s;save();
+}
+function renderSteps(hostId,prefix,steps){
+var h='',L=['Done','Could not do it'];
+for(var i=0;i<steps.length;i++){
+h+='<div class="row"><div class="txt"><span class="sn">'+(i+1)+'</span>'+steps[i]+'</div><div>';
+for(var j=0;j<2;j++){h+='<label><input type="radio" name="'+prefix+i+'" value="'+j+'"> '+L[j]+'</label>';}
+h+='</div></div>';
+}
+el(hostId).innerHTML=h;
+}
+function plain(s){return s.replace(/<[^>]+>/g,'');}
+
+renderMC('ex1','a',EX1);
+renderSel('ex2a','s',ICONS,MEAN,'Choose the meaning');
+renderSteps('ex2b','h',STEPS2);
+renderMC('ex3a','p',EX3A);
+renderSteps('ex3b','k',STEPS3);
+renderSel('ex4a','w',EX4A,PLACE,'Choose a place');
+renderMC('ex4b','m',EX4B);
+var h='',i;
+for(i=0;i<EX5.length;i++){h+='<label class="opt" id="v'+i+'l"><input type="checkbox" id="v'+i+'"> '+EX5[i].t+'</label>';}
+el('ex5').innerHTML=h;
+
+el('check1').onclick=function(){checkMC('a',EX1,'score1');};
+el('check2a').onclick=function(){checkSel('s',ICONS,'score2a');};
+el('check3a').onclick=function(){checkMC('p',EX3A,'score3a');};
+el('check4a').onclick=function(){checkSel('w',EX4A,'score4a');};
+el('check4b').onclick=function(){checkMC('m',EX4B,'score4b');};
+el('check5').onclick=function(){
+var score=0;
+for(var i=0;i<EX5.length;i++){
+var c=el('v'+i).checked,lab=el('v'+i+'l');
+if(c===EX5[i].p){score++;lab.style.background='#f4faee';}else{lab.style.background='#fdf3f2';}
+}
+var s=score+' / '+EX5.length;el('score5').textContent='Score: '+s+'. Green lines are right. Red lines need another look.';state.s_v=s;save();
+};
+
+document.addEventListener('change',remember);
+document.addEventListener('input',remember);
+function remember(e){
+var t=e.target;if(!t||t.id==='packetText')return;
+if(t.type==='radio'){state['r_'+t.name]=t.value;}
+else if(t.type==='checkbox'){state['c_'+t.id]=t.checked;}
+else if(t.id){state['t_'+t.id]=t.value;}
+save();
+}
+(function restore(){
+for(var k in state){
+if(!Object.prototype.hasOwnProperty.call(state,k))continue;
+var id=k.slice(2),n;
+if(k.indexOf('r_')===0){n=document.querySelector('input[name="'+id+'"][value="'+state[k]+'"]');if(n)n.checked=true;}
+else if(k.indexOf('c_')===0){n=el(id);if(n)n.checked=!!state[k];}
+else if(k.indexOf('t_')===0){n=el(id);if(n)n.value=state[k];}
+}
+})();
+
+function val(id){return (el(id).value||'').replace(/^\s+|\s+$/g,'');}
+function buildPacket(){
+var miss=[],out=[],i,v;
+function line(s){out.push(s);}
+function need(id,label){var x=val(id);if(!x)miss.push(label);return x||'(no answer)';}
+function mc(prefix,items,label){for(var i=0;i<items.length;i++){var v=pick(prefix+i);if(v<0)miss.push(label+', question '+(i+1));line((i+1)+'. '+items[i].q+' -> '+(v<0?'(no answer)':items[i].o[v]));}}
+function steps(prefix,list,label){var L=['Done','Could not do it'];for(var i=0;i<list.length;i++){var v=pick(prefix+i);if(v<0)miss.push(label+', step '+(i+1));line('Step '+(i+1)+': '+(v<0?'(not marked)':L[v]));}}
+line('WEEK 6 - IN-CLASS EXERCISE PACKET');
+line('INFO3020 Digital Literacy I - Thursday 10/8 - Cloud Workspace Lab');
+line('Name: '+need('name','Your name'));
+line('Partner: '+need('partner','Partner name'));
+line('');
+line('EXERCISE 1 - CLOUD WORDS   Last checked score: '+(state.s_a||'not checked'));
+mc('a',EX1,'Exercise 1');
+line('');
+line('EXERCISE 2A - SYNC ICONS   Last checked score: '+(state.s_s||'not checked'));
+for(i=0;i<ICONS.length;i++){v=selVal('s'+i);if(v<0)miss.push('Exercise 2A, line '+(i+1));line(ICONS[i].p+' -> '+(v<0?'(no answer)':MEAN[v]));}
+line('');
+line('EXERCISE 2B - BUILD YOUR CLOUD FOLDER');
+steps('h',STEPS2,'Exercise 2B');
+line('1. Document name: '+need('e2name','Exercise 2B, box 1'));
+line('2. Saved word: '+need('e2saved','Exercise 2B, box 2'));
+line('3. Version history: '+need('e2ver','Exercise 2B, box 3'));
+line('4. Why OneDrive is safer: '+need('e2why','Exercise 2B, box 4'));
+line('');
+line('EXERCISE 3A - PICK THE RIGHT MOVE   Last checked score: '+(state.s_p||'not checked'));
+mc('p',EX3A,'Exercise 3A');
+line('');
+line('EXERCISE 3B - SHARE WITH YOUR PARTNER');
+steps('k',STEPS3,'Exercise 3B');
+line('1. Shared with and first permission: '+need('e3who','Exercise 3B, box 1'));
+line('2. With Can view: '+need('e3view','Exercise 3B, box 2'));
+line('3. With Can edit: '+need('e3edit','Exercise 3B, box 3'));
+line('4. After access was removed: '+need('e3removed','Exercise 3B, box 4'));
+line('5. Why Can view first: '+need('e3why','Exercise 3B, box 5'));
+line('');
+line('EXERCISE 4A - WHERE DOES IT GO?   Last checked score: '+(state.s_w||'not checked'));
+for(i=0;i<EX4A.length;i++){v=selVal('w'+i);if(v<0)miss.push('Exercise 4A, line '+(i+1));line((i+1)+'. '+EX4A[i].t+' -> '+(v<0?'(no answer)':PLACE[v]));}
+line('');
+line('EXERCISE 4B - KNOW THE TOOLS   Last checked score: '+(state.s_m||'not checked'));
+mc('m',EX4B,'Exercise 4B');
+line('');
+line('EXERCISE 4C - WRITE IT LIKE A PROFESSIONAL');
+line('1. Chat to Maria: '+need('e4rewrite','Exercise 4C, box 1'));
+line('2. Channel post: '+need('e4post','Exercise 4C, box 2'));
+line('');
+line('EXERCISE 5 - CLOUD SECURITY CHECK   Last checked score: '+(state.s_v||'not checked'));
+line('Problems I checked:');
+var any=false;
+for(i=0;i<EX5.length;i++){if(el('v'+i).checked){any=true;line(' - '+EX5[i].t);}}
+if(!any){line(' (none checked)');miss.push('Exercise 5, Part A');}
+line('Part B, what Morgan should do first: '+need('e5first','Exercise 5, Part B'));
+line('Part C, my checklist: '+need('e5list','Exercise 5, Part C'));
+line('');
+line('EXIT TICKET');
+line('I can now do: '+need('exit1','Exit Ticket, first box'));
+line('My question: '+need('exit2','Exit Ticket, second box'));
+var m=el('missing');
+if(miss.length){m.style.display='block';m.textContent='Still missing ('+miss.length+'): '+miss.join('; ')+'. Finish these, then build your packet again.';}
+else{m.style.display='block';m.textContent='Your packet is complete. Download it and submit it.';}
+el('packetBox').style.display='block';
+el('packetText').value=out.join('\n');
+return out.join('\r\n');
+}
+el('build').onclick=function(){buildPacket();el('packetBox').scrollIntoView({behavior:'smooth'});};
+el('dl').onclick=function(){
+var text=buildPacket();
+var nm=(val('name')||'YourName').replace(/[^A-Za-z0-9]+/g,'_');
+try{
+var blob=new Blob([text],{type:'text/plain'});
+var a=document.createElement('a');
+a.href=URL.createObjectURL(blob);a.download='Week6_Packet_'+nm+'.txt';
+document.body.appendChild(a);a.click();
+setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);},800);
+}catch(e){el('missing').style.display='block';el('missing').textContent='The download did not work. Click Copy Packet Text and paste it into a Word document.';}
+};
+el('copy').onclick=function(){
+var t=el('packetText');t.focus();t.select();
+var ok=false;try{ok=document.execCommand('copy');}catch(e){}
+if(!ok&&navigator.clipboard){navigator.clipboard.writeText(t.value).then(function(){},function(){});}
+el('copy').textContent='Copied. Now paste it into Word.';
+};
+})();
+</script>
+</body>
+</html>

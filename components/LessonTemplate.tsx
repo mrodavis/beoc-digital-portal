@@ -5,6 +5,8 @@ import { BlockList } from "./ContentBlocks";
 import Slideshow from "./Slideshow";
 import LessonProgress from "./LessonProgress";
 import { ReactNode } from "react";
+import SimPlayer from "./sim/SimPlayer";
+import { simsFor } from "@/lib/sims";
 
 interface NavLesson {
   slug: string;
@@ -85,6 +87,7 @@ export default function ModuleTemplate({
   exercises,
 }: ModuleTemplateProps) {
 
+  const sims = simsFor(courseId, lessonId);
   const hasSections = sections.length > 0;
   const hasChallenge = challenge.length > 0;
   const hasObjectives = objectives.length > 0;
@@ -141,6 +144,11 @@ export default function ModuleTemplate({
               </li>
             ))}
           </ul>
+          {sims.length > 0 && (
+            <a href="#practice-simulation" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-primary-700">
+              ▶ Practice simulation{sims.length > 1 ? `s (${sims.length})` : ""} on this page
+            </a>
+          )}
         </div>
       )}
 
@@ -224,6 +232,21 @@ export default function ModuleTemplate({
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Practice simulation — click-through practice of what the lesson just taught */}
+      {sims.length > 0 && (
+        <div id="practice-simulation" className="mb-12 scroll-mt-24">
+          <SectionHeader
+            title="Practice Simulation"
+            description="Practice what this lesson taught in a working copy of the app. Tasks appear under the window, just like GMetrix."
+          />
+          <div className="space-y-10">
+            {sims.map((sim) => (
+              <SimPlayer key={sim.id} sim={sim} />
+            ))}
           </div>
         </div>
       )}

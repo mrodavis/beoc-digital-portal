@@ -5,7 +5,7 @@ export const module5Lessons: Lesson[] = [
     slug: "midterm-exam",
     title: "Midterm Exam",
     description:
-      "Assessment covering patient workflow, revenue cycle, ICD, CPT, and HCPCS coding concepts from Weeks 1–4.",
+      "Assessment covering patient workflow, revenue cycle, ICD, CPT, and HCPCS coding concepts from Modules 1–4.",
     objectives: [
       "Demonstrate what you have learned in the first half of the course",
     ],
@@ -27,11 +27,11 @@ export const module5Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "The midterm exam is administered in class by Mr. Gera. It includes multiple choice, true/false, and short answer sections covering all material from Weeks 1–4.",
+            text: "The midterm exam is taken in class on Brightspace. It includes multiple choice, true/false, and short answer sections covering all material from Modules 1–4.",
           },
           {
             type: "paragraph",
-            text: "The midterm counts for 25% of your final grade. Make sure you have reviewed the Week 4 study materials and completed the EHR Simulator midterm skills review lab.",
+            text: "The midterm counts for 20% of your final grade. Make sure you have reviewed the Module 4 study materials and completed the EHR Simulator midterm skills review lab.",
           },
         ],
       },

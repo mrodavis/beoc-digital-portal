@@ -8,6 +8,13 @@ import {
 } from "@/lib/content/eng0300/tabe";
 import { eng0300Course } from "@/lib/content/eng0300/course";
 import { eng0300Skills } from "@/lib/content/eng0300/skills";
+import {
+  classExerciseHref,
+  eng0300ClassExercises,
+} from "@/lib/content/class-exercises";
+
+const tabeClassExercises =
+  eng0300ClassExercises.find((group) => group.id === "tabe")?.exercises ?? [];
 
 export const metadata: Metadata = {
   title: "TABE Prep Center | ENG0300 Reading Lab",
@@ -87,6 +94,40 @@ export default function TabePrepPage() {
         >
           TABE Language Prep →
         </Link>
+      </section>
+
+      {/* The two-step TABE review from class (ported from Brightspace). */}
+      <section
+        id="power-review"
+        className="mb-12 scroll-mt-32 rounded-2xl border border-eng-navy-200 bg-white p-5 sm:p-6"
+      >
+        <h2 className="font-display text-xl font-bold text-eng-navy-900">
+          Review, then take a mock test
+        </h2>
+        <p className="mt-1 max-w-[68ch] text-[0.9375rem] leading-relaxed text-eng-navy-700">
+          The same two steps we use in class. Both pages save your progress in
+          this browser, so you can stop and come back.
+        </p>
+        <ul className="mt-4 grid gap-4 md:grid-cols-2">
+          {tabeClassExercises.map((exercise) => (
+            <li key={exercise.slug}>
+              <a
+                href={classExerciseHref("eng0300", exercise.slug)}
+                className="group block h-full rounded-xl border border-eng-navy-100 bg-eng-navy-50/50 p-4 transition-colors hover:bg-eng-navy-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-teal-600"
+              >
+                <span className="font-display text-lg font-bold text-eng-navy-900 group-hover:text-eng-teal-800">
+                  {exercise.title}
+                </span>
+                <span className="mt-1 block text-sm leading-relaxed text-eng-navy-600">
+                  {exercise.description}
+                </span>
+                <span className="mt-2 block text-sm font-semibold text-eng-teal-700">
+                  Open →
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section id="question-types" className="mb-12 scroll-mt-32">

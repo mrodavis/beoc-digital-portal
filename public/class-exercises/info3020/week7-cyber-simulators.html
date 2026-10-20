@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 7 Interactive Practice: Cybersecurity Simulators and Sorting Games | BEOC Digital</title>
+<style>
+*{box-sizing:border-box;}
+body{color:#202122;font-family:Arial,Helvetica,sans-serif;line-height:1.6;background:#ffffff;margin:0;padding:14px;}
+.wrap{max-width:1040px;margin:0 auto;}
+.fade-in{opacity:0;transform:translateY(20px);animation:fadeInUp .8s ease forwards;}
+@keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
+.hero-section{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:42px 26px;text-align:center;}
+.hero-eyebrow{letter-spacing:3px;font-size:13px;text-transform:uppercase;color:#ffd942;font-weight:700;margin:0 0 4px;}
+.hero-title{font-size:38px;line-height:1.2;font-weight:800;text-shadow:0 0 15px rgba(255,255,255,.35);margin:0;}
+.hero-title-highlight{color:#ffd942;}
+.hero-divider{width:80px;height:4px;background:#ffd942;border:none;margin:17px auto;}
+.hero-sub{font-size:17px;opacity:.92;margin:0;}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.08);padding:24px 26px;margin-top:22px;}
+.card h2{font-weight:800;color:#203a43;font-size:24px;margin:0 0 6px;}
+.card h3{font-weight:800;color:#203a43;font-size:18px;margin:14px 0 8px;}
+.pill{display:inline-block;background:#eef3f6;color:#203a43;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;margin:0 6px 8px 0;}
+.pill-gold{background:#fff6cc;color:#7a5c00;}
+.note{font-size:14px;color:#5a6a72;margin:10px 0 0;}
+.fb{font-size:15px;font-weight:700;margin:10px 0 0;min-height:24px;}
+.fb.good{color:#2f6b00;}.fb.bad{color:#b02a26;}.fb.warn{color:#7a5c00;}
+.btn-gold{background:#ffd942;color:#0f2027;font-weight:800;border-radius:999px;padding:10px 26px;display:inline-block;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.15);border:none;font-size:15px;cursor:pointer;margin:10px 8px 0 0;font-family:inherit;}
+.btn-gold:hover{background:#ffe574;}
+.btn-dark{background:#203a43;color:#fff;}
+.btn-dark:hover{background:#2c5364;}
+.board{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0;}
+.tile{flex:1 1 180px;background:#f8fafb;border-left:5px solid #ffd942;border-radius:8px;padding:10px 14px;}
+.tile span{display:block;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#2c5364;}
+.tile b{display:block;font-size:24px;color:#203a43;line-height:1.3;}
+.tile i{font-style:normal;font-size:13px;color:#5a6a72;}
+.tile.done{border-left-color:#4a8f00;background:#f4faee;}
+/* sorting games */
+.rnav{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0;}
+.rn{border:2px solid #2c5364;background:#fff;color:#203a43;border-radius:999px;padding:5px 16px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;}
+.rn.on{background:#203a43;color:#ffd942;}
+.rn.ok{border-color:#4a8f00;}
+.rn.ok::after{content:" \2713";color:#4a8f00;}
+.rn.on.ok::after{color:#9be36a;}
+.tray{display:flex;flex-wrap:wrap;gap:10px;min-height:70px;padding:12px;border:2px dashed #b9c6cc;border-radius:10px;background:#f8fafb;margin:10px 0 14px;}
+.trayok{color:#2f6b00;font-weight:700;}
+.dcard{background:#fff;border:2px solid #203a43;border-radius:10px;padding:7px 11px;font-size:14px;line-height:1.4;cursor:grab;max-width:310px;box-shadow:0 2px 6px rgba(0,0,0,.12);-webkit-user-select:none;user-select:none;}
+.dcard:hover{background:#fffbe6;}
+.dcard.sel{border-color:#e0a100;box-shadow:0 0 0 4px rgba(255,217,66,.7);}
+.dcard.shake{animation:shake .4s;border-color:#c9302c;}
+.dcard.mono{font-family:Consolas,Menlo,monospace;font-size:15px;}
+@keyframes shake{25%{transform:translateX(-7px);}75%{transform:translateX(7px);}}
+.buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;}
+.bucket{border:3px solid #2c5364;border-radius:12px;min-height:160px;background:#fff;cursor:pointer;display:flex;flex-direction:column;}
+.bucket.over{background:#fff6cc;border-color:#e0a100;}
+.bl{background:#203a43;color:#fff;padding:8px 12px;border-radius:8px 8px 0 0;font-weight:800;}
+.bl small{display:block;font-weight:400;color:#ffd942;font-size:12px;}
+.bz{padding:8px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.chip{background:#f4faee;border:2px solid #4a8f00;border-radius:8px;padding:6px 9px;font-size:13px;line-height:1.35;}
+/* simulators shared */
+.simwrap{display:grid;grid-template-columns:270px minmax(0,1fr);gap:14px;align-items:start;margin-top:12px;}
+@media (max-width:860px){.simwrap{grid-template-columns:minmax(0,1fr);}}
+.missions{background:#f8fafb;border-radius:10px;padding:12px;}
+.missions h3{margin:0 0 8px;}
+.mi{display:flex;gap:8px;padding:8px;border-radius:8px;font-size:14px;margin-bottom:6px;border:2px solid transparent;line-height:1.4;}
+.mi .n{flex:0 0 26px;height:26px;border-radius:50%;background:#203a43;color:#ffd942;font-weight:800;text-align:center;line-height:26px;font-size:13px;}
+.mi.cur{background:#fff6cc;border-color:#ffd942;}
+.mi.ok{color:#2f6b00;}
+.mi.ok .n{background:#4a8f00;color:#fff;}
+.how{font-size:13px;background:#fff;border-left:4px solid #2c5364;border-radius:6px;padding:8px 10px;margin:2px 0 8px;line-height:1.5;}
+.sim{position:relative;border:2px solid #b9c6cc;border-radius:10px;overflow:hidden;min-height:540px;background:#fff;display:flex;flex-direction:column;}
+.simbar{background:#203a43;color:#fff;padding:9px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px;}
+.simbar b{font-size:16px;}
+.simbar span{font-size:12px;color:#ffd942;}
+.tb{background:#fff;border:2px solid #2c5364;color:#203a43;border-radius:8px;padding:6px 12px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;}
+.tb:hover{background:#eef3f6;}
+.tb:disabled{opacity:.45;cursor:not-allowed;}
+.tb.pri{background:#ffd942;border-color:#e0b800;}
+.tb.pri:hover{background:#ffe574;}
+.tb.red{border-color:#c9302c;color:#9b1c17;}
+.tb.red:hover{background:#fdecea;}
+.tb.grn{border-color:#4a8f00;color:#2f6b00;}
+.tb.grn:hover{background:#f4faee;}
+.simmsg{margin:10px 12px;font-weight:700;font-size:14px;border-radius:8px;padding:8px 12px;display:none;}
+.simmsg.good{display:block;background:#f4faee;color:#2f6b00;}
+.simmsg.warn{display:block;background:#fff6cc;color:#7a5c00;}
+.simmsg.bad{display:block;background:#fdecea;color:#9b1c17;}
+.simmsg ul{margin:6px 0 0 18px;padding:0;font-weight:400;}
+.ov{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(15,32,39,.55);display:flex;align-items:flex-start;justify-content:center;padding:46px 14px;z-index:10;}
+.dlg{background:#fff;border-radius:12px;padding:18px;width:100%;max-width:440px;box-shadow:0 12px 30px rgba(0,0,0,.3);}
+.dlg h4{margin:0 0 10px;font-size:18px;color:#203a43;}
+.dlg.alarm{border-top:8px solid #c9302c;}
+.dlg.alarm h4{color:#9b1c17;}
+.dlg label{display:block;font-weight:700;font-size:14px;margin:10px 0 4px;}
+.dlg label.ck{font-weight:400;margin:8px 0 0;display:flex;gap:8px;align-items:flex-start;}
+.dlg select,.dlg input[type=text],.dlg input[type=password]{width:100%;font-size:15px;padding:8px;border:2px solid #b9c6cc;border-radius:8px;font-family:inherit;}
+.dlg select:focus,.dlg input:focus,.fld input:focus{outline:none;border-color:#2c5364;box-shadow:0 0 0 3px rgba(255,217,66,.5);}
+.dlg ol{margin:6px 0 0 20px;padding:0;font-size:14px;}
+.derr{color:#b02a26;font-weight:700;font-size:13px;margin:8px 0;min-height:4px;}
+/* mail sim */
+.mtabs{display:flex;gap:4px;padding:8px 10px 0;background:#eef3f6;flex-wrap:wrap;}
+.mtab{border:none;background:none;padding:6px 12px;font-weight:700;color:#5a6a72;cursor:pointer;border-bottom:3px solid transparent;font-family:inherit;font-size:14px;}
+.mtab.on{color:#203a43;border-bottom-color:#ffd942;}
+.mbody{display:flex;flex:1;min-height:0;}
+.mlist{flex:0 0 230px;border-right:2px solid #e6ecef;overflow:auto;max-height:470px;}
+.mrow{display:block;width:100%;text-align:left;border:none;border-bottom:1px solid #e6ecef;background:#fff;padding:9px 10px;cursor:pointer;font-family:inherit;font-size:13px;color:#202122;line-height:1.35;}
+.mrow:hover{background:#f8fafb;}
+.mrow.on{background:#fff6cc;}
+.mrow.unread b{color:#0f2027;}
+.mrow.unread{border-left:4px solid #1f6fd0;}
+.mrow b{display:block;font-size:14px;color:#3d4a50;}
+.mrow .s{display:block;font-weight:700;color:#203a43;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mrow .p{display:block;color:#5a6a72;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.mrow .t{float:right;font-size:12px;color:#5a6a72;}
+.tag{display:inline-block;font-size:11px;font-weight:800;border-radius:4px;padding:0 6px;margin-left:4px;}
+.tag.safe{background:#e3f4d6;color:#2f6b00;}
+.tag.rep{background:#fdecea;color:#9b1c17;}
+.mread{flex:1;min-width:0;display:flex;flex-direction:column;}
+.mtools{display:flex;gap:8px;flex-wrap:wrap;padding:8px 12px;border-bottom:2px solid #e6ecef;}
+.mhead{padding:10px 14px;border-bottom:1px solid #e6ecef;font-size:14px;}
+.mhead .subj{font-size:17px;font-weight:800;color:#0f2027;margin-bottom:4px;}
+.sender{border:none;background:none;padding:0;font-family:inherit;font-size:14px;font-weight:800;color:#1f5fa8;cursor:pointer;text-decoration:underline dotted;}
+.addr{font-family:Consolas,Menlo,monospace;font-size:13px;background:#fff6cc;border-radius:4px;padding:1px 6px;margin-left:4px;}
+.mtext{padding:12px 14px;font-size:14px;flex:1;overflow:auto;}
+.mtext p{margin:0 0 10px;}
+.ml{color:#1f5fa8;font-weight:700;}
+.ml.btnlike{display:inline-block;background:#1f6fd0;color:#fff;text-decoration:none;border-radius:6px;padding:8px 18px;margin:4px 0 10px;}
+.att{display:inline-flex;align-items:center;gap:6px;border:2px solid #b9c6cc;border-radius:8px;padding:6px 12px;font-size:14px;background:#fff;cursor:pointer;font-family:inherit;margin-bottom:10px;}
+.att:hover{background:#f8fafb;}
+.att i{font-style:normal;background:#2c5ea8;color:#fff;border-radius:4px;padding:1px 6px;font-weight:800;font-size:11px;}
+.statusbar{background:#eef3f6;border-top:2px solid #e6ecef;padding:5px 12px;font-family:Consolas,Menlo,monospace;font-size:12px;color:#3d4a50;min-height:28px;word-break:break-all;}
+.statusbar b{font-family:Arial,Helvetica,sans-serif;color:#203a43;}
+.empty{padding:30px 16px;color:#5a6a72;text-align:center;font-size:14px;}
+@media (max-width:700px){.mbody{flex-direction:column;}.mlist{flex:0 0 auto;max-height:230px;border-right:none;border-bottom:2px solid #e6ecef;}}
+/* account sim */
+.abody{display:grid;grid-template-columns:118px minmax(0,1fr) 200px;flex:1;min-height:0;}
+.anav{background:#eef3f6;padding:8px;display:flex;flex-direction:column;gap:4px;}
+.an{border:none;background:none;text-align:left;padding:8px 10px;border-radius:6px;font-size:14px;cursor:pointer;font-family:inherit;color:#202122;}
+.an:hover{background:#dfe8ed;}
+.an.on{background:#203a43;color:#fff;font-weight:700;}
+.amain{padding:12px 14px;min-width:0;}
+.amain h4{margin:0 0 8px;font-size:18px;color:#203a43;}
+.acard{border:2px solid #e6ecef;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:14px;}
+.acard.warnc{border-color:#e0a100;background:#fffbe6;}
+.mrowa{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;border-bottom:1px solid #e6ecef;padding:9px 0;font-size:14px;}
+.mrowa small{display:block;color:#5a6a72;}
+.fld label{display:block;font-weight:700;font-size:14px;margin:10px 0 4px;}
+.fld input{width:100%;font-size:15px;padding:8px;border:2px solid #b9c6cc;border-radius:8px;font-family:inherit;}
+.meter{height:10px;border-radius:999px;background:#e6ecef;margin:8px 0 4px;overflow:hidden;}
+.meter i{display:block;height:100%;width:0;background:#c9302c;transition:width .25s,background .25s;}
+.mlabel{font-size:13px;font-weight:700;}
+.act{border:2px solid #e6ecef;border-radius:10px;padding:9px 12px;margin-bottom:8px;font-size:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;}
+.act small{display:block;color:#5a6a72;}
+.act .u{color:#9b1c17;font-weight:800;}
+.act.fixed{border-color:#4a8f00;background:#f4faee;}
+.phonewrap{background:#f8fafb;border-left:2px solid #e6ecef;padding:10px;position:relative;z-index:11;}
+.ov.left{justify-content:flex-start;padding-left:20px;padding-right:222px;}
+.phone{background:#0f2027;border-radius:24px;padding:10px 8px 14px;color:#fff;min-height:400px;box-shadow:0 6px 16px rgba(0,0,0,.25);}
+.pnotch{width:60px;height:6px;border-radius:6px;background:#2c5364;margin:0 auto 8px;}
+.ptime{text-align:center;font-size:12px;color:#9db3bd;margin-bottom:8px;}
+.pscreen{background:#1b3440;border-radius:14px;padding:10px;min-height:330px;font-size:13px;overflow-wrap:anywhere;}
+.papp{background:#fff;color:#202122;border-radius:10px;padding:10px;margin-bottom:8px;}
+.papp b{color:#203a43;}
+.papp small{font-size:11px;}
+.pcode{font-family:Consolas,Menlo,monospace;font-size:21px;font-weight:800;letter-spacing:2px;color:#1f5fa8;white-space:nowrap;}
+.ptimer{height:5px;background:#e6ecef;border-radius:4px;overflow:hidden;margin-top:4px;}
+.ptimer i{display:block;height:100%;background:#1f6fd0;width:100%;}
+.push{background:#fff;color:#202122;border-radius:12px;padding:10px;border-top:6px solid #e0a100;animation:buzz .5s;}
+.push b{color:#9b1c17;}
+.push .num{font-size:30px;font-weight:800;text-align:center;color:#203a43;}
+.pbtns{display:flex;gap:6px;margin-top:8px;}
+.pbtns button{flex:1;border-radius:8px;padding:7px 4px;font-weight:800;font-size:13px;cursor:pointer;font-family:inherit;border:2px solid #2c5364;background:#fff;color:#203a43;}
+.pbtns .deny{border-color:#c9302c;color:#9b1c17;}
+.pbtns .ok{background:#203a43;color:#fff;}
+@keyframes buzz{20%{transform:translateX(-4px);}40%{transform:translateX(4px);}60%{transform:translateX(-3px);}80%{transform:translateX(3px);}}
+.qr{width:120px;height:120px;margin:8px auto;display:grid;grid-template-columns:repeat(11,1fr);border:6px solid #fff;outline:2px solid #203a43;}
+.qr i{display:block;}
+.qr i.k{background:#0f2027;}
+@media (max-width:760px){.abody{grid-template-columns:minmax(0,1fr);}.anav{flex-direction:row;flex-wrap:wrap;}.phonewrap{border-left:none;border-top:2px solid #e6ecef;}.phone{max-width:260px;margin:0 auto;min-height:0;}.ov.left{padding:46px 14px;justify-content:center;}.pscreen{min-height:200px;}}
+.due-card{background:linear-gradient(135deg,#1d4d00,#4a8f00);color:#fff;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.15);padding:24px 26px;margin-top:22px;}
+.due-card h2{color:#fff;margin:0 0 6px;font-size:24px;}
+.due-card a.btn-gold{color:#0f2027;}
+.footer-note{font-size:13px;color:#6b7a82;text-align:center;margin:30px 0 10px;}
+@media (max-width:640px){.hero-title{font-size:28px;}.card{padding:20px 14px;}}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#1d4ed8;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/learning-paths/office-assistant/tech-foundations"><span class="beoc-tb-badge">BEOC</span><span>&larr; Technology Foundations</span></a><a class="beoc-tb-link" href="/learning-paths/office-assistant/tech-foundations/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div class="wrap">
+
+<div class="hero-section fade-in">
+<p class="hero-eyebrow">Week 7 &middot; Practice It! &middot; Interactive Practice</p>
+<h1 class="hero-title">Cyber Safety <span class="hero-title-highlight">Simulator</span></h1>
+<hr class="hero-divider">
+<p class="hero-sub">Sorting games &middot; phishing inbox simulator &middot; account security simulator &middot; no sign-in needed</p>
+</div>
+
+<section class="card fade-in">
+<h2>How This Works</h2>
+<p>This page lets you practice with your hands. Drag cards, open emails, report phishing, and protect an account. Nothing here is real, so you cannot break anything. Try things.</p>
+<span class="pill pill-gold">Not graded</span><span class="pill">No sign-in</span><span class="pill">Try as many times as you want</span><span class="pill">Never type a real password here</span><span class="pill">Your packet is still the 10 points</span>
+<div class="board">
+<div class="tile" id="tile1"><span>Part 1 &middot; Sorting games</span><b id="t1">0 / 4</b><i>rounds done</i></div>
+<div class="tile" id="tile2"><span>Part 2 &middot; Phishing inbox</span><b id="t2">0 / 6</b><i>missions done</i></div>
+<div class="tile" id="tile3"><span>Part 3 &middot; Account security</span><b id="t3">0 / 6</b><i>missions done</i></div>
+</div>
+<a class="btn-gold" href="#sorting">Go to Sorting Games</a><a class="btn-gold btn-dark" href="#inbox">Go to the Inbox</a><a class="btn-gold btn-dark" href="#account">Go to Account Security</a>
+</section>
+
+<!-- PART 1 -->
+<section class="card" id="sorting">
+<span class="pill pill-gold">Part 1 &middot; Drag and drop</span>
+<h2>Sorting Games</h2>
+<div class="rnav" id="rnav"></div>
+<h3 id="rtitle"></h3>
+<p id="rintro"></p>
+<div class="tray" id="tray"></div>
+<div class="buckets" id="buckets"></div>
+<div class="fb" id="sortfb"></div>
+<button type="button" class="btn-gold btn-dark" id="rreset">Start this round again</button><button type="button" class="btn-gold" id="rnext">Next round</button><span class="note" id="rcount"></span>
+</section>
+
+<!-- PART 2 -->
+<section class="card" id="inbox">
+<span class="pill pill-gold">Part 2 &middot; Click and practice</span>
+<h2>Phishing Inbox Simulator</h2>
+<p>You work the front desk at Lakeside Medical Associates. Your office email ends in <strong>@lakesidemedical.org</strong>. Six emails are waiting. Four are phishing. Two are real. Use the missions to check each one, then click <strong>Report phishing</strong> or <strong>Mark as safe</strong>.</p>
+<div class="simwrap">
+<div class="missions">
+<h3>Your missions</h3>
+<div id="mmis"></div>
+<button type="button" class="tb" id="mhow">Show me how</button> <button type="button" class="tb" id="mreset">Start over</button>
+</div>
+<div class="sim" id="msim">
+<div class="simbar"><b>LMA Mail Practice</b><span>Simulation. This is not the real Outlook.</span></div>
+<div class="mtabs" id="mtabs"></div>
+<div class="mbody">
+<div class="mlist" id="mlist"></div>
+<div class="mread" id="mread"></div>
+</div>
+<div class="statusbar" id="mstatus"><b>Tip:</b> point at a link to see where it really goes.</div>
+</div>
+</div>
+</section>
+
+<!-- PART 3 -->
+<section class="card" id="account">
+<span class="pill pill-gold">Part 3 &middot; Click and practice</span>
+<h2>Account Security Simulator</h2>
+<p>This is your practice work account at Lakeside Medical. Right now it is weak: the password is <span style="font-family:Consolas,Menlo,monospace;background:#eef3f6;border-radius:4px;padding:1px 6px;">Clinic2023!</span> and the only second step is a text message. Fix it with six missions. The practice phone on the right works like Microsoft Authenticator.</p>
+<div class="simwrap">
+<div class="missions">
+<h3>Your missions</h3>
+<div id="amis"></div>
+<button type="button" class="tb" id="ahow">Show me how</button> <button type="button" class="tb" id="areset">Start over</button>
+</div>
+<div class="sim" id="asim">
+<div class="simbar"><b>LMA Account Practice</b><span>Simulation. This is not your real Microsoft account.</span></div>
+<div class="abody">
+<div class="anav" id="anav"></div>
+<div class="amain"><div id="amain"></div><div class="simmsg" id="amsg"></div></div>
+<div class="phonewrap"><div class="phone"><div class="pnotch"></div><div class="ptime" id="ptime">Practice phone</div><div class="pscreen" id="pscreen"></div></div></div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="due-card">
+<h2>Your Scoreboard</h2>
+<p id="final">Sorting Games: 0 of 4 rounds. Phishing Inbox: 0 of 6 missions. Account Security: 0 of 6 missions.</p>
+<p>This page is practice only. Your points come from the <strong>Week 7 In-Class Exercise Packet</strong>.</p>
+<a class="btn-gold" href="/class-exercises/info3020/week7-cyber-safety-lab.html">Back to the Exercise Packet Page</a>
+</section>
+
+<p class="footer-note">INFO3020 Digital Literacy I &middot; Week 7: Cybersecurity Fundamentals &middot; Interactive practice, not graded</p>
+</div>
+
+<script>
+(function(){
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+var SCORE={sort:0,mail:0,acct:0};
+function scoreboard(){
+ $('t1').textContent=SCORE.sort+' / 4';$('t2').textContent=SCORE.mail+' / 6';$('t3').textContent=SCORE.acct+' / 6';
+ $('tile1').className='tile'+(SCORE.sort===4?' done':'');$('tile2').className='tile'+(SCORE.mail===6?' done':'');$('tile3').className='tile'+(SCORE.acct===6?' done':'');
+ var all=(SCORE.sort===4&&SCORE.mail===6&&SCORE.acct===6);
+ $('final').innerHTML='Sorting Games: '+SCORE.sort+' of 4 rounds. Phishing Inbox: '+SCORE.mail+' of 6 missions. Account Security: '+SCORE.acct+' of 6 missions.'+(all?' <strong>You finished everything. You are a cyber safety pro!</strong>':'');
+}
+
+/* =================== PART 1: SORTING =================== */
+var ROUNDS=[
+{title:'Round 1: Name that threat',intro:'What kind of attack is each one? Drag a card into a box. You can also click a card, then click a box.',
+ buckets:[{k:'ph',l:'Phishing',s:'Fake email or message'},{k:'vi',l:'Vishing',s:'Fake phone call'},{k:'ra',l:'Ransomware',s:'Locks files for money'},{k:'us',l:'USB drop',s:'Infected drive left out'},{k:'in',l:'Insider threat',s:'Misuse by someone with access'}],
+ cards:[
+ {t:'An email says your Microsoft 365 account is locked. Click here within 24 hours.',k:'ph'},
+ {t:'An email that looks like the insurance portal asks you to log in on a new page.',k:'ph'},
+ {t:'A caller says he is from IT. He asks you to read him the code on your phone.',k:'vi'},
+ {t:'A caller says she is from the IRS. You must pay today or be arrested.',k:'vi'},
+ {t:'Every file on the shared drive now ends in .locked. A note asks for Bitcoin.',k:'ra'},
+ {t:'The front desk screen turns red: "Pay $5,000 to get your patient files back."',k:'ra'},
+ {t:'A flash drive labeled "Staff Payroll Q1" is lying in the parking lot.',k:'us'},
+ {t:'A USB drive comes in the mail with a note: "Free training videos."',k:'us'},
+ {t:'A worker opens a famous patient\'s chart just to see it.',k:'in'},
+ {t:'A worker who is quitting copies the patient list to a personal USB drive.',k:'in'}]},
+{title:'Round 2: Strong or weak password?',intro:'Lesson 2 says length matters most, tricks like @ for a do not help, and every account needs its own password.',
+ buckets:[{k:'s',l:'Strong',s:'Long, unique, hard to guess'},{k:'w',l:'Weak',s:'Short, common, or reused'}],
+ cards:[
+ {t:'correct-horse-battery-staple',k:'s',m:1},
+ {t:'Clinic2023!',k:'w',m:1},
+ {t:'lamp-orbit-pickle-harbor-violet',k:'s',m:1},
+ {t:'P@ssw0rd',k:'w',m:1},
+ {t:'A random 20-character password made by a password manager',k:'s'},
+ {t:'Password2 (last month it was Password1)',k:'w'},
+ {t:'Lakeside123',k:'w',m:1},
+ {t:'Your best password, used for work email AND for shopping sites',k:'w'}]},
+{title:'Round 3: Red flag or looks normal?',intro:'Sort the clues you might see in an email. A red flag means: stop and check before you click anything.',
+ buckets:[{k:'r',l:'Red flag',s:'Stop and check'},{k:'n',l:'Looks normal',s:'No red flag by itself'}],
+ cards:[
+ {t:'The name says Microsoft, but the address ends in @microsoftonline-security.com',k:'r'},
+ {t:'"Act within 24 hours or your account will be closed."',k:'r'},
+ {t:'"Dear Customer," from a service that knows your name',k:'r'},
+ {t:'You point at the link. It goes to login.microsoft-account-verify.net',k:'r'},
+ {t:'A surprise invoice.docm attachment says "Enable Content to view"',k:'r'},
+ {t:'Your boss asks you to buy gift cards and keep it a secret',k:'r'},
+ {t:'Your supervisor writes from mrivera@lakesidemedical.org about the schedule',k:'n'},
+ {t:'The link goes to lakesidemedical.sharepoint.com, your office\'s real site',k:'n'},
+ {t:'A coworker sends the file you asked for this morning, with no pressure',k:'n'}]},
+{title:'Round 4: HIPAA safe or HIPAA problem?',intro:'Think about Lesson 4. Is this a safe habit, or does it put patient information (PHI) at risk?',
+ buckets:[{k:'ok',l:'HIPAA safe',s:'Protects patient information'},{k:'bad',l:'HIPAA problem',s:'Puts PHI at risk'}],
+ cards:[
+ {t:'You press Windows+L to lock your screen before you walk away.',k:'ok'},
+ {t:'You confirm a caller\'s date of birth before you talk about their visit.',k:'ok'},
+ {t:'You shred the printed schedule at the end of the day.',k:'ok'},
+ {t:'You send lab results through the secure patient portal.',k:'ok'},
+ {t:'You look up your neighbor\'s chart because you are curious.',k:'bad'},
+ {t:'A sticky note with a patient\'s name and diagnosis is on your monitor.',k:'bad'},
+ {t:'An intake form with an insurance number sits face up on the counter.',k:'bad'},
+ {t:'You email lab results to "J. Smith" from autocomplete without checking.',k:'bad'},
+ {t:'You talk about a patient\'s test results in the elevator.',k:'bad'}]}
+];
+var WHY={ph:'Phishing is a fake email or message that tries to make you click or log in.',vi:'Vishing is voice phishing: a fake phone call.',ra:'Ransomware locks files and asks for money.',us:'A USB drop counts on your curiosity. Give the drive to IT. Never plug it in.',in:'An insider threat is misuse by someone who already has access.',
+ s:'Long and unique. That is what makes a password strong.',w:'Short, common, a small change to an old one, or reused. Easy for attackers.',r:'That is a red flag. Stop and check.',n:'This one looks normal. Still stay alert.',ok:'Safe habit. This protects PHI.',bad:'HIPAA problem. This can expose PHI.'};
+var R=0,placed=[],done=[false,false,false,false],selCard=null;
+function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function rnav(){var h='';ROUNDS.forEach(function(r,i){h+='<button type="button" class="rn'+(i===R?' on':'')+(done[i]?' ok':'')+'" data-r="'+i+'">Round '+(i+1)+'</button>';});$('rnav').innerHTML=h;}
+function startRound(i){R=i;selCard=null;var r=ROUNDS[i];placed=[];$('rtitle').textContent=r.title;$('rintro').textContent=r.intro;$('sortfb').textContent='';$('sortfb').className='fb';
+ var tray='';shuffle(r.cards.map(function(c,ix){return ix;})).forEach(function(ix){var c=r.cards[ix];tray+='<div class="dcard'+(c.m?' mono':'')+'" draggable="true" tabindex="0" data-c="'+ix+'">'+esc(c.t)+'</div>';});$('tray').innerHTML=tray;
+ var bh='';r.buckets.forEach(function(b){bh+='<div class="bucket" data-b="'+b.k+'" tabindex="0" role="button" aria-label="'+esc(b.l)+'"><div class="bl">'+esc(b.l)+'<small>'+esc(b.s)+'</small></div><div class="bz"></div></div>';});$('buckets').innerHTML=bh;
+ rnav();rcount();}
+function rcount(){var r=ROUNDS[R];$('rcount').textContent=placed.length+' of '+r.cards.length+' placed';$('rnext').style.display=(R<3)?'inline-block':'none';}
+function place(ci,bk){var r=ROUNDS[R],c=r.cards[ci];var el=$('tray').querySelector('[data-c="'+ci+'"]');if(!el)return;
+ if(c.k===bk){var bz=$('buckets').querySelector('[data-b="'+bk+'"] .bz');var ch=document.createElement('div');ch.className='chip';ch.textContent=c.t;bz.appendChild(ch);el.remove();placed.push(ci);selCard=null;
+  $('sortfb').className='fb good';$('sortfb').textContent='Correct! '+WHY[bk];rcount();
+  if(placed.length===r.cards.length){if(!done[R]){done[R]=true;SCORE.sort++;scoreboard();}$('tray').innerHTML='<span class="trayok">Round complete! Every card is in the right box.'+(R<3?' Click Next round.':' You finished all four rounds.')+'</span>';rnav();}}
+ else{el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake');var bl=null;r.buckets.forEach(function(b){if(b.k===bk)bl=b.l;});$('sortfb').className='fb bad';$('sortfb').textContent='Not "'+bl+'". Read the card again and try another box.';}}
+$('rnav').addEventListener('click',function(e){var b=e.target.closest('[data-r]');if(b)startRound(parseInt(b.getAttribute('data-r'),10));});
+$('rreset').addEventListener('click',function(){startRound(R);});
+$('rnext').addEventListener('click',function(){if(R<3)startRound(R+1);});
+$('tray').addEventListener('dragstart',function(e){var c=e.target.closest('.dcard');if(!c)return;try{e.dataTransfer.setData('text/plain',c.getAttribute('data-c'));}catch(x){}selCard=c.getAttribute('data-c');});
+$('tray').addEventListener('click',function(e){var c=e.target.closest('.dcard');if(!c)return;var cs=$('tray').querySelectorAll('.dcard');for(var i=0;i<cs.length;i++)cs[i].classList.remove('sel');if(selCard===c.getAttribute('data-c')){selCard=null;return;}selCard=c.getAttribute('data-c');c.classList.add('sel');$('sortfb').className='fb warn';$('sortfb').textContent='Now click the box where this card belongs.';});
+$('tray').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){var c=e.target.closest('.dcard');if(c){e.preventDefault();c.click();}}});
+$('buckets').addEventListener('dragover',function(e){var b=e.target.closest('.bucket');if(b){e.preventDefault();b.classList.add('over');}});
+$('buckets').addEventListener('dragleave',function(e){var b=e.target.closest('.bucket');if(b)b.classList.remove('over');});
+$('buckets').addEventListener('drop',function(e){var b=e.target.closest('.bucket');if(!b)return;e.preventDefault();b.classList.remove('over');var ci=null;try{ci=e.dataTransfer.getData('text/plain');}catch(x){}if(ci===null||ci==='')ci=selCard;if(ci!==null)place(parseInt(ci,10),b.getAttribute('data-b'));});
+$('buckets').addEventListener('click',function(e){var b=e.target.closest('.bucket');if(!b)return;if(selCard===null){$('sortfb').className='fb warn';$('sortfb').textContent='First click a card. Then click a box.';return;}place(parseInt(selCard,10),b.getAttribute('data-b'));});
+$('buckets').addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){var b=e.target.closest('.bucket');if(b){e.preventDefault();b.click();}}});
+startRound(0);
+
+/* =================== PART 2: PHISHING INBOX =================== */
+var EMAILS0=[
+{id:'it',name:'LMA IT Help Desk',addr:'helpdesk@lakesidemedical-support.net',time:'10:41 AM',subj:'ACTION REQUIRED: Your password expires today',prev:'Your network password expires in 2 hours...',phish:true,need:'hover',
+ body:'<p>Hello,</p><p>Your network password <strong>expires in 2 hours</strong>. To keep your current password and avoid losing access to the EHR, click below now.</p><p><a href="#" class="ml btnlike" data-url="https://lakesidemedical-support.net/keep-password">Keep My Password</a></p><p>LMA IT Help Desk</p>',
+ flags:['The real domain is lakesidemedical-support.net. Your office uses lakesidemedical.org.','Urgency: "expires in 2 hours."','The button goes to lakesidemedical-support.net, a look-alike site.','Real IT never asks you to click a link to keep your password.']},
+{id:'sam',name:'Sam Chen',addr:'schen@lakesidemedical.org',time:'10:05 AM',subj:'Expense report is ready for your numbers',prev:'Hi, I shared the October Expense Report...',phish:false,
+ body:'<p>Hi,</p><p>As we talked about this morning, I shared the October Expense Report with you in SharePoint. Please add the front desk supply costs by Friday.</p><p><a href="#" class="ml" data-url="https://lakesidemedical.sharepoint.com/sites/billing/October-Expense-Report.xlsx">October Expense Report.xlsx</a></p><p>Thanks,<br>Sam Chen, Billing Manager</p>',
+ why:'The address is schen@lakesidemedical.org, your office\'s real domain. The link goes to lakesidemedical.sharepoint.com, your office\'s real SharePoint. You expected this request, and there is no pressure.'},
+{id:'ms',name:'Microsoft 365 Security',addr:'security-alert@microsoftonline-security.com',time:'9:12 AM',subj:'Unusual sign-in activity: verify your account',prev:'Dear User, we detected unusual sign-in activity...',phish:true,need:'reveal',
+ body:'<p>Dear User,</p><p>We detected unusual sign-in activity on your account. To avoid <strong>suspension</strong>, you must verify your identity <strong>within 24 hours</strong>.</p><p><a href="#" class="ml btnlike" data-url="http://login.microsoft-account-verify.net/secure">Verify My Account</a></p><p>Microsoft Security Team</p>',
+ flags:['The real address ends in microsoftonline-security.com. That is not Microsoft.','"Dear User": no name.','Urgency and a threat: verify within 24 hours or be suspended.','The button goes to microsoft-account-verify.net, a look-alike site.']},
+{id:'dr',name:'Dr. Patel',addr:'dr.patel.lakeside@gmail.com',time:'8:57 AM',subj:'Quick favor - urgent',prev:'Are you at your desk? I need you to buy...',phish:true,
+ body:'<p>Are you at your desk?</p><p>I need you to buy five $100 gift cards for a patient thank-you program. I am in procedures all day, so <strong>do not call me</strong>. Just email me the card numbers <strong>right away</strong>. I will pay you back today.</p><p>Please keep this between us for now.</p><p>Dr. Patel</p>',
+ flags:['It comes from a personal Gmail address, not @lakesidemedical.org.','Authority: it uses a doctor\'s name to push you.','Urgency and secrecy: "right away" and "keep this between us."','"Do not call me" stops you from checking.','Gift card requests by email are a classic scam.']},
+{id:'mr',name:'Ms. Rivera',addr:'mrivera@lakesidemedical.org',time:'8:30 AM',subj:'Friday front desk schedule',prev:'Hi team, here is the Friday schedule...',phish:false,
+ body:'<p>Hi team,</p><p>Here is the Friday schedule:</p><p>Jordan opens at 8:00 AM.<br>You cover 12:00 to 4:00 PM.<br>Maria closes at 5:00 PM.</p><p>Let me know at the morning huddle if you need a change.</p><p>Thanks,<br>Ms. Rivera, Office Manager</p>',
+ why:'The address is mrivera@lakesidemedical.org, your office\'s real domain. There are no links, no attachments, and no pressure. It is the kind of email you expect from your supervisor.'},
+{id:'bs',name:'BlueShield Provider Services',addr:'claims@blueshield-provider-billing.co',time:'Yesterday',subj:'Claim #4471 denied - see attached invoice',prev:'Dear Provider, claim 4471 was denied...',phish:true,att:'Invoice_4471.docm',
+ body:'<p>Dear Provider,</p><p>Claim #4471 was denied. Open the attached invoice and click <strong>Enable Content</strong> to view the details.</p><p>If you do not respond <strong>in 48 hours</strong>, your office will be charged penalty fees.</p><p>BlueShield Provider Services</p>',
+ flags:['The domain blueshield-provider-billing.co is not the insurer\'s real site.','"Dear Provider": no name.','A surprise .docm attachment that asks you to Enable Content (macros can carry malware).','A threat: penalty fees in 48 hours.']}
+];
+var MISSIONS=[
+ {e:'ms',t:'Open the email from Microsoft 365 Security. Click the sender\'s name to see the real address. Then decide.',how:'Click the email in the list. At the top, click the blue sender name. The real address appears. Does it end in microsoft.com? Then click Report phishing or Mark as safe.'},
+ {e:'it',t:'Open the IT Help Desk email. Point at the button, but do not click. Read the real link at the bottom. Then decide.',how:'Move your mouse over the blue button and hold it there. Look at the gray bar at the bottom of the inbox. Is it your office\'s real site, lakesidemedical.org?'},
+ {e:'dr',t:'Open the email from Dr. Patel. Is this request real? Decide.',how:'Check the sender address. Then read the request. Gift cards, secrets, and "do not call me" are big warning signs.'},
+ {e:'bs',t:'Open the BlueShield email. Do not enable the attachment. Decide.',how:'Check the address and the greeting. If you click the attachment, a warning appears. Never click Enable Content on a surprise file.'},
+ {e:'mr',t:'Open Ms. Rivera\'s email about the Friday schedule. Decide.',how:'Click the sender name to see the address. Is it @lakesidemedical.org? Is there any link, attachment, or pressure?'},
+ {e:'sam',t:'Open Sam Chen\'s email. Check where the link goes. Decide.',how:'Point at the file link. The bottom bar shows lakesidemedical.sharepoint.com. Is that your office\'s real site?'}
+];
+var M;
+function mInit(){M={emails:EMAILS0.map(function(e){var o={};for(var k in e)o[k]=e[k];o.status='inbox';o.read=false;o.revealed=false;o.hovered=false;return o;}),folder:'inbox',sel:null,done:[false,false,false,false,false,false],how:false};}
+function mFind(id){for(var i=0;i<M.emails.length;i++)if(M.emails[i].id===id)return M.emails[i];return null;}
+function mMissionFor(id){for(var i=0;i<MISSIONS.length;i++)if(MISSIONS[i].e===id)return i;return -1;}
+function mRenderMissions(){var cur=M.done.indexOf(false),h='';MISSIONS.forEach(function(m,i){h+='<div class="mi'+(M.done[i]?' ok':'')+(i===cur?' cur':'')+'"><span class="n">'+(M.done[i]?'✓':(i+1))+'</span><span>'+esc(m.t)+'</span></div>';if(M.how&&!M.done[i]&&i===cur)h+='<div class="how">'+esc(m.how)+'</div>';});$('mmis').innerHTML=h;$('mhow').textContent=M.how?'Hide help':'Show me how';
+ var n=0;M.done.forEach(function(d){if(d)n++;});SCORE.mail=n;scoreboard();}
+function mCount(f){var n=0;M.emails.forEach(function(e){if((f==='inbox'&&(e.status==='inbox'||e.status==='safe'))||e.status===f)n++;});return n;}
+function mRenderTabs(){var t=[['inbox','Inbox'],['reported','Reported'],['deleted','Deleted']],h='';t.forEach(function(x){h+='<button type="button" class="mtab'+(M.folder===x[0]?' on':'')+'" data-f="'+x[0]+'">'+x[1]+' ('+mCount(x[0])+')</button>';});$('mtabs').innerHTML=h;}
+function inFolder(e){return M.folder==='inbox'?(e.status==='inbox'||e.status==='safe'):e.status===M.folder;}
+function mRenderList(){var h='';M.emails.forEach(function(e){if(!inFolder(e))return;h+='<button type="button" class="mrow'+(M.sel===e.id?' on':'')+(e.read?'':' unread')+'" data-e="'+e.id+'"><span class="t">'+esc(e.time)+'</span><b>'+esc(e.name)+(e.status==='safe'?'<span class="tag safe">SAFE</span>':'')+(e.status==='reported'?'<span class="tag rep">REPORTED</span>':'')+'</b><span class="s">'+esc(e.subj)+'</span><span class="p">'+esc(e.prev)+'</span></button>';});$('mlist').innerHTML=h||'<div class="empty">Nothing here.</div>';}
+function mRenderRead(msg){var e=M.sel?mFind(M.sel):null;
+ if(!e||!inFolder(e)){$('mread').innerHTML='<div class="empty">Click an email in the list to open it.</div><div class="simmsg" id="mmsg"></div>';if(msg)mMsg(msg[0],msg[1]);return;}
+ var acted=(e.status==='reported'||e.status==='safe'||e.status==='deleted');
+ var h='<div class="mtools"><button type="button" class="tb red" data-act="report"'+(acted?' disabled':'')+'>&#9873; Report phishing</button><button type="button" class="tb grn" data-act="safe"'+(acted?' disabled':'')+'>&#10003; Mark as safe</button><button type="button" class="tb" data-act="delete"'+(acted?' disabled':'')+'>&#128465; Delete</button></div>';
+ h+='<div class="mhead"><div class="subj">'+esc(e.subj)+'</div><div><b>From:</b> <button type="button" class="sender" data-act="reveal" title="Click to see the real address">'+esc(e.name)+'</button>'+(e.revealed?'<span class="addr">&lt;'+esc(e.addr)+'&gt;</span>':' <span class="note" style="margin:0;">(click the name to see the address)</span>')+'</div><div><b>To:</b> frontdesk@lakesidemedical.org &middot; '+esc(e.time)+'</div></div>';
+ h+='<div class="mtext">'+e.body+(e.att?'<button type="button" class="att" data-act="att"><i>W</i>'+esc(e.att)+'</button>':'')+'</div><div class="simmsg" id="mmsg"></div>';
+ $('mread').innerHTML=h;if(msg)mMsg(msg[0],msg[1]);}
+function mMsg(cls,html){var m=$('mmsg');if(!m)return;m.className='simmsg '+cls;m.innerHTML=html;}
+function mRender(msg){mRenderTabs();mRenderList();mRenderRead(msg);mRenderMissions();}
+function mDone(id){var i=mMissionFor(id);if(i>=0)M.done[i]=true;}
+function flagList(e){return '<ul><li>'+e.flags.map(esc).join('</li><li>')+'</li></ul>';}
+function overlay(sim,html){var o=document.createElement('div');o.className='ov'+(sim==='asim'?' left':'');o.innerHTML=html;$(sim).appendChild(o);o.addEventListener('click',function(ev){var b=ev.target.closest('[data-close]');if(b)o.remove();});return o;}
+function mAct(act){var e=mFind(M.sel);if(!e)return;
+ if(act==='reveal'){e.revealed=true;mRenderRead([e.phish?'warn':'good',e.phish?'Look closely at the address. Does it match the company it says it is from?':'Good check. Look at the domain after the @ sign.']);return;}
+ if(act==='report'){
+  if(!e.phish){mRenderRead(['bad','Look again. This is a real work email. '+esc(e.why)+' Reporting real email wastes IT\'s time.']);return;}
+  if(e.need==='reveal'&&!e.revealed){mRenderRead(['warn','Good instinct! First prove it: click the sender\'s name at the top to see the real address.']);return;}
+  if(e.need==='hover'&&!e.hovered){mRenderRead(['warn','Good instinct! First prove it: point at the button (do not click) and read the real link in the gray bar at the bottom.']);return;}
+  e.status='reported';mDone(e.id);var keep=e.id;M.sel=null;mRender(['good','<strong>You caught it! Reported to IT.</strong> The red flags:'+flagList(e)]);M.sel=null;void keep;return;}
+ if(act==='safe'){
+  if(e.phish){mRenderRead(['bad','Careful! This is phishing. Hint: '+esc(e.flags[0])]);return;}
+  e.status='safe';mDone(e.id);mRender(['good','<strong>Correct. This email is safe.</strong> '+esc(e.why)]);return;}
+ if(act==='delete'){
+  if(e.phish){mRenderRead(['warn','Deleting is not enough. Report it first, so IT can warn everyone. Step 2 in Lesson 3: report it.']);return;}
+  mRenderRead(['warn','That is a real work email from a coworker. Do not delete it. Mark it as safe.']);return;}
+ if(act==='att'){
+  overlay('msim','<div class="dlg"><h4>Invoice_4471.docm</h4><p style="background:#fff6cc;border-radius:8px;padding:8px 10px;font-size:14px;"><strong>PROTECTED VIEW</strong> Be careful: files from the internet can contain viruses. This file has macros.</p><button type="button" class="tb red" id="encon">Enable Content</button> <button type="button" class="tb pri" data-close="1">Close the file</button></div>');
+  $('encon').addEventListener('click',function(){var o=this.closest('.ov');o.remove();mClicked('The macro ran. In real life, malware or ransomware could now be on this computer.');});
+  return;}
+}
+function mClicked(what){overlay('msim','<div class="dlg alarm"><h4>Gotcha! That was a trap.</h4><p style="font-size:14px;">'+esc(what)+' This time it is only practice. If this happens at work, follow Lesson 1:</p><ol><li><strong>Stop.</strong> Do not type anything. Disconnect from the network if you can.</li><li><strong>Report it right away</strong> to your supervisor and IT.</li><li><strong>Write down</strong> what you clicked and when, on paper.</li><li><strong>Use a phone</strong> or another computer to contact IT.</li></ol><button type="button" class="tb pri" data-close="1">I understand. Back to the inbox.</button></div>');}
+$('mtabs').addEventListener('click',function(e){var b=e.target.closest('[data-f]');if(!b)return;M.folder=b.getAttribute('data-f');M.sel=null;mRender();});
+$('mlist').addEventListener('click',function(e){var b=e.target.closest('[data-e]');if(!b)return;M.sel=b.getAttribute('data-e');var em=mFind(M.sel);em.read=true;mRenderList();mRenderRead();});
+$('mread').addEventListener('click',function(e){var a=e.target.closest('.ml');if(a){e.preventDefault();var em=mFind(M.sel);if(em.phish){mClicked('You clicked a phishing link. A fake login page would open next and steal your password.');}else{mMsg('good','This link goes to your office\'s real SharePoint. (In this practice, it does not open.) You checked where it goes first. That is the habit.');}return;}
+ var b=e.target.closest('[data-act]');if(b&&!b.disabled)mAct(b.getAttribute('data-act'));});
+function showUrl(a){var em=mFind(M.sel);if(em)em.hovered=true;$('mstatus').innerHTML='<b>This link really goes to:</b> '+esc(a.getAttribute('data-url'));}
+$('mread').addEventListener('mouseover',function(e){var a=e.target.closest('.ml');if(a)showUrl(a);});
+$('mread').addEventListener('focusin',function(e){var a=e.target.closest('.ml');if(a)showUrl(a);});
+$('mread').addEventListener('mouseout',function(e){var a=e.target.closest('.ml');if(a)$('mstatus').innerHTML='<b>Tip:</b> point at a link to see where it really goes.';});
+$('mhow').addEventListener('click',function(){M.how=!M.how;mRenderMissions();});
+$('mreset').addEventListener('click',function(){mInit();mRender();$('mstatus').innerHTML='<b>Tip:</b> point at a link to see where it really goes.';});
+mInit();mRender();
+
+/* =================== PART 3: ACCOUNT SECURITY =================== */
+var AMIS=[
+ {t:'Change the weak password Clinic2023! to a long passphrase. Use 4 or more random words. Make one up. Never use a real password here.',how:'Click Password on the left. Type Clinic2023! as the current password. For the new one, join 4 random words with dashes, like lamp-orbit-pickle-harbor. Type it again to confirm.'},
+ {t:'Add the safest second sign-in step for your phone.',how:'Click Security info. Click + Add sign-in method. Text message codes can be stolen with SIM swapping. Choose Authenticator app, then click I scanned the code.'},
+ {t:'Finish setup: type the 6-digit code from the practice phone.',how:'Look at the practice phone on the right. Type the 6 numbers you see into the box, then click Verify. The code changes every 30 seconds.'},
+ {t:'Make the Authenticator app your default sign-in method.',how:'In Security info, find Default sign-in method. Click Change. Choose the app notification option. Click Confirm.'},
+ {t:'Your phone starts buzzing with sign-in requests. You are NOT signing in. Handle every one.',how:'This is an MFA fatigue attack. Someone has your old password. Tap Deny on each request, then tap Report it. Never tap Approve.'},
+ {t:'Check Recent activity. One sign-in was not you. Find it and secure your account.',how:'Click Recent activity. Look for a strange place, time, or device. Click This wasn\'t me on that one. Choose the right steps.'}
+];
+var A,codeTimer=null,pushTimer=null;
+function aInit(){A={view:'overview',done:[false,false,false,false,false,false],how:false,pwDate:'2 years ago',auth:false,authPending:false,def:'sms',code:newCode(),prev:'',secs:30,push:0,pushState:'none',bad:false,fixed:false};}
+function newCode(){var s='';for(var i=0;i<6;i++)s+=Math.floor(Math.random()*10);return s;}
+function aCur(){return A.done.indexOf(false);}
+function aRenderMissions(){var cur=aCur(),h='';AMIS.forEach(function(m,i){h+='<div class="mi'+(A.done[i]?' ok':'')+(i===cur?' cur':'')+'"><span class="n">'+(A.done[i]?'✓':(i+1))+'</span><span>'+esc(m.t)+'</span></div>';if(A.how&&!A.done[i]&&i===cur)h+='<div class="how">'+esc(m.how)+'</div>';});$('amis').innerHTML=h;$('ahow').textContent=A.how?'Hide help':'Show me how';var n=0;A.done.forEach(function(d){if(d)n++;});SCORE.acct=n;scoreboard();}
+function aMsg(cls,html){var m=$('amsg');if(!cls){m.className='simmsg';m.innerHTML='';return;}m.className='simmsg '+cls;m.innerHTML=html;}
+function aNav(){var v=[['overview','Overview'],['password','Password'],['security','Security info'],['activity','Recent activity']],h='';v.forEach(function(x){h+='<button type="button" class="an'+(A.view===x[0]?' on':'')+'" data-v="'+x[0]+'">'+x[1]+'</button>';});$('anav').innerHTML=h;}
+function defLabel(){return A.def==='app'?'Microsoft Authenticator - notification':'Phone - text +1 (718) 555-0142';}
+function aView(){var h='';
+ if(A.view==='overview'){var issues=[];if(!A.done[0])issues.push('Your password is weak and old.');if(!A.auth)issues.push('Your only second step is a text message.');else if(A.def!=='app')issues.push('Your default sign-in method is still a text message.');if(!A.done[5])issues.push('Review your recent sign-in activity.');
+  h+='<h4>My Account</h4>';h+=issues.length?'<div class="acard warnc"><strong>Security check: '+issues.length+' item'+(issues.length>1?'s need':' needs')+' attention</strong><ul style="margin:6px 0 0 18px;padding:0;"><li>'+issues.map(esc).join('</li><li>')+'</li></ul></div>':'<div class="acard" style="border-color:#4a8f00;background:#f4faee;"><strong>Your account is in great shape.</strong></div>';
+  h+='<div class="acard"><strong>Password</strong><br>Last changed: '+esc(A.pwDate)+'<br><button type="button" class="tb" data-go="password" style="margin-top:6px;">Change password</button></div>';
+  h+='<div class="acard"><strong>Security info</strong><br>Default sign-in method: '+esc(defLabel())+'<br><button type="button" class="tb" data-go="security" style="margin-top:6px;">Update info</button></div>';
+  h+='<div class="acard"><strong>Recent activity</strong><br>See where and when your account was used.<br><button type="button" class="tb" data-go="activity" style="margin-top:6px;">Review activity</button></div>';}
+ else if(A.view==='password'){
+  h+='<h4>Change your password</h4>';
+  if(A.done[0]){h+='<div class="acard" style="border-color:#4a8f00;background:#f4faee;">Your password was changed '+esc(A.pwDate)+'. Nice work.</div>';}
+  else{h+='<p class="note" style="margin:0 0 6px;">Practice only. Make up a passphrase. Do not use a password you really use.</p><div class="fld"><label for="pcur">Current password</label><input type="password" id="pcur" autocomplete="off"><label for="pnew">New password</label><input type="text" id="pnew" autocomplete="off" spellcheck="false" placeholder="Example: word-word-word-word"><div class="meter"><i id="pm"></i></div><div class="mlabel" id="pml">Type a new password</div><label for="pcon">Confirm new password</label><input type="text" id="pcon" autocomplete="off" spellcheck="false"></div><button type="button" class="tb pri" id="psave" style="margin-top:10px;">Save password</button>';}}
+ else if(A.view==='security'){
+  h+='<h4>Security info</h4><p style="font-size:14px;margin:0 0 6px;">These are the ways you prove it is you.</p>';
+  h+='<div class="acard"><strong>Default sign-in method:</strong> '+esc(defLabel())+' <button type="button" class="tb" id="chdef">Change</button></div>';
+  h+='<button type="button" class="tb pri" id="addm">+ Add sign-in method</button>';
+  h+='<div class="mrowa"><span><strong>Password</strong><small>Last updated: '+esc(A.pwDate)+'</small></span><button type="button" class="tb" data-go="password">Change</button></div>';
+  h+='<div class="mrowa"><span><strong>Phone</strong><small>+1 (718) 555-0142 &middot; text message</small></span></div>';
+  if(A.auth)h+='<div class="mrowa"><span><strong>Microsoft Authenticator</strong><small>Push notifications and codes &middot; Practice phone</small></span></div>';}
+ else if(A.view==='activity'){
+  h+='<h4>Recent activity</h4><p style="font-size:14px;margin:0 0 6px;">Is every sign-in you? Look at the place, time, and device.</p>';
+  var acts=[
+   {id:'a1',w:'Today, 8:02 AM',p:'Brooklyn, New York',d:'Windows &middot; Edge',r:'Successful',me:'This is your front desk computer at the start of your shift.'},
+   {id:'a2',w:'Today, 3:14 AM',p:'Unknown location',d:'Linux &middot; Unknown browser',r:'Successful',bad:true},
+   {id:'a3',w:'Yesterday, 6:15 PM',p:'Brooklyn, New York',d:'iPhone &middot; Outlook app',r:'Successful',me:'This is your own phone after work.'},
+   {id:'a4',w:'Monday, 9:00 AM',p:'Brooklyn, New York',d:'Windows &middot; Edge',r:'Successful',me:'This is your front desk computer on Monday morning.'}];
+  acts.forEach(function(a){var fixed=a.bad&&A.fixed;h+='<div class="act'+(fixed?' fixed':'')+'"><span><strong>'+a.w+'</strong><small>'+a.p+' &middot; '+a.d+' &middot; '+a.r+(a.bad&&!fixed?' &middot; <span class="u">Unusual</span>':'')+(fixed?' &middot; <strong style="color:#2f6b00;">Secured</strong>':'')+'</small></span>'+(fixed?'':'<button type="button" class="tb red" data-notme="'+a.id+'">This wasn\'t me</button>')+'</div>';});
+  window.__ACTS=acts;}
+ $('amain').innerHTML=h;
+ if(A.view==='password'&&!A.done[0]){$('pnew').addEventListener('input',meter);}
+}
+var BANNED=['password','passw0rd','p@ss','clinic','lakeside','123','qwerty','welcome','letmein','2023','2024','2025','2026','abc'];
+function pwCheck(p){var low=p.toLowerCase(),bad=null;BANNED.forEach(function(b){if(!bad&&low.indexOf(b)>=0)bad=b;});var words=p.split(/[\s\-_.]+/).filter(function(w){return w.length>=3;}).length;return {len:p.length,bad:bad,words:words};}
+function meter(){var p=$('pnew').value,c=pwCheck(p),w=0,col='#c9302c',lab='';
+ if(!p){lab='Type a new password';}
+ else if(c.bad){w=15;lab='Weak: it has "'+c.bad+'" in it. That is easy to guess.';}
+ else if(c.len<8){w=15;lab='Very weak: too short';}
+ else if(c.len<12){w=35;lab='Weak: still short';col='#e0a100';}
+ else if(c.len<16){w=60;lab='Fair: getting there. Aim for 16 or more characters.';col='#e0a100';}
+ else if(c.words>=4||c.len>=20){w=100;lab='Very strong: long passphrase';col='#2f8f2f';}
+ else{w=85;lab='Strong';col='#4a8f00';}
+ $('pm').style.width=w+'%';$('pm').style.background=col;$('pml').textContent=lab;$('pml').style.color=col;}
+function savePw(){var cur=$('pcur').value,n=$('pnew').value,cf=$('pcon').value,c=pwCheck(n);
+ if(cur!=='Clinic2023!'){aMsg('warn','The current password is not right. For this practice it is Clinic2023! (capital C, ends with an exclamation point).');return;}
+ if(!n){aMsg('warn','Type a new password.');return;}
+ if(n===cur){aMsg('bad','That is the same password. Make a new one.');return;}
+ if(c.bad){aMsg('bad','Not safe: it has "'+esc(c.bad)+'" in it. Attackers try office names, the word password, and years first.');return;}
+ if(c.len<16){aMsg('warn','Too short: '+c.len+' characters. Lesson 2 says length matters most. Join 4 random words to get 16 or more.');return;}
+ if(n!==cf){aMsg('warn','The two new passwords do not match. Type it again in Confirm.');return;}
+ A.done[0]=true;A.pwDate='just now';aMsg('good','<strong>Password changed.</strong> '+c.len+' characters. Remember: this was practice. Never reuse this one for real.');aView();aRenderMissions();}
+function addMethod(){
+ var o=overlay('asim','<div class="dlg"><h4>Add a sign-in method</h4><label for="msel">Which method do you want to add?</label><select id="msel"><option value="">Choose a method</option><option value="app">Authenticator app</option><option value="sms">Phone (text message code)</option><option value="email">Alternate email</option><option value="q">Security questions</option></select><div class="derr" id="merr"></div><button type="button" class="tb pri" id="madd">Add</button> <button type="button" class="tb" data-close="1">Cancel</button></div>');
+ $('madd').addEventListener('click',function(){var v=$('msel').value;
+  if(!v){$('merr').textContent='Choose a method.';return;}
+  if(v==='sms'){$('merr').textContent='Text codes are better than nothing, but an attacker can steal your phone number (SIM swapping). You already have this one. Choose the safest option.';return;}
+  if(v==='email'||v==='q'){$('merr').textContent='That is not a strong second step. Answers and inboxes can be guessed or hacked. Choose the safest option.';return;}
+  if(A.auth){$('merr').textContent='The Authenticator app is already set up.';return;}
+  var qr='';for(var i=0;i<121;i++){var r=Math.floor(i/11),c=i%11;var corner=(r<3&&c<3)||(r<3&&c>7)||(r>7&&c<3);qr+='<i class="'+((corner&&!(r===1&&(c===1||c===9))&&!(r===9&&c===1))||(!corner&&Math.random()>.5)?'k':'')+'"></i>';}
+  o.querySelector('.dlg').innerHTML='<h4>Set up Microsoft Authenticator</h4><ol><li>Open Microsoft Authenticator on your phone.</li><li>Tap <strong>+</strong>, then <strong>Work or school account</strong>.</li><li>Scan this QR code.</li></ol><div class="qr">'+qr+'</div><button type="button" class="tb pri" id="mscan">I scanned the code</button> <button type="button" class="tb" data-close="1">Cancel</button>';
+  $('mscan').addEventListener('click',function(){A.authPending=true;A.done[1]=true;phone();aRenderMissions();
+   o.querySelector('.dlg').innerHTML='<h4>Enter the code</h4><p style="font-size:14px;">Look at the practice phone. Type the 6-digit code shown in the app.</p><label for="mcode">6-digit code</label><input type="text" id="mcode" inputmode="numeric" maxlength="7" autocomplete="off"><div class="derr" id="cerr"></div><button type="button" class="tb pri" id="mver">Verify</button>';
+   $('mver').addEventListener('click',function(){var v=$('mcode').value.replace(/\s/g,'');if(v===A.code||(A.prev&&v===A.prev)){A.auth=true;A.authPending=false;A.done[2]=true;o.remove();aMsg('good','<strong>Authenticator app added.</strong> Now make it your default sign-in method.');aView();aRenderMissions();phone();}else{$('cerr').textContent='That code does not match. Look at the phone again. The code changes every 30 seconds.';}});
+  });
+ });}
+function changeDef(){
+ var opts='<option value="sms"'+(A.def==='sms'?' selected':'')+'>Phone - text +1 (718) 555-0142</option>'+(A.auth?'<option value="app"'+(A.def==='app'?' selected':'')+'>Microsoft Authenticator - notification</option>':'');
+ var o=overlay('asim','<div class="dlg"><h4>Change default method</h4><label for="dsel">Which method do you want to use to sign in?</label><select id="dsel">'+opts+'</select><div class="derr" id="derr">'+(A.auth?'':'Add the Authenticator app first. Then you can pick it here.')+'</div><button type="button" class="tb pri" id="dok">Confirm</button> <button type="button" class="tb" data-close="1">Cancel</button></div>');
+ $('dok').addEventListener('click',function(){var v=$('dsel').value;if(v!=='app'){$('derr').textContent=A.auth?'Text message is the weaker choice. Pick the Authenticator app.':'Add the Authenticator app first.';return;}
+  A.def='app';A.done[3]=true;o.remove();aMsg('good','<strong>Default changed.</strong> Sign-ins now go to the Authenticator app. Watch your practice phone...');aView();aRenderMissions();startAttack();});}
+function startAttack(){if(A.done[4])return;clearTimeout(pushTimer);pushTimer=setTimeout(function(){A.push++;A.pushState='ask';phone();},2200);}
+function notMe(id){var a=null;(window.__ACTS||[]).forEach(function(x){if(x.id===id)a=x;});if(!a)return;
+ if(!a.bad){aMsg('warn','Look again. '+esc(a.me)+' That one was you.');return;}
+ var o=overlay('asim','<div class="dlg alarm"><h4>Secure your account</h4><p style="font-size:14px;margin:0;">Someone signed in at 3:14 AM from an unknown place. Choose every step you should take now.</p><label class="ck"><input type="checkbox" id="s1"> Change your password</label><label class="ck"><input type="checkbox" id="s2"> Sign out of all sessions</label><label class="ck"><input type="checkbox" id="s3"> Tell IT and your supervisor</label><label class="ck"><input type="checkbox" id="s4"> Wait a week to see if it happens again</label><div class="derr" id="serr"></div><button type="button" class="tb pri" id="sok">Secure my account</button> <button type="button" class="tb" data-close="1">Cancel</button></div>');
+ $('sok').addEventListener('click',function(){var a1=$('s1').checked,a2=$('s2').checked,a3=$('s3').checked,a4=$('s4').checked;
+  if(a4){$('serr').textContent='Waiting gives the attacker more time. Act now.';return;}
+  if(!(a1&&a2&&a3)){$('serr').textContent='Not yet. You need all three right steps: new password, sign out everywhere, and tell IT.';return;}
+  A.fixed=true;A.done[5]=true;o.remove();aView();aMsg('good','<strong>Account secured.</strong> You changed the password, signed out the attacker, and told IT. That is exactly right.');aRenderMissions();});}
+function phone(){var h='';
+ if(A.pushState==='ask'){h='<div class="push"><b>Are you trying to sign in?</b><br>Lakeside Medical<br><small>you@lakesidemedical.org</small><br><small>Location: Unknown &middot; Request '+A.push+' of 3</small><div class="pbtns"><button type="button" class="deny" data-p="deny">Deny</button><button type="button" class="ok" data-p="approve">Approve</button></div></div>';}
+ else if(A.pushState==='denied'){h='<div class="push" style="border-top-color:#2c5364;"><b style="color:#203a43;">Request denied</b><br>Was this you? If you did not try to sign in, report it.<div class="pbtns"><button type="button" class="deny" data-p="report">Report it</button><button type="button" data-p="wasme">It was me</button></div></div>';}
+ else if(A.auth||A.authPending){h='<div class="papp"><b>Authenticator</b><br>Lakeside Medical<br><small>you@lakesidemedical.org</small><div class="pcode">'+A.code.slice(0,3)+' '+A.code.slice(3)+'</div><div class="ptimer"><i style="width:'+(A.secs/30*100)+'%"></i></div><small>New code in '+A.secs+'s</small></div>';if(A.done[4])h+='<div class="papp" style="border-left:5px solid #4a8f00;"><b>All clear.</b><br><small>You denied and reported '+A.push+' requests.</small></div>';}
+ else{h='<div style="text-align:center;color:#9db3bd;padding-top:60px;">No apps set up yet.<br><br><small>Add a sign-in method to see it here.</small></div>';}
+ $('pscreen').innerHTML=h;}
+function tick(){A.secs--;if(A.secs<=0){A.prev=A.code;A.code=newCode();A.secs=30;}if(A.pushState==='none')phone();var d=new Date();$('ptime').textContent=(d.getHours()%12||12)+':'+('0'+d.getMinutes()).slice(-2)+(d.getHours()<12?' AM':' PM');}
+$('pscreen').addEventListener('click',function(e){var b=e.target.closest('[data-p]');if(!b)return;var v=b.getAttribute('data-p');
+ if(v==='approve'){A.pushState='none';A.push=0;phone();overlay('asim','<div class="dlg alarm"><h4>You let the attacker in!</h4><p style="font-size:14px;">You approved a sign-in you did not start. Now the attacker is in your account. Someone who has your password sends many requests and hopes you tap Approve to make them stop. This is called MFA fatigue.</p><p style="font-size:14px;">At work: tell IT right now and change your password.</p><button type="button" class="tb pri" data-close="1">Try the mission again</button></div>');aMsg('bad','Never approve a request you did not start. Try again: the requests will come back.');startAttack();return;}
+ if(v==='deny'){A.pushState='denied';phone();return;}
+ if(v==='wasme'){aMsg('warn','But you are not signing in right now. This was not you. Report it.');return;}
+ if(v==='report'){A.pushState='none';if(A.push>=3){A.done[4]=true;phone();aMsg('good','<strong>You stopped an MFA fatigue attack.</strong> You denied and reported all '+A.push+' requests. In real life, also tell IT and change your password, because the attacker knows it.');aRenderMissions();aView();}else{phone();aMsg('warn','Reported. Uh oh, here comes another one. The attacker is trying again...');clearTimeout(pushTimer);pushTimer=setTimeout(function(){A.push++;A.pushState='ask';phone();},1600);}}});
+$('anav').addEventListener('click',function(e){var b=e.target.closest('[data-v]');if(!b)return;A.view=b.getAttribute('data-v');aMsg();aNav();aView();});
+$('amain').addEventListener('click',function(e){var g=e.target.closest('[data-go]');if(g){A.view=g.getAttribute('data-go');aMsg();aNav();aView();return;}
+ if(e.target.id==='psave'){savePw();return;}if(e.target.id==='addm'){addMethod();return;}if(e.target.id==='chdef'){changeDef();return;}
+ var n=e.target.closest('[data-notme]');if(n)notMe(n.getAttribute('data-notme'));});
+$('ahow').addEventListener('click',function(){A.how=!A.how;aRenderMissions();});
+$('areset').addEventListener('click',function(){clearTimeout(pushTimer);var ovs=$('asim').querySelectorAll('.ov');for(var i=0;i<ovs.length;i++)ovs[i].remove();aInit();aMsg();aNav();aView();aRenderMissions();phone();});
+aInit();aNav();aView();aRenderMissions();phone();
+codeTimer=setInterval(tick,1000);
+scoreboard();
+})();
+</script>
+</body>
+</html>

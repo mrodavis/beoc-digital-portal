@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Week 7 In-Class Exercises: Cyber Safety Lab | BEOC Digital</title>
+<style>
+*{box-sizing:border-box;}
+body{color:#202122;font-family:Arial,Helvetica,sans-serif;line-height:1.6;background:#ffffff;margin:0;padding:14px;}
+.wrap{max-width:1040px;margin:0 auto;}
+.fade-in{opacity:0;transform:translateY(20px);animation:fadeInUp .8s ease forwards;}
+@keyframes fadeInUp{to{opacity:1;transform:translateY(0);}}
+.hero-section{background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);color:#fff;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.18);padding:42px 26px;text-align:center;}
+.hero-eyebrow{letter-spacing:3px;font-size:13px;text-transform:uppercase;color:#ffd942;font-weight:700;margin:0 0 4px;}
+.hero-title{font-size:38px;line-height:1.2;font-weight:800;text-shadow:0 0 15px rgba(255,255,255,.35);margin:0;}
+.hero-title-highlight{color:#ffd942;}
+.hero-divider{width:80px;height:4px;background:#ffd942;border:none;margin:17px auto;}
+.hero-sub{font-size:17px;opacity:.92;margin:0;}
+.card{background:#fff;border-radius:12px;box-shadow:0 4px 14px rgba(0,0,0,.08);transition:transform .3s ease,box-shadow .3s ease;padding:24px 26px;margin-top:22px;}
+.card:hover{box-shadow:0 10px 26px rgba(0,0,0,.14);}
+.card h2{font-weight:800;color:#203a43;font-size:24px;margin:0 0 6px;}
+.card h3{font-weight:800;color:#203a43;font-size:18px;margin:20px 0 8px;}
+.pill{display:inline-block;background:#eef3f6;color:#203a43;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;margin:0 6px 8px 0;}
+.pill-gold{background:#fff6cc;color:#7a5c00;}
+.pill-red{background:#fdecea;color:#9b1c17;}
+.scenario{border-left:5px solid #ffd942;background:#f8fafb;border-radius:8px;padding:12px 16px;margin:12px 0;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:12px;}
+.step{background:#f8fafb;border-left:5px solid #ffd942;border-radius:8px;padding:10px 12px;font-size:14px;}
+.step b{display:block;color:#0f2027;font-size:15px;}
+.step span{color:#2c5364;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase;}
+.q{border:2px solid #e6ecef;border-radius:10px;padding:12px 14px;margin:10px 0;}
+.q.ok{border-color:#4a8f00;background:#f4faee;}
+.q.no{border-color:#c9302c;background:#fdf3f2;}
+.qt{font-weight:700;margin:0 0 6px;color:#0f2027;}
+.qn{display:inline-block;background:#203a43;color:#ffd942;border-radius:50%;width:26px;height:26px;line-height:26px;text-align:center;font-size:13px;margin-right:8px;}
+.opt{display:block;padding:5px 8px;border-radius:6px;cursor:pointer;}
+.opt:hover{background:#eef3f6;}
+.fb{font-size:14px;font-weight:700;margin-top:6px;min-height:4px;}
+.fb.good{color:#2f6b00;}.fb.bad{color:#b02a26;}.fb.warn{color:#7a5c00;}
+.row{display:flex;gap:12px;align-items:center;border-bottom:1px solid #e6ecef;padding:9px 0;flex-wrap:wrap;}
+.row .txt{flex:1 1 300px;}
+.row select{font-size:16px;padding:6px 8px;border-radius:6px;border:2px solid #b9c6cc;max-width:100%;}
+.row label{margin-right:10px;font-size:14px;white-space:nowrap;}
+.row .fb{flex:1 1 100%;margin-top:0;}
+.row.ok .txt{color:#2f6b00;}
+.row.no .txt{color:#b02a26;}
+.row.ok select{border-color:#4a8f00;}
+.row.no select{border-color:#c9302c;}
+.ck{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border-radius:8px;border:2px solid transparent;margin:4px 0;cursor:pointer;}
+.ck:hover{background:#f8fafb;}
+.ck input{margin-top:5px;transform:scale(1.25);}
+.ck.ok{border-color:#4a8f00;background:#f4faee;}
+.ck.no{border-color:#c9302c;background:#fdf3f2;}
+.srow{display:flex;gap:10px;align-items:flex-start;border-bottom:1px solid #e6ecef;padding:10px 0;flex-wrap:wrap;}
+.srow .txt{flex:1 1 320px;}
+.srow .btns{display:flex;gap:6px;flex-wrap:wrap;}
+.sb{border:2px solid #2c5364;background:#fff;color:#203a43;border-radius:999px;padding:4px 14px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;}
+.sb:hover{background:#eef3f6;}
+.sb.on-done{background:#4a8f00;border-color:#4a8f00;color:#fff;}
+.sb.on-cant{background:#fff6cc;border-color:#e0a100;color:#7a5c00;}
+label.fld{display:block;font-weight:700;color:#0f2027;margin:14px 0 4px;}
+input[type=text],textarea{width:100%;font-family:inherit;font-size:16px;padding:10px 12px;border:2px solid #b9c6cc;border-radius:8px;}
+input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:#2c5364;box-shadow:0 0 0 3px rgba(255,217,66,.5);}
+textarea{min-height:84px;resize:vertical;}
+.btn-gold{background:#ffd942;color:#0f2027;font-weight:800;border-radius:999px;padding:10px 26px;display:inline-block;text-decoration:none;box-shadow:0 4px 12px rgba(0,0,0,.15);border:none;font-size:15px;cursor:pointer;margin:10px 8px 0 0;font-family:inherit;}
+.btn-gold:hover{background:#ffe574;}
+.btn-dark{background:#203a43;color:#fff;}
+.btn-dark:hover{background:#2c5364;}
+.score{display:inline-block;font-weight:800;color:#203a43;margin-left:6px;}
+.sn{display:inline-block;background:#ffd942;color:#0f2027;border-radius:50%;width:28px;height:28px;line-height:28px;text-align:center;font-size:14px;font-weight:800;margin-right:10px;flex:0 0 28px;}
+.say{font-family:Consolas,Menlo,monospace;background:#eef3f6;border-radius:6px;padding:2px 7px;font-size:15px;}
+.note{font-size:14px;color:#5a6a72;margin:10px 0 0;}
+.need{background:#fff6cc;color:#5c4600;border-radius:8px;padding:10px 14px;margin:14px 0 0;font-size:15px;}
+.counter{font-size:13px;color:#5a6a72;margin-top:4px;}
+.counter b{color:#203a43;}
+/* fake email */
+.mail{border:2px solid #b9c6cc;border-radius:10px;overflow:hidden;margin:12px 0;background:#fff;}
+.mail-bar{background:#203a43;color:#fff;padding:8px 14px;font-size:13px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;}
+.mail-bar span{color:#ffd942;}
+.mail-head{padding:12px 16px;border-bottom:2px solid #e6ecef;font-size:14px;line-height:1.7;}
+.mail-head b{display:inline-block;min-width:66px;color:#5a6a72;}
+.mail-subj{font-size:17px;font-weight:800;color:#0f2027;}
+.mail-body{padding:14px 16px;font-size:15px;}
+.mail-btn{display:inline-block;background:#1f6fd0;color:#fff;font-weight:700;border-radius:6px;padding:8px 18px;margin:6px 0;}
+.mail-url{display:block;font-size:12px;color:#5a6a72;font-family:Consolas,Menlo,monospace;}
+.mail-att{display:inline-block;border:2px solid #b9c6cc;border-radius:8px;padding:6px 12px;font-size:14px;margin-top:8px;}
+.mail-att i{font-style:normal;background:#2c5ea8;color:#fff;border-radius:4px;padding:1px 6px;font-weight:800;font-size:11px;margin-right:6px;}
+.script{background:#0f2027;color:#e9f1f4;border-radius:10px;padding:14px 18px;margin:10px 0;}
+.script b{color:#ffd942;}
+.due-card{background:linear-gradient(135deg,#1d4d00,#4a8f00);color:#fff;border-radius:12px;box-shadow:0 8px 22px rgba(0,0,0,.15);padding:24px 26px;margin-top:22px;}
+.due-card h2{color:#fff;margin:0 0 6px;font-size:24px;}
+.due-card ol{margin:8px 0 0 20px;padding:0;}
+.due-card li{margin-bottom:6px;}
+.due-card a.btn-gold{color:#0f2027;}
+#missing{font-weight:700;color:#7a5c00;background:#fff6cc;border-radius:8px;padding:10px 14px;margin-top:12px;display:none;}
+#packetBox{display:none;margin-top:14px;}
+#packetText{min-height:260px;font-family:Consolas,Menlo,monospace;font-size:13px;}
+.footer-note{font-size:13px;color:#6b7a82;text-align:center;margin:30px 0 10px;}
+@media (max-width:600px){.hero-title{font-size:28px;}.card{padding:20px 16px;}}
+</style>
+
+<style id="beoc-port-styles">
+#beoc-topbar{all:initial;display:block;box-sizing:border-box;font-family:Lato,'Segoe UI',Arial,sans-serif;font-size:14px;line-height:1.4;background:#0f172a;color:#e2e8f0;margin:0 0 16px;border-radius:0 0 10px 10px;}
+#beoc-topbar *{box-sizing:border-box;font-family:inherit;}
+#beoc-topbar .beoc-tb-inner{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;max-width:1100px;margin:0 auto;padding:10px 16px;}
+#beoc-topbar a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;}
+#beoc-topbar a:hover,#beoc-topbar a:focus-visible{text-decoration:underline;}
+#beoc-topbar a:focus-visible{outline:2px solid #fbbf24;outline-offset:2px;border-radius:4px;}
+#beoc-topbar .beoc-tb-home{display:inline-flex;align-items:center;gap:8px;}
+#beoc-topbar .beoc-tb-badge{display:inline-block;background:#1d4ed8;color:#fff;border-radius:6px;padding:2px 7px;font-size:11px;font-weight:900;letter-spacing:.06em;}
+#beoc-topbar .beoc-tb-link{color:#bfdbfe;}
+#beoc-topbar .beoc-tb-note{margin-left:auto;color:#94a3b8;font-size:12.5px;}
+@media (max-width:640px){#beoc-topbar .beoc-tb-note{margin-left:0;width:100%;}}
+.beoc-bs-note{display:inline-block;background:#fff7e0;color:#5a4300;border:1px solid #e0a800;border-radius:6px;padding:8px 14px;font-weight:700;font-size:14px;line-height:1.35;text-decoration:none;}
+.beoc-bs-inline{font-weight:700;}
+.beoc-bs-tag{font-size:.9em;opacity:.85;}
+@media print{#beoc-topbar{display:none;}}
+</style>
+</head>
+<body>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/learning-paths/office-assistant/tech-foundations"><span class="beoc-tb-badge">BEOC</span><span>&larr; Technology Foundations</span></a><a class="beoc-tb-link" href="/learning-paths/office-assistant/tech-foundations/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+
+<div class="wrap">
+
+<div class="hero-section fade-in">
+<p class="hero-eyebrow">Week 7 &middot; Practice It! &middot; In Class Thursday 10/15</p>
+<h1 class="hero-title">Cyber Safety <span class="hero-title-highlight">Lab</span> &#128272;</h1>
+<hr class="hero-divider">
+<p class="hero-sub">Five exercises &middot; about 80 minutes &middot; 10 points &middot; one packet to submit</p>
+</div>
+
+<section class="card fade-in">
+<h2>Your Job Today</h2>
+<div class="scenario"><strong>The scenario:</strong> You are the office assistant at Lakeside Medical Associates. Last year the practice almost fell for a phishing email. Your supervisor, Ms. Rivera, wants the front desk to be the first line of defense. Today you practice four habits: strong passwords and MFA, catching phishing, saying no to tricky callers, and protecting patient information.</div>
+<span class="pill pill-gold">10 points</span><span class="pill">2 points per exercise</span><span class="pill">Work with a partner</span><span class="pill pill-red">Never type a real password here</span><span class="pill">Not finished? Finish it for homework</span>
+<div class="grid">
+<div class="step"><span>8 min</span><b>1. Threat Words</b>Quick check of key words.</div>
+<div class="step"><span>15 min</span><b>2. Lock It Down</b>Rate passwords. Check your MFA.</div>
+<div class="step"><span>20 min</span><b>3. Phishing Detective</b>Find the red flags. Take the Google quiz.</div>
+<div class="step"><span>15 min</span><b>4. Tricky Callers</b>Name the trick. Practice saying no.</div>
+<div class="step"><span>15 min</span><b>5. HIPAA at the Front Desk</b>PHI or not? Find the mistakes.</div>
+<div class="step"><span>3 min</span><b>Exit Ticket</b>Build your packet and submit.</div>
+</div>
+<p class="need"><strong>What you need:</strong> a web browser. You visit two websites: one in Exercise 2 and one in Exercise 3. <strong>Never type a real password, a real code, or real patient information on this page.</strong> Use made-up examples only.</p>
+<label class="fld" for="sname">Your full name</label>
+<input type="text" id="sname" data-save="sname" placeholder="First and last name">
+<label class="fld" for="spartner">Your partner's name (write "none" if you worked alone)</label>
+<input type="text" id="spartner" data-save="spartner" placeholder="Partner's name">
+<p class="note">Your answers are saved on this computer while you work. Do not close the page until you download your packet.</p>
+</section>
+
+<!-- EXERCISE 1 -->
+<section class="card">
+<span class="pill pill-gold">Exercise 1 &middot; 8 minutes &middot; 2 points</span>
+<h2>Threat Words</h2>
+<p>Choose the best answer for each question. Then click <strong>Check My Answers</strong>. You can change an answer and check again.</p>
+<div id="ex1"></div>
+<button type="button" class="btn-gold" data-check="ex1">Check My Answers</button><span class="score" id="score-ex1"></span>
+</section>
+
+<!-- EXERCISE 2 -->
+<section class="card">
+<span class="pill pill-gold">Exercise 2 &middot; 15 minutes &middot; 2 points</span>
+<h2>Lock It Down</h2>
+<h3>Part A: Strong or weak?</h3>
+<p>Rate each password. Think about Lesson 2: <strong>length matters most</strong>, common tricks like @ for a are easy to crack, and every account needs its own password.</p>
+<div id="ex2a"></div>
+<button type="button" class="btn-gold" data-check="ex2a">Check My Answers</button><span class="score" id="score-ex2a"></span>
+<h3>Part B: MFA know-how</h3>
+<div id="ex2b"></div>
+<button type="button" class="btn-gold" data-check="ex2b">Check My Answers</button><span class="score" id="score-ex2b"></span>
+<h3>Part C: Look at your own sign-in methods</h3>
+<p>This part is hands-on. Open a <strong>new browser tab</strong>. Keep this page open in its own tab. Mark each step when you finish it.</p>
+<div id="ex2c"></div>
+<p class="note">Could not do a step? Mark <strong>Could not do it</strong>, tell Professor Davis, and keep going. Answer question 1 with what you would expect to see.</p>
+<label class="fld" for="e2methods">1. Which sign-in methods are listed? (Examples: Password, Microsoft Authenticator, Phone.) Which one is the default?</label>
+<textarea id="e2methods" data-save="e2methods" placeholder="I see ... The default sign-in method is ..."></textarea>
+<label class="fld" for="e2pass">2. Make an example passphrase that you will NOT use anywhere. Join 4 random words with dashes.</label>
+<input type="text" id="e2pass" data-save="e2pass" placeholder="Example: lamp-orbit-pickle-harbor" autocomplete="off">
+<div class="counter" id="e2count">Length: <b>0</b> characters</div>
+<label class="fld" for="e2why">3. In two sentences, tell why a long passphrase is better than a short password with symbols, like P@ssw0rd.</label>
+<textarea id="e2why" data-save="e2why" placeholder="A long passphrase is better because ..."></textarea>
+</section>
+
+<!-- EXERCISE 3 -->
+<section class="card">
+<span class="pill pill-gold">Exercise 3 &middot; 20 minutes &middot; 2 points</span>
+<h2>Phishing Detective</h2>
+<p>This email arrived in the front desk inbox this morning. Read it carefully. <strong>Do not trust it yet.</strong></p>
+<div class="mail" aria-label="Practice email">
+<div class="mail-bar"><b>Inbox &middot; frontdesk@lakesidemedical.org</b><span>Practice copy. Not a real email.</span></div>
+<div class="mail-head">
+<div class="mail-subj">URGENT: Your mailbox will be closed today</div>
+<div><b>From:</b> Microsoft 365 Team &lt;no-reply@microsoftonline-security.com&gt;</div>
+<div><b>To:</b> frontdesk@lakesidemedical.org</div>
+<div><b>Sent:</b> Tuesday, 9:14 AM</div>
+</div>
+<div class="mail-body">
+<p>Dear User,</p>
+<p>We noticed unusual activity on your account. Your mailbox will be <strong>closed in 24 hours</strong> unless you verify your identity. Click the button below to keep your account.</p>
+<span class="mail-btn">Verify Now</span>
+<span class="mail-url">Pointing at the button shows: http://login.microsoft-account-verify.net/secure</span>
+<div class="mail-att"><i>W</i>Account_Verification.docm</div>
+<p style="margin-top:12px;">Thank you,<br>Microsoft 365 Team</p>
+</div>
+</div>
+<h3>Part A: Check every red flag you find</h3>
+<p>Be careful. <strong>Two of these are normal</strong> and are not red flags.</p>
+<div id="ex3a"></div>
+<button type="button" class="btn-gold" data-check="ex3a">Check My Answers</button><span class="score" id="score-ex3a"></span>
+<h3>Part B: Take the Google Phishing Quiz</h3>
+<p>This part is hands-on. Open a <strong>new browser tab</strong>. Mark each step when you finish it.</p>
+<div id="ex3b"></div>
+<label class="fld" for="e3score">1. What was your score? (Example: 6 of 8)</label>
+<input type="text" id="e3score" data-save="e3score" placeholder="My score was ... of 8">
+<label class="fld" for="e3fooled">2. Which practice email fooled you, or almost fooled you? What clue did you miss?</label>
+<textarea id="e3fooled" data-save="e3fooled" placeholder="The email that almost fooled me was ... The clue I missed was ..."></textarea>
+<h3>Part C: What do you do?</h3>
+<label class="fld" for="e3steps">The email above is in your inbox. Write the steps you take, in order. Use Lesson 3.</label>
+<textarea id="e3steps" data-save="e3steps" placeholder="1. ...&#10;2. ...&#10;3. ...&#10;4. ..."></textarea>
+</section>
+
+<!-- EXERCISE 4 -->
+<section class="card">
+<span class="pill pill-gold">Exercise 4 &middot; 15 minutes &middot; 2 points</span>
+<h2>Tricky Callers</h2>
+<p>Social engineering tricks people, not computers. Lesson 3 names four tricks. <strong>Authority:</strong> "I am the boss." <strong>Urgency:</strong> "Do it now." <strong>Reciprocity:</strong> "I helped you, so help me." <strong>Familiarity:</strong> "We know each other."</p>
+<h3>Part A: Name the trick</h3>
+<div id="ex4a"></div>
+<button type="button" class="btn-gold" data-check="ex4a">Check My Answers</button><span class="score" id="score-ex4a"></span>
+<h3>Part B: Role-play with a partner</h3>
+<p>Person A is the caller. Person B works at the front desk. Read the script out loud. Then switch roles. No partner? Do it with Professor Davis.</p>
+<div class="script"><b>Caller:</b> "Hi, this is Alex from IT. We see a virus on your computer right now. I can fix it, but I have to be fast. I just sent a 6-digit code to your phone. Read it to me so I can get in."</div>
+<div id="ex4b"></div>
+<label class="fld" for="e4said">1. Write what you said to the caller. Use polite, clear words.</label>
+<textarea id="e4said" data-save="e4said" placeholder="I said: ..."></textarea>
+<label class="fld" for="e4verify">2. How would you check if the call was real? Name the number or the place you would use.</label>
+<textarea id="e4verify" data-save="e4verify" placeholder="I would hang up and ..."></textarea>
+<label class="fld" for="e4hard">3. In two sentences, tell what was hard about saying no.</label>
+<textarea id="e4hard" data-save="e4hard" placeholder="It was hard because ..."></textarea>
+</section>
+
+<!-- EXERCISE 5 -->
+<section class="card">
+<span class="pill pill-gold">Exercise 5 &middot; 15 minutes &middot; 2 points</span>
+<h2>HIPAA at the Front Desk</h2>
+<h3>Part A: PHI or not?</h3>
+<p>PHI is any information that can identify a patient and is about their health, care, or payment. Ask: <strong>could this point to one patient?</strong></p>
+<div id="ex5a"></div>
+<button type="button" class="btn-gold" data-check="ex5a">Check My Answers</button><span class="score" id="score-ex5a"></span>
+<h3>Part B: Find Jordan's mistakes</h3>
+<div class="scenario"><strong>Read about Jordan:</strong> Jordan works at the front desk. Before lunch, Jordan presses Windows+L to lock the screen. A patient's intake form, with an insurance number on it, sits face up on the counter all morning. Jordan calls out in the waiting room, "Mr. Lee, are you here for your diabetes follow-up?" Jordan writes a patient's name and phone number on a sticky note and puts it on the monitor. Jordan looks up a neighbor's chart to see why she came in. When a caller asks about an appointment, Jordan first confirms the caller's date of birth. Later, Jordan emails lab results to "J. Smith" from autocomplete without checking the address.</div>
+<p>Check every problem you find. Be careful. <strong>Two of these are things Jordan did right.</strong></p>
+<div id="ex5b"></div>
+<button type="button" class="btn-gold" data-check="ex5b">Check My Answers</button><span class="score" id="score-ex5b"></span>
+<h3>Part C: The lab results went to the wrong person</h3>
+<p>Put the breach steps in order. Use Lesson 4.</p>
+<div id="ex5c"></div>
+<button type="button" class="btn-gold" data-check="ex5c">Check My Answers</button><span class="score" id="score-ex5c"></span>
+<label class="fld" for="e5first">In two or three sentences, tell what Jordan should do first and why.</label>
+<textarea id="e5first" data-save="e5first" placeholder="Jordan should first ... because ..."></textarea>
+</section>
+
+<!-- EXIT TICKET -->
+<section class="card">
+<span class="pill pill-gold">Exit Ticket &middot; 3 minutes</span>
+<h2>Before You Go</h2>
+<label class="fld" for="exit1">One thing I will do this week to protect my accounts:</label>
+<textarea id="exit1" data-save="exit1" placeholder="This week I will ..."></textarea>
+<label class="fld" for="exit2">One question I still have:</label>
+<textarea id="exit2" data-save="exit2" placeholder="My question is ..."></textarea>
+</section>
+
+<section class="due-card">
+<h2>Submit Your Packet (10 points)</h2>
+<p><strong>Did not finish in class?</strong> Finish the packet for homework and submit it before our next class: <strong>Thursday, October 22 at 6:00 PM</strong>.</p>
+<p><strong>Homework this week:</strong> You also have the <em>Week 7 Deliverable: Personal &amp; Workplace Security Plan</em> in HOMEWORK! Exercises 2, 3 and 5 get you ready for it.</p>
+<p><strong>Next week:</strong> the <strong>UNIT 1 EXAM</strong> on Modules 1 to 8 is in class on Thursday, October 22. Everything on this page is fair game.</p>
+<p><strong>Working on a different computer?</strong> Your answers are saved only in the browser you used in class. On another computer, type your answers again before you build your packet.</p>
+<ol>
+<li>Click <strong>Build My Packet</strong>. Read it. Fix anything that is missing.</li>
+<li>Click <strong>Download My Packet</strong>. The file goes to your Downloads folder.</li>
+<li>Click <strong>Open the Submit Folder</strong>. Click <strong>Add a File</strong>, choose your packet, then click <strong>Submit</strong>.</li>
+</ol>
+<button type="button" class="btn-gold" id="buildBtn">Build My Packet</button>
+<button type="button" class="btn-gold" id="dlBtn">Download My Packet</button>
+<span class="beoc-bs-note" role="note"><span aria-hidden="true">&#128229;</span> Submit your work in Brightspace</span>
+<div id="missing"></div>
+<div id="packetBox"><textarea id="packetText" readonly></textarea></div>
+</section>
+
+<p class="footer-note">INFO3020 Digital Literacy I &middot; Week 7: Cybersecurity Fundamentals &middot; Due before our next class: Thursday, October 22 at 6:00 PM</p>
+</div>
+
+<script>
+(function(){
+var KEY='info3020-w7-cyberlab-v1';
+var S={};
+try{S=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){S={};}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){}}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* ---------- DATA ---------- */
+var D={
+ex1:{type:'mc',title:'Exercise 1 - Threat Words',items:[
+ {t:'Malware that locks your files and asks for money to unlock them is called:',o:['Spyware','Ransomware','Adware','A password manager'],a:1},
+ {t:'A phone call that pretends to be IT so it can get your password is called:',o:['Vishing','Spear phishing','A USB drop','Adware'],a:0},
+ {t:'Phishing that uses real details about you or your office is called:',o:['Spam','Spear phishing','A virus','A software update'],a:1},
+ {t:'You find a USB drive in the parking lot. It says "Staff Payroll." What do you do?',o:['Plug it in to see whose it is','Take it home and check it on your own computer','Give it to IT without plugging it in','Plug it in, but only for one minute'],a:2},
+ {t:'A coworker opens patient records that they do not need for their job. This is:',o:['An insider threat','Ransomware','Vishing','A worm'],a:0},
+ {t:'Malware that spreads across a network by itself, with no clicks, is a:',o:['Trojan','Worm','Password manager','Firewall'],a:1},
+ {t:'You think you clicked a bad link. What do you do FIRST?',o:['Keep working and hope nothing happens','Stop. Disconnect from the network if you can. Report it to your supervisor and IT right away.','Turn off the computer and go home','Try to fix it yourself before anyone finds out'],a:1},
+ {t:'The best defense against ransomware is:',o:['Paying the ransom fast','Backups that are offline or keep older versions','Deleting your browser history','Turning off the monitor at night'],a:1}
+]},
+ex2a:{type:'sel',title:'Exercise 2 Part A - Strong or weak?',choices:['Strong','Weak'],items:[
+ {t:'Clinic2023!',a:'Weak',why:'Short and easy to guess. It has the office name and a year.'},
+ {t:'P@ssw0rd',a:'Weak',why:'Swapping @ for a and 0 for o does not fool cracking tools.'},
+ {t:'correct-horse-battery-staple',a:'Strong',why:'Long and random words. Easy to remember, hard to crack.'},
+ {t:'Password2 (last month it was Password1)',a:'Weak',why:'A small change to an old password is easy to guess.'},
+ {t:'lamp-orbit-pickle-harbor-violet',a:'Strong',why:'Five random words make a long passphrase.'},
+ {t:'A strong password that you use for work email AND for shopping sites',a:'Weak',why:'Reused. One breach on a shopping site opens your work email too.'}
+]},
+ex2b:{type:'mc',title:'Exercise 2 Part B - MFA know-how',items:[
+ {t:'Which second sign-in step is the safest for a work account?',o:['A code sent by text message','A code from an authenticator app, like Microsoft Authenticator','Security questions, like the name of your first pet','No second step. A strong password is enough.'],a:1},
+ {t:'Your phone shows five sign-in requests in a row. You are NOT signing in. What do you do?',o:['Approve one so they stop','Deny them all, tell IT, and change your password','Restart your phone','Ignore them'],a:1},
+ {t:'Who may you share your work password with?',o:['Your supervisor','IT staff','A coworker you trust','No one'],a:3}
+]},
+ex2c:{type:'steps',title:'Exercise 2 Part C - Look at your sign-in methods',items:[
+ 'Open a new tab. Go to <span class="say">mysignins.microsoft.com</span>. Sign in with the Microsoft account you use for class.',
+ 'Click <strong>Security info</strong> on the left.',
+ 'Read the list of sign-in methods. Find the <strong>Default sign-in method</strong>. <strong>Do not add, change, or delete anything today.</strong>',
+ 'Sign out. Close the tab.'
+]},
+ex3a:{type:'chk',title:'Exercise 3 Part A - Red flags',items:[
+ {t:'The sender address ends in microsoftonline-security.com, not microsoft.com.',bad:true},
+ {t:'It says "Dear User" instead of your name.',bad:true},
+ {t:'It says the mailbox will be closed in 24 hours.',bad:true},
+ {t:'The button really goes to microsoft-account-verify.net.',bad:true},
+ {t:'It has a .docm attachment. That kind of file can run macros.',bad:true},
+ {t:'It was sent on a Tuesday morning.',bad:false},
+ {t:'It asks you to verify who you are by clicking a link.',bad:true},
+ {t:'It ends with "Thank you."',bad:false}
+]},
+ex3b:{type:'steps',title:'Exercise 3 Part B - Google Phishing Quiz',items:[
+ 'Open a new tab. Go to <span class="say">phishingquiz.withgoogle.com</span>.',
+ 'Click <strong>Take the quiz</strong>. When it asks for a name and email, you can type made-up ones. The quiz only uses them to make the practice emails.',
+ 'Answer all 8 questions. Point at links and look at sender addresses before you choose.',
+ 'Read the explanation for each email you missed. Write down your score.'
+]},
+ex4a:{type:'sel',title:'Exercise 4 Part A - Name the trick',choices:['Authority','Urgency','Reciprocity','Familiarity'],items:[
+ {t:'"This is Dr. Patel. Buy the gift cards now. I am your boss, so just do it."',a:'Authority',why:'The caller uses a boss\'s power to push you.'},
+ {t:'"You have 10 minutes to confirm the payment, or the account closes."',a:'Urgency',why:'Time pressure stops you from thinking.'},
+ {t:'"I fixed your slow computer for you. To finish, just read me the code on your phone."',a:'Reciprocity',why:'A favor first, then a request. You feel you owe them.'},
+ {t:'"Hi! It is Mike from the billing company. We met at the holiday party. Can you send the patient list again?"',a:'Familiarity',why:'Friendly, known details make you trust them.'}
+]},
+ex4b:{type:'steps',title:'Exercise 4 Part B - Role-play',items:[
+ 'Person A reads the caller script out loud.',
+ 'Person B says no in a polite, clear way. Person B does not give the code.',
+ 'Person B tells the caller how they will check: hang up and call IT at the number in the office directory.',
+ 'Switch roles and do it again.'
+]},
+ex5a:{type:'sel',title:'Exercise 5 Part A - PHI or not?',choices:['PHI','Not PHI'],items:[
+ {t:'A patient\'s name and the reason for the visit',a:'PHI',why:'It names a patient and their care.'},
+ {t:'The office\'s opening hours',a:'Not PHI',why:'It is not about any patient.'},
+ {t:'A patient\'s insurance ID number',a:'PHI',why:'It points to one patient and their payment.'},
+ {t:'A blank intake form',a:'Not PHI',why:'Blank, so no patient is named.'},
+ {t:'A photo of a patient in the waiting room',a:'PHI',why:'A photo can identify a patient.'},
+ {t:'The office\'s main phone number',a:'Not PHI',why:'It is about the office, not a patient.'},
+ {t:'A date of birth printed next to a lab result',a:'PHI',why:'A birth date plus health information points to one patient.'}
+]},
+ex5b:{type:'chk',title:'Exercise 5 Part B - Jordan\'s mistakes',items:[
+ {t:'Jordan pressed Windows+L to lock the screen before lunch.',bad:false},
+ {t:'The intake form with an insurance number sat face up on the counter.',bad:true},
+ {t:'Jordan said the patient\'s visit reason out loud in the waiting room.',bad:true},
+ {t:'Jordan put a patient\'s name and phone number on a sticky note on the monitor.',bad:true},
+ {t:'Jordan looked up a neighbor\'s chart without a work reason.',bad:true},
+ {t:'Jordan confirmed the caller\'s date of birth before talking about the appointment.',bad:false},
+ {t:'Jordan emailed lab results from autocomplete without checking the address.',bad:true}
+]},
+ex5c:{type:'order',title:'Exercise 5 Part C - Breach steps in order',items:[
+ 'Stop the disclosure if you can. Try to recall the email.',
+ 'Report it to your supervisor right away.',
+ 'Write down what happened: the time, the PHI, and who got it.',
+ 'Let the Privacy Officer and IT investigate.'
+]}
+};
+var ORDER_SHUFFLE=[2,0,3,1];
+
+/* ---------- RENDER ---------- */
+function renderMC(id){var d=D[id],h='';d.items.forEach(function(q,i){h+='<div class="q" id="'+id+'_q'+i+'"><p class="qt"><span class="qn">'+(i+1)+'</span>'+esc(q.t)+'</p>';q.o.forEach(function(o,j){var nm=id+'_'+i;var ck=(S[nm]===j)?' checked':'';h+='<label class="opt"><input type="radio" name="'+nm+'" value="'+j+'"'+ck+'> '+esc(o)+'</label>';});h+='<div class="fb" id="'+id+'_f'+i+'"></div></div>';});$(id).innerHTML=h;
+ $(id).addEventListener('change',function(e){if(e.target.type==='radio'){S[e.target.name]=parseInt(e.target.value,10);save();}});}
+function renderSel(id){var d=D[id],h='';d.items.forEach(function(q,i){var nm=id+'_'+i;h+='<div class="row" id="'+id+'_q'+i+'"><div class="txt">'+esc(q.t)+'</div><select id="'+nm+'" aria-label="'+esc(q.t)+'"><option value="">Choose</option>';d.choices.forEach(function(c){h+='<option'+(S[nm]===c?' selected':'')+'>'+esc(c)+'</option>';});h+='</select><div class="fb" id="'+id+'_f'+i+'"></div></div>';});$(id).innerHTML=h;
+ $(id).addEventListener('change',function(e){if(e.target.tagName==='SELECT'){S[e.target.id]=e.target.value;save();}});}
+function renderChk(id){var d=D[id],h='';d.items.forEach(function(q,i){var nm=id+'_'+i;h+='<label class="ck" id="'+id+'_q'+i+'"><input type="checkbox" id="'+nm+'"'+(S[nm]?' checked':'')+'><span>'+esc(q.t)+'</span></label>';});$(id).innerHTML=h;
+ $(id).addEventListener('change',function(e){if(e.target.type==='checkbox'){S[e.target.id]=e.target.checked;save();}});}
+function renderSteps(id){var d=D[id],h='';d.items.forEach(function(t,i){var nm=id+'_'+i;h+='<div class="srow"><span class="sn">'+(i+1)+'</span><div class="txt">'+t+'</div><div class="btns"><button type="button" class="sb'+(S[nm]==='done'?' on-done':'')+'" data-step="'+nm+'" data-v="done">Done</button><button type="button" class="sb'+(S[nm]==='cant'?' on-cant':'')+'" data-step="'+nm+'" data-v="cant">Could not do it</button></div></div>';});$(id).innerHTML=h;
+ $(id).addEventListener('click',function(e){var b=e.target.closest('button[data-step]');if(!b)return;var nm=b.getAttribute('data-step'),v=b.getAttribute('data-v');S[nm]=(S[nm]===v)?'':v;save();var bs=$(id).querySelectorAll('button[data-step="'+nm+'"]');for(var k=0;k<bs.length;k++){var bv=bs[k].getAttribute('data-v');bs[k].className='sb'+(S[nm]===bv?(bv==='done'?' on-done':' on-cant'):'');}});}
+function renderOrder(id){var d=D[id],h='';for(var i=0;i<4;i++){var nm=id+'_'+i;h+='<div class="row" id="'+id+'_q'+i+'"><div class="txt"><strong>Step '+(i+1)+'</strong></div><select id="'+nm+'" aria-label="Step '+(i+1)+'"><option value="">Choose a step</option>';ORDER_SHUFFLE.forEach(function(k){h+='<option value="'+k+'"'+(S[nm]===String(k)?' selected':'')+'>'+esc(d.items[k])+'</option>';});h+='</select><div class="fb" id="'+id+'_f'+i+'"></div></div>';}$(id).innerHTML=h;
+ $(id).addEventListener('change',function(e){if(e.target.tagName==='SELECT'){S[e.target.id]=e.target.value;save();}});}
+
+Object.keys(D).forEach(function(id){var t=D[id].type;if(t==='mc')renderMC(id);else if(t==='sel')renderSel(id);else if(t==='chk')renderChk(id);else if(t==='steps')renderSteps(id);else if(t==='order')renderOrder(id);});
+
+/* ---------- CHECK ---------- */
+function setQ(el,ok){if(!el)return;el.classList.remove('ok','no');el.classList.add(ok?'ok':'no');}
+function check(id){var d=D[id],right=0,total=d.items.length,i;
+ if(d.type==='mc'){for(i=0;i<total;i++){var v=S[id+'_'+i],ok=(v===d.items[i].a);if(ok)right++;setQ($(id+'_q'+i),ok);$(id+'_f'+i).className='fb '+(ok?'good':(v===undefined?'warn':'bad'));$(id+'_f'+i).textContent=ok?'Correct.':(v===undefined?'Choose an answer.':'Not yet. Try again.');}}
+ else if(d.type==='sel'){for(i=0;i<total;i++){var sv=S[id+'_'+i]||'',ok2=(sv===d.items[i].a);if(ok2)right++;setQ($(id+'_q'+i),ok2);$(id+'_f'+i).className='fb '+(ok2?'good':(sv?'bad':'warn'));$(id+'_f'+i).textContent=ok2?('Correct. '+d.items[i].why):(sv?'Not yet. Think again.':'Choose an answer.');}}
+ else if(d.type==='chk'){for(i=0;i<total;i++){var c=!!S[id+'_'+i],ok3=(c===d.items[i].bad);if(ok3)right++;setQ($(id+'_q'+i),ok3);}}
+ else if(d.type==='order'){for(i=0;i<total;i++){var ov=S[id+'_'+i],ok4=(ov===String(i));if(ok4)right++;setQ($(id+'_q'+i),ok4);$(id+'_f'+i).className='fb '+(ok4?'good':(ov?'bad':'warn'));$(id+'_f'+i).textContent=ok4?'Correct.':(ov?'Not this step yet.':'Choose a step.');}}
+ S['score_'+id]=right+' of '+total;save();
+ var sc=$('score-'+id);sc.textContent=right+' of '+total+' correct'+(right===total?'. Nice work!':'. Fix the red ones and check again.');}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-check]');if(b)check(b.getAttribute('data-check'));});
+
+/* ---------- TEXT FIELDS ---------- */
+var flds=document.querySelectorAll('[data-save]');
+for(var f=0;f<flds.length;f++){(function(el){var k='t_'+el.getAttribute('data-save');if(S[k])el.value=S[k];el.addEventListener('input',function(){S[k]=el.value;save();if(el.id==='e2pass')count();});})(flds[f]);}
+function count(){var n=($('e2pass').value||'').length;$('e2count').innerHTML='Length: <b>'+n+'</b> characters'+(n>=16?' &middot; long enough':(n?' &middot; aim for 16 or more':''));}
+count();
+
+/* ---------- PACKET ---------- */
+function tv(k){return (S['t_'+k]||'').trim();}
+function line(n){return new Array(n+1).join('-');}
+function build(){
+ var miss=[],o=[];
+ var nm=tv('sname'),pt=tv('spartner');
+ if(!nm)miss.push('your name');
+ if(!pt)miss.push('your partner\'s name (or "none")');
+ o.push('INFO3020 DIGITAL LITERACY I - WEEK 7 IN-CLASS EXERCISE PACKET');
+ o.push('Cyber Safety Lab - Thursday, October 15, 2026');
+ o.push('Name: '+(nm||'[missing]'));
+ o.push('Partner: '+(pt||'[missing]'));
+ o.push('');
+ function part(id){var d=D[id];o.push(d.title);o.push(line(d.title.length));
+  d.items.forEach(function(q,i){var nmk=id+'_'+i;
+   if(d.type==='mc'){var v=S[nmk];o.push((i+1)+'. '+q.t);o.push('   Answer: '+(v===undefined?'[no answer]':q.o[v])+(v===undefined?'':(v===q.a?'  (correct)':'  (incorrect)')));if(v===undefined)miss.push(d.title+' #'+(i+1));}
+   else if(d.type==='sel'){var sv=S[nmk]||'';o.push((i+1)+'. '+q.t+'  ->  '+(sv||'[no answer]')+(sv?(sv===q.a?'  (correct)':'  (incorrect)'):''));if(!sv)miss.push(d.title+' #'+(i+1));}
+   else if(d.type==='chk'){o.push('['+(S[nmk]?'X':' ')+'] '+q.t);}
+   else if(d.type==='steps'){var st=S[nmk];o.push('Step '+(i+1)+': '+(st==='done'?'DONE':(st==='cant'?'COULD NOT DO IT':'not marked'))+' - '+q.replace(/<[^>]+>/g,''));if(!st)miss.push(d.title+' step '+(i+1));}
+   else if(d.type==='order'){var ov=S[nmk];o.push('Step '+(i+1)+': '+(ov===undefined||ov===''?'[no answer]':d.items[parseInt(ov,10)])+(ov===String(i)?'  (correct)':(ov?'  (incorrect)':'')));if(ov===undefined||ov==='')miss.push(d.title+' step '+(i+1));}
+  });
+  if(S['score_'+id])o.push('Last check: '+S['score_'+id]+' correct');
+  o.push('');}
+ function wr(label,k){var v=tv(k);o.push(label);o.push('   '+(v?v.replace(/\n/g,'\n   '):'[no answer]'));if(!v)miss.push(label.replace(/^\s+/,'').slice(0,60));}
+ o.push('=== EXERCISE 1: THREAT WORDS ===');part('ex1');
+ o.push('=== EXERCISE 2: LOCK IT DOWN ===');part('ex2a');part('ex2b');part('ex2c');
+ wr('Q1. Sign-in methods I saw, and the default:','e2methods');
+ wr('Q2. Example passphrase (NOT a real one):','e2pass');
+ wr('Q3. Why a long passphrase is better:','e2why');o.push('');
+ o.push('=== EXERCISE 3: PHISHING DETECTIVE ===');part('ex3a');part('ex3b');
+ wr('Q1. My Google Phishing Quiz score:','e3score');
+ wr('Q2. The email that fooled me and the clue I missed:','e3fooled');
+ wr('Part C. The steps I take, in order:','e3steps');o.push('');
+ o.push('=== EXERCISE 4: TRICKY CALLERS ===');part('ex4a');part('ex4b');
+ wr('Q1. What I said to the caller:','e4said');
+ wr('Q2. How I would check if the call was real:','e4verify');
+ wr('Q3. What was hard about saying no:','e4hard');o.push('');
+ o.push('=== EXERCISE 5: HIPAA AT THE FRONT DESK ===');part('ex5a');part('ex5b');part('ex5c');
+ wr('What Jordan should do first, and why:','e5first');o.push('');
+ o.push('=== EXIT TICKET ===');
+ wr('One thing I will do this week to protect my accounts:','exit1');
+ wr('One question I still have:','exit2');
+ var txt=o.join('\n');
+ $('packetText').value=txt;$('packetBox').style.display='block';
+ var m=$('missing');
+ if(miss.length){m.style.display='block';m.textContent='Still missing ('+miss.length+'): '+miss.slice(0,8).join('; ')+(miss.length>8?'; and more.':'.')+' You can still download, but finish these first if you can.';}
+ else{m.style.display='block';m.textContent='Everything is filled in. Download your packet, then submit it.';}
+ return txt;}
+$('buildBtn').addEventListener('click',build);
+$('dlBtn').addEventListener('click',function(){var txt=build();var nm=(tv('sname')||'YourName').replace(/[^A-Za-z0-9]+/g,'_').replace(/^_|_$/g,'');
+ try{var blob=new Blob([txt],{type:'text/plain'});var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='Week7_Packet_'+nm+'.txt';document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},800);}
+ catch(e){$('missing').style.display='block';$('missing').textContent='The download did not work. Copy the packet text below, paste it into a Word document, save it, and upload that file.';}});
+})();
+</script>
+</body>
+</html>
