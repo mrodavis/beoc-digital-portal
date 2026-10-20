@@ -358,7 +358,8 @@ export type AccPrompt = {
   kind: "message" | "confirm" | "yesnocancel" | "param" | "saveAs" | "pasteAs" | "find";
   title?: string;
   text?: string;
-  icon?: "warning" | "error" | "info" | "question";
+  /** "none" shows no icon (a plain MsgBox). */
+  icon?: "warning" | "error" | "info" | "question" | "none";
   /** Commit sent on Yes / OK. */
   yes?: { id: string; value?: string };
   no?: { id: string; value?: string };

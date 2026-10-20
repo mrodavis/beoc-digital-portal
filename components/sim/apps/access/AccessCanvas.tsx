@@ -211,7 +211,7 @@ function PromptView({ p, doc, onCommit }: { p: AccPrompt; doc: AccessDoc; onComm
   const send = (c?: { id: string; value?: string }) => onCommit(c ? cmd(c.id, c.value) : cmd("prompt.close"));
   switch (p.kind) {
     case "message":
-      return <MsgBox title={p.title} text={p.text ?? ""} icon={p.icon ?? "warning"} buttons={[{ label: "OK", onClick: () => send() }]} />;
+      return <MsgBox title={p.title} text={p.text ?? ""} icon={p.icon === "none" ? "" : p.icon ?? "warning"} buttons={[{ label: "OK", onClick: () => send() }]} />;
     case "confirm":
       return <MsgBox title={p.title} text={p.text ?? ""} icon={p.icon ?? "warning"} buttons={[{ label: "Yes", onClick: () => send(p.yes) }, { label: "No", onClick: () => send(p.no ?? { id: "prompt.no" }) }]} />;
     case "yesnocancel":

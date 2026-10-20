@@ -808,7 +808,7 @@ function runMacro(d: D, m: AccMacro | { name: string; actions: AccMacro["actions
         if (t) openTab(d, "table", t.name, g("View") === "Design" ? "Design View" : "Datasheet View");
         break;
       }
-      case "MessageBox": msgs.push({ kind: "message", icon: g("Type") === "Critical" ? "error" : g("Type") === "Information" ? "info" : g("Type").startsWith("Warning") ? "warning" : undefined, title: g("Title") || "Microsoft Access", text: g("Message") }); break;
+      case "MessageBox": msgs.push({ kind: "message", icon: g("Type") === "Critical" ? "error" : g("Type") === "Information" ? "info" : g("Type").startsWith("Warning") ? "warning" : "none", title: g("Title") || "Microsoft Access", text: g("Message") }); break;
       case "CloseWindow": {
         const kind = g("Object Type").toLowerCase();
         const name = g("Object Name");
@@ -1339,7 +1339,7 @@ export function applyAccess(doc: AccessDoc, c: SimCommit, ui: SimUi): { doc: Acc
       const r = runVba(d, m.code, val, d.modules.filter((x) => x !== m).map((x) => x.code));
       applyVbaActions(d, r.actions);
       if (r.debug.length) d.vbe = { ...(d.vbe ?? { open: true }), output: [...(d.vbe?.output ?? []), ...r.debug].slice(-40) };
-      const msgs: AccPrompt[] = r.messages.map((x) => ({ kind: "message", title: x.title ?? "Microsoft Access", text: x.text }));
+      const msgs: AccPrompt[] = r.messages.map((x) => ({ kind: "message", icon: "none", title: x.title ?? "Microsoft Access", text: x.text }));
       if (r.error) msgs.push({ kind: "message", icon: "error", title: r.error.title, text: r.error.text });
       if (msgs.length) prompt(d, { ...msgs[0], queue: msgs.slice(1) });
       return out();
@@ -2955,7 +2955,7 @@ function clickButton(d: D, val: string): { doc: D } {
     if (m) {
       const r = runVba(d, m.code, `${ctl.id}_Click`, d.modules.filter((x) => x !== m).map((x) => x.code));
       applyVbaActions(d, r.actions);
-      const msgs: AccPrompt[] = r.messages.map((x) => ({ kind: "message", title: x.title ?? "Microsoft Access", text: x.text }));
+      const msgs: AccPrompt[] = r.messages.map((x) => ({ kind: "message", icon: "none", title: x.title ?? "Microsoft Access", text: x.text }));
       if (r.error) msgs.push({ kind: "message", icon: "error", title: r.error.title, text: r.error.text });
       if (msgs.length) prompt(d, { ...msgs[0], queue: msgs.slice(1) });
     }
