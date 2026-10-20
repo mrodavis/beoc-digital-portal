@@ -5,7 +5,7 @@ import { BlockList } from "./ContentBlocks";
 import Slideshow from "./Slideshow";
 import LessonProgress from "./LessonProgress";
 import { ReactNode } from "react";
-import SimPlayer from "./sim/SimPlayer";
+import SimSlot from "./sim/SimSlot";
 import { simsFor } from "@/lib/sims";
 
 interface NavLesson {
@@ -245,7 +245,7 @@ export default function ModuleTemplate({
           />
           <div className="space-y-10">
             {sims.map((sim) => (
-              <SimPlayer key={sim.id} sim={sim} />
+              <SimSlot key={sim.id} sim={sim} />
             ))}
           </div>
         </div>

@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { SimCommit, SimDefinition, SimDoc, SimStep, SimTask, SimValue } from "@/types/sim";
 import type { AppModule, MenuItem, SimUi } from "./types";
-import { APPS } from "./apps";
 import { Ribbon, Popover, searchRibbon } from "./chrome/Ribbon";
 import { SimDialog } from "./chrome/Dialog";
 import { Backstage } from "./chrome/Backstage";
@@ -38,8 +37,7 @@ function isTypingTarget(t: EventTarget | null): boolean {
   return el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable;
 }
 
-export default function SimPlayer({ sim }: { sim: SimDefinition }) {
-  const app = APPS[sim.app] as unknown as AppModule<SimDoc>;
+export default function SimPlayer({ sim, app }: { sim: SimDefinition; app: AppModule<SimDoc> }) {
   const tasks = sim.tasks;
 
   const [doc, setDoc] = useState<SimDoc>(sim.initial);

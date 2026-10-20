@@ -17,6 +17,7 @@ Sims are ungraded practice. Brightspace carries the points.
 | --- | --- |
 | `types/sim.ts` | The data model: `SimDefinition`, tasks, steps, actions, documents |
 | `components/sim/SimPlayer.tsx` | The player: title bar, Ribbon, canvas, task bar, judging |
+| `components/sim/SimSlot.tsx`, `components/sim/apps/index.ts` | Lazy loading: a lesson downloads the player and an engine only when one of its sims scrolls near. Register a new engine in `APP_LOADERS` |
 | `components/sim/chrome/*` | Shared Ribbon, dialog, backstage (File tab), icons |
 | `components/sim/apps/<app>/` | One folder per app: `ribbon.ts`, `dialogs.ts`, `model.ts` (built-in behavior), `core.ts`, canvas |
 | `lib/sim/*` | Pure helpers: path ops, matching, Excel formulas |
