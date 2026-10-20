@@ -652,6 +652,16 @@ class Parser {
         }
         parts.push(this.parseName().name);
       }
+      if (parts.length > 1 && this.isP("(")) {
+        this.next();
+        const args: Expr[] = [];
+        if (!this.isP(")")) {
+          do args.push(this.parseExpr());
+          while (this.eatP(","));
+        }
+        if (!this.eatP(")")) throw this.err();
+        return { k: "call", name: parts.join("."), args };
+      }
       if (parts.length === 1) {
         // Zero-argument functions written without parentheses (Date, Now, Time).
         if (!first.bracket && ["date", "now", "time"].includes(low)) return { k: "call", name: first.name, args: [] };
@@ -891,6 +901,8 @@ export interface EvalCtx {
   /** Implicit operand for criteria/validation. */
   implicit?: V;
   db?: DataSource;
+  /** Hook for calls the engine doesn't know (VBA methods, user functions). Return undefined to fall through. */
+  call?(name: string, args: V[], raw: Expr[]): V | undefined;
 }
 
 export function num(v: V): number | null {
@@ -1225,7 +1237,12 @@ export function evalExpr(e: Expr, ctx: EvalCtx): V {
         if (!ctx.agg) throw new SqlError(`Cannot have aggregate function in expression (${printExpr(e)}).`);
         return ctx.agg(e);
       }
-      return callFn(e.name, e.args.map((x) => evalExpr(x, ctx)), ctx);
+      const args = e.args.map((x) => evalExpr(x, ctx));
+      if (ctx.call) {
+        const r = ctx.call(e.name, args, e.args);
+        if (r !== undefined) return r;
+      }
+      return callFn(e.name, args, ctx);
     }
     case "bin": {
       if (e.op === "and") {

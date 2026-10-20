@@ -164,7 +164,7 @@ function weakPin(p: string) {
 
 function PinDialog() {
   const ctx = useWin();
-  const has = Boolean(ctx.doc.pin ?? "2468");
+  const has = pinOf(ctx.doc) !== "";
   const [cur, setCur] = useState("");
   const [a, setA] = useState("");
   const [b, setB] = useState("");
