@@ -80,6 +80,10 @@ function normalize(c: SimCommit): SimCommit {
     if (c.id === "recordValidationRule") return { kind: "type", target: "tprop:Validation Rule", value: String(v.rule ?? "") };
     if (c.id === "recordValidationText") return { kind: "type", target: "tprop:Validation Text", value: String(v.text ?? "") };
     if (c.id === "tableProperties") return { kind: "type", target: "tprop:Description", value: String(v.description ?? "") };
+    // A bare file name in an export box lands in the default Documents folder.
+    if (/^backstage:export(Excel|Pdf|Text)$/.test(c.id) && typeof v.file === "string" && v.file.trim() && !/[\\/]/.test(v.file)) {
+      return { ...c, values: { ...v, file: `C:\\Users\\Student\\Documents\\${v.file.trim()}` } };
+    }
   }
   return c;
 }
@@ -88,6 +92,7 @@ export const accessCore: AppCore<AccessDoc> = {
   name: "Access",
   accent: "#a4373a",
   autosave: false,
+  autoContextual: true,
   windowTitle: (doc, fileName) => {
     const db = fileName.replace(/\.accdb$/i, "");
     if (doc.vbe?.open) return `Microsoft Visual Basic for Applications - ${db}${doc.vbe.module ? ` - [${doc.vbe.module} (Code)]` : ""}`;

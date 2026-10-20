@@ -189,9 +189,17 @@ export function gridToSql(doc: AccessDoc, q: AccQuery): string {
     if (!rowH.length || !colH || !val) throw new SqlError("You must specify at least one Row Heading, one Column Heading, and one Value for a crosstab query.");
     const fn = val.total && val.total !== "Group By" && val.total !== "Expression" && val.total !== "Where" ? val.total : "Count";
     const vExpr = val.total === "Expression" ? printExpr(ex(val)) : `${fn}(${printExpr(ex(val))})`;
-    const sel = rowH.map((c) => { const a = splitField(c.field).alias; return a ? `${printExpr(ex(c))} AS ${qn(a)}` : printExpr(ex(c)); });
+    // A row heading with Sum/Count/... (the wizard's "Total Of" column) is a row total, not a grouping key.
+    const isAgg = (c: AccQueryCol) => Boolean(c.total && c.total !== "Group By" && c.total !== "Expression" && c.total !== "Where");
+    const groupRows = rowH.filter((c) => !isAgg(c));
+    if (!groupRows.length) throw new SqlError("You must specify at least one Row Heading, one Column Heading, and one Value for a crosstab query.");
+    const sel = rowH.map((c) => {
+      const a = splitField(c.field).alias;
+      if (isAgg(c)) return `${c.total}(${printExpr(ex(c))}) AS ${qn(a ?? aggAlias(c.total as TotalFunc, c))}`;
+      return a ? `${printExpr(ex(c))} AS ${qn(a)}` : printExpr(ex(c));
+    });
     const where = critRows(doc, q, cols.filter((c) => c.total === "Where" || c.crosstab === "(not shown)"), ex);
-    return `TRANSFORM ${vExpr} AS ${qn(aggAlias(fn, val))}\nSELECT ${sel.join(", ")}\nFROM ${from}${where ? `\nWHERE ${where}` : ""}\nGROUP BY ${rowH.map((c) => printExpr(ex(c))).join(", ")}\nPIVOT ${printExpr(ex(colH))};`;
+    return `TRANSFORM ${vExpr} AS ${qn(aggAlias(fn, val))}\nSELECT ${sel.join(", ")}\nFROM ${from}${where ? `\nWHERE ${where}` : ""}\nGROUP BY ${groupRows.map((c) => printExpr(ex(c))).join(", ")}\nPIVOT ${printExpr(ex(colH))};`;
   }
 
   // Select / Make Table / Append
@@ -401,7 +409,7 @@ export function sqlToGrid(doc: AccessDoc, sql: string): Partial<AccQuery> | null
       return;
     }
     let col: AccQueryCol;
-    if (e.k === "call" && AGGREGATES.has(e.name.toLowerCase()) && e.args.length === 1 && out.totals) {
+    if (e.k === "call" && AGGREGATES.has(e.name.toLowerCase()) && e.args.length === 1 && (out.totals || out.type === "Crosstab")) {
       const fn = (["Sum", "Avg", "Min", "Max", "Count", "StDev", "Var", "First", "Last"].find((f) => f.toLowerCase() === e.name.toLowerCase()) ?? "Sum") as TotalFunc;
       const arg = e.args[0];
       const r = resolveRef(arg);
@@ -426,7 +434,7 @@ export function sqlToGrid(doc: AccessDoc, sql: string): Partial<AccQuery> | null
       const fn = (["Sum", "Avg", "Min", "Max", "Count"].find((f) => f.toLowerCase() === t.name.toLowerCase()) ?? "Sum") as TotalFunc;
       cols.push(vr ? { field: vr.field, table: vr.table, total: fn, crosstab: "Value" } : { field: printExpr(t.args[0]), total: fn, crosstab: "Value" });
     } else return null;
-    for (const c of cols) if (c.crosstab === "Row Heading") c.total = "Group By";
+    for (const c of cols) if (c.crosstab === "Row Heading" && !c.total) c.total = "Group By";
   }
   if (!putWhere(sel.where, (c) => { if (out.totals && !c.total) { c.total = "Where"; c.show = false; } })) return null;
   if (sel.having) {

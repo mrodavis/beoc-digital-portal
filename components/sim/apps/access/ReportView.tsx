@@ -5,7 +5,7 @@ import type { SimCommit } from "@/types/sim";
 import type { AccControl, AccessDoc, AccReport } from "./types";
 import { displayValue, findField, findReport, findTable } from "./data";
 import { parseSel } from "./model";
-import { sourceFields } from "./build";
+import { sourceFieldDef, sourceFields } from "./build";
 import { compare, formatDateSerial, formatValue, NOW, TODAY, type V } from "./sql";
 import { AccIcon } from "./icons";
 import { InlineEdit, Menu } from "./ui";
@@ -21,6 +21,9 @@ type Line =
   | { kind: "gh"; level: number; field: string; value: V; rows: Record<string, V>[] }
   | { kind: "d"; row: Record<string, V> }
   | { kind: "gf"; level: number; field: string; value: V; rows: Record<string, V>[] };
+
+/** Totals repeated in each group footer (not the report-footer-only record count). */
+const groupTotals = (r: AccReport) => (r.totals ?? []).filter((t) => t.scope !== "report");
 
 function buildLines(r: AccReport, rows: Record<string, V>[]): Line[] {
   const groups = r.groups ?? [];
@@ -49,7 +52,7 @@ function buildLines(r: AccReport, rows: Record<string, V>[]): Line[] {
       const chunk = set.slice(i, j);
       if (g.header !== false) out.push({ kind: "gh", level, field: g.field, value: v, rows: chunk });
       walk(chunk, level + 1);
-      if (g.footer || (r.totals ?? []).length) out.push({ kind: "gf", level, field: g.field, value: v, rows: chunk });
+      if (g.footer || groupTotals(r).length) out.push({ kind: "gf", level, field: g.field, value: v, rows: chunk });
       i = j;
     }
   };
@@ -85,7 +88,7 @@ export function ReportView(props: ViewProps) {
   const isPreview = view === "Print Preview";
   const interactive = isLayout || isDesign;
   const table = findTable(doc, r.recordSource);
-  const fieldDef = (name: string) => findField(table, name);
+  const fieldDef = (name: string) => (table ? findField(table, name) : sourceFieldDef(doc, r.recordSource, name));
   const cap = (f: string) => r.captions?.[f] ?? fieldDef(f)?.caption ?? f;
   const fmt = (f: string, v: V) => {
     const fd = fieldDef(f);
@@ -190,8 +193,8 @@ export function ReportView(props: ViewProps) {
       </div>
     ) : null;
 
-  const totalsFor = (rows: Record<string, V>[], label: string, idPrefix: string) => {
-    const totals = r.totals ?? [];
+  const totalsFor = (rows: Record<string, V>[], label: string, idPrefix: string, inGroup = false) => {
+    const totals = inGroup ? groupTotals(r) : r.totals ?? [];
     if (!totals.length) return null;
     return (
       <div className="flex border-t border-gray-400 pt-0.5" style={{ fontWeight: 600 }}>
@@ -261,8 +264,8 @@ export function ReportView(props: ViewProps) {
       const n = ln.rows.length;
       return (
         <div key={i} className="mb-1.5" onMouseDown={placeIn(`${g.field} Footer`)}>
-          {(r.totals ?? []).length > 0 && <div className="px-1 text-[11px] italic text-gray-600">{isDesign ? `="Summary for " & "'${g.field}' = " & [${g.field}]` : `Summary for '${g.field}' = ${fmt(g.field, ln.value)} (${n} detail record${n === 1 ? "" : "s"})`}</div>}
-          {totalsFor(ln.rows, "Sum", `gf-${g.field}`)}
+          {r.summaryLine && groupTotals(r).length > 0 && <div className="px-1 text-[11px] italic text-gray-600">{isDesign ? `="Summary for " & "'${g.field}' = " & [${g.field}]` : `Summary for '${g.field}' = ${fmt(g.field, ln.value)} (${n} detail record${n === 1 ? "" : "s"})`}</div>}
+          {totalsFor(ln.rows, "Sum", `gf-${g.field}`, true)}
           {extras(`${g.field} Footer`, ln.rows, ln.rows[0])}
           {placeInput(`${g.field} Footer`)}
         </div>
@@ -342,10 +345,10 @@ export function ReportView(props: ViewProps) {
           {extras("Detail", [])}
           {placeInput("Detail")}
         </div>
-        {groups.slice().reverse().filter((g) => g.footer || (r.totals ?? []).length).map((g) => (
+        {groups.slice().reverse().filter((g) => g.footer || groupTotals(r).length).map((g) => (
           <div key={`f${g.field}`}>
             {sectionBar(`${g.field} Footer`)}
-            <div className="min-h-[24px] px-3" onMouseDown={placeIn(`${g.field} Footer`)}>{totalsFor([], "", "d")}{extras(`${g.field} Footer`, [])}{placeInput(`${g.field} Footer`)}</div>
+            <div className="min-h-[24px] px-3" onMouseDown={placeIn(`${g.field} Footer`)}>{totalsFor([], "", "d", true)}{extras(`${g.field} Footer`, [])}{placeInput(`${g.field} Footer`)}</div>
           </div>
         ))}
         {sectionBar("Page Footer")}
@@ -434,7 +437,12 @@ export function ReportView(props: ViewProps) {
 }
 
 function GroupSortPane({ doc, report, onCommit }: { doc: AccessDoc; report: AccReport; onCommit: (c: SimCommit) => void }) {
-  const [pickFor, setPickFor] = useState<"group" | "sort" | null>(null);
+  // The field list is a floating menu: the pane scrolls, so an inline popup would be clipped.
+  const [pickFor, setPickFor] = useState<{ kind: "group" | "sort"; x: number; y: number } | null>(null);
+  const openPick = (kind: "group" | "sort", e: React.MouseEvent<HTMLButtonElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    setPickFor(pickFor?.kind === kind ? null : { kind, x: r.left, y: r.bottom });
+  };
   const [more, setMore] = useState<string | null>(null);
   const fields = sourceFields(doc, report.recordSource).map((f) => f.name);
   const isText = (f: string) => {
@@ -494,16 +502,15 @@ function GroupSortPane({ doc, report, onCommit }: { doc: AccessDoc; report: AccR
           </div>
         ))}
         <div className="relative flex gap-2 pt-1">
-          <button type="button" onClick={() => setPickFor(pickFor === "group" ? null : "group")} className="flex items-center gap-1 border border-[#c6c6c6] bg-white px-2 py-[2px] hover:bg-[#e5f1fb]"><AccIcon name="plus" size={11} />Add a group</button>
-          <button type="button" onClick={() => setPickFor(pickFor === "sort" ? null : "sort")} className="flex items-center gap-1 border border-[#c6c6c6] bg-white px-2 py-[2px] hover:bg-[#e5f1fb]"><AccIcon name="plus" size={11} />Add a sort</button>
+          <button type="button" onClick={(e) => openPick("group", e)} className="flex items-center gap-1 border border-[#c6c6c6] bg-white px-2 py-[2px] hover:bg-[#e5f1fb]"><AccIcon name="plus" size={11} />Add a group</button>
+          <button type="button" onClick={(e) => openPick("sort", e)} className="flex items-center gap-1 border border-[#c6c6c6] bg-white px-2 py-[2px] hover:bg-[#e5f1fb]"><AccIcon name="plus" size={11} />Add a sort</button>
           {pickFor && (
-            <div className="absolute bottom-full left-0 z-30 mb-1 w-44 border border-gray-400 bg-white py-1 shadow-lg">
-              <div className="px-2 pb-0.5 text-[11px] text-gray-500">select field</div>
-              {fields.map((f) => (
-                <button key={f} type="button" onClick={() => { const k = pickFor; setPickFor(null); onCommit(cmd(k === "group" ? "report.addGroup" : "report.addSort", f)); }} className="block w-full px-2 py-[1px] text-left hover:bg-[#e5f1fb]">{f}</button>
-              ))}
-              <div className="mt-0.5 border-t px-2 pt-0.5 text-[11px] text-gray-500">expression</div>
-            </div>
+            <Menu
+              x={pickFor.x}
+              y={pickFor.y}
+              onClose={() => setPickFor(null)}
+              items={fields.map((f) => ({ key: f, label: f, onPick: () => { const k = pickFor.kind; setPickFor(null); onCommit(cmd(k === "group" ? "report.addGroup" : "report.addSort", f)); } }))}
+            />
           )}
         </div>
       </div>

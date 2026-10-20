@@ -1629,6 +1629,44 @@ class Exec {
     return rows;
   }
 
+  /**
+   * The data type Access gives a calculated column: Currency arithmetic stays
+   * Currency (so it displays as $1.00), Sum/Min/Max keep their argument's type.
+   */
+  exprType(e: Expr): string | undefined {
+    switch (e.k) {
+      case "paren":
+      case "neg":
+        return this.exprType(e.e);
+      case "ref": {
+        let k: string | null = null;
+        try { k = this.keyOf(e.table, e.name); } catch { return undefined; }
+        if (!k) return undefined;
+        const s = this.srcs.find((x) => k!.startsWith(x.alias.toLowerCase() + "."));
+        const t = s?.fields.find((x) => x.name.toLowerCase() === k!.slice(s.alias.length + 1))?.type;
+        return t === "AutoNumber" ? "Number" : t;
+      }
+      case "num":
+        return "Number";
+      case "bin": {
+        if (!["+", "-", "*"].includes(e.op)) return undefined;
+        const a = this.exprType(e.l), b = this.exprType(e.r);
+        if ((a === "Currency" && (b === "Currency" || b === "Number")) || (b === "Currency" && a === "Number")) return "Currency";
+        return a === "Number" && b === "Number" ? "Number" : undefined;
+      }
+      case "call": {
+        const fn = e.name.toLowerCase();
+        if (["sum", "min", "max", "first", "last", "avg", "nz"].includes(fn) && e.args[0]) {
+          const t = this.exprType(e.args[0]);
+          return fn === "avg" && t !== "Currency" ? undefined : t;
+        }
+        return undefined;
+      }
+      default:
+        return undefined;
+    }
+  }
+
   /** Find the column key for a reference. */
   keyOf(table: string | undefined, name: string): string | null {
     const n = name.toLowerCase();
@@ -1737,6 +1775,7 @@ class Exec {
           if (f && ["sum", "min", "max", "first", "last"].includes(it.expr.name.toLowerCase())) type = f.type === "AutoNumber" ? "Number" : f.type;
         }
       }
+      if (!type && it.expr.k !== "ref") type = this.exprType(it.expr);
       cols.push({ name: name ?? `Expr${exprN++}`, expr: it.expr, origin, type });
     }
     // Disambiguate duplicate names.
@@ -1784,6 +1823,20 @@ class Exec {
         });
         if (st.having && !truthy(this.evalGroup(st.having, g))) continue;
         outRows.push({ vals, sortRow: g[0] ?? { vals: this.nullVals(), ids: {} }, group: g, ids: {} });
+      }
+      // Access returns grouped rows in ascending order of the Group By fields.
+      if (gb.length && !st.orderBy?.length) {
+        const keyOfRow = (o: (typeof outRows)[number]) => gb.map((x) => this.evalRow(x, o.sortRow));
+        const keyed = outRows.map((o) => ({ o, k: keyOfRow(o) }));
+        keyed.sort((a, b) => {
+          for (let i = 0; i < gb.length; i++) {
+            const x = a.k[i], y = b.k[i];
+            const c = x === null && y === null ? 0 : x === null ? -1 : y === null ? 1 : compare(x, y) ?? 0;
+            if (c) return c;
+          }
+          return 0;
+        });
+        outRows = keyed.map((x) => x.o);
       }
     } else {
       for (const r of rows) {

@@ -292,7 +292,8 @@ export function FormView(props: ViewProps) {
         </span>
       );
     }
-    if ((c.kind === "combo" || c.kind === "listbox") && !isDesign) {
+    // Only Form View gets a live drop-down: a disabled <select> in Layout View would swallow the clicks that select it.
+    if ((c.kind === "combo" || c.kind === "listbox") && isForm) {
       const opts = comboOptions(doc, c, f);
       return (
         <select

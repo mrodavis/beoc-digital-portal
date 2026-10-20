@@ -2717,6 +2717,7 @@ function applyDialog(d: D, id: string, v: Record<string, SimValue>, ui: SimUi): 
         sorts,
         totals,
         summaryOnly: /summary only/i.test(sv(v.summaryMode)),
+        summaryLine: totals.length > 0,
         layout: (["Stepped", "Block", "Outline", "Tabular", "Columnar", "Justified"].find((x) => eq(x, sv(v.layout))) ?? (groups.length ? "Stepped" : "Tabular")) as AccReport["layout"],
         orientation: /landscape/i.test(sv(v.orientation)) ? "Landscape" : "Portrait",
         pageSize: "Letter",

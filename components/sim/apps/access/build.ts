@@ -32,6 +32,29 @@ export function sourceFields(doc: AccessDoc, source: string): { name: string; ty
   return [];
 }
 
+/**
+ * The field definition behind one column of a table or query, for display
+ * formatting. A query column keeps its base field (masks, formats) and its own
+ * Format property; a calculated column with a Format gets a stand-in field.
+ */
+export function sourceFieldDef(doc: AccessDoc, source: string, name: string): AccField | undefined {
+  const t = findTable(doc, source);
+  if (t) return findField(t, name);
+  const q = findQuery(doc, source);
+  if (!q) return undefined;
+  const key = name.toLowerCase();
+  const qc = q.cols.find((c) => {
+    const [alias, expr] = c.field.includes(":") ? [c.field.split(":")[0].trim(), c.field] : ["", c.field];
+    return (alias || expr).replace(/^\[|\]$/g, "").toLowerCase() === key;
+  });
+  if (!qc) return undefined;
+  if (!qc.field.includes(":")) {
+    const base = findField(findTable(doc, qc.table ?? ""), qc.field.replace(/^\[|\]$/g, "")) ?? q.tables.map((n) => findField(findTable(doc, n), name)).find(Boolean);
+    return base ? { ...base, format: qc.format ?? base.format, caption: qc.caption || base.caption } : undefined;
+  }
+  return qc.format || qc.caption ? { ...newField(name, "Number"), format: qc.format, caption: qc.caption || undefined } : undefined;
+}
+
 export function nextName(existing: string[], base: string): string {
   const taken = new Set(existing.map((x) => x.toLowerCase()));
   if (!taken.has(base.toLowerCase())) return base;
@@ -78,7 +101,7 @@ export function buildReport(doc: AccessDoc, name: string, source: string): AccRe
     pageSize: "Letter",
     margins: "Normal",
     title: name,
-    totals: all.length ? [{ field: all[0].name, fn: "Count" }] : [],
+    totals: all.length ? [{ field: all[0].name, fn: "Count", scope: "report" }] : [],
     pageNumbers: { format: "Page N of M", position: "Bottom of Page [Footer]", align: "Right" },
     dateTime: { date: "Long Date", time: "Long Time" },
     saved: false,

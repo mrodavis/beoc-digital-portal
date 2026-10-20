@@ -651,7 +651,7 @@ function LookupWizard(p: Props & { ctx: string[] }) {
   const fieldName = p.ctx[1] ?? (s.k === "field" ? s.field : "");
   const isNew = !p.ctx[1] && (s.k === "col" || s.k === "cell");
   const [page, setPage] = useState(0);
-  const [source, setSource] = useState(LOOKUP_SOURCES[1]);
+  const [source, setSource] = useState(LOOKUP_SOURCES[0]);
   const [vals, setVals] = useState<string[]>(["", "", "", ""]);
   const [lt, setLt] = useState(sources(doc).find((x) => !x.endsWith(`: ${tableName}`)) ?? "");
   const [lf, setLf] = useState<string[]>([]);
