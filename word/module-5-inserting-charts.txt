@@ -1,0 +1,76 @@
+Inserting Charts
+
+Module 5: Tables, Charts & Mail Merge
+
+Learn how to insert and customize charts in Microsoft Word to visually represent data from a built-in spreadsheet editor.
+
+By the end of this lesson you can:
+- Insert a chart in Word and edit its underlying data
+- Choose a chart type that matches the question the data answers
+- Add titles and labels so the chart is readable without explanation
+- Decide when to build the chart in Excel and link it instead
+
+
+## The chart type is an argument about the data
+
+ type: scenario
+ role: You are preparing the quarterly report at Lakeside Medical Associates.
+ text: You need to show how supply spending changed across six months. You choose a pie chart because it looks good. A pie chart cannot show change over time — it shows composition at one moment. The reader sees six slices and no trend and asks you to redo it.
+ task: Match the chart type to the question so the picture answers what the reader is actually asking.
+
+
+Inserting a chart in Word opens a small spreadsheet window holding the chart's data. Replace the sample values with yours and the chart redraws. That data lives inside the Word file, which is convenient for a small static chart and a poor choice for figures that update — for those, build the chart in Excel and paste it as a link, so refreshing the workbook updates the document.
+
+
+ type: table
+ caption: Choosing a chart type
+ columns: 
+  The question
+  Chart
+  Why
+ rows: 
+   How did this change over time?
+   Line
+   A continuous line is read as continuity — the shape is the trend
+   How do these categories compare?
+   Column or bar
+   Length is the easiest visual quantity to compare accurately
+   What share of the total is each part?
+   Pie
+   Only for parts of one whole and only with five or fewer slices
+   Are these two things related?
+   Scatter
+   Shows the relationship between two measures directly
+
+
+Note: A column chart whose value axis does not start at zero exaggerates differences, because the reader compares bar lengths and those lengths no longer represent the values. Truncating the axis on a column chart is a well-known way to mislead, including by accident. Line charts may start elsewhere when the variation matters more than the absolute level, but say so in the axis label.
+
+Give every chart a title that states the finding, not the subject. 'Supply spending rose 18% in Q3' tells the reader what to see. 'Supply Spending' makes them work it out for themselves, and some will not bother.
+
+
+## Inserting a Chart
+Go to Insert → Chart. The Insert Chart dialog opens with a list of chart types on the left. Select the type you want (such as Column, Bar, Pie, or Line), choose a subtype, and click OK.
+
+
+## Editing Chart Data
+After inserting a chart, a small Excel-style spreadsheet opens next to it. Edit the sample data in this window — the chart updates automatically as you type. Close the data window when you are done.
+
+
+## Changing the Chart Type
+Right-click the chart and choose Change Chart Type to switch to a different visualization. You can switch between column, bar, line, pie, and many other types.
+
+
+## Chart Design and Format Tabs
+Clicking a chart reveals two contextual tabs: Chart Design (for layouts, styles, and data) and Format (for shapes, fills, and text formatting). Use these to customize the appearance of your chart.
+
+
+## Adding Chart Titles and Labels
+On the Chart Design tab, click Add Chart Element to add or adjust chart titles, axis titles, data labels, legends, and gridlines.
+
+
+## Applying a Chart Style
+In the Chart Design tab, browse the Chart Styles gallery to quickly apply a coordinated color scheme and style to the entire chart.
+
+
+## Knowledge Check
+Check yourself: What opens automatically when you insert a chart in Word? Answer: A small spreadsheet editor where you enter the chart data. Word opens a small embedded spreadsheet holding the chart's data, prefilled with sample values. Replace them with your own and the chart redraws immediately. That data is stored inside the Word file.

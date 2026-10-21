@@ -1,0 +1,54 @@
+Using Themes
+
+Module 7: Advanced Styles & Themes
+
+Learn how to apply and customize document themes to control the color palette, fonts, and graphic effects used throughout your Word document.
+
+By the end of this lesson you can:
+- Apply a theme and explain the three elements it controls
+- Change theme colors, fonts, and effects independently
+- Save a custom theme for consistent branding
+- Explain why theme colors are better than fixed colors
+
+
+## Themes keep everything in a document agreeing with itself
+
+ type: scenario
+ role: You produce patient-facing materials at Lakeside Medical Associates.
+ text: The practice adopts a new color palette. Your documents contain headings chart series table shading and shape fills all colored by hand from the standard palette. Updating them means finding every colored object in every document.
+ task: Use theme colors so a palette change is one selection rather than an audit.
+
+
+A theme controls three things: a palette of colors, a pair of fonts for headings and body text, and a set of graphic effects for shapes and charts. Together they keep every element in a document visually consistent — and consistent across Word, Excel, and PowerPoint, since all three share the same theme system.
+
+The practical detail is in the color picker. Colors under 'Theme Colors' at the top are references to the theme; colors under 'Standard Colors' are fixed values. Choose a theme color and it updates automatically when the theme changes. Choose a standard color and it stays that exact color forever, regardless of any rebrand.
+
+Set up the practice's palette and fonts once, then Design > Themes > Save Current Theme. The theme appears in the gallery in Word, Excel, and PowerPoint, so a report, its spreadsheet, and the presentation about it all match without anyone having to remember hex codes.
+
+
+## What Is a Theme?
+A theme is a coordinated set of colors, fonts, and graphic effects applied to a document. Themes are different from Style Sets — a theme defines the color palette and typefaces available, while a Style Set defines how those elements are used in headings and body text.
+
+
+## Applying a Theme
+Go to the Design tab and click the Themes button (far left in the Document Formatting group). A gallery of built-in themes appears. Hover over any theme to preview it live, then click to apply.
+
+
+## Changing Theme Colors
+Click Colors in the Document Formatting group to choose a different color palette independently of the full theme. This lets you mix colors from one theme with fonts from another.
+
+
+## Changing Theme Fonts
+Click Fonts in the Document Formatting group to choose a different font pairing. Each entry shows a Heading font and Body font combination.
+
+
+## Changing Theme Effects
+Click Effects to apply a different visual style to shapes, SmartArt, and charts in the document. Effects control shadows, reflections, and 3D formatting.
+
+
+## Saving a Custom Theme
+After mixing colors, fonts, and effects to your liking, save the combination as a custom theme: click Themes → Save Current Theme. Give it a name so it is available for future documents.
+
+
+## Knowledge Check
+Check yourself: What three elements does a Word theme control? Answer: Colors, fonts, and graphic effects. A theme bundles a color palette, a heading and body font pair, and a set of graphic effects for shapes and charts. The same theme applies across Word, Excel, and PowerPoint, which is how a report, its spreadsheet, and its presentation stay visually consistent.

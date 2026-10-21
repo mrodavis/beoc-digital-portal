@@ -1,0 +1,79 @@
+Text Boxes
+
+Module 3: Styles, Media & Themes
+
+Learn how to insert built-in text boxes, draw custom text boxes, resize, move, format, apply styles, and change shapes in Microsoft Word.
+
+By the end of this lesson you can:
+- Insert built-in and custom text boxes and position them precisely
+- Format text box fills, borders, and internal margins
+- Explain when a text box is the right tool and when a table or paragraph is better
+- Keep text boxes accessible for screen reader users
+
+
+## A text box breaks text out of the flow
+
+ type: scenario
+ role: You are designing a patient information sheet at Lakeside Medical Associates.
+ text: The sheet needs a bordered box in the margin holding the after-hours number visible no matter which paragraph a patient is reading. Ordinary paragraphs cannot do that — they sit in the flow and move as text is added above them.
+ task: Use a text box to place content precisely and know when not to reach for one.
+
+
+A text box is a container that floats independently of the main text flow, so you can put words anywhere on the page — in a margin, over an image, in a sidebar. That independence is the whole point, and also the reason to be careful with it.
+
+Note: Screen readers may read text boxes out of order, or skip them entirely, because they sit outside the main document flow. Never put essential information only in a text box. If the after-hours number matters, it also belongs in the body text — the box is emphasis, not the sole delivery mechanism. Run Review > Check Accessibility before distributing any document that uses text boxes heavily.
+
+
+ type: table
+ columns: 
+  You want
+  Use
+  Why
+ rows: 
+   A pull quote or sidebar
+   Text box
+   Needs to sit outside the flow in a fixed place
+   Aligned rows and columns of data
+   Table
+   Tables handle alignment and stay accessible
+   An indented block quotation
+   Paragraph with indents
+   Stays in the flow and in the reading order
+   A label over a screenshot
+   Text box In Front of Text
+   Must sit on top of an image at an exact spot
+
+
+Right-click a text box and choose Format Shape > Text Options > Text Box to set internal margins. The default padding is often too tight when you add a border — a little breathing room between the border and the text is most of what makes a box look professional rather than cramped.
+
+
+## Inserting a Built-In Text Box
+Go to the Insert tab and click Text Box. Choose from the built-in text box gallery to quickly add styled text areas to your document.
+
+
+## Drawing a Custom Text Box
+Select Draw Text Box from the Text Box dropdown. Click and drag anywhere in the document to create a custom-sized text box.
+
+
+## Typing and Formatting Text
+Click inside the text box and begin typing. Use the Home tab to change font style, size, color, and alignment.
+
+
+## Moving and Resizing Text Boxes
+Click the border of the text box to select it. Drag from the border to move it. Use the corner sizing handles to resize proportionally.
+
+
+## Applying Shape Styles
+When a text box is selected, the Shape Format tab appears. Use Shape Styles to quickly apply preset fill, outline, and effect combinations.
+
+
+## Changing the Text Box Shape
+You can convert a text box into another shape. Go to Format → Edit Shape → Change Shape and select a new shape.
+
+
+## Final Example
+After inserting, styling, resizing, and changing shapes, your final promotional layout might look like this:
+
+
+## Knowledge Check
+Check yourself: What is the purpose of a text box in Word? Answer: To place text anywhere on the page, independent of the main text flow. A text box floats independently of the main text flow, so you can position words anywhere on the page — a margin, a sidebar, or on top of an image. That independence is exactly why screen readers may miss it, so never let a text box be the only place important information appears.

@@ -1,0 +1,56 @@
+Co-Authoring in Word
+
+Module 8: Microsoft 365 and More
+
+Learn how to share a Word document and collaborate with others in real time using Microsoft 365 co-authoring features.
+
+By the end of this lesson you can:
+- Share a document for co-authoring and choose appropriate permissions
+- Explain what co-authoring requires in order to work
+- Work alongside others without overwriting their edits
+- Manage and revoke sharing permissions
+
+
+## Two people, one document, no emailed versions
+
+ type: scenario
+ role: You are revising the intake form with a nurse manager at Lakeside Medical Associates.
+ text: Emailing versions back and forth produces 'Intake Form v3 FINAL (JM edits) revised.docx' and a genuine question about which copy is current. Two of the three changes made on Tuesday are in a file nobody opens again.
+ task: Work in one shared document so there is only ever one current version.
+
+
+Co-authoring lets several people edit the same document simultaneously. Each person's cursor is visible with their name, edits appear within seconds, and there is exactly one file — so the question of which version is current stops existing.
+
+It has one hard requirement: the file must be stored in OneDrive or SharePoint. Co-authoring works by syncing changes through the cloud, so a document on a local drive or a USB stick cannot support it. This is the same requirement AutoSave has, for the same reason.
+
+Note: Sharing permissions outlive the task. A link shared for one afternoon's revision keeps working next year unless you revoke it. Review sharing periodically through Share > Manage Access, set an expiry date on links to anything sensitive, and grant Can view rather than Can edit unless the person genuinely needs to make changes.
+
+AutoSave must be on for co-authoring to feel real-time. If it is off, or greyed out, the file is not in OneDrive or SharePoint — which is also the first thing to check when a colleague reports they cannot see your edits.
+
+
+## What Is Co-Authoring?
+Co-authoring lets multiple people edit the same Word document at the same time. Changes from each author appear in real time without requiring anyone to check the file in or out.
+
+
+## Sharing a Document for Co-Authoring
+The document must be saved to OneDrive or SharePoint to enable co-authoring. Click Share in the top-right corner, enter the email addresses of your collaborators, choose their permission level (Can edit or Can view), and select Share or Send.
+
+
+## Seeing Other Authors in Real Time
+When another person is editing the document, their cursor and a colored flag with their name appear in the document. Each co-author is assigned a unique color so you can see exactly where they are working.
+
+
+## Viewing Who Has the File Open
+Profile pictures or initials appear in the top-right corner for everyone currently in the document. Click an icon to see the person's name and jump to where they are editing.
+
+
+## AutoSave and Co-Authoring
+When a file is stored on OneDrive, AutoSave turns on automatically and saves your changes every few seconds. This ensures other co-authors always see the most recent version of the document.
+
+
+## Managing Sharing Permissions
+To change or remove someone's access, click Share → Manage Access. From here you can change a collaborator's permission to Can view or remove their access entirely.
+
+
+## Knowledge Check
+Check yourself: Where does a Word document need to be saved to enable co-authoring? Answer: On OneDrive or SharePoint. Co-authoring syncs each person's changes through the cloud, so the file must live in OneDrive or SharePoint. A local file has no sync channel, which is also why AutoSave is unavailable for it.

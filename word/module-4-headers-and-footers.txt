@@ -1,0 +1,68 @@
+Headers & Footers
+
+Module 4: References, Review & Collaboration
+
+Create, edit, and customize headers and footers in Microsoft Word. Insert preset headers, add dates, page numbers, and format different first pages.
+
+By the end of this lesson you can:
+- Add headers and footers, including automatic page numbers and dates
+- Use a different first page so a letterhead does not repeat
+- Explain how section breaks let headers differ between parts of a document
+- Choose between a date that updates automatically and one that stays fixed
+
+
+## Headers are how a page proves where it came from
+
+ type: scenario
+ role: You prepare clinical documentation packets at Lakeside Medical Associates.
+ text: A twelve-page packet goes to a specialist. It is unstapled at the other end mixed with pages from two other practices and reassembled. Half the pages carry no identification and no page numbers. Nobody can tell which pages belong together or whether any are missing.
+ task: Put identifying information on every page automatically so a loose sheet is never anonymous.
+
+
+A header or footer is defined once and repeats on every page — the practice name, the document title, and 'Page X of Y' so a reader can tell at a glance that page 7 of 12 is missing. Typing that on each page by hand is not just slow; it breaks the moment the document repaginates.
+
+The date field has a subtlety worth getting right. Insert > Date & Time offers an 'Update automatically' checkbox. Checked, the date rewrites itself to today every time the document opens — correct for a template, and actively wrong for a letter, because reopening a letter from March in September silently changes its date. For anything with a fixed issuance date, leave that box unchecked.
+
+Note: Different First Page (on the Header & Footer contextual tab) stops the header appearing on page one, which is what you want when page one carries a full letterhead. For headers that differ between parts of a longer document, you need section breaks — and you must also turn off 'Link to Previous' in the new section, or Word keeps inheriting the previous section's header and the change appears to do nothing.
+
+
+## Creating a Header
+Go to Insert → Header. Choose a built-in style or select Blank to create your own header.
+
+
+## Working with Preset Header Placeholders
+Built-in headers include content controls such as [Document Title]. Click inside the placeholder to replace it with your own text.
+
+To remove the placeholder entirely, right-click the field and choose Remove Content Control.
+
+
+## Editing a Header
+Double-click at the top of the page to open the header area. The Header & Footer tab appears on the Ribbon.
+
+
+## Inserting Date & Time
+Click Date & Time inside the header. Choose a format and check Update automatically if needed.
+
+
+## Adding Page Numbers
+Go to Insert → Page Number and choose placement and alignment.
+
+
+## Different First Page
+Select Different First Page on the Header & Footer tab to remove the header from the first page only.
+
+
+## Removing a Header
+To remove the header entirely, go to Insert → Header → Remove Header.
+
+
+## Closing the Header Area
+Click Close Header and Footer to return to the main document.
+
+
+## Completed Example
+
+
+
+## Knowledge Check
+Check yourself: What is the purpose of a header in a Word document? Answer: To display repeated content at the top of every page. A header is content defined once in the top margin that Word repeats on every page — practice name, document title, page numbers. That repetition is the point: it identifies a page that has been separated from the rest of its document.

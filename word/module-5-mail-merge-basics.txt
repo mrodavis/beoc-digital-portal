@@ -1,0 +1,73 @@
+Mail Merge Basics
+
+Module 5: Tables, Charts & Mail Merge
+
+Learn how to use Mail Merge in Word to automatically generate personalized letters, envelopes, and labels from a data source.
+
+By the end of this lesson you can:
+- Explain the roles of the main document and the data source
+- Run a mail merge from start to finish using the Mailings tab
+- Preview merged results and catch data problems before printing
+- Judge when mail merge saves time and when it is overkill
+
+
+## One letter, many recipients, no retyping
+
+ type: scenario
+ role: You handle recall notices at Lakeside Medical Associates.
+ text: Two hundred and forty patients are due for an annual visit. Each needs a letter with their name address and appointment date. Typed individually that is two full days of work and a guarantee that at least one letter carries the wrong name.
+ task: Produce all 240 personalized letters from one template and one list in about fifteen minutes.
+
+
+Mail merge combines two things. The main document is the letter — everything that stays the same, plus merge fields marking where personal data belongs. The data source is the list — a Word table, an Excel sheet, or Outlook contacts — with one row per recipient and one column per field. Merging produces one output letter per row.
+
+Most merge failures are data problems, not Word problems. Your data source needs a clean header row where every column has a distinct name, no blank rows in the middle, and consistent formatting — because whatever is in the cell is what appears in the letter. A date stored as text as '3/4' will print as '3/4', not as March 4.
+
+
+ type: worked-example
+ title: Producing 240 recall letters
+ task: Merge a recall letter template with a patient list verifying the output before anything reaches the printer.
+ steps: 
+   move: Prepare the data source first and open it to check it.
+   why: The merge inherits every flaw in the list. Confirm one header row distinct column names no blank rows and dates formatted the way they should appear. Fixing this after generating 240 letters means generating them again.
+   move: Mailings > Start Mail Merge > Letters then Select Recipients > Use an Existing List.
+   why: This binds the letter to the data. Choosing Letters as the type tells Word to produce one page per record as opposed to labels or envelopes which lay out several records per sheet.
+   move: Insert merge fields where personal data belongs including the address block.
+   why: Fields appear in chevrons as «FirstName». Use Address Block rather than assembling address lines from individual fields — it handles missing second address lines correctly instead of leaving a blank line in the middle of the address.
+   move: Click Preview Results and step through several records including the last one.
+   why: This is the step that catches everything: a missing surname a date that came through as a serial number a patient whose name overflows the line. Check the first a few in the middle and the last — the last record is where truncated data sources reveal themselves.
+   move: Finish & Merge > Edit Individual Documents not straight to print.
+   why: This produces a single document containing all 240 letters which you can scroll and check before committing paper. Printing directly from the merge means the first sign of a problem is a stack of wrong letters.
+ result: 240 verified personalized letters produced in one pass checked before printing.
+ takeaway: Clean the data first preview several records including the last and merge to a document before merging to the printer.
+
+
+Note: A merged recall letter contains patient names and appointment details. Merge output is protected information: do not leave the merged document on a shared drive, do not email it as one file to anyone, and shred any misprints rather than binning them. The convenience of generating 240 letters at once is also the risk of exposing 240 patients at once.
+
+
+## What Is Mail Merge?
+Mail Merge combines a letter template (the main document) with a list of recipients (the data source) to automatically produce personalized copies. It is commonly used for form letters, address labels, and name badges.
+
+
+## Step 1 – Start the Mail Merge
+Go to Mailings → Start Mail Merge and choose the document type: Letters, Envelopes, Labels, or Email Messages. For this lesson, select Letters.
+
+
+## Step 2 – Select Recipients
+Click Select Recipients on the Mailings tab. Choose Use an Existing List to connect an Excel spreadsheet or CSV file as your data source. Navigate to the file and click Open, then select the correct sheet.
+
+
+## Step 3 – Insert Merge Fields
+Place your cursor in the document where you want personalized data (such as the recipient's name). Click Insert Merge Field on the Mailings tab and choose the field from your data source, such as FirstName or City.
+
+
+## Step 4 – Preview Results
+Click Preview Results on the Mailings tab to see how the first recipient's data fills in. Use the arrow buttons to cycle through all records and confirm the merge looks correct.
+
+
+## Step 5 – Finish & Merge
+Click Finish & Merge on the Mailings tab. Choose Edit Individual Documents to create a new document with all personalized copies combined, or Print Documents to send them directly to the printer.
+
+
+## Knowledge Check
+Check yourself: What is the role of the data source in a Mail Merge? Answer: It contains the list of recipients and their personalized information. The data source is the list — one row per recipient, one column per field. The main document holds the letter and the merge fields. Word combines them to produce one output letter per row of the data source.

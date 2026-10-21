@@ -1,0 +1,80 @@
+Using Word for the Web
+
+Module 8: Microsoft 365 and More
+
+Learn how to open and use Word for the web (formerly Word Online) in a browser, edit documents in the cloud, and understand how it differs from the Word desktop app.
+
+By the end of this lesson you can:
+- Open Word for the web and create or edit a document in a browser
+- Explain which features the browser version lacks and why that matters
+- Move a document between Word for the web and the desktop app
+- Decide which version to use for a given task
+
+
+## The browser version is a different tool, not a smaller one
+
+ type: scenario
+ role: You are covering reception at Lakeside Medical Associates.
+ text: You need to fix a typo in a handout while working at a shared workstation that does not have Office installed. Word for the web opens the file in a browser and the fix takes forty seconds. Later you try to run a mail merge in the same browser tab and find the command does not exist.
+ task: Know what the browser version does well and where you need the desktop app.
+
+
+Word for the web runs in any modern browser with no installation, which makes it genuinely useful on a shared or borrowed machine. It handles typing, basic formatting, comments, and real-time co-authoring well, and it saves continuously to OneDrive.
+
+
+ type: table
+ caption: Where each version fits
+ columns: 
+  Task
+  Word for the web
+  Desktop
+ rows: 
+   Quick edit on a borrowed machine
+   Yes
+   Requires installation
+   Real-time co-authoring
+   Yes
+   Yes for files in OneDrive or SharePoint
+   Mail merge
+   No
+   Yes
+   Advanced layout: sections columns precise object placement
+   Limited
+   Yes
+   Macros and add-ins
+   No
+   Yes
+   Working offline
+   No
+   Yes
+
+
+Open in Desktop App hands the file from the browser to the installed Word application with your edits intact. Start in the browser for speed, and switch when you hit a feature the browser does not have.
+
+
+## What Is Word for the Web?
+Word for the web (formerly called Word Online) is a free browser-based version of Microsoft Word that you use with a Microsoft account. It lets you create, view, and edit Word documents from any device with a browser, with no software to install.
+
+
+## Opening Word for the Web
+In a browser, go to m365.cloud.microsoft and sign in with your school, work, or personal Microsoft account. The older addresses office.com and microsoft365.com still take you there. Microsoft now calls this start page the Microsoft Copilot app (it was the Microsoft 365 app), so the name at the top may differ from the picture. Choose Word to start or open a document. A .docx file stored in OneDrive also opens in Word for the web when you open it from OneDrive in your browser.
+
+
+## Creating a New Document
+Start a new blank document from the Word start page. Files you create in Word for the web are saved to OneDrive automatically as you work.
+
+
+## Editing Mode vs. Reading View
+Word for the web opens documents for editing by default. Click View → Reading View to switch to a clean, non-editable layout. Switch back to editing to make changes.
+
+
+## Opening in the Desktop App
+If you need a feature that Word for the web does not have, choose Open in Desktop App. The file opens in the Word desktop application, and because it stays in OneDrive, your changes keep saving to the same file.
+
+
+## Key Differences from the Desktop App
+Word for the web covers the most common tasks but lacks some advanced desktop features, including macros, certain advanced layout tools, and some reference and mail merge functions. For everyday writing and editing, it works well.
+
+
+## Knowledge Check
+Check yourself: What is one key advantage of Word for the web over the desktop app? Answer: It can be accessed from any device with a browser without installing software. Word for the web runs entirely in a browser, so it works on any machine with internet access and no installed copy of Office. That accessibility is its central advantage; the trade-off is a smaller feature set.

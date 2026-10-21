@@ -1,0 +1,97 @@
+Track Changes
+
+Module 4: References, Review & Collaboration
+
+Learn how to track edits in a Word document, accept or reject changes, and review a document's revision history for professional collaboration.
+
+By the end of this lesson you can:
+- Turn Track Changes on and recognize how edits are displayed
+- Switch between markup views and explain what each one hides
+- Accept and reject changes individually or in bulk
+- Remove all tracked changes and comments before sending a document externally
+
+
+## The markup you cannot see is still in the file
+
+ type: scenario
+ role: You are finalizing a policy document at Lakeside Medical Associates.
+ text: The draft went through three reviewers. You switch the display to 'No Markup' the document looks clean and you email it to the practice's insurer. The insurer opens it switches to All Markup and reads every deleted sentence including a reviewer's comment questioning whether a colleague is competent to sign off on the policy.
+ task: Understand that display mode hides markup from you not from anyone else — and learn the step that actually removes it.
+
+
+This is the single most consequential misunderstanding in Word. Simple Markup and No Markup change what you see on screen. They do not alter the file. Every deletion, insertion, and comment remains stored in the document and is one dropdown away for whoever opens it next.
+
+To actually remove tracked changes you must resolve them: Review > Accept > Accept All Changes, and Review > Delete > Delete All Comments in Document. Then verify with File > Info > Check for Issues > Inspect Document, which reports any remaining revisions, comments, or hidden metadata.
+
+
+ type: table
+ caption: What each display mode shows
+ columns: 
+  Mode
+  You see
+  The file contains
+ rows: 
+   Simple Markup
+   Clean text with change bars in the margin
+   All tracked changes
+   All Markup
+   Every insertion deletion and comment
+   All tracked changes
+   No Markup
+   The document as if all changes were accepted
+   All tracked changes — nothing has been removed
+   Original
+   The document before any edits
+   All tracked changes
+
+
+
+ type: worked-example
+ title: Clearing a reviewed document before it leaves the practice
+ task: Take a policy draft with three rounds of tracked edits and comments and produce a file that genuinely contains none of them.
+ steps: 
+   move: Switch to All Markup and read the document through.
+   why: You cannot make good accept-or-reject decisions on changes you have not seen. All Markup is the only view that shows everything and reading it once is how you catch a reviewer's change you actually disagree with.
+   move: Review > Accept > Accept All Changes or step through with Accept and Reject individually.
+   why: Accepting is what physically applies each edit and removes the revision record. Bulk-accept when you have already reviewed and agree with everything; step through individually when the edits are contested.
+   move: Review > Delete > Delete All Comments in Document.
+   why: Comments are stored separately from tracked changes so accepting all changes leaves every comment intact. This is the step people skip and comments are usually the more embarrassing of the two.
+   move: File > Info > Check for Issues > Inspect Document then remove what it finds.
+   why: The Document Inspector reports tracked changes comments hidden text and author metadata that the Review tab does not surface. It is the only reliable verification and it takes about fifteen seconds.
+   move: Turn Track Changes off before saving.
+   why: If it is still on your own final cleanup edits become a new round of tracked changes — and you ship the problem you just spent five minutes fixing.
+ result: A file that contains no revisions no comments and no reviewer metadata — verified not assumed.
+ takeaway: Changing the view hides markup from you alone. Accept delete comments inspect and turn tracking off — anything less ships the edit history with the document.
+
+
+
+## What Is Track Changes?
+Track Changes is a feature in Word that records every edit made to a document — insertions, deletions, and formatting changes — so reviewers can see exactly what was modified and by whom.
+
+
+## Turning On Track Changes
+Go to the Review tab and click Track Changes to toggle it on. When active, the button appears highlighted and all edits are marked in the document.
+
+
+## How Changes Appear in the Document
+Inserted text appears underlined, deleted text appears with a strikethrough, and a change bar appears in the margin to mark edited lines. Each reviewer's changes appear in a different color.
+
+
+## Controlling What Markup Is Shown
+Use the Show Markup menu on the Review tab to control which types of changes are visible. You can also switch the display to Simple Markup (margin indicators only) or No Markup (clean view) using the dropdown next to Track Changes.
+
+
+## Accepting and Rejecting Changes
+Click inside a tracked change, then choose Accept or Reject from the Review tab. Use Accept All or Reject All to process every change at once.
+
+
+## Using the Review Pane
+Click Reviewing Pane on the Review tab to open a sidebar listing all tracked changes and comments in sequence. This is useful for quickly navigating between edits in long documents.
+
+
+## Locking Track Changes
+To prevent others from turning off Track Changes, go to Track Changes → Lock Tracking and set a password. Changes cannot be accepted or rejected until the document is unlocked.
+
+
+## Knowledge Check
+Check yourself: What does the Track Changes feature do in Word? Answer: Records insertions, deletions, and formatting edits so reviewers can see what was changed. Track Changes records every insertion, deletion, and formatting change with an attribution to the person who made it, so a reviewer can see exactly what was altered and accept or reject each edit individually.

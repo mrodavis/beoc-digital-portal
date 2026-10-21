@@ -1,0 +1,76 @@
+Lists (Bulleted, Numbered & Multilevel)
+
+Module 2: Basic Formatting
+
+Learn how to create, customize, and manage bulleted, numbered, and multilevel lists in Microsoft Word.
+
+By the end of this lesson you can:
+- Choose between a bulleted and a numbered list based on whether order matters
+- Build a multilevel list and promote or demote items with Tab and Shift+Tab
+- Restart or continue numbering when Word guesses wrong
+- Explain why manually typed numbers cause problems that list formatting avoids
+
+
+## The choice between bullets and numbers is a meaning choice
+
+ type: scenario
+ role: You are writing front-desk procedures at Lakeside Medical Associates.
+ text: You document the check-in process as a bulleted list. A new hire reads it verifies insurance before confirming the patient's identity and discloses coverage details to the wrong person. The steps were all correct. Nothing told the reader they had to happen in order.
+ task: Use list type to communicate whether sequence matters — because readers genuinely read it that way.
+
+
+Numbers mean sequence: do this, then this, then this. Bullets mean membership: these items belong to a set, in no particular order. Readers process that distinction automatically, which is exactly why using the wrong one misleads them. Any procedure where doing step three before step two causes a problem must be numbered.
+
+There is also a mechanical reason to use Word's list formatting rather than typing numbers yourself. A real numbered list renumbers itself when you insert or delete an item. A list of hand-typed numbers does not — insert a step in the middle and you must retype everything below it, and sooner or later a document goes out with two step fours. Let Word own the numbering.
+
+
+ type: table
+ caption: Which list type to use
+ columns: 
+  Content
+  List type
+  Reason
+ rows: 
+   Check-in procedure
+   Numbered
+   Order is required; doing them out of sequence causes harm
+   Documents to bring to an appointment
+   Bulleted
+   All are needed; order is irrelevant
+   Policy manual with sections and subsections
+   Multilevel
+   Hierarchy is part of the meaning and cross-references depend on it
+   Ranked priorities
+   Numbered
+   The numbers carry the ranking not just the sequence
+
+
+Inside a list, Tab demotes an item to the next level and Shift+Tab promotes it. This is far faster than the Multilevel List menu, and it works while you are typing, so you never have to break your rhythm to restructure.
+
+
+## Creating a Bulleted List
+Bulleted lists are useful when order does not matter. Select your text, then click the Bullets button in the Paragraph group on the Home tab.
+
+
+## Customizing Bullets
+You can customize bullets using symbols, fonts, or colors by selecting Define New Bullet from the dropdown menu.
+
+
+## Changing Bullet Color
+Bullet colors can be changed independently from text color using the Font option inside Define New Bullet.
+
+
+## Creating a Numbered List
+Numbered lists are used when order matters. Select your text and click the Numbering button in the Paragraph group.
+
+
+## Restarting or Continuing Numbering
+Right-click a numbered list to restart numbering at 1 or continue numbering from a previous list.
+
+
+## Multilevel Lists
+Multilevel lists allow sub-items under main items. Use the Increase Indent and Decrease Indent buttons to change levels.
+
+
+## Knowledge Check
+Check yourself: What type of list should you use when the order of items matters? Answer: Numbered list. Numbers signal sequence, so numbered lists are correct whenever the steps must happen in order. Bullets signal membership in a set, which tells the reader that order does not matter — a genuinely misleading signal on a procedure.

@@ -1,0 +1,54 @@
+Dictation & Voice Features
+
+Module 8: Microsoft 365 and More
+
+Use Word's Dictation feature to type hands-free using your voice, and learn how to use voice commands to edit, format, and punctuate as you speak.
+
+By the end of this lesson you can:
+- Start and stop dictation and dictate punctuation by voice
+- Use voice commands for basic editing
+- Change the dictation language
+- Judge when dictation is appropriate given the setting and the content
+
+
+## Dictation is fast, and it is spoken out loud
+
+ type: scenario
+ role: You are writing up notes at the front desk of Lakeside Medical Associates.
+ text: Dictation would let you produce the summary in a third of the time. The front desk is also within earshot of the waiting room and the summary contains a patient's name and reason for visit.
+ task: Use dictation where it genuinely helps and recognize where speaking aloud is the wrong choice.
+
+
+Dictation (Home > Dictate) converts speech to text using cloud speech recognition, which means it requires an internet connection. Most people speak far faster than they type, so for long-form drafting it is a substantial gain — and for anyone for whom typing is painful or difficult, it is an accessibility tool rather than a convenience.
+
+Punctuation is spoken: say 'period,' 'comma,' 'question mark,' 'new line,' 'new paragraph.' Speak at a natural pace in complete phrases — recognition accuracy is better on flowing speech than on isolated, over-enunciated words.
+
+Note: Two cautions in a clinical setting. First, dictation is audible: never dictate patient information anywhere it can be overheard, which rules out most reception areas. Second, speech recognition makes confident errors, and clinical terms and drug names are exactly where it errs most. Always read dictated text before saving or sending it.
+
+
+## What Is Dictation?
+Dictation converts your spoken words into typed text in Word. It works with a microphone connected to your computer and uses Microsoft's speech recognition service. Dictation is available in both the desktop app and Word for the web.
+
+
+## Starting Dictation
+Click inside your document where you want to start typing, then go to Home → Dictate. The microphone icon turns red and a listening indicator appears. Speak clearly and Word types your words in real time.
+
+
+## Adding Punctuation by Voice
+Speak punctuation marks aloud as you dictate. For example, say 'comma', 'period', 'question mark', or 'new paragraph' and Word will insert them automatically.
+
+
+## Voice Commands for Editing
+You can use voice commands to make edits while dictating. Say 'delete' followed by a word or phrase to remove it, 'undo' to undo the last action, or 'select' followed by a word or phrase to select that text for formatting.
+
+
+## Changing Dictation Language
+Click the dropdown arrow on the Dictate button to select a different spoken language. Word supports dozens of languages and regional accents for dictation.
+
+
+## Stopping Dictation
+Click the Dictate button again to stop dictation. The microphone icon turns back to its normal color.
+
+
+## Knowledge Check
+Check yourself: How do you insert a period (full stop) when using Dictation in Word? Answer: Say the word 'period' while dictating. Punctuation is dictated as spoken commands — say 'period,' 'comma,' 'question mark,' 'new paragraph.' Word converts the spoken command into the mark rather than typing the word.

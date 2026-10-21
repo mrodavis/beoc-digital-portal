@@ -1,0 +1,69 @@
+Table of Contents
+
+Module 7: Advanced Styles & Themes
+
+Learn how to insert an automatic Table of Contents in Word using heading styles, and how to update it as your document changes.
+
+By the end of this lesson you can:
+- Insert an automatic table of contents built from heading styles
+- Update a table of contents after the document changes
+- Explain why heading styles are a prerequisite
+- Navigate a long document using the Navigation pane
+
+
+## The table of contents is the payoff for using styles
+
+ type: scenario
+ role: You are finishing the staff handbook at Lakeside Medical Associates.
+ text: The handbook runs to eighty pages with forty sections and it is revised every quarter. A hand-typed contents list would be wrong within a week of every revision — each edit shifts the page numbers below it.
+ task: Generate a contents list that rebuilds itself from the document's own headings.
+
+
+An automatic table of contents scans the document for paragraphs styled Heading 1, 2, and 3, and builds an entry for each with its current page number. Nothing is typed manually, so nothing can drift out of date — you click Update Table and it is correct again.
+
+This is why the styles lessons come first. If your section titles are merely bold 14-point text, Word has no way to identify them, and the contents list comes back empty. The heading styles are what make a heading a heading as far as Word is concerned.
+
+
+ type: worked-example
+ title: Building a contents list that maintains itself
+ task: Add a working table of contents to an eighty-page handbook and keep it accurate through quarterly revisions.
+ steps: 
+   move: Apply Heading 1 to each main section and Heading 2 to subsections throughout.
+   why: This is the actual work and everything else is one click. Use the Navigation pane as you go — it shows the outline Word can see so a section missing from the pane is a section that will be missing from the contents.
+   move: Place the cursor where the contents belongs then References > Table of Contents > Automatic Table 1.
+   why: Word inserts every heading with its page number. Choosing an automatic table rather than the manual one is what makes it updatable — the manual option inserts placeholder text you would have to maintain yourself.
+   move: After any revision click in the table and press Update Table > Update entire table.
+   why: Page numbers only refreshes the numbers; entire table also picks up renamed added and deleted headings. After a real revision you always want the second option.
+   move: Update once more immediately before printing or exporting to PDF.
+   why: The table does not refresh on its own. A document edited and sent without a final update ships a contents list pointing at the wrong pages which is worse than having none — readers trust it and are sent to the wrong place.
+ result: A contents list that is correct after every revision at the cost of one click.
+ takeaway: Heading styles make the table possible; updating before you export keeps it honest.
+
+
+
+## How an Automatic TOC Works
+Word builds an automatic Table of Contents by reading the heading styles (Heading 1, Heading 2, Heading 3) applied throughout your document. Each heading becomes a TOC entry with a page number. You must apply heading styles before inserting the TOC.
+
+
+## Applying Heading Styles
+Click inside each section title and apply the appropriate heading style from the Home tab. Use Heading 1 for main sections, Heading 2 for subsections, and Heading 3 for sub-subsections.
+
+
+## Inserting a Table of Contents
+Place your cursor at the location where you want the TOC (typically the beginning of the document). Go to References → Table of Contents and choose from the built-in Automatic Table styles.
+
+
+## Navigating the Document Using the TOC
+Hold Ctrl and click any entry in the TOC to jump directly to that section. This works in both editing mode and read-only view.
+
+
+## Updating the Table of Contents
+After editing your document, click anywhere inside the TOC and click Update Table. Choose Update page numbers only to refresh page numbers, or Update entire table to rebuild the TOC with any new headings.
+
+
+## Removing the Table of Contents
+Go to References → Table of Contents → Remove Table of Contents to delete it from the document. This does not remove the heading styles from your text.
+
+
+## Knowledge Check
+Check yourself: What must you do before inserting an automatic Table of Contents? Answer: Apply heading styles (Heading 1, 2, 3) to your section titles. Word builds the table from paragraphs styled as Heading 1, 2, and 3. Without heading styles applied there is nothing for Word to find, and the inserted table comes back empty.

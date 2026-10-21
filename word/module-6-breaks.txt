@@ -1,0 +1,89 @@
+Breaks (Page, Column & Section)
+
+Module 6: Advanced Formatting
+
+Learn how to insert, manage, and delete page breaks, column breaks, and section breaks in Microsoft Word.
+
+By the end of this lesson you can:
+- Insert page, column, and section breaks and explain how they differ
+- Choose the right section break type for a layout change
+- Reveal breaks with Show/Hide to diagnose layout problems
+- Replace repeated Enter presses with a proper page break
+
+
+## The difference between a page break and a section break
+
+ type: scenario
+ role: You are assembling the annual report at Lakeside Medical Associates.
+ text: The report is portrait but the budget table in the middle needs a landscape page. You set orientation to landscape and every page in the document rotates. You undo try again and get the same result.
+ task: Learn which break creates an independent region of the document because orientation applies to sections not pages.
+
+
+A page break simply moves the following content to the next page. Everything stays in the same section, so it keeps the same margins, orientation, headers, and page numbering. It is the right tool for starting a new chapter on a fresh page.
+
+A section break creates a genuinely independent region that can have its own orientation, margins, columns, headers, and page numbering. That is why the landscape budget table needs section breaks before and after it: only then can that one region rotate while the rest of the report stays portrait.
+
+
+ type: table
+ caption: Break types
+ columns: 
+  Break
+  Effect
+  Use for
+ rows: 
+   Page
+   Content continues on the next page
+   Starting a chapter on a new page
+   Column
+   Content continues in the next column
+   Controlling where a column ends in a newsletter
+   Section: Next Page
+   New section starting on a new page
+   A landscape page inside a portrait document
+   Section: Continuous
+   New section on the same page
+   Changing column count partway down a page
+   Section: Even/Odd Page
+   New section on the next even or odd page
+   Chapters that must always start on a right-hand page
+
+
+Note: Never create a page break by pressing Enter repeatedly. Those empty paragraphs stay where they are while the text around them reflows, so adding one sentence earlier in the document pushes your heading to the middle of the next page. Ctrl+Enter inserts a real page break that always starts a new page regardless of what changes above it.
+
+Turn on Show/Hide (¶ on the Home tab, or Ctrl+Shift+8) to see breaks as labeled dotted lines. When a document's layout is misbehaving in a way you cannot explain, this is the first diagnostic — an unexpected section break is one of the most common causes.
+
+
+## Understanding Breaks
+Breaks allow you to control how content flows in your document. You can force text onto a new page, start a new column, or create a new section with different formatting.
+
+
+## Inserting a Page Break
+A page break forces content to begin on the next page. Go to the Insert tab and click Page Break, or press Ctrl + Enter.
+
+
+## Inserting a Section Break
+Section breaks allow different formatting in different parts of the document, such as changing columns, margins, or orientation.
+
+
+## Types of Section Breaks
+Word provides several types of section breaks: Next Page, Continuous, Even Page, and Odd Page. Continuous section breaks are useful when changing formatting without starting a new page.
+
+
+## Column Breaks
+A column break forces text to move to the next column. This is useful when working with multi-column layouts.
+
+
+## Viewing Breaks with Show/Hide
+Breaks are invisible by default. Click the Show/Hide ¶ button on the Home tab to display formatting marks and see where breaks are located.
+
+
+## Deleting a Break
+To delete a break, place your cursor directly before it and press Delete. Removing a section break may change formatting in your document.
+
+
+## Final Result
+After inserting and managing breaks correctly, your document should have clean page transitions and properly formatted sections.
+
+
+## Knowledge Check
+Check yourself: What type of break forces content to start on a new page? Answer: Page break. A page break moves subsequent content to the next page while keeping it in the same section, so margins, orientation, and headers are unchanged. Ctrl+Enter inserts one.

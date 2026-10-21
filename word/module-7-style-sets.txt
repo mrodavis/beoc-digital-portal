@@ -1,0 +1,50 @@
+Style Sets
+
+Module 7: Advanced Styles & Themes
+
+Learn how to switch between Word's built-in Style Sets to instantly change the look and feel of headings and body text across your entire document.
+
+By the end of this lesson you can:
+- Apply a style set to restyle a whole document at once
+- Explain the relationship between style sets, styles, and themes
+- Return to the default style set
+- Save a custom style set for reuse
+
+
+## A coordinated redesign in one click
+
+ type: scenario
+ role: You are preparing a report for the board at Lakeside Medical Associates.
+ text: The content is finished but the document looks like a first draft. You could adjust each style by hand or you could apply a style set and see the whole document restyled coherently in one click — then fine-tune from there.
+ task: Use style sets to reach a professional baseline quickly instead of designing every style from scratch.
+
+
+A style set is a coordinated collection of definitions for the built-in styles — Heading 1 through 3, Normal, Quote, and the rest — designed to look right together. Applying one from Design > Document Formatting changes fonts, sizes, and spacing across the whole document simultaneously.
+
+Style sets only reach text that uses styles. This is where the value of the previous lessons becomes concrete: a document built with real Heading and Normal styles transforms completely, while a document formatted by hand barely changes, because none of its formatting is connected to a style definition.
+
+Note: Style sets and themes overlap but are distinct. A theme (Design > Themes) sets the colors, fonts, and effects available document-wide, including in charts and shapes. A style set decides how the paragraph styles use them — sizes, spacing, and which theme font each style takes. Change the theme for palette; change the style set for typographic treatment.
+
+
+## What Is a Style Set?
+A Style Set is a coordinated collection of heading, body, and paragraph style definitions. Switching Style Sets changes the fonts, sizes, and spacing used by all built-in styles at once — without removing the styles themselves.
+
+
+## Accessing Style Sets
+Go to the Design tab and look at the Document Formatting group. The row of thumbnails at the top represents the available Style Sets. Hover over any thumbnail to preview the effect on your document.
+
+
+## Applying a Style Set
+Click a Style Set thumbnail to apply it. Word updates all heading and body styles throughout the document to match the new set.
+
+
+## Restoring to the Default Style Set
+To return to Word's original default styles, click the first thumbnail (Default) or right-click the Style Set gallery and choose Reset to the Default Style Set.
+
+
+## Saving a Custom Style Set
+After customizing styles, you can save them as a new Style Set. Click the More arrow in the Document Formatting group to expand the gallery, then choose Save as a New Style Set. Name it and click Save.
+
+
+## Knowledge Check
+Check yourself: What does switching a Style Set do to your document? Answer: It changes the fonts, sizes, and spacing of all built-in styles across the entire document. A style set redefines the built-in styles together — fonts, sizes, and spacing for headings, body text, and quotes — so the whole document is restyled coherently in one action. It changes formatting only; content is untouched.

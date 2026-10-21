@@ -1,0 +1,81 @@
+Working with Styles
+
+Module 7: Advanced Styles & Themes
+
+Learn how to apply and manage Word's built-in paragraph and character styles to format documents consistently and efficiently.
+
+By the end of this lesson you can:
+- Apply paragraph and character styles from the Styles gallery
+- Explain the difference between a style and direct formatting
+- Use the Styles pane to see what is applied and clear it
+- Describe the three things heading styles enable beyond appearance
+
+
+## Styles are the single highest-leverage skill in Word
+
+ type: scenario
+ role: You maintain the policy manual at Lakeside Medical Associates.
+ text: The manual has sixty section headings each formatted by hand: select set 14 point bold dark blue. Leadership adopts a new visual identity and headings must become 16 point in a different typeface. Formatted by hand that is sixty repetitions. Formatted with a style it is one change.
+ task: Understand styles well enough that a document-wide formatting change is one action not sixty.
+
+
+Direct formatting applies appearance to the specific text you selected — Word remembers 'this text is bold' and nothing more. A style is a named, saved package of formatting applied by reference: the text is marked as Heading 1, and Heading 1 is defined once. Redefine the style and every paragraph carrying it updates instantly.
+
+The larger point is that heading styles carry meaning, not just looks. Three important features depend on them and work only when they are used properly. An automatic table of contents is built from heading styles. The Navigation pane's document outline comes from heading styles. And screen readers announce heading levels so a blind reader can jump between sections — text that merely looks like a heading provides none of this.
+
+
+ type: table
+ caption: Style types
+ columns: 
+  Type
+  Applies to
+  Example
+ rows: 
+   Paragraph
+   The whole paragraph including spacing and indents
+   Heading 1 Normal Quote
+   Character
+   Only the selected characters
+   Emphasis Strong Book Title
+   Linked
+   Either depending on your selection
+   Most heading styles
+   Table
+   A whole table's borders shading and banding
+   Grid Table 4 Accent 1
+   List
+   The numbering scheme of a multilevel list
+   List Paragraph
+
+
+Note: Formatting a paragraph to look like a heading — bigger, bold, blue — produces something that only looks structural. It will not appear in a table of contents, will not show in the Navigation pane, and will not be announced as a heading by a screen reader. Use the real Heading styles and change how they look, rather than making body text look like headings.
+
+Ctrl+Alt+1, 2, and 3 apply Heading 1, 2, and 3. Ctrl+Shift+N returns a paragraph to Normal. Learning these three keystrokes makes structuring a long document dramatically faster than reaching for the gallery each time.
+
+
+## What Are Styles?
+A style is a saved collection of formatting settings — font, size, color, spacing, and more — that can be applied to text in a single click. Using styles ensures consistent formatting throughout your document and makes updates fast and easy.
+
+
+## The Styles Gallery
+The Styles gallery is located on the Home tab in the Styles group. It displays a row of preset styles such as Normal, Heading 1, Heading 2, Title, and more. Hover over any style to see a live preview before applying it.
+
+
+## Applying a Style
+Click inside the paragraph you want to format (or select specific text for a character style), then click the style name in the gallery. The formatting is applied instantly.
+
+
+## Paragraph vs. Character Styles
+Paragraph styles (marked with a ¶ symbol) apply formatting to an entire paragraph. Character styles (marked with an a symbol) apply formatting only to selected text within a paragraph.
+
+
+## Opening the Styles Pane
+Click the small launcher arrow at the bottom-right corner of the Styles group to open the Styles pane. This gives you access to all available styles, not just those shown in the gallery.
+
+
+## Clearing a Style
+To remove formatting applied by a style, select the text and click Clear All in the Styles pane, or choose Normal from the Styles gallery to reset to the default paragraph style.
+
+
+## Knowledge Check
+Check yourself: What is the main advantage of using Styles in Word? Answer: They let you apply consistent, saved formatting combinations with a single click. A style is a named, saved set of formatting applied by reference. Redefining the style updates every paragraph using it at once — and heading styles additionally drive the table of contents, the Navigation pane, and screen reader navigation.

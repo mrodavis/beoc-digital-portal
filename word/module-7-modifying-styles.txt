@@ -1,0 +1,54 @@
+Modifying Styles
+
+Module 7: Advanced Styles & Themes
+
+Learn how to customize existing Word styles so that formatting updates apply automatically throughout the entire document.
+
+By the end of this lesson you can:
+- Modify a built-in style so the change propagates document-wide
+- Update a style to match selected formatting
+- Create a new custom style
+- Explain the difference between changing this document and changing the template
+
+
+## Change the style, not the sixty paragraphs
+
+ type: scenario
+ role: You are updating the policy manual at Lakeside Medical Associates.
+ text: Every Heading 1 in the manual must become 16 point in the practice's new typeface. The headings already use the Heading 1 style so the work is one dialog rather than sixty selections.
+ task: Modify a style once and watch the whole document follow.
+
+
+There are two routes and they suit different moments. Right-click the style in the gallery and choose Modify to open a dialog where you set the formatting explicitly — best when you know exactly what you want. Or format one paragraph until it looks right, then right-click the style and choose 'Update Heading 1 to Match Selection' — best when you are designing visually and want to lock in what you have arrived at.
+
+Note: The Modify dialog offers 'Only in this document' and 'New documents based on this template.' The first changes this file alone. The second writes the change into the underlying template, so every future document inherits it. Choose the template option deliberately — it is how you make practice-wide standards stick, and also how you accidentally change the look of everything you create from then on.
+
+Keep the number of styles small. A document with six well-defined styles is easy to maintain; one with forty near-identical variants is worse than no styles at all, because nobody can tell which to apply. If you need a variant, ask first whether an existing style should simply be adjusted.
+
+
+## Why Modify Styles?
+Instead of manually reformatting every heading or paragraph, you can modify the underlying style. Every paragraph using that style updates automatically — saving time and ensuring consistency throughout the document.
+
+
+## Update a Style to Match Selection
+Apply manual formatting to one paragraph, then right-click the style name in the gallery and choose Update [Style Name] to Match Selection. All text using that style updates to match.
+
+
+## Modifying a Style with the Modify Dialog
+Right-click a style in the gallery or Styles pane and choose Modify. The Modify Style dialog box gives you complete control over font, paragraph settings, borders, numbering, and more.
+
+
+## Formatting Options in the Modify Dialog
+Inside the Modify Style dialog, use the Format button at the bottom-left to access advanced settings like Font, Paragraph, Tabs, Borders, and Numbering.
+
+
+## Updating Automatically vs. This Document Only
+In the Modify Style dialog you can choose whether to apply the change to this document only or to new documents based on the current template. For most cases, choose Only in this document.
+
+
+## Creating a New Style
+To save a custom combination as a new style, format a paragraph the way you want, then open the Styles pane and click New Style (the first icon at the bottom). Give it a name and set the type to Paragraph or Character.
+
+
+## Knowledge Check
+Check yourself: What happens when you modify a style in Word? Answer: All paragraphs in the document using that style update automatically. Styles are applied by reference, so redefining one updates every paragraph carrying it at the same moment. This is precisely why styles are worth the small effort of learning.

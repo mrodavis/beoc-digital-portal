@@ -1,0 +1,62 @@
+Columns
+
+Module 6: Advanced Formatting
+
+Learn how to create, customize, and remove columns in Microsoft Word, including how to use column breaks and adjust column spacing.
+
+By the end of this lesson you can:
+- Apply a multi-column layout to a whole document or a selection
+- Control where a column ends with a column break
+- Choose a column count and width appropriate to the page
+- Explain why columns are a readability tool
+
+
+## Columns exist to shorten the line
+
+ type: scenario
+ role: You are laying out the patient newsletter at Lakeside Medical Associates.
+ text: Your first draft runs the text full width across the page. Readers report it feels like hard work though they cannot say why. The sentences are fine. The lines are simply too long — the eye keeps losing its place traveling back to the start of the next one.
+ task: Use columns to bring the line length into the range people read comfortably.
+
+
+Typographers generally aim for roughly 50 to 75 characters per line. Beyond that, the return sweep from the end of one line to the start of the next becomes unreliable and readers lose their place. On a letter-size page at 11 point, full-width text runs closer to 100 characters, which is why newsletters and magazines are almost always set in columns.
+
+Apply columns from Layout > Columns. Applied with nothing selected, it affects the whole section; with text selected, Word adds continuous section breaks around the selection so only that part becomes multi-column. This is how a newsletter has a full-width masthead above two-column body text.
+
+A column break (Ctrl+Shift+Enter) pushes the following text to the top of the next column. Use it to stop an article ending with one stranded line, or to make two columns end level at the foot of the page.
+
+Note: Two columns suit letter-size portrait pages. Three is workable for short items such as listings but gets tight for body text — narrow columns force awkward hyphenation and ragged spacing. If a three-column layout looks cramped, the answer is usually two columns or a smaller font, not narrower gutters.
+
+
+## Adding Columns
+Columns allow text to flow from top to bottom in one column, then continue at the top of the next column—similar to newspapers or newsletters.
+
+To add columns, select your text, go to the Layout tab, and click Columns. Then choose Two, Three, or another preset option.
+
+
+## Inserting a Column Break
+A column break forces text to move to the top of the next column immediately.
+
+Place your insertion point where you want the new column to begin. Then go to Layout → Breaks → Column.
+
+
+## Customizing Columns
+To adjust column width or spacing, click Columns and choose More Columns.
+
+From the Columns dialog box, you can change the number of columns, adjust spacing, and add a line between columns.
+
+
+## Removing Columns
+To remove columns, select the text and go to Layout → Columns → One.
+
+
+## Removing a Column Break
+To delete a column break, turn on Show/Hide (¶) to reveal formatting marks. Then place your insertion point before the break and press Delete.
+
+
+## Final Result
+After applying columns and adjusting spacing properly, your newsletter should look clean, balanced, and professionally formatted.
+
+
+## Knowledge Check
+Check yourself: What is a column break used for? Answer: To force text to the top of the next column. A column break forces the following text to the top of the next column. Use it to control where a column ends rather than letting the text break wherever it happens to fall.

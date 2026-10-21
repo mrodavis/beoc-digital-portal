@@ -1,0 +1,56 @@
+Inserting Tables
+
+Module 5: Tables, Charts & Mail Merge
+
+Learn how to insert tables in Microsoft Word, navigate cells, and understand the different methods for creating tables.
+
+By the end of this lesson you can:
+- Insert a table using the grid, the dialog box, or by converting existing text
+- Navigate a table with Tab and Shift+Tab without reaching for the mouse
+- Choose a table over tabs when data has real rows and columns
+- Mark a header row so the table stays readable across pages and for screen readers
+
+
+## Tables are for data, not for layout
+
+ type: scenario
+ role: You maintain the provider schedule at Lakeside Medical Associates.
+ text: You build the weekly schedule using tabs and spaces to line up the columns. It looks correct. Then a provider's name gets one character longer and every row below shifts out of alignment. You spend twenty minutes nudging tab stops that will break again next week.
+ task: Use a real table so alignment is structural and survives editing.
+
+
+Anything with genuine rows and columns belongs in a table. Cells hold their alignment no matter what you type into them, columns resize as a unit, and the structure carries meaning that spaces and tabs cannot. Spaces produce alignment that is accidental — it holds only until the content changes.
+
+There is an accessibility dimension too. A screen reader announces a real table's structure — 'row 3, column 2, Dr. Okafor' — so a blind user can navigate it. Columns faked with tabs are read as one long run of words with no relationships at all.
+
+Note: On any table that might run past one page, select the first row and turn on Table Layout > Repeat Header Rows. The headings then reprint at the top of every page, so page two is not an unlabeled grid of numbers. In Table Properties > Row, also uncheck 'Allow row to break across pages' to stop a single row splitting across a page boundary.
+
+Tab moves to the next cell and Shift+Tab moves back. Pressing Tab in the last cell adds a new row — which is the fastest way to build a table, since you never need to decide the row count in advance. To insert an actual tab character inside a cell, press Ctrl+Tab.
+
+
+## Why Use Tables?
+Tables organize information into rows and columns, making data easier to read and compare. Common uses include schedules, contact lists, comparison charts, and data summaries.
+
+
+## Inserting a Table Using the Grid
+Go to Insert → Table. Move your mouse over the grid to select the number of columns and rows, then click to insert the table.
+
+
+## Inserting a Table Using the Dialog Box
+For precise control, go to Insert → Table → Insert Table. Enter the exact number of columns and rows in the dialog box, then click OK.
+
+
+## Navigating a Table
+Click any cell to position your cursor there. Press Tab to move to the next cell, or Shift + Tab to move to the previous cell. Pressing Tab in the last cell of the last row automatically adds a new row.
+
+
+## Converting Text to a Table
+If you have a list of text separated by tabs or commas, you can convert it to a table. Select the text, go to Insert → Table → Convert Text to Table, choose the separator, and click OK.
+
+
+## The Table Design and Layout Tabs
+When your cursor is inside a table, two contextual tabs appear: Table Design (for styles and borders) and Layout (for rows, columns, alignment, and cell size).
+
+
+## Knowledge Check
+Check yourself: What happens when you press Tab in the very last cell of a table? Answer: Word inserts a new row at the end of the table. Tab in the final cell adds a new row and puts the cursor in its first cell, so you can keep typing without breaking rhythm. This is why you never need to know the row count when you insert a table.
