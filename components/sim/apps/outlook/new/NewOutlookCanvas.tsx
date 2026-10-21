@@ -649,7 +649,8 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
       </div>
 
       {/* Popped-out compose or an opened message */}
-      {doc.compose && doc.compose.inline === false && (
+      {/* A message started outside Mail (Email from a contact) opens in its own window, as in new Outlook. */}
+      {doc.compose && (doc.compose.inline === false || mod !== "mail") && (
         <div className="absolute inset-0 z-[60] flex flex-col bg-black/20 p-6">
           <div className={`flex min-h-0 flex-1 ${card}`}>
             <ComposeNew ctx={ctx} popped />
