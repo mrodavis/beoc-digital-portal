@@ -89,7 +89,7 @@ export const gwMailM8: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Share the Drive file Lobby Repaint Schedule in the space with the message “Here's the repaint schedule.” Give the space members Viewer access.",
-          hint: "Type Here's the repaint schedule. then @Lobby and pick Lobby Repaint Schedule under Files. Press Enter. Chat asks you to select the type of access: choose Viewer and select Send.",
+          hint: "Type Here's the repaint schedule. then @Lobby and pick Lobby Repaint Schedule under Files. Press Enter. Chat asks you to select the type of access: choose the one that lets members view the file but not comment or edit (Viewer), then select Send.",
           steps: [form("chat:s-team", "Message: Here's the repaint schedule.\nFile: Lobby Repaint Schedule\nFile access: Viewer", ["File: Lobby Repaint Schedule", "File access: Viewer"])],
         },
         {
@@ -141,12 +141,12 @@ export const gwMailM8: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Reply to Priya's comment on Tina's deposit (cell D3): “Yes, it cleared this morning.”",
-          hint: "Click cell D3 (it has a yellow corner) to open the comment. Type in the Reply box and press Enter.",
+          hint: "Click cell D3 (it has a comment mark in its corner) to open the comment. Type in the reply box and select Reply (or press Enter).",
           steps: [form("reply:c1", "Yes, it cleared this morning.", ["cleared"])],
         },
         {
           instruction: "Resolve Priya's comment.",
-          hint: "If the comment closed, click cell D3 again to open it. Then select the check mark at the top of the comment (Mark as done and hide discussion).",
+          hint: "The comment is still open on cell D3. Select Resolve, the check mark in the top corner of the comment.",
           steps: [cmd("g.comment.resolve", "c1")],
         },
         {
@@ -208,7 +208,7 @@ export const gwMailM8: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Share the Drive file Lobby Repaint Plan in the space with “Please comment on the plan by Wednesday.” Give the members Commenter access.",
-          hint: "Type the message, then @Lobby and pick Lobby Repaint Plan under Files. Press Enter, choose Commenter, and select Send.",
+          hint: "Type the message, then @Lobby and pick Lobby Repaint Plan under Files. Press Enter. When Chat asks you to select the type of access, choose the one that lets members comment but not edit (Commenter), then select Send.",
           steps: [form("chat:sp2", "Message: Please comment on the plan by Wednesday.\nFile: Lobby Repaint Plan\nFile access: Commenter", ["File: Lobby Repaint Plan", "File access: Commenter"])],
         },
         {

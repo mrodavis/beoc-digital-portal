@@ -63,10 +63,11 @@ export function VersionHistory() {
         <aside className="flex w-[300px] shrink-0 flex-col border-l border-[#dadce0] bg-white" aria-label="Version history list">
           <div className="px-4 pb-2 pt-4">
             <h2 className="mb-2 text-[18px]" style={{ fontFamily: FONT }}>Version history</h2>
-            <select aria-label="Which versions" value={named ? "Named versions" : "All versions"} onChange={(e) => setNamed(e.target.value === "Named versions")} className="h-9 w-full rounded border border-[#747775] px-2 text-[14px]">
-              <option>All versions</option>
-              <option>Named versions</option>
-            </select>
+            {/* support.google.com/docs/answer/190843: "turn on Only show named versions" */}
+            <label className="flex items-center justify-between gap-2 text-[14px] text-[#1f1f1f]">
+              Only show named versions
+              <input type="checkbox" role="switch" aria-label="Only show named versions" checked={named} onChange={(e) => setNamed(e.target.checked)} className="h-[18px] w-[18px] accent-[#0b57d0]" />
+            </label>
           </div>
           <div className="min-h-0 flex-1 overflow-auto py-1">
             {entries.length === 0 && <p className="px-4 py-6 text-center text-[13px] text-[#5f6368]">No named versions yet.</p>}

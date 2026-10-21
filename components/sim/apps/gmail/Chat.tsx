@@ -230,7 +230,9 @@ function Composer({ space }: { space: GmSpace }) {
           width={460}
           footer={<><Btn kind="text" onClick={() => { setPending(null); setStep(null); }}>Cancel</Btn><Btn onClick={() => commit(pending, addMembers, role)} label="Send">Send</Btn></>}
         >
-          <p className="mb-3 text-[14px] text-[#444746]">{pending.needAccess.map((m) => personOf(doc, m).name).join(", ")} {pending.needAccess.length === 1 ? "doesn't" : "don't"} have access to {pending.file}. Give access in this conversation:</p>
+          {/* support.google.com/chat/answer/7651457 verifies the heading and that access granted to a space
+              also covers people who join later; the help page doesn't list the choices, so they use Drive's role names. */}
+          <p className="mb-3 text-[14px] text-[#444746]">{pending.needAccess.map((m) => personOf(doc, m).name).join(", ")} {pending.needAccess.length === 1 ? "doesn't" : "don't"} have access to {pending.file}.{space.kind === "space" ? " If you give access to the space, people who join it later can open the file too." : ""}</p>
           {ROLES.map((r) => (
             <label key={r} className="flex items-center gap-3 py-1 text-[14px]">
               <input type="radio" name="chatAccess" aria-label={r} checked={role === r} onChange={() => setRole(r)} className="accent-[#0b57d0]" /> {r}

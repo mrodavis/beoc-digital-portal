@@ -278,12 +278,18 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
     return () => clearTimeout(t);
   }, [floating]);
 
+  // The meeting window takes focus when it opens (the button that opened it is gone), so its shortcuts work right away.
+  useEffect(() => {
+    const el = root.current;
+    if (el && (!document.activeElement || document.activeElement === document.body)) el.focus({ preventScroll: true });
+  }, []);
+
   // Real Teams meeting shortcuts.
   const live = useRef(m);
   live.current = m;
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      const host = root.current?.closest('[tabindex="-1"]');
+      const host = root.current?.parentElement?.closest('[tabindex="-1"]');
       if (!host || !host.contains(e.target as Node)) return;
       if (!(e.ctrlKey && e.shiftKey)) return;
       const k = e.key.toLowerCase();
@@ -363,7 +369,7 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
   const ppt = (doc.files ?? []).filter((f) => /\.pptx$/i.test(f.name)).slice(0, 2);
 
   return (
-    <div ref={root} className="relative flex h-full flex-col bg-[#1f1f1f] text-white">
+    <div ref={root} tabIndex={-1} className="relative flex h-full flex-col bg-[#1f1f1f] text-white outline-none">
       <div className="flex h-[60px] shrink-0 items-center gap-1 border-b border-black/40 bg-[#292929] px-3">
         <div className="mr-2 flex min-w-0 flex-col">
           <span className="truncate text-[13px] font-semibold">{m.title}</span>

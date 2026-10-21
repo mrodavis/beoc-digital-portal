@@ -1,6 +1,6 @@
 import type { SimDefinition } from "@/types/sim";
 import type { TeamsChat, TeamsDoc, TeamsEvent } from "@/components/sim/apps/teams/types";
-import { PEOPLE, TODAY, cmd, doc, lakeside, select, typeAll } from "./lakeside";
+import { PEOPLE, TODAY, cmd, doc, lakeside, typeAll } from "./lakeside";
 
 /* Module 5: Meetings */
 
@@ -334,7 +334,7 @@ export const teamsModule5Sims: Record<string, SimDefinition[]> = {
         {
           instruction: "From the meeting chat “Privacy Training Refresher,” open the meeting's pre-join screen.",
           hint: "Chat › Privacy Training Refresher › Join (at the top right of the chat).",
-          steps: [select("prejoin:e-priv")],
+          steps: [cmd("meeting.prejoin", "e-priv", "event:e-priv", "Select Join at the top of the Privacy Training Refresher meeting chat.")],
         },
         {
           instruction: "Turn off your camera and your microphone.",

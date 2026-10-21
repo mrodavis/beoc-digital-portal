@@ -98,8 +98,8 @@ export const gwMailM6: Record<string, SimDefinition[]> = {
           steps: [form("send:new", `To: ${P.denise.email}\nSubject: Move-in walkthrough video\nDrive link: Move-in Walkthrough.mp4\nSend: Now\nBody: Here is the walkthrough video.`, [`To: ${P.denise.email}`, "Drive link: Move-in Walkthrough.mp4"])],
         },
         {
-          instruction: "Send Rosa Delgado the Tenant Handbook from Google Drive as a Drive link that she can view but not edit. Subject: “Tenant Handbook”.",
-          hint: "Compose › To: Rosa › Subject › Insert files using Drive (Drive icon) › Tenant Handbook › Insert › Send. When Gmail asks about access, choose that recipients can view, then Send.",
+          instruction: "Send Rosa Delgado the Tenant Handbook from Google Drive as a Drive link. Only the people on the email should be able to open it, and they can view it but not edit. Subject: “Tenant Handbook”.",
+          hint: "Compose › To: Rosa › Subject › Insert files using Drive (Drive icon) › Tenant Handbook › Insert › Send. When Gmail prompts you to change the sharing settings, select More options, choose the email's recipients (not Anyone with the link), keep Viewer, and select Send.",
           steps: [form("send:new", `To: ${P.rosa.email}\nSubject: Tenant Handbook\nDrive link: Tenant Handbook\nDrive access: Viewer\nSend: Now\nBody: Here is our Tenant Handbook.`, [`To: ${P.rosa.email}`, "Drive link: Tenant Handbook", "Drive access: Viewer"])],
         },
       ],

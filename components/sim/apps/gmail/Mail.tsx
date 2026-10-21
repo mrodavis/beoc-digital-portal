@@ -1145,19 +1145,37 @@ function ConfidentialDialog({ current, onClose, onSave }: { current?: string; on
   );
 }
 
+/**
+ * The prompt Gmail shows when recipients can't open an inserted Drive file
+ * (support.google.com/mail/answer/2487407): "Anyone with the link" lets you choose
+ * whether people can view, comment in, or edit; to limit access to the message's
+ * recipients, select More options. The dialog title is an approximation (the help page
+ * doesn't name it), so lessons and hints don't quote it.
+ * Serialized as "Drive access: <role>" (recipients only) or "Drive access: Anyone with the link, <role>".
+ */
 function AccessDialog({ files, onClose, onSend }: { files: string[]; onClose: () => void; onSend: (access: string) => void }) {
-  const [choice, setChoice] = useState("Viewer");
-  const opts: [string, string][] = [["Viewer", "Recipients of this email can view"], ["Commenter", "Recipients of this email can comment"], ["Editor", "Recipients of this email can edit"], ["Don't give access", "Don't give access"]];
+  const [more, setMore] = useState(false);
+  const [who, setWho] = useState<"link" | "recipients">("link");
+  const [role, setRole] = useState("Viewer");
+  const option = (v: "link" | "recipients", label: string) => (
+    <label className="mb-2 flex items-center gap-2 text-[14px]">
+      <input type="radio" name="driveAccess" aria-label={label} checked={who === v} onChange={() => setWho(v)} className="accent-[#0b57d0]" />
+      {label}
+    </label>
+  );
   return (
-    <Modal title="Change sharing settings before sending?" onClose={onClose} width={520} footer={<><Btn kind="text" onClick={onClose}>Cancel</Btn><Btn onClick={() => onSend(choice)}>Send</Btn></>}>
+    <Modal title="Change sharing settings before sending?" onClose={onClose} width={520} footer={<><Btn kind="text" onClick={onClose}>Cancel</Btn><Btn onClick={() => onSend(who === "link" ? `Anyone with the link, ${role}` : role)}>Send</Btn></>}>
       <p className="mb-3 text-[14px] leading-5">The recipients don't have access to {files.length === 1 ? "this Google Drive file" : "these Google Drive files"}:</p>
       <ul className="mb-3 list-disc pl-6 text-[14px]">{files.map((f) => <li key={f}>{f}</li>)}</ul>
-      {opts.map(([v, label]) => (
-        <label key={v} className="mb-1.5 flex items-center gap-2 text-[14px]">
-          <input type="radio" name="driveAccess" aria-label={label} checked={choice === v} onChange={() => setChoice(v)} className="accent-[#0b57d0]" />
-          {label}
-        </label>
-      ))}
+      {more ? option("recipients", "Recipients of this email") : null}
+      {option("link", "Anyone with the link")}
+      <div className="mb-2 ml-6 flex items-center gap-2 text-[14px]">
+        <span className="text-[#444746]">Access</span>
+        <select aria-label="Access" value={role} onChange={(e) => setRole(e.target.value)} className="h-9 rounded border border-[#747775] bg-white px-2">
+          {["Viewer", "Commenter", "Editor"].map((r) => <option key={r}>{r}</option>)}
+        </select>
+      </div>
+      {!more && <Btn kind="text" onClick={() => setMore(true)} label="More options">More options</Btn>}
     </Modal>
   );
 }
@@ -1326,6 +1344,8 @@ function QuickSettings({ onClose }: { onClose: () => void }) {
 function CategoriesDialog({ onClose }: { onClose: () => void }) {
   const g = useGm();
   const [on, setOn] = useState<GmCategory[]>(categoriesOn(g.doc));
+  const [starred, setStarred] = useState(false);
+  // The title is an approximation: the help page says "Click Customize" and "Select one or more categories" but doesn't name the dialog.
   return (
     <Modal title="Select tabs to enable" onClose={onClose} width={420} footer={<><Btn kind="text" onClick={onClose}>Cancel</Btn><Btn onClick={() => { onClose(); g.type("categories", `Categories: ${CATEGORY_ORDER.filter((c) => on.includes(c)).join(", ")}`); }}>Save</Btn></>}>
       {CATEGORY_ORDER.map((c) => (
@@ -1334,7 +1354,11 @@ function CategoriesDialog({ onClose }: { onClose: () => void }) {
           {c}
         </label>
       ))}
-      <p className="mt-2 text-[12px] text-[#5f6368]">Tabs you turn off show their messages in Primary.</p>
+      {/* support.google.com/mail/answer/3055016 names this option; it doesn't change the practice. */}
+      <label className="mt-2 flex h-9 items-center gap-3 border-t border-[#e0e0e0] pt-2 text-[14px]">
+        <input type="checkbox" aria-label="Include starred in Primary" checked={starred} onChange={(e) => setStarred(e.target.checked)} className="h-[18px] w-[18px] accent-[#0b57d0]" />
+        Include starred in Primary
+      </label>
     </Modal>
   );
 }

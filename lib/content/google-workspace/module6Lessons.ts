@@ -96,7 +96,7 @@ export const gwModule6Lessons: Lesson[] = [
             items: [
               "To move a message to the right tab, drag it from the message list onto the tab. A notice appears at the bottom left with Undo in case you dropped it in the wrong place.",
               "To choose which tabs appear, select Settings (gear) at the top right. In Quick settings, under Inbox type, make sure Default is selected, then select Customize.",
-              "Check the tabs you want and select Save. Primary is always on. To turn tabs off completely, choose a different inbox type.",
+              "Select one or more tabs (categories) and select Save at the bottom of the window. To turn tabs off completely, choose a different inbox type.",
             ],
           },
           {
@@ -367,7 +367,7 @@ export const gwModule6Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "To share a file that's already in Google Drive, select Insert files using Drive (the Drive icon), pick the file, and select Insert. A Drive link works for any file in Drive, including Google Docs, Sheets, Slides, and Forms. Sending a Drive file as an attachment works only for files that weren't created in Docs, Sheets, Slides, or Forms. When you send, Gmail checks whether your recipients can open the file. If they can't, it prompts you to change the file's sharing settings first.",
+            text: "To share a file that's already in Google Drive, select Insert files using Drive (the Drive icon), pick the file, and select Insert. A Drive link works for any file in Drive, including Google Docs, Sheets, Slides, and Forms. Sending a Drive file as an attachment works only for files that weren't created in Docs, Sheets, Slides, or Forms. When you send, Gmail checks whether your recipients can open the file. If they can't, it prompts you to change the file's sharing settings first. If you choose Anyone with the link, you pick whether people can view, comment in, or edit the file; to limit access to the people on the email, select More options.",
           },
           {
             type: "table",
@@ -387,7 +387,7 @@ export const gwModule6Lessons: Lesson[] = [
             steps: [
               { move: "Compose a message to Rosa and select Insert files using Drive.", why: "The handbook is a Google Doc, so it can only be sent as a Drive link." },
               { move: "Pick Tenant Handbook and select Insert, then Send.", why: "Gmail checks access when you send." },
-              { move: "When Gmail says Rosa can't open the file, choose that recipients can view it.", why: "Rosa needs to read the handbook, not change it. View access keeps the office's copy safe." },
+              { move: "Gmail prompts you to change the file's sharing settings. Select More options, limit access to the email's recipients, and give view access. Then send.", why: "Rosa needs to read the handbook, not change it. View access for just the people on the email keeps the office's copy safe; Anyone with the link would let anyone who gets the link open it." },
             ],
             result: "Rosa can open and read the current handbook, and only the office can edit it.",
             takeaway: "Share Drive files with the least access the person needs: view to read, comment to suggest, edit only for coworkers who maintain the file.",

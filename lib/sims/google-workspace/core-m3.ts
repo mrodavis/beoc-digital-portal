@@ -288,12 +288,12 @@ export const gwModule3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Reply to Denise's comment with “Suggested one pet instead.”",
-          hint: "Click Denise's comment card in the right margin, type in the Reply box, and press Enter.",
+          hint: "Click Denise's comment card in the right margin, type in the reply box, and click Reply (or press Enter).",
           steps: [{ action: { kind: "type", target: "reply:c1", value: "Suggested one pet instead." } }],
         },
         {
           instruction: "Resolve Denise's comment.",
-          hint: "Click the check mark at the top of Denise's comment card (Mark as done and hide discussion).",
+          hint: "Click Resolve, the check mark in the top corner of Denise's comment card.",
           steps: [{ action: { kind: "command", id: "g.comment.resolve", value: "c1" } }],
         },
         {

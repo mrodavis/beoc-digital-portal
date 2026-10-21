@@ -49,7 +49,8 @@
  *       Subject: …
  *       Attachment: <file name>          a file attached from the computer
  *       Drive link: <file name>          a Drive file inserted as a link (also files over 25 MB)
- *       Drive access: Viewer | Commenter | Editor | Don't give access   (when asked on Send)
+ *       Drive access: Viewer | Commenter | Editor   (when asked on Send: recipients of this email only,
+ *                     under More options) | Anyone with the link, Viewer | … (link sharing)
  *       Confidential: Expires in 1 week | …; No SMS passcode | SMS passcode
  *       Send: Now | Scheduled <Thu, Oct 22, 8:00 AM>
  *       Signature: <signature name>
