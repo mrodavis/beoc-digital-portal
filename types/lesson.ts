@@ -116,6 +116,18 @@ export type ContentBlock =
 
   | {
       /**
+       * A button-style link to another page, e.g. a part of the Typing Lab
+       * ("/typing-lab/tests"). Internal paths use next/link; an external URL
+       * opens in a new tab.
+       */
+      type: "link";
+      href: string;
+      label: string;
+      description?: string;
+    }
+
+  | {
+      /**
        * A hands-on step in the BEOC EHR Simulator (ehr.beocdigital.org):
        * where to go, which role to work as, and — when there is one — the
        * graded simulation the instructor assigns for it. Renders as a launch

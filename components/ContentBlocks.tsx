@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { ContentBlock } from "@/types/lesson";
 import KnowledgeCheck from "./KnowledgeCheck";
 import SimulatorLab from "./SimulatorLab";
@@ -220,6 +221,36 @@ export function Block({ block }: { block: ContentBlock }) {
 
     case "simulator":
       return <SimulatorLab block={block} />;
+
+    case "link": {
+      const external = /^https?:\/\//i.test(block.href);
+      const cls =
+        "group flex items-center gap-4 rounded-xl border-2 border-primary-200 bg-primary-50 p-4 transition-colors hover:border-primary-400 hover:bg-primary-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2";
+      const inner = (
+        <>
+          <span className="flex-1">
+            <span className="block font-semibold text-primary-800 group-hover:text-primary-900">
+              {block.label}
+            </span>
+            {block.description && (
+              <span className="mt-0.5 block text-sm text-gray-700">{block.description}</span>
+            )}
+          </span>
+          <span aria-hidden="true" className="text-xl text-primary-600">
+            ›
+          </span>
+        </>
+      );
+      return external ? (
+        <a href={block.href} target="_blank" rel="noopener noreferrer" className={cls}>
+          {inner}
+        </a>
+      ) : (
+        <Link href={block.href} className={cls}>
+          {inner}
+        </Link>
+      );
+    }
 
     default:
       return null;
