@@ -699,7 +699,7 @@ function FileList({ items, empty, bin, columns = "files" }: { items: OdItem[]; e
       case "Modified By":
         return it.modifiedBy ? (it.modifiedBy === doc.me.email ? doc.me.name : nameOf(doc, it.modifiedBy)) : doc.me.name;
       case "File size":
-        return isFolder(it) ? `${childrenOf(doc, it.shortcutTo ?? it.id).length} items` : it.size ?? "";
+        { const n = childrenOf(doc, it.shortcutTo ?? it.id).length; return isFolder(it) ? `${n} item${n === 1 ? "" : "s"}` : it.size ?? ""; }
       case "Sharing":
         return (
           <span className="flex items-center gap-1.5">

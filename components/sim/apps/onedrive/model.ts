@@ -417,7 +417,7 @@ function dialog(doc: OneDriveDoc, id: string, values: Record<string, SimValue>):
         it.sync = "local";
         it.syncError = undefined;
       }
-      return { doc, ui: { selection: `item:${it.id}` } };
+      return { doc, ui: { selection: "" } };
     }
     case "od.move": {
       const folder = folderTarget(doc, values.folder);

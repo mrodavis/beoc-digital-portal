@@ -109,6 +109,12 @@ export const onedriveModule1Lessons: Lesson[] = [
             ],
             explanation: "Ask who owns the file. If it is your work in progress, it belongs in your OneDrive. If the whole team uses it and it must stay when people change jobs, it belongs in the team's library.",
           },
+          {
+            type: "image",
+            src: `${IMG}/what-is-onedrive/infographic.png`,
+            alt: "OneDrive at a glance: what OneDrive does, where files belong, storage amounts, and the patient information rule",
+            caption: "Quick reference: OneDrive at a glance.",
+          },
         ],
       },
       {
