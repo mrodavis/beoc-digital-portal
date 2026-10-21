@@ -3,8 +3,8 @@
 import { useMemo, useState } from "react";
 import type { TeamsEvent } from "./types";
 import { TIcon } from "./icons";
-import { addDays, allChannels, DEFAULT_TODAY, findEvent, fmtTime, isoToMDY, longDate, mondayOf, parseTime, personName, serializeForm, shortDay } from "./model";
-import { Avatar, IconBtn, PersonAvatar, PrimaryBtn, SecondaryBtn, inputCls, useAccepted, useOutsideClose, useTeams } from "./TeamsShared";
+import { addDays, allChannels, chatTitle, DEFAULT_TODAY, findChannel, findChat, findEvent, fmtTime, isoToMDY, longDate, mondayOf, parseTime, personName, serializeForm, shortDay } from "./model";
+import { Avatar, Field, IconBtn, Modal, PersonAvatar, PrimaryBtn, SecondaryBtn, inputCls, useAccepted, useOutsideClose, useTeams } from "./TeamsShared";
 
 const HOUR_H = 48;
 const pickCls = "w-auto rounded-[4px] border border-[#d1d1d1] border-b-[#616161] bg-white px-2.5 py-1.5 text-[14px] text-[#242424] outline-none focus:border-b-2 focus:border-b-[#5b5fc7]";
@@ -39,9 +39,10 @@ function layoutDay(events: TeamsEvent[]) {
 }
 
 export function CalendarView() {
-  const { doc, go, cmd } = useTeams();
+  const { doc, go, cmd, openMenu } = useTeams();
   const today = doc.today ?? DEFAULT_TODAY;
   const [offset, setOffset] = useState(0);
+  const [joinId, setJoinId] = useState(false);
   const [open, setOpen] = useState<{ id: string; x: number; y: number } | null>(null);
   const monday = addDays(mondayOf(today), offset * 7);
   const days = [0, 1, 2, 3, 4].map((i) => addDays(monday, i));
@@ -54,11 +55,17 @@ export function CalendarView() {
         <TIcon name="calendar" size={20} className="text-[#5b5fc7]" />
         <h1 className="text-[18px] font-bold">Calendar</h1>
         <div className="flex-1" />
-        <button type="button" aria-label="Meet now" onClick={() => cmd("view:calendar", "calendar.meetNow")} className="flex items-center gap-1.5 rounded-[4px] border border-[#d1d1d1] px-3 py-1 text-[13px] font-semibold hover:bg-[#f5f5f5]">
-          <TIcon name="video" size={16} /> Meet now
-        </button>
-        <button type="button" aria-label="New meeting" onClick={() => go({ overlay: "schedule", selection: "schedule" })} className="flex items-center gap-1.5 rounded-[4px] bg-[#5b5fc7] px-3 py-1.5 text-[13px] font-semibold text-white hover:bg-[#4f52b2]">
-          <TIcon name="plus" size={16} /> New meeting
+        <div className="flex items-center rounded-[4px] border border-[#d1d1d1]">
+          <button type="button" aria-label="Meet now" onClick={() => cmd("view:calendar", "calendar.meetNow")} className="flex items-center gap-1.5 rounded-l-[4px] px-3 py-1 text-[13px] font-semibold hover:bg-[#f5f5f5]">
+            <TIcon name="video" size={16} /> Meet now
+          </button>
+          <span className="h-5 w-px bg-[#d1d1d1]" />
+          <button type="button" aria-label="Meet now options" title="Meet now options" onClick={(e) => openMenu(e.currentTarget.getBoundingClientRect(), [{ label: "Meet now", icon: "video", onClick: () => cmd("view:calendar", "calendar.meetNow") }, { label: "Join with an ID", icon: "calendar", onClick: () => setJoinId(true) }], 200)} className="rounded-r-[4px] px-1.5 py-1.5 hover:bg-[#f5f5f5]">
+            <TIcon name="chevronDown" size={12} />
+          </button>
+        </div>
+        <button type="button" aria-label="New event" onClick={() => go({ overlay: "schedule", selection: "schedule", prefill: undefined })} className="flex items-center gap-1.5 rounded-[4px] bg-[#5b5fc7] px-3 py-1.5 text-[13px] font-semibold text-white hover:bg-[#4f52b2]">
+          <TIcon name="plus" size={16} /> New event
         </button>
       </div>
       <div className="flex h-11 shrink-0 items-center gap-2 border-b border-[#e0e0e0] px-5 text-[14px]">
@@ -132,7 +139,44 @@ export function CalendarView() {
         </div>
       </div>
       {open && <EventCard id={open.id} x={open.x} y={open.y} onClose={() => setOpen(null)} />}
+      {joinId && <JoinWithIdDialog onClose={() => setJoinId(false)} />}
     </div>
+  );
+}
+
+function JoinWithIdDialog({ onClose }: { onClose: () => void }) {
+  const { doc, act } = useTeams();
+  const accepted = useAccepted(doc);
+  const [mid, setMid] = useState("");
+  const [pass, setPass] = useState("");
+  const join = () => {
+    const value = serializeForm([
+      ["Meeting ID", mid.trim()],
+      ["Passcode", pass.trim()],
+    ]);
+    accepted(() => act("joinid", { kind: "type", target: "joinid", value }), onClose);
+  };
+  return (
+    <Modal
+      title="Join a meeting with an ID"
+      onClose={onClose}
+      width={400}
+      footer={
+        <>
+          <SecondaryBtn onClick={onClose}>Cancel</SecondaryBtn>
+          <PrimaryBtn disabled={!mid.trim()} onClick={join}>
+            Join meeting
+          </PrimaryBtn>
+        </>
+      }
+    >
+      <Field label="Meeting ID">
+        <input aria-label="Meeting ID" value={mid} onChange={(e) => setMid(e.target.value)} placeholder="Type a meeting ID" className={inputCls} />
+      </Field>
+      <Field label="Meeting passcode">
+        <input aria-label="Meeting passcode" value={pass} onChange={(e) => setPass(e.target.value)} placeholder="Type a meeting passcode" className={inputCls} />
+      </Field>
+    </Modal>
   );
 }
 
@@ -170,6 +214,12 @@ function EventCard({ id, x, y, onClose }: { id: string; x: number; y: number; on
       {ev.channel && (
         <div className="mb-1 flex items-center gap-2 text-[#424242]">
           <TIcon name="teams" size={14} /> {ev.channel}
+        </div>
+      )}
+      {ev.meetingId && (
+        <div className="mb-1 flex items-center gap-2 text-[12px] text-[#424242]">
+          <TIcon name="info" size={14} /> Meeting ID: {ev.meetingId}
+          {ev.passcode ? ` · Passcode: ${ev.passcode}` : ""}
         </div>
       )}
       {ev.online !== false && (
@@ -239,25 +289,34 @@ const TIMES = Array.from({ length: 49 }, (_, i) => fmtTime(7 * 60 + i * 15));
 const REPEATS = ["Does not repeat", "Every weekday (Mon-Fri)", "Daily", "Weekly", "Monthly", "Yearly"];
 
 export function ScheduleForm() {
-  const { doc, go, act } = useTeams();
+  const { doc, ui, go, act } = useTeams();
   const today = doc.today ?? DEFAULT_TODAY;
   const monday = mondayOf(today);
   const dates = [0, 1, 2, 3, 4, 7, 8, 9, 10, 11].map((i) => addDays(monday, i));
   const nowMin = parseTime(doc.now ?? "10:02 AM");
   const startDefault = fmtTime(Math.min(17 * 60, Math.ceil((nowMin + 1) / 30) * 30));
-  const [title, setTitle] = useState("");
-  const [ids, setIds] = useState<string[]>([]);
+  const pre = ui.prefill ?? "";
+  const preChat = pre.startsWith("chat:") ? findChat(doc, pre.slice(5)) : undefined;
+  const preChannel = pre.startsWith("channel:") ? findChannel(doc, pre.slice(8)) : undefined;
+  const [title, setTitle] = useState(preChat?.title ?? "");
+  const [ids, setIds] = useState<string[]>(preChat ? preChat.members.filter((m) => m !== "me") : []);
   const [q, setQ] = useState("");
+  const [optIds, setOptIds] = useState<string[]>([]);
+  const [optQ, setOptQ] = useState("");
+  const [showOpt, setShowOpt] = useState(false);
+  const [online, setOnline] = useState(true);
   const [date, setDate] = useState(today);
   const [start, setStart] = useState(startDefault);
   const [end, setEnd] = useState(fmtTime(parseTime(startDefault) + 30));
   const [repeat, setRepeat] = useState(REPEATS[0]);
-  const [channel, setChannel] = useState("None");
+  const channel = preChannel ? `${preChannel.team.name} > ${preChannel.channel.name}` : "None";
   const [location, setLocation] = useState("");
   const [details, setDetails] = useState("");
   const accepted = useAccepted(doc);
-  const matches = useMemo(() => (q.trim() ? doc.people.filter((p) => !ids.includes(p.id) && p.name.toLowerCase().includes(q.trim().toLowerCase())).slice(0, 6) : []), [q, ids, doc.people]);
-  const channels = ["None", ...allChannels(doc).map((c) => `${c.team.name} > ${c.channel.name}`)];
+  const matches = useMemo(() => (q.trim() ? doc.people.filter((p) => !ids.includes(p.id) && !optIds.includes(p.id) && p.name.toLowerCase().includes(q.trim().toLowerCase())).slice(0, 6) : []), [q, ids, optIds, doc.people]);
+  const optMatches = useMemo(() => (optQ.trim() ? doc.people.filter((p) => !ids.includes(p.id) && !optIds.includes(p.id) && p.name.toLowerCase().includes(optQ.trim().toLowerCase())).slice(0, 6) : []), [optQ, ids, optIds, doc.people]);
+  void allChannels;
+  void chatTitle;
 
   const send = () => {
     const names = ids.map((id) => personName(doc, id)).sort((a, b) => a.localeCompare(b));
@@ -271,9 +330,58 @@ export function ScheduleForm() {
       ["Channel", channel],
       ["Location", location.trim()],
       ["Details", details.trim()],
+      ["Optional", optIds.map((id) => personName(doc, id)).sort((a, b) => a.localeCompare(b)).join("; ")],
+      ["Teams meeting", online ? "On" : "Off"],
     ]);
     accepted(() => act("schedule", { kind: "type", target: "schedule", value }), () => undefined);
   };
+  const peopleBox = (list: string[], setList: (x: string[]) => void, query: string, setQuery: (x: string) => void, found: typeof matches, label: string) => (
+    <div className="relative flex flex-wrap items-center gap-1.5">
+      {list.map((id) => (
+        <span key={id} className="flex items-center gap-1 rounded-full bg-[#ebebeb] py-0.5 pl-0.5 pr-2 text-[13px]">
+          <PersonAvatar id={id} size={20} showPresence={false} />
+          {personName(doc, id)}
+          <button type="button" aria-label={`Remove ${personName(doc, id)}`} onClick={() => setList(list.filter((x) => x !== id))}>
+            <TIcon name="close" size={12} />
+          </button>
+        </span>
+      ))}
+      <input
+        aria-label={label}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && found[0]) {
+            setList([...list, found[0].id]);
+            setQuery("");
+          }
+        }}
+        placeholder={list.length ? "" : label}
+        className="min-w-[160px] flex-1 py-1 text-[14px] outline-none placeholder:text-[#707070]"
+      />
+      {found.length > 0 && (
+        <div className="absolute left-0 top-8 z-30 w-72 rounded-md border border-[#e0e0e0] bg-white py-1 shadow-lg">
+          {found.map((p) => (
+            <button
+              key={p.id}
+              type="button"
+              onClick={() => {
+                setList([...list, p.id]);
+                setQuery("");
+              }}
+              className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-[13px] hover:bg-[#f5f5f5]"
+            >
+              <PersonAvatar id={p.id} size={28} />
+              <span className="flex flex-col">
+                <span>{p.name}</span>
+                <span className="text-[11px] text-[#616161]">{p.title}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
+  );
 
   const row = (icon: string, children: React.ReactNode) => (
     <div className="flex items-start gap-4 border-b border-[#f0f0f0] py-2.5">
@@ -285,72 +393,36 @@ export function ScheduleForm() {
   );
 
   return (
-    <div className="absolute inset-0 z-[70] flex flex-col bg-white" role="dialog" aria-label="New meeting">
+    <div className="absolute inset-0 z-[70] flex flex-col bg-white" role="dialog" aria-label="New event">
       <div className="flex h-14 shrink-0 items-center gap-3 border-b border-[#e0e0e0] px-6">
         <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[#e8ebfa] text-[#5b5fc7]">
           <TIcon name="calendar" size={18} />
         </span>
-        <h1 className="text-[18px] font-bold">New meeting</h1>
+        <h1 className="text-[18px] font-bold">New event</h1>
         <span className="ml-4 border-b-[3px] border-[#5b5fc7] pb-[14px] pt-[17px] text-[14px] font-semibold">Details</span>
         <span className="pb-[14px] pt-[17px] text-[14px] text-[#616161]">Scheduling Assistant</span>
         <div className="flex-1" />
         <PrimaryBtn onClick={send} disabled={!title.trim()}>
-          Send
+          {ids.length || optIds.length || preChannel ? "Send" : "Save"}
         </PrimaryBtn>
-        <SecondaryBtn onClick={() => go({ overlay: null, selection: "view:calendar" })}>Close</SecondaryBtn>
+        <SecondaryBtn onClick={() => go({ overlay: null, selection: "view:calendar", prefill: undefined })}>Close</SecondaryBtn>
       </div>
       <div className="min-h-0 flex-1 overflow-auto px-6 py-2">
         <div className="max-w-[760px]">
           {row(
             "edit",
-            <input aria-label="Add title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Add title" className="w-full border-b border-transparent py-1 text-[18px] font-semibold outline-none placeholder:font-normal placeholder:text-[#707070] focus:border-[#5b5fc7]" />,
+            <input aria-label="Add a title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Add a title" className="w-full border-b border-transparent py-1 text-[18px] font-semibold outline-none placeholder:font-normal placeholder:text-[#707070] focus:border-[#5b5fc7]" />,
           )}
           {row(
             "addPeople",
-            <div className="relative flex flex-wrap items-center gap-1.5">
-              {ids.map((id) => (
-                <span key={id} className="flex items-center gap-1 rounded-full bg-[#ebebeb] py-0.5 pl-0.5 pr-2 text-[13px]">
-                  <PersonAvatar id={id} size={20} showPresence={false} />
-                  {personName(doc, id)}
-                  <button type="button" aria-label={`Remove ${personName(doc, id)}`} onClick={() => setIds(ids.filter((x) => x !== id))}>
-                    <TIcon name="close" size={12} />
-                  </button>
-                </span>
-              ))}
-              <input
-                aria-label="Enter name or email"
-                value={q}
-                onChange={(e) => setQ(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && matches[0]) {
-                    setIds([...ids, matches[0].id]);
-                    setQ("");
-                  }
-                }}
-                placeholder={ids.length ? "" : "Enter name or email"}
-                className="min-w-[160px] flex-1 py-1 text-[14px] outline-none placeholder:text-[#707070]"
-              />
-              <span className="text-[13px] text-[#616161]">Optional</span>
-              {matches.length > 0 && (
-                <div className="absolute left-0 top-8 z-30 w-72 rounded-md border border-[#e0e0e0] bg-white py-1 shadow-lg">
-                  {matches.map((p) => (
-                    <button
-                      key={p.id}
-                      type="button"
-                      onClick={() => {
-                        setIds([...ids, p.id]);
-                        setQ("");
-                      }}
-                      className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-[13px] hover:bg-[#f5f5f5]"
-                    >
-                      <PersonAvatar id={p.id} size={28} />
-                      <span className="flex flex-col">
-                        <span>{p.name}</span>
-                        <span className="text-[11px] text-[#616161]">{p.title}</span>
-                      </span>
-                    </button>
-                  ))}
-                </div>
+            <div>
+              {peopleBox(ids, setIds, q, setQ, matches, "Invite required attendees")}
+              {showOpt ? (
+                <div className="mt-2 border-t border-[#f0f0f0] pt-2">{peopleBox(optIds, setOptIds, optQ, setOptQ, optMatches, "Invite optional attendees")}</div>
+              ) : (
+                <button type="button" aria-label="Response options" onClick={() => setShowOpt(true)} className="mt-1 text-[12px] font-semibold text-[#5b5fc7] hover:underline">
+                  Response options: Add optional attendees
+                </button>
               )}
             </div>,
           )}
@@ -396,16 +468,13 @@ export function ScheduleForm() {
               ))}
             </select>,
           )}
-          {row(
-            "teams",
-            <select aria-label="Add channel" value={channel} onChange={(e) => setChannel(e.target.value)} className={pickCls}>
-              {channels.map((c) => (
-                <option key={c} value={c}>
-                  {c === "None" ? "Add channel" : c}
-                </option>
-              ))}
-            </select>,
-          )}
+          {preChannel &&
+            row(
+              "teams",
+              <div className="py-1 text-[14px]" aria-label="Channel">
+                {channel}
+              </div>,
+            )}
           {row("location", <input aria-label="Add location" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Add location" className="w-full py-1 text-[14px] outline-none placeholder:text-[#707070]" />)}
           {row(
             "note",
@@ -417,14 +486,14 @@ export function ScheduleForm() {
                 <TIcon name="bullets" size={14} />
                 <TIcon name="numbers" size={14} />
               </div>
-              <textarea aria-label="Type details for this new meeting" value={details} onChange={(e) => setDetails(e.target.value)} placeholder="Type details for this new meeting" rows={6} className="w-full resize-none px-3 py-2 text-[14px] outline-none placeholder:text-[#707070]" />
+              <textarea aria-label="Add details" value={details} onChange={(e) => setDetails(e.target.value)} placeholder="Add details for this event, such as an agenda" rows={6} className="w-full resize-none px-3 py-2 text-[14px] outline-none placeholder:text-[#707070]" />
             </div>,
           )}
           <div className="flex items-center gap-2 py-3 text-[13px] text-[#424242]">
-            <span className="flex h-5 w-9 items-center rounded-full bg-[#5b5fc7] px-0.5">
-              <span className="ml-auto h-4 w-4 rounded-full bg-white" />
-            </span>
-            Online meeting (Microsoft Teams)
+            <button type="button" role="switch" aria-checked={online} aria-label="Teams meeting" onClick={() => setOnline((x) => !x)} className={`flex h-5 w-9 items-center rounded-full px-0.5 ${online ? "bg-[#5b5fc7]" : "border border-[#616161] bg-white"}`}>
+              <span className={`h-4 w-4 rounded-full ${online ? "ml-auto bg-white" : "bg-[#616161]"}`} />
+            </button>
+            Teams meeting
           </div>
         </div>
       </div>

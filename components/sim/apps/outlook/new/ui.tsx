@@ -192,7 +192,7 @@ export function FButton({ children, onClick, primary, disabled, ok, ariaLabel, c
   );
 }
 
-export function Switch({ on, onChange, label, f }: { on: boolean; onChange: (v: boolean) => void; label: string; f?: string }) {
+export function Switch({ on, onChange, label, f, c }: { on: boolean; onChange: (v: boolean) => void; label: string; f?: string; c?: string }) {
   return (
     <label className="inline-flex cursor-pointer items-center gap-2 text-[13px]">
       <button
@@ -201,6 +201,7 @@ export function Switch({ on, onChange, label, f }: { on: boolean; onChange: (v: 
         aria-checked={on}
         aria-label={label}
         data-f={f}
+        data-c={c}
         onClick={() => onChange(!on)}
         className={`relative h-5 w-10 rounded-full border ${on ? "border-[#0f6cbd] bg-[#0f6cbd]" : "border-gray-500 bg-white"}`}
       >

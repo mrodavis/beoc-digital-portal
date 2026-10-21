@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import type { TeamsFile } from "./types";
 import { FileIcon, FolderIcon, TIcon } from "./icons";
 import { findChannel, findFile, personName, serializeForm } from "./model";
-import { Field, Modal, PersonAvatar, PrimaryBtn, SecondaryBtn, inputCls, useAccepted, useTeams } from "./TeamsShared";
+import { Field, Modal, PersonAvatar, PrimaryBtn, RichText, SecondaryBtn, inputCls, useAccepted, useTeams } from "./TeamsShared";
 
 /* ------------------------------------------------------------------ */
 /* Pickers and dialogs                                                 */
@@ -236,25 +236,103 @@ function MoveDialog({ file, onClose }: { file: TeamsFile; onClose: () => void })
 }
 
 export function FileViewer() {
-  const { doc, cmd } = useTeams();
+  const { doc, act, cmd, openMenu } = useTeams();
   const id = doc.flags?.viewing as string | undefined;
   const f = id ? findFile(doc, id) : undefined;
+  const [comments, setComments] = useState(false);
+  const [text, setText] = useState("");
+  const accepted = useAccepted(doc);
   if (!f) return null;
+  const office = /\.(docx|xlsx|pptx)$/i.test(f.name);
+  const appName = /\.xlsx$/i.test(f.name) ? "Excel" : /\.pptx$/i.test(f.name) ? "PowerPoint" : "Word";
+  const post = () => text.trim() && accepted(() => act(`comment:${f.id}`, { kind: "type", target: `comment:${f.id}`, value: text.trim() }), () => setText(""));
   return (
     <div className="absolute inset-0 z-[75] flex flex-col bg-[#f5f5f5]" role="dialog" aria-label={f.name}>
       <div className="flex h-12 items-center gap-3 border-b border-[#e0e0e0] bg-white px-4">
         <FileIcon name={f.name} size={22} />
         <span className="flex-1 truncate font-semibold">{f.name}</span>
+        {(f.editors ?? []).length > 0 && (
+          <span className="flex items-center gap-1" aria-label={`Also editing: ${(f.editors ?? []).map((e) => personName(doc, e)).join(", ")}`} title={`Also editing: ${(f.editors ?? []).map((e) => personName(doc, e)).join(", ")}`}>
+            {(f.editors ?? []).map((e) => (
+              <span key={e} className="rounded-full ring-2 ring-[#5b5fc7]">
+                <PersonAvatar id={e} size={26} showPresence={false} />
+              </span>
+            ))}
+          </span>
+        )}
         <span className="text-[12px] text-[#616161]">Edited {f.modified ?? ""}</span>
+        {office && (
+          <>
+            <button type="button" aria-label="Comments" aria-pressed={comments} onClick={() => setComments((x) => !x)} className={`flex items-center gap-1 rounded-[4px] border px-3 py-1 text-[13px] font-semibold ${comments ? "border-[#5b5fc7] bg-[#e8ebfa] text-[#5b5fc7]" : "border-[#d1d1d1] hover:bg-[#f5f5f5]"}`}>
+              <TIcon name="chat" size={14} /> Comments
+            </button>
+            <button
+              type="button"
+              aria-label="Open in"
+              onClick={(e) =>
+                openMenu(
+                  e.currentTarget.getBoundingClientRect(),
+                  [
+                    { label: `Open in ${appName} desktop app`, icon: "popout", onClick: () => cmd(`file:${f.id}`, "files.openIn", "Desktop app") },
+                    { label: "Open in browser", icon: "globe", onClick: () => cmd(`file:${f.id}`, "files.openIn", "Browser") },
+                  ],
+                  240,
+                )
+              }
+              className="flex items-center gap-1 rounded-[4px] border border-[#d1d1d1] px-3 py-1 text-[13px] font-semibold hover:bg-[#f5f5f5]"
+            >
+              Open <TIcon name="chevronDown" size={12} />
+            </button>
+          </>
+        )}
         <button type="button" aria-label="Close" onClick={() => cmd(`file:${f.id}`, "files.close")} className="flex items-center gap-1 rounded-[4px] border border-[#d1d1d1] px-3 py-1 text-[13px] font-semibold hover:bg-[#f5f5f5]">
           Close
         </button>
       </div>
-      <div className="flex flex-1 justify-center overflow-auto p-6">
-        <div className="min-h-[420px] w-full max-w-[640px] bg-white p-10 text-[14px] leading-relaxed shadow">
-          <h2 className="mb-4 text-[20px] font-semibold">{f.name.replace(/\.[^.]+$/, "")}</h2>
-          <p className="whitespace-pre-line text-[#424242]">{f.preview ?? "Preview of this file."}</p>
+      <div className="flex min-h-0 flex-1">
+        <div className="flex flex-1 justify-center overflow-auto p-6">
+          <div className="min-h-[420px] w-full max-w-[640px] bg-white p-10 text-[14px] leading-relaxed shadow">
+            <h2 className="mb-4 text-[20px] font-semibold">{f.name.replace(/\.[^.]+$/, "")}</h2>
+            <p className="whitespace-pre-line text-[#424242]">{f.preview ?? "Preview of this file."}</p>
+          </div>
         </div>
+        {comments && (
+          <div className="flex w-[300px] shrink-0 flex-col border-l border-[#e0e0e0] bg-white" aria-label="Comments pane">
+            <div className="px-4 py-3 text-[14px] font-semibold">Comments</div>
+            <div className="min-h-0 flex-1 space-y-2 overflow-auto px-4">
+              {(f.comments ?? []).map((c, i) => (
+                <div key={i} className="rounded-md border border-[#e0e0e0] p-2 text-[13px]">
+                  <div className="mb-0.5 flex items-center gap-1.5 text-[12px] font-semibold">
+                    <PersonAvatar id={c.from} size={18} showPresence={false} /> {personName(doc, c.from)}
+                  </div>
+                  <RichText text={c.text} />
+                </div>
+              ))}
+              {!(f.comments ?? []).length && <p className="text-[12px] text-[#616161]">No comments yet.</p>}
+            </div>
+            <div className="border-t border-[#ebebeb] p-3">
+              <textarea
+                aria-label="Add a comment"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    post();
+                  }
+                }}
+                rows={2}
+                placeholder="Add a comment. Use @ to mention someone."
+                className={`${inputCls} resize-none`}
+              />
+              <div className="mt-2 flex justify-end">
+                <PrimaryBtn disabled={!text.trim()} onClick={post}>
+                  Post
+                </PrimaryBtn>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -287,9 +365,32 @@ export function ChannelFiles({ channelId }: { channelId: string }) {
   const ctx = useTeams();
   const { doc, cmd, openMenu } = ctx;
   const [upload, setUpload] = useState(false);
+  const [share, setShare] = useState<TeamsFile | null>(null);
+  const [sub, setSub] = useState<"Files" | "Links">("Files");
   const files = (doc.files ?? []).filter((f) => f.folder === `ch:${channelId}`).sort((a, b) => Number(Boolean(b.pinned)) - Number(Boolean(a.pinned)) || a.name.localeCompare(b.name));
+  const links = (findChannel(doc, channelId)?.channel.posts ?? []).flatMap((p) => [p, ...(p.replies ?? [])]).flatMap((m) => (m.text.match(/https?:\/\/\S+/g) ?? []).map((u) => ({ u, from: m.from })));
   return (
     <div className="relative flex min-h-0 flex-1 flex-col bg-white">
+      <div className="flex gap-2 px-5 pt-3">
+        {(["Files", "Links"] as const).map((t) => (
+          <button key={t} type="button" aria-pressed={sub === t} onClick={() => setSub(t)} className={`rounded-full border px-3 py-0.5 text-[12px] ${sub === t ? "border-[#5b5fc7] bg-[#e8ebfa] font-semibold text-[#5b5fc7]" : "border-[#d1d1d1]"}`}>
+            {t}
+          </button>
+        ))}
+      </div>
+      {sub === "Links" ? (
+        <div className="min-h-0 flex-1 overflow-auto px-5 py-3 text-[13px]">
+          {links.map((l, i) => (
+            <div key={i} className="flex items-center gap-2 border-b border-[#f5f5f5] py-2">
+              <TIcon name="link" size={16} className="text-[#5b5fc7]" />
+              <span className="flex-1 truncate">{l.u}</span>
+              <span className="text-[#616161]">{personName(doc, l.from)}</span>
+            </div>
+          ))}
+          {!links.length && <div className="py-10 text-center text-[#616161]">Links shared in this channel appear here.</div>}
+        </div>
+      ) : (
+      <>
       <div className="flex h-11 shrink-0 items-center gap-1 border-b border-[#ebebeb] px-5 text-[13px]">
         <button type="button" aria-label="New" disabled className="flex items-center gap-1 rounded px-2 py-1 text-[#616161]">
           <TIcon name="plus" size={16} /> New <TIcon name="chevronDown" size={12} />
@@ -302,6 +403,9 @@ export function ChannelFiles({ channelId }: { channelId: string }) {
         </span>
         <div className="flex-1" />
         <span className="text-[12px] text-[#616161]">Documents › {findChannelName(doc, channelId)}</span>
+        <button type="button" aria-label="Open in SharePoint" onClick={() => cmd(`files:${channelId}`, "files.openIn", "SharePoint")} className="ml-2 flex items-center gap-1 rounded px-2 py-1 text-[#424242] hover:bg-[#f5f5f5]">
+          <TIcon name="globe" size={14} /> Open in SharePoint
+        </button>
       </div>
       <div className="min-h-0 flex-1 overflow-auto px-5">
         <div className="flex border-b border-[#ebebeb] py-2 text-[12px] text-[#616161]">
@@ -312,7 +416,7 @@ export function ChannelFiles({ channelId }: { channelId: string }) {
           <span className="w-8" />
         </div>
         {files.map((f) => (
-          <div key={f.id} className="group flex items-center border-b border-[#f5f5f5] py-2 text-[13px] hover:bg-[#fafafa]" onContextMenu={(e) => { e.preventDefault(); openMenu({ clientX: e.clientX, clientY: e.clientY }, fileMenuItems(ctx, f, { channel: true })); }}>
+          <div key={f.id} className="group flex items-center border-b border-[#f5f5f5] py-2 text-[13px] hover:bg-[#fafafa]" onContextMenu={(e) => { e.preventDefault(); openMenu({ clientX: e.clientX, clientY: e.clientY }, fileMenuItems(ctx, f, { channel: true, onShare: () => setShare(f) })); }}>
             <span className="w-10">
               <FileIcon name={f.name} size={22} />
             </span>
@@ -323,7 +427,7 @@ export function ChannelFiles({ channelId }: { channelId: string }) {
             <span className="w-32 text-[#616161]">{f.modified ?? ""}</span>
             <span className="w-40 truncate text-[#616161]">{f.modifiedBy ?? ""}</span>
             <span className="w-8">
-              <button type="button" aria-label={`More options for ${f.name}`} title="More options" onClick={(e) => openMenu(e.currentTarget.getBoundingClientRect(), fileMenuItems(ctx, f, { channel: true }))} className="invisible rounded p-0.5 text-[#424242] hover:bg-[#ebebeb] group-hover:visible">
+              <button type="button" aria-label={`More options for ${f.name}`} title="More options" onClick={(e) => openMenu(e.currentTarget.getBoundingClientRect(), fileMenuItems(ctx, f, { channel: true, onShare: () => setShare(f) }))} className="invisible rounded p-0.5 text-[#424242] hover:bg-[#ebebeb] group-hover:visible">
                 <TIcon name="more" size={16} />
               </button>
             </span>
@@ -331,6 +435,8 @@ export function ChannelFiles({ channelId }: { channelId: string }) {
         ))}
         {!files.length && <div className="py-10 text-center text-[13px] text-[#616161]">No files yet. Upload files to share them with the team.</div>}
       </div>
+      </>
+      )}
       {upload && (
         <UploadPicker
           onClose={() => setUpload(false)}
@@ -340,6 +446,7 @@ export function ChannelFiles({ channelId }: { channelId: string }) {
           }}
         />
       )}
+      {share && <ShareDialog file={share} onClose={() => setShare(null)} />}
     </div>
   );
 }

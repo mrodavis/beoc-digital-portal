@@ -250,10 +250,12 @@ function ToolBtn({ icon, label, onClick, active, danger, off }: { icon: string; 
 }
 
 function InMeeting({ m }: { m: TeamsMeeting }) {
-  const { doc, cmd, openMenu } = useTeams();
+  const { doc, cmd, act, openMenu } = useTeams();
   const key = `meeting:${m.id}`;
-  const [panel, setPanel] = useState<"chat" | "people" | "effects" | "devices" | null>(null);
+  const [panel, setPanel] = useState<"chat" | "people" | "effects" | "devices" | "notes" | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
+  const [confirmRec, setConfirmRec] = useState(false);
+  const [note, setNote] = useState("");
   const [bgDraft, setBgDraft] = useState(m.background);
   const [floating, setFloating] = useState<{ k: number; em: string } | null>(null);
   const timer = useTimer();
@@ -306,14 +308,16 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
   const moreMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     const items: MenuEntry[] = [
       { heading: true, label: "Record and transcribe" },
-      m.recording ? { label: "Stop recording", icon: "record", onClick: () => cmd(key, "meeting.record", "stop") } : { label: "Start recording", icon: "record", onClick: () => cmd(key, "meeting.record", "start") },
+      m.recording ? { label: "Stop recording", icon: "record", onClick: () => cmd(key, "meeting.record", "stop") } : { label: "Start recording", icon: "record", onClick: () => setConfirmRec(true) },
       m.transcribing ? { label: "Stop transcription", icon: "note", onClick: () => cmd(key, "meeting.transcribe", "stop") } : { label: "Start transcription", icon: "note", onClick: () => cmd(key, "meeting.transcribe", "start") },
       { separator: true },
       { heading: true, label: "Language and speech" },
-      m.captions ? { label: "Turn off live captions", icon: "cc", onClick: () => cmd(key, "meeting.captions", "off") } : { label: "Turn on live captions", icon: "cc", onClick: () => cmd(key, "meeting.captions", "on") },
+      m.captions ? { label: "Hide live captions", icon: "cc", onClick: () => cmd(key, "meeting.captions", "off") } : { label: "Show live captions", icon: "cc", onClick: () => cmd(key, "meeting.captions", "on") },
       { separator: true },
       { label: "Video effects and settings", icon: "effects", onClick: () => { setBgDraft(m.background); panelOpen("effects"); } },
       { label: "Audio settings", icon: "speaker", onClick: () => panelOpen("devices") },
+      ...(m.organizer ? [{ label: "Rooms", icon: "rooms", disabled: true }] : []),
+      { label: "Turn off incoming video", icon: "videoOff", disabled: true },
       { label: "Meeting info", icon: "info", disabled: true },
     ];
     openMenu(e.currentTarget.getBoundingClientRect(), items, 240);
@@ -334,7 +338,7 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
   const viewMenu = (e: React.MouseEvent<HTMLButtonElement>) =>
     openMenu(
       e.currentTarget.getBoundingClientRect(),
-      ["Gallery", "Speaker", "Together mode", "Focus on content"].map((v) => ({ label: v, checked: (m.view ?? "Gallery") === v, onClick: () => cmd(key, "meeting.view", v) })),
+      ["Gallery", "Large gallery"].map((v) => ({ label: v, checked: (m.view ?? "Gallery") === v, onClick: () => cmd(key, "meeting.view", v) })),
       200,
     );
 
@@ -355,7 +359,7 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
   const ppt = (doc.files ?? []).filter((f) => /\.pptx$/i.test(f.name)).slice(0, 2);
 
   return (
-    <div ref={root} className="flex h-full flex-col bg-[#1f1f1f] text-white">
+    <div ref={root} className="relative flex h-full flex-col bg-[#1f1f1f] text-white">
       <div className="flex h-[60px] shrink-0 items-center gap-1 border-b border-black/40 bg-[#292929] px-3">
         <div className="mr-2 flex min-w-0 flex-col">
           <span className="truncate text-[13px] font-semibold">{m.title}</span>
@@ -370,6 +374,7 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
         <ToolBtn icon="hand" label={m.hand ? "Lower" : "Raise"} active={m.hand} onClick={() => cmd(key, "meeting.raiseHand", m.hand ? "lower" : "raise")} />
         <ToolBtn icon="react" label="React" onClick={reactMenu} />
         <ToolBtn icon="view" label="View" onClick={viewMenu} />
+        <ToolBtn icon="note" label="Notes" active={panel === "notes"} onClick={() => panelOpen("notes")} />
         <ToolBtn icon="more" label="More" onClick={moreMenu} />
         <span className="mx-1 h-8 w-px bg-white/20" />
         <ToolBtn icon={m.camera ? "video" : "videoOff"} label="Camera" off={!m.camera} onClick={() => cmd(key, "av.camera", m.camera ? "off" : "on")} />
@@ -495,7 +500,7 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
         {panel && (
           <div className="flex w-[320px] shrink-0 flex-col border-l border-black/40 bg-[#292929]">
             <div className="flex h-12 items-center justify-between px-4">
-              <span className="text-[15px] font-semibold">{panel === "chat" ? "Meeting chat" : panel === "people" ? "Participants" : panel === "effects" ? "Video effects" : "Audio settings"}</span>
+              <span className="text-[15px] font-semibold">{panel === "chat" ? "Meeting chat" : panel === "people" ? "Participants" : panel === "effects" ? "Video effects" : panel === "notes" ? "Notes" : "Audio settings"}</span>
               <button type="button" aria-label="Close" onClick={() => panelOpen(panel)} className="rounded p-1 hover:bg-white/10">
                 <TIcon name="close" size={16} />
               </button>
@@ -523,6 +528,33 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
                   <Composer target={`meetingchat:${m.id}`} placeholder="Type a message" dark />
                 </div>
               </>
+            )}
+            {panel === "notes" && (
+              <div className="flex min-h-0 flex-1 flex-col px-4 pb-3 text-[13px]">
+                <p className="mb-2 text-[12px] text-[#adadad]">Meeting notes are shared with everyone invited and stay with the meeting after it ends.</p>
+                <div className="min-h-0 flex-1 space-y-1.5 overflow-auto">
+                  {(m.notes ?? []).map((n, i) => (
+                    <div key={i} className="rounded bg-[#3d3d3d] px-2 py-1.5">• {n}</div>
+                  ))}
+                </div>
+                <textarea
+                  aria-label="Add a note"
+                  value={note}
+                  onChange={(e) => setNote(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      if (note.trim()) {
+                        act(`notes:${m.id}`, { kind: "type", target: `notes:${m.id}`, value: note.trim() });
+                        setNote("");
+                      }
+                    }
+                  }}
+                  rows={2}
+                  placeholder="Add a note and press Enter"
+                  className="mt-2 resize-none rounded border border-[#5c5c5c] bg-[#1f1f1f] px-2 py-1.5 text-white outline-none placeholder:text-[#adadad]"
+                />
+              </div>
             )}
             {panel === "people" && (
               <div className="min-h-0 flex-1 overflow-auto px-4 pb-3 text-[13px]">
@@ -568,13 +600,41 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
                       <Avatar name={t.id === "me" ? doc.me.name : personName(doc, t.id)} size={28} />
                       <span className="min-w-0 flex-1 truncate">
                         {nm}
-                        {(t.id === "me" ? m.organizer : findEvent(doc, m.id)?.organizer === t.id) && <span className="block text-[11px] text-[#adadad]">Organizer</span>}
+                        {(t.id === "me" ? m.organizer : findEvent(doc, m.id)?.organizer === t.id) ? (
+                          <span className="block text-[11px] text-[#adadad]">Organizer</span>
+                        ) : (
+                          t.id !== "me" && findEvent(doc, m.id) && <span className="block text-[11px] text-[#adadad]">{(t as { role?: string }).role ?? "Presenter"}</span>
+                        )}
                       </span>
                       {t.hand && <TIcon name="hand" size={14} className="text-[#ffaa44]" />}
                       <TIcon name={t.muted ? "micOff" : "mic"} size={14} className={t.muted ? "text-[#adadad]" : "text-white"} />
                       {m.organizer && t.id !== "me" && !t.muted && (
                         <button type="button" aria-label={`Mute ${personName(doc, t.id)}`} title="Mute participant" onClick={() => cmd(key, "meeting.mutePerson", t.id)} className="rounded px-1.5 py-0.5 text-[11px] text-[#a6a8ff] hover:bg-white/10">
                           Mute
+                        </button>
+                      )}
+                      {m.organizer && t.id !== "me" && (
+                        <button
+                          type="button"
+                          aria-label={`More options for ${personName(doc, t.id)}`}
+                          title="More options"
+                          onClick={(e) => {
+                            const role = (t as { role?: string }).role ?? "Presenter";
+                            openMenu(
+                              e.currentTarget.getBoundingClientRect(),
+                              [
+                                role === "Attendee"
+                                  ? { label: "Make a presenter", icon: "share", onClick: () => cmd(key, "meeting.role", `${t.id}=Presenter`) }
+                                  : { label: "Make an attendee", icon: "people", onClick: () => cmd(key, "meeting.role", `${t.id}=Attendee`) },
+                                { label: "Pin for me", icon: "pin", disabled: true },
+                                { label: "Spotlight for everyone", icon: "view", disabled: true },
+                              ],
+                              220,
+                            );
+                          }}
+                          className="rounded p-0.5 text-[#d6d6d6] hover:bg-white/10"
+                        >
+                          <TIcon name="more" size={14} />
                         </button>
                       )}
                     </div>
@@ -609,6 +669,30 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
           </div>
         )}
       </div>
+      {confirmRec && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50" role="dialog" aria-label="Start recording">
+          <div className="w-[380px] rounded-lg bg-[#292929] p-5 text-[13px] shadow-2xl">
+            <div className="mb-2 text-[16px] font-semibold">Start recording?</div>
+            <p className="mb-4 text-[#d6d6d6]">Everyone in the meeting will be notified that recording and transcription have started. Make sure participants know before you record.</p>
+            <div className="flex justify-end gap-2">
+              <button type="button" onClick={() => setConfirmRec(false)} className="rounded-[4px] border border-white/40 px-4 py-1 font-semibold hover:bg-white/10">
+                Cancel
+              </button>
+              <button
+                type="button"
+                aria-label="Confirm"
+                onClick={() => {
+                  setConfirmRec(false);
+                  cmd(key, "meeting.record", "start");
+                }}
+                className="rounded-[4px] bg-[#5b5fc7] px-4 py-1 font-semibold hover:bg-[#4f52b2]"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -734,6 +818,75 @@ export function SettingsPage() {
               <div className="aspect-video w-[320px] overflow-hidden rounded-md">
                 <VideoPreview name={doc.me.name} camera background="None" />
               </div>
+            </div>
+          ) : page === "notifications" ? (
+            <div className="max-w-[600px] text-[14px]">
+              <h2 className="mb-1 text-[16px] font-bold">Notifications and activity</h2>
+              <p className="mb-4 text-[13px] text-[#616161]">Choose where each kind of notification appears, or turn it off.</p>
+              <h3 className="mb-2 text-[14px] font-semibold">Chats and channels</h3>
+              {[
+                ["Chat messages", "Activity feed and banner"],
+                ["Mentions of me", "Activity feed and banner"],
+                ["Replies to my posts", "Activity feed and banner"],
+                ["Reactions to my messages", "Activity feed only"],
+              ].map(([k, def]) => (
+                <label key={k} className="mb-2 flex items-center gap-3">
+                  <span className="w-56">{k}</span>
+                  <select aria-label={k} value={doc.settings?.notify?.[k] ?? def} onChange={(e) => cmd("settings", "settings.notify", `${k}=${e.target.value}`)} className="rounded-[4px] border border-[#d1d1d1] bg-white px-2 py-1 text-[13px]">
+                    {["Activity feed and banner", "Activity feed only", "Off"].map((o) => (
+                      <option key={o}>{o}</option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+              <h3 className="mb-2 mt-5 text-[14px] font-semibold">Meetings</h3>
+              {[["Meeting started", "Activity feed and banner"], ["Meeting chat", "Activity feed and banner"]].map(([k, def]) => (
+                <label key={k} className="mb-2 flex items-center gap-3">
+                  <span className="w-56">{k}</span>
+                  <select aria-label={k} value={doc.settings?.notify?.[k] ?? def} onChange={(e) => cmd("settings", "settings.notify", `${k}=${e.target.value}`)} className="rounded-[4px] border border-[#d1d1d1] bg-white px-2 py-1 text-[13px]">
+                    {["Activity feed and banner", "Activity feed only", "Off"].map((o) => (
+                      <option key={o}>{o}</option>
+                    ))}
+                  </select>
+                </label>
+              ))}
+            </div>
+          ) : page === "chats" ? (
+            <div className="max-w-[600px] text-[14px]">
+              <h2 className="mb-1 text-[16px] font-bold">Chats and channels</h2>
+              <p className="mb-4 text-[13px] text-[#616161]">Customize view: keep chats, teams, and channels together in Chat, or show teams and channels in their own Teams view.</p>
+              {[
+                ["Combined", "Chats, teams, and channels together in Chat"],
+                ["Separate", "Chats in Chat; teams and channels in Teams"],
+              ].map(([v, text]) => {
+                const on = (doc.layout ?? "combined") === v.toLowerCase();
+                return (
+                  <label key={v} className={`mb-2 flex cursor-pointer items-center gap-3 rounded-md border px-3 py-2 ${on ? "border-[#5b5fc7] bg-[#f0f1fd]" : "border-[#e0e0e0]"}`}>
+                    <input type="radio" name="tm-layout" checked={on} onChange={() => cmd("settings", "settings.layout", v)} aria-label={v} />
+                    <span>
+                      <span className="block font-semibold">{v}</span>
+                      <span className="text-[12px] text-[#616161]">{text}</span>
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          ) : page === "appearance" ? (
+            <div className="max-w-[600px] text-[14px]">
+              <h2 className="mb-1 text-[16px] font-bold">Appearance and accessibility</h2>
+              <p className="mb-4 text-[13px] text-[#616161]">Theme</p>
+              <div className="flex gap-3">
+                {["Follow operating system theme", "Light", "Dark"].map((t) => {
+                  const on = (doc.settings?.theme ?? "Follow operating system theme") === t;
+                  return (
+                    <button key={t} type="button" aria-pressed={on} aria-label={t} onClick={() => cmd("settings", "settings.theme", t)} className={`flex w-40 flex-col gap-1.5 rounded-md border-2 p-2 text-left text-[12px] ${on ? "border-[#5b5fc7]" : "border-[#e0e0e0] hover:border-[#c7c7c7]"}`}>
+                      <span className={`h-16 w-full rounded ${t === "Dark" ? "bg-[#292929]" : t === "Light" ? "bg-[#f5f5f5]" : "bg-gradient-to-r from-[#f5f5f5] to-[#292929]"}`} />
+                      {t}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="mt-5 text-[13px] text-[#616161]">Zoom: press Ctrl+= to zoom in and Ctrl+- to zoom out. Press Ctrl+. to see all keyboard shortcuts.</p>
             </div>
           ) : (
             <div className="max-w-[560px] text-[14px]">
