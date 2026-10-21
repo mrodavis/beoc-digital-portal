@@ -405,7 +405,7 @@ export const gwModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Download the order sheet as a CSV file for Priya's accounting system.",
-          hint: "File › Download › Comma Separated Values (.csv). Only the sheet you are on is downloaded.",
+          hint: "With the Order sheet open, choose File › Download › Comma Separated Values (.csv).",
           steps: [{ action: { kind: "command", id: "g.download", value: "Comma Separated Values (.csv)" } }],
         },
       ],

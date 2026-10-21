@@ -724,7 +724,7 @@ export const gwModule1Lessons: Lesson[] = [
               ["Docs", "Microsoft Word (.docx)", "The other person needs to edit it in Word"],
               ["Docs", "PDF Document (.pdf)", "The other person only needs to read, print, or sign it"],
               ["Sheets", "Microsoft Excel (.xlsx)", "The other person needs to work with the numbers in Excel"],
-              ["Sheets", "Comma Separated Values (.csv)", "Another system needs the data (only the current sheet is saved)"],
+              ["Sheets", "Comma Separated Values (.csv)", "Another system needs the data (a CSV file holds one sheet of plain data)"],
               ["Slides", "Microsoft PowerPoint (.pptx)", "The presenter uses PowerPoint"],
               ["Slides", "PDF Document (.pdf)", "People only need to read the slides"],
             ],

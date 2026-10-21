@@ -290,7 +290,10 @@ export function Select({ value, options, onChange, label, width = 200, fmt }: { 
               type="button"
               role="option"
               aria-selected={o === value}
-              onClick={() => {
+              onClick={(e) => {
+                // The list closes during this click; without preventDefault a wrapping <label> would
+                // then forward the click to the toggle button and open the list again.
+                e.preventDefault();
                 setOpen(false);
                 if (o !== value) onChange(o);
               }}

@@ -680,7 +680,7 @@ export const gwModule4Lessons: Lesson[] = [
               "Under Criteria, keep Dropdown and type each option, clicking Add another item for more. Choose Dropdown from a range to use a list already in the sheet.",
               "Advanced options: under If the data is invalid, entries that are not on the list are rejected by default; choose Show a warning to allow them with a warning. Display style can be Chip, Arrow, or Plain text.",
               "Click Done. A dropdown appears in each cell.",
-              "Checkboxes: select the cells and choose Insert › Checkbox. A checked box is TRUE and an unchecked box is FALSE, so formulas can count them.",
+              "Checkboxes: select the cells and choose Insert › Checkbox. Click a box to check it. You can use checkboxes with filters, charts, pivot tables, and functions.",
             ],
           },
         ],
@@ -742,7 +742,7 @@ export const gwModule4Lessons: Lesson[] = [
             items: [
               "Share a sheet the same way as any file: Share at the top right, add people, pick Viewer, Commenter, or Editor.",
               "File › Download › Microsoft Excel (.xlsx) downloads every sheet as an Excel workbook.",
-              "File › Download › Comma Separated Values (.csv) downloads only the sheet you are on, as plain data for another system.",
+              "File › Download › Comma Separated Values (.csv) saves plain data for another system. A CSV file holds one sheet of data with no formatting, so open the sheet you need first.",
               "File › Version history shows earlier versions. Restoring a spreadsheet version clears the cell-by-cell edit history for earlier changes; make a copy instead if you need to keep that history.",
             ],
           },
@@ -769,7 +769,7 @@ export const gwModule4Lessons: Lesson[] = [
             question: "Priya's accounting system needs the current sheet as plain data. Which download?",
             options: ["PDF", "Comma Separated Values (.csv)", "Microsoft Excel (.xlsx)", "Web page"],
             correctIndex: 1,
-            explanation: "A CSV file is plain data that most systems can import. It holds only the current sheet.",
+            explanation: "A CSV file is plain data, one sheet with no formatting, that most systems can import.",
             optionRationales: [
               "A PDF is a picture of the page, not data a system can import.",
               "Correct. CSV is plain data for other systems.",
