@@ -215,11 +215,11 @@ export const tourismHospitality: Program = {
     "Events and banquet staff",
   ],
   credentialNote:
-    "This is coursework rather than a credential. Hospitality roles are generally entered without formal certification, though optional industry credentials exist through bodies such as the American Hotel & Lodging Educational Institute. Where a role involves serving alcohol, most states require separate certified training, and food handling roles usually require a food handler card or manager certification — both are state or local requirements this course does not provide. Property management systems, brand standards, and metrics vary; the concepts here are general and your employer's procedures govern.",
+    "This is coursework rather than a credential. Hospitality roles are generally entered without formal certification, though optional industry credentials exist through bodies such as the American Hotel & Lodging Educational Institute. Roles that serve alcohol or handle food can carry separate training or certification rules set by the state, the city, or the employer — this course does not provide either. Property management systems, brand standards, and metrics vary; the concepts here are general and your employer's procedures govern.",
   relatedCertifications: [
     { name: "Certified Guest Service Professional (CGSP)", body: "American Hotel & Lodging Educational Institute", note: "An entry-level guest service credential." },
-    { name: "Food handler card", body: "State or local health authority", note: "Commonly required for any role handling food." },
-    { name: "Responsible alcohol service", body: "State-approved providers", note: "Required in most states for serving alcohol; names vary by state." },
+    { name: "Food safety training", body: "State or local health department", note: "Rules vary: some places require a card for every food worker, others a certified supervisor on site. Check where you will work." },
+    { name: "Responsible alcohol service training", body: "State-approved providers", note: "Whether it is required, and what it is called, varies by state and employer." },
   ],
   modules: [
     {

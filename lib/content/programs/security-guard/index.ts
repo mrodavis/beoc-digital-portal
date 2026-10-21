@@ -4,9 +4,16 @@ import { Program } from "@/types/program";
 /**
  * Security Guard Training — CONCEPT PREPARATION ONLY.
  *
- * NYS security guard licensure requires state-approved training delivered by
- * an approved school, with registration through DCJS. This coursework is not
- * that and says so plainly.
+ * NYS security guard registration requires training from a DCJS-approved
+ * school, with registration through the Department of State, Division of
+ * Licensing Services. This coursework is not that and says so plainly.
+ *
+ * Checked October 2026 against dos.ny.gov (Security Guard Training
+ * Requirements) and criminaljustice.ny.gov/ops/sgtraining: 8-hour
+ * pre-assignment before applying, 16-hour on-the-job within 90 days of
+ * employment, 8-hour annual in-service every year; armed guards also need a
+ * NYS pistol license, the 47-hour firearms course, and 8 hours of annual
+ * firearms training. Registrations last two years.
  */
 
 const m1: Lesson[] = [
@@ -150,7 +157,7 @@ const m1: Lesson[] = [
               ["Subject was unsteady and his speech was slurred", "Subject was drunk"],
               ["Subject walked the same aisle four times and looked toward the office repeatedly", "Subject was acting suspiciously"],
               ["Subject raised his voice and pointed at me", "Subject became aggressive"],
-              ["I observed a broken window pane, approximately 30 cm across", "Someone broke in"],
+              ["I observed a broken window pane, approximately 12 inches across", "Someone broke in"],
               ["Subject stated, “I work here”", "Subject claimed to be an employee"],
               ["Subject declined to provide identification", "Subject refused to cooperate"],
             ],
@@ -250,9 +257,9 @@ export const securityGuard: Program = {
     "Event security",
   ],
   credentialNote:
-    "IMPORTANT — this coursework is not a license and does not satisfy any state training requirement. In New York, security guards must complete state-approved pre-assignment and on-the-job training delivered by an approved school, and register with the Division of Criminal Justice Services; armed guard work requires additional training and a separate firearms license. Other states have their own requirements. No online course from a non-approved provider satisfies these, and this one does not claim to. Use it to arrive at approved training already understanding the material. Nothing here is legal advice — authority, use of force, and citizen's arrest are defined by state law and vary considerably.",
+    "IMPORTANT — this coursework is not a license and does not satisfy any state training requirement. In New York, a security guard completes an 8-hour pre-assignment course at a school approved by the Division of Criminal Justice Services (DCJS) before applying, registers with the NYS Department of State, Division of Licensing Services, completes 16 hours of on-the-job training within 90 days of starting work, and takes an 8-hour in-service course every year. Armed guard work also requires a New York pistol license, a 47-hour firearms course, and annual firearms training. Other states have their own requirements. No online course from a non-approved provider satisfies these, and this one does not claim to. Use it to arrive at approved training already understanding the material. Nothing here is legal advice — authority, use of force, and citizen's arrest are defined by state law and vary considerably.",
   relatedCertifications: [
-    { name: "NYS Security Guard Registration", body: "NYS Division of Criminal Justice Services", note: "Requires approved pre-assignment and on-the-job training, plus annual in-service." },
+    { name: "NYS Security Guard Registration", body: "NYS Department of State, Division of Licensing Services (training schools approved by DCJS)", note: "8-hour pre-assignment course before applying, 16-hour on-the-job training within 90 days, and an 8-hour in-service course every year. Registration lasts two years." },
     { name: "State licensure elsewhere", body: "Individual state licensing authorities", note: "Requirements vary widely; check the state you will work in." },
   ],
   modules: [

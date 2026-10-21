@@ -468,7 +468,7 @@ const m3: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Find your institution's academic integrity policy and write down the penalties for a first offence.",
+          "Find your institution's academic integrity policy and write down the penalties for a first offense.",
           "Find the AI policy for each course you are taking. Note where they differ.",
           "Take a paragraph from any article, paraphrase it properly, and write the citation in the style your course requires.",
           "Write three sentences explaining the difference between a paraphrase and a close rewording, using an example of each.",
@@ -504,7 +504,7 @@ const m3: Lesson[] = [
             columns: ["Type", "Repaid?", "Note"],
             rows: [
               ["Grants", "No", "Need-based. Pell is the largest federal one"],
-              ["Scholarships", "No", "Merit, need, or category-based. Many go unclaimed"],
+              ["Scholarships", "No", "Merit, need, or category-based, each with its own deadline"],
               ["Work-study", "No", "You earn it in a part-time job, often on campus"],
               ["Subsidized loan", "Yes", "Federal; interest does not accrue while enrolled at least half-time"],
               ["Unsubsidized loan", "Yes", "Federal; interest accrues from disbursement"],
