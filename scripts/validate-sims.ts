@@ -33,6 +33,13 @@ for (const app of ["excel", "powerpoint", "windows", "outlook", "teams", "typing
     // Engine not built yet.
   }
 }
+try {
+  // New Outlook for Windows lives in the Outlook engine's folder.
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  CORES["outlook-new"] = require("@/components/sim/apps/outlook/new/core").newOutlookCore as AppCore<unknown>;
+} catch {
+  // Engine not built yet.
+}
 
 const BACKSTAGE_COMMANDS = ["file.save", "file.new", "file.open", "file.protect", "file.inspect", "file.versionHistory", "file.copyLink", "file.email", "file.changeType", "file.close", "file.options", "file.browse"];
 const BACKSTAGE_DIALOGS = ["file.saveAs", "file.print", "file.share", "file.exportPdf"];

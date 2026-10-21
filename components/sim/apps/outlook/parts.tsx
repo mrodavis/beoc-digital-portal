@@ -247,6 +247,8 @@ const P: Record<string, ReactNode> = {
   ),
   home: <path d="M2 7.5L8 2.5l6 5M3.5 6.5v7h9v-7" />,
   undo: <path d="M5 4L2 7l3 3M2 7h7.5a3.5 3.5 0 0 1 0 7H7" />,
+  play: <path d="M5 3l8 5-8 5z" />,
+  list: <path d="M2.5 4h11M2.5 8h11M2.5 12h11" />,
 };
 
 export function OIcon({ name, size = 16, className, color }: { name: string; size?: number; className?: string; color?: string }) {

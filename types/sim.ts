@@ -12,10 +12,10 @@
  * definition is passed from a server component to the client player.
  */
 
-export type SimApp = "word" | "excel" | "powerpoint" | "windows" | "outlook" | "teams" | "typing" | "assistant" | "access" | "google" | "ehr" | "onedrive";
+export type SimApp = "word" | "excel" | "powerpoint" | "windows" | "outlook" | "teams" | "typing" | "assistant" | "access" | "google" | "ehr" | "onedrive" | "outlook-new";
 
 /** Apps whose document model lives in their own folder (components/sim/apps/<app>/types.ts). */
-export type ExtraSimApp = "windows" | "outlook" | "teams" | "typing" | "assistant" | "access" | "google" | "ehr" | "onedrive";
+export type ExtraSimApp = "windows" | "outlook" | "teams" | "typing" | "assistant" | "access" | "google" | "ehr" | "onedrive" | "outlook-new";
 
 export type SimValue = string | number | boolean;
 

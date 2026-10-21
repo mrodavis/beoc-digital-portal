@@ -549,6 +549,21 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
       }
       return { doc };
     }
+    case "review.accessibility": {
+      const doc = clone(input);
+      doc.accessibilityPane = true;
+      return { doc };
+    }
+    case "pane.close": {
+      const doc = clone(input);
+      doc.accessibilityPane = false;
+      return { doc };
+    }
+    case "view.myDay": {
+      const doc = clone(input);
+      doc.myDayOpen = !doc.myDayOpen;
+      return { doc };
+    }
     case "nav.module": {
       const r = applyOutlook(input, c, ui);
       if (/to do/i.test(sv)) r.doc.todoList = r.doc.todoList ?? "My Day";
