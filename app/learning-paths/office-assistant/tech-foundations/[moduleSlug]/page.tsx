@@ -82,11 +82,11 @@ export default async function ModulePage({
           {classExercises.length > 0 && (
             <div className="bg-primary-50 border border-primary-200 p-6 rounded-xl">
               <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                Practice from Class
+                Practice Labs
               </h3>
               <p className="text-sm text-gray-600 mb-4">
-                The in-class lab and simulators for this module. Submit graded
-                work in Brightspace.
+                The practice lab and simulators for this module. Work at your
+                own pace. BEOC students submit graded work in Brightspace.
               </p>
               <ul className="grid gap-3 sm:grid-cols-2">
                 {classExercises.map((exercise) => (

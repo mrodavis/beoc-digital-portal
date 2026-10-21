@@ -10,11 +10,11 @@ import {
 export const metadata: Metadata = {
   title: "Class Exercises | Technology Foundations",
   description:
-    "In-class labs, simulators, and the Unit 1 review from Digital Literacy I, organized by week.",
+    "Practice labs, simulators, and the Unit 1 review from Digital Literacy I, organized by topic. Self-paced.",
 };
 
 const kindStyles: Record<string, string> = {
-  "In-class packet": "bg-primary-50 text-primary-700",
+  "Practice packet": "bg-primary-50 text-primary-700",
   "Interactive practice": "bg-green-50 text-green-700",
   "Skill lab": "bg-green-50 text-green-700",
   "TABE practice": "bg-yellow-50 text-yellow-800",
@@ -51,9 +51,9 @@ export default function TechFoundationsClassExercisesPage() {
               Class Exercises
             </h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
-              {techFoundationsClassExerciseCount} labs, simulators, and reviews
-              from class, organized by week. Redo a lab you missed, practice with
-              the simulators, or get ready for the Unit 1 exam.
+              {techFoundationsClassExerciseCount} labs, simulators, and reviews,
+              organized by topic. Work through a lab at your own pace, practice
+              with the simulators, or get ready for the Unit 1 exam.
             </p>
           </div>
         </div>
@@ -61,12 +61,12 @@ export default function TechFoundationsClassExercisesPage() {
         <div className="max-w-3xl bg-primary-50 border-l-4 border-primary-500 p-5 rounded-xl text-gray-700">
           <p>
             <span className="font-semibold text-gray-900">
-              Practice here, submit in Brightspace.{" "}
+              Practice here, then submit.{" "}
             </span>
-            The in-class packets save your answers in this browser and build a
-            packet you can download. Upload that packet to the Submit Folder for
-            that week in Brightspace. Nothing on these pages is graded or sent
-            anywhere.
+            The practice packets save your answers in this browser and build a
+            packet you can download. Submit that packet to your instructor or
+            course folder (BEOC students: the matching assignment folder in
+            Brightspace). Nothing on these pages is graded or sent anywhere.
           </p>
         </div>
       </div>

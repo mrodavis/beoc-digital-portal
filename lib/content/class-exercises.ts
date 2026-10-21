@@ -3,14 +3,18 @@
  *
  * Each exercise is a self-contained static page in
  * public/class-exercises/<course>/<slug>.html. The pages keep their original
- * styling and answer logic; the Brightspace submit buttons were replaced with
- * a "Submit your work in Brightspace" note, because graded work still goes to
- * Brightspace. This file is the one list the index pages and the related
- * lesson and skill pages read from.
+ * styling and answer logic. beocdigital is self-paced, so the pages carry no
+ * class dates, meeting times, week numbers, or due dates: a submit note says
+ * what to submit ("to your instructor or course folder", with the Brightspace
+ * folder named for BEOC students), never when. Groups are labeled by topic or
+ * skill, not by week. Slugs and file names are unchanged because Brightspace
+ * links point to them; group ids are kept too, so existing #anchors still work.
+ * This file is the one list the index pages and the related lesson and skill
+ * pages read from.
  */
 
 export type ClassExerciseKind =
-  | "In-class packet"
+  | "Practice packet"
   | "Interactive practice"
   | "Skill lab"
   | "TABE practice"
@@ -53,7 +57,7 @@ export function classExerciseHref(
 export const techFoundationsClassExercises: ClassExerciseGroup[] = [
   {
     id: "week-5",
-    label: "Week 5",
+    label: "Hardware & Help Desk",
     title: "Workplace Hardware & Equipment",
     description:
       "Printers, scanners, monitors, and meeting gear: what to check first and how to report a problem.",
@@ -61,7 +65,7 @@ export const techFoundationsClassExercises: ClassExerciseGroup[] = [
       {
         slug: "week5-hardware-help-desk-lab",
         title: "Hardware Help Desk Lab",
-        kind: "In-class packet",
+        kind: "Practice packet",
         description:
           "Five help desk exercises on office hardware. Answers save in your browser and build into one packet you download and hand in.",
         features: "Five exercises · saves as you type · builds a packet",
@@ -72,7 +76,7 @@ export const techFoundationsClassExercises: ClassExerciseGroup[] = [
   },
   {
     id: "week-6",
-    label: "Week 6",
+    label: "Cloud Workspace",
     title: "Cloud Storage & Collaboration",
     description:
       "OneDrive, SharePoint, and Teams: where files live, who can see them, and how a team works on one document.",
@@ -80,7 +84,7 @@ export const techFoundationsClassExercises: ClassExerciseGroup[] = [
       {
         slug: "week6-cloud-workspace-lab",
         title: "Cloud Workspace Lab",
-        kind: "In-class packet",
+        kind: "Practice packet",
         description:
           "Five exercises on saving, sharing, and working together in the cloud. Answers save in your browser and build into one packet.",
         features: "Five exercises · saves as you type · builds a packet",
@@ -100,7 +104,7 @@ export const techFoundationsClassExercises: ClassExerciseGroup[] = [
   },
   {
     id: "week-7",
-    label: "Week 7",
+    label: "Cyber Safety",
     title: "Cybersecurity Fundamentals",
     description:
       "Phishing, passwords, multi-factor sign-in, and protecting patient information at work.",
@@ -108,7 +112,7 @@ export const techFoundationsClassExercises: ClassExerciseGroup[] = [
       {
         slug: "week7-cyber-safety-lab",
         title: "Cyber Safety Lab",
-        kind: "In-class packet",
+        kind: "Practice packet",
         description:
           "Five exercises on spotting threats and keeping accounts safe. Answers save in your browser and build into one packet.",
         features: "Five exercises · saves as you type · builds a packet",
@@ -128,8 +132,8 @@ export const techFoundationsClassExercises: ClassExerciseGroup[] = [
   },
   {
     id: "unit-1-review",
-    label: "Unit 1",
-    title: "Unit 1 Review",
+    label: "Unit 1 Review",
+    title: "Unit 1 Exam Prep",
     description: "Get ready for the Unit 1 exam with questions from every module.",
     exercises: [
       {
@@ -151,15 +155,15 @@ export const techFoundationsClassExercises: ClassExerciseGroup[] = [
 export const eng0300ClassExercises: ClassExerciseGroup[] = [
   {
     id: "weeks-1-3",
-    label: "Weeks 1-3",
+    label: "Skills Review",
     title: "Main Ideas, Inferences, and Vocabulary",
     description:
-      "Consolidation sessions that pull the first three skills together, with passages to read and questions to answer on paper.",
+      "Review pages that pull the first three reading skills together, with passages to read and questions to answer on paper.",
     exercises: [
       {
         slug: "review-day-weeks-1-3",
-        title: "Review Day: Weeks 1-3 Consolidation",
-        kind: "In-class packet",
+        title: "Review Day: Main Ideas, Inferences, and Vocabulary",
+        kind: "Practice packet",
         description:
           "Five stations: main ideas, inferences, vocabulary, a TABE-style timed set, and a short Word Choice paragraph.",
         features: "Five stations · passages and questions · writing task",
@@ -167,8 +171,8 @@ export const eng0300ClassExercises: ClassExerciseGroup[] = [
       },
       {
         slug: "session2-weeks-1-3-consolidation",
-        title: "Session 2: Weeks 1-3 Consolidation",
-        kind: "In-class packet",
+        title: "Skills Consolidation: Five New Passages",
+        kind: "Practice packet",
         description:
           "Five new passages across the first three skills, a timed TABE set, and writing time, with a self-check at the end.",
         features: "Five passages · timed TABE set · self-check",
@@ -176,8 +180,8 @@ export const eng0300ClassExercises: ClassExerciseGroup[] = [
       },
       {
         slug: "session3-vocabulary-closeout",
-        title: "Session 3: Vocabulary Closeout and Drafting Day",
-        kind: "In-class packet",
+        title: "Vocabulary Closeout and Drafting Practice",
+        kind: "Practice packet",
         description:
           "Two passages on context clues, word parts, multi-meaning words, and idioms, then drafting time on the Word Choice paragraph.",
         features: "Two passages · sentence warm-up · drafting",
@@ -187,7 +191,7 @@ export const eng0300ClassExercises: ClassExerciseGroup[] = [
   },
   {
     id: "week-4",
-    label: "Week 4",
+    label: "Text Structure",
     title: "Text Structure & Organization",
     description:
       "How a passage is built: chronology, comparison, cause and effect, and problem and solution.",
@@ -206,15 +210,15 @@ export const eng0300ClassExercises: ClassExerciseGroup[] = [
         title: "In-Class Practice: Comparing Structure",
         kind: "Interactive practice",
         description:
-          "Two texts on one topic built in different ways, then a Weeks 1-4 review before the Mid-Course Progress Check.",
-        features: "Tap-to-check questions · running score · Weeks 1-4 review",
+          "Two texts on one topic built in different ways, then a mixed review of the first four skills before the Mid-Course Progress Check.",
+        features: "Tap-to-check questions · running score · mixed review",
         skills: ["text-structure"],
       },
     ],
   },
   {
     id: "week-5",
-    label: "Week 5",
+    label: "Point of View",
     title: "Point of View & Purpose",
     description:
       "Who is telling this, why they wrote it, and how word choice shows how the author feels.",
@@ -259,7 +263,7 @@ export const eng0300ClassExercises: ClassExerciseGroup[] = [
   },
   {
     id: "week-6",
-    label: "Week 6",
+    label: "Evidence",
     title: "Evidence & Argument Quality",
     description:
       "Find the claim, check the evidence, and name what is wrong when an argument does not hold up.",

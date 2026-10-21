@@ -10,11 +10,11 @@ import {
 export const metadata: Metadata = {
   title: "Class Exercises | ENG0300 Reading Lab",
   description:
-    "The in-class practice pages, skill labs, and TABE prep from ENG0300, organized by week and skill.",
+    "The practice pages, skill labs, and TABE prep from ENG0300, organized by reading skill. Self-paced.",
 };
 
 const kindStyles: Record<string, string> = {
-  "In-class packet": "bg-eng-navy-100 text-eng-navy-800",
+  "Practice packet": "bg-eng-navy-100 text-eng-navy-800",
   "Interactive practice": "bg-eng-teal-50 text-eng-teal-800",
   "Skill lab": "bg-eng-teal-50 text-eng-teal-800",
   "TABE practice": "bg-eng-gold-50 text-eng-gold-700",
@@ -39,20 +39,20 @@ export default function Eng0300ClassExercisesPage() {
           Class Exercises
         </h1>
         <p className="mt-3 max-w-[68ch] text-lg leading-relaxed text-eng-navy-600">
-          {eng0300ClassExerciseCount} pages from class, organized by week. Use
-          them to redo a session you missed, review before a quiz, or practice
-          for the TABE. Each page opens on its own, keeps your score as you go,
-          and links back here.
+          {eng0300ClassExerciseCount} practice pages, organized by reading
+          skill. Work through them at your own pace, review before a quiz, or
+          practice for the TABE. Each page opens on its own, keeps your score as
+          you go, and links back here.
         </p>
 
         <p className="mt-4 max-w-[68ch] rounded-lg border-l-4 border-eng-teal-600 bg-eng-teal-50 p-4 text-[0.9375rem] leading-relaxed text-eng-navy-800">
-          <span className="font-semibold">Practice here, submit in Brightspace. </span>
+          <span className="font-semibold">Practice here, then submit. </span>
           Nothing on these pages is recorded or graded. When a page says to hand
-          in your work, upload it to the matching Classwork or Writing box in
-          Brightspace.
+          in your work, submit it to your instructor or course folder (BEOC
+          students: the matching classwork or writing folder in Brightspace).
         </p>
 
-        <nav aria-label="Weeks" className="mt-6 flex flex-wrap gap-2">
+        <nav aria-label="Skills" className="mt-6 flex flex-wrap gap-2">
           {eng0300ClassExercises.map((group) => (
             <a
               key={group.id}
