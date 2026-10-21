@@ -630,6 +630,12 @@ export const gwModule2Lessons: Lesson[] = [
             variant: "warning",
             text: "An Anyone with the link file can be opened by whoever gets the link, including people it was forwarded to. Never use it for leases, applications, rent records, or anything with a tenant's personal information. Share those with specific people only.",
           },
+          {
+            type: "image",
+            src: `${IMG}/sharing-files-and-folders/sharing-reference.png`,
+            alt: "Quick reference: Drive sharing roles, general access options, how folder sharing works, cleaning up access, and a checklist before you click Send",
+            caption: "Keep this sharing checklist handy.",
+          },
         ],
       },
       {

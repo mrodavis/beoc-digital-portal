@@ -122,7 +122,7 @@ export const teamsModule2Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "In your chat with Maria Santos, send “The 12:00 to 1:00 PM check-in shift is covered.” with “12:00 to 1:00 PM” in bold.",
-          hint: "Chat › Maria Santos. Type The, press Ctrl+B (or select Format › Bold), type 12:00 to 1:00 PM, press Ctrl+B again or move past it, finish the sentence, and press Enter.",
+          hint: "Chat › Maria Santos. Type The, press Ctrl+B (or select Format › Bold), type 12:00 to 1:00 PM, press Ctrl+B again to turn bold off, finish the sentence, and press Enter.",
           steps: [typeAll("chat:c-maria", "The **12:00 to 1:00 PM** check-in shift is covered.", ["**12:00 to 1:00 pm**", "covered"])],
         },
         {
@@ -163,7 +163,7 @@ export const teamsModule2Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "In your chat with Kevin Patel, send “Three copays were collected at check-out today, not at check-in.” with “not at check-in” in bold.",
-          hint: "Chat › Kevin Patel. Use Ctrl+B or Format › Bold for the words not at check-in, then press Enter.",
+          hint: "Chat › Kevin Patel. Type up to the bold words, press Ctrl+B (or Format › Bold), type not at check-in, press Ctrl+B again to turn bold off, type the period, and press Enter.",
           steps: [typeAll("chat:c-kevin", "Three copays were collected at check-out today, **not at check-in**.", ["**not at check-in**", "copays"])],
         },
         {
