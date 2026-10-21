@@ -128,7 +128,7 @@ export const module5Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "success",
-            text: "CPOE was a core objective of the original Meaningful Use program, the EHR incentive payments created by the HITECH Act. That program is now called Promoting Interoperability, and the incentive payments for adopting an EHR have ended. CPOE did not go away: it is now simply how orders are placed in a certified EHR.",
+            text: "CPOE was a core objective of the original Meaningful Use program, the EHR incentive payments created by the HITECH Act. That program is now called Promoting Interoperability. The last incentive payments were made in 2021, and Medicare now reduces payments to hospitals that do not meet the program's requirements. CPOE is no longer one of the program's objectives, which are electronic prescribing, health information exchange, patient access to their own data, and public health reporting. CPOE did not go away: it is now simply how orders are placed in a certified EHR.",
           },
         ],
       },
