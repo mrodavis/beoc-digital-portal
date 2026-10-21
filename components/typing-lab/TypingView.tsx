@@ -71,14 +71,15 @@ export default function TypingView({
         onBlur={() => setFocused(false)}
       />
       <div
-        ref={box}
         onClick={() => input.current?.focus()}
-        className={`relative cursor-text overflow-hidden rounded-xl border-2 bg-white px-4 py-2 sm:px-6 ${
-          focused ? "border-primary-600 ring-4 ring-primary-200" : "border-gray-300"
-        } ${variant === "drill" ? "font-mono text-2xl tracking-wide sm:text-[28px]" : "text-lg sm:text-xl"}`}
-        style={{ height: lines * lineHeight + 16, lineHeight: `${lineHeight}px`, fontFamily: variant === "drill" ? "Consolas, 'Cascadia Mono', Menlo, 'Courier New', monospace" : undefined }}
+        className={`cursor-text rounded-xl border-2 bg-white px-4 py-2 sm:px-6 ${focused ? "border-primary-600 ring-4 ring-primary-200" : "border-gray-300"} ${
+          variant === "drill" ? "font-mono text-2xl tracking-wide sm:text-[28px]" : "text-lg sm:text-xl"
+        }`}
+        style={{ fontFamily: variant === "drill" ? "Consolas, 'Cascadia Mono', Menlo, 'Courier New', monospace" : undefined }}
       >
-        <Chars text={state.text} typed={state.typed} strictWrong={strictWrong} done={done} />
+        <div ref={box} className="relative overflow-hidden" style={{ height: lines * lineHeight, lineHeight: `${lineHeight}px` }}>
+          <Chars text={state.text} typed={state.typed} strictWrong={strictWrong} done={done} />
+        </div>
       </div>
       {!focused && !done && !locked && (
         <button

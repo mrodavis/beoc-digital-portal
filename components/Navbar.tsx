@@ -46,6 +46,13 @@ export default function Navbar() {
             </Link>
 
             <Link
+              href="/typing-lab"
+              className="hidden lg:inline-block px-3 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+            >
+              Typing Lab
+            </Link>
+
+            <Link
               href="/progress"
               className="px-2 sm:px-4 py-2 rounded-lg font-medium text-gray-700 hover:bg-gray-100 transition-colors"
             >
