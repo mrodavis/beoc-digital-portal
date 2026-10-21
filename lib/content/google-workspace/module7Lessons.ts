@@ -19,6 +19,7 @@ export const gwModule7Lessons: Lesson[] = [
       "Create a new calendar and show or hide calendars",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/wOgGpQLMbjg",
     slides: slides("calendar-basics", [
       "Google Calendar: the office's shared schedule",
       "The Calendar screen: Create, Today, views, My calendars",
@@ -514,6 +515,7 @@ export const gwModule7Lessons: Lesson[] = [
       "Change the layout, find Meeting tools, explain when recording is available, and leave the call",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/9Y8BRUKQmqY",
     slides: slides("join-and-take-part-in-meet", [
       "Three ways to join a Google Meet call",
       "Before you join: microphone, camera, effects",

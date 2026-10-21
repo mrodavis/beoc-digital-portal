@@ -300,6 +300,9 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
       } else if (k === "e") {
         e.preventDefault();
         setShareOpen(true);
+      } else if (k === "h") {
+        e.preventDefault();
+        cmd(key, "meeting.leave");
       }
     };
     document.addEventListener("keydown", onKey);

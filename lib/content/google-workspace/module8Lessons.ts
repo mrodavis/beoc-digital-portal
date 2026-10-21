@@ -455,6 +455,12 @@ export const gwModule8Lessons: Lesson[] = [
             task: "Answer Denise, set up the space, share the plan, and schedule the kickoff, each in the right tool.",
           },
           {
+            type: "image",
+            src: `${IMG}/run-a-team-project/infographic.png`,
+            alt: "Quick reference: which Google Workspace tool to use for each kind of team work, how to kick off a project, and the matching Microsoft 365 tools.",
+            caption: "Working together in Google Workspace at a glance.",
+          },
+          {
             type: "table",
             caption: "Which tool for what",
             columns: ["Tool", "Best for", "At Parkview"],

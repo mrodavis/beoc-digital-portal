@@ -661,6 +661,7 @@ export const gwModule6Lessons: Lesson[] = [
       "Snooze a message so it returns to your inbox when you need it",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/1Z81HZNCuto",
     slides: slides("organize-labels-filters-search", [
       "Labels, not folders: one message can have several labels",
       "Create and apply a label",

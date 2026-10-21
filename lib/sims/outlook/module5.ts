@@ -84,6 +84,7 @@ export const outlookModule5Sims: Record<string, SimDefinition[]> = {
           hint: "Select Riverside Imaging Scheduling › Email. The To line is filled in. Type the subject and select Send.",
           steps: [
             { action: { kind: "command", id: "contact.emailTo" }, requires: { selection: "contact:c1" }, selectHint: "Select the Riverside Imaging Scheduling contact first." },
+            { action: { kind: "type", target: "compose.to", value: recipients(IMAGING.email) } },
             { action: { kind: "type", target: "compose.subject", value: "Referral fax number" } },
             { action: { kind: "command", id: "compose.send" }, alt: [{ kind: "command", id: "compose.requestSend" }] },
           ],

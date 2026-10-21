@@ -18,6 +18,7 @@ export const gwModule5Lessons: Lesson[] = [
       "Add slides, choose a layout for each one, and type into placeholders",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/gmxkBPN2xhc",
     slides: slides("start-a-presentation", [
       "Google Slides: presentations that live in Google Drive",
       "Create and name a presentation",
