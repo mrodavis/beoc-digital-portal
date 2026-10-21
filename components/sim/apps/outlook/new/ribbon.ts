@@ -173,12 +173,13 @@ export const newOutlookRibbon: RibbonTab[] = [
     contextual: "compose",
     plain: true,
     groups: [
+      // Shown only with a Microsoft 365 Copilot license (doc.copilot); see tabsFor in NewOutlookCanvas.
+      // Microsoft: "select the Copilot icon from the toolbar. Select Draft with Copilot from the drop-down menu."
+      // First in the row so it never folds under More options.
+      { label: "Copilot", controls: [dd("compose.copilot", "Copilot", "sparkle", [{ value: "Draft with Copilot", icon: "sparkle", command: "copilot.draft" }])] },
       { label: "Basic text", controls: fontRow },
       { label: "Insert", controls: [attachFile, b("insert.link", "Link", "link"), signature] },
       { label: "Proofing", controls: [b("review.spelling", "Editor", "editor"), b("format.dictate", "Dictate", "mic")] },
-      // Shown only with a Microsoft 365 Copilot license (doc.copilot); see tabsFor in NewOutlookCanvas.
-      // Microsoft: "select the Copilot icon from the toolbar. Select Draft with Copilot from the drop-down menu."
-      { label: "Copilot", controls: [dd("compose.copilot", "Copilot", "sparkle", [{ value: "Draft with Copilot", icon: "sparkle", command: "copilot.draft" }])] },
       {
         // Sensitivity labels are published by the organization (doc.sensitivityLabels replaces these at run time).
         label: "Tags",
