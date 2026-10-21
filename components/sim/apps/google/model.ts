@@ -517,7 +517,10 @@ function applyCommand(doc: GoogleDoc, id: string, value: SimValue | undefined, u
       return { doc };
     case "g.pane": {
       if (!sv) { doc.pane = null; return { doc }; }
-      doc.pane = doc.pane === sv ? null : sv;
+      // "Motion!" opens a panel without toggling it closed (Insert › Animation, Slide › Transition,
+      // the toolbar buttons); a plain name toggles (View › Motion, Tools › Word count).
+      if (sv.endsWith("!")) doc.pane = sv.slice(0, -1);
+      else doc.pane = doc.pane === sv ? null : sv;
       if (doc.pane === "Spelling and grammar" && doc.surface === "docs" && open) {
         const first = firstMisspelled(asWord(open));
         if (first) return { doc, ui: { selection: first } };
