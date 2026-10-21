@@ -1,0 +1,44 @@
+Calendar and Meeting Management in Outlook
+
+Module 6: Outlook & Integration
+
+Master Outlook's Calendar for scheduling appointments, sending meeting requests, using the Scheduling Assistant, managing recurring meetings, and coordinating the clinic's full schedule professionally.
+
+
+## Real-World Scenario
+Note: Your supervisor is traveling Thursday and Friday and asks you to manage all scheduling for those two days. Your task list includes: scheduling a provider staff meeting for next Tuesday when all three providers are available, sending a meeting request for the monthly billing review to the office manager and billing coordinator, setting up a weekly recurring reminder for the Friday supply order review, responding to a meeting request from an insurance auditor, and configuring an out-of-office reply for your supervisor. All of this happens in Outlook Calendar — and none of it should require a phone call or back-and-forth email chain.
+
+
+## Calendar Views and Navigation
+Outlook Calendar's multiple views provide different levels of detail for different scheduling tasks — switching between views at the right moment is what allows you to both see the big picture and schedule precise appointments:
+
+- Day view shows all appointments for a single day in a time-slot grid format — the most detailed view, showing appointments from the day's start to end hour by hour. Use Day view when you are scheduling within a specific day and need to see exactly which hours are available and occupied. The time slots are 30 minutes by default; right-click the time grid to change the time scale to 15 or 60 minutes.
+- Work Week view shows Monday through Friday of the current week in a five-column grid — the most commonly used view for a medical office assistant coordinating a busy work week. You can see all appointments for the week at a glance, identify gaps, spot conflicts, and schedule new appointments in open slots by double-clicking the desired time slot.
+- Month view shows a full calendar month in grid format with appointments appearing as colored blocks — too small to show appointment details, but ideal for seeing patterns across the month (which weeks are heavy, which days have recurring meetings, when extended absences are scheduled). Use Month view for long-range scheduling planning, never for day-to-day appointment management.
+- Navigate between dates using the mini calendar on the left (click any date to jump to it) or the forward/back arrows in the toolbar (advance by one day, week, or month depending on current view). In classic Outlook, switch views from the keyboard with Ctrl+Alt+1 (Day), Ctrl+Alt+2 (Work Week), Ctrl+Alt+3 (Week), or Ctrl+Alt+4 (Month). Click Home > Today to jump back to today's date from anywhere in the calendar.
+
+
+## Appointments vs Meetings and the Scheduling Assistant
+The distinction between an Appointment and a Meeting in Outlook is fundamental — understanding it prevents common errors in calendar management:
+
+- An Appointment is a calendar block that only affects your own calendar — no invitations are sent to other people. Use Appointments for: personal reminders (submit supply order by Friday), blocked time (lunch, professional development hours), and events that do not involve coordinating anyone else's attendance. Double-click a time slot in Calendar to create an Appointment (the new window shows no attendee fields).
+- A Meeting is a calendar event that sends invitations to one or more other people and expects a response — use Meetings for: provider staff meetings, billing review sessions, vendor calls, and any event where you need to coordinate multiple people's availability and receive confirmation of their attendance. Click Home > New Meeting in the Calendar module to create a meeting (the window includes To/CC fields for attendees, a Scheduling Assistant button, and response tracking).
+- The Scheduling Assistant is Outlook's most powerful scheduling tool — it shows the free/busy status of all attendees' calendars side by side, allowing you to find the earliest time slot when everyone is available without making a single phone call or sending a scheduling email chain. Click the Scheduling Assistant tab in a new Meeting window. Add all required and optional attendees. The grid shows each person's calendar as a horizontal timeline with colored blocks for busy time. Available times appear as clear white rows. Click any clear time slot on the grid to set the meeting start time automatically. This is the professional way to schedule any meeting with more than 2 attendees.
+- Meeting requests include the full meeting context — the attendee fields (required vs optional), a Location field (room name, physical address, or online meeting link), a Start/End time, and a body field for the agenda. Always include an agenda in the meeting body — a bullet point list of what will be covered and what attendees should prepare. A meeting invitation with an agenda signals professional planning; an invitation with no description forces attendees to ask 'what is this meeting about?'
+
+
+## Recurring Meetings, Sharing, and Out-of-Office
+Recurring meetings, calendar sharing, and Out-of-Office replies are the advanced calendar management tools that maintain the practice's scheduling coordination over time:
+
+- Recurring meetings occur on a defined schedule automatically — when creating or editing a meeting, click Recurrence in the Meeting toolbar to open the Appointment Recurrence dialog. Choose the recurrence pattern: Daily (every day or every N days or every weekday), Weekly (on specific days, every N weeks), Monthly (on a specific date or a specific day-of-month like 'the first Tuesday'), or Yearly. Set the range: recurring indefinitely (no end date), ending after N occurrences, or ending by a specific date. For the Lakeside Medical Associates weekly supply order review (every Friday at 2:00 PM), create a weekly recurring appointment on Friday with no end date.
+- Sharing your calendar allows other staff members to view your schedule — right-click your Calendar in the Folder Pane and choose 'Share Calendar' or 'Share.' You can grant View-only access (colleagues can see your appointments but cannot edit), or Can Edit access (colleagues can add and modify appointments on your calendar). For the office assistant managing multiple providers' schedules, having view access to all provider calendars is essential for coordinating patient appointments without conflicts.
+- Viewing multiple calendars in overlay mode stacks two or more calendars on top of each other with transparent coloring — click the arrow beside any additional calendar in the Folder Pane to overlay it on your primary calendar. You can see your calendar and the office manager's calendar together, with each person's appointments in a different color. This is how you find open times for joint meetings without needing to call each person.
+- Automatic Out-of-Office replies notify senders that you are unavailable — in classic Outlook, go to File > Automatic Replies (in the new Outlook, select View > View settings > Accounts > Automatic replies). Set a start and end date, compose different replies for Inside My Organization (the internal staff message) and Outside My Organization (the external message for patients and partners). The internal message can include who to contact in your absence (with name and phone number). The external message should be professional and brief: 'Thank you for contacting Lakeside Medical Associates. I am out of the office from [dates] and will respond upon my return on [date]. For urgent matters, please call (555) 234-5678.' Never leave an automatic reply running after you return — turn it off the morning you are back.
+
+
+## Responsible Use
+Note: When scheduling meetings that include providers at Lakeside Medical Associates, always use the Scheduling Assistant to verify their availability before sending a meeting request — never assume a provider is available during a time not blocked on their calendar. Providers who receive meeting requests for times they are seeing patients must decline and reschedule, which wastes everyone's time. Additionally, any meeting involving patient-specific discussion (case conferences, billing reviews for specific patients) should have an access restriction in Outlook so only invited clinical staff can see the meeting details — not the general administrative staff. Mark these meetings as Private in the meeting dialog to limit calendar detail visibility to non-invited attendees who have view access to the calendar.
+
+
+## Knowledge Check
+Check yourself: You need to schedule a provider staff meeting for next Tuesday when all three providers are available. What Outlook feature shows you each provider's busy/free time side by side so you can find the right time without emailing everyone? Answer: The Scheduling Assistant tab in a new Meeting window.

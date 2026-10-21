@@ -1,0 +1,38 @@
+Hands-On: Integrated Office Workflow
+
+Module 6: Outlook & Integration
+
+Apply every Outlook and Office integration skill in a single complete capstone — build a monthly appointment summary in Excel, a formal Word report, a PowerPoint chart slide, coordinate via Outlook email and Calendar, and set up automation — all as one connected professional workflow.
+
+
+## Real-World Scenario
+Note: The clinic director at Lakeside Medical Associates has asked for the monthly appointment activity report — including an Excel summary of appointment counts by provider, a formal Word report with narrative analysis, a PowerPoint summary for the upcoming board presentation, and a review meeting scheduled for next Thursday. Additionally, you need a one-click way to flag the director's replies to the report email and file them into a designated folder so no communication is missed. This six-step workflow uses every skill from Module 6 and every Office application in the course. Completing it successfully means you are ready for the full scope of an office assistant role at a professional medical practice.
+
+
+## The Six-Step Integrated Workflow
+This capstone workflow has six distinct steps, each building on the previous one. The order is important — the Excel data must exist before the Word report can reference it, the Word report must be complete before it can be attached to the Outlook email, and the Calendar meeting must be scheduled using the Scheduling Assistant for the correct people. Execute each step in sequence:
+
+- Step 1 — Excel Appointment Summary: create or use an existing appointment log with at least 20 rows and columns for Provider, Appointment Date, Appointment Type, and Revenue. On a separate summary tab, use COUNTIF to calculate total appointments per provider (Dr. Patel, Dr. Chen, Dr. Okafor) and SUMIF to calculate total revenue per provider. Create a column chart from the appointment counts. This is the data foundation everything else references.
+- Step 2 — Word Monthly Report: create a formal, multi-page Word report titled 'Lakeside Medical Associates — Monthly Appointment Activity Report — May 2025.' The report should include: an Executive Summary (1 paragraph), a Provider Activity section with the Excel summary table inserted via Paste Special > Paste Link, a Revenue Overview section with analysis of SUMIF totals, and an Appendix with a footnote citing the data source. Apply Heading styles throughout, add an automatic Table of Contents on page 2, include a header with the practice name and a footer with page numbers and date.
+- Step 3 — PowerPoint Summary: build a 3-slide deck: Title slide, 'Appointment Activity by Provider' slide with the Excel chart linked via Paste Special > Paste Link (so it updates if Excel data changes), and a 'Key Findings' slide with 3 bullet points. Apply a professional theme, add the Slide Master footer, ensure 6×6 compliance, and export as PDF.
+- Step 4 — Outlook Email: compose a professional email to the clinic director (fictional: Dr. Kim at drkim@lakesidemedical.com). Subject: 'May 2025 Appointment Activity Report — Please Review Before Thursday's Meeting.' Body: 2 professional paragraphs summarizing the attached report and inviting questions ahead of the review meeting. Attach the Word report as PDF. Attach the PowerPoint. Include a OneDrive sharing link reference for the Excel dashboard. Use your full external Outlook signature.
+- Step 5 — Calendar Meeting: in Outlook Calendar, create a Meeting Request for the report review meeting next Thursday at 10:00 AM, 45 minutes duration. Title: 'Monthly Activity Report Review — May 2025.' Required attendee: Dr. Kim. Use the Scheduling Assistant to confirm she has no known conflicts (this is fictional, but demonstrate the Scheduling Assistant interface). Include a 3-item meeting agenda in the body.
+- Step 6 — Quick Step Automation: create a Quick Step named 'File Director Reply' that performs: Flag for Follow-up (Today) + Move to a new folder named 'Director Communications' + Mark as Read. When a reply from the clinic director arrives, select it and click the Quick Step: all three actions happen at once, so every reply is flagged for action and organized. A Quick Step runs only when you click it. To file the director's messages automatically as they arrive, you would create a Rule instead.
+
+
+## Professional Delivery Standards
+This integrated workflow produces deliverables that reflect directly on your professional competence at Lakeside Medical Associates. Before sending any element of this workflow, verify every item on this standards checklist:
+
+- Excel: all COUNTIF and SUMIF formulas verified manually for at least 3 providers — totals match what you would get by manually counting the appointment log. Chart is correctly labeled with title, axis labels, and data labels. Summary tab is clearly organized and legible without the need to navigate the data tab.
+- Word report: Table of Contents is updated and reflects final page numbers. All Heading styles are applied consistently. The linked Excel table shows current data. Footnotes cite the correct source. The document has been spell-checked and grammar-checked (F7). No tracked changes or comments remain. PDF export opens correctly and shows all content.
+- PowerPoint: linked chart shows current Excel data. Slide Master footer appears on all non-title slides. All slides comply with the 6×6 rule. Fade transitions on all slides. PDF export opens and renders correctly.
+- Outlook email: subject line is specific and professional. Body is 2 substantive paragraphs (not one-line). Both the Word PDF and PowerPoint are confirmed attached (not just referenced). Full external signature appears. Email importance is set to Normal (not High).
+- Calendar meeting: correct date and time. Duration is 45 minutes. All required attendees are added. Scheduling Assistant screenshot shows it was checked. Meeting agenda is included in the body. Reminder is set to 15 minutes.
+
+
+## Responsible Use
+Note: The monthly appointment activity report contains financial data (revenue by provider) and patient-volume data that are confidential operational statistics at Lakeside Medical Associates. This report must not be shared outside of the leadership team (physician owner, clinic director, office manager) without explicit authorization. Do not leave the Word report, PowerPoint, or Excel file open on a shared computer when you step away. Lock your workstation (Windows key + L) any time you leave your desk. When sending via email, confirm the recipient's email address is correct before clicking Send — sending a financial operations report to a wrong address (even accidentally) constitutes a confidential information breach. Double-check every address in the To field before clicking Send on any document containing practice financial data.
+
+
+## Knowledge Check
+Check yourself: In the Lakeside Medical Associates integrated workflow, which step must be completed BEFORE you can compose the Outlook email to the clinic director? Answer: The Word report must be completed and exported as PDF, and the PowerPoint must be ready to attach.

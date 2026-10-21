@@ -1,0 +1,44 @@
+Introduction to Microsoft Outlook
+
+Module 6: Outlook & Integration
+
+Get oriented in Outlook for Microsoft 365, set up a professional email signature, configure your inbox view, and understand how Outlook's Mail, Calendar, People, and Tasks connect to manage your professional communications.
+
+
+## Real-World Scenario
+Note: It is your first morning managing communications at Lakeside Medical Associates. The practice's main inbox receives 40–60 emails per day — appointment requests, insurance authorizations, referral letters, supply invoices, and staff messages all arriving in the same place. Before you can manage any of it effectively, you need to know where everything lives in Outlook, how to configure your view for maximum efficiency, and how to set up a professional signature that represents the practice correctly on every email you send. This lesson gets you set up before the first message needs a response.
+
+Note: Windows now has two Outlook apps. Classic Outlook is the desktop app that comes with the Microsoft 365 desktop apps, and it is still the default for business accounts. The new Outlook for Windows is a newer app (it replaced the Windows Mail and Calendar apps), and you can switch between the two with the toggle at the top of the window. Microsoft has said it will start turning the new Outlook on by default for business accounts in March 2027 and will support classic Outlook until at least 2029. This module and its practice simulations use classic Outlook. Where the new Outlook puts a command somewhere else, a note tells you where.
+
+
+## The Outlook Window
+Outlook is organized as a communication hub with distinct modules for each type of professional communication — email, calendar, contacts, and tasks. Understanding how each module connects to the others is what makes Outlook powerful rather than just a basic email client:
+
+- The Navigation Bar holds the icons that switch between Outlook's main modules — Mail (envelope), Calendar, People (contacts), Tasks (checkmark), and Notes. Press Ctrl+1 for Mail, Ctrl+2 for Calendar, Ctrl+3 for People, and Ctrl+4 for Tasks. Each module has its own Folder Pane and content view, and you can shrink the Folder Pane for more screen space (View > Folder Pane > Normal or Minimized). The Navigation Bar is your primary tool for moving between the different communication functions in Outlook.
+- The Folder Pane shows the folder hierarchy within the current module — in Mail, it shows your Inbox, Sent Items, Drafts, Deleted Items, and any custom folders you have created. In Calendar, it shows your calendar list. In People, it shows contact folders and groups. Hover over the Folder Pane divider to resize it, or click the arrow icon to collapse it for a cleaner view of your message list.
+- The Message List (center panel in Mail view) shows the emails in the currently selected folder — by default, sorted by date with the newest on top. Each entry shows the sender name, subject line, the first line of the email body, a timestamp, and any flags or category markers. Right-click any message in the list for a context menu with common actions (reply, forward, flag, move, delete). The Message List is where you make the initial decision about every incoming email.
+- The Reading Pane (right side or bottom of the screen by default) shows the full content of the selected email without opening it in a separate window — this is how professional email managers read the vast majority of their email. Place the Reading Pane on the right for wide screens (View > Reading Pane > Right) or on the bottom for narrow screens. Turn it off if you want a full-width message list view. Reading messages in the Reading Pane without opening them into separate windows keeps your workspace clean and makes you faster.
+
+
+## Setting Up a Professional Email Signature
+Your email signature is an automatic professional footer appended to every message you send — it is the digital equivalent of a business card. A correctly configured signature at Lakeside Medical Associates communicates professionalism, provides the recipient with all necessary contact information, and ensures consistent branding across all communications:
+
+- To create a signature in classic Outlook: go to File > Options > Mail > Signatures, or in a new email, click Message > Signature > Signatures. Click 'New,' give the signature a name (e.g., 'Lakeside Medical – Full Signature'), and type your signature content in the editor below. Format it with font choices that match the practice's professional standards. In the new Outlook, go to Settings (the gear) > Accounts > Signatures, select New signature, and choose the defaults under Select default signatures.
+- A complete professional signature for Lakeside Medical Associates includes: your full name (bold, 11pt), your title (normal, 11pt), the practice name ('Lakeside Medical Associates,' normal or bold, 11pt), the practice address (123 Lakeview Drive, Suite 200, Lakeside, CA 90210), main phone number (555-234-5678), direct phone number if applicable, fax number if applicable, and the practice website or email. Optionally include a HIPAA confidentiality notice as one or two small-font sentences below the contact block.
+- Set the signature to append automatically: in the Signatures dialog, under 'Choose default signature,' select your email account, choose your created signature from the 'New messages' dropdown, and optionally from the 'Replies/forwards' dropdown. Setting both ensures every outgoing message carries the signature without needing to insert it manually. For patient communications, use the full signature. For internal staff emails, a shorter version with just name and title is more appropriate — create two signature variations.
+- The confidentiality notice (optional but common in medical offices) is a legal disclaimer appended below the contact block: 'This email and any attachments are confidential and intended solely for the addressee. If you have received this email in error, please notify the sender immediately and permanently delete all copies. Unauthorized use, disclosure, or distribution of this information may violate applicable laws.' Many medical offices include this notice on all outgoing emails as a standard HIPAA best practice.
+
+
+## Focused Inbox and Outlook Today
+Two Outlook features that help manage high email volume are the Focused Inbox and the Outlook Today view — both designed to help you prioritize and stay oriented in a busy day:
+
+- Focused Inbox separates high-priority messages (in the Focused tab) from lower-priority messages (in the Other tab) using machine learning to predict which emails are most important based on your behavior. In a busy medical office inbox, Focused Inbox can be helpful for surfacing urgent patient and provider messages while routing newsletters, automated notifications, and low-priority vendor emails to Other. In classic Outlook, turn it on with View > Show Focused Inbox; the new Outlook has the same Focused and Other tabs. Click the Other tab to review and manually move any misclassified messages to teach the algorithm what belongs in Focused.
+- Outlook Today (classic Outlook) gives you a one-screen overview of your day's email, calendar appointments, and tasks — click on your mailbox name at the top of the Folder Pane (not a specific folder) to open Outlook Today. Customize it by clicking 'Customize Outlook Today' in the top right — choose how many days of calendar to show, how many tasks to display, and whether to have Outlook Today display automatically when Outlook opens. The new Outlook does not have Outlook Today; select My Day at the top of the window instead to see your upcoming calendar events and your To Do tasks in one pane. Either way, it is a 10-second daily briefing before diving into individual emails and appointments.
+
+
+## Responsible Use
+Note: At Lakeside Medical Associates, your Outlook account is the practice's official communication channel — not your personal email. Never use your Outlook account for personal correspondence, online shopping, or personal subscriptions. Never forward patient emails, referral letters, or insurance documents to your personal email account. Your Outlook account is monitored by the practice's IT administrator and . Every email you send from your Outlook account is a practice communication with legal standing. Write every email as if your supervisor and the practice's compliance officer will read it — because in an audit, they might.
+
+
+## Knowledge Check
+Check yourself: In classic Outlook, where do you set up an automatic email signature that appends to every new message you send? Answer: File > Options > Mail > Signatures. In classic Outlook the Signatures and Stationery dialog is at File > Options > Mail > Signatures (or Message > Signature > Signatures in a new email). In the new Outlook, the same settings are at Settings > Accounts > Signatures.

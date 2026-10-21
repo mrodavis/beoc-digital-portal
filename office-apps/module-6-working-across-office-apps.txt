@@ -1,0 +1,41 @@
+Working Across Office Applications
+
+Module 6: Outlook & Integration
+
+Learn to integrate Word, Excel, PowerPoint, and Outlook in connected workflows — embedding data, linking charts, sharing via OneDrive, co-authoring in real time, and exporting for cross-platform compatibility.
+
+
+## Real-World Scenario
+Note: Your supervisor at Lakeside Medical Associates asks you to produce a monthly operations package: an Excel dashboard showing expense data, a Word report that incorporates the expense table and a commentary narrative, a PowerPoint slide with the expense chart linked to the Excel file, and an Outlook email to the physician owner with both the Word report and PowerPoint attached — with a OneDrive link to the Excel dashboard for interactive review. This is a fully integrated Office workflow — and the ability to execute it smoothly is what separates an organized professional office assistant from someone who manages each application in isolation.
+
+
+## Attaching Files and Sharing Links
+The difference between attaching a file and sharing a link is one of the most important workflow distinctions in a modern professional environment. Understanding when to use each prevents the common problems of email size limits, outdated versions, and accidental duplicate files:
+
+- Attaching a file sends a static copy of the document as it exists at the moment of sending — the recipient receives a snapshot that does not update if the original file changes. Attachments are appropriate for: final, approved documents that should be preserved (signed letters, completed reports), files that the recipient needs to work with offline, and files sent to external partners who do not have access to your OneDrive. Attach files in Outlook by dragging from File Explorer onto the message window, or clicking the Attach File icon in the message Ribbon.
+- Sharing a OneDrive link sends a link to the live file in cloud storage — the recipient always sees the most current version, and multiple people can view or edit it simultaneously. Links are appropriate for: working documents that are still being updated, Excel dashboards that need to refresh with new data, and collaboration with internal team members. To share a OneDrive link from Outlook: click Attach File > browse to the OneDrive file > Outlook will ask whether to attach a copy or share a link — choose 'Share Link.' Set the link permission (Can View or Can Edit) based on the recipient's needs.
+- Attaching multiple large files can cause emails to bounce or get flagged as spam — individual attachments over 10 MB and total email size over 20–25 MB frequently exceed recipient server limits. For the monthly operations package with a Word report, PowerPoint, and Excel dashboard, share the Excel dashboard as a OneDrive link (it may update weekly) and attach the finalized Word report as a PDF (not the editable .docx). Send the PowerPoint as an attachment only if it is under 10 MB after image compression.
+
+
+## Embedding and Linking Content Between Applications
+Paste Special is the professional way to transfer content between Office applications with precise control over whether the content is embedded (static copy) or linked (updates automatically when the source changes):
+
+- To insert an Excel table into a Word document: copy the Excel table range, go to Word, and choose Home > Paste > Paste Special (Ctrl+Alt+V). In the Paste Special dialog, choose 'Microsoft Excel Worksheet Object' and select 'Paste' for an embedded copy (the table becomes an Excel object within Word, editable by double-clicking it) or 'Paste Link' for a linked version (the table data updates in Word automatically whenever the Excel source file changes). Use Paste for a report where you want to preserve the data as of the reporting date. Use Paste Link when the Word report will be reviewed over several days and you want the table to reflect the latest Excel data throughout.
+- To link an Excel chart into a PowerPoint presentation: select and copy the chart in Excel, go to PowerPoint, and use Home > Paste > Paste Special > 'Microsoft Excel Chart Object' > Paste Link. The chart appears in the slide and automatically updates whenever the Excel source data changes. This is the professional way to maintain a PowerPoint that always shows current data — update the Excel file and the PowerPoint chart updates on the next open. If you simply paste without Paste Link, the chart is embedded as a static snapshot that requires manual updating.
+- To break a link (convert a linked object to a static embedded copy) in Word or PowerPoint: click File > Info, and under Related Documents in the lower right corner, click Edit Links to Files. Select the link and click Break Link. This is appropriate before sharing a file externally when the external recipient should not be able to update or access your source Excel files.
+
+
+## Co-Authoring, Clipboard, and Compatibility
+Real-time co-authoring, the Office Clipboard, and cross-platform file compatibility are three integration tools that affect how Office applications work in a connected, multi-user environment:
+
+- Co-authoring allows multiple people to edit the same Word, Excel, or PowerPoint file simultaneously when it is stored in OneDrive or SharePoint — save the file to OneDrive, share it with colleagues, and when multiple people have it open, you can see each other's cursors and changes appear in real time. This eliminates the 'last save wins' problem of multiple people editing local copies and merging conflicting changes. For the Lakeside Medical Associates monthly report, the office assistant and the office manager can both edit the Word document at the same time — no need to wait for one to finish before the other starts.
+- The Office Clipboard holds up to 24 copied items from any Office application and makes them available to paste into any other Office application — open it via Home > Clipboard (click the small dialog launcher arrow in the Clipboard group). If you copy an Excel formula result, a Word paragraph, a PowerPoint slide title, and an Outlook email body in succession, all four items are available in the Clipboard panel for selective pasting in any order. This is faster than switching between applications repeatedly for individual copy-paste operations.
+- Cross-platform compatibility with Google Docs and LibreOffice users requires understanding format limitations — .docx, .xlsx, and .pptx files open in Google Docs and LibreOffice but may lose some advanced formatting (tracked changes display, certain SmartArt types, advanced Excel formulas). PDF is the universally compatible format — any Office document exported as PDF displays identically on any device with any software. When sharing final documents with external partners who may not have Microsoft Office, always export as PDF unless the recipient specifically needs an editable file.
+
+
+## Responsible Use
+Note: When sharing OneDrive links with external parties — insurance companies, referring physicians, patient advocates — carefully verify the link permission before sending. A link set to 'Can Edit' allows the recipient to modify your files. A link set to 'Anyone with the link' makes the file accessible to anyone who receives the link, potentially including unauthorized parties. For Lakeside Medical Associates documents containing patient or financial information, always use 'Specific People' sharing (entering individual email addresses) rather than 'Anyone with the link,' and always use 'Can View' rather than 'Can Edit' for external recipients unless editing access is explicitly required and approved. Review and revoke external sharing permissions quarterly to ensure no links remain active beyond their intended use.
+
+
+## Knowledge Check
+Check yourself: You want the expense chart in your PowerPoint presentation to automatically update whenever you update the source data in the Excel workbook. Which Paste Special option achieves this? Answer: Paste Link as 'Microsoft Excel Chart Object' — creates an automatic live connection.
