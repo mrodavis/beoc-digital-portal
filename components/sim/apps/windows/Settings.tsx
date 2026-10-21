@@ -1571,7 +1571,8 @@ export function SecurityApp({ w }: { w: WinWindow }) {
   const active = threats.filter((t) => !t.status || t.status === "Active");
   const [action, setAction] = useState("Remove");
   const [mode, setMode] = useState("Quick scan");
-  const ok = (id: string) => secStatus(doc, id) === "No actions needed.";
+  // Areas with nothing to fix (Device security, Device performance & health) show a green check, as in Windows.
+  const ok = (id: string) => ["No actions needed.", "View status and manage settings."].includes(secStatus(doc, id));
   return (
     <div className="flex h-full flex-col" style={{ background: T.bg, color: T.text }}>
       <TitleBar app="security" title="Windows Security" />
