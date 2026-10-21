@@ -3,6 +3,9 @@ import { wordSims } from "./word";
 import { excelSims } from "./excel";
 import { pptSims } from "./powerpoint";
 import { accessSims } from "./access";
+import { outlookCourseSims } from "./outlook";
+import { teamsCourseSims } from "./teams";
+import { onedriveCourseSims } from "./onedrive";
 import { ehrSims } from "./ehr";
 import { sims as techFoundationsSims } from "./oap/tech-foundations";
 import { sims as officeAppsSims } from "./oap/office-apps";
@@ -18,6 +21,9 @@ export const REGISTRY: Record<string, Record<string, SimDefinition[]>> = {
   "ms-office/excel": excelSims,
   "ms-office/powerpoint": pptSims,
   "ms-office/access": accessSims,
+  "ms-office/outlook": outlookCourseSims,
+  "ms-office/teams": teamsCourseSims,
+  "ms-office/onedrive": onedriveCourseSims,
   "oap/tech-foundations": techFoundationsSims,
   "oap/office-apps": officeAppsSims,
   "oap/modern-office": modernOfficeSims,

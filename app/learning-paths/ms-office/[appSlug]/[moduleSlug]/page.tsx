@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import ModuleIndexTemplate from "@/components/ModuleIndexTemplate";
-import { officeApps } from "@/lib/content/ms-office";
+import { officeApps, officeAppTitles } from "@/lib/content/ms-office";
 
 export default async function ModulePage({
   params,
@@ -26,17 +26,7 @@ export default async function ModulePage({
     <ModuleIndexTemplate
       courseId={`ms-office/${appSlug}`}
       courseSlug={appSlug}
-      courseTitle={
-        appSlug === "powerpoint"
-          ? "Microsoft PowerPoint"
-          : appSlug === "excel"
-          ? "Microsoft Excel"
-          : appSlug === "word"
-          ? "Microsoft Word"
-          : appSlug === "access"
-          ? "Microsoft Access"
-          : appSlug
-      }
+      courseTitle={officeAppTitles[appSlug] ?? appSlug}
       moduleNumber={module.moduleNumber}
       title={module.title}
       emoji={module.emoji}

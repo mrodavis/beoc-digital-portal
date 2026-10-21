@@ -10,6 +10,9 @@ export default function MicrosoftOfficePage() {
     excel: officeApps.excel.length,
     powerpoint: officeApps.powerpoint.length,
     access: officeApps.access.length,
+    outlook: officeApps.outlook.length,
+    teams: officeApps.teams.length,
+    onedrive: officeApps.onedrive.length,
   };
   const totalModules = Object.values(counts).reduce((a, b) => a + b, 0);
 
@@ -24,7 +27,8 @@ export default function MicrosoftOfficePage() {
         <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
           Master the essential productivity tools used in modern workplaces.
           Structured workforce-ready curriculum covering Word, Excel,
-          PowerPoint, and Access, from beginner to certification level.
+          PowerPoint, Access, Outlook, Teams, and OneDrive, from beginner
+          to certification level.
         </p>
       </div>
 
@@ -41,7 +45,7 @@ export default function MicrosoftOfficePage() {
             </div>
             <div className="font-semibold">Structured Modules</div>
             <div className="text-sm text-gray-600">
-              Across Word, Excel, PowerPoint & Access
+              Across Word, Excel, PowerPoint, Access, Outlook, Teams & OneDrive
             </div>
           </div>
 
@@ -170,6 +174,81 @@ export default function MicrosoftOfficePage() {
             </div>
           </div>
         </Link>
+
+        {/* OUTLOOK */}
+        {counts.outlook > 0 ? (
+          <Link href="/learning-paths/ms-office/outlook">
+            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
+              <div className="text-5xl mb-4">📧</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Outlook</h3>
+              <p className="text-gray-600 mb-4 leading-relaxed">Professional email, calendar and scheduling, contacts, tasks, and keeping a busy inbox under control.</p>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">Live</span>
+                <span>•</span>
+                <span>{counts.outlook} Modules</span>
+              </div>
+            </div>
+          </Link>
+        ) : (
+          <div className="bg-white rounded-xl shadow-md border border-dashed border-gray-300 p-6 h-full opacity-80">
+            <div className="text-5xl mb-4">📧</div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Outlook</h3>
+            <p className="text-gray-600 mb-4 leading-relaxed">Professional email, calendar and scheduling, contacts, tasks, and keeping a busy inbox under control.</p>
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-full font-medium">Coming soon</span>
+            </div>
+          </div>
+        )}
+
+        {/* TEAMS */}
+        {counts.teams > 0 ? (
+          <Link href="/learning-paths/ms-office/teams">
+            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
+              <div className="text-5xl mb-4">💬</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Teams</h3>
+              <p className="text-gray-600 mb-4 leading-relaxed">Chats, channels, meetings, shared files, and working with a team in one place.</p>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">Live</span>
+                <span>•</span>
+                <span>{counts.teams} Modules</span>
+              </div>
+            </div>
+          </Link>
+        ) : (
+          <div className="bg-white rounded-xl shadow-md border border-dashed border-gray-300 p-6 h-full opacity-80">
+            <div className="text-5xl mb-4">💬</div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Teams</h3>
+            <p className="text-gray-600 mb-4 leading-relaxed">Chats, channels, meetings, shared files, and working with a team in one place.</p>
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-full font-medium">Coming soon</span>
+            </div>
+          </div>
+        )}
+
+        {/* ONEDRIVE */}
+        {counts.onedrive > 0 ? (
+          <Link href="/learning-paths/ms-office/onedrive">
+            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
+              <div className="text-5xl mb-4">☁️</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft OneDrive</h3>
+              <p className="text-gray-600 mb-4 leading-relaxed">Cloud storage, syncing, sharing with the right permissions, version history, and recovering files.</p>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">Live</span>
+                <span>•</span>
+                <span>{counts.onedrive} Modules</span>
+              </div>
+            </div>
+          </Link>
+        ) : (
+          <div className="bg-white rounded-xl shadow-md border border-dashed border-gray-300 p-6 h-full opacity-80">
+            <div className="text-5xl mb-4">☁️</div>
+            <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft OneDrive</h3>
+            <p className="text-gray-600 mb-4 leading-relaxed">Cloud storage, syncing, sharing with the right permissions, version history, and recovering files.</p>
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-full font-medium">Coming soon</span>
+            </div>
+          </div>
+        )}
 
       </div>
 
