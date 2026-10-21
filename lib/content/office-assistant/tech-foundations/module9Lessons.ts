@@ -59,8 +59,8 @@ export const module9Lessons: Lesson[] = [
                 "Often treated as the internet's birthday",
               ],
               [
-                "1984",
-                "Domain Name System introduced",
+                "1983-1985",
+                "Domain Name System designed and put into use",
                 "Names instead of numeric addresses, which made the network usable by people",
               ],
               [
@@ -70,7 +70,7 @@ export const module9Lessons: Lesson[] = [
               ],
               [
                 "1993",
-                "The Mosaic browser",
+                "The Mosaic browser; CERN makes the web's software free for anyone to use",
                 "Images alongside text; the web becomes something non-specialists want to use",
               ],
               [
@@ -84,11 +84,34 @@ export const module9Lessons: Lesson[] = [
                 "Always-on and always-carried, rather than a place you went to",
               ],
               [
-                "2010s onward",
+                "2010s",
                 "Cloud computing, mobile-first, IoT",
                 "Computing moves off the device and into data centers",
               ],
+              [
+                "2020s",
+                "AI assistants built into everyday software; passkeys begin replacing passwords",
+                "The network carries AI services, and security is finally being designed in rather than added on",
+              ],
             ],
+          },
+          {
+            type: "drag-drop",
+            mode: "order",
+            title: "Build the timeline",
+            prompt: "Drag these eight events into the order they happened, earliest first.",
+            items: [
+              { id: "t1", text: "Packet switching is proposed and ARPANET is funded" },
+              { id: "t2", text: "ARPANET sends its first message between connected computers" },
+              { id: "t3", text: "TCP/IP is developed so different networks can interconnect" },
+              { id: "t4", text: "ARPANET switches over to TCP/IP" },
+              { id: "t5", text: "Tim Berners-Lee proposes the World Wide Web" },
+              { id: "t6", text: "The Mosaic browser shows images alongside text" },
+              { id: "t7", text: "Broadband, social platforms, and smartphones make the internet always-on" },
+              { id: "t8", text: "Cloud computing moves everyday software into data centers" },
+            ],
+            explanation:
+              "1960s packet switching, 1969 the first ARPANET message, the 1970s TCP/IP, 1983 the switch to TCP/IP, 1989 the web proposal, 1993 Mosaic, the 2000s always-on internet, and the 2010s cloud. Notice that every step assumed the earlier ones, and that none of them made security a requirement.",
           },
           {
             type: "key-terms",
@@ -152,11 +175,16 @@ export const module9Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Build a timeline of eight events from this lesson. For each, write one sentence on what became possible that had not been before.",
+          "Build a timeline of eight events from this lesson. Start with the 'Build the timeline' game in the lesson until every event is in the right place, then write the eight events in order with one sentence each on what became possible that had not been before.",
           "Explain the difference between the internet and the web to someone non-technical, in three sentences, without using either word's definition circularly.",
           "Identify two security problems your practice faces that trace back to the network's original assumption of trusted participants. Explain the connection.",
-          "Research one internet technology introduced in the last five years and write a paragraph on what problem it was created to solve.",
+          "Research one internet technology introduced in the last five years (for example, passkeys, HTTP/3, or AI chat assistants) and write a paragraph on what problem it was created to solve.",
         ],
+      },
+      {
+        type: "callout",
+        variant: "success",
+        text: "Deliverable: Submit your timeline, explanation, security connections, and research paragraph to your instructor or course folder.",
       },
     ],
   },
@@ -229,6 +257,23 @@ export const module9Lessons: Lesson[] = [
             ],
           },
           {
+            type: "drag-drop",
+            mode: "order",
+            title: "Order the generations",
+            prompt: "Drag these devices into the order in which they reached people, earliest first.",
+            items: [
+              { id: "g1", text: "Room-sized mainframes run by trained operators" },
+              { id: "g2", text: "Minicomputers for universities and larger businesses" },
+              { id: "g3", text: "Personal computers built around the microprocessor" },
+              { id: "g4", text: "Networked PCs and laptops in most offices" },
+              { id: "g5", text: "Smartphones: a connected computer in a pocket" },
+              { id: "g6", text: "Tablets, cloud services, and wearables" },
+              { id: "g7", text: "IoT devices and AI assistants that compute without looking like computers" },
+            ],
+            explanation:
+              "Each step is smaller, cheaper, and more connected than the one before, and each reached people the previous one could not. The older generations did not disappear: mainframes still run banking and airline systems.",
+          },
+          {
             type: "paragraph",
             text: "The trend has a consequence worth naming: as devices became connected, the important resource stopped being the machine and became the data and the network. A modern workstation is largely a window onto services running elsewhere, which is why a practice can lose a computer without losing any work — and why losing network access stops everything.",
           },
@@ -296,6 +341,11 @@ export const module9Lessons: Lesson[] = [
           "Write a recommendation to the practice manager on whether Lakeside should replace desktops with laptops, tablets, or thin clients. Name the trade-off in each option.",
           "Describe one task in a medical office that is done the same way it was twenty years ago, and explain why technology has not changed it.",
         ],
+      },
+      {
+        type: "callout",
+        variant: "success",
+        text: "Deliverable: Submit your device list, evaluation, recommendation, and description to your instructor or course folder.",
       },
     ],
   },
