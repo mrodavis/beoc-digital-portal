@@ -176,6 +176,11 @@ export const newOutlookRibbon: RibbonTab[] = [
       { label: "Basic text", controls: fontRow },
       { label: "Insert", controls: [attachFile, b("insert.link", "Link", "link"), signature] },
       { label: "Proofing", controls: [b("review.spelling", "Editor", "editor"), b("format.dictate", "Dictate", "mic")] },
+      {
+        // Sensitivity labels are published by the organization (doc.sensitivityLabels replaces these at run time).
+        label: "Tags",
+        controls: [dd("compose.sensitivity", "Sensitivity", "tag", [{ value: "Public" }, { value: "General" }, { value: "Confidential" }, { value: "Highly Confidential" }])],
+      },
     ],
   },
   {
@@ -229,12 +234,6 @@ export const newOutlookRibbon: RibbonTab[] = [
             { value: "Encrypt", icon: "lock" },
             { value: "Do Not Forward", icon: "lock" },
             { value: "Remove encryption", icon: "close" },
-          ]),
-          dd("compose.sensitivity", "Sensitivity", "tag", [
-            { value: "Public" },
-            { value: "General" },
-            { value: "Confidential" },
-            { value: "Highly Confidential" },
           ]),
         ],
       },

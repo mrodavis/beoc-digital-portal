@@ -452,6 +452,8 @@ export type OutlookDoc = {
   shared?: { name: string; email: string; added?: boolean }[];
   /** The organization has Copilot: shows the Copilot button and Summary by Copilot. */
   copilot?: boolean;
+  /** Text "Draft with Copilot" produces in this sim (predictable on purpose). */
+  copilotDraft?: string;
   /** Sensitivity labels the organization publishes (Options › Sensitivity). */
   sensitivityLabels?: string[];
   /** Settings › Calendar › View › Time zones. */

@@ -127,7 +127,7 @@ function TimeSel({ value, onChange, label, f }: { value: string; onChange: (hhmm
   const opts = TIME_OPTIONS_15;
   const cur = fmtTime(`2026-01-01T${value}`);
   return (
-    <select aria-label={label} data-f={f} value={cur} onChange={(ev) => onChange(parseTime(ev.target.value) ?? value)} className={`${inputCls} w-28`}>
+    <select aria-label={label} data-f={f} value={cur} onChange={(ev) => onChange(parseTime(ev.target.value) ?? value)} className={`${inputCls.replace("w-full ", "")} w-28`}>
       {(opts.includes(cur) ? opts : [cur, ...opts]).map((o) => (
         <option key={o} value={o}>
           {o}
@@ -155,7 +155,7 @@ function DateBox({ value, onChange, label, f }: { value: string; onChange: (iso:
         ev.stopPropagation();
         if (ev.key === "Enter") (ev.target as HTMLInputElement).blur();
       }}
-      className={`${inputCls} w-28`}
+      className={`${inputCls.replace("w-full ", "")} w-28`}
     />
   );
 }
@@ -179,9 +179,7 @@ function SchedulingView({ ctx, d }: { ctx: NCtx; d: FormDraft }) {
     <div className="mt-2 rounded-lg border border-gray-200 p-3">
       <div className="mb-2 flex items-center justify-between">
         <span className="text-[14px] font-semibold">Scheduling Assistant · {fmtDate(date)}</span>
-        <button type="button" data-c="event.view" data-v="Appointment" onClick={() => ctx.cmd("event.view", "Appointment")} className="rounded-[4px] border border-gray-300 px-2.5 py-0.5 text-[12.5px] hover:bg-gray-50">
-          Done
-        </button>
+        <span className="text-[12px] text-gray-500">Shaded = busy. Your meeting time is outlined in blue.</span>
       </div>
       <div className="mb-1 flex text-[10.5px] text-gray-500">
         <span className="w-36 shrink-0" />
@@ -266,6 +264,21 @@ export function EventFormNew({ ctx }: { ctx: NCtx }) {
         onKeyDown={(ev) => ev.stopPropagation()}
         className="mb-3 w-full border-b border-gray-300 pb-1 text-[20px] outline-none placeholder:text-gray-400 focus:border-[#0f6cbd]"
       />
+      <div role="tablist" aria-label="Event views" className="mb-3 flex gap-4 border-b border-gray-200 text-[13px]">
+        {(
+          [
+            ["Appointment", "Event"],
+            ["Scheduling Assistant", "Scheduling Assistant"],
+          ] as const
+        ).map(([v, label]) => {
+          const on = v === "Scheduling Assistant" ? f.view === "scheduling" : f.view !== "scheduling";
+          return (
+            <button key={v} type="button" role="tab" aria-selected={on} data-c="event.view" data-v={v} onClick={() => ctx.cmd("event.view", v)} className={`-mb-px border-b-2 px-0.5 pb-1.5 ${on ? "border-[#0f6cbd] font-semibold text-gray-900" : "border-transparent text-gray-600 hover:text-gray-900"}`}>
+              {label}
+            </button>
+          );
+        })}
+      </div>
       <div className="mb-2 flex items-start gap-2">
         <div className="min-w-0 flex-1">
           <PeopleField ctx={ctx} label="Invite required attendees" t="event.required" tokens={d.required} pending={d.pending.required} onTokens={(x) => ctx.setFdraft({ required: x })} onPending={(s) => ctx.setFdraft({ pending: { ...d.pending, required: s } })} />
@@ -281,7 +294,8 @@ export function EventFormNew({ ctx }: { ctx: NCtx }) {
           </button>
         )}
       </div>
-      <div className="mb-2 flex flex-wrap items-center gap-2 text-[13px]">
+      {f.view === "scheduling" && <SchedulingView ctx={ctx} d={d} />}
+      <div className={`mb-2 flex flex-wrap items-center gap-2 text-[13px] ${f.view === "scheduling" ? "hidden" : ""}`}>
         <OIcon name="clock" size={16} className="text-gray-500" />
         <DateBox label="Start date" f="startDate" value={d.startDate} onChange={(v) => setStart(v, d.startTime)} />
         {!d.allDay && <TimeSel label="Start time" f="startTime" value={d.startTime} onChange={(v) => setStart(d.startDate, v)} />}
@@ -290,21 +304,17 @@ export function EventFormNew({ ctx }: { ctx: NCtx }) {
         <DateBox label="End date" f="endDate" value={d.endDate} onChange={(v) => ctx.setFdraft({ endDate: v })} />
         <Switch on={d.allDay} f="allDay" label="All day" onChange={(v) => ctx.setFdraft({ allDay: v })} />
       </div>
-      <div className="mb-2 flex flex-wrap items-center gap-2 text-[13px]">
+      <div className={`mb-2 flex flex-wrap items-center gap-2 text-[13px] ${f.view === "scheduling" ? "hidden" : ""}`}>
         <OIcon name="recur" size={16} className="text-gray-500" />
         <button type="button" data-dlg="recurrence" onClick={() => ctx.openDialog("recurrence")} className="rounded-[4px] border border-gray-300 px-2.5 py-1 hover:bg-gray-50">
           {rec ? `Repeats: ${rec}` : "Recurring"}
         </button>
-        <button type="button" data-c="event.view" data-v="Scheduling Assistant" onClick={() => ctx.cmd("event.view", "Scheduling Assistant")} className="rounded-[4px] border border-gray-300 px-2.5 py-1 hover:bg-gray-50">
-          <span className="flex items-center gap-1.5"><OIcon name="group" size={14} /> Scheduling Assistant</span>
-        </button>
       </div>
-      <div className="mb-2 flex flex-wrap items-center gap-2 text-[13px]">
+      <div className={`mb-2 flex flex-wrap items-center gap-2 text-[13px] ${f.view === "scheduling" ? "hidden" : ""}`}>
         <OIcon name="location" size={16} className="text-gray-500" />
         <input aria-label="Add a location" placeholder="Add a location" data-f="location" value={d.location} onChange={(ev) => ctx.setFdraft({ location: ev.target.value })} onKeyDown={(ev) => ev.stopPropagation()} className={`${inputCls} max-w-[280px]`} />
         <Switch on={Boolean(f.data.teams)} c="event.teams" label="Teams meeting" onChange={() => ctx.cmd("event.teams")} />
       </div>
-      {f.view === "scheduling" && <SchedulingView ctx={ctx} d={d} />}
       <textarea
         aria-label="Add a description or attach documents"
         placeholder="Add a description or attach documents"
@@ -312,7 +322,7 @@ export function EventFormNew({ ctx }: { ctx: NCtx }) {
         value={d.body}
         onChange={(ev) => ctx.setFdraft({ body: ev.target.value })}
         onKeyDown={(ev) => ev.stopPropagation()}
-        className="mt-2 min-h-[90px] w-full flex-1 resize-none rounded-[4px] border border-gray-200 p-2 text-[13px] outline-none focus:border-[#0f6cbd]"
+        className={`mt-2 min-h-[90px] w-full flex-1 resize-none rounded-[4px] border border-gray-200 p-2 text-[13px] outline-none focus:border-[#0f6cbd] ${f.view === "scheduling" ? "hidden" : ""}`}
       />
     </div>
   );

@@ -581,6 +581,48 @@ function InviteCardNew({ ctx, m }: { ctx: NCtx; m: OlMessage }) {
   );
 }
 
+/** Select a name to see the profile card; More options › Add to contacts. */
+function ProfileName({ ctx, person }: { ctx: NCtx; person: { name: string; email: string } }) {
+  const [open, setOpen] = useState(false);
+  const known = (ctx.doc.contacts ?? []).some((c) => c.email?.toLowerCase() === person.email.toLowerCase());
+  return (
+    <span className="relative">
+      <button type="button" data-profile={person.email} onClick={() => setOpen((v) => !v)} className="text-[14px] font-semibold hover:underline" title={person.email}>
+        {person.name}
+      </button>
+      {open && (
+        <div role="dialog" aria-label={`Profile card: ${person.name}`} className="absolute left-0 top-full z-40 mt-1 w-72 rounded-lg border border-gray-200 bg-white p-3 shadow-xl">
+          <div className="flex items-center gap-2.5">
+            <Avatar name={person.name} size={44} />
+            <div className="min-w-0">
+              <div className="truncate text-[14px] font-semibold">{person.name}</div>
+              <div className="truncate text-[12px] text-gray-600">{person.email}</div>
+            </div>
+          </div>
+          <div className="mt-3 flex items-center gap-1.5">
+            <button type="button" onClick={() => setOpen(false)} className="flex items-center gap-1 rounded-[4px] border border-gray-300 px-2 py-1 text-[12.5px] hover:bg-gray-50">
+              <OIcon name="close" size={13} /> Close
+            </button>
+            <NMenuButton
+              dd="profile.more"
+              ariaLabel="More options"
+              title="More options"
+              items={[
+                known
+                  ? { label: "Already in your contacts", icon: "person", onPick: () => setOpen(false) }
+                  : { label: "Add to contacts", icon: "personAdd", cmd: "people.addSender", val: person.email, onPick: () => { setOpen(false); ctx.cmd("people.addSender", person.email); } },
+              ]}
+              className="rounded-[4px] border border-gray-300 px-2 py-1 hover:bg-gray-50"
+            >
+              <OIcon name="more" size={14} />
+            </NMenuButton>
+          </div>
+        </div>
+      )}
+    </span>
+  );
+}
+
 export function MessageViewNew({ ctx, m }: { ctx: NCtx; m: OlMessage }) {
   const doc = ctx.doc;
   const [summary, setSummary] = useState(false);
@@ -607,7 +649,7 @@ export function MessageViewNew({ ctx, m }: { ctx: NCtx; m: OlMessage }) {
         <Avatar name={m.from.name} size={40} />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-[14px] font-semibold" title={m.from.email}>{m.from.name}</span>
+            <ProfileName ctx={ctx} person={m.from} />
             <span className="text-[12.5px] text-gray-600">&lt;{m.from.email}&gt;</span>
             {m.external && <span className="rounded-[3px] bg-[#fdf3f4] px-1.5 text-[11px] font-semibold text-[#a4262c]">External</span>}
           </div>
@@ -818,6 +860,80 @@ function mentionAt(text: string, caret: number): { start: number; q: string } | 
   return { start: before.length - q.length - 1, q };
 }
 
+/**
+ * Draft with Copilot (Microsoft 365 Copilot license): type a prompt, Generate, review, Keep it.
+ * The draft text comes from the sim (doc.copilotDraft) so it is predictable; the prompt is
+ * committed as type "copilot.prompt" so a task can check what the learner asked for.
+ */
+function CopilotDraft({ ctx, body }: { ctx: NCtx; body: string }) {
+  const doc = ctx.doc;
+  const [open, setOpen] = useState(false);
+  const [prompt, setPrompt] = useState("");
+  const [draft, setDraft] = useState<string | null>(null);
+  const first = doc.account.name.split(" ")[0];
+  const generate = () => {
+    const p = prompt.trim();
+    if (!p) return;
+    ctx.commit({ kind: "type", target: "copilot.prompt", value: p });
+    setDraft(doc.copilotDraft ?? `Hello,\n\n${p.charAt(0).toUpperCase()}${p.slice(1).replace(/[.]?$/, ".")}\n\nPlease let me know if you have any questions.\n\nThank you,\n${first}`);
+  };
+  if (!open)
+    return (
+      <button type="button" data-copilotdraft="1" onClick={() => setOpen(true)} className="mb-2 flex w-fit items-center gap-1.5 rounded-[4px] border border-[#d9d0f5] bg-[#f5f2ff] px-2.5 py-1 text-[12.5px] font-semibold text-[#5b3fc4] hover:bg-[#ede7ff]">
+        <OIcon name="sparkle" size={14} /> Draft with Copilot
+      </button>
+    );
+  return (
+    <div role="region" aria-label="Draft with Copilot" className="mb-2 rounded-lg border border-[#d9d0f5] bg-gradient-to-r from-[#f5f2ff] to-[#eef6ff] p-2.5">
+      <div className="flex items-start gap-2">
+        <OIcon name="sparkle" size={16} className="mt-1.5 text-[#5b3fc4]" />
+        <textarea
+          aria-label="Tell Copilot what you want to write"
+          placeholder="Tell Copilot what you want to write"
+          data-t="copilot.prompt"
+          value={prompt}
+          onChange={(ev) => setPrompt(ev.target.value)}
+          onKeyDown={(ev) => {
+            ev.stopPropagation();
+            if (ev.key === "Enter" && !ev.shiftKey) {
+              ev.preventDefault();
+              generate();
+            }
+          }}
+          className="min-h-[44px] flex-1 resize-none rounded-[4px] border border-gray-300 bg-white px-2 py-1 text-[13px] outline-none focus:border-[#5b3fc4]"
+        />
+        <button type="button" aria-label="Generate" title="Generate" data-c="copilot.generate" onClick={generate} className="mt-1 rounded-[4px] bg-[#5b3fc4] p-1.5 text-white hover:bg-[#4a32a6]">
+          <OIcon name="send" size={15} />
+        </button>
+      </div>
+      {draft !== null && (
+        <div className="mt-2 rounded-[4px] border border-gray-200 bg-white p-2">
+          <pre className="whitespace-pre-wrap font-sans text-[13px] leading-relaxed text-gray-800">{draft}</pre>
+          <p className="mt-1 text-[11px] text-gray-500">AI-generated content may be incorrect. Review it before you send.</p>
+          <div className="mt-2 flex gap-2">
+            <button
+              type="button"
+              data-c="copilot.keep"
+              onClick={() => {
+                ctx.setCdraft({ body: body.trim() ? `${draft}\n\n${body}` : draft });
+                setDraft(null);
+                setOpen(false);
+                setPrompt("");
+              }}
+              className="rounded-[4px] bg-[#0f6cbd] px-3 py-1 text-[12.5px] font-semibold text-white hover:bg-[#115ea3]"
+            >
+              Keep it
+            </button>
+            <button type="button" onClick={() => { setDraft(null); setOpen(false); }} className="rounded-[4px] border border-gray-300 px-3 py-1 text-[12.5px] hover:bg-gray-50">
+              Discard
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ComposeNew({ ctx, popped }: { ctx: NCtx; popped?: boolean }) {
   const doc = ctx.doc;
   const c = doc.compose!;
@@ -933,6 +1049,7 @@ export function ComposeNew({ ctx, popped }: { ctx: NCtx; popped?: boolean }) {
           {c.readReceipt && <div className="mt-1.5 rounded-[4px] bg-[#f5f5f5] px-2 py-1 text-[12px]">A read receipt was requested.</div>}
         </div>
         <div className="relative flex min-h-0 flex-1 flex-col px-4 pb-3 pt-2">
+          {doc.copilot && <CopilotDraft ctx={ctx} body={d.body} />}
           <textarea
             ref={bodyRef}
             aria-label="Message body"

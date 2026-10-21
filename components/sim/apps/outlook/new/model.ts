@@ -276,6 +276,12 @@ export function applyNew(input: OutlookDoc, c: SimCommit, ui: SimUi): Res {
 /** Commands and dialogs only new Outlook has; undefined means "let the classic model handle it". */
 function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefined {
   if (c.kind === "type") {
+    if (c.target === "copilot.prompt") {
+      // The prompt only shapes the suggested draft; the draft lands in the body when the learner keeps it.
+      const doc = clone(input);
+      doc.flags = { ...(doc.flags ?? {}), copilotPrompt: c.value };
+      return { doc };
+    }
     if (c.target === "todo.new") {
       const doc = clone(input);
       const v = c.value.trim();
@@ -291,7 +297,7 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
         percent: 0,
         myDay: list === "My Day" ? true : undefined,
         important: list === "Important" ? true : undefined,
-        due: list === "Planned" || list === "My Day" ? todayOf(doc) : undefined,
+        due: list === "Planned" ? todayOf(doc) : undefined,
         list: builtIn.includes(list) ? "Tasks" : list,
       };
       tasks.push(t);
@@ -571,6 +577,15 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
       });
       doc.flags = { ...(doc.flags ?? {}), [`recalled:${m.id}`]: ok ? "Succeeded" : "Failed" };
       doc.window = null;
+      return { doc };
+    }
+    case "people.addSender": {
+      // Profile card › More options › Add to contacts: a new contact with the name and address filled in.
+      const doc = clone(input);
+      const m = selMessage(doc, ui);
+      const p = [m?.from, ...(m?.to ?? []), ...(m?.cc ?? [])].find((x) => x && x.email.toLowerCase() === sv.toLowerCase()) ?? m?.from;
+      if (!p) return { doc };
+      doc.form = formFor(doc, "contact", { name: p.name, email: p.email });
       return { doc };
     }
     case "people.addToList": {

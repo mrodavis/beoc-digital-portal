@@ -157,7 +157,7 @@ const CANVAS = [
   "mail.forward", "event.forward", "mail.newEmail", "mail.archive", "settings.open", "settings.close", "settings.page", "settings.focusedInbox", "rules.run",
   "rules.toggle", "rules.delete", "junk.blockAddress", "junk.safeAddress", "junk.remove", "share.accept", "todo.list", "todo.important", "todo.myDay", "todo.due",
   "copilot.summarize", "copilot.open", "pane.close", "view.myDay", "toggle.newOutlook", "app.launch", "toast.close", "mail.ignore", "event.saveClose", "contact.saveClose",
-  "group.saveClose", "event.recurrence", "review.accessibility", "people.addToList", "mail.recall", "people.newContact", "people.newGroup", "cal.newTeamsMeeting", "qat.undo",
+  "group.saveClose", "event.recurrence", "review.accessibility", "people.addToList", "people.addSender", "mail.recall", "people.newContact", "people.newGroup", "cal.newTeamsMeeting", "qat.undo",
 ];
 
 function initialUi(doc: OutlookDoc): SimUi {
@@ -206,6 +206,6 @@ export const newOutlookCore: AppCore<OutlookDoc> = {
   contextualTabs: newContextual,
   dialogDefaults: outlookDialogDefaults,
   dialogDef: (doc, ui, id) => outlookDialogDef(doc, ui, id, dialogs[id]),
-  selectionExists: (doc, sel) => selectionExists(doc, sel) || sel === "todo.new" || sel.startsWith("settings"),
+  selectionExists: (doc, sel) => selectionExists(doc, sel) || sel === "todo.new" || sel === "copilot.prompt" || sel.startsWith("settings"),
   describeSelection: (doc, ui) => selMessage(doc, ui)?.subject ?? selEvent(doc, ui)?.evt.title ?? "",
 };

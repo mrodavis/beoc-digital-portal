@@ -16,7 +16,7 @@ import { SWEEP_OPTIONS, catLabel } from "./model";
 import { RibbonBar } from "./RibbonBar";
 import { ComposeNew, FolderPaneNew, MessageListNew, MessageViewNew, ReadingPaneNew, signatureInsert, type NCtx } from "./mailNew";
 import { CalendarPaneNew, EventFormNew } from "./calendarNew";
-import { ContactDetailsNew, ContactFormNew, GroupFormNew, PeopleListNew, PeoplePaneNew } from "./peopleNew";
+import { ContactDetailsNew, ContactFormNew, GroupFormNew, PeopleListNew, PeoplePaneNew, askDeletePerson } from "./peopleNew";
 import { TodoMainNew, TodoPaneNew } from "./todoNew";
 import { SettingsModal, pageFor } from "./settingsNew";
 import { FButton, FluentDialog, FluentModal, NMenu, settle, type NEntry } from "./ui";
@@ -361,6 +361,7 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
         cmd(id, value);
         return;
       }
+      if (id === "item.delete" && moduleOf(doc) === "people" && /^(contact|group):/.test(ui.selection ?? "")) return askDeletePerson(ctxRef.current!);
       if (id === "settings.calendar") {
         openSettings("Calendar/View");
         cmd("settings.open", "Calendar settings");
@@ -693,7 +694,7 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
           key={dialog}
           def={dlgDef}
           initial={newOutlookCore.dialogDefaults?.(doc, ui, dialog)}
-          okLabel={dialog === "sweep" ? "Sweep" : dialog === "scheduleSend" ? "Send" : dialog === "attachFile" ? "Attach" : dialog === "shareCalendar" ? "Share" : dialog === "moveTo" ? "Move" : undefined}
+          okLabel={dialog === "sweep" ? "Sweep" : dialog === "scheduleSend" ? "Send" : dialog === "attachFile" ? "Attach" : dialog === "shareCalendar" ? "Share" : dialog === "moveTo" ? "Move" : dialog === "addShared" ? "Add" : undefined}
           onCancel={() => setDialog(null)}
           onOk={(values) => {
             const id = dialog;

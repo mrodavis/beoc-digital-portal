@@ -6,7 +6,44 @@ import { Avatar, OIcon } from "../parts";
 import { people, selIds, sortedContacts } from "../model";
 import type { NCtx } from "./mailNew";
 import { NMenuButton, inputCls } from "./ui";
+import type { NEntry } from "./ui";
 import { resolveToken, suggestionsFor } from "../mail";
+
+/** Delete asks first, as in new Outlook ("Delete" again to confirm). Deleting a list keeps the contacts. */
+export function askDeletePerson(ctx: NCtx, key?: string) {
+  const doc = ctx.doc;
+  const sel = key ?? ctx.ui.selection;
+  const c = (doc.contacts ?? []).find((x) => selIds(sel, "contact").includes(x.id));
+  const g = (doc.groups ?? []).find((x) => selIds(sel, "group").includes(x.id));
+  if (!c && !g) return ctx.cmd("item.delete");
+  ctx.alert({
+    title: c ? "Delete contact?" : "Delete contact list?",
+    text: c ? `${c.name} will be deleted from your contacts.` : `The list "${g!.name}" will be deleted. The contacts in it won't be deleted.`,
+    buttons: [{ label: "Delete", primary: true, onClick: () => ctx.cmd("item.delete") }, { label: "Cancel" }],
+  });
+}
+
+function personMenu(ctx: NCtx, key: string): NEntry[] {
+  const doc = ctx.doc;
+  const isContact = key.startsWith("contact:");
+  return [
+    { label: "Email", icon: "mail", cmd: "contact.emailTo", onPick: () => ctx.cmd("contact.emailTo") },
+    ...(isContact
+      ? [
+          {
+            label: "Add to list",
+            icon: "group",
+            sub: [
+              { label: "New contact list", icon: "plus", cmd: "people.addToList", val: "New contact list", onPick: () => ctx.cmd("people.addToList", "New contact list") },
+              ...(doc.groups ?? []).map((g) => ({ label: g.name, icon: "group", cmd: "people.addToList", val: g.name, onPick: () => ctx.cmd("people.addToList", g.name) })),
+            ],
+          } as NEntry,
+        ]
+      : []),
+    { label: isContact ? "Edit contact" : "Edit", icon: "edit", cmd: "contact.edit", onPick: () => ctx.cmd("contact.edit") },
+    { label: "Delete", icon: "trash", onPick: () => askDeletePerson(ctx, key) },
+  ];
+}
 
 /* ------------------------------------------------------------------ */
 /* People: contacts and contact lists                                  */
@@ -47,6 +84,7 @@ export function PeopleListNew({ ctx, view }: { ctx: NCtx; view: "contacts" | "li
   const doc = ctx.doc;
   const [q, setQ] = useState("");
   const sel = ctx.ui.selection;
+  const ctxRef = ctx;
   const contacts = sortedContacts(doc).filter((c) => !q || `${c.name} ${c.email ?? ""} ${c.company ?? ""}`.toLowerCase().includes(q.toLowerCase()));
   const groups = (doc.groups ?? []).filter((g) => !q || g.name.toLowerCase().includes(q.toLowerCase()));
   const item = (key: string, name: string, sub: string, icon?: string) => (
@@ -56,6 +94,12 @@ export function PeopleListNew({ ctx, view }: { ctx: NCtx; view: "contacts" | "li
       data-sel={key}
       onClick={() => ctx.select(key)}
       onDoubleClick={() => ctx.cmd("item.open", key)}
+      onContextMenu={(ev) => {
+        ev.preventDefault();
+        ctx.select(key);
+        const at = { x: ev.clientX, y: ev.clientY };
+        setTimeout(() => ctxRef.nmenu(at, personMenu(ctxRef, key)), 0);
+      }}
       className={`mx-1 flex w-[calc(100%-8px)] items-center gap-2.5 rounded-[4px] px-2 py-2 text-left text-[13px] ${sel === key ? "bg-[#d6e7f8]" : "hover:bg-[#f0f0f0]"}`}
     >
       {icon ? <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#ebf3fc] text-[#0f6cbd]"><OIcon name={icon} size={16} /></span> : <Avatar name={name} size={32} />}
@@ -132,9 +176,9 @@ export function ContactDetailsNew({ ctx }: { ctx: NCtx }) {
           </NMenuButton>
         )}
         <button type="button" className={btn} data-c="contact.edit" onClick={() => ctx.cmd("contact.edit")}>
-          <OIcon name="edit" size={14} /> Edit
+          <OIcon name="edit" size={14} /> {c ? "Edit contact" : "Edit"}
         </button>
-        <button type="button" className={btn} data-c="item.delete" onClick={() => ctx.cmd("item.delete")}>
+        <button type="button" className={btn} data-delask="1" onClick={() => askDeletePerson(ctx)}>
           <OIcon name="trash" size={14} /> Delete
         </button>
       </div>

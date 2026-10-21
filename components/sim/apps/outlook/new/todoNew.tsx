@@ -25,14 +25,13 @@ type Item = { key: string; title: string; done: boolean; due?: string; important
 
 function itemsFor(ctx: NCtx, list: string): Item[] {
   const doc = ctx.doc;
-  const today = todayOf(doc);
   const tasks = (doc.tasks ?? []).map((t) => ({ key: `task:${t.id}`, title: t.subject, done: t.status === "Completed", due: t.due, important: t.important, task: t }));
   const flagged = doc.messages
     .filter((m) => m.flag && m.folder !== "deleted")
     .map((m) => ({ key: `msg:${m.id}`, title: m.subject, done: Boolean(m.flag?.complete), due: m.flag?.due, msg: m }));
   switch (list) {
     case "My Day":
-      return tasks.filter((t) => t.task!.myDay || t.due === today);
+      return tasks.filter((t) => t.task!.myDay);
     case "Important":
       return tasks.filter((t) => t.important);
     case "Planned":
@@ -95,11 +94,14 @@ export function TodoMainNew({ ctx }: { ctx: NCtx }) {
       <button
         type="button"
         aria-label={i.done ? "Mark as not completed" : "Mark as completed"}
-        data-c="task.complete"
+        data-c={i.msg ? "item.followUp" : "task.complete"}
+        data-v={i.msg ? (i.done ? "Clear flag" : "Mark complete") : undefined}
         onClick={(ev) => {
           ev.stopPropagation();
           ctx.select(i.key);
-          ctx.cmd("task.complete");
+          // A flagged message's circle completes the flag; a task's circle completes the task.
+          if (i.msg) ctx.cmd("item.followUp", i.done ? "Clear flag" : "Mark complete");
+          else ctx.cmd("task.complete");
         }}
         className={`flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full border-2 ${i.done ? "border-[#0f6cbd] bg-[#0f6cbd] text-white" : "border-gray-500 hover:bg-gray-100"}`}
       >
