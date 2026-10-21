@@ -587,13 +587,7 @@ export const labsSecuritySims: Record<string, SimDefinition[]> = {
         {
           instruction: "Forward the message that asks for the 6-digit code to Sam Patel with a note saying it may be social engineering.",
           hint: "Point to the message › More options (…) › Forward. Choose Sam Patel, type a note such as \"Possible social engineering. This account asked for my Authenticator code.\" and select Forward.",
-          steps: [
-            {
-              ...anyOf("forward:m-f2", "To: Sam Patel\nMessage: Possible social engineering. This external account asked for my Authenticator code.", [["to: sam patel"], ["social engineering", "phishing", "scam", "fake", "suspicious", "not you", "not it"]]),
-              requires: { selection: "msg:m-f2" },
-              selectHint: "Forward the message that asks for the 6-digit code.",
-            },
-          ],
+          steps: [anyOf("forward:m-f2", "To: Sam Patel\nMessage: Possible social engineering. This external account asked for my Authenticator code.", [["to: sam patel"], ["social engineering", "phishing", "scam", "fake", "suspicious", "not you", "not it"]])],
         },
         {
           instruction: "Verify through a channel you already trust: call Sam Patel in Teams.",
