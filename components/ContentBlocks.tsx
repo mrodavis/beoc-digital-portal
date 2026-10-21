@@ -3,6 +3,7 @@ import { ContentBlock } from "@/types/lesson";
 import KnowledgeCheck from "./KnowledgeCheck";
 import SimulatorLab from "./SimulatorLab";
 import LessonImage from "./LessonImage";
+import DragDrop from "./DragDrop";
 
 /**
  * Renders one ContentBlock.
@@ -221,6 +222,9 @@ export function Block({ block }: { block: ContentBlock }) {
 
     case "simulator":
       return <SimulatorLab block={block} />;
+
+    case "drag-drop":
+      return <DragDrop block={block} />;
 
     case "link": {
       const external = /^https?:\/\//i.test(block.href);

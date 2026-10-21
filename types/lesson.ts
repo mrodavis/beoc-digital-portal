@@ -147,6 +147,25 @@ export type ContentBlock =
     }
 
   | {
+      /**
+       * Drag-and-drop practice game (components/DragDrop.tsx). Works with a
+       * mouse, touch, or tap-to-place, and checks itself.
+       * - sort:  each item's `bucket` is the id of the group it belongs in.
+       * - order: list `items` in the CORRECT order; the game shuffles them.
+       * - match: each item's `match` is the text it pairs with (the item's
+       *          `text` is the term; students drag the `match` cards).
+       */
+      type: "drag-drop";
+      mode: "sort" | "order" | "match";
+      title?: string;
+      prompt: string;
+      buckets?: { id: string; label: string }[];
+      items: { id: string; text: string; bucket?: string; match?: string }[];
+      /** Shown once everything is correct (or answers are revealed). */
+      explanation?: string;
+    }
+
+  | {
       type: "knowledge-check";
       question: string;
       options: string[];
