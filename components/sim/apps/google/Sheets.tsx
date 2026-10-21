@@ -558,7 +558,8 @@ export function SheetsSurface({ composer, setComposer, noteFor, setNoteFor }: { 
   const f = openFile(doc)!;
   const book = asBook(f);
   const sheet = sheetOf(book, ui);
-  const sel = ui.selection || "A1";
+  // A version or comment selection ("ver:current", "comment:c1") is not a range: reading "ver:current" as columns VER:CURRENT froze the page.
+  const sel = ui.selection && !/^(ver|comment):/.test(ui.selection) ? ui.selection : "A1";
   const act = activeCell(ui);
   const [edit, setEditState] = useState<{ ref: string; text: string; bar?: boolean } | null>(null);
   const editRef = useRef(edit);
