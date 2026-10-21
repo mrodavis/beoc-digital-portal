@@ -185,22 +185,23 @@ export const excelModule1Lessons: Lesson[] = [
     },
 
     {
-      heading: "Using the Tell Me Box",
+      heading: "Using the Search Box",
       blocks: [
         {
           type: "paragraph",
           text:
-            "The Tell Me box helps you quickly find commands. Simply type what you want to do, and Excel will suggest tools and actions.",
+            "The Search box at the top of the window helps you find commands quickly. Click it or press Alt+Q, type what you want to do, such as freeze, and choose a command from the list of results.",
         },
         {
           type: "image",
-          src: "/images/excel/module-1/getting-started/getting_started_tell_me.png",
-          alt: "Tell Me search box",
+          src: "/images/excel/module-1/getting-started/getting_started_search.png",
+          alt: "The Search box at the top of the Excel window with freeze typed and the Freeze Panes commands listed below it",
+          caption: "Type what you want to do and choose a command from the results.",
         },
         {
-          type: "image",
-          src: "/images/excel/module-1/getting-started/getting_started_tell_me_type.png",
-          alt: "Typing into Tell Me",
+          type: "callout",
+          variant: "version",
+          text: "Excel 2016 and 2019 called this the Tell Me box and placed it on the Ribbon, to the right of the tabs. It works the same way.",
         },
       ],
     },
@@ -270,7 +271,7 @@ export const excelModule1Lessons: Lesson[] = [
         "Switch between Ribbon tabs.",
         "Open Backstage view and return to the workbook.",
         "Add a command to the Quick Access Toolbar.",
-        "Use the Tell Me box to find a command.",
+        "Use the Search box (Alt+Q) to find a command.",
         "Switch between Normal view and Page Break view.",
         "Adjust the zoom level.",
       ],
@@ -711,7 +712,7 @@ export const excelModule1Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Click File → Save or Save As to store your workbook. You can save to OneDrive, your computer, or another location.",
+            "Click File → Save or Save As to store your workbook. You can save to OneDrive, your computer, or another location. For a workbook stored in OneDrive or SharePoint, AutoSave is on by default in Microsoft 365 and the File menu shows Save a Copy instead of Save As; use Save a Copy before you make changes you want to keep separate.",
         },
         {
           type: "image",

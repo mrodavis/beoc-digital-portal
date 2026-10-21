@@ -8,7 +8,7 @@ export const wordModule1Lessons: Lesson[] = [
       "Learn how to navigate the Word interface and understand the Ribbon, Quick Access Toolbar, and Backstage view.",
     objectives: [
       "Name the Ribbon, Quick Access Toolbar, ruler, and status bar, and say what each one is for",
-      "Use Tell Me to find a command you cannot locate on the Ribbon",
+      "Use the Search box to find a command you cannot locate on the Ribbon",
       "Switch between Print Layout, Read Mode, and Web Layout, and explain when each is useful",
       "Collapse and restore the Ribbon to gain screen space on a small laptop display",
     ],
@@ -52,15 +52,15 @@ export const wordModule1Lessons: Lesson[] = [
                 definition: "Everything behind the File tab. This is where you act on the file as a whole — open, save, print, share, inspect — rather than on the text inside it.",
               },
               {
-                term: "Tell Me",
-                definition: "The search box on the Ribbon. Type what you want to do in plain words and it runs the command directly, without you needing to know its tab.",
+                term: "Search box",
+                definition: "The box at the top of the window (Alt+Q). Type what you want to do in plain words and choose the command from the results, without needing to know its tab. Office 2016 and 2019 called it Tell Me and put it on the Ribbon.",
               },
             ],
           },
           {
             type: "callout",
             variant: "version",
-            text: "The screenshots in this lesson were captured in Office 2019. In Microsoft 365 and Office 2024 the Tell Me box is labeled with a magnifying glass and the word Search, and it sits in the title bar rather than on the Ribbon. It does the same job. Microsoft 365 also offers a Simplified Ribbon, a single condensed row you can toggle from the Ribbon Display Options — everything in this lesson still applies, the commands are just collapsed under a chevron.",
+            text: "Some screenshots in this lesson come from an older version of Word, so colors and icons may look a little different from your screen. Two things moved. The Tell Me box that Office 2016 and 2019 showed on the Ribbon is now the Search box at the top of the window in Word for Microsoft 365 (press Alt+Q to jump to it). And the Ribbon Display Options button is now at the bottom-right corner of the Ribbon, with new option names. Both are covered below.",
           },
         ],
       },
@@ -80,7 +80,7 @@ export const wordModule1Lessons: Lesson[] = [
           {
             type: "paragraph",
             text:
-              "The procedures in this tutorial will work for all recent versions of Microsoft Word, including Word 2019, Word 2016, and Microsoft 365. There may be slight differences, but for the most part these versions are very similar.",
+              "This course teaches Word for Microsoft 365. The steps also work in Word 2024, and the lessons point out the places where versions differ. Office 2019 reached end of support on October 14, 2025, so if you still find it on a computer, expect a few commands to look or sit differently.",
           },
         ],
       },
@@ -143,36 +143,37 @@ export const wordModule1Lessons: Lesson[] = [
           {
             type: "paragraph",
             text:
-              "If the Ribbon takes up too much space, you can hide it. Click the Ribbon Display Options button in the upper-right corner of the window.",
-          },
-          {
-            type: "image",
-            src: "/images/word/getting-started/start_ribbon_minimize.png",
-            alt: "Ribbon Display Options",
+              "If the Ribbon takes up too much space, you can hide it. Click the Ribbon Display Options button, the small arrow at the bottom-right corner of the Ribbon, and choose one of these options:",
           },
           {
             type: "list",
             ordered: false,
             items: [
-              "Auto-hide Ribbon – Completely hides the Ribbon.",
-              "Show Tabs – Shows only the tab names.",
-              "Show Tabs and Commands – Shows the full Ribbon (default).",
+              "Full-screen mode – Hides the Ribbon and its tabs so the document fills the screen.",
+              "Show tabs only – Shows only the tab names. Click a tab to see its commands.",
+              "Always show Ribbon – Shows the tabs and all their commands all the time.",
             ],
+          },
+          {
+            type: "callout",
+            variant: "version",
+            text: "In Office 2016 and 2019 the Ribbon Display Options button sat in the upper-right corner of the window, and the same three choices were called Auto-hide Ribbon, Show Tabs, and Show Tabs and Commands.",
           },
         ],
       },
       {
-        heading: "Using the Tell Me Feature",
+        heading: "Using the Search Box",
         blocks: [
           {
             type: "paragraph",
             text:
-              "If you're having trouble finding a command, use the Tell Me feature. Type what you're looking for in the Tell Me bar and select a result from the dropdown.",
+              "If you're having trouble finding a command, use the Search box at the top of the window, or press Alt+Q to jump to it. Type what you want to do, such as page number, and select a command from the list of results. The same box can also find help articles and files.",
           },
           {
             type: "image",
-            src: "/images/word/getting-started/start_ribbon_tellme.png",
-            alt: "Tell Me Search Bar",
+            src: "/images/word/getting-started/start_ribbon_search.png",
+            alt: "The Search box at the top of the Word window with page number typed and a list of Page Number commands below it",
+            caption: "Type what you want to do and choose a command from the results.",
           },
         ],
       },
@@ -182,7 +183,7 @@ export const wordModule1Lessons: Lesson[] = [
           {
             type: "paragraph",
             text:
-              "Located above the Ribbon, the Quick Access Toolbar provides quick access to Save, Undo, and Redo. You can customize it with additional commands.",
+              "The Quick Access Toolbar gives you one-click access to commands such as Save, Undo, and Redo, and you can add more. If you don't see it, right-click an empty part of the Ribbon and choose Show Quick Access Toolbar.",
           },
           {
             type: "image",
@@ -278,12 +279,12 @@ export const wordModule1Lessons: Lesson[] = [
                 why: "A non-breaking space is a character you are adding to the page, so Insert is a reasonable first guess — it lives under Insert > Symbol > More Symbols > Special Characters. Making the prediction first is what builds the mental map, even when the guess is wrong.",
               },
               {
-                move: "Use Tell Me rather than opening every tab.",
-                why: "Click Tell Me and type 'non-breaking space.' Word offers the command directly. Hunting tab by tab can take a minute; Tell Me takes five seconds, and it works for any command whose name you can approximately describe.",
+                move: "Use the Search box rather than opening every tab.",
+                why: "Press Alt+Q (or click Search at the top of the window) and type 'symbol.' Word lists matching commands directly. Hunting tab by tab can take a minute; Search takes five seconds, and it works for any command whose name you can approximately describe.",
               },
               {
-                move: "Note where Tell Me found it.",
-                why: "This is the step most people skip. Tell Me runs the command but does not teach you the location. Afterwards, go look at Insert > Symbol so the next time you need a special character you go straight there. Tell Me is a shortcut, not a substitute for the map.",
+                move: "Note where Search found it.",
+                why: "This is the step most people skip. Search runs the command but does not teach you the location. Afterwards, go look at Insert > Symbol so the next time you need a special character you go straight there. Search is a shortcut, not a substitute for the map.",
               },
               {
                 move: "Put it on the Quick Access Toolbar if you will repeat it.",
@@ -291,7 +292,7 @@ export const wordModule1Lessons: Lesson[] = [
               },
             ],
             result: "The title and surname stay together on one line, and you now know both the shortcut for finding commands and the actual home of special characters.",
-            takeaway: "Predict the tab, use Tell Me when the prediction fails, then go learn where it actually lives. That loop turns two hundred commands into a map you can navigate.",
+            takeaway: "Predict the tab, use Search when the prediction fails, then go learn where it actually lives. That loop turns two hundred commands into a map you can navigate.",
           },
         ],
       },
@@ -326,21 +327,21 @@ export const wordModule1Lessons: Lesson[] = [
         ordered: true,
         items: [
           "Open Word and create a blank document.",
-          "Change Ribbon Display Options to Show Tabs.",
+          "Use Ribbon Display Options to choose Show tabs only.",
           "Using Customize Quick Access Toolbar, add New, Quick Print, and Spelling & Grammar.",
-          "In the Tell Me bar, type Shape and press Enter.",
-          "Choose a shape and double-click somewhere in the document.",
+          "In the Search box (Alt+Q), type shapes and choose Shapes from the results.",
+          "Choose a shape, then click and drag in the document to draw it.",
           "Show the Ruler if it is not already visible.",
           "Zoom the document to 120%.",
           "Change the Document view to Web Layout.",
           "When finished, your document should look something like this.",
-          "Change Ribbon Display Options back to Show Tabs and Commands, and change view back to Print Layout."
+          "Change Ribbon Display Options back to Always show Ribbon, and change the view back to Print Layout."
         ]
       },
       {
         type: "image",
         src: "/images/word/getting-started/word2016_gettingtoknow3_img.png",
-        alt: "Completed Word Challenge Document"
+        alt: "Finished challenge: a star shape in Web Layout view at 120% zoom with the Ribbon showing tabs only"
       }
     ]
     ,
@@ -792,6 +793,11 @@ export const wordModule1Lessons: Lesson[] = [
              text: "Save writes your changes back into the file you opened, replacing what was there. Save As creates a new file and leaves the original as it was. Whenever you open an existing document as the starting point for a new one, Save As is the first thing you do — before you type a single change, not after. Doing it first means a reflexive Ctrl+S later lands on the new file instead of the old one.",
            },
            {
+             type: "callout",
+             variant: "version",
+             text: "Files stored in OneDrive or SharePoint work differently. In Microsoft 365, AutoSave is on by default for those files and writes every change to the original as you type, so there is no unsaved version to fall back on. For those files the File menu shows Save a Copy instead of Save As. The rule is the same, only earlier: use File > Save a Copy before you change anything, then open and edit the copy.",
+           },
+           {
              type: "paragraph",
              text: "Format is the second decision. A .docx is the working format: editable, and what you keep for yourself. A PDF is the delivery format: it locks layout and fonts so the document looks the same on the recipient's machine, and it signals that the content is final. Send the PDF, keep the .docx. If you send the .docx, you have handed over an editable copy of your practice's letterhead.",
            },
@@ -982,8 +988,8 @@ export const wordModule1Lessons: Lesson[] = [
             task: "Turn last month's insurance appeal letter into this month's, keeping the original intact and sending the new one in a format the insurer cannot alter.",
             steps: [
               {
-                move: "Open the original, then immediately File > Save As with a new name.",
-                why: "Before editing, not after. Once the new file is the active document, every later Ctrl+S — including the automatic one you press without thinking — writes to the copy. Editing first and renaming afterwards leaves a window where one reflex overwrites the original.",
+                move: "Open the original, then immediately File > Save As with a new name (File > Save a Copy if the letter is in OneDrive with AutoSave on).",
+                why: "Before editing, not after. Once the new file is the active document, every later Ctrl+S — including the automatic one you press without thinking — writes to the copy. Editing first and renaming afterwards leaves a window where one reflex, or AutoSave, overwrites the original.",
               },
               {
                 move: "Name it so a stranger could identify it: 'Appeal Letter - Ramirez - 2026-09.docx'.",

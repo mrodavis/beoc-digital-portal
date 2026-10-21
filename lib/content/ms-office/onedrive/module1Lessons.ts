@@ -439,7 +439,6 @@ export const onedriveModule1Lessons: Lesson[] = [
               ["Photos", "Photos appear under Media", "A Photos view for your camera pictures"],
               ["Sharing rules", "Your organization decides which link types you can use", "You decide (some options need a Microsoft 365 subscription)"],
               ["Can't download permission", "Available", "Not available"],
-              ["Browse by People and Meetings", "Available", "Not shown"],
             ],
           },
           {

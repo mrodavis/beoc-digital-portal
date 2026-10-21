@@ -79,7 +79,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
                   name: "Projects",
                   description: "Client project updates. Reply in threads so each conversation stays together.",
                   posts: [
-                    { id: "m-p2", from: "p-devon", time: "8:40 AM", text: "New VPN instructions are posted in Files. Please read them before Friday.", reactions: { Like: ["p-alex", "p-dana"] }, replies: [] },
+                    { id: "m-p2", from: "p-devon", time: "8:40 AM", text: "New VPN instructions are posted in the Shared tab. Please read them before Friday.", reactions: { Like: ["p-alex", "p-dana"] }, replies: [] },
                     { id: "m-p1", from: "p-renee", time: "9:05 AM", text: "Can someone confirm the Harper Dental migration date? The client asked this morning.", replies: [] },
                   ],
                 },
@@ -135,12 +135,12 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "In Announcements, Renee left feedback on your onboarding checklist post. Respond in that thread: “Thanks, Renee. I will include the client name in every update from now on.”",
-          hint: "Teams › Announcements. Under your post (where Renee replied), select Reply, type the response, and press Enter.",
+          hint: "Chat › Teams and channels › TOR Tech Operations › Announcements. Under your post (where Renee replied), select Reply, type the response, and press Enter.",
           steps: [typeAll("reply:m-an1", "Thanks, Renee. I will include the client name in every update from now on.", ["thanks", "client name"])],
         },
         {
           instruction: "Turn off notifications for the Random channel so it doesn't interrupt focused work.",
-          hint: "In the Teams list, point to Random and select More options (…) › Channel notifications › Off.",
+          hint: "In Chat, under Teams and channels, point to Random and select More options (…) › Channel notifications › Off.",
           steps: [{ action: { kind: "command", id: "channel.notifications", value: "Off" }, requires: { selection: "channel:ch-random" }, selectHint: "Change the notifications for the Random channel." }],
         },
         {
@@ -276,7 +276,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
               color: "#0e7a74",
               channels: [
                 { id: "ch-gen", name: "General", posts: [{ id: "m-g1", from: "p-renee", time: "8:20 AM", text: "Please welcome @Jordan Rivera, our new office assistant! Jordan starts the Final Simulation week today.", reactions: { Heart: ["p-dana", "p-sam"], Like: ["p-alex"] }, replies: [] }] },
-                { id: "ch-ops", name: "Operations", posts: [{ id: "m-o1", from: "p-renee", time: "8:25 AM", text: "The simulation brief is in the Files tab of this channel.", replies: [] }] },
+                { id: "ch-ops", name: "Operations", posts: [{ id: "m-o1", from: "p-renee", time: "8:25 AM", text: "The simulation brief is in the Shared tab of this channel.", replies: [] }] },
                 { id: "ch-proj", name: "Projects", posts: [] },
               ],
             },
@@ -309,18 +309,18 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "In your chat with Renee, pin her message “Final Simulation: how your week will be evaluated” so it stays at the top of the chat.",
-          hint: "Chat › Renee Ortiz. Point to the message, select More options (…) › Pin.",
+          hint: "Chat › Renee Ortiz. Point to the message, select More options (…) › Pin for everyone.",
           steps: [{ action: { kind: "command", id: "msg.pin" }, requires: { selection: "msg:m-r2" }, selectHint: "Pin Renee's message that lists the evaluation criteria." }],
         },
         {
-          instruction: "Open the Files tab in the Operations channel and open “TOR Tech Simulation Brief.docx.”",
-          hint: "Teams › TOR Tech › Operations › Files tab. Select TOR Tech Simulation Brief.docx.",
+          instruction: "Open the Shared tab in the Operations channel and open “TOR Tech Simulation Brief.docx.”",
+          hint: "Chat › Teams and channels › TOR Tech › Operations › Shared tab. Select TOR Tech Simulation Brief.docx.",
           steps: [{ action: { kind: "command", id: "files.open", value: "f-brief" }, requires: { selection: "file:f-brief" }, selectHint: "Open the simulation brief, not another file." }],
         },
         {
-          instruction: "Close the brief. Then upload your plan “First Week Plan - Jordan Rivera.docx” to the same Files tab.",
-          hint: "Select Close. In the Files tab, select Upload › Files, choose First Week Plan - Jordan Rivera.docx, and select Open.",
-          steps: [{ action: { kind: "command", id: "files.upload", value: "First Week Plan - Jordan Rivera.docx" }, requires: { selection: "files:ch-ops" }, selectHint: "Upload it to the Files tab of the Operations channel." }],
+          instruction: "Close the brief. Then upload your plan “First Week Plan - Jordan Rivera.docx” to the same Shared tab.",
+          hint: "Select Close. In the Shared tab, select Upload › Files, choose First Week Plan - Jordan Rivera.docx, and select Open.",
+          steps: [{ action: { kind: "command", id: "files.upload", value: "First Week Plan - Jordan Rivera.docx" }, requires: { selection: "files:ch-ops" }, selectHint: "Upload it to the Shared tab of the Operations channel." }],
         },
         {
           instruction: "Send Renee your top three priorities as a numbered list: “1. Calendar invites 2. Client emails 3. Tracker updates.”",
@@ -404,7 +404,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Answer Dana's question in the Accounts channel thread: “@Dana Cole the Q3 Contract Review with Marcus Webb is booked for Wednesday at 10:00 AM. Prep is at 9:30 AM.”",
-          hint: "Teams › TOR Tech Operations › Accounts. Under Dana's post, select Reply. Type @Dan and pick Dana Cole, type the rest, and press Enter.",
+          hint: "Chat › Teams and channels › TOR Tech Operations › Accounts. Under Dana's post, select Reply. Type @Dan and pick Dana Cole, type the rest, and press Enter.",
           steps: [typeAll("reply:m-c1", "@Dana Cole the Q3 Contract Review with Marcus Webb is booked for Wednesday at 10:00 AM. Prep is at 9:30 AM.", ["@Dana Cole", "q3 contract review", "wednesday at 10:00 am"])],
         },
         {
@@ -566,7 +566,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Answer Dana in the Accounts channel thread: “Yes. The Q3 Contract Review with Marcus Webb is booked for Thursday at 10:00 AM.”",
-          hint: "Teams › TOR Tech Operations › Accounts. Under Dana's post, select Reply, type the answer, and press Enter.",
+          hint: "Chat › Teams and channels › TOR Tech Operations › Accounts. Under Dana's post, select Reply, type the answer, and press Enter.",
           steps: [typeAll("reply:m-c1", "Yes. The Q3 Contract Review with Marcus Webb is booked for Thursday at 10:00 AM.", ["q3 contract review", "thursday at 10:00 am"])],
         },
         {
