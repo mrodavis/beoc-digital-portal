@@ -125,7 +125,7 @@ export const module9Lessons: Lesson[] = [
           },
           {
             type: "tip",
-            text: "Prepare by retrieval, not rereading. For each domain above, close the material and explain it out loud. Where you hesitate is your study list; where you answer instantly needs no more work, however reassuring rereading feels.",
+            text: "Prepare by retrieval, not rereading. For each topic above, close the material and explain it out loud. Where you hesitate is your study list; where you answer instantly needs no more work, however reassuring rereading feels.",
           },
         ],
       },
