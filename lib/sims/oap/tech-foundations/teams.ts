@@ -97,7 +97,7 @@ function kestrel(extra: Partial<TeamsDoc>): TeamsDoc {
             name: "Front Desk",
             unread: true,
             posts: [
-              { id: "m-a2", from: "p-marcus", time: "8:47 AM", text: "The new walk-in sign-in sheet is in the Files tab. Let me know if anything is missing.", replies: [] },
+              { id: "m-a2", from: "p-marcus", time: "8:47 AM", text: "The new walk-in sign-in sheet is on the Shared tab. Let me know if anything is missing.", replies: [] },
               { id: "m-a1", from: "p-alvarez", time: "9:12 AM", text: "@Jordan Rivera can you cover the front desk this Thursday from 1:00 to 3:00 PM while I'm at the faculty meeting?", replies: [] },
             ],
           },
