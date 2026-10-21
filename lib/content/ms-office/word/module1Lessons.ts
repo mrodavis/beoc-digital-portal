@@ -12,7 +12,7 @@ export const wordModule1Lessons: Lesson[] = [
       "Switch between Print Layout, Read Mode, and Web Layout, and explain when each is useful",
       "Collapse and restore the Ribbon to gain screen space on a small laptop display",
     ],
-    videoUrl: "https://www.youtube.com/embed/j-ZAVHk5SaU",
+    videoUrl: "https://www.youtube.com/embed/TN3T-xvXq2o",
     duration: "8 min",
     sections: [
       {

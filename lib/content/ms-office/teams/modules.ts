@@ -4,6 +4,7 @@ import { teamsModule2Lessons } from "./module2Lessons";
 import { teamsModule3Lessons } from "./module3Lessons";
 import { teamsModule4Lessons } from "./module4Lessons";
 import { teamsModule5Lessons } from "./module5Lessons";
+import { teamsModule6Lessons } from "./module6Lessons";
 
 export type TeamsModule = {
   moduleNumber: number;
@@ -67,5 +68,15 @@ export const teamsModules: TeamsModule[] = [
     lessons: teamsModule5Lessons,
     level: "Intermediate",
     estimatedMinutes: 75,
+  },
+  {
+    moduleNumber: 6,
+    moduleSlug: "module-6",
+    title: "Working Smarter in Teams",
+    emoji: "🧰",
+    description: "Quick calls, apps like Planner and Approvals, Loop components everyone can edit, Copilot basics, accessibility tools, and Teams on your phone.",
+    lessons: teamsModule6Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 60,
   },
 ];

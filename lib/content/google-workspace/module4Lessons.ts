@@ -21,6 +21,7 @@ export const gwModule4Lessons: Lesson[] = [
       "Freeze the header row, and add and rename sheets",
     ],
     duration: "25 min",
+    videoUrls: ["https://www.youtube.com/embed/pFUwRebuAd0", "https://www.youtube.com/embed/-SJYIQTOehQ"],
     slides: slides("sheets-basics-and-formatting", [
       "Spreadsheet basics in Google Sheets",
       "The Sheets screen: cells, name box, formula bar, sheet tabs",
@@ -193,6 +194,7 @@ export const gwModule4Lessons: Lesson[] = [
       "Make decisions with IF and count matches with COUNTIF",
     ],
     duration: "30 min",
+    videoUrls: ["https://www.youtube.com/embed/n_Vys5oPmTY", "https://www.youtube.com/embed/aa58VJqZJ3g"],
     slides: slides("formulas-and-functions", [
       "Formulas and functions in Google Sheets",
       "Every formula starts with =",

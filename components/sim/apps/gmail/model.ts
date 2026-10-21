@@ -761,9 +761,9 @@ export function applyGmail(doc: GmailDoc, c: SimCommit, ui: SimUi): { doc: Gmail
     if (t.startsWith("chat:")) {
       const id = t.slice(5);
       const ls = linesOf(v);
-      const structured = ls.some((l) => /^(Message|Add member|File|File access):/i.test(l));
+      const structured = ls.some((l) => /^(message|add member|file|file access)$/i.test(l.key));
       const text = structured ? field(ls, "Message") ?? "" : v;
-      const addMembers = structured ? ls.filter((l) => /^Add member:/i.test(l)).map((l) => l.replace(/^Add member:\s*/i, "").trim()).filter(Boolean) : [];
+      const addMembers = structured ? ls.filter((l) => /^add member$/i.test(l.key)).map((l) => l.val.trim()).filter(Boolean) : [];
       const file = structured ? field(ls, "File") : undefined;
       const access = structured ? field(ls, "File access") : undefined;
       const space = (d.spaces ?? []).find((s) => s.id === id);
