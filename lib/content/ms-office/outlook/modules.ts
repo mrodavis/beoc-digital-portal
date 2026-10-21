@@ -2,6 +2,9 @@ import { Lesson } from "@/types/lesson";
 import { outlookModule1Lessons } from "./module1Lessons";
 import { outlookModule2Lessons } from "./module2Lessons";
 import { outlookModule3Lessons } from "./module3Lessons";
+import { outlookModule4Lessons } from "./module4Lessons";
+import { outlookModule5Lessons } from "./module5Lessons";
+import { outlookModule6Lessons } from "./module6Lessons";
 
 export type OutlookModule = {
   moduleNumber: number;
@@ -14,7 +17,7 @@ export type OutlookModule = {
   estimatedMinutes: number;
 };
 
-/** Microsoft Outlook course modules (being written). Module N's lessons live in moduleNLessons.ts. */
+/** Microsoft Outlook course modules. Module N's lessons live in moduleNLessons.ts. */
 export const outlookModules: OutlookModule[] = [
   {
     moduleNumber: 1,
@@ -45,5 +48,35 @@ export const outlookModules: OutlookModule[] = [
     lessons: outlookModule3Lessons,
     level: "Intermediate",
     estimatedMinutes: 80,
+  },
+  {
+    moduleNumber: 4,
+    moduleSlug: "module-4",
+    title: "Calendar and Meetings",
+    emoji: "📅",
+    description: "Calendar views, events and reminders, answering invitations, the Scheduling Assistant, recurring and Teams meetings, calendar sharing, delegates and time zones.",
+    lessons: outlookModule4Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 65,
+  },
+  {
+    moduleNumber: 5,
+    moduleSlug: "module-5",
+    title: "People and To Do",
+    emoji: "👥",
+    description: "Contacts and contact lists in People, and To Do with due dates, importance, My Day and the Flagged email list.",
+    lessons: outlookModule5Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 42,
+  },
+  {
+    moduleNumber: 6,
+    moduleSlug: "module-6",
+    title: "Working Smarter and Safely",
+    emoji: "🛡️",
+    description: "Automatic replies, shared mailboxes, phishing and junk email, sensitivity labels, encryption and accessible messages, and Copilot and Outlook on other devices.",
+    lessons: outlookModule6Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 71,
   },
 ];
