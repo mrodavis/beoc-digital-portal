@@ -50,6 +50,7 @@ export default async function LessonPage({
       description={lesson.description}
       videoUrl={lesson.videoUrl}
       videoUrls={lesson.videoUrls}
+      slides={lesson.slides}
       sections={lesson.sections ?? []}
       challenge={lesson.challenge ?? []}
       practiceFiles={lesson.practiceFiles}
