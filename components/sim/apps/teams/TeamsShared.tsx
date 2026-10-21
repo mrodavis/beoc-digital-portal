@@ -523,7 +523,16 @@ export function Composer({
     ];
   };
 
-  /** Actions and apps (+): Attach file, Set delivery options, Loop components. */
+  /** Loop components button in the compose box (chats). */
+  const loopMenu = (e: React.MouseEvent<HTMLButtonElement>) =>
+    openMenu(
+      e.currentTarget.getBoundingClientRect(),
+      [{ heading: true, label: "Loop components" }, ...["Paragraph", "Checklist", "Table"].map((k) => ({ label: k, onClick: () => cmd(target, "compose.loop", k) }))],
+      200,
+    );
+  const loopOk = target.startsWith("chat:") || target.startsWith("newchat:");
+
+  /** Actions and apps (+): Attach file, Set delivery options. */
   const actionsMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const sub = (items: MenuEntry[], w = 280) => () => setTimeout(() => openMenu(rect, items, w), 0);
@@ -543,18 +552,6 @@ export function Composer({
                     { heading: true, label: "Set delivery options" },
                     { label: "Standard", checked: !delivery, onClick: () => cmd(target, "compose.delivery", "Standard") },
                     { label: "Important", checked: delivery === "Important", onClick: () => cmd(target, "compose.delivery", "Important") },
-                  ],
-                  220,
-                ),
-              },
-              {
-                label: "Loop components",
-                icon: "sparkle",
-                hint: "›",
-                onClick: sub(
-                  [
-                    { heading: true, label: "Loop components" },
-                    ...["Task list", "Table", "Paragraph"].map((k) => ({ label: k, onClick: () => cmd(target, "compose.loop", k) })),
                   ],
                   220,
                 ),
@@ -740,6 +737,11 @@ export function Composer({
             <button type="button" title="Emoji" aria-label="Emoji" onClick={() => setEmoji((x) => !x)} className={`rounded p-1 ${iconCls}`}>
               <TIcon name="emoji" size={18} />
             </button>
+            {loopOk && (
+              <button type="button" title="Loop components" aria-label="Loop components" onClick={loopMenu} className={`rounded p-1 ${iconCls}`}>
+                <TIcon name="sparkle" size={18} />
+              </button>
+            )}
             <button type="button" title="Actions and apps" aria-label="Actions and apps" onClick={actionsMenu} className={`rounded p-1 ${iconCls}`}>
               <TIcon name="plus" size={18} />
             </button>

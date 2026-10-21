@@ -3,6 +3,7 @@ import { teamsModule1Lessons } from "./module1Lessons";
 import { teamsModule2Lessons } from "./module2Lessons";
 import { teamsModule3Lessons } from "./module3Lessons";
 import { teamsModule4Lessons } from "./module4Lessons";
+import { teamsModule5Lessons } from "./module5Lessons";
 
 export type TeamsModule = {
   moduleNumber: number;
@@ -56,5 +57,15 @@ export const teamsModules: TeamsModule[] = [
     lessons: teamsModule4Lessons,
     level: "Intermediate",
     estimatedMinutes: 50,
+  },
+  {
+    moduleNumber: 5,
+    moduleSlug: "module-5",
+    title: "Meetings",
+    emoji: "🎥",
+    description: "Schedule and answer meetings, join ready, take part professionally, host with the lobby and roles, and follow up with captions, notes, and recordings.",
+    lessons: teamsModule5Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 75,
   },
 ];

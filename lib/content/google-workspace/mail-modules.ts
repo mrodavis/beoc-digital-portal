@@ -1,4 +1,5 @@
 import type { GoogleWorkspaceModule } from "./modules";
+import { gwModule5Lessons } from "./module5Lessons";
 import { gwModule6Lessons } from "./module6Lessons";
 import { gwModule7Lessons } from "./module7Lessons";
 
@@ -8,6 +9,25 @@ import { gwModule7Lessons } from "./module7Lessons";
  * Management (lib/sims/google-workspace/people.ts).
  */
 export const mailModules: GoogleWorkspaceModule[] = [
+  {
+    moduleNumber: 5,
+    moduleSlug: "module-5",
+    title: "Google Slides",
+    emoji: "🖼️",
+    description:
+      "Build a clear presentation in Google Slides: themes and layouts, pictures and backgrounds, gentle motion and speaker notes, then present it, share it, and download PowerPoint and PDF copies.",
+    lessons: gwModule5Lessons,
+    level: "Beginner",
+    estimatedMinutes: 80,
+    whatYoullLearn: [
+      "How to create and name a presentation, apply a theme, and add slides with the right layouts",
+      "How to insert and replace pictures, add shapes, change backgrounds, and organize slides",
+      "How to add transitions and animations that help the audience, and write speaker notes",
+      "How to skip slides, present with presenter view or in Google Meet, share at the right access level, and download .pptx and PDF copies",
+    ],
+    scenario:
+      "Denise Carter wants a welcome presentation for new tenants at Riverside Commons: it plays on the lobby screen, she presents it at orientation, and new tenants get a copy by email. You build it in Google Slides from a blank file to the finished, shared presentation.",
+  },
   {
     moduleNumber: 6,
     moduleSlug: "module-6",

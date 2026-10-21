@@ -13,7 +13,7 @@ import { applyTeams, describeTeams, teamsInitialUi, teamsSelectionExists } from 
  *   chat.call (video | audio), channel.notifications (All new posts | Mentions and replies | Off), channel.pin,
  *   compose.attach (file name), status.set (Available | Busy | Do not disturb | Be right back | Appear away | Appear offline | Reset status),
  *   status.clearMessage, files.upload (file name), files.copyLink, files.pin, files.delete, files.download,
- *   compose.delivery (Important | Standard), compose.loop (Task list | Table | Paragraph), team.join (team id),
+ *   compose.delivery (Important | Standard), compose.loop (Paragraph | Checklist | Table; the Loop components button in a chat's compose box), team.join (team id),
  *   tab.add (app name), settings.layout (Combined | Separate), settings.theme (Follow operating system theme | Light | Dark),
  *   settings.notify ("<Type>=<Activity feed and banner | Activity feed only | Off>"), planner.complete (task id),
  *   apps.pin (planner | approvals), meeting.role ("<person id>=Presenter | Attendee"),

@@ -174,7 +174,7 @@ export const teamsModule5Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Schedule a channel meeting in Front Office › Scheduling titled “Monthly Scheduling Review” on Monday, October 26, 2026, from 9:00 AM to 9:30 AM, repeating monthly.",
-          hint: "Chat › Front Office › Scheduling. Select the arrow next to Meet › Schedule a meeting. Type the title, choose Mon 10/26, 9:00 AM to 9:30 AM, set Repeat to Monthly, and select Send.",
+          hint: "Chat › Front Office › Scheduling. Select the arrow next to Meet now › Schedule a meeting. Type the title, choose Mon 10/26, 9:00 AM to 9:30 AM, set Repeat to Monthly, and select Send.",
           steps: [
             typeAll(
               "schedule",

@@ -245,7 +245,6 @@ export function FileViewer() {
   const accepted = useAccepted(doc);
   if (!f) return null;
   const office = /\.(docx|xlsx|pptx)$/i.test(f.name);
-  const appName = /\.xlsx$/i.test(f.name) ? "Excel" : /\.pptx$/i.test(f.name) ? "PowerPoint" : "Word";
   const post = () => text.trim() && accepted(() => act(`comment:${f.id}`, { kind: "type", target: `comment:${f.id}`, value: text.trim() }), () => setText(""));
   return (
     <div className="absolute inset-0 z-[75] flex flex-col bg-[#f5f5f5]" role="dialog" aria-label={f.name}>
@@ -274,7 +273,7 @@ export function FileViewer() {
                 openMenu(
                   e.currentTarget.getBoundingClientRect(),
                   [
-                    { label: "Desktop app", icon: "popout", hint: appName, onClick: () => cmd(`file:${f.id}`, "files.openIn", "Desktop app") },
+                    { label: "Desktop app", icon: "popout", onClick: () => cmd(`file:${f.id}`, "files.openIn", "Desktop app") },
                     { label: "Open in browser", icon: "globe", onClick: () => cmd(`file:${f.id}`, "files.openIn", "Browser") },
                   ],
                   240,

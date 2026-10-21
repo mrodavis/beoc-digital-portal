@@ -351,7 +351,7 @@ const RAIL: [TeamsView, string, string][] = [
 ];
 
 function Rail() {
-  const { doc, ui, go, seen } = useTeams();
+  const { doc, ui, go, seen, cmd, openMenu } = useTeams();
   const view = ui.view ?? "chat";
   const badge: Partial<Record<TeamsView, number>> = {
     activity: (doc.activity ?? []).filter((a) => a.unread).length,
@@ -359,7 +359,13 @@ function Rail() {
   };
   const combined = doc.layout !== "separate";
   const pinned = doc.pinnedApps ?? [];
-  const items = RAIL.filter(([v]) => (v === "teams" ? !combined : v === "planner" || v === "approvals" ? pinned.includes(v) : true));
+  // An app you opened shows on the app bar until you leave it; right-click › Pin keeps it there.
+  const items = RAIL.filter(([v]) => (v === "teams" ? !combined : v === "planner" || v === "approvals" ? pinned.includes(v) || view === v : true));
+  const appMenu = (e: React.MouseEvent, v: TeamsView) => {
+    if (v !== "planner" && v !== "approvals") return;
+    e.preventDefault();
+    openMenu({ clientX: e.clientX, clientY: e.clientY }, [{ label: pinned.includes(v) ? "Unpin" : "Pin", icon: "pin", onClick: () => cmd(`view:${v}`, "apps.pin", v) }], 160);
+  };
   const open = (v: TeamsView) => {
     if (v === "chat") {
       const conv = ui.view === "chat" ? ui.conv : doc.chats.find((c) => !c.hidden)?.id;
@@ -377,7 +383,7 @@ function Rail() {
       {items.map(([v, label, icon]) => {
         const on = view === v;
         return (
-          <button key={v} type="button" aria-label={label} aria-current={on ? "page" : undefined} onClick={() => open(v)} className={`relative flex w-[60px] flex-col items-center gap-0.5 rounded-md py-1.5 text-[10px] ${on ? "font-semibold text-[#5b5fc7]" : "text-[#616161] hover:text-[#5b5fc7]"}`}>
+          <button key={v} type="button" aria-label={label} aria-current={on ? "page" : undefined} onClick={() => open(v)} onContextMenu={(e) => appMenu(e, v)} className={`relative flex w-[60px] flex-col items-center gap-0.5 rounded-md py-1.5 text-[10px] ${on ? "font-semibold text-[#5b5fc7]" : "text-[#616161] hover:text-[#5b5fc7]"}`}>
             {on && <span className="absolute left-[-4px] top-2.5 h-5 w-[3px] rounded-full bg-[#5b5fc7]" />}
             <span className="relative">
               <TIcon name={icon} size={22} strokeWidth={on ? 1.7 : 1.4} />
@@ -1241,9 +1247,9 @@ function LoopCard({ m }: { m: TeamsMessage }) {
       </div>
       <div className="px-3 py-2">
         {m.loop.items.map((it, i) =>
-          kind === "Task list" ? (
+          kind === "Checklist" ? (
             <div key={i} className="flex items-center gap-2 py-0.5">
-              <span className="h-3.5 w-3.5 rounded-full border border-[#8a8886]" /> {it}
+              <span className="h-3.5 w-3.5 rounded-[3px] border border-[#8a8886]" /> {it}
             </div>
           ) : kind === "Table" ? (
             <div key={i} className="border-b border-[#f0f0f0] py-0.5">{it}</div>
@@ -1253,7 +1259,7 @@ function LoopCard({ m }: { m: TeamsMessage }) {
         )}
         <div className="mt-1 flex items-center gap-2">
           <input
-            aria-label={kind === "Task list" ? "Add a task" : kind === "Table" ? "Add a row" : "Type here"}
+            aria-label={kind === "Checklist" ? "Add an item" : kind === "Table" ? "Add a row" : "Type here"}
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => {
@@ -1262,7 +1268,7 @@ function LoopCard({ m }: { m: TeamsMessage }) {
                 add();
               }
             }}
-            placeholder={kind === "Task list" ? "Add a task" : kind === "Table" ? "Add a row" : "Type here"}
+            placeholder={kind === "Checklist" ? "Add an item" : kind === "Table" ? "Add a row" : "Type here"}
             className="min-w-0 flex-1 rounded border border-transparent px-1 py-0.5 outline-none hover:border-[#e0e0e0] focus:border-[#5b5fc7]"
           />
         </div>
@@ -1452,14 +1458,14 @@ function ChannelPane({ id }: { id: string }) {
         </div>
         <div className="flex-1" />
         <div className="flex items-center rounded-[4px] border border-[#d1d1d1]">
-          <button type="button" aria-label="Meet" onClick={() => cmd(`channel:${id}`, "calendar.meetNow")} className="flex items-center gap-1.5 rounded-l-[4px] px-3 py-1 text-[13px] font-semibold hover:bg-[#f5f5f5]">
-            <TIcon name="video" size={16} /> Meet
+          <button type="button" aria-label="Meet now" onClick={() => cmd(`channel:${id}`, "calendar.meetNow")} className="flex items-center gap-1.5 rounded-l-[4px] px-3 py-1 text-[13px] font-semibold hover:bg-[#f5f5f5]">
+            <TIcon name="video" size={16} /> Meet now
           </button>
           <span className="h-5 w-px bg-[#d1d1d1]" />
           <button
             type="button"
-            aria-label="Meet options"
-            title="Meet options"
+            aria-label="Meet now options"
+            title="Meet now options"
             onClick={(e) =>
               ctx.openMenu(
                 e.currentTarget.getBoundingClientRect(),
