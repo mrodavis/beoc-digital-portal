@@ -302,7 +302,9 @@ function MessageList() {
     if (folder === "inbox" && showTabs) return tabOf(doc, m) === tab;
     return true;
   });
-  const checked = ui.selection.startsWith("msg:") && !doc.view?.open ? ui.selection.split(",").map((s) => s.trim().slice(4)) : [];
+  // Only conversations still shown count as checked (a reported or moved one leaves the list).
+  const shown = new Set(list.map((c) => c.last.id));
+  const checked = ui.selection.startsWith("msg:") && !doc.view?.open ? ui.selection.split(",").map((s) => s.trim().slice(4)).filter((id) => shown.has(id)) : [];
   const setChecked = (ids: string[]) => g.onSelect({ selection: ids.map((i) => `msg:${i}`).join(",") });
   const toggle = (id: string) => setChecked(checked.includes(id) ? checked.filter((x) => x !== id) : [...checked, id]);
   const [ctx, setCtx] = useState<{ pos: MenuPos; id: string } | null>(null);

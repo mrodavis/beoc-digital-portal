@@ -199,7 +199,14 @@ export function Select({ label, value, options, onChange, className, hideLabel }
 export function Toast() {
   const g = useGm();
   const t = g.doc.toast;
-  if (!t) return null;
+  // Notices fade after a few seconds like the real ones; a send notice with Undo stays so learners have time to use it.
+  const [hidden, setHidden] = useState<unknown>(null);
+  useEffect(() => {
+    if (!t || t.undo) return;
+    const id = setTimeout(() => setHidden(t), 7000);
+    return () => clearTimeout(id);
+  }, [t]);
+  if (!t || hidden === t) return null;
   return (
     <div role="status" className="absolute bottom-4 left-4 z-[160] flex max-w-[560px] items-center gap-4 rounded bg-[#323232] px-4 py-3 text-[14px] text-white shadow-lg" style={{ fontFamily: TEXT }}>
       <span>{t.text}</span>

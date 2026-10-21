@@ -49,7 +49,7 @@ export const gwMailM5: Record<string, SimDefinition[]> = {
         { instruction: "On slide 1, type the title “Welcome to Riverside Commons”.", hint: "Click Click to add title on the slide, type the title, then click outside the box.", steps: [{ action: { kind: "type", target: "s1.title", value: "Welcome to Riverside Commons" } }] },
         {
           instruction: "Add a new slide that uses the Title and body layout.",
-          hint: "Select the arrow next to New slide (+) on the toolbar and choose Title and body. (Slide › New slide or Ctrl+M also adds one.)",
+          hint: "Select the arrow next to New slide (+) on the toolbar and choose Title and body. (Slide › New slide also adds one.)",
           steps: [{ action: { kind: "command", id: "slides.new", value: "Title and body" } }],
         },
         { instruction: "On the new slide, type the title “Your First Week”.", hint: "Click Click to add title on slide 2, type, then click outside the box.", steps: [{ action: { kind: "type", target: "s2.title", value: "Your First Week" } }] },
@@ -89,7 +89,7 @@ export const gwMailM5: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Duplicate slide 2 so you can make a version for Elm Street Apartments.",
-          hint: "Right-click slide 2 in the filmstrip › Duplicate slide. (Or Slide › Duplicate slide, or Ctrl+D.)",
+          hint: "Right-click slide 2 in the filmstrip › Duplicate slide. (Or Slide › Duplicate slide.)",
           steps: [{ action: { kind: "command", id: "slides.duplicate" }, requires: { slide: "s2" }, selectHint: "Click slide 2 in the filmstrip first." }],
         },
         {
@@ -155,7 +155,7 @@ export const gwMailM5: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "slides.hide" }, requires: { slide: "s5" }, selectHint: "Click slide 5 in the filmstrip first." }],
         },
         { instruction: "Rehearse in presenter view so you can see your speaker notes.", hint: "Select the arrow next to Slideshow at the top right › Presenter view. When you're done looking, select End show.", steps: [{ action: { kind: "command", id: "slideshow.presenterStart" } }] },
-        { instruction: "Start the slideshow from the beginning.", hint: "End presenter view first (End show). Then select the arrow next to Slideshow › Present from beginning (or Ctrl+Shift+F5). Press Esc to stop.", steps: [{ action: { kind: "command", id: "slideshow.fromBeginning" } }] },
+        { instruction: "Start the slideshow from the beginning.", hint: "End presenter view first (End show). Then select the arrow next to Slideshow › Present from beginning. Press Esc to stop.", steps: [{ action: { kind: "command", id: "slideshow.fromBeginning" } }] },
         {
           instruction: "Share the presentation with Andre Wallace as a Commenter so he can suggest changes without editing.",
           hint: "Press Esc to leave the slideshow. Select Share (top right), type Andre's address, choose Commenter, and select Send.",
