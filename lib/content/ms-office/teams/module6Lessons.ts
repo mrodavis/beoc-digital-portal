@@ -488,6 +488,12 @@ export const teamsModule6Lessons: Lesson[] = [
             ],
           },
           {
+            type: "image",
+            src: "/images/ms-office/teams/module-6/accessibility-and-mobile/infographic.png",
+            alt: "Accessibility in Teams quick reference: Immersive Reader, theme and zoom, live captions and noise suppression, keyboard shortcuts and screen readers, and tips for posts that work for everyone",
+            caption: "Accessibility in Teams quick reference",
+          },
+          {
             type: "paragraph",
             text: "Teams also has a Sign language mode for meetings with sign language interpreters. Your coworkers may use any of these tools. Writing clear posts with headings or numbered lists, and not relying on color alone, helps everyone who uses them.",
           },
