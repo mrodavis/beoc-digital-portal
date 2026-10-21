@@ -1404,7 +1404,18 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         user: { name: "Aisha Bello", email: "aisha.bello@northgatealc.org" },
         pin: "1234",
         password: "Spring2026!",
-        web: SEC_INFO,
+        web: {
+          ...SEC_INFO,
+          "mysignins.microsoft.com/security-info/add": {
+            title: "My Sign-Ins | Add a sign-in method",
+            site: "My Sign-Ins",
+            color: "#0f6cbd",
+            blocks: [
+              { t: "h1", text: "Add a sign-in method" },
+              { t: "form", id: "add-method", title: "Which method would you like to add?", fields: [{ name: "method", label: "Method", type: "select", options: ["Choose a method", "Passkey in Microsoft Authenticator", "Microsoft Authenticator", "Security key", "Phone", "Email"] }], submit: "Add", goto: "mysignins.microsoft.com/security-info/added" },
+            ],
+          },
+        },
         fs: pc({ documents: [D("Registration")] }),
         windows: [{ id: "settings", app: "settings", page: "accounts" }],
         focus: "settings",
@@ -1431,9 +1442,9 @@ export const windowsSims: Record<string, SimDefinition[]> = {
           steps: [set("edge.savePasswords=off")],
         },
         {
-          instruction: "Go to \"mysignins.microsoft.com/security-info\" and add the Authenticator app as a sign-in method.",
-          hint: "In Edge, type the address and press Enter. Select + Add sign-in method, choose Authenticator app, then Add.",
-          steps: [cmd("edge.nav", "mysignins.microsoft.com/security-info"), form("add-method", "Method: Authenticator app")],
+          instruction: "Go to \"mysignins.microsoft.com/security-info\" and add Microsoft Authenticator as a sign-in method.",
+          hint: "In Edge, type the address and press Enter. Select + Add sign-in method, choose Microsoft Authenticator, then Add.",
+          steps: [cmd("edge.nav", "mysignins.microsoft.com/security-info"), form("add-method", "Method: Microsoft Authenticator")],
         },
         {
           instruction: "Lock the computer, then sign back in with your new PIN.",
