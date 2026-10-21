@@ -919,6 +919,7 @@ export const labsWindowsSims: Record<string, SimDefinition[]> = {
         hardware: [{ cat: "Keyboards", name: "HID Keyboard Device", problem: "Windows has stopped this device because it has reported problems. (Code 43)", device: "USB Keyboard", location: "Port_#0003.Hub_#0001" }],
         displays: 1,
         flags: { monitor2: true },
+        settings: { "display.multi": "Duplicate these displays" },
         fs: pc({ documents: [F("Incident Report.txt", "10/20/2026 2:02 PM", "1 KB", { text: "Hardware incident report\nDevice: USB keyboard at the front desk\nSymptom: Keyboard does not type\nError code: \nSteps taken: \nResult: \n" })] }),
         windows: [{ id: "notepad", app: "notepad", file: "Documents/Incident Report.txt" }],
         focus: "notepad",
