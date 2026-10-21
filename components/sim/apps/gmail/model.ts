@@ -733,7 +733,7 @@ export function applyGmail(doc: GmailDoc, c: SimCommit, ui: SimUi): { doc: Gmail
       const colors = ["#33b679", "#f4511e", "#8e24aa", "#e67c73", "#f6bf26", "#0b8043"];
       const n = calendarsOf(d).length;
       d = bump(d);
-      return { doc: toast({ ...d, calendars: [...calendarsOf(d), { id: `c${d.seq}`, name, description: tail(v, "Description") || undefined, color: colors[n % colors.length], mine: true }], view: { ...view, calPage: null } }, "Calendar created.") };
+      return { doc: toast({ ...d, calendars: [...calendarsOf(d), { id: `c${d.seq}`, name, description: tail(v, "Description") || undefined, color: colors[n % colors.length], mine: true }], view: { ...view, calPage: `settings:c${d.seq}` } }, "Calendar created.") };
     }
     if (t === "settings:timezone") {
       const ls = linesOf(v);
