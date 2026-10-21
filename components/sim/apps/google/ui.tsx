@@ -253,6 +253,8 @@ export function MenuList({ entries, pos, onPick, state, resolve, onClose, width 
       className="fixed z-[200] rounded-md bg-white py-1.5 text-[14px] text-[#1f1f1f]"
       style={{ left: pos.x + off.x, top: pos.y + off.y, minWidth: width, boxShadow: "0 2px 6px 2px rgba(60,64,67,.15), 0 1px 2px rgba(60,64,67,.3)", fontFamily: TEXT_FONT }}
       onMouseDown={(e) => e.stopPropagation()}
+      // Clicks on a menu (such as a submenu parent like Organize) must not reach the surface behind it, which clears the selection.
+      onClick={(e) => e.stopPropagation()}
       onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); onClose?.(); } }}
     >
       {entries.map((e, i) => {
