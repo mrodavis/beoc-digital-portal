@@ -71,6 +71,6 @@ whose length does not match `choices` are all build-time failures.
 
 ## Current coverage
 
-`skills` carries the seven skills the course practises. Item counts per skill
+`skills` carries the seven skills the course practices. Item counts per skill
 are printed on the landing page and are derived from the file, so they stay
 honest as the bank grows — no count is hardcoded in markup.

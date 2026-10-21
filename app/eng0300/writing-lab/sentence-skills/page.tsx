@@ -8,7 +8,11 @@ import {
   sentenceQuestions,
   sentenceSkills,
 } from "@/lib/content/eng0300/writing/sentence-skills";
-import { focusForWeek, skillsForWeek } from "@/lib/content/eng0300/writing/weeklyFocus";
+import {
+  focusForWeek,
+  focusStep,
+  skillsForWeek,
+} from "@/lib/content/eng0300/writing/weeklyFocus";
 
 export const metadata: Metadata = {
   title: "Sentence Skills | ENG0300 Writing Lab",
@@ -19,7 +23,7 @@ export const metadata: Metadata = {
 /**
  * The Sentence Skills engine page.
  *
- * Accepts ?skill=<bank skill id> and ?week=<rotation week> so Brightspace and
+ * Accepts ?skill=<bank skill id> and ?week=<rotation id> so Brightspace and
  * the tier pages can deep-link straight into a filtered set. Both are optional
  * and an unknown value simply falls back to the unfiltered bank.
  */
@@ -67,7 +71,7 @@ export default async function SentenceSkillsPage({
           </p>
           {focus && (
             <p className="mt-4 inline-block rounded-lg bg-white/15 px-4 py-2 text-sm font-semibold text-white">
-              Week {focus.week} focus · {focus.label}
+              Step {focusStep(focus.week)} focus · {focus.label}
             </p>
           )}
         </div>
@@ -79,7 +83,7 @@ export default async function SentenceSkillsPage({
           questions={sentenceQuestions}
           difficulties={sentenceBankDifficulties}
           initialSkill={requested}
-          weekLabel={focus ? `Week ${focus.week} focus` : undefined}
+          weekLabel={focus ? `Step ${focusStep(focus.week)} focus` : undefined}
         />
 
         <div className="mt-12">

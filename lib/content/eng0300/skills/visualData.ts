@@ -1,6 +1,6 @@
 import { Skill } from "@/types/eng0300";
 
-/** WEEK 7 — Visual & Data Integration, plus integrating across sources (fully populated). */
+/** SKILL 7 — Visual & Data Integration, plus integrating across sources (fully populated). */
 export const visualDataSkill: Skill = {
   id: "visual-data",
   slug: "visual-data",

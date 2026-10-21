@@ -4,7 +4,7 @@ import { WritingWorkedExample } from "@/lib/content/eng0300/writing/tiers";
  * A writing worked example: a draft, the reasoning that improves it, and the
  * revision. It mirrors the Reading Lab's WorkedExampleBlock rhythm — setup,
  * ordered think-aloud steps, result, takeaway — but shows a before and after
- * instead of a passage and an answer, because that is what modelling writing
+ * instead of a passage and an answer, because that is what modeling writing
  * actually requires.
  */
 export default function WritingWorkedExampleBlock({

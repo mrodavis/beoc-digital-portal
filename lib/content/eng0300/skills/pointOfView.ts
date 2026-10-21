@@ -1,6 +1,6 @@
 import { Skill } from "@/types/eng0300";
 
-/** WEEK 5 — Point of View & Purpose (fully populated). */
+/** SKILL 5 — Point of View & Purpose (fully populated). */
 export const pointOfViewSkill: Skill = {
   id: "point-of-view",
   slug: "point-of-view",

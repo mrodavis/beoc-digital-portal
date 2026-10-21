@@ -25,8 +25,8 @@ const centers = [
     icon: "🗂️",
     title: "Class Exercises",
     description:
-      "The in-class practice pages, skill labs, and TABE review from our sessions, organized by week.",
-    meta: `${eng0300ClassExerciseCount} pages · Weeks 1-6 + TABE`,
+      "Practice packets, skill labs, and TABE review pages, organized by reading skill.",
+    meta: `${eng0300ClassExerciseCount} pages · by skill + TABE`,
   },
   {
     href: "/eng0300/tabe",
@@ -83,8 +83,8 @@ export default function Eng0300Dashboard() {
               {eng0300Course.description}
             </p>
             <p>
-              The Reading Lab is where you learn and practice those skills between
-              class meetings. Each of the seven skill labs follows the same
+              The Reading Lab is where you learn and practice those skills, at
+              your own pace. Each of the seven skill labs follows the same
               sequence: read the lesson, watch a worked example, try a guided
               question, practice on a full passage, take on a harder challenge,
               review why each answer was right or wrong, then check yourself.
@@ -170,8 +170,8 @@ export default function Eng0300Dashboard() {
             Skill Labs
           </h2>
           <p className="mt-2 max-w-[68ch] text-lg leading-relaxed text-eng-navy-600">
-            Seven skills, one per week of the course. Work through them in order,
-            or jump to the one your instructor is covering.
+            Seven skills, in course order. Work through them in order, or jump
+            to the one you need.
           </p>
         </div>
 
@@ -192,7 +192,7 @@ export default function Eng0300Dashboard() {
           </h2>
           <p className="mt-2 max-w-[68ch] text-lg leading-relaxed text-eng-navy-600">
             The writing half of the course. Build up from the sentence to the
-            paragraph to a short response, and drill sentence skills a week at a
+            paragraph to a short response, and drill sentence skills one at a
             time. Every skill lab now ends with a{" "}
             <span className="font-semibold text-eng-navy-800">Write It</span>{" "}
             task as well.
@@ -288,9 +288,8 @@ export default function Eng0300Dashboard() {
             Course Roadmap
           </h2>
           <p className="mt-2 max-w-[68ch] text-lg leading-relaxed text-eng-navy-600">
-            {eng0300Course.weeks} weeks, {eng0300Course.meetings} instructional
-            meetings. Your instructor sets the calendar dates — this is the
-            sequence.
+            {eng0300Course.skills} skills, two parts each, in the order the
+            course follows. Work through them at your own pace.
           </p>
         </div>
 
@@ -304,7 +303,7 @@ export default function Eng0300Dashboard() {
               >
                 <div className="flex flex-wrap items-center gap-3 border-b border-eng-navy-100 bg-eng-navy-50 px-5 py-3">
                   <span className="rounded-full bg-eng-navy-800 px-3 py-1 text-xs font-bold text-white">
-                    Week {week.week}
+                    Skill {week.week}
                   </span>
                   <h3 className="font-display text-lg font-bold text-eng-navy-900">
                     {week.focus}
@@ -323,20 +322,20 @@ export default function Eng0300Dashboard() {
                   {week.meetings.map((meeting) => (
                     <div key={meeting.day} className="bg-white p-5">
                       <p className="mb-1 text-xs font-bold uppercase tracking-wide text-eng-teal-700">
-                        Meeting {meeting.day}
+                        Part {meeting.day}
                       </p>
                       <p className="font-semibold leading-snug text-eng-navy-900">
                         {meeting.topic}
                       </p>
                       <p className="mt-2 text-sm leading-relaxed text-eng-navy-600">
                         <span className="font-semibold text-eng-navy-700">
-                          In class:{" "}
+                          Focus:{" "}
                         </span>
                         {meeting.inClass}
                       </p>
                       <div className="mt-3 border-t border-eng-navy-100 pt-3">
                         <p className="text-xs font-bold uppercase tracking-wide text-eng-navy-400">
-                          Homework
+                          Practice
                         </p>
                         <ul className="mt-1 space-y-1 text-sm text-eng-navy-600">
                           {meeting.homework.map((item) => (
@@ -353,9 +352,9 @@ export default function Eng0300Dashboard() {
         </ol>
 
         <p className="mt-6 max-w-[68ch] rounded-xl border border-eng-navy-200 bg-white p-4 text-sm leading-relaxed text-eng-navy-600">
-          Homework entries name the workbook and page range assigned in the
-          syllabus. Those workbooks are copyrighted print materials distributed
-          in class — they are not available for download here.
+          Practice entries name the workbook and page range from the course
+          syllabus. Those workbooks are copyrighted print materials your
+          instructor provides — they are not available for download here.
         </p>
       </section>
     </div>

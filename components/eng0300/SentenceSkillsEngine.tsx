@@ -72,7 +72,7 @@ export default function SentenceSkillsEngine({
   skills: SentenceSkill[];
   questions: SentenceQuestion[];
   difficulties: Difficulty[];
-  /** Set from the weekly rotation so the live week opens pre-filtered. */
+  /** Set from the suggested-order rotation so a deep link opens pre-filtered. */
   initialSkill?: string;
   weekLabel?: string;
 }) {
@@ -277,7 +277,7 @@ export default function SentenceSkillsEngine({
           ) : (
             <p className="mt-4 rounded-xl bg-eng-green-50 p-4 text-eng-green-700">
               No missed questions in this set. Try a harder difficulty, or a
-              skill you have not practised yet.
+              skill you have not practiced yet.
             </p>
           )}
 

@@ -1,12 +1,18 @@
 import { RoadmapWeek } from "@/types/eng0300";
 
 /**
- * The 7-week / 14-meeting sequence from the ENG0300 syllabus course outline.
+ * The ENG0300 sequence from the syllabus course outline: seven skills, two
+ * parts each.
  *
- * Homework entries name the assigned resource and page range from the syllabus.
- * They are references only — the portal does not host those workbook pages,
- * which are copyrighted commercial materials distributed in class.
- * No calendar dates are hard-coded; terms vary.
+ * beocdigital is self-paced, so this is shown as Skill 1-7, Part 1-2, never as
+ * calendar weeks or class meetings. The `week` and `day` fields are kept as
+ * stable keys and render as the skill and part number.
+ *
+ * Practice entries name the workbook and page range from the syllabus. They
+ * are references only — the portal does not host those workbook pages, which
+ * are copyrighted commercial materials your instructor provides. Practice that
+ * the syllabus sent to an outside reading site now points to the matching
+ * Reading Lab activity instead, so all practice happens in beocdigital.
  */
 export const eng0300Roadmap: RoadmapWeek[] = [
   {
@@ -18,7 +24,7 @@ export const eng0300Roadmap: RoadmapWeek[] = [
         day: 1,
         topic: "Course Introduction & Diagnostic — Identifying Central Themes",
         inClass:
-          "Review syllabus, policies, and the program goal; diagnostic reading passage; model identifying stated main ideas.",
+          "The course goal and a diagnostic reading passage; identifying stated main ideas.",
         homework: [
           "Essential Education TABE Academy: assigned reading module",
           "Scoreboost for TABE Level M: Reading, pp. 31–34",
@@ -28,10 +34,10 @@ export const eng0300Roadmap: RoadmapWeek[] = [
         day: 2,
         topic: "Summarizing with Key Supporting Details",
         inClass:
-          "Practice identifying key details that support a stated main idea in moderately complex passages; group summary-writing.",
+          "Identifying key details that support a stated main idea in moderately complex passages; writing a summary.",
         homework: [
           "TABE Mastery Reading: Level M, pp. 60–65",
-          "CommonLit: assigned passage and summary",
+          "Reading Lab: Main Ideas Write It (summary paragraph)",
         ],
       },
     ],
@@ -45,14 +51,14 @@ export const eng0300Roadmap: RoadmapWeek[] = [
         day: 1,
         topic: "Making Inferences from Explicit Detail",
         inClass:
-          "Model close reading; drawing logical inferences supported directly by text evidence.",
+          "Close reading; drawing logical inferences supported directly by text evidence.",
         homework: ["Scoreboost for TABE Level M: Reading, pp. 19–22"],
       },
       {
         day: 2,
         topic: "Drawing Conclusions Across Longer Texts",
         inClass:
-          "Small-group practice on longer, denser passages; citing evidence to support inferences.",
+          "Longer, denser passages; citing evidence to support inferences.",
         homework: [
           "TABE Mastery Reading: Level M, pp. 38–43",
           "Instructor-provided inference passage and questions (handout)",
@@ -82,7 +88,7 @@ export const eng0300Roadmap: RoadmapWeek[] = [
           "Identify metaphors, similes, and idioms in context; practice with multi-meaning words.",
         homework: [
           "TABE Mastery Reading: Level M, pp. 28–33",
-          "CommonLit: vocabulary-focused passage",
+          "Reading Lab: Vocabulary practice sets",
         ],
       },
     ],
@@ -104,7 +110,7 @@ export const eng0300Roadmap: RoadmapWeek[] = [
         day: 2,
         topic: "Comparing Structure Across Two Texts — Progress Check-In",
         inClass:
-          "Compare and contrast the structure of two texts on a related topic; mid-course progress review.",
+          "Comparing and contrasting the structure of two texts on a related topic; a mid-course progress check.",
         homework: ["TABE Mastery Reading: Level M, pp. 80–85"],
       },
     ],
@@ -170,7 +176,7 @@ export const eng0300Roadmap: RoadmapWeek[] = [
         day: 2,
         topic: "Cumulative Review and Progress Assessment",
         inClass:
-          "Integrated review across all seven skill areas; TABE progress practice test.",
+          "Integrated review across all seven skill areas; a TABE practice test.",
         homework: [
           "Reflect on progress toward the 563+ goal",
           "Complete post-assessment reflection",

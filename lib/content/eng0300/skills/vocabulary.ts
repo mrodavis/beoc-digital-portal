@@ -1,6 +1,6 @@
 import { Skill } from "@/types/eng0300";
 
-/** WEEK 3 — Vocabulary in Context, including figurative language (fully populated). */
+/** SKILL 3 — Vocabulary in Context, including figurative language (fully populated). */
 export const vocabularySkill: Skill = {
   id: "vocabulary",
   slug: "vocabulary",

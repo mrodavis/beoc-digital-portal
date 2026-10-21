@@ -58,14 +58,15 @@ export default async function PracticeCenterPage({
         </p>
 
         <p className="mt-3 max-w-[68ch] text-[0.9375rem] leading-relaxed text-eng-navy-600">
-          Looking for a page from class?{" "}
+          Looking for more practice pages?{" "}
           <Link
             href="/eng0300/class-exercises"
             className="font-semibold text-eng-teal-700 hover:text-eng-teal-900"
           >
             Class Exercises
           </Link>{" "}
-          has the in-class practice, skill labs, and TABE review by week.
+          has the practice packets, skill labs, and TABE review, organized by
+          skill.
         </p>
       </header>
 

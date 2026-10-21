@@ -418,9 +418,9 @@ export default function WriteItBlock({ writeIt }: { writeIt: WriteIt }) {
         </h3>
         <p className="mt-1 max-w-[68ch] text-[0.9375rem] leading-relaxed text-eng-navy-700">
           Copy your paragraph, then submit it to your instructor or course
-          folder (BEOC students:{" "}
-          <span className="font-semibold">{writeIt.brightspace.dropbox}</span> in
-          Brightspace).
+          folder (BEOC students: the{" "}
+          <span className="font-semibold">{writeIt.brightspace.dropbox}</span>{" "}
+          folder in Brightspace).
         </p>
 
         <div className="mt-4 flex flex-wrap gap-3">

@@ -18,8 +18,9 @@ export const eng0300Course = {
   /** TABE Reading scale score required for course completion. */
   tabeGoal: 563,
 
-  weeks: 7,
-  meetings: 14,
+  /** Seven skills, each in two parts (from the syllabus course outline). */
+  skills: 7,
+  parts: 14,
 
   /**
    * Course completion requirement, quoted from the syllabus. Displayed to
@@ -56,7 +57,7 @@ export const brightspaceRelationship = {
       "Lessons and worked examples for each reading skill",
       "Ungraded practice with instant feedback",
       "TABE question strategies and pacing guidance",
-      "Review before a class meeting or a progress check",
+      "Review before a quiz or a progress check",
       "Study resources and reference guides",
     ],
   },

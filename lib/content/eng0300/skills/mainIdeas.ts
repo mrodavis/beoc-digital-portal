@@ -1,7 +1,7 @@
 import { Skill } from "@/types/eng0300";
 
 /**
- * WEEK 1 — Main Ideas & Details (exemplar skill, fully populated).
+ * SKILL 1 — Main Ideas & Details (exemplar skill, fully populated).
  *
  * All passages below are original, written for BEOC Academic Bridge adult
  * learners. Nothing here is transcribed from the Scoreboost or TABE Mastery
@@ -547,13 +547,6 @@ export const mainIdeasSkill: Skill = {
       label: "Practice Center — Main Ideas sets",
       detail: "Additional passages at Foundation through Challenge level.",
       href: "/eng0300/practice?skill=main-ideas",
-    },
-    {
-      label: "CommonLit",
-      detail:
-        "Free library of reading passages with comprehension questions. Your instructor may assign specific passages here.",
-      href: "https://www.commonlit.org/",
-      external: true,
     },
   ],
 };

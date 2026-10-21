@@ -37,24 +37,24 @@ export default function WritingLabPage() {
           <p className="mt-3 max-w-[62ch] text-base leading-relaxed text-white/90 sm:text-lg">
             The writing half of ENG0300. Build up from the sentence, to the
             paragraph, to a short response that answers the question actually
-            asked. Practise here as much as you like — nothing on this page is
+            asked. Practice here as much as you like — nothing on this page is
             graded, and nothing is submitted from it.
           </p>
         </div>
       </header>
 
       <div className="container mx-auto max-w-6xl px-4 py-10">
-        {/* Weekly focus — driven entirely by the rotation config */}
+        {/* Suggested order — driven entirely by the rotation config */}
         <section className="mb-12 rounded-2xl border-2 border-eng-gold-300 bg-eng-gold-50 p-5 sm:p-6">
           <h2 className="font-display text-xl font-bold text-eng-navy-900">
-            Sentence Skills — weekly focus
+            Sentence Skills — suggested order
           </h2>
           <p className="mt-1 max-w-[68ch] text-[0.9375rem] leading-relaxed text-eng-navy-700">
-            One skill per week, in the order that makes each one easier than the
-            last. Every question explains why the wrong answers are wrong.
+            One skill at a time, in the order that makes each one easier than
+            the last. Every question explains why the wrong answers are wrong.
           </p>
           <ol className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {sentenceSkillsRotation.map((focus) => {
+            {sentenceSkillsRotation.map((focus, index) => {
               const covered = skillsForWeek(focus.week);
               const count = covered.reduce(
                 (sum, id) => sum + (sentenceSkillCounts[id] ?? 0),
@@ -67,7 +67,7 @@ export default function WritingLabPage() {
                     className="group flex h-full flex-col rounded-xl border border-eng-navy-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-teal-600 focus-visible:ring-offset-2"
                   >
                     <span className="text-xs font-bold uppercase tracking-widest text-eng-navy-400">
-                      Week {focus.week}
+                      Step {index + 1}
                     </span>
                     <span className="mt-1 font-display text-base font-bold text-eng-navy-900">
                       {focus.label}

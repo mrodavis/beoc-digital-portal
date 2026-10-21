@@ -11,8 +11,8 @@
  * Ungraded, like every deck. If points are wanted for this vocabulary, a
  * Brightspace quiz carries them — exactly as in ENGL0150.
  *
- * Released 7-8 words per week on the same weekly cadence as the ENGL0150 lists,
- * spiralling forward from Deck 2 so earlier words keep coming back.
+ * Released 7-8 words per deck, in the same order as the ENGL0150 lists,
+ * spiraling forward from Deck 2 so earlier words keep coming back.
  *
  * All definitions and examples are original, written for BEOC Academic Bridge.
  */
@@ -25,7 +25,7 @@ export interface TransitionWord {
   /** An academic or workplace sentence using it correctly. */
   example: string;
   /**
-   * A transition signalling a DIFFERENT relationship. Swapping it into the
+   * A transition signaling a DIFFERENT relationship. Swapping it into the
    * example produces the wrong-answer option in Choose the Word — which is the
    * real error students make: a transition that contradicts the sentence.
    */
@@ -38,7 +38,7 @@ export interface TransitionWord {
 
 export interface TransitionDeck {
   number: number;
-  /** Course week this deck is released. */
+  /** Course position (reading skill number) this deck pairs with. Not shown to students. */
   week: number;
   title: string;
   focus: string;
@@ -507,12 +507,12 @@ export const transitionDecks: TransitionDeck[] = [
         word: "ultimately",
         relationship: "Conclusion",
         meaning:
-          "Points to what matters in the end, after the details are accounted for. Marks a judgement, not a summary.",
+          "Points to what matters in the end, after the details are accounted for. Marks a judgment, not a summary.",
         example:
           "Ultimately, the question is not whether free fares help riders but how the service gets paid for.",
         confusedWith: "meanwhile",
         whyWrong:
-          "Meanwhile marks simultaneous events. Ultimately marks the final judgement — there is no time relationship being claimed here.",
+          "Meanwhile marks simultaneous events. Ultimately marks the final judgment — there is no time relationship being claimed here.",
         usePrompt:
           "Write one sentence naming what ultimately matters most about a decision you have made.",
       },
@@ -520,12 +520,12 @@ export const transitionDecks: TransitionDeck[] = [
         word: "on balance",
         relationship: "Conclusion (weighing)",
         meaning:
-          "Announces a judgement made after weighing both sides. It implies you have genuinely considered the other one.",
+          "Announces a judgment made after weighing both sides. It implies you have genuinely considered the other one.",
         example:
           "On balance, the extra dollar buys a morning I can plan around.",
         confusedWith: "above all",
         whyWrong:
-          "Above all names the single most important item. On balance names a judgement reached by weighing several — it is a conclusion, not a ranking.",
+          "Above all names the single most important item. On balance names a judgment reached by weighing several — it is a conclusion, not a ranking.",
         usePrompt:
           "Weigh two options in a sentence, then reach a verdict in a second sentence beginning On balance.",
       },

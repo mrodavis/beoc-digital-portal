@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 /**
  * The transition-word deck page.
  *
- * ?deck=<n> opens a specific week's deck; without it the page shows the whole
- * release schedule and opens on Deck 1. Decks spiral, so an earlier deck is
+ * ?deck=<n> opens a specific deck; without it the page shows every deck and
+ * opens on Deck 1. Decks spiral, so an earlier deck is
  * always reachable from a later one.
  */
 export default async function TransitionsPage({
@@ -51,14 +51,14 @@ export default async function TransitionsPage({
           </h1>
           <p className="mt-3 max-w-[62ch] text-base leading-relaxed text-white/90 sm:text-lg">
             {transitionWordTotal} signal words across {transitionDecks.length}{" "}
-            decks, released one deck a week. Every transition makes a promise
+            decks that build on each other. Every transition makes a promise
             about what comes next — these cards are about learning to keep it.
           </p>
         </div>
       </header>
 
       <div className="container mx-auto max-w-6xl px-4 py-10">
-        {/* Release schedule */}
+        {/* Deck list */}
         <nav aria-label="Decks" className="mb-8">
           <h2 className="mb-3 text-sm font-bold uppercase tracking-wide text-eng-navy-500">
             Decks
@@ -78,7 +78,7 @@ export default async function TransitionsPage({
                     }`}
                   >
                     <span className="block text-xs font-bold uppercase tracking-widest opacity-70">
-                      Week {deck.week}
+                      Deck {deck.number}
                     </span>
                     {deck.title}
                   </Link>

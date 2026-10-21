@@ -14,7 +14,7 @@ import { sentenceSkills } from "@/lib/content/eng0300/writing/sentence-skills";
  * Deliberately built from the Reading Lab's own components — SkillStage,
  * LessonBlock, and WriteItBlock are the same modules the skill labs use, not
  * copies. The tier pages therefore inherit the Reading Lab's rhythm, spacing,
- * and accessibility behaviour for free, and a fix in one place fixes both.
+ * and accessibility behavior for free, and a fix in one place fixes both.
  */
 export default function WritingTierTemplate({
   tier,

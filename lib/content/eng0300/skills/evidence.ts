@@ -1,6 +1,6 @@
 import { Skill } from "@/types/eng0300";
 
-/** WEEK 6 — Evidence & Argument Quality (fully populated). */
+/** SKILL 6 — Evidence & Argument Quality (fully populated). */
 export const evidenceSkill: Skill = {
   id: "evidence",
   slug: "evidence",

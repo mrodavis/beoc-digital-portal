@@ -43,7 +43,7 @@ export interface WritingTier {
   /** GUIDED PRACTICE — bank skills to drill, or a guided writing move. */
   guided: {
     intro: string;
-    /** Sentence-skills bank ids practised at this tier, if any. */
+    /** Sentence-skills bank ids practiced at this tier, if any. */
     bankSkills?: string[];
     /** For paragraph and response tiers: a short structured task. */
     steps?: string[];

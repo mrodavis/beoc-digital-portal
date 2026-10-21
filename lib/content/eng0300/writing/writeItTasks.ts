@@ -90,7 +90,7 @@ export const writeItTasks: Partial<Record<SkillId, WriteIt>> = {
         },
       ],
     },
-    brightspace: { week: 3, dropbox: "WRITE IT! Week 3 — Vocabulary in Context" },
+    brightspace: { week: 3, dropbox: "WRITE IT! — Vocabulary in Context" },
   },
 
   /* ---------------------------------------------------------------- *
@@ -153,7 +153,7 @@ export const writeItTasks: Partial<Record<SkillId, WriteIt>> = {
         },
       ],
     },
-    brightspace: { week: 4, dropbox: "WRITE IT! Week 4 — Text Structure" },
+    brightspace: { week: 4, dropbox: "WRITE IT! — Text Structure" },
   },
 
   /* ---------------------------------------------------------------- *
@@ -169,8 +169,8 @@ export const writeItTasks: Partial<Record<SkillId, WriteIt>> = {
       "First, write three to four sentences TO A CLASSMATE, to inform. Neutral, no argument, just what the program is and what the numbers say. Then write three to four sentences TO A SUPERVISOR who controls the budget, to persuade them to fund a second staff member. Same facts, different purpose. Label each version.",
     ],
     checklist: [
-      "Version 1 is labelled and written to inform a classmate",
-      "Version 2 is labelled and written to persuade a supervisor",
+      "Version 1 is labeled and written to inform a classmate",
+      "Version 2 is labeled and written to persuade a supervisor",
       "Both versions use the same three facts — I invented no new numbers",
       "Version 1 contains no argument, recommendation, or loaded word",
       "Version 2 makes a clear ask and uses the facts as support for it",
@@ -211,7 +211,7 @@ export const writeItTasks: Partial<Record<SkillId, WriteIt>> = {
         },
       ],
     },
-    brightspace: { week: 5, dropbox: "WRITE IT! Week 5 — Point of View & Purpose" },
+    brightspace: { week: 5, dropbox: "WRITE IT! — Point of View & Purpose" },
   },
 
   /* ---------------------------------------------------------------- *
@@ -274,7 +274,7 @@ export const writeItTasks: Partial<Record<SkillId, WriteIt>> = {
         },
       ],
     },
-    brightspace: { week: 6, dropbox: "WRITE IT! Week 6 — Claim, Evidence, Explanation" },
+    brightspace: { week: 6, dropbox: "WRITE IT! — Claim, Evidence, Explanation" },
   },
 
   /* ---------------------------------------------------------------- *
@@ -337,7 +337,7 @@ export const writeItTasks: Partial<Record<SkillId, WriteIt>> = {
         },
       ],
     },
-    brightspace: { week: 7, dropbox: "WRITE IT! Week 7 — Reading a Figure" },
+    brightspace: { week: 7, dropbox: "WRITE IT! — Reading a Figure" },
   },
 
   /* ---------------------------------------------------------------- *

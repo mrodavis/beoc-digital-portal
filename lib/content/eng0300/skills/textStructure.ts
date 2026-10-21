@@ -1,6 +1,6 @@
 import { Skill } from "@/types/eng0300";
 
-/** WEEK 4 — Text Structure & Organization (fully populated). */
+/** SKILL 4 — Text Structure & Organization (fully populated). */
 export const textStructureSkill: Skill = {
   id: "text-structure",
   slug: "text-structure",

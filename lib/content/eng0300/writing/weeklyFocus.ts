@@ -1,18 +1,20 @@
 /**
- * The Sentence Skills weekly focus rotation.
+ * The Sentence Skills suggested order.
  *
- * One config object drives the landing page banner, the default filter, and the
- * "this week" badge — nothing about the rotation is hardcoded in markup, so
- * moving a week means editing this array and nothing else.
+ * One config object drives the Writing Lab list, the default filter, and the
+ * "Step N focus" badge. beocdigital is self-paced, so students see a step in a
+ * sequence, never a calendar week. `week` is kept only as the stable id behind
+ * the ?week= deep links (it matches the reading skill the step pairs with).
+ * Nothing about the order is hardcoded in markup.
  *
  * `skill` must match an id in the sentence-skills bank (`bank.json` → skills[]).
  */
 export interface WeeklyFocus {
   week: number;
-  /** Bank skill id this week practises. */
+  /** Bank skill id this step practices. */
   skill: string;
   label: string;
-  /** Why this skill, this week — shown under the banner heading. */
+  /** Why this skill, at this point in the order — shown under the heading. */
   why: string;
 }
 
@@ -64,4 +66,9 @@ export function skillsForWeek(week: number): string[] {
 
 export function focusForWeek(week: number): WeeklyFocus | undefined {
   return sentenceSkillsRotation.find((f) => f.week === week);
+}
+
+/** 1-based position of a rotation entry in the suggested order. */
+export function focusStep(week: number): number {
+  return sentenceSkillsRotation.findIndex((f) => f.week === week) + 1;
 }

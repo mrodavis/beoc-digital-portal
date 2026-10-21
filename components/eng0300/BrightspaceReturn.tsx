@@ -13,10 +13,10 @@ import { brightspaceCourseUrl } from "@/lib/content/eng0300/writing/brightspace"
  */
 export default function BrightspaceReturn({
   dropbox,
-  week,
 }: {
   /** The specific dropbox this page's work belongs in, if there is one. */
   dropbox?: string;
+  /** Accepted for older call sites; not shown (the portal is self-paced). */
   week?: number;
 }) {
   return (
