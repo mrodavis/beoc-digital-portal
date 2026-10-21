@@ -5,10 +5,18 @@ import { Program } from "@/types/program";
  * OSHA 30 with Site Safety and Flagging — EXAM AND CONCEPT PREPARATION ONLY.
  *
  * The OSHA 30-Hour card can only be issued through an OSHA-authorized trainer
- * delivering the full authorized curriculum with verified contact hours. This
- * coursework cannot and does not do that, and the credential note says so
- * plainly. It exists to make the authorized course easier to absorb and to
- * teach the underlying safety reasoning.
+ * (or an OSHA-accepted online provider) delivering the full authorized
+ * curriculum with verified contact hours. This coursework cannot and does not
+ * do that, and the credential note says so plainly. It exists to make the
+ * authorized course easier to absorb and to teach the underlying safety
+ * reasoning.
+ *
+ * Checked October 2026: OSHA Outreach FAQ (osha.gov/training/outreach/faq:
+ * voluntary, "not considered a certification or license", cards do not
+ * expire); NYC DOB SST card page (nyc.gov/site/buildings/safety/
+ * sst-worker-information.page: 40-hour worker card, 62-hour supervisor card,
+ * valid five years); NYSDOT flagger training rule as quoted by the National
+ * Work Zone Safety Information Clearinghouse; 2009 MUTCD 6E.02-6E.07.
  */
 
 const m1: Lesson[] = [
@@ -208,7 +216,7 @@ const m2: Lesson[] = [
     slug: "site-safety-and-hazard-communication",
     title: "Site Safety and Hazard Communication",
     description:
-      "PPE, chemical safety, and the labelling system every site uses.",
+      "PPE, chemical safety, and the labeling system every site uses.",
     duration: "22 min",
     objectives: [
       "Select PPE appropriate to a task",
@@ -228,7 +236,7 @@ const m2: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "OSHA's Hazard Communication Standard gives workers the right to know what chemicals they work with. It requires labelled containers, accessible safety data sheets, and training. The system was aligned with the Globally Harmonized System, which is why labels now carry standard pictograms and a consistent 16-section data sheet format.",
+            text: "OSHA's Hazard Communication Standard gives workers the right to know what chemicals they work with. It requires labeled containers, accessible safety data sheets, and training. The system was aligned with the Globally Harmonized System, which is why labels now carry standard pictograms and a consistent 16-section data sheet format.",
           },
           {
             type: "table",
@@ -246,7 +254,7 @@ const m2: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "An unlabelled container is itself a violation, and it is also a practical danger — an SDS is useless if nobody knows which sheet applies. Never use a chemical from a container you cannot identify, and never decant into an unlabelled secondary container. Learn where the SDS binder or terminal is on day one, not on the day someone is splashed.",
+            text: "An unlabeled container is itself a violation, and it is also a practical danger — an SDS is useless if nobody knows which sheet applies. Never use a chemical from a container you cannot identify, and never decant into an unlabeled secondary container. Learn where the SDS binder or terminal is on day one, not on the day someone is splashed.",
           },
           {
             type: "table",
@@ -291,7 +299,7 @@ const m2: Lesson[] = [
         ordered: true,
         items: [
           "Find an SDS for a common product and locate sections 2, 4, and 8. Note how long it took.",
-          "Learn the nine GHS pictograms and what each signifies.",
+          "Learn the GHS pictograms and what each one signifies.",
           "Research what a respirator fit test involves and how often it must be repeated.",
           "For a job you have done, list every PPE item required and the specific hazard each addresses.",
         ],
@@ -302,13 +310,13 @@ const m2: Lesson[] = [
     slug: "flagging-and-work-zone-safety",
     title: "Flagging and Work Zone Safety",
     description:
-      "Directing traffic safely, and why flagging carries its own certification requirement.",
+      "Directing traffic safely, and why flagging needs its own training.",
     duration: "22 min",
     objectives: [
       "Describe the parts of a temporary traffic control zone",
       "State the standard flagging signals and equipment",
       "Explain what makes a flagger station safe or unsafe",
-      "Identify the certification flagging usually requires",
+      "Identify the flagger training a job requires",
     ],
     sections: [
       {
@@ -347,7 +355,7 @@ const m2: Lesson[] = [
             columns: ["Item / signal", "Detail"],
             rows: [
               ["STOP/SLOW paddle", "The primary device. A red flag is for emergencies only"],
-              ["High-visibility apparel", "Class 2 or 3 depending on speed and conditions; Class 3 for night or high speed"],
+              ["High-visibility apparel", "ANSI/ISEA 107 Performance Class 2 or 3; the MUTCD says Class 3 should be considered for night work"],
               ["To stop traffic", "Face traffic, hold the STOP face toward them, raise the free arm palm out"],
               ["To let traffic proceed", "Show the SLOW face and motion with the free hand"],
               ["To slow traffic", "Show SLOW and lower the free hand in a slowing motion"],
@@ -362,7 +370,7 @@ const m2: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Flagger certification is a separate requirement from OSHA training, and most states require it. It is typically issued through an approved provider — ATSSA or a state DOT program are common — and usually carries an expiry. Completing OSHA 30 does not make you a certified flagger, and this coursework does not either.",
+            text: "Flagger training is a separate requirement from OSHA training. In New York, the State DOT requires every flagger on its projects to be trained by a recognized program, such as the American Traffic Safety Services Association (ATSSA), the National Safety Council, or a union or industry training program, and contractors must list their certified flaggers before work starts. Other states and employers set their own rules, and some flagger cards must be renewed. Completing OSHA 30 does not make you a certified flagger, and this coursework does not either.",
           },
           {
             type: "knowledge-check",
@@ -393,7 +401,7 @@ const m2: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Find your state's flagger certification requirement: who issues it, what it costs, and how long it lasts.",
+          "Find the flagger training requirement where you will work: who provides the training, what it costs, and whether the card must be renewed.",
           "Look up the MUTCD taper length formula and calculate the required taper for a 45 mph road.",
           "Find the high-visibility apparel class required for night work on a highway.",
           "Observe a real work zone from a safe distance and identify each of the five zones. Note anything that does not match the standard.",
@@ -413,7 +421,7 @@ export const osha30: Program = {
   description:
     "Concept preparation for the OSHA 30-Hour Construction course: worker rights, the Focus Four hazards, hazard communication, PPE, and work zone flagging.",
   overview:
-    "This is preparation for an authorized OSHA 30 course, not the course itself — see the note below, which matters. It covers the reasoning behind the standards: why fall protection triggers where it does, why the buffer space in a work zone is deliberately empty, why an unlabelled container is both a violation and a practical danger. It also covers the part workers most often do not know, which is what rights they have and how short the deadline is for acting on retaliation.",
+    "This is preparation for an authorized OSHA 30 course, not the course itself — see the note below, which matters. It covers the reasoning behind the standards: why fall protection triggers where it does, why the buffer space in a work zone is deliberately empty, why an unlabeled container is both a violation and a practical danger. It also covers the part workers most often do not know, which is what rights they have and how short the deadline is for acting on retaliation.",
   outcomes: [
     "Describe the General Duty Clause and the rights workers hold under the OSH Act",
     "Recognize retaliation and know the deadline for acting on it",
@@ -432,11 +440,12 @@ export const osha30: Program = {
     "Warehouse, maintenance, and industrial roles",
   ],
   credentialNote:
-    "IMPORTANT — this coursework does not issue an OSHA card and cannot. The OSHA 30-Hour Construction Outreach card is only available through an OSHA-authorized trainer delivering the full authorized curriculum with verified contact hours, and there is no equivalent, challenge exam, or online substitute outside an authorized provider. Anyone selling you a card without that is selling a card that will not stand up. Flagger certification is separate again, is usually required by your state, and comes through an approved provider such as ATSSA or a state DOT program. Use this course to arrive at the authorized training already understanding the material — not in place of it. Standards, trigger heights, and state requirements change; OSHA's published standards and your state plan are always the authority.",
+    "IMPORTANT — this coursework does not issue an OSHA card and cannot. The OSHA 30-Hour Construction Outreach card comes only from an OSHA-authorized trainer, or an OSHA-accepted online provider, delivering the full course with verified contact hours; there is no challenge exam or shortcut. OSHA itself says the card shows you completed the course and is not a certification or license. Anyone selling you a card without the full course is selling a card that will not stand up. In New York City, workers on many construction sites also need a Site Safety Training (SST) card from the Department of Buildings: OSHA 30 counts toward the 40-hour worker card, and supervisors need 62 hours. Flagger training is separate again and comes through a recognized program such as ATSSA. Use this course to arrive at the authorized training already understanding the material, not in place of it. Standards, trigger heights, and local requirements change; OSHA's published standards, your state plan, and NYC DOB are always the authority.",
   relatedCertifications: [
-    { name: "OSHA 30-Hour Construction Outreach card", body: "OSHA-authorized trainers only", note: "Requires the full authorized course with verified hours. Cannot be earned from this coursework." },
-    { name: "Flagger certification", body: "ATSSA, state DOT, or another approved provider", note: "Separate from OSHA training, required by most states, and typically time-limited." },
-    { name: "OSHA 10-Hour Construction", body: "OSHA-authorized trainers only", note: "The shorter entry-level card, with the same authorized-provider requirement." },
+    { name: "OSHA 30-Hour Construction Outreach card", body: "OSHA-authorized trainers and OSHA-accepted online providers", note: "Requires the full authorized course with verified hours. OSHA construction cards do not expire. Cannot be earned from this coursework." },
+    { name: "OSHA 10-Hour Construction", body: "OSHA-authorized trainers and OSHA-accepted online providers", note: "The shorter entry-level card, with the same authorized-provider requirement." },
+    { name: "NYC Site Safety Training (SST) card", body: "NYC Department of Buildings, through DOB-registered course providers", note: "Worker card: 40 hours (OSHA 30 plus 8-hour Fall Prevention and 2-hour Mental Health Awareness is one route). Supervisor card: 62 hours. Cards are valid for five years." },
+    { name: "Flagger training card", body: "ATSSA, the National Safety Council, or another recognized program", note: "Separate from OSHA training. Required for flaggers on New York State DOT projects; check whether your card must be renewed." },
   ],
   modules: [
     {

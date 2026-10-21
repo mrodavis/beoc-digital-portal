@@ -106,7 +106,7 @@ export default function Home() {
     {
       title: "OSHA 30 w/ Site Safety and Flagging",
       description:
-        "Earn OSHA 30-hour certification covering workplace safety standards required for construction, maintenance, and industrial jobs.",
+        "Prepare for the OSHA 30-Hour Construction course and card: worker rights, the Focus Four hazards, hazard communication, PPE, and work zone flagging.",
       href: "/learning-paths/programs/osha-30",
       status: "available",
       icon: "🦺",
