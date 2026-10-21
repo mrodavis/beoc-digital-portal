@@ -1,0 +1,45 @@
+Mail Merge for Mass Communications
+
+Module 2: Word Advanced
+
+Learn to automate bulk patient and staff communications using Word's mail merge feature — from building a recipient list to producing 200 personalized letters in minutes.
+
+
+## Real-World Scenario
+Note: Lakeside Medical Associates is sending flu season appointment reminders to 200 patients. Each letter must be personally addressed with the patient's name, their provider's name, and their scheduled appointment date. Typing 200 individual letters would take hours — and would inevitably introduce errors. Mail merge produces all 200 letters from a single template and a single data file in under 10 minutes, with zero risk of a name being wrong because the data itself is the source. This is one of the highest-value productivity skills an office assistant can demonstrate.
+
+
+## What Mail Merge Is and When to Use It
+Mail merge is a feature that combines a standard document template with a list of variable data to automatically produce a unique, personalized version of the document for each record in the list. It is the correct tool whenever you need to produce multiple copies of the same document that vary by recipient-specific information:
+
+- Use mail merge when you have 10 or more recipients — for fewer than 10 recipients, manual editing may be faster. But for any bulk communication — appointment reminders, annual wellness check notices, billing statements, staff announcements, or holiday closures — mail merge saves enormous time and eliminates transcription errors.
+- Mail merge works for letters, envelopes, labels, and email — while letters are the most common use in a medical office, the same mail merge workflow can automatically print addressed envelopes for a mailing campaign, generate a sheet of address labels from a contact list, or send personalized bulk emails through Outlook if you have Outlook configured as your email client (email merges work fully with classic Outlook; the new Outlook for Windows supports mail merge only partly).
+- The two required components are a main document (the template with static content and merge field placeholders) and a data source (a list of records with the variable information — patient names, addresses, appointment dates, provider names) — Word merges these two files together at the moment you complete the merge, producing one output document per data record.
+
+
+## The Six Steps of Mail Merge
+Word's Step-by-Step Mail Merge Wizard (accessed through Mailings > Start Mail Merge > Step-by-Step Mail Merge Wizard) guides you through six stages. You can also perform each step manually using the Mailings tab tools, which is faster once you are familiar with the process:
+
+- Step 1 — Select document type: choose Letters, E-mail Messages, Envelopes, Labels, or Directory from the Mailings > Start Mail Merge dropdown. For patient appointment reminders at Lakeside Medical Associates, choose 'Letters.' This tells Word what kind of merged output to produce.
+- Step 2 — Select recipients (your data source): click Mailings > Select Recipients. You can 'Use an Existing List' (link to an Excel spreadsheet or Access database), 'Select from Outlook Contacts,' or 'Type a New List' to create a recipient table directly in Word. For a professional medical office setup, an Excel spreadsheet is the best data source — it is easy to maintain, sort, and filter outside of Word.
+- Step 3 — Write the main document: compose your letter with standard text in the body and click Mailings > Insert Merge Field wherever variable data should appear. Insert field placeholders like «FirstName», «LastName», «AppointmentDate», and «ProviderName». These appear in the document surrounded by chevrons (« ») to indicate they are merge fields, not static text.
+- Step 4 — Preview results: click Mailings > Preview Results. Word substitutes real data from your first record into the merge fields so you can verify the letter looks correct with actual patient information. Use the navigation arrows in the Mailings tab to scroll through several records and check for formatting or data issues before committing to the full merge.
+- Step 5 — Filter or sort if needed: before completing the merge, you can filter the recipient list to include only specific records — for example, only patients assigned to Dr. Chen, or only patients with appointments in June. Use Mailings > Edit Recipient List to apply filters, sort the list, or deselect individual recipients.
+- Step 6 — Complete the merge: click Mailings > Finish & Merge and choose 'Edit Individual Documents' (to review all letters in a single new document before printing), 'Print Documents' (to send directly to the printer), or 'Send Email Messages' (to send through classic Outlook). For patient letters, always choose 'Edit Individual Documents' first so you can spot-check a sample of the output.
+
+
+## Building an Excel Data Source
+The quality of your mail merge output is entirely dependent on the quality and structure of your data source. An Excel spreadsheet set up correctly for mail merge is easy to maintain and can be reused for multiple merge campaigns:
+
+- Structure the spreadsheet with column headers in row 1 — each column header becomes a merge field name. Use simple, clear names: FirstName, LastName, StreetAddress, City, State, ZIP, ProviderName, AppointmentDate, AppointmentTime. Avoid spaces or special characters in column header names, as they can cause field recognition issues in Word.
+- Each row represents one recipient — every row below the header row is a separate record that will produce a separate merged letter. A file with 200 patient records will produce 200 letters. Leave no blank rows in the data — blank rows create blank merged letters that can slip into your output undetected.
+- Format data columns for consistency — dates should be formatted as dates in Excel (not plain text) so they appear correctly in the merged letter. Name fields should be in title case (Maria Rodriguez, not MARIA RODRIGUEZ or maria rodriguez). ZIP codes should be formatted as Text in Excel to preserve leading zeros (01234, not 1234). Clean data produces clean letters.
+- Common mail merge errors and fixes — if merge fields show field codes ({MERGEFIELD FirstName}) instead of data, press Alt+F9 to toggle field code display. If dates appear as numbers (e.g., 45782 instead of May 5, 2025), add a format switch to the merge field: right-click the field, choose Toggle Field Codes, and add \@ "MMMM d, yyyy" after the field name. If records are skipping, check your filter settings in Edit Recipient List.
+
+
+## Responsible Use
+Note: Patient data used in a mail merge — names, addresses, appointment dates, provider names — is protected health information under HIPAA. The Excel spreadsheet containing this data must be stored in Lakeside Medical Associates' secured network drive, not on a personal computer, USB drive, or personal cloud storage. After completing a mail merge, do not leave the recipient data file open on your screen or printed as a reference sheet. If you make an error and merge letters with the wrong data (wrong names, wrong dates), report the error to your supervisor immediately before any letters are mailed — sending incorrect appointment information to patients can cause missed appointments, patient frustration, and potential liability.
+
+
+## Knowledge Check
+Check yourself: Which step in the mail merge process allows you to confirm that patient data is populating correctly before producing all 200 letters? Answer: Preview Results.

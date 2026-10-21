@@ -1,0 +1,43 @@
+Track Changes and Document Review
+
+Module 2: Word Advanced
+
+Learn to collaborate on documents professionally using Track Changes, insert and respond to comments, compare document versions, and protect documents for controlled editing.
+
+
+## Real-World Scenario
+Note: Lakeside Medical Associates is updating its patient confidentiality policy. Your supervisor has written the first draft and emailed it to the office manager and the compliance officer for review. Both will make edits — but if they simply save over the original, the changes will be invisible and unattributed. Using Track Changes, each reviewer's edits appear in a different color, attributed to their name, and the final decision-maker can accept or reject each change individually. This is how professional document collaboration works — and it is a skill that immediately distinguishes experienced office professionals from beginners.
+
+
+## How Track Changes Works
+Track Changes is Word's collaborative editing system — it records every insertion, deletion, and formatting change made to a document, along with who made it and when. Rather than simply changing the document text, Word annotates each change in a way that the document owner can review and decide to accept or reject:
+
+- To turn Track Changes on, press Ctrl+Shift+E or click Review > Track Changes > Track Changes from the Ribbon. A highlighted Track Changes button in the Ribbon confirms it is active. Every change you make from this point forward is recorded — insertions appear underlined in a color assigned to your username, deletions appear as strikethrough text (or in balloons in the margin), and moved text is marked with double underline/strikethrough.
+- Each reviewer is assigned a different color automatically — when multiple people review the same document, Word assigns each person's tracked changes a unique color so the document owner can immediately see who made which change. The color assignments are automatic and consistent throughout the review session. Reviewer identity comes from the name set in File > Options > General > 'User name.'
+- Markup display modes control what you see — the Review tab > Tracking group > 'Show Markup' dropdown lets you filter which types of changes are visible (insertions, deletions, formatting, comments). The display mode dropdown (All Markup, Simple Markup, No Markup, Original) controls the overall view: 'All Markup' shows all tracked changes with full annotation, 'Simple Markup' shows a clean version with change indicators in the margin, 'No Markup' shows the final accepted state, and 'Original' shows the document before any changes.
+
+
+## Accepting, Rejecting, and Managing Changes
+After all reviewers have submitted their tracked changes, the document owner reviews each change and decides to accept it (incorporate it permanently) or reject it (discard it and restore the original text). This process is the core workflow of professional collaborative document editing:
+
+- To accept or reject individual changes: right-click any tracked change in the document and choose 'Accept Change' or 'Reject Change.' Or use the Review tab > Changes group, where Accept and Reject buttons let you act on the current change and move to the next. This method is best when reviewing a document with a mix of changes you agree with and some you disagree with — you decide each one on its merits.
+- To accept all changes at once: click the dropdown arrow under Review > Accept > 'Accept All Changes.' Use this only when you have reviewed every change and are confident they are all correct — once accepted, the changes are finalized and cannot be individually reversed. If you have not reviewed every change, accepting all is risky.
+- To reject all changes at once: click Review > Reject > 'Reject All Changes.' This restores the document to its original state before any tracked changes were made — appropriate when a review draft has been superseded or when reviewer changes are being discarded in favor of a completely new revision.
+- After accepting or rejecting all changes, turn off Track Changes (Ctrl+Shift+E) before making any further edits — if Track Changes remains on, your clean-up edits will also be marked as changes, which clutters the document and suggests ongoing review when you intend a final state.
+
+
+## Comments and Document Comparison
+Comments allow reviewers to ask questions, suggest ideas, or flag concerns without directly editing the document text. Document comparison allows you to see the differences between two saved versions of a file — even when Track Changes was not active during editing:
+
+- To insert a comment: select the text you are commenting on (or place your cursor at that point), then press Ctrl+Alt+M or click Review > New Comment. A comment card appears in the right margin linked to your selected text. Type your comment — be specific and actionable: 'Should we add a deadline here?' is more useful than 'Fix this.' Comments are attributed to your username and timestamp automatically.
+- Replying to comments creates a threaded conversation within the document — click in the Reply box at the bottom of an existing comment card, type your reply, and post it. The reply appears under the original comment and is attributed to the replier. This allows a dialogue between the document author and reviewers without anyone having to rewrite the document or send emails back and forth. When a comment issue is handled, open the comment's More thread actions menu (...) and choose Resolve thread. The comment is marked Resolved and stays in the Comments pane, where anyone can reopen it if the issue comes back.
+- Comparing two document versions: if a colleague edited a document without using Track Changes, you can still see what changed by using Review > Compare > Compare. Select the original document and the revised document, and Word generates a new combined document showing all differences as tracked changes. This is an invaluable recovery tool when someone edits and saves over an important document without tracking their changes.
+- Restricting editing: use Review > Restrict Editing to limit what reviewers can change — you can allow only tracked changes (no direct editing), allow only comments (no changes at all), or protect specific sections while leaving others editable. You can set a password so only authorized users can turn off restrictions. This is appropriate for Lakeside Medical Associates policy documents that must go through formal review — reviewers can comment or suggest changes, but cannot make direct edits without approval.
+
+
+## Responsible Use
+Note: Tracked changes and comments in a document contain metadata — reviewer names, edit timestamps, and the original text before each change. Before sharing a document externally (to a patient, a referring physician, or a regulatory body), use File > Info > Check for Issues > Inspect Document to detect and remove all tracked changes, comments, and hidden metadata. Sending a policy document to an external party with visible reviewer disagreements in the tracked changes is unprofessional and potentially revealing of internal conflicts. Always accept or reject all changes and delete all comments before any document leaves Lakeside Medical Associates.
+
+
+## Knowledge Check
+Check yourself: Before sharing a Lakeside Medical Associates policy document with an external regulatory agency, which step is essential to protect internal confidentiality? Answer: Use Document Inspector to remove all tracked changes, comments, and hidden metadata.
