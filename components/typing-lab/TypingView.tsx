@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useLayoutEffect, useRef, useState } from "react";
-import type { TypingState } from "./useTyping";
+import type { KeyLike, TypingState } from "./useTyping";
 
 /**
  * The text to type, with the cursor, mistakes marked in place, and a hidden
@@ -20,7 +20,7 @@ export default function TypingView({
   inputRef,
 }: {
   state: TypingState;
-  onKey: (e: React.KeyboardEvent<HTMLTextAreaElement>) => boolean;
+  onKey: (e: KeyLike) => boolean;
   onText: (t: string) => void;
   /** Accessible name for the typing box. */
   label: string;

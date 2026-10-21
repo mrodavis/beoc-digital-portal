@@ -12,6 +12,15 @@ import { useCallback, useReducer } from "react";
  */
 export type TypingMode = "strict" | "free";
 
+/** The parts of a keydown event the typing logic needs. */
+export interface KeyLike {
+  key: string;
+  ctrlKey: boolean;
+  metaKey: boolean;
+  altKey: boolean;
+  getModifierState?(k: "CapsLock"): boolean;
+}
+
 export interface TypingState {
   text: string;
   mode: TypingMode;
@@ -82,7 +91,7 @@ export function useTyping(text: string, mode: TypingMode) {
   const reset = useCallback((t: string, m: TypingMode = mode) => dispatch({ type: "reset", text: t, mode: m }), [mode]);
 
   /** Handles one keydown. Returns true when the key was used (the caller then prevents the default). */
-  const onKey = useCallback((e: { key: string; ctrlKey: boolean; metaKey: boolean; altKey: boolean; getModifierState?: (k: string) => boolean }) => {
+  const onKey = useCallback((e: KeyLike) => {
     if (e.getModifierState) dispatch({ type: "caps", on: Boolean(e.getModifierState("CapsLock")) });
     if (e.key === "Backspace") {
       if (e.metaKey || e.altKey) return false;
