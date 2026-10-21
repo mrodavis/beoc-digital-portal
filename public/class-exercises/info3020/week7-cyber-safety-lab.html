@@ -138,12 +138,12 @@ textarea{min-height:84px;resize:vertical;}
 <div class="grid">
 <div class="step"><span>8 min</span><b>1. Threat Words</b>Quick check of key words.</div>
 <div class="step"><span>15 min</span><b>2. Lock It Down</b>Rate passwords. Check your MFA.</div>
-<div class="step"><span>20 min</span><b>3. Phishing Detective</b>Find the red flags. Take the Google quiz.</div>
+<div class="step"><span>20 min</span><b>3. Phishing Detective</b>Find the red flags. Sort phish from safe.</div>
 <div class="step"><span>15 min</span><b>4. Tricky Callers</b>Name the trick. Practice saying no.</div>
 <div class="step"><span>15 min</span><b>5. HIPAA at the Front Desk</b>PHI or not? Find the mistakes.</div>
 <div class="step"><span>3 min</span><b>Exit Ticket</b>Build your packet and submit.</div>
 </div>
-<p class="need"><strong>What you need:</strong> a web browser. You visit two websites: one in Exercise 2 and one in Exercise 3. <strong>Never type a real password, a real code, or real patient information on this page.</strong> Use made-up examples only.</p>
+<p class="need"><strong>What you need:</strong> a web browser. You visit one website, in Exercise 2. <strong>Never type a real password, a real code, or real patient information on this page.</strong> Use made-up examples only.</p>
 <label class="fld" for="sname">Your full name</label>
 <input type="text" id="sname" data-save="sname" placeholder="First and last name">
 <label class="fld" for="spartner">Your partner's name (write "none" if you worked alone)</label>
@@ -210,12 +210,15 @@ textarea{min-height:84px;resize:vertical;}
 <p>Be careful. <strong>Two of these are normal</strong> and are not red flags.</p>
 <div id="ex3a"></div>
 <button type="button" class="btn-gold" data-check="ex3a">Check My Answers</button><span class="score" id="score-ex3a"></span>
-<h3>Part B: Take the Google Phishing Quiz</h3>
-<p>This part is hands-on. Open a <strong>new browser tab</strong>. Mark each step when you finish it.</p>
+<h3>Part B: Phish or Safe?</h3>
+<p>Eight more emails arrived in the front desk inbox. For each one, check the sender address, where the link really goes (shown under the email), and what the email asks you to do. Choose <strong>Phish</strong> or <strong>Safe</strong>. Then click <strong>Check My Answers</strong> and read why. Write down your score from your <strong>first</strong> check.</p>
+<p class="need"><strong>What you know about your office:</strong> your email ends in <strong>@lakesidemedical.org</strong>. The staff intranet is <strong>intranet.lakesidemedical.org</strong>. The office buys supplies from <strong>Brightline Medical Supply</strong> (brightlinemedsupply.com), and you placed a glove order with them on Monday. IT and HR never ask for your password by email.</p>
 <div id="ex3b"></div>
-<label class="fld" for="e3score">1. What was your score? (Example: 6 of 8)</label>
+<button type="button" class="btn-gold" data-check="ex3b">Check My Answers</button><span class="score" id="score-ex3b"></span>
+<p class="note">Want more practice? The <a href="/class-exercises/info3020/week7-cyber-simulators.html#inbox">Cyber Safety Simulator</a> has a practice inbox where you point at links and report phishing.</p>
+<label class="fld" for="e3score">1. What was your score on your first check? (Example: 6 of 8)</label>
 <input type="text" id="e3score" data-save="e3score" placeholder="My score was ... of 8">
-<label class="fld" for="e3fooled">2. Which practice email fooled you, or almost fooled you? What clue did you miss?</label>
+<label class="fld" for="e3fooled">2. Which email fooled you, or almost fooled you? What clue did you miss?</label>
 <textarea id="e3fooled" data-save="e3fooled" placeholder="The email that almost fooled me was ... The clue I missed was ..."></textarea>
 <h3>Part C: What do you do?</h3>
 <label class="fld" for="e3steps">The email above is in your inbox. Write the steps you take, in order. Use Lesson 3.</label>
@@ -344,11 +347,15 @@ ex3a:{type:'chk',title:'Exercise 3 Part A - Red flags',items:[
  {t:'It asks you to verify who you are by clicking a link.',bad:true},
  {t:'It ends with "Thank you."',bad:false}
 ]},
-ex3b:{type:'steps',title:'Exercise 3 Part B - Google Phishing Quiz',items:[
- 'Open a new tab. Go to <span class="say">phishingquiz.withgoogle.com</span>.',
- 'Click <strong>Take the quiz</strong>. When it asks for a name and email, you can type made-up ones. The quiz only uses them to make the practice emails.',
- 'Answer all 8 questions. Point at links and look at sender addresses before you choose.',
- 'Read the explanation for each email you missed. Write down your score.'
+ex3b:{type:'mail',title:'Exercise 3 Part B - Phish or Safe?',choices:['Phish','Safe'],items:[
+ {f:"Lakeside Payroll",ad:"payroll@lakesidemedical-payroll.com",s:"Action needed: confirm your direct deposit today",b:"Your direct deposit for this pay period is on hold. Confirm your bank login within 2 hours or your pay will be delayed.",btn:"Confirm Deposit",l:"http://lakeside-payroll-update.com/confirm",a:"Phish",why:"Phish. The address ends in lakesidemedical-payroll.com, not lakesidemedical.org. It rushes you and asks for your bank login through a link."},
+ {f:"Ms. Rivera",ad:"mrivera@lakesidemedical.org",s:"Updated opening checklist",b:"Hi team, I updated the front desk opening checklist on the staff intranet. Please read it before your next shift. No reply needed. Thanks, Ms. Rivera",btn:"Open Checklist",l:"https://intranet.lakesidemedical.org/frontdesk/opening-checklist",a:"Safe",why:"Safe. It comes from your own domain, the link goes to your own intranet, and it only asks you to read something."},
+ {f:"ZipTrail Parcel",ad:"notice@ziptrail-delivery.info",s:"Package on hold: $1.99 redelivery fee",b:"We could not deliver your package. Pay a $1.99 fee within 24 hours or it will be returned to the sender.",btn:"Pay Now",l:"http://ziptrail-redeliver.info/pay",a:"Phish",why:"Phish. You were not expecting a package from this company, it asks for a card payment through a link, and it uses a deadline to rush you."},
+ {f:"Brightline Medical Supply",ad:"orders@brightlinemedsupply.com",s:"Your order #48213 has shipped",b:"Your order of 10 boxes of exam gloves, placed Monday, has shipped and should arrive in 2 business days. No action is needed.",btn:"",l:"",a:"Safe",why:"Safe. It matches the order you placed, the address matches the supplier's website, and it asks you to do nothing."},
+ {f:"Dr. Patel",ad:"dr.patel.lakeside@mailzoom-free.net",s:"Quick favor - are you at your desk?",b:"I need you to buy four $100 gift cards for a patient raffle. I am in meetings all day, so do not call me. Just email me the card numbers.",btn:"",l:"",a:"Phish",why:"Phish. A doctor at your office would write from @lakesidemedical.org. Gift cards, “do not call me,” and pressure from a boss are classic tricks. Call Dr. Patel at the number you already have."},
+ {f:"LMA IT Help Desk",ad:"helpdesk@lakesidemedical.org.account-check.net",s:"Your mailbox is almost full",b:"Your mailbox is at 98%. Sign in with your work password below to get more storage.",btn:"Get More Storage",l:"http://lakesidemedical.org.account-check.net/signin",a:"Phish",why:"Phish. Read the address all the way to the end: the real domain is account-check.net. IT never asks for your password through an email link."},
+ {f:"Lakeside Medical HR",ad:"hr@lakesidemedical.org",s:"Reminder: benefits enrollment closes Friday",b:"Open enrollment closes Friday. To make changes, sign in to the HR page from the staff intranet the way you usually do. HR will never ask for your password by email.",btn:"",l:"",a:"Safe",why:"Safe. It comes from your own domain, it has no link or attachment, and it tells you to use the normal way in."},
+ {f:"Shelvia File Share",ad:"share@shelvia-docs.co",s:"Ms. Rivera shared “Staff Bonus List.xlsx” with you",b:"Ms. Rivera shared a file with you. Sign in with your work email and password to view it.",btn:"Open File",l:"http://shelvia-docs.co/view?file=staff-bonus-list",a:"Phish",why:"Phish. Your office does not use Shelvia, a “bonus list” is bait, and it wants your work password on an outside site. Not sure? Ask Ms. Rivera in person or by phone."}
 ]},
 ex4a:{type:'sel',title:'Exercise 4 Part A - Name the trick',choices:['Authority','Urgency','Reciprocity','Familiarity'],items:[
  {t:'"This is Dr. Patel. Buy the gift cards now. I am your boss, so just do it."',a:'Authority',why:'The caller uses a boss\'s power to push you.'},
@@ -398,10 +405,12 @@ function renderChk(id){var d=D[id],h='';d.items.forEach(function(q,i){var nm=id+
  $(id).addEventListener('change',function(e){if(e.target.type==='checkbox'){S[e.target.id]=e.target.checked;save();}});}
 function renderSteps(id){var d=D[id],h='';d.items.forEach(function(t,i){var nm=id+'_'+i;h+='<div class="srow"><span class="sn">'+(i+1)+'</span><div class="txt">'+t+'</div><div class="btns"><button type="button" class="sb'+(S[nm]==='done'?' on-done':'')+'" data-step="'+nm+'" data-v="done">Done</button><button type="button" class="sb'+(S[nm]==='cant'?' on-cant':'')+'" data-step="'+nm+'" data-v="cant">Could not do it</button></div></div>';});$(id).innerHTML=h;
  $(id).addEventListener('click',function(e){var b=e.target.closest('button[data-step]');if(!b)return;var nm=b.getAttribute('data-step'),v=b.getAttribute('data-v');S[nm]=(S[nm]===v)?'':v;save();var bs=$(id).querySelectorAll('button[data-step="'+nm+'"]');for(var k=0;k<bs.length;k++){var bv=bs[k].getAttribute('data-v');bs[k].className='sb'+(S[nm]===bv?(bv==='done'?' on-done':' on-cant'):'');}});}
+function renderMail(id){var d=D[id],h='';d.items.forEach(function(m,i){var nm=id+'_'+i;h+='<div class="q" id="'+id+'_q'+i+'"><p class="qt"><span class="qn">'+(i+1)+'</span>Email '+(i+1)+'</p><div class="mail" style="margin:6px 0 10px;"><div class="mail-head"><div class="mail-subj">'+esc(m.s)+'</div><div><b>From:</b> '+esc(m.f)+' &lt;'+esc(m.ad)+'&gt;</div></div><div class="mail-body">'+esc(m.b)+(m.btn?'<br><span class="mail-btn">'+esc(m.btn)+'</span><span class="mail-url">Pointing at the button shows: '+esc(m.l)+'</span>':'<span class="mail-url">No links or attachments.</span>')+'</div></div><label for="'+nm+'" style="font-weight:700;margin-right:8px;">This email is:</label><select id="'+nm+'" style="font-size:16px;padding:6px 8px;border-radius:6px;border:2px solid #b9c6cc;"><option value="">Choose</option>';d.choices.forEach(function(c){h+='<option'+(S[nm]===c?' selected':'')+'>'+esc(c)+'</option>';});h+='</select><div class="fb" id="'+id+'_f'+i+'"></div></div>';});$(id).innerHTML=h;
+ $(id).addEventListener('change',function(e){if(e.target.tagName==='SELECT'){S[e.target.id]=e.target.value;save();}});}
 function renderOrder(id){var d=D[id],h='';for(var i=0;i<4;i++){var nm=id+'_'+i;h+='<div class="row" id="'+id+'_q'+i+'"><div class="txt"><strong>Step '+(i+1)+'</strong></div><select id="'+nm+'" aria-label="Step '+(i+1)+'"><option value="">Choose a step</option>';ORDER_SHUFFLE.forEach(function(k){h+='<option value="'+k+'"'+(S[nm]===String(k)?' selected':'')+'>'+esc(d.items[k])+'</option>';});h+='</select><div class="fb" id="'+id+'_f'+i+'"></div></div>';}$(id).innerHTML=h;
  $(id).addEventListener('change',function(e){if(e.target.tagName==='SELECT'){S[e.target.id]=e.target.value;save();}});}
 
-Object.keys(D).forEach(function(id){var t=D[id].type;if(t==='mc')renderMC(id);else if(t==='sel')renderSel(id);else if(t==='chk')renderChk(id);else if(t==='steps')renderSteps(id);else if(t==='order')renderOrder(id);});
+Object.keys(D).forEach(function(id){var t=D[id].type;if(t==='mc')renderMC(id);else if(t==='sel')renderSel(id);else if(t==='chk')renderChk(id);else if(t==='steps')renderSteps(id);else if(t==='order')renderOrder(id);else if(t==='mail')renderMail(id);});
 
 /* ---------- CHECK ---------- */
 function setQ(el,ok){if(!el)return;el.classList.remove('ok','no');el.classList.add(ok?'ok':'no');}
@@ -410,8 +419,10 @@ function check(id){var d=D[id],right=0,total=d.items.length,i;
  else if(d.type==='sel'){for(i=0;i<total;i++){var sv=S[id+'_'+i]||'',ok2=(sv===d.items[i].a);if(ok2)right++;setQ($(id+'_q'+i),ok2);$(id+'_f'+i).className='fb '+(ok2?'good':(sv?'bad':'warn'));$(id+'_f'+i).textContent=ok2?('Correct. '+d.items[i].why):(sv?'Not yet. Think again.':'Choose an answer.');}}
  else if(d.type==='chk'){for(i=0;i<total;i++){var c=!!S[id+'_'+i],ok3=(c===d.items[i].bad);if(ok3)right++;setQ($(id+'_q'+i),ok3);}}
  else if(d.type==='order'){for(i=0;i<total;i++){var ov=S[id+'_'+i],ok4=(ov===String(i));if(ok4)right++;setQ($(id+'_q'+i),ok4);$(id+'_f'+i).className='fb '+(ok4?'good':(ov?'bad':'warn'));$(id+'_f'+i).textContent=ok4?'Correct.':(ov?'Not this step yet.':'Choose a step.');}}
+ else if(d.type==='mail'){var answered=0;for(i=0;i<total;i++){var mv=S[id+'_'+i]||'',ok5=(mv===d.items[i].a);if(mv)answered++;if(ok5)right++;setQ($(id+'_q'+i),ok5);$(id+'_f'+i).className='fb '+(ok5?'good':(mv?'bad':'warn'));$(id+'_f'+i).textContent=ok5?('Correct. '+d.items[i].why):(mv?('Not quite. '+d.items[i].why):'Choose Phish or Safe.');}
+  if(answered===total&&!S['first_'+id])S['first_'+id]=right+' of '+total;}
  S['score_'+id]=right+' of '+total;save();
- var sc=$('score-'+id);sc.textContent=right+' of '+total+' correct'+(right===total?'. Nice work!':'. Fix the red ones and check again.');}
+ var sc=$('score-'+id);sc.textContent=right+' of '+total+' correct'+(right===total?'. Nice work!':'. Fix the red ones and check again.')+(S['first_'+id]?' (First check: '+S['first_'+id]+'.)':'');}
 document.addEventListener('click',function(e){var b=e.target.closest('[data-check]');if(b)check(b.getAttribute('data-check'));});
 
 /* ---------- TEXT FIELDS ---------- */
@@ -439,8 +450,10 @@ function build(){
    else if(d.type==='sel'){var sv=S[nmk]||'';o.push((i+1)+'. '+q.t+'  ->  '+(sv||'[no answer]')+(sv?(sv===q.a?'  (correct)':'  (incorrect)'):''));if(!sv)miss.push(d.title+' #'+(i+1));}
    else if(d.type==='chk'){o.push('['+(S[nmk]?'X':' ')+'] '+q.t);}
    else if(d.type==='steps'){var st=S[nmk];o.push('Step '+(i+1)+': '+(st==='done'?'DONE':(st==='cant'?'COULD NOT DO IT':'not marked'))+' - '+q.replace(/<[^>]+>/g,''));if(!st)miss.push(d.title+' step '+(i+1));}
+   else if(d.type==='mail'){var mv2=S[nmk]||'';o.push((i+1)+'. From '+q.f+' <'+q.ad+'>: '+q.s+'  ->  '+(mv2||'[no answer]')+(mv2?(mv2===q.a?'  (correct)':'  (incorrect)'):''));if(!mv2)miss.push(d.title+' #'+(i+1));}
    else if(d.type==='order'){var ov=S[nmk];o.push('Step '+(i+1)+': '+(ov===undefined||ov===''?'[no answer]':d.items[parseInt(ov,10)])+(ov===String(i)?'  (correct)':(ov?'  (incorrect)':'')));if(ov===undefined||ov==='')miss.push(d.title+' step '+(i+1));}
   });
+  if(S['first_'+id])o.push('First check: '+S['first_'+id]+' correct');
   if(S['score_'+id])o.push('Last check: '+S['score_'+id]+' correct');
   o.push('');}
  function wr(label,k){var v=tv(k);o.push(label);o.push('   '+(v?v.replace(/\n/g,'\n   '):'[no answer]'));if(!v)miss.push(label.replace(/^\s+/,'').slice(0,60));}
@@ -450,7 +463,7 @@ function build(){
  wr('Q2. Example passphrase (NOT a real one):','e2pass');
  wr('Q3. Why a long passphrase is better:','e2why');o.push('');
  o.push('=== EXERCISE 3: PHISHING DETECTIVE ===');part('ex3a');part('ex3b');
- wr('Q1. My Google Phishing Quiz score:','e3score');
+ wr('Q1. My Phish or Safe score on the first check:','e3score');
  wr('Q2. The email that fooled me and the clue I missed:','e3fooled');
  wr('Part C. The steps I take, in order:','e3steps');o.push('');
  o.push('=== EXERCISE 4: TRICKY CALLERS ===');part('ex4a');part('ex4b');
