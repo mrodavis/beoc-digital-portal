@@ -94,7 +94,7 @@ export const googleSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Star the spreadsheet “Clinic Hours - Both Sites” so you can find it fast from either site.",
-          hint: "Right-click Clinic Hours - Both Sites › Organize › Add to starred. You can also click the file once and press S.",
+          hint: "Right-click Clinic Hours - Both Sites › Organize › Add to starred. You can also click the file once and press Ctrl+Alt+S.",
           steps: [{ action: { kind: "command", id: "g.star", value: "f3" } }],
         },
         {
@@ -109,7 +109,7 @@ export const googleSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "A step is missing from the checklist. Restore the earlier version named “Before Monday edits”.",
-          hint: "File › Version history › See version history (Ctrl+Alt+Shift+H). Click Before Monday edits in the list on the right, then click Restore this version.",
+          hint: "File › Version history › See version history (Ctrl+Alt+Shift+H). Click Before Monday edits in the list on the right, click Restore this version at the top, then select Restore.",
           steps: [
             {
               action: { kind: "command", id: "g.version.restore", value: "v1" },

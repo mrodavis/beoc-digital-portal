@@ -169,7 +169,7 @@ export const googleSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Show the document outline and check that both headings appear in it.",
-          hint: "View › Show outline (Ctrl+Alt+A, then Ctrl+Alt+H). The outline opens on the left and lists the Title and both headings. (In the current Google Docs, the outline lives in the Show tabs & outlines panel at the top left of the document.)",
+          hint: "At the top left of the document, click Show tabs & outlines. The panel opens on the left, and the outline under the tab lists the Title and both headings.",
           steps: [{ action: { kind: "command", id: "g.view", value: "outline" } }],
         },
         {
@@ -250,7 +250,7 @@ export const googleSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Resolve Renee's comment now that it has been handled.",
-          hint: "Click the check mark at the top of Renee's comment card (Mark as done and hide discussion). The thread stays in the comment history.",
+          hint: "Click Resolve, the check mark in the top corner of Renee's comment card. To see closed comments later, click Comments at the top right.",
           steps: [{ action: { kind: "command", id: "g.comment.resolve", value: "c1" } }],
         },
         {
@@ -464,7 +464,7 @@ export const googleSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Start the presentation in presenter view.",
-          hint: "Click the arrow next to Slideshow at the top right and choose Presenter view. Press Esc or click End show when you are done looking.",
+          hint: "Click the arrow next to Slideshow at the top right and choose Presenter view. Press Esc to stop presenting when you are done looking.",
           steps: [{ action: { kind: "command", id: "slideshow.presenterStart" } }],
         },
       ],
