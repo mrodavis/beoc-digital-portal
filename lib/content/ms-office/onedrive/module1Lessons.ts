@@ -307,7 +307,7 @@ export const onedriveModule1Lessons: Lesson[] = [
             title: "Finding the phone list in a hurry",
             task: "Open the Office Phone List and check who last changed it, on a computer you have never used.",
             steps: [
-              { move: "Type phone in the Search box at the top and press Enter.", why: "Search looks through file names in your OneDrive and files shared with you, so you don't have to remember which folder it is in." },
+              { move: "Type phone in the Search box at the top and press Enter.", why: "Search looks through your OneDrive and the files shared with you, so you don't have to remember which folder it is in." },
               { move: "Select the row for Office Phone List, not the name.", why: "Selecting a row picks the file without opening it, so the command bar and details pane show its information." },
               { move: "Select the information (i) button at the top right.", why: "The details pane shows who modified the file and when, and who has access, which tells you whether this copy is current." },
               { move: "Select the file name to open it.", why: "Now you know it is the right file, so opening it is the last step, not a guess." },

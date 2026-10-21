@@ -289,7 +289,7 @@ export const teamsModule1Sims: Record<string, SimDefinition[]> = {
           steps: [cmd("channel.notifications", "All activity", "channel:ch-sched", "Change the notifications for the Scheduling channel.")],
         },
         {
-          instruction: "In Settings, turn off notifications for “Reactions to my messages.”",
+          instruction: "In Settings, turn off notifications for reactions to your messages.",
           hint: "Settings and more (…) next to your picture › Settings › Notifications and activity. Set Reactions to my messages to Off.",
           steps: [cmd("settings.notify", "Reactions to my messages=Off", "settings", "Change it in Settings › Notifications and activity.")],
         },
@@ -326,12 +326,12 @@ export const teamsModule1Sims: Record<string, SimDefinition[]> = {
           steps: [cmd("channel.notifications", "Off", "channel:ch-events", "Change the notifications for the Staff Events channel.")],
         },
         {
-          instruction: "In Settings › Notifications and activity, set “Reactions to my messages” to Off.",
+          instruction: "In Settings › Notifications and activity, turn off notifications for reactions to your messages.",
           hint: "Settings and more (…) › Settings › Notifications and activity › Reactions to my messages › Off.",
           steps: [cmd("settings.notify", "Reactions to my messages=Off", "settings", "Change it in Settings › Notifications and activity.")],
         },
         {
-          instruction: "Set “Meeting chat” notifications to Activity feed only.",
+          instruction: "Set meeting chat notifications to Activity feed only.",
           hint: "Settings › Notifications and activity › Meeting chat › Activity feed only.",
           steps: [cmd("settings.notify", "Meeting chat=Activity feed only", "settings", "Change it in Settings › Notifications and activity.")],
         },
