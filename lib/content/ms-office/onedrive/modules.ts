@@ -4,6 +4,7 @@ import { onedriveModule2Lessons } from "./module2Lessons";
 import { onedriveModule3Lessons } from "./module3Lessons";
 import { onedriveModule4Lessons } from "./module4Lessons";
 import { onedriveModule5Lessons } from "./module5Lessons";
+import { onedriveModule6Lessons } from "./module6Lessons";
 
 export type OneDriveModule = {
   moduleNumber: number;
@@ -67,5 +68,15 @@ export const onedriveModules: OneDriveModule[] = [
     lessons: onedriveModule5Lessons,
     level: "Intermediate",
     estimatedMinutes: 45,
+  },
+  {
+    moduleNumber: 6,
+    moduleSlug: "module-6",
+    title: "OneDrive with Teams, Outlook, and Office",
+    emoji: "🔗",
+    description: "Know where Teams stores chat, channel, and meeting files, send links instead of attachments, and use AutoSave and version history in the Office apps.",
+    lessons: onedriveModule6Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 40,
   },
 ];

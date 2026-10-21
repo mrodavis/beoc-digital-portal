@@ -193,6 +193,12 @@ export const onedriveModule5Lessons: Lesson[] = [
               { id: "d", text: "Red circle with an X", match: "Has a sync problem" },
             ],
           },
+          {
+            type: "image",
+            src: `${IMG}/files-on-demand/infographic.png`,
+            alt: "Quick reference: Files On-Demand status icons, the Always keep on this device and Free up space commands, and the Advanced settings choices",
+            caption: "Quick reference: Files On-Demand status icons.",
+          },
         ],
       },
       {

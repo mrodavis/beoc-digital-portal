@@ -100,6 +100,12 @@ export const onedriveModule3Lessons: Lesson[] = [
             ],
             explanation: "Match the link to the smallest group that needs the file. Anyone links are for public material only. Patient information always goes to people you choose.",
           },
+          {
+            type: "image",
+            src: `${IMG}/sharing-with-the-right-permission/infographic.png`,
+            alt: "Quick reference: the four link options, the four permissions, and the rules for sharing patient information",
+            caption: "Quick reference: sharing with the right permission.",
+          },
         ],
       },
       {
