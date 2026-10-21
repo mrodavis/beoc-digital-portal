@@ -7,6 +7,7 @@ export const module6Lessons: Lesson[] = [
     description:
       "Get oriented in Outlook for Microsoft 365, set up a professional email signature, configure your inbox view, and understand how Outlook's Mail, Calendar, People, and Tasks connect to manage your professional communications.",
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/4oxe9285SqA",
 
     slides: [
       {
@@ -195,6 +196,7 @@ export const module6Lessons: Lesson[] = [
     description:
       "Master the full range of Outlook's email tools — composing professional messages, using Quick Steps and Rules for automation, managing conversations, flagging for follow-up, and maintaining a professional inbox.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/57cfQTBG-Ks",
 
     slides: [
       {
@@ -377,6 +379,7 @@ export const module6Lessons: Lesson[] = [
     description:
       "Master Outlook's Calendar for scheduling appointments, sending meeting requests, using the Scheduling Assistant, managing recurring meetings, and coordinating the clinic's full schedule professionally.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/_OgfbhdsaOw",
 
     slides: [
       {
@@ -560,6 +563,7 @@ export const module6Lessons: Lesson[] = [
     description:
       "Learn to integrate Word, Excel, PowerPoint, and Outlook in connected workflows — embedding data, linking charts, sharing via OneDrive, co-authoring in real time, and exporting for cross-platform compatibility.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/W8Jnqfv2AzU",
 
     slides: [
       {
@@ -740,6 +744,7 @@ export const module6Lessons: Lesson[] = [
     description:
       "Apply every Outlook and Office integration skill in a single complete capstone — build a monthly appointment summary in Excel, a formal Word report, a PowerPoint chart slide, coordinate via Outlook email and Calendar, and set up automation — all as one connected professional workflow.",
     duration: "30 min",
+    videoUrl: "https://www.youtube.com/embed/6e5XW0h8fZ4",
 
     slides: [
       {

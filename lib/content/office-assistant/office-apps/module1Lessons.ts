@@ -415,7 +415,7 @@ export const module1Lessons: Lesson[] = [
     description:
       "Learn to use Word's Styles system to create consistently formatted professional documents faster, and understand how document themes control the overall visual identity of your files.",
     duration: "15 min",
-    videoUrl: "https://www.youtube.com/embed/vmEzxQfVj5c?si=FydXQ8y--1kuD0b1",
+    videoUrl: "https://www.youtube.com/embed/KfA0_W1PAKQ",
 
     slides: [
       {

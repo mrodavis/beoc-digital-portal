@@ -7,6 +7,7 @@ export const module2Lessons: Lesson[] = [
     description:
       "Learn to automate bulk patient and staff communications using Word's mail merge feature — from building a recipient list to producing 200 personalized letters in minutes.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/i1OJeqUClKg",
 
     slides: [
       {
@@ -391,6 +392,7 @@ export const module2Lessons: Lesson[] = [
     description:
       "Learn to collaborate on documents professionally using Track Changes, insert and respond to comments, compare document versions, and protect documents for controlled editing.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/8LP_xOB7Grk",
 
     slides: [
       {
