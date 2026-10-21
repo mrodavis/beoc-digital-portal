@@ -19,9 +19,12 @@ import {
   fromMinutes,
   minutes,
   personOf,
+  primaryZone,
   todayOf,
+  tzOffset,
   weekStart,
   weekday,
+  zoneShift,
 } from "./model";
 import type { GmEvent, GmailDoc } from "./types";
 import { AppsMenu, Avatar, BLUE, Btn, Check, FONT, IconBtn, Menu, Modal, Select, TEXT, useGm, type MenuPos } from "./ui";
@@ -58,7 +61,7 @@ function draftFrom(doc: GmailDoc, e?: GmEvent, slot?: { day: string; start: stri
       end: e.end ?? "10:00",
       allDay: Boolean(e.allDay),
       repeat: e.repeat ?? "Does not repeat",
-      timeZone: e.timeZone ?? TIME_ZONES[0],
+      timeZone: e.timeZone ?? primaryZone(doc),
       guests: (e.guests ?? []).map((g) => ({ email: g.email, optional: g.optional })),
       meet: Boolean(e.meet),
       location: e.location ?? "",
@@ -68,7 +71,7 @@ function draftFrom(doc: GmailDoc, e?: GmEvent, slot?: { day: string; start: stri
       perms: e.guestPerms ?? ["See guest list"],
     };
   const start = slot?.start ?? "10:00";
-  return { title: "", day: slot?.day ?? todayOf(doc), start, end: fromMinutes(minutes(start) + 60), allDay: false, repeat: "Does not repeat", timeZone: TIME_ZONES[0], guests: [], meet: false, location: "", notifications: ["30 minutes before"], calendar: mine, description: "", perms: ["See guest list"] };
+  return { title: "", day: slot?.day ?? todayOf(doc), start, end: fromMinutes(minutes(start) + 60), allDay: false, repeat: "Does not repeat", timeZone: primaryZone(doc), guests: [], meet: false, location: "", notifications: ["30 minutes before"], calendar: mine, description: "", perms: ["See guest list"] };
 }
 
 function serialize(doc: GmailDoc, d: Draft, invitations?: "Send" | "Don't send"): string {
@@ -211,6 +214,7 @@ function CalendarList() {
   const [other, setOther] = useState(true);
   const [opts, setOpts] = useState<{ id: string; pos: MenuPos } | null>(null);
   const [add, setAdd] = useState<MenuPos | null>(null);
+  const booking = Array.from(new Set((g.doc.events ?? []).filter((e) => e.kind === "appointments").map((e) => e.title)));
   const item = (id: string, name: string, color: string, off?: boolean) => (
     <div key={id} className="group flex h-8 items-center gap-3 rounded px-2 hover:bg-[#e9eef6]">
       <input type="checkbox" aria-label={name} checked={!off} onChange={(e) => g.cmd("cal.show", `${id}|${e.target.checked ? "on" : "off"}`)} className="h-[18px] w-[18px]" style={{ accentColor: color }} />
@@ -239,6 +243,18 @@ function CalendarList() {
         <Icon name="expand" size={20} style={{ transform: other ? "rotate(180deg)" : undefined }} />
       </div>
       {other && cals.filter((c) => !c.mine).map((c) => item(c.id, c.name, c.color, c.off))}
+      {booking.length > 0 && (
+        <>
+          <div className="mt-2 flex h-9 items-center px-2 font-medium">Booking pages</div>
+          {booking.map((t) => (
+            <div key={t} className="group flex h-8 items-center gap-3 rounded px-2 hover:bg-[#e9eef6]">
+              <Icon name="today" size={18} color={BLUE} />
+              <span className="min-w-0 flex-1 truncate">{t}</span>
+              <button type="button" aria-label={`Copy link for ${t}`} onClick={() => g.cmd("toast", "Link copied")} className="invisible rounded px-1.5 text-[12px] font-medium text-[#0b57d0] hover:bg-[#dde3ea] group-hover:visible">Copy link</button>
+            </div>
+          ))}
+        </>
+      )}
       {opts && (
         <Menu
           label={`Options for ${calOf(g.doc, opts.id)?.name}`}
@@ -287,11 +303,13 @@ function TimeGrid({ days, onSlot }: { days: string[]; onSlot: (day: string, star
   const allDay = (d: string) => events.filter((e) => e.day === d && (e.allDay || !e.start));
   const timed = (d: string) => events.filter((e) => e.day === d && !e.allDay && e.start);
   const now = minutes(doc.now ?? "10:02");
+  const second = doc.flags?.tz2on ? String(doc.flags.tz2 || "") : "";
   const open = (e: GmEvent) => g.cmd("cal.open", e.id);
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="flex border-b border-[#dadce0] pr-3">
-        <div className="w-16 shrink-0 self-end pb-1 pr-2 text-right text-[10px] text-[#70757a]">GMT-04</div>
+        {second && <div className="w-14 shrink-0 self-end pb-1 pr-1 text-right text-[10px] text-[#70757a]">{second.slice(1, 10).replace(":00", "")}</div>}
+        <div className="w-16 shrink-0 self-end pb-1 pr-2 text-right text-[10px] text-[#70757a]">{primaryZone(doc).slice(1, 10).replace(":00", "")}</div>
         {days.map((d) => {
           const today = d === todayOf(doc);
           return (
@@ -313,6 +331,11 @@ function TimeGrid({ days, onSlot }: { days: string[]; onSlot: (day: string, star
       </div>
       <div ref={ref} className="relative min-h-0 flex-1 overflow-y-auto">
         <div className="flex" style={{ height: 24 * HOUR }}>
+          {second && (
+            <div className="relative w-14 shrink-0" aria-label={`Secondary time zone: ${second}`}>
+              {Array.from({ length: 24 }, (_, h) => h > 0 && <span key={h} className="absolute right-1 -translate-y-1/2 text-[10px] text-[#70757a]" style={{ top: h * HOUR }}>{fmtTime(fromMinutes(((h * 60 + tzOffset(second) - tzOffset(primaryZone(doc))) % 1440 + 1440) % 1440)).replace(":00", "")}</span>)}
+            </div>
+          )}
           <div className="relative w-16 shrink-0">
             {Array.from({ length: 24 }, (_, h) => h > 0 && <span key={h} className="absolute right-2 -translate-y-1/2 text-[10px] text-[#70757a]" style={{ top: h * HOUR }}>{fmtTime(`${String(h).padStart(2, "0")}:00`).replace(":00", "")}</span>)}
           </div>
@@ -332,8 +355,11 @@ function TimeGrid({ days, onSlot }: { days: string[]; onSlot: (day: string, star
                 );
               })}
               {timed(d).map((e) => {
-                const top = (minutes(e.start!) / 60) * HOUR;
-                const h = Math.max(HOUR / 2.2, ((minutes(e.end ?? fromMinutes(minutes(e.start!) + 30)) - minutes(e.start!)) / 60) * HOUR);
+                const sh = zoneShift(doc, e);
+                const s0 = minutes(e.start!) + sh;
+                const e0 = minutes(e.end ?? fromMinutes(minutes(e.start!) + 30)) + sh;
+                const top = (s0 / 60) * HOUR;
+                const h = Math.max(HOUR / 2.2, ((e0 - s0) / 60) * HOUR);
                 const declined = e.myResponse === "No";
                 const pending = e.organizer && !e.myResponse;
                 const bg = colorOf(doc, e);
@@ -341,13 +367,13 @@ function TimeGrid({ days, onSlot }: { days: string[]; onSlot: (day: string, star
                   <button
                     key={e.id}
                     type="button"
-                    aria-label={`${e.title}, ${fmtTime(e.start)} to ${fmtTime(e.end)}, ${fmtLongDay(d)}`}
+                    aria-label={`${e.title}, ${fmtTime(fromMinutes(s0))} to ${fmtTime(fromMinutes(e0))}, ${fmtLongDay(d)}`}
                     onClick={() => open(e)}
                     className={`absolute left-0.5 right-2 z-10 overflow-hidden rounded px-1.5 py-0.5 text-left text-[12px] leading-4 ${e.done ? "line-through opacity-60" : ""}`}
                     style={{ top, height: h, background: e.kind === "appointments" ? `repeating-linear-gradient(135deg, ${bg}22, ${bg}22 6px, ${bg}44 6px, ${bg}44 12px)` : pending || declined ? "#fff" : bg, color: e.kind === "appointments" || pending || declined ? bg : "#fff", border: pending || declined || e.kind === "appointments" ? `1px solid ${bg}` : undefined, textDecoration: declined ? "line-through" : undefined }}
                   >
                     <span className="block truncate font-medium">{e.kind === "task" ? "☐ " : ""}{e.title}</span>
-                    <span className="block truncate">{fmtTime(e.start)} – {fmtTime(e.end)}{e.location ? `, ${e.location}` : ""}</span>
+                    <span className="block truncate">{fmtTime(fromMinutes(s0))} – {fmtTime(fromMinutes(e0))}{e.location ? `, ${e.location}` : ""}</span>
                   </button>
                 );
               })}
@@ -409,13 +435,13 @@ function EventCard({ e, onEdit }: { e: GmEvent; onEdit: () => void }) {
           <span className="mt-2 h-4 w-4 shrink-0 rounded" style={{ background: colorOf(doc, e) }} />
           <div>
             <h2 className={`text-[22px] leading-7 text-[#1f1f1f] ${e.done ? "line-through" : ""}`} style={{ fontFamily: FONT }}>{e.title}</h2>
-            <p className="text-[14px] text-[#444746]">{fmtLongDay(e.day)}{e.allDay || !e.start ? "" : ` · ${fmtTime(e.start)} – ${fmtTime(e.end)}`}</p>
+            <p className="text-[14px] text-[#444746]">{fmtLongDay(e.day)}{e.allDay || !e.start ? "" : ` · ${fmtTime(fromMinutes(minutes(e.start) + zoneShift(doc, e)))} – ${fmtTime(fromMinutes(minutes(e.end ?? e.start) + zoneShift(doc, e)))}`}</p>
             {e.repeat && <p className="text-[14px] text-[#444746]">{e.repeat}</p>}
-            {e.timeZone && e.timeZone !== TIME_ZONES[0] && <p className="text-[13px] text-[#444746]">{e.timeZone}</p>}
+            {e.timeZone && e.timeZone !== primaryZone(doc) && e.start && <p className="text-[13px] text-[#444746]">{fmtTime(e.start)} – {fmtTime(e.end)} {e.timeZone}</p>}
           </div>
         </div>
         {e.kind === "appointments" && (
-          <div className="mt-4 px-6"><Btn onClick={() => g.cmd("toast", "Your booking page opens in a new tab. Share its link so people can book a time.")} label="Open booking page">Open booking page</Btn></div>
+          <p className="mt-4 px-6 text-[13px] text-[#444746]">Bookable time. To share your booking page, point to it under Booking pages on the left and select Copy link.</p>
         )}
         {e.meet && (
           <div className="mt-4 flex items-start gap-4 px-6">
@@ -581,7 +607,7 @@ function EventPage({ draft, onClose }: { draft: Draft; onClose: () => void }) {
       <div className="flex items-center gap-6 px-[72px] py-2 text-[14px]">
         <Check label="All day" checked={d.allDay} onChange={(v) => set({ allDay: v })} />
         <Select label="Repeat" hideLabel value={d.repeat} options={REPEATS(d.day)} onChange={(v) => set({ repeat: v })} className="w-[300px]" />
-        {d.timeZone !== TIME_ZONES[0] && <span className="text-[13px] text-[#444746]">{d.timeZone}</span>}
+        {d.timeZone !== primaryZone(doc) && <span className="text-[13px] text-[#444746]">{d.timeZone}</span>}
       </div>
       <div className="flex min-h-0 flex-1 gap-6 px-6 pb-4">
         <div className="min-w-0 flex-1">
@@ -785,7 +811,7 @@ function AppointmentPage({ onClose }: { onClose: () => void }) {
       </aside>
       <div className="flex min-w-0 flex-1 flex-col items-center justify-center p-6 text-center text-[14px] text-[#444746]">
         <Icon name="today" size={48} color={BLUE} />
-        <p className="mt-3 max-w-[360px]">Your bookable times show on your calendar. After you save, open the booking page and share its link so people can book a time with you.</p>
+        <p className="mt-3 max-w-[360px]">Your bookable times show on your calendar. After you save, the schedule appears under Booking pages on the left, where you can copy its link to share.</p>
       </div>
     </div>
   );
@@ -826,7 +852,7 @@ function GeneralCalSettings() {
   const g = useGm();
   const f = g.doc.flags ?? {};
   const primary = String(f.tz || TIME_ZONES[0]);
-  const second = String(f.tz2 || TIME_ZONES[3]);
+  const second = String(f.tz2 || TIME_ZONES[1]);
   const [show, setShow] = useState(Boolean(f.tz2on));
   return (
     <div className="max-w-[680px]">

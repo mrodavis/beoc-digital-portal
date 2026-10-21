@@ -93,7 +93,7 @@ export function Menu({ items, pos, onClose, width = 240, label = "Menu" }: { ite
     if (dx || dy) setOff({ x: dx, y: dy });
   }, [pos.x, pos.y]);
   return (
-    <div className="fixed inset-0 z-[190]" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }} onContextMenu={(e) => { e.preventDefault(); onClose(); }}>
+    <div className="fixed inset-0 z-[190]" onClick={(e) => e.stopPropagation()} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }} onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); onClose(); }}>
       <div
         ref={ref}
         role="menu"
@@ -146,7 +146,7 @@ export function Menu({ items, pos, onClose, width = 240, label = "Menu" }: { ite
 
 export function Modal({ title, children, onClose, width = 480, footer, label }: { title: React.ReactNode; children: React.ReactNode; onClose: () => void; width?: number; footer?: React.ReactNode; label?: string }) {
   return (
-    <div className="absolute inset-0 z-[150] flex items-center justify-center bg-black/40 p-4" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }} onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); onClose(); } }}>
+    <div className="absolute inset-0 z-[150] flex items-center justify-center bg-black/40 p-4" onClick={(e) => e.stopPropagation()} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }} onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); onClose(); } }}>
       <div role="dialog" aria-label={label ?? (typeof title === "string" ? title : "Dialog")} className="flex max-h-full w-full flex-col overflow-hidden rounded-[24px] bg-white" style={{ maxWidth: width, boxShadow: "0 4px 8px 3px rgba(0,0,0,.15), 0 1px 3px rgba(0,0,0,.3)", fontFamily: TEXT }}>
         <div className="flex items-start gap-2 px-6 pb-2 pt-5">
           <h2 className="flex-1 text-[20px] leading-7 text-[#1f1f1f]" style={{ fontFamily: FONT }}>{title}</h2>
@@ -273,7 +273,7 @@ export function AppsMenu({ pos, onClose }: { pos: MenuPos; onClose: () => void }
     { label: "Chat", logo: <ChatLogo size={32} />, to: "chat" },
   ];
   return (
-    <div className="fixed inset-0 z-[190]" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+    <div className="fixed inset-0 z-[190]" onClick={(e) => e.stopPropagation()} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div role="menu" aria-label="Google apps" className="fixed z-[200] grid w-[300px] grid-cols-3 gap-2 rounded-2xl bg-[#e9eef6] p-4" style={{ left: Math.max(8, pos.x - 300), top: pos.y, boxShadow: "0 4px 8px 3px rgba(0,0,0,.15)" }}>
         {apps.map((a) => (
           <button key={a.label} type="button" role="menuitem" aria-label={a.label} onClick={() => { onClose(); g.cmd("app", a.to); }} className="flex flex-col items-center gap-1 rounded-xl bg-white px-2 py-3 text-[13px] hover:bg-[#f8fafd]">

@@ -482,7 +482,7 @@ function LabelsMenu({ ids, pos, onClose }: { ids: string[]; pos: MenuPos; onClos
   const changed = set.slice().sort().join("|") !== start.slice().sort().join("|");
   if (creating) return <NewLabelDialog onClose={onClose} />;
   return (
-    <div className="fixed inset-0 z-[190]" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+    <div className="fixed inset-0 z-[190]" onClick={(e) => e.stopPropagation()} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div role="dialog" aria-label="Label as" className="fixed z-[200] w-[260px] rounded-md bg-white py-2 text-[14px] shadow-lg" style={{ left: pos.x, top: pos.y, boxShadow: "0 2px 6px 2px rgba(60,64,67,.15)" }}>
         <div className="px-3 pb-1 text-[13px] text-[#444746]">Label as:</div>
         <input aria-label="Search labels" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className="mx-3 mb-1 h-8 w-[234px] border-b border-[#747775] text-[14px] outline-none" />
@@ -1033,7 +1033,7 @@ function AttachDialog({ onClose, onPick }: { onClose: () => void; onPick: (a: Gm
   const files = g.doc.computer ?? [];
   const [pick, setPick] = useState<GmAttachment | null>(null);
   return (
-    <div className="absolute inset-0 z-[150] flex items-center justify-center bg-black/30" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+    <div className="absolute inset-0 z-[150] flex items-center justify-center bg-black/30" onClick={(e) => e.stopPropagation()} onMouseDown={(e) => { if (e.target === e.currentTarget) onClose(); }}>
       <div role="dialog" aria-label="Open" className="w-[560px] max-w-full overflow-hidden rounded-lg border border-[#c8c8c8] bg-white shadow-2xl" style={{ fontFamily: "'Segoe UI', Arial, sans-serif" }}>
         <div className="flex h-8 items-center bg-[#f3f3f3] px-3 text-[12px]"><span className="flex-1">Open</span><button type="button" aria-label="Close" onClick={onClose}>✕</button></div>
         <div className="flex h-8 items-center gap-2 border-b border-[#e5e5e5] px-3 text-[12px] text-[#444]">This PC › Documents</div>

@@ -1137,7 +1137,7 @@ function sheetsApply(doc: GoogleDoc, f: GFile, book: ExcelBook, c: SimCommit, ui
         const range = normalizeRange(String(v.range || sel).replace(/^.*!/, "").replace(/\$/g, ""));
         const crit = String(v.criteria ?? "Dropdown");
         const type = crit.startsWith("Dropdown") ? "List" : crit === "Checkbox" ? "Checkbox" : crit === "Number between" ? "Decimal" : crit;
-        const list = crit === "Dropdown (from a range)" ? listFromRange(book, sheet, String(v.items ?? "")) : String(v.items ?? "").split(",").map((x) => x.trim()).filter(Boolean);
+        const list = crit === "Dropdown from a range" ? listFromRange(book, sheet, String(v.items ?? "")) : String(v.items ?? "").split(",").map((x) => x.trim()).filter(Boolean);
         sheet.validation = {
           ...(sheet.validation ?? {}),
           [range]: { type, list: type === "List" ? list : undefined, min: v.min !== undefined && v.min !== "" ? Number(v.min) : undefined, max: v.max !== undefined && v.max !== "" ? Number(v.max) : undefined },

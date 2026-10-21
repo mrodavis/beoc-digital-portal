@@ -1078,7 +1078,7 @@ function ValidationPanel({ book, sheet }: { book: ExcelBook; sheet: ExcelSheet }
   const sel = g.ui.selection.includes(":") ? g.ui.selection : activeCell(g.ui);
   const rules = Object.entries(sheet.validation ?? {});
   const [adding, setAdding] = useState(rules.length === 0);
-  const [v, setV] = useState({ range: sel, criteria: "Dropdown", items: ["", ""], min: "", max: "", invalid: "Show a warning", style: "Chip", advanced: false });
+  const [v, setV] = useState({ range: sel, criteria: "Dropdown", items: ["", ""], min: "", max: "", invalid: "Reject the input", style: "Chip", advanced: false });
   const done = () => {
     g.onCommit({ kind: "dialog", id: "g.validation", values: { range: v.range, criteria: v.criteria, items: v.items.map((x) => x.trim()).filter(Boolean).join(", "), min: v.min, max: v.max, invalid: v.invalid, style: v.style } });
     setAdding(false);
@@ -1114,7 +1114,7 @@ function ValidationPanel({ book, sheet }: { book: ExcelBook; sheet: ExcelSheet }
               <PillBtn kind="text" onClick={() => setV({ ...v, items: [...v.items, ""] })}>Add another item</PillBtn>
             </>
           )}
-          {v.criteria === "Dropdown (from a range)" && <input aria-label="Range" placeholder="e.g. Lists!A2:A6" value={v.items[0]} onChange={(e) => setV({ ...v, items: [e.target.value] })} onKeyDown={(e) => e.stopPropagation()} className="mb-2 h-8 w-full rounded border border-[#747775] px-2" />}
+          {v.criteria === "Dropdown from a range" && <input aria-label="Range" placeholder="e.g. Lists!A2:A6" value={v.items[0]} onChange={(e) => setV({ ...v, items: [e.target.value] })} onKeyDown={(e) => e.stopPropagation()} className="mb-2 h-8 w-full rounded border border-[#747775] px-2" />}
           {v.criteria.startsWith("Number") && (
             <div className="mb-2 flex gap-2">
               <input aria-label="Minimum" placeholder="Min" value={v.min} onChange={(e) => setV({ ...v, min: e.target.value })} onKeyDown={(e) => e.stopPropagation()} className="h-8 w-1/2 rounded border border-[#747775] px-2" />
@@ -1221,7 +1221,7 @@ function ChartEditor({ sheet }: { sheet: ExcelSheet }) {
         </div>
       ) : (
         <div className="text-[13px]">
-          <p className="mb-2 font-medium">Chart &amp; axis titles</p>
+          <p className="mb-2 font-medium">Chart &amp; axis title</p>
           <label className="mb-1 block text-[12px] text-[#444746]">Title text</label>
           <input aria-label="Title text" value={title} onChange={(e) => setTitle(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") { sel(); g.onCommit({ kind: "type", target: `chart:${ch.id}.title`, value: title }); } }} onBlur={() => { if (title !== (ch.title ?? "")) { sel(); g.onCommit({ kind: "type", target: `chart:${ch.id}.title`, value: title }); } }} className="mb-3 h-9 w-full rounded border border-[#747775] px-2" />
         </div>

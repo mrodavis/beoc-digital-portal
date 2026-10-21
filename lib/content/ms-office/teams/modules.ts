@@ -1,6 +1,7 @@
 import { Lesson } from "@/types/lesson";
 import { teamsModule1Lessons } from "./module1Lessons";
 import { teamsModule2Lessons } from "./module2Lessons";
+import { teamsModule3Lessons } from "./module3Lessons";
 
 export type TeamsModule = {
   moduleNumber: number;
@@ -34,5 +35,15 @@ export const teamsModules: TeamsModule[] = [
     lessons: teamsModule2Lessons,
     level: "Beginner",
     estimatedMinutes: 70,
+  },
+  {
+    moduleNumber: 3,
+    moduleSlug: "module-3",
+    title: "Teams and Channels",
+    emoji: "👥",
+    description: "Join a team, post and reply in channels, make announcements, set channel notifications, and use the Shared tab and channel tabs.",
+    lessons: teamsModule3Lessons,
+    level: "Beginner",
+    estimatedMinutes: 50,
   },
 ];

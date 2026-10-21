@@ -1,6 +1,8 @@
 import type { GoogleWorkspaceModule } from "./modules";
 import { gwModule1Lessons } from "./module1Lessons";
 import { gwModule2Lessons } from "./module2Lessons";
+import { gwModule3Lessons } from "./module3Lessons";
+import { gwModule4Lessons } from "./module4Lessons";
 
 /**
  * Modules 1-4 (Getting Started, Google Drive, Google Docs, Google Sheets).
@@ -52,5 +54,45 @@ export const coreModules: GoogleWorkspaceModule[] = [
     ],
     scenario:
       "Parkview's Drive grew without a plan: scans sit on the front desk desktop, files for both buildings are loose in My Drive, and nobody is sure who can see what. Denise asks you to fix it. You upload the scans, build a folder system the whole office can follow, find files on request while she is on the phone, share each file with the right people at the right level, and clean up without losing anything the team needs.",
+  },
+  {
+    moduleNumber: 3,
+    moduleSlug: "module-3",
+    title: "Google Docs",
+    emoji: "📝",
+    description:
+      "Write, format, structure, review, and send professional documents in Google Docs: notices, handbooks, updates, and letters.",
+    lessons: gwModule3Lessons,
+    level: "Beginner",
+    estimatedMinutes: 120,
+    whatYoullLearn: [
+      "How to start documents from blank pages and templates and format text, paragraphs, and lists",
+      "How to structure long documents with headings, the tabs and outlines panel, a table of contents, headers, footers, page numbers, and page setup",
+      "How to add tables, images, smart chips, and building blocks, and how to use voice typing",
+      "How to review with comments, assignments, Suggesting mode, and version history",
+      "How to proofread, print, download, email, and copy a finished document",
+    ],
+    scenario:
+      "Parkview's documents are the office's voice: the water shutoff notice on the lobby board, the tenant handbook every new resident receives, the weekly maintenance update, the new pet policy, and the welcome letter for each move-in. You write and finish them all in Google Docs, working with Denise, Marcus, Kim, and Priya in the same files instead of emailing drafts back and forth.",
+  },
+  {
+    moduleNumber: 4,
+    moduleSlug: "module-4",
+    title: "Google Sheets",
+    emoji: "📊",
+    description:
+      "Enter and format data, calculate with formulas and functions, sort and filter, chart and summarize, and keep shared spreadsheets clean in Google Sheets.",
+    lessons: gwModule4Lessons,
+    level: "Beginner to Intermediate",
+    estimatedMinutes: 135,
+    whatYoullLearn: [
+      "How to enter, edit, and format data, freeze rows, and work with sheet tabs",
+      "How to write formulas, use SUM, AVERAGE, MAX, IF, and COUNTIF, and copy formulas with relative and absolute references",
+      "How to sort, filter, save filter views, add conditional formatting rules, and convert data to a table",
+      "How to build charts and pivot tables from your data",
+      "How to add dropdowns and checkboxes, protect ranges, use notes and comments, and download as Excel or CSV",
+    ],
+    scenario:
+      "Parkview runs on lists: the rent roll Priya keeps, the repair costs Kim tracks, the maintenance request log for both buildings, the numbers Marcus brings to the owners each month, and the supply order four people add to. You build and maintain these spreadsheets in Google Sheets so the numbers are right, easy to read, and safe from accidental changes while several people work in them at once.",
   },
 ];

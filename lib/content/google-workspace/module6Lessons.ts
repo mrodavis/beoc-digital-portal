@@ -3,7 +3,7 @@ import { Lesson } from "@/types/lesson";
 const IMG = "/images/google-workspace/module-6";
 const slides = (slug: string, alts: string[]) => alts.map((alt, i) => ({ src: `${IMG}/${slug}/slide-${String(i + 1).padStart(2, "0")}.jpg`, alt }));
 
-/** Module 6: Gmail. Scenario: Maple Street Property Management (fictional). */
+/** Module 6: Gmail. Scenario: Parkview Property Management (fictional). */
 export const gwModule6Lessons: Lesson[] = [
   /* ------------------------------------------------------------------ */
   {
@@ -18,6 +18,7 @@ export const gwModule6Lessons: Lesson[] = [
       "Decide whether to archive or delete a message, and find archived mail in All Mail and deleted mail in Trash",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/l-WyP9iW_qE",
     slides: slides("gmail-inbox-basics", [
       "Gmail at work: the same app for personal and Google Workspace accounts",
       "The Gmail screen: main menu, Compose, Search mail, Settings, tabs, side panel",
@@ -32,13 +33,13 @@ export const gwModule6Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are the new office assistant at Maple Street Property Management, a small company that manages apartment buildings.",
+            role: "You are the new office assistant at Parkview Property Management, a small company that manages apartment buildings.",
             text: "On your first morning, Denise Carter, the office manager, tells you the whole office runs on Google Workspace: email in Gmail, schedules in Google Calendar, files in Google Drive, and meetings in Google Meet. When you open Gmail, there are already messages from coworkers, a plumbing company, the water utility, and a store you have never heard of.",
             task: "Learn the Gmail screen well enough to sort a busy inbox in a few minutes.",
           },
           {
             type: "paragraph",
-            text: "Gmail is Google's email service. A personal Google Account has an address that ends in @gmail.com. A work or school account on Google Workspace uses the organization's own domain, such as jlee@maplestreetpm.example. Either way, you use the same Gmail app in a web browser at mail.google.com, so what you practice here works for both.",
+            text: "Gmail is Google's email service. A personal Google Account has an address that ends in @gmail.com. A work or school account on Google Workspace uses the organization's own domain, such as jlee@parkviewpm.example. Either way, you use the same Gmail app in a web browser at mail.google.com, so what you practice here works for both.",
           },
           {
             type: "key-terms",
@@ -113,8 +114,8 @@ export const gwModule6Lessons: Lesson[] = [
               { id: "a", text: "Denise Carter: “Welcome aboard, Jordan!”", bucket: "primary" },
               { id: "b", text: "Office Supply Depot: “30% off printer paper this week”", bucket: "promotions" },
               { id: "c", text: "City Water Utility: “Your October statement is ready”", bucket: "updates" },
-              { id: "d", text: "Neighborly: “3 neighbors posted near Maple Street”", bucket: "social" },
-              { id: "e", text: "Luis Ortega: “Showing at 214 Elm St moved to Thursday”", bucket: "primary" },
+              { id: "d", text: "Neighborly: “3 neighbors posted near Elm Street”", bucket: "social" },
+              { id: "e", text: "Andre Wallace: “Showing at Elm Street Apartments moved to Thursday”", bucket: "primary" },
               { id: "f", text: "An online store: “Your order has shipped”", bucket: "updates" },
             ],
             explanation: "Messages from people go to Primary. Deals go to Promotions, social network notices go to Social, and bills, receipts, and shipping notices go to Updates. If Gmail guesses wrong, drag the message to the right tab.",
@@ -163,12 +164,12 @@ export const gwModule6Lessons: Lesson[] = [
           {
             type: "worked-example",
             title: "Clearing the inbox on your first morning",
-            task: "Get the Maple Street inbox down to the messages that still need you.",
+            task: "Get the Parkview inbox down to the messages that still need you.",
             steps: [
               { move: "Open the Promotions tab and delete the printer paper sale.", why: "A sale email has no business value later, so it can go to Trash." },
-              { move: "Archive Marcus's FYI about the pest control visit.", why: "It needs no action, but the office might need to know when the visit happened. Archive keeps it searchable." },
+              { move: "Archive Kim's FYI about the pest control visit.", why: "It needs no action, but the office might need to know when the visit happened. Archive keeps it searchable." },
               { move: "Star Denise's welcome message.", why: "It lists things to ask about this week, so you want to find it quickly under Starred." },
-              { move: "Leave Luis's showing message in the inbox.", why: "It still needs a reply. The inbox works best as a to-do list of what still needs you." },
+              { move: "Leave Andre's showing message in the inbox.", why: "It still needs a reply. The inbox works best as a to-do list of what still needs you." },
             ],
             result: "The inbox holds only conversations that need action, and nothing useful was thrown away.",
             takeaway: "Archive what you are done with; delete only what you will never need; star what you must come back to.",
@@ -177,18 +178,18 @@ export const gwModule6Lessons: Lesson[] = [
             type: "drag-drop",
             mode: "sort",
             title: "Archive, delete, or keep in the inbox?",
-            prompt: "Drag each message to the best action for the Maple Street office.",
+            prompt: "Drag each message to the best action for the Parkview office.",
             buckets: [
               { id: "archive", label: "Archive" },
               { id: "delete", label: "Delete" },
               { id: "keep", label: "Keep in the inbox (still needs you)" },
             ],
             items: [
-              { id: "a", text: "Invoice receipt from QuickFix Plumbing that Priya already paid", bucket: "archive" },
+              { id: "a", text: "Invoice receipt from Russo Plumbing that Priya already paid", bucket: "archive" },
               { id: "b", text: "Last week's expired coupon from an office supply store", bucket: "delete" },
               { id: "c", text: "A tenant asking when the hallway will be painted", bucket: "keep" },
               { id: "d", text: "Confirmation that the fire alarm inspection is booked", bucket: "archive" },
-              { id: "e", text: "Grace Kim asking for the roof estimate", bucket: "keep" },
+              { id: "e", text: "Grace Holloway asking for the roof estimate", bucket: "keep" },
               { id: "f", text: "A message you sent to yourself to test your new account", bucket: "delete" },
             ],
             explanation: "Finished business records (paid invoices, confirmations) belong in the archive, where you can search for them later. Junk and tests can be deleted. Anything that still needs an answer stays in the inbox until you handle it.",
@@ -200,7 +201,7 @@ export const gwModule6Lessons: Lesson[] = [
         blocks: [
           {
             type: "knowledge-check",
-            question: "You archived a message from Marcus last week. Where can you find it now?",
+            question: "You archived a message from Kim last week. Where can you find it now?",
             options: ["In Trash", "In All Mail, or by searching for it", "Nowhere; archiving removes it from Gmail", "Only in the Sent folder"],
             correctIndex: 1,
             explanation: "Archiving only removes a message from the inbox. It stays in All Mail and still appears in search results.",
@@ -208,7 +209,7 @@ export const gwModule6Lessons: Lesson[] = [
               "Trash holds deleted messages, not archived ones.",
               "Correct. Archived mail stays in All Mail and shows up in searches.",
               "Archive is the safe choice precisely because it keeps the message.",
-              "Sent holds messages you sent. Marcus's message was sent to you.",
+              "Sent holds messages you sent. Kim's message was sent to you.",
             ],
           },
           {
@@ -299,8 +300,8 @@ export const gwModule6Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You are the office assistant at Maple Street Property Management.",
-            text: "Luis's showing moved to Thursday and the whole team needs to know. A plumbing invoice has to get to Priya, the bookkeeper. A tenant needs a repair notice, three tenants need the same water shutoff notice, and Denise wants a walkthrough video that is far too big to attach.",
+            role: "You are the office assistant at Parkview Property Management.",
+            text: "Andre's showing moved to Thursday and the whole team needs to know. A plumbing invoice has to get to Priya, the bookkeeper. A tenant needs a repair notice, three tenants need the same water shutoff notice, and Denise wants a walkthrough video that is far too big to attach.",
             task: "Send each message to exactly the right people, with the right files, the first time.",
           },
           {
@@ -317,10 +318,10 @@ export const gwModule6Lessons: Lesson[] = [
           {
             type: "table",
             caption: "To, Cc, or Bcc?",
-            columns: ["Field", "Who goes here", "Who can see it", "Maple Street example"],
+            columns: ["Field", "Who goes here", "Who can see it", "Parkview example"],
             rows: [
-              ["To", "People who need to read and act", "Everyone on the message", "Andre, the tenant whose sink will be repaired"],
-              ["Cc", "People who should know but don't need to act", "Everyone on the message", "Marcus, the maintenance coordinator"],
+              ["To", "People who need to read and act", "Everyone on the message", "Darnell, the tenant whose sink will be repaired"],
+              ["Cc", "People who should know but don't need to act", "Everyone on the message", "Kim, the maintenance coordinator"],
               ["Bcc", "People whose addresses should stay private", "Only you. Other recipients don't know they were added, and Reply all doesn't reach them", "Three tenants getting the same shutoff notice"],
             ],
           },
@@ -344,7 +345,7 @@ export const gwModule6Lessons: Lesson[] = [
             title: "Pick the right button",
             prompt: "Drag the right choice onto each situation.",
             items: [
-              { id: "a", text: "Luis wrote to you, Denise, and Marcus that a showing moved, and everyone needs your confirmation.", match: "Reply all" },
+              { id: "a", text: "Andre wrote to you, Denise, and Kim that a showing moved, and everyone needs your confirmation.", match: "Reply all" },
               { id: "b", text: "Denise welcomed you by email and copied the whole office. You want to thank her.", match: "Reply" },
               { id: "c", text: "A vendor sent you an invoice that Priya, the bookkeeper, must pay.", match: "Forward" },
               { id: "d", text: "You need to tell a tenant about a new parking rule, and there's no earlier email about it.", match: "Compose a new message" },
@@ -438,10 +439,10 @@ export const gwModule6Lessons: Lesson[] = [
           },
           {
             type: "knowledge-check",
-            question: "Luis emailed you and Denise, with Marcus in Cc. Only Luis needs your answer. Which button?",
+            question: "Andre emailed you and Denise, with Kim in Cc. Only Andre needs your answer. Which button?",
             options: ["Reply", "Reply all", "Forward", "Compose"],
             correctIndex: 0,
-            explanation: "Reply goes only to the sender. Reply all would send your answer to Denise and Marcus too.",
+            explanation: "Reply goes only to the sender. Reply all would send your answer to Denise and Kim too.",
             optionRationales: ["Correct.", "Reply all includes everyone in To and Cc.", "Forward sends the message to someone new.", "A new message loses the thread's context."],
           },
         ],
@@ -477,6 +478,7 @@ export const gwModule6Lessons: Lesson[] = [
       "Turn on the vacation responder for a date range and know how to end it",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/M3zdSdW-0gs",
     slides: slides("send-later-and-settings", [
       "Schedule send: write now, deliver later",
       "Confidential mode: expiration and passcodes",
@@ -491,7 +493,7 @@ export const gwModule6Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You handle the office mailbox at Maple Street Property Management.",
+            role: "You handle the office mailbox at Parkview Property Management.",
             text: "Denise likes owner reports to arrive Monday morning, even when you finish them on a Wednesday. Priya needs a heads-up about suspicious bank details without that message getting forwarded around. And you'll be away at a training next week, so people who email you need to know whom to contact.",
             task: "Use Gmail's sending options and settings so your mail works even when you aren't at your desk.",
           },
@@ -673,13 +675,13 @@ export const gwModule6Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You keep the Maple Street office mailbox organized.",
-            text: "Vendor invoices from QuickFix Plumbing and Bright Clean Services are scattered through the inbox. Denise wants all vendor mail in one place, out of the inbox, without losing anything, and Grace Kim's question about the roof estimate shouldn't clutter your inbox until the estimate is ready.",
+            role: "You keep the Parkview office mailbox organized.",
+            text: "Vendor invoices from Russo Plumbing and Bright Clean Services are scattered through the inbox. Denise wants all vendor mail in one place, out of the inbox, without losing anything, and Grace Holloway's question about the roof estimate shouldn't clutter your inbox until the estimate is ready.",
             task: "Set up Gmail so vendor mail sorts itself and nothing slips through the cracks.",
           },
           {
             type: "paragraph",
-            text: "Gmail organizes mail with labels. A label works like a tag: one conversation can have several labels, such as Vendors and 214 Elm St, and still be in the inbox. A folder can only hold a message in one place. Labels are private: only you see the labels you put on your mail, and the people you write to don't.",
+            text: "Gmail organizes mail with labels. A label works like a tag: one conversation can have several labels, such as Vendors and Elm Street Apartments, and still be in the inbox. A folder can only hold a message in one place. Labels are private: only you see the labels you put on your mail, and the people you write to don't.",
           },
           {
             type: "list",
@@ -703,7 +705,7 @@ export const gwModule6Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Type in Search mail at the top and press Enter. Plain words search everything. Search operators narrow it down. You can combine them: from:quickfix has:attachment finds only QuickFix messages with attachments.",
+            text: "Type in Search mail at the top and press Enter. Plain words search everything. Search operators narrow it down. You can combine them: from:russo has:attachment finds only Russo Plumbing messages with attachments.",
           },
           {
             type: "table",
@@ -713,7 +715,7 @@ export const gwModule6Lessons: Lesson[] = [
               ["from:", "Mail from a person", "from:priya"],
               ["to:", "Mail sent to a person", "to:grace"],
               ["subject:", "Words in the subject", "subject:invoice"],
-              ["has:attachment", "Messages with attachments", "from:quickfix has:attachment"],
+              ["has:attachment", "Messages with attachments", "from:russo has:attachment"],
               ["filename:", "Attachments by name or type", "filename:pdf"],
               ["is:unread / is:starred", "Unread or starred mail", "is:unread label:vendors"],
               ["label:", "Mail with a label", "label:vendors"],
@@ -751,7 +753,7 @@ export const gwModule6Lessons: Lesson[] = [
             ordered: true,
             items: [
               "In the search box, select Show search options (the sliders icon).",
-              "Fill in what to look for, such as From: dispatch@quickfixplumbing.example. Select Search first if you want to preview the matches.",
+              "Fill in what to look for, such as From: tony@russoplumbing.example. Select Search first if you want to preview the matches.",
               "Select Create filter.",
               "Check what the filter should do, for example Skip the Inbox (Archive it) and Apply the label: Vendors.",
               "To sort the mail you already have too, check Also apply filter to matching conversations.",
@@ -782,8 +784,8 @@ export const gwModule6Lessons: Lesson[] = [
             task: "Keep vendor mail together and out of the inbox.",
             steps: [
               { move: "Create a Vendors label.", why: "One place to see every vendor message, whichever building it's about." },
-              { move: "Search from:quickfix has:attachment.", why: "Checks exactly which messages a QuickFix filter would catch, before anything moves." },
-              { move: "Create a filter: From dispatch@quickfixplumbing.example, Skip the Inbox, Apply the label Vendors, and apply it to matching conversations.", why: "Old and new invoices land under Vendors automatically, so the inbox stays a to-do list." },
+              { move: "Search from:russo has:attachment.", why: "Checks exactly which messages a Russo Plumbing filter would catch, before anything moves." },
+              { move: "Create a filter: From tony@russoplumbing.example, Skip the Inbox, Apply the label Vendors, and apply it to matching conversations.", why: "Old and new invoices land under Vendors automatically, so the inbox stays a to-do list." },
               { move: "Snooze Grace's roof estimate question until tomorrow.", why: "You can't answer until the estimate arrives. Snooze brings it back when you can." },
             ],
             result: "Vendor mail sorts itself, and the inbox shows only what needs you today.",
@@ -804,11 +806,11 @@ export const gwModule6Lessons: Lesson[] = [
           },
           {
             type: "knowledge-check",
-            question: "Which search finds messages from QuickFix that have attachments?",
-            options: ["quickfix attachment", "from:quickfix has:attachment", "has:quickfix from:attachment", "subject:quickfix"],
+            question: "Which search finds messages from Russo Plumbing that have attachments?",
+            options: ["russo attachment", "from:russo has:attachment", "has:russo from:attachment", "subject:russo"],
             correctIndex: 1,
             explanation: "from: names the sender and has:attachment requires an attachment.",
-            optionRationales: ["Plain words also match messages that just mention QuickFix or attachments.", "Correct.", "The operators are swapped.", "That only checks the subject line."],
+            optionRationales: ["Plain words also match messages that just mention Russo Plumbing or attachments.", "Correct.", "The operators are swapped.", "That only checks the subject line."],
           },
           {
             type: "knowledge-check",
@@ -865,8 +867,8 @@ export const gwModule6Lessons: Lesson[] = [
         blocks: [
           {
             type: "scenario",
-            role: "You check the Maple Street mailbox first thing every morning.",
-            text: "Today there's a message from “Maple Street IT Support” saying your mailbox will be deactivated in 24 hours unless you verify your account. There's also a gift card prize, a landlord newsletter you signed up for months ago, and a missing water bill that Priya is asking about.",
+            role: "You check the Parkview mailbox first thing every morning.",
+            text: "Today there's a message from “Parkview IT Support” saying your mailbox will be deactivated in 24 hours unless you verify your account. There's also a gift card prize, a landlord newsletter you signed up for months ago, and a missing water bill that Priya is asking about.",
             task: "Decide which messages are dangerous, report them correctly, and make sure the real bill isn't lost in Spam.",
           },
           {
@@ -878,10 +880,10 @@ export const gwModule6Lessons: Lesson[] = [
             caption: "Warning signs",
             columns: ["Sign", "In the fake IT message"],
             rows: [
-              ["The sender's address doesn't match the name", "“Maple Street IT Support” but the address is it-support@maplestreet-pm-help.example, not maplestreetpm.example"],
+              ["The sender's address doesn't match the name", "“Parkview IT Support” but the address is it-support@parkview-pm-help.example, not parkviewpm.example"],
               ["Urgency or a threat", "“DEACTIVATED within 24 hours”"],
               ["A request for a password or personal information", "“Verify your account now”"],
-              ["A link that doesn't go where it says", "Point to the link: it goes to maplestreet-pm-help.example"],
+              ["A link that doesn't go where it says", "Point to the link: it goes to parkview-pm-help.example"],
               ["Too good to be true, or an unexpected fee", "The gift card that needs a $4.99 “processing fee”"],
             ],
           },
@@ -900,7 +902,7 @@ export const gwModule6Lessons: Lesson[] = [
             ],
             items: [
               { id: "a", text: "“Your mailbox will be deactivated. Enter your password here to keep it,” from a lookalike domain", bucket: "phish" },
-              { id: "b", text: "Denise, from dcarter@maplestreetpm.example: “Staff meeting moved to 2:00 PM”", bucket: "real" },
+              { id: "b", text: "Denise, from dcarter@parkviewpm.example: “Staff meeting moved to 2:00 PM”", bucket: "real" },
               { id: "c", text: "“You won a $500 gift card! Pay a $4.99 fee to claim it”", bucket: "phish" },
               { id: "d", text: "A vendor's “new bank details, please pay today” message you didn't expect", bucket: "phish" },
               { id: "e", text: "City Water, from billing@citywater.example: “Your October statement is ready” with no request for a password", bucket: "real" },

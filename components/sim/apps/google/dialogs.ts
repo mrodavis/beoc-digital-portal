@@ -173,7 +173,7 @@ export const googleDialogs: Record<string, DialogDef> = {
     title: "Insert image",
     okLabel: "Insert",
     fields: [
-      { type: "select", key: "source", label: "Source", options: ["Upload from computer", "Search the web", "Drive", "Photos", "By URL", "Camera"], default: "Upload from computer" },
+      { type: "select", key: "source", label: "Source", options: ["Upload from computer", "Stock & web", "Drive & Photos", "Camera", "By URL"], default: "Upload from computer" },
       { type: "text", key: "file", label: "Image" },
     ],
   },
@@ -216,11 +216,11 @@ export const googleDialogs: Record<string, DialogDef> = {
     okLabel: "Done",
     fields: [
       { type: "text", key: "range", label: "Apply to range" },
-      { type: "select", key: "criteria", label: "Criteria", options: ["Dropdown", "Dropdown (from a range)", "Text contains", "Is valid email", "Is valid URL", "Number between", "Number greater than", "Is valid date", "Checkbox"], default: "Dropdown" },
+      { type: "select", key: "criteria", label: "Criteria", options: ["Dropdown", "Dropdown from a range", "Text contains", "Is valid email", "Is valid URL", "Number between", "Number greater than", "Is valid date", "Checkbox"], default: "Dropdown" },
       { type: "text", key: "items", label: "Items" },
       { type: "text", key: "min", label: "Minimum" },
       { type: "text", key: "max", label: "Maximum" },
-      { type: "radio", key: "invalid", label: "If the data is invalid", options: ["Show a warning", "Reject the input"], default: "Show a warning" },
+      { type: "radio", key: "invalid", label: "If the data is invalid", options: ["Show a warning", "Reject the input"], default: "Reject the input" },
       { type: "radio", key: "style", label: "Display style", options: ["Chip", "Arrow", "Plain text"], default: "Chip" },
     ],
   },

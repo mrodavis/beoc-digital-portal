@@ -419,6 +419,18 @@ export const TIME_ZONES = [
   "(GMT-03:00) Atlantic Time - Puerto Rico",
   "(GMT+01:00) Central European Time - Paris",
 ];
+/** "(GMT-07:00) Pacific Time - Los Angeles" → -420 (minutes from GMT). */
+export function tzOffset(label?: string): number {
+  const m = /\(GMT([+-])(\d{2}):(\d{2})\)/.exec(label ?? "");
+  if (!m) return -240;
+  return (m[1] === "-" ? -1 : 1) * (Number(m[2]) * 60 + Number(m[3]));
+}
+export const primaryZone = (doc: GmailDoc) => String(doc.flags?.tz || TIME_ZONES[0]);
+/** Minutes to add to an event's own times to show them in your primary time zone. */
+export function zoneShift(doc: GmailDoc, e: { timeZone?: string }): number {
+  if (!e.timeZone) return 0;
+  return tzOffset(primaryZone(doc)) - tzOffset(e.timeZone);
+}
 export const calendarsOf = (doc: GmailDoc): GmCalendar[] => doc.calendars ?? [{ id: "main", name: doc.me.name, color: "#039be5", mine: true }];
 export const calOf = (doc: GmailDoc, id: string) => calendarsOf(doc).find((c) => c.id === id);
 export const eventOf = (doc: GmailDoc, id: string) => (doc.events ?? []).find((e) => e.id === id);
@@ -731,7 +743,7 @@ export function applyGmail(doc: GmailDoc, c: SimCommit, ui: SimUi): { doc: Gmail
       const show = field(ls, "Show additional time zones");
       if (show) {
         f.tz2on = show === "on";
-        if (show === "on" && !f.tz2) f.tz2 = TIME_ZONES[3];
+        if (show === "on" && !f.tz2) f.tz2 = TIME_ZONES[1];
       }
       const s2 = field(ls, "Secondary time zone");
       if (s2) { f.tz2 = s2; f.tz2on = true; }

@@ -742,7 +742,7 @@ function SpellingCard({ w }: { w: WordDoc }) {
           <p className="mb-1 text-[13px] text-[#444746]">Change to:</p>
           <p className="mb-3 text-[16px]"><span className="font-medium text-[#188038]">{current.suggestions?.[0] ?? current.text}</span> <span className="ml-1 text-[#5f6368] line-through">{current.text}</span></p>
           <div className="flex gap-2">
-            <PillBtn onClick={() => g.cmd("spelling.change", current.suggestions?.[0] ?? current.text)}>Accept</PillBtn>
+            <PillBtn onClick={() => g.cmd("spelling.change", current.suggestions?.[0] ?? current.text)}>Change</PillBtn>
             <PillBtn kind="outlined" onClick={() => g.cmd("spelling.ignore")}>Ignore</PillBtn>
           </div>
           {(current.suggestions?.length ?? 0) > 1 && (

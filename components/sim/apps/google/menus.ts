@@ -57,6 +57,8 @@ export const DOWNLOAD_SHEETS = ["Microsoft Excel (.xlsx)", "OpenDocument (.ods)"
 export const DOWNLOAD_SLIDES = ["Microsoft PowerPoint (.pptx)", "ODP Document (.odp)", "PDF Document (.pdf)", "Plain Text (.txt)", "JPEG image (.jpg, current slide)", "PNG image (.png, current slide)"];
 export const PAGE_NUMBERS = ["Top right, all pages", "Bottom right, all pages", "Top right, skip first page", "Bottom right, skip first page"];
 export const TOC_STYLES = ["Plain text", "Dotted", "With blue links"];
+/** Insert › Image sources in Docs and Slides. */
+export const IMAGE_SOURCES = ["Upload from computer", "Stock & web", "Drive & Photos", "Camera", "By URL"];
 /** Building blocks offered in Insert › Building blocks and the @ menu. */
 export const BUILDING_BLOCKS = ["Meeting notes", "Email draft"];
 export const SPECIAL_CHARS = ["©", "®", "™", "°", "±", "×", "÷", "≤", "≥", "≠", "½", "¼", "¾", "→", "←", "↑", "↓", "•", "–", "—", "§", "¶", "€", "£", "¥", "¢", "✓", "✗", "★", "☎", "✉", "♥", "µ", "Ω", "α", "β"];
@@ -102,7 +104,7 @@ export const CF_STYLES: Record<string, { fill?: string; color?: string; bold?: b
   "Red text": { color: "#cc0000" },
   "Bold red text": { color: "#cc0000", bold: true },
 };
-export const VALIDATION_CRITERIA = ["Dropdown", "Dropdown (from a range)", "Text contains", "Is valid email", "Is valid URL", "Number between", "Number greater than", "Is valid date", "Checkbox"];
+export const VALIDATION_CRITERIA = ["Dropdown", "Dropdown from a range", "Text contains", "Is valid email", "Is valid URL", "Number between", "Number greater than", "Is valid date", "Checkbox"];
 
 /* ---------- Slides ---------- */
 
@@ -310,7 +312,7 @@ export const DOCS_MENUS: Record<string, GEntry[]> = {
   Insert: [
     s(
       "Image",
-      ["Upload from computer", "Search the web", "Drive", "Photos", "By URL", "Camera"].map((src) => a(src, `image:${src}`, { icon: src === "Upload from computer" ? "upload" : src === "Search the web" ? "search" : src === "Drive" ? "drive" : "image" })),
+      IMAGE_SOURCES.map((src) => a(src, `image:${src}`, { icon: src === "Upload from computer" ? "upload" : src === "Stock & web" ? "search" : src === "Drive & Photos" ? "drive" : "image" })),
       { icon: "image" },
     ),
     a("Table", "table", { icon: "table" }),
@@ -491,7 +493,7 @@ export const SLIDES_MENUS: Record<string, GEntry[]> = {
     c("Full screen", "g.view", "fullScreen", { icon: "fullscreen" }),
   ],
   Insert: [
-    s("Image", ["Upload from computer", "Search the web", "Drive", "Photos", "By URL", "Camera"].map((src) => a(src, `image:${src}`)), { icon: "image" }),
+    s("Image", IMAGE_SOURCES.map((src) => a(src, `image:${src}`)), { icon: "image" }),
     c("Text box", "insert.textBox", undefined, { icon: "textbox" }),
     s("Shape", SHAPES.map((x) => c(x, "insert.shape", x)), { icon: "shape" }),
     a("Table", "table", { icon: "table" }),
@@ -666,7 +668,7 @@ export const DOCS_TOOLBAR: GTool[] = [
   SEPT,
   T({ kind: "button", label: "Insert link", icon: "link", action: "link", shortcut: "Ctrl+K" }),
   T({ kind: "button", label: "Add comment", icon: "addComment", action: "comment", shortcut: "Ctrl+Alt+M" }),
-  T({ kind: "menu", label: "Insert image", icon: "image", items: ["Upload from computer", "Search the web", "Drive", "Photos", "By URL", "Camera"].map((src) => a(src, `image:${src}`)) }),
+  T({ kind: "menu", label: "Insert image", icon: "image", items: IMAGE_SOURCES.map((src) => a(src, `image:${src}`)) }),
   SEPT,
   ...PARA_TOOLS,
   T({ kind: "split", label: "Checklist", icon: "checklist", command: "g.checklist", items: [c("Checklist", "g.checklist")], shortcut: "Ctrl+Shift+9" }),
@@ -728,7 +730,7 @@ export const SLIDES_TOOLBAR: GTool[] = [
   SEPT,
   T({ kind: "button", label: "Select", icon: "cursor", action: "select" }),
   T({ kind: "button", label: "Text box", icon: "textbox", command: "insert.textBox" }),
-  T({ kind: "menu", label: "Insert image", icon: "image", items: ["Upload from computer", "Search the web", "Drive", "Photos", "By URL", "Camera"].map((src) => a(src, `image:${src}`)) }),
+  T({ kind: "menu", label: "Insert image", icon: "image", items: IMAGE_SOURCES.map((src) => a(src, `image:${src}`)) }),
   T({ kind: "menu", label: "Shape", icon: "shape", items: SHAPES.map((x) => c(x, "insert.shape", x)) }),
   T({ kind: "button", label: "Line", icon: "line", command: "insert.shape", value: "Line" }),
   SEPT,

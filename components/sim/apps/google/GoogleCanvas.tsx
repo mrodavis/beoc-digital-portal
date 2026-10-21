@@ -11,7 +11,7 @@ import { gLook, DocsSurface, styleName } from "./Docs";
 import { DriveView, FileIcon } from "./Drive";
 import { VersionHistory } from "./History";
 import { AppLogo, GIcon } from "./icons";
-import { DOCS_MENUS, isItem, SHEETS_MENUS, SLIDES_MENUS, SPECIAL_CHARS, type GEntry, type GItem } from "./menus";
+import { DOCS_MENUS, IMAGE_SOURCES, isItem, SHEETS_MENUS, SLIDES_MENUS, SPECIAL_CHARS, type GEntry, type GItem } from "./menus";
 import { asBook, asDeck, asWord, fileOf, kindFromName, openFile, regionOf, viewOn } from "./model";
 import { FolderPicker, ShareDialog } from "./Share";
 import { HomeScreen } from "./Home";
@@ -499,7 +499,7 @@ function NewFolderDialog({ onClose }: { onClose: () => void }) {
 
 function UploadDialog({ onClose }: { onClose: () => void }) {
   const g = useG();
-  const files = g.doc.computer ?? ["Scan - Insurance Card.pdf", "Clinic Photo.jpg", "Referral Form.docx"];
+  const files = g.doc.computer ?? ["Scan - Signed Form.pdf", "Office Photo.jpg", "Request Form.docx"];
   const [pick, setPick] = useState<string | null>(null);
   const ok = () => { if (pick) g.cmd("g.upload", pick); onClose(); };
   return (
@@ -546,7 +546,7 @@ function OpenDialog({ onClose }: { onClose: () => void }) {
   );
 }
 
-const IMAGES = ["Clinic lobby.jpg", "Front desk team.jpg", "Parking map.png", "Flu shot clinic.jpg", "Lakeside logo.png", "Hand washing.png"];
+const IMAGES = ["Office building.jpg", "Front desk.jpg", "Parking map.png", "Team photo.jpg", "Company logo.png", "Lobby.jpg"];
 
 function ImageDialog({ source, onClose }: { source: string; onClose: () => void }) {
   const g = useG();
@@ -555,7 +555,7 @@ function ImageDialog({ source, onClose }: { source: string; onClose: () => void 
   const [url, setUrl] = useState("");
   const computer = (g.doc.computer ?? []).filter((n) => kindFromName(n) === "image");
   const drive = g.doc.files.filter((x) => x.kind === "image" && !x.trashed).map((x) => x.name);
-  const list = src === "Upload from computer" ? (computer.length ? computer : IMAGES) : src === "Drive" ? (drive.length ? drive : IMAGES.slice(0, 3)) : IMAGES;
+  const list = src === "Upload from computer" ? (computer.length ? computer : IMAGES) : src === "Drive & Photos" ? (drive.length ? drive : IMAGES.slice(0, 3)) : IMAGES;
   const ok = () => {
     const file = src === "By URL" ? url.trim() : pick;
     if (!file) return;
@@ -565,7 +565,7 @@ function ImageDialog({ source, onClose }: { source: string; onClose: () => void 
   return (
     <Modal title="Insert image" onClose={onClose} width={620} footer={<><PillBtn kind="text" onClick={onClose}>Cancel</PillBtn><PillBtn onClick={ok} disabled={src === "By URL" ? !url.trim() : !pick}>Insert</PillBtn></>}>
       <div className="mb-3 flex flex-wrap gap-1.5">
-        {["Upload from computer", "Search the web", "Drive", "Photos", "By URL", "Camera"].map((s) => (
+        {IMAGE_SOURCES.map((s) => (
           <button key={s} type="button" onClick={() => { setSrc(s); setPick(null); }} className={`rounded-lg border px-3 py-1 text-[13px] ${src === s ? "border-transparent bg-[#c2e7ff] text-[#001d35]" : "border-[#747775] text-[#444746]"}`}>{s}</button>
         ))}
       </div>
