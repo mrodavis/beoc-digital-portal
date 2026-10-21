@@ -1,6 +1,7 @@
 import { ContentBlock } from "@/types/lesson";
 import KnowledgeCheck from "./KnowledgeCheck";
 import SimulatorLab from "./SimulatorLab";
+import LessonImage from "./LessonImage";
 
 /**
  * Renders one ContentBlock.
@@ -16,21 +17,7 @@ export function Block({ block }: { block: ContentBlock }) {
       return <p className="text-gray-700 leading-relaxed">{block.text}</p>;
 
     case "image":
-      return (
-        <figure>
-          <img
-            src={block.src}
-            alt={block.alt}
-            loading="lazy"
-            className="rounded-xl border border-gray-200 shadow-sm"
-          />
-          {block.caption && (
-            <figcaption className="text-sm text-gray-500 mt-2 italic">
-              {block.caption}
-            </figcaption>
-          )}
-        </figure>
-      );
+      return <LessonImage src={block.src} alt={block.alt} caption={block.caption} />;
 
     case "list":
       return block.ordered ? (
