@@ -24,7 +24,7 @@ export const topic2: Topic = {
     "What makes healthcare writing effective",
     "Clarity, correctness, and professionalism are three different things — a message can be correct and still unclear",
     "Audience and purpose: who is reading this, and what do they need to do after reading it?",
-    "Introduction to the Communication Check, the five criteria you will use all term",
+    "Introduction to the Communication Check, the five criteria you will use throughout the course",
   ],
 
   grammar: [

@@ -29,7 +29,7 @@ export const topic9: Topic = {
         "Commas that separate clauses, items in a series, and introductory phrases",
         "Semicolons joining two complete sentences that belong together",
         "Sentence combining — turning three short sentences into one that reads well",
-        "Fragments and run-ons, spiralling from Topics 2 and 6",
+        "Fragments and run-ons, spiraling from Topics 2 and 6",
       ],
     },
     {
@@ -72,7 +72,7 @@ export const topic9: Topic = {
                 "A greeting, not a subject. The greeting belongs in the first line of the message.",
             },
             {
-              text: "Schedule change request for Thurs 16 Oct — need approval by Wed",
+              text: "Schedule change request for Thurs Oct 16 — need approval by Wed",
               correct: true,
               rationale:
                 "Correct. Says what it is, which date it concerns, what is needed, and the deadline. The reader can triage it without opening it.",
@@ -99,7 +99,7 @@ export const topic9: Topic = {
                 "Leaves your supervisor unsure you saw it, and leaves no record that you understood the terms.",
             },
             {
-              text: "Thank you — confirming I will be off the floor Thursday 16 October from 1:00 to 4:00 for the training, and back for the afternoon clinic.",
+              text: "Thank you — confirming I will be off the floor Thursday, October 16, from 1:00 to 4:00 for the training, and back for the afternoon clinic.",
               correct: true,
               rationale:
                 "Correct. Brief, restates the specifics so any misunderstanding surfaces now, and creates a record.",

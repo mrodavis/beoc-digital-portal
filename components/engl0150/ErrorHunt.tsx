@@ -11,7 +11,7 @@ import { ErrorHuntSpan } from "@/types/engl0150";
  * counted, because a proofreader who flags everything is not proofreading.
  *
  * Untimed by default. A countdown would add pressure without adding learning,
- * and the spiraling error checklist is what this is really practising.
+ * and the spiraling error checklist is what this is really practicing.
  */
 export default function ErrorHunt({
   title,

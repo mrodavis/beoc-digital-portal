@@ -142,7 +142,7 @@ export const finalAssessment = {
    * through Brightspace.
    */
   quizIntro:
-    "Twelve questions, three from each of the four error categories you have worked on all term. This is practice — the graded assessment is given in class. Every option explains itself, so work through the ones you get wrong rather than moving straight on.",
+    "Twelve questions, three from each of the four error categories you have worked on throughout the course. This is practice — the graded assessment is given by your instructor. Every option explains itself, so work through the ones you get wrong rather than moving straight on.",
 
   quizItems: [
     {

@@ -272,7 +272,7 @@ export const topic6: Topic = {
             {
               text: "Also",
               correct: false,
-              rationale: "'Also' adds an item without signalling position. The reader does not know they are finishing.",
+              rationale: "'Also' adds an item without signaling position. The reader does not know they are finishing.",
             },
             {
               text: "Finally",

@@ -239,7 +239,7 @@ export const topic10: Topic = {
         "Dear Mr. Osei,\n\nYour appointment is coming up soon. Please make sure you don't eat anything beforehand and bring all your stuff. If you have any issues just let us know. We look forward to seeing you.\n\nThanks,\nThe Office",
       badRevision: {
         text:
-          "Dear Mr. Osei,\n\nYour appointment is scheduled for Tuesday, 21 October at 8:30 a.m. Please fast for a minimum of 12 hours beforehand, and bring your insurance card, photo ID, and a complete list of your current medications including dosages. Per CDC guideline 2019-A, patients over 60 should also discontinue anticoagulant therapy 48 hours prior.\n\nWarm regards,\nThe Office Team",
+          "Dear Mr. Osei,\n\nYour appointment is scheduled for Tuesday, October 21, at 8:30 a.m. Please fast for a minimum of 12 hours beforehand, and bring your insurance card, photo ID, and a complete list of your current medications including dosages. Per CDC guideline 2019-A, patients over 60 should also discontinue anticoagulant therapy 48 hours prior.\n\nWarm regards,\nThe Office Team",
         problems: [
           "The date and time were invented — the original message never gave them.",
           "The 12-hour fasting requirement was invented; the original did not specify a duration.",

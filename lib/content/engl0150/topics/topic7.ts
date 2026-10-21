@@ -56,7 +56,7 @@ export const topic7: Topic = {
       kind: "choose-best",
       title: "Too much, too little, or just right?",
       scenario:
-        "A patient is due for a follow-up appointment on Tuesday 14 October at 10:00 a.m. with Dr. Reyes. They need to arrive 15 minutes early and bring their current medication list. You are writing the reminder message they will see in the patient portal.",
+        "A patient is due for a follow-up appointment on Tuesday, October 14, at 10:00 a.m. with Dr. Reyes. They need to arrive 15 minutes early and bring their current medication list. You are writing the reminder message they will see in the patient portal.",
       instructions:
         "One of these is right. The others fail in a specific way — read every explanation.",
       items: [
@@ -79,7 +79,7 @@ export const topic7: Topic = {
                 "Too much, and it still omits the date, the time, the provider, and what to bring. Length is not the same as completeness.",
             },
             {
-              text: "Reminder: follow-up with Dr. Reyes on Tuesday, 14 October at 10:00 a.m. Please arrive by 9:45 and bring your current medication list. Call 555-0134 if you need to reschedule.",
+              text: "Reminder: follow-up with Dr. Reyes on Tuesday, October 14, at 10:00 a.m. Please arrive by 9:45 and bring your current medication list. Call 555-0134 if you need to reschedule.",
               correct: true,
               rationale:
                 "Correct. Date, time, provider, arrival time, what to bring, and what to do if it does not work — in four lines.",

@@ -261,7 +261,7 @@ export const topic8: Topic = {
       instructions:
         "Write each part. The completeness check looks for the elements the receiving office cannot act without.",
       scenario:
-        "Ms. Wen Chen, date of birth 4 March 1968, has had right knee pain for four months. It worsens on stairs and after standing for long periods. She has tried over-the-counter ibuprofen with partial relief. An X-ray taken last week showed changes consistent with osteoarthritis. Dr. Amara Reyes is referring her to orthopedics. Her insurance is Meridian Health, member number MH-4471902, and prior authorization has been obtained, reference PA-88213. Dr. Reyes would like her seen within four weeks. Your office number is 555-0134.",
+        "Ms. Wen Chen, date of birth March 4, 1968, has had right knee pain for four months. It worsens on stairs and after standing for long periods. She has tried over-the-counter ibuprofen with partial relief. An X-ray taken last week showed changes consistent with osteoarthritis. Dr. Amara Reyes is referring her to orthopedics. Her insurance is Meridian Health, member number MH-4471902, and prior authorization has been obtained, reference PA-88213. Dr. Reyes would like her seen within four weeks. Your office number is 555-0134.",
       fields: [
         {
           id: "request",

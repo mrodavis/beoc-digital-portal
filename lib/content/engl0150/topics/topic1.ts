@@ -21,8 +21,8 @@ export const topic1: Topic = {
   goals: ["professional-writing"],
 
   intro: [
-    "Welcome to Writing and Communication for Healthcare Professionals. This session is about getting to know the course, getting comfortable with your classmates and instructors, and beginning to think about why communication and writing matter in healthcare.",
-    "Do not worry about getting everything right today. Your first writing sample is a starting point, not a test.",
+    "Welcome to Writing and Communication for Healthcare Professionals. This first topic is about getting to know the course, getting comfortable with your classmates and instructors, and beginning to think about why communication and writing matter in healthcare.",
+    "Do not worry about getting everything right yet. Your first writing sample is a starting point, not a test.",
   ],
 
   essentialQuestion:
@@ -38,10 +38,10 @@ export const topic1: Topic = {
 
   grammar: [
     {
-      heading: "What we will work on this term",
+      heading: "What we will work on in this course",
       points: [
-        "Explicit grammar instruction begins next session with a diagnostic. Nothing is graded and nothing is expected of you today.",
-        "Over the term we work on: complete sentences, and fixing fragments and run-ons",
+        "Explicit grammar instruction begins in Topic 2 with a diagnostic. Nothing in this topic is graded.",
+        "Across the course we work on: complete sentences, and fixing fragments and run-ons",
         "Subject–verb agreement, and pronoun–antecedent agreement",
         "Punctuation and capitalization",
         "Clear pronoun reference — making sure the reader knows who 'she' or 'it' means",

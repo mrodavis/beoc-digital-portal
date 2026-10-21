@@ -5,7 +5,7 @@ import { MatchPair } from "@/types/engl0150";
 
 /**
  * Match a clinical term to the plain-language equivalent a patient would
- * understand, then practise explaining it in a sentence.
+ * understand, then practice explaining it in a sentence.
  *
  * Two modes because the skill has two halves: recognizing that "hypertension"
  * means "high blood pressure" is recall; saying it to a worried patient without

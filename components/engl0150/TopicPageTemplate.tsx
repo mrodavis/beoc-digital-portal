@@ -459,11 +459,11 @@ export default function TopicPageTemplate({
         </TopicSection>
       </div>
 
-      {/* Before You Leave */}
+      {/* Before You Move On */}
       {topic.beforeYouLeave && topic.beforeYouLeave.length > 0 && (
         <div className="mt-10 rounded-2xl border border-engl-ink-300 bg-engl-ink-50 p-6">
           <h2 className="font-display text-xl font-bold text-engl-ink-900">
-            Before You Leave
+            Before You Move On
           </h2>
           <ul className="mt-3 space-y-2">
             {topic.beforeYouLeave.map((item, i) => (

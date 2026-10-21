@@ -15,7 +15,7 @@ export default function Engl0150Home() {
       {/* Hero */}
       <header className="rounded-3xl bg-gradient-to-br from-engl-care-800 to-engl-ink-900 p-8 text-white sm:p-12">
         <p className="text-sm font-bold uppercase tracking-widest text-engl-care-200">
-          {engl0150Course.code} · Section {engl0150Course.section}
+          {engl0150Course.code} · SUNY Brooklyn EOC
         </p>
         <h1 className="mt-2 font-display text-4xl font-bold sm:text-5xl">
           {engl0150Course.title}
@@ -47,8 +47,6 @@ export default function Engl0150Home() {
           </h2>
           <dl className="mt-3 space-y-2 text-sm">
             {[
-              ["Term", engl0150Course.term],
-              ["Dates", engl0150Course.dates],
               ["Delivery", engl0150Course.delivery],
               ["For", engl0150Course.audience],
               ["Institution", engl0150Course.institution],
@@ -71,12 +69,11 @@ export default function Engl0150Home() {
             {engl0150Course.instructors.map((i) => (
               <li key={i.name}>
                 <p className="font-semibold text-engl-ink-900">{i.name}</p>
-                <p className="text-engl-ink-700">{i.officeHours}</p>
               </li>
             ))}
           </ul>
           <p className="mt-4 text-sm text-engl-ink-600">
-            All materials are distributed through Brightspace. Assignments are
+            Contact your instructors through Brightspace. Assignments are
             submitted there — this site is for learning and practice.
           </p>
         </div>
@@ -200,9 +197,8 @@ export default function Engl0150Home() {
           Advanced topics
         </h2>
         <p className="mt-1 max-w-[70ch] text-engl-ink-600">
-          Optional extensions beyond the ten core topics. These are not on the
-          Fall 1 calendar — take them if your program calls for them, or work
-          through them on your own.
+          Optional extensions beyond the ten core topics. Take them if your
+          program calls for them, or work through them on your own.
         </p>
         <ul className="mt-4 grid gap-3 sm:grid-cols-2">
           {advancedTopics.map((t) => (
@@ -250,7 +246,7 @@ export default function Engl0150Home() {
         </p>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
           <div>
-            <h3 className="font-semibold text-engl-ink-900">Session 1</h3>
+            <h3 className="font-semibold text-engl-ink-900">Part 1</h3>
             <ol className="mt-2 space-y-1 text-sm text-engl-ink-700">
               {sessionSequence.one.map((s, i) => (
                 <li key={i}>
@@ -260,7 +256,7 @@ export default function Engl0150Home() {
             </ol>
           </div>
           <div>
-            <h3 className="font-semibold text-engl-ink-900">Session 2</h3>
+            <h3 className="font-semibold text-engl-ink-900">Part 2</h3>
             <ol className="mt-2 space-y-1 text-sm text-engl-ink-700">
               {sessionSequence.two.map((s, i) => (
                 <li key={i}>
@@ -308,10 +304,7 @@ export default function Engl0150Home() {
 
         <dl className="mt-5 space-y-3 text-sm">
           {[
-            ["Late work", coursePolicy.lateWork],
-            ["Quizzes", coursePolicy.quizzes],
-            ["Major tests", coursePolicy.majorTests],
-            ["Attendance", coursePolicy.attendance],
+            ["Class policies", coursePolicy.classPolicies],
             ["Supplies", coursePolicy.supplies],
             ["Accommodations", coursePolicy.accommodations],
             ["Brightspace support", coursePolicy.brightspaceSupport],

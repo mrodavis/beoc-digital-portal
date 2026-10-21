@@ -17,18 +17,17 @@ export const engl0150Course = {
   institution:
     "SUNY Brooklyn Educational Opportunity Center (BEOC), Academic Affairs Department",
   address: "111 Livingston Street, Suite 205, Brooklyn, NY 11201",
-  term: "Fall 2026, Module 1 (Fall 1)",
-  dates: "Friday, August 28 2026 – Monday, October 26 2026",
-  delivery: "Fully in person at BEOC; all materials distributed through Brightspace",
+  /*
+   * No term, dates, or office hours here: beocdigital is self-paced, so
+   * student-facing pages carry no class calendar (removed October 2026).
+   */
+  delivery: "In person at BEOC, with materials and submissions in Brightspace; this site is for learning and practice at your own pace",
   audience:
     "Medical Assisting (MA), Patient Care Technician (PCT), and Medical Billing students",
   lms: "SUNY Brightspace, org unit 2883710 (2026FA-EOC-ENGL0150-85003)",
   curriculumCredit: "Instructor's Guide developed by Irene Dascher, 2026",
 
-  instructors: [
-    { name: "Prof. I. Dascher", officeHours: "Room 205 — Thursday 12:30–1:30" },
-    { name: "Prof. O. Davis", officeHours: "Room 205 — Wednesday 2:00–2:30" },
-  ],
+  instructors: [{ name: "Prof. I. Dascher" }, { name: "Prof. O. Davis" }],
 
   /** Landing-page positioning. Describes the course without overclaiming. */
   positioning:
@@ -130,7 +129,7 @@ export const communicationCheck: CommunicationCriterion[] = [
   },
 ];
 
-/** How a two-session topic runs, from the Instructor's Guide. */
+/** How a two-part topic runs, from the Instructor's Guide. */
 export const sessionSequence = {
   one: [
     "Topic introduction with the Essential Question",
@@ -141,7 +140,7 @@ export const sessionSequence = {
     "Guided practice",
   ],
   two: [
-    "Session 1 review",
+    "Part 1 review",
     "Quick quiz and test strategy",
     "Cumulative workplace task",
     "Communication Check and self-edit",
@@ -211,17 +210,16 @@ export const coursePolicy = {
     { category: "Quizzes", weight: "20%" },
     { category: "Final Portfolio", weight: "30%" },
   ],
-  lateWork:
-    "Work submitted within one week after the due date loses 10%. Beyond one week, 20%. Once a topic is complete, late work for that topic is not accepted.",
-  quizzes:
-    "Notify the instructor in advance of a known absence. If you are ill on test day, arrange a make-up before the next class. Once tests are returned, no make-up is offered.",
-  majorTests:
-    "A final make-up is at the instructor's discretion with valid documentation, and carries a 25-percentage-point deduction from the maximum possible score.",
-  attendance:
-    "The absence limit is 20% of instructional time. Late arrivals and early departures are recorded. Arriving more than 5 minutes late means the missed time is deducted from time present. Doors close 15 minutes after class begins and students are not admitted after that mark. For back-to-back double sessions, re-entry is at the end of the first 80 minutes.",
+  /*
+   * Late-work, make-up, and attendance rules are tied to class dates, so they
+   * are not shown on this self-paced site (removed October 2026). They live in
+   * the syllabus in Brightspace.
+   */
+  classPolicies:
+    "Attendance, late work, and make-up rules are in your course syllabus in Brightspace.",
   supplies:
     "A notebook (subject or composition), black or blue ink pens, and a USB flash drive (required) for saving work in the computer lab. All instructional materials are provided by the instructor.",
   accommodations: "Contact a student advisor at Advisors@beoc.cuny.edu.",
   brightspaceSupport:
-    "1-844-673-6786 or 1-518-320-1300. Monday–Friday 7am–midnight, Saturday 10am–6pm, Sunday 10am–9pm.",
+    "Use the Help link inside Brightspace, or ask your instructor.",
 };

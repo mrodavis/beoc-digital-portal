@@ -181,7 +181,7 @@ export default function FinalPage() {
 
         <p className="mt-6 rounded-2xl bg-engl-ink-50 p-4 text-sm text-engl-ink-600">
           This review is practice and is not recorded. The graded grammar and
-          spelling assessment is administered in class through Brightspace.
+          spelling assessment is given by your instructor through Brightspace.
         </p>
       </section>
 
@@ -212,7 +212,7 @@ export default function FinalPage() {
 
       <p className="mt-8 rounded-2xl bg-engl-ink-50 p-4 text-sm text-engl-ink-600">
         This page is for drafting. The final assessment is completed and
-        submitted through Brightspace, in class.
+        submitted through Brightspace.
       </p>
     </div>
   );
