@@ -14,6 +14,9 @@ import { AppLogo, GIcon } from "./icons";
 import { DOCS_MENUS, isItem, SHEETS_MENUS, SLIDES_MENUS, SPECIAL_CHARS, type GEntry, type GItem } from "./menus";
 import { asBook, asDeck, asWord, fileOf, kindFromName, openFile, regionOf, viewOn } from "./model";
 import { FolderPicker, ShareDialog } from "./Share";
+import { HomeScreen } from "./Home";
+import { SignInPage } from "./SignIn";
+import { ChipPicker } from "./Chips";
 import { SheetsSurface } from "./Sheets";
 import { SlidesSurface } from "./Slides";
 import type { GoogleDoc } from "./types";
@@ -31,7 +34,9 @@ type Dlg =
   | { kind: "special" }
   | { kind: "link" }
   | { kind: "search" }
-  | { kind: "sort" };
+  | { kind: "sort" }
+  | { kind: "chip"; tab: "all" | "person" | "file" | "date" }
+  | { kind: "views" };
 
 function keyName(e: React.KeyboardEvent): string {
   const parts: string[] = [];
@@ -157,6 +162,11 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
   const act = (action: string, arg?: string) => {
     if (action.startsWith("image:")) return setDlg({ kind: "image", source: action.slice(6) });
     if (action.startsWith("fn:")) return hooksRef.current.fn?.(action.slice(3));
+    if (action.startsWith("chip:")) {
+      if (doc.surface !== "docs" || doc.mode === "Viewing") return;
+      const tab = action.slice(5);
+      return setDlg({ kind: "chip", tab: tab === "person" || tab === "file" || tab === "date" ? tab : "all" });
+    }
     switch (action) {
       case "share": {
         const file = arg ?? (doc.surface === "drive" ? selectedFiles[0] : doc.open);
@@ -197,6 +207,10 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
         return cmd("g.toast", "Choose a folder on your computer to upload it");
       case "searchMenus":
         return setDlg({ kind: "search" });
+      case "templates":
+        return cmd("g.pane", "Templates");
+      case "changeView":
+        return setDlg({ kind: "views" });
       case "selectAll":
         if (doc.surface === "docs") onSelect({ selection: "all" });
         else if (doc.surface === "slides") cmd("home.selectAll");
@@ -211,6 +225,7 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
     const t = e.target as HTMLElement;
     if (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable) return;
     if (dlg || doc.overlay) return;
+    if (doc.surface === "signin" || doc.surface === "home") return;
     const k = keyName(e);
     const handled = () => { e.preventDefault(); e.stopPropagation(); };
     const s = doc.surface;
@@ -270,7 +285,6 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
         "Ctrl+Alt+X": () => run("g.pane", "Spelling and grammar"),
         "Ctrl+Shift+S": () => run("g.pane", "Voice typing"),
         "Ctrl+Shift+Y": () => run("g.pane", "Dictionary"),
-        "Ctrl+Alt+Shift+I": () => run("g.pane", "Explore"),
         "Ctrl+Enter": () => run("insert.pageBreak"),
         "Ctrl+Alt+F": () => run("insert.footnote"),
         "Ctrl+.": () => run("home.superscript"),
@@ -303,7 +317,6 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
         "Ctrl+Shift+V": () => run("home.paste", "Values"),
         "Shift+F2": () => { handled(); act("note"); },
         "Shift+F11": () => run("sheet.add"),
-        "Alt+Shift+X": () => run("g.pane", "Explore"),
       };
       if (map[k]) return map[k]();
       if (k === "Enter" || k === "F2") { handled(); hooksRef.current.type?.("\n"); return; }
@@ -365,6 +378,10 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
         return <MenuSearch onClose={closeDlg} />;
       case "sort":
         return <SortRangeDialog onClose={closeDlg} />;
+      case "chip":
+        return <ChipPicker tab={dlg.tab} onClose={closeDlg} />;
+      case "views":
+        return <ViewsMenu onClose={closeDlg} />;
       case "def": {
         const id = dlg.id;
         const initial: Record<string, SimValue> = { ...(dlg.initial ?? {}) };
@@ -423,7 +440,11 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
         style={{ fontFamily: "Roboto, Arial, sans-serif" }}
       >
         <BrowserFrame>
-          {doc.surface === "drive" || !f ? (
+          {doc.surface === "signin" ? (
+            <SignInPage />
+          ) : doc.surface === "home" ? (
+            <HomeScreen />
+          ) : doc.surface === "drive" || !f ? (
             <DriveView search={search} setSearch={setSearch} />
           ) : doc.surface === "docs" ? (
             <DocsSurface composer={composer} setComposer={setComposer} />
@@ -667,6 +688,31 @@ function TablePicker({ pos, onClose }: { pos: MenuPos; onClose: () => void }) {
         <div className="mt-2 text-center text-[13px]">{hover.c} x {hover.r}</div>
       </div>
     </Popup>
+  );
+}
+
+/** Data › Change view: the saved filter views on this sheet. */
+function ViewsMenu({ onClose }: { onClose: () => void }) {
+  const g = useG();
+  const f = openFile(g.doc);
+  const views = (f?.filterViews ?? []).filter((v) => v.saved !== false);
+  return (
+    <Modal title="Change view" onClose={onClose} width={380}>
+      {views.length === 0 ? (
+        <p className="py-4 text-[13px] text-[#5f6368]">No saved views yet. Use Data › Create filter view, then Save view.</p>
+      ) : (
+        <ul className="pb-2">
+          {views.map((v) => (
+            <li key={v.id}>
+              <button type="button" onClick={() => { onClose(); g.cmd("g.filterView.open", v.id); }} className="flex w-full items-center gap-3 rounded px-2 py-2 text-left text-[14px] hover:bg-[#f1f3f4]">
+                <GIcon name="filterView" size={18} /> {v.name}
+                <span className="ml-auto text-[12px] text-[#5f6368]">{v.range}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Modal>
   );
 }
 

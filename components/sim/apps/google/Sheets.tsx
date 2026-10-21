@@ -738,7 +738,7 @@ export function SheetsSurface({ composer, setComposer, noteFor, setNoteFor }: { 
     return `Sum: ${shown}`;
   })();
 
-  const side = pane && ["Explore", "Comments", "Details", "Conditional format rules", "Data validation rules", "Protected sheets and ranges", "Chart editor", "Pivot table editor"].includes(pane) ? pane : null;
+  const side = pane && ["Comments", "Details", "Conditional format rules", "Data validation rules", "Protected sheets and ranges", "Chart editor", "Pivot table editor"].includes(pane) ? pane : null;
   const fullScreen = viewOn(doc, "fullScreen");
   return (
     <div className="flex h-full flex-col bg-[#f9fbfd]">
@@ -870,14 +870,10 @@ export function SheetsSurface({ composer, setComposer, noteFor, setNoteFor }: { 
             })}
             <span className="flex-1" />
             {stats && <span className="rounded bg-white px-3 py-1 text-[12px] text-[#444746] shadow-sm">{stats}</span>}
-            <button type="button" aria-label="Explore" onClick={() => g.cmd("g.pane", "Explore")} className="ml-1 flex h-8 items-center gap-1 rounded-full bg-white px-3 shadow-sm hover:bg-[#e9eef6]">
-              <GIcon name="explore" size={18} color="#0b57d0" />
-            </button>
           </div>
         </div>
         {side === "Comments" && <CommentsPanel quoteOf={(a) => a} />}
         {side === "Details" && <DetailsPanel />}
-        {side === "Explore" && <SheetExplore book={book} sheet={sheet} />}
         {side === "Conditional format rules" && <CfPanel sheet={sheet} />}
         {side === "Data validation rules" && <ValidationPanel book={book} sheet={sheet} />}
         {side === "Protected sheets and ranges" && <ProtectPanel f={f} sheet={sheet} />}
@@ -1249,32 +1245,3 @@ function PivotEditor({ book, sheet }: { book: ExcelBook; sheet: ExcelSheet }) {
     </SidePanel>
   );
 }
-
-function SheetExplore({ book, sheet }: { book: ExcelBook; sheet: ExcelSheet }) {
-  const g = useG();
-  const rc = g.ui.selection.includes(":") ? selRect(sheet, g.ui.selection) : regionOf(sheet, g.ui);
-  const answers: string[] = [];
-  if (rc) {
-    for (let c = rc.c1; c <= rc.c2; c++) {
-      const nums: number[] = [];
-      for (let r = rc.r1; r <= rc.r2; r++) { const v = evaluateCell(book, sheet, refOf(c, r)); if (typeof v === "number") nums.push(v); }
-      if (nums.length > 1) {
-        const head = String(sheet.cells[refOf(c, rc.r1)]?.v ?? numToCol(c));
-        answers.push(`Sum of ${head}: ${nums.reduce((a, b) => a + b, 0).toLocaleString("en-US", { maximumFractionDigits: 2 })}`);
-        answers.push(`Average of ${head}: ${(nums.reduce((a, b) => a + b, 0) / nums.length).toLocaleString("en-US", { maximumFractionDigits: 2 })}`);
-      }
-    }
-  }
-  return (
-    <SidePanel title="Explore" onClose={() => g.cmd("g.pane", "")}>
-      <p className="mb-2 text-[13px] text-[#444746]">{rc ? `Answers for ${rectToRange(rc)}` : "Select some data"}</p>
-      {answers.slice(0, 6).map((a) => <div key={a} className="mb-2 rounded-lg bg-[#f0f4f9] p-3 text-[14px]">{a}</div>)}
-      <p className="mb-2 mt-4 text-[14px] font-medium">Analysis</p>
-      <div className="rounded-lg border border-[#e0e0e0] p-3">
-        <div className="mb-2 flex h-20 items-end gap-1">{[40, 70, 55, 90, 30].map((h, i) => <div key={i} className="flex-1 bg-[#4285f4]" style={{ height: `${h}%` }} />)}</div>
-        <PillBtn kind="outlined" onClick={() => g.cmd("insert.chart", "Column chart")}><GIcon name="chart" size={16} color="#0b57d0" /> Insert chart</PillBtn>
-      </div>
-    </SidePanel>
-  );
-}
-

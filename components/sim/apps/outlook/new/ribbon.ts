@@ -295,7 +295,7 @@ export const newOutlookRibbon: RibbonTab[] = [
     contextual: "calendar",
     plain: true,
     groups: [
-      { label: "Settings", controls: [b("settings.open", "View settings", "gear")] },
+      { label: "Settings", controls: [b("settings.calendar", "Calendar settings", "gear")] },
       {
         label: "Arrange",
         controls: [

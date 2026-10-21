@@ -210,7 +210,7 @@ export type GoogleDoc = {
   computer?: string[];
   /** Docs editing mode. */
   mode?: GMode;
-  /** Editor side panel ("Explore", "Comments", "Themes", "Motion", "Chart editor", …) or dialog shown by the canvas. */
+  /** Editor side panel ("Templates", "Comments", "Themes", "Motion", "Chart editor", …) or dialog shown by the canvas. */
   pane?: string | null;
   /** Full-window view over the editor: "history" (Version history). */
   overlay?: string | null;

@@ -361,6 +361,11 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
         cmd(id, value);
         return;
       }
+      if (id === "settings.calendar") {
+        openSettings("Calendar/View");
+        cmd("settings.open", "Calendar settings");
+        return;
+      }
       if (id === "home.quickStep" && value === "Manage quick steps") return openSettings("Mail/Quick steps");
       if (id === "compose.insertSignature") {
         if (value === "Signatures") return openSettings("Accounts/Signatures");

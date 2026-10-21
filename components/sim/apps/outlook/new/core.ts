@@ -141,7 +141,7 @@ const FREE = [
   "insert.link", "insert.table", "insert.emoji", "format.bold", "format.italic", "format.underline", "format.fontName", "format.fontSize", "format.fontColor",
   "format.highlight", "format.bullets", "format.numbering", "format.alignLeft", "format.alignCenter", "format.alignRight", "format.clear", "copilot.summarize",
   "copilot.open", "help.help", "help.support", "help.feedback", "help.whatsNew", "ribbon.layout", "toggle.newOutlook", "app.launch", "mail.markUnread", "mail.markRead",
-  "mail.autoRead", "qat.undo", "toast.close", "event.recurrence", "form.categorize",
+  "mail.autoRead", "qat.undo", "toast.close", "event.recurrence", "form.categorize", "settings.calendar",
 ];
 
 /** Commands the canvas, its menus and Settings emit (any value). */

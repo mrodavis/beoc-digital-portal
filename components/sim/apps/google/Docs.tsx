@@ -6,7 +6,9 @@ import { dictationText, paraRange, paraText, parseSel, runsOf, wordCount, type X
 import { GIcon } from "./icons";
 import { DOCS_MENUS, DOCS_TOOLBAR } from "./menus";
 import { asWord, firstMisspelled, meOf, openFile, personOf, viewOn, type SuggestRun } from "./model";
-import type { GComment, GMode } from "./types";
+import type { GComment, GMode, GRun } from "./types";
+import { ChipView } from "./Chips";
+import { templatesFor } from "./templates";
 import { Avatar, colorFor, CommentCard, CommentComposer, CommentsPanel, DetailsPanel, EditorHeader, IconBtn, KeyboardShortcuts, MenuList, Modal, PillBtn, Popup, SidePanel, TEXT_FONT, Toolbar, useG, useWidth, type MenuPos } from "./ui";
 
 const PX = 96;
@@ -194,6 +196,14 @@ export function DocPages(props: PageProps) {
       textTransform: r.caps === "upper" ? "uppercase" : undefined,
     };
     if (props.editing?.key === key && key) return <InlineEdit key={i} {...props} style={style} inline />;
+    const chip = (r as GRun).chip;
+    if (chip) {
+      return (
+        <span key={i} data-run={key} role="button" aria-label={`Smart chip: ${chip.label}`} onClick={key && interactive ? (e) => { e.stopPropagation(); props.onSelect?.(key, e); } : undefined} onContextMenu={key && interactive ? (e) => props.onContext?.(e, key) : undefined} className="cursor-pointer">
+          <ChipView chip={chip} selected={Boolean(isSel)} z={z} />
+        </span>
+      );
+    }
     return (
       <span
         key={i}
@@ -487,7 +497,7 @@ export function DocsSurface({ composer, setComposer }: { composer: boolean; setC
   const showMargin = comments.length > 0 || sugs.length > 0 || composer;
   const outline = viewOn(doc, "outline");
   const pane = doc.pane;
-  const sidePane = pane && ["Explore", "Comments", "Review suggested edits", "Dictionary", "Details"].includes(pane) ? pane : null;
+  const sidePane = pane && ["Templates", "Comments", "Review suggested edits", "Dictionary", "Details"].includes(pane) ? pane : null;
   const pageW = (w.page?.orientation === "landscape" ? 11 : 8.5) * PX;
   const avail = width - (showMargin ? 300 : 40) - 24;
   const fit = Math.max(0.45, Math.min(1, avail / pageW));
@@ -519,6 +529,8 @@ export function DocsSurface({ composer, setComposer }: { composer: boolean; setC
   };
   g.hooksRef.current.type = (k: string) => {
     if (!editableKey(w, ui.selection)) return;
+    // @ opens the smart chip menu (people, files, dates, building blocks), as in Docs.
+    if (k === "@" && !ui.selection.includes(".r") && ui.selection !== "header" && ui.selection !== "footer") return g.act("chip:@");
     if (k === "\n") startEdit(ui.selection);
     else startEdit(ui.selection, k);
   };
@@ -592,19 +604,33 @@ export function DocsSurface({ composer, setComposer }: { composer: boolean; setC
       {fullScreen && <button type="button" onClick={() => g.cmd("g.view", "fullScreen")} className="absolute right-3 top-2 z-20 rounded-full bg-[#303030] px-4 py-1.5 text-[13px] text-white">Exit full screen</button>}
       {mode === "Suggesting" && <div className="mx-auto -mt-1 mb-1 rounded-full bg-[#c4eed0] px-3 py-0.5 text-[12px] text-[#0d652d]">You are suggesting. Your edits show as suggestions the owner can accept or reject.</div>}
       <div className="flex min-h-0 flex-1">
-        {outline && (
-          <aside className="w-[220px] shrink-0 overflow-auto px-4 pt-2 text-[13px]" aria-label="Document outline" style={{ fontFamily: TEXT_FONT }}>
-            <div className="mb-2 flex items-center">
-              <span className="flex-1 text-[14px] font-medium">Outline</span>
-              <IconBtn icon="close" label="Close outline" onClick={() => g.cmd("g.view", "outline")} box={28} size={18} />
+        {outline ? (
+          <aside className="w-[240px] shrink-0 overflow-auto pl-3 pr-2 pt-1 text-[13px]" aria-label="Tabs & outlines" style={{ fontFamily: TEXT_FONT }}>
+            <div className="mb-2 flex items-center gap-1">
+              <IconBtn icon="back" label="Hide tabs & outlines" onClick={() => g.cmd("g.view", "outline")} box={30} size={18} />
+              <span className="flex-1 text-[14px] font-medium text-[#1f1f1f]">Document tabs</span>
+              <IconBtn icon="plus" label="Add tab" onClick={() => g.cmd("g.toast", "Add tab adds another tab to this document, like adding a sheet in Sheets")} box={30} size={18} />
             </div>
-            {outlineOf(w).length === 0 && <p className="text-[12px] text-[#5f6368]">Headings you add to the document will appear here.</p>}
-            {outlineOf(w).map((h) => (
-              <button key={h.id} type="button" onClick={() => select(h.id)} className={`block w-full truncate rounded border-l-2 py-1 text-left ${ui.selection === h.id ? "border-[#0b57d0] bg-[#e8f0fe] text-[#0b57d0]" : "border-transparent hover:bg-[#f1f3f4]"}`} style={{ paddingLeft: 8 + Math.max(0, h.level - 1) * 12 }}>
-                {h.text}
-              </button>
-            ))}
+            <div className="mb-1 flex h-9 items-center gap-2 rounded-full bg-[#d3e3fd] px-3 text-[14px] font-medium text-[#041e49]">
+              <GIcon name="doc" size={16} color="#041e49" />
+              <span className="flex-1 truncate">Tab 1</span>
+              <IconBtn icon="more" label="Tab options" onClick={() => g.cmd("g.toast", "Tab options: Rename, Choose emoji, Add subtab, Hide outline, Delete")} box={24} size={16} />
+            </div>
+            <div className="ml-4 border-l border-[#c7c7c7] pl-2" aria-label="Document outline">
+              {outlineOf(w).length === 0 && <p className="py-1 text-[12px] text-[#5f6368]">Headings you add to the document will appear here.</p>}
+              {outlineOf(w).map((h) => (
+                <button key={h.id} type="button" onClick={() => select(h.id)} className={`block w-full truncate rounded py-1 text-left ${ui.selection === h.id ? "bg-[#e8f0fe] text-[#0b57d0]" : "text-[#444746] hover:bg-[#f1f3f4]"}`} style={{ paddingLeft: 6 + Math.max(0, h.level - 1) * 12 }}>
+                  {h.text}
+                </button>
+              ))}
+            </div>
           </aside>
+        ) : (
+          !fullScreen && (
+            <div className="w-12 shrink-0 pl-2 pt-1">
+              <IconBtn icon="tabsPanel" label="Show tabs & outlines" onClick={() => g.cmd("g.view", "outline")} box={36} size={20} />
+            </div>
+          )
         )}
         <div ref={scrollRef} className="relative min-w-0 flex-1 overflow-auto" onClick={() => select("")}>
           {viewOn(doc, "ruler") && !w.flags?.pageless && (
@@ -672,7 +698,7 @@ export function DocsSurface({ composer, setComposer }: { composer: boolean; setC
             <div className="sticky bottom-3 left-3 z-10 w-fit rounded-lg bg-white px-3 py-2 text-[13px] shadow" style={{ fontFamily: TEXT_FONT }}>{wordCount(w)} words</div>
           )}
         </div>
-        {sidePane === "Explore" && <ExplorePanel q={paraText(w.paragraphs.find((p) => paraText(p).trim()) ?? { id: "" }).split(" ").slice(0, 4).join(" ")} />}
+        {sidePane === "Templates" && <TemplatesPanel />}
         {sidePane === "Comments" && <CommentsPanel quoteOf={(a) => quoteIn(w, a)} />}
         {sidePane === "Review suggested edits" && <ReviewPanel w={w} />}
         {sidePane === "Dictionary" && <DictionaryPanel w={w} />}
@@ -838,32 +864,26 @@ function DictionaryPanel({ w }: { w: WordDoc }) {
   );
 }
 
-export function ExplorePanel({ q }: { q: string }) {
+/** File › New › From a template: a gallery in the side panel. */
+function TemplatesPanel() {
   const g = useG();
-  const [query, setQuery] = useState(q);
-  const [tab, setTab] = useState<"Web" | "Images" | "Drive">("Web");
-  const words = query.toLowerCase().split(/\s+/).filter((x) => x.length > 3);
-  const drive = g.doc.files.filter((f) => !f.trashed && f.kind !== "folder" && f.id !== g.doc.open && words.some((w) => f.name.toLowerCase().includes(w)));
+  const [pick, setPick] = useState<string | null>(null);
   return (
-    <SidePanel title="Explore" onClose={() => g.cmd("g.pane", "")}>
-      <div className="mb-3 flex h-10 items-center gap-2 rounded-full border border-[#747775] px-3">
-        <GIcon name="search" size={18} />
-        <input aria-label="Search" value={query} onChange={(e) => setQuery(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className="min-w-0 flex-1 text-[14px] outline-none" />
-      </div>
-      <div className="mb-3 flex border-b border-[#e0e0e0]">
-        {(["Web", "Images", "Drive"] as const).map((t) => <button key={t} type="button" onClick={() => setTab(t)} className={`mr-5 border-b-[3px] pb-1.5 text-[14px] ${tab === t ? "border-[#0b57d0] text-[#0b57d0]" : "border-transparent text-[#444746]"}`}>{t}</button>)}
-      </div>
-      {tab === "Web" &&
-        [`${query || "Patient communication"}: a guide for front-office staff`, `How to write clear ${query.toLowerCase() || "office"} instructions`, `${query || "Office"} tips from a community health center`].map((t, i) => (
-          <div key={i} className="mb-3"><p className="text-[14px] text-[#1a0dab]">{t}</p><p className="text-[12px] text-[#188038]">www.example.org › resources</p><p className="text-[12px] text-[#444746]">Check every source before you rely on it. Explore shows results from the web for the words in your document.</p></div>
+    <SidePanel title="Templates" onClose={() => g.cmd("g.pane", "")}>
+      <p className="mb-3 text-[12px] text-[#5f6368]">Pick a template, then click Insert. In a blank document, the template fills the document.</p>
+      <div className="mb-3 grid grid-cols-2 gap-2" role="listbox" aria-label="Templates">
+        {templatesFor("docs").map((t) => (
+          <button key={t.name} type="button" role="option" aria-selected={pick === t.name} aria-label={t.name} onClick={() => setPick(t.name)} className={`rounded-lg border p-2 text-left text-[12px] ${pick === t.name ? "border-2 border-[#0b57d0]" : "border-[#dadce0] hover:border-[#4285f4]"}`}>
+            <div className="mb-1 h-16 rounded bg-[#f8f9fa] p-2">
+              <div className="mb-1 h-1.5 w-2/3 rounded bg-[#4285f4]/70" />
+              <div className="mb-1 h-1 w-full rounded bg-[#dadce0]" />
+              <div className="h-1 w-4/5 rounded bg-[#dadce0]" />
+            </div>
+            {t.name}
+          </button>
         ))}
-      {tab === "Images" && (
-        <div className="grid grid-cols-2 gap-2">
-          {["Clinic waiting room", "Front desk", "Calendar", "Handshake"].map((t) => <div key={t} className="flex aspect-square items-center justify-center rounded bg-gradient-to-br from-[#e8f0fe] to-[#fce8e6] text-center text-[12px] text-[#444746]">{t}</div>)}
-        </div>
-      )}
-      {tab === "Drive" && (drive.length ? drive.map((f) => <button key={f.id} type="button" onClick={() => g.cmd("g.open", f.id)} className="mb-2 block w-full rounded p-2 text-left text-[14px] hover:bg-[#f1f3f4]">{f.name}</button>) : <p className="text-[13px] text-[#5f6368]">No related files in your Drive.</p>)}
+      </div>
+      <PillBtn disabled={!pick} onClick={() => pick && g.cmd("g.template", pick)}>Insert</PillBtn>
     </SidePanel>
   );
 }
-

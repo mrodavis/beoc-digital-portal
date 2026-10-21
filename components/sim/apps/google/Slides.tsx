@@ -8,7 +8,6 @@ import { GIcon } from "./icons";
 import { ANIMATION_STARTS, ANIMATIONS, gTheme, LAYOUT_NAMES, pptLayout, SLIDES_MENUS, SLIDES_TOOLBAR, THEME_NAMES, TRANSITIONS } from "./menus";
 import { asDeck, openFile, viewOn } from "./model";
 import { CommentCard, CommentComposer, CommentsPanel, DetailsPanel, EditorHeader, IconBtn, KeyboardShortcuts, MenuList, PillBtn, Popup, SidePanel, TEXT_FONT, Toolbar, useG, useHeight, useWidth, type MenuPos } from "./ui";
-import { ExplorePanel } from "./Docs";
 
 const TEXT_PARTS = ["title", "subtitle", "body", "body2", "notes"];
 
@@ -112,7 +111,7 @@ export function SlidesSurface({ composer, setComposer }: { composer: boolean; se
   // Fit the slide to the space above the speaker notes, as Slides does at Fit zoom.
   const slideW = Math.max(260, Math.min(mainW - 48, (mainH - 32) * ratio, 1100)) * Math.min(1, zoomPct);
   const pane = doc.pane;
-  const side = pane && ["Themes", "Motion", "Comments", "Explore", "Details"].includes(pane) ? pane : null;
+  const side = pane && ["Themes", "Motion", "Comments", "Details"].includes(pane) ? pane : null;
   const textSelected = /\.(title|subtitle|body|body2)$|\.o\d+$/.test(ui.selection.split(",")[0]) && !ui.selection.endsWith(".notes");
   const tools = SLIDES_TOOLBAR.filter((t) => !t.when || (t.when === "text" ? textSelected : !textSelected));
   const comments = (f.comments ?? []).filter((c) => !c.resolved && (c.anchor === slide.id || c.anchor.startsWith(`${slide.id}.`)));
@@ -295,7 +294,6 @@ export function SlidesSurface({ composer, setComposer }: { composer: boolean; se
         {side === "Themes" && <ThemesPanel deck={deck} />}
         {side === "Motion" && <MotionPanel deck={deck} slide={slide} />}
         {side === "Comments" && <CommentsPanel quoteOf={(a) => a} />}
-        {side === "Explore" && <ExplorePanel q={slide.title ?? ""} />}
         {side === "Details" && <DetailsPanel />}
       </div>
       {pane === "Keyboard shortcuts" && <KeyboardShortcuts />}
