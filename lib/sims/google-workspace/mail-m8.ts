@@ -151,7 +151,7 @@ export const gwMailM8: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "The Walkthrough dates were cleared by mistake at 9:40 AM. Open version history and restore the version from October 20, 4:10 PM.",
-          hint: "File › Version history › See version history (or the clock icon at the top right). Select October 20, 4:10 PM, then select Restore this version (confirm with Restore if asked).",
+          hint: "File › Version history › See version history (or the clock icon at the top right). Select October 20, 4:10 PM, select Restore this version at the top, then select Restore.",
           steps: [{ action: { kind: "command", id: "g.version.restore", value: "v1" }, alt: [{ kind: "command", id: "g.version.restore", value: "ver:v1" }] }],
         },
         {

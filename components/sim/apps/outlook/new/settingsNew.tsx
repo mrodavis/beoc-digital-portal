@@ -90,23 +90,35 @@ function SignaturesPage({ ctx }: { ctx: NCtx }) {
           }}
           className="flex items-center gap-1 rounded-[4px] px-2 py-1 text-[12.5px] text-[#0f6cbd] hover:bg-gray-100"
         >
-          <OIcon name="plus" size={13} /> Add signature
+          <OIcon name="plus" size={13} /> New signature
         </button>
       </div>
       {s && (
         <div className="flex flex-col gap-2">
-          <input aria-label="Edit signature name" placeholder="Edit signature name" data-f="sigName" value={s.name} onChange={(e) => upd({ name: e.target.value })} onKeyDown={(e) => e.stopPropagation()} className={inputCls} />
+          <input aria-label="Signature name" placeholder="Signature name" data-f="sigName" value={s.name} onChange={(e) => upd({ name: e.target.value })} onKeyDown={(e) => e.stopPropagation()} className={inputCls} />
           <textarea aria-label="Signature text" data-f="sigText" value={s.text} onChange={(e) => upd({ text: e.target.value })} onKeyDown={(e) => e.stopPropagation()} className={`${inputCls} min-h-[90px]`} />
-          <label className="flex items-center gap-2 text-[13px]">
-            <input type="checkbox" data-f="sigNew" checked={Boolean(s.name) && defNew === s.name} onChange={(e) => setDefNew(e.target.checked ? s.name : "")} className="accent-[#0f6cbd]" />
-            Add this signature to new messages
-          </label>
-          <label className="flex items-center gap-2 text-[13px]">
-            <input type="checkbox" data-f="sigReply" checked={Boolean(s.name) && defReply === s.name} onChange={(e) => setDefReply(e.target.checked ? s.name : "")} className="accent-[#0f6cbd]" />
-            Add this signature to replies and forwards
-          </label>
         </div>
       )}
+      {/* Microsoft Support (new Outlook): "go to Select default signatures and choose whether to apply the
+          signature to new messages and to replies and forwards." The two boxes' exact captions aren't
+          documented, so they use those words. */}
+      <Sub>Select default signatures</Sub>
+      <div className="grid max-w-[420px] grid-cols-[150px_1fr] items-center gap-2 text-[13px]">
+        <span>New messages</span>
+        <select aria-label="Default signature for new messages" data-f="sigNew" value={defNew} onChange={(e) => setDefNew(e.target.value)} className={inputCls}>
+          <option value="">(no signature)</option>
+          {sigs.filter((x) => x.name.trim()).map((x, i) => (
+            <option key={i} value={x.name}>{x.name}</option>
+          ))}
+        </select>
+        <span>Replies and forwards</span>
+        <select aria-label="Default signature for replies and forwards" data-f="sigReply" value={defReply} onChange={(e) => setDefReply(e.target.value)} className={inputCls}>
+          <option value="">(no signature)</option>
+          {sigs.filter((x) => x.name.trim()).map((x, i) => (
+            <option key={i} value={x.name}>{x.name}</option>
+          ))}
+        </select>
+      </div>
       <Footer
         onSave={() =>
           ctx.commit({ kind: "type", target: "signatures", value: serializeSignatures(sigs.filter((x) => x.name.trim()), defNew || undefined, defReply || undefined) })
@@ -127,7 +139,7 @@ function AutoRepliesPage({ ctx }: { ctx: NCtx }) {
   const [et, setEt] = useState(a?.end ? fmtTime(a.end) : "5:00 PM");
   const [inside, setInside] = useState(a?.inside ?? "");
   const [outsideOn, setOutsideOn] = useState(Boolean(a?.outsideOn));
-  const [scope, setScope] = useState(a?.outsideScope === "My Contacts only" ? "contacts" : "all");
+  const [contactsOnly, setContactsOnly] = useState(a?.outsideScope === "My Contacts only");
   const [outside, setOutside] = useState(a?.outside ?? "");
   const iso = (d: string, t: string) => {
     const dd = parseUsDate(d);
@@ -143,8 +155,11 @@ function AutoRepliesPage({ ctx }: { ctx: NCtx }) {
   );
   return (
     <>
+      {/* Microsoft Support, new Outlook: Accounts › Automatic replies. "Turn the Automatic replies toggle on",
+          "Send replies only during a time period", "Send replies only to contacts", and for work or school
+          accounts "Send replies outside your organization"; then Save. */}
       <H>Automatic replies</H>
-      <Switch on={on} f="arOn" label="Turn on automatic replies" onChange={setOn} />
+      <Switch on={on} f="arOn" label="Automatic replies" onChange={setOn} />
       <div className={on ? "" : "pointer-events-none opacity-50"}>
         <label className="mt-3 flex items-center gap-2 text-[13px]">
           <input type="checkbox" data-f="arPeriod" checked={period} onChange={(e) => setPeriod(e.target.checked)} className="accent-[#0f6cbd]" />
@@ -160,8 +175,7 @@ function AutoRepliesPage({ ctx }: { ctx: NCtx }) {
             {time(et, setEt, "arEndTime", "End time")}
           </div>
         )}
-        <Sub>Send automatic replies inside your organization</Sub>
-        <textarea aria-label="Automatic reply inside your organization" data-f="arInside" value={inside} onChange={(e) => setInside(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className={`${inputCls} min-h-[70px]`} />
+        <textarea aria-label="Automatic reply inside your organization" data-f="arInside" value={inside} onChange={(e) => setInside(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className={`${inputCls} mt-3 min-h-[70px]`} />
         <label className="mt-3 flex items-center gap-2 text-[13px]">
           <input type="checkbox" data-f="arOutsideOn" checked={outsideOn} onChange={(e) => setOutsideOn(e.target.checked)} className="accent-[#0f6cbd]" />
           Send replies outside your organization
@@ -169,10 +183,7 @@ function AutoRepliesPage({ ctx }: { ctx: NCtx }) {
         {outsideOn && (
           <div className="ml-6 mt-2 flex flex-col gap-1.5 text-[13px]">
             <label className="flex items-center gap-2">
-              <input type="radio" name="arscope" data-f="arScope" data-v="contacts" checked={scope === "contacts"} onChange={() => setScope("contacts")} /> Send replies only to contacts
-            </label>
-            <label className="flex items-center gap-2">
-              <input type="radio" name="arscope" data-f="arScope" data-v="all" checked={scope === "all"} onChange={() => setScope("all")} /> Send replies to all external senders
+              <input type="checkbox" data-f="arContactsOnly" checked={contactsOnly} onChange={(e) => setContactsOnly(e.target.checked)} className="accent-[#0f6cbd]" /> Send replies only to contacts
             </label>
             <textarea aria-label="Automatic reply outside your organization" data-f="arOutside" value={outside} onChange={(e) => setOutside(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className={`${inputCls} mt-1 min-h-[60px]`} />
           </div>
@@ -189,7 +200,7 @@ function AutoRepliesPage({ ctx }: { ctx: NCtx }) {
               end: on && period ? iso(ed, et) : undefined,
               inside,
               outsideOn: on && outsideOn,
-              outsideScope: scope === "contacts" ? "My Contacts only" : "Anyone outside my organization",
+              outsideScope: contactsOnly ? "My Contacts only" : "Anyone outside my organization",
               outside,
             }),
           })

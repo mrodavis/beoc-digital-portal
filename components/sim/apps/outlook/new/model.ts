@@ -22,6 +22,7 @@ import { addDays, dateOf, dow, toMs } from "../dates";
  *   compose.encrypt    Encrypt | Do Not Forward | Remove encryption
  *   compose.sensitivity <label>
  *   compose.insertSignature <name>   Message tab › Signature
+ *   copilot.draft      Message tab › Copilot › Draft with Copilot (opens the Copilot box; free)
  *   settings.focusedInbox  On | Off   (Settings › Mail › Message list)
  *   rules.run / rules.toggle / rules.delete <rule name>   (Settings › Mail › Rules)
  *   junk.blockAddress / junk.safeAddress / junk.remove <address>   (Settings › Mail › Junk email)
@@ -602,6 +603,13 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
     case "review.accessibility": {
       const doc = clone(input);
       doc.accessibilityPane = true;
+      return { doc };
+    }
+    case "copilot.draft": {
+      // Copilot (Message tab) › Draft with Copilot: opens the Copilot box in the message (counter so it reopens).
+      const doc = clone(input);
+      const n = (Number(String(doc.flags?.copilotOpen ?? "").split("#")[1]) || 0) + 1;
+      if (doc.compose) doc.flags = { ...(doc.flags ?? {}), copilotOpen: `${doc.compose.id}#${n}` };
       return { doc };
     }
     case "pane.close": {

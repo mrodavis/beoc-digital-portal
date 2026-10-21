@@ -79,8 +79,8 @@ export const gwMailM5: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Give slide 3 (“Who to Call”) the background color light cyan 3, on that slide only.",
-          hint: "Click slide 3 in the filmstrip › Slide › Change background (or Background on the toolbar) › pick light cyan 3 › Done.",
-          steps: [{ action: { kind: "dialog", id: "g.background", values: { color: "#d0e0e3" } }, requires: { slide: "s3" }, selectHint: "Click slide 3 in the filmstrip first." }],
+          hint: "Click slide 3 in the filmstrip › Slide › Change background (or Background on the toolbar). Click the box to the right of Color, pick light cyan 3, and select Done. (Add to theme would change every slide.)",
+          steps: [{ action: { kind: "dialog", id: "g.background", values: { color: "#d0e0e3", addToTheme: false } }, requires: { slide: "s3" }, selectHint: "Click slide 3 in the filmstrip first." }],
         },
         {
           instruction: "On slide 4, insert a Rounded rectangle shape.",
@@ -119,8 +119,11 @@ export const gwMailM5: Record<string, SimDefinition[]> = {
         { instruction: "Use the same transition on every slide.", hint: "In the Motion panel, select Apply to all slides.", steps: [{ action: { kind: "command", id: "transition.applyAll" } }] },
         {
           instruction: "Animate the bulleted text on slide 2 with Fade in.",
-          hint: "Click the bulleted text on slide 2 › Insert › Animation (or View › Motion) › Add animation, then choose Fade in.",
-          steps: [{ action: { kind: "command", id: "animation.apply", value: "Fade in" }, requires: { selection: "s2.body" }, selectHint: "Click the bulleted text on slide 2 first." }],
+          hint: "Click the bulleted text on slide 2 › Insert › Animation (or View › Motion). Under Object Animations, select Add animation: a new animation starts as Appear (On click). Then change Appear to Fade in in the animation drop-down.",
+          steps: [
+            { action: { kind: "command", id: "animation.apply", value: "Appear" }, requires: { selection: "s2.body" }, selectHint: "Click the bulleted text on slide 2 first." },
+            { action: { kind: "command", id: "animation.apply", value: "Fade in" }, requires: { selection: "s2.body" }, selectHint: "Click the bulleted text on slide 2 first." },
+          ],
         },
         {
           instruction: "Make that animation start After previous instead of On click.",

@@ -247,10 +247,16 @@ export function VersionsPanel({ fileId }: { fileId: string }) {
             <td className="truncate">{it.modifiedBy === doc.me.email || !it.modifiedBy ? doc.me.name : nameOf(doc, it.modifiedBy)}</td>
             <td />
           </tr>
+          {/* Microsoft Support documents the ellipses (...) next to a version › Restore. It doesn't name the
+              command that opens a version, so here selecting the version's date shows it read-only. */}
           {vers.map((v) => (
             <tr key={v.id} className="h-12 border-b border-[#f0f0f0]">
               <td>{v.label}</td>
-              <td>{v.modified}</td>
+              <td>
+                <button type="button" aria-label={`View version ${v.label}, ${v.modified}`} data-peek={v.id} onClick={() => setPeek(v.id)} className="text-left text-[#0f6cbd] hover:underline">
+                  {v.modified}
+                </button>
+              </td>
               <td className="truncate">{nameOf(doc, v.by)}</td>
               <td>
                 <button
@@ -258,7 +264,6 @@ export function VersionsPanel({ fileId }: { fileId: string }) {
                   aria-label={`More options for version ${v.label}`}
                   onClick={(e) =>
                     ctx.menu(e, [
-                      { label: "Open file", icon: "open", onClick: () => setPeek(v.id) },
                       { label: "Restore", icon: "restore", onClick: () => ctx.commit("od.restoreVersion", { file: it.id, version: v.id }) },
                     ])
                   }

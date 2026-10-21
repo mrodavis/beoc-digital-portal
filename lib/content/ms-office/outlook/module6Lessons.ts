@@ -32,18 +32,18 @@ export const outlookModule6Lessons: Lesson[] = [
             type: "list",
             ordered: true,
             items: [
-              "Select Settings (the gear at the top right) › Accounts › Automatic replies.",
-              "Turn on Automatic replies.",
+              "On the View tab, select View settings (or select Settings, the gear at the top right), then Accounts › Automatic replies.",
+              "Turn on the Automatic replies toggle.",
               "Check Send replies only during a time period and set the start and end dates and times, so the replies stop on their own.",
               "Type the message for people in your organization.",
-              "To answer outside senders, check Send replies outside your organization. Choose Send replies only to contacts if only people you know should get it. Type the outside message.",
+              "To answer outside senders (work or school accounts), check Send replies outside your organization and type the outside message. Also check Send replies only to contacts if only people in your contacts should get it; Microsoft recommends this, because replying to everyone outside also answers newsletters, ads and junk mail.",
               "Select Save.",
             ],
           },
           {
             type: "image",
             src: `${IMG}/automatic-replies.png`,
-            alt: "Settings, Accounts, Automatic replies in new Outlook with automatic replies turned on, Send replies only during a time period checked with start and end dates, an inside message, and the outside message options",
+            alt: "Settings, Accounts, Automatic replies in new Outlook with the Automatic replies toggle on, Send replies only during a time period checked with start and end dates, an inside message, and Send replies outside your organization with Send replies only to contacts",
             caption: "Settings › Accounts › Automatic replies",
           },
           {
@@ -179,9 +179,9 @@ export const outlookModule6Lessons: Lesson[] = [
             type: "list",
             ordered: true,
             items: [
-              "In the folder pane, right-click your email address (the top of your folder list) and select Add shared folder or mailbox.",
-              "Type the shared mailbox's name or email address and select Add.",
-              "The mailbox appears under Shared with me. Expand it to see its Inbox and other folders.",
+              "In the folder pane, right-click your account name (your email address at the top of your folder list) and select Add shared folder or mailbox.",
+              "In the Add shared folder or mailbox window, type the shared mailbox's name or email address and add it.",
+              "The mailbox appears under Shared with me (it can take a few minutes after your administrator gives you access). Expand it to see its Inbox and other folders.",
             ],
           },
           {
@@ -479,11 +479,11 @@ export const outlookModule6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Alt text: insert a picture (Insert tab › Pictures), then select Alt text on the picture and describe what matters in it: \"Map of the staff lot: park in rows C and D and use the Elm Street door\", not \"map.png\".",
+              "Alt text: every picture you insert (Insert tab › Pictures) needs a description of what matters in it: \"Map of the staff lot: park in rows C and D and use the Elm Street door\", not \"map.png\".",
               "Links: use text that says where the link goes (\"staff parking policy\"), not \"click here\".",
               "Readable text: a clear font at a normal size, short paragraphs, and lists for steps.",
               "Color: don't use color alone to show meaning; add a word such as \"Required\".",
-              "Before you send, select Check Accessibility on the Ribbon (if you don't see it, look under More options (…)) and fix what it finds. In classic Outlook it's on the Review tab while you write.",
+              "Before you send, select Check accessibility on the Options tab. The Accessibility Checker lists what it finds; select Fix this next to an issue (for a picture with no alt text, this opens Add alternative text, where you type the description), then select Check again. In classic Outlook, Check Accessibility is on the Review tab while you write.",
             ],
           },
           {
@@ -552,7 +552,7 @@ export const outlookModule6Lessons: Lesson[] = [
         ordered: true,
         items: [
           "Write a short guide (five bullet points or fewer) for when a Lakeside staff member should use a sensitivity label or encryption, based on this lesson and the HHS guidance.",
-          "In your own Outlook, send yourself a message with a picture and real alt text, run Check Accessibility, and take a screenshot. If your account has Encrypt, send yourself an encrypted test message too.",
+          "In your own Outlook, send yourself a message with a picture and real alt text, run Check accessibility, and take a screenshot. If your account has Encrypt, send yourself an encrypted test message too.",
           "On a school computer, do this in the Challenge Lab below instead of your own mailbox.",
         ],
       },
@@ -596,15 +596,15 @@ export const outlookModule6Lessons: Lesson[] = [
             type: "list",
             items: [
               "Summarize: open a thread and select Summary by Copilot (it may say Summarize) at the top. The summary appears above the message and may include numbered citations that jump to the message they came from.",
-              "Draft: start a new message, select the Copilot icon on the toolbar › Draft (or Draft with Copilot in the message area), type what you want, and select the Generate arrow. Change the length or tone, or try a new prompt, until it's right, then select Keep it and edit it.",
+              "Draft: start a new message (Home › New mail), select the Copilot icon on the toolbar › Draft with Copilot, type what you want, and select Generate. You can choose the length and tone, or change your prompt and generate again, until it's right. Then select Keep and edit the draft.",
               "Draft with Copilot doesn't work in plain text messages; switch to HTML in Settings › Mail › Compose and reply if needed.",
             ],
           },
           {
             type: "image",
             src: `${IMG}/copilot-draft.png`,
-            alt: "A new message in new Outlook with the Draft with Copilot box: the prompt asks for a short, friendly reminder to arrive by 7:30 AM Saturday, and a generated draft is shown with a Keep it button",
-            caption: "Draft with Copilot: prompt, Generate, review, Keep it.",
+            alt: "A new message in new Outlook with the Draft with Copilot box: the prompt asks for a short, friendly reminder to arrive by 7:30 AM Saturday, and a generated draft is shown with a Keep button",
+            caption: "Draft with Copilot: prompt, Generate, review, Keep.",
           },
         ],
       },
@@ -629,7 +629,7 @@ export const outlookModule6Lessons: Lesson[] = [
               { id: "c1", text: "Write a clear prompt with the key facts" },
               { id: "c2", text: "Generate the draft" },
               { id: "c3", text: "Check every fact against the source" },
-              { id: "c4", text: "Keep it and edit it in your own voice" },
+              { id: "c4", text: "Keep the draft and edit it in your own voice" },
               { id: "c5", text: "Check recipients, then send" },
             ],
             explanation: "A good prompt gives Copilot the facts; checking makes sure they survived.",
@@ -640,7 +640,7 @@ export const outlookModule6Lessons: Lesson[] = [
             task: "Turn Denise's eleven-message thread into a staff reminder.",
             steps: [
               { move: "Select Summary by Copilot on the thread.", why: "The decisions (7:30 AM arrival, Elm Street parking) are visible in seconds." },
-              { move: "New mail › Draft with Copilot: \"Write a short, friendly reminder to arrive by 7:30 AM Saturday for the flu clinic.\"", why: "The prompt carries the facts that matter." },
+              { move: "New mail › Copilot › Draft with Copilot: \"Write a short, friendly reminder to arrive by 7:30 AM Saturday for the flu clinic.\"", why: "The prompt carries the facts that matter." },
               { move: "Compare the draft with the thread, then add \"Please bring your badge.\"", why: "You confirm the facts and add what Copilot couldn't know." },
               { move: "Address it to Omar and Priya, add a subject, and send.", why: "You are the one sending, so you check last." },
             ],

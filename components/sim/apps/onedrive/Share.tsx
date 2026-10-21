@@ -201,7 +201,8 @@ export function ShareDialog({ fileId, startCopy }: { fileId: string; startCopy?:
               )}
               <textarea aria-label="Add a message (optional)" placeholder="Add a message (optional)" value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => e.stopPropagation()} rows={2} className="mt-3 w-full resize-none rounded border border-[#d1d1d1] p-2 text-[14px] outline-none focus:border-[#0f6cbd]" />
               <div className="mt-2 flex justify-end">
-                <Btn kind="primary" icon="send" disabled={!chips.length && !/@/.test(query)} onClick={invite}>Invite</Btn>
+                {/* Microsoft Support, "Share files with OneDrive": add people, set the permission, add a message, "Select Send." */}
+                <Btn kind="primary" icon="send" disabled={!chips.length && !/@/.test(query)} onClick={invite}>Send</Btn>
               </div>
               <div className="my-4 border-t border-[#e0e0e0]" />
             </>

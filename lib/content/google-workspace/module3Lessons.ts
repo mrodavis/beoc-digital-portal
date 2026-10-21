@@ -588,7 +588,7 @@ export const gwModule3Lessons: Lesson[] = [
             items: [
               "Select the text, then click Add comment on the toolbar, choose Insert › Comment, or press Ctrl+Alt+M. Type the comment and click Comment.",
               "Comments show in the right margin, attached to the text. Click one to reply.",
-              "When a comment is handled, click the check mark (Mark as done and hide discussion) to resolve it. Resolved comments stay in the comment history (the Comments button at the top right).",
+              "When a comment is handled, click Resolve (the check mark in the top corner of the comment) to close it. To see closed comments again, click Comments at the top right; Re-open brings one back.",
               "To assign a comment, type @ and the person's name in it, check Assign to, and click Assign. The person is notified and is responsible for marking it done.",
             ],
           },
@@ -639,7 +639,7 @@ export const gwModule3Lessons: Lesson[] = [
             items: [
               "Open it with the Last edit (clock) icon at the top right, File › Version history › See version history, or Ctrl+Alt+Shift+H.",
               "Click a version on the right to see what it looked like and who changed what.",
-              "Restore: choose the earlier version, click Restore this version, and confirm. Your current text becomes a version in the list, so nothing is lost.",
+              "Restore: choose the earlier version, click Restore this version at the top, then click Restore. The file goes back to the way it was in that version.",
               "Name a version to find it later: File › Version history › Name current version, or in the list, choose More › Name this version. A document can have up to 40 named versions.",
               "Only people who can edit the file can see its version history.",
             ],

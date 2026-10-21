@@ -514,14 +514,12 @@ function Bar({ icon, children, tone = "gray" }: { icon: string; children: React.
   );
 }
 
-function respondEntries(ctx: NCtx, base: "Accept" | "Tentative" | "Decline"): NEntry[] {
-  const vals = base === "Accept" ? ACCEPT : base === "Tentative" ? TENTATIVE : DECLINE;
-  return [
-    { label: "Edit the response before sending", cmd: "invite.respond", val: vals[1], onPick: () => ctx.cmd("invite.respond", vals[1]) },
-    { label: "Send the response now", cmd: "invite.respond", val: vals[0], onPick: () => ctx.cmd("invite.respond", vals[0]) },
-    { label: "Don't send a response", cmd: "invite.respond", val: vals[2], onPick: () => ctx.cmd("invite.respond", vals[2]) },
-  ];
-}
+/*
+ * Accept / Tentative / Decline send the response. Microsoft's support pages don't document the
+ * extra response choices new Outlook offers (and community answers say "Do not send a response"
+ * isn't always there), so the sim doesn't show any; it sends the response, value Accept /
+ * Tentative / Decline.
+ */
 
 function InviteCardNew({ ctx, m }: { ctx: NCtx; m: OlMessage }) {
   const inv = m.invite!;
@@ -542,15 +540,15 @@ function InviteCardNew({ ctx, m }: { ctx: NCtx; m: OlMessage }) {
         <button type="button" className={btn} data-c="invite.removeFromCalendar" onClick={() => ctx.cmd("invite.removeFromCalendar")}>Remove from calendar</button>
       ) : (
         <div className="flex flex-wrap gap-1.5">
-          <NMenuButton dd="invite.accept" ariaLabel="Accept" items={respondEntries(ctx, "Accept")} className={btn}>
-            <OIcon name="check" size={14} className="text-green-700" /> Accept <OIcon name="chevronDown" size={10} />
-          </NMenuButton>
-          <NMenuButton dd="invite.tentative" ariaLabel="Tentative" items={respondEntries(ctx, "Tentative")} className={btn}>
-            <span className="font-bold text-[#8a6d00]">?</span> Tentative <OIcon name="chevronDown" size={10} />
-          </NMenuButton>
-          <NMenuButton dd="invite.decline" ariaLabel="Decline" items={respondEntries(ctx, "Decline")} className={btn}>
-            <OIcon name="close" size={14} className="text-red-700" /> Decline <OIcon name="chevronDown" size={10} />
-          </NMenuButton>
+          <button type="button" aria-label="Accept" data-c="invite.respond" data-v={ACCEPT[0]} onClick={() => ctx.cmd("invite.respond", ACCEPT[0])} className={btn}>
+            <OIcon name="check" size={14} className="text-green-700" /> Accept
+          </button>
+          <button type="button" aria-label="Tentative" data-c="invite.respond" data-v={TENTATIVE[0]} onClick={() => ctx.cmd("invite.respond", TENTATIVE[0])} className={btn}>
+            <span className="font-bold text-[#8a6d00]">?</span> Tentative
+          </button>
+          <button type="button" aria-label="Decline" data-c="invite.respond" data-v={DECLINE[0]} onClick={() => ctx.cmd("invite.respond", DECLINE[0])} className={btn}>
+            <OIcon name="close" size={14} className="text-red-700" /> Decline
+          </button>
           {!inv.recurrence && (
             <NMenuButton
               dd="invite.propose"
@@ -861,15 +859,24 @@ function mentionAt(text: string, caret: number): { start: number; q: string } | 
 }
 
 /**
- * Draft with Copilot (Microsoft 365 Copilot license): type a prompt, Generate, review, Keep it.
- * The draft text comes from the sim (doc.copilotDraft) so it is predictable; the prompt is
- * committed as type "copilot.prompt" so a task can check what the learner asked for.
+ * Draft with Copilot (Microsoft 365 Copilot license). Microsoft Support ("Draft an email message
+ * with Copilot in Outlook"): New mail › the Copilot icon on the toolbar › Draft with Copilot › type a
+ * prompt › Generate › review › Keep. The length and tone choices (Generate options) aren't drawn.
+ * Here the Copilot icon is on the Message tab (command copilot.draft, which bumps
+ * doc.flags.copilotOpen). The draft text comes from the sim (doc.copilotDraft) so it is predictable;
+ * the prompt is committed as type "copilot.prompt" so a task can check what the learner asked for.
  */
 function CopilotDraft({ ctx, body }: { ctx: NCtx; body: string }) {
   const doc = ctx.doc;
+  // "<compose id>#<n>": only the message the learner chose Draft with Copilot in opens the box.
+  const openTag = String(doc.flags?.copilotOpen ?? "");
+  const mine = Boolean(doc.compose) && openTag.startsWith(`${doc.compose!.id}#`);
   const [open, setOpen] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [draft, setDraft] = useState<string | null>(null);
+  useEffect(() => {
+    if (mine) setOpen(true);
+  }, [mine, openTag]);
   const first = doc.account.name.split(" ")[0];
   const generate = () => {
     const p = prompt.trim();
@@ -877,12 +884,7 @@ function CopilotDraft({ ctx, body }: { ctx: NCtx; body: string }) {
     ctx.commit({ kind: "type", target: "copilot.prompt", value: p });
     setDraft(doc.copilotDraft ?? `Hello,\n\n${p.charAt(0).toUpperCase()}${p.slice(1).replace(/[.]?$/, ".")}\n\nPlease let me know if you have any questions.\n\nThank you,\n${first}`);
   };
-  if (!open)
-    return (
-      <button type="button" data-copilotdraft="1" onClick={() => setOpen(true)} className="mb-2 flex w-fit items-center gap-1.5 rounded-[4px] border border-[#d9d0f5] bg-[#f5f2ff] px-2.5 py-1 text-[12.5px] font-semibold text-[#5b3fc4] hover:bg-[#ede7ff]">
-        <OIcon name="sparkle" size={14} /> Draft with Copilot
-      </button>
-    );
+  if (!open) return null;
   return (
     <div role="region" aria-label="Draft with Copilot" className="mb-2 rounded-lg border border-[#d9d0f5] bg-gradient-to-r from-[#f5f2ff] to-[#eef6ff] p-2.5">
       <div className="flex items-start gap-2">
@@ -902,8 +904,11 @@ function CopilotDraft({ ctx, body }: { ctx: NCtx; body: string }) {
           }}
           className="min-h-[44px] flex-1 resize-none rounded-[4px] border border-gray-300 bg-white px-2 py-1 text-[13px] outline-none focus:border-[#5b3fc4]"
         />
-        <button type="button" aria-label="Generate" title="Generate" data-c="copilot.generate" onClick={generate} className="mt-1 rounded-[4px] bg-[#5b3fc4] p-1.5 text-white hover:bg-[#4a32a6]">
-          <OIcon name="send" size={15} />
+        <button type="button" aria-label="Generate" title="Generate" data-c="copilot.generate" onClick={generate} className="mt-1 rounded-[4px] bg-[#5b3fc4] px-2.5 py-1 text-[12.5px] font-semibold text-white hover:bg-[#4a32a6]">
+          Generate
+        </button>
+        <button type="button" aria-label="Close Copilot" title="Close" onClick={() => { setDraft(null); setOpen(false); setPrompt(""); }} className="mt-1 rounded p-1 text-gray-600 hover:bg-white/60">
+          <OIcon name="close" size={12} />
         </button>
       </div>
       {draft !== null && (
@@ -922,10 +927,7 @@ function CopilotDraft({ ctx, body }: { ctx: NCtx; body: string }) {
               }}
               className="rounded-[4px] bg-[#0f6cbd] px-3 py-1 text-[12.5px] font-semibold text-white hover:bg-[#115ea3]"
             >
-              Keep it
-            </button>
-            <button type="button" onClick={() => { setDraft(null); setOpen(false); }} className="rounded-[4px] border border-gray-300 px-3 py-1 text-[12.5px] hover:bg-gray-50">
-              Discard
+              Keep
             </button>
           </div>
         </div>
@@ -1100,9 +1102,6 @@ export function ComposeNew({ ctx, popped }: { ctx: NCtx; popped?: boolean }) {
                 <div key={im.name} className="flex w-48 flex-col items-center gap-1 rounded border border-gray-300 p-2 text-[12px]">
                   <OIcon name="image" size={40} className="text-gray-400" />
                   <span className="truncate">{im.name}</span>
-                  <button type="button" data-dlg="altText" onClick={() => ctx.openDialog("altText")} className="rounded border border-gray-300 px-2 py-0.5 hover:bg-gray-50">
-                    {im.alt ? "Edit alt text" : "Add alt text"}
-                  </button>
                 </div>
               ))}
             </div>
@@ -1111,10 +1110,10 @@ export function ComposeNew({ ctx, popped }: { ctx: NCtx; popped?: boolean }) {
         </div>
       </div>
       {doc.accessibilityPane && (
-        <aside aria-label="Accessibility" className="flex w-60 shrink-0 flex-col border-l border-gray-200 bg-[#fafafa] p-3 text-[12.5px]">
+        <aside aria-label="Accessibility Checker" className="flex w-60 shrink-0 flex-col border-l border-gray-200 bg-[#fafafa] p-3 text-[12.5px]">
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-[14px] font-semibold">Accessibility</span>
-            <button type="button" aria-label="Close Accessibility pane" data-c="pane.close" onClick={() => ctx.cmd("pane.close")} className="rounded p-0.5 hover:bg-gray-200">
+            <span className="text-[14px] font-semibold">Accessibility Checker</span>
+            <button type="button" aria-label="Close Accessibility Checker" data-c="pane.close" onClick={() => ctx.cmd("pane.close")} className="rounded p-0.5 hover:bg-gray-200">
               <OIcon name="close" size={12} />
             </button>
           </div>
@@ -1126,7 +1125,7 @@ export function ComposeNew({ ctx, popped }: { ctx: NCtx; popped?: boolean }) {
                   <p className="font-semibold">Missing alternative text</p>
                   <p className="text-gray-600">{im.name}</p>
                   <button type="button" data-dlg="altText" onClick={() => ctx.openDialog("altText")} className="mt-1 text-[#0f6cbd] underline">
-                    Add a description
+                    Fix this
                   </button>
                 </div>
               ))}
@@ -1136,6 +1135,9 @@ export function ComposeNew({ ctx, popped }: { ctx: NCtx; popped?: boolean }) {
               <OIcon name="check" size={14} /> No accessibility issues found. People with disabilities should not have difficulty reading this message.
             </p>
           )}
+          <button type="button" data-c="review.accessibility" onClick={() => ctx.cmd("review.accessibility")} className="mt-2 w-fit rounded-[4px] border border-gray-300 bg-white px-2.5 py-1 hover:bg-gray-50">
+            Check again
+          </button>
         </aside>
       )}
     </div>

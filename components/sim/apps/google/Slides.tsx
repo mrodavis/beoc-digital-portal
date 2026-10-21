@@ -348,7 +348,7 @@ function MotionPanel({ deck, slide }: { deck: PptDeck; slide: PptSlide }) {
   const speed = slide.transitionOptions?.duration ?? 0.5;
   return (
     <SidePanel title="Motion" onClose={() => g.cmd("g.pane", "")} width={280}>
-      <p className="mb-2 text-[14px] font-medium">Slide transition</p>
+      <p className="mb-2 text-[14px] font-medium">Slide Transition</p>
       <label className="mb-1 block text-[12px] text-[#444746]">Transition</label>
       <select aria-label="Transition type" value={slide.transition ?? "None"} onChange={(e) => { g.onSelect({ slide: slide.id, selection: slide.id }); g.cmd("transition.apply", e.target.value); }} className="mb-3 h-9 w-full rounded border border-[#747775] px-1 text-[14px]">
         {TRANSITIONS.map((t) => <option key={t}>{t}</option>)}
@@ -359,7 +359,7 @@ function MotionPanel({ deck, slide }: { deck: PptDeck; slide: PptSlide }) {
         <PillBtn kind="outlined" onClick={() => g.cmd("transition.applyAll")}>Apply to all slides</PillBtn>
         <PillBtn kind="text" onClick={() => g.cmd("g.toast", "Playing transition")}>Play</PillBtn>
       </div>
-      <p className="mb-2 text-[14px] font-medium">Object animations</p>
+      <p className="mb-2 text-[14px] font-medium">Object Animations</p>
       {animated.map((a) => (
         <div key={a.key} onClick={() => g.onSelect({ selection: a.key, slide: slide.id })} className={`mb-2 rounded border p-2 text-[13px] ${sel === a.key ? "border-[#0b57d0] bg-[#e8f0fe]" : "border-[#dadce0]"}`}>
           <div className="font-medium">{a.anim} · {a.label}</div>
@@ -378,7 +378,8 @@ function MotionPanel({ deck, slide }: { deck: PptDeck; slide: PptSlide }) {
               </select>
             </>
           ) : (
-            <PillBtn kind="outlined" onClick={() => g.cmd("animation.apply", "Fade in")}><GIcon name="plus" size={16} color="#0b57d0" /> Add animation</PillBtn>
+            // New object animations start as "Appear (On click)" (support.google.com/docs/answer/1689475).
+            <PillBtn kind="outlined" onClick={() => g.cmd("animation.apply", "Appear")}><GIcon name="plus" size={16} color="#0b57d0" /> Add animation</PillBtn>
           )}
         </div>
       ) : (

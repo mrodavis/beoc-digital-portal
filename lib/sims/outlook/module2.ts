@@ -226,7 +226,7 @@ export const outlookModule2Sims: Record<string, SimDefinition[]> = {
         {
           instruction:
             'Create a signature named "Front Desk" with the text "Taylor Brooks | Front Desk Coordinator | Lakeside Medical Associates | (555) 010-2400" and have Outlook add it to new messages.',
-          hint: "Settings (gear) › Accounts › Signatures › Add signature. Type the name and the text, check Add this signature to new messages, and select Save.",
+          hint: "Settings (gear) › Accounts › Signatures › New signature. Type the name and the text, then under Select default signatures choose it for New messages, and select Save.",
           steps: [
             signaturesStep(
               { sigs: [{ name: "Front Desk", text: "Taylor Brooks | Front Desk Coordinator | Lakeside Medical Associates | (555) 010-2400" }], defNew: "Front Desk" },
@@ -236,7 +236,7 @@ export const outlookModule2Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Add a second signature named "Short" with the text "Taylor Brooks, Lakeside Medical Associates" and have Outlook add it to replies and forwards.',
-          hint: "Settings › Accounts › Signatures › Add signature. Name it Short, type the text, check Add this signature to replies and forwards, and select Save.",
+          hint: "Settings › Accounts › Signatures › New signature. Name it Short, type the text, then under Select default signatures choose it for Replies and forwards, and select Save.",
           steps: [
             signaturesStep(
               {
@@ -288,7 +288,7 @@ export const outlookModule2Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: 'Create a signature named "Full" with your name, "Office Assistant", "Lakeside Medical Associates" and "(555) 010-2400", and set it for new messages.',
-          hint: "Settings (gear) › Accounts › Signatures › Add signature. Name it Full, type the signature, check Add this signature to new messages, and select Save.",
+          hint: "Settings (gear) › Accounts › Signatures › New signature. Name it Full, type the signature, then under Select default signatures choose it for New messages, and select Save.",
           steps: [
             signaturesStep(
               { sigs: [{ name: "Full", text: "Taylor Brooks | Office Assistant | Lakeside Medical Associates | (555) 010-2400" }], defNew: "Full" },
@@ -298,7 +298,7 @@ export const outlookModule2Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Create a short signature named "Short" with your name and "Lakeside Medical Associates", and set it for replies and forwards.',
-          hint: "Settings › Accounts › Signatures › Add signature. Name it Short, type it, check Add this signature to replies and forwards, and select Save.",
+          hint: "Settings › Accounts › Signatures › New signature. Name it Short, type it, then under Select default signatures choose it for Replies and forwards, and select Save.",
           steps: [
             signaturesStep(
               {

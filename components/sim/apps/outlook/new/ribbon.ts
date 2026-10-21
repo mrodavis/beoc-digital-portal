@@ -176,6 +176,9 @@ export const newOutlookRibbon: RibbonTab[] = [
       { label: "Basic text", controls: fontRow },
       { label: "Insert", controls: [attachFile, b("insert.link", "Link", "link"), signature] },
       { label: "Proofing", controls: [b("review.spelling", "Editor", "editor"), b("format.dictate", "Dictate", "mic")] },
+      // Shown only with a Microsoft 365 Copilot license (doc.copilot); see tabsFor in NewOutlookCanvas.
+      // Microsoft: "select the Copilot icon from the toolbar. Select Draft with Copilot from the drop-down menu."
+      { label: "Copilot", controls: [dd("compose.copilot", "Copilot", "sparkle", [{ value: "Draft with Copilot", icon: "sparkle", command: "copilot.draft" }])] },
       {
         // Sensitivity labels are published by the organization (doc.sensitivityLabels replaces these at run time).
         label: "Tags",
@@ -251,7 +254,8 @@ export const newOutlookRibbon: RibbonTab[] = [
           t("options.deliveryReceipt", "Request a Delivery Receipt", "send", { stateKey: "options.deliveryReceipt" }),
         ],
       },
-      { label: "Accessibility", controls: [b("review.accessibility", "Check Accessibility", "accessibility")] },
+      // Outlook on the web / new Outlook: Options › Check accessibility (Microsoft Support, "Improve accessibility with the Accessibility Checker").
+      { label: "Accessibility", controls: [b("review.accessibility", "Check accessibility", "accessibility")] },
     ],
   },
   /* ---------------- Calendar ---------------- */

@@ -61,7 +61,7 @@ export const outlookModule4Lessons: Lesson[] = [
               "Type a short, specific title, such as \"Flu clinic setup\".",
               "Set the date, start time and end time. For something that lasts all day, such as time off, turn on All day.",
               "Type a location, such as \"Front lobby\".",
-              "On the Event tab, use Reminder to choose when Outlook reminds you, or Don't remind me. Use Show as (the Busy button) to choose Free, Tentative, Busy, Out of office or Working elsewhere.",
+              "On the Event tab, open Reminder and choose how long before the event Outlook should remind you, or choose Don't remind me. Use Show as (the Busy button) to choose how that time appears to others, such as Free, Busy or Out of office.",
               "Select Save. An event with no invited attendees is just yours, so there is nothing to send.",
             ],
           },
@@ -242,15 +242,15 @@ export const outlookModule4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Select the invitation, then select Accept, Tentative or Decline in the reading pane. Outlook lets you send the response right away, edit it first to add a note, or not send a response.",
-              "To suggest another time, select Propose new time and choose I might attend (tentative) or No, I won't attend (decline). Pick the new time, then add a short message and select Send.",
+              "Select the invitation, then select Accept, Tentative or Decline in the reading pane. The organizer gets your answer, and Accept or Tentative puts the meeting on your calendar.",
+              "To suggest another time, select Propose new time and choose I might attend or No, I won't attend. Pick the new time and select Done, then add a short message and select Send.",
               "The organizer decides. Your proposal doesn't move the meeting until the organizer accepts it.",
-              "Propose new time isn't available for recurring meetings; reply to the organizer with a message instead.",
+              "Propose new time works with work or school accounts, and it isn't available for recurring meetings; reply to the organizer with a message instead.",
             ],
           },
           {
             type: "tip",
-            text: "Edit the response when it helps the organizer: \"I can attend the first 30 minutes\" is more useful than a silent Tentative.",
+            text: "A short note helps the organizer: \"I can attend the first 30 minutes\" is more useful than a silent Tentative. Reply to the invitation, or use Propose new time, to add one.",
           },
           {
             type: "callout",
@@ -346,7 +346,7 @@ export const outlookModule4Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "With a classmate or coworker, send each other one meeting invitation from your own Outlook (new Outlook or Outlook on the web). Accept one, respond Tentative with a note to another, or propose a new time.",
+          "With a classmate or coworker, send each other one meeting invitation from your own Outlook (new Outlook or Outlook on the web). Accept one, respond Tentative to another (and reply with a short note if it helps), or propose a new time.",
           "Schedule a 30-minute meeting with at least two people. Open the Scheduling Assistant first and pick a time when everyone is free. Take a screenshot of the Scheduling Assistant before you send.",
           "On a school computer, do this in the Challenge Lab below instead of your own mailbox.",
           "Write one or two sentences explaining why you chose the time you did.",
@@ -389,18 +389,18 @@ export const outlookModule4Lessons: Lesson[] = [
             ordered: true,
             items: [
               "Create the event as usual: New event, title, attendees, date and time.",
-              "Select Recurring. In the Repeat window, choose how often it repeats (for example, weekly on Monday) and when the series ends, then select Save.",
+              "Make the event repeat: open the repeat options on the event, choose how often it repeats (for example, weekly on Monday) and when the series ends, and save that choice.",
               "The event now shows how it repeats. Select Send.",
             ],
           },
           {
             type: "paragraph",
-            text: "When you open one meeting in a series you organized, Outlook asks what to change: Edit the one event in the series (just that date), Edit series (every occurrence), or Edit this and all following events. Choose carefully: moving the whole series when you meant to move one Monday changes everyone's calendar for months.",
+            text: "A meeting in a series can be changed one occurrence at a time or as a whole. Opening one meeting from your calendar works on just that date; to change every occurrence, open the series (new Outlook shows View series for this). Choose carefully: moving the whole series when you meant to move one Monday changes everyone's calendar for months.",
           },
           {
             type: "callout",
             variant: "version",
-            text: "Classic Outlook: Recurrence is a button on the Meeting (or Appointment) tab and opens the Appointment Recurrence dialog.",
+            text: "Classic Outlook: select Make Recurring next to the start and end times, pick the pattern in the Appointment Recurrence box, set the range of recurrence, and select OK.",
           },
         ],
       },
@@ -430,8 +430,8 @@ export const outlookModule4Lessons: Lesson[] = [
             title: "One occurrence or the series?",
             prompt: "Sort each change by what you should edit.",
             buckets: [
-              { id: "one", label: "Edit the one event" },
-              { id: "series", label: "Edit series" },
+              { id: "one", label: "Change just that occurrence" },
+              { id: "series", label: "Change the whole series" },
             ],
             items: [
               { id: "c1", text: "Monday, November 9 is a holiday; skip that huddle", bucket: "one" },
@@ -439,7 +439,7 @@ export const outlookModule4Lessons: Lesson[] = [
               { id: "c3", text: "This Monday only, start at 8:45 because of a delivery", bucket: "one" },
               { id: "c4", text: "Add Keisha to every future huddle", bucket: "series" },
             ],
-            explanation: "One-time changes go on one event. Changes that should stick go on the series (or this and all following events).",
+            explanation: "One-time changes go on that one occurrence. Changes that should stick go on the series.",
           },
         ],
       },
@@ -460,7 +460,7 @@ export const outlookModule4Lessons: Lesson[] = [
             title: "Next week's calendar changes",
             task: "Set up the huddle, add Teams for Keisha, and cancel the vendor demo.",
             steps: [
-              { move: "New event \"Front desk huddle\" with Omar and Priya, Monday 8:30 to 8:45 AM, Recurring weekly on Monday, Teams meeting on, Send.", why: "One series replaces fifty separate invitations." },
+              { move: "New event \"Front desk huddle\" with Omar and Priya, Monday 8:30 to 8:45 AM, repeating weekly on Monday, Teams meeting on, Send.", why: "One series replaces fifty separate invitations." },
               { move: "Open \"Billing workflow check-in\", turn on Teams meeting, Send.", why: "Keisha gets an update with a join link for her day at home." },
               { move: "Right-click \"Vendor demo\" › Cancel, add \"The vendor canceled; we'll reschedule\", send.", why: "Omar and Denise are told, and the time comes off their calendars." },
             ],
@@ -474,13 +474,13 @@ export const outlookModule4Lessons: Lesson[] = [
           {
             type: "knowledge-check",
             question: "Next Monday's huddle has to move to 9:00 AM, but every other Monday stays at 8:30. What do you edit?",
-            options: ["Edit series", "Edit the one event in the series", "Edit this and all following events", "Delete the series and start over"],
+            options: ["The whole series", "Just next Monday's occurrence", "Next Monday's occurrence and every one after it", "Delete the series and start over"],
             correctIndex: 1,
-            explanation: "A one-time change goes on that one event. The rest of the series stays the same.",
+            explanation: "A one-time change goes on that one occurrence. The rest of the series stays the same.",
             optionRationales: [
-              "Editing the series would move every Monday.",
+              "Changing the series would move every Monday.",
               "Correct.",
-              "This would move every huddle after next Monday too.",
+              "That would move every huddle after next Monday too.",
               "Starting over is slower and sends everyone extra messages.",
             ],
           },

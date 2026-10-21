@@ -43,7 +43,7 @@ export const labsEmailSims: Record<string, SimDefinition[]> = {
         {
           instruction:
             'Create a signature named "Standard" with your full name, "Office Assistant", "Lakeside Medical Associates", "(555) 010-2400", and the notice "This email may contain confidential information. If you are not the intended recipient, please notify the sender and delete it." Use it for new messages.',
-          hint: "Settings (gear) › Accounts › Signatures › Add signature. Name it Standard, type each part on its own line, check Add this signature to new messages, and select Save.",
+          hint: "Settings (gear) › Accounts › Signatures › New signature. Name it Standard, type each part on its own line, then under Select default signatures choose it for New messages, and select Save.",
           steps: [
             signaturesStep(
               {
@@ -179,7 +179,7 @@ export const labsEmailSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Flag Dr. Patel\'s "Call back the imaging center" for today and Keisha\'s "Copay list for October" for this week.',
-          hint: "Select each message › the arrow next to Flag / Unflag (or right-click › Flag) › Today or This week.",
+          hint: "Select each message › the arrow next to Flag / Unflag (or right-click › Flag) and choose today for Dr. Patel's message and this week for Keisha's.",
           steps: [
             { action: { kind: "command", id: "item.followUp", value: "Today" }, requires: { selection: "msg:m2" }, selectHint: "Select Dr. Patel's message first." },
             { action: { kind: "command", id: "item.followUp", value: "This Week" }, requires: { selection: "msg:m4" }, selectHint: "Select Keisha's message next." },

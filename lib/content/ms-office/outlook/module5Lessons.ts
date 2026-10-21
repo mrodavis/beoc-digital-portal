@@ -371,7 +371,7 @@ export const outlookModule5Lessons: Lesson[] = [
             type: "list",
             items: [
               "Flag a message in Mail (Module 3) and it appears in To Do's Flagged email list, so message follow-ups sit next to your tasks.",
-              "When the follow-up is done, select the circle next to the message in Flagged email, or choose Mark complete on the message in Mail.",
+              "When the follow-up is done, select the circle next to the message in Flagged email, or mark its flag complete on the message in Mail.",
               "You can turn the Flagged email list on or off in Settings.",
               "End the day by reviewing My Day: finish, move to tomorrow, or delete. A list you trust is a list you keep up to date.",
             ],

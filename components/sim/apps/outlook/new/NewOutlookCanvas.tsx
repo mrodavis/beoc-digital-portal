@@ -73,7 +73,7 @@ function tabsFor(doc: OutlookDoc, keys: string[]): RibbonTab[] {
     .filter((t) => !t.contextual || keys.includes(t.contextual))
     .map((t) => ({
       ...t,
-      groups: t.groups.map((g) => ({
+      groups: t.groups.filter((g) => doc.copilot || !g.controls.some((c) => c.type === "dropdown" && c.id === "compose.copilot")).map((g) => ({
         ...g,
         controls: g.controls.map((c) => {
           if (c.type !== "dropdown") return c;
@@ -420,7 +420,9 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
       };
     }
     if (id === "insertPicture") return { ...base, fields: [{ type: "list", key: "file", label: "Pictures on this computer", options: (doc.files ?? []).filter((f) => /\.(png|jpe?g|gif)$/i.test(f.name)).map((f) => f.name), height: 120 }] };
-    if (id === "altText") return { ...base, fields: [{ type: "select", key: "name", label: "Picture", options: (doc.compose?.images ?? []).map((i) => i.name) }, { type: "text", key: "text", label: "How would you describe this picture to someone who is blind?" }] };
+    if (id === "altText") return { ...base, fields: [{ type: "select", key: "name", label: "Picture", options: (doc.compose?.images ?? []).map((i) => i.name) }, { type: "text", key: "text", label: "Alternative text" }] };
+    // New Outlook: Propose new time › I might attend / No, I won't attend › pick a time › Done (Microsoft Support, "Propose a new meeting time in Outlook").
+    if (id === "proposeTime" || id === "proposeTimeDecline") return { ...base, title: "Propose new time" };
     if (id === "scheduleSend") return { ...base, title: "Schedule send" };
     if (id === "recurrence") return { ...base, title: "Repeat", fields: (base.tabs ?? []).flatMap((t) => t.fields), tabs: undefined };
     return base;
@@ -695,7 +697,7 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
           key={dialog}
           def={dlgDef}
           initial={newOutlookCore.dialogDefaults?.(doc, ui, dialog)}
-          okLabel={dialog === "sweep" ? "Sweep" : dialog === "scheduleSend" ? "Send" : dialog === "attachFile" ? "Attach" : dialog === "shareCalendar" ? "Share" : dialog === "moveTo" ? "Move" : dialog === "addShared" ? "Add" : undefined}
+          okLabel={dialog === "sweep" ? "Sweep" : dialog === "scheduleSend" ? "Send" : dialog === "attachFile" ? "Attach" : dialog === "shareCalendar" ? "Share" : dialog === "moveTo" ? "Move" : dialog === "addShared" ? "Add" : dialog === "proposeTime" || dialog === "proposeTimeDecline" ? "Done" : undefined}
           onCancel={() => setDialog(null)}
           onOk={(values) => {
             const id = dialog;

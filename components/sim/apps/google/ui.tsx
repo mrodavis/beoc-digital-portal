@@ -914,7 +914,8 @@ export function CommentCard({ c, active, onActivate, quote }: { c: GComment; act
           <div className="text-[11px] text-[#5f6368]">{timeLabel(c.time)}</div>
         </div>
         {!c.resolved ? (
-          <button type="button" aria-label="Mark as done and hide discussion" title="Mark as done and hide discussion" onClick={(e) => { e.stopPropagation(); g.onSelect({ selection: `comment:${c.id}` }); g.cmd("g.comment.resolve", c.id); }} className="flex h-7 w-7 items-center justify-center rounded-full hover:bg-black/5">
+          // support.google.com/docs/answer/65129: "In the top corner of the comment, click Resolve"; an action item has "Done" there instead.
+          <button type="button" aria-label={assignee ? "Done" : "Resolve"} title={assignee ? "Done" : "Resolve"} onClick={(e) => { e.stopPropagation(); g.onSelect({ selection: `comment:${c.id}` }); g.cmd("g.comment.resolve", c.id); }} className="flex h-7 w-7 items-center justify-center rounded-full hover:bg-black/5">
             <GIcon name="check" size={18} color="#0b57d0" />
           </button>
         ) : (

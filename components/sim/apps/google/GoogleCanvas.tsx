@@ -11,7 +11,7 @@ import { gLook, DocsSurface, styleName } from "./Docs";
 import { DriveView, FileIcon } from "./Drive";
 import { VersionHistory } from "./History";
 import { AppLogo, GIcon } from "./icons";
-import { DOCS_MENUS, IMAGE_SOURCES, isItem, SHEETS_MENUS, SLIDES_MENUS, SPECIAL_CHARS, type GEntry, type GItem } from "./menus";
+import { DOCS_MENUS, IMAGE_SOURCES, isItem, PALETTE_ROWS, SHEETS_MENUS, SLIDES_MENUS, SPECIAL_CHARS, type GEntry, type GItem } from "./menus";
 import { asBook, asDeck, asWord, fileOf, kindFromName, openFile, regionOf, viewOn } from "./model";
 import { FolderPicker, ShareDialog } from "./Share";
 import { HomeScreen } from "./Home";
@@ -36,7 +36,8 @@ type Dlg =
   | { kind: "search" }
   | { kind: "sort" }
   | { kind: "chip"; tab: "all" | "person" | "file" | "date" }
-  | { kind: "views" };
+  | { kind: "views" }
+  | { kind: "background" };
 
 function keyName(e: React.KeyboardEvent): string {
   const parts: string[] = [];
@@ -156,6 +157,7 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
     if (id === "link") return setDlg({ kind: "link" });
     if (id === "g.sortRange") return setDlg({ kind: "sort" });
     if (id === "g.image") return setDlg({ kind: "image", source: "Upload from computer" });
+    if (id === "g.background") return setDlg({ kind: "background" });
     setDlg({ kind: "def", id, initial });
   };
 
@@ -384,6 +386,8 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
         return <ChipPicker tab={dlg.tab} onClose={closeDlg} />;
       case "views":
         return <ViewsMenu onClose={closeDlg} />;
+      case "background":
+        return <BackgroundDialog onClose={closeDlg} />;
       case "def": {
         const id = dlg.id;
         const initial: Record<string, SimValue> = { ...(dlg.initial ?? {}) };
@@ -411,10 +415,6 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
           const rc = regionOf(sh, ui);
           initial.range = initial.range ?? (rc ? `${sh.name}!${numToCol(rc.c1)}${rc.r1}:${numToCol(rc.c2)}${rc.r2}` : "");
           hide = ["at"];
-        }
-        if (id === "g.background" && f?.kind === "slides") {
-          const d = asDeck(f) as PptDeck;
-          initial.color = activeSlide(d, ui)?.background ?? "#ffffff";
         }
         if (id === "g.removeDuplicates" && f?.kind === "sheet") {
           const sh = sheetOf(asBook(f), ui);
@@ -716,6 +716,50 @@ function ViewsMenu({ onClose }: { onClose: () => void }) {
           ))}
         </ul>
       )}
+    </Modal>
+  );
+}
+
+/**
+ * Slide › Change background (support.google.com/docs/answer/1705254): to the right of
+ * Color, click the box and pick a color; to the right of Image, Choose. Done changes this
+ * slide only; Add to theme (a button, not a checkbox) changes the whole presentation.
+ */
+function BackgroundDialog({ onClose }: { onClose: () => void }) {
+  const g = useG();
+  const f = openFile(g.doc);
+  const start = f?.kind === "slides" ? activeSlide(asDeck(f) as PptDeck, g.ui)?.background ?? "#ffffff" : "#ffffff";
+  const [color, setColor] = useState(start);
+  const [palette, setPalette] = useState(false);
+  const commit = (addToTheme: boolean) => {
+    // Done with nothing changed just closes, as in Slides.
+    if (addToTheme || color.toLowerCase() !== start.toLowerCase()) g.onCommit({ kind: "dialog", id: "g.background", values: { color, addToTheme } });
+    onClose();
+  };
+  return (
+    <Modal title="Background" onClose={onClose} width={440} footer={<><PillBtn kind="outlined" onClick={() => commit(true)}>Add to theme</PillBtn><PillBtn onClick={() => commit(false)}>Done</PillBtn></>}>
+      <div className="flex items-center gap-4 py-2 text-[14px]">
+        <span className="w-14">Color</span>
+        <button type="button" aria-label="Background color" aria-expanded={palette} onClick={() => setPalette((p) => !p)} className="flex h-9 items-center gap-1.5 rounded border border-[#747775] pl-2 pr-1 hover:bg-[#f1f3f4]">
+          <span className="h-5 w-8 rounded-sm border border-black/10" style={{ background: color }} />
+          <GIcon name="dropDown" size={18} color="#444746" />
+        </button>
+      </div>
+      {palette && (
+        <div className="mb-2 ml-[72px] w-fit space-y-[3px] rounded-md p-2 shadow-[0_2px_6px_2px_rgba(60,64,67,.15)]" role="group" aria-label="Colors">
+          {PALETTE_ROWS.map((row, ri) => (
+            <div key={ri} className={`flex gap-[3px] ${ri === 2 ? "mt-2" : ""}`}>
+              {row.map((p) => (
+                <button key={p.hex} type="button" title={p.name} aria-label={p.name} aria-pressed={color.toLowerCase() === p.hex} onClick={() => { setColor(p.hex); setPalette(false); }} className={`h-[18px] w-[18px] rounded-full border hover:scale-110 ${color.toLowerCase() === p.hex ? "border-2 border-[#0b57d0]" : "border-black/10"}`} style={{ background: p.hex }} />
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+      <div className="flex items-center gap-4 py-2 text-[14px]">
+        <span className="w-14">Image</span>
+        <PillBtn kind="outlined" onClick={() => g.cmd("g.toast", "Choosing a background image isn't part of this practice.")}>Choose</PillBtn>
+      </div>
     </Modal>
   );
 }

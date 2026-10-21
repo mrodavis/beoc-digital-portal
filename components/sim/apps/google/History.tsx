@@ -9,9 +9,12 @@ import type { GContent } from "./types";
 import { DocPages } from "./Docs";
 import { SheetGrid } from "./Sheets";
 import { renderDeck } from "./Slides";
-import { Avatar, FONT, IconBtn, MenuList, PillBtn, Popup, TEXT_FONT, useG, useWidth, type MenuPos } from "./ui";
+import { Avatar, FONT, IconBtn, MenuList, Modal, PillBtn, Popup, TEXT_FONT, useG, useWidth, type MenuPos } from "./ui";
 
-/** File › Version history › See version history. */
+/**
+ * File › Version history › See version history. Restoring takes two clicks, as in Docs,
+ * Sheets and Slides: Restore this version, then Restore (support.google.com/docs/answer/190843).
+ */
 export function VersionHistory() {
   const g = useG();
   const { doc, ui } = g;
@@ -20,6 +23,7 @@ export function VersionHistory() {
   const [named, setNamed] = useState(false);
   const [menu, setMenu] = useState<{ id: string; pos: MenuPos } | null>(null);
   const [naming, setNaming] = useState<{ id: string; text: string } | null>(null);
+  const [confirm, setConfirm] = useState<string | null>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const pw = useWidth(previewRef, 700);
   const sel = ui.selection.startsWith("ver:") ? ui.selection.slice(4) : "current";
@@ -52,7 +56,7 @@ export function VersionHistory() {
         <IconBtn icon="back" label="Back" onClick={() => g.cmd("g.versions.close")} />
         <span className="text-[18px] text-[#1f1f1f]" style={{ fontFamily: FONT }}>{shown.current ? "Current version" : shown.time}</span>
         <span className="flex-1" />
-        {!shown.current && <PillBtn onClick={() => g.cmd("g.version.restore", shown.id)}>Restore this version</PillBtn>}
+        {!shown.current && <PillBtn onClick={() => setConfirm(shown.id)}>Restore this version</PillBtn>}
       </div>
       <div className="flex min-h-0 flex-1">
         <div ref={previewRef} className="min-w-0 flex-1 overflow-auto" aria-label="Version preview">{preview()}</div>
@@ -110,13 +114,22 @@ export function VersionHistory() {
               setMenu(null);
               const e = entries.find((x) => x.id === menu.id);
               if (i.value === "name") setNaming({ id: menu.id, text: e?.name ?? "" });
-              else if (i.value === "restore") g.cmd("g.version.restore", menu.id);
+              else if (i.value === "restore") setConfirm(menu.id);
               else g.dialog("g.makeCopy");
             }}
             onClose={() => setMenu(null)}
           />
         </Popup>
       )}
+      {confirm && (() => {
+        const v = entries.find((x) => x.id === confirm);
+        const kind = f.kind === "sheet" ? "spreadsheet" : f.kind === "slides" ? "presentation" : "document";
+        return (
+          <Modal title="Restore this version?" onClose={() => setConfirm(null)} width={460} footer={<><PillBtn kind="text" onClick={() => setConfirm(null)}>Cancel</PillBtn><PillBtn onClick={() => { const id = confirm; setConfirm(null); g.cmd("g.version.restore", id); }}>Restore</PillBtn></>}>
+            <p className="pb-2 text-[14px] leading-5 text-[#444746]">Your current {kind} will go back to the version from {v?.name ? `${v.name} (${v.time})` : v?.time}.</p>
+          </Modal>
+        );
+      })()}
     </div>
   );
 }

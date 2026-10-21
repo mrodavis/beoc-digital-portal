@@ -300,8 +300,8 @@ export const gwModule5Lessons: Lesson[] = [
             items: [
               "Select the slide in the filmstrip.",
               "Select Slide › Change background (or Background on the toolbar).",
-              "Next to Color, pick a color. Or next to Image, select Choose to use a picture.",
-              "Select Done to change only this slide, or Add to theme to use that background on every slide in the theme.",
+              "To the right of Color, click the box and pick a color. Or, to the right of Image, select Choose to use a picture.",
+              "Select Done to change only this slide, or select the Add to theme button to use that background for the whole presentation.",
             ],
           },
           {
@@ -385,11 +385,11 @@ export const gwModule5Lessons: Lesson[] = [
             question: "In Change background, you choose a light blue color. What does Done do?",
             options: ["Applies it to every slide", "Applies it to the selected slide only", "Saves the presentation", "Applies it to the speaker notes"],
             correctIndex: 1,
-            explanation: "Done changes the selected slide. Add to theme changes every slide that uses the theme.",
+            explanation: "Done changes the selected slide. The Add to theme button changes the whole presentation.",
             optionRationales: [
               "That's what Add to theme does.",
               "Correct.",
-              "Slides saves automatically; Done just closes the dialog.",
+              "Slides saves automatically; Done applies the color to the selected slide.",
               "Backgrounds apply to slides, not notes.",
             ],
           },
@@ -484,8 +484,8 @@ export const gwModule5Lessons: Lesson[] = [
             ordered: true,
             items: [
               "Select the object on the slide, such as the bulleted text.",
-              "Select Insert › Animation. In the Motion panel, a new animation is added (Appear, On click, by default).",
-              "Choose the animation, such as Fade in.",
+              "Select Insert › Animation (or View › Motion) to open the Motion panel. If no animation is listed for the object under Object Animations, select Add animation. New object animations are set to Appear (On click) by default.",
+              "Choose the animation you want from the drop-down, such as Fade in.",
               "Choose when it starts: On click, After previous, or With previous. For text, check By paragraph to bring in one bullet at a time.",
               "Drag the speed slider if needed, and select Play to preview.",
             ],

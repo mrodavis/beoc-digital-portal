@@ -304,7 +304,7 @@ export const outlookModule5Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Flag Keisha's message \"Copay list for October\" for tomorrow.",
-          hint: "Select the message › Home tab › the arrow next to Flag / Unflag › Tomorrow (or right-click › Flag › Tomorrow).",
+          hint: "Select the message › Home tab › the arrow next to Flag / Unflag, and choose tomorrow (or right-click › Flag).",
           steps: [{ action: { kind: "command", id: "item.followUp", value: "Tomorrow" }, requires: { selection: "msg:m1" }, selectHint: "Select Keisha's message first." }],
         },
         {

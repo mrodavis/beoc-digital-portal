@@ -36,7 +36,7 @@
  *   od.delete         { file }                    (to the Recycle bin)
  *   od.favorite       { file, on: true | false }
  *   od.download       { file }
- *   od.share          { file, people, permission, message }   Invite; people = emails sorted "; "
+ *   od.share          { file, people, permission, message }   Share › Send; people = emails sorted "; "
  *   od.link           { file, scope, permission, people, expiration, hasExpiration, password }   Copy (a link)
  *                     scope: "Anyone" | "Organization" | "Existing" | "People you choose"
  *                     permission: "Can edit" | "Can view" | "Can review" | "Can't download"

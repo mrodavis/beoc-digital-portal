@@ -270,13 +270,15 @@ export const googleDialogs: Record<string, DialogDef> = {
   },
 
   /* ---------- Slides ---------- */
+  // Drawn by BackgroundDialog in GoogleCanvas.tsx: Done (this slide) or the Add to theme
+  // button (whole presentation), which commits addToTheme: true. Not a checkbox in Slides.
   "g.background": {
     id: "g.background",
     title: "Background",
     okLabel: "Done",
     fields: [
       { type: "color", key: "color", label: "Color", options: [] },
-      { type: "checkbox", key: "addToTheme", label: "Add to theme", default: false },
+      { type: "checkbox", key: "addToTheme", label: "Add to theme (button)", default: false },
     ],
   },
   "g.slideSize": {

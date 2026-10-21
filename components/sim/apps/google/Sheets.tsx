@@ -559,8 +559,13 @@ export function SheetsSurface({ composer, setComposer, noteFor, setNoteFor }: { 
   const book = asBook(f);
   const sheet = sheetOf(book, ui);
   // A version or comment selection ("ver:current", "comment:c1") is not a range: reading "ver:current" as columns VER:CURRENT froze the page.
-  const sel = ui.selection && !/^(ver|comment):/.test(ui.selection) ? ui.selection : "A1";
-  const act = activeCell(ui);
+  // A comment selection (after Reply, or a card in the Comments panel) keeps its cell selected, so the
+  // comment stays open on that cell after you reply, as in Sheets.
+  const cmId = /^comment:(.+)$/.exec(ui.selection ?? "")?.[1];
+  const cmCell = cmId ? (f.comments ?? []).find((x) => x.id === cmId)?.anchor : undefined;
+  const cmRef = cmCell && /^[A-Z]{1,3}\d+$/i.test(cmCell) ? cmCell.toUpperCase() : undefined;
+  const sel = cmRef ?? (ui.selection && !/^(ver|comment):/.test(ui.selection) ? ui.selection : "A1");
+  const act = cmRef ?? activeCell(ui);
   const [edit, setEditState] = useState<{ ref: string; text: string; bar?: boolean } | null>(null);
   const editRef = useRef(edit);
   const setEdit = (e: { ref: string; text: string; bar?: boolean } | null) => { editRef.current = e; setEditState(e); };
@@ -1012,7 +1017,8 @@ function useRangeOf() {
   const f = openFile(g.doc)!;
   const book = asBook(f);
   const sheet = sheetOf(book, g.ui);
-  const rc = g.ui.selection.includes(":") ? selRect(sheet, g.ui.selection) : regionOf(sheet, g.ui);
+  const isRange = g.ui.selection.includes(":") && !/^(ver|comment|chart):/.test(g.ui.selection);
+  const rc = isRange ? selRect(sheet, g.ui.selection) : regionOf(sheet, g.ui);
   return rc ? rectToRange(rc) : activeCell(g.ui);
 }
 
@@ -1076,7 +1082,7 @@ function CfPanel({ sheet }: { sheet: ExcelSheet }) {
 
 function ValidationPanel({ book, sheet }: { book: ExcelBook; sheet: ExcelSheet }) {
   const g = useG();
-  const sel = g.ui.selection.includes(":") ? g.ui.selection : activeCell(g.ui);
+  const sel = g.ui.selection.includes(":") && !/^(ver|comment|chart):/.test(g.ui.selection) ? g.ui.selection : activeCell(g.ui);
   const rules = Object.entries(sheet.validation ?? {});
   const [adding, setAdding] = useState(rules.length === 0);
   const [v, setV] = useState({ range: sel, criteria: "Dropdown", items: ["", ""], min: "", max: "", invalid: "Reject the input", style: "Chip", advanced: false });

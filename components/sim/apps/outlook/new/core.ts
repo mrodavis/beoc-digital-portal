@@ -115,12 +115,14 @@ const dialogs: Record<string, DialogDef> = {
     ],
   },
   insertPicture: { id: "insertPicture", title: "Insert pictures", fields: [{ type: "text", key: "file", label: "Picture" }] },
+  // Opened from the Accessibility Checker: Fix this next to "Missing alternative text" opens the
+  // Add alternative text dialog (Microsoft Support, "Improve accessibility with the Accessibility Checker").
   altText: {
     id: "altText",
-    title: "Alt text",
+    title: "Add alternative text",
     fields: [
       { type: "text", key: "name", label: "Picture" },
-      { type: "text", key: "text", label: "How would you describe this picture to someone who is blind?" },
+      { type: "text", key: "text", label: "Alternative text" },
     ],
   },
   "event.save": outlookDialogs["event.save"],
@@ -141,7 +143,7 @@ const FREE = [
   "insert.link", "insert.table", "insert.emoji", "format.bold", "format.italic", "format.underline", "format.fontName", "format.fontSize", "format.fontColor",
   "format.highlight", "format.bullets", "format.numbering", "format.alignLeft", "format.alignCenter", "format.alignRight", "format.clear", "copilot.summarize",
   "copilot.open", "help.help", "help.support", "help.feedback", "help.whatsNew", "ribbon.layout", "toggle.newOutlook", "app.launch", "mail.markUnread", "mail.markRead",
-  "mail.autoRead", "qat.undo", "toast.close", "event.recurrence", "form.categorize", "settings.calendar",
+  "mail.autoRead", "qat.undo", "toast.close", "event.recurrence", "form.categorize", "settings.calendar", "copilot.draft",
 ];
 
 /** Commands the canvas, its menus and Settings emit (any value). */
@@ -158,6 +160,7 @@ const CANVAS = [
   "rules.toggle", "rules.delete", "junk.blockAddress", "junk.safeAddress", "junk.remove", "share.accept", "todo.list", "todo.important", "todo.myDay", "todo.due",
   "copilot.summarize", "copilot.open", "pane.close", "view.myDay", "toggle.newOutlook", "app.launch", "toast.close", "mail.ignore", "event.saveClose", "contact.saveClose",
   "group.saveClose", "event.recurrence", "review.accessibility", "people.addToList", "people.addSender", "mail.recall", "people.newContact", "people.newGroup", "cal.newTeamsMeeting", "qat.undo",
+  "copilot.draft",
 ];
 
 function initialUi(doc: OutlookDoc): SimUi {

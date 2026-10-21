@@ -45,7 +45,7 @@ export const outlookModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Create an event named "Flu clinic setup" on Saturday, October 24 from 7:00 AM to 8:00 AM in the "Front lobby", with a reminder 1 day before.',
-          hint: "Home tab › New event. Type the title, set the date to 10/24/2026 and the times, type the location, then Event tab › Reminder › 1 day before, and select Save.",
+          hint: "Home tab › New event. Type the title, set the date to 10/24/2026 and the times, type the location, then open Reminder on the Event tab and choose one day before, and select Save.",
           steps: [
             NEW_EVENT,
             { action: { kind: "dialog", id: "event.save", values: { title: "Flu clinic setup", location: "Front lobby", startDate: "10/24/2026", startTime: "7:00 AM", endTime: "8:00 AM", reminder: "1 day" } } },
@@ -53,7 +53,7 @@ export const outlookModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Dr. Hill is out on Friday, October 23. Add an all-day event named "Dr. Hill out of office" that shows as Out of office.',
-          hint: "New event › title › date 10/23/2026 › turn on All day › Event tab › Show as › Out of office › Save.",
+          hint: "New event › title › date 10/23/2026 › turn on All day › Event tab › Show as (the Busy button) › Out of office › Save.",
           steps: [
             NEW_EVENT,
             { action: { kind: "dialog", id: "event.save", values: { title: "Dr. Hill out of office", startDate: "10/23/2026", allDay: true, showAs: "Out of Office" } } },
@@ -91,7 +91,7 @@ export const outlookModule4Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: 'Create an event named "Insurance verification calls" on Monday, October 26 from 9:00 AM to 10:00 AM in the "Front desk" with a reminder 15 minutes before.',
-          hint: "Home tab › New event › title, date, times, location › Event tab › Reminder › 15 minutes before › Save.",
+          hint: "Home tab › New event › title, date, times, location › Event tab › Reminder, choose 15 minutes before › Save.",
           steps: [
             NEW_EVENT,
             { action: { kind: "dialog", id: "event.save", values: { title: "Insurance verification calls", location: "Front desk", startDate: "10/26/2026", startTime: "9:00 AM", endTime: "10:00 AM", reminder: "15 minutes" } } },
@@ -99,7 +99,7 @@ export const outlookModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Add an all-day event named "Office closed: staff training" on Friday, October 30 that shows as Out of office.',
-          hint: "New event › title › date 10/30/2026 › All day on › Show as › Out of office › Save.",
+          hint: "New event › title › date 10/30/2026 › All day on › Show as (the Busy button) › Out of office › Save.",
           steps: [
             NEW_EVENT,
             { action: { kind: "dialog", id: "event.save", values: { title: "Office closed: staff training", startDate: "10/30/2026", allDay: true, showAs: "Out of Office" } } },
@@ -170,18 +170,18 @@ export const outlookModule4Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: 'Accept Denise\'s invitation "Quarterly safety training".',
-          hint: "Select the invitation, then select Accept in the reading pane and choose Send the response now.",
+          hint: "Select the invitation, then select Accept in the reading pane.",
           steps: [{ action: { kind: "command", id: "invite.respond", value: ACCEPT }, requires: { selection: "msg:m1" }, selectHint: 'Select the invitation "Quarterly safety training" first.' }],
         },
         {
           instruction: "You may not be able to leave the front desk for BrightPath's vendor lunch. Respond Tentative.",
-          hint: "Select the invitation, then select Tentative and choose Send the response now.",
+          hint: "Select the invitation, then select Tentative in the reading pane.",
           steps: [{ action: { kind: "command", id: "invite.respond", value: TENTATIVE }, requires: { selection: "msg:m2" }, selectHint: 'Select "Vendor lunch: BrightPath supply demo" first.' }],
         },
         {
           instruction:
             'Keisha\'s "Billing review" on Wednesday at 11:00 AM is during your front desk coverage. Propose a new time of 2:00 PM to 2:30 PM the same day, and send the proposal.',
-          hint: "Select the invitation › Propose new time › I might attend. Set 2:00 PM to 2:30 PM, select Propose Time, then select Send.",
+          hint: "Select the invitation › Propose new time › I might attend. Set 2:00 PM to 2:30 PM, select Done, then select Send.",
           steps: [
             { action: { kind: "dialog", id: "proposeTime", values: { start: "2:00 PM", end: "2:30 PM" } }, requires: { selection: "msg:m3" }, selectHint: 'Select Keisha\'s invitation "Billing review" first.' },
             { action: { kind: "command", id: "compose.send" } },
@@ -234,17 +234,17 @@ export const outlookModule4Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: 'Accept Dr. Patel\'s invitation "Flu clinic volunteer briefing".',
-          hint: "Select the invitation › Accept › Send the response now.",
+          hint: "Select the invitation › Accept.",
           steps: [{ action: { kind: "command", id: "invite.respond", value: ACCEPT }, requires: { selection: "msg:m1" }, selectHint: 'Select "Flu clinic volunteer briefing" first.' }],
         },
         {
           instruction: 'Respond Tentative to Dr. Hill\'s "Lunch talk: new referral portal".',
-          hint: "Select the invitation › Tentative › Send the response now.",
+          hint: "Select the invitation › Tentative.",
           steps: [{ action: { kind: "command", id: "invite.respond", value: TENTATIVE }, requires: { selection: "msg:m2" }, selectHint: 'Select "Lunch talk: new referral portal" first.' }],
         },
         {
           instruction: 'Denise\'s "Front desk scripts review" is during your front desk coverage. Propose 1:00 PM to 1:30 PM the same day instead and send it.',
-          hint: "Select the invitation › Propose new time › I might attend › 1:00 PM to 1:30 PM › Propose Time › Send.",
+          hint: "Select the invitation › Propose new time › I might attend › 1:00 PM to 1:30 PM › Done › Send.",
           steps: [
             { action: { kind: "dialog", id: "proposeTime", values: { start: "1:00 PM", end: "1:30 PM" } }, requires: { selection: "msg:m3" }, selectHint: 'Select "Front desk scripts review" first.' },
             { action: { kind: "command", id: "compose.send" } },
@@ -278,7 +278,7 @@ export const outlookModule4Sims: Record<string, SimDefinition[]> = {
         {
           instruction:
             'Create a meeting named "Front desk huddle" with Omar and Priya on Monday, October 26 from 8:30 AM to 8:45 AM that repeats every week on Monday and is a Teams meeting, then send it.',
-          hint: "Home tab › New event. Invite Omar Haddad and Priya Nair, type the title, set 10/26/2026 8:30 AM to 8:45 AM, select Recurring and choose Weekly on Monday, select Save, turn on Teams meeting, and select Send.",
+          hint: "Home tab › New event. Invite Omar Haddad and Priya Nair, type the title, set 10/26/2026 8:30 AM to 8:45 AM, open the repeat options (Recurring) and choose weekly on Monday, save the repeat settings, turn on Teams meeting, and select Send.",
           steps: [
             NEW_EVENT,
             { action: { kind: "type", target: "event.required", value: recipients(OMAR.email, PRIYA.email) } },
@@ -330,7 +330,7 @@ export const outlookModule4Sims: Record<string, SimDefinition[]> = {
         {
           instruction:
             'Create a meeting named "Billing and front desk sync" with Keisha on Thursday, October 29 from 4:00 PM to 4:15 PM that repeats weekly on Thursday as a Teams meeting, and send it.',
-          hint: "New event › Invite attendees: Keisha Grant › title › 10/29/2026 4:00 PM to 4:15 PM › Recurring › Weekly on Thursday › Save › Teams meeting on › Send.",
+          hint: "New event › Invite attendees: Keisha Grant › title › 10/29/2026 4:00 PM to 4:15 PM › repeat options (Recurring): weekly on Thursday › save › Teams meeting on › Send.",
           steps: [
             NEW_EVENT,
             { action: { kind: "type", target: "event.required", value: recipients(KEISHA.email) } },

@@ -248,9 +248,9 @@ export const outlookModule3Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Flag: select the message and choose Flag / Unflag on the Home tab, or point to it and select the flag. Use the arrow next to Flag / Unflag to pick Today, Tomorrow, This week, Next week or No date.",
+              "Flag: select the message and choose Flag / Unflag on the Home tab, or point to it and select the flag. Use the arrow next to Flag / Unflag to choose when you want to follow up, such as today or tomorrow.",
               "Flagged messages appear in the Flagged email list in To Do, so your follow-ups sit next to your tasks (Module 5).",
-              "When you are done, choose Mark complete. Clear flag removes the flag without completing it.",
+              "When you are done, mark the flag complete. Clearing a flag removes it without completing it.",
               "Pin: Home tab › Pin / Unpin, or the pin that appears when you point to a message. Pinned messages stay at the top of the folder.",
               "Snooze: Home tab › Snooze, then choose when the message should come back. It disappears from the list and reappears at that time.",
             ],
@@ -395,7 +395,7 @@ export const outlookModule3Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Sweep clears out messages from one sender in a few clicks. Select a message from the sender, then select Sweep on the Home tab and choose what to do: move all messages from that sender, move them and any future ones, always keep only the latest message, or always move messages older than 10 days. Choose where they go, such as Deleted Items or Archive, and select Sweep.",
+            text: "Sweep clears out messages from one sender in a few clicks. Select a message from the sender, then select Sweep on the Home tab and choose how to handle that sender's mail: clear out all of it (and, if you like, everything they send from now on), keep only the latest message, or clear out messages older than 10 days. Then select Sweep.",
           },
           {
             type: "list",
@@ -436,11 +436,11 @@ export const outlookModule3Lessons: Lesson[] = [
           {
             type: "knowledge-check",
             question: "A vendor sends a promotion every day and only the newest one matters. Which Sweep choice fits?",
-            options: ["Move all messages from the Inbox folder", "Always keep the latest message and move the rest", "Always move messages older than 10 days", "Block the sender"],
+            options: ["Clear out all of the sender's messages", "Keep only the latest message", "Clear out messages older than 10 days", "Block the sender"],
             correctIndex: 1,
             explanation: "Keeping only the latest message clears the old ones and keeps doing it.",
             optionRationales: [
-              "That moves every message, including the newest.",
+              "That clears every message, including the newest.",
               "Correct.",
               "That would leave up to ten days of promotions.",
               "Blocking sends all of them to Junk Email, including any you want.",

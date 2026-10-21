@@ -148,7 +148,7 @@ export const outlookModule3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Flag "Prior authorization needed: imaging" for follow-up tomorrow.',
-          hint: "Select the message, then Home tab › arrow next to Flag / Unflag › Tomorrow (or right-click › Flag › Tomorrow).",
+          hint: "Select the message, then Home tab › the arrow next to Flag / Unflag, and choose tomorrow (or right-click › Flag).",
           steps: [{ action: { kind: "command", id: "item.followUp", value: "Tomorrow" }, requires: { selection: "msg:m2" }, selectHint: "Select the Metro Health Plan message first." }],
         },
         {
@@ -163,7 +163,7 @@ export const outlookModule3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'You followed up on "Room 2 thermometer replaced". Mark its flag complete.',
-          hint: "Select the message, then Home tab › arrow next to Flag / Unflag › Mark complete (or right-click › Flag › Mark complete).",
+          hint: "Select the message, then Home tab › the arrow next to Flag / Unflag, and mark the flag complete (or right-click › Flag).",
           steps: [{ action: { kind: "command", id: "item.followUp", value: "Mark Complete" }, requires: { selection: "msg:m5" }, selectHint: "Select Luis Ortega's message first." }],
         },
       ],
@@ -224,7 +224,7 @@ export const outlookModule3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "BrightPath sends a promotion every day. Use Sweep to keep only their latest message and move the rest to Deleted Items.",
-          hint: "Close Settings. Select a BrightPath message, then Home tab › Sweep. Choose Always keep the latest message and move the rest, keep Deleted Items, and select Sweep.",
+          hint: "Close Settings. Select a BrightPath message, then Home tab › Sweep. Choose the option that keeps only the latest message, leave the rest going to Deleted Items, and select Sweep.",
           steps: [
             {
               action: { kind: "dialog", id: "sweep", values: { option: "Always keep the latest message and move the rest", folder: "Deleted Items" } },
