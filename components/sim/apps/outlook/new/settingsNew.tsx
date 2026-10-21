@@ -211,8 +211,8 @@ function RulesPage({ ctx }: { ctx: NCtx }) {
       {(doc.rules ?? []).map((r) => (
         <div key={r.id} className="mb-1.5 flex items-center gap-2 rounded-[4px] border border-gray-200 px-3 py-2 text-[13px]">
           <Switch on={!r.off} c="rules.toggle" label="" onChange={() => ctx.cmd("rules.toggle", r.name)} />
-          <span className="min-w-0 flex-1 truncate font-semibold">{r.name}</span>
-          <span className="truncate text-[12px] text-gray-500">
+          <span className="max-w-[40%] shrink-0 truncate font-semibold">{r.name}</span>
+          <span className="min-w-0 flex-1 truncate text-[12px] text-gray-500">
             {r.from ? `From ${r.from}` : r.subject ? `Subject includes "${r.subject}"` : r.sentToMe ? "Sent to me" : ""}
             {r.moveTo ? ` → move to ${r.moveTo}` : r.category ? ` → ${catLabel(doc, r.category)}` : r.markRead ? " → mark as read" : r.pin ? " → pin" : r.deleteIt ? " → delete" : ""}
           </span>
@@ -309,7 +309,7 @@ function JunkPage({ ctx }: { ctx: NCtx }) {
       <Sub>Blocked senders and domains</Sub>
       <P>Messages from these senders or domains go straight to your Junk Email folder.</P>
       <div className="mb-2 flex gap-2">
-        <input aria-label="Blocked sender or domain" data-f="blockAddr" placeholder="Example: abc123@fourthcoffee.com or fourthcoffee.com" value={b} onChange={(e) => setB(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className={inputCls} />
+        <input aria-label="Blocked sender or domain" data-f="blockAddr" placeholder="Example: name@example.com or example.com" value={b} onChange={(e) => setB(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className={inputCls} />
         <FButton cmd="junk.blockAddress" onClick={() => { if (b.trim()) ctx.cmd("junk.blockAddress", b.trim()); setB(""); }}>Add</FButton>
       </div>
       {list(doc.blocked ?? [], "blocked senders")}
