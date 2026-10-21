@@ -88,9 +88,14 @@
  *                       "Secondary time zone: …"
  *   meetcode            the code typed on meet.google.com ("Enter a code or nickname")
  *   meetchat            a message sent in the meeting's chat
- *   chat:<spaceId>      a message posted in Google Chat
+ *   chat:<spaceId>      a message posted in Google Chat. Plain text, or lines:
+ *                       Message: <text> / Add member: <email> (a mention of someone outside
+ *                       the space, answered "Add member and send") / File: <Drive file name> /
+ *                       File access: Viewer|Commenter|Editor (access given to members who lacked it)
+ *   newdm               People: <email>; <email>   (New chat › Start chat; two or more people is a group DM)
  *   newspace            Space name: …
  *   addpeople:<spaceId> People: <email>; <email>
+ * Chat commands: chat.open (space id, free), chat.react ("<spaceId>:<message index>|<emoji>", judged).
  */
 import type { SimValue } from "@/types/sim";
 
@@ -297,8 +302,18 @@ export type GmSpace = {
   /** "space" or a direct message ("dm"). */
   kind: "space" | "dm";
   members: string[];
-  messages: { from: string; text: string; time: string }[];
+  messages: GmChatMessage[];
   unread?: boolean;
+};
+
+export type GmChatMessage = {
+  from: string;
+  text: string;
+  time: string;
+  /** Emoji reactions, with who added each ("me" or an email). */
+  reactions?: { emoji: string; by: string[] }[];
+  /** Drive files shared in the message, by name. */
+  files?: string[];
 };
 
 /* ---------------- The session ---------------- */
