@@ -82,6 +82,12 @@ export const gwModule4Lessons: Lesson[] = [
             text: "A number format changes how a number looks, not the number. 1450 formatted as currency shows $1,450.00, and formulas still use 1450.",
           },
           {
+            type: "image",
+            src: `${IMG}/sheets-basics-and-formatting/sheets-and-excel.png`,
+            alt: "Quick reference: where formatting, calculating, organizing, and sharing tools are in Google Sheets, for people who know Excel, with common shortcuts",
+            caption: "Google Sheets for Excel users. You will use every tool on this sheet in this module.",
+          },
+          {
             type: "drag-drop",
             mode: "match",
             title: "Pick the format",

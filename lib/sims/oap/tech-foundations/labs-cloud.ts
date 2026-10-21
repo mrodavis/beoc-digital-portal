@@ -407,7 +407,7 @@ export const labsCloudSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "In File Explorer › OneDrive, remove the Anyone link from “Staff Phone List.xlsx”.",
-          hint: "Open File Explorer, select OneDrive - Lakeside Medical Associates, right-click Staff Phone List.xlsx › Manage access, then select Remove link.",
+          hint: "Open File Explorer, select OneDrive - Lakeside Medical Associates, right-click Staff Phone List (File Explorer hides the .xlsx extension) › Manage access, then select Remove link.",
           steps: [{ action: { kind: "command", id: "share.remove", value: "link" }, requires: { selection: "file:OneDrive/Staff Phone List.xlsx" }, selectHint: "Open Manage access for Staff Phone List.xlsx." }],
         },
         {

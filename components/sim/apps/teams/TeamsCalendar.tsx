@@ -98,7 +98,7 @@ export function CalendarView() {
             ))}
           </div>
           {days.map((d) => {
-            const evs = (doc.events ?? []).filter((e) => e.day === d && e.response !== "Declined");
+            const evs = (doc.events ?? []).filter((e) => e.day === d && e.response !== "Declined" && !e.notInvited);
             return (
               <div key={d} className="relative flex-1 border-l border-[#e0e0e0]">
                 {Array.from({ length: END_H - START_H }, (_, i) => (

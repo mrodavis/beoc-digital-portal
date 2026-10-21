@@ -195,6 +195,8 @@ export type TeamsEvent = {
   /** For Join with an ID. */
   meetingId?: string;
   passcode?: string;
+  /** Not on your calendar (a meeting you join only by link or meeting ID). */
+  notInvited?: boolean;
   /** People who join as attendees (everyone else invited joins as a presenter). */
   attendeesRole?: string[];
 };

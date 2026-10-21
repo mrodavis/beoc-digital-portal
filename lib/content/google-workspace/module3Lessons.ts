@@ -458,7 +458,7 @@ export const gwModule3Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Building blocks are ready-made pieces: Insert › Building blocks, or type @ and choose one. Meeting notes inserts a heading with the date and sections for attendees, notes, and action items; Email draft inserts To, Cc, Bcc, and Subject fields for a message you write together and send from Gmail.",
+            text: "Building blocks are ready-made pieces: Insert › Building blocks, or type @ and choose one. Meeting notes adds notes filled in with the details of a Google Calendar event you pick. Email draft adds an email with a To field, a subject, and a body that you can write together; when it is ready, click Preview in Gmail at the top left of the draft to open it in Gmail and send it.",
           },
           {
             type: "drag-drop",

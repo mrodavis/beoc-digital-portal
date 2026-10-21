@@ -934,7 +934,7 @@ function insertBlock(w: WordDoc, name: string, after: string | undefined): { doc
     add({ style: "Heading 3", text: "Action items" });
     add({ list: "bullet", bulletChar: "☐", text: "" });
   } else {
-    add({ kind: "table", table: { rows: [["To", ""], ["Cc", ""], ["Bcc", ""], ["Subject", ""]], widths: [20, 80] } });
+    add({ kind: "table", table: { rows: [["To", ""], ["Subject", ""]], widths: [20, 80] } });
     add({ text: "" });
   }
   w.paragraphs.splice(at, 0, ...made);
