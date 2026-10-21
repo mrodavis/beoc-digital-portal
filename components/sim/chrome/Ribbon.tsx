@@ -358,7 +358,7 @@ function ControlView({
   }`;
 
   return (
-    <div className="relative flex">
+    <div className={`relative flex ${large && split ? "flex-col" : ""}`}>
       <button
         type="button"
         ref={btnRef as React.RefObject<HTMLButtonElement>}
@@ -369,12 +369,12 @@ function ControlView({
         onClick={onFace}
         className={
           large
-            ? `${base} h-[66px] min-w-[44px] max-w-[96px] flex-col justify-start gap-0.5 px-1 pt-1 text-center ${split ? "rounded-b-none" : ""}`
+            ? `${base} ${split ? "h-[38px] justify-center rounded-b-none" : "h-[66px] justify-start pt-1"} min-w-[44px] max-w-[96px] flex-col gap-0.5 px-1 text-center`
             : `${base} h-[22px] gap-1 px-1`
         }
       >
         <Icon name={"icon" in c ? c.icon : undefined} size={large ? 30 : 16} />
-        {showLabel && (
+        {showLabel && !(large && split) && (
           <span className={large ? "flex items-start gap-0.5 whitespace-normal text-[11px]" : "whitespace-nowrap"}>
             <span className={large ? "line-clamp-2" : undefined}>{c.label}</span>
             {isDropdown && !split && large && <span className="mt-1"><Caret /></span>}
@@ -389,10 +389,12 @@ function ControlView({
           title={`${c.label} options`}
           onClick={(e) => openMenu(large ? e.currentTarget.parentElement : e.currentTarget)}
           className={`flex items-center justify-center rounded-sm border border-transparent hover:border-[#cce4f7] hover:bg-[#e5f1fb] ${
-            large ? "absolute bottom-[-12px] left-0 right-0 h-3" : "h-[22px] w-3"
+            large ? "h-[28px] w-full max-w-[96px] items-start gap-0.5 rounded-t-none text-center text-[11px] leading-tight text-gray-800" : "h-[22px] w-3"
           }`}
         >
-          <Caret />
+          {/* Office's large split button: the icon runs the command; the label and arrow below open the menu. */}
+          {large && <span className="line-clamp-2">{c.label}</span>}
+          <span className={large ? "mt-1" : undefined}><Caret /></span>
         </button>
       )}
       {menu && isDropdown && (
