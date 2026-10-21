@@ -237,7 +237,7 @@ export function DocPages(props: PageProps) {
           {entries.length === 0 && <div className="text-[#5f6368]">Add headings (Format › Paragraph styles) and they will appear in your table of contents.</div>}
           {entries.map((h, k) => (
             <div key={k} className="flex items-end gap-1" style={{ paddingLeft: Math.max(0, h.level - 1) * 0.25 * PX * z, marginBottom: 2 * z }}>
-              <span style={{ color: style === "With blue links" ? "#1155cc" : undefined, textDecoration: style === "With blue links" ? "underline" : undefined }}>{h.text}</span>
+              <span style={{ color: style === "Links" || style === "With blue links" ? "#1155cc" : undefined, textDecoration: style === "Links" || style === "With blue links" ? "underline" : undefined }}>{h.text}</span>
               {style === "Dotted" && (
                 <>
                   <span className="mb-1 flex-1 border-b border-dotted border-black" />

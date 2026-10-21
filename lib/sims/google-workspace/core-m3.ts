@@ -160,9 +160,9 @@ export const gwModule3Sims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "g.view", value: "outline" } }],
         },
         {
-          instruction: "In the empty line under the title, insert a table of contents with blue links.",
-          hint: "Click the empty line under the title. Then Insert › Page elements › Table of contents › With blue links.",
-          steps: [{ action: { kind: "command", id: "references.toc", value: "With blue links" }, requires: { selection: "p2" }, selectHint: "Click the empty line under the title first." }],
+          instruction: "In the empty line under the title, insert a table of contents whose entries are links to the headings.",
+          hint: "Click the empty line under the title. Then Insert › Page elements › Table of contents, and choose the style with links (Links).",
+          steps: [{ action: { kind: "command", id: "references.toc", value: "Links" }, requires: { selection: "p2" }, selectHint: "Click the empty line under the title first." }],
         },
         {
           instruction: "Add page numbers at the bottom right of every page.",
@@ -244,7 +244,7 @@ export const gwModule3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Below the last line, insert the Meeting notes building block for Friday's maintenance meeting.",
-          hint: "With the last line still selected, choose Insert › Building blocks › Meeting notes. (Typing @ on an empty line and picking Meeting notes works too.)",
+          hint: "With the last line still selected, choose Insert › Building blocks and pick Meeting notes (in Google Docs it may be under View more). Typing @ on an empty line and picking Meeting notes works too.",
           steps: [{ action: { kind: "command", id: "g.block", value: "Meeting notes" } }],
         },
       ],

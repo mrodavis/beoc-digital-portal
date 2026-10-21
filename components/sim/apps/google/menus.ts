@@ -56,7 +56,8 @@ export const DOWNLOAD_DOCS = ["Microsoft Word (.docx)", "OpenDocument Format (.o
 export const DOWNLOAD_SHEETS = ["Microsoft Excel (.xlsx)", "OpenDocument (.ods)", "PDF (.pdf)", "Web page (.html)", "Comma Separated Values (.csv)", "Tab Separated Values (.tsv)"];
 export const DOWNLOAD_SLIDES = ["Microsoft PowerPoint (.pptx)", "ODP Document (.odp)", "PDF Document (.pdf)", "Plain Text (.txt)", "JPEG image (.jpg, current slide)", "PNG image (.png, current slide)"];
 export const PAGE_NUMBERS = ["Top right, all pages", "Bottom right, all pages", "Top right, skip first page", "Bottom right, skip first page"];
-export const TOC_STYLES = ["Plain text", "Dotted", "With blue links"];
+// Quick layouts named in the Workspace Updates blog (Mar 2023, "Improvements to content organization in Google Docs").
+export const TOC_STYLES = ["Plain text", "Dotted", "Links"];
 /** Insert › Image sources in Docs and Slides. */
 export const IMAGE_SOURCES = ["Upload from computer", "Stock & web", "Drive & Photos", "Camera", "By URL"];
 /** Building blocks offered in Insert › Building blocks and the @ menu. */
