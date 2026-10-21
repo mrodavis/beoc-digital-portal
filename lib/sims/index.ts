@@ -6,6 +6,7 @@ import { accessSims } from "./access";
 import { outlookCourseSims } from "./outlook";
 import { teamsCourseSims } from "./teams";
 import { onedriveCourseSims } from "./onedrive";
+import { googleWorkspaceSims } from "./google-workspace";
 import { ehrSims } from "./ehr";
 import { sims as techFoundationsSims } from "./oap/tech-foundations";
 import { sims as officeAppsSims } from "./oap/office-apps";
@@ -29,6 +30,7 @@ export const REGISTRY: Record<string, Record<string, SimDefinition[]>> = {
   "oap/modern-office": modernOfficeSims,
   "oap/intro-database": introDatabaseSims,
   "ehr/intro-to-ehr": ehrSims,
+  "google-workspace": googleWorkspaceSims,
 };
 
 export function simsFor(courseId: string, lessonId: string): SimDefinition[] {
