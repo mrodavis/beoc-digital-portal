@@ -55,7 +55,7 @@ export const gwMailM5: Record<string, SimDefinition[]> = {
         { instruction: "On the new slide, type the title “Your First Week”.", hint: "Click Click to add title on slide 2, type, then click outside the box.", steps: [{ action: { kind: "type", target: "s2.title", value: "Your First Week" } }] },
         {
           instruction: "Change slide 2's layout to Title and two columns.",
-          hint: "With slide 2 selected, select Layout on the toolbar (or Slide › Apply layout) and choose Title and two columns.",
+          hint: "Click slide 2 in the filmstrip (so no text box is selected), then select Layout on the toolbar (or Slide › Apply layout) and choose Title and two columns.",
           steps: [{ action: { kind: "command", id: "slides.layout", value: "Title and two columns" }, requires: { slide: "s2" }, selectHint: "Click slide 2 in the filmstrip first." }],
         },
       ],

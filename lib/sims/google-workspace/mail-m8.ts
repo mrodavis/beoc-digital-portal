@@ -146,7 +146,7 @@ export const gwMailM8: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Resolve Priya's comment.",
-          hint: "On the comment, select the check mark (Mark as done and hide discussion).",
+          hint: "If the comment closed, click cell D3 again to open it. Then select the check mark at the top of the comment (Mark as done and hide discussion).",
           steps: [cmd("g.comment.resolve", "c1")],
         },
         {
