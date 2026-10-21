@@ -256,6 +256,7 @@ export function MenuList({ entries, pos, onPick, state, resolve, onClose, width 
       onKeyDown={(e) => { if (e.key === "Escape") { e.stopPropagation(); onClose?.(); } }}
     >
       {entries.map((e, i) => {
+        if (!e) return null;
         if ("sep" in e) return <div key={i} className="my-1.5 border-t border-[#e0e0e0]" />;
         if ("head" in e) return <div key={i} className="px-4 pb-1 pt-2 text-[12px] font-medium text-[#5f6368]">{e.head}</div>;
         const checked = e.check ? Boolean(state?.[e.check]) : false;
@@ -292,7 +293,7 @@ export function MenuList({ entries, pos, onPick, state, resolve, onClose, width 
           </button>
         );
       })}
-      {sub && isItem(entries[sub.i]) && (entries[sub.i] as GItem).sub && (
+      {sub && entries[sub.i] && isItem(entries[sub.i]) && (entries[sub.i] as GItem).sub && (
         <MenuList entries={(entries[sub.i] as GItem).sub!} pos={sub.pos} onPick={onPick} state={state} resolve={resolve} onClose={onClose} width={240} />
       )}
     </div>
@@ -722,7 +723,7 @@ export function urlFor(doc: GoogleDoc): string {
   if (doc.surface === "home") return `${doc.homeApp === "sheets" ? "docs.google.com/spreadsheets" : doc.homeApp === "slides" ? "docs.google.com/presentation" : "docs.google.com/document"}/u/0/`;
   if (doc.surface === "drive") {
     const loc = doc.drive?.location ?? "root";
-    const seg: Record<string, string> = { root: "my-drive", home: "home", shared: "shared-with-me", recent: "recent", starred: "starred", trash: "trash", storage: "quota", computers: "computers", shareddrives: "shared-drives", spam: "spam" };
+    const seg: Record<string, string> = { root: "my-drive", home: "home", shared: "shared-with-me", recent: "recent", starred: "starred", trash: "trash", storage: "quota", computers: "computers", shareddrives: "shared-drives", spam: "spam", activity: "activity" };
     if (doc.drive?.query) return `drive.google.com/drive/search?q=${encodeURIComponent(doc.drive.query)}`;
     return `drive.google.com/drive/${seg[loc] ?? `folders/${loc}`}`;
   }
@@ -736,7 +737,7 @@ export function BrowserFrame({ children }: { children: React.ReactNode }) {
   const g = useG();
   const { doc } = g;
   const loc = doc.drive?.location ?? "root";
-  const locName = loc === "root" ? "My Drive" : loc === "home" ? "Home" : loc === "shared" ? "Shared with me" : loc === "recent" ? "Recent" : loc === "starred" ? "Starred" : loc === "trash" ? "Trash" : loc === "storage" ? "Storage" : loc === "computers" ? "Computers" : loc === "shareddrives" ? "Shared drives" : loc === "spam" ? "Spam" : fileOf(doc, loc)?.name ?? doc.sharedDrives?.find((d) => d.id === loc)?.name ?? "My Drive";
+  const locName = loc === "root" ? "My Drive" : loc === "home" ? "Home" : loc === "shared" ? "Shared with me" : loc === "recent" ? "Recent" : loc === "starred" ? "Starred" : loc === "trash" ? "Trash" : loc === "storage" ? "Storage" : loc === "computers" ? "Computers" : loc === "shareddrives" ? "Shared drives" : loc === "spam" ? "Spam" : loc === "activity" ? "Activity" : fileOf(doc, loc)?.name ?? doc.sharedDrives?.find((d) => d.id === loc)?.name ?? "My Drive";
   const firstTab =
     doc.surface === "signin"
       ? { icon: <GIcon name="person" size={14} color="#5f6368" />, title: "Sign in - Google Accounts" }

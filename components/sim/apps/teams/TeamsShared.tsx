@@ -389,6 +389,7 @@ export function Composer({
   mentionExtra,
   onCancel,
   post,
+  prefix,
 }: {
   target: string;
   placeholder: string;
@@ -399,6 +400,8 @@ export function Composer({
   onCancel?: () => void;
   /** A new channel post (posts layout): shows Add a subject and the Post type (Post | Announcement). */
   post?: boolean;
+  /** Text committed in front of the message (the New message pane's Group name line). */
+  prefix?: string;
 }) {
   const { doc, act, cmd, openMenu } = useTeams();
   const [text, setText] = useState("");
@@ -461,6 +464,12 @@ export function Composer({
     if (!el) return;
     const s = el.selectionStart;
     const e = el.selectionEnd;
+    // Pressing Bold/Italic again right before the closing marker turns it off (moves past it), like Teams.
+    if (s === e && text.slice(s, s + mark.length) === mark && (mark !== "*" || text.slice(s, s + 2) !== "**")) {
+      el.setSelectionRange(s + mark.length, s + mark.length);
+      setCaret(s + mark.length);
+      return;
+    }
     const sel = text.slice(s, e) || "text";
     const next = text.slice(0, s) + mark + sel + mark + text.slice(e);
     pendingSel.current = [s + mark.length, s + mark.length + sel.length];
@@ -491,6 +500,7 @@ export function Composer({
     if (!v.trim() && !attachments.length && !loopKind) return;
     if (post && postType === "Announcement" && subject.trim()) v = `Headline: ${subject.trim()}\n${v}`;
     else if (post && subject.trim()) v = `Subject: ${subject.trim()}\n${v}`;
+    if (prefix) v = prefix + v;
     accepted(
       () => act(target, { kind: "type", target, value: v }),
       () => {
@@ -692,6 +702,29 @@ export function Composer({
               if (e.key === "Escape" && onCancel) {
                 onCancel();
                 return;
+              }
+              if (e.key === "Enter" && e.shiftKey) {
+                // Continue a bulleted or numbered list on the next line; an empty item ends the list.
+                const el = e.currentTarget;
+                const pos = el.selectionStart;
+                const lineStart = text.lastIndexOf("\n", pos - 1) + 1;
+                const line = text.slice(lineStart, pos);
+                const bm = /^(\s*)- (.*)$/.exec(line);
+                const nm = /^(\s*)(\d+)\. (.*)$/.exec(line);
+                if (bm || nm) {
+                  e.preventDefault();
+                  const empty = bm ? !bm[2].trim() : !nm![3].trim();
+                  if (empty) {
+                    const next = text.slice(0, lineStart) + text.slice(pos);
+                    pendingSel.current = [lineStart, lineStart];
+                    setText(next);
+                  } else {
+                    const ins = bm ? `\n${bm[1]}- ` : `\n${nm![1]}${Number(nm![2]) + 1}. `;
+                    pendingSel.current = [pos + ins.length, pos + ins.length];
+                    setText(text.slice(0, pos) + ins + text.slice(pos));
+                  }
+                  return;
+                }
               }
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();

@@ -39,7 +39,7 @@ const d = (label: string, dialog: string, extra: Partial<GItem> = {}): GItem => 
 const a = (label: string, action: string, extra: Partial<GItem> = {}): GItem => ({ label, action, ...extra });
 const s = (label: string, sub: GEntry[], extra: Partial<GItem> = {}): GItem => ({ label, sub, ...extra });
 
-export const isItem = (e: GEntry): e is GItem => "label" in e;
+export const isItem = (e: GEntry | undefined): e is GItem => Boolean(e) && "label" in (e as object);
 
 /* ------------------------------------------------------------------ */
 /* Option lists                                                        */

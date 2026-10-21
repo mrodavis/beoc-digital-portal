@@ -155,7 +155,7 @@ export function MailSurface({ composer }: { composer: Composer }) {
 
 function AppRail() {
   const g = useGm();
-  const unread = conversations(g.doc, (m) => m.box === "inbox" && Boolean(m.unread)).length;
+  const unread = conversations(g.doc, (m) => m.box === "inbox" && Boolean(m.unread) && tabOf(g.doc, m) === "Primary").length;
   const item = (label: string, icon: string, active: boolean, onClick: () => void, badge?: number) => (
     <button type="button" aria-label={label} onClick={onClick} className="flex flex-col items-center gap-1 py-1.5 text-[12px] text-[#444746]">
       <span className={`relative flex h-8 w-14 items-center justify-center rounded-full ${active ? "bg-[#d3e3fd]" : "hover:bg-[#e9eef6]"}`}>
@@ -398,15 +398,15 @@ function Row({ m, count, checked, onToggle, onContext, showTab }: { m: GmMessage
       <span className="flex min-w-0 flex-1 items-center gap-2 truncate">
         {showTab && m.box === "inbox" && <span className="shrink-0 rounded bg-[#e8eaed] px-1.5 text-[12px] text-[#444746]">Inbox</span>}
         {(m.labels ?? []).map((l) => <span key={l} className="shrink-0 rounded bg-[#e8eaed] px-1.5 text-[12px] text-[#444746]">{l}</span>)}
-        <span className={`truncate ${unread ? "font-bold text-[#1f1f1f]" : "text-[#1f1f1f]"}`}>{m.subject}</span>
-        <span className="truncate text-[#5f6368]"> - {m.body.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\s+/g, " ").slice(0, 120)}</span>
+        <span className={`max-w-[70%] shrink-0 truncate ${unread ? "font-bold text-[#1f1f1f]" : "text-[#1f1f1f]"}`}>{m.subject}</span>
+        <span className="min-w-0 truncate text-[#5f6368]"> - {m.body.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/\s+/g, " ").slice(0, 120)}</span>
       </span>
       {att.length > 0 && <span className="ml-2 hidden shrink-0 items-center gap-1 rounded-full border border-[#dadce0] px-2 py-0.5 text-[12px] text-[#444746] lg:flex"><Icon name={att[0].drive ? "drive" : "attach"} size={14} />{att[0].name}{att.length > 1 ? ` +${att.length - 1}` : ""}</span>}
       <span className={`ml-3 w-[96px] shrink-0 text-right text-[12px] group-hover:invisible ${unread ? "font-bold text-[#1f1f1f]" : "text-[#5f6368]"}`}>
         {m.box === "snoozed" ? m.snoozeUntil?.split(",").slice(0, 2).join(",") : m.box === "scheduled" ? m.scheduledFor?.split(",").slice(0, 2).join(",") : listDate(doc, m.date)}
       </span>
       {/* Hover actions */}
-      <span className="absolute right-3 hidden items-center group-hover:flex" onClick={(e) => e.stopPropagation()}>
+      <span className={`absolute right-0 hidden items-center pl-2 pr-3 group-hover:flex ${checked ? "bg-[#c2dbff]" : unread ? "bg-white" : "bg-[#f2f6fc]"}`} onClick={(e) => e.stopPropagation()}>
         {m.box !== "archive" && m.box !== "trash" && m.box !== "spam" && <IconBtn icon="archive" label="Archive" box={36} onClick={() => act("gm.archive")} />}
         {m.box !== "trash" && <IconBtn icon="delete" label="Delete" box={36} onClick={() => act("gm.delete")} />}
         <IconBtn icon={unread ? "mailOpen" : "mail"} label={unread ? "Mark as read" : "Mark as unread"} box={36} onClick={() => act("gm.read", unread ? "read" : "unread")} />
@@ -925,7 +925,7 @@ export function ComposeBox({ c, composer, floating }: { c: ComposeState; compose
       <button type="button" onClick={() => up({ minimized: false })} className="flex h-10 w-[260px] items-center rounded-t-lg bg-[#f2f6fc] px-4 text-[14px] font-medium shadow-lg">{title}</button>
     );
   return (
-    <div role="dialog" aria-label={floating ? title : "Reply"} className={`flex flex-col bg-white ${floating ? "h-[520px] w-[540px] rounded-t-lg shadow-[0_8px_10px_1px_rgba(0,0,0,.14),0_3px_14px_2px_rgba(0,0,0,.12)]" : "rounded-2xl border border-[#dadce0] shadow-sm"}`} style={{ fontFamily: TEXT }}>
+    <div role="dialog" aria-label={floating ? title : "Reply"} className={`flex flex-col bg-white ${floating ? "h-[440px] max-h-[calc(100vh-40px)] w-[520px] rounded-t-lg shadow-[0_8px_10px_1px_rgba(0,0,0,.14),0_3px_14px_2px_rgba(0,0,0,.12)]" : "rounded-2xl border border-[#dadce0] shadow-sm"}`} style={{ fontFamily: TEXT }}>
       {floating && (
         <div className="flex h-10 shrink-0 items-center rounded-t-lg bg-[#f2f6fc] pl-4 pr-2 text-[14px] font-medium text-[#041e49]">
           <span className="flex-1 truncate">{title}</span>

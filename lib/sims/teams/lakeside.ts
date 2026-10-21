@@ -130,10 +130,7 @@ export function lakeside(extra: Partial<TeamsDoc> = {}): TeamsDoc {
       { name: "Holiday Coverage Schedule.xlsx", size: "31 KB" },
       { name: "Lobby Wait Times - October.xlsx", size: "18 KB" },
     ],
-    activity: [
-      { id: "a1", kind: "mention", from: "p-maria", text: "Mentioned you: Alex, can you confirm the Friday coverage?", where: "Front Office > Scheduling", time: "9:05 AM", target: "m-s3", unread: true },
-      { id: "a2", kind: "reaction", from: "p-tasha", text: "Reacted to your message", where: "Chat with Tasha Greene", time: "Yesterday", target: "m-ta1" },
-    ],
+    activity: [{ id: "a2", kind: "reaction", from: "p-tasha", text: "Reacted to your message", where: "Chat with Tasha Greene", time: "Yesterday", target: "m-ta1" }],
     discover: DISCOVER,
     devices: DEVICES,
     av: { camera: true, mic: true },
@@ -154,7 +151,8 @@ export function withMention(d: TeamsDoc): TeamsDoc {
           ),
         },
   );
-  return { ...d, teams };
+  const activity = [{ id: "a1", kind: "mention" as const, from: "p-maria", text: "Mentioned you: Alex, can you confirm the Friday coverage?", where: "Front Office > Scheduling", time: "9:05 AM", target: "m-s3", unread: true }, ...(d.activity ?? [])];
+  return { ...d, teams, activity };
 }
 
 export const doc = (d: TeamsDoc) => teamsDoc(d);

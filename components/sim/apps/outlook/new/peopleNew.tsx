@@ -210,6 +210,12 @@ export function ContactDetailsNew({ ctx }: { ctx: NCtx }) {
 
 /** Add contact / Edit contact. Saves with the classic "contact.save" dialog commit. */
 export function ContactFormNew({ ctx }: { ctx: NCtx }) {
+  // The form draft is created right after the form opens; render nothing for that one frame.
+  if (!ctx.doc.form || !ctx.fdraft) return null;
+  return <ContactFormBody ctx={ctx} key={ctx.doc.form.id ?? "new"} />;
+}
+
+function ContactFormBody({ ctx }: { ctx: NCtx }) {
   const f = ctx.doc.form!;
   const d = ctx.fdraft!;
   const parts = d.name.trim().split(/\s+/);
@@ -260,6 +266,11 @@ export function ContactFormNew({ ctx }: { ctx: NCtx }) {
 
 /** New contact list. Saves with "group.members" then "group.save". */
 export function GroupFormNew({ ctx }: { ctx: NCtx }) {
+  if (!ctx.doc.form || !ctx.fdraft) return null;
+  return <GroupFormBody ctx={ctx} />;
+}
+
+function GroupFormBody({ ctx }: { ctx: NCtx }) {
   const f = ctx.doc.form!;
   const d = ctx.fdraft!;
   const [pending, setPending] = useState("");

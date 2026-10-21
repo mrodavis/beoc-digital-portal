@@ -975,12 +975,14 @@ function NewChatPane({ preset }: { preset?: string }) {
   const { doc, go } = useTeams();
   const [ids, setIds] = useState<string[]>(preset ? [preset] : []);
   const [q, setQ] = useState("");
+  const [showName, setShowName] = useState(false);
+  const [groupName, setGroupName] = useState("");
   const matches = q.trim() ? doc.people.filter((p) => !ids.includes(p.id) && p.name.toLowerCase().includes(q.trim().toLowerCase())).slice(0, 6) : [];
   const sorted = [...ids].sort();
   const add = (id: string) => {
     const next = [...ids, id];
     setQ("");
-    if (next.length === 1) {
+    if (next.length === 1 && !showName) {
       const ex = doc.chats.find((c) => !c.title && c.members.length === 1 && c.members[0] === id);
       if (ex) {
         go({ view: "chat", conv: ex.id, tab: "chat", selection: `chat:${ex.id}` });
@@ -1004,9 +1006,12 @@ function NewChatPane({ preset }: { preset?: string }) {
           </span>
         ))}
         <div className="relative flex-1">
+          <button type="button" aria-label="Add a group name" title="Add a group name" aria-expanded={showName} onClick={() => setShowName((x) => !x)} className="absolute right-0 top-0 rounded p-0.5 text-[#616161] hover:bg-[#f5f5f5]">
+            <TIcon name={showName ? "chevronUp" : "chevronDown"} size={14} />
+          </button>
           <input autoFocus aria-label="Enter name, email, or group" value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={(e) => e.key === "Enter" && matches[0] && add(matches[0].id)} placeholder="Enter name, email, or group" className="w-full min-w-[160px] text-[14px] outline-none" />
           {matches.length > 0 && (
-            <div className="absolute left-0 top-7 z-30 w-72 rounded-md border border-[#e0e0e0] bg-white py-1 shadow-lg">
+            <div className="absolute left-0 top-7 z-30 w-72 rounded-md border border-[#e0e0e0] bg-white py-1 shadow-lg" role="listbox" aria-label="People">
               {matches.map((p) => (
                 <button key={p.id} type="button" onClick={() => add(p.id)} className="flex w-full items-center gap-2 px-3 py-1.5 text-left text-[13px] hover:bg-[#f5f5f5]">
                   <PersonAvatar id={p.id} size={28} />
@@ -1020,10 +1025,16 @@ function NewChatPane({ preset }: { preset?: string }) {
           )}
         </div>
       </div>
+      {showName && (
+        <div className="flex items-center gap-2 border-b border-[#e0e0e0] bg-white px-5 py-2">
+          <span className="text-[14px] text-[#616161]">Group name:</span>
+          <input aria-label="Group name" value={groupName} onChange={(e) => setGroupName(e.target.value)} placeholder="Enter a group name" className="flex-1 text-[14px] outline-none" />
+        </div>
+      )}
       <div className="flex flex-1 items-center justify-center text-[13px] text-[#616161]">{ids.length ? "You're starting a new conversation" : "Add people to start a new chat"}</div>
       {ids.length > 0 && (
         <div className="px-5 pb-4">
-          <Composer key={target} target={target} placeholder="Type a message" autoFocus />
+          <Composer key={target} target={target} placeholder="Type a message" autoFocus prefix={showName && groupName.trim() ? `Group name: ${groupName.trim()}\n` : undefined} />
         </div>
       )}
     </div>

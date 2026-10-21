@@ -591,7 +591,10 @@ function dialog(doc: OneDriveDoc, id: string, values: Record<string, SimValue>):
       for (const a of undo) {
         const it = doc.items.find((i) => i.id === a.file);
         if (!it || it.purged) continue;
-        if (a.undo.op === "rename") it.name = a.undo.name;
+        if (a.undo.op === "rename") {
+          it.name = a.undo.name;
+          if (a.undo.text) it.text = [...a.undo.text];
+        }
         else if (a.undo.op === "undelete") it.deleted = undefined;
         else if (a.undo.op === "remove") it.deleted = { on: TODAY_LABEL, by: doc.me.name };
         else if (a.undo.op === "text") it.text = [...a.undo.text];
@@ -681,7 +684,7 @@ function dialog(doc: OneDriveDoc, id: string, values: Record<string, SimValue>):
       for (const it of live(doc)) {
         if (!isMine(doc, it) || isFolder(it)) continue;
         if (action === "Download all files") it.sync = "always";
-        else if (it.sync === "local" || it.sync === "always") it.sync = "cloud";
+        else if (it.sync === "local") it.sync = "cloud";
       }
       return { doc };
     }

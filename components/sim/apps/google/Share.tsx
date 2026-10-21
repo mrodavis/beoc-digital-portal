@@ -61,7 +61,8 @@ export function ShareDialog({ fileId, onClose }: { fileId: string; onClose: () =
 
   const roleMenu = (current: GRole, email?: string): { label: string; command?: string; value?: string; check?: string; icon?: string }[] => [
     ...ROLES.map((r) => ({ label: r, value: r, check: r === current ? "on" : undefined })),
-    ...(email ? [{ label: "Add expiration", value: "Add expiration", icon: "recent" }, { label: "Remove access", value: "Remove access" }] : []),
+    // Access expiration is for eligible work and school accounts.
+    ...(email ? [...(g.doc.org ? [{ label: "Add expiration", value: "Add expiration", icon: "recent" }] : []), { label: "Remove access", value: "Remove access" }] : []),
   ];
 
   const adding = chips.length > 0;
@@ -216,7 +217,8 @@ export function ShareDialog({ fileId, onClose }: { fileId: string; onClose: () =
               menu.kind === "access"
                 ? [
                     { label: "Restricted", value: "Restricted", check: access === "Restricted" ? "on" : undefined },
-                    { label: org.name, value: "Organization", check: access === "Organization" ? "on" : undefined },
+                    // Personal accounts have no organization option.
+                    ...(g.doc.org ? [{ label: org.name, value: "Organization", check: access === "Organization" ? "on" : undefined }] : []),
                     { label: "Anyone with the link", value: "Anyone with the link", check: access === "Anyone with the link" ? "on" : undefined },
                   ]
                 : menu.kind === "linkRole"

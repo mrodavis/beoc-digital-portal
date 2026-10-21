@@ -171,7 +171,7 @@ export type OdActivity = {
   text: string;
   file: string;
   /** How Restore your OneDrive undoes it. */
-  undo: { op: "rename"; name: string } | { op: "undelete" } | { op: "remove" } | { op: "text"; text: string[] };
+  undo: { op: "rename"; name: string; text?: string[] } | { op: "undelete" } | { op: "remove" } | { op: "text"; text: string[] };
 };
 
 export type OdLibrary = {

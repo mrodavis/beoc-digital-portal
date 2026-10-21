@@ -249,6 +249,16 @@ function postMessage(doc: TeamsDoc, list: TeamsMessage[], text: string, draftKey
     ...extra,
   };
   list.push(msg);
+  // Teams stores chat attachments in the sender's OneDrive (Microsoft Teams Chat Files) and channel attachments in the channel's files.
+  if (attachments?.length) {
+    const [k, kid] = splitKey(draftKey);
+    const folder = k === "channel" ? `ch:${kid}` : k === "reply" ? (() => { const h = findMessage(doc, kid); return h?.channel ? `ch:${h.channel.id}` : "teams-chat-files"; })() : "teams-chat-files";
+    for (const name of attachments) {
+      if ((doc.files ?? []).some((f) => f.name === name)) continue;
+      const local = doc.localFiles?.find((f) => f.name === name);
+      doc.files = [...(doc.files ?? []), { id: slug(name), name, folder, modified: "Just now", modifiedBy: doc.me.name, size: local?.size, sharing: folder.startsWith("ch:") ? "Shared" : "Shared with the people in the chat" }];
+    }
+  }
   if (doc.drafts) delete doc.drafts[draftKey];
   if (doc.delivery) delete doc.delivery[draftKey];
   if (doc.loopDrafts) delete doc.loopDrafts[draftKey];
@@ -293,10 +303,14 @@ export function applyTeams(input: TeamsDoc, c: SimCommit, uiIn: SimUi): { doc: T
       }
       case "newchat": {
         const ids = id.split("+").filter(Boolean).sort();
-        const existing = doc.chats.find((x) => x.kind !== "meeting" && !x.title && x.members.slice().sort().join("+") === ids.join("+"));
-        const chat: TeamsChat = existing ?? { id: `chat-${ids.join("-")}`, members: ids, kind: ids.length > 1 ? "group" : "chat", messages: [] };
+        // "Group name: …" on the first line names a new group chat (New message › To › Group name).
+        const gm = /^Group name:[ \t]*([^\n]*)\n?/.exec(text);
+        const groupName = gm?.[1].trim();
+        const body = gm ? text.slice(gm[0].length) : text;
+        const existing = groupName ? undefined : doc.chats.find((x) => x.kind !== "meeting" && !x.title && x.members.slice().sort().join("+") === ids.join("+"));
+        const chat: TeamsChat = existing ?? { id: `chat-${ids.join("-")}`, members: ids, kind: ids.length > 1 ? "group" : "chat", messages: [], ...(groupName ? { title: groupName } : {}) };
         if (!existing) doc.chats.unshift(chat);
-        postMessage(doc, chat.messages, text, c.target);
+        postMessage(doc, chat.messages, body, c.target);
         return out({ view: "chat", conv: chat.id, selection: `chat:${chat.id}` });
       }
       case "channel": {

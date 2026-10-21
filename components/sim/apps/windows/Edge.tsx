@@ -1475,6 +1475,11 @@ export function EdgeApp({ w }: { w: WinWindow }) {
   const r = useMemo(() => resolveUrl(doc, url), [doc, url]);
   const isOn = online(doc);
   const starred = (doc.favorites ?? []).some((f) => f.url === normUrl(url));
+  // Site information and the favorite flyout belong to the page they were opened on.
+  useEffect(() => {
+    setInfo(false);
+    setFav(false);
+  }, [url]);
   const keysRef = ctx.keys;
   useEffect(() => {
     const handler = (e: React.KeyboardEvent) => {

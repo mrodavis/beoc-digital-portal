@@ -1103,7 +1103,7 @@ function sheetsApply(doc: GoogleDoc, f: GFile, book: ExcelBook, c: SimCommit, ui
         if (!rc) return { doc: book };
         let n = 1;
         while ((f.filterViews ?? []).some((v) => v.id === `fv${n}`)) n++;
-        f.filterViews = [...(f.filterViews ?? []), { id: `fv${n}`, name: `Filter ${n}`, sheet: sheet.name, range: rectToRange(rc), values: {} }];
+        f.filterViews = [...(f.filterViews ?? []), { id: `fv${n}`, name: `Filter ${n}`, sheet: sheet.name, range: rectToRange(rc), values: {}, saved: false }];
         flag(doc, { filterView: `fv${n}` });
         return { doc: book };
       }

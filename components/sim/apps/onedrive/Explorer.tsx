@@ -442,7 +442,7 @@ export function OdSettings({ startTab }: { startTab?: string }) {
               {adv && (
                 <div className="rounded-md border border-[#e0e0e0] p-3">
                   <div className="mb-1 font-semibold">Files On-Demand</div>
-                  <p className="mb-3 text-[12px] text-[#616161]">Save space on this device by making files online-only. Online-only files open when you&apos;re connected to the internet. Files you mark &quot;Always keep on this device&quot; stay on this device.</p>
+                  <p className="mb-3 text-[12px] text-[#616161]">Save space on this device by making files online-only. Online-only files open when you&apos;re connected to the internet.</p>
                   <div className="flex gap-2">
                     <Btn kind={doc.pc?.fod === "Download all files" ? "secondary" : "primary"} onClick={() => setConfirm("Free up disk space")}>Free up disk space</Btn>
                     <Btn onClick={() => setConfirm("Download all files")}>Download all files</Btn>

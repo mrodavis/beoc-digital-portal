@@ -293,7 +293,7 @@ function termMatches(doc: GmailDoc, m: GmMessage, term: string): boolean {
     const op = /^([a-z_]+):(.*)$/i.exec(t);
     if (op) {
       const key = op[1].toLowerCase();
-      const val = op[2].replace(/^"|"$/g, "").toLowerCase();
+      const val = op[2].replace(/^[("]+|[)"]+$/g, "").toLowerCase();
       switch (key) {
         case "from": return personMatches(doc, [m.from], val);
         case "to": return personMatches(doc, m.to, val);
@@ -994,8 +994,12 @@ export function gmailInitialUi(doc: GmailDoc): SimUi {
   return { selection: "" };
 }
 
+/** Type targets of the canvas's forms (not selections). */
+const FORM_TARGET = /^(send:(new|reply:|replyAll:|forward:)|newlabel$|filter$|categories$|settings:|event:|task:new$|appointments:new$|calshare:|calpublic:|newcal$|meetcode$|meetchat$|chat:|newspace$|addpeople:)/;
+
 export function gmailSelectionExists(doc: GmailDoc, sel: string): boolean {
   if (!sel) return true;
+  if (FORM_TARGET.test(sel)) return true;
   return sel.split(",").every((raw) => {
     const s = raw.trim();
     if (s === "meet") return true;

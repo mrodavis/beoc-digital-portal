@@ -5,11 +5,13 @@ import { AppLogo, DriveLogo, FolderIcon, GIcon } from "./icons";
 import { DRIVE_NEW, driveItemMenu, type GItem } from "./menus";
 import { fileOf, meOf, personOf, surfaceOf } from "./model";
 import type { GFile } from "./types";
-import { Avatar, FONT, IconBtn, MenuList, Popup, TEXT_FONT, useG, type MenuPos } from "./ui";
+import { AccountButton, AppsButton, Avatar, FONT, IconBtn, MenuList, Popup, TEXT_FONT, useG, type MenuPos } from "./ui";
 
 const NAV: { id: string; label: string; icon: string }[] = [
   { id: "home", label: "Home", icon: "home" },
+  { id: "activity", label: "Activity", icon: "activity" },
   { id: "root", label: "My Drive", icon: "myDrive" },
+  { id: "shareddrives", label: "Shared drives", icon: "sharedDrive" },
   { id: "computers", label: "Computers", icon: "computer" },
   { id: "shared", label: "Shared with me", icon: "people" },
   { id: "recent", label: "Recent", icon: "recent" },
@@ -18,6 +20,49 @@ const NAV: { id: string; label: string; icon: string }[] = [
   { id: "trash", label: "Trash", icon: "trash" },
   { id: "storage", label: "Storage", icon: "cloud" },
 ];
+
+/** Search chip options (Type, Modified, Location). */
+export const CHIP_TYPES: Record<string, string[]> = {
+  Documents: ["doc", "word", "text"],
+  Spreadsheets: ["sheet", "excel"],
+  Presentations: ["slides", "powerpoint"],
+  Forms: ["form"],
+  "Photos & images": ["image"],
+  PDFs: ["pdf"],
+  Videos: ["video"],
+  Shortcuts: ["shortcut"],
+  Folders: ["folder"],
+};
+export const CHIP_MODIFIED = ["Today", "Last 7 days", "Last 30 days", "This year (2026)", "Last year (2025)"];
+export const CHIP_LOCATIONS = ["Anywhere in Drive", "My Drive", "Shared with me", "Starred", "Trash"];
+
+/** "184 KB", "1.2 GB" → bytes, for sorting Storage. */
+function bytes(size?: string): number {
+  const m = /([\d.]+)\s*(KB|MB|GB|bytes)/i.exec(size ?? "");
+  if (!m) return 1024;
+  const n = Number(m[1]);
+  const u = m[2].toUpperCase();
+  return n * (u === "GB" ? 1e9 : u === "MB" ? 1e6 : u === "KB" ? 1e3 : 1);
+}
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/** Days before the sim's today (Oct 20, 2026) a file was modified; times of day mean today. */
+function ageDays(modified?: string): number {
+  if (!modified || /AM|PM/.test(modified)) return 0;
+  const m = /^([A-Z][a-z]{2}) (\d{1,2}), (\d{4})$/.exec(modified);
+  if (!m) return 999;
+  const d = Date.UTC(Number(m[3]), MONTHS.indexOf(m[1]), Number(m[2]));
+  return Math.round((Date.UTC(2026, 9, 20) - d) / 86400000);
+}
+function modifiedMatch(f: GFile, v: string): boolean {
+  const a = ageDays(f.modified);
+  if (v === "Today") return a === 0;
+  if (v === "Last 7 days") return a <= 7;
+  if (v === "Last 30 days") return a <= 30;
+  if (v.startsWith("This year")) return !f.modified || /AM|PM/.test(f.modified) || f.modified.endsWith("2026");
+  if (v.startsWith("Last year")) return Boolean(f.modified?.endsWith("2025"));
+  return true;
+}
 
 const TYPE_NAME: Record<string, string> = {
   folder: "Folder", doc: "Google Docs", sheet: "Google Sheets", slides: "Google Slides", form: "Google Forms", pdf: "PDF", image: "Image", word: "Microsoft Word", excel: "Microsoft Excel", powerpoint: "Microsoft PowerPoint", text: "Text", video: "Video", shortcut: "Shortcut",
@@ -42,10 +87,34 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
 
   let items: GFile[];
   let title = "My Drive";
-  const q = search.trim().toLowerCase();
-  if (q) {
-    items = doc.files.filter((f) => !f.trashed && f.name.toLowerCase().includes(q));
+  const q = (doc.drive?.query ?? "").trim().toLowerCase();
+  const chips = doc.drive?.chips ?? {};
+  const searching = Boolean(q || Object.keys(chips).length);
+  const [chipMenu, setChipMenu] = useState<{ chip: "type" | "people" | "modified" | "location"; pos: MenuPos } | null>(null);
+  const owners = Array.from(new Set(doc.files.map((f) => f.owner ?? me.email)));
+  const inShared = (f: GFile) => !mine(f);
+  const sharedDrives = doc.sharedDrives ?? [];
+  if (searching) {
+    const loc0 = chips.location ?? "Anywhere in Drive";
+    items = doc.files.filter((f) => {
+      if (loc0 === "Trash" ? !f.trashed : f.trashed) return false;
+      if (q && !f.name.toLowerCase().includes(q)) return false;
+      if (chips.type && !(CHIP_TYPES[chips.type] ?? []).includes(f.kind)) return false;
+      if (chips.people && (f.owner ?? me.email).toLowerCase() !== chips.people.toLowerCase() && !(f.sharing?.people ?? []).some((p) => p.email.toLowerCase() === chips.people!.toLowerCase())) return false;
+      if (chips.modified && !modifiedMatch(f, chips.modified)) return false;
+      if (loc0 === "My Drive" && (!mine(f) || !f.parent)) return false;
+      if (loc0 === "Shared with me" && !inShared(f)) return false;
+      if (loc0 === "Starred" && !f.starred) return false;
+      return true;
+    });
     title = "Search results";
+  } else if (loc === "activity") {
+    // Recent comments and edits by others (work accounts).
+    items = doc.files.filter((f) => !f.trashed && f.kind !== "folder" && ((f.comments ?? []).some((c) => !c.resolved) || (f.modifiedBy && f.modifiedBy !== me.email)));
+    title = "Activity";
+  } else if (loc === "shareddrives") {
+    items = sharedDrives.map((d) => ({ id: d.id, name: d.name, kind: "folder" as const, parent: "shareddrives", color: "#5f6368" }));
+    title = "Shared drives";
   } else if (loc === "trash") {
     items = doc.files.filter((f) => f.trashed && !(f.parent && fileOf(doc, f.parent)?.trashed));
     title = "Trash";
@@ -59,25 +128,28 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
     items = doc.files.filter((f) => !f.trashed && f.kind !== "folder" && f.kind !== "shortcut");
     title = loc === "home" ? `Welcome to Drive` : "Recent";
   } else if (loc === "storage") {
-    items = doc.files.filter((f) => !f.trashed && f.kind !== "folder" && mine(f));
+    // Files that use your storage, largest first (Storage used).
+    items = doc.files.filter((f) => f.kind !== "folder" && f.kind !== "shortcut" && mine(f)).sort((a, b) => bytes(b.size) - bytes(a.size));
     title = "Storage";
   } else if (loc === "computers" || loc === "spam") {
     items = [];
     title = loc === "computers" ? "Computers" : "Spam";
   } else {
     items = doc.files.filter((f) => !f.trashed && (f.parent ?? "") === loc);
-    title = loc === "root" ? "My Drive" : fileOf(doc, loc)?.name ?? "My Drive";
+    title = loc === "root" ? "My Drive" : fileOf(doc, loc)?.name ?? sharedDrives.find((d) => d.id === loc)?.name ?? "My Drive";
   }
-  items = [...items.filter((f) => f.kind === "folder"), ...items.filter((f) => f.kind !== "folder")];
+  if (loc !== "storage" || searching) items = [...items.filter((f) => f.kind === "folder"), ...items.filter((f) => f.kind !== "folder")];
 
   const crumbs: GFile[] = [];
-  if (!q && loc !== "root" && fileOf(doc, loc)?.kind === "folder") {
+  if (!searching && loc !== "root" && fileOf(doc, loc)?.kind === "folder") {
     let cur = fileOf(doc, loc);
     while (cur) {
       crumbs.unshift(cur);
       cur = cur.parent && cur.parent !== "root" ? fileOf(doc, cur.parent) : undefined;
     }
   }
+  // A folder inside a shared drive: the drive name starts the path.
+  const inDrive = crumbs.length ? sharedDrives.find((d) => d.id === crumbs[0].parent) : sharedDrives.find((d) => d.id === loc);
   const inMyDrive = crumbs.length > 0 && mine(crumbs[0]) && (crumbs[0].parent ?? "") === "root";
 
   const select = (f: GFile, e: React.MouseEvent) => {
@@ -98,7 +170,7 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
   const open = (f: GFile) => {
     const t = target(f);
     if (f.trashed) return;
-    if (t.kind === "folder") g.cmd("g.go", t.id);
+    if (t.kind === "folder" || f.parent === "shareddrives") g.cmd("g.go", t.id);
     else g.cmd("g.open", t.id);
   };
   const ctx = (f: GFile, e: React.MouseEvent) => {
@@ -169,14 +241,14 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
           <span className="text-[22px] text-[#1f1f1f]" style={{ fontFamily: FONT }}>Drive</span>
         </button>
         <div className="mx-auto flex h-12 w-full max-w-[720px] items-center gap-2 rounded-full bg-[#e9eef6] px-3 focus-within:bg-white focus-within:shadow" onClick={(e) => e.stopPropagation()}>
-          <GIcon name="search" size={22} />
-          <input aria-label="Search in Drive" placeholder="Search in Drive" value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className="h-full min-w-0 flex-1 bg-transparent text-[16px] outline-none" />
-          {search ? <IconBtn icon="close" label="Clear search" onClick={() => setSearch("")} /> : <IconBtn icon="tune" label="Advanced search" />}
+          <IconBtn icon="search" label="Search" onClick={() => g.cmd("g.search", search)} />
+          <input aria-label="Search in Drive" placeholder="Search in Drive" value={search} onChange={(e) => setSearch(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") g.cmd("g.search", search); if (e.key === "Escape") { setSearch(""); g.cmd("g.search", ""); } }} className="h-full min-w-0 flex-1 bg-transparent text-[16px] outline-none" />
+          {search || doc.drive?.query ? <IconBtn icon="close" label="Clear search" onClick={() => { setSearch(""); g.cmd("g.search", ""); }} /> : <IconBtn icon="tune" label="Advanced search" onClick={() => g.cmd("g.toast", "Advanced search: owner, type, words in the file, location, date modified, and more")} />}
         </div>
         <IconBtn icon="help" label="Support" onClick={(e) => { e.stopPropagation(); g.cmd("g.help", "Drive Help"); }} />
         <IconBtn icon="settings" label="Settings" onClick={(e) => { e.stopPropagation(); g.cmd("g.help", "Settings"); }} />
-        <IconBtn icon="apps" label="Google apps" />
-        <Avatar person={me} size={32} />
+        <AppsButton />
+        <AccountButton />
       </div>
 
       <div className="flex min-h-0 flex-1">
@@ -191,8 +263,8 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
           >
             <GIcon name="plus" size={24} color="#1f1f1f" /> New
           </button>
-          {NAV.map((n) => {
-            const active = !q && (loc === n.id || (n.id === "root" && crumbs.length > 0 && inMyDrive));
+          {NAV.filter((n) => (n.id !== "shareddrives" && n.id !== "activity") || doc.org || sharedDrives.length).map((n) => {
+            const active = !searching && (loc === n.id || (n.id === "root" && crumbs.length > 0 && inMyDrive) || (n.id === "shareddrives" && Boolean(inDrive)));
             return (
               <button
                 key={n.id}
@@ -227,6 +299,12 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
                     <GIcon name="chevronRight" size={22} />
                   </>
                 )}
+                {inDrive && (
+                  <>
+                    <button type="button" onClick={(e) => { e.stopPropagation(); g.cmd("g.go", inDrive.id); }} className="shrink-0 rounded-full px-3 py-1 hover:bg-[#e9eef6]">{inDrive.name}</button>
+                    <GIcon name="chevronRight" size={22} />
+                  </>
+                )}
                 {crumbs.map((c, i) => (
                   <span key={c.id} className="flex min-w-0 items-center gap-1">
                     {i > 0 && <GIcon name="chevronRight" size={22} />}
@@ -237,7 +315,7 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
             ) : (
               <h1 className="flex-1 truncate px-3 text-[22px] text-[#1f1f1f]" style={{ fontFamily: FONT }}>{title}</h1>
             )}
-            {loc === "trash" && !q && items.length > 0 && (
+            {loc === "trash" && !searching && items.length > 0 && (
               <button type="button" onClick={(e) => { e.stopPropagation(); g.cmd("g.emptyTrash"); }} className="mr-2 rounded-full px-4 py-2 text-[14px] font-medium text-[#0b57d0] hover:bg-[#0b57d0]/10">Empty trash</button>
             )}
             <div className="flex h-8 overflow-hidden rounded-full border border-[#747775]" role="group" aria-label="Layout">
@@ -275,14 +353,30 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
                   </>
                 )}
               </div>
-            ) : loc === "trash" ? (
+            ) : loc === "trash" && !searching ? (
               <p className="flex-1 rounded-lg bg-[#f1f3f4] px-4 py-2 text-[13px] text-[#444746]">Items in trash will be deleted forever after 30 days</p>
             ) : (
-              ["Type", "People", "Modified", "Source"].map((c) => (
-                <button key={c} type="button" className="flex h-8 items-center gap-1 rounded-lg border border-[#747775] pl-4 pr-2 text-[14px] text-[#444746] hover:bg-[#f1f3f4]">
-                  {c} <GIcon name="dropDown" size={18} />
-                </button>
-              ))
+              <>
+                {(["type", "people", "modified", "location"] as const).map((c) => {
+                  const on = chips[c];
+                  const label = on ? (c === "people" ? personOf(doc, on)?.name ?? on : on) : c === "type" ? "Type" : c === "people" ? "People" : c === "modified" ? "Modified" : "Location";
+                  return (
+                    <button
+                      key={c}
+                      type="button"
+                      aria-label={`${c[0].toUpperCase()}${c.slice(1)} filter${on ? `: ${label}` : ""}`}
+                      onClick={(e) => { const r = e.currentTarget.getBoundingClientRect(); setChipMenu({ chip: c, pos: { x: r.left, y: r.bottom + 4 } }); }}
+                      className={`flex h-8 items-center gap-1 rounded-lg pl-4 pr-2 text-[14px] ${on ? "bg-[#c2e7ff] text-[#001d35]" : "border border-[#747775] text-[#444746] hover:bg-[#f1f3f4]"}`}
+                    >
+                      {on && <GIcon name="check" size={16} color="#001d35" />}
+                      {label} <GIcon name="dropDown" size={18} color={on ? "#001d35" : undefined} />
+                    </button>
+                  );
+                })}
+                {searching && Object.keys(chips).length > 0 && (
+                  <button type="button" onClick={() => g.cmd("g.filter", "")} className="ml-1 rounded-full px-3 py-1.5 text-[14px] font-medium text-[#0b57d0] hover:bg-[#0b57d0]/10">Clear filters</button>
+                )}
+              </>
             )}
           </div>
 
@@ -290,8 +384,8 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
             {items.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center text-center text-[#444746]">
                 <DriveLogo size={64} />
-                <p className="mt-4 text-[18px]" style={{ fontFamily: FONT }}>{loc === "trash" ? "Nothing in trash" : q ? "No results" : loc === "starred" ? "No starred files" : loc === "computers" ? "No computers syncing" : "Drop files here"}</p>
-                <p className="mt-1 text-[13px]">{loc === "trash" ? "Move items you don't need to trash." : q ? "Try a different search." : 'or use the "New" button.'}</p>
+                <p className="mt-4 text-[18px]" style={{ fontFamily: FONT }}>{searching ? "No results" : loc === "trash" ? "Nothing in trash" : loc === "starred" ? "No starred files" : loc === "computers" ? "No computers syncing" : "Drop files here"}</p>
+                <p className="mt-1 text-[13px]">{searching ? "Try a different search or remove a filter." : loc === "trash" ? "Move items you don't need to trash." : loc === "shareddrives" ? "Shared drives your organization adds appear here." : 'or use the "New" button.'}</p>
               </div>
             ) : layout === "grid" ? (
               <>
@@ -329,7 +423,7 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
                     <th className="pl-3 font-medium">Name</th>
                     <th className="w-[140px] font-medium">Owner</th>
                     <th className="w-[170px] font-medium">{loc === "trash" ? "Date trashed" : "Last modified"}</th>
-                    <th className="hidden w-[90px] font-medium lg:table-cell">File size</th>
+                    <th className={`${loc === "storage" && !searching ? "" : "hidden lg:table-cell"} w-[110px] font-medium`}>{loc === "storage" && !searching ? "Storage used" : "File size"}</th>
                     <th className="w-12" />
                   </tr>
                 </thead>
@@ -363,7 +457,7 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
                           <span className="flex items-center gap-2"><Avatar person={personOf(doc, f.owner) ?? me} size={24} /> <span className="truncate">{ownerLabel(f)}</span></span>
                         </td>
                         <td className="truncate text-[#444746]">{modifiedLabel(f)}</td>
-                        <td className="hidden text-[#444746] lg:table-cell">{f.kind === "folder" ? "—" : f.size ?? (surfaceOf(f.kind) ? "1 KB" : "—")}</td>
+                        <td className={`${loc === "storage" && !searching ? "" : "hidden lg:table-cell"} text-[#444746]`}>{f.kind === "folder" ? "—" : f.size ?? (surfaceOf(f.kind) ? "1 KB" : "—")}{f.trashed ? " (in trash)" : ""}</td>
                         <td>
                           <button type="button" aria-label={`More actions for ${f.name}`} onClick={(e) => ctx(f, e)} className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-black/10">
                             <GIcon name="more" size={20} />
@@ -388,6 +482,27 @@ export function DriveView({ search, setSearch }: { search: string; setSearch: (s
           ) : (
             <MenuList entries={menuFor()} pos={menu.pos} width={280} onPick={pick} onClose={() => setMenu(null)} />
           )}
+        </Popup>
+      )}
+      {chipMenu && (
+        <Popup onClose={() => setChipMenu(null)}>
+          <MenuList
+            entries={
+              (chipMenu.chip === "type"
+                ? Object.keys(CHIP_TYPES).map((t) => ({ label: t, value: `Type=${t}`, check: chips.type === t ? "on" : undefined }))
+                : chipMenu.chip === "people"
+                  ? owners.map((e) => ({ label: e === me.email ? `${me.name} (me)` : personOf(doc, e)?.name ?? e, value: `People=${e}`, check: chips.people === e ? "on" : undefined }))
+                  : chipMenu.chip === "modified"
+                    ? CHIP_MODIFIED.map((m) => ({ label: m, value: `Modified=${m}`, check: chips.modified === m ? "on" : undefined }))
+                    : CHIP_LOCATIONS.map((l) => ({ label: l, value: `Location=${l}`, check: (chips.location ?? "Anywhere in Drive") === l ? "on" : undefined }))
+              ).concat(chips[chipMenu.chip] ? [{ label: "Clear", value: `${chipMenu.chip === "type" ? "Type" : chipMenu.chip === "people" ? "People" : chipMenu.chip === "modified" ? "Modified" : "Location"}=`, check: undefined }] : [])
+            }
+            state={{ on: true }}
+            pos={chipMenu.pos}
+            width={220}
+            onPick={(i) => { setChipMenu(null); g.cmd("g.filter", i.value); }}
+            onClose={() => setChipMenu(null)}
+          />
         </Popup>
       )}
       {doc.pane?.startsWith("preview:") && <Preview f={fileOf(doc, doc.pane.slice(8))} />}
@@ -465,7 +580,7 @@ function Preview({ f }: { f?: GFile }) {
         <IconBtn icon="back" label="Close preview" color="#fff" onClick={() => g.cmd("g.pane", "")} />
         <FileIcon f={f} size={22} />
         <span className="flex-1 truncate text-[16px]">{f.name}</span>
-        {(f.kind === "word" || f.kind === "excel" || f.kind === "powerpoint") && <span className="rounded-full bg-white/15 px-4 py-2 text-[14px]">Open with Google {f.kind === "word" ? "Docs" : f.kind === "excel" ? "Sheets" : "Slides"}</span>}
+        {(f.kind === "word" || f.kind === "excel" || f.kind === "powerpoint") && <button type="button" onClick={() => g.cmd("g.open", f.id)} className="rounded-full bg-white/15 px-4 py-2 text-[14px] hover:bg-white/25">Open with Google {f.kind === "word" ? "Docs" : f.kind === "excel" ? "Sheets" : "Slides"}</button>}
         <IconBtn icon="download" label="Download" color="#fff" onClick={() => g.cmd("g.drive.download", f.id)} />
       </div>
       <div className="flex flex-1 items-center justify-center p-6">
