@@ -286,27 +286,27 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Reply to Elena's post in its thread: “Yes, I can cover the front desk from 1:00 to 3:00 PM on Thursday.”",
-          hint: "Under Elena's post in the Front Desk channel, select Reply. Type the message and press Enter.",
+          hint: "In Chat, under Teams and channels, open Student Services › Front Desk. Under Elena's post, select Reply. Type the message and press Enter.",
           steps: [typeAll("reply:m-a1", "Yes, I can cover the front desk from 1:00 to 3:00 PM on Thursday.", ["cover the front desk", "1:00 to 3:00"])],
         },
         {
           instruction: "Acknowledge Marcus Hill's post about the sign-in sheet with a Like reaction.",
-          hint: "Go to Teams › Student Services › Front Desk. Point to Marcus's post and select 👍 (Like) in the reaction bar.",
+          hint: "In Chat, under Teams and channels, select Student Services › Front Desk. Point to Marcus's post and select 👍 (Like) in the reaction bar.",
           steps: [{ action: { kind: "command", id: "msg.react", value: "Like" }, requires: { selection: "msg:m-a2" }, selectHint: "React to Marcus Hill's post about the walk-in sign-in sheet." }],
         },
         {
           instruction: "Start a new chat with Tasha Greene. @mention her and ask: “Should walk-in students sign the visitor log or the advising sheet?”",
-          hint: "Chat › New chat (pencil). Type Tasha in To and select Tasha Greene. In the message box, type @Tas and pick Tasha Greene from the list, then type the question and press Enter.",
+          hint: "In Chat, select New items (+) › New message. Type Tasha in To and select Tasha Greene. In the message box, type @Tas and pick Tasha Greene from the list, then type the question and press Enter.",
           steps: [typeAll("newchat:p-tasha", "@Tasha Greene Should walk-in students sign the visitor log or the advising sheet?", ["@Tasha Greene", "visitor log", "advising sheet"])],
         },
         {
-          instruction: "Upload “Front Desk Schedule - Fall.xlsx” to the Files tab of the Front Desk channel.",
-          hint: "Teams › Student Services › Front Desk › Files tab › Upload › Files. Choose Front Desk Schedule - Fall.xlsx and select Open.",
-          steps: [{ action: { kind: "command", id: "files.upload", value: "Front Desk Schedule - Fall.xlsx" }, requires: { selection: "files:ch-fd" }, selectHint: "Upload it in the Files tab of the Front Desk channel." }],
+          instruction: "Upload “Front Desk Schedule - Fall.xlsx” to the Shared tab of the Front Desk channel.",
+          hint: "Chat › Teams and channels › Student Services › Front Desk › Shared tab › Upload › Upload files. Choose Front Desk Schedule - Fall.xlsx and select Open.",
+          steps: [{ action: { kind: "command", id: "files.upload", value: "Front Desk Schedule - Fall.xlsx" }, requires: { selection: "files:ch-fd" }, selectHint: "Upload it on the Shared tab of the Front Desk channel." }],
         },
         {
           instruction: "Share the file “Walk-In Procedures.docx” in your chat with Tasha Greene.",
-          hint: "Open your chat with Tasha Greene. Select Attach file (paper clip) › Walk-In Procedures.docx, then select Send.",
+          hint: "Open your chat with Tasha Greene. Select Actions and apps (+) › Attach file › Walk-In Procedures.docx, then select Send.",
           steps: [
             { action: { kind: "command", id: "compose.attach", value: "Walk-In Procedures.docx" }, requires: { selection: "chat:chat-p-tasha" }, selectHint: "Attach the file in your chat with Tasha Greene." },
             { action: { kind: "type", target: "chat:chat-p-tasha", value: "", match: "includes" } },
@@ -334,13 +334,13 @@ export const teamsSims: Record<string, SimDefinition[]> = {
       ),
       tasks: [
         {
-          instruction: "Schedule a Teams meeting titled “Fall Orientation Planning” with Tasha Greene and Marcus Hill on Wednesday, October 21, 2026, from 2:00 PM to 2:30 PM. In the details, type the agenda “1. Room setup 2. Volunteer list 3. Welcome packets.”",
-          hint: "Calendar › New meeting. Type the title, add Tasha Greene and Marcus Hill, choose Wed 10/21/2026, 2:00 PM to 2:30 PM, type the agenda in the details box, then select Send.",
+          instruction: "Schedule a Teams meeting titled “Fall Orientation Planning” with Tasha Greene and Marcus Hill from 2:00 PM to 2:30 PM. In the details, type the agenda “1. Room setup 2. Volunteer list 3. Welcome packets.”",
+          hint: "Calendar › New event. Type the title, add Tasha Greene and Marcus Hill, set the time to 2:00 PM to 2:30 PM, type the agenda in the details box, then select Send.",
           steps: [
             typeAll(
               "schedule",
               "Title: Fall Orientation Planning\nAttendees: Marcus Hill; Tasha Greene\nDate: 10/21/2026\nStart: 2:00 PM\nEnd: 2:30 PM\nRepeat: Does not repeat\nChannel: None\nLocation: \nDetails: 1. Room setup 2. Volunteer list 3. Welcome packets",
-              ["title: fall orientation planning", "marcus hill", "tasha greene", "date: 10/21/2026", "start: 2:00 pm", "end: 2:30 pm", "room setup", "volunteer list", "welcome packets"],
+              ["title: fall orientation planning", "marcus hill", "tasha greene", "start: 2:00 pm", "end: 2:30 pm", "room setup", "volunteer list", "welcome packets"],
             ),
           ],
         },
@@ -364,9 +364,9 @@ export const teamsSims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "av.background", value: "Blur" }, requires: { selection: "meeting:e-checkin" }, selectHint: "Change the background from inside the meeting." }],
         },
         {
-          instruction: "Open the meeting chat and post: “The agenda is in the Files tab of the Front Desk channel.”",
+          instruction: "Open the meeting chat and post: “The agenda is on the Shared tab of the Front Desk channel.”",
           hint: "Select Chat in the meeting toolbar, type the message, and press Enter.",
-          steps: [typeAll("meetingchat:e-checkin", "The agenda is in the Files tab of the Front Desk channel.", ["agenda", "files tab", "front desk"])],
+          steps: [typeAll("meetingchat:e-checkin", "The agenda is on the Shared tab of the Front Desk channel.", ["agenda", "shared tab", "front desk"])],
         },
         {
           instruction: "Raise your hand so Tasha knows you have a question.",

@@ -31,8 +31,8 @@ export const module7Lessons: Lesson[] = [
             items: [
               "Access from anywhere — files saved in OneDrive are accessible from any device with your Microsoft 365 account: your office workstation, a colleague's computer, or the OneDrive web portal at onedrive.com. This means you can access a document from home in an emergency, from another clinic location, or from a tablet in a meeting room.",
               "Automatic backup — files saved in OneDrive are automatically backed up to Microsoft's servers. If your workstation is stolen, fails, or is replaced, all your OneDrive files are immediately accessible on a new device after logging in. Unlike the local C: drive, OneDrive is not dependent on any single piece of hardware.",
-              "Version history — OneDrive maintains a history of previous versions of every file for 30+ days. If you accidentally overwrite content or want to restore a file to how it looked last week, right-click the file in File Explorer or in the OneDrive web interface and select 'Version History.' This eliminates the need for manual 'save as v2' backup copies.",
-              "Sync with File Explorer — the OneDrive app (built into Windows 10/11) creates a folder on your computer that looks and works like any other folder. Files saved to OneDrive appear in File Explorer under your user folders. They sync automatically to the cloud whenever you save, and any changes made on another device sync back to your computer when you are connected to the internet.",
+              "Version history — OneDrive keeps earlier versions of files as you change them. In a personal OneDrive, Microsoft keeps version history for 30 days; in a work or school OneDrive, your organization's settings decide how many versions are kept. If you accidentally overwrite content, right-click the file in File Explorer or on the OneDrive website and select Version history, then restore the version you need. This eliminates the need for manual 'save as v2' backup copies.",
+              "Sync with File Explorer — the OneDrive sync app (built into Windows 11) adds a folder to File Explorer named for your account, such as OneDrive - Lakeside Medical Associates. It looks and works like any other folder. Files saved there sync automatically to the cloud, and changes made on another device sync back to your computer when you are connected to the internet.",
             ],
           },
         ],
@@ -48,7 +48,7 @@ export const module7Lessons: Lesson[] = [
             type: "list",
             items: [
               "OneDrive is personal cloud storage — it is your individual file space, accessible only to you (unless you specifically share something). Use OneDrive for documents you are working on that belong to you: your draft emails, your personal notes, your in-progress reports. Think of it as your personal work desk drawer.",
-              "SharePoint is organizational shared storage — it is shared with the whole team (or specific groups). Documents that all staff need access to — templates, policies, patient intake forms, billing records — live in SharePoint, not in anyone's personal OneDrive. SharePoint libraries appear in File Explorer as mapped locations when your IT department has set them up. Think of it as the shared filing cabinet in the break room.",
+              "SharePoint is organizational shared storage — it is shared with the whole team (or specific groups). Documents that all staff need access to — templates, policies, patient intake forms, billing records — live in SharePoint, not in anyone's personal OneDrive. You can add a SharePoint library to File Explorer by syncing it or by adding a shortcut to it in your OneDrive (Add shortcut to My files). Think of it as the shared filing cabinet in the break room.",
               "Know which to use for each document type — a draft report you are working on alone: OneDrive. The final approved staff handbook that everyone accesses: SharePoint. A patient record that billing and clinical staff both need: SharePoint (if HIPAA requirements are met by your organization's setup). When in doubt, ask your supervisor — using the wrong storage location can affect who can access a file and whether it is included in the correct backup.",
             ],
           },
@@ -64,11 +64,12 @@ export const module7Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Blue cloud icon (cloud with up arrow): the file exists in the cloud but has not been downloaded to your device — it is available online but not locally cached. It will download on demand when you open it, but requires an internet connection.",
-              "Green checkmark: the file is synced — both the local copy and the cloud copy are identical and up to date. This is the target state for all your files.",
+              "Blue cloud outline: the file is online-only. It is in the cloud but not downloaded to your device, so it takes no space. It downloads when you open it, which requires an internet connection.",
+              "Green check in a white circle: the file is available on this device because you opened it. It opens even without internet. Free up space can make it online-only again.",
+              "White check in a solid green circle: the file is always available on this device because someone chose Always keep on this device. It stays downloaded for offline use.",
               "Blue sync arrows (circular): the file is currently syncing — a change was made and it is being uploaded to the cloud. Do not power off your computer while files are in this state, or you may interrupt the sync.",
-              "Red X: sync failed — this file has not been uploaded to the cloud due to a conflict, a permission issue, or a connectivity problem. Click the OneDrive icon in the taskbar (bottom right) to see the error details and resolve it. A file showing a red X is at risk of being lost if your local drive fails — resolve sync errors promptly.",
-              "Always-keep-on-device: right-click any file or folder in OneDrive and choose 'Always keep on this device' to ensure it is locally cached regardless of internet connectivity. Do this for files you need to access even when offline.",
+              "Red circle with an X: a sync problem. This file has not synced, for example because its name has a character OneDrive doesn't allow, the file is open in another app, or your OneDrive is full. Select the OneDrive cloud icon in the notification area (bottom right of the taskbar) to open the activity center and see the problem. A file that hasn't synced is at risk if your local drive fails, so resolve sync problems promptly.",
+              "Always keep on this device: right-click any file or folder in your OneDrive folder and choose Always keep on this device to keep it downloaded for offline use. Free up space does the opposite: it makes files online-only to save disk space, without deleting them. Files On-Demand is on by default in current versions of OneDrive.",
             ],
           },
         ],
@@ -112,22 +113,23 @@ export const module7Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Explore your OneDrive setup and practice understanding sync status.",
+        text: "Explore your OneDrive setup and practice understanding sync status. You can sign in to OneDrive on the web on BEOC classroom computers, but the OneDrive sync app in File Explorer may be blocked there.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Open File Explorer and navigate to your OneDrive folder. Identify at least three files and note the sync status icon next to each (green check, blue cloud, or other). Screenshot the folder view showing sync status icons.",
-          "Create a new folder called 'LMA Cloud Practice' in your OneDrive. Create a Word document inside it called 'CloudTest_[YourName]_2025-05.docx'. Watch the sync status icon change from the uploading arrows to the green checkmark. Screenshot the green checkmark state.",
+          "Open File Explorer and navigate to your OneDrive folder. Identify at least three files and note the sync status icon next to each (blue cloud, green check, or solid green circle). Screenshot the folder view showing sync status icons.",
+          "Create a new folder called 'LMA Cloud Practice' in your OneDrive. Create a Word document inside it called 'CloudTest_YourName.docx' (use your own name). Watch the sync status icon change from the sync arrows to the green check. Screenshot the synced state.",
           "Right-click your new folder and select 'Always keep on this device.' Confirm the icon updates. Then right-click and select 'Free up space' to see the behavior change. Screenshot both states.",
           "Go to onedrive.com in your browser, sign in with your Microsoft 365 account, and confirm your 'LMA Cloud Practice' folder and document appear there. Screenshot the web view showing your folder.",
+          "On a school computer, do this in the Challenge Lab below.",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your four screenshots (sync status in File Explorer, green checkmark after upload, always-on-device and free-up-space states, and web portal view) to your instructor. This exercise confirms you understand OneDrive sync behavior and can navigate between local and web access — the foundational cloud storage skill for modern office work.",
+        text: "Deliverable: Submit your four screenshots (sync status in File Explorer, the synced state after upload, always-on-device and free-up-space states, and web view) to your instructor or course folder. On a school computer, submit your Challenge Lab results page instead (Print or save results on the finish card). This exercise confirms you understand OneDrive sync behavior and can navigate between local and web access — the foundational cloud storage skill for modern office work.",
       },
     ],
   },
@@ -160,10 +162,10 @@ export const module7Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To share a file from OneDrive: right-click the file in File Explorer (or in the OneDrive web portal), select Share. In the sharing dialog, type the recipient's name or email address, choose the permission level (Can edit or Can view), add an optional message, and click Send. The recipient receives an email with a secure link that opens the file in their browser or desktop app.",
+              "To share a file from OneDrive: right-click the file in File Explorer (or on the OneDrive website) and select Share. In the Share window, type the recipient's name or email address in Add a name, group, or email, choose the permission (Can edit or Can view; Word documents also offer Can review, and work or school accounts offer Can't download), add an optional message, and select Invite (on some accounts the button says Send). The recipient receives an email with a link that opens the file in their browser or desktop app.",
               "Link-sharing is better than email attachment for collaboration — when you email an attachment, recipients each have their own copy, and version control becomes impossible if multiple people edit simultaneously. When you share a OneDrive link, everyone accesses the same single file. All changes are synchronized in real time and a single version history is maintained.",
               "Permission levels control what recipients can do — 'Can view' allows the recipient to read the file but not make changes (use this for external parties who should only read the document, such as the referring physician's office in the scenario above). 'Can edit' allows full editing rights (use this for internal colleagues who need to make changes). Never grant edit access to an external party for a document containing patient information without supervisor approval.",
-              "Link expiration and password protection — in the OneDrive sharing dialog, click the settings icon (gear) to set a link expiration date (the link stops working after that date) and optionally require a password to open the link. For sensitive documents shared externally, always set an expiration date. A link that never expires continues to work even after the recipient has no legitimate need to access the file.",
+              "Link settings, expiration, and passwords — in the Share window, select the gear next to Copy link to choose who the link works for: Anyone, People in your organization, People with existing access, or People you choose. Links that work for Anyone can also have an expiration date (the link stops working after it) and a password. Personal accounts need a Microsoft 365 subscription for those two options, and work or school organizations may turn options off. Never use an Anyone link for patient information; share it only with the specific people you choose.",
             ],
           },
         ],
@@ -179,9 +181,9 @@ export const module7Lessons: Lesson[] = [
             type: "list",
             items: [
               "Co-authoring works in Word, Excel, and PowerPoint when the file is in OneDrive or SharePoint — each co-author's cursor appears in a different color so you can see where others are editing in real time. Changes appear on your screen within seconds of another user making them. This eliminates the 'which version is current?' problem completely.",
-              "AutoSave replaces manual saving in co-authored files — when a file is in OneDrive and co-authoring is active, AutoSave (shown in the top-left corner of Word or Excel) saves your changes continuously. There is no need to press Ctrl+S. However, if AutoSave turns off unexpectedly, check your OneDrive sync status — a sync problem disables AutoSave.",
+              "AutoSave replaces manual saving in co-authored files — when a file is in OneDrive or SharePoint, AutoSave (shown in the top-left corner of the Word, Excel, or PowerPoint desktop apps) saves your changes every few seconds, and the web apps save as you type. There is no need to press Ctrl+S. If AutoSave is off or greyed out, check that the file is actually saved in OneDrive or SharePoint; AutoSave doesn't work for files saved only on your computer.",
               "Use comments rather than direct edits for feedback — when reviewing someone else's document, use the Insert > Comment feature (Ctrl+Alt+M in Word) to add a comment in the margin rather than directly changing the text. This allows the document owner to review, accept, or reject suggestions rather than discovering mysterious changes to their document.",
-              "Resolve conflicts gracefully — if two people edit the same sentence at exactly the same time, Word creates a conflict resolution prompt. Read both versions carefully and choose the correct one, or merge them manually. In a well-coordinated team, conflicts are rare because team members communicate about which sections they are editing before starting.",
+              "Avoid editing collisions — co-authors see each other's changes in real time, so agree on who edits which section before you start. If Word or OneDrive ever reports a conflict, read both versions carefully before choosing what to keep, and check with the other editor. Version history keeps earlier versions if something needs to be undone.",
             ],
           },
         ],
@@ -196,7 +198,7 @@ export const module7Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To view and manage who has access to a file: right-click the file in OneDrive, select 'Manage Access.' This shows a list of everyone who has been granted access, their permission level, and the sharing links that have been created. You can change permission levels or revoke access from this panel.",
+              "To view and manage who has access to a file: right-click the file in OneDrive and select Manage access. Its People, Groups, and Links tabs show everyone with access, their permission, and the sharing links that exist. Change a person's permission, choose Remove direct access, remove a link, or select Stop sharing to remove everyone's access at once.",
               "Revoke access when it is no longer needed — when a staff member leaves the practice, is reassigned, or when an external collaboration concludes, remove their access to shared files immediately. In a medical office, former employees retaining access to shared files is a potential data breach. Your IT department typically handles account deactivation, but knowing to request it is important.",
               "Audit sharing regularly — quarterly, review the Manage Access panel for your most sensitive shared documents and confirm that all current access holders still have a legitimate need. Remove any who do not. This practice is a component of HIPAA's minimum necessary access principle.",
             ],
@@ -242,7 +244,7 @@ export const module7Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Practice sharing files with appropriate permission levels.",
+        text: "Practice sharing files with appropriate permission levels. OneDrive on the web works on BEOC classroom computers; work with a classmate.",
       },
       {
         type: "list",
@@ -251,13 +253,14 @@ export const module7Lessons: Lesson[] = [
           "Open the 'CloudTest' document you created in the previous lesson. Share it with a classmate or family member using the 'Can view' permission. Screenshot the sharing dialog showing the recipient and permission level before clicking Send.",
           "Ask your sharing recipient to attempt to edit the document. Confirm they receive a 'view only' restriction. Screenshot their view showing the document is not editable.",
           "Change the permission to 'Can edit,' ask your recipient to make a one-word change, and observe the co-authoring indicator (their cursor) appearing in your document in real time. Screenshot the co-authoring view.",
-          "Open Manage Access for the same file and revoke your recipient's access. Confirm the file now shows no external shares. Screenshot the Manage Access panel showing the access removed.",
+          "Open Manage access for the same file and remove your recipient's access (Remove direct access). Confirm the file now shows only you. Screenshot the Manage access panel showing the access removed.",
+          "No partner, or can't sign in? On a school computer, do this in the Challenge Lab below.",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your four screenshots (sharing dialog, view-only restriction, co-authoring, and access revoked) to your instructor. This exercise confirms you can share files with appropriate permissions and manage access throughout a document's lifecycle — a core skill for modern cloud-based office environments.",
+        text: "Deliverable: Submit your four screenshots (sharing dialog, view-only restriction, co-authoring, and access removed) to your instructor or course folder, or your Challenge Lab results page (Print or save results on the finish card). This exercise confirms you can share files with appropriate permissions and manage access throughout a document's lifecycle — a core skill for modern cloud-based office environments.",
       },
     ],
   },
@@ -291,8 +294,8 @@ export const module7Lessons: Lesson[] = [
             type: "list",
             items: [
               "Activity feed (bell icon, left sidebar) — shows all mentions of your name (@yourname), replies to your messages, and notifications from channels you follow. Check the Activity feed at the start of each shift to catch anything urgent from the previous hours.",
-              "Chat (speech bubble icon) — one-on-one and small group conversations. Click New Chat (pencil icon) and type a colleague's name to start a private message. Teams chat replaces a significant portion of internal email for quick questions, status updates, and real-time coordination. Messages in chat are searchable and persistent — unlike a phone call, the conversation is recorded and findable later.",
-              "Teams and Channels (grid icon) — a Team is a group workspace (e.g., 'Lakeside Medical Associates Front Desk') and Channels are topic-organized sections within that Team (e.g., General, Scheduling, Billing, Announcements). Post to a Channel when the information is relevant to the whole group. Use Chat for private one-on-one communication.",
+              "Chat (speech bubble icon) — one-on-one and small group conversations. Select New items (the plus button at the top of Chat) › New message, and type a colleague's name to start a private message. Teams chat replaces a significant portion of internal email for quick questions, status updates, and real-time coordination. Messages in chat are searchable and persistent — unlike a phone call, the conversation is recorded and findable later.",
+              "Teams and channels — a team is a group workspace (e.g., 'Lakeside Medical Associates Front Desk') and channels are topic-organized sections within that team (e.g., General, Scheduling, Billing, Announcements). In current Teams, your teams and channels appear inside Chat under Teams and channels; some people switch to a separate Teams button on the app bar. Post to a channel when the information is relevant to the whole group. Use Chat for private one-on-one communication.",
               "Mentions (@name) — type @followed by a colleague's name in any chat or channel post to send them a direct notification. Use @channel to notify all channel members. In a busy Teams environment, using @mentions correctly ensures important messages do not get lost. Do not @everyone or @channel for non-urgent announcements — this triggers notifications for all members and feels intrusive when overused.",
             ],
           },
@@ -308,10 +311,10 @@ export const module7Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Joining a scheduled meeting — click the Join button in the Teams calendar or in your Outlook calendar invitation. You are placed in a lobby (waiting room) until the host admits you. Before joining, Teams gives you a preview screen to check your camera and microphone — use this every time to prevent audio/video problems in the meeting itself.",
+              "Joining a scheduled meeting — click the Join button in the Teams calendar or in your Outlook calendar invitation. Depending on the meeting options, you may wait in a lobby until the organizer admits you. Before joining, Teams shows a pre-join screen to check your camera and microphone — use it every time to prevent audio/video problems in the meeting itself.",
               "Starting an instant meeting — in any Chat or Channel, click the Video Call (camera) or Audio Call (phone) button to start an impromptu meeting with that person or group. This is faster than scheduling a formal meeting for quick consultations.",
-              "Scheduling a Teams meeting from Outlook — in Outlook Calendar, click New Teams Meeting. This inserts a Teams meeting link automatically into the invitation. Add your attendees, set the time, add an agenda to the body, and send. Recipients can join from the Outlook calendar invite or from their Teams calendar.",
-              "Meeting features during a call: use the meeting toolbar at the bottom of the screen to mute/unmute (microphone icon), turn camera on/off (camera icon), share screen (arrow in box icon), view participant list (people icon), access chat (chat bubble icon), and use reactions (smiley icon). The Chat panel in a meeting allows sharing links, files, and written notes without interrupting the spoken conversation.",
+              "Scheduling a Teams meeting — in the Teams calendar, select New event; in Outlook, create a new event and make it a Teams meeting (the new Outlook has a Teams meeting switch; classic Outlook has New Teams Meeting). Add your attendees, set the time, add an agenda to the body, and send. Recipients can join from the Outlook calendar invite or from their Teams calendar.",
+              "Meeting features during a call: use the meeting toolbar to mute/unmute (Mic), turn your camera on/off (Camera), share your screen (Share), see the participant list (People), open the meeting chat (Chat), raise your hand (Raise), and send reactions (React). More (…) › Video effects and settings lets you blur your background. The Chat panel in a meeting allows sharing links, files, and written notes without interrupting the spoken conversation.",
             ],
           },
         ],
@@ -326,9 +329,9 @@ export const module7Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Files tab in Teams channels — every Team channel has a Files tab that connects directly to a SharePoint document library. Files uploaded here are stored in SharePoint and accessible to all team members with appropriate permissions. This is the correct place to store shared documents like templates, schedules, and policy documents that all front desk staff need.",
-              "Uploading and editing files directly in Teams — you can upload files to the Files tab by dragging and dropping, or clicking Upload. Clicking a Word, Excel, or PowerPoint file in the Files tab opens it in Teams for online editing — no need to download and re-upload. Changes save automatically to SharePoint.",
-              "Sharing files in chat — in any Teams chat or channel message, click the paper clip (Attach) icon to share a file from your OneDrive or SharePoint rather than attaching it as an email attachment. Recipients get a link to the live file rather than a static copy.",
+              "The Shared tab in Teams channels — every channel has a Shared tab (it used to be called the Files tab) that connects directly to the team's SharePoint document library. Files uploaded here are stored in SharePoint and accessible to all team members with appropriate permissions. This is the correct place to store shared documents like templates, schedules, and policy documents that all front desk staff need.",
+              "Uploading and editing files directly in Teams — on the Shared tab, drag files in or select Upload. Clicking a Word, Excel, or PowerPoint file opens it in Teams for online editing — no need to download and re-upload. Changes save automatically to SharePoint.",
+              "Sharing files in chat — in a Teams chat or channel message, select Actions and apps (the plus button) › Attach file to share a file from your OneDrive or SharePoint rather than attaching it to an email. Recipients get a link to the live file rather than a static copy. Files you share in a chat are stored in your OneDrive, in the Microsoft Teams Chat Files folder.",
             ],
           },
         ],
@@ -372,22 +375,23 @@ export const module7Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Complete a guided exploration of Microsoft Teams' core features.",
+        text: "Complete a guided exploration of Microsoft Teams' core features. BEOC classroom computers can't sign in to Teams, so on a school computer, do this in the Challenge Lab below.",
       },
       {
         type: "list",
         ordered: true,
         items: [
           "Send a private chat message to yourself in Teams (or to a classmate): type a professional message as if checking in about a patient appointment, and @mention the recipient. Screenshot the sent message showing the @mention.",
-          "Upload your 'LMA_FileManagementGuide' document (from Module 2) to a Teams channel Files tab. Screenshot the Files tab showing the uploaded document.",
+          "Upload your 'LMA_FileManagementGuide' document (from Module 2) to a Teams channel's Shared tab. Screenshot the Shared tab showing the uploaded document.",
           "Schedule a 5-minute test Teams meeting with yourself or a classmate. Join it, test your camera and microphone using the preview screen, and take a screenshot of the meeting lobby view before joining.",
-          "Find and use the background blur feature in Teams during your test meeting (click the three dots > Apply Background Effects > Blur). Screenshot the blurred background in the active meeting. This is a professional alternative to a virtual background when your physical background is not ideal.",
+          "Find and use the background blur feature in Teams during your test meeting (More (…) › Video effects and settings › Blur). Screenshot the blurred background in the active meeting. This is a professional alternative to a virtual background when your physical background is not ideal.",
+          "On a school computer, do this in the Challenge Lab below.",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your four screenshots (chat message with @mention, Files tab, meeting lobby, and blurred background) to your instructor. These exercises confirm that you can use Teams' core features for professional communication, file sharing, and meeting participation — the three most important use cases for front desk staff.",
+        text: "Deliverable: Submit your four screenshots (chat message with @mention, Shared tab, meeting pre-join screen, and blurred background) to your instructor or course folder, or your Challenge Lab results page (Print or save results on the finish card). These exercises confirm that you can use Teams' core features for professional communication, file sharing, and meeting participation — the three most important use cases for front desk staff.",
       },
     ],
   },
@@ -421,9 +425,9 @@ export const module7Lessons: Lesson[] = [
             type: "list",
             items: [
               "Multi-Factor Authentication (MFA) is mandatory for cloud accounts in healthcare — MFA requires a second verification step beyond your password when logging in (typically a code sent to your phone or an authenticator app notification). Even if a hacker obtains your password, they cannot access your account without the second factor. If your organization offers optional MFA, enable it immediately. In a compliant healthcare environment, MFA should be required by policy.",
-              "Never log into your work Microsoft 365 account from a public or shared computer — computers in libraries, hotel business centers, or other shared environments may have keyloggers or cached session tokens that expose your credentials after you log out. If you must access work files remotely from a non-work device, use a personal device on a private network, not a shared or public one.",
+              "Avoid signing in to your work Microsoft 365 account on public computers — computers in libraries, hotel business centers, or other public places may have malware that captures what you type. If you must use a shared computer (such as a classroom computer), don't choose to stay signed in, sign out when you finish, and close the browser. For remote work, use the device and network your organization approves.",
               "Sign out of cloud accounts when done on a non-work device — in Outlook web, Teams web, or SharePoint, click your account icon and select Sign Out. Close the browser after signing out. This prevents session persistence that can be exploited on a shared or family device.",
-              "Change your password immediately if you suspect a compromise — if you notice unfamiliar sign-in activity (Microsoft sends security alerts for sign-ins from new locations or devices), change your password immediately and notify IT. Speed matters in credential compromise scenarios — the faster the password changes, the shorter the attacker's window.",
+              "Change your password immediately if you suspect a compromise — if you notice unfamiliar sign-in activity (check Recent activity at myaccount.microsoft.com), change your password immediately and notify IT. Speed matters in credential compromise scenarios — the faster the password changes, the shorter the attacker's window.",
             ],
           },
         ],
@@ -433,13 +437,13 @@ export const module7Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "The network you use to access cloud services affects the security of that connection — public Wi-Fi has known security risks that affect professional cloud access:",
+            text: "The network you use matters less than it used to, because most websites and Microsoft 365 encrypt their connections. The U.S. Federal Trade Commission says connecting through public Wi-Fi is usually safe for that reason — but scammers still set up fake networks and fake websites, and your organization's rules come first:",
           },
           {
             type: "list",
             items: [
-              "Avoid accessing work cloud services on public Wi-Fi — public networks in coffee shops, airports, and hotels are unencrypted and potentially monitored by other users on the same network. A technique called 'man-in-the-middle' allows attackers on the same public network to intercept unencrypted web traffic. While HTTPS provides some protection, the combination of public Wi-Fi and credential entry creates unnecessary risk.",
-              "Use a VPN (Virtual Private Network) if you must access work systems remotely — a VPN encrypts your internet traffic and tunnels it through a secure server, protecting your connection even on a public network. Many organizations provide a VPN for remote access to clinical systems. If your office provides one, use it whenever accessing work systems from outside the office.",
+              "Check the connection before you sign in — look for https and the lock icon in the address bar, make sure the Wi-Fi name is the one the business actually offers (ask staff), and never type your work password on a page you reached from an unexpected link. Encryption doesn't protect you from a fake website.",
+              "Follow your organization's remote-access rules — many medical offices require a VPN (Virtual Private Network) or an approved device for clinical systems outside the office. If your office provides a VPN, use it whenever its policy says to. Keep multifactor authentication on, and keep your device's software up to date.",
               "The office Wi-Fi is more secure than public Wi-Fi, but is not impenetrable — avoid transmitting sensitive information over the waiting room guest Wi-Fi (which is the same network patients use). All clinical and administrative work should use the staff-only network.",
             ],
           },
@@ -507,16 +511,17 @@ export const module7Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Sign in to your Microsoft 365 account at office.com and navigate to Account Settings > Security Info. Confirm that MFA is enabled and that your authentication methods (phone, authenticator app) are up to date. Screenshot the Security Info page showing MFA enrollment.",
-          "Navigate to My Account > Sign-in Activity (or equivalent in your organization's setup). Review recent sign-in events. Note any unfamiliar locations or devices. Screenshot the sign-in activity list.",
+          "Go to mysignins.microsoft.com/security-info and sign in with your work or school account. Confirm that your sign-in methods (phone, Authenticator app) are set up and up to date. Screenshot the Security info page.",
+          "Go to myaccount.microsoft.com and select Recent activity. Review recent sign-in events and note any unfamiliar locations or devices (location is estimated, so a mobile network can show a distant city). Screenshot the activity list.",
           "Review the sharing permissions on three files in your OneDrive by right-clicking each and checking Manage Access. Note the permission level and whether any shares are with external parties. Document your findings in a table (File Name, Shared With, Permission Level, Expiration Date if any).",
-          "Write a 5-point Cloud Security Checklist for Lakeside Medical Associates staff, formatted as a printable reference card. Save as 'LMA_CloudSecurity_Checklist_2025-05.docx'.",
+          "Write a 5-point Cloud Security Checklist for Lakeside Medical Associates staff, formatted as a printable reference card. Save as 'LMA_CloudSecurity_Checklist.docx'.",
+          "On a school computer, do steps 1 to 3 in the Challenge Lab below, then write the checklist in Word.",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your MFA screenshot, sign-in activity screenshot, sharing permissions table, and Cloud Security Checklist to your instructor. This cloud security audit is the type of regular review that HIPAA Security Rule compliance programs require — and completing it once builds the habit of doing it regularly.",
+        text: "Deliverable: Submit your Security info screenshot, sign-in activity screenshot, sharing permissions table, and Cloud Security Checklist to your instructor or course folder. On a school computer, submit your Challenge Lab results page (Print or save results) in place of the two screenshots and the table, plus your checklist. This cloud security audit is the type of regular review that HIPAA Security Rule compliance programs require — and completing it once builds the habit of doing it regularly.",
       },
     ],
   },

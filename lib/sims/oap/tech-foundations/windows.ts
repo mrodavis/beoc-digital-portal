@@ -1187,7 +1187,7 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Open OneDrive on the web and open the Cloud Practice folder there.",
-          hint: "Select the OneDrive cloud icon on the taskbar › View online (globe), then select Cloud Practice. You can also type onedrive.live.com in Edge.",
+          hint: "Select the OneDrive cloud icon on the taskbar › View online (globe), then select Cloud Practice. You can also type onedrive.com in Edge.",
           steps: [{ action: { kind: "command", id: "edge.nav", value: ["onedrive.live.com", "onedrive.com"] } }, cmd("cloud.open", "OneDrive/Cloud Practice")],
         },
       ],
@@ -1249,7 +1249,7 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Open \"Parent Newsletter Draft\" in OneDrive on the web and accept Maria's suggested edit.",
-          hint: "Right-click the file › View online (or open onedrive.live.com in Edge and select the file), then select the check mark on Maria's suggestion.",
+          hint: "Right-click the file › View online (or open onedrive.com in Edge and select the file), then select the check mark on Maria's suggestion.",
           steps: [onSel(cmd("doc.accept", "s1"), "file:OneDrive/Parent Newsletter Draft.docx", "Open Parent Newsletter Draft online first.")],
         },
       ],
