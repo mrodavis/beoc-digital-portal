@@ -5,7 +5,7 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Week 5 In-Class Exercises: Hardware Help Desk Lab | BEOC Digital</title>
+<title>Hardware Help Desk Lab | BEOC Digital</title>
 <style>
 *{box-sizing:border-box;}
 body{color:#202122;font-family:Arial,Helvetica,sans-serif;line-height:1.6;background:#ffffff;margin:0;padding:14px;}
@@ -81,21 +81,21 @@ textarea{min-height:84px;resize:vertical;}
 </style>
 </head>
 <body>
-<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/learning-paths/office-assistant/tech-foundations"><span class="beoc-tb-badge">BEOC</span><span>&larr; Technology Foundations</span></a><a class="beoc-tb-link" href="/learning-paths/office-assistant/tech-foundations/class-exercises">All class exercises</a><span class="beoc-tb-note">Practice copy. Graded work is submitted in Brightspace.</span></div></nav>
+<nav id="beoc-topbar" aria-label="BEOC Digital"><div class="beoc-tb-inner"><a class="beoc-tb-home" href="/learning-paths/office-assistant/tech-foundations"><span class="beoc-tb-badge">BEOC</span><span>&larr; Technology Foundations</span></a><a class="beoc-tb-link" href="/learning-paths/office-assistant/tech-foundations/class-exercises">All class exercises</a><span class="beoc-tb-note">Self-paced practice. BEOC students submit graded work in Brightspace.</span></div></nav>
 
 <div class="wrap">
 
 <section class="hero-section fade-in">
-  <p class="hero-eyebrow">Week 5 &middot; Practice It! &middot; In Class Thursday 10/1</p>
+  <p class="hero-eyebrow">Workplace Hardware &middot; Practice It! &middot; Self-Paced Lab</p>
   <h1 class="hero-title">Hardware <span class="hero-title-highlight">Help Desk</span> Lab</h1>
   <hr class="hero-divider">
   <p class="hero-sub">Five exercises &middot; about 60 minutes &middot; 10 points &middot; one packet to submit</p>
 </section>
 
 <section class="card">
-  <h2>Your Job Today</h2>
+  <h2>Your Job</h2>
   <div class="scenario"><strong>The scenario:</strong> You are the new office assistant at Lakeside Medical Associates. It is Monday morning. The printer is jammed, a monitor is black, the scanner will not send, and a staff video meeting starts soon. Your team needs you to stay calm and fix what you can.</div>
-  <p><span class="pill pill-gold">10 points</span><span class="pill">2 points per exercise</span><span class="pill">Work with a partner</span><span class="pill">Not finished? Finish it for homework</span></p>
+  <p><span class="pill pill-gold">10 points</span><span class="pill">2 points per exercise</span><span class="pill">Partner optional</span><span class="pill">Stop and come back any time</span></p>
   <div class="grid">
     <div class="step"><span>8 min</span><b>1. Know Your Equipment</b>Quick check of key words.</div>
     <div class="step"><span>12 min</span><b>2. Fix It First</b>Put the steps in order. Solve 5 problems.</div>
@@ -174,7 +174,7 @@ textarea{min-height:84px;resize:vertical;}
 
 <section class="card">
   <span class="pill pill-gold">Exit Ticket &middot; 3 minutes</span>
-  <h2>Before You Go</h2>
+  <h2>Wrap Up</h2>
   <label class="fld" for="exit1">One hardware problem I can now try to fix by myself:</label>
   <textarea id="exit1"></textarea>
   <label class="fld" for="exit2">One question I still have:</label>
@@ -182,17 +182,17 @@ textarea{min-height:84px;resize:vertical;}
 </section>
 
 <section class="due-card">
-  <h2>Submit Your Packet (10 points)</h2>
-<p><strong>Did not finish in class?</strong> Finish the packet for homework and submit it before our next class: Thursday, October 8 at 6:00 PM. This packet is the only Week 5 submission.</p>
-<p><strong>Working on a different computer?</strong> Your answers are saved only in the browser you used in class. On another computer, type your answers again before you build your packet.</p>
+  <h2>What to Submit (10 points)</h2>
+<p><strong>Submit one packet.</strong> This packet is the only submission for the Hardware Help Desk Lab. Work at your own pace: your answers stay saved in this browser, so you can stop and come back later.</p>
+<p><strong>Working on a different computer?</strong> Your answers are saved only in the browser where you typed them. On another computer, type your answers again before you build your packet.</p>
   <ol>
     <li>Click <strong>Build My Packet</strong>. Read it. Fix anything that is missing.</li>
     <li>Click <strong>Download My Packet</strong>. The file goes to your Downloads folder.</li>
-    <li>Click <strong>Open the Submit Folder</strong>. Click Add a File, choose your packet, then click Submit.</li>
+    <li>Submit the packet to your instructor or course folder. BEOC students: open the Brightspace assignment folder, click Add a File, choose your packet, then click Submit.</li>
   </ol>
   <button type="button" class="btn-gold" id="build">Build My Packet</button>
   <button type="button" class="btn-gold btn-dark" id="dl">Download My Packet</button>
-  <span class="beoc-bs-note" role="note"><span aria-hidden="true">&#128229;</span> Submit your work in Brightspace</span>
+  <span class="beoc-bs-note" role="note"><span aria-hidden="true">&#128229;</span> Submit to your instructor or course folder (BEOC students: the Brightspace assignment folder)</span>
   <div id="missing"></div>
   <div id="packetBox">
     <p style="margin:0 0 6px;"><strong>Your packet.</strong> If the download does not work, click Copy Packet Text, paste it into a Word document, save it, and upload that file.</p>
@@ -201,7 +201,7 @@ textarea{min-height:84px;resize:vertical;}
   </div>
 </section>
 
-<p class="footer-note">INFO3020 Digital Literacy I &middot; Week 5: Workplace Hardware &amp; Equipment &middot; Due before our next class: Thursday, October 8 at 6:00 PM</p>
+<p class="footer-note">INFO3020 Digital Literacy I &middot; Workplace Hardware &amp; Equipment &middot; Self-paced lab</p>
 </div>
 
 <script>
@@ -345,8 +345,8 @@ function buildPacket(){
   var miss=[],out=[],i,v;
   function line(s){out.push(s);}
   function need(id,label){var x=val(id);if(!x)miss.push(label);return x||'(no answer)';}
-  line('WEEK 5 - IN-CLASS EXERCISE PACKET');
-  line('INFO3020 Digital Literacy I - Thursday 10/1 - Hardware Help Desk Lab');
+  line('HARDWARE HELP DESK LAB - EXERCISE PACKET');
+  line('INFO3020 Digital Literacy I - Workplace Hardware & Equipment');
   line('Name: '+need('name','Your name'));
   line('Partner: '+need('partner','Partner name'));
   line('');
@@ -396,7 +396,7 @@ el('dl').onclick=function(){
   try{
     var blob=new Blob([text],{type:'text/plain'});
     var a=document.createElement('a');
-    a.href=URL.createObjectURL(blob);a.download='Week5_Packet_'+nm+'.txt';
+    a.href=URL.createObjectURL(blob);a.download='Hardware_Lab_Packet_'+nm+'.txt';
     document.body.appendChild(a);a.click();
     setTimeout(function(){document.body.removeChild(a);URL.revokeObjectURL(a.href);},800);
   }catch(e){el('missing').style.display='block';el('missing').textContent='The download did not work. Click Copy Packet Text and paste it into a Word document.';}
