@@ -18,6 +18,15 @@ export default function Home() {
     icon: "📊",
   };
 
+  const googleWorkspacePath: LearningPath = {
+    title: "Google Workspace",
+    description:
+      "Work in Drive, Docs, Sheets, Slides, Gmail, Calendar, and Meet the way offices use them, with practice simulations and side-by-side notes for Microsoft 365 users.",
+    href: "/learning-paths/google-workspace",
+    status: "available",
+    icon: "🧭",
+  };
+
   const ehrSimulatorPath: LearningPath = {
     title: "BEOC EHR Simulator",
     description:
@@ -171,7 +180,7 @@ export default function Home() {
       <div className="mb-12">
         <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[msOfficePath, ehrSimulatorPath].map((path) => (
+          {[msOfficePath, googleWorkspacePath, ehrSimulatorPath].map((path) => (
             <LearningCard
               key={path.title}
               title={path.title}
