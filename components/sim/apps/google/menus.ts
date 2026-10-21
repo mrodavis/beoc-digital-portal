@@ -587,8 +587,8 @@ export function driveItemMenu(opts: { folder: boolean; starred: boolean; trashed
       "Organize",
       [
         d("Move", "g.move", { icon: "move", shortcut: "Ctrl+Alt+M" }),
-        d("Add shortcut", "g.shortcut", { icon: "shortcut", shortcut: "Shift+Z" }),
-        c(opts.starred ? "Remove from starred" : "Add to starred", "g.star", "$id", { icon: opts.starred ? "starFilled" : "star", shortcut: "S" }),
+        d("Add shortcut", "g.shortcut", { icon: "shortcut", shortcut: "Ctrl+Alt+R" }),
+        c(opts.starred ? "Remove from starred" : "Add to starred", "g.star", "$id", { icon: opts.starred ? "starFilled" : "star", shortcut: "Ctrl+Alt+S" }),
         // Folders: the color choices sit right in Organize, under Folder color.
         ...(opts.folder ? [{ head: "Folder color" } as GEntry, ...FOLDER_COLORS.map(([name, col]) => c(name, "g.color", `$id|${col}`, { swatch: col }))] : []),
       ],

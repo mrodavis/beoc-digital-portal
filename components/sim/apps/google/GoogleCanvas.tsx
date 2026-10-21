@@ -137,6 +137,7 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
   const [search, setSearch] = useState("");
   const [table, setTable] = useState<MenuPos | null>(null);
   const mouse = useRef<MenuPos>({ x: 240, y: 200 });
+  const altC = useRef(false);
   const f = openFile(doc);
   useEffect(() => { setComposer(false); setNoteFor(null); }, [doc.surface, doc.open]);
 
@@ -246,21 +247,35 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
       Escape: () => { if (doc.pane) run("g.pane", ""); },
     };
     if (s === "drive") {
+      // Drive's current shortcuts (support.google.com/drive/answer/2563044): F2 rename, Ctrl+Alt+S star,
+      // Ctrl+Alt+M move, Ctrl+Alt+R add shortcut, Ctrl+Alt+A share, Delete or # remove, and
+      // Alt+C then T / S / P / F / U / I to create a Document, Spreadsheet, Presentation, folder, or upload.
       const sel = selectedFiles;
+      if (altC.current) {
+        altC.current = false;
+        const after: Record<string, () => void> = {
+          T: () => run("g.new", "Google Docs"),
+          S: () => run("g.new", "Google Sheets"),
+          P: () => run("g.new", "Google Slides"),
+          F: () => { handled(); act("newFolder"); },
+          U: () => { handled(); act("upload"); },
+          I: () => { handled(); act("folderUpload"); },
+        };
+        if (after[k]) return after[k]();
+      }
       const map: Record<string, () => void> = {
         Delete: () => sel.length && run("g.trash", sel.join(",")),
         Backspace: () => sel.length && run("g.trash", sel.join(",")),
+        "#": () => sel.length && run("g.trash", sel.join(",")),
+        "Shift+#": () => sel.length && run("g.trash", sel.join(",")),
         Enter: () => { const x = fileOf(doc, sel[0]); if (x) run(x.kind === "folder" ? "g.go" : "g.open", x.id); },
-        S: () => sel.length && run("g.star", sel.join(",")),
-        N: () => { handled(); act("rename"); },
-        Z: () => { handled(); dialog("g.move"); },
-        "Shift+Z": () => { handled(); dialog("g.shortcut"); },
-        ".": () => { handled(); act("share"); },
+        F2: () => { handled(); act("rename"); },
+        "Ctrl+Alt+E": () => { handled(); act("rename"); },
+        "Ctrl+Alt+S": () => sel.length && run("g.star", sel.join(",")),
+        "Ctrl+Alt+M": () => { handled(); dialog("g.move"); },
+        "Ctrl+Alt+R": () => { handled(); dialog("g.shortcut"); },
         "Ctrl+Alt+A": () => { handled(); act("share"); },
-        "Shift+T": () => run("g.new", "Google Docs"),
-        "Shift+S": () => run("g.new", "Google Sheets"),
-        "Shift+P": () => run("g.new", "Google Slides"),
-        "Shift+F": () => { handled(); act("newFolder"); },
+        "Alt+C": () => { handled(); altC.current = true; },
       };
       map[k]?.();
       return;

@@ -201,7 +201,7 @@ export const gwMailM6: Record<string, SimDefinition[]> = {
       ),
       tasks: [
         { instruction: "Open the message “Action required: your mailbox will be deactivated.”", hint: "Select the message in the inbox.", steps: [cmd("gm.open", "p1")] },
-        { instruction: "Look at the sender's address: it isn't from parkviewpm.example. Report the message as phishing.", hint: "In the message, select More message options (three dots, next to Reply) › Report phishing › Report phishing message.", steps: [cmd("gm.phishing", undefined, "msg:p1")] },
+        { instruction: "Look at the sender's address: it isn't from parkviewpm.example. Report the message as phishing.", hint: "In the message, next to Reply, select More (three dots) › Report phishing. Confirm in the box that opens.", steps: [cmd("gm.phishing", undefined, "msg:p1")] },
         { instruction: "Report the “You've won a $500 gift card!” message as spam.", hint: "Check the box next to the message (or open it) › Report spam (stop-sign icon) at the top.", steps: [cmd("gm.spam", undefined, "msg:p2", "Check the box next to the gift card message first.")] },
         { instruction: "You signed up for the Landlord Learning Hub newsletter but don't want it anymore. Unsubscribe from it.", hint: "Open the newsletter › select Unsubscribe next to the sender's name › Unsubscribe.", steps: [cmd("gm.unsubscribe", undefined, "msg:p3")] },
         { instruction: "Open the Spam folder.", hint: "In the left menu, select More, then Spam.", steps: [cmd("gm.go", "spam")] },

@@ -110,7 +110,7 @@ export const gwModule2Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Rename “Untitled document” to “Elm Street Boiler Notes”.",
-          hint: "Right-click Untitled document › Rename (or click it once and press N). Type Elm Street Boiler Notes and click OK.",
+          hint: "Right-click Untitled document › Rename (or click it once and press F2). Type Elm Street Boiler Notes and click OK.",
           steps: [{ action: { kind: "type", target: "rename:f3", value: "Elm Street Boiler Notes" } }],
         },
         {
@@ -125,7 +125,7 @@ export const gwModule2Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Star the Riverside Commons folder.",
-          hint: "Right-click Riverside Commons › Organize › Add to starred, or click it once and press S.",
+          hint: "Right-click Riverside Commons › Organize › Add to starred, or click it once and press Ctrl+Alt+S.",
           steps: [{ action: { kind: "command", id: "g.star", value: "fdR" } }],
         },
         {

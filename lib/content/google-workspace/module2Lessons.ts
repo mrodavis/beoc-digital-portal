@@ -229,7 +229,7 @@ export const gwModule2Lessons: Lesson[] = [
             items: [
               "Create a folder: open the place it should go, click New › New folder, type a name, and click Create.",
               "Folders can hold folders: Elm Street Apartments › Maintenance › Boiler.",
-              "Rename a file or folder: right-click it › Rename, or select it and press N. Inside an open file, click its name at the top left.",
+              "Rename a file or folder: right-click it › Rename, or select it and press F2. Inside an open file, click its name at the top left.",
               "Name files with what, where, and which: Elm Street Laundry Schedule, Lease - Elm 3B - Jordan Smith. Avoid names like Untitled document, scan001, or final final.",
             ],
           },
@@ -283,7 +283,7 @@ export const gwModule2Lessons: Lesson[] = [
             caption: "Tools for finding what matters",
             columns: ["Tool", "How", "What it does"],
             rows: [
-              ["Star", "Right-click › Organize › Add to starred (or select and press S)", "Puts the file under Starred on the left side"],
+              ["Star", "Right-click › Organize › Add to starred (or select it and press Ctrl+Alt+S)", "Puts the file under Starred on the left side"],
               ["Folder color", "Right-click a folder › Organize › choose a color", "Makes the folder stand out. Colors show only in your Drive"],
               ["Shortcut", "Right-click › Organize › Add shortcut, choose a folder, click Add shortcut", "A link to the same file in another folder. Edits show up in both places"],
               ["Make a copy", "Right-click a file › Make a copy (or File › Make a copy in the file)", "A separate file. Changes to one do not change the other"],

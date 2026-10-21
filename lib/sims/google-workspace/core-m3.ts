@@ -156,7 +156,7 @@ export const gwModule3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Open the tabs and outlines panel and check that the four headings are listed.",
-          hint: "Click Show tabs & outlines (the list icon at the top left of the document). View › Show tabs & outlines works too.",
+          hint: "At the top left of the document, click Show tabs & outlines (the list icon). The outline of headings shows under the tab.",
           steps: [{ action: { kind: "command", id: "g.view", value: "outline" } }],
         },
         {
