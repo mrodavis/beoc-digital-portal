@@ -59,8 +59,8 @@ export const module9Lessons: Lesson[] = [
                 "Often treated as the internet's birthday",
               ],
               [
-                "1983-1985",
-                "Domain Name System designed and put into use",
+                "1983",
+                "Domain Name System designed",
                 "Names instead of numeric addresses, which made the network usable by people",
               ],
               [
@@ -129,7 +129,7 @@ export const module9Lessons: Lesson[] = [
               {
                 term: "DNS",
                 definition:
-                  "The Domain Name System, which translates a name like beoc.cuny.edu into the numeric address computers actually use.",
+                  "The Domain Name System, which translates a name like beocdigital.org into the numeric address computers actually use.",
               },
               {
                 term: "The World Wide Web",
