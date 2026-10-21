@@ -8,8 +8,12 @@ interface Slide {
   alt: string;
 }
 
-export default function Slideshow({ slides }: { slides: Slide[] }) {
-  const [current, setCurrent] = useState(0);
+export default function Slideshow({ slides: all }: { slides: Slide[] }) {
+  const [cur, setCurrent] = useState(0);
+  // Slides whose image fails to load are skipped instead of showing a broken image.
+  const [failed, setFailed] = useState<Set<string>>(() => new Set());
+  const slides = all.filter((s) => !failed.has(s.src));
+  const current = Math.min(cur, Math.max(0, slides.length - 1));
 
   const prev = useCallback(() => setCurrent((i) => Math.max(0, i - 1)), []);
   const next = useCallback(
@@ -26,6 +30,8 @@ export default function Slideshow({ slides }: { slides: Slide[] }) {
     return () => window.removeEventListener("keydown", handleKey);
   }, [prev, next]);
 
+  if (!slides.length) return null;
+
   return (
     <div className="rounded-2xl overflow-hidden shadow-lg border border-gray-200 bg-gray-950 select-none">
       {/* Slide image */}
@@ -36,6 +42,7 @@ export default function Slideshow({ slides }: { slides: Slide[] }) {
           fill
           className="object-contain"
           priority={current === 0}
+          onError={() => setFailed((f) => new Set(f).add(slides[current].src))}
         />
 
         {/* Prev button */}
