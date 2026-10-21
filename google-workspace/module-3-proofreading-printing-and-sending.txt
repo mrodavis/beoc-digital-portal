@@ -1,0 +1,60 @@
+Proofreading, Printing, and Sending Documents
+
+Module 3: Google Docs
+
+Finish a document the professional way: check spelling and grammar, use word count and find and replace, then print, download, email, or copy it.
+
+By the end of this lesson you can:
+- Check spelling and grammar and fix or ignore each suggestion
+- Use Word count and Find and replace
+- Print a document or save it as a PDF from the Print box
+- Email a document as an attachment and make a copy for a new purpose
+
+
+## Proofread before anyone else reads it
+
+ type: scenario
+ role: You are sending the move-in letter to a new tenant at Elm Street Apartments.
+ text: The letter has a spelling mistake it says Elm St. in some places and Elm Street in others and it must be printed for the move-in packet and emailed to the tenant as a PDF. Denise also wants a copy to reuse for the next new tenant.
+ task: Proofread print and send the letter and keep a reusable copy.
+
+
+- When spelling and grammar suggestions are on, Docs underlines misspelled words in red and grammar suggestions in blue. Right-click an underlined word and click the suggested word to accept it, or click Ignore.
+- To go through the whole document, click Spelling and grammar check on the toolbar (at the top left). A box opens at the top right: click Change to use a suggestion or Ignore to skip it. More › Accept all or Ignore all handles every suggestion at once.
+- Read it yourself too. A checker cannot tell that you typed the wrong apartment number.
+
+
+## Word count and Find and replace
+- Tools › Word count (Ctrl+Shift+C) shows pages, words, and characters. Check Display word count while typing to keep a count on screen.
+- Edit › Find and replace (Ctrl+H): type what to find and what to replace it with, then click Replace or Replace all. Check Match case when capital letters matter.
+
+Practice: Put the finishing steps in a sensible order.
+
+
+## Print, download, email, or copy
+
+ type: table
+ caption: Ways to get a document to someone
+ columns: 
+  Task
+  How
+ rows: 
+   Print
+   File › Print (Ctrl+P). Choose the printer as the Destination set copies and click Print.
+   Save a PDF on the computer
+   File › Download › PDF Document (.pdf) or in the Print box choose Save as PDF as the Destination.
+   Email it as an attachment
+   File › Email › Email this file. Enter the address and subject choose the format (such as PDF) and click Send.
+   Email everyone working on it
+   File › Email › Email collaborators.
+   Reuse it for something new
+   File › Make a copy. Give the copy a name; the original stays as it is.
+
+
+Note: Before you email a document outside Parkview, check that it contains only what the reader should see. Delete comments and suggestions, or send a PDF, so internal notes do not go out with it.
+
+
+## Knowledge Check
+Check yourself: The letter says Elm St. in six places. You want them all to say Elm Street. What is fastest? Answer: Edit › Find and replace, then Replace all. Find and replace changes every match at once.
+
+Check yourself: You need next month's move-in letter to start from this one, without changing this one. What do you do? Answer: File › Make a copy. Make a copy creates a separate file you can change freely.

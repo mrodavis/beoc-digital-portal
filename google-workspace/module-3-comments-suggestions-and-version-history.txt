@@ -1,0 +1,63 @@
+Comments, Suggestions, and Version History
+
+Module 3: Google Docs
+
+Review documents with your team: comment, reply, and assign tasks, suggest edits instead of making them, accept or reject suggestions, and name and restore versions.
+
+By the end of this lesson you can:
+- Add a comment, reply to one, and resolve it
+- Assign a comment to a person with an @mention
+- Switch to Suggesting mode, suggest an edit, and accept or reject suggestions
+- Open version history, name the current version, and restore an earlier one
+
+
+## Comments
+
+ type: scenario
+ role: You own the draft of Parkview's new pet policy.
+ text: Denise and Marcus have read the draft. Denise left a comment Marcus suggested two changes and Priya still needs to confirm the monthly pet fee. You need to work through the feedback without losing track of the original wording.
+ task: Handle comments and suggestions assign the open question and mark the reviewed version.
+
+
+- Select the text, then click Add comment on the toolbar, choose Insert › Comment, or press Ctrl+Alt+M. Type the comment and click Comment.
+- Comments show in the right margin, attached to the text. Click one to reply.
+- When a comment is handled, click the check mark (Mark as done and hide discussion) to resolve it. Resolved comments stay in the comment history (the Comments button at the top right).
+- To assign a comment, type @ and the person's name in it, check Assign to, and click Assign. The person is notified and is responsible for marking it done.
+
+
+## Suggesting mode
+In Suggesting mode, your edits do not change the text. They appear as colored suggestions with your name, and the document's editors accept or reject each one. It is the Google Docs version of Word's Track Changes.
+
+- Switch modes with the mode button at the right end of the toolbar (it shows Editing): choose Suggesting. Or use View › Mode › Suggesting, or press Ctrl+Alt+Shift+X.
+- Type, delete, or replace text as usual. Each change becomes a suggestion card in the margin.
+- To accept or reject one, click the check mark or the X on its card. Tools › Review suggested edits shows them all, with Accept all and Reject all.
+- Viewing mode shows the document without suggestions or comments, as it would print.
+
+Practice: Sort what you would do in each case.
+
+
+## Version history
+- Open it with the Last edit (clock) icon at the top right, File › Version history › See version history, or Ctrl+Alt+Shift+H.
+- Click a version on the right to see what it looked like and who changed what.
+- Restore: choose the earlier version, click Restore this version, and confirm. Your current text becomes a version in the list, so nothing is lost.
+- Name a version to find it later: File › Version history › Name current version, or in the list, choose More › Name this version. A document can have up to 40 named versions.
+- Only people who can edit the file can see its version history.
+
+
+ type: worked-example
+ title: Marking the reviewed pet policy
+ task: The team has reviewed the draft and you expect more changes later.
+ steps: 
+   move: Accept and reject the suggestions and resolve the comments that are handled.
+   why: The margin should show only what is still open.
+   move: File › Version history › Name current version: Reviewed by office.
+   why: If later edits go wrong you can find and restore this exact version by name.
+ result: A clean draft plus a named version to return to.
+ takeaway: Name a version at every milestone: first draft reviewed final.
+
+
+
+## Knowledge Check
+Check yourself: You want Denise to decide whether to change a sentence in her document. What do you use? Answer: Suggesting mode. A suggestion shows your change without making it, and Denise accepts or rejects it.
+
+Check yourself: Someone pasted over half of the policy by mistake. How do you get the old text back? Answer: Open version history and restore the earlier version. Version history keeps earlier versions. Restoring one keeps the current text as a version too.

@@ -1,0 +1,64 @@
+Charts and Pivot Tables
+
+Module 4: Google Sheets
+
+Turn numbers into a chart with Insert › Chart and the chart editor, and summarize a long list with a pivot table.
+
+By the end of this lesson you can:
+- Insert a chart from selected data and change its type in the chart editor's Setup tab
+- Add a chart title in the Customize tab
+- Create a pivot table on a new sheet and add rows, columns, and values
+- Explain when a chart or a pivot table is the better tool
+
+
+## Charts
+
+ type: scenario
+ role: You prepare numbers for the monthly owners' meeting.
+ text: Marcus presents to the building owners each month. He wants a chart of repair requests by month and a summary of rent by building from the 40-row rent roll without retyping any numbers.
+ task: Make the chart and the summary from the data you already have.
+
+
+1. Select the data, including the labels (for example, Month and Repairs).
+2. Insert › Chart. Sheets picks a chart type and opens the chart editor on the right.
+3. On the Setup tab, choose a different Chart type if you need one, and check the data range.
+4. On the Customize tab, open Chart & axis title to type a title and change its font.
+5. Drag the chart to move it; drag the blue markers to resize it. Double-click it to reopen the chart editor.
+
+
+ type: table
+ caption: Pick the chart that fits the question
+ columns: 
+  Question
+  Chart
+ rows: 
+   How do the months compare?
+   Column chart
+   Is it going up or down over time?
+   Line chart
+   What share does each part make up?
+   Pie chart (a few parts only)
+   Which of many items is biggest?
+   Bar chart
+
+
+Practice: Match each question to the best chart.
+
+
+## Pivot tables
+A pivot table summarizes a long list: total rent by building, number of repairs by type, average cost by vendor. You do not write formulas; you choose which column to group by and which to add up.
+
+1. Select the data. Every column needs a header.
+2. Insert › Pivot table. Check the data range, choose New sheet, and click Create.
+3. In the pivot table editor on the right, next to Rows, click Add and pick a column to group by (Building).
+4. Next to Values, click Add and pick the column to summarize (Rent). Sheets adds it up with SUM; choose another way, like AVERAGE or COUNTA, under Summarize by.
+5. Add a field under Columns to split the summary across the top (Status).
+6. The pivot table updates when the source data changes. Click it and choose Edit to reopen the editor.
+
+Note: Sheets may show Suggested pivot tables in the editor. They can be a good start; check that they answer your question.
+
+
+## Knowledge Check
+Check yourself: Marcus needs total rent for each building from a 40-row rent roll. What is fastest? Answer: A pivot table with Building in Rows and Rent in Values. A pivot table groups the rows by building and adds the rents for you.
+
+Check yourself: Where do you change a chart's title? Answer: Customize tab › Chart & axis title. Titles and fonts are on the Customize tab of the chart editor.

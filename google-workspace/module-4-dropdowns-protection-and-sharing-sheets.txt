@@ -1,0 +1,68 @@
+Dropdowns, Protected Ranges, and Sharing Sheets
+
+Module 4: Google Sheets
+
+Keep shared sheets clean with dropdowns and checkboxes, protect formulas from accidental edits, leave notes and comments, and download a sheet as Excel or CSV.
+
+By the end of this lesson you can:
+- Add a dropdown with Insert › Dropdown or Data › Data validation, and add checkboxes
+- Protect a range so only you can edit it, and explain why protection is not a security measure
+- Choose between a note and a comment
+- Share a sheet and download it as Microsoft Excel or CSV
+
+
+## Dropdowns and checkboxes
+
+ type: scenario
+ role: You manage the shared supply order sheet.
+ text: Four people add items to the monthly supply order. Categories are typed five different ways (cleaning Cleaning cleaning supplies) someone typed over the Total formulas last month and Priya needs a copy in Excel for the accounting system.
+ task: Make the sheet hard to break then share and download it.
+
+
+- Select the cells, then Insert › Dropdown (or Data › Data validation › Add rule, or right-click › Dropdown). The Data validation rules panel opens.
+- Under Criteria, keep Dropdown and type each option, clicking Add another item for more. Choose Dropdown from a range to use a list already in the sheet.
+- Advanced options: under If the data is invalid, entries that are not on the list are rejected by default; choose Show a warning to allow them with a warning. Display style can be Chip, Arrow, or Plain text.
+- Click Done. A dropdown appears in each cell.
+- Checkboxes: select the cells and choose Insert › Checkbox. Click a box to check it. You can use checkboxes with filters, charts, pivot tables, and functions.
+
+
+## Protecting formulas
+1. Select the cells, then Data › Protect sheets and ranges. A panel opens on the right.
+2. Click Add a sheet or range. Check the Range (or choose Sheet), and type a description.
+3. Click Set permissions. Choose Restrict who can edit this range and pick Only you (or Custom to add people), or choose Show a warning when editing this range.
+4. Click Done.
+
+Note: Protection prevents accidents; it is not a security measure. People who can view the sheet can still print, copy, paste, and export protected content. Share sheets only with people who should see what is in them.
+
+
+ type: table
+ caption: Notes or comments?
+ columns: 
+  Note
+  Comment
+ rows: 
+   Add it
+   Right-click › Insert note or Shift+F2
+   Right-click › Comment or Ctrl+Alt+M
+   Looks like
+   A small black triangle in the cell's corner
+   A yellow triangle with the discussion in a card
+   Use it for
+   A quiet explanation like Price went up in October
+   A question or task for someone with replies and @mentions
+
+
+Practice: Sort each request.
+
+
+## Sharing and downloading
+- Share a sheet the same way as any file: Share at the top right, add people, pick Viewer, Commenter, or Editor.
+- File › Download › Microsoft Excel (.xlsx) downloads every sheet as an Excel workbook.
+- File › Download › Comma Separated Values (.csv) saves plain data for another system. A CSV file holds one sheet of data with no formatting, so open the sheet you need first.
+- File › Version history shows earlier versions. Restoring a spreadsheet version clears the cell-by-cell edit history for earlier changes; make a copy instead if you need to keep that history.
+
+
+## Knowledge Check
+Check yourself: You protected the Total column so only you can edit it. Can a coworker who can view the sheet copy those cells into another file? Answer: Yes. Protection stops edits, not copying, printing, or exporting. Protection prevents accidental changes. It is not a way to keep data private.
+
+Check yourself: Priya's accounting system needs the current sheet as plain data. Which download? Answer: Comma Separated Values (.csv). A CSV file is plain data, one sheet with no formatting, that most systems can import.

@@ -1,0 +1,87 @@
+Signing In and Keeping Your Account Safe
+
+Module 1: Getting Started with Google Workspace
+
+Sign in to your Google account, approve a 2-Step Verification prompt, and sign out the right way on a shared or public computer.
+
+By the end of this lesson you can:
+- Sign in to a Google account in a web browser
+- Explain 2-Step Verification and approve, or block, a sign-in prompt on your phone
+- Sign out when you finish on a shared computer, and use a private browsing window on a public one
+- Find the Security & sign-in page in your Google Account and check whether 2-Step Verification is on
+
+
+## One account opens everything
+
+ type: scenario
+ role: You are covering the front desk at Parkview Property Management.
+ text: The front desk computer is shared by everyone who covers the desk: you Andre the leasing agent and sometimes Kim from maintenance. Your Google account opens your email every shared file and the tenant contact list. If you leave it signed in the next person at the desk is working as you.
+ task: Sign in safely understand the 2-Step Verification prompt and always leave the shared computer signed out.
+
+
+Your Google account is the key to every app in Google Workspace. Because one account opens your email, your files, and your calendar, protecting it protects all of them. Two habits do most of the work: turning on 2-Step Verification and signing out of shared computers.
+
+1. Open a web browser and go to drive.google.com (or any Google app, such as mail.google.com).
+2. In Email or phone, type your account address and click Next.
+3. Type your password and click Next.
+4. If 2-Step Verification is on, complete the second step, such as tapping Yes on your phone.
+5. The app opens. Your profile picture or initial at the top right shows which account you are using.
+
+Practice: Drag the steps into the order you do them.
+
+
+## 2-Step Verification
+With 2-Step Verification, signing in takes something you know (your password) and something you have (usually your phone). If someone steals or guesses your password, they still cannot get in without the second step.
+
+
+ type: table
+ caption: Second steps Google offers
+ columns: 
+  Second step
+  How it works
+ rows: 
+   Google prompts
+   A notification on your signed-in phone asks if you are trying to sign in. You tap Yes or No.
+   Passkeys and security keys
+   Your phone computer or a small hardware key confirms it is you often with your fingerprint face or screen lock.
+   Authenticator app
+   An app such as Google Authenticator shows a one-time code. It works without internet or cell service.
+   Text message or call
+   Google sends a 6-digit code to your phone number. Google notes these codes can be vulnerable to phone-number scams.
+   Backup codes
+   A printed list of 8-digit codes for when you do not have your phone. Keep them private and somewhere safe.
+
+
+- To turn it on in a personal account: go to myaccount.google.com, select Security & sign-in, and under How you sign in to Google, choose Turn on 2-Step Verification. Follow the steps on the screen.
+- In a work or school account, your administrator may already require it or may manage it for you. If the steps do not work, contact your administrator.
+
+Note: If a sign-in prompt appears on your phone and you are not signing in, tap No, it's not me. A prompt you did not start means someone may know your password. Change your password and tell your supervisor or IT. Never approve a prompt because a caller or a text message tells you to.
+
+
+## Shared and public computers
+
+ type: table
+ caption: What to do on each kind of computer
+ columns: 
+  Computer
+  What to do when you finish
+ rows: 
+   Your own computer
+   You can stay signed in. Lock the screen when you step away (Windows key + L).
+   A shared work computer like the front desk
+   Sign out: click your profile picture at the top right then Sign out. Do not let the browser save your password.
+   A public computer like a library
+   Sign in only in a private browsing window (Incognito in Chrome InPrivate in Edge). When you finish close every private window and you are signed out.
+
+
+Forgot to sign out somewhere? Go to your Google Account, open Your devices, and use Manage devices to remove the computer you no longer use. If your password could have been saved on someone else's computer, change it.
+
+Practice: Sort each habit.
+
+Use a long password you do not use anywhere else. A short sentence of unrelated words is easier to remember and harder to guess than a short word with symbols.
+
+
+## Knowledge Check
+Check yourself: You are not signing in anywhere, and your phone shows a Google prompt: Are you trying to sign in? What should you do? Answer: Tap No, it's not me, then change your password and tell IT. A prompt you did not start means someone has your password and is trying to get in. Block it, change your password, and report it.
+
+Check yourself: You checked the shared calendar on the front desk computer. What do you do before you leave the desk? Answer: Sign out: profile picture, then Sign out. Closing a tab or minimizing the window can leave you signed in. Sign out from your profile picture so the next person cannot work as you.

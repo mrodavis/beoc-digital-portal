@@ -1,0 +1,89 @@
+Working with Microsoft Office Files
+
+Module 1: Getting Started with Google Workspace
+
+Open and edit Word, Excel, and PowerPoint files without converting them, convert one to a Google file when you need to, and download Google files as Office files or PDFs.
+
+By the end of this lesson you can:
+- Open and edit a Word, Excel, or PowerPoint file from Drive and keep it in its Office format
+- Convert an Office file with File › Save as Google Docs, Sheets, or Slides, and explain why that makes a copy
+- Download a Google file as a Microsoft Office file or a PDF
+- Choose the right format to send to someone outside your company
+
+
+## Office files keep arriving
+
+ type: scenario
+ role: You handle the paperwork that comes into the Parkview office.
+ text: Not everyone uses Google Workspace. Russo Plumbing emails its invoices as Excel files the lease renewal notice came from the company lawyer as a Word file and a tenant who uses Word asked for the move-in checklist in Word. Parkview's files live in Drive so you need to handle all of these without retyping anything.
+ task: Edit Office files in Drive convert them when you need Google features and send people the format they can use.
+
+
+Drive stores any kind of file. When you double-click a Word, Excel, or PowerPoint file in Drive, it opens in Google Docs, Sheets, or Slides. You can read it, edit it, and comment on it. Your changes are saved back to the original Office file.
+
+
+## Office editing: keep the Office format
+- An Office file shows its file type in a small chip next to the name at the top left, such as .DOCX, .XLSX, or .PPTX.
+- Edits save automatically, in the Office format. Someone who downloads the file later gets a normal Word, Excel, or PowerPoint file.
+- Drive's Office editing works with Word (.doc, .docx, .dot), Excel (.xls, .xlsx, .xlsm, .xlt), and PowerPoint (.ppt, .pptx, .pps, .pot) files.
+
+Some features work only in Google files, such as protected ranges in Sheets, add-ons, Apps Script, and translating a document. To use them, convert the file: open it, then choose File › Save as Google Docs (or Save as Google Sheets, Save as Google Slides).
+
+Note: Converting makes a copy. The original Office file stays in Drive, unchanged, and the new Google file opens in a new tab. Rename or delete the one you do not need so coworkers do not edit the wrong copy.
+
+
+## Download as Office or PDF
+To send someone a file they can open without Google, download it in another format: open the file and choose File › Download, then pick the format. The download goes to your computer's Downloads folder, and you can attach it to an email. The file in Drive does not change.
+
+
+ type: table
+ caption: Common File › Download formats
+ columns: 
+  App
+  Format
+  Use it when
+ rows: 
+   Docs
+   Microsoft Word (.docx)
+   The other person needs to edit it in Word
+   Docs
+   PDF Document (.pdf)
+   The other person only needs to read print or sign it
+   Sheets
+   Microsoft Excel (.xlsx)
+   The other person needs to work with the numbers in Excel
+   Sheets
+   Comma Separated Values (.csv)
+   Another system needs the data (a CSV file holds one sheet of plain data)
+   Slides
+   Microsoft PowerPoint (.pptx)
+   The presenter uses PowerPoint
+   Slides
+   PDF Document (.pdf)
+   People only need to read the slides
+
+
+Practice: Sort each request.
+
+
+ type: worked-example
+ title: The lease renewal notice
+ task: The lawyer sent Lease Renewal Notice.docx. Denise wants it styled like Parkview's other notices and kept as a Google Doc and a tenant needs a copy to print.
+ steps: 
+   move: Double-click the .docx file in Drive.
+   why: It opens in Docs with the .DOCX chip so you can check it right away without converting.
+   move: File › Save as Google Docs.
+   why: Denise wants a Google Doc and converting gives you a Google copy while the lawyer's original stays as it was.
+   move: Format the Google copy.
+   why: Edits now go into Parkview's Google Doc not the lawyer's file.
+   move: File › Download › PDF Document (.pdf) for the tenant.
+   why: A PDF prints the same on any computer and cannot be changed by accident.
+ result: A Google Doc for the office and a PDF for the tenant with the lawyer's original untouched.
+ takeaway: Edit Office files in place when you only need a quick change; convert when Parkview will keep and maintain the file.
+
+
+
+## Knowledge Check
+Check yourself: You open Russo Plumbing Invoice.xlsx from Drive and fix a typo. What happens? Answer: The change is saved in the original Excel file. Office editing saves your changes back to the Office file in its original format.
+
+Check yourself: You chose File › Save as Google Docs on a Word file. What is in Drive now? Answer: Both: the original Word file and a new Google Doc. Converting makes a copy. The Word file stays, and the Google Doc opens in a new tab.

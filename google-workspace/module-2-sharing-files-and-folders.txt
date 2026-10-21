@@ -1,0 +1,113 @@
+Sharing Files and Folders
+
+Module 2: Google Drive: Organize and Share
+
+Share with the right people and the right role, set general access, copy links, add expiration dates, and remove access when it is no longer needed.
+
+By the end of this lesson you can:
+- Share a file or folder with specific people as Viewer, Commenter, or Editor
+- Set General access to Restricted, your organization, or Anyone with the link, and explain the risk of each
+- Copy a link to a file and change or remove someone's access
+- Add an expiration date for a person outside your organization
+- Explain that sharing a folder shares every file inside it
+
+
+## Share, do not attach
+
+ type: scenario
+ role: You manage access to Parkview's files.
+ text: Marcus needs to edit the tenant handbook Priya only needs to read it Tony Russo from Russo Plumbing needs to see photos in the Maintenance folder for a few weeks and the lobby notice should be readable by everyone at Parkview. You also find an old folder still open to anyone with the link months after the painting contractor finished.
+ task: Give each person the least access they need and close access nobody needs anymore.
+
+
+1. Select the file (or open it) and click Share.
+2. Type a name or email address and choose the person.
+3. Pick a role: Viewer, Commenter, or Editor.
+4. Leave Notify people checked to send an email, and add a message if it helps. Uncheck it to give access quietly.
+5. Click Send (or Share).
+
+
+ type: table
+ caption: Roles for a file in My Drive
+ columns: 
+  Role
+  Can do
+  Use it for
+ rows: 
+   Viewer
+   View and download by default
+   People who only need to read: Priya and the handbook
+   Commenter
+   View comment and suggest edits
+   Reviewers: a manager checking a draft
+   Editor
+   View comment edit and share by default
+   People who work on the file with you: Marcus
+   Owner
+   Everything including deleting the file
+   You for files you create
+
+
+Practice: Sort each person into the role they need.
+
+
+## General access and links
+Under General access in the Share box, you choose who can open the file with its link, besides the people you added by name.
+
+
+ type: table
+ caption: General access options
+ columns: 
+  Setting
+  Who can open it
+  Use it for
+ rows: 
+   Restricted
+   Only people you added by name
+   Most files. The safest choice
+   Your organization (Parkview Property Management)
+   Anyone signed in to a Parkview account who has the link (work accounts only)
+   Notices and procedures for all staff
+   Anyone with the link
+   Anyone at all who gets the link with no sign-in needed
+   Public information only never private details
+
+
+- Next to the general access setting, choose the role the link gives: Viewer, Commenter, or Editor.
+- Click Copy link, then Done. Paste the link into an email or chat.
+- Which options you see depends on your account. A personal account shows Restricted and Anyone with the link.
+
+Note: An Anyone with the link file can be opened by whoever gets the link, including people it was forwarded to. Never use it for leases, applications, rent records, or anything with a tenant's personal information. Share those with specific people only.
+
+
+## Folders, changes, and expiration dates
+When you share a folder, every file and folder inside it gets the same access, including files added later. You cannot give someone less access to a file than they have to the folder it is in. Keep private files out of widely shared folders.
+
+- Change a role: open Share, click the arrow next to the person's role, and pick a new one.
+- Remove someone: click the arrow next to their role, choose Remove access, and click Save.
+- Turn off link sharing: under General access, choose Restricted, then click Done.
+- Expiration (eligible work and school accounts): click the arrow next to a person's role, choose Add expiration, pick a date within one year, and click Save. Their access ends on that date.
+- Stop editors from sharing: in Share, click Settings (the gear) and uncheck Editors can change permissions and share.
+
+
+ type: worked-example
+ title: Closing the old contractor folder
+ task: The Bright Paint Co. folder is still set to Anyone with the link and the painter still has edit access months after the job ended.
+ steps: 
+   move: Right-click the folder › Share › Share.
+   why: The Share box shows every person and the general access in one place.
+   move: Under General access choose Restricted.
+   why: Anyone holding the old link loses access right away.
+   move: Next to the painter choose Remove access then Save.
+   why: The job is over so the access should be too.
+ result: Only Parkview staff who were added by name can open the folder.
+ takeaway: Review sharing when a job ends. Old links are one of the easiest ways for files to leak.
+
+
+
+## Knowledge Check
+Check yourself: Denise needs to review a draft notice and leave notes, without changing the text herself. Which role do you give her? Answer: Commenter. Commenters can comment and suggest edits but cannot change the file directly.
+
+Check yourself: You share the Maintenance folder with Tony Russo as a Viewer. What can he open? Answer: Every file in the folder, including files added later. Files and folders inside a shared folder inherit its sharing.
+
+Check yourself: Which file is safe to share with Anyone with the link? Answer: The public flyer for an open apartment showing. Anyone with the link is for information you would post publicly. Personal and financial records are shared with specific people only.
