@@ -1,0 +1,92 @@
+Stay Safe: Spam, Phishing, and Unwanted Mail
+
+Module 6: Gmail
+
+Spot phishing messages before they trick you, report phishing and spam, rescue real mail from Spam, block senders, and unsubscribe from mail you signed up for.
+
+By the end of this lesson you can:
+- Recognize the warning signs of a phishing message
+- Report a message as phishing or spam, and mark a real message as not spam
+- Block a sender and unsubscribe from mail you no longer want
+- Know what to do if you clicked a suspicious link
+
+
+## What phishing looks like
+
+ type: scenario
+ role: You check the Parkview mailbox first thing every morning.
+ text: Today there's a message from “Parkview IT Support” saying your mailbox will be deactivated in 24 hours unless you verify your account. There's also a gift card prize a landlord newsletter you signed up for months ago and a missing water bill that Priya is asking about.
+ task: Decide which messages are dangerous report them correctly and make sure the real bill isn't lost in Spam.
+
+
+Phishing is email (or a text or call) designed to trick you into giving away a password, money, or personal information, or into opening a harmful link or file. Gmail checks for phishing and warns you about many dangerous messages, but some get through, so you are the last line of defense. Google's own rule is simple: Gmail will never ask for your password or other personal information by email.
+
+
+ type: table
+ caption: Warning signs
+ columns: 
+  Sign
+  In the fake IT message
+ rows: 
+   The sender's address doesn't match the name
+   “Parkview IT Support” but the address is it-support@parkview-pm-help.example not parkviewpm.example
+   Urgency or a threat
+   “DEACTIVATED within 24 hours”
+   A request for a password or personal information
+   “Verify your account now”
+   A link that doesn't go where it says
+   Point to the link: it goes to parkview-pm-help.example
+   Too good to be true or an unexpected fee
+   The gift card that needs a $4.99 “processing fee”
+
+
+On a computer, point to a link without clicking. The real address appears at the bottom of the browser window. If it doesn't match the company that supposedly sent the message, don't click.
+
+Practice: Drag each message to the right group. Look for the warning signs.
+
+
+## Report it the right way
+
+ type: table
+ caption: Which action?
+ columns: 
+  The message is…
+  Do this
+  How
+ rows: 
+   Trying to steal a password money or personal information
+   Report phishing
+   Open the message › More (three dots next to Reply) › Report phishing
+   Junk you never asked for
+   Report spam
+   Check the box (or open it) › Report spam at the top
+   From someone you never want to hear from
+   Block the sender
+   Open the message › More › Block “sender”. Their future messages go to Spam.
+   A newsletter or list you signed up for
+   Unsubscribe
+   Select Unsubscribe next to the sender's name (or Go to website)
+   Real mail that landed in Spam
+   Not spam
+   More › Spam › check the message › Not spam
+
+
+Note: Only unsubscribe from mail you actually signed up for. Selecting Unsubscribe (or any link) in a phishing or spam message can confirm that your address is active. For those, use Report phishing or Report spam instead.
+
+Check Spam now and then. When a real message is there, such as a bill or a reply from a new tenant, mark it Not spam. That moves it to your inbox and helps Gmail sort similar mail correctly.
+
+
+## If you clicked
+- If a page asks for your password, don't enter it. Close it and go to the real website by typing its address yourself.
+- If you already typed your password, change it right away from the real site (for a Google Account, at myaccount.google.com).
+- Review your recent security activity at myaccount.google.com/notifications.
+- Turn on 2-Step Verification so a stolen password alone can't open your account.
+- At work, tell your manager or IT contact right away. Reporting quickly protects the whole office.
+
+
+## Knowledge Check
+Check yourself: A message from “Gmail Team” says your account will close unless you reply with your password. What do you do? Answer: Report phishing. Gmail never asks for your password by email. Report it as phishing.
+
+Check yourself: Priya says the water bill never arrived. Where should you look first? Answer: Spam. Real mail sometimes lands in Spam. If it's there, mark it Not spam.
+
+Check yourself: Which is the safest way to stop a newsletter you subscribed to on purpose? Answer: Unsubscribe next to the sender's name. For mail you signed up for, Unsubscribe is the right tool.

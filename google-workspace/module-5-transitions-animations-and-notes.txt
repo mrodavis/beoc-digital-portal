@@ -1,0 +1,86 @@
+Transitions, Animations, and Speaker Notes
+
+Module 5: Google Slides
+
+Add slide transitions and object animations in the Motion panel, control when animations start, and write speaker notes for whoever presents.
+
+By the end of this lesson you can:
+- Add a transition to one slide or to every slide
+- Animate an object, choose when the animation starts, and play it back
+- Show the speaker notes area and write notes for the presenter
+- Use motion so it helps the audience instead of distracting them
+
+
+## Motion with a purpose
+
+ type: scenario
+ role: The welcome presentation will run two ways.
+ text: On the lobby screen the slides play by themselves so bullet points can't wait for a click. At tenant orientation Denise presents it and wants reminders of what to hand out and say. Both need gentle motion not spinning text.
+ task: Add a transition animate the first-week list and write speaker notes.
+
+
+
+ type: table
+ caption: Two kinds of motion
+ columns: 
+  Transition
+  Animation
+ rows: 
+   What moves
+   The whole slide as it replaces the one before
+   One object on a slide: a text box picture or shape
+   Where to set it
+   Slide › Transition (or Transition on the toolbar)
+   Insert › Animation (or View › Motion)
+   Examples
+   Dissolve Fade Slide from right
+   Fade in Fly in from left Zoom in
+   PowerPoint
+   Transitions tab
+   Animations tab
+
+
+
+## Add a transition
+1. Select the slide in the filmstrip.
+2. Select Slide › Transition. The Motion panel opens on the right.
+3. Under Slide transition, choose a transition, such as Dissolve. Drag the speed slider to make it faster or slower.
+4. To use the same transition everywhere, select Apply to all slides.
+5. Select Play to preview it.
+
+
+## Animate an object
+1. Select the object on the slide, such as the bulleted text.
+2. Select Insert › Animation. In the Motion panel, a new animation is added (Appear, On click, by default).
+3. Choose the animation, such as Fade in.
+4. Choose when it starts: On click, After previous, or With previous. For text, check By paragraph to bring in one bullet at a time.
+5. Drag the speed slider if needed, and select Play to preview.
+
+Practice: Drag the right start option onto each situation.
+
+Use one or two kinds of motion for the whole presentation. If every slide spins, bounces, and flies, people watch the motion instead of reading the message.
+
+
+## Speaker notes
+Speaker notes sit under each slide. They're for the presenter: reminders, details, and what to hand out. The audience doesn't see them during the slideshow. If the notes area is hidden, choose View › Show speaker notes, then click in it (it says Click to add speaker notes) and type.
+
+
+ type: worked-example
+ title: Notes for the First Week slide
+ task: Help whoever presents the welcome presentation cover everything on slide 2.
+ steps: 
+   move: Keep the slide short: three bullet points.
+   why: Tenants read the slide; the presenter adds the details.
+   move: In the notes write “Hand out the key fob form here.”
+   why: It's an action for the presenter not something tenants need to read on screen.
+   move: Add the office phone hours to the notes.
+   why: If someone asks the presenter has the answer without adding clutter to the slide.
+ result: A clean slide for the audience and a script for the presenter.
+ takeaway: Put what the audience must see on the slide; put what the presenter must say or do in the notes.
+
+
+
+## Knowledge Check
+Check yourself: You want the bullet points on slide 2 to appear one at a time when you click. What do you add? Answer: An animation on the text, starting On click, by paragraph. An animation on the text box set to On click, with By paragraph checked, brings in one bullet per click.
+
+Check yourself: What's the best use of speaker notes? Answer: Reminders and details for the presenter. Speaker notes are for the presenter and aren't shown on the audience's screen.

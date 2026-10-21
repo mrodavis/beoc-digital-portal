@@ -1,0 +1,97 @@
+Bring It Together: Run a Team Project
+
+Module 8: Working Together
+
+Combine Gmail, Chat, Drive, Calendar, and Meet to start and run a small team project, choosing the right tool for each job.
+
+By the end of this lesson you can:
+- Choose the right Google Workspace tool for each kind of message or task
+- Start a project: reply by email, set up a Chat space, share the plan, and schedule a kickoff call
+- Name the Microsoft 365 tool that matches each Google Workspace app
+- Decide whether an AI assistant such as Gemini is available and appropriate for a task
+
+
+## The right tool for each job
+
+ type: scenario
+ role: Denise asks you to coordinate the Riverside Commons lobby repaint.
+ text: Kim and Marcus will work on it with you. Denise wants a Chat space for the three of you the Lobby Repaint Plan shared so they can comment on it and a short kickoff call on Thursday morning.
+ task: Answer Denise set up the space share the plan and schedule the kickoff each in the right tool.
+
+
+
+ type: table
+ caption: Which tool for what
+ columns: 
+  Tool
+  Best for
+  At Parkview
+ rows: 
+   Gmail
+   Formal messages people outside the company anything that needs a record
+   Notices to tenants vendor invoices owner reports
+   Google Chat
+   Quick informal talk inside a team
+   “The side door is unlocked” daily repaint updates
+   Comments
+   Feedback about one part of a file
+   A question on one cell of the move-in tracker
+   Google Drive
+   One shared copy of every file
+   The Lobby Repaint Plan everyone edits
+   Calendar and Meet
+   Meetings and decisions that need discussion
+   The Thursday kickoff call
+
+
+Practice: Drag the best tool onto each need.
+
+
+## Kick off a project
+1. Reply to the request so the person knows you're on it. Reply, not Reply all, unless everyone needs your answer.
+2. Create a space for the project and add the team (Chat › New chat › Create a space, then Add people).
+3. Share the plan in the space as a Drive file, with the access people need (Commenter if they should only comment).
+4. Schedule the kickoff in Google Calendar: invite the team, use Find a time if needed, add Google Meet video conferencing, and send the invitations.
+
+Practice: Drag the steps into a sensible order.
+
+
+## Keep it running
+- Keep one conversation in one place. If a topic starts in email and moves to the space, say so in the email.
+- Mention people only when you need them, and use @all rarely.
+- Link to Drive files instead of attaching copies, so everyone has the latest version.
+- After a meeting, write down decisions and who does what, and assign comments or tasks for the open items.
+- When the project ends, name the final versions of its files.
+
+
+ type: table
+ caption: Google Workspace and Microsoft 365 side by side
+ columns: 
+  Google Workspace
+  Microsoft 365
+ rows: 
+   Gmail and Google Calendar
+   Outlook mail and calendar
+   Google Chat (DMs and spaces)
+   Microsoft Teams (chats and channels)
+   Google Meet
+   Microsoft Teams meetings
+   Google Drive and shared drives
+   OneDrive and SharePoint
+   Google Docs Sheets and Slides
+   Word Excel and PowerPoint
+
+
+
+## AI helpers: check before you use
+Some Google accounts include Gemini, Google's AI assistant. In Gmail it can summarize a long conversation, suggest replies, and help write a draft. Which features you get depends on your account: on personal accounts without a paid plan, some Gmail features (such as summaries, Help me write, and suggested replies) are available only in the United States, while paid Google AI plans and eligible Google Workspace editions include more. Your employer may turn these features off.
+
+Note: Nothing in this course requires Gemini. If your job allows it, follow your company's rules about what information you may use with it, and read and check everything it writes before you send it. You are responsible for the message, not the tool.
+
+
+## Knowledge Check
+Check yourself: You need to tell a vendor the repaint dates and keep a record. Which tool fits best? Answer: Gmail. Email is best for people outside the company and for anything that needs a record.
+
+Check yourself: Kim and Marcus should be able to comment on the plan but not change it. How do you share it in the space? Answer: Share the Drive file with Commenter access. Commenter access lets them add comments without changing the plan.
+
+Check yourself: Which Microsoft 365 tool matches Google Chat spaces? Answer: Microsoft Teams channels. Teams channels, like Chat spaces, hold a team's ongoing conversation and files.

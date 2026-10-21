@@ -1,0 +1,73 @@
+Share Calendars and Offer Bookable Appointments
+
+Module 7: Google Calendar & Google Meet
+
+Share a calendar with coworkers at the right permission level, understand the risk of a public calendar, and set up an appointment schedule so people can book time with you.
+
+By the end of this lesson you can:
+- Share a calendar with specific people and choose the right permission level
+- Explain what making a calendar public does and when not to
+- Create an appointment schedule with a duration, weekly availability, and a booking form
+- Copy a booking page link to share
+
+
+## Share a calendar
+
+ type: scenario
+ role: You keep the Leasing Showings calendar for Parkview.
+ text: Andre Wallace the leasing agent needs to see every showing. Kim Nguyen needs to add and change showings when maintenance work moves them. And Denise is tired of tenants emailing back and forth to set up quick calls with the office.
+ task: Give each person exactly the access they need and let tenants book their own times.
+
+
+1. In the left panel under My calendars, point to the calendar and select Options (three dots), then Settings and sharing.
+2. On the left, select Shared with, then Add people and groups.
+3. Type the person's email address or name.
+4. Choose a permission level, then select Send.
+
+
+ type: table
+ caption: Permission levels
+ columns: 
+  Permission
+  They can
+ rows: 
+   See only free/busy (hide details)
+   See when you're busy but not what the events are
+   See event details
+   See every event's details but not change them
+   Make changes (see private events as free/busy)
+   Add and change events; private events show only as busy
+   Make changes and see event details
+   Add and change events and see all details
+   Make changes and manage sharing
+   Everything you can do including sharing the calendar with others
+
+
+Practice: Drag the permission each person needs onto their situation.
+
+
+## Public calendars
+In Settings and sharing, under Access permissions for events, Make available to public lets anyone see the calendar, including through Google search. That suits something like a community room's open hours. It doesn't suit a calendar with tenants' names, unit numbers, or anyone's personal appointments.
+
+Note: Never make a calendar public if it holds names, addresses, phone numbers, or other personal details. Share it with specific people instead.
+
+
+## Appointment schedules
+An appointment schedule offers open times that other people book on a booking page, so nobody has to email back and forth. You can create one with a personal Google Account or a Google Workspace account on a computer (not in the Calendar phone app). Some features need an eligible Google Workspace or Google One subscription, and a work account's administrator may need to turn it on.
+
+1. Select Create, then Appointment schedule.
+2. In the Bookable appointment schedule panel, add a title and choose the Appointment duration.
+3. Under General availability, set the days and hours you're available each week.
+4. Optionally set the Scheduling window (how far ahead people can book; the shortest notice is 4 hours by default) and Booked appointment settings such as buffer time and a daily limit.
+5. Select Next. Choose the location or video conferencing, add a description, and set up the booking form. First name, last name, and email are always required; you can add items such as a phone number and require email verification.
+6. Select Save.
+
+To share it, find it under Booking pages on the left side of Calendar, point to it, and select Copy link. Paste the link into an email or your website. A booking page is always public: anyone with the link can see the booking page, your profile photo, and your account name.
+
+Give the schedule a title tenants will understand, such as “Tenant office hours”, and keep the description short: what the call is for and what to have ready.
+
+
+## Knowledge Check
+Check yourself: A coworker should be able to add events to your calendar but not share it with anyone else. Which permission? Answer: Make changes and see event details. Make changes and see event details lets them edit events; only manage sharing lets them share the calendar.
+
+Check yourself: Who can see your appointment schedule's booking page? Answer: Anyone who has the link. Booking pages are always public. Anyone with the link sees the page, your profile photo, and your account name.
