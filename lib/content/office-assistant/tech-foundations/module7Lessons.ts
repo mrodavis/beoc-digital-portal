@@ -449,7 +449,7 @@ export const module7Lessons: Lesson[] = [
     description:
       "Apply the security habits that keep cloud-stored files, shared documents, and online accounts safe in a medical office environment.",
     duration: "15 min",
-    videoUrl: "https://www.youtube.com/embed/ZOjRhXgZ2PM",
+    videoUrl: "https://www.youtube.com/embed/2SJbN6uGtfM",
     sections: [
       {
         heading: "Real-World Scenario",
