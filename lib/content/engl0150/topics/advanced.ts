@@ -93,7 +93,7 @@ export const advancedA: Topic = {
           id: "adv-a-2",
           prompt: "Which abbreviation should never be used?",
           principle:
-            "Several abbreviations appear on the Institute for Safe Medication Practices' do-not-use list because they have a documented history of being misread with serious consequences.",
+            "Several abbreviations appear on healthcare organizations' do-not-use lists because they have a documented history of being misread with serious consequences.",
           choices: [
             {
               text: "mg for milligram",
