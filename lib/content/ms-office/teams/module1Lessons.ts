@@ -649,7 +649,7 @@ export const teamsModule1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "While you are in Settings, look at Appearance: you can choose Follow operating system theme, Light, or Dark. You will see more accessibility settings in Module 6.",
+            text: "While you are in Settings, look at Appearance and accessibility: you can choose Follow operating system theme, Light, or Dark. You will see more accessibility settings in Module 6.",
           },
         ],
       },
@@ -672,10 +672,10 @@ export const teamsModule1Lessons: Lesson[] = [
           {
             type: "knowledge-check",
             question: "Where do you choose the speaker and microphone Teams uses and make a test call?",
-            options: ["Settings › Devices", "Settings › Appearance", "The Activity feed", "Calendar › New event"],
+            options: ["Settings › Devices", "Settings › Appearance and accessibility", "The Activity feed", "Calendar › New event"],
             correctIndex: 0,
             explanation: "Settings › Devices controls your speaker, microphone, camera, and noise suppression, and has Make a test call.",
-            optionRationales: ["Correct.", "Appearance controls the theme.", "Activity shows notifications.", "New event schedules a meeting."],
+            optionRationales: ["Correct.", "Appearance and accessibility controls the theme.", "Activity shows notifications.", "New event schedules a meeting."],
           },
         ],
       },
