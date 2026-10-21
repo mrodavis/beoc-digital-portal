@@ -418,11 +418,11 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
 
 {
   slug: "smart-lookup-and-researcher",
-  title: "Smart Lookup & Researcher",
+  title: "Search & Researcher",
   description:
     "Use Word's built-in research tools to look up definitions, find background information, and insert properly cited content without leaving the document.",
   objectives: [
-    "Use Smart Lookup for quick definitions and context",
+    "Use Search for quick definitions and context",
     "Use Researcher to gather sources and insert citations",
     "Explain the difference in purpose between the two",
     "Evaluate whether a source is appropriate before citing it",
@@ -438,12 +438,12 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
          {
            type: "scenario",
            role: "You are drafting a patient education handout at Lakeside Medical Associates.",
-           text: "You need a clear definition of a clinical term and a citable source for a claim about screening intervals. Smart Lookup gives you the definition in seconds. Researcher returns twelve sources, of which perhaps four are appropriate for patient-facing health material.",
+           text: "You need a clear definition of a clinical term and a citable source for a claim about screening intervals. The right-click Search command gives you the definition in seconds. Researcher returns twelve sources, of which perhaps four are appropriate for patient-facing health material.",
            task: "Use both tools, and apply your own judgment to what they return.",
          },
          {
            type: "paragraph",
-           text: "Smart Lookup (right-click a word > Smart Lookup) opens a pane with definitions and web results for the selected text. It is for quick understanding while you write, without leaving the document.",
+           text: "Search (right-click a word > Search) opens a pane with definitions and web results for the selected text. It is for quick understanding while you write, without leaving the document.",
          },
          {
            type: "paragraph",
@@ -458,33 +458,33 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
      },
 
     {
-      heading: "What Is Smart Lookup?",
+      heading: "What Is Search?",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Smart Lookup uses Bing to search for definitions, Wikipedia articles, and web results for any word or phrase in your document. Results appear in a side panel so you can research without switching to a browser.",
+            "Search (formerly called Smart Lookup) uses Bing to search for definitions, Wikipedia articles, and web results for any word or phrase in your document. Results appear in a side panel so you can research without switching to a browser.",
         },
       ],
     },
 
     {
-      heading: "Using Smart Lookup",
+      heading: "Using Search",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Right-click a word or selected phrase and choose Smart Lookup from the context menu. The Insights pane opens on the right with definitions, related web results, and images.",
+            "Right-click a word or selected phrase and choose Search from the context menu. The Search pane opens on the right with definitions, related web results, and images.",
         },
         {
           type: "image",
           src: "/images/word/smart-lookup/smartlookup_rightclick_menu.png",
-          alt: "Smart Lookup option in the right-click context menu",
+          alt: "Search option in the right-click context menu",
         },
         {
           type: "image",
           src: "/images/word/smart-lookup/smartlookup_insights_pane.png",
-          alt: "Smart Lookup Insights pane with search results",
+          alt: "Search pane with results for the selected word",
         },
       ],
     },
@@ -527,12 +527,12 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
         {
           type: "paragraph",
           text:
-            "Inside a Researcher source, click Add to add a quote or passage to your document. Word automatically inserts a footnote citation. You can also click the plus (+) icon next to a heading to add it as a topic outline entry.",
+            "While exploring a source's text in the Researcher pane, choose Add and Cite to add the text to your document along with a citation for the source. Choose Add instead if you want only the text, with no citation. Word then prompts you to update your bibliography; choose Update to create or update it. You can also click the plus (+) icon in the upper-right corner of any result to add it as a topic heading in your document, with a link to the source saved in a comment.",
         },
         {
           type: "image",
           src: "/images/word/smart-lookup/researcher_add_citation.png",
-          alt: "Add button inserting a citation from Researcher",
+          alt: "Researcher pane with sources, and a citation added after a sentence in the document",
         },
       ],
     },
@@ -542,18 +542,18 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
       blocks: [
         {
           type: "knowledge-check",
-          question: "What is the main difference between Smart Lookup and Researcher?",
+          question: "What is the main difference between Search and Researcher?",
           options: [
-            "Smart Lookup is only available in Word Online; Researcher works only in the desktop app",
-            "Smart Lookup provides quick definitions and web results, while Researcher is designed for deeper research with citations",
-            "Researcher searches your local files; Smart Lookup searches the internet",
+            "Search is only available in Word Online; Researcher works only in the desktop app",
+            "Search provides quick definitions and web results, while Researcher is designed for deeper research with citations",
+            "Researcher searches your local files; Search looks things up on the internet",
             "There is no difference — they both do the same thing",
           ],
           correctIndex: 1,
-          explanation: "Smart Lookup is for quick understanding while writing — definitions and web context for a selected word. Researcher is for sourcing: it finds citable material and generates formatted citations and a bibliography.",
+          explanation: "Search is for quick understanding while writing — definitions and web context for a selected word. Researcher is for sourcing: it finds citable material and generates formatted citations and a bibliography.",
           optionRationales: [
             "Both are desktop features. Availability is not the distinction between them.",
-            "Correct. Smart Lookup gives quick definitions and context; Researcher supports deeper sourcing with citations.",
+            "Correct. Search gives quick definitions and context; Researcher supports deeper sourcing with citations.",
             "Neither searches your local files. Both query online sources.",
             "They serve genuinely different purposes — one for quick context, one for sourced research with citations.",
           ],
@@ -571,11 +571,11 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
       type: "list",
       ordered: true,
       items: [
-        "Right-click a word in your document and select Smart Lookup. Read the definition that appears.",
-        "Close Smart Lookup and go to References → Researcher.",
+        "Right-click a word in your document and select Search. Read the definition that appears.",
+        "Close the Search pane and go to References → Researcher.",
         "Search for a topic related to your document's subject.",
         "Open one of the source articles in the Researcher pane.",
-        "Insert a passage from the source into your document using the Add button.",
+        "Insert a passage from the source into your document using Add and Cite.",
         "Observe the automatically inserted citation.",
       ],
     },
@@ -681,7 +681,7 @@ LESSON 4 – DICTATION & VOICE FEATURES
         {
           type: "paragraph",
           text:
-            "You can use voice commands to make edits while dictating. Say 'delete that' to remove the last word, 'undo that' to undo the last action, or 'select [word]' to select a specific word for formatting.",
+            "You can use voice commands to make edits while dictating. Say 'delete last word' to remove the last word, 'undo' to undo the last action, or 'select [word or phrase]' to select specific text for formatting.",
         },
         {
           type: "image",
@@ -760,7 +760,7 @@ LESSON 4 – DICTATION & VOICE FEATURES
         "Open a blank document and click Home → Dictate.",
         "Dictate a two-sentence paragraph, speaking punctuation marks aloud.",
         "Use the voice command 'new paragraph' to start a new paragraph.",
-        "Say 'undo that' to undo your last dictated word.",
+        "Say 'undo' to undo your last change.",
         "Stop dictation and review the text for accuracy.",
         "Correct any misrecognized words by typing normally.",
       ],

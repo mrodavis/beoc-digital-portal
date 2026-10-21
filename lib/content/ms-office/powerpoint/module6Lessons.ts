@@ -1011,7 +1011,7 @@ alt: "Final slideshow with transitions applied",
          },
          {
            type: "paragraph",
-           text: "A poster frame is the still image shown before the video plays. By default it is the first frame, which is often black. Playback > Poster Frame lets you choose a meaningful frame, so the slide looks intentional rather than broken while you introduce it.",
+           text: "A poster frame is the still image shown before the video plays. By default it is the first frame, which is often black. Video Format > Poster Frame lets you choose a meaningful frame, so the slide looks intentional rather than broken while you introduce it.",
          },
          {
            type: "callout",

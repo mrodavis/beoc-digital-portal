@@ -632,12 +632,12 @@ LESSON 3 – COMMENTS
         {
           type: "paragraph",
           text:
-            "Click inside an existing comment balloon and click the Reply button (the curved arrow icon) to add a threaded reply. This creates a conversation thread attached to the same text.",
+            "Click the Reply box inside an existing comment card, type your reply, and select the Post comment button (or press Ctrl+Enter) to add a threaded reply. This creates a conversation thread attached to the same text.",
         },
         {
           type: "image",
           src: "/images/word/comments/comments_reply_button.png",
-          alt: "Reply button inside a comment balloon",
+          alt: "Reply box inside a comment card",
         },
         {
           type: "image",

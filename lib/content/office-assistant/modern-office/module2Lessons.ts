@@ -675,7 +675,7 @@ export const module2Lessons: Lesson[] = [
               "Labels and color coding — in Gmail, use labels to categorize emails with multiple tags (an email can be in both 'Client: TOR Tech' and 'Urgent' simultaneously). In Outlook, use categories with color coding to visually flag email types at a glance without moving emails to folders.",
               "Filters — create automatic rules that route incoming emails before they hit your inbox. For example: 'Emails from client@tortech.com → apply label Client: TOR Tech and mark as important.' Filters eliminate the manual sorting step for recurring email types.",
               "Newsletter and subscription management — create a filter that routes all newsletters, promotional emails, and subscription digests to a dedicated 'Newsletters' folder that bypasses your inbox entirely. You can read them during a designated time rather than having them interrupt your primary inbox.",
-              "Building your filter system — start with your 3–5 most frequent email senders or types and create one filter for each. A small set of well-targeted filters reduces inbox noise by 40–60% for most professionals. Add filters over time as new recurring patterns emerge.",
+              "Building your filter system — start with your 3–5 most frequent email senders or types and create one filter for each. Even a small set of well-targeted filters cuts down the inbox noise you would otherwise sort by hand. Add filters over time as new recurring patterns emerge.",
             ],
           },
         ],

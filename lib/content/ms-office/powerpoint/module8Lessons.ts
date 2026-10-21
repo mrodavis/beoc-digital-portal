@@ -171,7 +171,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "image",
           src: "/images/powerpoint/module-8/review/review_comments_pane.png",
-          alt: "Comments pane showing all comments in the presentation",
+          alt: "Comments pane showing the comments on the current slide",
         },
         {
           type: "paragraph",
@@ -399,7 +399,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Right-click anywhere during the presentation to access a shortcut menu with navigation options, including Go to Slide, which lets you jump directly to any slide.",
+            "Right-click anywhere during the presentation to access a shortcut menu with navigation options, including See All Slides, which lets you jump directly to any slide. (Depending on the show type chosen in Set Up Slide Show, this command may be named Go to Slide instead.)",
         },
         {
           type: "image",
@@ -633,7 +633,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         "Hide the last slide in the presentation.",
         "Start the slide show From Beginning using F5.",
         "Advance through the first three slides using the spacebar.",
-        "Right-click and use Go to Slide to jump directly to slide 5.",
+        "Right-click and use See All Slides to jump directly to slide 5.",
         "Activate the Pen tool and circle one key item on the slide.",
         "Press E to erase your ink marks.",
         "Press Escape to exit the slide show.",
@@ -773,20 +773,19 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "To attach the presentation directly to an email, go to File → Share → Email and choose one of the send options.",
+            "To attach a copy of the presentation to an email, click Share in the upper-right corner and choose Share. In the Share dialog, select More options (...), then Send a copy, and choose the format to attach. PowerPoint opens your email app with the file attached to a new message. (In PowerPoint 2019, look under File > Share > Email instead.)",
         },
         {
           type: "image",
           src: "/images/powerpoint/module-8/sharing/sharing_email_options.png",
-          alt: "Email sharing options in Backstage view",
+          alt: "Send a copy options: PowerPoint Presentation or PDF",
         },
         {
           type: "list",
           ordered: false,
           items: [
-            "Send as Attachment — attaches the editable .pptx file.",
-            "Send as PDF — converts and attaches a PDF version.",
-            "Send as XPS — attaches an XPS document (similar to PDF).",
+            "PowerPoint Presentation: attaches the editable .pptx file.",
+            "PDF: converts the presentation and attaches a PDF version.",
           ],
         },
       ],
@@ -855,7 +854,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "tip",
           text:
-            "For most purposes choose Full HD (1080p). Use Presentation HD (720p) only if file size is a concern.",
+            "For most purposes choose Full HD (1080p). Use HD (720p) only if file size is a concern.",
         },
       ],
     },

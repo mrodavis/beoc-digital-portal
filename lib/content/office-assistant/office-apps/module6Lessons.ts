@@ -437,7 +437,7 @@ export const module6Lessons: Lesson[] = [
               "Day view shows all appointments for a single day in a time-slot grid format — the most detailed view, showing appointments from the day's start to end hour by hour. Use Day view when you are scheduling within a specific day and need to see exactly which hours are available and occupied. The time slots are 30 minutes by default; right-click the time grid to change the time scale to 15 or 60 minutes.",
               "Work Week view shows Monday through Friday of the current week in a five-column grid — the most commonly used view for a medical office assistant coordinating a busy work week. You can see all appointments for the week at a glance, identify gaps, spot conflicts, and schedule new appointments in open slots by double-clicking the desired time slot.",
               "Month view shows a full calendar month in grid format with appointments appearing as colored blocks — too small to show appointment details, but ideal for seeing patterns across the month (which weeks are heavy, which days have recurring meetings, when extended absences are scheduled). Use Month view for long-range scheduling planning, never for day-to-day appointment management.",
-              "Navigate between dates using the mini calendar on the left (click any date to jump to it), the forward/back arrows in the toolbar (advance by one day, week, or month depending on current view), or press Ctrl+Right and Ctrl+Left to move forward and backward. Press Ctrl+Home to jump to today's date from anywhere in the calendar.",
+              "Navigate between dates using the mini calendar on the left (click any date to jump to it) or the forward/back arrows in the toolbar (advance by one day, week, or month depending on current view). Switch views from the keyboard with Ctrl+Alt+1 (Day), Ctrl+Alt+2 (Work Week), Ctrl+Alt+3 (Week), or Ctrl+Alt+4 (Month). Click Home > Today to jump back to today's date from anywhere in the calendar.",
             ],
           },
         ],
@@ -637,7 +637,7 @@ export const module6Lessons: Lesson[] = [
             items: [
               "To insert an Excel table into a Word document: copy the Excel table range, go to Word, and choose Home > Paste > Paste Special (Ctrl+Alt+V). In the Paste Special dialog, choose 'Microsoft Excel Worksheet Object' and select 'Paste' for an embedded copy (the table becomes an Excel object within Word, editable by double-clicking it) or 'Paste Link' for a linked version (the table data updates in Word automatically whenever the Excel source file changes). Use Paste for a report where you want to preserve the data as of the reporting date. Use Paste Link when the Word report will be reviewed over several days and you want the table to reflect the latest Excel data throughout.",
               "To link an Excel chart into a PowerPoint presentation: select and copy the chart in Excel, go to PowerPoint, and use Home > Paste > Paste Special > 'Microsoft Excel Chart Object' > Paste Link. The chart appears in the slide and automatically updates whenever the Excel source data changes. This is the professional way to maintain a PowerPoint that always shows current data — update the Excel file and the PowerPoint chart updates on the next open. If you simply paste without Paste Link, the chart is embedded as a static snapshot that requires manual updating.",
-              "To break a link (convert a linked object to a static embedded copy): click the linked chart or table in Word or PowerPoint, go to Edit > Links (or click the object, right-click > Linked Worksheet Object > Edit Links). Select the link and click Break Link. This is appropriate before sharing a file externally when the external recipient should not be able to update or access your source Excel files.",
+              "To break a link (convert a linked object to a static embedded copy) in Word or PowerPoint: click File > Info, and under Related Documents in the lower right corner, click Edit Links to Files. Select the link and click Break Link. This is appropriate before sharing a file externally when the external recipient should not be able to update or access your source Excel files.",
             ],
           },
         ],
@@ -766,7 +766,7 @@ export const module6Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/office-apps/module-6/outlook-integration-capstone/slide-07.jpg",
-        alt: "Step 6: Quick Step Automation — filing the director's replies automatically",
+        alt: "Step 6: A Quick Step for the director's replies, which flags, files, and marks each reply as read with one click",
       },
       {
         src: "/images/office-assistant/office-apps/module-6/outlook-integration-capstone/slide-08.jpg",
@@ -785,7 +785,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "The clinic director at Lakeside Medical Associates has asked for the monthly appointment activity report — including an Excel summary of appointment counts by provider, a formal Word report with narrative analysis, a PowerPoint summary for the upcoming board presentation, and a review meeting scheduled for next Thursday. Additionally, the director's replies to the report email should automatically file into a designated folder so no communication is missed. This six-step workflow uses every skill from Module 6 and every Office application in the course. Completing it successfully means you are ready for the full scope of an office assistant role at a professional medical practice.",
+            text: "The clinic director at Lakeside Medical Associates has asked for the monthly appointment activity report — including an Excel summary of appointment counts by provider, a formal Word report with narrative analysis, a PowerPoint summary for the upcoming board presentation, and a review meeting scheduled for next Thursday. Additionally, you need a one-click way to flag the director's replies to the report email and file them into a designated folder so no communication is missed. This six-step workflow uses every skill from Module 6 and every Office application in the course. Completing it successfully means you are ready for the full scope of an office assistant role at a professional medical practice.",
           },
         ],
       },
@@ -804,7 +804,7 @@ export const module6Lessons: Lesson[] = [
               "Step 3 — PowerPoint Summary: build a 3-slide deck: Title slide, 'Appointment Activity by Provider' slide with the Excel chart linked via Paste Special > Paste Link (so it updates if Excel data changes), and a 'Key Findings' slide with 3 bullet points. Apply a professional theme, add the Slide Master footer, ensure 6×6 compliance, and export as PDF.",
               "Step 4 — Outlook Email: compose a professional email to the clinic director (fictional: Dr. Kim at drkim@lakesidemedical.com). Subject: 'May 2025 Appointment Activity Report — Please Review Before Thursday's Meeting.' Body: 2 professional paragraphs summarizing the attached report and inviting questions ahead of the review meeting. Attach the Word report as PDF. Attach the PowerPoint. Include a OneDrive sharing link reference for the Excel dashboard. Use your full external Outlook signature.",
               "Step 5 — Calendar Meeting: in Outlook Calendar, create a Meeting Request for the report review meeting next Thursday at 10:00 AM, 45 minutes duration. Title: 'Monthly Activity Report Review — May 2025.' Required attendee: Dr. Kim. Use the Scheduling Assistant to confirm she has no known conflicts (this is fictional, but demonstrate the Scheduling Assistant interface). Include a 3-item meeting agenda in the body.",
-              "Step 6 — Quick Step Automation: create a Quick Step named 'File Director Reply' that performs: Flag for Follow-up (Today) + Move to a new folder named 'Director Communications' + Mark as Read. This ensures all replies from the clinic director are immediately flagged for action and organized.",
+              "Step 6 — Quick Step Automation: create a Quick Step named 'File Director Reply' that performs: Flag for Follow-up (Today) + Move to a new folder named 'Director Communications' + Mark as Read. When a reply from the clinic director arrives, select it and click the Quick Step: all three actions happen at once, so every reply is flagged for action and organized. A Quick Step runs only when you click it. To file the director's messages automatically as they arrive, you would create a Rule instead.",
             ],
           },
         ],
@@ -866,7 +866,7 @@ export const module6Lessons: Lesson[] = [
             question: "In the Lakeside Medical Associates integrated workflow, which step must be completed BEFORE you can compose the Outlook email to the clinic director?",
             options: [
               "The Calendar meeting must be scheduled first so you can reference the meeting date in the email",
-              "The Quick Step automation must be set up first so replies are automatically filed",
+              "The Quick Step must be set up first so you can file the director's replies with one click",
               "The Word report must be completed and exported as PDF, and the PowerPoint must be ready to attach",
               "The Scheduling Assistant must be used to confirm the director's availability before sending anything",
             ],

@@ -680,7 +680,7 @@ export const module3Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/module-3/build-tracking-sheet/slide-11.jpg",
-        alt: "Responsible Use Requires Cell Protection — When sharing a tracker with a team, protect important formula cells to prevent accidental edits. Google Sheets: Format > Protect range. Excel: Review > Protect Sheet.",
+        alt: "Responsible Use Requires Cell Protection — When sharing a tracker with a team, protect important formula cells to prevent accidental edits. Google Sheets: Data > Protect sheets and ranges. Excel: Review > Protect Sheet.",
       },
       {
         src: "/images/office-assistant/module-3/build-tracking-sheet/slide-12.jpg",
@@ -866,7 +866,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "When sharing a tracker with a team, protect important formula cells to prevent accidental edits. A single broken =SUM formula in a shared tracker can corrupt cost data for everyone. In Google Sheets: Format > Protect range — select your formula cells and restrict editing to yourself. In Excel: Review > Protect Sheet. Protect formulas before you share, not after someone accidentally deletes one.",
+            text: "When sharing a tracker with a team, protect important formula cells to prevent accidental edits. A single broken =SUM formula in a shared tracker can corrupt cost data for everyone. In Google Sheets: Data > Protect sheets and ranges, then select your formula cells and restrict editing to yourself. In Excel: Review > Protect Sheet. Protect formulas before you share, not after someone accidentally deletes one.",
           },
         ],
       },

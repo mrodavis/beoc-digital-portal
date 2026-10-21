@@ -284,7 +284,7 @@ export const module5Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-12.jpg",
-        alt: "Defending Your Focus: The Multitasking Myth — single tasking at 100% effective output vs rapid task-switching burning 35% on context reload costs",
+        alt: "Defending Your Focus: The Multitasking Myth. Single tasking keeps full effective output, while rapid task-switching loses part of the day to context reload costs",
       },
       {
         src: "/images/office-assistant/module-5/prioritizing-work/slide-13.jpg",
@@ -398,7 +398,7 @@ export const module5Lessons: Lesson[] = [
             items: [
               "Saying no professionally — when your plate is full, the professional response is not silence and not an unconditional yes. Use this script: 'I can absolutely get to that — I am currently working on [X] which is due [time]. Would you like me to prioritize this over that, or should I address it after?' This puts the decision where it belongs: with the person requesting the work.",
               "The key principle of professional pushback — you are not refusing the task; you are asking for explicit reprioritization. This demonstrates awareness of your workload and invites your manager into a collaborative decision about what matters most.",
-              "The multitasking myth — research consistently shows that what people call multitasking is actually rapid task-switching, and every switch incurs a cognitive cost. Each time you shift from one task to another, your brain requires time to reload context — time that adds up to 20–40% of productive output lost across a day.",
+              "The multitasking myth — research consistently shows that what people call multitasking is actually rapid task-switching, and every switch incurs a cognitive cost. Each time you shift from one task to another, your brain requires time to reload context. The American Psychological Association reports that even brief mental blocks created by shifting between tasks can cost as much as 40 percent of someone's productive time.",
               "Batching as the alternative to multitasking — instead of alternating between email and a report every 10 minutes, complete one before starting the other. Finish the report, then process all emails. Output quality and speed both increase.",
               "Single-task during deep work blocks — turn off notifications, close unrelated tabs, and commit to one task at a time during your scheduled focus blocks. The productivity gain from uninterrupted focus is not small — it is the difference between work that is good and work that is great.",
             ],
@@ -908,7 +908,7 @@ export const module5Lessons: Lesson[] = [
               "In Google Sheets — click Share in the top right corner. Add team members by email and assign 'Viewer', 'Commenter', or 'Editor' access based on their role. Use 'Anyone with the link can view' for read-only access across a larger group.",
               "Editor access — grant only to team members whose job requires updating the tracker: the project lead, the office assistant, and anyone who owns tasks in the tracker.",
               "Viewer access — appropriate for stakeholders who need visibility into the tracker but should not be able to change any values. A senior manager, a client contact, or a cross-functional partner might receive Viewer access.",
-              "Protect formula cells — if your tracker includes any calculated columns (a formula counting overdue tasks, for example), protect those cells so team members cannot accidentally overwrite them. In Google Sheets: Format > Protect Range. In Excel: Review > Protect Sheet.",
+              "Protect formula cells — if your tracker includes any calculated columns (a formula counting overdue tasks, for example), protect those cells so team members cannot accidentally overwrite them. In Google Sheets: Data > Protect sheets and ranges. In Excel: Review > Protect Sheet.",
               "Add a Notes tab — create a second spreadsheet tab named 'Notes' and document every column: its name, what it means, and any entry rules (especially for the dropdown columns). A team member who joins the project two weeks in should be able to read the Notes tab and use the tracker correctly with zero additional instruction.",
             ],
           },

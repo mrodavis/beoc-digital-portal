@@ -572,7 +572,7 @@ export const module1Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/module-1/setup-digital-workspace/slide-01.jpg",
-        alt: "Hands-On: Set Up Your Digital Workspace — BEOC Digital Fundamentals, Module 1: The Modern Office",
+        alt: "Hands-On: Set Up Your Digital Workspace. BEOC Digital Fundamentals, The Modern Office, Module 8: Digital Office Foundations",
       },
       {
         src: "/images/office-assistant/module-1/setup-digital-workspace/slide-02.jpg",
@@ -616,7 +616,7 @@ export const module1Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/module-1/setup-digital-workspace/slide-12.jpg",
-        alt: "Moving Forward — Next Up: Module 2 | Brooklyn Educational Opportunity Center",
+        alt: "Moving Forward. Next Up: Module 9, Communication Systems | Brooklyn Educational Opportunity Center",
       },
     ],
 
@@ -758,7 +758,7 @@ export const module1Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Build and submit a complete professional digital workspace in Google Drive or OneDrive. This is your Module 1 capstone — it must demonstrate your ability to plan a folder structure, apply naming conventions, upload files, and manage sharing permissions. Your workspace must pass all five specifications below before you submit:",
+        text: "Build and submit a complete professional digital workspace in Google Drive or OneDrive. This is your Module 8 capstone — it must demonstrate your ability to plan a folder structure, apply naming conventions, upload files, and manage sharing permissions. Your workspace must pass all five specifications below before you submit:",
       },
       {
         type: "list",

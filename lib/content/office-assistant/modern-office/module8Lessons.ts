@@ -43,7 +43,7 @@ export const module8Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "The simulation evaluates four dimensions of professional performance. Understanding these dimensions in advance allows you to allocate your effort correctly rather than discovering after the fact that you prioritized the wrong things:",
+            text: "The simulation evaluates five dimensions of professional performance. Understanding these dimensions in advance allows you to allocate your effort correctly rather than discovering after the fact that you prioritized the wrong things:",
           },
           {
             type: "list",

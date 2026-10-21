@@ -353,7 +353,7 @@ export const pptRibbon: RibbonTab[] = [
       { label: "Language", controls: [{ type: "button", id: "review.translate", label: "Translate", icon: "translate", size: "large" }] },
       { label: "Comments", controls: [
         { type: "button", id: "review.newComment", label: "New Comment", icon: "comment", size: "large", dialog: "newComment", shortcut: "Ctrl+Alt+M" },
-        { type: "dropdown", id: "review.deleteComment", label: "Delete", icon: "reject", showLabel: true, split: true, options: [{ value: "Delete" }, { value: "Delete All Comments on This Slide" }, { value: "Delete All Comments in This Presentation" }] },
+        { type: "dropdown", id: "review.deleteComment", label: "Delete", icon: "reject", showLabel: true, split: true, options: [{ value: "Delete" }, { value: "Delete All Comments on Slide" }, { value: "Delete All Comments in Presentation" }] },
         { type: "button", id: "review.prevComment", label: "Previous", icon: "undo", showLabel: true },
         { type: "button", id: "review.nextComment", label: "Next", icon: "redo", showLabel: true },
         { type: "toggle", id: "review.showComments", label: "Show Comments", icon: "comment", showLabel: true },

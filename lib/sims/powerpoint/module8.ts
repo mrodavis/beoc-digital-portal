@@ -52,8 +52,8 @@ export const pptModule8Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Delete every comment in the presentation so none can show during the briefing.",
-          hint: "Review tab › Comments › Delete arrow › Delete All Comments in This Presentation.",
-          steps: [{ action: { kind: "command", id: "review.deleteComment", value: "Delete All Comments in This Presentation" }, alt: [{ kind: "command", id: "inspector.remove", value: "Comments" }] }],
+          hint: "Review tab › Comments › Delete arrow › Delete All Comments in Presentation.",
+          steps: [{ action: { kind: "command", id: "review.deleteComment", value: "Delete All Comments in Presentation" }, alt: [{ kind: "command", id: "inspector.remove", value: "Comments" }] }],
         },
         {
           instruction: "Inspect the presentation for hidden information you would not want a partner to see.",

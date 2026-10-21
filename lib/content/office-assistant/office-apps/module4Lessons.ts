@@ -195,7 +195,7 @@ export const module4Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/office-apps/module-4/pivottables/slide-01.jpg",
-        alt: "What a PivotTable Is — summarizing 300 rows of data into a meaningful cross-tab in seconds",
+        alt: "What a PivotTable Is — summarizing 350 rows of data into a meaningful cross-tab in seconds",
       },
       {
         src: "/images/office-assistant/office-apps/module-4/pivottables/slide-02.jpg",
@@ -274,7 +274,7 @@ export const module4Lessons: Lesson[] = [
               "The four PivotTable areas determine the structure of your analysis — Rows (the row headers of the summary table), Columns (the column headers), Values (the data being aggregated), and Filters (applied to limit which source records are included). Drag field names from the field list at the top of the panel into the four areas at the bottom. The PivotTable updates in real time as you drop fields.",
               "To answer 'What did we spend per department last month?': drag Department to the Rows area, Amount to the Values area. The PivotTable immediately shows total spending per department. To break it down by month as well: drag Date (or Month) to the Columns area — the table now shows a grid of Department vs Month with spending totals at each intersection. This two-dimensional view is the classic cross-tab that justifies PivotTables' existence.",
               "The Values area defaults to Sum for numeric fields and Count for text fields — to change how a value is aggregated, right-click the value field in the Values area and choose 'Value Field Settings.' You can change Sum to Count, Average, Min, Max, or other options. 'Show Values As' lets you display values as percentages of row total, column total, or grand total — instantly converting dollar amounts to percentage breakdowns without writing a single formula.",
-              "Grouping dates allows you to summarize by month, quarter, or year even when your data has specific dates in each row — right-click any date value in the Row or Column area and choose 'Group.' Choose 'Months' and 'Years' (hold Ctrl to select multiple levels). Excel groups all January dates together, all February dates together, etc., and shows Month names as the row or column headers.",
+              "Grouping dates allows you to summarize by month, quarter, or year even when your data has specific dates in each row — right-click any date value in the Row or Column area and choose 'Group.' In the Grouping dialog, under By, select 'Months' and 'Years.' Excel groups all January dates together, all February dates together, etc., and shows Month names as the row or column headers.",
             ],
           },
         ],
@@ -437,9 +437,9 @@ export const module4Lessons: Lesson[] = [
             type: "list",
             items: [
               "VLOOKUP syntax: =VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup]). The lookup_value is what you are searching for (e.g., the provider name in the appointments table). The table_array is the lookup table (the provider rate table). The col_index_num is which column in the table to return (1 for the first column, 2 for the second, etc.). Range_lookup should almost always be 0 or FALSE for exact match in office data work.",
-              "Practical medical office example: your appointment log has a Provider column with names like 'Dr. Patel.' Your rate table (on a separate sheet) has provider names in column A and billing rates in column B. In your appointment log, the formula =VLOOKUP(A2, RateTable!$A:$B, 2, 0) looks up 'Dr. Patel' in the rate table and returns the corresponding rate. Use absolute references ($A:$B) for the table_array so the formula does not shift when copied down the column.",
+              "Practical medical office example: your appointment log has a Provider column (column B) with names like 'Dr. Patel.' Your rate table (on a separate sheet) has provider names in column A and billing rates in column B. In your appointment log, the formula =VLOOKUP(B2, RateTable!$A:$B, 2, 0) looks up 'Dr. Patel' in the rate table and returns the corresponding rate. Use absolute references ($A:$B) for the table_array so the formula does not shift when copied down the column.",
               "Exact match (range_lookup = 0 or FALSE) is the correct setting for almost all lookup tasks in a medical office — you want to find Dr. Patel exactly, not the closest alphabetical match. Approximate match (range_lookup = 1 or TRUE) is only used for numeric range lookups (e.g., tax brackets or commission tiers) where values fall within ranges. Using approximate match with text data produces random incorrect results.",
-              "Common VLOOKUP errors: #N/A means the lookup_value was not found in the first column of the table_array — check for typos in either table, extra spaces, or mismatched capitalization. Wrap with IFERROR to return a blank or 'Not Found' message instead: =IFERROR(VLOOKUP(A2, RateTable!$A:$B, 2, 0), 'Rate Not Found'). #REF! means the col_index_num is larger than the number of columns in the table_array — reduce the column index number.",
+              "Common VLOOKUP errors: #N/A means the lookup_value was not found in the first column of the table_array — check for typos in either table, extra spaces, or a data type mismatch (for example, an ID stored as a number in one table and as text in the other). VLOOKUP is not case-sensitive, so a capitalization difference alone does not cause #N/A. Wrap with IFERROR to return a blank or 'Not Found' message instead: =IFERROR(VLOOKUP(B2, RateTable!$A:$B, 2, 0), \"Rate Not Found\"). #REF! means the col_index_num is larger than the number of columns in the table_array — reduce the column index number.",
             ],
           },
         ],
@@ -454,9 +454,9 @@ export const module4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Basic IF syntax: =IF(logical_test, value_if_true, value_if_false). For a simple appointment flag: =IF(B2='New', 'New Patient', 'Returning Patient') returns 'New Patient' if B2 contains 'New,' and 'Returning Patient' for any other value. The logical_test can use any comparison operator: = (equal), <> (not equal), > (greater than), < (less than), >= (greater than or equal), <= (less than or equal).",
-              "Nested IF handles more than two outcomes — =IF(B2='New', 'New Patient', IF(B2='Followup', 'Follow-Up', 'Specialist Referral')) evaluates the first condition, and if false, evaluates a second condition before returning the final value. In Excel 2019, you can nest up to 64 IFs, but more than 2–3 levels quickly becomes unreadable. For complex multi-condition logic, consider using IFS (a flatter alternative) or VLOOKUP with a lookup table.",
-              "AND requires ALL conditions to be true — =IF(AND(B2='Dr. Patel', C2='New'), 'Patel New Patient', 'Other') returns 'Patel New Patient' only when both conditions are met simultaneously. This is useful when you need to combine provider AND appointment type filters in a single formula. OR requires ANY condition to be true — =IF(OR(B2='OUT', B2='LOW'), 'Needs Reorder', 'OK') returns 'Needs Reorder' when status is either OUT or LOW.",
+              "Basic IF syntax: =IF(logical_test, value_if_true, value_if_false). For a simple appointment flag: =IF(B2=\"New\", \"New Patient\", \"Returning Patient\") returns 'New Patient' if B2 contains 'New,' and 'Returning Patient' for any other value. The logical_test can use any comparison operator: = (equal), <> (not equal), > (greater than), < (less than), >= (greater than or equal), <= (less than or equal).",
+              "Nested IF handles more than two outcomes — =IF(B2=\"New\", \"New Patient\", IF(B2=\"Followup\", \"Follow-Up\", \"Specialist Referral\")) evaluates the first condition, and if false, evaluates a second condition before returning the final value. In Excel 2019, you can nest up to 64 IFs, but more than 2–3 levels quickly becomes unreadable. For complex multi-condition logic, consider using IFS (a flatter alternative) or VLOOKUP with a lookup table.",
+              "AND requires ALL conditions to be true — =IF(AND(B2=\"Dr. Patel\", C2=\"New\"), \"Patel New Patient\", \"Other\") returns 'Patel New Patient' only when both conditions are met simultaneously. This is useful when you need to combine provider AND appointment type filters in a single formula. OR requires ANY condition to be true — =IF(OR(B2=\"OUT\", B2=\"LOW\"), \"Needs Reorder\", \"OK\") returns 'Needs Reorder' when status is either OUT or LOW.",
             ],
           },
         ],
@@ -471,11 +471,11 @@ export const module4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "SUMIF syntax: =SUMIF(range, criteria, [sum_range]). The range is the column to check the condition against, criteria is the value to match, and sum_range is the column to sum. For total revenue from Dr. Chen: =SUMIF(B2:B100, 'Dr. Chen', E2:E100) checks each row's Provider column (B) and sums the Revenue column (E) for all rows where Provider equals 'Dr. Chen.' If the sum_range is the same as the range (checking and summing the same column), you can omit the third argument.",
-              "SUMIFS handles multiple conditions — =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2). For Dr. Chen's revenue in May 2025: =SUMIFS(E2:E100, B2:B100, 'Dr. Chen', C2:C100, '>=5/1/2025', C2:C100, '<=5/31/2025') sums revenue for rows where Provider is Dr. Chen AND date is within May. SUMIFS is strictly more flexible than SUMIF — it can handle one condition or many.",
-              "COUNTIF counts rows matching a condition — =COUNTIF(B2:B100, 'Dr. Chen') counts how many rows have 'Dr. Chen' in the Provider column. =COUNTIF(D2:D100, 'New Patient') counts all new patient appointment rows. This is the function for answering 'how many' questions: how many appointments this month, how many LOW-status items, how many vendors used.",
-              "COUNTIFS handles multiple conditions — =COUNTIFS(B2:B100, 'Dr. Patel', D2:D100, 'New Patient') counts rows where Provider is Dr. Patel AND appointment type is New Patient. Like SUMIFS, COUNTIFS accepts as many condition pairs as you need. Use COUNTIFS whenever you need to count within a specific segment of your data (a specific month, provider, department, or status).",
-              "IFERROR wraps any formula to prevent error codes from appearing in your spreadsheet — =IFERROR(VLOOKUP(A2, RateTable!$A:$B, 2, 0), 0) returns 0 instead of #N/A if the lookup fails. =IFERROR(SUMIF(...),'No Data') returns a descriptive message instead of an error. Use IFERROR on any formula that might encounter missing data, as error codes in a shared dashboard look unprofessional and cause confusion.",
+              "SUMIF syntax: =SUMIF(range, criteria, [sum_range]). The range is the column to check the condition against, criteria is the value to match, and sum_range is the column to sum. For total revenue from Dr. Chen: =SUMIF(B2:B100, \"Dr. Chen\", E2:E100) checks each row's Provider column (B) and sums the Revenue column (E) for all rows where Provider equals 'Dr. Chen.' If the sum_range is the same as the range (checking and summing the same column), you can omit the third argument.",
+              "SUMIFS handles multiple conditions — =SUMIFS(sum_range, criteria_range1, criteria1, criteria_range2, criteria2). For Dr. Chen's revenue in May 2025: =SUMIFS(E2:E100, B2:B100, \"Dr. Chen\", C2:C100, \">=5/1/2025\", C2:C100, \"<=5/31/2025\") sums revenue for rows where Provider is Dr. Chen AND date is within May. SUMIFS is strictly more flexible than SUMIF — it can handle one condition or many.",
+              "COUNTIF counts rows matching a condition — =COUNTIF(B2:B100, \"Dr. Chen\") counts how many rows have 'Dr. Chen' in the Provider column. =COUNTIF(D2:D100, \"New Patient\") counts all new patient appointment rows. This is the function for answering 'how many' questions: how many appointments this month, how many LOW-status items, how many vendors used.",
+              "COUNTIFS handles multiple conditions — =COUNTIFS(B2:B100, \"Dr. Patel\", D2:D100, \"New Patient\") counts rows where Provider is Dr. Patel AND appointment type is New Patient. Like SUMIFS, COUNTIFS accepts as many condition pairs as you need. Use COUNTIFS whenever you need to count within a specific segment of your data (a specific month, provider, department, or status).",
+              "IFERROR wraps any formula to prevent error codes from appearing in your spreadsheet — =IFERROR(VLOOKUP(B2, RateTable!$A:$B, 2, 0), 0) returns 0 instead of #N/A if the lookup fails. SUMIF and SUMIFS do not need IFERROR for missing data: when no rows match the criteria, they simply return 0. Use IFERROR on formulas that can return an error code when data is missing, such as lookups and division, as error codes in a shared dashboard look unprofessional and cause confusion.",
             ],
           },
         ],
@@ -517,10 +517,10 @@ export const module4Lessons: Lesson[] = [
             type: "knowledge-check",
             question: "You want to sum the Revenue column (E) only for rows where the Provider (column B) is 'Dr. Okafor' AND the Appointment Type (column D) is 'New Patient.' Which function is correct?",
             options: [
-              "=SUMIF(B2:B100, 'Dr. Okafor', E2:E100)",
-              "=SUMIFS(E2:E100, B2:B100, 'Dr. Okafor', D2:D100, 'New Patient')",
-              "=IF(AND(B2='Dr. Okafor', D2='New Patient'), SUM(E2:E100), 0)",
-              "=COUNTIFS(E2:E100, B2:B100, 'Dr. Okafor')",
+              "=SUMIF(B2:B100, \"Dr. Okafor\", E2:E100)",
+              "=SUMIFS(E2:E100, B2:B100, \"Dr. Okafor\", D2:D100, \"New Patient\")",
+              "=IF(AND(B2=\"Dr. Okafor\", D2=\"New Patient\"), SUM(E2:E100), 0)",
+              "=COUNTIFS(E2:E100, B2:B100, \"Dr. Okafor\")",
             ],
             correctIndex: 1,
           },
@@ -541,7 +541,7 @@ export const module4Lessons: Lesson[] = [
           "In a new column F named 'Lookup Rate,' write a VLOOKUP formula to retrieve each provider's billing rate from the Rate Table. Use an absolute reference for the table_array and exact match. Wrap with IFERROR to return 'Not Found' if the provider is missing from the rate table. Copy down all 30 rows.",
           "In column G named 'Revenue Category,' write a nested IF formula to classify each appointment's revenue as 'High' (>$400), 'Medium' ($200–$400), or 'Low' (<$200). Copy down all 30 rows and verify the categories look correct.",
           "Create a summary table below the data (rows 35–45): use SUMIFS to calculate total revenue for each of the 3 providers for New Patient appointments only. Use COUNTIFS to count how many appointments each provider had in each month represented in your data.",
-          "Wrap each SUMIFS formula with IFERROR to return $0.00 if no matching records exist. Format all revenue totals as Currency. Save as 'Advanced Functions – Lakeside Medical.xlsx.'",
+          "Format all revenue totals as Currency, then confirm that any provider with no matching New Patient appointments shows $0.00 (SUMIFS returns 0 when no records match, so no IFERROR wrap is needed). Save as 'Advanced Functions – Lakeside Medical.xlsx.'",
         ],
       },
       {
@@ -799,7 +799,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "The Expense Data sheet is the only place where raw expense records live — each row is one transaction with columns: Date, Department, Category, Vendor, Amount. This sheet has validation on the Department and Category columns (dropdown lists) and a whole-number validation on the Amount column to prevent negative entries. This is the only sheet where staff can enter new data. No charts, no PivotTables, no summary tables appear here — just clean, validated data.",
+              "The Expense Data sheet is the only place where raw expense records live — each row is one transaction with columns: Date, Department, Category, Vendor, Amount. This sheet has validation on the Department and Category columns (dropdown lists) and a decimal validation (minimum 0.01) on the Amount column to prevent zero or negative entries while still allowing cents. This is the only sheet where staff can enter new data. No charts, no PivotTables, no summary tables appear here — just clean, validated data.",
               "The Analysis sheet contains the PivotTables, SUMIF summary table, and PivotChart — this is where the data is interrogated and summarized. The physician or office manager opens this sheet to explore the data from different angles. PivotTable filters and Slicers live here. Formula cells are protected so the analysis structure cannot be accidentally broken. Staff do not directly edit this sheet.",
               "The Dashboard sheet is the executive presentation view — a clean, visually organized layout that shows the most important summary numbers (total monthly spend, top category, biggest vendor, month-over-month change) alongside the PivotChart, formatted as a professional one-page report. This is what appears on the projected screen during the leadership meeting. It references cells from the Analysis sheet using cross-sheet formulas and contains no editable cells.",
             ],
@@ -817,8 +817,8 @@ export const module4Lessons: Lesson[] = [
             type: "list",
             items: [
               "PivotTable 1 — Department vs Category cross-tab: create a PivotTable from the Expense Data table with Department in Rows, Category in Columns, and Sum of Amount in Values. Format all values as Currency. Add a Grand Total row and Grand Total column. This one PivotTable shows the complete spending matrix — what each department spent in each category — which is the most information-dense summary the leadership team needs.",
-              "PivotChart — column chart from PivotTable 1: insert a clustered column chart from the PivotTable showing total spending by Department (one bar per department). Title it 'Monthly Expenses by Department — [Month Year].' Format with the practice's color scheme, clean flat style, no 3D effects, currency data labels on each bar. Place the chart adjacent to the PivotTable on the Analysis sheet.",
-              "SUMIF Summary Table — formula-based alternative: below the PivotTable, build a static summary table using SUMIF: =SUMIF(ExpenseData[Department], 'Medical', ExpenseData[Amount]) for each department. This table serves the physician who prefers to see clean labeled totals rather than interacting with PivotTable fields. Format as an Excel table with a professional style, Currency formatting, and a total row using SUM.",
+              "PivotChart — column chart from PivotTable 1: insert a clustered column chart from the PivotTable. A PivotChart mirrors its PivotTable, so with Department in Rows and Category in Columns, the chart shows a bar for each category within each department (departments along the horizontal axis, categories in the legend). Title it 'Monthly Expenses by Department — [Month Year].' Format with the practice's color scheme, clean flat style, no 3D effects, currency data labels on each bar. Place the chart adjacent to the PivotTable on the Analysis sheet.",
+              "SUMIF Summary Table — formula-based alternative: below the PivotTable, build a static summary table using SUMIF: =SUMIF(ExpenseData[Department], \"Medical\", ExpenseData[Amount]) for each department. This table serves the physician who prefers to see clean labeled totals rather than interacting with PivotTable fields. Format as an Excel table with a professional style, Currency formatting, and a total row using SUM.",
               "Add a Slicer for Month — connect it to PivotTable 1 so the physician can filter the analysis to a specific month during the meeting without needing to understand PivotTable mechanics. Place the slicer prominently above the PivotTable with a clear label.",
             ],
           },
@@ -834,8 +834,8 @@ export const module4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "On the Expense Data sheet: apply dropdown validation to the Department column (Medical, Nursing, Administration, Facilities) and the Category column (Supplies, Equipment, Services, Utilities, Staff Training). Apply whole-number validation (minimum 1) to the Amount column to prevent zero or negative entries. Use Stop error alerts on both dropdown columns. Leave the data entry cells (Date, Department, Category, Vendor, Amount) unlocked and protect the sheet — staff can add new expense rows but cannot change the column headers.",
-              "On the Analysis sheet: lock all cells (the default state) and protect the sheet with a password so PivotTable configuration and SUMIF formulas cannot be accidentally edited. Allow 'Select unlocked cells' so users can click the Slicer buttons and interact with the PivotTable's row/column fields without typing into cells. PivotTable interaction (dragging fields, clicking filter arrows) works even on a protected sheet — only direct cell editing is blocked.",
+              "On the Expense Data sheet: apply dropdown validation to the Department column (Medical, Nursing, Administration, Facilities) and the Category column (Supplies, Equipment, Services, Utilities, Staff Training). Apply decimal validation (minimum 0.01) to the Amount column to prevent zero or negative entries while still allowing cents. Use Stop error alerts on both dropdown columns. Leave the data entry cells (Date, Department, Category, Vendor, Amount) unlocked and protect the sheet — staff can add new expense rows but cannot change the column headers.",
+              "On the Analysis sheet: lock all cells (the default state) and protect the sheet with a password so PivotTable configuration and SUMIF formulas cannot be accidentally edited. By default, sheet protection also blocks PivotTable changes, including filtering, rearranging fields, and refreshing. To let users filter and explore the PivotTable on the protected sheet, check 'Use PivotTable & PivotChart' in the Protect Sheet dialog. When new expense rows are added, unprotect the sheet (Review > Unprotect Sheet), refresh the PivotTable, and then protect the sheet again.",
               "On the Dashboard sheet: protect all cells with no exceptions — the dashboard is read-only. All values on this sheet come from cross-sheet formulas that pull from the Analysis sheet. Users view but cannot edit. This preserves the professional presentation layout regardless of how the underlying data is updated.",
             ],
           },
@@ -898,17 +898,17 @@ export const module4Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Create a workbook with three sheets: 'Expense Data,' 'Analysis,' and 'Dashboard.' On the Expense Data sheet, enter 25 expense records (use AI-generated data or create your own) with columns: Date, Department, Category, Vendor, Amount. Convert to an Excel Table. Apply dropdown validation to Department (4 options) and Category (5 options) with Stop error alerts. Apply validation to Amount (minimum: 1). Protect the sheet leaving only data entry cells editable.",
+          "Create a workbook with three sheets: 'Expense Data,' 'Analysis,' and 'Dashboard.' On the Expense Data sheet, enter 25 expense records (use AI-generated data or create your own) with columns: Date, Department, Category, Vendor, Amount. Convert to an Excel Table. Apply dropdown validation to Department (4 options) and Category (5 options) with Stop error alerts. Apply decimal validation to Amount (minimum: 0.01). Protect the sheet leaving only data entry cells editable.",
           "On the Analysis sheet, create a PivotTable (Department in Rows, Category in Columns, Sum of Amount in Values) formatted as Currency with Grand Totals. Add a PivotChart (clustered column by Department) with a title, axis labels, and currency data labels. Add a Month slicer connected to the PivotTable. Below the PivotTable, build a SUMIF summary table showing total spend per department using structured table references. Protect the sheet.",
           "On the Dashboard sheet, build a professional one-page summary layout: a title ('Lakeside Medical Associates — Monthly Expense Report — May 2025'), five KPI cells showing Grand Total Spend, Top Department (manual label based on data), Highest Category Spend, Number of Transactions, and Average Transaction Amount — all using cross-sheet formulas from the Analysis sheet. Copy or link the PivotChart to this sheet. Apply a professional visual layout with alternating colored header sections. Protect all cells.",
-          "Test the complete dashboard: add 3 new expense rows to the Expense Data table, go to the Analysis sheet, right-click the PivotTable and choose Refresh, and confirm the PivotTable, PivotChart, SUMIF summary, and Dashboard KPIs all update to reflect the new data.",
+          "Test the complete dashboard: add 3 new expense rows to the Expense Data table, go to the Analysis sheet, unprotect it (Review > Unprotect Sheet), right-click the PivotTable and choose Refresh, protect the sheet again, and confirm the PivotTable, PivotChart, SUMIF summary, and Dashboard KPIs all update to reflect the new data.",
           "Save the workbook as 'Monthly Expense Dashboard – Lakeside Medical – May 2025.xlsx.' Export the Dashboard sheet as a PDF named 'Executive Expense Report – May 2025.pdf.'",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your .xlsx workbook and the PDF export to your instructor or course folder. Your dashboard will be graded on: validated Expense Data sheet (dropdown and amount validation working), Analysis PivotTable (Department × Category cross-tab with Grand Totals), PivotChart correctly visualizing department totals, SUMIF summary table with correct formulas, Dashboard sheet with 5 cross-sheet KPI formulas, working Refresh functionality (confirmed with screenshot), and all three sheets correctly protected. A perfect score means this dashboard is ready to be projected at a Lakeside Medical Associates leadership meeting today.",
+        text: "Deliverable: Submit your .xlsx workbook and the PDF export to your instructor or course folder. Your dashboard will be graded on: validated Expense Data sheet (dropdown and amount validation working), Analysis PivotTable (Department × Category cross-tab with Grand Totals), PivotChart correctly visualizing department spending by category, SUMIF summary table with correct formulas, Dashboard sheet with 5 cross-sheet KPI formulas, working Refresh functionality (confirmed with screenshot), and all three sheets correctly protected. A perfect score means this dashboard is ready to be projected at a Lakeside Medical Associates leadership meeting today.",
       },
     ],
   },

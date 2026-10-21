@@ -2263,8 +2263,9 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     case "review.showComments": deck.pane = deck.pane === "Comments" ? null : "Comments"; return { doc: deck };
     case "review.compare": flag({ compare: true }); return { doc: deck };
     case "review.deleteComment": {
-      if (sv === "Delete All Comments in This Presentation") deck.slides.forEach((s) => (s.comments = []));
-      else if (slide && sv === "Delete All Comments on This Slide") slide.comments = [];
+      // Microsoft's labels; the older "...This Presentation" / "...This Slide" values are still accepted.
+      if (sv === "Delete All Comments in Presentation" || sv === "Delete All Comments in This Presentation") deck.slides.forEach((s) => (s.comments = []));
+      else if (slide && (sv === "Delete All Comments on Slide" || sv === "Delete All Comments on This Slide")) slide.comments = [];
       else if (slide) {
         const i = Math.min(Number(deck.flags?.commentFocus ?? 0), Math.max(0, (slide.comments ?? []).length - 1));
         slide.comments = (slide.comments ?? []).filter((_, k) => k !== i);
