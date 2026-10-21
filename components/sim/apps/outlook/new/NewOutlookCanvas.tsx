@@ -14,7 +14,7 @@ import { newOutlookCore } from "./core";
 import { newOutlookRibbon } from "./ribbon";
 import { SWEEP_OPTIONS, catLabel } from "./model";
 import { RibbonBar } from "./RibbonBar";
-import { ComposeNew, FolderPaneNew, MessageListNew, MessageViewNew, ReadingPaneNew, signatureInsert, type NCtx } from "./mailNew";
+import { ComposeNew, FolderPaneNew, MessageListNew, MessageViewNew, ReadingPaneNew, ownTree, signatureInsert, type NCtx } from "./mailNew";
 import { CalendarPaneNew, EventFormNew } from "./calendarNew";
 import { ContactDetailsNew, ContactFormNew, GroupFormNew, PeopleListNew, PeoplePaneNew, askDeletePerson } from "./peopleNew";
 import { TodoMainNew, TodoPaneNew } from "./todoNew";
@@ -69,6 +69,10 @@ function tabsFor(doc: OutlookDoc, keys: string[]): RibbonTab[] {
   const sigs: RibbonOption[] = (doc.signatures ?? []).map((s) => ({ value: s.name, icon: "pen" }));
   const qs: RibbonOption[] = (doc.quickSteps ?? []).map((q) => ({ value: q.name, icon: "bolt" }));
   const cats = (o: RibbonOption): RibbonOption => (o.value.endsWith(" Category") ? { ...o, label: catLabel(doc, o.value) } : o);
+  // Move to lists the mailbox's own folders (the same list as right-click › Move), then Move to a different folder...
+  const moveFolders: RibbonOption[] = ownTree(doc)
+    .filter((x) => !["outbox", "drafts", "sent"].includes(x.folder.id))
+    .map((x) => ({ value: x.folder.name, label: `${"\u00a0".repeat(x.depth * 3)}${x.folder.name}`, icon: x.folder.id === "archive" ? "archive" : x.folder.id === "inbox" ? "inbox" : "folder" }));
   return newOutlookRibbon
     .filter((t) => !t.contextual || keys.includes(t.contextual))
     .map((t) => ({
@@ -79,6 +83,7 @@ function tabsFor(doc: OutlookDoc, keys: string[]): RibbonTab[] {
           if (c.type !== "dropdown") return c;
           if (c.id === "compose.insertSignature") return { ...c, options: [...sigs, ...c.options] };
           if (c.id === "home.quickStep") return { ...c, options: [...qs, ...c.options] };
+          if (c.id === "mail.move") return { ...c, options: [...moveFolders, ...c.options.filter((o) => o.dialog)] };
           if (c.id === "item.categorize" || c.id === "form.categorize") return { ...c, options: c.options.map(cats) };
           if (c.id === "compose.sensitivity" && doc.sensitivityLabels) return { ...c, options: doc.sensitivityLabels.map((v) => ({ value: v })) };
           return c;
