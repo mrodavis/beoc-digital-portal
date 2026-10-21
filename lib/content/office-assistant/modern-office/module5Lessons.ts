@@ -11,7 +11,7 @@ export const module5Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/module-5/task-management-tools/slide-01.jpg",
-        alt: "Task Management Tools — Module 5: Task & Project Management | Modern Office Skills",
+        alt: "Task Management Tools — Module 12: Task & Project Management | Modern Office Skills",
       },
       {
         src: "/images/office-assistant/module-5/task-management-tools/slide-02.jpg",
@@ -965,7 +965,7 @@ export const module5Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Build a complete, functional project tracker in Google Sheets or Microsoft Excel. This is your capstone challenge for Module 5 — it must demonstrate every skill from this module. Your tracker must pass every check in the five specifications below before you submit it:",
+        text: "Build a complete, functional project tracker in Google Sheets or Microsoft Excel. This is your capstone challenge for Module 12 — it must demonstrate every skill from this module. Your tracker must pass every check in the five specifications below before you submit it:",
       },
       {
         type: "list",

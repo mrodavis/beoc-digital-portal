@@ -401,7 +401,7 @@ export const module3Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/module-3/spreadsheet-basics/slide-01.jpg",
-        alt: "Spreadsheet Basics for Office Work — Module 3: Document & Data Workflows | Microsoft Office 2019 Certification",
+        alt: "Spreadsheet Basics for Office Work — Module 10: Document & Data Workflows | Microsoft Office 2019 Certification",
       },
       {
         src: "/images/office-assistant/module-3/spreadsheet-basics/slide-02.jpg",
@@ -640,7 +640,7 @@ export const module3Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/module-3/build-tracking-sheet/slide-01.jpg",
-        alt: "Constructing a Functional Tracking Sheet — BEOC Digital Fundamentals, Module 3: Document & Data Workflows, Hands-On: Build a Tracking Sheet",
+        alt: "Constructing a Functional Tracking Sheet — BEOC Digital Fundamentals, Module 10: Document & Data Workflows, Hands-On: Build a Tracking Sheet",
       },
       {
         src: "/images/office-assistant/module-3/build-tracking-sheet/slide-02.jpg",
@@ -696,7 +696,7 @@ export const module3Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/module-3/build-tracking-sheet/slide-15.jpg",
-        alt: "Moving Forward — Next Up: Module 4: Scheduling & Meetings. Brooklyn Educational Opportunity Center: dedicated to providing accessible, high-quality digital skills training.",
+        alt: "Moving Forward — Next Up: Module 11: Scheduling & Meetings. Brooklyn Educational Opportunity Center: dedicated to providing accessible, high-quality digital skills training.",
       },
     ],
 

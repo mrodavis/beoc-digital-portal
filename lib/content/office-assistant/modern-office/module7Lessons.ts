@@ -651,7 +651,7 @@ export const module7Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Complete 3 office tasks using AI tools and document your full workflow for each one. This is your Module 7 capstone — it must demonstrate deliberate tool selection, effective prompting, critical review, and professional editing. Every specification below must be met:",
+        text: "Complete 3 office tasks using AI tools and document your full workflow for each one. This is your Module 14 capstone — it must demonstrate deliberate tool selection, effective prompting, critical review, and professional editing. Every specification below must be met:",
       },
       {
         type: "list",

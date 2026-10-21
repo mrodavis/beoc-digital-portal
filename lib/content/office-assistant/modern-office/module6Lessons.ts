@@ -224,7 +224,7 @@ export const module6Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/module-6/managing-client-records/slide-01.jpg",
-        alt: "Flawless CRM: Building, Maintaining, and Protecting Accurate Client Records — BEOC Digital Skills Portal Module 6",
+        alt: "Flawless CRM: Building, Maintaining, and Protecting Accurate Client Records — BEOC Digital Skills Portal Module 13",
       },
       {
         src: "/images/office-assistant/module-6/managing-client-records/slide-02.jpg",
@@ -472,7 +472,7 @@ export const module6Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/module-6/professional-follow-up/slide-01.jpg",
-        alt: "The Cycle of Accountability: Professional Follow-Up, Communication Logs, and Client Trust — BEOC Digital Skills Masterclass Module 6",
+        alt: "The Cycle of Accountability: Professional Follow-Up, Communication Logs, and Client Trust — BEOC Digital Skills Masterclass Module 13",
       },
       {
         src: "/images/office-assistant/module-6/professional-follow-up/slide-02.jpg",
@@ -706,14 +706,14 @@ export const module6Lessons: Lesson[] = [
     slug: "log-client-interaction",
     title: "Hands-On: Log a Client Interaction",
     description:
-      "Apply all Module 6 skills by logging four different client interaction types and completing follow-up tasks.",
+      "Apply all Module 13 skills by logging four different client interaction types and completing follow-up tasks.",
     duration: "30 min",
     videoUrl: "https://www.youtube.com/embed/07bYfoSN9cA",
 
     slides: [
       {
         src: "/images/office-assistant/module-6/log-client-interaction/slide-01.jpg",
-        alt: "The Client Interaction Field Guide: Mastering the CRM Log — A Module 6 Playbook — BEOC Digital Skills Portal",
+        alt: "The Client Interaction Field Guide: Mastering the CRM Log — A Module 13 Playbook — BEOC Digital Skills Portal",
       },
       {
         src: "/images/office-assistant/module-6/log-client-interaction/slide-02.jpg",
@@ -757,7 +757,7 @@ export const module6Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/module-6/log-client-interaction/slide-12.jpg",
-        alt: "The Capstone Challenge — Module 6 Capstone: build a complete interaction log for four fictional TOR Tech interactions from one week using realistic names, dates, and scenarios with no placeholders — Log 4 Types (Phone, Email, Meeting, Signed Document) with all 6 required fields; Meeting Mastery: 3+ agenda items with individual outcomes and 2+ next steps with different owners; The Recap: write one complete follow-up email with recap, numbered next steps, and corrections invite; The Reflection: write 2-3 sentences on what was hardest to log accurately and how to improve in-the-moment note-taking",
+        alt: "The Capstone Challenge — Module 13 Capstone: build a complete interaction log for four fictional TOR Tech interactions from one week using realistic names, dates, and scenarios with no placeholders — Log 4 Types (Phone, Email, Meeting, Signed Document) with all 6 required fields; Meeting Mastery: 3+ agenda items with individual outcomes and 2+ next steps with different owners; The Recap: write one complete follow-up email with recap, numbered next steps, and corrections invite; The Reflection: write 2-3 sentences on what was hardest to log accurately and how to improve in-the-moment note-taking",
       },
     ],
 
@@ -907,7 +907,7 @@ export const module6Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Build a complete client interaction log for four fictional TOR Tech interactions from one week — one of each interaction type. This is your Module 6 capstone. Every entry must be fully completed and every specification below must be met before you submit:",
+        text: "Build a complete client interaction log for four fictional TOR Tech interactions from one week — one of each interaction type. This is your Module 13 capstone. Every entry must be fully completed and every specification below must be met before you submit:",
       },
       {
         type: "list",

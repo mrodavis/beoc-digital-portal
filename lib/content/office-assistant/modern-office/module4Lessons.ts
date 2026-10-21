@@ -701,7 +701,7 @@ export const module4Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/module-4/schedule-a-full-week/slide-01.jpg",
-        alt: "Mastering the Week — The Ultimate Calendar Challenge, Module 4 Hands-On Application",
+        alt: "Mastering the Week — The Ultimate Calendar Challenge, Module 11 Hands-On Application",
       },
       {
         src: "/images/office-assistant/module-4/schedule-a-full-week/slide-02.jpg",
@@ -733,7 +733,7 @@ export const module4Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/module-4/schedule-a-full-week/slide-09.jpg",
-        alt: "Challenge Accepted — once you have built the perfect week you are ready to move forward to Module 5: Task and Project Management",
+        alt: "Challenge Accepted — once you have built the perfect week you are ready to move forward to Module 12: Task and Project Management",
       },
     ],
 

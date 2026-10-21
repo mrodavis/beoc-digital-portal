@@ -865,12 +865,12 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "If you need to present on a computer that may not have PowerPoint — or if your presentation uses linked media files — use Package Presentation for CD.",
+            "If you need to present on another computer, and especially if your presentation uses linked media files or fonts that computer may not have, use Package Presentation for CD.",
         },
         {
           type: "paragraph",
           text:
-            "Go to File → Export → Package Presentation for CD. This bundles your presentation, all linked media, and the PowerPoint Viewer into a single folder you can copy to a USB drive.",
+            "Go to File → Export → Package Presentation for CD, then click Package for CD. This bundles your presentation and its linked files (and, if you choose them under Options, its TrueType fonts) into a single folder you can copy to a USB drive. The package does not include a viewer (Microsoft retired PowerPoint Viewer in 2018), so the computer you present on still needs PowerPoint, or you can open the file in PowerPoint for the web.",
         },
         {
           type: "image",
