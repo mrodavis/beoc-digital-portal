@@ -21,6 +21,7 @@ export const gwModule2Lessons: Lesson[] = [
       "Explain what happens when you upload a file with the same name as one already in Drive",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/hoQbFkScHGk",
     slides: slides("the-drive-screen-and-uploading", [
       "Google Drive: every file in one place, on any computer",
       "The Drive screen: New, the left side, search, the file list, and details",
@@ -204,6 +205,7 @@ export const gwModule2Lessons: Lesson[] = [
       "Name files so anyone can find them",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/07z6YD6f8bs",
     slides: slides("organizing-files-and-folders", [
       "Organizing Drive: folders, names, stars, colors, and shortcuts",
       "A folder system the whole office can follow",
@@ -748,6 +750,7 @@ export const gwModule2Lessons: Lesson[] = [
       "Check how much storage you use, what counts toward it, and which files use the most",
     ],
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/CgJZyoX4_ak",
     slides: slides("trash-storage-and-recovery", [
       "Trash and storage: delete safely, get files back",
       "Trash keeps files for 30 days",

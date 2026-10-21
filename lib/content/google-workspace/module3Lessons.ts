@@ -22,6 +22,7 @@ export const gwModule3Lessons: Lesson[] = [
       "Copy formatting with Paint format and remove it with Clear formatting",
     ],
     duration: "25 min",
+    videoUrls: ["https://www.youtube.com/embed/afQ7cjZTKDg", "https://www.youtube.com/embed/OSh8VjfHX6Y"],
     slides: slides("creating-and-formatting-documents", [
       "Creating and formatting documents in Google Docs",
       "Three ways to start a document",
@@ -198,6 +199,7 @@ export const gwModule3Lessons: Lesson[] = [
       "Change page setup: pages or pageless, orientation, and margins",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/4dNybOXJ9GU",
     slides: slides("headings-outline-and-page-setup", [
       "Headings, the outline, and page setup",
       "Paragraph styles: Title, Heading 1, Heading 2",
@@ -385,6 +387,7 @@ export const gwModule3Lessons: Lesson[] = [
       "Start voice typing with Tools › Voice typing",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/6PhT84sVcE8",
     slides: slides("tables-images-and-smart-chips", [
       "Tables, images, smart chips, and voice typing",
       "Tables: Insert, then Table; right-click to add rows and columns",

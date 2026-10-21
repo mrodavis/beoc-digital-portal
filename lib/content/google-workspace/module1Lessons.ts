@@ -21,6 +21,7 @@ export const gwModule1Lessons: Lesson[] = [
       "Describe three habits of cloud apps: changes save on their own, you share a link instead of an attachment, and your files open on any computer",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/chz7N054NAc",
     slides: slides("what-is-google-workspace", [
       "What Google Workspace is: Google's apps for work, all in the browser",
       "The apps you will use: Gmail and Calendar, Drive, Docs, Sheets, Slides, Meet and Chat",
