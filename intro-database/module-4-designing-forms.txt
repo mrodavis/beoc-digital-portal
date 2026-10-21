@@ -1,0 +1,58 @@
+Designing Data Entry Forms
+
+Module 4: Queries, Forms & Reports
+
+Build Access forms that make data entry fast, consistent, and error-resistant — replacing raw table editing with a professional interface for front-desk staff.
+
+
+## Real-World Scenario
+Note: After the billing manager's query success, the front desk supervisor at Lakeside Medical Associates asks for help with a different problem: 'When new patients register, three different staff members enter their information directly into the table. Dates get typed in five different formats. Phone numbers have no consistent format. Can you make something easier for staff to use?' She is describing a Form — the Access object designed exactly for this purpose.
+
+
+## Why Forms Instead of Direct Table Entry
+Entering data directly into an Access table's Datasheet View is like filling out a spreadsheet — you can do it, but it is error-prone and unfriendly for staff who are not database users. Forms solve this:
+
+- Forms present one record at a time — instead of a grid of 500 rows, the staff member sees a clean screen with labeled fields for one patient. This reduces the chance of accidentally editing the wrong record.
+- Forms can guide data entry — dropdowns for common values (like InsurancePlan or State), required field indicators, and tab order that moves logically through the form all reduce the cognitive load on the person entering data.
+- Forms can show data from related tables — a patient registration form can show a patient's recent appointments at the bottom, even though that data lives in a separate Appointments table. The form combines data from multiple sources into a single, useful screen.
+- Forms protect the underlying table structure — a well-designed form only shows the fields relevant to the task. Staff filling out a patient registration form do not need to see or accidentally modify the PatientID (primary key) field — the form simply does not show it.
+
+
+## Creating a Form with the Form Wizard
+Access includes a Form Wizard that builds a working form from a table or query in under two minutes. Use it as a starting point, then customize in Design View:
+
+- Open the Form Wizard: On the Create tab, click Form Wizard. The wizard asks which table or query the form is based on — select the Patients table.
+- Select fields: Move only the fields relevant to data entry from Available Fields to Selected Fields. For a registration form, include PatientFirstName, PatientLastName, DateOfBirth, PhoneNumber, Email, InsurancePlan, and PrimaryProviderID. Leave PatientID out — Access manages the primary key automatically.
+- Choose a layout: The wizard offers Columnar (one field per row — best for detailed forms), Tabular (all fields on one row, multiple records — similar to a spreadsheet), and Datasheet (like a grid). Choose Columnar for a patient registration form.
+- Name and finish: Give the form a descriptive name (PatientRegistrationForm) and click Finish. Access generates the form and opens it in Form View — the live, working version that data entry staff will use.
+
+
+## Customizing Forms in Design View
+The wizard creates a functional form, but Design View lets you improve it — rearranging fields, improving labels, setting tab order, and adding professional formatting:
+
+- Switch to Design View: Right-click the form tab or use the View button. Design View shows the form as a canvas with a grid. Fields appear as text boxes with associated labels. Click any control to select it, then drag to move or resize.
+- Improve labels: The label to the left of each field defaults to the field name (PatientFirstName). Double-click the label box and change it to something staff will recognize: 'First Name'. Use sentence case, not camelCase or underscores.
+- Set the tab order: When staff press Tab to move between fields, Access should move in a logical order — not the order fields were added. On the Form Design tab, click Tab Order and drag field names into the correct sequence: First Name → Last Name → Date of Birth → Phone Number → Email → Insurance Plan.
+- Add combo boxes for controlled data entry: Instead of a plain text box for InsurancePlan (where someone might type 'Blue Cross' vs 'BlueCross' vs 'blue cross'), convert it to a Combo Box. In Design View, right-click the InsurancePlan text box and choose Change To > Combo Box. Set the Row Source to the list of valid insurance plan names. Now staff pick from a dropdown instead of typing freehand.
+- Mark required fields visually: Add an asterisk (*) to the labels of required fields, or use the form's header section to add a note: '* Required fields'. This is a visual convention that staff will recognize immediately.
+
+
+## Navigation and Record Controls
+At the bottom of every Access form in Form View is the Record Navigation Bar — the controls staff use to move through records:
+
+- The navigation arrows move between records: |< goes to the first record, < goes back one, > goes forward one, >| goes to the last record. The record counter in the middle shows the current record number and total count.
+- The New Record button (the > with an asterisk: >*) moves to a blank record for entering a new patient. Train staff to always use this button rather than typing in an empty-looking record — occasionally an apparently blank record has an existing primary key.
+- The Search box at the bottom lets staff type part of a name to jump to matching records. This is faster than using the arrow keys to scroll through hundreds of patients.
+- Always save before navigating away: Access saves the current record automatically when you move to a different record or close the form. But if you make changes and want to discard them, press Escape before moving away.
+
+Create a separate form for each major data entry task — one for new patient registration, one for appointment scheduling, one for billing entries. A focused form is easier to use and harder to misuse than a single form that tries to do everything.
+
+
+## Subforms: Showing Related Data
+A subform is a form embedded inside another form, showing related records from a linked table. This is one of Access's most useful features for medical office work:
+
+- Main form / subform relationship: The main form shows one patient record. The subform at the bottom shows all appointments for that patient — fetched automatically based on the PatientID. As you move to a different patient in the main form, the subform updates instantly to show that patient's appointments.
+- Building a subform: In Design View, use the Subform/Subreport control on the Controls panel (on the Form Design tab). Select the Appointments table as the data source, choose the fields to display (AppointmentDate, ProviderLastName, AppointmentType), and Access handles the linking automatically.
+- Read-only vs editable subforms: For a registration form, the appointments subform might be set to read-only (so front desk staff can see a patient's history but not accidentally change appointment records). For a scheduling form, the appointments subform would be editable.
+
+Check yourself: A staff member reports that when she presses Tab to move between fields on the patient registration form, it jumps from First Name to Insurance Plan instead of going to Last Name next. What should you fix? Answer: Change the Tab Order in Form Design View to sequence fields correctly.

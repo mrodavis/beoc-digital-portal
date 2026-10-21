@@ -1,0 +1,102 @@
+Work or School Accounts and Personal Accounts
+
+Module 1: Getting Started with OneDrive
+
+Know which OneDrive you are in, what differs between a work or school account and a personal Microsoft account, and why work files never go in personal storage.
+
+By the end of this lesson you can:
+- Tell a work or school OneDrive from a personal OneDrive by its sign-in, address, and labels
+- List features that differ: Personal Vault, Photos, Recycle bin retention, and organization sharing rules
+- Keep work files, and especially patient information, out of personal storage
+- Remove a work file that ended up in a personal OneDrive
+
+
+## Two kinds of OneDrive
+
+ type: scenario
+ role: You use OneDrive at Lakeside and at home.
+ text: At home you open your personal OneDrive to print your child's school form and notice a file you don't remember saving there: Lakeside Staff Schedule - copy.xlsx. Months ago you saved it there to look at on the weekend. It lists every staff member's phone number and shifts and it doesn't belong in your personal account.
+ task: Learn to tell the two OneDrives apart and keep work files where they belong.
+
+
+A work or school account is created and managed by your organization. Its OneDrive belongs to the organization's Microsoft 365, follows its security and sharing rules, and your IT team can help recover it. A personal Microsoft account is one you created yourself, often with an Outlook.com address. Its OneDrive is yours, with your own storage plan, and your employer has no control over it.
+
+
+ type: table
+ caption: How to tell which OneDrive you are in
+ columns: 
+  Clue
+  Work or school
+  Personal
+ rows: 
+   The account you signed in with
+   Your work address (amorgan@lakesidemedical.example)
+   Your own address (for example an Outlook.com address)
+   The web address
+   Usually ends in -my.sharepoint.com
+   onedrive.live.com
+   The button at the top of the left pane
+   Create or upload
+   Add new
+   File Explorer folder name
+   OneDrive - Lakeside Medical Associates
+   OneDrive - Personal
+
+
+
+## What is different
+
+ type: table
+ caption: Features that differ by account
+ columns: 
+  Feature
+  Work or school
+  Personal
+ rows: 
+   Recycle bin
+   Deleted items are kept 93 days unless your organization changed this
+   Deleted items are kept 30 days
+   Personal Vault
+   Not available
+   A protected folder that needs identity verification to open
+   Photos
+   Photos appear under Media
+   A Photos view for your camera pictures
+   Sharing rules
+   Your organization decides which link types you can use
+   You decide (some options need a Microsoft 365 subscription)
+   Can't download permission
+   Available
+   Not available
+
+
+Note: Because your organization manages your work account, your work OneDrive can change when your job changes. When people leave an organization, their work account is usually closed. That is another reason team files belong in a team library, not in one person's OneDrive.
+
+
+## Work files stay in the work account
+Copying work files into a personal account feels harmless, but it moves the file outside every protection your organization set up: its security rules, its retention, its ability to remove access when you leave. For a medical office, a work file in a personal account can also be a privacy problem. If you need a work file at home, open it in your work OneDrive by signing in with your work account (if your organization allows it), and don't save a copy anywhere else.
+
+Practice: Sort each file into the OneDrive where it belongs.
+
+
+ type: worked-example
+ title: Cleaning a work file out of your personal OneDrive
+ task: Remove Lakeside Staff Schedule - copy.xlsx from your personal OneDrive.
+ steps: 
+   move: Check that the original is in your work OneDrive or the team library.
+   why: You are deleting a copy not the only copy. Confirm the real file is safe first.
+   move: In your personal OneDrive select the file and select Delete then confirm.
+   why: Delete moves it to the personal Recycle bin where it would still sit for 30 days.
+   move: Open the Recycle bin select the file and select Delete again to delete it permanently.
+   why: The goal is no copy in personal storage. Permanently deleting it from the Recycle bin finishes the job.
+   move: Tell your supervisor if the file had patient information in it.
+   why: Medical offices have a process for possible privacy problems. Reporting it is part of fixing it.
+ result: The work file exists only in the work account.
+ takeaway: One work file in one work location. Copies in personal storage are risks not backups.
+
+
+
+## Knowledge Check
+Check yourself: In File Explorer you see two OneDrive folders: OneDrive - Personal and OneDrive - Lakeside Medical Associates. Where should you save the new appointment reminder template you made for work? Answer: OneDrive - Lakeside Medical Associates. The folder named for your organization is your work OneDrive. Work files go there.
+
+Check yourself: How long does a personal OneDrive keep a file you delete before it is removed for good? Answer: 30 days. Personal accounts keep deleted files in the Recycle bin for 30 days. Work or school accounts keep them 93 days unless the organization changed that.

@@ -1,0 +1,47 @@
+Navigating Windows: The Desktop and Taskbar
+
+Module 1: Computers & Operating Systems
+
+Get confident with the Windows desktop, Start menu, taskbar, and File Explorer — the everyday environment every office professional lives in.
+
+
+## Real-World Scenario
+Note: A new front desk staff member at Lakeside Medical Associates has never used Windows before — they have only used phones and tablets. On their first day, they cannot find the EHR application, do not know how to switch between the patient record and their email, and accidentally close a document without saving it. Learning to navigate Windows fluently is not optional for office work — it is the foundation everything else is built on.
+
+
+## The Windows Desktop and Start Menu
+The Windows desktop is your home base — the screen you see when you log in. Every element on the desktop has a specific purpose, and learning them makes navigating Windows feel natural rather than uncertain:
+
+- The desktop is the main work surface — it can hold shortcuts (icons) to programs and files you access frequently. In an office setting, your desktop should be organized: keep only the icons you use daily (EHR system, Word, Outlook) and avoid cluttering it with dozens of unrelated shortcuts, which makes it harder to find what you need quickly.
+- The Start menu (select the Start button, the Windows logo on the taskbar, or press the Windows key) is the central launcher for all programs on your computer. In Windows 11 the taskbar is centered by default, so Start sits at the left of the centered icons rather than in the screen's corner. You can click any pinned app to open it immediately, or type the name of any program in the search box at the top to find it instantly. Knowing that you can type to search is the most important shortcut in the Start menu — it is faster than scrolling through an alphabetical list.
+- Pinning programs to the Start menu or taskbar is the most efficient way to access frequently used applications — search for the app (or find it in Start), right-click it, and choose Pin to Start or Pin to taskbar (in the All apps list, Pin to taskbar is under More). If the app is already open, right-click its taskbar button and select Pin to taskbar. To remove it later, right-click the pinned button and select Unpin from taskbar. At Lakeside Medical Associates, you should pin at minimum: your EHR software, Outlook, Word, and File Explorer. This saves you from searching for them dozens of times per day.
+- The Search bar on the taskbar (or Windows key + S) searches your entire computer — installed programs, files, settings, and the web — simultaneously. If you cannot find something, search for it. Typing 'printer' opens printer settings. Typing 'sound' opens sound settings. This is faster than navigating through the Settings menu for most tasks.
+
+
+## The Taskbar and Window Management
+The taskbar at the bottom of the screen is your real-time workspace manager — it shows what is currently open and lets you switch between programs without minimizing everything to find what you need:
+
+- Every open program appears as a button on the taskbar — click it once to bring that window to the front, click it again to minimize it. When multiple windows of the same program are open (such as two Word documents), hovering over the taskbar button shows thumbnails of each window so you can choose the right one.
+- Alt+Tab is the keyboard shortcut for switching between open windows — hold Alt and press Tab repeatedly to cycle through every open window. Release Alt to select the highlighted window. This is the fastest way to switch between programs during busy multi-tasking situations, such as copying data from an Excel spreadsheet into a patient record form.
+- Snap layouts allow you to arrange two or more windows side by side on your screen — drag a window to the left edge of the screen to snap it to the left half, or drag to the right edge to snap right. Windows 11 adds snap layouts: hover over a window's maximize button or press Windows logo key + Z, then pick a spot in a preset grid. You can also press Windows logo key + Left or Right arrow to snap the window you are using. Side-by-side layouts are essential when you need to reference one document while typing in another.
+- The system tray (bottom-right corner of the taskbar) shows background processes like antivirus, OneDrive sync status, volume, network connection, and the clock. A small icon here that you do not recognize is usually a program running in the background — right-click it to see options. The network icon tells you instantly whether you are connected to the office Wi-Fi or ethernet.
+
+
+## File Explorer: Navigating Your Files
+File Explorer (the folder icon on the taskbar, or Windows key + E) is the tool you use to browse, open, copy, move, and organize files and folders on your computer and on network drives. Understanding its layout is essential:
+
+- The left panel (Navigation pane) shows your computer's folder structure — Home is at the top (its Quick access section shows your pinned folders, such as Desktop, Documents, and Downloads), followed by OneDrive, This PC (your local drives), and any mapped network drives. At Lakeside Medical Associates, the shared network drive for patient documents appears here as a mapped drive with a drive letter (like Z: or P:).
+- The right panel shows the contents of whatever folder is selected in the left panel — files and subfolders appear here. You can change the view (icons, list, or details) with View on the command bar at the top of the window. The Details view (showing file name, date modified, type, and size in columns) is the most useful view for office file management because it shows the information you need to identify the right file quickly.
+- The address bar at the top of File Explorer shows your current location in the folder hierarchy — for example: 'This PC > Documents > Patient Files > 2025.' You can click any segment of the address bar to jump directly to that folder, or type a new path and press Enter to navigate there directly.
+- Back and Forward buttons (left arrows at the top) work just like a web browser — press Back to return to the previous folder you were viewing. This is useful when you navigate deep into a folder structure and need to return without clicking through the left panel again.
+
+Practice: Match each keyboard shortcut to what it does.
+
+
+## Responsible Use
+Note: At Lakeside Medical Associates, the network drive contains patient records protected by HIPAA. Browsing folders that contain patient data as a matter of curiosity — rather than for a specific work task — is a potential HIPAA violation even if you do not open any files. Access only the folders your role requires. If you accidentally navigate into a restricted folder, close it immediately and note the incident in case it needs to be reported. Your access to the network drive is logged, and IT can see which folders were opened and by whom.
+
+
+
+## Knowledge Check
+Check yourself: You need to switch quickly from your email to a patient record in the EHR system without using the mouse. What is the fastest keyboard shortcut? Answer: Alt+Tab — it cycles through all open windows.

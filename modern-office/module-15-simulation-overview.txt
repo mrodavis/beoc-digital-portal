@@ -1,0 +1,55 @@
+The Final Simulation Overview
+
+Module 15: Final Simulation
+
+Get oriented for the TOR Tech Final Simulation — understand the structure, expectations, and how you will be evaluated.
+
+
+## Real-World Scenario
+Note: Congratulations — you have been hired as the Office Assistant at TOR Tech. This is your first real week on the job. Every task you complete, every communication you send, and every decision you make this week will be observed and evaluated by your manager. Welcome to the simulation.
+
+
+## Why the Simulation Is Structured This Way
+Most courses test you on isolated skills — one question about email formatting, another about spreadsheets, another about scheduling. The Final Simulation is different. It is designed around a single principle: competence is not knowing how to do each skill; it is knowing how to do all of them at once, in context, under realistic conditions. Here is why that distinction matters:
+
+- Real offices do not present tasks one at a time — on any given day, a professional office assistant might need to schedule a meeting, draft an email, update a tracker, and log a client interaction in a single morning. The simulation reflects that reality.
+- Integration is harder than isolation — performing a skill in isolation on a practice exercise is very different from performing it while also managing competing priorities, partial information, and professional stakes. The simulation surfaces that gap.
+- The TOR Tech context creates coherence — all four simulation challenges take place in the same fictional company with the same cast of characters. Your decisions in one challenge may affect the context of the next. This mirrors how real professional work connects across days and tasks.
+- Evaluation criteria reflect employer standards — your manager will evaluate your submissions on the same criteria a real employer uses: accuracy, professional presentation, completeness, and judgment. 'I ran out of time' is not an explanation that works in a real office, and it will not be accepted here.
+- The goal is confidence, not just completion — completing the simulation should produce something more than a grade. It should give you evidence — in your own portfolio — that you can perform at a professional level in a realistic office environment.
+
+
+## How You Will Be Evaluated
+The simulation evaluates five dimensions of professional performance. Understanding these dimensions in advance allows you to allocate your effort correctly rather than discovering after the fact that you prioritized the wrong things:
+
+- Accuracy — are the details correct? Dates match. Names are spelled right. Data is entered in the right fields. Email addresses and phone numbers are real. Calculations are correct. In a professional setting, errors in accuracy undermine trust regardless of how polished the surrounding presentation is.
+- Completeness — did you do everything that was asked? A submission that addresses four of five requirements is not a complete submission. Read each challenge specification carefully and verify before submitting that every item is present.
+- Professional presentation — does your output look and read like something produced by a competent professional? Formatting is clean and consistent. Writing is grammatically correct and appropriately formal. Documents are organized and labeled correctly.
+- Evidence of AI-assisted workflow — where AI use is appropriate (drafting, research, summarization), does your submission show that you used AI effectively — and that you reviewed and edited the output before submitting? Raw, unedited AI output does not meet this criterion.
+- Judgment — in situations where the challenge presents ambiguity or requires you to make a decision, did you make a defensible choice and explain your reasoning? Judgment is harder to evaluate than accuracy, but it is the quality that separates a good office assistant from a great one.
+
+
+## The TOR Tech Workplace Context
+Every simulation challenge takes place in the TOR Tech environment. Familiarity with this context will help you produce submissions that feel grounded and realistic rather than generic. Here is what you need to know about TOR Tech before you begin:
+
+- TOR Tech is a mid-size technology services firm — they provide IT consulting, software support, and managed technology services to small and medium businesses. Their clients include professional services firms, healthcare practices, and retail businesses.
+- Your role is Office Assistant — you support the operations team and report to the Operations Manager. You handle communication, scheduling, document management, task tracking, and client-facing coordination.
+- The team you support includes 5 colleagues — the Operations Manager (your direct supervisor), two Account Managers who own client relationships, one Project Manager who runs internal projects, and a Finance Coordinator who handles invoicing and contracts.
+- Your clients are real people — in the simulation, clients have names, histories, and personalities. When you write to them or log interactions involving them, treat them as real professionals who will notice if your communications are imprecise, impersonal, or delayed.
+- Professionalism is non-negotiable — in the TOR Tech context, 'good enough' is not a standard. Every document, email, and log entry should be something you would be comfortable showing to a manager on your first day at a real job.
+
+
+## Tools and Approach for the Simulation
+The simulation is designed to be completed using tools you already know from this course. You are encouraged to use all the tools at your disposal, including AI tools — the important thing is that you use them well and that your final submissions reflect your professional standards, not just raw tool output:
+
+- Google Workspace or Microsoft 365 — for all document, spreadsheet, email, and calendar tasks. If you have access to both, use the platform you are more comfortable with. The platform does not affect evaluation — your output does.
+- AI tools (encouraged, not required) — ChatGPT, Copilot, Gemini, or Grammarly are all appropriate for drafting, editing, and research assistance. Use them as you would in a real office. If you use AI, document your prompt and editing process as part of your submission.
+- Your course materials — you are allowed and encouraged to reference lessons, notes, and challenge deliverables from earlier modules. The simulation is an open-book performance test, not a memory exam.
+- Professional judgment — some challenges will present you with choices that are not covered explicitly by a lesson. In those situations, draw on the principles from this course and explain your reasoning. The explanation is often as important as the decision.
+- Time management — allocate your time across all four challenges before starting any of them. Read every challenge specification first, estimate the time each requires, and plan your sequence. Starting the hardest challenge last, when your time is lowest, is not a good strategy.
+
+
+
+
+## Knowledge Check
+Check yourself: How should you approach every task in the TOR Tech Final Simulation? Answer: As if a real client or supervisor will read and evaluate every output.

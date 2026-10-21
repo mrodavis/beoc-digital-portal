@@ -1,0 +1,62 @@
+Protecting Your Account and Personal Vault
+
+Module 4: Keeping Files Safe
+
+Keep your OneDrive account safe with multifactor authentication and good sign-in habits, spot fake sharing emails, and use Personal Vault for your own most sensitive files.
+
+By the end of this lesson you can:
+- Explain why multifactor authentication and signing out protect your files
+- Spot a fake file-sharing email and check it safely
+- Use Personal Vault in a personal OneDrive: unlock, add files, and lock
+- Scan documents with the OneDrive mobile app now that Microsoft Lens is retired
+
+
+## Your account is the key
+
+ type: scenario
+ role: You use OneDrive at work and at home.
+ text: An email says Maria Santos shared Payroll Update.pdf with you and asks you to sign in to view it. The sender's address is maria.santos@lakeside-files.example not Lakeside's real domain. At home you also want somewhere safer than a regular folder for scans of your own ID and insurance card.
+ task: Protect your accounts check suspicious sharing emails safely and use Personal Vault for your own sensitive documents.
+
+
+- Turn on multifactor authentication (MFA). With MFA, a stolen password alone isn't enough to get in. Work accounts usually require it; for a personal Microsoft account, turn on two-step verification in your account's security settings.
+- Use a strong, unique password (or a passkey, if offered) for each account. Never reuse your work password.
+- Sign out of OneDrive on any shared computer, and close the browser.
+- Never give anyone your password, including a coworker who 'just needs one file.' Share the file instead.
+
+
+## Spotting a fake sharing email
+Attackers copy the look of real sharing emails to trick people into typing their password on a fake sign-in page. Check before you click: Is the sender's address from the real organization? Did you expect this file? Point to the link (don't click) and look at where it really goes. The safest check is to skip the email: open OneDrive yourself and look in Shared. If the file was really shared with you, it is there.
+
+Practice: Sort each sign.
+
+
+## Personal Vault
+Personal Vault is a protected folder in a personal OneDrive (it isn't available in work or school accounts). To open it you verify your identity again, with a code sent by text or email or with the Microsoft Authenticator app. On the web it locks itself after 20 minutes of inactivity; in the mobile app it locks after 3 minutes by default. Without a Microsoft 365 subscription you can keep up to three files in it; with Microsoft 365 Basic, Personal, or Family you can keep as many as your storage allows. Use it for your own sensitive documents: a copy of your ID, insurance cards, tax forms. It is never a place for work files or patient information.
+
+
+ type: worked-example
+ title: Moving your ID scan into Personal Vault
+ task: Protect the scans of your passport and car insurance card in your personal OneDrive.
+ steps: 
+   move: In My files open Personal Vault and select Unlock.
+   why: The vault asks you to verify your identity so a person who gets into your account still can't open it without your second factor.
+   move: Choose a verification method and enter the code.
+   why: Text email or the Authenticator app all prove it is you.
+   move: Move the two scans into Personal Vault.
+   why: Moving keeps one copy now in the protected folder.
+   move: Delete any old copies from the Recycle bin then select Lock.
+   why: Old copies outside the vault would undo the point. Locking now means you don't wait 20 minutes for it to lock itself.
+ result: Your sensitive scans are in a folder that needs a second verification to open.
+ takeaway: Personal Vault is for your own most sensitive files. Lock it when you are done.
+
+
+
+## Scanning documents with your phone
+Note: Microsoft Lens, the old scanning app, was retired: it was removed from the app stores on February 9, 2026, and stopped creating new scans on March 9, 2026. Microsoft's recommended replacement is the OneDrive mobile app's built-in scanner: open OneDrive on your phone, tap the plus (+) button, choose the scan option, and save the scan to a OneDrive folder. In a personal OneDrive you can scan straight into Personal Vault.
+
+
+## Knowledge Check
+Check yourself: An email says a coworker shared a file and asks you to sign in. The sender's domain looks slightly wrong. What is the safest move? Answer: Open OneDrive yourself and check Shared; report the email to IT. If the share is real, the file is in Shared. Going to OneDrive directly avoids a fake sign-in page, and reporting helps IT protect everyone.
+
+Check yourself: Which account can use Personal Vault? Answer: Personal Microsoft accounts. Personal Vault is a feature of personal OneDrive. Work or school accounts don't have it.

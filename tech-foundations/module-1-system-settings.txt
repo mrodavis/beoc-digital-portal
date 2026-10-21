@@ -1,0 +1,47 @@
+System Settings and Keeping Windows Updated
+
+Module 1: Computers & Operating Systems
+
+Navigate Windows Settings confidently — adjust display, sound, and accessibility options, and understand the update process that keeps your workstation secure.
+
+
+## Real-World Scenario
+Note: A colleague at Lakeside Medical Associates is having trouble reading the small text on the clinic's billing software. Another staff member cannot hear the hold music when transferring patients. A third has a workstation that has not been updated in months. You know where to find display settings, sound settings, and Windows Update — and you help all three in under 10 minutes. That is the value of knowing your way around Windows Settings.
+
+
+## Navigating Windows Settings
+The Settings app (Windows key + I) is the central control panel for personalizing and configuring your Windows computer. Understanding its layout saves significant time compared to searching menus:
+
+- System settings control the most commonly needed options — Display (screen brightness, resolution, scale), Sound (volume levels, output and input devices), Notifications (which apps can send alerts, and Do not disturb), Power & battery (when the screen turns off and when the computer sleeps), and About (your computer's name, specifications, and Windows version). These are the settings you will visit most often as an office professional.
+- Display settings are critical for comfortable extended work sessions — access them via Settings > System > Display. Adjust Brightness for your lighting environment (higher in bright rooms, lower in dim ones to reduce eye strain). Under Scale & layout, the Scale setting controls how large text, apps, and icons appear — set it to 125% or 150% if text looks too small on a high-resolution monitor. The screen Resolution setting should match your monitor's native resolution (usually 1920×1080) for the sharpest image.
+- Sound settings control which device plays audio and captures your voice — Settings > System > Sound. Under Output, select the correct speaker or headset. Under Input, select your microphone; to test it, select > next to the microphone, then under Input settings select Start test, speak normally, and select Stop test. During a video call, if your voice cannot be heard, this is where the fix almost always lives. If sound still does not work, run the automated audio troubleshooter in the Get Help app.
+- Personalization settings (Settings > Personalization) control the desktop background, theme colors, lock screen image, and Start menu layout. In an office environment, personal customization should be modest — use a professional desktop background (or the default), and keep the theme settings to the defaults unless your supervisor or IT has established a consistent look for all workstations.
+
+
+## Accessibility Settings for a Comfortable Workstation
+Windows Accessibility settings (Settings > Accessibility) exist to make computers usable for people with a wide range of needs. Even without a disability, some of these settings improve comfort during long shifts:
+
+- Text size can be increased independently of the full display scale — in Accessibility > Text size, drag the slider and select Apply to make text larger without changing icon sizes or screen resolution. This is helpful for staff who find the default font size hard to read without needing a full display scale increase.
+- Magnifier is a built-in tool that zooms in on any part of the screen — press Windows key + Plus (+) to activate it and Windows key + Esc to close it. Useful for reading small-print sections of PDFs or zooming into a chart in the EHR system without changing any permanent settings.
+- Contrast themes make text and interface elements much easier to distinguish for users with low vision — go to Accessibility > Contrast themes, choose a theme, and select Apply. To go back to the normal colors, choose None and select Apply. Knowing how to undo a contrast theme helps when a coworker turns one on by accident.
+- Mouse pointer settings in Accessibility > Mouse pointer and touch let you increase the pointer size and change its color to make it easier to track on large monitors — especially useful for staff working on high-resolution displays where the default cursor can be difficult to locate quickly.
+
+Practice: Match each job to where you find it in Windows 11 Settings.
+
+
+## Windows Update: What It Is and Why It Matters
+Windows Update downloads and installs security patches, feature improvements, and hardware driver updates. In a medical office, keeping systems updated is not just good practice — it is a component of HIPAA security compliance:
+
+- Security updates are released by Microsoft on the second Tuesday of every month (called Patch Tuesday) and address newly discovered vulnerabilities that attackers could exploit. A computer that is months or years behind on updates has known, documented vulnerabilities that hackers actively target. At Lakeside Medical Associates, unpatched computers are a liability to patient data security.
+- Feature updates (new versions of Windows 11, typically released once per year) add new features. These take longer to install than security patches and may require a restart. In a managed IT environment, IT usually tests and schedules feature updates — do not install them independently if your office has an IT policy, as they can temporarily disrupt workflow.
+- To check for and install updates: Settings > Windows Update > Check for updates. If updates are found, select Download & install. When updates require a restart, select Schedule the restart and pick a time outside clinic hours — never force a restart mid-shift without completing and saving your current work.
+- Updates should not stay paused — on the Windows Update page, Pause updates stops updates for a set period, and when the pause limit is reached Windows makes you install the latest updates before you can pause again. If updates are paused or managed on your workstation, ask your IT department why; it may be an intentional policy.
+
+
+## Responsible Use
+Note: Some settings in Windows — particularly in the Control Panel, Group Policy, and registry — can break important functionality if changed incorrectly and should only be modified by IT staff. If you access Settings and see an option that is grayed out or says 'Your organization manages this setting,' that means IT has locked it intentionally. Do not attempt to bypass these restrictions. Stick to the safe, user-level settings covered in this lesson: display, sound, accessibility, and Windows Update in the Settings app.
+
+
+
+## Knowledge Check
+Check yourself: Windows Update requires a restart to finish installing security patches. The clinic opens in 30 minutes. What should you do? Answer: Use 'Schedule the restart' to set the restart for after clinic hours.

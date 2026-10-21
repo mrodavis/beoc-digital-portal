@@ -1,0 +1,81 @@
+Networking: LAN, WAN, and How They Connect
+
+Module 5: The Internet & Networking
+
+Distinguish local from wide area networks, understand how a LAN moves data, and see how the two connect to reach the internet.
+
+By the end of this lesson you can:
+- Distinguish a LAN from a WAN
+- Explain how devices on a LAN communicate
+- Describe the equipment connecting a LAN to the internet
+- Compare wired and wireless connections and choose appropriately
+
+
+## Two scales of network
+
+ type: scenario
+ role: Lakeside Medical Associates operates two locations.
+ text: Each office has its own local network of workstations printers and wireless. The two offices need to share systems and both need the internet. Three different kinds of connection are involved and calling all of them 'the network' makes every conversation about them confusing.
+ task: Distinguish the scales of network so you can describe where a problem or a requirement sits.
+
+
+A LAN is a local area network — the devices in one location, connected to each other, typically owned and managed by the organization. A WAN is a wide area network spanning locations, usually over infrastructure someone else owns. The internet is the largest WAN there is.
+
+
+ type: table
+ caption: LAN against WAN
+ columns: 
+  Property
+  LAN
+  WAN
+ rows: 
+   Covers
+   One building or site
+   Cities countries or globally
+   Owned by
+   The organization
+   Telecom carriers and service providers
+   Speed
+   1 Gbps and upward typically
+   Limited by the purchased connection
+   Latency
+   Under a millisecond
+   Tens of milliseconds or more
+   Cost
+   Equipment purchase
+   Recurring service charges
+   Example
+   The workstations in one office
+   The link between the two offices
+
+
+Inside a LAN, each device has an IP address. A switch forwards traffic to the intended recipient rather than broadcasting it to everyone, which is what makes a switched network both fast and reasonably private. The router is the boundary — it connects the LAN to everything beyond it and decides what may cross.
+
+
+ type: table
+ caption: Wired against wireless
+ columns: 
+  Consideration
+  Wired (Ethernet)
+  Wireless (Wi-Fi)
+ rows: 
+   Speed
+   Consistently fast
+   Varies with distance and interference
+   Reliability
+   Very high
+   Subject to interference and congestion
+   Security
+   Requires physical access
+   Reachable from outside the building
+   Mobility
+   None
+   The entire point
+   Best for
+   Workstations printers servers
+   Laptops tablets phones visitors
+
+
+Note: The two offices are connected across the internet using a VPN, which encrypts traffic so it crosses public infrastructure safely. This gives the practice a private link at a fraction of the cost of a dedicated line — and for traffic that may include patient information, the encryption is a requirement rather than an optimization.
+
+Check yourself: Two Lakeside offices are connected over the internet using a VPN. What does the VPN provide? Answer: An encrypted tunnel across public infrastructure, so the two LANs can exchange traffic privately. A VPN encrypts traffic traveling over the public internet, so the two networks can communicate as though privately connected. It provides confidentiality, not additional bandwidth, and uses the existing connections rather than new cabling.

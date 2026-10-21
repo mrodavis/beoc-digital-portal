@@ -1,0 +1,68 @@
+Understanding the Internet
+
+Module 5: The Internet & Networking
+
+Learn what actually happens between clicking a link and seeing a page, and use that model to diagnose problems accurately.
+
+By the end of this lesson you can:
+- Describe what happens when you request a web page
+- Explain the roles of IP addresses, DNS, and protocols
+- Distinguish the internet from the World Wide Web
+- Use the model to diagnose common connection problems
+
+
+## What happens when you click a link
+
+ type: scenario
+ role: You are the first person staff ask when something breaks at Lakeside Medical Associates.
+ text: A colleague says 'the internet is down.' The EHR will not load but Outlook is receiving mail and a colleague's phone loads pages fine on the office wireless. Something is wrong and 'the internet' is too vague to act on.
+ task: Understand the steps well enough to isolate which one is failing.
+
+
+Requesting a web page involves several distinct steps, and knowing them turns a vague complaint into a specific diagnosis. Each step can fail independently, and each failure looks different.
+
+
+ type: table
+ caption: The steps in a page request
+ columns: 
+  Step
+  What happens
+  Failure looks like
+ rows: 
+   1. DNS lookup
+   The name is translated to a numeric IP address
+   Site not found but the numeric address works
+   2. Connection
+   Your device opens a connection to that address
+   Timeout or connection refused
+   3. Request
+   Your browser asks for the specific page over HTTPS
+   404 not found or 403 forbidden
+   4. Server processing
+   The server assembles the response
+   500 server error or a very slow page
+   5. Response and rendering
+   Data returns in packets and the browser draws the page
+   Partial page missing images
+
+
+
+ type: worked-example
+ title: Diagnosing 'the internet is down'
+ task: The EHR will not load. Outlook works. A phone on the same wireless loads pages fine.
+ steps: 
+   move: Note what does work not only what does not.
+   why: Outlook receiving mail proves the machine has a working internet connection. That single observation eliminates the router the ISP and the wireless in one step — which is most of what 'the internet is down' would have implied.
+   move: Check whether another device reaches the same service.
+   why: The phone loading pages confirms general connectivity but does not test the EHR specifically. Try the EHR on the phone: if it fails there too the problem is the EHR service rather than the workstation.
+   move: Try the service by IP address if you have it or try a different site.
+   why: This separates a DNS failure from a service failure. If the name fails but the address works DNS is the problem — a genuinely common cause that looks exactly like the site being down.
+   move: Check the vendor's status page from a working device.
+   why: Hosted services fail at the vendor's end regularly and their status page will say so. Five seconds here can save an hour of investigating a problem that is not yours and that you cannot fix.
+   move: Report it precisely.
+   why: 'The EHR times out from all workstations while other sites load normally and the vendor status page shows an incident' is actionable. 'The internet is down' sends someone to check the router which you already know is fine.
+ result: The failure is isolated to the EHR service with evidence before anyone touches the network.
+ takeaway: Establish what works before investigating what does not. Each working thing eliminates whole categories of cause.
+
+
+Check yourself: A workstation cannot load any website by name, but loads a site correctly when its numeric IP address is typed directly. What is failing? Answer: DNS — name resolution is failing, though connectivity is fine. Reaching a site by IP proves the connection works end to end. What fails is translating names into addresses, which is DNS. This is a common and very recognizable failure once you know the symptom.

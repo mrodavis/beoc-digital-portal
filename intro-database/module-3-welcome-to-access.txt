@@ -1,0 +1,44 @@
+Welcome to Microsoft Access
+
+Module 3: Introduction to Microsoft Access
+
+Get oriented in the Microsoft Access environment, understand its core components, and learn how it differs from Excel for professional data management.
+
+
+## Real-World Scenario
+Note: The practice manager at Lakeside Medical Associates has seen the reports you built in Excel and is impressed. But she is frustrated: when two staff members open the appointment spreadsheet at the same time, one person's changes get overwritten by the other's. Sorting and filtering take too long on 1,500 rows. And there is no way to prevent staff from entering 'N/A' in the Date of Birth field. She asks you to explore whether Microsoft Access could solve these problems. This lesson gets you started.
+
+
+## The Access Interface
+Microsoft Access shares the Ribbon interface with Word and Excel, but its purpose and layout are fundamentally different — it is a database application, not a document or spreadsheet:
+
+- The Navigation Pane (left side) is the central organizer in Access — it shows all the objects in your database: Tables, Queries, Forms, and Reports. Unlike Excel where everything is on sheets in a single workbook, Access organizes different types of database objects into these four categories. Every database you build will have Tables (where data lives) and may have Queries, Forms, and Reports depending on its complexity.
+- The Object area (right side / main area) is where database objects open when you double-click them in the Navigation Pane — it is where you view and edit data in a Table, design a Query, fill out a Form, or preview a Report. Multiple objects can be open simultaneously as tabbed windows.
+- The Status Bar (bottom) shows the current view mode and provides navigation controls in Datasheet View — record number indicators, search field, and view switching buttons. In Datasheet View, you see records in rows and columns similar to Excel. In Design View, you see and modify the structure of the object.
+- Access file format is .accdb — an Access database is a single file with the .accdb extension (Access Database) that contains all your tables, queries, forms, and reports in one place. This file should be saved on the network drive (not your local C:) so all authorized staff can access it. The database file can be opened by multiple users simultaneously, with Access managing record locking to prevent conflict.
+
+
+## The Four Database Objects
+Every Access database is built from four types of objects — understanding what each does and when to use each is the key to building useful databases:
+
+- Tables are where data is stored — every fact in your database lives in a table. A well-designed database has a table for each distinct entity: Patients, Appointments, Providers, InsurancePlans. Tables enforce data types, store records, and hold the primary keys. Everything else (Queries, Forms, Reports) depends on Tables as its data source.
+- Queries retrieve, filter, and calculate data from one or more tables — a Query is like an advanced filter or a saved question. 'Show me all appointments for Dr. Walsh in May 2025' is a Query. 'Calculate total billed amount by insurance plan' is a Query. Queries can combine data from multiple related tables and can calculate new values. They are the analytical engine of an Access database.
+- Forms are user interfaces for entering and viewing data — instead of typing directly into a table's datasheet grid (which is error-prone and confusing), Forms provide a user-friendly data entry screen. A patient registration form might show fields one at a time with labels, dropdown menus for common values, and validation that prevents incorrect entries.
+- Reports are formatted outputs for printing or PDF export — a Report takes data from a Table or Query and presents it in a professionally formatted layout for printing. Monthly appointment summaries, billing reports by payer, and patient lists for a specific provider are all appropriate Report use cases.
+
+
+## Creating a New Database
+Starting a new database from scratch in Access is straightforward — the critical decision is where to save the file:
+
+- When Access opens, the home screen offers 'Blank Database' and various templates. For a practice database, start with 'Blank Database.' Click it, then in the panel on the right, name the file (e.g., 'LakesideMedical_Appointments.accdb') and choose a save location — the network drive shared folder, not your local Documents. Click Create.
+- Access immediately creates the database file and opens a blank Table (named 'Table1') in Datasheet View. This is the default starting point. Before entering any data, switch to Design View to define the table structure: on the Home tab, click View › Design View. Access asks you to save the table first; give it a meaningful name (e.g., 'Patients').
+- Unlike Excel where you can start typing data immediately, Access requires you to define the structure (field names and data types) before entering records. This up-front design step is what makes Access enforce data quality — it cannot be skipped or done after the fact without significant rework.
+
+
+## Responsible Use
+Note: An Access database containing patient information is a covered system under HIPAA. It must be saved in an access-controlled location (the appropriate network drive, not your personal desktop or USB drive), backed up on the same schedule as other practice data, and accessible only to staff whose role requires it. In addition, Access does not encrypt its database file by default — for databases containing PHI, encrypt the database with a password (File > Info > Encrypt with Password) and store the password securely with IT. An unencrypted .accdb file containing patient data on an unprotected network share is a compliance risk.
+
+
+
+## Knowledge Check
+Check yourself: In Microsoft Access, which object type is used to present data in a professionally formatted layout for printing? Answer: Report — it is specifically designed to format data for printing and PDF export.

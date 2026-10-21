@@ -1,0 +1,48 @@
+Backing Up and Protecting Your Database
+
+Module 5: Data Integrity & Records Management
+
+Protect the database from hardware failure, accidental deletion, and file corruption — with practical backup strategies, file protection, and recovery procedures.
+
+
+## Real-World Scenario
+Note: Last Tuesday, the workstation used as the shared drive host at Lakeside Medical Associates failed to boot after a power outage. The Access database file — containing 18 months of patient appointment records — was stored only on that machine's local hard drive. IT recovered the drive three days later, but the six hours of patient records entered on the day of the failure were corrupted and unreadable. The practice manager is now asking what backup system should have been in place to prevent this. This lesson answers that question.
+
+
+## Why Database Backups Are Critical
+An Access database is a single .accdb file. If that file is lost, corrupted, or deleted, all data in it — every patient record, appointment, billing entry — is gone. Database backup is not optional:
+
+- Hardware failure is common and unpredictable — hard drives fail, power surges corrupt files, computers overheat. Any workstation or server can fail without warning. Data stored only on one machine has no redundancy.
+- Accidental deletion happens: A staff member working in Design View can accidentally delete a table or relationship. A wrong update query can overwrite hundreds of records. Without a recent backup, these mistakes are permanent.
+- File corruption can occur without obvious warning: An Access database that is not properly closed (e.g., power cut while the file is open) can become partially corrupted. The file may open but produce errors, or simply stop opening at all.
+- In a medical office, HIPAA requires you to protect patient data from loss: The Security Rule under HIPAA mandates that covered entities implement policies to protect against 'reasonably anticipated threats to the security or integrity of the information.' Regular backups are a compliance requirement, not just best practice.
+
+
+## The Built-In Access Backup Tool
+Access includes a built-in backup command that creates a clean copy of the database file. This is the safest way to back up an Access database because it copies the file while Access handles any open connections cleanly:
+
+- With the database open, go to File > Save As. Under Advanced options, choose Back Up Database.
+- Access suggests a file name with today's date automatically appended: Lakeside_Appointments_2025-05-11.accdb. This date-stamped naming convention is excellent — keep it.
+- Choose the backup destination: Save the backup to a different physical location than the original file — a network drive, an external hard drive, or a cloud storage folder (OneDrive or SharePoint). Never save the backup to the same folder as the original on the same machine.
+- Access creates a complete copy of the database at that moment, including all tables, queries, forms, reports, and data. The backup file is a full, independent database — if the original is destroyed, you can open the backup directly in Access and resume work.
+
+
+## A Practical Backup Schedule
+A backup is only valuable if it is current enough to restore from. Define a backup schedule based on how much data loss is acceptable:
+
+- Daily backups for active databases: If staff enter records throughout the day, a backup taken at end of business each day ensures that at most one day of data can be lost. Name daily backups with the date: Lakeside_DB_2025-05-11.accdb.
+- Keep at least two weeks of daily backups: Hard drive corruption is sometimes detected days after it occurs. If you overwrite your only backup with a corrupted file, you have no recovery option. Keep rolling daily backups for at least 14 days before deleting the oldest.
+- Take an extra backup before any structural change: Before you modify a table's design, change a relationship, or run an update query that will modify many records, take a manual backup first. Label it clearly: Lakeside_DB_BeforeSchemaChange_2025-05-11.accdb.
+- Test your backups: Once a month, open the oldest backup in Access and confirm the tables open and records are readable. A backup that cannot be restored is worthless. Verification is the step most offices skip.
+
+Save your backup copies (the files Back Up Database creates) to a OneDrive or SharePoint folder, so a copy survives even if the computer fails. Keep the working database itself where your IT staff tell you to, usually the practice's network drive.
+
+
+## File Protection and Access Control
+Beyond backups, protecting the database from unauthorized access and accidental modification requires file-level and Access-level controls:
+
+- Store the database on a network share with appropriate permissions: Only staff who need access to the database file should have read/write permissions on the folder. Staff who only need to view reports should have read-only access to the file.
+- Use Access passwords for sensitive databases: In Access, go to File > Info > Encrypt with Password. This requires anyone who opens the .accdb file to enter a password. Important: document this password securely. A password-protected database that no one can open is useless.
+- Split the database into front-end and back-end: For databases accessed by multiple staff simultaneously, database administrators use a 'split' design — the back-end (.accdb file with the tables) stays on the shared network drive, and each staff member has their own front-end (.accdb file with queries, forms, and reports) linked to the shared back-end. This reduces file corruption risk from multiple simultaneous writers.
+
+Check yourself: The Access database file is stored on a single workstation's local hard drive. A staff member accidentally deletes a table and closes the database before anyone notices. There are no backups. What happens? Answer: The table and all its records are permanently gone with no recovery option.

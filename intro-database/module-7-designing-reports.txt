@@ -1,0 +1,59 @@
+Designing Reports with Grouping and Sorting
+
+Module 7: Advanced Queries & Reports
+
+Build reports that organize data into meaningful groups, with headers, footers, page numbering, and totals that print correctly.
+
+By the end of this lesson you can:
+- Create a report with grouping and sorting
+- Add headers, footers, and page numbering
+- Add group and report totals
+- Prepare a report so it prints legibly
+
+
+## Grouping is what makes a report a report
+
+ type: scenario
+ role: You produce the quarterly supply report at Lakeside Medical Associates.
+ text: Your first attempt is 340 rows printed in entry order across eleven pages with column headings only on page one. It contains every fact the manager asked for and answers none of her questions because nothing is organized.
+ task: Use grouping sorting and totals so the report answers questions instead of listing data.
+
+
+A report differs from a datasheet by being organized for a reader. Grouping collects records under headings; sorting orders them within each group; group totals summarize each section. Those three things turn a list into something someone can actually use.
+
+
+ type: table
+ caption: Report sections and what belongs in each
+ columns: 
+  Section
+  Prints
+  Put here
+ rows: 
+   Report Header
+   Once at the very start
+   Title date range practice name
+   Page Header
+   At the top of every page
+   Column headings
+   Group Header
+   Before each group
+   The group's name e.g. the category
+   Detail
+   Once per record
+   The record's fields
+   Group Footer
+   After each group
+   Subtotals for that group
+   Page Footer
+   At the bottom of every page
+   Page numbers
+   Report Footer
+   Once at the very end
+   Grand totals
+
+
+Note: The distinction between Page Header and Report Header is the one people get wrong. A title in the Page Header repeats on all eleven pages; column headings in the Report Header appear only on page one, leaving pages two onward as unlabeled columns of numbers. Title goes in the Report Header, column headings in the Page Header.
+
+Totals are added by placing a text box with an expression such as =Sum([TotalCost]) in the appropriate footer. Placed in the Group Footer it totals that group; placed in the Report Footer it totals everything. The same expression means different things depending only on where it sits, which is why understanding the sections matters.
+
+Check yourself: Where should column headings be placed so they appear at the top of every printed page? Answer: The Page Header, which prints at the top of every page. The Page Header prints at the top of every page, which is exactly what column headings need. The Report Header prints only once, leaving later pages unlabeled.

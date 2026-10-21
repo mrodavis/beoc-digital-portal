@@ -1,0 +1,53 @@
+Google Slides Essentials
+
+Module 7: Google Workspace
+
+Build and deliver presentations in Google Slides, and apply the same design discipline that governs any presentation tool.
+
+By the end of this lesson you can:
+- Create a presentation using layouts and the theme system
+- Collaborate on a deck and use speaker notes
+- Present with Slides, including presenter view
+- Move a deck between Slides and PowerPoint
+
+
+## Same principles, browser-based
+
+ type: scenario
+ role: You build the staff in-service presentation at Lakeside Medical Associates.
+ text: Two colleagues are contributing slides and the deck must be presentable from whichever machine is free in the conference room. Emailing a .pptx between three people produces three partial decks and a scramble on the morning.
+ task: Build the deck where all three can work in it and present it from any machine with a browser.
+
+
+Everything in the PowerPoint modules about presentation design applies here without modification. The audience still cannot read and listen at once, text-heavy slides still fail, layouts still keep a deck consistent, and speaker notes still belong in the notes pane rather than on the slide.
+
+What Slides changes is access. The deck lives in Drive, several people can build it simultaneously, and it presents from any browser — which removes the most common presentation failure, which is the file being on the wrong computer.
+
+
+ type: table
+ caption: Slides terminology against PowerPoint
+ columns: 
+  PowerPoint
+  Google Slides
+  Note
+ rows: 
+   Slide Master
+   Theme builder (Slide > Edit theme)
+   Same inheritance idea
+   Layout
+   Layout
+   Identical concept
+   Design tab themes
+   Theme panel
+   Applies colors and fonts deck-wide
+   Presenter View
+   Presenter view
+   Notes timer and audience Q&A
+   Save As .pptx
+   File > Download > Microsoft PowerPoint
+   For handing to someone using PowerPoint
+
+
+Note: Converting between Slides and PowerPoint is reliable for text, layouts, and images, and less so for animations, transitions, and embedded video. If a deck must be delivered in PowerPoint, build it in PowerPoint. If it must be built collaboratively, build it in Slides and accept that a conversion may need tidying. Deciding this before you start saves rebuilding the deck the night before.
+
+Check yourself: Three staff must build one deck over two weeks, and it will be presented from whichever conference room machine is free. What is the strongest reason to use Google Slides here? Answer: One shared deck removes version conflicts, and it presents from any browser without the file being on that machine. The two problems here are collaboration and machine availability. A single Drive-hosted deck solves both: everyone edits the same file, and it opens in any browser without needing to be transferred.

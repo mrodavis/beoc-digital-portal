@@ -1,0 +1,59 @@
+Exporting Access Data
+
+Module 4: Queries, Forms & Reports
+
+Move data out of Access into Excel, CSV, or PDF formats so you can share reports, support staff who do not have Access, and integrate with other office systems.
+
+
+## Real-World Scenario
+Note: The billing contractor for Lakeside Medical Associates does not have Microsoft Access and cannot open the database file directly. She needs a monthly export of all appointment records in a format she can open in her own billing software. At the same time, the office manager wants appointment data in Excel so she can create a custom chart. And the practice manager wants a formatted PDF summary for the monthly board meeting. Three different recipients, three different formats — this lesson covers all three.
+
+
+## When to Export vs. When to Print
+Access gives you two ways to share data: export (creating a separate file in a different format) and print (sending formatted output directly to a printer or PDF). Choosing the right method depends on what the recipient needs:
+
+- Export to Excel when the recipient needs to work with the data — sort it, filter it, chart it, or run their own calculations. Excel is the right choice when the data is an input to further work, not a finished product.
+- Export to CSV when the recipient uses software other than Excel — billing platforms, EHR systems, and other business applications typically accept CSV as a universal import format. CSV (Comma-Separated Values) is plain text — no formatting, no formulas, just raw data that any software can read.
+- Export to PDF when you want the output to look exactly right — tables, charts, and reports exported as PDF are fixed-format documents. The recipient sees exactly what you created. Use PDF for board meeting summaries, compliance documents, and any output where formatting matters.
+- Print directly when you need physical paper — for documents that need to be physically signed, filed in a paper chart, or posted on a bulletin board, printing directly from Access is the right choice.
+
+
+## Exporting a Table or Query to Excel
+Exporting a table or query to Excel takes four clicks and is the most common export operation in a medical office that uses both Access and Excel:
+
+- Select the object to export: In the Navigation Pane, click once on the table or query you want to export — for example, the AprilAppointments query.
+- Open the External Data tab: On the Ribbon, click the External Data tab. In the Export group, click Excel.
+- Choose the destination: In the Export dialog, click Browse and navigate to the shared drive folder where the file should be saved. Name the file descriptively: AprilAppointments_Export.xlsx. Check Export data with formatting and layout if you want Access to preserve column widths and number formatting.
+- Click OK: Access creates the Excel file immediately. If you checked Open the destination file after the export operation is complete, the file opens in Excel automatically so you can confirm it looks correct.
+
+Export queries, not raw tables, when the recipient only needs a subset of data. A query that already filters for April 2025 appointments produces a smaller, cleaner Excel file than exporting the entire Appointments table and asking the recipient to filter it themselves.
+
+
+## Exporting to CSV
+CSV export works the same way as Excel export, but uses the Text File option in the Export group:
+
+- Select the table or query in the Navigation Pane, then on the External Data tab click Text File in the Export group.
+- In the Export Text Wizard, choose Delimited as the format (this creates CSV format) and comma as the delimiter. Make sure Include Field Names on First Row is checked — most importing software expects the first row to be a header row with field names.
+- Name the file with a .csv extension: AprilAppointments.csv. Click Finish.
+- Verify the output: Open the CSV file in Notepad (right-click the file, choose Open with > Notepad) to confirm it looks right — each line is one record, fields are separated by commas, and the first line is the header row.
+
+Note: Never export patient data to CSV and email it as an attachment without encryption. CSV files are plain text — anyone who intercepts the email can read every patient name, date of birth, and insurance number. For transmitting patient data to the billing contractor, use an encrypted file transfer method or a secure portal, not regular email.
+
+
+## Saving Exports for Reuse
+When you perform the same export every month, Access can save the export steps so you do not have to repeat the configuration each time:
+
+- At the final step of any export wizard, check Save export steps before clicking Close. Access asks you to name the saved export (AprilAppointmentsToExcel) and optionally create an Outlook task to remind you when to run it.
+- Run a saved export: On the External Data tab, click Saved Exports. Select the export you want to re-run and click Run. Access re-runs the entire export — same source query, same destination, same format — in one click.
+- Update the destination file name: If you save monthly exports with date-specific names (April2025.xlsx, May2025.xlsx), you will need to either edit the saved export each month or use a consistent file name that gets overwritten (Appointments_Current.xlsx). Decide on a naming convention before automating exports.
+
+
+## Linking Access and Excel (Advanced Option)
+For teams that heavily use both Access and Excel, there is an alternative to manual exports — linking an Excel workbook to an Access query so the Excel file updates automatically:
+
+- In Excel, on the Data tab, click Get Data > From Database > From Microsoft Access Database. Navigate to the .accdb file and select the query you want to link.
+- Excel creates a live connection — the data appears in the Excel sheet. When the Access query data changes (new appointments added), the Excel user can click Refresh on the Data tab to pull the latest data without any export step.
+- Use cases: This approach works well for a standing monthly report that the office manager builds in Excel using Access data. The template stays in Excel; the data source is always current from Access.
+- Limitations: This approach requires the user to have network access to the Access database file. It does not work for sharing with external parties like billing contractors who are not on the office network.
+
+Check yourself: The billing contractor asks for a monthly patient appointment file she can import into her billing software. What export format should you use? Answer: CSV — it is a universal format that most software can import, and billing platforms typically expect it.

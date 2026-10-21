@@ -1,0 +1,45 @@
+Backing Up Your Desktop, Documents, and Pictures
+
+Module 5: Syncing with Your PC
+
+Turn on OneDrive folder backup so the files people keep on the desktop and in Documents are protected and available on other devices.
+
+By the end of this lesson you can:
+- Explain what folder backup does to your Desktop, Documents, and Pictures folders
+- Turn folder backup on with Manage backup
+- Explain what happens when you stop backing up a folder
+- Recognize when your organization manages folder backup for you
+
+
+## Files on the desktop aren't backed up
+
+ type: scenario
+ role: You are setting up a replacement PC at the check-in window.
+ text: When the old check-in computer died everything on its desktop died with it: the lunch order form the holiday signup sheet a dozen screenshots. Maria wants the new PC set up so that never happens again.
+ task: Back up the Desktop and Documents folders to OneDrive so they survive a broken computer.
+
+
+Folder backup (IT departments may call it Known Folder Move) makes your PC's Desktop, Documents, and Pictures folders part of OneDrive. Files in them sync like any other OneDrive file: they are backed up, they open on your other devices, and they get version history and the Recycle bin. You keep working exactly where you always did; the desktop simply lives in OneDrive now.
+
+
+## Turning it on
+1. Select the OneDrive cloud icon in the notification area, then Help & Settings › Settings.
+2. Select the Sync and backup tab, then Manage backup.
+3. Turn on the toggle for each folder marked Not backed up.
+4. Select Save changes. The folders start syncing.
+
+Practice: Drag the steps for turning on folder backup into order.
+
+Note: To stop backing up a folder, turn its toggle off. OneDrive asks where the files should stay: only in OneDrive (they leave the PC) or only on this PC (they leave OneDrive). If some files are online-only, OneDrive asks you to download them first with Always keep on this device.
+
+
+## When IT is in charge
+On work and school computers, IT often turns folder backup on for everyone or blocks it. If Manage backup is greyed out or the folders already show Backed up, that is your organization's setting. A personal Microsoft account can't back up folders on a PC that is joined to an organization's domain; talk to IT there.
+
+Note: Backing up the desktop doesn't make it the right place for patient information. Patient files still belong in the approved location your office uses.
+
+
+## Knowledge Check
+Check yourself: After you turn on backup for Desktop, where are the files on your desktop stored? Answer: In OneDrive, and they still show on the desktop. The Desktop folder becomes part of OneDrive. You keep using it the same way, but the files are synced and backed up.
+
+Check yourself: Manage backup is greyed out on your work computer. What does that most likely mean? Answer: Your organization manages folder backup. IT can turn folder backup on for everyone or prevent changes. Ask IT if you need it changed.

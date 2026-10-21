@@ -1,0 +1,78 @@
+Automating Tasks with Macros
+
+Module 8: Data Analysis & Automation
+
+Use Access macros to automate repetitive work without writing code, and understand where automation genuinely pays off.
+
+By the end of this lesson you can:
+- Explain what an Access macro is and how it differs from VBA
+- Build a macro that opens a form and applies a filter
+- Attach a macro to a command button
+- Judge which tasks are worth automating
+
+
+## Automation earns its keep on repetition
+
+ type: scenario
+ role: You support daily operations at Lakeside Medical Associates.
+ text: Every morning the front desk performs the same nine steps: open the database open the appointments form filter to today sort by time and open the check-in form. Nine steps five staff every day. Two of them do it slightly differently and one regularly forgets the filter and works from yesterday's list.
+ task: Reduce a nine-step routine to one button so it is both faster and impossible to do inconsistently.
+
+
+An Access macro is a stored sequence of actions built from a list rather than written as code. You choose actions such as OpenForm, ApplyFilter, or GoToRecord and set their arguments, and Access performs them in order. No programming is required.
+
+The consistency benefit usually exceeds the time saving. A macro performs the same steps in the same order every time, so the staff member who forgets the filter no longer can. Automation that removes a category of human error is worth more than automation that saves thirty seconds.
+
+
+ type: table
+ caption: Commonly used macro actions
+ columns: 
+  Action
+  Does
+ rows: 
+   OpenForm
+   Opens a form optionally filtered to specific records
+   OpenReport
+   Opens or prints a report
+   ApplyFilter
+   Filters the records shown
+   GoToRecord
+   Moves to a specific record — new next last
+   SetValue
+   Sets a control or field to a value
+   MessageBox
+   Displays a message to the user
+   OpenQuery
+   Opens a saved query (and runs it if it is an action query)
+   CloseWindow
+   Closes a form or report
+
+
+
+ type: table
+ caption: Macros or VBA?
+ columns: 
+  Consideration
+  Macros
+  VBA
+ rows: 
+   Learning curve
+   Low — pick actions from a list
+   Higher — a real programming language
+   Conditional logic
+   Basic If conditions
+   Full control flow
+   Error handling
+   Very limited
+   Proper error handling
+   Looping through records
+   Not practical
+   Straightforward
+   Best for
+   Navigation opening objects simple automation
+   Data manipulation validation complex logic
+
+
+Note: Automate a process only once it is stable and correct. Automating a nine-step routine that has a mistake in step four means performing that mistake reliably, five times a day, without anyone noticing. Get the manual process right first, then automate it.
+
+Check yourself: A five-step daily routine is performed by five staff, two of whom do it slightly differently. What is the strongest argument for automating it with a macro? Answer: Everyone performs identical steps in identical order, removing an entire class of inconsistency and error. The time saved is trivial. The real value is consistency: a macro cannot forget the filter or reorder the steps, so the error one staff member keeps making becomes impossible rather than merely discouraged.

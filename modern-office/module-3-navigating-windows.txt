@@ -1,0 +1,55 @@
+Navigating the Windows Environment
+
+Module 3: Windows & File Management
+
+Work confidently with the desktop, Start menu, taskbar, and window management, and customize the environment for how you actually work.
+
+By the end of this lesson you can:
+- Navigate the desktop, Start menu, and taskbar
+- Manage multiple windows using snapping and virtual desktops
+- Customize the desktop and taskbar for your workflow
+- Use search to find applications, files, and settings quickly
+
+
+## Speed comes from the keyboard
+
+ type: scenario
+ role: You work the front desk at Lakeside Medical Associates.
+ text: You move between the EHR Outlook a browser and a spreadsheet constantly. Done with the mouse — minimize find click restore — each switch costs several seconds. Across a day of hundreds of switches that is a meaningful part of your time spent managing windows rather than doing work.
+ task: Learn the navigation shortcuts that make window management nearly free.
+
+
+
+ type: table
+ caption: Shortcuts worth learning first
+ columns: 
+  Keys
+  Does
+ rows: 
+   Windows key
+   Opens the Start menu — then just type to search
+   Windows + E
+   Opens File Explorer
+   Windows + D
+   Shows the desktop; press again to restore
+   Windows + L
+   Locks the workstation immediately
+   Alt + Tab
+   Switches between open windows
+   Windows + Arrow
+   Snaps the window to half or a quarter of the screen
+   Windows + Ctrl + D
+   Creates a new virtual desktop
+   Windows + Ctrl + Arrow
+   Switches between virtual desktops
+   Windows + number
+   Opens or switches to that taskbar item
+
+
+The Start menu's search is the fastest route to almost anything. Press the Windows key and start typing — applications, files, and settings all appear. Learning this one habit replaces most menu navigation entirely.
+
+Window snapping is the other high-value habit. Windows + Left and Windows + Right place two windows side by side instantly, which is how you compare the EHR against a spreadsheet without switching between them. Virtual desktops go further, letting you keep clinical applications on one desktop and administrative work on another.
+
+Note: Windows + L should become the most automatic keystroke you have. Every time you step away from a workstation — to the printer, to answer the phone, to help someone at the window — lock it first. A patient record visible on an unattended screen is a privacy exposure whether or not anyone actually reads it, and locking takes under a second.
+
+Check yourself: You need to compare a spreadsheet against a record in the EHR without switching back and forth. What is the fastest approach? Answer: Snap the two windows side by side with Windows + Left and Windows + Right. Snapping places both windows side by side so both are visible at once, which is precisely what comparing requires. Any approach involving switching means holding values in your head between views, which is slower and where transcription errors come from.

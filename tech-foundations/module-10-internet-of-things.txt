@@ -1,0 +1,72 @@
+The Internet of Things
+
+Module 10: Applications & the Internet of Things
+
+Understand what makes a device 'smart,' where IoT genuinely helps in a workplace, and the security problem these devices introduce.
+
+By the end of this lesson you can:
+- Define the Internet of Things and give workplace examples
+- Explain how an IoT device differs from a conventional appliance
+- Identify the security risks IoT devices bring to a network
+- Apply basic controls that reduce those risks
+
+
+## A computer inside something that is not a computer
+
+ type: scenario
+ role: You manage office technology at Lakeside Medical Associates.
+ text: The practice installs a smart thermostat two network cameras a connected refrigerator monitoring vaccine temperatures and a smart doorbell. Each solves a real problem. Each is also a small computer on the practice's network running software that may never be updated sitting on the same network as the systems holding patient records.
+ task: Understand what these devices are so their benefits can be gained without opening the network.
+
+
+The Internet of Things describes everyday objects with a processor, a network connection, and usually sensors — devices that collect and transmit data without anyone operating them. The vaccine refrigerator is the clearest example of why this matters in healthcare: it monitors temperature continuously and alerts staff before a temperature excursion spoils inventory, which is a genuinely better outcome than someone checking a dial twice a day.
+
+
+ type: table
+ caption: IoT in a medical office
+ columns: 
+  Device
+  Solves
+  Risk it brings
+ rows: 
+   Vaccine refrigerator monitor
+   Continuous temperature logging and alerts before loss
+   Alerts depend on the network and the vendor's cloud being up
+   Smart thermostat
+   Energy cost and comfort scheduling
+   Often weak default credentials
+   Network cameras
+   Physical security and after-hours monitoring
+   A compromised camera is a live view inside the practice
+   Badge and door access
+   Controlled entry with an audit trail
+   A failure can lock staff out or let anyone in
+   Connected medical devices
+   Readings flowing straight into the record
+   Regulated; may transmit patient data
+
+
+Note: IoT devices are the weakest security link on most small networks. They frequently ship with default passwords, receive updates rarely or never, and are rarely inventoried — nobody thinks of a thermostat as a computer requiring patching. An attacker who compromises one is inside the network, and from there can reach anything else on it. This is the reason network segmentation, covered in the next lesson, matters so much.
+
+
+ type: table
+ caption: Basic IoT controls
+ columns: 
+  Control
+  Why
+ rows: 
+   Change every default password at installation
+   Default credentials are published and are the most common way these devices are compromised
+   Put IoT devices on a separate network from workstations
+   A compromised device then cannot reach the systems holding patient records
+   Keep an inventory of every connected device
+   You cannot secure or patch what nobody has written down
+   Check whether the vendor still issues updates
+   An unsupported device is a permanent open vulnerability
+   Disable features you do not use
+   Remote access left enabled by default is a common entry point
+
+
+Practice: Drag each reason onto the IoT control it explains.
+
+Check yourself: Why is a smart thermostat considered a meaningful security risk on a medical office network? Answer: It is a networked computer that is often unpatched and unmonitored, and a compromise puts an attacker inside the network. The thermostat's own data is uninteresting; its network position is the problem. It is a small computer, often with default credentials and no update path, sitting on the same network as systems holding patient records. Compromising it gives an attacker a foothold from which to reach far more valuable systems.

@@ -1,0 +1,68 @@
+Designing a Simple SOHO Network
+
+Module 10: Applications & the Internet of Things
+
+Plan a small office network: the equipment, how the pieces connect, and the segmentation that keeps sensitive systems separate.
+
+By the end of this lesson you can:
+- Identify the components of a small office network and what each does
+- Distinguish LAN from WAN, and wired from wireless
+- Design a segmented network appropriate to a small medical practice
+- Explain why guest and IoT traffic must be separated from clinical systems
+
+
+## The equipment and what each piece does
+
+ type: scenario
+ role: Lakeside Medical Associates is opening a second location.
+ text: The new office needs eight workstations two printers wireless for staff wireless for patients in the waiting room four IoT devices and a connection to the main office's systems. The vendor quote is one router one switch and a single wireless network for everyone. That design would put a patient's phone on the same network as the workstation holding patient records.
+ task: Design a network where the pieces are separated according to what they are trusted with.
+
+
+
+ type: key-terms
+ terms: 
+   term: LAN
+   definition: Local Area Network — the devices in one location connected to each other.
+   term: WAN
+   definition: Wide Area Network — connections spanning locations. The internet is the largest WAN.
+   term: Modem
+   definition: Connects your network to the internet service provider's line.
+   term: Router
+   definition: Directs traffic between networks and between your LAN and the internet. It is the boundary of your network.
+   term: Switch
+   definition: Connects wired devices within the LAN and forwards traffic only to the intended recipient.
+   term: Access point
+   definition: Provides the wireless network. Often built into the router in a small office.
+   term: Firewall
+   definition: Filters traffic by rule. Usually built into the router in a small office.
+   term: VLAN
+   definition: A logical division of one physical network into separate segments that cannot reach each other by default.
+
+
+
+ type: worked-example
+ title: Designing the second location's network
+ task: Produce a network design for eight workstations two printers staff and guest wireless four IoT devices and a link to the main office.
+ steps: 
+   move: Start from the internet connection and work inward: modem then router.
+   why: The router is the boundary and the place where separation is enforced. Designing outward from the devices tends to produce a flat network where everything can reach everything which is exactly the vendor's proposal.
+   move: Separate the network into segments by trust level.
+   why: Four segments: clinical workstations staff wireless guest wireless and IoT. Each holds devices trusted with different things. A patient's phone and a workstation with the EHR open have no business being able to reach each other and segmentation is what makes that structural rather than a matter of hoping.
+   move: Wire the workstations and printers; reserve wireless for devices that must move.
+   why: Wired connections are faster more reliable and cannot be intercepted from the parking lot. A workstation that never moves has nothing to gain from wireless and something real to lose.
+   move: Give the guest network internet access only with no route to any internal segment.
+   why: Waiting-room patients need the internet not the practice's systems. Guest isolation is a standard router feature and takes minutes to enable — and skipping it is one of the most common small-office mistakes.
+   move: Connect the two offices with a VPN over the internet.
+   why: A VPN encrypts traffic across the public internet so the link behaves like a private connection at a fraction of the cost of a dedicated line. For traffic that may include patient information the encryption is not optional.
+   move: Document the design and label the physical equipment.
+   why: The person troubleshooting at 7am will not be you and an unlabeled rack costs an hour before any diagnosis starts. Documentation is part of the design not an afterthought.
+ result: A segmented network where guest and IoT devices cannot reach clinical systems and the two offices are linked over an encrypted connection.
+ takeaway: Segment by trust level. The question is never only 'can these devices connect' but 'which devices should be able to reach which others.'
+
+
+Practice: Drag each device at the second location to the network segment it belongs on.
+
+Note: A flat network — everything on one segment — means any compromised device can reach every other. A patient's malware-infected phone on the same network as a workstation with the EHR open is a direct path to protected health information. Segmentation is the single most valuable network security measure available to a small practice, and on most business routers it costs nothing but configuration time.
+
+Check yourself: Why should patient wireless in the waiting room be on a separate network segment from clinical workstations? Answer: So that a compromised patient device cannot reach systems holding patient records. Segmentation is a containment measure. Devices the practice does not control — and cannot patch or inspect — must not be able to reach systems holding protected health information. Bandwidth is a real secondary benefit, but containment is the reason.

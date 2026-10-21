@@ -1,0 +1,51 @@
+Parameter Queries and Calculated Fields
+
+Module 6: Querying Data with SQL
+
+Build queries that prompt for input and that compute values on the fly, so one query answers many questions.
+
+By the end of this lesson you can:
+- Create a parameter query that prompts the user for a value
+- Build a calculated field using an expression
+- Explain why calculated values should not be stored in tables
+- Use aggregate functions to summarize grouped data
+
+
+## One query instead of twelve
+
+ type: scenario
+ role: You support reporting at Lakeside Medical Associates.
+ text: The practice manager wants supply usage by month. You build a query for January. Then February. By June you have six nearly identical queries in the Navigation Pane differing only in a date and each one is a thing that can fall out of date independently of the others.
+ task: Build one query that asks which month you want rather than one query per month.
+
+
+A parameter query prompts for a value when it runs and uses the response as a criterion. Instead of hard-coding a date, you put a prompt in square brackets in the criteria row, and Access asks the user for it each time.
+
+The bracketed text is not a field name — Access recognizes that and treats it as a prompt, showing it to the user as a dialog. One query now covers every date range anyone will ever ask for.
+
+A calculated field computes a value from other fields rather than storing it. In the query grid you write it as a new field: TotalCost: [Quantity]*[UnitCost]. The name before the colon becomes the column heading, and the expression after it is evaluated for every row.
+
+Note: Never store a calculated value in a table when you can compute it in a query. A stored TotalCost becomes wrong the moment someone edits Quantity or UnitCost, and nothing warns you — the table now contains a number that contradicts its own inputs. Calculate it in the query and it is correct by construction, every time it runs.
+
+
+ type: table
+ caption: Aggregate functions in a Totals query
+ columns: 
+  Function
+  Returns
+ rows: 
+   Sum
+   The total of a numeric field across the group
+   Avg
+   The mean value
+   Count
+   How many records are in the group
+   Min / Max
+   The smallest or largest value
+   Group By
+   The field to group the results by
+   Where
+   A filter applied before grouping
+
+
+Check yourself: Why should a supply item's total cost be calculated in a query rather than stored in the table? Answer: A stored value becomes wrong when quantity or unit cost changes, with no warning; a calculated field is always current. A stored total is a snapshot that silently goes stale the moment one of its inputs changes. A calculated field is evaluated each time the query runs, so it cannot contradict the data it is derived from.

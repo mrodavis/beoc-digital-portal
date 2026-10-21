@@ -1,0 +1,61 @@
+The OneDrive Sync App and File Explorer
+
+Module 5: Syncing with Your PC
+
+Use OneDrive from File Explorer: the OneDrive folder, the cloud icon and activity center, pausing and resuming sync, and what to do about sync problems.
+
+By the end of this lesson you can:
+- Find your OneDrive folder in File Explorer and save files into it
+- Open the activity center from the OneDrive cloud icon and read its status
+- Pause syncing for 2, 8, or 24 hours and resume it
+- Recognize a sync problem and know where to look for the cause
+
+
+## OneDrive without a browser
+
+ type: scenario
+ role: You work at the front desk computer at Lakeside.
+ text: You have been opening OneDrive in a browser all morning. Maria points to the cloud icon at the bottom right of your screen: the OneDrive sync app is already set up on this computer. Your OneDrive is right there in File Explorer and anything you save into it is in OneDrive everywhere.
+ task: Use OneDrive from File Explorer check that files are synced and pause syncing when the network is busy.
+
+
+The OneDrive sync app comes with Windows 11. Once you sign in, it adds a folder to File Explorer named for your account: OneDrive - Lakeside Medical Associates for a work account, or OneDrive - Personal. That folder is your OneDrive. Files you save there upload automatically, and changes made on another device download automatically. You can also save into it from any app with File › Save As and the OneDrive location.
+
+
+ type: table
+ caption: The OneDrive cloud icon and activity center
+ columns: 
+  Part
+  What it is for
+ rows: 
+   Cloud icon (notification area bottom right)
+   Select it to open the activity center. A paused symbol or a red mark on it means syncing is paused or has a problem
+   Activity center
+   Recent uploads sync status and sync problems
+   Open folder
+   Opens your OneDrive folder in File Explorer
+   View online
+   Opens OneDrive on the web
+   Help & Settings (gear)
+   Settings Pause syncing and Quit OneDrive
+
+
+
+## Pausing and resuming
+Syncing uses your network connection. If you need all of it for a moment, for example during a video visit on a slow connection, pause syncing. Right-click the OneDrive cloud icon (or open the activity center and select Help & Settings), select Pause syncing, and choose 2 hours, 8 hours, or 24 hours. The cloud icon shows that syncing is paused. To start again before the time is up, open the activity center and select the paused message (or Help & Settings › Resume syncing).
+
+Note: While syncing is paused, your changes are only on this computer. Resume as soon as you can, and never shut down a computer that is uploading important files.
+
+
+## When something won't sync
+A file with a problem shows a red circle with an X in File Explorer, and the cloud icon shows a red mark. Open the activity center to see which file and why. Common causes are a name OneDrive doesn't allow (it can't contain " * : < > ? / \ |), not enough space in your OneDrive, or a file that is open in another app. Fix the cause (rename the file, free up space, or close the file) and OneDrive tries again. At work, if you can't tell what is wrong, contact IT before moving or deleting anything.
+
+Practice: Drag each meaning onto what you see.
+
+Note: Work and school computers are usually set up by IT. They may sign you in to the sync app automatically, back up your folders for you, or lock some settings. If a setting is greyed out, that is why. On BEOC classroom computers the sync app settings may be blocked, so this lesson's challenge has a Challenge Lab.
+
+
+## Knowledge Check
+Check yourself: You save a file into the OneDrive - Lakeside Medical Associates folder in File Explorer. Where is it? Answer: In your OneDrive, available on the web and your other devices. That folder is your OneDrive. The sync app uploads what you save there.
+
+Check yourself: Which pause lengths does OneDrive offer? Answer: 2 hours, 8 hours, or 24 hours. Pause syncing offers 2, 8, or 24 hours. You can resume sooner.

@@ -1,0 +1,51 @@
+Using Excel Functions for Data Analysis
+
+Module 2: Excel as a Data Tool
+
+Write the data analysis functions — VLOOKUP, COUNTIF, SUMIF, and IFERROR — that transform raw appointment and billing data into actionable answers.
+
+
+## Real-World Scenario
+Note: Your supervisor at Lakeside Medical Associates asks for a quick analysis before the monthly meeting: how many appointments did each provider have in May, what is the total billed amount for BlueCross patients, and which patient IDs appear in the billing sheet but not in the patient registration sheet. Three questions, three functions — COUNTIF, SUMIF, and VLOOKUP. This lesson teaches you all three and adds IFERROR to handle the inevitable mismatches gracefully.
+
+
+## COUNTIF: Count Records That Meet a Condition
+COUNTIF counts the number of cells in a range that meet a single condition — one of the most useful functions for generating quick summaries from a data table:
+
+- Syntax: =COUNTIF(range, criteria) — range is the column to check, criteria is the condition to match. To count how many appointments belong to Dr. Walsh: =COUNTIF(Appointments[ProviderID], "Dr. Walsh"). To count Dr. Walsh's appointments in one month you would use COUNTIFS (plural) which supports multiple criteria.
+- COUNTIFS extends COUNTIF to multiple conditions — =COUNTIFS(Appointments[ProviderID],"Dr. Walsh",Appointments[VisitType],"New Patient") counts only Dr. Walsh's new patient appointments. Each pair of arguments is a range + criteria combination, and all conditions must be true for a row to be counted.
+- Use cell references instead of typed values for flexibility — =COUNTIF(Appointments[ProviderID],H2) where H2 contains 'Dr. Walsh' is more flexible than hardcoding the name in the formula. When you change the provider name in H2, the count updates automatically. This makes it easy to build a provider summary table where each row shows the count for a different provider.
+
+
+## SUMIF: Sum Values That Meet a Condition
+SUMIF adds up numeric values in one column, but only for rows where another column meets a condition — the financial analysis companion to COUNTIF:
+
+- Syntax: =SUMIF(range, criteria, sum_range) — range is the column to check against the condition, criteria is the condition, and sum_range is the column whose values you want to add. To find the total billed amount for BlueCross patients: =SUMIF(Appointments[InsurancePlan],"BlueCross",Appointments[BilledAmount]).
+- SUMIFS extends to multiple conditions — =SUMIFS(Appointments[BilledAmount],Appointments[InsurancePlan],"BlueCross",Appointments[ProviderID],"Dr. Walsh") sums only BlueCross billings for Dr. Walsh specifically. Note the argument order changes: the sum range comes first in SUMIFS.
+- Use SUMIF for monthly financial summaries — pair it with a list of insurance plans on the left and SUMIF formulas on the right to build an automatic monthly revenue summary by payer. Every time new appointment rows are added to the Table, the summary formulas update instantly.
+
+
+## VLOOKUP: Look Up a Value in Another Table
+VLOOKUP retrieves a value from another table based on a matching key — the critical function for connecting data from two related tables (like patients and appointments):
+
+- Syntax: =VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup]) — lookup_value is the key you are searching for, table_array is the range containing the lookup table, col_index_num is which column of that table to return, and range_lookup should almost always be FALSE (for exact match).
+- Example: If the Appointments sheet has PatientIDs and you want the patient's last name from the Patients sheet — =VLOOKUP(A2,Patients!A:C,2,FALSE). This looks for the PatientID in column A2, searches the Patients sheet columns A through C, and returns the value from the 2nd column of that range (LastName).
+- VLOOKUP only looks left-to-right — the lookup column must be the leftmost column in the table_array. If your key column is not on the left, use XLOOKUP, which can return values from either side of the lookup column (it is in current versions of Excel but not in Excel 2016 or 2019), or INDEX/MATCH. VLOOKUP still works everywhere, and you will meet it in many existing workbooks.
+- VLOOKUP returns #N/A when no match is found — this happens when a Patient ID in the Appointments sheet does not exist in the Patients sheet (a data integrity problem). Wrap VLOOKUP in IFERROR to handle these gracefully.
+
+
+## IFERROR: Handle Errors Gracefully
+IFERROR wraps any formula and returns a custom value if that formula produces an error — essential for professional-looking spreadsheets that do not show #N/A or #VALUE! errors:
+
+- Syntax: =IFERROR(formula, value_if_error) — if the formula returns any error (#N/A, #VALUE!, #DIV/0!, etc.), display value_if_error instead. For a VLOOKUP that might not find a match: =IFERROR(VLOOKUP(A2,Patients!A:C,2,FALSE),"Patient Not Found"). The error is suppressed and a meaningful message appears instead.
+- Common error_if_value choices: empty string "" (shows blank cell instead of error), "Not Found", "Missing" (descriptive message), 0 (for numeric formulas where an error should be treated as zero). Choose based on what makes the most sense for the reader of the spreadsheet.
+- Use IFERROR for diagnostic purposes too — if you want to find all the #N/A errors from a VLOOKUP to identify data mismatches, do not use IFERROR. Let the errors appear so you can see which rows have no match — then investigate those mismatches as data quality issues.
+
+
+## Responsible Use
+Note: Spreadsheet formulas that produce results can be wrong for reasons that are not visually obvious — a SUMIF that returns $0 is not necessarily correct if the criteria text does not exactly match the data. Before relying on formula results for financial decisions or reports, always do a manual spot check: pick 3–5 rows manually, verify they should or should not be included in the count or sum, and confirm the formula's result matches your manual count. Formula validation is part of responsible data management.
+
+
+
+## Knowledge Check
+Check yourself: Your VLOOKUP formula returns #N/A for some rows in your appointment spreadsheet. What does this most likely mean? Answer: Those rows have a PatientID that does not exist in the Patients lookup table — a data integrity problem to investigate.

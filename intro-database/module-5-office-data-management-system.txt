@@ -1,0 +1,57 @@
+Building a Complete Office Data Management System
+
+Module 5: Data Integrity & Records Management
+
+Put it all together — design a practical, sustainable data management system for a medical office that combines Excel and Access, enforces data quality, and keeps staff efficient.
+
+
+## Real-World Scenario
+Note: After five modules of learning, you have been asked to summarize your recommendations for the practice manager at Lakeside Medical Associates in a 'Data Management Plan' — a practical document describing what tools they will use, what data will be managed where, who is responsible for what, and how data quality will be maintained. This lesson walks through the thinking behind a complete, practical system.
+
+
+## Starting with the Inventory
+Before designing any data management system, catalog what data the practice actually has, where it currently lives, and what problems each location creates:
+
+- List every type of data the practice manages: Patient demographics, insurance information, appointment scheduling, clinical notes, billing and claims, provider schedules, payroll, vendor invoices, equipment logs, compliance records. Each type has different access requirements, retention rules, and volume characteristics.
+- Identify where each type currently lives: Is it in a spreadsheet? A dedicated EHR system? Paper files? Email? Sticky notes? Many medical offices have data scattered across all of these. The inventory reveals the gaps and redundancies.
+- Note who accesses each type and how often: Front desk staff access appointment scheduling dozens of times per day. The practice manager looks at financial summaries monthly. The billing coordinator runs reports weekly. Access frequency informs tool choice — heavily accessed data needs a more efficient tool than data reviewed once a year.
+
+
+## Choosing the Right Tool for Each Data Type
+Not all data belongs in the same tool. A complete data management system uses each tool for what it does best:
+
+- Access for multi-user, relational, operational data: Patient registration, appointment scheduling, and billing entries belong in Access because they are updated by multiple staff members simultaneously, they are related to each other (appointments link to patients, billing links to appointments), and they need query and reporting capabilities. Access handles concurrent access with record locking; Excel does not.
+- Excel for analysis, reporting, and standalone reference data: Monthly summary analysis, year-over-year comparisons, charts for presentations, and reference tables like provider fee schedules belong in Excel. These are typically used by one or two people, are not updated concurrently, and benefit from Excel's charting and formula capabilities.
+- SharePoint or network drives for document storage: Signed consent forms, insurance cards, referral letters, and compliance policies are documents — not database records. Store them in organized SharePoint folders or network drive directories, not embedded in the database.
+- EHR systems for clinical records: Clinical documentation — encounter notes, diagnoses, prescriptions, lab results — belongs in the practice's EHR system (if one exists), not in a general-purpose Access database. The Access database handles the administrative layer; the EHR handles the clinical layer.
+
+
+## Naming Conventions and Data Standards
+Consistency in how data is entered and stored is the foundation of a usable system. Establish and document standards before staff begin using the system:
+
+- Field naming conventions for tables: Use consistent, descriptive names without spaces — PatientFirstName, DateOfBirth, InsurancePlanID. Avoid abbreviations that staff may interpret differently (DOB is fine; AcctTyp is not). Use CamelCase or underscores consistently across all tables.
+- Controlled vocabulary for categorical fields: Where a field has a limited set of valid values — InsurancePlan, AppointmentType, ProviderSpecialty — define the exact list of valid values and enforce them with combo boxes on forms. Document the list. When a new insurance plan is added, update the list in the source table and the combo box simultaneously.
+- Date format standards: Access stores dates consistently regardless of input format, but outputs may vary. In reports and forms, set date format properties explicitly (mm/dd/yyyy) so all outputs are consistent. Train staff to enter dates consistently even though Access normalizes them.
+- Patient name entry standard: Decide whether names are stored as 'DAVIS' or 'Davis' — all caps or title case. All caps is traditional in many medical systems; title case is more readable. Pick one and document it. Mixed-case variation within the same database makes sorting and searching unreliable.
+
+
+## Roles and Responsibilities
+A data management system is only as good as the people who maintain it. Define explicit roles:
+
+- Data entry staff: Front desk personnel who enter patient registrations, schedule appointments, and update records through forms. They should access the database only through the forms designed for their tasks — not directly through Datasheet View.
+- Report consumers: Practice managers and billing coordinators who run saved queries and open saved reports. They need read access to the database but should not have the ability to modify table design.
+- Database administrator: One designated person (or a small team) who manages the database structure — creating new tables, modifying field definitions, building new queries, and performing backups. In a small practice, this may be the office manager with additional training.
+- Compliance officer: The person responsible for ensuring the retention schedule is followed, destruction is documented, and the system meets HIPAA requirements. In a small practice, this is often the practice manager.
+
+
+## Maintenance and Review Cadence
+A data management system requires ongoing maintenance — it is not a build-once-and-forget project:
+
+- Daily: Verify that the automated backup ran (or perform it manually). Confirm the morning appointment schedule loaded correctly. Address any error reports from the previous day.
+- Weekly: Run the standard weekly reports (provider schedules, outstanding billing). Review any validation error logs if the system tracks them. Check that all appointment records have a PatientID (run the Is Null query).
+- Monthly: Run the monthly summary report and distribute to the practice manager. Review data quality — spot-check 20 random records for missing or inconsistent values. Archive monthly backups to long-term storage.
+- Annually: Review the retention schedule and identify records eligible for archiving or destruction. Review the database structure with the database administrator — are new fields needed? Are any tables no longer relevant? Update the staff data entry training materials if procedures have changed.
+
+Note: A well-designed data management system becomes invisible over time — staff enter data quickly through clean forms, managers get their reports in seconds, and the practice operates efficiently without anyone thinking about the underlying database. Reaching that state requires the investment of thoughtful design, consistent standards, and regular maintenance. Everything in this course has been preparation for building exactly that system.
+
+Check yourself: The practice is adding a new insurance plan to their accepted payers. Which parts of the Access system need to be updated? Answer: The reference table (or list) of valid InsurancePlan values, the combo box on the patient registration form, and any related reports that filter or group by insurance plan.

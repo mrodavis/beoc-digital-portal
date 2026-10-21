@@ -1,0 +1,57 @@
+Finding Files: Search, Favorites, and Shortcuts
+
+Module 2: Organizing Your Files
+
+Find any file in seconds with Search, Home, Shared, and the People and Meetings views, keep the files you use every day in Favorites, and add shortcuts to shared folders.
+
+By the end of this lesson you can:
+- Search OneDrive by file name
+- Add files to Favorites and open them from the Favorites view
+- Find files others shared with you in Shared, People, and Meetings
+- Add a shortcut to a shared folder to My files, and remove it
+
+
+## Stop clicking through folders
+
+ type: scenario
+ role: You start every shift at the Lakeside check-in desk.
+ text: Every morning you open the same three files: the New Patient Intake Form the Office Phone List and the Front Desk Procedures folder that Maria shares with the team. Every morning you click through folders to reach them while patients wait.
+ task: Set up OneDrive so your everyday files are one click away and learn the fastest way to find anything else.
+
+
+
+ type: table
+ caption: Where to look depending on what you remember
+ columns: 
+  You remember…
+  Look in
+ rows: 
+   Part of the name
+   Search (type it and press Enter)
+   You opened it recently
+   Home
+   Someone sent it to you
+   Shared › Shared with you
+   Who you worked on it with
+   People
+   It came up in a Teams meeting
+   Meetings
+   You use it all the time
+   Favorites
+
+
+
+## Favorites and shortcuts
+In a work or school OneDrive, Add to favorites (right-click a file, or select More actions) puts a file in the Favorites view. Favorites doesn't move or copy the file; it is a bookmark. Remove from favorites takes the bookmark away.
+
+Files shared with you stay in their owner's OneDrive, so they are not in your My files. For a shared folder you use every day, select it in Shared and choose Add shortcut to My files. The shortcut appears in My files (and in File Explorer, if you use the sync app), but the folder still belongs to its owner, and their sharing still decides what you can do. Shortcuts work for folders, not single files. To remove one, select it in My files and choose Remove shortcut from My files; that doesn't affect the owner's folder.
+
+Practice: Drag each job onto the OneDrive tool that does it.
+
+Note: Search looks through your OneDrive and the files shared with you. If you get too many results, add another word from the file's name.
+
+
+## Knowledge Check
+Check yourself: Maria shared the Front Desk Procedures folder with you, and you want it in My files. What happens when you select Add shortcut to My files? Answer: A shortcut to Maria's folder appears in My files; the folder stays hers. A shortcut points to the shared folder. It still lives in Maria's OneDrive and her sharing settings still apply.
+
+Check yourself: You remove a file from Favorites. What happens to the file? Answer: Nothing; only the bookmark is removed. Favorites is a list of bookmarks. Removing a favorite leaves the file exactly where it was.

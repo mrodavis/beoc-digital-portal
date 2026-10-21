@@ -1,0 +1,69 @@
+Automating Repetitive Tasks
+
+Module 14: AI Productivity
+
+Learn how to identify tasks worth automating and use beginner-friendly tools to reclaim your time.
+
+
+## Real-World Scenario
+Note: Every Monday morning at TOR Tech, you sit down and manually send the same status update email to 6 clients — copying names, updating dates, and hitting send one by one. It takes 45 minutes. Your manager notices and says: "There has to be a better way." There is — and learning to find it is one of the most valuable skills you can develop as an office assistant.
+
+
+## Why Automation Is a Productivity Multiplier
+Every repetitive task you automate is a task that runs itself — without consuming your time, your attention, or your energy. The cumulative effect of automating several small recurring tasks is significant: hours reclaimed per week, mistakes eliminated from manual processes, and cognitive load reduced so you can focus on work that actually requires human judgment:
+
+- Automation eliminates the cost of repetition — a task you do manually 52 times a year is 52 opportunities for human error. A task you automate once has one setup opportunity for error — and then runs correctly every time.
+- Automation protects against 'forgetting' — recurring tasks that depend on human memory get missed when you are busy, sick, or distracted. Automated tasks run on schedule regardless of what else is happening.
+- Automation scales what you can do — an office assistant who has automated their routine tasks can take on more complex, higher-value work without increasing their working hours. Automation is how individual contributors operate at a higher level.
+- Automation is a visible competency — managers who see an office assistant identify and implement a workflow automation notice it. It signals initiative, systems thinking, and a proactive approach to efficiency.
+- Start small and build — you do not need to automate everything at once. Identify one task that is truly repetitive, set up a simple automation for it, verify it works, and build from there. The goal is a progressive reduction of manual routine work, not an instant overhaul.
+
+
+## Identifying Tasks Worth Automating
+Not every repetitive task is worth automating, and not every automation is straightforward to build. The first step is identifying tasks that are genuinely good automation candidates — high repetition, low variation, and low judgment requirement:
+
+- High frequency — the best automation candidates are tasks you do at least weekly. Monthly or one-off tasks rarely justify the setup investment. If you do something 50 times a year, a 30-minute automation setup pays for itself in saved time within a month.
+- Low variation — tasks that follow exactly the same steps every time are ideal for automation. If a task requires you to make judgment calls — deciding whether to send, what to say, or who to include — it is less suitable for full automation.
+- Rule-based input and output — can the task be described as 'when X happens, do Y'? If so, it is almost certainly automatable. 'When a form is submitted, add a row to the spreadsheet and send a confirmation email' is a classic automation trigger-action pattern.
+- Manual data transfer — tasks that involve copying data from one system to another (e.g., copying form submissions into a spreadsheet, updating a CRM from an email) are high-value automation candidates because they are tedious and error-prone when done manually.
+- Tasks that have already failed due to being forgotten — if a task has been missed at least twice because it depended on someone remembering to do it, it is a candidate for automation or at minimum a scheduled reminder.
+
+
+## No-Code Automation with Zapier
+Zapier is a widely used no-code automation platform for office environments. It connects a large catalog of business apps and automates workflows between them without requiring any programming knowledge. Understanding how Zapier works — even at a basic level — gives you a powerful tool for eliminating manual data transfer tasks:
+
+- Zapier works on a trigger-action model — every automation (called a 'Zap') starts with a trigger event in one app (e.g., 'a new form response is submitted in Google Forms') and produces one or more actions in another app (e.g., 'add a row in Google Sheets and send a Gmail notification').
+- Common office automation examples — 'When a new email with the subject Invoice arrives in Gmail, save the attachment to a Google Drive folder and add a row to the invoice tracking sheet.' 'When a Typeform survey is completed, create a new HubSpot contact and send a welcome email.'
+- No coding required — Zapier's interface guides you through selecting a trigger app, a trigger event, an action app, and the action to perform. You map fields (what data goes where) using dropdown menus, not code.
+- Free plan limitations — Zapier's free plan limits which automations you can build and how many tasks can run each month, and those limits change over time. Check the current plan details, and estimate how many tasks your automation will run, before recommending Zapier to your organization.
+- Testing before activating — always test a new Zap with real data before activating it and walking away. Trigger the event manually, verify the output in the action app, and confirm the data transferred correctly. An untested automation is one that will fail silently the first time it matters.
+
+
+## Built-In Automation: Email Rules, Filters, and Calendar Scheduling
+Many of the most useful office automations do not require a third-party tool — they are built directly into the apps you already use. Email clients and calendar tools have built-in automation features that most people never configure, leaving time and organization on the table:
+
+- Email filters and rules — Gmail and Outlook both support rules that automatically sort, label, forward, archive, or flag incoming emails based on sender, subject keywords, or other criteria. Setting up a filter that labels every invoice email and moves it to a 'Billing' folder takes two minutes and saves hours of manual sorting per month.
+- Email templates — Gmail's templates (formerly Canned Responses), turned on in Settings > See all settings > Advanced > Templates, and Outlook's Quick Parts allow you to save frequently written emails for reuse. Inserting a template takes seconds; writing the same email from scratch for the 20th time takes three minutes and introduces variation.
+- Recurring calendar events — meetings, reviews, and check-ins that happen on a regular schedule should be created as recurring events, not manually created each time. A monthly client review scheduled as a recurring event cannot be missed because you forgot to put it on the calendar.
+- Auto-scheduling tools — tools like Calendly allow you to share a booking link with clients instead of negotiating availability over email. When a client books time, the meeting is automatically added to your calendar. This eliminates the back-and-forth email exchange that can take 8 emails to schedule a single 30-minute call.
+- Out-of-office auto-replies — an automatically activated out-of-office reply set before vacation or leave ensures clients receive a professional response acknowledging their message. This requires setup before you are away, not after — build the habit of configuring auto-replies 24 hours before any planned absence.
+
+
+## Tasks That Must Stay Human
+Knowing what to automate is only half the skill. The other half is knowing what not to automate — recognizing tasks that require human judgment, sensitivity, or accountability and protecting those tasks from being handled by a system that cannot exercise those qualities:
+
+- Sensitive client communications — automated emails can handle routine confirmations and status updates, but they should never handle complaints, disputes, difficult conversations, or anything where tone and empathy are critical. A client receiving an automated response to an urgent concern is a client who feels invisible.
+- Decisions that depend on context — automation executes rules. It cannot evaluate whether the rule applies correctly in an unusual situation. When a task requires you to assess context and make a judgment call, it requires a human — full stop.
+- Anything that affects payroll, contracts, or legal obligations — financial commitments and legal documents require human review and approval before any action is taken. Automating actions in these areas without careful oversight creates liability.
+- First impressions — the first interaction with a new client, prospect, or partner should always be personalized. An automated welcome email that gets the name or company wrong in its first line damages the relationship before it begins.
+- Error recovery — when an automated process fails or produces incorrect output, fixing it requires a human who understands both the automation and the business context. Build in checkpoints where a human reviews the output of automated processes before it reaches clients.
+
+
+
+## Responsible Use
+Note: Always test automation before activating it. An untested Zap or email rule that sends incorrect messages to clients, misfiles documents, or duplicates records can create more work than it saves — and damage trust in the process. Before deploying any automation in a professional context, run it in a test environment or with controlled test data. Get your manager's approval before automating any workflow that touches client data or external communications.
+
+
+
+## Knowledge Check
+Check yourself: Which of the following tasks is the best candidate for automation? Answer: A weekly status update email sent to the same recipients every Monday.

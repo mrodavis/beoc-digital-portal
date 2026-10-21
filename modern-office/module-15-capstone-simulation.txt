@@ -1,0 +1,58 @@
+Capstone: Complete the Office Simulation
+
+Module 15: Final Simulation
+
+Complete the comprehensive final simulation that integrates every skill from this course — this is your proof that you are job ready.
+
+
+## Real-World Scenario
+Note: This is your final day in the TOR Tech simulation. Your manager has handed you one last full-day task list — and it covers everything. Workspace, communication, documents, scheduling, task management, CRM, and AI assistance. Complete it with the same professionalism you would bring to a real job. When you are done, you are job ready.
+
+
+## How to Approach the Capstone
+The capstone is not the time to rush. It is the time to perform at the level this course has prepared you for. Approaching it strategically — reading everything before starting, planning your sequence, and allocating your time — will produce a better result than starting immediately and discovering mid-way that you have taken the wrong approach:
+
+- Read all eight task specifications before touching any tool — you cannot plan your sequence if you do not know what all the tasks are. Spend five minutes reading the full capstone before opening a single document.
+- Identify dependencies — some tasks produce output that other tasks reference. The meeting you schedule in Task 3 may be mentioned in the email you write in Task 2. Map these dependencies before you start so you sequence the work correctly.
+- Allocate your time — estimate how long each task will take and check that your total estimate fits within the time available. If it does not, adjust your estimates rather than discovering the shortfall at the last minute.
+- Maintain consistency across all outputs — client names, dates, and details that appear in multiple tasks must match exactly. Inconsistencies across documents signal carelessness and undermine the professional quality of the overall submission.
+- Do not sacrifice accuracy for speed — a fast, sloppy submission is worse than a slower, complete one. The capstone is evaluated on the quality of every output. Finishing five tasks beautifully is better than finishing eight tasks sloppily.
+
+
+## The Eight Capstone Tasks Explained
+The capstone integrates all skills from Modules 8 through 14 into a single comprehensive submission. Your instructor may provide a specific scenario, or you may follow the self-guided version below. Either way, the eight task categories are the same:
+
+- Digital workspace (Module 8) — confirm your Google Drive or OneDrive workspace is organized with all folders correctly named and all prior work filed in the right locations. Screenshot the top-level folder structure and include it in your submission.
+- Professional communication (Module 9) — draft 2 polished emails: one internal team update and one external client communication. Both must have subject lines, professional greetings, clear bodies, and closing next steps.
+- Document creation (Modules 10 & 12) — produce 1 formatted summary document: a meeting recap, a project status update, or a client briefing. The document must include headers, a professional introduction paragraph, a structured body, and a clear next-steps section.
+- Scheduling (Module 11) — schedule 3 meetings: include full details, a 2–4 item agenda for each, and confirmation that no time conflicts exist between them. At least 1 meeting must be client-facing.
+- Task management (Module 12) — build or update a task tracker showing all open simulation tasks, their owners, due dates, and current statuses. At least 1 task must be marked 'At Risk' with a specific explanatory note.
+- CRM logging (Module 13) — log 2 client interactions in a CRM table or log: one phone call and one email thread. Both must include all 6 required fields with no empty cells.
+- AI assistance (Module 14) — use an AI tool to assist with at least 2 of the above tasks. For each, document your prompt, the raw AI output, and the edited final version. Name the AI tool you used.
+- Portfolio update — add all new capstone outputs to your professional portfolio folder under the appropriate category subfolders, using the correct file naming convention.
+
+
+## Standards for Each Deliverable Type
+The capstone is not graded on effort — it is graded on output. Every deliverable is evaluated against the professional standard established in the module where the skill was taught. Here is what that standard looks like for each major deliverable type in the capstone:
+
+- Emails — subject line present and descriptive, correct recipient greeting, clear purpose stated in the first sentence, body organized in 2–3 logical paragraphs, action items explicitly stated, professional close with sign-off.
+- Documents — consistent heading hierarchy, professional introduction that states the purpose, body content organized into clearly labeled sections, next steps section at the end, no formatting inconsistencies (fonts, spacing, indentation).
+- Meeting invites — specific subject line, all attendees named, date and time confirmed with no conflicts, location or video link present, agenda with 2–4 items.
+- Task trackers — all 5 required columns present (Task Name, Owner, Due Date, Status, Notes), data validation dropdowns applied to Status and Priority, at least 1 'At Risk' task with a notes entry, consistent date formatting across all rows.
+- CRM log entries — all 6 fields populated (date, participants, interaction type, summary, next steps, follow-up due date), summary minimum 3 sentences, next steps include named owner and specific due date.
+
+
+## Integrating AI Assistance: Documentation Requirements
+The capstone requires documented AI use for at least 2 tasks. Documented AI use is not the same as using AI — it means preserving evidence of how you used AI and demonstrating the editorial judgment you applied before the AI output became your submission. Here is what complete AI documentation looks like:
+
+- Name the tool — specify which AI tool you used: ChatGPT, Copilot, Gemini, Grammarly, or another. This matters because different tools have different strengths and limitations, and your tool selection should reflect that awareness.
+- Include the exact prompt — paste the complete prompt you entered into the AI tool. A complete prompt is one someone else could copy and use to reproduce your output. Vague one-line descriptions of what you asked do not count.
+- Include the raw output — paste the AI output as it was produced, before any editing. This makes your editing work visible and demonstrates the gap between raw AI output and professional output.
+- Include your edited final version — show the polished version you would actually submit or send. The differences between the raw output and the final version are what is being evaluated — they demonstrate your professional standards and editorial judgment.
+- Note any fact-checking performed — for any AI output that contained specific facts, dates, or claims, note which facts you verified and what source you used. If AI produced an inaccuracy that you caught and corrected, note it explicitly.
+
+
+
+
+## Knowledge Check
+Check yourself: When using AI to assist with a capstone task, what must you document as part of your submission? Answer: Your prompt and your edited final output.

@@ -1,0 +1,105 @@
+Sharing Files with the Right Permission
+
+Module 3: Sharing and Collaboration
+
+Share a file by inviting specific people or by copying a link, choose who the link works for and what it allows, and share patient information the safe way.
+
+By the end of this lesson you can:
+- Invite specific people to a file with Can edit, Can view, or Can review
+- Copy a link and choose who it works for: Anyone, People in your organization, People with existing access, or People you choose
+- Add an expiration date or password to a link where your organization allows it
+- Share patient information only with named people, view-only unless editing is needed, and never with an Anyone link
+
+
+## Three requests, three different answers
+
+ type: scenario
+ role: You handle file requests at the Lakeside front desk.
+ text: Before lunch Maria wants to edit the flu clinic flyer Kevin in billing needs to look at (not change) the November staff schedule the whole office needs the phone list and Riverside Imaging's scheduler needs a patient's referral packet. Attaching four files to four emails would create four copies. Sharing from OneDrive gives each person the right access to the one real file.
+ task: Share each file with exactly the access each person needs and handle the patient file safely.
+
+
+Select a file and select Share (in the command bar, or by right-clicking the file). The Share window has two parts. At the top, you invite specific people: type their names or email addresses in Add a name, group, or email, choose a permission with the permission button next to the box, add a message if you like, and select Invite. (Some accounts label this button Send.) They get an email with a link to the file. At the bottom, Copy link makes a link you can paste into an email, a Teams chat, or a document. The gear next to Copy link opens Link settings, where you choose who the link works for.
+
+
+## What people can do: permissions
+
+ type: table
+ caption: Permissions in OneDrive
+ columns: 
+  Permission
+  They can
+  Use it for
+ rows: 
+   Can edit
+   Make any changes and share the file further
+   Coworkers who work on the file with you
+   Can view
+   Open and read it but not change it
+   People who only need to read: most outside offices
+   Can review
+   View comment and suggest changes (Word documents only)
+   A manager reviewing your draft
+   Can't download
+   View but not download a copy (work or school accounts only)
+   Sensitive files people should read but not keep
+
+
+Note: Start with the least access that gets the job done. You can always give more access later. Taking access back after someone downloaded a copy doesn't take the copy back.
+
+
+## Who a link works for: link settings
+
+ type: table
+ caption: Link settings › Share the link with
+ columns: 
+  Option
+  Who can open the link
+  At Lakeside
+ rows: 
+   Anyone
+   Anyone who has the link including people outside the organization. No sign-in needed
+   Only for public material like the flu clinic flyer. Never for patient information
+   People in Lakeside Medical Associates
+   Anyone signed in with a Lakeside account
+   Internal files the whole office may read
+   People with existing access
+   Only people who already have access. It doesn't change anyone's permissions
+   Pointing a coworker to a file they can already open
+   People you choose
+   Only the names or emails you enter
+   Anything sensitive including patient files
+
+
+Under More settings you choose the link's permission (Can edit, Can view, and so on). For links that work for Anyone, you can also set an expiration date (the link stops working after it) and a password (people must type it to open the file). In a personal OneDrive these two options need a Microsoft 365 subscription. In a work or school account, your organization decides which options you can use: a choice that is greyed out was turned off by your administrators. Select Apply, then Copy.
+
+Practice: Drag each situation to the link setting that fits it best.
+
+
+## Sharing patient information safely
+
+ type: worked-example
+ title: Sending a referral packet to Riverside Imaging
+ task: Riverside Imaging's scheduler needs to read the referral packet for an upcoming patient appointment.
+ steps: 
+   move: Confirm Lakeside shares with Riverside Imaging this way.
+   why: Practices share patient information with outside organizations only under agreements and processes they have approved. If you aren't sure ask your supervisor before sharing.
+   move: Select the packet and select Share. Type scheduling@riversideimaging.example.
+   why: Inviting the named person means only that person can open the file. OneDrive warns you that the address is outside your organization which is your cue to double-check it.
+   move: Set the permission to Can view.
+   why: The scheduler needs to read the packet not change it. Least access is the rule for patient information.
+   move: Add a short message and select Invite.
+   why: The message tells them what it is without repeating any patient details in the email.
+   move: Never switch to an Anyone link to save time.
+   why: An Anyone link opens for whoever has it. It can be forwarded pasted in the wrong chat or seen over a shoulder.
+ result: One person view-only access to one file and an email that contains no patient details.
+ takeaway: For patient information: named people the least access that works and never an Anyone link.
+
+
+Note: If you share patient information with the wrong person or the wrong kind of link, remove the access right away (the next lesson shows how) and tell your supervisor. Reporting quickly is part of fixing it.
+
+
+## Knowledge Check
+Check yourself: Kevin needs to read the November staff schedule but shouldn't change it. What do you choose? Answer: Invite Kevin with Can view. Can view lets Kevin open and read the one real schedule, which stays current, without being able to change it.
+
+Check yourself: Which Share option is never right for a patient's records? Answer: Anyone. An Anyone link works for whoever has it, with no sign-in. Patient information is shared only with named people.

@@ -1,0 +1,49 @@
+Hardware Basics: Understanding Your Computer
+
+Module 1: Computers & Operating Systems
+
+Learn the key components inside and outside a computer — CPU, RAM, storage, and peripherals — so you can speak confidently about the technology you use every day.
+
+
+## Real-World Scenario
+Note: It is your first morning at Lakeside Medical Associates and your supervisor asks you to move a patient file from the slow old computer at the front desk to the new workstation. The IT vendor is on the phone asking whether the old machine has an SSD or HDD and how much RAM it has. You need to be able to answer those questions, check the settings, and get the job done. This lesson gives you the foundational vocabulary and knowledge to do exactly that.
+
+
+## The Main Components of a Computer
+Every computer — whether a desktop tower, laptop, or all-in-one — is built from the same core components. Understanding what each one does helps you use your computer more effectively and communicate with IT staff or vendors when something goes wrong.
+
+- The CPU (Central Processing Unit) is the brain of the computer — it executes every instruction, calculation, and operation the computer performs. A faster CPU means programs open more quickly, files save faster, and the computer handles multiple tasks without slowing down. At Lakeside Medical Associates, a computer with a modern multi-core CPU can run the electronic health records system, Outlook, and Word simultaneously without freezing.
+- RAM (Random Access Memory) is the computer's short-term working memory — it holds the data and programs that are currently in use. More RAM means you can have more programs and browser tabs open at once without the computer slowing down. Windows 11 requires at least 4 GB of RAM, but an office workstation that runs EHR software, email, and productivity tools at the same time works better with 8 GB, and 16 GB is comfortable.
+- Storage is where your files, programs, and operating system live permanently — even when the computer is off. There are two main types: HDDs (Hard Disk Drives) which are older and slower but less expensive, and SSDs (Solid State Drives) which are significantly faster, more durable, and now the standard in modern workstations. To find out which kind your computer has, open Task Manager › Performance › Disk 0 (C:): the drive type (SSD or HDD) appears under its name.
+- The motherboard is the main circuit board that connects all components — CPU, RAM, storage, and expansion cards all plug into the motherboard. You will rarely interact with the motherboard directly, but understanding it exists helps you understand why upgrading one component sometimes requires upgrading others.
+- The power supply converts electricity from the wall outlet into the voltages needed by the computer's components. Desktops have a visible power supply unit (PSU); laptops have an external power adapter (brick) that does the same job. A failing power supply can cause random shutdowns and restarts — a useful thing to know when troubleshooting.
+
+
+## Input, Output, and Peripheral Devices
+Peripheral devices are everything connected to the main computer unit — they fall into two categories: input devices (sending information to the computer) and output devices (receiving information from the computer). Office assistants work with peripherals constantly:
+
+- Input devices send data into the computer — the keyboard types text and commands, the mouse controls the cursor and clicks, the scanner converts paper documents into digital files, and the webcam captures video for virtual meetings. At a medical office front desk, the keyboard and mouse are your primary input tools, followed by the document scanner for patient intake forms.
+- Output devices send information from the computer to the user — the monitor displays everything visually, the printer produces physical documents, and speakers output audio for video calls and system sounds. Monitors come in different sizes and resolutions; a higher resolution (such as 1920x1080 Full HD) displays more detail and reduces eye strain during long work sessions.
+- USB ports are the most common way to connect peripherals — keyboards, mice, printers, USB drives, and phone chargers all use USB connections. Modern computers may have USB-A ports (the standard rectangular type), USB-C ports (smaller, oval), or both. If a device is not being recognized, a different USB port on the same computer often resolves the issue.
+- Monitors typically connect via HDMI or DisplayPort cables — both carry both video and audio signals. Older monitors may use VGA, a blue connector with screws that carries video only. If you need to connect two monitors to one computer (common in busy office environments), you will need either two video ports on the computer or a docking station. Dual monitors help staff who work across multiple applications at the same time.
+
+Practice: Sort each device by the direction its information travels.
+
+Practice: Match each port or cable to its description. You will use this when you look at the back of your own workstation in the Challenge.
+
+
+## Understanding Computer Performance
+As an office professional, you do not need to be an IT expert — but understanding a few key performance concepts lets you recognize when something is wrong and describe the problem accurately to someone who can fix it:
+
+- If your computer is running slowly, the most common causes are: not enough RAM for the programs you have open, too many programs starting automatically at login, a fragmented or nearly full HDD, malware consuming processing power, or simply needing a restart to clear temporary files. Restarting resolves surprisingly many performance issues and should always be the first step.
+- Task Manager (press Ctrl+Shift+Esc) shows you exactly what is using your CPU, RAM, and disk space in real time — this is the single most useful diagnostic tool for performance problems. If one program is consuming 90% of CPU or RAM, that program is causing your slowdown. You can end an unresponsive app in Task Manager by right-clicking it on the Processes page and selecting End task.
+- Regular maintenance keeps computers running well — this includes installing Windows updates (Settings > Windows Update), removing programs you no longer use (Settings > Apps > Installed apps), and emptying the Recycle Bin when it accumulates deleted files. At a healthcare office, IT typically manages scheduled maintenance, but understanding what good maintenance looks like helps you recognize when a machine has been neglected.
+
+
+## Responsible Use
+Note: Do not open a desktop computer case or attempt to install hardware unless you are specifically authorized to do so by IT. At Lakeside Medical Associates, unauthorized modifications to workstations can void warranties, create security vulnerabilities, and violate compliance requirements. If you believe hardware is failing, document the symptoms (what is happening, when it started, what changed recently) and report them to IT or your supervisor. Your role is to recognize and communicate hardware issues — not to repair them independently.
+
+
+
+## Knowledge Check
+Check yourself: Your computer is running very slowly when you have Outlook, the EHR system, and Word open at the same time. Which component is most likely the bottleneck? Answer: RAM — the computer does not have enough working memory for all open programs.

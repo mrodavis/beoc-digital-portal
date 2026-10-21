@@ -1,0 +1,45 @@
+Sorting, Filtering, and Finding Records
+
+Module 2: Excel as a Data Tool
+
+Find any record in seconds using Excel's sort, filter, and search tools — the core data retrieval skills that make a well-structured table actually useful.
+
+
+## Real-World Scenario
+Note: The practice manager at Lakeside Medical Associates needs three things from the appointment spreadsheet before her 2 PM meeting: all appointments for Dr. Walsh this month sorted by date, all patients with a BlueCross insurance plan, and the number of new patient appointments in April. Without knowing how to sort, filter, and use basic Excel functions, each of these takes 10 minutes of manual scanning. With the right skills, all three take under 60 seconds.
+
+
+## Sorting Data
+Sorting rearranges all rows in a table based on the values in one or more columns — it does not delete or change any data, only the order in which rows appear:
+
+- Single-column sort — click any cell in the column you want to sort by, then click the Sort A to Z (ascending) or Sort Z to A (descending) button in the Data tab. For a date column, Sort Oldest to Newest puts dates in chronological order. The fastest method: with an Excel Table, click the dropdown arrow in the column header and choose Sort A to Z from the dropdown menu.
+- Multi-level sort — when you need to sort by more than one column (e.g., first by provider, then by appointment date within each provider), use Data > Sort to open the Sort dialog. Add a primary sort level (Provider), then click Add Level and add a secondary level (AppointmentDate). The table is sorted by provider first, then by date within each provider group.
+- Custom sort order — for categorical data that has a logical order that is not alphabetical (e.g., January, February, March rather than alphabetical February, January, March), use Data > Sort > Order > Custom List. Excel includes months and days of the week as built-in custom lists, or you can create your own.
+- Sorting does not affect the data — you can sort any way and then sort again in a different order. The original data is never changed by sorting. However, if you have a table with an autonumber ID column, sorting by ID always restores the original entry order.
+
+
+## Filtering Data
+Filtering hides rows that do not match your criteria so you can focus on a specific subset of data — the hidden rows are not deleted, just temporarily invisible:
+
+- Basic filter — with an Excel Table, click the dropdown arrow in any column header to see the filter options for that column. Uncheck 'Select All' and check only the values you want to see (e.g., 'Dr. Walsh' in the ProviderID column). All rows with other provider names are hidden; only Dr. Walsh's appointments are visible. A funnel icon appears in the header to indicate an active filter.
+- Date filters — click the dropdown on a date column to see date-specific filter options: 'This Month,' 'Next Week,' 'Before [date],' 'After [date],' and custom date ranges. These are far faster than scrolling or manually specifying date values.
+- Text filters — use 'Text Filters > Contains' to filter for any cell that contains a specific word or phrase. 'Text Filters > Begins With' finds entries starting with a specific string. These are useful for finding all records where the InsurancePlan field contains 'BlueCross' even if some are 'BlueCross PPO' and others are 'BlueCross HMO.'
+- Clearing filters — to show all rows again, click the filter dropdown and choose 'Clear Filter from [column name],' or click the Clear button in the Data tab to clear all filters at once. Forgetting to clear filters before printing or sharing a spreadsheet is a common mistake — always check whether filters are active before finalizing a report.
+- Multiple filters — you can apply filters on multiple columns simultaneously. For example, filter by ProviderID = 'Dr. Walsh' AND VisitType = 'New Patient' to see only Dr. Walsh's new patient appointments. Both filters are active at the same time.
+
+
+## Finding and Replacing Data
+Find (Ctrl+F) and Find & Replace (Ctrl+H) are powerful tools for locating and updating specific values across a large dataset:
+
+- Ctrl+F opens the Find dialog — type a value and press Enter to jump to the first cell containing that value. Press Find Next to move to the next occurrence. Use 'Find All' to see a list of all cells containing the search term at once.
+- Ctrl+H opens Find & Replace — type the old value in 'Find what' and the new value in 'Replace with,' then click Replace All to update every instance in the spreadsheet simultaneously. This is how you fix a systemic data entry error: if 'BlueCross BlueShield' was consistently misspelled as 'BleuCross BlueShield' across 200 rows, Fix it in one Replace All action instead of 200 individual corrections.
+- Use Find & Replace carefully with Replace All — always click 'Find All' first to review how many cells will be affected and confirm they are all the intended targets. A hasty Replace All on partial text can change values you did not intend to change.
+
+
+## Responsible Use
+Note: When sharing a filtered view of a spreadsheet (by email or screenshot), always note clearly that the data is filtered. A recipient who sees a filtered spreadsheet may believe they are seeing all the data when they are only seeing a subset. In a billing or patient management context, an incomplete view of the data could lead to incorrect decisions. Either clear all filters before sharing, or include a clear label: 'Filtered: Provider = Dr. Walsh, Month = May.'
+
+
+
+## Knowledge Check
+Check yourself: You apply a filter to show only appointments for Dr. Walsh. Then you print the spreadsheet and give it to your supervisor. She asks why the data only shows Dr. Walsh's patients and not everyone else. What most likely happened? Answer: You forgot to clear the filter before printing — only the visible (filtered) rows printed.

@@ -1,0 +1,43 @@
+Entering and Editing Records in Access
+
+Module 3: Introduction to Microsoft Access
+
+Enter, navigate, update, and delete records in Access tables efficiently and accurately — with the same attention to data quality that clinical records demand.
+
+
+## Real-World Scenario
+Note: The new Access database is live at Lakeside Medical Associates. Three front desk staff need to enter patient registrations and appointment records throughout the day. They need to know: how to move between fields efficiently, what to do when they make a mistake in a record they just saved, how to find a specific patient record without scrolling through 1,500 rows, and how to delete an appointment that was canceled. This lesson covers all four.
+
+
+## Entering Records in Datasheet View
+Datasheet View in Access looks like a spreadsheet but behaves differently — understanding the differences prevents data entry confusion:
+
+- Navigating between fields: press Tab to move to the next field in a record, Shift+Tab to move back. Tab on the last field of a record moves to the first field of a new record. This Tab-key navigation keeps your hands on the keyboard for efficient data entry without touching the mouse.
+- The record selector star (*) marks the new record row — the row with a star in the gray row selector on the far left is the next empty record waiting for data. Click it or Tab to it to start entering a new record. The pencil icon in the row selector indicates the current record is being edited and has not yet been saved.
+- Records are saved automatically when you move to another record — unlike Excel where you press Ctrl+S to save, Access saves records when you move the cursor to a different row. If you make a change to a record and then click to a different row, the change is permanently saved. There is no 'undo after saving' for record data in Access.
+- Undo while still in the record: if you make a mistake and have not yet moved to another row, press Escape once to undo the change to the current field, or Escape twice to undo all changes to the current record. Once you move to another row, those changes are saved and Escape will not reverse them.
+
+
+## Finding and Editing Specific Records
+With thousands of records in a table, you cannot scroll to find the right one — Access provides several powerful ways to locate specific records:
+
+- Find (Ctrl+F): opens the Find and Replace dialog. Type the value you are looking for and click Find Next. Access jumps to the first record where that value appears in the current field. Use 'Any Part of Field' in the Match dropdown to find a partial string (searching 'Whitfield' will find 'James Whitfield'). This is the fastest way to locate a specific patient without building a query.
+- Filter by Selection: right-click any cell and choose 'Filter By Selection' to temporarily show only records where that field has the same value. For example, right-click a cell containing 'BlueCross' in the InsurancePlan field and select Filter By Selection — the table immediately shows only BlueCross patients. Click the Toggle Filter button in the Home tab to switch the filter on and off.
+- Editing an existing record: click the cell you want to change, type the new value, and move to another row to save. In a Date field, Access displays a calendar picker — click a date on the calendar or type the date in the format the field expects. If the Validation Rule rejects your entry (e.g., a past date in AppointmentDate), Access shows the Validation Text message and keeps the cursor in the field until a valid value is entered.
+
+
+## Deleting Records
+Deleting records in Access is permanent and irreversible — unlike a file you can restore from the Recycle Bin, deleted Access records are gone immediately:
+
+- To delete a record: click the gray row selector on the far left of the record to select the entire row (it highlights blue), then press the Delete key. Access displays a confirmation dialog: 'Are you sure you want to delete 1 record(s)? This operation cannot be undone.' Click Yes only when you are certain.
+- Referential integrity prevents deleting records with dependencies — if you try to delete a Patient record that has related Appointments records (and referential integrity is enforced), Access will refuse the deletion with an error message: 'The record cannot be deleted or changed because table Appointments includes related records.' This is the correct behavior — you cannot delete a patient who has appointment records without first deleting or reassigning those appointments.
+- In a medical office, deleting patient records may be a HIPAA violation — patient records have legal retention requirements. Do not delete patient records simply because a patient has not returned. Mark them as inactive (IsActivePatient = No) rather than deleting. Deletion should only occur under an authorized records purge process that complies with your state's retention requirements.
+
+
+## Responsible Use
+Note: Access does not have an 'Undo' function for saved records — once you navigate away from a record, all changes to it are permanent. This is why data entry accuracy and verification are even more critical in Access than in Excel. Before moving away from any record you have just entered or edited, re-read every field against the source document. A wrong digit in an insurance ID or a transposed date of birth that gets saved to an Access record may affect billing and patient care before the error is discovered and corrected.
+
+
+
+## Knowledge Check
+Check yourself: You are entering a patient record in Access and realize you mistyped the last name, but you have not yet moved to another row. What is the fastest way to undo the change to just the Last Name field? Answer: Press Escape once — this undoes the change to the current field while still in the record.

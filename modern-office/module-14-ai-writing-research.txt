@@ -1,0 +1,59 @@
+AI Writing & Research Assistance
+
+Module 14: AI Productivity
+
+Learn how to use AI to research faster, write better, and produce professional documents in a fraction of the time.
+
+
+## Real-World Scenario
+Note: Your manager at TOR Tech drops a task on your desk at 1pm: "I need a one-page summary of our 3 main competitors by 3pm — key services, target market, and pricing model if you can find it." Two hours is tight. With AI research assistance, you can produce a solid first draft in 30 minutes and spend the rest of the time refining it into something polished and verified.
+
+
+## Why Prompting Is a Professional Skill
+The quality of AI output is directly proportional to the quality of the prompt. A vague prompt produces a generic response. A specific, structured prompt produces a targeted, usable response. Learning to write effective prompts is not a technical skill — it is a communication skill, and it follows the same logic as every other professional communication:
+
+- The AI cannot read your mind — if you type 'write an email,' the AI will write a generic email. If you type 'write a 3-paragraph professional email to a client who missed their renewal deadline, using a firm but understanding tone and closing with a specific next step,' the AI writes something you can actually use.
+- Context improves output — the more relevant context you provide, the better the output. Include the audience, the purpose, the format, the tone, and any constraints before you ask the AI to produce anything.
+- Role assignment is effective — opening a prompt with 'Act as a professional office assistant' or 'Act as a business writing expert' primes the AI to respond in a register appropriate for professional use.
+- Iteration is part of the process — if the first output is not right, do not start over. Add a follow-up prompt: 'Make it more concise' or 'Rewrite the opening paragraph in a warmer tone' or 'Add a numbered action list at the end.' AI conversations are iterative, not one-shot.
+- Save effective prompts — when you develop a prompt that consistently produces good output for a recurring task, save it as a template in a personal document. A library of effective prompts is a productivity asset you build over time.
+
+
+## The Anatomy of an Effective AI Prompt
+Effective prompts share a consistent structure regardless of the task. Learning to build prompts with this structure produces reliably better output than writing prompts by instinct. Each component of the structure serves a distinct purpose:
+
+- Role (optional but powerful) — 'Act as a senior office administrator with 10 years of experience.' This establishes the voice and expertise level the AI should adopt. Especially useful for writing tasks where tone and register matter.
+- Task — the core instruction: 'Write a professional follow-up email,' 'Summarize this document in 5 bullet points,' 'Compare these two companies across three dimensions.' Be specific about the action and the output format.
+- Context — the background the AI needs to produce relevant output: 'The client missed their renewal deadline by two weeks,' 'The audience is a non-technical manager,' 'The document is 1,200 words long.' Without context, the AI invents assumptions.
+- Format — the structure of the output: 'Use a bulleted list,' 'Write in 3 paragraphs,' 'Produce a table with 3 columns,' 'Keep it under 150 words.' Explicit format instructions prevent the AI from producing output in a format that does not fit your needs.
+- Tone or constraints — any stylistic requirements or limitations: 'Use a professional but friendly tone,' 'Avoid jargon,' 'Do not include any pricing information,' 'Match the tone of the existing document.' These constraints narrow the output toward what is actually usable.
+
+
+## Using AI for Research: Best Practices
+AI is a research accelerator, not a research replacement. It can help you gather, summarize, and organize information significantly faster than traditional search — but it has real limitations that make independent verification non-optional. Understanding how to use it well protects your professional output from being contaminated by AI errors:
+
+- Use AI for breadth, not depth — AI is excellent at giving you a broad overview of a topic: key players, general concepts, common approaches. It is less reliable for precise, current, or specific facts. Use it to orient yourself, then go to authoritative sources for the details that matter.
+- Ask for summaries of specific topics — rather than asking a broad question like 'tell me about Company X', ask for a structured summary: 'Summarize the key services, primary clients, and market position of [Company X] in three bullet points, based on publicly available information.'
+- Flag unverified facts before using them — when AI output contains specific numbers, dates, names, or claims, treat them as hypotheses until you have verified them. Add a personal annotation like '[verify]' next to any AI-generated fact before the document leaves your hands.
+- Use AI output as a starting point for web searches — if AI tells you that a competitor charges a certain price, use that claim as a search query: go find the actual pricing page. The AI output points you at what to look for; the web search confirms whether it is accurate.
+- Never cite AI as a source — AI tools can state things that are wrong, and even when a tool shows links to its sources (ChatGPT search, for example, can include citations you can click), the AI's summary is not the source. Open the original page, confirm it actually says what the AI claimed, and cite that original source.
+
+
+## Using AI to Write and Edit Professionally
+AI writing assistance is most valuable as a layer of support over your own drafting process — not as a replacement for it. The strongest professional writing workflow combines your judgment about what needs to be communicated with AI's ability to improve how it is expressed:
+
+- Draft with bullet points first — before asking AI to write anything, jot down the 3–5 key points you want the document to make. Then ask AI to turn those points into a polished draft. This ensures the content is yours even when the language is AI-assisted.
+- Use AI to tighten and improve existing writing — paste a draft you have already written and ask AI to 'make this more concise,' 'improve the flow between paragraphs,' or 'identify any sentences that are unclear or too wordy.' AI as an editor is often more valuable than AI as a writer.
+- Check tone on sensitive communications — before sending any email about a difficult topic (a complaint, a delay, a refusal), paste it into ChatGPT and ask 'Does this read as professional and respectful, or could it come across as dismissive or aggressive?' Use the response as a tone-check, not as permission to stop thinking critically.
+- Personalize all AI-generated content — AI output tends to be generic. Before sending, replace placeholder language with specific names, dates, and context. A follow-up email that addresses the client by name and references the specific call you had last Thursday feels very different from one that says 'our recent discussion.'
+- Read every line before sending — AI output sometimes contains factually wrong statements, tone-deaf phrasing, or content that does not apply to your situation. Read every AI-generated document from start to finish before it leaves your hands. Never skim.
+
+
+
+## Responsible Use
+Note: AI can confidently state inaccurate information — including fabricated statistics, outdated company data, and entirely invented sources. This is not a rare edge case; it is a known behavior of all current AI language models. Always verify key facts from a reliable website, official report, or database before including them in any work document. When in doubt, remove the claim or find the source. A document with no facts is better than a document with wrong ones.
+
+
+
+## Knowledge Check
+Check yourself: What should you always do before including AI-generated data or statistics in a work document? Answer: Verify the information from a reliable, independent source.

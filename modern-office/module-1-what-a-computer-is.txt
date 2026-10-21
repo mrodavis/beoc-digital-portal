@@ -1,0 +1,65 @@
+What a Computer Is and What It Does
+
+Module 1: Computer Basics
+
+Identify the components of a computer, distinguish hardware from software, and understand the input-process-output model everything else is built on.
+
+By the end of this lesson you can:
+- Define what a computer is and identify its main components
+- Distinguish hardware from software
+- Explain the input-process-output-storage model
+- Describe what each major component contributes to performance
+
+
+## One model explains every computer
+
+ type: scenario
+ role: You are starting the Cloud Technology with AI course at BEOC.
+ text: Before you can reason about where computing happens in the cloud you need a clear picture of where it happens on a machine in front of you. The cloud is not magic — it is somebody else's computers in a building running the same components sitting on your desk.
+ task: Build a precise mental model of a computer so 'the cloud' becomes a location rather than a mystery.
+
+
+A computer is a device that accepts input, processes it according to instructions, produces output, and stores data for later. Every computer follows this model — a phone, a laptop, a server in a data center, the machine in a vaccine refrigerator. What changes between them is scale, not structure.
+
+
+ type: table
+ caption: The four stages
+ columns: 
+  Stage
+  Does
+  Example components
+ rows: 
+   Input
+   Accepts data and commands
+   Keyboard mouse scanner microphone sensors
+   Processing
+   Executes instructions on that data
+   CPU and RAM as its working space
+   Output
+   Presents results
+   Monitor printer speakers
+   Storage
+   Retains data when power is off
+   SSD hard drive USB drive cloud storage
+
+
+
+ type: key-terms
+ terms: 
+   term: Hardware
+   definition: The physical parts you could pick up — the components themselves.
+   term: Software
+   definition: The instructions telling the hardware what to do. It has no physical form.
+   term: CPU
+   definition: The central processing unit which executes instructions. More cores and higher clock speed mean more work done at once.
+   term: RAM
+   definition: Temporary working memory holding what is currently in use. Its contents vanish when power is lost.
+   term: Storage
+   definition: Permanent retention of files and programs. An SSD is far faster than a traditional hard drive.
+   term: Motherboard
+   definition: The main board every other component connects to.
+
+
+Note: The distinction between RAM and storage is the one worth getting right early. RAM is the desk you work on — fast, limited, and cleared when you leave. Storage is the filing cabinet — slower, much larger, and it keeps its contents. A machine that feels slow with many programs open usually needs more RAM; one that takes a long time to start up usually needs a faster drive.
+
+Check yourself: A workstation takes ninety seconds to start up and slows badly with several applications open. Which two upgrades address these two symptoms? Answer: An SSD for startup speed, and more RAM for running several applications at once. Slow startup points to a mechanical hard drive, which an SSD fixes dramatically. Slowing down with many applications open points to insufficient RAM, since the system starts swapping data to disk when working memory runs out. Two symptoms, two different causes.

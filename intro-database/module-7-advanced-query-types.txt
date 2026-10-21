@@ -1,0 +1,88 @@
+Crosstab, Action, and Append Queries
+
+Module 7: Advanced Queries & Reports
+
+Move beyond SELECT: summarize data in a grid, and use queries that change data rather than just returning it.
+
+By the end of this lesson you can:
+- Build a crosstab query to summarize data across two dimensions
+- Distinguish the four action query types and what each does
+- Use an append query to add records from one table to another
+- Apply the safety practices that action queries require
+
+
+## Queries that summarize, and queries that change things
+
+ type: scenario
+ role: You produce management reports at Lakeside Medical Associates.
+ text: The practice manager wants supply spending shown as departments down the side and months across the top — the shape of a spreadsheet cross-tab. She also wants last year's records moved out of the active table into an archive because the active table has grown slow.
+ task: Learn the query types that summarize across two dimensions and the ones that modify data.
+
+
+A crosstab query summarizes data in a grid: one field supplies the row headings, another supplies the column headings, and a third is aggregated at each intersection. It is Access's equivalent of a PivotTable, and it answers 'how much of X by Y' in one object.
+
+
+ type: table
+ caption: Crosstab query components
+ columns: 
+  Setting
+  Supplies
+  Example
+ rows: 
+   Row Heading
+   The labels down the left
+   Department
+   Column Heading
+   The labels across the top
+   Month
+   Value
+   What is aggregated at each cell
+   Sum of TotalCost
+
+
+Action queries are different in kind: they change data rather than returning it. There are four, and each is genuinely destructive in its own way, so they require a different level of care than a SELECT query.
+
+
+ type: table
+ caption: The four action queries
+ columns: 
+  Type
+  Does
+  Typical use
+ rows: 
+   Make Table
+   Creates a new table from query results
+   Snapshotting data at a point in time
+   Append
+   Adds query results as records in an existing table
+   Moving last year's records into an archive table
+   Update
+   Changes values in existing records
+   Applying a price increase across a category
+   Delete
+   Removes records matching the criteria
+   Clearing archived records from the active table
+
+
+
+ type: worked-example
+ title: Archiving last year's records safely
+ task: Move records older than one year from the active Supplies table into SuppliesArchive then remove them from the active table.
+ steps: 
+   move: Back up the database file before doing anything else.
+   why: Action queries cannot be undone. There is no Ctrl+Z after an append or delete and no confirmation beyond a single dialog. A copy of the .accdb file is the only real safety net and it takes seconds.
+   move: Build it as a SELECT query first and examine the results.
+   why: This is the discipline that prevents disasters. Run it as a SELECT and you see exactly which records the criteria match. If the count or the contents look wrong you have learned that harmlessly rather than after deleting them.
+   move: Convert it to an Append query and target SuppliesArchive.
+   why: Access converts the query type while keeping your verified criteria so the records that are appended are precisely the ones you just inspected. Check that the source and destination field names line up — mismatches silently drop data into the wrong column.
+   move: Run the append then verify the archive table before deleting anything.
+   why: Confirm the row count in the archive matches what the SELECT returned. Deleting from the active table before confirming the copy arrived is how a year of records is lost permanently.
+   move: Only then convert a copy of the same query to a Delete query and run it.
+   why: Using the same criteria guarantees you delete exactly what you archived. Writing fresh criteria for the delete step risks a subtle difference between the two sets — and the difference would be records deleted but never archived.
+ result: Last year's records safely in the archive table and removed from the active one with a backup if anything went wrong.
+ takeaway: Back up build as SELECT verify then convert. Every action query gets this treatment — there is no undo.
+
+
+Note: Action queries do not have an undo. A Delete query that runs with the wrong criteria removes records permanently, and Access asks only once before doing it. Treat every action query as irreversible: back up first, always build it as a SELECT to see what it will touch, and never run one you did not write yourself without reading its criteria.
+
+Check yourself: What is the most important step before running a Delete query? Answer: Backing up the file and running it as a SELECT query first to verify exactly which records match. Action queries cannot be undone. Running the same criteria as a SELECT shows precisely which records will be removed, and a backup means a mistake is recoverable. Both take seconds; recovering deleted records without them is impossible.

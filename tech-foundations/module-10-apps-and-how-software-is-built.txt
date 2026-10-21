@@ -1,0 +1,79 @@
+Applications, OEM Software, and How Software Gets Built
+
+Module 10: Applications & the Internet of Things
+
+Understand the basic principles of application development, and the real differences between an app, OEM software, and a web application.
+
+By the end of this lesson you can:
+- Describe the stages of the software development lifecycle
+- Distinguish native apps, web apps, and OEM software
+- Explain why software requires updates throughout its life
+- Evaluate an application before recommending it for workplace use
+
+
+## What 'an app' actually is
+
+ type: scenario
+ role: You are asked to evaluate software at Lakeside Medical Associates.
+ text: A vendor demonstrates a scheduling app. It looks excellent. Before the practice commits someone needs to ask where the data is stored who supports it what happens when the vendor is acquired and whether it will still work after the next operating system update. Nobody at the practice currently asks those questions.
+ task: Understand how software is built and maintained well enough to evaluate it responsibly.
+
+
+An application is a program written to do a specific job for a user, as distinct from system software, which runs the machine itself. The word 'app' usually implies something smaller and installed from a store, but the distinction is one of convention rather than kind.
+
+
+ type: table
+ caption: Kinds of application software
+ columns: 
+  Type
+  Runs
+  Trade-off
+ rows: 
+   Native app
+   Installed on the device written for its operating system
+   Fast works offline full device access — but must be built per platform and updated on each
+   Web app
+   In a browser on a remote server
+   Any device always current nothing to install — but needs a connection
+   OEM software
+   Shipped with hardware by its manufacturer
+   Guaranteed to work with that hardware; often cannot be removed and may be neglected after release
+   Enterprise software
+   On organizational servers or a vendor's cloud
+   Built for scale and compliance; expensive and slow to change
+
+
+OEM stands for original equipment manufacturer. OEM software is what arrives on a device from whoever made it — the printer utility, the manufacturer's support tool, the preloaded trial suites. It is written for that specific hardware, which is its advantage, and it is frequently abandoned once the hardware generation is superseded, which is its risk. On a Windows PC you can usually spot it in Settings › Apps › Installed apps: its publisher is the company that made the computer or the printer.
+
+Practice: Drag each program to the kind of application it is.
+
+
+## How software is made, and why it is never finished
+
+ type: table
+ caption: The software development lifecycle
+ columns: 
+  Stage
+  What happens
+ rows: 
+   Requirements
+   Establish what the software must do and for whom
+   Design
+   Decide how it will be structured and how it will look
+   Development
+   Write the code
+   Testing
+   Verify it does what was specified and fails safely when it does not
+   Deployment
+   Release it to the people who will use it
+   Maintenance
+   Fix defects patch security holes adapt to platform changes
+
+
+Practice: Drag the stages of the software development lifecycle into order, first stage at the top.
+
+Maintenance is where most of a program's life is spent, and it is the stage people forget when evaluating software. Operating systems change, security vulnerabilities are discovered, and regulations shift. Software that is not actively maintained does not stay still — it decays, because the world around it moves.
+
+Note: Any software that touches patient information needs a specific set of answers before adoption: where the data is stored, whether the vendor will sign a business associate agreement, how access is controlled, what happens to the data if the practice stops using the product, and how long the vendor commits to security updates. A demonstration answers none of these. Ask them in writing.
+
+Check yourself: A practice is choosing between a native app installed on each workstation and a web app used in a browser. Staff need to work during brief internet outages. Which factor matters most? Answer: The native app can work offline, while the web app requires a connection. Offline capability is the decisive difference given the stated requirement. A native app runs locally and can continue working without a connection; a web app generally cannot. Every other consideration is secondary to the requirement that was actually named.

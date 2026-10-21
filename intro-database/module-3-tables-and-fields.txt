@@ -1,0 +1,48 @@
+Building Tables and Defining Fields
+
+Module 3: Introduction to Microsoft Access
+
+Design database tables in Access Design View — choose correct data types, set field properties, and configure the primary key for reliable, well-structured data storage.
+
+
+## Real-World Scenario
+Note: You are building the patient registration table for Lakeside Medical Associates in Access. You need to decide: should Date of Birth be a Date/Time field or a Short Text field? Should InsuranceID allow any length of text, or should it be limited to 15 characters? What happens if a staff member leaves the Last Name field blank? These field design decisions — made once at the beginning — determine what errors the database can and cannot prevent for years to come.
+
+
+## Access Data Types
+Access enforces data types at the field level — every field must have a data type, and the database will reject input that does not match. Choosing the correct data type is one of the most important design decisions:
+
+- Short Text (formerly 'Text') — for names, addresses, codes, and other text data that is 255 characters or fewer. Use Short Text for: patient names, insurance plan names, provider names, procedure codes. Always set the Field Size property to the maximum expected length to prevent oversized entries: 50 characters for a full name, 15 for an insurance ID.
+- Long Text (formerly 'Memo') — for large amounts of text with no practical length limit, such as clinical notes or detailed patient comments. Use sparingly in a data table — Long Text fields are slower and cannot be indexed for fast searching.
+- Number — for numeric data used in calculations. Sub-types matter: Integer for whole numbers (appointment count), Long Integer for larger whole numbers (medical record numbers), Single or Double for decimal numbers. Use Number for quantities and IDs that will be used in arithmetic, but not for phone numbers or ZIP codes (those are Short Text, because you never add or divide them).
+- Date/Time — for any date or time value. Access validates that entered data is a real date — it is impossible to type '13/45/2025' into a Date/Time field and have it accepted. Use Date/Time for: date of birth, appointment date, date of service. Never store dates as Short Text — you lose the ability to sort chronologically or calculate date differences.
+- Currency — for monetary values requiring precise decimal representation. Use Currency for billed amounts, copay amounts, and payment values. Currency prevents floating-point rounding errors that occur with Double fields.
+- AutoNumber — automatically assigns a unique sequential integer to each new record. Use as the primary key for every table. Never delete or modify AutoNumber values — they are the identity of the record.
+- Yes/No — for true/false, yes/no, active/inactive fields. Use Yes/No for: Is Active Patient (Yes/No), Has Insurance (Yes/No). Displays as a checkbox in forms.
+
+
+## Field Properties
+Each field has properties that control how data is stored, displayed, and validated — set these in the Field Properties pane at the bottom of Design View:
+
+- Field Size limits the maximum length of Short Text fields — set it to the expected maximum length, not the Access default of 255. A LastName field set to 50 characters prevents accidental entry of an entire paragraph. A ZIPCode field set to 10 characters enforces the 5-digit or 9-digit ZIP format.
+- Required: Yes forces users to fill in the field — they cannot save a record with this field blank. Set Required: Yes for fields that are truly mandatory: PatientID (auto), LastName, DateOfBirth, and InsuranceID at minimum. Be conservative — making every field required frustrates staff and leads to placeholder values ('UNKNOWN') that pollute the data.
+- Default Value provides a pre-filled value when a new record is created — useful for fields that are almost always the same. A State field in a medical office in California might have Default Value = 'CA' to save staff from typing it every time.
+- Validation Rule prevents specific invalid values — for example, a validation rule of '>=Date()' on an AppointmentDate field prevents appointments from being scheduled in the past. A validation rule of 'Len([InsuranceID])=12' ensures insurance IDs are always exactly 12 characters. Validation Text provides the error message shown when the rule is violated.
+- Input Mask enforces a specific entry format — a phone number Input Mask '(999) 000-0000;0;_' forces users to enter a phone number in the correct format. Access fills in the parentheses, space, and dash automatically, so users only type the 10 digits. Use Input Mask for phone numbers, SSNs, and ZIP codes.
+
+
+## Setting the Primary Key
+Every table needs a primary key — the field (or combination of fields) that uniquely identifies each record:
+
+- The AutoNumber field is the standard primary key approach — by default, Access creates an 'ID' field of type AutoNumber in every new table and sets it as the primary key (indicated by a key icon in the row selector). Rename this field to something meaningful: PatientID, AppointmentID, ProviderID.
+- To set a different field as primary key: in Design View, click the row selector (gray box) of the field you want as the primary key, then click the Primary Key button on the Table Design tab. The key icon moves to that field. Only one field (or one defined combination) can be the primary key.
+- The primary key field is automatically indexed — this means Access creates an index on the primary key field, making lookups by that field very fast. You can also manually add indexes to other frequently searched fields (LastName, InsuranceID) via the Indexes button on the Table Design tab.
+
+
+## Responsible Use
+Note: Changing a table's structure — adding, deleting, or modifying fields — after data has been entered is risky. Deleting a field permanently deletes all data stored in that field across every record. Changing a field's data type may corrupt data that does not match the new type. Before making structural changes to a table with existing data, create a backup copy of the entire database (File > Save As > Back Up Database). Only make structural changes to the backup until you verify the changes work correctly, then apply them to the production database.
+
+
+
+## Knowledge Check
+Check yourself: You want to prevent staff from entering a date in the past for the AppointmentDate field. Which field property allows you to enforce this rule? Answer: Validation Rule — set to '>=Date()' to reject any date before today.

@@ -1,0 +1,55 @@
+Hands-On: Build Your AI Workflow
+
+Module 14: AI Productivity
+
+Complete 3 real office tasks using AI tools, document your process, and reflect on how AI fits into your professional practice.
+
+
+## Real-World Scenario
+Note: It is your final AI challenge at TOR Tech. Your manager says: "I want to see how you work with AI — not just that you can use it, but that you can use it well." You need to complete 3 real office tasks using AI tools, document your process for each one, and demonstrate that you applied professional judgment to everything the AI produced.
+
+
+## What a Documented AI Workflow Looks Like
+In organizations that have adopted AI tools professionally, documenting how AI was used is increasingly expected — not because AI use is suspicious, but because it creates accountability and enables quality review. A documented AI workflow shows the human decisions behind the AI output:
+
+- The task — what office task was being completed and why. This provides context for every other decision in the workflow.
+- The tool — which AI tool was selected and why it was appropriate for this task rather than a different one.
+- The prompt — the exact text entered into the AI tool. Documenting the prompt enables another person to reproduce, evaluate, and improve the output.
+- The raw output — what the AI produced before human editing. Preserving the raw output makes the editing work visible and demonstrates the gap between AI output and professional output.
+- The edited final version — the polished, reviewed version ready for professional use. The difference between the raw output and the final version is where your professional judgment shows.
+
+
+## Selecting the Right Tool for Each Task
+Reaching for the same AI tool for every task is the equivalent of using a screwdriver for every job in a toolbox. The right tool matches the nature of the task. Demonstrating that you made a deliberate tool selection — rather than defaulting to whatever you opened first — is a sign of genuine AI fluency:
+
+- For first-draft generation (emails, reports, summaries, agendas) — ChatGPT or the integrated AI in your document or email app (Copilot, Gemini).
+- For grammar, tone, and clarity review — Grammarly or a specific tone-check prompt in ChatGPT ('Does this read as professional and respectful?').
+- For meeting transcription and summarization — Otter.ai or Fireflies.ai, or the built-in transcription feature in Microsoft Teams or Google Meet.
+- For research overviews on a topic or company — ChatGPT for initial orientation, followed by independent web searches to verify and deepen.
+- For generating or explaining spreadsheet formulas — Microsoft Copilot (within Excel), Google Gemini (within Sheets), or ChatGPT with the formula pasted in for explanation.
+
+
+## Writing Effective Prompts in Practice
+The difference between a prompt that produces useful output and one that produces generic output is specificity. This lesson's challenge requires you to document your prompts — which means taking the time to write prompts that are specific enough to produce genuinely useful results. Here is what that looks like for common office tasks:
+
+- Email draft — weak prompt: 'Write a follow-up email.' Strong prompt: 'Write a 3-paragraph follow-up email to a corporate client who attended our product demo yesterday. Recap the demo highlights, address their question about pricing tiers, and propose a 30-minute call next week. Use a professional but warm tone.'
+- Document summary — weak prompt: 'Summarize this.' Strong prompt: 'Summarize the attached 800-word project proposal in 5 bullet points for a non-technical manager. Focus on budget implications, timeline, and the decision that needs to be made by the end of the week.'
+- Research overview — weak prompt: 'Tell me about [Company X].' Strong prompt: 'Summarize what is publicly known about [Company X]'s core services, target clients, and competitive positioning in 4 bullet points. Format for a professional business audience. Flag any claims that may need independent verification.'
+- Meeting agenda — weak prompt: 'Write a meeting agenda.' Strong prompt: 'Write a 45-minute meeting agenda for a quarterly client review with 3 agenda items: project status update (15 min), open issues and risks (15 min), and next quarter planning (15 min). Include a 5-minute buffer and a time-keeper note.'
+- The rule of specificity — whenever you catch yourself about to type a vague, one-line prompt, stop and add: the audience, the format, the length, the tone, and the most important constraint. This 30-second investment consistently produces dramatically better output.
+
+
+## Reviewing and Editing AI Output
+Reviewing AI output is not the same as reading it. Reading registers the words. Reviewing evaluates them: Are they accurate? Is the tone appropriate? Does the structure serve the purpose? Is anything missing? Does anything need to be removed? A professional review of AI output is the step that separates useful AI assistance from risky AI delegation:
+
+- Check for factual accuracy — any specific claim (a date, a statistic, a person's title, a product feature) must be independently verified before it stays in the document.
+- Check for tone appropriateness — AI tends toward formal or neutral. Sometimes that is right; sometimes a warmer, more personal, or more direct tone is needed. Adjust the register to match your relationship with the recipient and the context of the communication.
+- Check for completeness — AI does not always include everything. Compare the output to your original brief: is everything you intended to communicate present? Are all required elements included?
+- Remove generic filler — AI output often opens with a line like 'I hope this email finds you well.' These filler phrases weaken professional writing. Remove them or replace them with something specific and genuine.
+- Personalize before sending — replace every placeholder (the client's name, the specific date, the particular detail that makes this communication about this relationship) with real, accurate information. Generic AI output that goes out as-is is immediately recognizable as AI output — and it communicates that you did not care enough to personalize it.
+
+
+
+
+## Knowledge Check
+Check yourself: What makes an AI prompt produce more useful, accurate results? Answer: Including the topic, format, length, and intended audience.

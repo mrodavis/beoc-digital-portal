@@ -1,0 +1,42 @@
+Types of Office Records and How They Are Used
+
+Module 1: Introduction to Data & Databases
+
+Map the categories of records a medical office creates and manages — and understand the flow of data between them that makes the practice run.
+
+
+## Real-World Scenario
+Note: A new patient, James Whitfield, calls to schedule his first appointment at Lakeside Medical Associates. From that single phone call, data flows through scheduling, patient registration, insurance verification, clinical intake, the provider's notes, billing, and follow-up communications. Each step creates a new record — and each record depends on data from the previous one. Understanding this flow is essential for understanding why accurate data entry at the front desk affects every other department.
+
+
+## Patient Records: The Foundation
+Patient records are the central data category in a medical practice — all other records connect to them in some way:
+
+- The patient master record (or patient demographic record) captures identifying information that persists across all visits: full legal name, date of birth, address, phone, email, Social Security number, emergency contact, and insurance information. This record is created once during a patient's first registration and updated whenever information changes. It serves as the anchor to which all clinical, billing, and scheduling records are linked.
+- The medical record (or chart) accumulates over time — it includes all clinical encounters, notes, diagnoses, procedures, lab results, medications, and allergies. The medical record is the legal document of a patient's care history and must be accurate, complete, and retrievable for the lifetime of the patient relationship plus the required retention period.
+- Encounter records document each visit — what happened on a specific date, with which provider, what was assessed and what was done. Each encounter record links to the patient master record (who) and generates a billing claim (what services, at what cost, to which insurer).
+
+
+## Billing and Financial Records
+Billing records document the financial transaction between the practice, the patient, and the insurance company for each service provided:
+
+- Claims are billing documents submitted to insurance companies — they include patient identifying information, the insurance policy details, the date of service, the diagnosis codes (ICD-10), and the procedure codes (CPT) for services provided. A claim creates a record of what was billed, to whom, when, and for how much. Claims management is one of the most data-intensive functions in a medical office.
+- Remittance advice (EOB — Explanation of Benefits) is the insurer's response to a claim — it shows what was billed, what was approved for payment, what the patient owes, and any adjustments. Posting remittance data to the practice's billing system accurately is essential — a missed payment or incorrect adjustment compounds over time into significant revenue discrepancies.
+- Patient financial records track amounts owed and paid by the patient — copays collected at the time of service, outstanding balances, payment plans, and write-offs. Keeping these records current is both a financial and patient relations function.
+
+
+## Scheduling and Operational Records
+Scheduling data is one of the highest-volume data categories in a front desk role — and it feeds directly into clinical and billing records:
+
+- Appointment records link a patient, a provider, a date and time, and a visit type — each appointment record should capture enough information to prepare for the visit (reason for visit, whether the patient is new or established, insurance verification status). When appointments are rescheduled or canceled, those changes should be recorded with reasons — this data helps the practice analyze no-show rates and optimize scheduling.
+- Provider schedules define when each provider is available, how long each appointment type should be, and which appointment types each provider sees. When scheduling conflicts arise, it is usually because provider schedule data is not being respected or is outdated. Keeping schedule templates accurate prevents double-booking and patient wait-time problems.
+- Referral records track when a patient is sent to another provider — referral data must be documented for clinical continuity (the referring provider needs to know the outcome) and for billing purposes (some insurers require referral authorization before covering specialist visits).
+
+
+## Responsible Use
+Note: Understanding which records you are authorized to access, create, modify, and delete is as important as understanding the records themselves. Your role at Lakeside Medical Associates defines your data access scope. Accessing billing records if you are a scheduling coordinator, or accessing clinical notes if you are a billing specialist, may be outside your authorized scope even if the systems technically allow it. Always stay within your authorized data scope — and if you are ever uncertain whether you are authorized to access a particular record, ask your supervisor before accessing it.
+
+
+
+## Knowledge Check
+Check yourself: A billing staff member cannot reconcile a patient's payment because the insurance ID in the billing system does not match the ID on the claim. Which record category most likely contains the source of the error? Answer: The patient master record — the registration data with the insurance ID was entered incorrectly.

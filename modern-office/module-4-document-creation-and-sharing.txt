@@ -1,0 +1,65 @@
+Document Creation and Sharing
+
+Module 4: SaaS in Action & Document Sharing
+
+Share cloud documents with the right people at the right permission level, and manage access over the life of a file.
+
+By the end of this lesson you can:
+- Share files and folders with specific people or by link
+- Choose the appropriate permission level for a situation
+- Use comments and suggesting mode for collaborative review
+- Audit and revoke access when it is no longer needed
+
+
+## Sharing is an access control decision
+
+ type: scenario
+ role: You manage shared documents at Lakeside Medical Associates.
+ text: Eighteen months ago someone shared a folder as 'anyone with the link can edit' so a temporary contractor could deliver a file. The contractor left a year ago. The link still works it has been forwarded twice and the folder now contains staff records nobody thought about when the link was created.
+ task: Treat every share as an access decision with a lifespan not a one-off convenience.
+
+
+Cloud sharing is genuinely convenient, which is exactly why it is dangerous. A link created in five seconds keeps working indefinitely, travels wherever it is forwarded, and grants access to whatever the folder contains later — not only what it contained when the link was made.
+
+
+ type: table
+ caption: Permission levels
+ columns: 
+  Level
+  Can
+  Use for
+ rows: 
+   Viewer
+   Read and download only
+   Distributing finished documents
+   Commenter
+   Read and comment but not change the text
+   Review rounds where you keep authorship
+   Editor
+   Change content and often re-share
+   Genuine co-authors
+   Owner
+   Everything including deletion and transfer
+   One person; ideally an organizational account
+
+
+
+ type: worked-example
+ title: Sharing a document safely
+ task: Share a draft policy with three reviewers and one external consultant without creating a link that outlives the project.
+ steps: 
+   move: Share with named people rather than creating a link.
+   why: Named sharing ties access to identities you can audit and revoke individually. A link is a bearer token — whoever holds it has access and you cannot tell who that is or how it reached them.
+   move: Give reviewers Commenter not Editor.
+   why: They need to raise points not rewrite the policy. Commenter is the least privilege that accomplishes the task and least privilege is the principle that keeps sharing manageable.
+   move: For the external consultant set an expiry date on the access.
+   why: External access should never be open-ended. An expiry means it ends whether or not anyone remembers to remove it — which is the realistic assumption since nobody remembers.
+   move: Check what else is in the folder before sharing the folder.
+   why: Folder sharing grants access to everything inside now and in future. This is exactly how the staff records in the scenario became exposed — nobody re-examined the folder after the link was made. Share the file when the file is what they need.
+   move: Review and revoke access when the project ends.
+   why: Closing the loop is the step that never happens on its own. Putting an access review in the project's closing checklist is what turns it from good intentions into something that actually occurs.
+ result: Access limited to named people at the minimum useful level with external access that expires on its own.
+ takeaway: Share with people rather than links grant the least privilege that works set expiry on external access and revoke when the work is done.
+
+
+Check yourself: Why is sharing a folder riskier than sharing an individual file? Answer: Folder access extends to everything inside it, including files added later that the sharer never considered. A folder share is a standing grant to a container. Anything placed in it afterwards inherits that access automatically, so a share made for one purpose silently extends to files nobody evaluated — which is precisely what happened with the staff records.

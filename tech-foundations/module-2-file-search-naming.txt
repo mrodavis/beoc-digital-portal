@@ -1,0 +1,47 @@
+Searching Files and Professional Naming Conventions
+
+Module 2: File Management & Organization
+
+Find any file in seconds using Windows Search and File Explorer, and build the naming habits that make an office's filing system reliable for everyone.
+
+
+## Real-World Scenario
+Note: A provider at Lakeside Medical Associates needs the consultation notes from a patient visit in September. It is now May. The file could be on the network drive, in Outlook, or on a backup. You have three minutes to find it before the provider's next appointment. Without knowing how to search effectively — and without a consistent naming convention for the file — you are guessing. With the right search skills and naming system, you find it in 30 seconds.
+
+
+## Searching for Files in Windows
+Windows offers multiple ways to search for files — learning each one lets you choose the fastest approach based on what you know about the file:
+
+- The File Explorer search bar (top-right corner) searches the current folder and all subfolders for files matching your search term. Type any part of the file name, and results appear in real time. This is best when you know roughly where the file is — for example, searching inside the Patient Files folder for a specific patient's last name.
+- Windows search (the Search box on the taskbar, or Windows logo key + S) searches your computer's apps, settings, and indexed files at once. Type the file name or a word you remember from the file. Results are grouped by type (apps, settings, documents), and the best match appears at the top with Open file location next to it. This is fastest when you have no idea where the file is saved.
+- Sorting search results adds precision — the results list shows Date modified, Type, Size, and the folder each file is in. If you search for 'Rodriguez' and get 50 results, select the Date modified column heading to bring the most recent files to the top, or Type to group PDFs together. This is an underused habit that speeds up document retrieval in large shared drives.
+- Searching inside files: Windows keeps a search index, and for files with text it indexes their contents too, so a word you remember from inside a document can find it. By default (the Classic setting) the index covers your Documents, Pictures, and Music folders and the desktop; locations outside the index are searched more slowly. To find emails that mention a topic, use the search box in Outlook instead.
+
+
+## Professional File Naming Conventions
+A file naming convention is an agreed-upon format for naming files consistently across an organization. Good naming conventions are one of the highest-leverage habits in office work — they save hours of searching over time and enable any staff member to find any file without asking the person who created it:
+
+- Include identifying information first — the most important identifiers should appear at the start of the file name so they are visible even when file names are truncated. For patient documents, last name first: 'Rodriguez_Maria_' makes all documents for this patient sort together alphabetically and appear in the name when the full name is cut off in a column view.
+- Include a date in YYYY-MM-DD or YYYY-MM format at the end — dates in this format sort chronologically when files are sorted alphabetically, because year comes before month and month before day. A file named 'Rodriguez_Maria_Intake_2025-05' will automatically appear above 'Rodriguez_Maria_Intake_2025-06' in alphabetical sort, giving you natural chronological order without extra effort.
+- Include the document type — what kind of document is it? Intake, ConsultNotes, LabResult, Invoice, Contract, Policy. Adding the document type in the middle of the name makes file lists scannable at a glance. 'Smith_James_LabResult_2025-03' is immediately recognizable without opening it.
+- Avoid vague names — 'Final,' 'Updated,' 'New,' 'Revised,' and 'v2' are temporary labels that become meaningless over time. If a document goes through multiple revisions, use dates to distinguish versions: 'PolicyHandbook_2025-01' is clearer than 'PolicyHandbook_Final_v2.' When a final approved version replaces a draft, delete or archive the draft rather than keeping both with confusing names.
+- Keep names reasonable in length — file names longer than 60 characters become difficult to read in file lists. Abbreviate when necessary (e.g., LMA for Lakeside Medical Associates) as long as the abbreviation is documented and consistently used by all staff.
+
+
+## Sorting and Organizing Within Folders
+Beyond naming, how you sort and view files in File Explorer affects how quickly you can find what you need:
+
+- Sort by Date modified to find recently changed files — in Details view, select the Date modified column heading (or choose Sort › Date modified on the command bar). Select it again to reverse the order. The most recently saved file appears at the top, which is useful when you know you just worked on something but cannot remember exactly what it was named.
+- Sort by Name for alphabetical browsing — this is the most useful sort when looking for a specific patient's files in a folder organized by last name. Alphabetical sort with consistent naming means you can scan to 'R' for Rodriguez in seconds.
+- Group files by type to distinguish documents from spreadsheets from PDFs at a glance — right-click an empty area of the folder and choose Group by > Type. All PDFs appear together, all Word documents together, making it easy to find a specific format when you know you are looking for, for example, a PDF form.
+
+Practice: The office convention is LastName_FirstName_DocumentType_YYYY-MM with no clinical details in the name. Sort each file name.
+
+
+## Responsible Use
+Note: File names on a shared network drive are visible to all staff with access to that folder. Never include sensitive clinical details in a file name — for example, 'Rodriguez_Maria_HIVPositive_2025.docx' is a HIPAA violation in the file name alone. File names should identify the document (patient, date, type) without revealing clinical content. Keep clinical details inside the document, where access is controlled, not in the file name where it is visible to anyone who can see the folder listing.
+
+
+
+## Knowledge Check
+Check yourself: Which file name follows professional naming conventions for a patient intake form? Answer: Rodriguez_Maria_IntakeForm_2025-05.pdf.

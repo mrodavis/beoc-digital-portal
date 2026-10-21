@@ -1,0 +1,85 @@
+Google Sheets Essentials
+
+Module 7: Google Workspace
+
+Build and share spreadsheets in Google Sheets, use its formulas, and understand where it differs from Excel in practice.
+
+By the end of this lesson you can:
+- Enter and format data, and build formulas using cell references
+- Use functions shared with Excel, and the ones unique to Sheets
+- Sort, filter, and protect ranges in a shared spreadsheet
+- Choose between Sheets and Excel for a given task
+
+
+## The same grid, a different set of trade-offs
+
+ type: scenario
+ role: You track supply orders at Lakeside Medical Associates.
+ text: Three staff need to update the supply log during the day. The Excel file on the shared drive keeps opening read-only because someone left it open at lunch and two people have started keeping their own copies. Within a fortnight there are three versions and none of them is right.
+ task: Use a shared spreadsheet where simultaneous editing is the normal case rather than a conflict.
+
+
+Google Sheets uses the same fundamental model as Excel: a grid of addressed cells, formulas beginning with an equals sign, and functions like SUM, AVERAGE, IF, and VLOOKUP that work the same way. Almost everything you learned about Excel formulas transfers directly.
+
+What differs is the collaboration model. Sheets was built for many people in one file at once, which is exactly the supply-log problem. Excel is stronger for large data sets, PivotTables, advanced analysis, and anything involving macros. Sheets slows noticeably on very large files where Excel is still comfortable.
+
+
+ type: table
+ caption: Sheets and Excel compared
+ columns: 
+  Capability
+  Google Sheets
+  Microsoft Excel
+ rows: 
+   Several people editing at once
+   Built for it; the normal case
+   Possible via OneDrive but less fluid
+   Very large data sets
+   Slows down well before Excel does
+   Handles far more rows comfortably
+   PivotTables
+   Yes simpler
+   Yes considerably more capable
+   Pulling live web or sheet data
+   IMPORTRANGE IMPORTHTML GOOGLEFINANCE
+   Requires Power Query or add-ins
+   Macros and automation
+   Apps Script (JavaScript)
+   VBA more mature for desktop automation
+   Working offline
+   Requires setup; limited
+   Fully offline
+
+
+
+## Formulas, and the functions Sheets adds
+Every formula begins with an equals sign, cell references work identically, and the dollar sign makes a reference absolute exactly as it does in Excel. SUM, AVERAGE, COUNT, MIN, MAX, IF, and the lookup functions all behave the same way.
+
+
+ type: table
+ caption: Google Sheets functions worth knowing
+ columns: 
+  Function
+  Does
+  Use for
+ rows: 
+   IMPORTRANGE
+   Pulls a range from another Google Sheet
+   A summary sheet drawing from several department logs
+   QUERY
+   Runs a SQL-like query against a range
+   Filtering and summarizing without building a PivotTable
+   ARRAYFORMULA
+   Applies one formula down a whole column
+   A calculated column that covers new rows automatically
+   GOOGLETRANSLATE
+   Translates text in a cell
+   Rough first-pass translation — never for clinical content
+   SPARKLINE
+   Draws a miniature chart in a cell
+   A trend indicator beside each supply category
+
+
+Note: Protect the formula columns before sharing a spreadsheet several people will edit. Data > Protect sheets and ranges lets you restrict specific ranges to specific people while leaving the data entry columns open. Without it, the most common outcome is exactly what happens in Excel — someone tabs into a formula cell and types over it, and the sheet is quietly wrong from then on.
+
+Check yourself: Three staff need to update the same supply log throughout the day, and the total row must never be overwritten. What is the appropriate setup? Answer: Use one Google Sheet, share it with all three as Editors, and protect the formula ranges. One shared sheet removes the version problem entirely, and range protection keeps the formulas safe while leaving the data entry columns editable. This is precisely the situation Sheets is built for.

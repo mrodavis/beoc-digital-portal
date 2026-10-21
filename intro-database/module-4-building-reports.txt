@@ -1,0 +1,60 @@
+Building Reports in Microsoft Access
+
+Module 4: Queries, Forms & Reports
+
+Create professional Access reports that present data clearly for managers, print neatly on paper, and can be exported as PDFs for sharing.
+
+
+## Real-World Scenario
+Note: The practice manager at Lakeside Medical Associates reviews a monthly summary of appointments, grouped by provider and week, at the first staff meeting of each month. Currently, the office manager exports the Appointments table to Excel, manually formats it, adds subtotals, and prints it — a process that takes most of a Monday afternoon. You offer to build an Access report that generates this summary in under 30 seconds. The practice manager is immediately interested.
+
+
+## What Reports Are For
+Reports are the 'output' side of Access — they take data from tables or queries and present it in a formatted, printable layout. Unlike queries (which show raw data in a grid) or forms (which are designed for data entry), reports are designed for reading and sharing:
+
+- Reports are formatted for printing — margins, fonts, headers, footers, and page numbers are all designed to produce professional printed output. A report looks the same every time it prints.
+- Reports can group and summarize — an appointment report grouped by Provider shows each provider's appointments together, with a subtotal of appointment count for each provider and a grand total at the end. Access calculates these totals automatically.
+- Reports can be exported to PDF — with one click, any Access report can be saved as a PDF file, making it easy to email to a manager or attach to a billing submission without printing.
+- Reports do not let you edit data — by design, reports are read-only. You cannot accidentally modify a patient record by viewing a report. This makes reports safe to share with anyone who needs information but should not change data.
+
+
+## Creating a Report with the Report Wizard
+The Report Wizard is the fastest way to build a structured report. Like the Form Wizard, it generates a working report you can then customize:
+
+- Start the wizard: On the Create tab, click Report Wizard. Select your data source — either a table or a saved query. For the monthly appointment summary, select the query you built earlier that joins Appointments and Patients and filters by date range.
+- Choose fields: Select only the fields that belong in the report. For a monthly appointment summary: ProviderLastName, AppointmentDate, PatientLastName, PatientFirstName, AppointmentType. Avoid including internal ID fields that would confuse readers.
+- Set grouping: The wizard asks whether to group records. Click ProviderLastName and add it as a grouping level. Access will now organize the report with each provider's name as a section heading, and all that provider's appointments listed beneath it.
+- Set sort order: Within each provider group, sort by AppointmentDate ascending so dates appear in chronological order.
+- Choose layout and finish: Select Stepped layout (most professional for grouped reports) and name the report: MonthlyAppointmentSummary. Click Finish and Access generates the report in Print Preview.
+
+
+## Editing Reports in Design View
+Report Design View works similarly to Form Design View but has additional sections specific to grouped, multi-page output:
+
+- Report sections: Access divides a report into sections — Report Header (appears once at the top), Page Header (repeats at the top of every page), Group Header (appears at the start of each provider group), Detail (repeats for every record), Group Footer (appears at the end of each provider group), Page Footer (repeats at the bottom of every page), and Report Footer (appears once at the end).
+- Adding a title: Click in the Report Header section and add a label control. Type the report title: 'Monthly Appointment Summary — Lakeside Medical Associates'. Increase the font size to 16pt and make it bold.
+- Adding the report date: In the Page Footer section, use the Date() function to insert today's date automatically. On the Report Design tab, click Date and Time — Access inserts a text box with =Date() that displays the current date every time the report is printed.
+- Adding subtotals to group footers: Click in the ProviderLastName Footer section and add a text box. In the Control Source property, type: =Count([AppointmentDate]). This counts appointments for each provider group and displays the count in the footer row. Label it 'Total Appointments:'.
+- Adjusting column widths: If fields overlap or get cut off, drag the right edge of the field control to resize. Preview the report frequently with Print Preview to see exactly how it will look when printed.
+
+
+## Print Preview and Page Setup
+Before printing or exporting, use Print Preview to confirm the report looks exactly right:
+
+- Access Print Preview via the View button or by double-clicking the report in the Navigation Pane. The report renders exactly as it will print, with page breaks, headers, and footers visible.
+- Check page orientation: Long reports with many columns often need Landscape orientation. In Print Preview, click Page Setup and change Orientation to Landscape if needed.
+- Check that nothing is cut off: A common report problem is that a field's text is wider than the column, so it shows as '####' or is simply truncated. Switch to Design View, widen the field control, and check again.
+- Navigate pages: Use the navigation arrows at the bottom of Print Preview to move through all pages. Check the first page, last page, and at least one middle page to confirm consistency.
+
+If the report data should be filtered to a specific date range (like 'only April'), build that filter into the source query rather than in the report. Keep reports display-only and let queries handle data selection. This makes both objects simpler and more reusable.
+
+
+## Exporting Reports to PDF
+Exporting an Access report to PDF is a one-step process that makes the report shareable without requiring the recipient to have Access installed:
+
+- With the report open (in any view), go to the External Data tab on the Ribbon. Click PDF or XPS in the Export group.
+- Choose a save location: Navigate to the shared network folder or the specific staff member's folder. Name the file descriptively: MonthlyAppointmentSummary_April2025.pdf.
+- Click Publish: Access exports the complete report as a PDF file. The formatting, groupings, headers, and totals are all preserved exactly as they appear in Print Preview.
+- Email the PDF: The resulting PDF file can be attached to an email or saved to a shared drive. Anyone with a PDF viewer (which every computer has by default) can open it — no Access required.
+
+Check yourself: The monthly appointment report needs to show a count of appointments for each provider at the bottom of their section. Where in Report Design View do you add the count control? Answer: In the Group Footer section for the ProviderLastName group.

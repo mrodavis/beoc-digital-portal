@@ -1,0 +1,46 @@
+Managing Programs and Applications
+
+Module 1: Computers & Operating Systems
+
+Learn to install, uninstall, update, and switch between programs efficiently — keeping your workstation organized and running smoothly.
+
+
+## Real-World Scenario
+Note: Lakeside Medical Associates has just subscribed to a new scheduling software. Your supervisor asks you to install it on your workstation, uninstall the old version first, and confirm the new version works before the end of the morning. An hour later, Word stops responding in the middle of an important document. You need to handle both situations calmly and competently — that is exactly what this lesson prepares you for.
+
+
+## Installing and Uninstalling Programs
+In a professional office environment, you will occasionally need to install new software or remove software that is no longer needed. Understanding how to do this safely and correctly prevents problems:
+
+- Installing software typically involves downloading an installer file (.exe or .msi) from the vendor's official website and running it. Double-click the downloaded file, follow the installation wizard's prompts (usually just clicking Next and then Install), and wait for completion. Always download software only from the vendor's official website or from a source your IT department has approved — downloading from unofficial sites is a major security risk.
+- Uninstalling software is done through Settings > Apps > Installed apps — find the program you want to remove, select More (…) next to it, and select Uninstall. Do not simply delete the program's shortcut from your desktop — that only removes the shortcut, not the program itself. Proper uninstallation removes all associated files and registry entries.
+- Running programs as Administrator is sometimes required for installation — if an installer prompts 'Do you want to allow this app to make changes to your device,' this is the User Account Control (UAC) dialog and clicking Yes is normal for legitimate software installers. If you are uncertain whether a prompt is legitimate, cancel and confirm with IT before proceeding.
+- Some enterprise software — including EHR systems and billing software used in medical offices — may require your IT administrator to install it, because it needs elevated permissions. If an installation fails with a permissions error, stop and contact IT rather than attempting workarounds.
+
+
+## Keeping Programs Updated
+Software updates are not optional extras — they include critical security patches that protect the clinic from cyberattacks. Here is how to manage updates responsibly in an office setting:
+
+- Windows Update (Settings > Windows Update) downloads and installs security patches, feature updates, and driver updates for Windows itself. In a managed office environment, IT usually controls when Windows Updates are installed to minimize disruption. If you see a pending update notification, check with your supervisor before restarting, because a restart might interrupt a long-running clinical process.
+- Application updates should be installed promptly when they include security fixes. Many apps, including Microsoft 365 apps and web browsers such as Edge and Chrome, download their updates in the background and finish installing when you close and reopen them. When an app asks you to restart it to finish updating, do so at a natural break in your work.
+- Restart counts as maintenance — many updates do not fully apply until the computer is restarted. At Lakeside Medical Associates, restart your workstation at the start or end of each shift rather than leaving it on indefinitely. A computer that has not been restarted in weeks may have pending updates causing performance issues.
+
+
+## Handling Frozen or Unresponsive Programs
+Every office worker eventually encounters a program that stops responding. Knowing the correct procedure prevents data loss and wasted time:
+
+- Wait briefly before assuming a program is truly frozen — some operations (saving a large file, loading a complex document) take longer than expected and look like freezing. If the program shows 'Not Responding' in the title bar and has been that way for more than 60 seconds, it is safe to assume it is frozen.
+- Use Task Manager to force-close frozen programs safely — press Ctrl+Shift+Esc, find the frozen program on the Processes page (its Status column says Not responding), right-click it, and select End task. The program closes immediately. Any unsaved work in that program will be lost, but the rest of your programs remain open and unaffected.
+- Check for recovered files after a crash — Word, Excel, and PowerPoint save recovery information for open documents every few minutes. When you reopen the program after a crash, it offers the recovered version of your document. Open it and save it right away before continuing.
+- If programs are freezing frequently, it is a sign of a deeper problem — low RAM, failing storage, overheating, or a software conflict. Note the frequency and which programs are involved, and report it to IT. Do not ignore chronic freezing because it typically gets worse over time.
+
+Practice: Put the steps for handling a frozen program in order.
+
+
+## Responsible Use
+Note: At Lakeside Medical Associates, you should only install software that has been approved by IT or your supervisor. Installing unauthorized software — even seemingly harmless utilities or browser extensions — can introduce malware, conflict with clinical software, or violate the practice's IT security policy. If you think a program would make your job easier, propose it to your supervisor or IT department rather than installing it on your own. The same applies to browser extensions: ask before adding them to a work computer.
+
+
+
+## Knowledge Check
+Check yourself: Microsoft Word becomes unresponsive in the middle of an important patient letter. What is the correct first step? Answer: Wait up to 60 seconds to see if Word recovers, then use Task Manager to end the task if it does not.

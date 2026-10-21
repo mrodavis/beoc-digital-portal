@@ -1,0 +1,50 @@
+Records Retention in a Medical Office
+
+Module 5: Data Integrity & Records Management
+
+Understand how long to keep different types of records, what HIPAA and state law require, and how to build an organized archiving and deletion process.
+
+
+## Real-World Scenario
+Note: The practice manager at Lakeside Medical Associates prints a question from a compliance checklist and sets it on your desk: 'How long must patient medical records be retained under federal law? What about billing records? When can we delete them?' The database is growing — five years of records, thousands of patient entries — and the manager wants to know when it is safe to archive or delete old data. This lesson gives you the framework to answer her question.
+
+
+## What Is Records Retention?
+Records retention refers to the policies and legal requirements governing how long different types of records must be kept, in what form, and under what access conditions before they can be archived or destroyed:
+
+- Retention requirements vary by record type: A patient's medical chart has different requirements than a billing statement, an employment record, or a vendor invoice. Every type of document has its own retention period, often set by a combination of federal law, state law, and professional standards.
+- Retention is a legal requirement, not a storage preference: Destroying records before their required retention period expires can expose a medical practice to liability in malpractice litigation (the chart no longer exists to prove what care was given), insurance audits (billing records cannot be produced), and HIPAA investigations.
+- Retention does not mean keeping everything forever: Holding records longer than required creates its own risks — unnecessary data increases breach exposure under HIPAA. A security incident that exposes records you were legally required to have already destroyed is still a breach, and the unnecessary retention may increase regulatory penalties.
+
+
+## HIPAA and Federal Requirements
+HIPAA establishes federal minimums for certain record types. State law often sets longer periods, and state law prevails when it is more protective of patients:
+
+- HIPAA Privacy Rule — policies and records of compliance: HIPAA requires covered entities to retain documentation of their privacy policies and procedures, training records, and authorization records for at least 6 years from the date of creation or the date it was last in effect, whichever is later.
+- Medical records — not set by HIPAA directly: Despite common belief, HIPAA does not specify how long medical records must be kept. The obligation comes from state medical practice acts and Medicare/Medicaid participation agreements. Most states require 7–10 years for adult patients; most require longer periods for minor patients.
+- Medicare billing records: Providers participating in Medicare must retain records supporting claims for a minimum of 7 years from the date of service.
+- Minor patients: Many states require records for minor patients to be retained until the patient reaches adulthood plus an additional period (often 3–7 years). This can mean records must be kept 25+ years for a patient seen in childhood.
+
+Note: Records retention law varies significantly by state. The minimums listed here are federal starting points. Always consult state medical practice guidelines and legal counsel to confirm the specific retention requirements for your state and practice type. As an office assistant, your role is to implement the policy set by management and compliance staff — not to set it yourself.
+
+
+## Common Record Types and Retention Periods
+While specific periods vary by state, the following framework reflects common professional standards for medical office records:
+
+- Patient medical records (adult): 7–10 years from last date of service, or longer if state law requires.
+- Patient medical records (minor): Until the patient's 18th birthday plus the adult retention period — effectively may require retention until the patient's mid-20s.
+- Billing and claims records: 7 years from date of service (Medicare minimum; state law may require longer).
+- Appointment records: Typically considered part of the medical record and retained on the same schedule — 7–10 years.
+- Employee records: Retained according to employment law, typically 7 years after termination.
+- Vendor contracts and invoices: 7 years is a common standard, aligned with tax audit exposure periods.
+- HIPAA compliance documentation: 6 years from creation date or last effective date.
+
+
+## Archiving vs. Deletion
+When records have reached the end of their required retention period, the practice has two options — archive or destroy. These are not interchangeable:
+
+- Archiving means moving records to secure, lower-cost storage where they are retained but not actively used: Archived patient records might be moved from the active Access database to a separate archive database, a secure off-site storage facility, or a HIPAA-compliant long-term cloud storage service. Archived records must still be accessible for legal or compliance purposes — they are not deleted.
+- Destruction means permanently and irreversibly removing records: For physical paper records, destruction means cross-cut shredding using a HIPAA-compliant shredding service. For digital records (database entries, scanned files), destruction means permanent deletion and confirmation that no backup copies remain — including cloud sync copies and email attachments.
+- Document every destruction: HIPAA requires that when protected health information is destroyed, the method and date of destruction are documented. Keep a destruction log that records: what was destroyed, when, by what method, and who authorized it.
+
+Check yourself: An adult patient was last seen at Lakeside Medical Associates ten years ago. The practice uses a 7-year retention policy for adult patient records. What is the correct action regarding this patient's records? Answer: The records may be eligible for destruction, but the practice should verify state law, confirm no active legal holds, document the destruction, and ensure all backup copies are also removed.

@@ -1,0 +1,46 @@
+Files, Folders, and Drives Explained
+
+Module 2: File Management & Organization
+
+Understand how a computer organizes data into files, folders, and drives — and how that structure maps to the real-world filing systems you already know.
+
+
+## Real-World Scenario
+Note: A new patient at Lakeside Medical Associates filled out paperwork that needs to be scanned and saved to the correct folder on the network drive. A billing invoice arrived by email and needs to be downloaded into the Billing folder for this month. And a staff member accidentally saved a file to the Desktop instead of the proper network location. All three tasks require you to understand how files, folders, and drives work — and this lesson gives you exactly that foundation.
+
+
+## What Is a File?
+A file is a named container of data stored on a computer — every document, photo, spreadsheet, email attachment, and program is a file. Understanding files means understanding how they are named, what type they are, and where they live:
+
+- Every file has a name and an extension — the extension is the three or four letters after the period in the file name, and it tells Windows (and you) what type of data the file contains. .docx is a Word document. .xlsx is an Excel spreadsheet. .pdf is a PDF document. .jpg is a photo. .mp4 is a video. At a medical office, you will work primarily with .docx, .xlsx, .pdf, and scanned image files (.pdf or .tif from the scanner).
+- File names should be descriptive and consistent — a file named 'Document1' or 'Scan001.pdf' is nearly impossible to find later. A file named 'Rodriguez_Maria_NewPatient_Intake_2025-05.pdf' is immediately identifiable by anyone who needs it. Good file naming is a professional habit that saves significant time during records retrieval.
+- File size matters for storage and email — small text documents (.docx files) are typically 20–100 KB. PDFs with scanned images can be 1–5 MB each. Photos are usually 2–8 MB. Large files take longer to open, save, and email. When a scanned patient form is unexpectedly large, it is usually because the scanner was set to too high a resolution — 200–300 DPI is appropriate for office documents.
+- Hidden files and system files exist on every computer but are not visible by default — they are hidden to prevent accidental deletion. You should never need to access hidden files in a normal office workflow. If you search for a file and cannot find it, check that you are looking in the right folder rather than assuming the file is hidden.
+
+
+## Folders and Folder Structure
+Folders are containers that hold files — and other folders (called subfolders). A well-organized folder structure is the difference between a filing system that anyone can navigate and one that only the person who created it can find their way through:
+
+- Think of folder structure like a physical filing cabinet — the drives are the cabinet, the top-level folders are the drawers, and subfolders are the hanging folders and manila folders inside. At Lakeside Medical Associates, the network drive might be organized as: Network Drive (Z:) > Patient Files > 2025 > January > Rodriguez_Maria. Every level of that hierarchy serves a navigation purpose.
+- Nesting too deep creates friction — a folder structure that is more than four or five levels deep becomes difficult to navigate. If you find yourself clicking through seven subfolders to reach a file, the structure has become too granular. A good rule is: if you can describe the path in one clear sentence, the structure is about right.
+- Top-level folders should reflect major categories of work — for a medical office, top-level folders might be: Patient Files, Billing, Staff, Vendor Contracts, Policies & Procedures, and Marketing. Everything else lives inside these categories. Do not create new top-level folders without discussing with your supervisor — shared drives require organizational agreement to stay consistent.
+- Subfolder naming conventions should match parent folders — if patient file folders are named 'LastName_FirstName,' subfolder names should follow a consistent pattern too. Inconsistency makes search and sorting harder. Agree on naming conventions with your team before creating a new folder hierarchy.
+
+
+## Local Drives vs. Network Drives vs. Cloud
+In a modern office, files can live in three different types of locations — and knowing where they are affects whether colleagues can access them, whether they are backed up, and what happens if your computer fails:
+
+- Local drives (C: drive) store files on your own computer — files saved here are only accessible from your workstation. This is appropriate for personal notes, draft documents you have not finished, or temporary files. It is NOT appropriate for patient records, billing files, or any file that needs to be accessed by a colleague or survive if your computer fails. At Lakeside Medical Associates, saving patient records locally is also a potential HIPAA violation.
+- Network drives (mapped drives like Z: or P:) store files on a central server — any authorized staff member can access them from their own workstation. Files here are typically backed up automatically by IT. This is the correct location for all practice-related documents: patient files, billing records, staff communications, and templates. Always confirm with your supervisor which network drive is the correct location for a new type of file.
+- Cloud storage (OneDrive, SharePoint) works like a network drive but is accessible from anywhere with an internet connection — it is increasingly common in medical offices that use Microsoft 365. OneDrive files sync automatically between your computer and the cloud, so you can work on a document from home or on a different workstation if needed. In an office with proper IT setup, the network drive and OneDrive may be the same location — SharePoint drives can be mapped like network drives.
+
+Practice: Sort each storage location: is it an approved place for patient documents at Lakeside Medical Associates, or never for patient documents?
+
+
+## Responsible Use
+Note: Never save patient records, insurance information, or any Protected Health Information to your local C: drive, personal USB drive, personal cloud account (personal Google Drive, Dropbox, iCloud), or personal email. These locations are not backed up by IT, not monitored for security, and not covered by the clinic's HIPAA safeguards. If the practice is ever audited for a HIPAA breach, files in unauthorized locations are a serious compliance violation. When in doubt about where to save a file, ask your supervisor before saving — not after.
+
+
+
+## Knowledge Check
+Check yourself: A newly scanned patient intake form needs to be saved for the patient's record. Where should it be saved? Answer: The designated network drive folder for patient records.

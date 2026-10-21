@@ -1,0 +1,45 @@
+AutoSave and Office Apps with OneDrive
+
+Module 6: OneDrive with Teams, Outlook, and Office
+
+Open OneDrive files in the Office desktop apps, keep AutoSave on, save new files to OneDrive, and use version history from inside Word, Excel, and PowerPoint.
+
+By the end of this lesson you can:
+- Open a OneDrive file in the browser or in the desktop app
+- Explain AutoSave and turn it on for a file stored in OneDrive
+- Save a new file to OneDrive from an Office app
+- Open version history from the file name in an Office app's title bar
+
+
+## The browser or the app
+
+ type: scenario
+ role: You are finishing the Check-In Procedures in Word.
+ text: You need a feature that is only in the desktop version of Word so you open the file in the app. Halfway through you notice AutoSave in the corner is off. If the computer restarts for an update your last hour of work could be gone.
+ task: Open the file in the app turn AutoSave on and know how to get back to an earlier version.
+
+
+Selecting a Word, Excel, or PowerPoint file's name in OneDrive opens it in the browser (Word for the web, and so on), which works on any computer. For features that only the desktop apps have, right-click the file in OneDrive and select Open › Open in app. Either way, you are working in the same file in OneDrive, so co-authors, comments, and version history all still apply.
+
+
+## AutoSave
+AutoSave, in the top left corner of the Microsoft 365 desktop apps, saves your changes to OneDrive every few seconds. It is turned on by default for files stored in OneDrive or SharePoint, and it is what lets co-authors see your changes. The title bar shows the file name and whether it is saved. Files saved only on your computer can't use AutoSave. The web apps always save as you work and don't have an AutoSave switch.
+
+Note: When AutoSave is on, the desktop apps call File › Save As by a different name, Save a Copy, because the original is already saving itself. Use Save a Copy when you want a separate file, such as a template's starting point.
+
+Practice: Drag each action onto the situation it fits.
+
+
+## Saving new files to OneDrive
+1. In a new document, select File › Save As (or press Ctrl+S).
+2. Choose OneDrive - Lakeside Medical Associates (or OneDrive - Personal for your own files).
+3. Pick the folder, type a clear name, and select Save.
+4. AutoSave turns on, and the title bar shows that the file is saved to OneDrive.
+
+Select the file name in the title bar of a desktop app to see where the file is saved, rename it, or open Version History.
+
+
+## Knowledge Check
+Check yourself: AutoSave is greyed out for a document you just created on the desktop. What is the most likely reason? Answer: The document isn't saved to OneDrive or SharePoint yet. AutoSave works for files stored in OneDrive or SharePoint. Save the file there first.
+
+Check yourself: With AutoSave on, why does the File menu show Save a Copy instead of Save As? Answer: The original is already saving itself, so the command makes a separate copy. AutoSave keeps saving the original, so the command for a separate file is called Save a Copy.

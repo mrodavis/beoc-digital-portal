@@ -1,0 +1,68 @@
+Recovering Deleted Files from the Recycle Bin
+
+Module 4: Keeping Files Safe
+
+Restore files and folders you deleted, permanently delete what you don't want, and know how long OneDrive keeps deleted items.
+
+By the end of this lesson you can:
+- Open the OneDrive Recycle bin and restore one or several items
+- Restore a deleted folder with everything in it
+- Permanently delete items and empty the Recycle bin, and know when not to
+- State how long work or school and personal accounts keep deleted items
+
+
+## Oops
+
+ type: scenario
+ role: You cleaned up My files at the end of a long day.
+ text: This morning the flu clinic team can't find the flyer. While tidying yesterday you selected one file too many and deleted it along with the vendor contacts list and a folder of health fair photos.
+ task: Get back what you deleted by mistake and permanently remove only what you are sure nobody needs.
+
+
+When you delete a file or folder in OneDrive, it goes to the Recycle bin, not straight out of existence. Select Recycle bin in the left pane to see what you deleted, when, and where it came from (the Original location column). Select items with their check boxes and select Restore to put them back where they were.
+
+
+ type: table
+ caption: How long deleted items are kept
+ columns: 
+  Account
+  Kept in the Recycle bin for
+ rows: 
+   Work or school
+   93 days unless your organization changed this
+   Personal
+   30 days
+
+
+
+## Restore, delete, or empty
+
+ type: table
+ caption: Recycle bin commands
+ columns: 
+  Command
+  What it does
+ rows: 
+   Restore
+   Puts the selected items back in their original location. Restoring a folder brings back everything that was in it
+   Delete
+   Permanently deletes the selected items. You can't restore them afterward
+   Empty recycle bin
+   Permanently deletes everything in the Recycle bin
+
+
+Note: Files permanently deleted from the Recycle bin can't be restored, not with Restore your OneDrive and not with version history. In a work account, leave permanent deletion to the retention rules unless you have a reason, and never empty the Recycle bin to hide a mistake.
+
+Practice: Sort each Recycle bin item.
+
+
+## Deleting from File Explorer
+If you use the OneDrive sync app, the OneDrive folder in File Explorer is the same OneDrive. Deleting a file there deletes it from OneDrive everywhere, and it goes to the OneDrive Recycle bin online. To free up space on your PC without deleting anything, use Free up space instead (Module 5).
+
+Note: You can only restore items from your own OneDrive. If a file someone shared with you disappears, the owner deleted it, and it is in the owner's Recycle bin. Ask them to restore it.
+
+
+## Knowledge Check
+Check yourself: You deleted a folder from your work OneDrive 10 days ago. Can you get it back? Answer: Yes, from the Recycle bin, with everything that was in it. Work or school OneDrive keeps deleted items for 93 days (unless your organization changed this). Restoring a folder restores its contents.
+
+Check yourself: Which action can't be undone? Answer: Deleting a file from the Recycle bin. Deleting from the Recycle bin is permanent.

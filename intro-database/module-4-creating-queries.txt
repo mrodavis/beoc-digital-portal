@@ -1,0 +1,59 @@
+Creating Queries in Microsoft Access
+
+Module 4: Queries, Forms & Reports
+
+Build Access queries to find, filter, and analyze data — from simple select queries to multi-table joins and calculated fields.
+
+
+## Real-World Scenario
+Note: The billing manager at Lakeside Medical Associates pulls you aside with a problem: 'I need a list of all patients who had appointments in April 2025 but haven't been billed yet. I have to cross-reference the Appointments table and the Billing table by hand every month — it takes hours.' You recognize this immediately as a query problem. This lesson shows you how to build that query and many others like it.
+
+
+## What Is a Query?
+A query is a saved question that Access answers by searching through your tables and returning a matching set of records. Unlike filtering a table (which is temporary), a saved query runs on demand against the latest data:
+
+- Select queries retrieve records matching your criteria — the most common query type. 'Show all appointments for Dr. Rivera in May' is a select query. Access searches the Appointments table, returns only the matching rows, and displays them in a results grid called the Query Datasheet.
+- Calculated fields let you derive new values — a query can calculate values that are not stored in the table. Calculating a patient's age from their Date of Birth field, or computing the total balance owed by subtracting Amount Paid from Amount Billed, are both calculated field examples.
+- Multi-table queries pull data from related tables simultaneously — because Access tables are related (Appointments is linked to Patients), a query can show PatientName from the Patients table alongside AppointmentDate from the Appointments table in a single results grid. This is the real power of a relational database.
+- Queries are always live — unlike a spreadsheet snapshot, a saved query re-runs against current table data every time you open it. If a new appointment is added this morning, a query for today's schedule will include it automatically.
+
+
+## Building a Query in Design View
+Access provides two ways to build queries — the Query Wizard (step-by-step) and Query Design View (direct, more powerful). Design View is the one professional users rely on:
+
+- Open Query Design: On the Create tab on the Ribbon, click Query Design. Access lists the tables in your database; double-click each table you want to query (or select it and click Add).
+- Add fields to the query grid: The upper half of Design View shows a field list for each table you added. Double-click a field name to add it to the grid at the bottom, or drag it down. Each column in the grid represents one field that will appear in the query results.
+- Set criteria for filtering: In the Criteria row under any field, type what you want to filter by. To find appointments on a specific date, click the Criteria row under AppointmentDate and type: #04/01/2025# (Access requires date values enclosed in # symbols). To find a specific provider, type the name in quotes: "Rivera" under ProviderLastName.
+- Run the query: Click the red exclamation mark Run button (!) on the Query Design tab. Access immediately searches all records and displays only the matches. If the results are wrong, switch back to Design View (View button) and adjust your criteria.
+
+Use the Datasheet View / Design View toggle frequently. Design View is where you build; Datasheet View is where you see results. Switching back and forth quickly — build a little, check results, adjust — is how experienced Access users work.
+
+
+## Filtering with Criteria
+Access query criteria use a specific syntax. These patterns cover most real medical office scenarios:
+
+- Exact match: Type the value directly. For text: "Smith" — for numbers: 100 — for dates: #05/15/2025#. Access uses double-quotes for text and # symbols for dates.
+- Range with Between: Between #04/01/2025# And #04/30/2025# returns all records in April. This is the standard way to filter by a date range — much cleaner than using >= and <=.
+- Blank and not blank: Is Null finds records where the field is empty (useful for finding appointments with no bill entered). Is Not Null finds records where the field has any value.
+- Multiple criteria on the same row are AND conditions — if you put criteria on the same Criteria row under two different fields, Access requires both conditions to be true. To find Dr. Rivera's appointments in April, put "Rivera" under ProviderLastName AND Between #04/01/2025# And #04/30/2025# under AppointmentDate — both on the same row.
+- Multiple criteria on different rows are OR conditions — criteria in the Or row below create alternative conditions. To find appointments for either Dr. Rivera or Dr. Walsh, put "Rivera" in the Criteria row and "Walsh" in the Or row under the same field.
+
+
+## Querying Across Multiple Tables
+One of Access's most powerful features is combining data from related tables in a single query. Because the Appointments table and the Patients table share a PatientID field, Access can join them automatically:
+
+- Add both tables to Design View: When you open Query Design, add both the Patients table and the Appointments table from the list of tables. Access draws a line (a join line) between the two tables at the shared key field, indicating they are related.
+- Add fields from either table: Now you can pull fields from both tables into the grid — PatientFirstName and PatientLastName from Patients, plus AppointmentDate and ProviderLastName from Appointments. When you run the query, Access automatically matches each appointment record to its corresponding patient record using the join.
+- The join does the work: Without the relationship and join, you would have to manually cross-reference two tables. With the join, Access handles the matching instantly across thousands of records.
+
+Note: The billing manager's problem — finding April appointments with no billing record — is solved by a query that joins Appointments to Billing and filters for Is Null in the BillingDate field. In less than five minutes, Access can generate a list that previously took hours of manual comparison.
+
+
+## Saving and Reusing Queries
+A query that you build once can be run again and again. Save it with a descriptive name and it appears in the Queries section of the Navigation Pane:
+
+- Save with Ctrl+S or the save icon — give the query a clear name that describes what it does: AprilUnbilledAppointments, TodayScheduleDrWalsh, PatientsByInsurance. Avoid names like Query1 or New Query.
+- Double-click to run — from the Navigation Pane, any user with access to the database can double-click a saved query to run it instantly against the current data. No need to rebuild the query each time.
+- Modify as needed — right-click a saved query and choose Design View to open it for editing. You can change criteria, add fields, or remove conditions without rebuilding from scratch.
+
+Check yourself: You want to find all patient appointments scheduled between January 1, 2025 and March 31, 2025 that were seen by Dr. Walsh. Which criteria setup accomplishes this? Answer: AppointmentDate criteria: Between #01/01/2025# And #03/31/2025#, ProviderLastName criteria: "Walsh" — both on the same Criteria row.

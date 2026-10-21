@@ -1,0 +1,44 @@
+File Management Best Practices for the Office
+
+Module 2: File Management & Organization
+
+Bring together file organization, naming, search, and version control into a complete professional file management system for a real office environment.
+
+
+## Real-World Scenario
+Note: Lakeside Medical Associates is expanding and adding two new front desk staff. Your supervisor asks you to document the office's file management system so the new hires can follow it from day one. You need to write a simple guide covering: where to save files, how to name them, when to archive old files, and how to avoid creating duplicate or orphaned files. This lesson gives you everything you need to build that system — and follow it yourself.
+
+
+## Version Control: Managing Document Revisions
+Version control is the practice of managing changes to documents over time so you always know which version is current, what changed between versions, and who made changes. Without version control, offices end up with folders full of files named 'Final,' 'Final2,' 'REAL Final,' and 'ActualFinal_USETHIS' — a situation that causes real errors:
+
+- Use dates, not version numbers, to distinguish drafts — 'StaffPolicy_2025-04-Draft.docx' and 'StaffPolicy_2025-05-Approved.docx' are immediately understandable in any order. 'StaffPolicy_v3_Final.docx' requires context to interpret and becomes meaningless when a v4 exists.
+- When a document is finalized and approved, delete or move drafts to an Archive folder — keeping both the draft and the final version in the same working folder creates confusion. Move drafts to a 'Drafts' or 'Archive' subfolder so the working folder contains only the current, active version.
+- Track Changes in Word (Review > Track Changes) is the correct tool for collaborative editing — it records every change made to a document, who made it, and when. Use Track Changes when multiple people need to edit the same document rather than creating a new copy for each reviewer. When the final version is approved, Accept All Changes (Review > Accept > Accept All Changes in Document) to create a clean final copy.
+- OneDrive and SharePoint keep version history automatically — with the OneDrive sync app, right-click a file in File Explorer and select Version history to see and restore an earlier version. Personal OneDrive accounts keep versions for 30 days; for work or school accounts, your organization's settings decide (and an administrator can turn versioning off). This is a powerful safety net that eliminates the need for manual 'save as v2' copies when cloud storage is properly configured.
+
+
+## Archiving and Housekeeping
+Archiving means moving inactive files out of working folders into a designated archive location — it keeps working directories uncluttered without deleting files that may still be needed later. Good housekeeping is a monthly habit:
+
+- Archive on a schedule — at the end of each month or quarter, move all closed or completed files from the active working folders into an Archive folder organized by year and month. This keeps working folders showing only current, active documents and reduces search time dramatically.
+- Do not archive and delete at the same time — when moving files to an archive, leave them in the archive for at least 90 days before considering deletion, in case they are needed for a follow-up task, audit, or records request. Patient records have legal retention periods: the HIPAA Privacy Rule itself does not set how long medical records must be kept, but state laws generally do, and your practice's records policy follows them. Never delete patient records without explicit authorization from your supervisor and confirmation of the retention requirements.
+- Identify and remove duplicates regularly — search for files with the same or very similar names in the same folder. If you find duplicates, confirm which is the latest version before deleting the others. A monthly 10-minute housekeeping session prevents the accumulation of hundreds of duplicate files that slow down search and create confusion.
+- Empty deleted items regularly — the Recycle Bin (on the desktop) and Deleted Items folder (in Outlook) accumulate deleted content until manually emptied. Empty the Recycle Bin monthly after confirming you do not need any of its contents. In classic Outlook for Windows, you can have Deleted Items emptied automatically when Outlook closes: File > Options > Advanced > 'Empty Deleted Items folders when exiting Outlook.'
+
+
+## Backup Awareness
+Understanding how your organization's backup system works — and what it does not cover — helps you avoid losing work and ensures you make safe decisions about where to save files:
+
+- Network drives are typically backed up by IT on a daily or nightly schedule — files saved to the network drive before midnight are included in that day's backup. Files you save to the local C: drive are NOT backed up unless IT has specifically configured backup for local drives. This is the most important backup concept: local storage is not backed up.
+- Cloud storage in Microsoft 365 (OneDrive/SharePoint) includes version history as a form of backup — but it is not a substitute for a formal IT-managed backup. Ransomware attacks can encrypt cloud-synced files too, which is why enterprise Microsoft 365 plans include additional backup and recovery features. You do not need to manage these, but you should know they exist.
+- Ask your supervisor or IT: 'What is our backup schedule and retention period, and what drives or locations are included?' The answer determines how you should behave in a storage emergency — how far back IT can restore, and what locations are safe to use for important files.
+
+
+## Responsible Use
+Note: Proper file management at a medical office is not just an organizational preference — it is a compliance requirement. HIPAA requires that patient records be stored securely and be accessible only to authorized staff for as long as the practice keeps them, and state law sets how long they must be kept. Poor file management that results in lost patient records, unauthorized access, or accidental deletion is a potential compliance violation with serious legal consequences. Treat every patient file you manage with the same care you would expect your own medical records to receive.
+
+
+
+## Knowledge Check
+Check yourself: At end of month, you find three copies of a policy document in the working folder: 'StaffPolicy_Final.docx', 'StaffPolicy_v2.docx', and 'StaffPolicy_2025-05-Approved.docx'. What should you do? Answer: Confirm which is the official current version, move the others to an Archive subfolder, and keep only the current version in the working folder.

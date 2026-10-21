@@ -1,0 +1,79 @@
+Moving, Copying, Renaming, and Deleting
+
+Module 2: Organizing Your Files
+
+Keep OneDrive tidy: rename unclear files, move files into the right folder, copy templates, and delete what you don't need, without losing anything.
+
+By the end of this lesson you can:
+- Rename a file or folder
+- Move one or several files with Move to or by dragging
+- Copy a file to another folder with Copy to
+- Delete files and know they go to the Recycle bin
+
+
+## Clean up before it gets out of hand
+
+ type: scenario
+ role: You are tidying the front desk's OneDrive after a busy week.
+ text: My files has a scanned invoice called scan0042.pdf three patient forms that should be in Patient Forms a Copy of Flu Clinic Flyer nobody needs and a supply log with no folder. Tasha needs the reminder template for her training packet but the original must stay with the front desk files.
+ task: Rename move copy and delete so every file has a clear name and one home.
+
+
+
+ type: table
+ caption: Four commands and when to use each
+ columns: 
+  Command
+  What happens
+  Use it when
+ rows: 
+   Rename
+   The same file gets a new name
+   The name doesn't say what the file is
+   Move to
+   The same file goes to a new folder
+   A file is in the wrong place
+   Copy to
+   A second separate file is created in another folder
+   You need a starting point for something new (a template)
+   Delete
+   The file goes to the Recycle bin
+   A file is a duplicate or no longer needed
+
+
+Select a file and these commands appear in the command bar. You can also right-click the file or select More actions (…) next to its name. To work on several files at once, select their round check boxes (or hold Ctrl and click each row), then choose the command once.
+
+
+## Move or copy?
+Moving keeps one file; it just lives somewhere else. Its sharing, version history, and comments go with it. Copying makes a brand-new file with its own history. The copy is not shared with anyone, and changes to one don't change the other. That is exactly what you want for a template and exactly what you don't want for a schedule, where a copy quickly becomes the wrong version.
+
+Practice: Sort each situation.
+
+
+ type: worked-example
+ title: Moving three forms in one step
+ task: Move Medical Records Release Form Financial Policy Form and Telehealth Consent Form from My files into Patient Forms.
+ steps: 
+   move: Select the round check box on each of the three rows.
+   why: Selecting all three first means one Move instead of three.
+   move: Select Move to in the command bar.
+   why: Move to opens a panel where you choose a destination folder which is more precise than dragging in a long list.
+   move: Select Patient Forms in the panel then Move here.
+   why: Move here puts the files inside the folder you opened in the panel.
+   move: Open Patient Forms to confirm.
+   why: A quick look confirms all three arrived.
+ result: All three forms are in Patient Forms and My files is shorter.
+ takeaway: Select everything first then act once. You can also drag selected files onto a folder in the list.
+
+
+
+## Deleting safely
+Delete sends a file to the OneDrive Recycle bin, not straight into oblivion. In a work or school account it stays there for 93 days unless your organization changed that; in a personal account, 30 days. Module 4 shows how to restore deleted files. Before you delete a file someone else might use, check the Sharing column or the details pane. If it is shared, ask first.
+
+Note: You can only delete files you own or can edit. Files shared with you belong to their owner. If something shared with you is no longer needed, ask the owner, or remove it from your Shared list instead of trying to delete it.
+
+
+## Knowledge Check
+Check yourself: You move a shared staff schedule from My files into the Front Desk folder. What happens to the people it was shared with? Answer: They keep access; moving keeps the same file and its sharing. Moving keeps the same file, so its sharing, version history, and comments move with it.
+
+Check yourself: Tasha wants to customize the appointment reminder template for her training packet without changing the front desk version. What should you do? Answer: Copy the template to her folder. Copy to makes a separate file. Tasha can change her copy and the original stays as it is.

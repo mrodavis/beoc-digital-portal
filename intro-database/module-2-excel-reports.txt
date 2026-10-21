@@ -1,0 +1,45 @@
+Creating Simple Reports from Excel Data
+
+Module 2: Excel as a Data Tool
+
+Turn a data table into a professional, printable report using PivotTables, formatting, and charts — the output that managers and practice owners actually read.
+
+
+## Real-World Scenario
+Note: The practice manager at Lakeside Medical Associates needs a monthly appointment report every first Monday. It should show: total appointments by provider, total appointments by visit type, a breakdown by insurance plan, and a line chart of daily appointment volume for the month. She does not want to see raw data — she wants a clean, readable one-page summary she can bring to the providers' meeting. This lesson teaches you to build exactly that.
+
+
+## PivotTables: Instant Summary Reports
+A PivotTable summarizes data from a large table into a compact, configurable summary report — it is the most powerful and time-saving analysis tool in Excel for data management tasks:
+
+- Creating a PivotTable: click any cell in your data Table, then go to Insert > PivotTable. Excel suggests a new sheet. Click OK. The PivotTable Fields pane appears on the right — drag fields from the field list into the Rows, Columns, Values, and Filters areas to build your summary.
+- Example: drag ProviderID to Rows and AppointmentID to Values (Excel will count the appointments). The result is a table showing total appointments per provider. Drag InsurancePlan to Columns to cross-tabulate by both provider and insurance plan in a single step.
+- Change the value summary type — by default, PivotTable counts for text fields and sums for numeric fields. To change from Sum to Count, right-click any value cell in the PivotTable and choose Value Field Settings > Summarize Values By > Count. For a BilledAmount sum, choose Sum.
+- Refresh the PivotTable when new data is added — PivotTables do not update automatically when new rows are added to the source table. Right-click anywhere in the PivotTable and choose Refresh, or go to PivotTable Analyze > Refresh. Set a habit of refreshing before presenting any PivotTable-based report.
+- PivotTable slicers are visual filters — click PivotTable Analyze > Insert Slicer to add a visual filter button panel. Click a provider button to filter the PivotTable to that provider instantly. Slicers make PivotTables interactive for presentations.
+
+
+## Creating Charts from Data
+Charts visualize trends and comparisons that are hard to see in raw numbers — the right chart type communicates insights instantly:
+
+- Select the data to chart: click any cell in a summary table, select the entire table (Ctrl+Shift+End), then go to Insert > Charts and choose the chart type. Excel recommends appropriate chart types based on your data selection.
+- Chart types for medical office reports: Bar/Column charts compare values across categories (appointments per provider, revenue by insurance plan). Line charts show trends over time (daily or weekly appointment volume). Pie charts show proportions (percentage of appointments per visit type) — use these sparingly as they become hard to read with more than 5 slices.
+- Format charts for professional presentation: add a descriptive title (click the chart title and type), label the axes (Chart Design > Add Chart Element > Axis Titles), and remove unnecessary gridlines and legends when the chart is self-explanatory. A chart for a manager's report should tell its story immediately without the reader needing to study it.
+
+
+## Formatting a Report for Printing
+A great analysis that prints badly — cut off, scattered across multiple pages, with tiny unreadable text — loses most of its value. Professional Excel reports are designed for the printed or PDF page:
+
+- Set the print area: select the cells you want to print, go to Page Layout > Print Area > Set Print Area. Only the selected area will print — this prevents blank rows, extra columns, and the raw data table from appearing in the printed report.
+- Fit to one page: in Page Layout > Scale to Fit, set Width to 1 page and Height to 1 page (or 'Automatic' for Height if the content is longer). This scales the content to fit one printed page without cutting off any columns.
+- Add headers and footers: Page Layout > Page Setup > Header/Footer. Add the report name in the header center and the date and page number in the footer. In a professional setting, every printed report should be identifiable and dated without needing to open the file.
+- Preview before printing: Ctrl+P opens the Print dialog with a live preview. Review every page of the preview before printing. A poorly formatted report that requires 12 reprints wastes paper and time — one careful preview prevents this.
+
+
+## Responsible Use
+Note: Reports derived from patient data — even aggregate reports that do not show individual patient names — may still constitute a use of PHI that requires authorization under HIPAA. A report showing 'number of patients with diagnosis X by provider' is potentially PHI if the numbers are small enough to identify individuals. Before distributing any report containing counts or aggregates from patient data, confirm with your supervisor that the report is approved for that distribution list and does not require de-identification under HIPAA Safe Harbor rules.
+
+
+
+## Knowledge Check
+Check yourself: You added 50 new appointment rows to your source table since creating the PivotTable report. The PivotTable still shows last month's totals. What do you need to do? Answer: Right-click the PivotTable and select Refresh to update it with the new data.

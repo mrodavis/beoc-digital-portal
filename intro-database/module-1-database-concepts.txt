@@ -1,0 +1,43 @@
+From Paper to Digital: How Databases Organize Data
+
+Module 1: Introduction to Data & Databases
+
+Learn the core concepts of database design — tables, records, fields, data types, and relationships — that underlie every digital data management system.
+
+
+## Real-World Scenario
+Note: A physical filing cabinet at Lakeside Medical Associates holds patient charts organized by last name. Each chart is a folder (record) containing multiple forms (fields). The cabinet itself is organized by a consistent system (table structure). The medical records retention schedule tells you how long to keep each chart (data management policy). This physical filing system is actually an excellent analog for understanding how a database works — and this lesson makes that connection explicit.
+
+
+## Tables, Records, and Fields
+The fundamental building blocks of any database are tables, records, and fields — understanding these three concepts unlocks all the rest of database theory:
+
+- A table is a collection of related data organized in rows and columns — like a spreadsheet, but with strict rules about what data goes in each column. A 'Patients' table contains one entry per patient. An 'Appointments' table contains one entry per appointment. Each table stores one type of entity consistently, and all rows in the table have the same structure.
+- A record is one complete entry in a table — one row. In the Patients table, a record is all the information for one patient: their ID, name, date of birth, phone number, and insurance information. In the Appointments table, a record is one appointment: the appointment ID, the patient it belongs to, the provider, the date, and the visit type.
+- A field is one piece of information in a record — one column. In the Patients table, fields include: PatientID, FirstName, LastName, DateOfBirth, Phone, InsuranceID. Each field has a name (which tells you what information it holds) and a data type (which tells the database what kind of data is allowed in that field).
+- Data types define what kind of data can go in a field — Text (for names and addresses), Number (for IDs and quantities), Date/Time (for dates of birth and appointment dates), Currency (for payment amounts), and Yes/No (for true/false values like 'Is active patient?'). Using the correct data type is critical: storing dates as text makes date calculations impossible. Storing numbers as text prevents arithmetic. Data type decisions made at the table design stage affect everything the database can do.
+
+
+## Primary Keys and Unique Identification
+Every table needs a way to uniquely identify each record — this is the role of the primary key:
+
+- A primary key is a field (or combination of fields) whose value is unique for every record in the table — no two records can have the same primary key value, and the primary key field cannot be empty (null). In the Patients table, the PatientID field serves as the primary key. Even if two patients are named Maria Rodriguez with the same date of birth, their PatientIDs are different.
+- Auto-number (AutoNumber) primary keys are generated automatically by the database — each new record gets the next sequential number (1, 2, 3...) without any user input. This is the most common and reliable approach for primary keys in medical office databases because it completely removes the risk of duplicate or missing key values.
+- Natural keys vs. surrogate keys — a natural key uses a real-world identifier that is naturally unique (like a Social Security Number or an insurance member ID). A surrogate key is a system-generated identifier with no real-world meaning (like an auto-number PatientID). In medical records, auto-number surrogate keys are preferred for primary keys — SSNs can be incorrect or change in rare cases, and insurance IDs change when a patient switches plans. The surrogate key is stable.
+
+
+## Relationships Between Tables
+The real power of a database over a single spreadsheet is the ability to relate tables to each other — answering questions that span multiple data categories:
+
+- A relationship connects records in one table to records in another using a shared field — typically the primary key of one table appearing as a field (called the foreign key) in another table. In the Appointments table, the PatientID field is a foreign key that refers to the PatientID primary key in the Patients table. This link means every appointment record knows which patient it belongs to.
+- One-to-many is the most common relationship type — one patient can have many appointments, but each appointment belongs to exactly one patient. The 'one' side has the primary key (Patients.PatientID), and the 'many' side has the foreign key (Appointments.PatientID). This relationship structure prevents data redundancy: patient contact information is stored once in the Patients table, not repeated in every appointment record.
+- Referential integrity is a database rule that enforces valid relationships — it prevents you from creating an appointment record that refers to a patient ID that does not exist in the Patients table, and prevents you from deleting a patient who has existing appointment records. This rule keeps data consistent and prevents 'orphaned' records (appointments with no valid patient).
+
+
+## Responsible Use
+Note: Database design decisions made at the outset are difficult and expensive to change after data has been entered. If you are involved in designing or modifying a practice database — even a simple Access database — take the time to think through the structure carefully before entering data. A field added later can require updating thousands of existing records. A relationship defined incorrectly can cascade errors across the entire database. When in doubt, consult with your supervisor or IT before making structural changes to a production database.
+
+
+
+## Knowledge Check
+Check yourself: In a medical office database, the Appointments table has a PatientID field that refers to the Patients table. What is the PatientID in the Appointments table called? Answer: Foreign key — it is a reference to the primary key of the Patients table.

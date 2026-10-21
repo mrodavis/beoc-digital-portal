@@ -1,0 +1,46 @@
+Structuring a Data Table in Excel
+
+Module 2: Excel as a Data Tool
+
+Learn the rules for building a properly structured Excel data table — consistent headers, clean data types, one-record-per-row discipline, and no merged cells.
+
+
+## Real-World Scenario
+Note: The appointment tracking spreadsheet at Lakeside Medical Associates has 600 rows. The first 20 rows were entered by one staff member using consistent headers. The next 200 rows were added by a second person who spelled some column headers differently and occasionally merged two appointments into one cell. The last 380 rows are from a third person who added three new columns without headers. Sorting by date does not work, filtering by provider produces random results, and the whole file is a data management disaster. This lesson teaches you how to build the spreadsheet correctly from the start — and how to recognize and fix the most common structural errors.
+
+
+## The Rules of a Proper Data Table
+A properly structured Excel data table follows specific rules that are non-negotiable if you want sorting, filtering, formulas, and PivotTables to work correctly:
+
+- Rule 1 — One row per record: each row in the table should contain exactly one data record. A single cell should never contain multiple patients, multiple appointments, or multiple values separated by commas. If a patient has two phone numbers, the correct approach is either a second phone number column or a second row — not 'Cell: 555-1234 / Home: 555-5678' crammed into one cell.
+- Rule 2 — One column per field: each column should contain one and only one type of information. 'First Name' and 'Last Name' should be separate columns, not combined in one 'Name' column. This allows you to sort by last name, search by first name, and format them independently. Never merge meaning into a single column.
+- Rule 3 — Consistent headers in row 1 only: the first row should contain short, descriptive headers with no spaces, special characters, or merged cells. Use names like 'LastName', 'DOB', 'InsuranceID', 'ApptDate', 'ProviderID'. Do not repeat headers partway through the table. Do not leave row 1 blank and start headers in row 2.
+- Rule 4 — Consistent data types per column: every cell in a given column should contain the same type of data. A column named 'Date of Birth' should contain only dates — not some dates, some text, and some blank cells with notes written in them. Inconsistent data types break every calculation and sort that uses that column.
+- Rule 5 — No blank rows or columns within the data: blank rows inside the table break filtering, sorting, and any formula that tries to reference the whole table. A blank row signals to Excel that the table ends there. If you need visual separation, use conditional formatting or freeze panes instead.
+
+
+## Converting a Range to an Excel Table
+Excel's built-in Table feature (Insert > Table) adds powerful functionality to any properly structured data range:
+
+- Converting to a Table activates automatic filter dropdowns on every header — click any header's dropdown to sort or filter by that column instantly. This is one of the most useful features for data management tasks: filtering the appointment list by provider, date range, or visit type takes seconds.
+- Tables auto-expand when you add new rows — when you type in the row directly below the table, Excel automatically extends the table to include the new row. This is significantly more reliable than manually selecting new rows to include in formulas and PivotTables.
+- Table column references in formulas use names instead of cell addresses — instead of =SUM(D2:D500), a formula using a Table reference looks like =SUM(Table1[Total Cost]). This is readable, self-documenting, and automatically expands when new rows are added. It also does not break when rows are inserted or deleted.
+- To create a Table: click any cell in your structured data range, press Ctrl+T (or Insert > Table), confirm the range and whether row 1 has headers, and click OK. Excel applies default formatting. Rename the table to something meaningful in the Table Design tab: 'Patients' or 'Appointments' instead of the default 'Table1.'
+
+
+## Common Structural Errors to Fix
+When inheriting an existing spreadsheet, these are the most common structural problems to identify and correct before doing any analysis:
+
+- Merged cells — merged cells are the enemy of data analysis. They prevent sorting, filtering, and formula referencing from working correctly. In a data table, never use merged cells. Unmerge all cells in the data area: select the data, Home > Alignment > Merge & Center dropdown > Unmerge Cells.
+- Mixed data types in date columns — a Date of Birth column with some entries as dates (displaying in blue as 1/22/1978) and others as text (displaying in black as '01/22/1978' or 'January 22, 1978') will not sort correctly and cannot be used in date calculations. Select the entire column and apply a consistent date format: Home > Number > Short Date.
+- Subtotals or summary rows mixed into the data — some spreadsheets have monthly subtotals inserted within the data range (a row saying 'January Total: $12,450' between January and February data). These rows break every analysis tool. Move summary rows below the main data table, or better, generate them with a PivotTable.
+- Invisible leading or trailing spaces — text cells that look identical ('BlueCross' and 'BlueCross ' with a trailing space) are treated as different values by filtering, VLOOKUP, and sorting. Use the TRIM function to remove extra spaces: create a helper column with =TRIM(A2) and paste values over the original column.
+
+
+## Responsible Use
+Note: A shared data file that multiple staff members contribute to must have documented standards — what goes in each column, what format dates should be in, what abbreviations are acceptable. Without documented standards, structural erosion is inevitable: each new staff member adds data in a slightly different format, and within months the table is unusable for analysis. Before asking staff to enter data into a shared spreadsheet, write a one-page data entry guide that every contributor must follow. This is a front desk professional's responsibility, not just an IT task.
+
+
+
+## Knowledge Check
+Check yourself: A column in your patient spreadsheet shows some dates in blue (date format) and some in black (text format). When you sort by this column, the dates are not in chronological order. What is the problem and how do you fix it? Answer: The column has mixed data types (some dates, some text strings that look like dates). Select the column and apply a consistent Date format to convert all entries to true dates..

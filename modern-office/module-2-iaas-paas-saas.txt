@@ -1,0 +1,86 @@
+IaaS, PaaS, and SaaS
+
+Module 2: Cloud Computing Basics
+
+Learn the three cloud service models, what you manage in each, and how to tell which one a product actually is.
+
+By the end of this lesson you can:
+- Define IaaS, PaaS, and SaaS and give examples of each
+- Identify what the customer manages versus the provider in each model
+- Choose the appropriate model for a given need
+- Explain the shared responsibility model for security
+
+
+## Three models, one question: how much do you manage?
+
+ type: scenario
+ role: You review vendor proposals at Lakeside Medical Associates.
+ text: Three vendors all describe their product as 'cloud-based.' One provides virtual servers the practice must configure and patch. One provides a platform for building an application. One provides a finished scheduling application accessed in a browser. Calling all three 'the cloud' obscures the only thing that matters: who is responsible for what.
+ task: Distinguish the three service models by what the customer is left managing.
+
+
+The three models form a stack. At each level upward, the provider manages more and you manage less — gaining convenience and losing control. There is no best model; there is only the right amount of responsibility for what you are trying to do.
+
+
+ type: table
+ caption: Who manages what
+ columns: 
+  Layer
+  On-premises
+  IaaS
+  PaaS
+  SaaS
+ rows: 
+   Application
+   You
+   You
+   You
+   Provider
+   Data
+   You
+   You
+   You
+   You
+   Runtime
+   You
+   You
+   Provider
+   Provider
+   Operating system
+   You
+   You
+   Provider
+   Provider
+   Virtualization
+   You
+   Provider
+   Provider
+   Provider
+   Servers and storage
+   You
+   Provider
+   Provider
+   Provider
+   Networking
+   You
+   Provider
+   Provider
+   Provider
+
+
+
+ type: key-terms
+ terms: 
+   term: IaaS — Infrastructure as a Service
+   definition: Rented virtual machines storage and networking. You install and maintain everything above the hardware. Examples: Amazon EC2 Azure Virtual Machines.
+   term: PaaS — Platform as a Service
+   definition: A managed environment for running applications you write without managing the servers or operating system. Examples: Azure App Service Google App Engine.
+   term: SaaS — Software as a Service
+   definition: A finished application you simply use. Examples: Google Workspace Microsoft 365 most EHR systems.
+
+
+A useful analogy is transport. IaaS is leasing a car — you drive, fuel, and maintain it. PaaS is a rental with servicing included — you drive, someone else maintains. SaaS is a taxi — you state a destination and someone else handles everything. The analogy also captures the trade: the taxi is easiest and gives you the least control over the route.
+
+Note: Notice that data is the customer's responsibility in every model, including SaaS. The provider secures the infrastructure; you remain responsible for who has access, whether sharing is configured correctly, and whether the data should be there at all. Most cloud breaches are customer misconfiguration rather than provider failure — an open storage bucket or an over-shared document, not a hacked data center.
+
+Check yourself: A practice uses a browser-based scheduling application. The vendor manages the servers, the operating system, and the application itself. What remains the practice's responsibility? Answer: Its data, and who has access to it — including whether accounts and sharing are configured correctly. Under the shared responsibility model, data and access control always remain the customer's, in every service model. The vendor secures the infrastructure and the application; the practice decides who has accounts, what they can see, and whether departing staff are removed.

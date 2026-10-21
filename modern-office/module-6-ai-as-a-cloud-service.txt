@@ -1,0 +1,90 @@
+AI as a Cloud Service
+
+Module 6: AI Foundations
+
+See how AI fits the cloud service models you already know, and what that means for where your data goes.
+
+By the end of this lesson you can:
+- Place AI services within the IaaS, PaaS, and SaaS framework
+- Explain what happens to a prompt after you submit it
+- Distinguish consumer AI products from enterprise agreements
+- Identify what must never be entered into a consumer AI tool
+
+
+## Your prompt is an upload
+
+ type: scenario
+ role: You draft a difficult letter at Lakeside Medical Associates.
+ text: To get help with the wording you paste the draft into a free AI assistant. The draft contains a patient's name date of birth and diagnosis. That content has now left the practice been transmitted to a third party and may be retained — and under the free tier's terms may be used to improve the service.
+ task: Understand where your input actually goes before you decide what may be put into these tools.
+
+
+AI services sit squarely in the models from Module 2. A consumer chat assistant is SaaS — a finished application you simply use. An API a developer builds against is closer to PaaS. Renting GPU capacity to run your own model is IaaS. The same shared responsibility applies at every level: the provider secures the infrastructure, and your data remains yours to govern.
+
+
+ type: table
+ caption: What happens to a prompt
+ columns: 
+  Step
+  What occurs
+  Implication
+ rows: 
+   You submit the prompt
+   Text is transmitted over the internet to the provider
+   It has left your network
+   The provider processes it
+   The model runs in the provider's data center
+   The content exists on their systems
+   The response returns
+   Generated text comes back to you
+   Fast and easy to forget a transmission occurred
+   Retention
+   Depends entirely on the terms you agreed to
+   Consumer tiers commonly retain and may train on your input
+
+
+
+ type: table
+ caption: Consumer against enterprise AI
+ columns: 
+  Consideration
+  Consumer / free tier
+  Enterprise agreement
+ rows: 
+   Data used for training
+   Often yes by default
+   Contractually excluded
+   Retention
+   Varies; often indefinite
+   Defined and limited by contract
+   Business associate agreement
+   Not available
+   Available from some vendors
+   Administrative control
+   None
+   Central policy and audit
+   Appropriate for PHI
+   Never
+   Only under a signed BAA and an approved configuration
+
+
+Note: Never enter protected health information into a consumer AI tool. Not a patient name, not a date of birth, not a diagnosis attached to any identifiable person — and not a document you have skimmed rather than read. Doing so is a disclosure of PHI to a third party without authorization, and it is reportable. If a task genuinely needs AI applied to patient data, that requires an enterprise agreement, a business associate agreement, and your employer's explicit approval. When in doubt, de-identify completely or do not use the tool.
+
+
+ type: worked-example
+ title: Getting AI help without disclosing anything
+ task: Improve the wording of a difficult letter to a patient about a missed follow-up without transmitting any patient information.
+ steps: 
+   move: Decide what you actually need help with.
+   why: You need help with tone and structure not with this patient's specifics. Naming the real need reveals that the identifying details are not required for the task at all — which is usually the case.
+   move: Write the request generically with no identifiers.
+   why: 'Help me phrase a letter to a patient who missed a follow-up appointment warm but clear about the importance of rescheduling' contains no PHI whatsoever and gets you the same quality of help.
+   move: If you need structural feedback on your own draft replace every identifier with a placeholder first.
+   why: PATIENT NAME DATE CONDITION. Do this in a separate scratch copy not in the real letter so there is no chance of sending the placeholder version. And read the whole draft while doing it — identifiers hide in sentences you did not write.
+   move: Apply the suggested wording to the real letter yourself in your own system.
+   why: The AI output is a template. Merging the real details happens inside the practice's systems where the data belongs. The identifying information never crosses the boundary.
+ result: Better wording with nothing identifiable transmitted to a third party.
+ takeaway: Ask for the general help you actually need. The specifics almost never have to leave the building and taking thirty seconds to strip them is the whole discipline.
+
+
+Check yourself: You want help rewording a letter about a patient's missed appointment. What is the appropriate approach? Answer: Ask for help with the general situation using no identifiers, then apply the wording yourself. The tool can help with tone and structure without knowing anything about the specific patient. Requesting general guidance and applying it yourself keeps every identifier inside the practice, which is both the safe and the equally effective route.

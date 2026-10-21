@@ -1,0 +1,111 @@
+What OneDrive Is and When to Use It
+
+Module 1: Getting Started with OneDrive
+
+Learn what cloud storage is, what OneDrive does for you at work, how it relates to SharePoint and Teams, and where patient information is and is not allowed to go.
+
+By the end of this lesson you can:
+- Explain cloud storage and what OneDrive adds: access anywhere, sharing, version history, the Recycle bin, and syncing
+- Tell the difference between your OneDrive and a shared team library in SharePoint or Teams
+- Describe how much storage free, Microsoft 365, and work accounts include
+- Apply the rule that patient information stays in approved work locations and is never shared with an Anyone link
+
+
+## Your files, wherever you sign in
+
+ type: scenario
+ role: You are a front office assistant at Lakeside Medical Associates.
+ text: Last month the computer at the second check-in window stopped starting. Everything saved on its desktop including the only copy of the new-patient phone script was gone. Lakeside has now moved everyone to Microsoft 365 and your office manager Maria Santos has a new rule: work files are saved to OneDrive or the shared team library not to one computer's desktop or a USB drive.
+ task: Understand what OneDrive is what it protects you from and which of your files belong in it.
+
+
+Cloud storage keeps your files on servers that you reach over the internet instead of only on the hard drive inside one computer. OneDrive is Microsoft's cloud storage. You sign in with an account, and your files are there on any computer, phone, or tablet where you sign in with that same account. If a computer breaks, is replaced, or is stolen, the files are still in OneDrive.
+
+
+ type: key-terms
+ terms: 
+   term: Cloud storage
+   definition: Saving files on internet servers so you can reach them from any device you sign in on.
+   term: OneDrive
+   definition: Microsoft's cloud storage. Each person has their own OneDrive.
+   term: Work or school account
+   definition: The account your employer or school gives you (for example amorgan@lakesidemedical.example). The organization manages it.
+   term: Microsoft account
+   definition: A personal account you create yourself (often an Outlook.com address). It comes with a personal OneDrive.
+   term: Sync
+   definition: Keeping the copy on your PC and the copy in OneDrive the same automatically.
+   term: SharePoint
+   definition: Microsoft's shared storage for teams and whole organizations. Files in a Teams channel are stored in SharePoint.
+
+
+
+## What OneDrive does for you
+
+ type: table
+ caption: OneDrive features and what they mean at the front desk
+ columns: 
+  Feature
+  What it does
+  Front desk example
+ rows: 
+   Access anywhere
+   Your files open on any device where you sign in
+   Open the phone script at any check-in window not only the one where you wrote it
+   Share with a link
+   People open the one real file instead of an email copy
+   Maria edits the staff schedule you started and everyone sees the same version
+   Version history
+   Earlier versions of a file are kept so you can go back
+   Someone typed over the November schedule; restore yesterday's version
+   Recycle bin
+   Deleted files can be restored for a period of time
+   You deleted the wrong flyer; restore it in seconds
+   Sync with your PC
+   Your OneDrive appears as a folder in File Explorer
+   Save from Word straight into OneDrive without a browser
+
+
+All of these work because there is one copy of the file, in one place, that everyone with permission opens. That is the habit OneDrive asks you to build: save to OneDrive, then share the file, instead of saving to the desktop and emailing copies around.
+
+
+## OneDrive, SharePoint, and Teams at a glance
+Microsoft 365 has two main places for files. OneDrive is yours: files you are working on, drafts, and files that belong to your job. A SharePoint site or a Teams team is shared: the front desk team's procedures, the forms everyone uses, and files the whole team owns. When you share a file in a Teams chat, Teams stores it in your OneDrive, in a folder named Microsoft Teams Chat Files. When you add a file to a Teams channel, it is stored in that team's SharePoint site.
+
+
+ type: table
+ caption: Where a file usually belongs
+ columns: 
+  Put it in
+  When
+  Who owns it
+ rows: 
+   Your OneDrive
+   Drafts your own work files files you share with a few people
+   You
+   A SharePoint site or Teams channel
+   Files the whole team uses and keeps even if you leave
+   The team
+   A Teams chat
+   A quick file for the people in that chat (it is saved in your OneDrive)
+   You
+
+
+Practice: Drag each file to where it belongs at Lakeside.
+
+
+## How much storage you have
+Storage depends on the account. A free Microsoft account includes 5 GB. Microsoft 365 Basic includes 100 GB, Microsoft 365 Personal includes 1 TB, and the Family and Premium plans share storage among up to six people. Work and school accounts get the storage their organization sets; for most Microsoft 365 business plans the default is 1 TB per person. You can see how much you have used at the bottom of the left pane in OneDrive on the web.
+
+Note: One file can be as large as 250 GB in OneDrive. Plans and storage amounts change from time to time, so check Microsoft's OneDrive plans page before you buy anything for yourself.
+
+
+## Patient information stays in approved places
+Note: Lakeside's rule (and the rule at most medical offices): patient information (PHI) goes only in locations your organization approved, such as your work OneDrive or the practice's SharePoint library, and it is shared only with the specific people who need it. Never put patient information in a personal OneDrive, and never share it with an Anyone link. An Anyone link works for whoever gets it, including people outside the practice.
+
+OneDrive makes sharing easy, which is exactly why the rule matters. In Module 3 you will practice choosing the right kind of link. For now, remember the order of questions: Is this patient information? Is this the approved place for it? Who exactly needs it?
+
+
+## Knowledge Check
+Check yourself: The computer at a check-in window fails. Which files can you still open from another computer? Answer: Files saved in your OneDrive. OneDrive keeps your files in the cloud, so you sign in on any computer and they are there. Files that were only on the broken computer are only as safe as that computer.
+
+Check yourself: A coworker suggests sharing a patient's referral packet with an Anyone link because it is faster. What is the right response? Answer: Decline: patient information is shared only with the specific people who need it, never with an Anyone link. An Anyone link works for whoever has it, so it can be forwarded, guessed from a shared screen, or opened by the wrong person. Patient information is shared only with named people, from an approved location.

@@ -1,0 +1,64 @@
+Restore Your OneDrive and Ransomware Basics
+
+Module 4: Keeping Files Safe
+
+Recognize a ransomware attack on your files, report it the right way, and use Restore your OneDrive to roll back many files at once.
+
+By the end of this lesson you can:
+- Recognize signs that ransomware or a bad sync changed many files
+- Know who to tell first at work, and why you don't try to fix it alone
+- Use Restore your OneDrive with a date preset or a custom activity
+- Explain what restoring does to files created after the restore point
+
+
+## When many files go wrong at once
+
+ type: scenario
+ role: You open OneDrive first thing in the morning.
+ text: Overnight five front desk files were renamed to end in .locked none of them open and a new file called READ_ME_TO_RECOVER.txt is demanding payment. Luis in IT confirms it: an infected home laptop that was synced to a coworker's account reached shared files. He has cleaned the laptop and asks you to roll the files back.
+ task: Report it then use Restore your OneDrive to undo the attack without undoing more than necessary.
+
+
+Ransomware is malicious software that encrypts or scrambles files so they can't be opened, then demands money to unlock them. Signs include many files renamed with an unfamiliar extension, files that won't open, and a new note asking for payment. A sync accident (someone deleting or overwriting a whole folder) can look similar.
+
+Note: At work, report it first. Tell your supervisor and IT immediately, don't pay anything, and don't try to fix it alone. Infected devices must be cleaned before you restore files, or they can be encrypted again. Microsoft's own steps start with confirming the files are infected and cleaning every device with antivirus software before restoring.
+
+
+## Restore your OneDrive
+Restore your OneDrive rolls back everything that changed in your OneDrive after a point you choose, within the last 30 days. Work or school accounts have it; for personal accounts it needs a Microsoft 365 subscription.
+
+1. Sign in to OneDrive on the web. Work or school account: select Settings (gear) › Restore OneDrive. Personal account: select Settings › Options › Restore your OneDrive.
+2. Under Select a date, choose a preset (Yesterday, One week ago, Three weeks ago) or Custom date and time.
+3. Use the activity chart and the activity feed to review what changed. With Custom date and time, select the earliest activity you want to undo; every activity after it is selected too.
+4. Select Restore and confirm.
+
+
+ type: table
+ caption: What restoring does
+ columns: 
+  Item
+  After the restore
+ rows: 
+   Files changed after the restore point
+   Go back to how they were
+   Files deleted after the restore point
+   Come back
+   Files created after the restore point
+   Move to the Recycle bin where you can still restore them
+   Files permanently deleted from the Recycle bin
+   Can't be recovered
+
+
+Note: Every activity after the restore point is undone, including good work. Pick the earliest bad activity, not an earlier date, and redo any legitimate changes afterward. If you restored to the wrong point, run Restore again and select the restore activity to undo it.
+
+Practice: Drag these steps into the order you should do them after a ransomware attack at work.
+
+
+## Ransomware detection for Microsoft 365 subscribers
+With a Microsoft 365 subscription on a personal account, Microsoft 365 can detect a ransomware attack on your OneDrive files. You get a notification on your device and an email, and when you go to restore, a suggested restore date is filled in for you. (Microsoft says non-subscribers get their first detection and recovery free.)
+
+
+## Knowledge Check
+Check yourself: You find dozens of front desk files renamed to end in .locked and a payment note. What do you do first? Answer: Tell your supervisor and IT immediately. Report it first. IT has to clean the infected devices before a restore, or the files can be encrypted again.
+
+Check yourself: After you restore your OneDrive to yesterday at 9 PM, what happens to a file you created this morning? Answer: It moves to the Recycle bin, where you can restore it. Files created after the restore point move to the Recycle bin, so you can still bring them back.

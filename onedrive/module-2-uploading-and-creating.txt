@@ -1,0 +1,78 @@
+Uploading Files and Creating Folders
+
+Module 2: Organizing Your Files
+
+Build a folder structure that makes sense to your team, upload files and whole folders, create new Office files in OneDrive, and name them so anyone can find them.
+
+By the end of this lesson you can:
+- Create folders in My files and inside other folders
+- Upload one or several files, and upload a whole folder
+- Create a new Word, Excel, or PowerPoint file directly in OneDrive
+- Name files and folders clearly and avoid characters OneDrive doesn't allow
+
+
+## A place for everything
+
+ type: scenario
+ role: You track patient referrals at Lakeside Medical Associates.
+ text: Referral paperwork lives in three places right now: an email folder a USB drive and a printout on Maria's desk. Maria asks you to set up a Referrals folder in OneDrive put the tracking log and fax cover sheet in it start a phone log and upload the Health Fair materials a volunteer gave you on a flash drive.
+ task: Create the folder upload files and a folder and start a new document with names the whole team will understand.
+
+
+In OneDrive on the web, everything new starts from one button. In a work or school OneDrive it is Create or upload; in a personal OneDrive it is Add new. It creates a folder, a new Word document, Excel workbook, or PowerPoint presentation, or uploads files or a whole folder from your computer. Whatever you create goes into the folder you have open, so open the right folder first.
+
+
+ type: table
+ caption: The Create or upload menu
+ columns: 
+  Choice
+  What it does
+ rows: 
+   Folder
+   Asks for a folder name then creates the folder where you are
+   Word document Excel workbook PowerPoint presentation
+   Creates a blank file and opens it in the web app. It starts with a name like Document or Book so rename it
+   Files upload
+   Opens your computer's file picker. Hold Ctrl to pick several files
+   Folder upload
+   Uploads a whole folder with everything inside it in one step
+
+
+Note: Microsoft is moving Create or upload from the top of the left pane to the right side of the page, near the command bar. Same button, same choices, new spot.
+
+
+## Folders that make sense to everyone
+Organize by the work, not by the person. A folder called Referrals tells everyone what is inside; a folder called Alex's Stuff tells no one anything. Keep the structure shallow: two or three levels is easier to navigate than seven. And put a file in one folder only. Two copies in two folders means two versions, and soon nobody knows which one is current.
+
+Practice: Sort each file name. A good name says what the file is and works in OneDrive.
+
+Note: Characters OneDrive doesn't allow in file or folder names: " * : < > ? / \ |. Some names aren't allowed at all, such as .lock, CON, PRN, AUX, NUL, desktop.ini, and any name that contains _vti_ or starts with ~$. A single file can be up to 250 GB.
+
+
+## Uploading
+
+ type: worked-example
+ title: Uploading two referral files into the new folder
+ task: Put Referral Tracking Log.xlsx and Referral Fax Cover Sheet.docx from your computer into the Referrals folder.
+ steps: 
+   move: Open the Referrals folder first.
+   why: Uploads land in the folder you have open. Uploading from My files and moving later is extra work.
+   move: Select Create or upload then Files upload.
+   why: Files upload opens your computer's file picker the same Open window you use everywhere in Windows.
+   move: Click the first file hold Ctrl click the second then select Open.
+   why: Ctrl+click picks several files at once so both upload in one step.
+   move: Watch for the upload message then check that both files are in the list.
+   why: Confirming takes a second and catches a file that was skipped or picked by mistake.
+ result: Both files are in OneDrive in the folder where the team will look for them.
+ takeaway: Open the destination first then upload. Use Folder upload when you have a whole folder to bring in.
+
+
+Practice: Drag the steps into the right order for uploading a file into a folder.
+
+On a work computer with the OneDrive sync app, you can also save straight into OneDrive from Word or Excel, or drag files into the OneDrive folder in File Explorer. Module 5 covers the sync app.
+
+
+## Knowledge Check
+Check yourself: You select Create or upload › Word document in the Referrals folder. What should you do next? Answer: Rename it from Document to a name that says what it is. New files start with a generic name like Document. Give it a clear name right away so nobody ends up with Document (1), Document (2), and Document (3).
+
+Check yourself: Which file name will OneDrive refuse? Answer: Referral Log: Riverside.xlsx. A colon (:) is one of the characters OneDrive doesn't allow, along with " * < > ? / \ |. Hyphens, parentheses, and underscores are fine.

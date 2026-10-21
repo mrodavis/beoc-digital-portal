@@ -1,0 +1,46 @@
+Creating, Moving, Copying, and Deleting Files
+
+Module 2: File Management & Organization
+
+Master the hands-on file operations — create, rename, copy, move, and safely delete files and folders — that office professionals perform dozens of times every day.
+
+
+## Real-World Scenario
+Note: It is end-of-month at Lakeside Medical Associates. You need to move all of January's billing files into an archive folder, copy the updated supply order template to three different department folders, rename last year's policy documents to include the year in the file name, and permanently delete 20 duplicate files that have been cluttering the network drive. Each of these tasks requires a different file operation — and knowing exactly which one to use prevents mistakes that can be costly to undo.
+
+
+## Creating and Renaming Files and Folders
+Creating new files and folders and renaming existing ones are the most basic file operations — but doing them correctly requires attention to naming conventions and location:
+
+- To create a new folder in File Explorer: navigate to the location where the folder should live, right-click in an empty area of the right panel, select New > Folder, type the folder name, and press Enter. Alternatively, select New › Folder on the command bar at the top of File Explorer. Always name folders before pressing Enter — changing a folder name after files have been saved inside it does not affect the files, but links or shortcuts pointing to the old path may break.
+- To rename a file or folder: click it once to select it, then press F2 (the rename keyboard shortcut), type the new name, and press Enter. Alternatively, right-click and choose Rename. When renaming files, be careful not to accidentally change or delete the file extension — if you rename 'Report.docx' to 'Report' (removing .docx), Windows may not know how to open it until you add the extension back.
+- File name characters to avoid: Windows does not allow the following characters in file names: / \ : * ? " < > | — using any of these will produce an error. Hyphens (-), underscores (_), and periods (.) are safe. Spaces are technically allowed but can cause problems when files are accessed by programs or shared with other systems. Many offices prefer underscores instead of spaces for maximum compatibility.
+
+
+## Copying vs. Moving Files
+Copying and moving are different operations with very different outcomes — choosing the wrong one can leave you with duplicate files in the wrong places or files missing from where they should be:
+
+- Copying a file creates a duplicate — the original stays in its current location AND a copy appears in the new location. Use Copy when you need the file to exist in two places simultaneously: for example, copying a template to each department folder so all departments have their own editable version. Keyboard shortcut: Ctrl+C to copy, navigate to the destination, Ctrl+V to paste.
+- Moving a file transfers the file to a new location — the original is removed from its old location and now exists only in the new location. Use Move when you want to reorganize: for example, moving last month's billing files into an archive folder. In File Explorer, you can drag a file while holding nothing to move it (within the same drive), or use Ctrl+X to cut, navigate to the destination, and Ctrl+V to paste.
+- An important distinction: dragging between different drives (e.g., from C: to Z:) copies by default, not moves. To move across drives, hold Shift while dragging, or use Cut (Ctrl+X) and Paste (Ctrl+V). If you drag and end up with duplicates when you wanted a move, undo the action immediately with Ctrl+Z before doing anything else.
+- To move or copy multiple files at once: select the first file, then hold Shift and click the last file to select a continuous range, or hold Ctrl and click individual files to select non-adjacent ones. Then cut or copy the selection. This is much faster than moving files one at a time when reorganizing large folders.
+
+Practice: Match each file operation to what happens to the file.
+
+
+## Deleting Files Safely
+Deleting files is permanent once the Recycle Bin is emptied — and in a professional setting, accidentally deleting the wrong file can mean losing work that cannot be recreated. Here is how to delete responsibly:
+
+- Sending files to the Recycle Bin is the default delete — select the file and press Delete (or right-click > Delete). The file is moved to the Recycle Bin and is NOT immediately deleted. You can restore it from the Recycle Bin at any time until the Recycle Bin is emptied. This is your safety net for accidental deletions.
+- Permanently deleting files bypasses the Recycle Bin — press Shift+Delete to delete a file without sending it to the Recycle Bin first. Only use Shift+Delete when you are completely certain you want the file gone immediately. For routine file cleanup, always use the normal Delete key so the Recycle Bin provides a recovery window.
+- Empty the Recycle Bin deliberately, not automatically — right-click the Recycle Bin icon on the Desktop and choose 'Empty Recycle Bin' when you are sure none of the files inside are needed. Never set Windows to auto-empty the Recycle Bin on a schedule if you manage important files, because an accidental deletion discovered the next day cannot be recovered from an emptied Recycle Bin without IT backup restoration.
+- For patient records, deleting files may require authorization — at Lakeside Medical Associates, you should never permanently delete patient records without explicit supervisor authorization, even if the records appear to be duplicates. Patient records may have legal retention requirements. If you are unsure whether a file should be deleted, archive it in a 'Review for Deletion' folder and consult your supervisor.
+
+
+## Responsible Use
+Note: Moving or deleting files on a shared network drive affects everyone who accesses that drive. Before reorganizing any shared folder structure, confirm the plan with your supervisor and any colleagues who regularly use those folders. Give advance notice (such as an email the day before) if you plan to move a large number of files so that colleagues are not left searching for files that have moved. Unannounced changes to shared folder structures are one of the most common sources of frustration in collaborative office environments.
+
+
+
+## Knowledge Check
+Check yourself: You need to make the supply order template available in three different department folders so each department can edit their own version. Which file operation should you use? Answer: Copy the file and paste it into each of the three folders.

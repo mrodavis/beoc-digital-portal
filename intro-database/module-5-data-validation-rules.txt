@@ -1,0 +1,49 @@
+Data Validation Rules in Access
+
+Module 5: Data Integrity & Records Management
+
+Set up validation rules that prevent common data entry errors — enforcing correct date formats, value ranges, required fields, and consistent text patterns.
+
+
+## Real-World Scenario
+Note: Six months after going live, the Access database at Lakeside Medical Associates has developed three recurring problems: the Date of Birth field contains entries like '01-15-1990', '1/15/90', and 'January 15 1990' — all meaning the same date but stored inconsistently. The InsurancePlan field has 'BlueCross', 'Blue Cross', 'BCBS', and 'BC/BS' all referring to the same plan. And several appointment records have a blank PatientID field, making them impossible to link to a patient. This lesson shows you how to lock down the database so these errors cannot happen in the first place.
+
+
+## Types of Validation in Access
+Access provides three levels of data validation, each catching a different class of error:
+
+- Field-level data type enforcement: When you set a field's data type (Date/Time, Number, Currency, Yes/No), Access automatically rejects values that do not match. A Date/Time field will not accept 'N/A' or 'next Tuesday' — Access accepts only entries it recognizes as dates and stores every date internally in one consistent way, regardless of how it was typed.
+- Field-level Validation Rule: A rule you write in Table Design View that restricts what values are acceptable. For example, a Validation Rule of >=Date() on an AppointmentDate field prevents staff from entering past dates when scheduling future appointments. A rule of Between 1 And 120 on an Age field prevents impossible age values.
+- Required fields: Setting a field's Required property to Yes in Table Design View means Access will refuse to save the record until that field has a value. PatientID on the Appointments table should be Required — no appointment should exist without a patient linked to it.
+- Lookup / Combo Box in forms: Replacing a free-text field with a combo box (dropdown) in a Form is the most effective way to enforce consistency — staff pick from a list of valid values instead of typing. This eliminates the BlueCross vs. Blue Cross vs. BCBS problem entirely.
+
+
+## Setting a Validation Rule in Table Design View
+Validation rules are set at the table level in Design View, which means they apply regardless of whether data is entered through a form or directly into the table:
+
+- Open the table in Design View: Right-click the table in the Navigation Pane and choose Design View. You see the list of fields with their data types.
+- Select the field you want to validate: Click on the row for the field — for example, DateOfBirth.
+- In the Field Properties panel at the bottom, find the Validation Rule row: Type the rule. For DateOfBirth, a reasonable rule is <=Date() (date of birth must be today or in the past — a patient cannot be born in the future). For an InsurancePlan field that must be one of three values: 'BlueCross' Or 'Aetna' Or 'Medicare'.
+- Set the Validation Text: In the Validation Text row below Validation Rule, type the message Access should show when the rule is violated. Make it clear and helpful: 'Date of birth must be a past date. Please check the entry.' Staff will see this message in a popup dialog if they enter an invalid value.
+- Save and test: Press Ctrl+S to save the table design. Access warns that the new rule will be checked against all existing records — click Yes. Then open the table in Datasheet View and try to enter an invalid value to confirm the rule and message work correctly.
+
+
+## Required Fields
+A Required field prevents records from being saved without a value — the database equivalent of a mandatory field on a paper form:
+
+- Set Required to Yes in Design View: Click the field row (e.g., PatientID in the Appointments table), and in the Field Properties panel, change the Required property from No to Yes.
+- Combine with Indexed: For foreign key fields like PatientID, also set Indexed to Yes (Duplicates OK) to improve query performance. For primary key fields, Access sets Required and No Duplicates automatically.
+- Test required fields during form design: Required fields that are not visible on a form will cause confusing errors — the form tries to save but fails, and the staff member cannot tell why. Make sure all Required fields are either visible on the form or populated automatically (e.g., a date-stamp field populated by a default value).
+
+Set Required to Yes conservatively — only on fields where a blank value is genuinely impossible and always harmful. If there is any real-world scenario where the field might legitimately be empty (e.g., a secondary phone number), leave Required as No. Over-constraining a database frustrates staff and creates workarounds ('N/A' entered as a fake required value) that are worse than the original problem.
+
+
+## Input Masks for Format Consistency
+An Input Mask is a template that guides staff to enter data in exactly the right format by showing placeholder characters — like a form field pre-formatted with dashes for a phone number:
+
+- Open the Input Mask Wizard: In Table Design View, select the PhoneNumber field. In the Field Properties panel, click the Input Mask row and then click the small builder button (...) at the right end of the row.
+- Choose a mask: The wizard offers common masks — Phone Number (!(999) 000-0000), Zip Code (00000-9999), Social Security Number (000-00-0000). Select Phone Number.
+- How it works: After the mask is applied, when staff type in the phone number field, the cursor automatically positions inside a pre-formatted template: (___) ___-____. They type only the digits; Access fills in the parentheses and dash automatically.
+- Storage option: The wizard asks whether to store the formatting characters (parentheses, dashes) in the table. Generally, choose to store them — it makes the data easier to read directly from the table and in reports.
+
+Check yourself: Staff are entering appointment dates in inconsistent formats — some type '4/15/2025' and others type 'April 15 2025'. What is the most effective fix? Answer: Set the AppointmentDate field data type to Date/Time — Access enforces a consistent date format and stores dates consistently regardless of how they are typed.
