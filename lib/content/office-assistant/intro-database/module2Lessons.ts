@@ -434,7 +434,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Creating a PivotTable: click any cell in your data Table, then go to Insert > PivotTable. Excel suggests a new sheet. Click OK. The PivotTable Field List appears on the right — drag fields from the field list into the Rows, Columns, Values, and Filters areas to build your summary.",
+              "Creating a PivotTable: click any cell in your data Table, then go to Insert > PivotTable. Excel suggests a new sheet. Click OK. The PivotTable Fields pane appears on the right — drag fields from the field list into the Rows, Columns, Values, and Filters areas to build your summary.",
               "Example: drag ProviderID to Rows and AppointmentID to Values (Excel will count the appointments). The result is a table showing total appointments per provider. Drag InsurancePlan to Columns to cross-tabulate by both provider and insurance plan in a single step.",
               "Change the value summary type — by default, PivotTable counts for text fields and sums for numeric fields. To change from Sum to Count, right-click any value cell in the PivotTable and choose Value Field Settings > Summarize Values By > Count. For a BilledAmount sum, choose Sum.",
               "Refresh the PivotTable when new data is added — PivotTables do not update automatically when new rows are added to the source table. Right-click anywhere in the PivotTable and choose Refresh, or go to PivotTable Analyze > Refresh. Set a habit of refreshing before presenting any PivotTable-based report.",
