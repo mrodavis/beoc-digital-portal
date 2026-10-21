@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import LessonTemplate from "@/components/LessonTemplate";
 import { techFoundationsModules } from "@/lib/content/office-assistant/tech-foundations";
+import { techFoundationsSecurityExercises } from "@/components/exercises/TechFoundationsSecurityExercises";
 
 export default async function LessonPage({
   params,
@@ -68,6 +69,7 @@ export default async function LessonPage({
       }
       backHref={`/learning-paths/office-assistant/tech-foundations/${moduleSlug}`}
       backLabel={`Module ${module.moduleNumber}: ${module.title}`}
+      exercises={techFoundationsSecurityExercises(moduleSlug, lesson.slug)}
     />
   );
 }
