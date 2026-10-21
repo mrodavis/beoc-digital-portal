@@ -16,7 +16,7 @@ import { loadStudentName, printResults, saveStudentName } from "@/lib/printResul
  * or Enter on a zone button) does the same thing as dragging, and in Connect
  * mode clicking two nodes in turn connects them.
  *
- * Board coordinates are 1000 x 700 units; the board scales to its container.
+ * Board coordinates are 1000 x 620 units; the board scales to its container.
  */
 
 type Kind = "internet" | "office" | "modem" | "router" | "switch" | "ap" | "ws" | "printer" | "laptop" | "phone" | "fridge" | "thermostat" | "camera" | "door";
@@ -28,7 +28,7 @@ type Reach = Record<Seg, Record<string, boolean>>;
 type State = { nodes: Node[]; links: Link[]; reach: Reach };
 
 const W = 1000;
-const H = 700;
+const H = 620;
 const CORE_H = 190;
 const NODE_W = 100;
 const NODE_H = 40;
@@ -468,7 +468,7 @@ export default function NetworkDiagramBuilder() {
 
       <div className="flex flex-col gap-3 md:flex-row md:items-start">
       {/* Parts bin */}
-      <div className="flex flex-wrap gap-1.5 md:w-48 md:flex-none md:flex-col md:flex-nowrap" aria-label="Parts bin">
+      <div className="flex flex-wrap gap-1.5 md:sticky md:top-20 md:w-48 md:flex-none md:flex-col md:flex-nowrap" aria-label="Parts bin">
         <div className="hidden text-[11px] font-semibold uppercase tracking-wider text-gray-500 md:block">Parts: drag onto the board</div>
         {PARTS.map((p) => {
           const n = left(p.kind);

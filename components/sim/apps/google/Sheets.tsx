@@ -289,6 +289,9 @@ export interface GridProps {
   zoom?: number;
 }
 
+/** Header color of a table made with Format › Convert to table. */
+const TABLE_HEAD = "#3d6b8f";
+
 export function SheetGrid(p: GridProps) {
   const { book, sheet, interactive, selection = "A1" } = p;
   const z = p.zoom ?? 1;
@@ -306,6 +309,7 @@ export function SheetGrid(p: GridProps) {
     return out;
   }, [book, sheet, fv]);
   const filterRect = fv ? parseRange(fv.range) : sheet.filter ? parseRange(sheet.filter) : null;
+  const tableRect = sheet.table?.style === "Google table" ? parseRange(sheet.table.range) : null;
   const filterVals = fv ? fv.values ?? {} : sheet.filterValues ?? {};
   const merges = (sheet.merges ?? []).map((m) => parseRange(m)).filter(Boolean) as Rect[];
   const coveredBy = (c: number, r: number) => merges.find((m) => c >= m.c1 && c <= m.c2 && r >= m.r1 && r <= m.r2);
@@ -357,6 +361,8 @@ export function SheetGrid(p: GridProps) {
       const cfs = cf[ref];
       let bg = cfs?.fill ?? fmt.fill ?? virt?.fill;
       if (!bg && alt && c >= alt.c1 && c <= alt.c2 && r >= alt.r1 && r <= alt.r2) bg = r === alt.r1 ? "#bdbdbd" : (r - alt.r1) % 2 === 0 ? "#f3f3f3" : "#ffffff";
+      const inTable = tableRect && c >= tableRect.c1 && c <= tableRect.c2 && r >= tableRect.r1 && r <= tableRect.r2;
+      if (inTable && !bg) bg = r === tableRect!.r1 ? TABLE_HEAD : (r - tableRect!.r1) % 2 === 0 ? "#f4f6fb" : "#ffffff";
       const headerFilter = filterRect && r === filterRect.r1 && c >= filterRect.c1 && c <= filterRect.c2;
       if (headerFilter && !bg) bg = fv ? "#e8eaed" : "#e6f4ea";
       const selected = inSel(c, r);
@@ -400,8 +406,8 @@ export function SheetGrid(p: GridProps) {
             outline: fmt.border === "outside" ? "1px solid #000" : undefined,
             outlineOffset: -1,
             boxShadow: edges.join(",") || undefined,
-            color: cfs?.color ?? fmt.color ?? (typeof v === "string" && v.startsWith("#") && cell?.f ? "#d93025" : "#000"),
-            fontWeight: fmt.bold || cfs?.bold || virt?.bold ? 700 : 400,
+            color: cfs?.color ?? fmt.color ?? (inTable && r === tableRect!.r1 ? "#ffffff" : typeof v === "string" && v.startsWith("#") && cell?.f ? "#d93025" : "#000"),
+            fontWeight: fmt.bold || cfs?.bold || virt?.bold || (inTable && r === tableRect!.r1) ? 700 : 400,
             fontStyle: fmt.italic ? "italic" : undefined,
             textDecoration: [fmt.underline ? "underline" : "", fmt.strike ? "line-through" : ""].filter(Boolean).join(" ") || undefined,
             fontFamily: fmt.font ? `'${fmt.font}', Arial` : "Arial",
@@ -498,6 +504,11 @@ export function SheetGrid(p: GridProps) {
         </thead>
         <tbody>{rowsEls}</tbody>
       </table>
+      {tableRect && (
+        <div className="absolute z-[8] flex h-[18px] items-center gap-1 rounded-t px-2 text-[11px] font-medium text-white" style={{ left: colLeft(tableRect.c1), top: Math.max(0, rowTop(tableRect.r1) - 18), background: TABLE_HEAD }} aria-label={`Table ${sheet.table?.name ?? ""}`}>
+          <GIcon name="table" size={12} color="#fff" /> {sheet.table?.name}
+        </div>
+      )}
       {(sheet.charts ?? []).map((ch) => {
         const at = parseRef(ch.at ?? "F2") ?? { c: 6, r: 2 };
         return (
@@ -558,6 +569,7 @@ export function SheetsSurface({ composer, setComposer, noteFor, setNoteFor }: { 
   const [renaming, setRenaming] = useState<{ name: string; text: string } | null>(null);
   const [nameBox, setNameBox] = useState<string | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+  const [saving, setSaving] = useState<string | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const fvId = doc.flags?.filterView ? String(doc.flags.filterView) : undefined;
   const fv = activeFilterView(doc, f, sheet);
@@ -747,10 +759,26 @@ export function SheetsSurface({ composer, setComposer, noteFor, setNoteFor }: { 
       {fullScreen && <button type="button" onClick={() => g.cmd("g.view", "fullScreen")} className="absolute right-3 top-2 z-20 rounded-full bg-[#303030] px-4 py-1.5 text-[13px] text-white">Exit full screen</button>}
       {fv && (
         <div className="flex h-9 shrink-0 items-center gap-3 bg-[#5f6368] px-3 text-[13px] text-white">
-          <span>Name:</span>
-          <input aria-label="Filter view name" defaultValue={fv.name} key={fv.id + fv.name} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") e.currentTarget.blur(); }} onBlur={(e) => { if (e.currentTarget.value !== fv.name) g.onCommit({ kind: "type", target: `filterview:${fv.id}`, value: e.currentTarget.value }); }} className="h-6 w-32 rounded bg-[#4a4d51] px-2 text-white outline-none" />
+          {fv.saved === false ? (
+            <span className="rounded bg-[#4a4d51] px-2 py-0.5">Temporary view</span>
+          ) : (
+            <>
+              <span>Name:</span>
+              <input aria-label="Filter view name" defaultValue={fv.name} key={fv.id + fv.name} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") e.currentTarget.blur(); }} onBlur={(e) => { if (e.currentTarget.value !== fv.name) g.onCommit({ kind: "type", target: `filterview:${fv.id}`, value: e.currentTarget.value }); }} className="h-6 w-32 rounded bg-[#4a4d51] px-2 text-white outline-none" />
+            </>
+          )}
           <span>Range: {fv.range}</span>
           <span className="flex-1" />
+          {fv.saved === false && (
+            saving !== null ? (
+              <span className="flex items-center gap-2" role="dialog" aria-label="Save view">
+                <input autoFocus aria-label="View name" value={saving} onChange={(e) => setSaving(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter" && saving.trim()) { g.onCommit({ kind: "type", target: `filterview:${fv.id}`, value: saving.trim() }); setSaving(null); } if (e.key === "Escape") setSaving(null); }} className="h-6 w-40 rounded bg-white px-2 text-[#1f1f1f] outline-none" />
+                <button type="button" onClick={() => { if (saving.trim()) { g.onCommit({ kind: "type", target: `filterview:${fv.id}`, value: saving.trim() }); setSaving(null); } }} className="rounded-full bg-[#a8c7fa] px-3 py-0.5 font-medium text-[#062e6f]">Save</button>
+              </span>
+            ) : (
+              <button type="button" onClick={() => setSaving(fv.name)} className="rounded-full border border-white/70 px-3 py-0.5 font-medium">Save view</button>
+            )
+          )}
           <IconBtn icon="close" label="Close filter view" color="#fff" onClick={() => g.cmd("g.filterView.close")} />
         </div>
       )}
