@@ -23,7 +23,7 @@ import { introToEHRModules } from "@/lib/content/ehr/intro-to-ehr/modules";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CORES: Record<string, AppCore<any>> = { word: wordCore };
-for (const app of ["excel", "powerpoint", "windows", "outlook", "teams", "typing", "assistant", "access", "google", "ehr"]) {
+for (const app of ["excel", "powerpoint", "windows", "outlook", "teams", "typing", "assistant", "access", "google", "ehr", "onedrive"]) {
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const mod = require(`@/components/sim/apps/${app}/core`);

@@ -20,4 +20,5 @@ export const APP_LOADERS: Record<SimApp, Loader> = {
   access: () => import("./access").then((m) => as(m.accessApp)),
   google: () => import("./google").then((m) => as(m.googleApp)),
   ehr: () => import("./ehr").then((m) => as(m.ehrApp)),
+  onedrive: () => import("./onedrive").then((m) => as(m.onedriveApp)),
 };
