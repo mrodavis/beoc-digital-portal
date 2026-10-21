@@ -55,8 +55,8 @@ const m1: Lesson[] = [
             rows: [
               ["State-approved EMT course", "Classroom, skills lab, and clinical or field time — commonly 150 to 200 hours"],
               ["Course completion", "Including a psychomotor skills evaluation"],
-              ["NREMT cognitive exam", "Computer-adaptive, taken at an approved testing center"],
-              ["NREMT psychomotor exam", "Hands-on skill stations, where required by the state"],
+              ["Cognitive (written) exam", "Computer-based, taken at an approved testing center. Most states use the NREMT exam; confirm which one your state uses"],
+              ["Psychomotor (skills) exam", "Hands-on skill stations, in the form your state requires"],
               ["State licensure or certification", "The state grants the credential; NREMT is a common prerequisite"],
               ["Recertification", "Continuing education on a defined cycle"],
             ],
@@ -69,7 +69,7 @@ const m1: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "Two things worth knowing before you enroll. The work is physically demanding — lifting and carrying patients is routine and back injury is the leading cause of career-ending injury in EMS. And the psychological load is real: you will attend calls involving children, violence, and death. Services increasingly provide critical incident support, and using it is a professional norm rather than a weakness.",
+            text: "Two things worth knowing before you enroll. The work is physically demanding — lifting and carrying patients is routine, and back injuries are a serious occupational risk that can end a career. And the psychological load is real: you will attend calls involving children, violence, and death. Services increasingly provide critical incident support, and using it is a professional norm rather than a weakness.",
           },
           {
             type: "knowledge-check",
@@ -102,7 +102,7 @@ const m1: Lesson[] = [
         items: [
           "Find your state EMS office and list the requirements for EMT certification: course hours, exams, and any background check.",
           "Find two state-approved EMT programs near you. Record cost, length, schedule, and whether clinical placements are arranged for you.",
-          "Look up the NREMT cognitive exam format and the current recertification cycle.",
+          "Find out which certification exams your state uses, then look up that exam's current format and the recertification cycle.",
           "Write down honestly what in the role concerns you most, and find out what support services in your area provide for it.",
         ],
       },
@@ -205,7 +205,7 @@ const m1: Lesson[] = [
             ],
             correctIndex: 1,
             explanation:
-              "Scene safety comes before any patient contact, and the primary assessment then addresses airway, breathing, and circulation in that order because that is the order in which problems kill. The fracture is addressed as bleeding within circulation if it is haemorrhaging, and otherwise in the secondary assessment.",
+              "Scene safety comes before any patient contact, and the primary assessment then addresses airway, breathing, and circulation in that order because that is the order in which problems kill. The fracture is addressed as bleeding within circulation if it is hemorrhaging, and otherwise in the secondary assessment.",
             optionRationales: [
               "The most visible injury is rarely the most time-critical, and going straight to it is the classic error.",
               "Correct. Scene first, then airway, breathing, circulation.",
@@ -260,9 +260,9 @@ export const emt: Program = {
     "Foundation for other healthcare pathways",
   ],
   credentialNote:
-    "IMPORTANT — this is not an EMT course and completing it certifies nothing. EMT certification requires a state-approved program with classroom, skills laboratory, and clinical or field hours, followed by NREMT cognitive and psychomotor examinations and licensure by your state EMS office. The psychomotor component — airway management, splinting, spinal motion restriction, lifting and moving — is assessed by hands-on demonstration and cannot be delivered or verified online by anyone. Any provider offering online-only EMT certification is not offering a recognized credential. Nothing here is a clinical protocol: real scope of practice is set by your state and your service's medical director, and their protocols govern.",
+    "IMPORTANT — this is not an EMT course and completing it certifies nothing. EMT certification requires a state-approved program with classroom, skills laboratory, and clinical or field hours, followed by the cognitive and psychomotor examinations your state requires (most states use the NREMT exams) and certification or licensure by your state EMS office. The psychomotor component — airway management, splinting, spinal motion restriction, lifting and moving — is assessed by hands-on demonstration and cannot be delivered or verified online by anyone. Any provider offering online-only EMT certification is not offering a recognized credential. Nothing here is a clinical protocol: real scope of practice is set by your state and your service's medical director, and their protocols govern.",
   relatedCertifications: [
-    { name: "NREMT — Emergency Medical Technician", body: "National Registry of Emergency Medical Technicians", note: "Cognitive and psychomotor exams following an approved course. Used by most states as the basis for licensure." },
+    { name: "NREMT — Emergency Medical Technician", body: "National Registry of Emergency Medical Technicians", note: "National certification exams taken after an approved course. Used by most states as the basis for licensure." },
     { name: "State EMT licensure or certification", body: "State EMS office", note: "The credential that actually authorizes practice. Requirements vary by state." },
     { name: "CPR / BLS for healthcare providers", body: "AHA, Red Cross, or equivalent", note: "A prerequisite for most EMT programs." },
   ],

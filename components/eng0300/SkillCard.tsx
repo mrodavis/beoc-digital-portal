@@ -26,7 +26,7 @@ export default function SkillCard({ skill }: { skill: Skill }) {
           {skill.icon}
         </span>
         <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
-          Week {skill.week}
+          Skill {skill.week}
         </span>
       </div>
 

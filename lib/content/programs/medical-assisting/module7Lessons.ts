@@ -135,12 +135,12 @@ export const module7Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You process specimens at Lakeside Medical Associates.",
-            text: "Two specimens collected in the same fifteen minutes are labelled at the desk afterwards rather than at the bedside. One patient receives a result belonging to the other. Both results are plausible, so nothing looks wrong until treatment fails.",
+            text: "Two specimens collected in the same fifteen minutes are labeled at the desk afterwards rather than at the bedside. One patient receives a result belonging to the other. Both results are plausible, so nothing looks wrong until treatment fails.",
             task: "Label at the point of collection, in the patient's presence, every time.",
           },
           {
             type: "table",
-            caption: "Specimen labelling requirements",
+            caption: "Specimen labeling requirements",
             columns: ["Element", "Detail"],
             rows: [
               ["Patient name", "Full legal name as in the record"],
@@ -153,7 +153,7 @@ export const module7Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Label in the presence of the patient, immediately after collection, before leaving the room. Never pre-label containers before collection, and never carry unlabelled specimens to a desk to label later. Both practices are how specimens are switched, and a mislabelled specimen means a patient is treated on someone else's results.",
+            text: "Label in the presence of the patient, immediately after collection, before leaving the room. Never pre-label containers before collection, and never carry unlabeled specimens to a desk to label later. Both practices are how specimens are switched, and a mislabeled specimen means a patient is treated on someone else's results.",
           },
           {
             type: "paragraph",
@@ -213,7 +213,7 @@ export const module7Lessons: Lesson[] = [
         items: [
           "Find the CMS list of CLIA-waived tests. Identify five commonly performed in a family practice.",
           "For a rapid strep test you research, list every manufacturer requirement — storage, expiration, incubation time, reading window.",
-          "Write a specimen labelling procedure that makes a mix-up structurally difficult rather than merely discouraged.",
+          "Write a specimen labeling procedure that makes a mix-up structurally difficult rather than merely discouraged.",
           "Research chain of custody. Explain in three sentences when it is required and what it demands.",
         ],
       },

@@ -1,6 +1,7 @@
-import type { SimDefinition } from "@/types/sim";
+import type { SimDefinition, WordDoc } from "@/types/sim";
+import type { XDoc } from "@/components/sim/apps/word/model";
 
-/** Word Module 8: Office 365 and More (Word for the web, co-authoring, research, dictation, accessibility). */
+/** Word Module 8: Microsoft 365 and More (Word for the web, co-authoring, researching and citing sources, dictation, accessibility). */
 
 function anyCell(id: string, rows: number, cols: number): string[] {
   const out = [`${id}.r0c0`];
@@ -171,74 +172,90 @@ export const wordModule8Sims: Record<string, SimDefinition[]> = {
     {
       id: "word-m8-research-1",
       app: "word",
-      title: "Back up the blood pressure handout with sources",
+      title: "Cite the sources behind the blood pressure handout",
       scenario:
-        "You are drafting a patient education handout on high blood pressure. You need a quick definition for yourself and citable sources for two claims. Researcher will offer several sources; only some are appropriate for material patients will rely on.",
+        "You are finishing a patient education handout on high blood pressure at Lakeside Medical Associates. You already found and checked two sources in a web browser; now record them with Word's References tools so every claim can be traced. Source Manager also remembers sources from your earlier documents, including one that does not belong in patient material.",
       fileName: "Understanding High Blood Pressure.docx",
-      minutes: 5,
-      initial: {
+      minutes: 6,
+      initial: ({
+        flags: { citationStyle: "MLA" },
+        masterSources: [
+          { type: "Journal Article", author: "Alvarez, M.", title: "Home Blood Pressure Monitoring in Adults: A Review", year: "2024", publisher: "Journal of Community Health Practice" },
+          { type: "Web site", author: "Miracle Cures Daily", title: "Cure Your Blood Pressure in 7 Days With This One Trick", year: "2019", publisher: "Miracle Cures Daily (blog)" },
+        ],
         paragraphs: [
           { id: "p1", style: "Title", text: "Understanding High Blood Pressure" },
-          { id: "p2", runs: [{ text: "High blood pressure, also called " }, { id: "r1", text: "hypertension" }, { text: ", often has no symptoms. That is why regular checks matter." }] },
+          { id: "p2", runs: [{ text: "High blood pressure, also called hypertension, often has no symptoms. That is why " }, { id: "r1", text: "regular" }, { text: " checks matter." }] },
           { id: "p3", style: "Heading 1", text: "What the Numbers Mean" },
           { id: "p4", text: "A blood pressure reading has two numbers. The top number is the pressure when your heart beats; the bottom number is the pressure between beats." },
           { id: "p5", runs: [{ id: "r1", text: "For most adults, a reading of 130/80 or higher is considered high blood pressure." }] },
           { id: "p6", style: "Heading 1", text: "Checking at Home" },
-          { id: "p7", runs: [{ id: "r1", text: "Blood pressure readings taken at home at the same time each day give a more reliable picture than a single office reading." }] },
+          { id: "p7", runs: [{ id: "r1", text: "Readings taken at home at the same time each day give a more reliable picture than a single office reading." }] },
           { id: "p8", text: "" },
         ],
-      },
+      } satisfies XDoc) as WordDoc,
       tasks: [
         {
-          instruction: "Look up the word “hypertension” without leaving the document.",
-          hint: "Right-click “hypertension” › Search (or select it, then References tab › Research group › Search). The definition opens in a pane.",
-          steps: [
-            {
-              action: { kind: "command", id: "review.smartLookup" },
-              alt: [{ kind: "command", id: "references.smartLookup" }],
-              requires: { selection: "p2.r1" },
-              selectHint: "Click the word “hypertension” first.",
-            },
-          ],
-        },
-        {
-          instruction: "Set the citation style to APA.",
+          instruction: "Change the citation style to APA, the style your supervisor asked for.",
           hint: "References tab › Citations & Bibliography group › Style › APA.",
           steps: [{ action: { kind: "command", id: "references.citationStyle", value: "APA" } }],
         },
         {
-          instruction: "Open the Researcher pane so you can look for sources on high blood pressure.",
-          hint: "References tab › Research group › Researcher.",
-          steps: [{ action: { kind: "command", id: "references.researcher" } }],
-        },
-        {
-          instruction: "Cite the National Health Education Institute source “Understanding High Blood Pressure” after the sentence that begins “For most adults”.",
-          hint: "Click the sentence that begins “For most adults”. In the Researcher pane, click + (Add and cite) next to Understanding High Blood Pressure.",
+          instruction: "After the sentence that begins “For most adults”, cite a new Web site source: Author “Northshore Heart Health Council”, Title “Know Your Blood Pressure Numbers”, Year “2025”.",
+          hint: "Click the sentence that begins “For most adults”. References tab › Insert Citation › Add New Source. Type of Source: Web site, then fill in Author, Title and Year and click OK.",
           steps: [
             {
-              action: { kind: "command", id: "researcher.add", value: "Understanding High Blood Pressure" },
+              action: {
+                kind: "dialog",
+                id: "createSource",
+                values: { type: "Web site", author: "Northshore Heart Health Council", title: "Know Your Blood Pressure Numbers", year: "2025" },
+              },
               requires: { selection: ["p5.r1", "p5"] },
               selectHint: "Click the sentence that begins “For most adults” first, so the citation goes after it.",
             },
           ],
         },
         {
-          instruction: "Cite the journal article about home monitoring after the sentence that begins “Blood pressure readings taken at home”. Do not cite the blog that promises a cure in 7 days.",
-          hint: "Click the sentence that begins “Blood pressure readings taken at home”. In Researcher, click + next to Home Blood Pressure Monitoring in Adults: A Review.",
+          instruction: "Source Manager remembers sources from your earlier documents. Copy the journal article on home monitoring into this document's Current List. Leave the blog post that promises a cure in 7 days where it is.",
+          hint: "References tab › Manage Sources. In the Master List, select Alvarez, M.; Home Blood Pressure Monitoring in Adults: A Review (2024), then click Copy →.",
           steps: [
             {
-              action: { kind: "command", id: "researcher.add", value: "Home Blood Pressure Monitoring in Adults: A Review" },
-              requires: { selection: ["p7.r1", "p7"] },
-              selectHint: "Click the sentence about home readings first.",
+              action: {
+                kind: "dialog",
+                id: "manageSources",
+                values: { source: ["Alvarez, M.; Home Blood Pressure Monitoring in Adults: A Review (2024)", "Home Blood Pressure Monitoring in Adults: A Review"] },
+              },
             },
           ],
         },
         {
-          instruction: "In the empty line at the end of the handout, insert a Bibliography.",
-          hint: "Click the empty last line. References tab › Citations & Bibliography group › Bibliography › Bibliography.",
+          instruction: "Cite the journal article after the sentence that begins “Readings taken at home”.",
+          hint: "Click the sentence that begins “Readings taken at home”. References tab › Insert Citation, then choose Alvarez, M.: Home Blood Pressure Monitoring in Adults: A Review (2024) at the top of the list.",
           steps: [
             {
-              action: { kind: "command", id: "references.bibliography", value: "Bibliography" },
+              action: { kind: "command", id: "references.citeSource", value: "Home Blood Pressure Monitoring in Adults: A Review" },
+              requires: { selection: ["p7.r1", "p7"] },
+              selectHint: "Click the sentence that begins “Readings taken at home” first.",
+            },
+          ],
+        },
+        {
+          instruction: "In the first paragraph, replace the word “regular” with its synonym “routine”.",
+          hint: "Right-click “regular” and choose routine under Synonyms. Or click “regular”, then Review tab › Proofing group › Thesaurus, and choose Insert next to routine.",
+          steps: [
+            {
+              action: { kind: "command", id: "thesaurus.insert", value: "routine" },
+              requires: { selection: "p2.r1" },
+              selectHint: "Click the word “regular” in the first paragraph first.",
+            },
+          ],
+        },
+        {
+          instruction: "In the empty line at the end of the handout, insert a bibliography in the built-in References format.",
+          hint: "Click the empty last line. References tab › Citations & Bibliography group › Bibliography › References.",
+          steps: [
+            {
+              action: { kind: "command", id: "references.bibliography", value: "References" },
               requires: { selection: "p8" },
               selectHint: "Click the empty line at the end of the handout first.",
             },

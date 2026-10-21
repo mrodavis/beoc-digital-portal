@@ -216,7 +216,7 @@ export const module1Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Abuse and neglect must be recognized and reported. Physical signs include unexplained bruising, particularly in patterns or at various stages of healing. Behavioral signs include fear of specific staff or visitors, withdrawal, or a change in demeanour when someone is present. Neglect shows as poor hygiene, dehydration, untreated pressure injuries, or unmet basic needs. Healthcare workers are mandated reporters in most jurisdictions — report through your facility's process, and reporting is required whether or not you are certain.",
+            text: "Abuse and neglect must be recognized and reported. Physical signs include unexplained bruising, particularly in patterns or at various stages of healing. Behavioral signs include fear of specific staff or visitors, withdrawal, or a change in demeanor when someone is present. Neglect shows as poor hygiene, dehydration, untreated pressure injuries, or unmet basic needs. Healthcare workers are mandated reporters in most jurisdictions — report through your facility's process, and reporting is required whether or not you are certain.",
           },
           {
             type: "knowledge-check",

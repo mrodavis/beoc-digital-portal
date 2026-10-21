@@ -5,7 +5,7 @@
  * its own subdomain. This portal has no student accounts, so it does not sign
  * learners in: it sends them to the simulator's own sign-in, or to sign-up
  * with the class code their instructor gives them. Deep links use
- * `/login?next=<page>`, which the simulator honours for paths inside `/ehr`.
+ * `/login?next=<page>`, which the simulator honors for paths inside `/ehr`.
  *
  * Override the host with NEXT_PUBLIC_EHR_SIMULATOR_URL (no trailing slash),
  * for example to point a preview deployment at a preview simulator.

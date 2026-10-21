@@ -71,7 +71,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Never document in advance, and never document care you did not personally provide or witness. Charting a vital sign before you take it, or signing for a colleague's work, is falsification of a medical record — a serious offence independent of whether anything went wrong. It is also one of the fastest ways to lose a healthcare career.",
+            text: "Never document in advance, and never document care you did not personally provide or witness. Charting a vital sign before you take it, or signing for a colleague's work, is falsification of a medical record — a serious offense independent of whether anything went wrong. It is also one of the fastest ways to lose a healthcare career.",
           },
           {
             type: "knowledge-check",

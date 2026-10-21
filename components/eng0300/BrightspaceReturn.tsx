@@ -29,7 +29,7 @@ export default function BrightspaceReturn({
           <>
             Graded work for this task goes in{" "}
             <span className="font-semibold text-eng-navy-800">{dropbox}</span>
-            {typeof week === "number" && ` (Week ${week})`}. Nothing on this site
+            . Nothing on this site
             is submitted, recorded, or graded.
           </>
         ) : (

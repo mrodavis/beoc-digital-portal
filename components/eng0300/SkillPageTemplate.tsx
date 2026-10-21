@@ -36,7 +36,7 @@ export default function SkillPageTemplate({
     Boolean(entry)
   );
 
-  // Brightspace in-class pages for this skill (TABE review pages excluded:
+  // Class exercise pages for this skill (TABE review pages excluded:
   // they cover every skill and are linked from the TABE Prep Center).
   const classExercises = eng0300ExercisesForSkill(skill.slug).filter(
     (exercise) => exercise.group.id !== "tabe"
@@ -63,7 +63,7 @@ export default function SkillPageTemplate({
             </span>
             <div>
               <p className="mb-2 text-sm font-bold uppercase tracking-widest text-white/70">
-                Week {skill.week} · Skill Lab
+                Skill {skill.week} of 7 · Skill Lab
               </p>
               <h1 className="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl">
                 {skill.title}
@@ -240,10 +240,10 @@ export default function SkillPageTemplate({
               className="scroll-mt-32 rounded-xl border border-eng-navy-200 bg-white p-5 sm:p-6"
             >
               <h2 className="font-display text-lg font-bold text-eng-navy-900">
-                Practice from class
+                More practice pages
               </h2>
               <p className="mt-1 text-sm text-eng-navy-600">
-                In-class pages for this skill. Each one keeps your score as you go.
+                Class Exercises for this skill. Each one keeps your score as you go.
               </p>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {classExercises.map((exercise) => (
@@ -269,7 +269,7 @@ export default function SkillPageTemplate({
                 href="/eng0300/class-exercises"
                 className="mt-4 inline-block text-sm font-semibold text-eng-teal-700 hover:text-eng-teal-900"
               >
-                All class exercises →
+                All Class Exercises →
               </Link>
             </section>
           )}
@@ -328,7 +328,7 @@ export default function SkillPageTemplate({
               href={`/eng0300/skills/${previous.slug}`}
               className="font-medium text-eng-navy-600 transition-colors hover:text-eng-navy-900"
             >
-              ← Week {previous.week}: {previous.shortTitle}
+              ← Skill {previous.week}: {previous.shortTitle}
             </Link>
           ) : (
             <span />
@@ -338,7 +338,7 @@ export default function SkillPageTemplate({
               href={`/eng0300/skills/${next.slug}`}
               className="font-medium text-eng-teal-700 transition-colors hover:text-eng-teal-900 sm:text-right"
             >
-              Week {next.week}: {next.shortTitle} →
+              Skill {next.week}: {next.shortTitle} →
             </Link>
           ) : (
             <Link

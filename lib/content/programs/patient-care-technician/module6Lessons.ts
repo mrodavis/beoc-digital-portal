@@ -107,7 +107,7 @@ export const module6Lessons: Lesson[] = [
               ],
               [
                 "Choking, cannot speak or cough",
-                "Call for help and begin abdominal thrusts if trained",
+                "Call for help and start choking relief exactly as your current BLS course taught it",
                 "Do not leave them",
               ],
               [
@@ -243,7 +243,7 @@ export const module6Lessons: Lesson[] = [
             optionRationales: [
               "This assumes religious beliefs the family may not hold, and can feel dismissive.",
               "Correct. Acknowledge, allow silence, and offer something specific and practical.",
-              "This imposes a framework on their grief and frequently causes offence.",
+              "This imposes a framework on their grief and frequently causes offense.",
               "Distraction communicates that their distress is unwelcome.",
             ],
           },

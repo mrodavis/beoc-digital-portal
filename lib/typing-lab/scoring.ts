@@ -102,6 +102,5 @@ export function explainScore(s: TestScore): string[] {
   ];
 }
 
-export function minutesLabel(m: number): string {
-  return `${m}-minute`;
-}
+export const TEST_LENGTHS = [1, 2, 3, 5] as const;
+export type TestLength = (typeof TEST_LENGTHS)[number];

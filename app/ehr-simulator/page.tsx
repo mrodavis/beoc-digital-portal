@@ -77,7 +77,7 @@ const TRANSFER = [
 
 const FAQ = [
   {
-    q: "It says my class code was not recognised.",
+    q: "It says my class code was not recognized.",
     a: "Check the code with your instructor; letters that look alike (O and 0, I and 1) are never used, so if you see one, it is the other. If the class has been closed or the code was changed, your instructor can give you the new one.",
   },
   {

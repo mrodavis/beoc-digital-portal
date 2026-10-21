@@ -25,7 +25,7 @@ export const module4Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "CPT stands for Current Procedural Terminology. It is maintained by the American Medical Association, revised annually with changes effective 1 January, and it describes the services and procedures a provider performs. Every CPT code is five characters.",
+            text: "CPT stands for Current Procedural Terminology. It is maintained by the American Medical Association, revised annually with changes effective January 1, and it describes the services and procedures a provider performs. Every CPT code is five characters.",
           },
           {
             type: "table",
@@ -40,13 +40,13 @@ export const module4Lessons: Lesson[] = [
               ],
               [
                 "Category II",
-                "Four digits plus F, e.g. 3006F",
+                "Four digits followed by F",
                 "Performance measurement and quality reporting",
                 "Yes, but often required by quality programs",
               ],
               [
                 "Category III",
-                "Four digits plus T, e.g. 0510T",
+                "Four digits followed by T",
                 "Emerging technology, services, and procedures",
                 "No — use instead of an unlisted Category I code when one exists",
               ],
@@ -62,7 +62,7 @@ export const module4Lessons: Lesson[] = [
               ["Surgery", "10004-69990", "Surgical procedures by body system — the largest section"],
               ["Radiology", "70010-79999", "Imaging and radiation oncology"],
               ["Pathology and Laboratory", "80047-89398", "Lab tests and pathology"],
-              ["Medicine", "90281-99607", "Immunizations, cardiovascular studies, therapies"],
+              ["Medicine", "90281-99199, 99500-99607", "Immunizations, cardiovascular studies, therapies"],
             ],
           },
           {

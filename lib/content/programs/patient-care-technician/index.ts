@@ -148,7 +148,7 @@ export const patientCareTechnician: Program = {
         "Safe feeding practice and aspiration precautions",
         "Why prescribed diet textures and liquid thicknesses cannot be altered",
         "Recording intake and output accurately",
-        "Clean-catch collection, the order of draw, and specimen labelling",
+        "Clean-catch collection, the order of draw, and specimen labeling",
       ],
       scenario:
         "A patient recovering from a stroke is fed quickly because the tray cart is waiting, reclined at 30 degrees, with large spoonfuls and no pause. Aspiration pneumonia is one of the most common hospital-acquired complications, and this is how it starts.",

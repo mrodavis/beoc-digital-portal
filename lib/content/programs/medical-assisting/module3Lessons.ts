@@ -104,7 +104,7 @@ export const module3Lessons: Lesson[] = [
             ],
             correctIndex: 1,
             explanation:
-              "An undersized cuff requires more pressure to occlude the artery, so the measured pressure is higher than the patient's actual pressure. The effect is substantial and consistent, and it is a common cause of patients being labelled hypertensive incorrectly.",
+              "An undersized cuff requires more pressure to occlude the artery, so the measured pressure is higher than the patient's actual pressure. The effect is substantial and consistent, and it is a common cause of patients being labeled hypertensive incorrectly.",
             optionRationales: [
               "The error runs the other way. An oversized cuff is what produces falsely low readings.",
               "Correct. Undersized cuffs read falsely high, frequently by a clinically significant margin.",

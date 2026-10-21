@@ -389,11 +389,6 @@ export const powerpointModule1Lessons: Lesson[] = [
         "Return the Ribbon Display Options to Always show Ribbon.",
       ],
     },
-    {
-          type: "image",
-          src: "/images/powerpoint/module-1/getting-started/powerpoint_final_result.png",
-          alt: "PowerPoint backstage view",
-        },
   ],
 
 },
@@ -841,7 +836,7 @@ export const powerpointModule1Lessons: Lesson[] = [
     "Prepare a deck for a machine that may not have PowerPoint",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/iwecUGKmiyw",
+  videoUrl: "https://www.youtube.com/embed/pKqcEG4WMs4",
 
   practiceFiles: [
     {
@@ -1037,7 +1032,7 @@ sections: [
     {
       type: "paragraph",
       text:
-        "Choose the permission deliberately. \"Can view\" is right for most recipients; \"can edit\" is for genuine co-authors. And permissions outlive the task — a link shared for one afternoon still works next year unless someone revokes it. Set an expiry on anything sensitive.",
+        "Choose the permission deliberately. \"Can view\" is right for most recipients; \"can edit\" is for genuine co-authors. And permissions outlive the task — a link shared for one afternoon still works next year unless someone removes it. When a project ends, check who still has access to anything sensitive and remove anyone who no longer needs it.",
     },
     {
       type: "image",
@@ -1046,8 +1041,8 @@ sections: [
     },
     {
       type: "image",
-      src: "/images/powerpoint/module-1/saving/saving_share_input.jpeg",
-      alt: "Entering email to share presentation",
+      src: "/images/powerpoint/module-1/saving/saving_share_pane.png",
+      alt: "The Share page with an email address entered, the permission set to Can edit, and Send and Copy link buttons",
     },
   ],
 },

@@ -153,7 +153,7 @@ export const module5Lessons: Lesson[] = [
               ["Preparation", "Consent confirmed, patient positioned, field set, lighting adjusted"],
               ["Anesthesia", "Syringe, needle, anesthetic, alcohol prep"],
               ["The procedure", "Instruments in order of use, gauze, suture, irrigation"],
-              ["Specimen", "Labelled container, requisition, fixative if required"],
+              ["Specimen", "Labeled container, requisition, fixative if required"],
               ["Closure", "Dressing supplies, tape, wound care instructions"],
               ["Afterwards", "Sharps disposed at point of use, specimen routed, documentation"],
             ],
@@ -161,7 +161,7 @@ export const module5Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Label specimen containers in the presence of the patient, immediately after collection, before leaving the room. Labelling later — or labelling several containers in advance — is how specimens get switched, and a mislabelled specimen means a patient receives a result belonging to someone else. This is among the most consequential errors in an outpatient setting and among the easiest to prevent.",
+            text: "Label specimen containers in the presence of the patient, immediately after collection, before leaving the room. Labeling later — or labeling several containers in advance — is how specimens get switched, and a mislabeled specimen means a patient receives a result belonging to someone else. This is among the most consequential errors in an outpatient setting and among the easiest to prevent.",
           },
           {
             type: "knowledge-check",
@@ -198,7 +198,7 @@ export const module5Lessons: Lesson[] = [
           "Write the rules of the sterile field from memory, then check against a reference.",
           "For each, decide whether the field is contaminated and why: an item placed 1/2 inch from the drape edge; a sterile package opened away from your body; turning to answer a question; saline soaking through the drape.",
           "Research the difference between sterilization, disinfection, and sanitization, and give a clinical example of each.",
-          "Write a labelling procedure for specimens that makes a mix-up structurally difficult rather than merely discouraged.",
+          "Write a labeling procedure for specimens that makes a mix-up structurally difficult rather than merely discouraged.",
         ],
       },
     ],

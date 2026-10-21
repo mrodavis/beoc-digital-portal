@@ -53,7 +53,7 @@ const m1: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Scope varies by state and sometimes by employer, and some states allow a certified technician to do things others prohibit — tech-check-tech, administering immunisations, taking transfers. Never assume a task you performed in one state is permitted in another, and never rely on what a colleague tells you. The state board of pharmacy is the authority.",
+            text: "Scope varies by state and sometimes by employer, and some states allow a certified technician to do things others prohibit — tech-check-tech, administering immunizations, taking transfers. Never assume a task you performed in one state is permitted in another, and never rely on what a colleague tells you. The state board of pharmacy is the authority.",
           },
           {
             type: "paragraph",
@@ -278,7 +278,7 @@ const m2: Lesson[] = [
               ["1:1000", "1 gram in 1000 mL", "Epinephrine 1:1000 is 1 mg/mL"],
               ["1% w/v", "1 gram in 100 mL", "1% lidocaine is 10 mg/mL"],
               ["5% w/v", "5 grams in 100 mL", "5% dextrose is 50 mg/mL"],
-              ["mg/mL", "Milligrams per millilitre", "Stated directly"],
+              ["mg/mL", "Milligrams per milliliter", "Stated directly"],
             ],
           },
           {
@@ -366,7 +366,7 @@ const m2: Lesson[] = [
             rows: [
               ["Read the label at the shelf", "Before picking up the bottle"],
               ["Read it again when counting", "As the tablets go into the tray"],
-              ["Read it again at the point of labelling", "Before the label is applied"],
+              ["Read it again at the point of labeling", "Before the label is applied"],
               ["Match the NDC number, not the name", "Numbers do not look alike the way names do"],
               ["Check the strength as carefully as the name", "Right drug, wrong strength is equally an error"],
               ["Never rely on bottle appearance", "Manufacturers change packaging without notice"],

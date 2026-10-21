@@ -3,16 +3,15 @@ import { Lesson } from "@/types/lesson";
 export const module6Lessons: Lesson[] = [
   {
     slug: "intro-to-outlook-2019",
-    title: "Introduction to Microsoft Outlook 2019",
+    title: "Introduction to Microsoft Outlook",
     description:
-      "Get oriented in the Outlook 2019 interface, set up a professional email signature, configure your inbox view, and understand how all of Outlook's modules connect to manage your professional communications.",
+      "Get oriented in Outlook for Microsoft 365, set up a professional email signature, configure your inbox view, and understand how Outlook's Mail, Calendar, People, and Tasks connect to manage your professional communications.",
     duration: "15 min",
-    videoUrl: "https://www.youtube.com/embed/OR_RjjqF1qc",
 
     slides: [
       {
         src: "/images/office-assistant/office-apps/module-6/intro-to-outlook-2019/slide-01.jpg",
-        alt: "Welcome to Microsoft Outlook 2019 — email, calendar, contacts, tasks, and notes in one place",
+        alt: "Welcome to Microsoft Outlook — email, calendar, contacts, tasks, and notes in one place",
       },
       {
         src: "/images/office-assistant/office-apps/module-6/intro-to-outlook-2019/slide-02.jpg",
@@ -32,7 +31,7 @@ export const module6Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/office-apps/module-6/intro-to-outlook-2019/slide-06.jpg",
-        alt: "Multiple Accounts and Connected Services in Outlook 2019",
+        alt: "Multiple Accounts and Connected Services in Outlook",
       },
       {
         src: "/images/office-assistant/office-apps/module-6/intro-to-outlook-2019/slide-07.jpg",
@@ -40,7 +39,7 @@ export const module6Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/office-apps/module-6/intro-to-outlook-2019/slide-08.jpg",
-        alt: "Outlook Today View — daily email, appointment, and task overview on one screen",
+        alt: "Outlook Today in classic Outlook (My Day in the new Outlook) — daily email, appointment, and task overview on one screen",
       },
       {
         src: "/images/office-assistant/office-apps/module-6/intro-to-outlook-2019/slide-09.jpg",
@@ -57,19 +56,24 @@ export const module6Lessons: Lesson[] = [
             variant: "info",
             text: "It is your first morning managing communications at Lakeside Medical Associates. The practice's main inbox receives 40–60 emails per day — appointment requests, insurance authorizations, referral letters, supply invoices, and staff messages all arriving in the same place. Before you can manage any of it effectively, you need to know where everything lives in Outlook, how to configure your view for maximum efficiency, and how to set up a professional signature that represents the practice correctly on every email you send. This lesson gets you set up before the first message needs a response.",
           },
+          {
+            type: "callout",
+            variant: "version",
+            text: "Windows now has two Outlook apps. Classic Outlook is the desktop app that comes with Microsoft 365 apps, and it is still what most work and school accounts open by default. The new Outlook for Windows is a newer app (it replaced the Windows Mail and Calendar apps), and you can switch between the two with the toggle at the top of the window. Microsoft has said it will start turning the new Outlook on by default for business accounts in March 2027 and will support classic Outlook until at least 2029. This module and its practice simulations use classic Outlook. Where the new Outlook puts a command somewhere else, a note tells you where.",
+          },
         ],
       },
       {
-        heading: "The Outlook 2019 Interface",
+        heading: "The Outlook Window",
         blocks: [
           {
             type: "paragraph",
-            text: "Outlook 2019's interface is organized as a communication hub with distinct modules for each type of professional communication — email, calendar, contacts, tasks, and notes. Understanding how each module connects to the others is what makes Outlook powerful rather than just a basic email client:",
+            text: "Outlook is organized as a communication hub with distinct modules for each type of professional communication — email, calendar, contacts, and tasks. Understanding how each module connects to the others is what makes Outlook powerful rather than just a basic email client:",
           },
           {
             type: "list",
             items: [
-              "The Navigation Pane is the narrow left column that switches between Outlook's main modules — click the Mail icon (envelope), Calendar icon, People icon (contacts), Tasks icon (checkmark), or Notes icon to switch modules. Each module has its own Folder Pane and content view. You can collapse the Navigation Pane icons to text labels for more screen space (View > Folder Pane > Normal vs Minimized). The Navigation Pane is your primary tool for moving between the different communication functions in Outlook.",
+              "The Navigation Bar holds the icons that switch between Outlook's main modules — Mail (envelope), Calendar, People (contacts), and Tasks (checkmark), with Notes and other apps under More Apps (...). Press Ctrl+1 for Mail, Ctrl+2 for Calendar, Ctrl+3 for People, and Ctrl+4 for Tasks. Each module has its own Folder Pane and content view, and you can shrink the Folder Pane for more screen space (View > Folder Pane > Normal or Minimized). The Navigation Bar is your primary tool for moving between the different communication functions in Outlook.",
               "The Folder Pane shows the folder hierarchy within the current module — in Mail, it shows your Inbox, Sent Items, Drafts, Deleted Items, and any custom folders you have created. In Calendar, it shows your calendar list. In People, it shows contact folders and groups. Hover over the Folder Pane divider to resize it, or click the arrow icon to collapse it for a cleaner view of your message list.",
               "The Message List (center panel in Mail view) shows the emails in the currently selected folder — by default, sorted by date with the newest on top. Each entry shows the sender name, subject line, the first line of the email body, a timestamp, and any flags or category markers. Right-click any message in the list for a context menu with common actions (reply, forward, flag, move, delete). The Message List is where you make the initial decision about every incoming email.",
               "The Reading Pane (right side or bottom of the screen by default) shows the full content of the selected email without opening it in a separate window — this is how professional email managers read the vast majority of their email. Place the Reading Pane on the right for wide screens (View > Reading Pane > Right) or on the bottom for narrow screens. Turn it off if you want a full-width message list view. Reading messages in the Reading Pane without opening them into separate windows keeps your workspace clean and makes you faster.",
@@ -87,7 +91,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To create a signature: go to File > Options > Mail > Signatures, or in a new email, click Message > Signature > Signatures. Click 'New,' give the signature a name (e.g., 'Lakeside Medical – Full Signature'), and type your signature content in the editor below. Format it with font choices that match the practice's professional standards.",
+              "To create a signature in classic Outlook: go to File > Options > Mail > Signatures, or in a new email, click Message > Signature > Signatures. Click 'New,' give the signature a name (e.g., 'Lakeside Medical – Full Signature'), and type your signature content in the editor below. Format it with font choices that match the practice's professional standards. In the new Outlook, go to Settings (the gear) > Accounts > Signatures, select New signature, and choose the defaults under Select default signatures.",
               "A complete professional signature for Lakeside Medical Associates includes: your full name (bold, 11pt), your title (normal, 11pt), the practice name ('Lakeside Medical Associates,' normal or bold, 11pt), the practice address (123 Lakeview Drive, Suite 200, Lakeside, CA 90210), main phone number (555-234-5678), direct phone number if applicable, fax number if applicable, and the practice website or email. Optionally include a HIPAA confidentiality notice as one or two small-font sentences below the contact block.",
               "Set the signature to append automatically: in the Signatures dialog, under 'Choose default signature,' select your email account, choose your created signature from the 'New messages' dropdown, and optionally from the 'Replies/forwards' dropdown. Setting both ensures every outgoing message carries the signature without needing to insert it manually. For patient communications, use the full signature. For internal staff emails, a shorter version with just name and title is more appropriate — create two signature variations.",
               "The confidentiality notice (optional but common in medical offices) is a legal disclaimer appended below the contact block: 'This email and any attachments are confidential and intended solely for the addressee. If you have received this email in error, please notify the sender immediately and permanently delete all copies. Unauthorized use, disclosure, or distribution of this information may violate applicable laws.' Many medical offices include this notice on all outgoing emails as a standard HIPAA best practice.",
@@ -105,20 +109,20 @@ export const module6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Focused Inbox separates high-priority messages (in the Focused tab) from lower-priority messages (in the Other tab) using machine learning to predict which emails are most important based on your behavior. In a busy medical office inbox, Focused Inbox can be helpful for surfacing urgent patient and provider messages while routing newsletters, automated notifications, and low-priority vendor emails to Other. Configure Focused Inbox in View > Show Focused Inbox. Click the Other tab to review and manually move any misclassified messages to teach the algorithm what belongs in Focused.",
-              "Outlook Today view gives you a one-screen overview of your day's email, calendar appointments, and tasks — click on your mailbox name at the top of the Folder Pane (not a specific folder) to open Outlook Today. Customize it by clicking 'Customize Outlook Today' in the top right — choose how many days of calendar to show, how many tasks to display, and whether to have Outlook Today display automatically when Outlook opens. For a medical office assistant who needs to assess the day's priorities quickly each morning, Outlook Today is a 10-second daily briefing before diving into individual emails and appointments.",
+              "Focused Inbox separates high-priority messages (in the Focused tab) from lower-priority messages (in the Other tab) using machine learning to predict which emails are most important based on your behavior. In a busy medical office inbox, Focused Inbox can be helpful for surfacing urgent patient and provider messages while routing newsletters, automated notifications, and low-priority vendor emails to Other. In classic Outlook, turn it on with View > Show Focused Inbox; the new Outlook has the same Focused and Other tabs. Click the Other tab to review and manually move any misclassified messages to teach the algorithm what belongs in Focused.",
+              "Outlook Today (classic Outlook) gives you a one-screen overview of your day's email, calendar appointments, and tasks — click on your mailbox name at the top of the Folder Pane (not a specific folder) to open Outlook Today. Customize it by clicking 'Customize Outlook Today' in the top right — choose how many days of calendar to show, how many tasks to display, and whether to have Outlook Today display automatically when Outlook opens. The new Outlook does not have Outlook Today; select My Day at the top of the window instead to see your upcoming calendar events and your To Do tasks in one pane. Either way, it is a 10-second daily briefing before diving into individual emails and appointments.",
             ],
           },
         ],
       },
       {
-        heading: "Quick Reference: Outlook 2019 Interface",
+        heading: "Quick Reference: The Outlook Window",
         blocks: [
           {
             type: "image",
             src: "/images/office-assistant/office-apps/module-6/intro-to-outlook-2019/infographic.png",
-            alt: "Outlook 2019 Interface Quick Reference — labeled diagram of the Navigation Pane, Folder Pane, Message List, Reading Pane, signature setup workflow, Focused Inbox configuration, and Outlook Today layout guide",
-            caption: "Outlook 2019 Interface Quick Reference — getting oriented in your professional communications hub",
+            alt: "Outlook Interface Quick Reference — the Navigation Bar, Folder Pane, Message List, Reading Pane, signature setup in classic and new Outlook, Focused Inbox, and Outlook Today (classic) or My Day (new Outlook)",
+            caption: "Outlook Interface Quick Reference — getting oriented in your professional communications hub",
           },
         ],
       },
@@ -146,7 +150,7 @@ export const module6Lessons: Lesson[] = [
         blocks: [
           {
             type: "knowledge-check",
-            question: "Where in Outlook do you set up an automatic email signature that appends to every new message you send?",
+            question: "In classic Outlook, where do you set up an automatic email signature that appends to every new message you send?",
             options: [
               "View > Reading Pane > Signature",
               "File > Options > Mail > Signatures",
@@ -154,6 +158,8 @@ export const module6Lessons: Lesson[] = [
               "Tools > Accounts > Signature Settings",
             ],
             correctIndex: 1,
+            explanation:
+              "In classic Outlook the Signatures and Stationery dialog is at File > Options > Mail > Signatures (or Message > Signature > Signatures in a new email). In the new Outlook, the same settings are at Settings > Accounts > Signatures.",
           },
         ],
       },
@@ -162,13 +168,13 @@ export const module6Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Configure your Outlook 2019 interface professionally and create two signature variations for Lakeside Medical Associates — a full external signature and a short internal signature.",
+        text: "Configure your Outlook window professionally and create two signature variations for Lakeside Medical Associates — a full external signature and a short internal signature. The steps below are for classic Outlook; if you use the new Outlook, use the new-Outlook locations given in the lesson.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Configure the Reading Pane to display on the right side (View > Reading Pane > Right). Enable Focused Inbox (View > Show Focused Inbox). Open Outlook Today by clicking on your mailbox name in the Folder Pane and take a screenshot showing the three-panel layout (email, calendar, tasks).",
+          "Configure the Reading Pane to display on the right side (View > Reading Pane > Right). Enable Focused Inbox (View > Show Focused Inbox). Open Outlook Today by clicking on your mailbox name in the Folder Pane and take a screenshot showing the three-panel layout (email, calendar, tasks). In the new Outlook, open My Day instead and take the screenshot of it.",
           "Create a full external email signature named 'Lakeside Medical – External.' Include: your name (bold), 'Office Assistant,' 'Lakeside Medical Associates,' the address, phone, fax, and a 2-sentence HIPAA confidentiality notice. Format using Calibri 11pt black for name and title, Calibri 10pt gray for address and notice.",
           "Create a shorter internal email signature named 'Lakeside Medical – Internal.' Include only: your name, 'Office Assistant,' and your direct phone number. No address, no confidentiality notice.",
           "Set the External signature as the default for New Messages and the Internal signature as the default for Replies/Forwards. Open a new blank email and confirm the External signature appears automatically. Then reply to a sent message (or test email) and confirm the Internal signature appears.",
@@ -178,7 +184,7 @@ export const module6Lessons: Lesson[] = [
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit three screenshots to your instructor — (1) Outlook Today view, (2) the External signature in the signature editor, and (3) the Internal signature in the signature editor — plus a written confirmation that both signatures appear correctly as defaults in new messages and replies. This configuration represents the professional Outlook setup standard at Lakeside Medical Associates.",
+        text: "Deliverable: Submit three screenshots to your instructor — (1) Outlook Today (or My Day) view, (2) the External signature in the signature editor, and (3) the Internal signature in the signature editor — plus a written confirmation that both signatures appear correctly as defaults in new messages and replies. This configuration represents the professional Outlook setup standard at Lakeside Medical Associates.",
       },
     ],
   },
@@ -189,7 +195,6 @@ export const module6Lessons: Lesson[] = [
     description:
       "Master the full range of Outlook's email tools — composing professional messages, using Quick Steps and Rules for automation, managing conversations, flagging for follow-up, and maintaining a professional inbox.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/EBGrJckHadw",
 
     slides: [
       {
@@ -271,8 +276,8 @@ export const module6Lessons: Lesson[] = [
             type: "list",
             items: [
               "Creating folders for a medical office inbox: right-click your Inbox in the Folder Pane and choose 'New Folder.' Build a folder structure that mirrors the practice's main workflow categories — Appointments (incoming request and confirmation emails), Insurance (auth requests, responses, EOBs), Referrals (incoming and outgoing referral correspondence), Billing (invoices, statements, payment confirmations), Providers (clinical communications from/to providers), Staff (internal staff messages), and Vendors (supply orders and invoices). Never file everything in subfolders of subfolders — 2 levels of hierarchy is the professional maximum for an inbox folder structure.",
-              "Quick Steps are one-click multi-action automations for your most frequent email processing tasks — click Home > Quick Steps > Create New. Define a name and a sequence of actions: for example, the 'File Insurance Auth' Quick Step would Mark as Read, Move to 'Insurance' folder, and Flag for Follow-up with a 3-day reminder — all in one click. Quick Steps appear in the Ribbon for rapid access. Create Quick Steps for your 4–5 most frequent email processing actions to save significant time across a busy inbox day.",
-              "Rules automatically process incoming messages without any manual action — click Home > Rules > Manage Rules & Alerts > New Rule. The most common rule types for a medical office: automatically move emails from specific senders (the insurance company's email domain) to specific folders, automatically flag emails with specific subjects ('URGENT' or 'Authorization Needed') with High Importance, automatically forward emails matching specific keywords to a specific recipient, and automatically delete emails matching spam patterns before they reach the inbox. Rules run in the order listed — place more specific rules above more general ones to prevent conflicts.",
+              "Quick Steps are one-click multi-action automations for your most frequent email processing tasks — in classic Outlook, click Home > Quick Steps > Create New (in the new Outlook, open the Quick steps drop-down on the Home tab and choose Manage quick steps). Define a name and a sequence of actions: for example, the 'File Insurance Auth' Quick Step would Mark as Read, Move to 'Insurance' folder, and Flag for Follow-up with a 3-day reminder — all in one click. Quick Steps appear in the Ribbon for rapid access. Create Quick Steps for your 4–5 most frequent email processing actions to save significant time across a busy inbox day.",
+              "Rules automatically process incoming messages without any manual action — in classic Outlook, click Home > Rules > Manage Rules & Alerts > New Rule (in the new Outlook, right-click a message, point to Rules, choose Create rule, then More options). The most common rule types for a medical office: automatically move emails from specific senders (the insurance company's email domain) to specific folders, automatically flag emails with specific subjects ('URGENT' or 'Authorization Needed') with High Importance, automatically forward emails matching specific keywords to a specific recipient, and automatically delete emails matching spam patterns before they reach the inbox. Rules run in the order listed — place more specific rules above more general ones to prevent conflicts.",
             ],
           },
         ],
@@ -288,8 +293,8 @@ export const module6Lessons: Lesson[] = [
             type: "list",
             items: [
               "Conversation View groups all emails with the same subject line into a single expandable thread — enable it via View > Show as Conversations. When you click a conversation in the message list, all related emails (sent and received) are grouped together. This prevents the situation where a patient sends 4 follow-up emails about the same appointment and they appear as 4 separate unrelated items in the inbox. Right-click a conversation and choose 'Ignore Conversation' to automatically move all current and future messages in that thread to Deleted Items — useful for email chains you have been CC'd on but no longer need to follow.",
-              "Flagging for follow-up marks an email with a reminder so it does not fall off your radar — right-click any message and choose Follow Up, then select a due date (Today, Tomorrow, This Week, Next Week) or Custom date. Flagged messages appear in the Task list and show a flag icon in the message list. At Lakeside Medical Associates, flag every email that requires an action you cannot complete immediately: insurance response needed in 3 days, patient call-back needed by tomorrow, supply order confirmation needed this week. Clearing flags immediately when actions are complete keeps your task list accurate.",
-              "Search is the fastest way to find any email — press Ctrl+E to activate the search bar in Outlook. Type keywords, sender names, or subject text. Use the Search tab that appears in the Ribbon to filter by date range (Within: this week, this month), sender, folder, or whether the email has attachments. For a medical office, saving frequent searches as Search Folders (right-click on Search Folders in the Folder Pane > New Search Folder) creates permanent filtered views — for example, a 'Flagged Insurance Emails' search folder that always shows all flagged emails in the Insurance folder, updated automatically.",
+              "Flagging for follow-up marks an email with a reminder so it does not fall off your radar — right-click any message and choose Follow Up, then select a due date (Today, Tomorrow, This Week, Next Week) or Custom date. Flagged messages show a flag icon in the message list and appear in your task list (the To-Do List and Tasks in classic Outlook; Microsoft To Do and My Day in the new Outlook). At Lakeside Medical Associates, flag every email that requires an action you cannot complete immediately: insurance response needed in 3 days, patient call-back needed by tomorrow, supply order confirmation needed this week. Clearing flags immediately when actions are complete keeps your task list accurate.",
+              "Search is the fastest way to find any email — press Ctrl+E to activate the search bar in Outlook. Type keywords, sender names, or subject text. Use the Search tab that appears in the Ribbon to filter by date range (Within: this week, this month), sender, folder, or whether the email has attachments. For a medical office, saving frequent searches as Search Folders in classic Outlook (right-click on Search Folders in the Folder Pane > New Search Folder; the new Outlook supports only some Search Folder types) creates permanent filtered views — for example, a 'Flagged Insurance Emails' search folder that always shows all flagged emails in the Insurance folder, updated automatically.",
             ],
           },
         ],
@@ -311,7 +316,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Email communication at Lakeside Medical Associates is subject to HIPAA retention requirements — patient-related emails must be retained for a minimum of 6 years from the date of creation. Never permanently delete emails that contain patient information, clinical communications from providers, insurance authorization decisions, or billing correspondence. Instead of deleting, move to the appropriate archival folder. The practice's IT administrator may have Outlook configured with automatic retention policies — do not attempt to override them. If you receive a subpoena or legal hold notice, immediately preserve all related emails in a designated folder and notify your supervisor — do not delete anything while a legal matter is active.",
+            text: "Email at Lakeside Medical Associates falls under the practice's records-retention policy. How long patient records must be kept is set by state law and practice policy, not by a single HIPAA rule (HIPAA's own six-year retention requirement covers the practice's HIPAA compliance documentation, such as its policies and privacy notices). Never permanently delete emails that contain patient information, clinical communications from providers, insurance authorization decisions, or billing correspondence. Instead of deleting, move to the appropriate archival folder. The practice's IT administrator may have Outlook configured with automatic retention policies — do not attempt to override them. If you receive a subpoena or legal hold notice, immediately preserve all related emails in a designated folder and notify your supervisor — do not delete anything while a legal matter is active.",
           },
         ],
       },
@@ -355,13 +360,13 @@ export const module6Lessons: Lesson[] = [
           "Create 3 Quick Steps: (1) 'File as Appointment' — Mark as Read + Move to Appointments folder. (2) 'Forward to Billing Coordinator' — Forward to a fictional colleague email address + Move to Billing folder. (3) 'Flag for Friday' — Flag for follow-up due This Week + Mark as Read. Test each Quick Step on a test email.",
           "Create a Rule: automatically move any email where the Subject contains 'Authorization' OR 'Auth Request' to the Insurance > Pending Authorization subfolder. Test by creating a test email to yourself with 'Authorization' in the subject and verifying it routes correctly.",
           "Compose a professional email to a fictional referring physician (Dr. Sarah Nguyen at Riverside Family Practice) as a referral follow-up letter — proper subject line, professional salutation, 2 body paragraphs requesting medical records, professional closing, and your Lakeside Medical external signature. Attach a fictional document named 'Referral Request Form.docx' (create a blank file if needed). Set importance to Normal (do not use High unless genuinely urgent).",
-          "Enable Conversation View (View > Show as Conversations) and flag 3 existing emails in your inbox for follow-up on different dates (Today, Tomorrow, and Next Week). Confirm all 3 appear in the Tasks panel with their due dates.",
+          "Enable Conversation View (View > Show as Conversations) and flag 3 existing emails in your inbox for follow-up on different dates (Today, Tomorrow, and Next Week). Confirm all 3 appear in your task list with their due dates (Tasks in classic Outlook; To Do in the new Outlook).",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit screenshots of: (1) the complete folder structure in the Folder Pane, (2) the Quick Steps gallery showing your 3 Quick Steps, (3) the Rules dialog showing your Authorization routing rule, (4) the composed referral email before sending, and (5) the Tasks panel showing your 3 flagged emails with due dates. This inbox system represents a professional Outlook configuration ready for managing 40–60 emails per day at Lakeside Medical Associates.",
+        text: "Deliverable: Submit screenshots of: (1) the complete folder structure in the Folder Pane, (2) the Quick Steps gallery showing your 3 Quick Steps, (3) the Rules dialog showing your Authorization routing rule, (4) the composed referral email before sending, and (5) your task list showing your 3 flagged emails with due dates. This inbox system represents a professional Outlook configuration ready for managing 40–60 emails per day at Lakeside Medical Associates.",
       },
     ],
   },
@@ -372,7 +377,6 @@ export const module6Lessons: Lesson[] = [
     description:
       "Master Outlook's Calendar for scheduling appointments, sending meeting requests, using the Scheduling Assistant, managing recurring meetings, and coordinating the clinic's full schedule professionally.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/fsXS_VSuBvs",
 
     slides: [
       {
@@ -437,7 +441,7 @@ export const module6Lessons: Lesson[] = [
               "Day view shows all appointments for a single day in a time-slot grid format — the most detailed view, showing appointments from the day's start to end hour by hour. Use Day view when you are scheduling within a specific day and need to see exactly which hours are available and occupied. The time slots are 30 minutes by default; right-click the time grid to change the time scale to 15 or 60 minutes.",
               "Work Week view shows Monday through Friday of the current week in a five-column grid — the most commonly used view for a medical office assistant coordinating a busy work week. You can see all appointments for the week at a glance, identify gaps, spot conflicts, and schedule new appointments in open slots by double-clicking the desired time slot.",
               "Month view shows a full calendar month in grid format with appointments appearing as colored blocks — too small to show appointment details, but ideal for seeing patterns across the month (which weeks are heavy, which days have recurring meetings, when extended absences are scheduled). Use Month view for long-range scheduling planning, never for day-to-day appointment management.",
-              "Navigate between dates using the mini calendar on the left (click any date to jump to it) or the forward/back arrows in the toolbar (advance by one day, week, or month depending on current view). Switch views from the keyboard with Ctrl+Alt+1 (Day), Ctrl+Alt+2 (Work Week), Ctrl+Alt+3 (Week), or Ctrl+Alt+4 (Month). Click Home > Today to jump back to today's date from anywhere in the calendar.",
+              "Navigate between dates using the mini calendar on the left (click any date to jump to it) or the forward/back arrows in the toolbar (advance by one day, week, or month depending on current view). In classic Outlook, switch views from the keyboard with Ctrl+Alt+1 (Day), Ctrl+Alt+2 (Work Week), Ctrl+Alt+3 (Week), or Ctrl+Alt+4 (Month). Click Home > Today to jump back to today's date from anywhere in the calendar.",
             ],
           },
         ],
@@ -473,7 +477,7 @@ export const module6Lessons: Lesson[] = [
               "Recurring meetings occur on a defined schedule automatically — when creating or editing a meeting, click Recurrence in the Meeting toolbar to open the Appointment Recurrence dialog. Choose the recurrence pattern: Daily (every day or every N days or every weekday), Weekly (on specific days, every N weeks), Monthly (on a specific date or a specific day-of-month like 'the first Tuesday'), or Yearly. Set the range: recurring indefinitely (no end date), ending after N occurrences, or ending by a specific date. For the Lakeside Medical Associates weekly supply order review (every Friday at 2:00 PM), create a weekly recurring appointment on Friday with no end date.",
               "Sharing your calendar allows other staff members to view your schedule — right-click your Calendar in the Folder Pane and choose 'Share Calendar' or 'Share.' You can grant View-only access (colleagues can see your appointments but cannot edit), or Can Edit access (colleagues can add and modify appointments on your calendar). For the office assistant managing multiple providers' schedules, having view access to all provider calendars is essential for coordinating patient appointments without conflicts.",
               "Viewing multiple calendars in overlay mode stacks two or more calendars on top of each other with transparent coloring — click the arrow beside any additional calendar in the Folder Pane to overlay it on your primary calendar. You can see your calendar and the office manager's calendar together, with each person's appointments in a different color. This is how you find open times for joint meetings without needing to call each person.",
-              "Automatic Out-of-Office replies notify senders that you are unavailable — go to File > Automatic Replies. Set a start and end date, compose different replies for Inside My Organization (the internal staff message) and Outside My Organization (the external message for patients and partners). The internal message can include who to contact in your absence (with name and phone number). The external message should be professional and brief: 'Thank you for contacting Lakeside Medical Associates. I am out of the office from [dates] and will respond upon my return on [date]. For urgent matters, please call (555) 234-5678.' Never leave an automatic reply running after you return — turn it off the morning you are back.",
+              "Automatic Out-of-Office replies notify senders that you are unavailable — in classic Outlook, go to File > Automatic Replies (in the new Outlook, select View > View settings > Accounts > Automatic replies). Set a start and end date, compose different replies for Inside My Organization (the internal staff message) and Outside My Organization (the external message for patients and partners). The internal message can include who to contact in your absence (with name and phone number). The external message should be professional and brief: 'Thank you for contacting Lakeside Medical Associates. I am out of the office from [dates] and will respond upon my return on [date]. For urgent matters, please call (555) 234-5678.' Never leave an automatic reply running after you return — turn it off the morning you are back.",
             ],
           },
         ],
@@ -556,7 +560,6 @@ export const module6Lessons: Lesson[] = [
     description:
       "Learn to integrate Word, Excel, PowerPoint, and Outlook in connected workflows — embedding data, linking charts, sharing via OneDrive, co-authoring in real time, and exporting for cross-platform compatibility.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/OX3vRazm4fw",
 
     slides: [
       {
@@ -737,7 +740,6 @@ export const module6Lessons: Lesson[] = [
     description:
       "Apply every Outlook and Office integration skill in a single complete capstone — build a monthly appointment summary in Excel, a formal Word report, a PowerPoint chart slide, coordinate via Outlook email and Calendar, and set up automation — all as one connected professional workflow.",
     duration: "30 min",
-    videoUrl: "https://www.youtube.com/embed/qRShQc-v3LI",
 
     slides: [
       {
@@ -895,7 +897,7 @@ export const module6Lessons: Lesson[] = [
       {
         type: "callout",
         variant: "success",
-        text: "Final Deliverable: Submit to your instructor — (1) Excel workbook, (2) Word .docx, (3) Word PDF, (4) PowerPoint .pptx, (5) PowerPoint PDF, and (6) four screenshots (composed Outlook email, Calendar meeting with Scheduling Assistant, Quick Step gallery showing 'File Director Reply,' and the linked Excel table inside the Word document). Your complete capstone submission will be graded on: data accuracy in Excel, professional narrative quality in Word, correct linked chart in PowerPoint, professional Outlook email composition, proper Calendar meeting setup, and Quick Step automation configured. Completing this capstone at a passing grade means you are ready to serve as an Office Productivity specialist at Lakeside Medical Associates or any professional office environment that uses Microsoft Office 2019.",
+        text: "Final Deliverable: Submit to your instructor — (1) Excel workbook, (2) Word .docx, (3) Word PDF, (4) PowerPoint .pptx, (5) PowerPoint PDF, and (6) four screenshots (composed Outlook email, Calendar meeting with Scheduling Assistant, Quick Step gallery showing 'File Director Reply,' and the linked Excel table inside the Word document). Your complete capstone submission will be graded on: data accuracy in Excel, professional narrative quality in Word, correct linked chart in PowerPoint, professional Outlook email composition, proper Calendar meeting setup, and Quick Step automation configured. Completing this capstone at a passing grade means you are ready to serve as an Office Productivity specialist at Lakeside Medical Associates or any professional office environment that uses Microsoft 365.",
       },
     ],
   },

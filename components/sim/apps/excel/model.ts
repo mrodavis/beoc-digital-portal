@@ -2085,7 +2085,6 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
     case "excel.editAnyway": doc.flags = { ...(doc.flags ?? {}), protect: "" }; return { doc };
     case "review.accessibility": doc.pane = "Accessibility"; return { doc };
     case "review.thesaurus": doc.pane = "Thesaurus"; return { doc };
-    case "review.smartLookup": doc.pane = "Search"; return { doc };
     case "review.translate": doc.pane = "Translator"; return { doc };
     case "review.unprotectSheet": sheet.protected = false; return { doc };
 

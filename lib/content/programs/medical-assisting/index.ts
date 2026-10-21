@@ -153,7 +153,7 @@ export const medicalAssisting: Program = {
         "Examination positions and when each is used",
         "Draping and positioning that preserve patient dignity",
         "Medical versus surgical asepsis, and the rules of the sterile field",
-        "Anticipating the provider's needs, and labelling specimens safely",
+        "Anticipating the provider's needs, and labeling specimens safely",
       ],
       scenario:
         "You open the suture packet correctly onto the sterile field, then reach across it to hand the provider gauze. Your arm passed over the sterile surface. The field is contaminated, and if nobody says so, it is used anyway.",
@@ -191,7 +191,7 @@ export const medicalAssisting: Program = {
         "Venipuncture site selection and the situations to avoid",
         "The order of draw and why additive carryover matters",
         "Errors causing hemolysis, and the two hard limits during a draw",
-        "CLIA-waived testing, quality control, and specimen labelling",
+        "CLIA-waived testing, quality control, and specimen labeling",
       ],
       scenario:
         "A patient has had a mastectomy with node removal on the left and an IV running in the right forearm. Both arms have constraints, and choosing wrongly risks lymphedema on one side or a diluted specimen on the other.",

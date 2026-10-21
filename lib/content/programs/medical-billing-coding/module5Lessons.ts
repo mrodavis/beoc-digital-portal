@@ -180,7 +180,7 @@ export const module5Lessons: Lesson[] = [
             optionRationales: [
               "Correctness does not matter once the filing deadline has passed.",
               "Correct. The claim is denied as untimely, and the practice absorbs the loss.",
-              "Altering the date of service to defeat a filing limit is falsification of a claim — a serious offence, not a workaround.",
+              "Altering the date of service to defeat a filing limit is falsification of a claim — a serious offense, not a workaround.",
               "The patient is not responsible for the practice's failure to file on time, and billing them for it is generally prohibited by the payer contract.",
             ],
           },

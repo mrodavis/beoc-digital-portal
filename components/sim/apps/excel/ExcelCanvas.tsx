@@ -833,7 +833,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       { label: "Select Data...", icon: "sheet", command: "chart.selectData" },
       { label: "Move Chart...", icon: "export", dialog: "moveChart" },
       { separator: true },
-      { label: "Edit Alt Text...", icon: "accessibility", dialog: "altText" },
+      { label: "View Alt Text...", icon: "accessibility", dialog: "altText" },
     );
     onContextMenu(e.clientX, e.clientY, items);
   };

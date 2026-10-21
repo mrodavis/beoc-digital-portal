@@ -417,9 +417,10 @@ export default function WriteItBlock({ writeIt }: { writeIt: WriteIt }) {
           Turn it in
         </h3>
         <p className="mt-1 max-w-[68ch] text-[0.9375rem] leading-relaxed text-eng-navy-700">
-          Copy your paragraph, then paste it into{" "}
+          Copy your paragraph, then submit it to your instructor or course
+          folder (BEOC students:{" "}
           <span className="font-semibold">{writeIt.brightspace.dropbox}</span> in
-          Brightspace (Week {writeIt.brightspace.week}).
+          Brightspace).
         </p>
 
         <div className="mt-4 flex flex-wrap gap-3">
@@ -444,8 +445,8 @@ export default function WriteItBlock({ writeIt }: { writeIt: WriteIt }) {
         <p role="status" aria-live="polite" className="mt-3 text-sm">
           {copyState === "copied" && (
             <span className="font-semibold text-eng-green-700">
-              ✓ Copied. Now paste this into the Brightspace dropbox for this
-              week. Your work is not submitted from this page.
+              ✓ Copied. Now paste it into the Brightspace folder for this task.
+              Your work is not submitted from this page.
             </span>
           )}
           {copyState === "failed" && (

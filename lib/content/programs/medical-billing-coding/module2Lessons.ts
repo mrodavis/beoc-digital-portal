@@ -188,7 +188,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are coding a busy afternoon's charts at Lakeside Medical Associates.",
-            text: "Twelve encounters, twelve different complaints — chest pain, a fractured wrist, a urinary tract infection, uncontrolled diabetes. For each you need to find the right code among roughly seventy thousand. Searching the index alphabetically for every one is slow. Knowing which body system owns the condition narrows the search before you begin.",
+            text: "Twelve encounters, twelve different complaints — chest pain, a fractured wrist, a urinary tract infection, uncontrolled diabetes. For each you need to find the right code among more than seventy thousand. Searching the index alphabetically for every one is slow. Knowing which body system owns the condition narrows the search before you begin.",
             task: "Learn the systems well enough to know roughly where a code lives before you start looking.",
           },
           {

@@ -14,7 +14,6 @@ export const powerpointModule5Lessons: Lesson[] = [
     "Respect licensing when using images you did not create",
   ],
   duration: "13 min",
-  videoUrl: "https://www.youtube.com/embed/I-xlLwC4ERc",
 
   practiceFiles: [
     {
@@ -85,7 +84,7 @@ export const powerpointModule5Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "To insert a picture saved on your computer, go to the Insert tab and select Pictures from the Images group.",
+            "To insert a picture saved on your computer, go to the Insert tab, select Pictures in the Images group, and then select This Device.",
         },
         {
           type: "image",
@@ -129,22 +128,12 @@ export const powerpointModule5Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Clicking the picture icon inside the placeholder lets you insert an image while keeping it aligned with the slide layout.",
+            "Clicking the picture icon inside the placeholder lets you insert an image while keeping it aligned with the slide layout. The other icons in the same placeholder insert other kinds of content, such as a table, a chart, or a video.",
         },
         {
           type: "image",
           src: "/images/powerpoint/module-5/inserting-pictures/inserting-pictures_placeholder_insert.png",
           alt: "Insert picture from placeholder",
-        },
-        {
-          type: "paragraph",
-          text:
-            "You can also insert online images directly from the placeholder using the Online Pictures icon.",
-        },
-        {
-          type: "image",
-          src: "/images/powerpoint/module-5/inserting-pictures/inserting-pictures_online_placeholder.png",
-          alt: "Online pictures placeholder icon",
         },
       ],
     },
@@ -163,12 +152,18 @@ export const powerpointModule5Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Go to the Insert tab and select Online Pictures to begin searching.",
+            "Go to the Insert tab, select Pictures in the Images group, and then select Online Pictures to begin searching. Stock Images, on the same menu, offers PowerPoint's own licensed stock photos, which are the safer choice for work you will share.",
         },
         {
           type: "image",
           src: "/images/powerpoint/module-5/inserting-pictures/inserting-pictures_online_pics_ribbon.png",
-          alt: "Online Pictures command",
+          alt: "Insert tab with the Pictures menu open, showing This Device, Stock Images, and Online Pictures",
+        },
+        {
+          type: "callout",
+          variant: "info",
+          text:
+            "Online Pictures needs PowerPoint's connected experiences turned on. If you see a message that the service is turned off (common on managed school or work computers), use Stock Images or a picture saved on the computer instead.",
         },
         {
           type: "paragraph",
@@ -388,7 +383,7 @@ export const powerpointModule5Lessons: Lesson[] = [
       ordered: true,
       items: [
         "Select the last slide.",
-        "Use the Online Pictures command to insert a picture of your favorite form of exercise.",
+        "Use Insert > Pictures > Online Pictures (or Stock Images) to insert a picture of your favorite form of exercise.",
         "Resize your picture so it takes up a majority of the slide without covering the title.",
         "When you're finished, your slide should look something like this:",
       ],
@@ -405,7 +400,7 @@ export const powerpointModule5Lessons: Lesson[] = [
       items: [
         "Insert a new slide with a Title Only layout.",
         "In the Title placeholder, type Learn More at Fitness.gov.",
-        "Open https://odphp.health.gov/pcfsn in your browser, then insert a screen clipping of the website onto the slide you just created.",
+        "Open a health information web page in your browser, then insert a screen clipping of it onto the slide you just created.",
         "When you're finished, your slide should look something like this:",
       ],
     },
@@ -464,7 +459,7 @@ export const powerpointModule5Lessons: Lesson[] = [
            },
            {
              type: "tip",
-             text: "Add alt text to every meaningful image: right-click > Edit Alt Text. Describe what the image conveys rather than what it depicts. Mark purely decorative images as decorative so screen readers skip them.",
+             text: "Add alt text to every meaningful image: right-click > View Alt Text (or Picture Format > Alt Text). Describe what the image conveys rather than what it depicts. Mark purely decorative images as decorative so screen readers skip them.",
            },
          ],
        },
@@ -483,12 +478,12 @@ export const powerpointModule5Lessons: Lesson[] = [
           {
             type: "paragraph",
             text:
-              "All picture formatting tools are located under the Picture Tools Format tab, which appears when you select an image.",
+              "All picture formatting tools are located on the Picture Format tab, which appears when you select an image. (Older versions of PowerPoint labeled it Format, under a Picture Tools heading.)",
           },
           {
             type: "image",
             src: "/images/powerpoint/module-5/formatting-pictures/formatting-pictures_ribbon_command.png",
-            alt: "Picture Tools Format tab",
+            alt: "Picture Format tab",
           },
           {
             type: "callout",
@@ -1003,7 +998,7 @@ export const powerpointModule5Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "To use them, select the shape and go to the Drawing Tools Format tab. In the Shape Styles group, choose a preset style from the gallery.",
+            "To use them, select the shape and go to the Shape Format tab. In the Shape Styles group, choose a preset style from the gallery.",
         },
         {
           type: "image",

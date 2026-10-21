@@ -435,7 +435,7 @@ export const excelRibbon: RibbonTab[] = [
     groups: [
       { label: "Proofing", controls: [{ type: "button", id: "review.spelling", label: "Spelling", icon: "spelling", size: "large", shortcut: "F7" }, { type: "button", id: "review.thesaurus", label: "Thesaurus", icon: "thesaurus", showLabel: true }, { type: "button", id: "review.workbookStats", label: "Workbook Statistics", icon: "wordCount", showLabel: true }] },
       { label: "Accessibility", controls: [{ type: "button", id: "review.accessibility", label: "Check Accessibility", icon: "accessibility", size: "large" }] },
-      { label: "Insights", controls: [{ type: "button", id: "review.smartLookup", label: "Smart Lookup", icon: "smartLookup", size: "large" }] },
+      // Smart Lookup (Review › Insights) was retired in January 2025, so the Insights group is gone.
       { label: "Language", controls: [{ type: "button", id: "review.translate", label: "Translate", icon: "translate", size: "large" }] },
       {
         label: "Comments",

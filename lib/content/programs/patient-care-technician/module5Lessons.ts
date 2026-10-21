@@ -44,7 +44,7 @@ export const module5Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Intake and output records inform real clinical decisions about fluid balance, kidney function, and medication dosing. Record intake in millilitres, including all oral fluids, ice chips at roughly half their volume, and fluids taken with medications. Record output including urine, emesis, drainage, and liquid stool. Guessing makes the record actively misleading — an inaccurate I&O is worse than none, because it will be trusted.",
+            text: "Intake and output records inform real clinical decisions about fluid balance, kidney function, and medication dosing. Record intake in milliliters, including all oral fluids, ice chips at roughly half their volume, and fluids taken with medications. Record output including urine, emesis, drainage, and liquid stool. Guessing makes the record actively misleading — an inaccurate I&O is worse than none, because it will be trusted.",
           },
           {
             type: "table",
@@ -120,7 +120,7 @@ export const module5Lessons: Lesson[] = [
     ],
     sections: [
       {
-        heading: "Labelling so a mix-up cannot happen",
+        heading: "Labeling so a mix-up cannot happen",
         blocks: [
           {
             type: "worked-example",
@@ -128,7 +128,7 @@ export const module5Lessons: Lesson[] = [
             task: "Collect urine specimens from two patients in adjacent rooms without any possibility of swapping them.",
             steps: [
               {
-                move: "Take one labelled requisition into one room. Never carry two.",
+                move: "Take one labeled requisition into one room. Never carry two.",
                 why: "The mix-up becomes impossible rather than unlikely. If only one patient's paperwork is in your hand, there is nothing to confuse it with — this is a structural fix rather than a reminder to be careful.",
               },
               {
@@ -137,7 +137,7 @@ export const module5Lessons: Lesson[] = [
               },
               {
                 move: "Label the container in the room, immediately after collection, in front of the patient.",
-                why: "This is the whole procedure. Every mix-up happens in the gap between collection and labelling, and the only reliable fix is to close that gap to zero. Never pre-label and never carry an unlabelled specimen out.",
+                why: "This is the whole procedure. Every mix-up happens in the gap between collection and labeling, and the only reliable fix is to close that gap to zero. Never pre-label and never carry an unlabeled specimen out.",
               },
               {
                 move: "Have the patient confirm their name on the label if they are able.",
@@ -145,10 +145,10 @@ export const module5Lessons: Lesson[] = [
               },
               {
                 move: "Complete and route that specimen before going to the second room.",
-                why: "Finishing one before starting the next keeps only one specimen in play at a time. Batching two collections and labelling afterwards is exactly how two patients receive each other's results.",
+                why: "Finishing one before starting the next keeps only one specimen in play at a time. Batching two collections and labeling afterwards is exactly how two patients receive each other's results.",
               },
             ],
-            result: "Two specimens, each labelled at the bedside in the patient's presence, with no moment when both were unlabelled.",
+            result: "Two specimens, each labeled at the bedside in the patient's presence, with no moment when both were unlabeled.",
             takeaway: "One patient's paperwork at a time, label in the room, and finish one before starting the next.",
           },
         ],
@@ -159,12 +159,12 @@ export const module5Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You collect specimens at Lakeside Regional.",
-            text: "Two specimens are collected within fifteen minutes and labelled at the nurses' station afterwards rather than in the room. One patient is treated for an infection they do not have, and the patient who does have it is not treated at all.",
+            text: "Two specimens are collected within fifteen minutes and labeled at the nurses' station afterwards rather than in the room. One patient is treated for an infection they do not have, and the patient who does have it is not treated at all.",
             task: "Label at the point of collection, in the patient's presence, without exception.",
           },
           {
             type: "table",
-            caption: "Labelling requirements",
+            caption: "Labeling requirements",
             columns: ["Element", "Detail"],
             rows: [
               ["Patient name", "Full legal name from the armband"],
@@ -177,7 +177,7 @@ export const module5Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Label in the room, immediately after collection, in the patient's presence, checking the armband. Never pre-label containers and never carry unlabelled specimens out to label later. Both are how specimens are switched, and the consequence lands on two patients at once.",
+            text: "Label in the room, immediately after collection, in the patient's presence, checking the armband. Never pre-label containers and never carry unlabeled specimens out to label later. Both are how specimens are switched, and the consequence lands on two patients at once.",
           },
           {
             type: "paragraph",
@@ -204,7 +204,7 @@ export const module5Lessons: Lesson[] = [
           {
             type: "knowledge-check",
             question:
-              "When should a specimen container be labelled?",
+              "When should a specimen container be labeled?",
             options: [
               "Before collection, so the container is ready",
               "Immediately after collection, in the patient's presence, checking the armband",
@@ -213,9 +213,9 @@ export const module5Lessons: Lesson[] = [
             ],
             correctIndex: 1,
             explanation:
-              "Labelling at the point of collection with the patient present, verified against the armband, is the only method that reliably prevents mix-ups. Pre-labelling and labelling elsewhere both create a window in which specimens can be switched.",
+              "Labeling at the point of collection with the patient present, verified against the armband, is the only method that reliably prevents mix-ups. Pre-labeling and labeling elsewhere both create a window in which specimens can be switched.",
             optionRationales: [
-              "Pre-labelled containers can be filled with the wrong patient's specimen.",
+              "Pre-labeled containers can be filled with the wrong patient's specimen.",
               "Correct. Label in the room, immediately, verified against the armband.",
               "Any delay creates an opportunity for a mix-up, particularly with several specimens.",
               "By transport the opportunity for error has already passed unnoticed.",
@@ -236,7 +236,7 @@ export const module5Lessons: Lesson[] = [
           "Write clean-catch instructions in plain language a patient could follow without help. Aim for under 80 words.",
           "Write the order of draw from memory and explain in two sentences why it exists.",
           "Research what makes a urine specimen unsuitable and how long it may sit at room temperature.",
-          "Design a labelling procedure that makes a mix-up structurally difficult rather than merely discouraged.",
+          "Design a labeling procedure that makes a mix-up structurally difficult rather than merely discouraged.",
         ],
       },
     ],
