@@ -11,7 +11,7 @@ import {
 export const metadata: Metadata = {
   title: "TABE Language Prep | ENG0300",
   description:
-    "Seven question-type guides for the TABE 11/12 Language subtest, with worked examples. Original strategy content for BEOC Academic Bridge.",
+    "Seven question-type guides for the TABE 13&14 Language subtest, with worked examples. Original strategy content for BEOC Academic Bridge.",
 };
 
 /**
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
  *
  * Same layout and tone as the Reading guides, but the content is built on the
  * Language blueprint rather than translated from the Reading side: four
- * reporting domains with their own Level M weights, and seven question types
+ * reporting categories with their own Level M weights, and seven question types
  * that follow from those domains. See lib/content/eng0300/tabe/language.ts.
  */
 export default function TabeLanguagePage() {
@@ -90,13 +90,12 @@ export default function TabeLanguagePage() {
             What the test is made of
           </h2>
           <p className="mb-6 max-w-[70ch] text-[0.9375rem] leading-relaxed text-eng-navy-600">
-            Four reporting domains, with the share each one takes at Level M —
-            the level this course prepares you for. The weights are worth
-            knowing: nearly half your Language score comes from conventions, so
-            an hour spent on sentence structure moves the number more than an
-            hour spent anywhere else.
+            Three reporting categories, each about a third of the test at Level
+            M, the level this course prepares you for. Because they are weighted
+            evenly, the writing strand counts as much as grammar does, so do not
+            skip the writing practice.
           </p>
-          <ul className="grid gap-4 sm:grid-cols-2">
+          <ul className="grid gap-4 md:grid-cols-3">
             {tabeLanguageDomains.map((domain) => (
               <li
                 key={domain.domain}
@@ -120,9 +119,10 @@ export default function TabeLanguagePage() {
             ))}
           </ul>
           <p className="mt-4 text-xs text-eng-navy-400">
-            Domains and Level M weights confirmed against Data Recognition
-            Corporation&rsquo;s published TABE 11&amp;12 domain structure and
-            Level M Language blueprint. Weights differ by test level.
+            Categories and Level M weights checked against Data Recognition
+            Corporation&rsquo;s published TABE 13&amp;14 Language Level M
+            blueprint. TABE 13&amp;14 replaced TABE 11&amp;12. Weights differ by
+            test level.
           </p>
         </section>
 

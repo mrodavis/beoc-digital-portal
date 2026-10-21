@@ -3,6 +3,12 @@ import { SkillId } from "@/types/eng0300";
 /**
  * TABE Prep Center content.
  *
+ * Test facts checked October 2026: TABE 13&14 is the current version (NYSED
+ * ACCES approved assessments; TABE 11&12 NRS sunset ended June 30, 2026).
+ * Level M Reading is 41 items in two parts of up to 50 minutes each
+ * (tabetest.com/PDFs/TABE_13-14_Test_Max_Test_Times.pdf). TABE 13&14 keeps
+ * the 11&12 scale score scale.
+ *
  * All strategy guidance here is original and written for BEOC Academic Bridge.
  * It describes how to approach question TYPES. It contains no items, passages,
  * or answer keys from the TABE test, the Scoreboost workbooks, the TABE Mastery
@@ -14,15 +20,16 @@ export const tabeOverview = {
   paragraphs: [
     "TABE stands for Tests of Adult Basic Education. The Reading test measures comprehension: it gives you passages and asks what they say, what they mean, and how they are built. It is not a test of what you already know about a topic — in fact, answering from your own knowledge instead of from the passage is one of the most common ways to lose points.",
     "Passages come from a wide range of adult contexts: workplace documents, health and science articles, history and biography, arguments and editorials, and material presented in charts or tables. You are not expected to be familiar with any of these subjects in advance.",
+    "The current version of the test is TABE 13&14, which replaced TABE 11&12. It reports scores on the same scale, so the goal below means the same thing on either version. Its reading passages are shorter than before, and on a computer you scroll through a passage instead of turning pages.",
     "In ENG0300, the goal is a TABE Reading scale score of 563 or above. That score, or a final grade of C+ or better, satisfies the course completion requirement for Academic Bridge progression.",
   ],
   facts: [
     { label: "What it measures", value: "Reading comprehension, not background knowledge" },
-    { label: "Question format", value: "Mostly multiple choice, with some multi-part items" },
-    { label: "Passage sources", value: "Workplace, health, science, history, argument, and data" },
+    { label: "Question format", value: "Mostly multiple choice; some items have two parts or more than one correct answer" },
+    { label: "Length at Level M", value: "41 questions in two parts, up to 50 minutes each (TABE 13&14)" },
     { label: "ENG0300 goal", value: "Scale score 563+" },
   ],
-  note: "The TABE is administered by your program, not through this portal. Your instructor will tell you when and where you are scheduled to test.",
+  note: "The TABE is administered by your program, not through this portal. Ask your instructor how TABE testing is arranged at BEOC.",
 };
 
 export interface TabeQuestionGuide {

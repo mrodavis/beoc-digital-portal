@@ -10,14 +10,18 @@
  * BLUEPRINT — VERIFIED, NOT CARRIED OVER FROM READING
  * ---------------------------------------------------
  * The Language subtest is structured differently from Reading, so none of the
- * Reading section's assumptions were reused. The domains and weights below were
- * confirmed against Data Recognition Corporation's published TABE 11&12 domain
- * structure and the TABE 11/12 Level M Language blueprint:
+ * Reading section's assumptions were reused. TABE 13&14 replaced TABE 11&12
+ * (whose federal NRS approval ran only through June 30, 2026). The categories
+ * and weights below were checked in October 2026 against Data Recognition
+ * Corporation's published TABE 13&14 Language Level M blueprint
+ * (tabetest.com/PDFs/TABE1314_BluePrint_LangM.pdf):
  *
- *   Conventions of Standard English  44%   (CCR Language Anchors 1-2)
- *   Vocabulary Acquisition and Use   26%   (CCR Language Anchors 4-6)
- *   Text Types and Purposes          25%   (CCR Writing Anchor 1 — writing strand)
- *   Knowledge of Language             5%   (CCR Language Anchor 3)
+ *   Text Types and Purposes               33.3%  (writing: 5.W.1, 4.W.2)
+ *   Conventions of Standard English       33.3%  (4.L.1-2, 5.L.1-2)
+ *   Knowledge of Language and Vocabulary  33.3%  (4.L.3-4, 5.L.3-6)
+ *
+ * Level M Language is 33 items with a 50-minute maximum
+ * (tabetest.com/PDFs/TABE_13-14_Test_Max_Test_Times.pdf).
  *
  * ENG0300 tests at Level M, matching the Level M materials the course uses.
  * If the course level changes, re-check these weights before reusing them —
@@ -28,47 +32,40 @@ export const tabeLanguageOverview = {
   heading: "What the TABE Language test asks of you",
   paragraphs: [
     "The Language subtest is not a grammar quiz in the abstract. It gives you sentences and short passages in ordinary adult contexts and asks you to fix them, finish them, or judge them — editing work, presented the way editing actually happens.",
-    "Nearly half the test is Conventions of Standard English: sentence structure, verbs, pronouns, modifiers, capitalization, punctuation, and spelling. Another quarter is vocabulary — word meaning from context, word parts, and figurative language. The final quarter is a writing strand: introducing a topic, supporting it, and organizing what you say.",
-    "That last quarter is why this course has a writing strand at all. A test that devotes 25 percent of its Language section to writing is not testing whether you can name a comma splice; it is testing whether you can produce clear prose on demand.",
+    "The test is split into three equal parts. One third is Conventions of Standard English: sentence structure, verbs, pronouns, modifiers, capitalization, punctuation, and spelling. One third is Knowledge of Language and Vocabulary: word meaning from context, word parts, figurative language, and choosing the right word for the situation. The last third is a writing strand: introducing a topic, supporting an opinion with reasons, and organizing what you say.",
+    "That last third is why this course has a writing strand at all. A test that gives a third of its Language section to writing is not testing whether you can name a comma splice; it is testing whether you can produce clear prose on demand.",
   ],
   facts: [
     { label: "What it measures", value: "Grammar, usage, mechanics, vocabulary, and writing" },
-    { label: "Question format", value: "Mostly multiple choice, presented in real contexts" },
-    { label: "Largest domain", value: "Conventions of Standard English — 44% at Level M" },
-    { label: "Writing strand", value: "Text Types and Purposes — 25% at Level M" },
+    { label: "Question format", value: "Mostly multiple choice in real contexts; some questions have more than one correct answer" },
+    { label: "Length at Level M", value: "33 questions, up to 50 minutes (TABE 13&14)" },
+    { label: "Writing strand", value: "Text Types and Purposes, one third of the test at Level M" },
   ],
-  note: "The TABE is administered by your program, not through this portal. Your instructor will tell you when and where you are scheduled to test.",
+  note: "The TABE is administered by your program, not through this portal. Ask your instructor how TABE testing is arranged at BEOC.",
 };
 
-/** The four reporting domains, with Level M weights. */
+/** The three TABE 13&14 reporting categories, with Level M weights. */
 export const tabeLanguageDomains = [
   {
     domain: "Conventions of Standard English",
-    weight: "44%",
+    weight: "33%",
     category: "Language",
     covers:
-      "Sentence structure, verbs, pronouns, adjectives and adverbs, prepositions and conjunctions, capitalization, punctuation, and spelling.",
+      "Grammar and usage (sentence structure, verbs, pronouns, adjectives and adverbs, prepositions and conjunctions), plus capitalization, punctuation, and spelling.",
   },
   {
-    domain: "Vocabulary Acquisition and Use",
-    weight: "26%",
+    domain: "Knowledge of Language and Vocabulary",
+    weight: "33%",
     category: "Language",
     covers:
-      "Context clues, Greek and Latin word parts, reference materials, figurative language, word relationships, and academic and signal vocabulary.",
+      "Choosing words and punctuation for effect, formal versus informal register, context clues, word parts, multiple-meaning words, figurative language, word relationships, and academic and signal vocabulary.",
   },
   {
     domain: "Text Types and Purposes",
-    weight: "25%",
+    weight: "33%",
     category: "Writing",
     covers:
-      "Introducing a topic, stating an opinion, grouping related information, and supporting a point of view with reasons, facts, and details.",
-  },
-  {
-    domain: "Knowledge of Language",
-    weight: "5%",
-    category: "Language",
-    covers:
-      "Choosing words precisely, punctuating for effect, telling formal from informal register, and expanding, combining, or reducing sentences.",
+      "Opinion writing supported by reasons and information, and informative writing: introducing a topic, grouping related information, and developing it with facts and details.",
   },
 ];
 
@@ -89,7 +86,7 @@ export interface TabeLanguageGuide {
     thinking: string;
     answer: string;
   }[];
-  /** Where to practise it on this site. */
+  /** Where to practice it on this site. */
   practiceHref: string;
   practiceLabel: string;
 }
@@ -129,7 +126,7 @@ export const tabeLanguageGuides: TabeLanguageGuide[] = [
       },
     ],
     practiceHref: "/eng0300/writing-lab/sentence-skills?skill=fragments",
-    practiceLabel: "Practise fragments and run-ons",
+    practiceLabel: "Practice fragments and run-ons",
   },
   {
     id: "verbs",
@@ -164,7 +161,7 @@ export const tabeLanguageGuides: TabeLanguageGuide[] = [
       },
     ],
     practiceHref: "/eng0300/writing-lab/sentence-skills?skill=subject-verb",
-    practiceLabel: "Practise verbs and agreement",
+    practiceLabel: "Practice verbs and agreement",
   },
   {
     id: "agreement-modifiers",
@@ -194,11 +191,11 @@ export const tabeLanguageGuides: TabeLanguageGuide[] = [
         thinking:
           "In A the word after the opening phrase is lights, which claims the lights were walking. B puts the person doing the walking immediately after the comma.",
         answer:
-          "B. A is a dangling modifier — a favourite of this test because the sentence reads smoothly until you picture it.",
+          "B. A is a dangling modifier — a favorite of this test because the sentence reads smoothly until you picture it.",
       },
     ],
     practiceHref: "/eng0300/writing-lab/sentence-skills?skill=usage",
-    practiceLabel: "Practise agreement and modifiers",
+    practiceLabel: "Practice agreement and modifiers",
   },
   {
     id: "mechanics",
@@ -232,12 +229,12 @@ export const tabeLanguageGuides: TabeLanguageGuide[] = [
       },
     ],
     practiceHref: "/eng0300/writing-lab/sentence-skills?skill=punctuation",
-    practiceLabel: "Practise punctuation and capitalization",
+    practiceLabel: "Practice punctuation and capitalization",
   },
   {
     id: "word-meaning",
     title: "Word meaning from context and word parts",
-    domain: "Vocabulary Acquisition and Use",
+    domain: "Knowledge of Language and Vocabulary",
     soundsLike: [
       "As used in the sentence, ___ most nearly means —",
       "Which word means the same as the underlined word?",
@@ -246,7 +243,7 @@ export const tabeLanguageGuides: TabeLanguageGuide[] = [
     trap: "The most common meaning of a multi-meaning word. Load, current, and charge all have an everyday meaning and a technical one, and the test regularly asks for the one the sentence supplies rather than the one you already carry.",
     approach: [
       "Cover the choices. Predict the meaning from the sentence alone, then find the choice closest to your prediction.",
-      "Look for the clue type: a definition restated nearby, an example, a contrast signalled by but or unlike, or a cause-and-effect relationship.",
+      "Look for the clue type: a definition restated nearby, an example, a contrast signaled by but or unlike, or a cause-and-effect relationship.",
       "For word parts, split the word: pre-, re-, un-, -able, -tion. Then check the split against the sentence — word parts narrow the field but the context decides.",
       "Most nearly means is asking for the meaning in this sentence, not the dictionary's first entry.",
     ],
@@ -272,7 +269,7 @@ export const tabeLanguageGuides: TabeLanguageGuide[] = [
   {
     id: "figurative-signal",
     title: "Figurative language and signal words",
-    domain: "Vocabulary Acquisition and Use",
+    domain: "Knowledge of Language and Vocabulary",
     soundsLike: [
       "The phrase ___ is an example of which type of figurative language?",
       "What does the expression ___ mean as it is used here?",
@@ -307,7 +304,7 @@ export const tabeLanguageGuides: TabeLanguageGuide[] = [
   {
     id: "text-types",
     title: "Writing to a purpose — topic, support, and organization",
-    domain: "Text Types and Purposes · Knowledge of Language",
+    domain: "Text Types and Purposes · Knowledge of Language and Vocabulary",
     soundsLike: [
       "Which sentence would best introduce this paragraph?",
       "Which detail best supports the writer's point?",

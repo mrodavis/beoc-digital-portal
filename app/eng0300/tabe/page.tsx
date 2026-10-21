@@ -96,7 +96,7 @@ export default function TabePrepPage() {
         </Link>
       </section>
 
-      {/* The two-step TABE review from class (ported from Brightspace). */}
+      {/* The two-step TABE review (ported from Brightspace). */}
       <section
         id="power-review"
         className="mb-12 scroll-mt-32 rounded-2xl border border-eng-navy-200 bg-white p-5 sm:p-6"
@@ -105,8 +105,9 @@ export default function TabePrepPage() {
           Review, then take a mock test
         </h2>
         <p className="mt-1 max-w-[68ch] text-[0.9375rem] leading-relaxed text-eng-navy-700">
-          The same two steps we use in class. Both pages save your progress in
-          this browser, so you can stop and come back.
+          Two steps: review the question types, then try a mock test. Both
+          pages save your progress in this browser, so you can stop and come
+          back.
         </p>
         <ul className="mt-4 grid gap-4 md:grid-cols-2">
           {tabeClassExercises.map((exercise) => (
