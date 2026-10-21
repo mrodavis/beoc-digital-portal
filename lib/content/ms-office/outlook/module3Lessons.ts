@@ -63,7 +63,7 @@ export const outlookModule3Lessons: Lesson[] = [
           {
             type: "image",
             src: `${IMG}/folder-menu.png`,
-            alt: "Right-clicking the Inbox in the new Outlook folder pane shows Create new subfolder, Mark all as read, and Add to Favorites",
+            alt: "Right-clicking the Inbox in the new Outlook folder pane shows Create new subfolder, Mark all as read, and Remove from Favorites (the Inbox is already a favorite)",
             caption: "Right-click a folder to create a subfolder inside it.",
           },
           {
