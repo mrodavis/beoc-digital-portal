@@ -28,7 +28,7 @@ export interface TestScore {
   accuracyRaw: number;
   gross: number;
   net: number;
-  /** Accuracy for display: one decimal place at most, never shown as 100 when there is an error. */
+  /** Accuracy for display: rounded to one decimal place, never shown as 100 when there is an error. */
   accuracy: number;
 }
 
@@ -40,7 +40,7 @@ export function countUncorrected(target: string, typed: string): number {
 }
 
 export function displayAccuracy(raw: number, hasErrors: boolean): number {
-  const oneDecimal = Math.floor(raw * 10) / 10;
+  const oneDecimal = Math.round(raw * 10) / 10;
   if (hasErrors && oneDecimal >= 100) return 99.9;
   return oneDecimal;
 }
