@@ -276,10 +276,6 @@ export const module4Lessons: Lesson[] = [
         src: "/images/office-assistant/module-4/booking-meetings/slide-12.jpg",
         alt: "Your Turn: The Sandbox Challenge — write a complete meeting invite for a fictional client onboarding call",
       },
-      {
-        src: "/images/office-assistant/module-4/booking-meetings/slide-13.jpg",
-        alt: "Continue Your Journey with BEOC — Home, Microsoft Office 2019, Certification Prep",
-      },
     ],
 
     sections: [
@@ -361,7 +357,7 @@ export const module4Lessons: Lesson[] = [
             type: "list",
             items: [
               "Title — write the meeting's purpose, not its format. 'TOR Tech Q3 Vendor Onboarding Kickoff' is a professional title. 'Meeting with vendor' is not. The title should tell anyone who sees it on the calendar exactly what that block of time is for.",
-              "Date and time with time zone — always include the time zone when booking with external guests or cross-regional attendees. '2:00 PM EST' removes all ambiguity. '2:00 PM' does not.",
+              "Date and time with time zone — always include the time zone when booking with external guests or cross-regional attendees. '2:00 PM ET (Eastern Time)' removes all ambiguity. '2:00 PM' does not. Writing ET or PT instead of EST or PST also stays correct all year, because EST and PST mean standard time only and are wrong during daylight saving time.",
               "Location or video link — paste the full meeting link (Zoom, Teams, Google Meet) directly in the location field so attendees can join with one click. If the meeting is in person, include the room name, floor, and building address.",
               "Attendees — add required attendees explicitly so the invite appears on their calendar. Mark anyone whose attendance is optional as an optional invitee — this respects their time and lets them make an informed decision about whether to attend.",
               "Agenda in the description — include at least 2–3 agenda items in the description field. Write them as action-oriented questions or objectives: 'Review current vendor pricing structure', 'Agree on onboarding timeline', 'Assign next steps and owners'. A good agenda is a contract: it tells everyone what will be decided by end of meeting.",
@@ -400,7 +396,7 @@ export const module4Lessons: Lesson[] = [
             type: "list",
             items: [
               "Send a confirmation email once the invite is accepted — a short 2–3 line email confirming the meeting, restating the time and location, and noting any pre-read materials. This is especially important for external guests who may use a different calendar system.",
-              "Send a reminder for high-stakes meetings — for client calls, executive reviews, or any meeting that required significant coordination, send a brief reminder the morning of. Keep it professional and concise: 'Reminder: We have our Q3 kickoff call today at 2:00 PM EST. Zoom link: [link]. Looking forward to it.'",
+              "Send a reminder for high-stakes meetings — for client calls, executive reviews, or any meeting that required significant coordination, send a brief reminder the morning of. Keep it professional and concise: 'Reminder: We have our Q3 kickoff call today at 2:00 PM ET. Zoom link: [link]. Looking forward to it.'",
               "Update the invite if anything changes — if the meeting time, location, or link changes after the invite is sent, update the calendar event and resend it. Do not rely on a separate email to communicate changes — the calendar event is the source of truth.",
               "Include a cancellation window — if a meeting needs to be canceled, do so with at least 24 hours' notice when possible. Cancel through the calendar event so every attendee's calendar is updated automatically.",
             ],
@@ -454,7 +450,7 @@ export const module4Lessons: Lesson[] = [
         ordered: true,
         items: [
           "Write a professional meeting title that communicates the meeting's purpose — not just 'Meeting' or 'Call'",
-          "Include a specific date, start time, end time, and time zone (e.g., Thursday, June 12 at 2:00–2:30 PM EST)",
+          "Include a specific date, start time, end time, and time zone (e.g., Thursday, June 12 at 2:00–2:30 PM ET)",
           "List all four attendees with made-up names and roles (e.g., 'Jordan Reeves, Project Manager, TOR Tech')",
           "Write a 3-item agenda in the description using action-oriented language (each item should state what will be decided or accomplished)",
           "Include a placeholder Zoom link in the location field and a pre-read instruction in the description (e.g., 'Please review the attached onboarding brief before the call')",

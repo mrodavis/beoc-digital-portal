@@ -55,7 +55,7 @@ export const module7Lessons: Lesson[] = [
               [
                 "240 personalized recall letters",
                 "Microsoft Word",
-                "Mail merge; Docs has no equivalent built in",
+                "Word's built-in mail merge is the standard tool for printed form letters",
               ],
               [
                 "A form several staff fill in weekly",
@@ -112,7 +112,7 @@ export const module7Lessons: Lesson[] = [
               ["Change margins and orientation", "File > Page setup"],
               ["Insert a table, image, or link", "The Insert menu"],
               ["Check spelling and grammar", "Tools > Spelling and grammar"],
-              ["See the document outline", "View > Show outline"],
+              ["See the document outline", "The Show tabs & outlines icon at the top left of the document"],
               ["Export as .docx or PDF", "File > Download"],
             ],
           },
@@ -188,7 +188,7 @@ export const module7Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Create a Google Doc named 'New Patient Welcome — Lakeside Medical'. Structure it with a Title, two Heading 1 sections, and body text under each. Confirm all three appear in View > Show outline.",
+          "Create a Google Doc named 'New Patient Welcome — Lakeside Medical'. Structure it with a Title, two Heading 1 sections, and body text under each. Confirm all three appear in the document outline (click the Show tabs & outlines icon at the top left of the document).",
           "Share it with a classmate as Commenter and ask them to suggest one change. Accept it, then open File > Version history and identify the version before their suggestion.",
           "Download the document as both .docx and PDF. Open the .docx in Word and note every formatting difference you can find — there will be some.",
           "Write three sentences on when you would draft in Docs and finish in Word, using a specific task from a medical office as your example.",
@@ -274,7 +274,7 @@ export const module7Lessons: Lesson[] = [
           },
           {
             type: "table",
-            caption: "Functions with no direct Excel equivalent",
+            caption: "Google Sheets functions worth knowing",
             columns: ["Function", "Does", "Use for"],
             rows: [
               [

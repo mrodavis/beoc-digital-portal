@@ -35,10 +35,6 @@ export const module1Lessons: Lesson[] = [
         alt: "The Modern Workflow Ecosystem — email, cloud, calendar, collaboration",
       },
       {
-        src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-7.jpg",
-        alt: "Activating Your AI Assistant — AI task prompt",
-      },
-      {
         src: "/images/office-assistant/module-1/what-is-a-modern-office/slide-8.jpg",
         alt: "Your Integration Challenge",
       },
@@ -138,7 +134,7 @@ export const module1Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — \"What are the most important digital tools for an office assistant in 2024, and how does each one get used in a typical workday?\" Review the response and identify which tools you already recognize. Note which ones are new to you — those are your first targets for hands-on practice.",
+            text: "AI Task: Ask ChatGPT — \"What are the most important digital tools for an office assistant today, and how does each one get used in a typical workday?\" Review the response and identify which tools you already recognize. Note which ones are new to you — those are your first targets for hands-on practice.",
           },
         ],
       },
@@ -700,7 +696,7 @@ export const module1Lessons: Lesson[] = [
             items: [
               "Upload files to the correct subfolder immediately — do not save to the root folder and plan to organize later. The moment a file lands in the wrong place, the system starts to break. Every file gets placed in its designated subfolder the moment it is uploaded.",
               "Rename files before uploading — apply the professional naming convention to every file before it enters the drive. Uploading 'scan0047.pdf' and renaming it later is a step that almost never happens. Name it first.",
-              "Understand the three permission levels — in Google Drive and OneDrive, sharing a file or folder gives the recipient one of three access levels: Viewer (can only read, cannot edit or comment), Commenter (can add comments but cannot change content), Editor (can make changes to the file or folder contents). Match the permission level to the recipient's actual role in the document.",
+              "Understand permission levels — in Google Drive, sharing a file or folder gives the recipient one of three roles: Viewer (can only read, cannot edit or comment), Commenter (can add comments but cannot change content), or Editor (can make changes to the file or folder contents). OneDrive uses Can view and Can edit (with a few extra options for some file types). Match the permission level to the recipient's actual role in the document.",
               "Share folders, not individual files — when a client or colleague needs ongoing access to a category of documents, share the relevant subfolder rather than individual files. This way, every new file you add to that folder is automatically accessible to the recipient without requiring another sharing action.",
               "Never share a folder with more access than the recipient needs — if a client only needs to review a document, give them Viewer access. Giving Editor access to someone who only needed to read a file is a common and preventable mistake.",
             ],

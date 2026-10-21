@@ -126,7 +126,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Switch to the Calendar to check today's schedule.",
-          hint: "Click Calendar in the Navigation Bar at the bottom of the Folder Pane (or press Ctrl+2).",
+          hint: "Click Calendar in the Navigation Bar (or press Ctrl+2).",
           steps: [{ action: { kind: "command", id: "nav.module", value: "Calendar" } }],
         },
       ],

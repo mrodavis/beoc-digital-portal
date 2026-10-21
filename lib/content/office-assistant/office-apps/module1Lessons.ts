@@ -3,20 +3,20 @@ import { Lesson } from "@/types/lesson";
 export const module1Lessons: Lesson[] = [
   {
     slug: "intro-to-word-2019",
-    title: "Introduction to Microsoft Word 2019",
+    title: "Introduction to Microsoft Word",
     description:
-      "Get oriented in the Word 2019 interface, learn to navigate its core features, and understand how to create, save, and manage documents in a professional office setting.",
+      "Get oriented in the Word interface, learn to navigate its core features, and understand how to create, save, and manage documents in a professional office setting.",
     duration: "15 min",
     videoUrl: "https://www.youtube.com/embed/j-ZAVHk5SaU",
 
     slides: [
       {
         src: "/images/office-assistant/office-apps/module-1/intro-to-word-2019/slide-01.jpg",
-        alt: "Welcome to Microsoft Word 2019 — course overview and what you will master",
+        alt: "Welcome to Microsoft Word — course overview and what you will master",
       },
       {
         src: "/images/office-assistant/office-apps/module-1/intro-to-word-2019/slide-02.jpg",
-        alt: "The Word 2019 Ribbon — tabs, groups, and commands organized by task",
+        alt: "The Word Ribbon — tabs, groups, and commands organized by task",
       },
       {
         src: "/images/office-assistant/office-apps/module-1/intro-to-word-2019/slide-03.jpg",
@@ -55,7 +55,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "It is your first morning at Lakeside Medical Associates. Your supervisor, the practice manager, hands you a task list: draft a patient welcome letter, format a staff memo template, and save both as PDFs to send before noon. You open your computer and see Microsoft Word 2019 on the desktop. Before you can produce anything, you need to understand the landscape — where things live, how to navigate the interface, and how to save your work safely. This lesson gets you oriented so nothing slows you down.",
+            text: "It is your first morning at Lakeside Medical Associates. Your supervisor, the practice manager, hands you a task list: draft a patient welcome letter, format a staff memo template, and save both as PDFs to send before noon. You open your computer and see Microsoft Word on the desktop. Before you can produce anything, you need to understand the landscape — where things live, how to navigate the interface, and how to save your work safely. This lesson gets you oriented so nothing slows you down.",
           },
         ],
       },
@@ -64,7 +64,7 @@ export const module1Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Microsoft Word 2019 is the document creation standard in medical offices, law firms, government agencies, schools, and virtually every other professional environment. Learning the interface thoroughly — not just the basics — means you can work quickly, confidently, and without interrupting colleagues to ask where things are. Here is why a solid foundation in Word matters from day one:",
+            text: "Microsoft Word is the document creation standard in medical offices, law firms, government agencies, schools, and virtually every other professional environment. Learning the interface thoroughly — not just the basics — means you can work quickly, confidently, and without interrupting colleagues to ask where things are. Here is why a solid foundation in Word matters from day one:",
           },
           {
             type: "list",
@@ -78,18 +78,18 @@ export const module1Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "The Word 2019 Interface",
+        heading: "The Word Interface",
         blocks: [
           {
             type: "paragraph",
-            text: "The Word 2019 interface is organized into several distinct zones, each serving a specific purpose. Learning the name and function of each zone allows you to follow written instructions, watch tutorials, and ask for help effectively — because you will know exactly what to call what you are looking at:",
+            text: "The Word interface is organized into several distinct zones, each serving a specific purpose. Learning the name and function of each zone allows you to follow written instructions, watch tutorials, and ask for help effectively — because you will know exactly what to call what you are looking at:",
           },
           {
             type: "list",
             items: [
               "The Ribbon is the horizontal toolbar across the top of the window and is divided into tabs — Home, Insert, Design, Layout, References, Mailings, Review, and View. Each tab contains groups of related commands. The Home tab, for example, holds all your basic formatting tools: Font, Paragraph, Styles, and Clipboard. You will use the Ribbon for nearly every action you take in Word.",
               "The Quick Access Toolbar (QAT) sits above the Ribbon in the upper-left corner and displays a small set of frequently used commands — by default, Save, Undo, and Redo. You can customize the QAT by right-clicking any Ribbon command and choosing 'Add to Quick Access Toolbar,' making your most-used actions just one click away regardless of which Ribbon tab is currently active.",
-              "The File menu (Backstage View) is accessed by clicking the blue 'File' tab at the far left of the Ribbon. Unlike other tabs, it opens a full-screen view called Backstage, which is where you handle document-level tasks: creating new documents, opening existing ones, saving, printing, sharing, exporting to PDF, and accessing document properties. Backstage is also where you find Word Options for customizing the application.",
+              "The File menu (Backstage View) is accessed by clicking the 'File' tab at the far left of the Ribbon. Unlike other tabs, it opens a full-screen view called Backstage, which is where you handle document-level tasks: creating new documents, opening existing ones, saving, printing, sharing, exporting to PDF, and accessing document properties. Backstage is also where you find Word Options for customizing the application.",
               "The document canvas is the large white area in the center of the screen where you type and format your document. The ruler along the top and left edges of the canvas shows your margins and tab stops. The blinking text cursor shows where your next keystroke will appear — clicking anywhere on the canvas moves the cursor to that location.",
               "The Status Bar runs along the very bottom of the window and displays helpful document information: page number, total word count, language setting, and notifications. It also contains view-switching buttons on the right side and the zoom slider — allowing you to zoom in for fine detail or zoom out to see the whole page at once.",
             ],
@@ -101,7 +101,7 @@ export const module1Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Word 2019 offers multiple ways to view your document, each optimized for a different task. Switching between views at the right moment makes your work faster and helps you catch errors before printing or sharing:",
+            text: "Word offers multiple ways to view your document, each optimized for a different task. Switching between views at the right moment makes your work faster and helps you catch errors before printing or sharing:",
           },
           {
             type: "list",
@@ -134,13 +134,13 @@ export const module1Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Quick Reference: Word 2019 Interface",
+        heading: "Quick Reference: The Word Interface",
         blocks: [
           {
             type: "image",
             src: "/images/office-assistant/office-apps/module-1/intro-to-word-2019/infographic.png",
-            alt: "Word 2019 Interface Quick Reference — labeled diagram of the Ribbon, Quick Access Toolbar, Backstage View, document canvas, Status Bar, and view controls with keyboard shortcuts",
-            caption: "Word 2019 Interface Quick Reference — key areas and essential shortcuts",
+            alt: "Word Interface Quick Reference — labeled diagram of the Ribbon, Quick Access Toolbar, Backstage View, document canvas, Status Bar, and view controls with keyboard shortcuts",
+            caption: "Word Interface Quick Reference — key areas and essential shortcuts",
           },
         ],
       },
@@ -159,7 +159,7 @@ export const module1Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — 'I am new to Microsoft Word 2019 and work in a medical office. What are the 10 most important keyboard shortcuts I should memorize in my first week, and what does each one do?' Review the list and practice each shortcut while your Word document is open. Knowing shortcuts by muscle memory will make you noticeably faster within days.",
+            text: "AI Task: Ask ChatGPT — 'I am new to Microsoft Word and work in a medical office. What are the 10 most important keyboard shortcuts I should memorize in my first week, and what does each one do?' Review the list and practice each shortcut while your Word document is open. Knowing shortcuts by muscle memory will make you noticeably faster within days.",
           },
         ],
       },
@@ -184,13 +184,13 @@ export const module1Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Practice navigating the Word 2019 interface by completing the orientation exercise below. This challenge is designed to build your muscle memory with the most important interface elements before you start creating real documents at Lakeside Medical Associates.",
+        text: "Practice navigating the Word interface by completing the orientation exercise below. This challenge is designed to build your muscle memory with the most important interface elements before you start creating real documents at Lakeside Medical Associates.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Open Microsoft Word 2019 and create a new blank document. Use the keyboard shortcut Ctrl+N — do not click through the menus. Type your name, today's date, and the line 'Lakeside Medical Associates — Office Assistant Orientation' as three separate lines.",
+          "Open Microsoft Word and create a new blank document. Use the keyboard shortcut Ctrl+N — do not click through the menus. Type your name, today's date, and the line 'Lakeside Medical Associates — Office Assistant Orientation' as three separate lines.",
           "Customize your Quick Access Toolbar by adding at least two commands not there by default (suggestions: New, Print Preview, or Spelling & Grammar). Right-click a Ribbon command and choose 'Add to Quick Access Toolbar' for each.",
           "Switch through all three main document views — Print Layout, Read Mode, and Web Layout — using the View tab. Note one thing you observe that is different in each view, and type a one-sentence observation about each view at the bottom of your document.",
           "Save the document in two formats: first as a .docx file named 'Word Orientation – [Your Name]' in your Documents folder, then export it as a PDF using File > Export. Confirm both files appear in your Documents folder.",
@@ -216,7 +216,7 @@ export const module1Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/office-apps/module-1/document-formatting/slide-01.jpg",
-        alt: "Typography Basics — fonts, sizes, bold, italic, underline, and font color in Word 2019",
+        alt: "Typography Basics — fonts, sizes, bold, italic, underline, and font color in Word",
       },
       {
         src: "/images/office-assistant/office-apps/module-1/document-formatting/slide-02.jpg",
@@ -277,7 +277,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Font choice conveys professionalism — serif fonts like Times New Roman and Georgia project formality and are traditional choices for letters and legal-style documents. Sans-serif fonts like Calibri (Word's default), Arial, and Helvetica project a cleaner, more modern appearance appropriate for internal memos and reports. In a medical office, Calibri 11pt or Times New Roman 12pt are both safe, professional choices. Avoid decorative or novelty fonts in any professional document — they undermine credibility immediately.",
+              "Font choice conveys professionalism — serif fonts like Times New Roman and Georgia project formality and are traditional choices for letters and legal-style documents. Sans-serif fonts like Aptos (Word's default in Microsoft 365), Calibri (the previous default), Arial, and Helvetica project a cleaner, more modern appearance appropriate for internal memos and reports. In a medical office, Aptos 12pt, Calibri 11pt, or Times New Roman 12pt are all safe, professional choices. Avoid decorative or novelty fonts in any professional document — they undermine credibility immediately.",
               "Font size must match the document's purpose — body text in professional letters and reports should be 11pt or 12pt for comfortable reading. Headings should be 14pt to 16pt and bold. Never mix dramatically different font sizes in the same document body — inconsistency signals that the document was not carefully prepared. Use size to create visual hierarchy, not decoration.",
               "Bold, italic, and underline serve specific purposes and should not be overused — bold is for important terms, headings, and key information. Italic is for titles of documents, publications, and for gentle emphasis. Underline is typically reserved for hyperlinks in digital documents and should be avoided for emphasis in printed professional documents, where it can look dated. Using all three together is almost always a sign of overformatting.",
               "Font color should nearly always be black for body text in professional documents — colored text is appropriate for headings in branded documents or for highlighting specific data in reports, but patient letters and formal communications should use black text exclusively. When in doubt at Lakeside Medical Associates, use black on white for maximum legibility and professionalism.",
@@ -296,7 +296,7 @@ export const module1Lessons: Lesson[] = [
             type: "list",
             items: [
               "Alignment determines how text lines up horizontally — Left alignment (Ctrl+L) is standard for body text in business letters and most professional documents. Justified alignment (Ctrl+J) aligns text at both the left and right margins, creating a neat block appearance common in formal reports and newsletters, but can create awkward spacing gaps in narrow columns. Center alignment is for headings, titles, and table cells. Right alignment is rarely used except for dates in headers and financial figures in tables.",
-              "Line spacing controls the vertical space between each line of text within a paragraph — single spacing (1.0) is compact and appropriate for patient intake forms and tables where space is limited. 1.08 spacing (Word 2019's default for the Normal style, paired with 8 pt of space after each paragraph) is slightly more open and easy to read. 1.15 spacing is a similar option with a little more room between lines and is also a readable choice for body text. 1.5 spacing is comfortable for long reports and policy documents. Double spacing (2.0) is required for academic papers and some formal reports where handwritten edits will be added. Access line spacing via the Paragraph group on the Home tab or press Ctrl+1 (single), Ctrl+5 (1.5), or Ctrl+2 (double).",
+              "Line spacing controls the vertical space between each line of text within a paragraph — single spacing (1.0) is compact and appropriate for patient intake forms and tables where space is limited. 1.15 spacing is Word's default for the Normal style in Microsoft 365; it is slightly more open and easy to read, and it is a good choice for most body text. 1.5 spacing is comfortable for long reports and policy documents. Double spacing (2.0) is required for academic papers and some formal reports where handwritten edits will be added. Access line spacing via the Paragraph group on the Home tab or press Ctrl+1 (single), Ctrl+5 (1.5), or Ctrl+2 (double).",
               "Paragraph spacing (Before and After) controls the extra space above and below each paragraph — this is separate from line spacing and is the professional way to create visual separation between paragraphs. Instead of pressing Enter twice between paragraphs (which creates inconsistent spacing), set 'After' spacing to 6pt–12pt in the Paragraph dialog box. This creates consistent, precise spacing throughout the document and is the mark of a professionally formatted document.",
               "Indentation controls how far text is set in from the left or right margin — a first-line indent (0.5 inch) is the traditional way to signal the start of a new paragraph in formal letters. A hanging indent (where the first line is flush left and subsequent lines are indented) is used for reference lists, bibliographies, and some bullet-style formats. Avoid indenting by pressing the Space bar — always use the indent controls in the Paragraph group or the ruler for precise, consistent results.",
             ],
@@ -395,7 +395,7 @@ export const module1Lessons: Lesson[] = [
         ordered: true,
         items: [
           "Open a new blank Word document and type a patient welcome letter that includes: a date line, an inside address (to a fictional patient), a subject line, three body paragraphs (at least 3 sentences each), a closing, and a signature block with your name and title 'Office Assistant, Lakeside Medical Associates.'",
-          "Apply professional typography throughout: use Calibri 11pt or Times New Roman 12pt for body text, 14pt bold for the subject line, and ensure no text uses decorative fonts, excessive colors, or bold/italic overuse.",
+          "Apply professional typography throughout: use Aptos 12pt, Calibri 11pt, or Times New Roman 12pt for body text, 14pt bold for the subject line, and ensure no text uses decorative fonts, excessive colors, or bold/italic overuse.",
           "Set 1-inch margins on all sides, use 1.15 or 1.5 line spacing for the body, and configure 'After' paragraph spacing of 8pt so you are not pressing Enter twice between paragraphs.",
           "Use the Format Painter to ensure the formatting of all three body paragraphs is identical — same font, size, spacing, and alignment.",
           "Save the completed letter as a .docx and export it as a PDF. Name both files 'Patient Welcome Letter – Lakeside Medical – [Your Name].'",
@@ -478,7 +478,7 @@ export const module1Lessons: Lesson[] = [
             type: "list",
             items: [
               "Styles apply consistent formatting in a single click — instead of setting font, size, bold, color, and spacing manually every time you type a heading, you click 'Heading 1' once and every setting is applied instantly. Every heading in your document automatically looks identical without any effort beyond the single click.",
-              "Styles allow global changes in seconds — if Lakeside Medical Associates decides to change the heading font from Calibri to Georgia, modifying the Heading 1 style once updates every heading in the entire document simultaneously. Without styles, you would have to hunt for and manually reformat every heading one by one — a process that takes minutes and introduces errors.",
+              "Styles allow global changes in seconds — if Lakeside Medical Associates decides to change the heading font from Aptos Display to Georgia, modifying the Heading 1 style once updates every heading in the entire document simultaneously. Without styles, you would have to hunt for and manually reformat every heading one by one — a process that takes minutes and introduces errors.",
               "Styles enable automatic document features — Word's automatic Table of Contents, the Navigation Pane, and outline views all depend on Heading styles to know your document's structure. If you use manual formatting instead of styles, these features cannot recognize your headings and will not work correctly, which means you lose significant productivity tools.",
               "Styles create visual consistency that improves your professional reputation — documents formatted with consistent styles look like they were created by someone who knows what they are doing. Documents formatted manually by multiple people over time look chaotic and inconsistent, even if each individual section was carefully formatted. Style-based documents maintain their look automatically regardless of who adds content.",
             ],
@@ -490,7 +490,7 @@ export const module1Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Word 2019 comes with a gallery of pre-built styles available in the Home tab > Styles group. These styles cover the most common formatting needs in professional documents, and learning when to use each one is the first step toward style-based formatting:",
+            text: "Word comes with a gallery of pre-built styles available in the Home tab > Styles group. These styles cover the most common formatting needs in professional documents, and learning when to use each one is the first step toward style-based formatting:",
           },
           {
             type: "list",
@@ -595,10 +595,10 @@ export const module1Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Open a new blank Word document and apply the Office theme (Design > Themes > Office). Set the document font pair to Calibri body / Calibri Light headings by selecting the 'Office' font set from Design > Fonts.",
-          "Modify the Heading 1 style to be 14pt, dark blue (use theme color 'Dark Blue, Text 2'), bold, and with 12pt Before and 6pt After paragraph spacing. Verify your change by typing a test heading and confirming it applies correctly.",
-          "Modify the Normal style to be Calibri 11pt, black, with 1.15 line spacing and 8pt After paragraph spacing. This will be the body text style for all memo content.",
-          "Create a custom style called 'Memo Label' formatted as Calibri 11pt, bold, with all caps. This style will be used for the TO:, FROM:, DATE:, and SUBJECT: labels in the memo header.",
+          "Open a new blank Word document and apply the Office theme (Design > Themes > Office). Confirm the document font pair is Aptos Display for headings and Aptos for body text by selecting the 'Office' font set from Design > Fonts.",
+          "Modify the Heading 1 style to be 14pt, dark blue (choose a dark blue from the Theme Colors row), bold, and with 12pt Before and 6pt After paragraph spacing. Verify your change by typing a test heading and confirming it applies correctly.",
+          "Modify the Normal style to be Aptos 12pt, black, with 1.15 line spacing and 8pt After paragraph spacing. This will be the body text style for all memo content.",
+          "Create a custom style called 'Memo Label' formatted as Aptos 12pt, bold, with all caps. This style will be used for the TO:, FROM:, DATE:, and SUBJECT: labels in the memo header.",
           "Build a complete memo structure: type a heading 'STAFF MEMO' (Title style), then a four-line memo header (TO, FROM, DATE, SUBJECT) using your Memo Label style, then two body paragraphs using Normal style, and a closing using Normal style. Open the Navigation Pane (Ctrl+F) and confirm your heading appears there. Save as 'Lakeside Medical Memo Template.dotx' (Word Template format).",
         ],
       },
@@ -614,7 +614,7 @@ export const module1Lessons: Lesson[] = [
     slug: "tables-and-lists",
     title: "Tables, Lists, and Page Layout",
     description:
-      "Create and format professional tables, build organized lists, set up headers and footers, and manage page numbers in Word 2019 for polished multi-page documents.",
+      "Create and format professional tables, build organized lists, set up headers and footers, and manage page numbers in Word for polished multi-page documents.",
     duration: "20 min",
     videoUrl: "https://www.youtube.com/embed/tyXahko-tX8",
 
@@ -714,10 +714,10 @@ export const module1Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To insert a header or footer, double-click at the very top or bottom of any page (above the top margin or below the bottom margin), or use Insert > Header or Insert > Footer from the Ribbon and choose from the built-in style gallery. The document content dims and a 'Header & Footer Tools' tab appears in the Ribbon. Type or insert content in the header/footer zone — it will repeat on every page of the document automatically.",
-              "Different first page headers allow you to have a title page without a header and number, with the header starting on page 2 — check the 'Different First Page' box in the Header & Footer Tools > Options group. This is the professional standard for formal reports: the first page shows just the title and date, while pages 2 onward show the document title in the header and the page number in the footer.",
+              "To insert a header or footer, double-click at the very top or bottom of any page (above the top margin or below the bottom margin), or use Insert > Header or Insert > Footer from the Ribbon and choose from the built-in style gallery. The document content dims and a 'Header & Footer' tab appears in the Ribbon. Type or insert content in the header/footer zone — it will repeat on every page of the document automatically.",
+              "Different first page headers allow you to have a title page without a header and number, with the header starting on page 2 — check the 'Different First Page' box in the Options group on the Header & Footer tab. This is the professional standard for formal reports: the first page shows just the title and date, while pages 2 onward show the document title in the header and the page number in the footer.",
               "Automatic page numbers are inserted via Insert > Page Number from the Ribbon while in the header/footer area. Choose your position (bottom of page, top of page, or page margin), choose a number style (plain number, 'Page X of Y', Roman numerals), and Word inserts a field that updates automatically as pages are added or removed. Never type a page number manually — if pages are added later, manual numbers will be wrong.",
-              "The header and footer zone has a depth of 0.5 inch from the edge by default — content you type in the header appears 0.5 inch from the top of the page. You can adjust this in Header & Footer Tools > Position. For most Lakeside Medical Associates documents, the default depth is appropriate. Make sure your header/footer content is concise — no more than one or two lines to avoid eating into the document's usable page area.",
+              "The header and footer zone has a depth of 0.5 inch from the edge by default — content you type in the header appears 0.5 inch from the top of the page. You can adjust this in the Position group on the Header & Footer tab. For most Lakeside Medical Associates documents, the default depth is appropriate. Make sure your header/footer content is concise — no more than one or two lines to avoid eating into the document's usable page area.",
             ],
           },
         ],
@@ -906,7 +906,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To save as PDF in Word 2019: click File > Export > Create PDF/XPS, choose a file name and location, and click 'Publish.' The resulting PDF is a pixel-perfect replica of your printed document — fonts, spacing, and layout are locked and will appear identically on any device. Always save the PDF from the final approved version of the .docx, not from a draft.",
+              "To save as PDF in Word: click File > Export > Create PDF/XPS Document > Create PDF/XPS, choose a file name and location, and click 'Publish.' The resulting PDF is a pixel-perfect replica of your printed document — fonts, spacing, and layout are locked and will appear identically on any device. Always save the PDF from the final approved version of the .docx, not from a draft.",
               "To print: press Ctrl+P to open the Print dialog. The preview on the right side of the Backstage view shows exactly how the document will print. In the settings, you can choose to print all pages, a specific page range (type '1-3' or '5, 7, 9'), or only the current page. Select your printer from the dropdown at the top. For final patient letters at Lakeside Medical Associates, always use the secure practice printer — never a personal printer or a shared printer in an unsecured location.",
               "Print Preview is your mandatory last check — if the preview shows a letter that spills onto a second page with just a closing line, you have a formatting problem to fix before printing. Common causes are excessive paragraph spacing, overly large fonts, or margins that are narrower than they appear on screen. Fix the document, return to Print Preview, and confirm before committing to paper.",
             ],
@@ -939,7 +939,7 @@ export const module1Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — 'Write a professional block-format business letter from a medical office assistant at Lakeside Medical Associates to a referring physician at Riverside Family Practice requesting medical records for a shared patient named James Whitfield who is scheduled for a procedure on June 15, 2025. The letter should be polite, formal, and include a specific records request with a response deadline of May 30, 2025.' Review the generated letter carefully, correct any content that does not match professional medical correspondence standards, and use it as the starting point for your capstone challenge below.',",
+            text: "AI Task: Ask ChatGPT — 'Write a professional block-format business letter from a medical office assistant at Lakeside Medical Associates to a referring physician at Riverside Family Practice requesting medical records for a shared patient, [Patient Name], who is scheduled for a procedure on [Procedure Date]. The letter should be polite, formal, and include a specific records request with a response deadline of [Deadline Date].' Use bracketed placeholders like these instead of real names or dates of birth: never paste real patient details into an AI tool unless your practice has approved that tool for patient information. Review the generated letter carefully, correct any content that does not match professional medical correspondence standards, and use it as the starting point for your capstone challenge below.",
           },
         ],
       },
@@ -971,7 +971,7 @@ export const module1Lessons: Lesson[] = [
         ordered: true,
         items: [
           "Create a block-format letter from Lakeside Medical Associates (123 Lakeview Drive, Suite 200, Lakeside, CA 90210 | Phone: (555) 234-5678) to Dr. Patricia Yuen, MD, Riverside Family Practice, 445 Riverside Ave, Suite 100, Riverside, CA 91501, dated today. The subject line should read 'Re: Patient James Whitfield — Medical Records Request.'",
-          "Write a three-paragraph body: (1) Introduce yourself as the office assistant at Lakeside Medical Associates and state that Mr. James Whitfield (DOB: March 12, 1965) is scheduled for a procedure on June 15, 2025. (2) Request complete medical records from the past 24 months, specifically including lab results, imaging reports, and current medication list. (3) State a response deadline of May 30, 2025 and provide a fax number (555-234-5679) and mailing address for sending records.",
+          "Write a three-paragraph body: (1) Introduce yourself as the office assistant at Lakeside Medical Associates and state that Mr. James Whitfield (DOB: March 12, 1965) is scheduled for a procedure four weeks from the date of the letter (write out the actual date). (2) Request complete medical records from the past 24 months, specifically including lab results, imaging reports, and current medication list. (3) State a response deadline two weeks from the date of the letter (write out the actual date) and provide a fax number (555-234-5679) and mailing address for sending records.",
           "Format the letter using Calibri 11pt body text, 1-inch margins, left alignment throughout, and 1.0 line spacing with 12pt After paragraph spacing. Use a signature block that includes your name, 'Office Assistant,' 'Lakeside Medical Associates,' and the practice phone number.",
           "Apply the 10-point professional formatting checklist from this lesson — review every item and confirm it is correct before moving to the next step.",
           "Save the final letter as both 'Records Request – Whitfield – Lakeside Medical.docx' and as a PDF. Open the PDF to confirm it displays correctly, then submit both files.",

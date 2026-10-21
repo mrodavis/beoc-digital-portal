@@ -5,7 +5,7 @@ export const module4Lessons: Lesson[] = [
     slug: "charts-and-visualization",
     title: "Charts and Data Visualization",
     description:
-      "Learn to create professional charts in Excel 2019 — choosing the right chart type for your data, formatting chart elements, adding sparklines, and presenting visual data that drives decisions at Lakeside Medical Associates.",
+      "Learn to create professional charts in Excel — choosing the right chart type for your data, formatting chart elements, adding sparklines, and presenting visual data that drives decisions at Lakeside Medical Associates.",
     duration: "20 min",
     videoUrl: "https://www.youtube.com/embed/_Wu7jYTr1Pk",
 
@@ -374,7 +374,7 @@ export const module4Lessons: Lesson[] = [
     description:
       "Learn Excel's most powerful analytical functions — VLOOKUP for data lookup, nested IF for conditional logic, SUMIF and COUNTIF for conditional aggregation — applied to real medical office scenarios.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/iDg9s7BJ2m4",
+    videoUrl: "https://www.youtube.com/embed/-9d4m79twdA",
 
     slides: [
       {
@@ -442,6 +442,11 @@ export const module4Lessons: Lesson[] = [
               "Common VLOOKUP errors: #N/A means the lookup_value was not found in the first column of the table_array — check for typos in either table, extra spaces, or a data type mismatch (for example, an ID stored as a number in one table and as text in the other). VLOOKUP is not case-sensitive, so a capitalization difference alone does not cause #N/A. Wrap with IFERROR to return a blank or 'Not Found' message instead: =IFERROR(VLOOKUP(B2, RateTable!$A:$B, 2, 0), \"Rate Not Found\"). #REF! means the col_index_num is larger than the number of columns in the table_array — reduce the column index number.",
             ],
           },
+          {
+            type: "callout",
+            variant: "version",
+            text: "XLOOKUP is the newer lookup function in Excel for Microsoft 365 and Excel 2021 and later (it is not available in Excel 2016 or Excel 2019). Its syntax is =XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found]). It uses an exact match by default, can look to the left of the lookup column, and lets you set what to show when nothing is found, so =XLOOKUP(B2, RateTable!A:A, RateTable!B:B, 0) does the same job as the IFERROR and VLOOKUP formula in this lesson. Learn VLOOKUP anyway: you will find it in many existing workbooks, and it works in every version of Excel.",
+          },
         ],
       },
       {
@@ -455,7 +460,7 @@ export const module4Lessons: Lesson[] = [
             type: "list",
             items: [
               "Basic IF syntax: =IF(logical_test, value_if_true, value_if_false). For a simple appointment flag: =IF(D2=\"New Patient\", \"First Visit\", \"Returning Patient\") returns 'First Visit' if D2 (the appointment type) contains 'New Patient' and 'Returning Patient' for any other value. The logical_test can use any comparison operator: = (equal), <> (not equal), > (greater than), < (less than), >= (greater than or equal), <= (less than or equal).",
-              "Nested IF handles more than two outcomes — =IF(D2=\"New Patient\", \"First Visit\", IF(D2=\"Follow-Up\", \"Follow-Up\", \"Specialist Referral\")) evaluates the first condition, and if false, evaluates a second condition before returning the final value. In Excel 2019, you can nest up to 64 IFs, but more than 2–3 levels quickly becomes unreadable. For complex multi-condition logic, consider using IFS (a flatter alternative) or VLOOKUP with a lookup table.",
+              "Nested IF handles more than two outcomes — =IF(D2=\"New Patient\", \"First Visit\", IF(D2=\"Follow-Up\", \"Follow-Up\", \"Specialist Referral\")) evaluates the first condition, and if false, evaluates a second condition before returning the final value. Excel lets you nest up to 64 IF functions, but more than 2–3 levels quickly becomes unreadable. For complex multi-condition logic, consider using IFS (a flatter alternative) or VLOOKUP with a lookup table.",
               "AND requires ALL conditions to be true — =IF(AND(B2=\"Dr. Patel\", D2=\"New Patient\"), \"Patel New Patient\", \"Other\") returns 'Patel New Patient' only when both conditions are met simultaneously. This is useful when you need to combine provider AND appointment type filters in a single formula. OR requires ANY condition to be true — =IF(OR(G2=\"OUT\", G2=\"LOW\"), \"Needs Reorder\", \"OK\") returns 'Needs Reorder' when the supply tracker's Status (column G) is either OUT or LOW.",
             ],
           },
@@ -558,7 +563,7 @@ export const module4Lessons: Lesson[] = [
     description:
       "Learn to prevent data entry errors with Excel's validation tools, restrict editing with sheet and workbook protection, and create secure, professional spreadsheets for shared use at Lakeside Medical Associates.",
     duration: "15 min",
-    videoUrl: "https://www.youtube.com/embed/STTYxT6iFio",
+    videoUrl: "https://www.youtube.com/embed/fsXS_VSuBvs",
 
     slides: [
       {
@@ -685,7 +690,7 @@ export const module4Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — 'I manage an Excel supply tracker used by 3 staff members at a medical office. The tracker has formula columns (Total Cost, Status) that should never be edited, and data entry columns (Item, Category, Quantity, Unit Cost, Reorder Level, Date) that staff must be able to update. Walk me through exactly how to: (1) unlock only the data entry columns, (2) protect the sheet so formulas are locked, (3) add a dropdown validation list for the Category column with 4 options, and (4) add a whole-number validation to the Quantity column that prevents negative values. Give me step-by-step instructions for Excel 2019.' Follow the steps on your supply tracker.",
+            text: "AI Task: Ask ChatGPT — 'I manage an Excel supply tracker used by 3 staff members at a medical office. The tracker has formula columns (Total Cost, Status) that should never be edited, and data entry columns (Item, Category, Quantity, Unit Cost, Reorder Level, Date) that staff must be able to update. Walk me through exactly how to: (1) unlock only the data entry columns, (2) protect the sheet so formulas are locked, (3) add a dropdown validation list for the Category column with 4 options, and (4) add a whole-number validation to the Quantity column that prevents negative values. Give me step-by-step instructions for Excel for Microsoft 365.' Follow the steps on your supply tracker.",
           },
         ],
       },

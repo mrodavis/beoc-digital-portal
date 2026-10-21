@@ -169,7 +169,7 @@ export const googleSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Show the document outline and check that both headings appear in it.",
-          hint: "View › Show outline (Ctrl+Alt+A, then Ctrl+Alt+H). The outline opens on the left and lists the Title and both headings.",
+          hint: "View › Show outline (Ctrl+Alt+A, then Ctrl+Alt+H). The outline opens on the left and lists the Title and both headings. (In the current Google Docs, the outline lives in the Show tabs & outlines panel at the top left of the document.)",
           steps: [{ action: { kind: "command", id: "g.view", value: "outline" } }],
         },
         {

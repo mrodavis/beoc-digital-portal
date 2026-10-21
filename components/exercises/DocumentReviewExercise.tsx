@@ -46,10 +46,10 @@ const CRITERIA: {
   },
   {
     id: "fonts",
-    label: "Professional fonts are used (Calibri, Arial, or Georgia)",
+    label: "Professional fonts are used (Aptos, Calibri, Arial, or Georgia)",
     correctPass: false,
     explanation:
-      "This fails. Comic Sans is not a professional font and should never appear in a workplace document. Stick to Calibri, Arial, or Georgia.",
+      "This fails. Comic Sans is not a professional font and should never appear in a workplace document. Stick to a clean, readable font such as Aptos (the current Microsoft 365 default), Calibri, Arial, or Georgia.",
   },
   {
     id: "margins",

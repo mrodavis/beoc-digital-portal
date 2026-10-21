@@ -204,7 +204,7 @@ export const module8Lessons: Lesson[] = [
             items: [
               "Subject line — specific and descriptive: 'TOR Tech / Marcus Webb — Q3 Contract Review' not 'Meeting.' The subject line appears in every participant's calendar and in email notifications — it must communicate clearly what the meeting is about.",
               "Attendees — add all required participants by name and email. Confirm the attendee list before sending. An invite sent to the wrong person (or missing a required person) must be corrected with a follow-up communication that wastes time.",
-              "Date, time, and time zone — specify the exact date and time. If any attendee is in a different time zone, include both time zones in the invite. A client in EST and a colleague in PST need to see both.",
+              "Date, time, and time zone — specify the exact date and time. If any attendee is in a different time zone, include both time zones in the invite. A client on Eastern Time (ET) and a colleague on Pacific Time (PT) need to see both.",
               "Location or video link — include the physical location for in-person meetings or the video call link for virtual meetings. 'Details TBD' is not acceptable for a professional invite. If the link is not yet confirmed, note when it will be sent.",
               "Agenda — a brief agenda of 2–4 items tells every attendee what to prepare for and prevents the first 10 minutes of the meeting from being spent establishing what the meeting is about. Even a one-paragraph agenda is better than none.",
             ],

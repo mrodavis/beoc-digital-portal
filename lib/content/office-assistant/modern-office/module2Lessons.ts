@@ -284,10 +284,10 @@ export const module2Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Thread your replies — when responding to a specific message, always reply in the thread (click 'Reply in thread' rather than sending a new message to the main channel). Threading keeps the conversation organized, prevents unrelated messages from being buried, and allows team members to follow only the conversations relevant to them.",
+              "Thread your replies — when responding to a specific message, always reply in the thread (in Slack, hover over the message and choose Reply in thread; in Teams, reply under the original channel post or open its thread) rather than sending a new message to the main channel. Threading keeps the conversation organized, prevents unrelated messages from being buried, and allows team members to follow only the conversations relevant to them.",
               "Never send a new top-level message in response to a specific post — a new message in the main channel breaks the conversation flow, disconnects context, and forces everyone in the channel to read a message without knowing what it is responding to.",
               "Emoji reactions for acknowledgment — a thumbs-up, a checkmark, or an eyes emoji is a professional way to acknowledge a message, confirm receipt, or signal that you saw something without cluttering the channel with 'Got it!' and 'Thanks!' messages. Use reactions for acknowledgments; use text replies when your response adds information.",
-              "Formatting for clarity — use bold text (**text** in Slack, **text** in Teams) to highlight key information, action items, or deadlines in longer messages. Use numbered lists for steps and instructions. A wall of unformatted text in a chat message is hard to scan and easy to misread.",
+              "Formatting for clarity — use bold text (select the words and press Ctrl+B, or use the formatting toolbar in Slack or Teams; Slack's typed shortcut is *text*) to highlight key information, action items, or deadlines in longer messages. Use numbered lists for steps and instructions. A wall of unformatted text in a chat message is hard to scan and easy to misread.",
               "Mentions and tags — use @name to direct a message to a specific person so they receive a notification. Use @channel or @here sparingly and only when a message is genuinely urgent and relevant to everyone. Overusing group mentions trains the team to ignore notifications.",
             ],
           },
@@ -716,7 +716,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Be careful when creating filters or auto-archive rules — important messages can get buried or skipped if your rules are too broad. A filter that routes all emails from a specific domain to a low-priority folder could hide a critical client message. Always review your filtered and labeled folders regularly. Before setting a filter to auto-delete or auto-archive, test it in monitor mode for one week to confirm it only catches the emails you intend.",
+            text: "Be careful when creating filters or auto-archive rules — important messages can get buried or skipped if your rules are too broad. A filter that routes all emails from a specific domain to a low-priority folder could hide a critical client message. Always review your filtered and labeled folders regularly. Before setting a filter to auto-delete or auto-archive, test it first by having it only apply a label or move messages to a folder, and check that folder for a week to confirm it catches only the emails you intend.",
           },
         ],
       },

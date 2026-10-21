@@ -1557,6 +1557,7 @@ function CommentCard({ para, selected, onSelect, onCommit }: { para: WordPara; s
 function SidePane({ doc, ui, pane, onCommit, onSelect, openDialog }: { doc: WordDoc; ui: CanvasProps<WordDoc>["ui"]; pane: string; onCommit: CanvasProps<WordDoc>["onCommit"]; onSelect: CanvasProps<WordDoc>["onSelect"]; openDialog: (id: string) => void }) {
   const close = () => onCommit({ kind: "command", id: "pane.close" });
   const [said, setSaid] = useState("");
+  const [thesMenu, setThesMenu] = useState<string | null>(null);
   const s = parseSel(doc, ui.selection);
   const run = s.run ? doc.paragraphs.find((p) => p.id === s.run!.para)?.runs?.find((r) => r.id === s.run!.run) : undefined;
   const selPara = doc.paragraphs.find((p) => p.id === s.paras[0]);
@@ -1636,19 +1637,28 @@ function SidePane({ doc, ui, pane, onCommit, onSelect, openDialog }: { doc: Word
         <div className="mb-2 flex items-center gap-1 rounded border border-gray-400 px-2 py-1 text-gray-800"><Icon name="find" size={12} /> {word}</div>
         <p className="text-[11px] uppercase tracking-wide text-gray-500">Synonyms</p>
         {syns.map((x) => (
-          <div key={x} className="group flex items-center gap-1 rounded px-1 py-0.5 hover:bg-[#e5f1fb]">
-            <span className="flex-1">{x}</span>
-            <button
-              type="button"
-              aria-label={`Insert ${x}`}
-              onClick={() => onCommit({ kind: "command", id: "thesaurus.insert", value: x })}
-              className="rounded border border-gray-300 bg-white px-1.5 text-[11px] text-[#2b579a] hover:bg-[#cce4f7]"
-            >
-              Insert
-            </button>
+          <div key={x} className="relative">
+            <div className="group flex items-center gap-1 rounded px-1 py-0.5 hover:bg-[#e5f1fb]">
+              <span className="flex-1">{x}</span>
+              <button
+                type="button"
+                aria-label={`Options for ${x}`}
+                aria-expanded={thesMenu === x}
+                onClick={() => setThesMenu(thesMenu === x ? null : x)}
+                className={`rounded border px-1 text-[10px] ${thesMenu === x ? "border-gray-400 bg-white" : "border-transparent text-gray-500 group-hover:border-gray-300 group-hover:bg-white"}`}
+              >
+                ▾
+              </button>
+            </div>
+            {thesMenu === x && (
+              <div role="menu" className="absolute right-0 top-full z-10 w-28 border border-gray-300 bg-white py-1 shadow-lg">
+                <button type="button" role="menuitem" onClick={() => { setThesMenu(null); onCommit({ kind: "command", id: "thesaurus.insert", value: x }); }} className="block w-full px-3 py-1 text-left hover:bg-[#e5f1fb]">Insert</button>
+                <button type="button" role="menuitem" onClick={() => setThesMenu(null)} className="block w-full px-3 py-1 text-left hover:bg-[#e5f1fb]">Copy</button>
+              </div>
+            )}
           </div>
         ))}
-        <p className="pt-2 text-[10px] text-gray-500">Point to a word and choose Insert to replace the selected word.</p>
+        <p className="pt-2 text-[10px] text-gray-500">Point to a word, select its arrow, and choose Insert to replace the selected word.</p>
       </div>
     ) : (
       <p className="text-gray-700">{word ? `No results found for “${word}”.` : "Select a single word, then open the Thesaurus to see synonyms."}</p>

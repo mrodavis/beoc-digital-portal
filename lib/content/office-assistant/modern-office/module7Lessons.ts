@@ -30,7 +30,7 @@ export const module7Lessons: Lesson[] = [
             type: "list",
             items: [
               "AI tools compress time on routine tasks — drafting an email, summarizing a document, researching a topic, and building an agenda are all tasks that AI tools can help complete in a fraction of the manual time. Office assistants who use these tools efficiently produce more output per hour.",
-              "AI adoption is accelerating — a skill that was optional in 2022 is increasingly expected in 2025. Job postings for administrative roles now list AI tool familiarity as a preferred qualification. Getting ahead of this curve is a career advantage.",
+              "AI adoption is accelerating — a skill that was optional a few years ago is increasingly expected today. Job postings for administrative roles now list AI tool familiarity as a preferred qualification. Getting ahead of this curve is a career advantage.",
               "AI does not replace judgment — AI tools are powerful at execution but poor at judgment. They generate output; you decide whether it is accurate, appropriate, and ready to send. The human in the loop is still essential, and that human is you.",
               "Knowing the limits matters as much as knowing the features — an office assistant who sends AI-generated content without reviewing it will eventually make a professional mistake that damages their reputation. Understanding what AI tools get wrong is as important as understanding what they do well.",
               "AI tools are workplace infrastructure, not personal shortcuts — when your organization adopts an AI tool, your use of it becomes part of the company's workflow. Use it professionally, document your use when required, and always maintain the quality standard your organization expects.",
@@ -67,8 +67,8 @@ export const module7Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Microsoft Copilot — built into Microsoft 365 (Outlook, Word, Excel, Teams, and PowerPoint). In Outlook, Copilot can draft email replies, summarize threads, and suggest follow-up actions. In Word, it generates first drafts from prompts. In Excel, it builds formulas and explains data. In Teams, it summarizes meeting transcripts.",
-              "Google Gemini — integrated into Google Workspace (Gmail, Docs, Sheets, and Drive). In Gmail, Gemini drafts replies and summarizes long threads. In Docs, it writes, edits, and formats content based on prompts. In Sheets, it builds formulas and interprets data.",
+              "Microsoft Copilot — built into Microsoft 365. What you get depends on your account: with a work or school account and an eligible Microsoft 365 subscription, Microsoft 365 Copilot Chat is included at no additional cost (in the Microsoft Copilot app and Outlook, and in Word, Excel, and PowerPoint depending on licensing); a paid Microsoft 365 Copilot license adds Copilot inside Teams and the other Microsoft 365 apps working with your organization's files and email; and Microsoft 365 Personal and Family subscribers get a monthly allowance of AI credits for Copilot in Word, Excel, PowerPoint, Outlook, and OneNote. In Outlook, Copilot can draft email replies and summarize threads. In Word, it generates first drafts from prompts. In Excel, it builds formulas and explains data. In Teams, licensed users can have it summarize meetings.",
+              "Google Gemini — integrated into Google Workspace and included in Workspace Business and Enterprise plans (Gmail, Docs, Sheets, Drive, Meet, and Chat). In Gmail, Gemini drafts replies and summarizes long threads. In Docs, it writes, edits, and formats content based on prompts. In Sheets, it builds formulas and interprets data.",
               "The integration advantage — because Copilot and Gemini live inside your apps, they have context: they can see your email thread, your document draft, or your spreadsheet. This context produces more relevant output than a standalone AI that knows nothing about your specific file or task.",
               "The privacy consideration — integrated AI tools may process your files and emails through the provider's servers. Before using Copilot or Gemini with sensitive client documents, confirm that your organization's IT policy permits it. Some organizations restrict AI access to sensitive data.",
               "When to use integrated vs. standalone — use Copilot or Gemini when you are already in an app and need quick AI assistance within that workflow. Use ChatGPT when you need to work across multiple documents or contexts, or when you want AI assistance that is not tied to a specific file.",
@@ -89,7 +89,7 @@ export const module7Lessons: Lesson[] = [
               "Grammarly — an AI-powered writing assistant that checks grammar, tone, clarity, and professionalism in real time. Best used as a final review before sending any written communication. Grammarly's tone detector is particularly useful for flagging language that may come across as too casual, too aggressive, or unclear.",
               "Otter.ai and Fireflies.ai — AI transcription and meeting summary tools that join video calls and produce searchable transcripts and summaries within minutes of the meeting ending. Transformative for anyone responsible for taking meeting notes.",
               "Notion AI — AI embedded in Notion workspaces for generating documents, summarizing pages, and drafting structured content within a team's shared workspace. Best for organizations that already use Notion as their primary documentation platform.",
-              "Adobe Acrobat AI — document summarization and question-answering inside PDFs. Best for quickly extracting key information from long contracts, reports, or policy documents without reading every page.",
+              "Adobe Acrobat's AI Assistant — document summarization and question-answering inside PDFs. Best for quickly extracting key information from long contracts, reports, or policy documents without reading every page.",
               "The 'right tool' principle — specialized tools outperform general tools at their specific task. Grammarly is better at grammar than ChatGPT. Otter.ai is better at transcription than any general AI. Knowing when to reach for a specialized tool versus a general one is a mark of genuine AI fluency.",
             ],
           },
@@ -227,7 +227,7 @@ export const module7Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Zapier is the most widely used no-code automation platform for office environments. It connects hundreds of apps and automates workflows between them without requiring any programming knowledge. Understanding how Zapier works — even at a basic level — gives you a powerful tool for eliminating manual data transfer tasks:",
+            text: "Zapier is a widely used no-code automation platform for office environments. It connects a large catalog of business apps and automates workflows between them without requiring any programming knowledge. Understanding how Zapier works — even at a basic level — gives you a powerful tool for eliminating manual data transfer tasks:",
           },
           {
             type: "list",
@@ -235,7 +235,7 @@ export const module7Lessons: Lesson[] = [
               "Zapier works on a trigger-action model — every automation (called a 'Zap') starts with a trigger event in one app (e.g., 'a new form response is submitted in Google Forms') and produces one or more actions in another app (e.g., 'add a row in Google Sheets and send a Gmail notification').",
               "Common office automation examples — 'When a new email with the subject Invoice arrives in Gmail, save the attachment to a Google Drive folder and add a row to the invoice tracking sheet.' 'When a Typeform survey is completed, create a new HubSpot contact and send a welcome email.'",
               "No coding required — Zapier's interface guides you through selecting a trigger app, a trigger event, an action app, and the action to perform. You map fields (what data goes where) using dropdown menus, not code.",
-              "Free tier limitations — Zapier's free tier supports a limited number of Zaps and task runs per month. For most basic office automation needs, the free tier is sufficient. Evaluate whether the task volume requires a paid plan before recommending it to your organization.",
+              "Free plan limitations — Zapier's free plan limits which automations you can build and how many tasks can run each month, and those limits change over time. Check the current plan details, and estimate how many tasks your automation will run, before recommending Zapier to your organization.",
               "Testing before activating — always test a new Zap with real data before activating it and walking away. Trigger the event manually, verify the output in the action app, and confirm the data transferred correctly. An untested automation is one that will fail silently the first time it matters.",
             ],
           },
@@ -420,7 +420,7 @@ export const module7Lessons: Lesson[] = [
               "Ask for summaries of specific topics — rather than asking a broad question like 'tell me about Company X', ask for a structured summary: 'Summarize the key services, primary clients, and market position of [Company X] in three bullet points, based on publicly available information.'",
               "Flag unverified facts before using them — when AI output contains specific numbers, dates, names, or claims, treat them as hypotheses until you have verified them. Add a personal annotation like '[verify]' next to any AI-generated fact before the document leaves your hands.",
               "Use AI output as a starting point for web searches — if AI tells you that a competitor charges a certain price, use that claim as a search query: go find the actual pricing page. The AI output points you at what to look for; the web search confirms whether it is accurate.",
-              "Never cite AI as a source — AI tools do not have real-time access to all information and do not provide citable references for their claims. If your document requires citations, find and cite the original source, not the AI summary that led you to it.",
+              "Never cite AI as a source — AI tools can state things that are wrong, and even when a tool shows links to its sources (ChatGPT search, for example, can include citations you can click), the AI's summary is not the source. Open the original page, confirm it actually says what the AI claimed, and cite that original source.",
             ],
           },
         ],

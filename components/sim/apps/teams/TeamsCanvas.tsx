@@ -6,6 +6,7 @@ import type { CanvasProps, SimUi, StatusBarProps } from "../../types";
 import type { TeamsDoc, TeamsMessage, TeamsUiState, TeamsView } from "./types";
 import { TIcon } from "./icons";
 import { allChannels, chatTitle, findChannel, findChat, findMessage, personName, serializeForm } from "./model";
+import { AddTabDialog, ApprovalsView, AppsView, ImmersiveReader, JoinTeamPage, ParticipantsPanel, PlannerView } from "./TeamsApps";
 import {
   AttachmentChip,
   Avatar,
@@ -85,6 +86,8 @@ export function TeamsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<TeamsDo
             </div>
             {u.overlay === "settings" && <SettingsPage />}
             {u.overlay === "schedule" && <ScheduleForm />}
+            {u.overlay === "discover" && <JoinTeamPage />}
+            <ImmersiveReader />
           </>
         )}
         {menu && <FloatingMenu x={menu.x} y={menu.y} items={menu.items} width={menu.width} onClose={closeMenu} />}
@@ -98,13 +101,16 @@ export function TeamsStatusBar(_props: StatusBarProps<TeamsDoc>) {
 }
 
 function MainView() {
-  const { ui } = useTeams();
+  const { doc, ui } = useTeams();
   const view = ui.view ?? "chat";
   if (view === "activity") return <ActivityView />;
-  if (view === "teams") return <TeamsView />;
+  if (view === "teams") return doc.layout === "separate" ? <TeamsView /> : <ChatView />;
   if (view === "calendar") return <CalendarView />;
   if (view === "calls") return <CallsView />;
   if (view === "onedrive") return <OneDriveView />;
+  if (view === "apps") return <AppsView />;
+  if (view === "planner") return <PlannerView />;
+  if (view === "approvals") return <ApprovalsView />;
   return <ChatView />;
 }
 
@@ -130,7 +136,7 @@ function TitleBar() {
 
   const openResult = (r: (typeof results)[number]) => {
     setQ("");
-    if (r.kind === "channel") go({ view: "teams", conv: r.id, tab: "posts", selection: `channel:${r.id}` });
+    if (r.kind === "channel") go({ view: doc.layout === "separate" ? "teams" : "chat", conv: r.id, tab: "posts", selection: `channel:${r.id}` });
     else if (r.kind === "chat") go({ view: "chat", conv: r.id, tab: "chat", selection: `chat:${r.id}` });
     else {
       const ch = doc.chats.find((c) => !c.title && c.members.length === 1 && c.members[0] === r.id);
@@ -340,6 +346,8 @@ const RAIL: [TeamsView, string, string][] = [
   ["calendar", "Calendar", "calendar"],
   ["calls", "Calls", "calls"],
   ["onedrive", "OneDrive", "onedrive"],
+  ["planner", "Planner", "note"],
+  ["approvals", "Approvals", "check"],
 ];
 
 function Rail() {
@@ -349,10 +357,16 @@ function Rail() {
     activity: (doc.activity ?? []).filter((a) => a.unread).length,
     chat: doc.chats.filter((c) => c.unread && !c.hidden && !seen.has(c.id)).length,
   };
+  const combined = doc.layout !== "separate";
+  const pinned = doc.pinnedApps ?? [];
+  const items = RAIL.filter(([v]) => (v === "teams" ? !combined : v === "planner" || v === "approvals" ? pinned.includes(v) : true));
   const open = (v: TeamsView) => {
     if (v === "chat") {
       const conv = ui.view === "chat" ? ui.conv : doc.chats.find((c) => !c.hidden)?.id;
-      go({ view: v, conv, tab: "chat", selection: conv ? `chat:${conv}` : `view:chat`, highlight: undefined });
+      const isCh = Boolean(conv && findChannel(doc, conv));
+      go({ view: v, conv, tab: isCh ? "posts" : "chat", selection: conv ? `${isCh ? "channel" : "chat"}:${conv}` : `view:chat`, highlight: undefined });
+    } else if (v === "planner" || v === "approvals") {
+      go({ view: v, selection: v, highlight: undefined });
     } else if (v === "teams") {
       const conv = ui.view === "teams" ? ui.conv : allChannels(doc)[0]?.channel.id;
       go({ view: v, conv, tab: "posts", selection: conv ? `channel:${conv}` : "view:teams", highlight: undefined });
@@ -360,7 +374,7 @@ function Rail() {
   };
   return (
     <nav className="flex w-[68px] shrink-0 flex-col items-center gap-0.5 pt-1" aria-label="App bar">
-      {RAIL.map(([v, label, icon]) => {
+      {items.map(([v, label, icon]) => {
         const on = view === v;
         return (
           <button key={v} type="button" aria-label={label} aria-current={on ? "page" : undefined} onClick={() => open(v)} className={`relative flex w-[60px] flex-col items-center gap-0.5 rounded-md py-1.5 text-[10px] ${on ? "font-semibold text-[#5b5fc7]" : "text-[#616161] hover:text-[#5b5fc7]"}`}>
@@ -373,7 +387,8 @@ function Rail() {
           </button>
         );
       })}
-      <button type="button" aria-label="Apps" className="mt-1 flex w-[60px] flex-col items-center gap-0.5 rounded-md py-1.5 text-[10px] text-[#616161]">
+      <button type="button" aria-label="Apps" aria-current={view === "apps" ? "page" : undefined} onClick={() => go({ view: "apps", selection: "view:apps", highlight: undefined })} className={`relative mt-1 flex w-[60px] flex-col items-center gap-0.5 rounded-md py-1.5 text-[10px] ${view === "apps" ? "font-semibold text-[#5b5fc7]" : "text-[#616161] hover:text-[#5b5fc7]"}`}>
+        {view === "apps" && <span className="absolute left-[-4px] top-2.5 h-5 w-[3px] rounded-full bg-[#5b5fc7]" />}
         <TIcon name="apps" size={22} />
         Apps
       </button>
@@ -389,12 +404,13 @@ function msgMenu(ctx: TeamsCtxValue, m: TeamsMessage, opts: { inChat: boolean; o
   const key = `msg:${m.id}`;
   const mine = m.from === "me";
   const hit = findMessage(ctx.doc, m.id);
+  const pinLabel = opts.inChat ? (m.pinned ? "Unpin for everyone" : "Pin for everyone") : m.pinned ? "Unpin" : "Pin";
   return [
     ...(opts.onReply ? [{ label: "Reply", icon: "reply", onClick: opts.onReply }] : []),
     { label: "More reactions", icon: "emoji", onClick: () => opts.onMoreReactions({ clientX: 0, clientY: 0 }) },
     { separator: true },
     ...(mine ? [{ label: "Edit", icon: "edit", onClick: opts.onEdit }, { label: "Delete", icon: "trash", onClick: () => ctx.cmd(key, "msg.delete") }] : []),
-    m.pinned ? { label: "Unpin", icon: "pin", onClick: () => ctx.cmd(key, "msg.unpin") } : { label: "Pin", icon: "pin", onClick: () => ctx.cmd(key, "msg.pin") },
+    m.pinned ? { label: pinLabel, icon: "pin", onClick: () => ctx.cmd(key, "msg.unpin") } : { label: pinLabel, icon: "pin", onClick: () => ctx.cmd(key, "msg.pin") },
     { label: m.saved ? "Unsave this message" : "Save this message", icon: "bookmark", onClick: () => ctx.cmd(key, "msg.save") },
     {
       label: "Mark as unread",
@@ -406,11 +422,14 @@ function msgMenu(ctx: TeamsCtxValue, m: TeamsMessage, opts: { inChat: boolean; o
     },
     { label: "Copy link", icon: "link", onClick: () => ctx.cmd(key, "msg.copyLink") },
     { label: "Forward", icon: "forward", onClick: opts.onForward },
+    { separator: true },
+    { label: "Immersive Reader", icon: "view", onClick: () => ctx.cmd(key, "msg.immersiveReader", m.id) },
+    { label: "Translate", icon: "globe", disabled: true },
   ];
 }
 
-function HoverBar({ m, onMore, onReply }: { m: TeamsMessage; onMore: (e: React.MouseEvent<HTMLButtonElement>) => void; onReply?: () => void }) {
-  const { cmd } = useTeams();
+function HoverBar({ m, onMore, onReply, onEdit }: { m: TeamsMessage; onMore: (e: React.MouseEvent<HTMLButtonElement>) => void; onReply?: () => void; onEdit?: () => void }) {
+  const { cmd, openMenu } = useTeams();
   return (
     <div className="absolute -top-4 right-2 z-20 hidden items-center gap-0.5 rounded-md border border-[#e0e0e0] bg-white px-1 py-0.5 shadow-md group-hover:flex group-focus-within:flex">
       {REACTIONS.map(([k, em]) => (
@@ -418,6 +437,20 @@ function HoverBar({ m, onMore, onReply }: { m: TeamsMessage; onMore: (e: React.M
           {em}
         </button>
       ))}
+      <button
+        type="button"
+        title="More reactions"
+        aria-label="More reactions"
+        onClick={(e) => openMenu(e.currentTarget.getBoundingClientRect(), MORE_REACTIONS.map(([k, em]) => ({ label: `${em}  ${k}`, onClick: () => cmd(`msg:${m.id}`, "msg.react", k) })), 200)}
+        className="rounded p-1 text-[#424242] hover:bg-[#f5f5f5]"
+      >
+        <TIcon name="emoji" size={16} />
+      </button>
+      {m.from === "me" && onEdit && (
+        <button type="button" title="Edit" aria-label="Edit" onClick={onEdit} className="rounded p-1 text-[#424242] hover:bg-[#f5f5f5]">
+          <TIcon name="edit" size={16} />
+        </button>
+      )}
       {onReply && (
         <button type="button" title="Reply" aria-label="Reply" onClick={onReply} className="rounded p-1 text-[#424242] hover:bg-[#f5f5f5]">
           <TIcon name="reply" size={16} />
@@ -584,10 +617,12 @@ function ChatMessage({ m, onReply, compactHeader }: { m: TeamsMessage; onReply: 
                 <div className="line-clamp-2 text-[#424242]">{m.quote.text.replace(/\*\*|~~/g, "")}</div>
               </div>
             )}
+            {m.important && <div className="mb-0.5 text-[12px] font-bold text-[#c4314b]">IMPORTANT!</div>}
             {m.text && <RichText text={m.text} />}
             <Attachments names={m.attachments} />
+            <LoopCard m={m} />
             {compactHeader && m.edited && <span className="ml-1 text-[11px] text-[#616161]">Edited</span>}
-            <HoverBar m={m} onMore={openMore} onReply={onReply} />
+            <HoverBar m={m} onMore={openMore} onReply={onReply} onEdit={() => setEditing(true)} />
           </div>
         )}
         <ReactionPills reactions={m.reactions} onToggle={(k) => cmd(key, "msg.react", k)} />
@@ -611,35 +646,202 @@ function lastPreview(doc: TeamsDoc, msgs: TeamsMessage[]): { text: string; time:
   return { text: who + t, time: m.time.replace(/^Yesterday.*/, "Yesterday") };
 }
 
+function channelMenuItems(ctx: TeamsCtxValue, chId: string): MenuEntry[] {
+  const hit = findChannel(ctx.doc, chId);
+  if (!hit) return [];
+  const key = `channel:${chId}`;
+  const off = hit.channel.notifications === "Off";
+  return [
+    { heading: true, label: "Channel notifications" },
+    { label: "All activity", checked: !off, onClick: () => ctx.cmd(key, "channel.notifications", "All activity") },
+    { label: "Off", checked: off, onClick: () => ctx.cmd(key, "channel.notifications", "Off") },
+    { label: "Custom", disabled: true },
+    { separator: true },
+    { label: hit.channel.pinned ? "Unpin" : "Pin", icon: "pin", onClick: () => ctx.cmd(key, "channel.pin") },
+    { label: "Copy link to channel", icon: "link", disabled: true },
+  ];
+}
+
+function chatMenuItems(ctx: TeamsCtxValue, id: string): MenuEntry[] {
+  const c = findChat(ctx.doc, id);
+  if (!c) return [];
+  const key = `chat:${id}`;
+  const unread = c.unread && !ctx.seen.has(id);
+  return [
+    c.pinned ? { label: "Unpin", icon: "pin", onClick: () => ctx.cmd(key, "chat.unpin") } : { label: "Pin", icon: "pin", onClick: () => ctx.cmd(key, "chat.pin") },
+    unread
+      ? { label: "Mark as read", icon: "check", onClick: () => { ctx.markSeen(id, true); ctx.cmd(key, "chat.markRead"); } }
+      : { label: "Mark as unread", icon: "unread", onClick: () => { ctx.markSeen(id, false); ctx.cmd(key, "chat.markUnread"); } },
+    c.muted ? { label: "Unmute", icon: "activity", onClick: () => ctx.cmd(key, "chat.unmute") } : { label: "Mute", icon: "bellOff", onClick: () => ctx.cmd(key, "chat.mute") },
+    { label: "Hide", icon: "eyeOff", onClick: () => ctx.cmd(key, "chat.hide") },
+  ];
+}
+
+/** "New message" with the New items drop-down (Join team, New channel, New section). */
+function NewItemsButtons() {
+  const { doc, go, openMenu } = useTeams();
+  return (
+    <span className="flex items-center">
+      <IconBtn icon="newchat" label="New message" onClick={() => go({ view: "chat", conv: "__new", selection: "view:newchat" })} />
+      <button
+        type="button"
+        title="New items"
+        aria-label="New items"
+        onClick={(e) =>
+          openMenu(
+            e.currentTarget.getBoundingClientRect(),
+            [
+              { label: "New message", icon: "newchat", onClick: () => go({ view: "chat", conv: "__new", selection: "view:newchat" }) },
+              { label: "New channel", icon: "plus", disabled: true },
+              { label: "New section", icon: "plus", disabled: true },
+              { separator: true },
+              { label: "Join team", icon: "teams", disabled: !(doc.discover ?? []).length, onClick: () => go({ overlay: "discover", selection: "discover" }) },
+              { label: "Create team", icon: "teams", disabled: true },
+            ],
+            200,
+          )
+        }
+        className="-ml-1 rounded-[4px] p-1 text-[#424242] hover:bg-[#f0f0f0] hover:text-[#5b5fc7]"
+      >
+        <TIcon name="chevronDown" size={14} />
+      </button>
+    </span>
+  );
+}
+
+function SectionHead({ label, open, onToggle }: { label: string; open: boolean; onToggle: () => void }) {
+  return (
+    <button type="button" aria-expanded={open} onClick={onToggle} className="flex w-full items-center gap-1 px-4 pb-1 pt-2 text-left text-[12px] font-semibold text-[#616161] hover:text-[#242424]">
+      <TIcon name={open ? "chevronDown" : "chevronRight"} size={10} />
+      {label}
+    </button>
+  );
+}
+
+function ChannelRow({ teamId, chId, indent = true }: { teamId: string; chId: string; indent?: boolean }) {
+  const ctx = useTeams();
+  const { doc, ui, go } = ctx;
+  const hit = findChannel(doc, chId);
+  if (!hit) return null;
+  const { team, channel: ch } = hit;
+  const active = ui.conv === ch.id;
+  const combined = doc.layout !== "separate";
+  const view = combined ? "chat" : "teams";
+  return (
+    <div
+      key={`${teamId}-${ch.id}`}
+      role="button"
+      aria-label={`${ch.name} channel${indent ? "" : `, ${team.name}`}`}
+      onClick={() => go({ view, conv: ch.id, tab: "posts", selection: `channel:${ch.id}`, highlight: undefined })}
+      onContextMenu={(e) => {
+        e.preventDefault();
+        ctx.openMenu({ clientX: e.clientX, clientY: e.clientY }, channelMenuItems(ctx, ch.id), 240);
+      }}
+      className={`group relative mx-2 flex cursor-pointer items-center gap-2 rounded-md py-1.5 pr-8 text-[14px] ${indent ? "pl-[44px]" : "pl-2"} ${active ? "bg-white font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.08)]" : ch.unread ? "font-bold hover:bg-white/70" : "hover:bg-white/70"}`}
+    >
+      {!indent && <Avatar name={team.name} size={28} square color={team.color ?? "#5b5fc7"} />}
+      <span className="min-w-0 flex-1 truncate">
+        {ch.name}
+        {!indent && <span className="block truncate text-[11px] font-normal text-[#616161]">{team.name}</span>}
+      </span>
+      {ch.notifications === "Off" && <TIcon name="bellOff" size={12} className="text-[#616161]" />}
+      <button
+        type="button"
+        aria-label={`More options for ${ch.name}`}
+        title="More options"
+        onClick={(e) => {
+          e.stopPropagation();
+          ctx.openMenu(e.currentTarget.getBoundingClientRect(), channelMenuItems(ctx, ch.id), 240);
+        }}
+        className="absolute right-1.5 top-1/2 hidden -translate-y-1/2 rounded p-0.5 text-[#424242] hover:text-[#5b5fc7] group-hover:block"
+      >
+        <TIcon name="more" size={16} />
+      </button>
+    </div>
+  );
+}
+
+function TeamTree() {
+  const { doc } = useTeams();
+  const [closed, setClosed] = useState<Set<string>>(new Set());
+  return (
+    <>
+      {doc.teams.map((t) => {
+        const open = !closed.has(t.id);
+        return (
+          <div key={t.id} className="mb-0.5">
+            <button
+              type="button"
+              aria-expanded={open}
+              aria-label={`${t.name} team`}
+              onClick={() => setClosed((s) => { const n = new Set(s); if (n.has(t.id)) n.delete(t.id); else n.add(t.id); return n; })}
+              className="mx-2 flex w-[calc(100%-16px)] items-center gap-2 rounded-md px-2 py-1.5 text-left hover:bg-white/70"
+            >
+              <TIcon name={open ? "chevronDown" : "chevronRight"} size={12} className="text-[#616161]" />
+              <Avatar name={t.name} size={24} square color={t.color ?? "#5b5fc7"} />
+              <span className="flex-1 truncate text-[14px] font-semibold">{t.name}</span>
+            </button>
+            {open && t.channels.map((ch) => <ChannelRow key={ch.id} teamId={t.id} chId={ch.id} />)}
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+function SavedList() {
+  const { doc, go } = useTeams();
+  const items: { m: TeamsMessage; where: string; conv: string; channel: boolean }[] = [];
+  for (const c of doc.chats) for (const m of c.messages) if (m.saved && !m.deleted) items.push({ m, where: chatTitle(doc, c), conv: c.id, channel: false });
+  for (const { channel } of allChannels(doc))
+    for (const p of channel.posts) for (const m of [p, ...(p.replies ?? [])]) if (m.saved && !m.deleted) items.push({ m, where: channel.name, conv: channel.id, channel: true });
+  if (!items.length) return null;
+  const combined = doc.layout !== "separate";
+  return (
+    <>
+      <div className="px-4 pb-1 pt-2 text-[12px] font-semibold text-[#616161]">Saved</div>
+      {items.map(({ m, where, conv, channel }) => (
+        <button
+          key={m.id}
+          type="button"
+          onClick={() => go({ view: channel && !combined ? "teams" : "chat", conv, tab: channel ? "posts" : "chat", selection: `${channel ? "channel" : "chat"}:${conv}`, highlight: m.id })}
+          className="mx-2 flex w-[calc(100%-16px)] items-start gap-2 rounded-md px-2 py-1.5 text-left hover:bg-white/70"
+        >
+          <TIcon name="bookmark" size={14} className="mt-0.5 text-[#5b5fc7]" />
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-[13px]">{m.text.replace(/\*\*|~~|\n/g, " ")}</span>
+            <span className="block truncate text-[11px] text-[#616161]">{personName(doc, m.from)} in {where}</span>
+          </span>
+        </button>
+      ))}
+    </>
+  );
+}
+
+const FILTERS = ["Unread", "Chats", "Channels", "Meetings"] as const;
+
 function ChatList() {
   const ctx = useTeams();
   const { doc, ui, go, cmd, seen, markSeen } = ctx;
-  const [unreadOnly, setUnreadOnly] = useState(false);
-  const chats = doc.chats.filter((c) => !c.hidden && (!unreadOnly || (c.unread && !seen.has(c.id))));
-  const pinned = chats.filter((c) => c.pinned);
-  const recent = chats.filter((c) => !c.pinned);
-
-  const itemMenu = (e: { clientX: number; clientY: number } | DOMRect, id: string) => {
-    const c = findChat(doc, id);
-    if (!c) return;
-    const key = `chat:${id}`;
-    const unread = c.unread && !seen.has(id);
-    ctx.openMenu(e, [
-      c.pinned ? { label: "Unpin", icon: "pin", onClick: () => cmd(key, "chat.unpin") } : { label: "Pin", icon: "pin", onClick: () => cmd(key, "chat.pin") },
-      unread
-        ? { label: "Mark as read", icon: "check", onClick: () => { markSeen(id, true); cmd(key, "chat.markRead"); } }
-        : { label: "Mark as unread", icon: "unread", onClick: () => { markSeen(id, false); cmd(key, "chat.markUnread"); } },
-      c.muted ? { label: "Unmute", icon: "activity", onClick: () => cmd(key, "chat.unmute") } : { label: "Mute", icon: "bellOff", onClick: () => cmd(key, "chat.mute") },
-      { label: "Hide", icon: "eyeOff", onClick: () => cmd(key, "chat.hide") },
-    ]);
-  };
+  const combined = doc.layout !== "separate";
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [filter, setFilter] = useState<(typeof FILTERS)[number] | "">("");
+  const [closed, setClosed] = useState<Set<string>>(new Set());
+  const toggle = (k: string) => setClosed((s) => { const n = new Set(s); if (n.has(k)) n.delete(k); else n.add(k); return n; });
+  const isUnread = (c: { id: string; unread?: boolean }) => Boolean(c.unread) && !seen.has(c.id) && ui.conv !== c.id;
+  const chats = doc.chats.filter((c) => !c.hidden && (filter === "" || (filter === "Unread" && isUnread(c)) || (filter === "Chats" && c.kind !== "meeting") || (filter === "Meetings" && c.kind === "meeting")));
+  const showChats = filter !== "Channels";
+  const favChats = showChats ? chats.filter((c) => c.pinned) : [];
+  const favChannels = combined && (filter === "" || filter === "Channels") ? allChannels(doc).filter((x) => x.channel.pinned) : [];
+  const recent = showChats ? chats.filter((c) => !c.pinned) : [];
+  const unreadChannels = filter === "Unread" && combined ? allChannels(doc).filter((x) => x.channel.unread && ui.conv !== x.channel.id) : [];
 
   const row = (id: string) => {
     const c = findChat(doc, id)!;
     const title = chatTitle(doc, c);
     const pv = lastPreview(doc, c.messages);
     const active = ui.conv === id;
-    const unread = c.unread && !seen.has(id) && !active;
+    const unread = isUnread(c);
     const other = c.members.length === 1 && !c.title ? c.members[0] : null;
     return (
       <div
@@ -651,7 +853,7 @@ function ChatList() {
         }}
         onContextMenu={(e) => {
           e.preventDefault();
-          itemMenu({ clientX: e.clientX, clientY: e.clientY }, id);
+          ctx.openMenu({ clientX: e.clientX, clientY: e.clientY }, chatMenuItems(ctx, id));
         }}
         role="button"
         aria-label={`${title}${unread ? ", unread" : ""}`}
@@ -682,7 +884,7 @@ function ChatList() {
           title="More options"
           onClick={(e) => {
             e.stopPropagation();
-            itemMenu(e.currentTarget.getBoundingClientRect(), id);
+            ctx.openMenu(e.currentTarget.getBoundingClientRect(), chatMenuItems(ctx, id));
           }}
           className="absolute right-2 top-1/2 hidden -translate-y-1/2 rounded bg-white p-1 text-[#424242] shadow-sm hover:text-[#5b5fc7] group-hover:block"
         >
@@ -692,32 +894,70 @@ function ChatList() {
     );
   };
 
+  const empty = !favChats.length && !favChannels.length && !recent.length && !unreadChannels.length && !(combined && (filter === "" || filter === "Channels"));
+
   return (
     <div className="flex w-[300px] shrink-0 flex-col border-r border-[#e0e0e0] bg-[#f5f5f5]">
-      <div className="flex h-14 items-center gap-1 px-4">
+      <div className="flex h-14 items-center gap-0.5 px-4">
         <h1 className="flex-1 text-[18px] font-bold">Chat</h1>
-        <IconBtn icon="filter" label="Filter: Unread" active={unreadOnly} onClick={() => setUnreadOnly((x) => !x)} />
+        <IconBtn icon="filter" label="Filter" active={filterOpen || Boolean(filter)} onClick={() => setFilterOpen((x) => !x)} />
+        <IconBtn
+          icon="more"
+          label="More list options"
+          onClick={(e) => ctx.openMenu(e.currentTarget.getBoundingClientRect(), [{ label: "Customize view", icon: "gear", onClick: () => go({ overlay: "settings", settingsPage: "chats", selection: "settings" }) }], 200)}
+        />
         <IconBtn icon="video" label="Meet now" onClick={() => cmd("view:chat", "calendar.meetNow")} />
-        <IconBtn icon="newchat" label="New chat" onClick={() => go({ view: "chat", conv: "__new", selection: "view:newchat" })} />
+        <NewItemsButtons />
       </div>
+      {filterOpen && (
+        <div className="flex flex-wrap gap-1.5 px-4 pb-2">
+          {FILTERS.filter((f) => combined || f !== "Channels").map((f) => (
+            <button key={f} type="button" aria-pressed={filter === f} onClick={() => setFilter(filter === f ? "" : f)} className={`rounded-full border px-2.5 py-0.5 text-[12px] ${filter === f ? "border-[#5b5fc7] bg-[#e8ebfa] font-semibold text-[#5b5fc7]" : "border-[#d1d1d1] bg-white"}`}>
+              {f}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="min-h-0 flex-1 overflow-auto pb-2">
-        {pinned.length > 0 && <div className="px-4 pb-1 pt-2 text-[12px] font-semibold text-[#616161]">Pinned</div>}
-        {pinned.map((c) => row(c.id))}
-        <div className="px-4 pb-1 pt-2 text-[12px] font-semibold text-[#616161]">Recent</div>
-        {recent.map((c) => row(c.id))}
-        {!chats.length && <div className="px-4 py-6 text-center text-[13px] text-[#616161]">No unread chats</div>}
+        {filter === "" && <SavedList />}
+        {(favChats.length > 0 || favChannels.length > 0) && (
+          <>
+            <SectionHead label="Favorites" open={!closed.has("fav")} onToggle={() => toggle("fav")} />
+            {!closed.has("fav") && (
+              <>
+                {favChats.map((c) => row(c.id))}
+                {favChannels.map((x) => <ChannelRow key={x.channel.id} teamId={x.team.id} chId={x.channel.id} indent={false} />)}
+              </>
+            )}
+          </>
+        )}
+        {recent.length > 0 && (
+          <>
+            <SectionHead label="Chats" open={!closed.has("chats")} onToggle={() => toggle("chats")} />
+            {!closed.has("chats") && recent.map((c) => row(c.id))}
+          </>
+        )}
+        {unreadChannels.map((x) => <ChannelRow key={x.channel.id} teamId={x.team.id} chId={x.channel.id} indent={false} />)}
+        {combined && (filter === "" || filter === "Channels") && (
+          <>
+            <SectionHead label="Teams and channels" open={!closed.has("teams")} onToggle={() => toggle("teams")} />
+            {!closed.has("teams") && <TeamTree />}
+          </>
+        )}
+        {empty && <div className="px-4 py-6 text-center text-[13px] text-[#616161]">{filter === "Unread" ? "No unread chats" : "Nothing to show"}</div>}
       </div>
     </div>
   );
 }
 
 function ChatView() {
-  const { ui } = useTeams();
+  const { doc, ui } = useTeams();
   const conv = ui.conv ?? "";
+  const isChannel = Boolean(conv && !conv.startsWith("__new") && findChannel(doc, conv));
   return (
     <>
       <ChatList />
-      {conv.startsWith("__new") ? <NewChatPane preset={conv.split(":")[1]} /> : conv ? <ChatPane id={conv} /> : <EmptyPane text="Select a chat to start messaging." />}
+      {conv.startsWith("__new") ? <NewChatPane preset={conv.split(":")[1]} /> : isChannel ? <ChannelPane id={conv} /> : conv ? <ChatPane id={conv} /> : <EmptyPane text="Select a chat to start messaging." />}
     </>
   );
 }
@@ -795,13 +1035,20 @@ function ChatPane({ id }: { id: string }) {
   const { doc, ui, go, cmd } = ctx;
   const chat = findChat(doc, id);
   const [replyTo, setReplyTo] = useState<TeamsMessage | null>(null);
+  const [people, setPeople] = useState(false);
+  const [naming, setNaming] = useState<string | null>(null);
+  const acceptedName = useAccepted(doc);
   const scroller = useRef<HTMLDivElement>(null);
   const count = chat?.messages.length ?? 0;
   useEffect(() => {
     if (ui.highlight) return;
     scroller.current?.scrollTo({ top: scroller.current.scrollHeight });
   }, [count, id, ui.highlight]);
-  useEffect(() => setReplyTo(null), [id]);
+  useEffect(() => {
+    setReplyTo(null);
+    setPeople(false);
+    setNaming(null);
+  }, [id]);
   useEffect(() => {
     if (!ui.highlight) return;
     const el = scroller.current?.querySelector(`[data-mid="${ui.highlight}"]`);
@@ -818,12 +1065,35 @@ function ChatPane({ id }: { id: string }) {
   const p = other ? doc.people.find((x) => x.id === other) : undefined;
 
   return (
-    <div className="flex min-w-0 flex-1 flex-col bg-[#fafafa]">
+    <div className="relative flex min-w-0 flex-1 flex-col bg-[#fafafa]">
       <div className="flex h-14 shrink-0 items-center gap-3 border-b border-[#e0e0e0] bg-white px-5">
         {other ? <PersonAvatar id={other} size={32} /> : chat.kind === "meeting" ? <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#e8ebfa] text-[#5b5fc7]"><TIcon name="calendar" size={16} /></span> : <Avatar name={title} size={32} />}
-        <div className="min-w-0">
-          <div className="truncate text-[16px] font-bold">{title}</div>
-          {p?.statusMessage && <div className="truncate text-[11px] text-[#616161]">💬 {p.statusMessage}</div>}
+        <div className="flex min-w-0 items-center gap-1">
+          {naming !== null ? (
+            <input
+              autoFocus
+              aria-label="Group name"
+              value={naming}
+              onChange={(e) => setNaming(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Escape") setNaming(null);
+                if (e.key === "Enter" && naming.trim()) acceptedName(() => ctx.act(`chatname:${id}`, { kind: "type", target: `chatname:${id}`, value: naming.trim() }), () => setNaming(null));
+              }}
+              onBlur={() => setNaming(null)}
+              placeholder="Enter a group name"
+              className="w-56 rounded-[4px] border border-[#d1d1d1] px-2 py-1 text-[14px] outline-none focus:border-[#5b5fc7]"
+            />
+          ) : (
+            <div className="min-w-0">
+              <div className="truncate text-[16px] font-bold">{title}</div>
+              {p?.statusMessage && <div className="truncate text-[11px] text-[#616161]">💬 {p.statusMessage}</div>}
+            </div>
+          )}
+          {chat.kind !== "meeting" && chat.members.length > 1 && naming === null && (
+            <button type="button" aria-label="Name group chat" title="Name group chat" onClick={() => setNaming(chat.title ?? "")} className="rounded p-1 text-[#616161] hover:bg-[#f5f5f5] hover:text-[#5b5fc7]">
+              <TIcon name="edit" size={14} />
+            </button>
+          )}
         </div>
         <div className="ml-3 flex h-full items-end gap-4">
           {[
@@ -851,9 +1121,21 @@ function ChatPane({ id }: { id: string }) {
             </button>
           </div>
         )}
-        <IconBtn icon="addPeople" label={`View and add participants (${chat.members.length + 1})`} />
-        <IconBtn icon="more" label="More chat options" onClick={(e) => ctx.openMenu(e.currentTarget.getBoundingClientRect(), [chat.pinned ? { label: "Unpin", icon: "pin", onClick: () => cmd(`chat:${id}`, "chat.unpin") } : { label: "Pin", icon: "pin", onClick: () => cmd(`chat:${id}`, "chat.pin") }, chat.muted ? { label: "Unmute", icon: "activity", onClick: () => cmd(`chat:${id}`, "chat.unmute") } : { label: "Mute", icon: "bellOff", onClick: () => cmd(`chat:${id}`, "chat.mute") }, { label: "Pop out chat", icon: "popout", disabled: true }])} />
+        <IconBtn icon="addPeople" label="View and add participants" active={people} onClick={() => setPeople((x) => !x)} />
+        <IconBtn
+          icon="more"
+          label="More chat options"
+          onClick={(e) =>
+            ctx.openMenu(e.currentTarget.getBoundingClientRect(), [
+              chat.pinned ? { label: "Unpin", icon: "pin", onClick: () => cmd(`chat:${id}`, "chat.unpin") } : { label: "Pin", icon: "pin", onClick: () => cmd(`chat:${id}`, "chat.pin") },
+              chat.muted ? { label: "Unmute", icon: "activity", onClick: () => cmd(`chat:${id}`, "chat.unmute") } : { label: "Mute", icon: "bellOff", onClick: () => cmd(`chat:${id}`, "chat.mute") },
+              { label: "Schedule a meeting", icon: "calendar", onClick: () => go({ overlay: "schedule", selection: "schedule", prefill: `chat:${id}` }) },
+              { label: "Pop out chat", icon: "popout", disabled: true },
+            ])
+          }
+        />
       </div>
+      {people && <ParticipantsPanel chat={chat} onClose={() => setPeople(false)} />}
       {pinned && tab === "chat" && (
         <div className="flex items-center gap-2 border-b border-[#e0e0e0] bg-white px-5 py-1.5 text-[12px]">
           <TIcon name="pin" size={14} className="text-[#5b5fc7]" />
@@ -907,83 +1189,72 @@ function ChatPane({ id }: { id: string }) {
 /* ------------------------------------------------------------------ */
 
 function TeamsList() {
-  const ctx = useTeams();
-  const { doc, ui, go, cmd } = ctx;
-  const [closed, setClosed] = useState<Set<string>>(new Set());
-  const channelMenu = (e: { clientX: number; clientY: number } | DOMRect, chId: string) => {
-    const hit = findChannel(doc, chId);
-    if (!hit) return;
-    const key = `channel:${chId}`;
-    const cur = hit.channel.notifications ?? "Mentions and replies";
-    ctx.openMenu(
-      e,
-      [
-        { heading: true, label: "Channel notifications" },
-        ...["All new posts", "Mentions and replies", "Off"].map((o) => ({ label: o, checked: cur === o, onClick: () => cmd(key, "channel.notifications", o) })),
-        { separator: true },
-        { label: hit.channel.pinned ? "Unpin" : "Pin", icon: "pin", onClick: () => cmd(key, "channel.pin") },
-        { label: "Copy link to channel", icon: "link", disabled: true },
-      ],
-      240,
-    );
-  };
+  const { doc } = useTeams();
+  const fav = allChannels(doc).filter((x) => x.channel.pinned);
   return (
     <div className="flex w-[300px] shrink-0 flex-col border-r border-[#e0e0e0] bg-[#f5f5f5]">
       <div className="flex h-14 items-center gap-1 px-4">
         <h1 className="flex-1 text-[18px] font-bold">Teams</h1>
         <IconBtn icon="filter" label="Filter" />
-        <IconBtn icon="plus" label="Create or join a team" />
+        <NewItemsButtons />
       </div>
       <div className="min-h-0 flex-1 overflow-auto pb-2">
-        {doc.teams.map((t) => {
-          const open = !closed.has(t.id);
-          return (
-            <div key={t.id} className="mb-1">
-              <button
-                type="button"
-                aria-expanded={open}
-                onClick={() => setClosed((s) => { const n = new Set(s); if (n.has(t.id)) n.delete(t.id); else n.add(t.id); return n; })}
-                className="mx-2 flex w-[calc(100%-16px)] items-center gap-2 rounded-md px-2 py-1.5 text-left hover:bg-white/70"
-              >
-                <TIcon name={open ? "chevronDown" : "chevronRight"} size={12} className="text-[#616161]" />
-                <Avatar name={t.name} size={24} square color={t.color ?? "#5b5fc7"} />
-                <span className="flex-1 truncate text-[14px] font-semibold">{t.name}</span>
-              </button>
-              {open &&
-                t.channels.map((ch) => {
-                  const active = ui.conv === ch.id;
-                  return (
-                    <div
-                      key={ch.id}
-                      role="button"
-                      aria-label={`${ch.name} channel`}
-                      onClick={() => go({ view: "teams", conv: ch.id, tab: "posts", selection: `channel:${ch.id}`, highlight: undefined })}
-                      onContextMenu={(e) => {
-                        e.preventDefault();
-                        channelMenu({ clientX: e.clientX, clientY: e.clientY }, ch.id);
-                      }}
-                      className={`group relative mx-2 flex cursor-pointer items-center gap-2 rounded-md py-1.5 pl-[52px] pr-8 text-[14px] ${active ? "bg-white font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.08)]" : ch.unread ? "font-bold hover:bg-white/70" : "hover:bg-white/70"}`}
-                    >
-                      <span className="truncate">{ch.name}</span>
-                      {ch.notifications === "Off" && <TIcon name="bellOff" size={12} className="text-[#616161]" />}
-                      <button
-                        type="button"
-                        aria-label={`More options for ${ch.name}`}
-                        title="More options"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          channelMenu(e.currentTarget.getBoundingClientRect(), ch.id);
-                        }}
-                        className="absolute right-1.5 top-1/2 hidden -translate-y-1/2 rounded p-0.5 text-[#424242] hover:text-[#5b5fc7] group-hover:block"
-                      >
-                        <TIcon name="more" size={16} />
-                      </button>
-                    </div>
-                  );
-                })}
+        {fav.length > 0 && (
+          <>
+            <div className="px-4 pb-1 pt-2 text-[12px] font-semibold text-[#616161]">Favorites</div>
+            {fav.map((x) => <ChannelRow key={x.channel.id} teamId={x.team.id} chId={x.channel.id} indent={false} />)}
+            <div className="px-4 pb-1 pt-3 text-[12px] font-semibold text-[#616161]">Your teams</div>
+          </>
+        )}
+        <TeamTree />
+      </div>
+    </div>
+  );
+}
+
+function LoopCard({ m }: { m: TeamsMessage }) {
+  const { doc, act } = useTeams();
+  const [text, setText] = useState("");
+  const accepted = useAccepted(doc);
+  if (!m.loop) return null;
+  const add = () => {
+    if (!text.trim()) return;
+    accepted(() => act(`loop:${m.id}`, { kind: "type", target: `loop:${m.id}`, value: text.trim() }), () => setText(""));
+  };
+  const kind = m.loop.kind;
+  return (
+    <div className="mt-2 w-[360px] max-w-full rounded-md border border-[#c5cbfa] bg-white text-[13px] text-[#242424]" aria-label={`Loop component: ${kind}`}>
+      <div className="flex items-center gap-1.5 border-b border-[#e8ebfa] bg-[#f6f7fe] px-3 py-1.5 text-[12px] font-semibold text-[#4f52b2]">
+        <TIcon name="sparkle" size={14} /> {kind}
+        <span className="ml-auto text-[11px] font-normal text-[#616161]">Everyone in this conversation can edit</span>
+      </div>
+      <div className="px-3 py-2">
+        {m.loop.items.map((it, i) =>
+          kind === "Task list" ? (
+            <div key={i} className="flex items-center gap-2 py-0.5">
+              <span className="h-3.5 w-3.5 rounded-full border border-[#8a8886]" /> {it}
             </div>
-          );
-        })}
+          ) : kind === "Table" ? (
+            <div key={i} className="border-b border-[#f0f0f0] py-0.5">{it}</div>
+          ) : (
+            <p key={i} className="py-0.5">{it}</p>
+          ),
+        )}
+        <div className="mt-1 flex items-center gap-2">
+          <input
+            aria-label={kind === "Task list" ? "Add a task" : kind === "Table" ? "Add a row" : "Type here"}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                add();
+              }
+            }}
+            placeholder={kind === "Task list" ? "Add a task" : kind === "Table" ? "Add a row" : "Type here"}
+            className="min-w-0 flex-1 rounded border border-transparent px-1 py-0.5 outline-none hover:border-[#e0e0e0] focus:border-[#5b5fc7]"
+          />
+        </div>
       </div>
     </div>
   );
@@ -1021,34 +1292,58 @@ function PostMessage({ m, reply, onReply }: { m: TeamsMessage; reply?: boolean; 
       </div>
     );
   return (
-    <div data-mid={m.id} className={`group relative flex gap-3 ${reply ? "px-4 py-2" : "px-4 pb-2 pt-3"} ${hl ? "bg-[#f0f1fd]" : ""}`} onContextMenu={(e) => { e.preventDefault(); openMore({ clientX: e.clientX, clientY: e.clientY }); }}>
-      <PersonAvatar id={m.from} size={reply ? 28 : 32} />
-      <div className="min-w-0 flex-1">
-        <div className="flex items-center gap-2 text-[12px] text-[#616161]">
-          <span className="font-semibold text-[#242424]">{personName(doc, m.from)}</span>
-          <span>{m.time}</span>
-          {m.edited && <span>Edited</span>}
-          {m.pinned && <span className="flex items-center gap-0.5 text-[#5b5fc7]"><TIcon name="pin" size={12} /> Pinned</span>}
-          {m.saved && <TIcon name="bookmark" size={12} className="text-[#5b5fc7]" />}
+    <div data-mid={m.id} className={`group relative ${hl ? "bg-[#f0f1fd]" : ""}`} onContextMenu={(e) => { e.preventDefault(); openMore({ clientX: e.clientX, clientY: e.clientY }); }}>
+      {m.headline && !reply && (
+        <div className="rounded-t-md bg-gradient-to-r from-[#5b5fc7] to-[#7f85f5] px-5 py-4 text-white">
+          <div className="text-[11px] font-semibold uppercase tracking-wider opacity-80">Announcement</div>
+          <div className="text-[22px] font-bold leading-tight">{m.headline}</div>
         </div>
-        {m.subject && <div className="mt-0.5 text-[16px] font-semibold">{m.subject}</div>}
-        {editing ? <InlineEdit m={m} onDone={() => setEditing(false)} /> : <RichText text={m.text} className="mt-0.5 text-[14px] leading-[20px]" />}
-        <Attachments names={m.attachments} />
-        <ReactionPills reactions={m.reactions} onToggle={(k) => cmd(key, "msg.react", k)} />
+      )}
+      <div className={`flex gap-3 ${reply ? "px-4 py-2" : "px-4 pb-2 pt-3"}`}>
+        <PersonAvatar id={m.from} size={reply ? 28 : 32} />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2 text-[12px] text-[#616161]">
+            <span className="font-semibold text-[#242424]">{personName(doc, m.from)}</span>
+            <span>{m.time}</span>
+            {m.edited && <span>Edited</span>}
+            {m.pinned && <span className="flex items-center gap-0.5 text-[#5b5fc7]"><TIcon name="pin" size={12} /> Pinned</span>}
+            {m.saved && <TIcon name="bookmark" size={12} className="text-[#5b5fc7]" />}
+            {m.important && <span className="font-bold text-[#c4314b]">IMPORTANT!</span>}
+          </div>
+          {m.subject && <div className="mt-0.5 text-[16px] font-semibold">{m.subject}</div>}
+          {editing ? <InlineEdit m={m} onDone={() => setEditing(false)} /> : <RichText text={m.text} className="mt-0.5 text-[14px] leading-[20px]" />}
+          <Attachments names={m.attachments} />
+          <LoopCard m={m} />
+          <ReactionPills reactions={m.reactions} onToggle={(k) => cmd(key, "msg.react", k)} />
+        </div>
       </div>
-      <HoverBar m={m} onMore={openMore} />
+      <HoverBar m={m} onMore={openMore} onEdit={() => setEditing(true)} />
       {fwd && <ForwardDialog m={m} onClose={() => setFwd(false)} />}
     </div>
   );
 }
 
 function PostCard({ post, channelNames }: { post: TeamsMessage; channelNames: string[] }) {
+  const { doc } = useTeams();
   const [replying, setReplying] = useState(false);
   const replies = post.replies ?? [];
   const [expanded, setExpanded] = useState(replies.length <= 2);
   const shown = expanded ? replies : replies.slice(-1);
+  if (post.system)
+    return (
+      <div className="mb-4 flex items-center gap-3 rounded-md border border-[#e0e0e0] bg-white px-4 py-3 text-[13px] shadow-[0_1px_2px_rgba(0,0,0,0.06)]">
+        <span className="flex h-8 w-8 items-center justify-center rounded-md bg-[#e8ebfa] text-[#5b5fc7]">
+          <TIcon name="calendar" size={16} />
+        </span>
+        <span className="flex-1">
+          <span className="block font-semibold">{post.subject ?? "Meeting"}</span>
+          <span className="text-[#616161]">{post.system}</span>
+        </span>
+        <span className="text-[12px] text-[#616161]">{personName(doc, post.from)}</span>
+      </div>
+    );
   return (
-    <div className="mb-4 rounded-md border border-[#e0e0e0] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06)]">
+    <div className={`mb-4 rounded-md border bg-white shadow-[0_1px_2px_rgba(0,0,0,0.06)] ${post.important ? "border-l-4 border-[#e0e0e0] border-l-[#c4314b]" : "border-[#e0e0e0]"}`}>
       <PostMessage m={post} onReply={() => setReplying(true)} />
       {replies.length > 0 && (
         <div className="border-t border-[#f0f0f0]">
@@ -1075,10 +1370,42 @@ function PostCard({ post, channelNames }: { post: TeamsMessage; channelNames: st
   );
 }
 
+function CustomTab({ channelId, tabId }: { channelId: string; tabId: string }) {
+  const { doc } = useTeams();
+  const hit = findChannel(doc, channelId);
+  const tab = hit?.channel.tabs?.find((t) => t.id === tabId);
+  if (!hit || !tab) return <EmptyPane text="This tab isn't available." />;
+  const tasks = (doc.tasks ?? []).filter((t) => t.plan === hit.channel.name || t.plan === hit.team.name);
+  return (
+    <div className="flex min-h-0 flex-1 flex-col bg-white p-6 text-[14px]">
+      <div className="mb-3 flex items-center gap-2 text-[16px] font-semibold">
+        <TIcon name="note" size={18} className="text-[#5b5fc7]" /> {tab.name}
+      </div>
+      {tab.app === "Planner" ? (
+        <>
+          <p className="mb-3 text-[13px] text-[#616161]">This plan belongs to the {hit.channel.name} channel. Everyone in the team can see and update its tasks.</p>
+          {tasks.map((t) => (
+            <div key={t.id} className="flex items-center gap-3 border-b border-[#f0f0f0] py-2">
+              <span className={`h-4 w-4 rounded-full border-2 ${t.done ? "border-[#5b5fc7] bg-[#5b5fc7]" : "border-[#8a8886]"}`} />
+              <span className={`flex-1 ${t.done ? "text-[#9e9e9e] line-through" : ""}`}>{t.title}</span>
+              <span className="text-[12px] text-[#616161]">{t.assigned ?? ""}</span>
+            </div>
+          ))}
+          {!tasks.length && <p className="text-[13px] text-[#616161]">No tasks yet. Add tasks to share the work.</p>}
+        </>
+      ) : (
+        <p className="text-[13px] text-[#616161]">This {tab.app} tab is pinned to the top of the {hit.channel.name} channel so the whole team can open it in one click.</p>
+      )}
+    </div>
+  );
+}
+
 function ChannelPane({ id }: { id: string }) {
-  const { doc, ui, go, cmd } = useTeams();
+  const ctx = useTeams();
+  const { doc, ui, go, cmd } = ctx;
   const hit = findChannel(doc, id);
   const [posting, setPosting] = useState(false);
+  const [addTab, setAddTab] = useState(false);
   const scroller = useRef<HTMLDivElement>(null);
   const count = hit?.channel.posts.length ?? 0;
   useEffect(() => {
@@ -1091,10 +1418,11 @@ function ChannelPane({ id }: { id: string }) {
   useEffect(() => setPosting(false), [id, count]);
   if (!hit) return <EmptyPane text="This channel isn't available." />;
   const { team, channel } = hit;
-  const tab = ui.tab === "files" ? "files" : "posts";
+  const tab = ui.tab === "files" ? "files" : ui.tab?.startsWith("tab:") ? ui.tab : "posts";
   const channelNames = [channel.name, team.name];
+  const tabs: [string, string][] = [["posts", "Posts"], ["files", "Shared"], ...(channel.tabs ?? []).map((t) => [`tab:${t.id}`, t.name] as [string, string])];
   return (
-    <div className="flex min-w-0 flex-1 flex-col bg-[#fafafa]">
+    <div className="relative flex min-w-0 flex-1 flex-col bg-[#fafafa]">
       <div className="flex h-14 shrink-0 items-center gap-3 border-b border-[#e0e0e0] bg-white px-5">
         <Avatar name={team.name} size={32} square color={team.color ?? "#5b5fc7"} />
         <div className="min-w-0">
@@ -1102,26 +1430,46 @@ function ChannelPane({ id }: { id: string }) {
           <div className="truncate text-[11px] text-[#616161]">{team.name}</div>
         </div>
         <div className="ml-3 flex h-full items-end gap-4">
-          {[
-            ["posts", "Posts"],
-            ["files", "Files"],
-          ].map(([t, label]) => (
+          {tabs.map(([t, label]) => (
             <button key={t} type="button" aria-label={label} aria-current={tab === t ? "page" : undefined} onClick={() => go({ tab: t, selection: t === "files" ? `files:${id}` : `channel:${id}` })} className={`h-full border-b-[3px] px-0.5 pt-1 text-[14px] ${tab === t ? "border-[#5b5fc7] font-semibold" : "border-transparent text-[#616161] hover:text-[#242424]"}`}>
               {label}
             </button>
           ))}
-          <span className="pb-3 text-[#616161]" aria-hidden="true">
+          <button type="button" aria-label="Add a tab" title="Add a tab" onClick={() => { go({ selection: `channel:${id}` }); setAddTab(true); }} className="mb-3 rounded p-0.5 text-[#616161] hover:bg-[#f5f5f5] hover:text-[#5b5fc7]">
             <TIcon name="plus" size={14} />
-          </span>
+          </button>
         </div>
         <div className="flex-1" />
-        <button type="button" aria-label="Meet" onClick={() => cmd(`channel:${id}`, "calendar.meetNow")} className="flex items-center gap-1.5 rounded-[4px] border border-[#d1d1d1] px-3 py-1 text-[13px] font-semibold hover:bg-[#f5f5f5]">
-          <TIcon name="video" size={16} /> Meet
-        </button>
-        <IconBtn icon="info" label="Channel info" />
+        <div className="flex items-center rounded-[4px] border border-[#d1d1d1]">
+          <button type="button" aria-label="Meet" onClick={() => cmd(`channel:${id}`, "calendar.meetNow")} className="flex items-center gap-1.5 rounded-l-[4px] px-3 py-1 text-[13px] font-semibold hover:bg-[#f5f5f5]">
+            <TIcon name="video" size={16} /> Meet
+          </button>
+          <span className="h-5 w-px bg-[#d1d1d1]" />
+          <button
+            type="button"
+            aria-label="Meet options"
+            title="Meet options"
+            onClick={(e) =>
+              ctx.openMenu(
+                e.currentTarget.getBoundingClientRect(),
+                [
+                  { label: "Meet now", icon: "video", onClick: () => cmd(`channel:${id}`, "calendar.meetNow") },
+                  { label: "Schedule a meeting", icon: "calendar", onClick: () => go({ overlay: "schedule", selection: "schedule", prefill: `channel:${id}` }) },
+                ],
+                200,
+              )
+            }
+            className="rounded-r-[4px] px-1.5 py-1.5 hover:bg-[#f5f5f5]"
+          >
+            <TIcon name="chevronDown" size={12} />
+          </button>
+        </div>
+        <IconBtn icon="more" label="More channel options" onClick={(e) => ctx.openMenu(e.currentTarget.getBoundingClientRect(), channelMenuItems(ctx, id), 240)} />
       </div>
       {tab === "files" ? (
         <ChannelFiles channelId={id} />
+      ) : tab.startsWith("tab:") ? (
+        <CustomTab channelId={id} tabId={tab.slice(4)} />
       ) : (
         <>
           <div ref={scroller} className="min-h-0 flex-1 overflow-auto px-6 pt-4">
@@ -1132,7 +1480,7 @@ function ChannelPane({ id }: { id: string }) {
           </div>
           <div className="px-6 pb-4 pt-1">
             {posting ? (
-              <Composer target={`channel:${id}`} placeholder={`Post in ${channel.name}`} autoFocus mentionExtra={channelNames} onCancel={() => setPosting(false)} />
+              <Composer target={`channel:${id}`} placeholder="Type a message" autoFocus post mentionExtra={channelNames} onCancel={() => setPosting(false)} />
             ) : (
               <button type="button" aria-label="Start a post" onClick={() => setPosting(true)} className="flex items-center gap-2 rounded-[4px] bg-[#5b5fc7] px-4 py-2 text-[14px] font-semibold text-white hover:bg-[#4f52b2]">
                 <TIcon name="edit" size={16} /> Start a post
@@ -1141,6 +1489,7 @@ function ChannelPane({ id }: { id: string }) {
           </div>
         </>
       )}
+      {addTab && <AddTabDialog channelId={id} onClose={() => setAddTab(false)} />}
       <FileViewer />
     </div>
   );

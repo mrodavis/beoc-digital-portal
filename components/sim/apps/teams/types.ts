@@ -16,14 +16,31 @@
  *   "meeting:<meetingId>"  the meeting window (toolbar, People, Share, Leave)
  *   "person:<personId>"    a person (Calls)
  *   "status"               your profile card (presence, status message)
- *   "settings"             Settings › Devices
- *   "schedule"             the New meeting form
+ *   "settings"             Settings (Devices, Notifications and activity, Chats and channels, Appearance)
+ *   "schedule"             the New event form (Calendar › New event, a chat's Schedule a meeting, a channel's Meet › Schedule a meeting)
+ *   "discover"             New items › Join team (team.join)
+ *   "planner" / "approvals" the Planner and Approvals apps (Apps on the app bar)
+ *   "reader:<messageId>"   Immersive Reader
  * Meeting ids are event ids, or "call-<chatId>" for a call started from a chat.
+ *
+ * Layout (doc.layout): "combined" (default, as in current Teams) shows teams
+ * and channels inside Chat under Favorites / Chats / Teams and channels, and
+ * the app bar has no Teams button. "separate" restores the Teams button.
+ * A channel opened from Chat keeps view "chat"; selection keys don't change.
+ * Channel tabs: Posts, Shared (the Files tab became Shared in January 2026;
+ * its selection key is still "files:<channelId>"), plus added tabs.
  *
  * Type targets (commits from text boxes, Enter or Send):
  *   "chat:<id>", "channel:<id>", "reply:<msgId>", "edit:<msgId>",
  *   "meetingchat:<meetingId>", "newchat:<personId>+<personId>" (ids sorted),
- *   "rename:<fileId>", "newfolder:<folderId>".
+ *   "rename:<fileId>", "newfolder:<folderId>", "chatname:<chatId>" (name a group chat),
+ *   "notes:<meetingId>" (meeting Notes), "comment:<fileId>" (a comment in an open file),
+ *   "loop:<messageId>" (add an item to a Loop component in a message),
+ *   "planner:new" (Task: …, Due: MM/DD/YYYY, Assigned to: …),
+ *   "approval:new" (Approval name: …, Approvers: a; b, Details: …),
+ *   "joinid" (Meeting ID: …, Passcode: …), "addpeople:<chatId>" (People: a; b, History: …).
+ * A channel post starts with "Subject: …" or "Headline: …" (announcement) on its own
+ * first line when the learner filled that field.
  * Forms commit as a "type" on the form's target with one "Field: value" per
  * line, so tasks can check several fields with match "all":
  *   "status"            Status message: …, Clear after: …, Show when people message me: Yes|No
@@ -47,7 +64,7 @@ export type TeamsPresence =
   | "Presenting"
   | "Out of office";
 
-export type TeamsView = "activity" | "chat" | "teams" | "calendar" | "calls" | "onedrive";
+export type TeamsView = "activity" | "chat" | "teams" | "calendar" | "calls" | "onedrive" | "apps" | "planner" | "approvals";
 
 export type TeamsPerson = {
   id: string;
@@ -81,6 +98,10 @@ export type TeamsMessage = {
   subject?: string;
   /** A centered system line instead of a bubble ("Meeting ended: 31m 12s"). */
   system?: string;
+  /** Channel announcement headline. */
+  headline?: string;
+  /** A Loop component sent in the message (everyone in the chat can edit it). */
+  loop?: { kind: string; items: string[] };
 };
 
 export type TeamsChat = {
@@ -105,15 +126,20 @@ export type TeamsChannel = {
   description?: string;
   posts: TeamsMessage[];
   unread?: boolean;
-  /** All new posts | Mentions and replies | Off */
+  /** All activity | Off (older sims also use All new posts | Mentions and replies) */
   notifications?: string;
   pinned?: boolean;
+  /** Tabs added with Add a tab (+), shown after Posts and Shared. */
+  tabs?: { id: string; name: string; app: string }[];
 };
 
 export type TeamsTeam = {
   id: string;
   name: string;
   color?: string;
+  description?: string;
+  /** Member count shown in Join team. */
+  members?: number;
   channels: TeamsChannel[];
 };
 
@@ -131,6 +157,9 @@ export type TeamsFile = {
   sharing?: string;
   /** One or two lines shown when the file is opened. */
   preview?: string;
+  /** People editing the file right now (co-authoring avatars). */
+  editors?: string[];
+  comments?: { from: string; text: string }[];
 };
 
 export type TeamsEvent = {
@@ -161,6 +190,13 @@ export type TeamsEvent = {
   chat?: string;
   /** Meeting in progress (calendar shows it highlighted). */
   live?: boolean;
+  /** Optional attendees. */
+  optional?: string[];
+  /** For Join with an ID. */
+  meetingId?: string;
+  passcode?: string;
+  /** People who join as attendees (everyone else invited joins as a presenter). */
+  attendeesRole?: string[];
 };
 
 export type TeamsActivity = {
@@ -189,7 +225,7 @@ export type TeamsDevices = {
   testCall?: boolean;
 };
 
-export type TeamsParticipant = { id: string; muted?: boolean; hand?: boolean; camera?: boolean };
+export type TeamsParticipant = { id: string; muted?: boolean; hand?: boolean; camera?: boolean; role?: "Presenter" | "Attendee" | "Co-organizer" };
 
 export type TeamsMeeting = {
   id: string;
@@ -213,6 +249,8 @@ export type TeamsMeeting = {
   view?: string;
   /** Chat id of the meeting chat. */
   chat?: string;
+  /** Meeting notes (Notes in the meeting controls). */
+  notes?: string[];
 };
 
 export type TeamsDoc = {
@@ -245,10 +283,26 @@ export type TeamsDoc = {
   /** Windows offered by Share › Window. */
   windows?: string[];
   backgrounds?: string[];
+  /** "combined" (default): teams and channels live in Chat. "separate": Teams has its own app bar button. */
+  layout?: "combined" | "separate";
+  /** Teams the learner can find with New items › Join team. */
+  discover?: TeamsTeam[];
+  /** Planner tasks (Apps › Planner › My Tasks). */
+  tasks?: { id: string; title: string; due?: string; assigned?: string; done?: boolean; plan?: string }[];
+  /** Approvals (Apps › Approvals). */
+  approvals?: { id: string; name: string; approvers: string[]; details?: string; status: string; from?: string }[];
+  /** Apps pinned to the app bar (planner, approvals). */
+  pinnedApps?: string[];
+  /** Settings the learner can change. */
+  settings?: { theme?: string; notify?: Record<string, string> };
   /** Where the sim opens. */
-  start?: { view?: TeamsView; conv?: string; tab?: string; folder?: string; settings?: boolean };
+  start?: { view?: TeamsView; conv?: string; tab?: string; folder?: string; settings?: boolean; settingsPage?: string };
   /** Attachments waiting in a compose box, keyed by compose target. */
   drafts?: Record<string, string[]>;
+  /** Delivery option (Important) waiting in a compose box, keyed by compose target. */
+  delivery?: Record<string, string>;
+  /** Loop component waiting in a compose box, keyed by compose target. */
+  loopDrafts?: Record<string, string>;
   seq?: number;
   clipboard?: string;
   flags?: Record<string, SimValue>;
@@ -263,8 +317,10 @@ export type TeamsUiState = {
   /** Channel tab: posts | files. Chat tab: chat | shared. */
   tab?: string;
   folder?: string;
-  overlay?: "settings" | "schedule" | null;
+  overlay?: "settings" | "schedule" | "discover" | null;
   settingsPage?: string;
+  /** Prefill for the New event form: "chat:<id>" or "channel:<id>". */
+  prefill?: string;
   highlight?: string;
   /** Activity item open in the Activity view. */
   activity?: string;

@@ -310,10 +310,10 @@ export const module3Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Google Docs gallery — access via File > New from template; includes memos, resumes, reports, and project plans ready to customize",
+              "Google Docs gallery — access via File > New > From template gallery; includes memos, resumes, reports, and project plans ready to customize",
               "Microsoft Word gallery — access via File > New; same document types with additional corporate and academic formats",
               "Saving a custom template in Word — configure your document exactly as you want it, then File > Save As > Word Template (.dotx)",
-              "Saving a custom template in Google Docs — open the template gallery, click Submit template, and your document becomes available to your organization",
+              "Saving a custom template in Google Docs — with a work or school Google Workspace account, open the template gallery, choose your organization's tab, and click Submit template so the document becomes available to your organization. A personal Google account has no Submit option: keep a master copy and use File > Make a copy each time you need a new document",
               "Once saved, open the template file for future projects to guarantee an exact structural and visual match every time",
             ],
           },
@@ -380,7 +380,7 @@ export const module3Lessons: Lesson[] = [
           "Apply the Title style for the main document heading",
           "Apply Heading 1 style to at least two clearly labeled sections",
           "Apply Normal or Body Text style to all paragraph content",
-          "Save the finished file as a reusable template (.dotx in Word or via Google Docs template gallery)",
+          "Save the finished file as a reusable template (.dotx in Word; in Google Docs, submit it to your organization's template gallery, or keep it as a master copy you duplicate with File > Make a copy if you use a personal account)",
         ],
       },
       {
@@ -399,10 +399,6 @@ export const module3Lessons: Lesson[] = [
     duration: "20 min",
     videoUrl: "https://www.youtube.com/embed/NuCSU0iLHuk",
     slides: [
-      {
-        src: "/images/office-assistant/module-3/spreadsheet-basics/slide-01.jpg",
-        alt: "Spreadsheet Basics for Office Work — Module 10: Document & Data Workflows | Microsoft Office 2019 Certification",
-      },
       {
         src: "/images/office-assistant/module-3/spreadsheet-basics/slide-02.jpg",
         alt: "15 client names, phone numbers, and contract dates — spreadsheets turn raw, chaotic information into organized, searchable, and analyzable records",

@@ -413,126 +413,219 @@ LESSON 2 – CO-AUTHORING IN WORD
 },
 
 /* ============================================================
-LESSON 3 – SMART LOOKUP & RESEARCHER
+LESSON 3 – RESEARCHING AND CITING SOURCES
+(slug kept from the retired Smart Lookup & Researcher lesson so links and progress still work)
 ============================================================ */
 
 {
   slug: "smart-lookup-and-researcher",
-  title: "Search & Researcher",
+  title: "Researching & Citing Sources",
   description:
-    "Use Word's built-in research tools to look up definitions, find background information, and insert properly cited content without leaving the document.",
+    "Find and judge sources for a document, then record them with Word's References tools: citation style, Insert Citation, Source Manager, and a bibliography. Use the Thesaurus to choose words carefully.",
   objectives: [
-    "Use Search for quick definitions and context",
-    "Use Researcher to gather sources and insert citations",
-    "Explain the difference in purpose between the two",
-    "Evaluate whether a source is appropriate before citing it",
+    "Judge whether a source is reliable enough to use before you cite it",
+    "Set a citation style and insert citations with References > Insert Citation",
+    "Reuse sources from earlier documents with Manage Sources (Source Manager)",
+    "Insert a bibliography and update it after you add sources",
+    "Replace a word with a synonym using the Thesaurus",
   ],
-  duration: "7 min",
-  videoUrl: "https://www.youtube.com/embed/lX6sMD5BXLY",
+  duration: "12 min",
+  slides: [
+    { src: "/images/word/citations/slide-01.jpg", alt: "Researching and citing sources in Word: find sources in a browser, judge them, and cite them with the References tab" },
+    { src: "/images/word/citations/slide-02.jpg", alt: "What changed: Smart Lookup and Researcher were retired in January 2025; use a web browser to find sources and the References tab to cite them" },
+    { src: "/images/word/citations/slide-03.jpg", alt: "Four questions to ask about any source: who published it, when, what evidence it gives, and why it exists" },
+    { src: "/images/word/citations/slide-04.jpg", alt: "Citing in Word: choose a style, Insert Citation, Manage Sources, then insert and update the bibliography" },
+    { src: "/images/word/citations/slide-05.jpg", alt: "Knowledge check: where to find sources now, and what Update Citations and Bibliography does" },
+  ],
 
   sections: [
 
     {
-       heading: "Research tools do not evaluate sources for you",
+       heading: "Finding sources is your job; formatting them is Word's",
        blocks: [
          {
            type: "scenario",
            role: "You are drafting a patient education handout at Lakeside Medical Associates.",
-           text: "You need a clear definition of a clinical term and a citable source for a claim about screening intervals. The right-click Search command gives you the definition in seconds. Researcher returns twelve sources, of which perhaps four are appropriate for patient-facing health material.",
-           task: "Use both tools, and apply your own judgment to what they return.",
+           text: "The handout says that a reading of 130/80 or higher is considered high blood pressure for most adults, and that home readings can be more reliable than a single office reading. Your supervisor asks where each claim came from. A browser search returns dozens of pages, and they range from a medical journal to a blog selling supplements.",
+           task: "Choose sources you can defend, then cite them so every claim in the handout can be traced.",
          },
          {
            type: "paragraph",
-           text: "Search (right-click a word > Search) opens a pane with definitions and web results for the selected text. It is for quick understanding while you write, without leaving the document.",
-         },
-         {
-           type: "paragraph",
-           text: "Researcher (References > Researcher) is built for sourcing: it searches scholarly and reference material, lets you add content to your document, and creates a properly formatted citation and bibliography entry at the same time.",
+           text: "Research and citation are two separate jobs. Finding a source and deciding whether to trust it happens in your web browser and in your own judgment. Recording the source and formatting the citation happens in Word, on the References tab, where Word builds each in-text citation and the bibliography in the style you choose.",
          },
          {
            type: "callout",
-           variant: "warning",
-           text: "Neither tool judges whether a source is reliable or appropriate. For health information reaching patients, that judgment matters a great deal — prefer recognized clinical bodies and peer-reviewed sources, check the publication date, and have clinical staff review any claim about care before it is distributed. A citation makes a claim traceable; it does not make it correct.",
+           variant: "version",
+           text: "Older guides show two research panes inside Word: Smart Lookup (right-click a word > Search) and Researcher (References > Researcher). Microsoft retired both. Smart Lookup was retired starting January 1, 2025, and Researcher was removed from Word for Windows and Mac between late December 2024 and January 2025. If an older computer still shows them, do not rely on them. Search for sources in a web browser instead, and cite them with the References tab as this lesson shows.",
+         },
+         {
+           type: "key-terms",
+           terms: [
+             { term: "Citation", definition: "A short reference in the text, such as (Alvarez, 2024), that points the reader to a full entry in the bibliography." },
+             { term: "Bibliography", definition: "The list of every source cited, at the end of the document. APA calls it References; MLA calls it Works Cited." },
+             { term: "Citation style", definition: "A set of formatting rules (APA, MLA, Chicago and others). Use the style your instructor or employer asks for." },
+             { term: "Source Manager", definition: "The Manage Sources dialog. Its Master List holds sources from your earlier documents; its Current List holds the sources in this document." },
+           ],
          },
        ],
      },
 
     {
-      heading: "What Is Search?",
+      heading: "Judging a source before you use it",
       blocks: [
         {
           type: "paragraph",
-          text:
-            "Search (formerly called Smart Lookup) uses Bing to search for definitions, Wikipedia articles, and web results for any word or phrase in your document. Results appear in a side panel so you can research without switching to a browser.",
+          text: "A citation makes a claim traceable; it does not make it correct. Before a source goes into a document, ask four questions about it. A source that fails any of them needs a second look, and for health information that patients will rely on, the bar is high.",
+        },
+        {
+          type: "table",
+          caption: "Four questions for any source",
+          columns: ["Question", "Look for", "Warning signs"],
+          rows: [
+            ["Who published it?", "A named author or organization with relevant expertise: a medical school, a government health agency, a peer-reviewed journal", "No author or organization, or a seller of the product being discussed"],
+            ["When?", "A publication or review date recent enough for the topic", "No date, or guidance old enough to have been replaced"],
+            ["What is the evidence?", "References to studies or data, and claims that match other reliable sources", "Promises of a cure, \"one simple trick,\" or claims nobody else makes"],
+            ["Why does it exist?", "To inform or educate", "To sell, persuade, or collect your information"],
+          ],
+        },
+        {
+          type: "worked-example",
+          title: "Choosing between three search results",
+          task: "Find a source for the sentence about home blood pressure readings in the handout.",
+          steps: [
+            {
+              move: "Open each result and find the publisher and the date before you read the content.",
+              why: "Who wrote something and when tells you how much weight it can carry. Reading first and checking later makes it easy to talk yourself into a source because it says what you hoped.",
+            },
+            {
+              move: "Keep the journal article: a named author, a 2024 review in a health journal, with references to studies.",
+              why: "It passes all four questions. A review article summarizes many studies, which is exactly the kind of support a general claim needs.",
+            },
+            {
+              move: "Skip the blog post promising to cure high blood pressure in seven days.",
+              why: "It fails on evidence and purpose: it sells a product and makes a claim no clinical source supports. Citing it would make the whole handout look careless.",
+            },
+            {
+              move: "Write down what Word will need: author, title, year, and the website or journal name.",
+              why: "These are the fields of Word's Create Source dialog. Capturing them while the page is open saves a second search later.",
+            },
+          ],
+          result: "One defensible source per claim, with the details Word needs already in hand.",
+          takeaway: "Check who and when before what. Then have clinical staff review any claim about care before the handout goes to patients.",
+        },
+        {
+          type: "callout",
+          variant: "info",
+          text: "If your school or employer's Microsoft 365 account includes Copilot, a Copilot button appears in the corner of your Word document. Copilot in Word can summarize a long document you have open or answer questions about it, which can speed up reading a source. It works within Word and your Microsoft 365 content, so it does not replace searching for sources, and its answers still need checking: confirm every fact in the original source and cite that source. If you do not see Copilot, your account does not include it or your organization has not turned it on. Never paste patient information into an AI tool your employer has not approved for it.",
         },
       ],
     },
 
     {
-      heading: "Using Search",
+      heading: "Choosing a citation style",
       blocks: [
         {
           type: "paragraph",
-          text:
-            "Right-click a word or selected phrase and choose Search from the context menu. The Search pane opens on the right with definitions, related web results, and images.",
+          text: "Choose the style before you insert citations so they all come out in the same format. On the References tab, in the Citations & Bibliography group, select the arrow next to Style and pick the style you need, such as APA or MLA.",
         },
         {
           type: "image",
-          src: "/images/word/smart-lookup/smartlookup_rightclick_menu.png",
-          alt: "Search option in the right-click context menu",
-        },
-        {
-          type: "image",
-          src: "/images/word/smart-lookup/smartlookup_insights_pane.png",
-          alt: "Search pane with results for the selected word",
+          src: "/images/word/citations/citations_style_menu.png",
+          alt: "References tab with the Style menu open in the Citations & Bibliography group and APA highlighted",
+          caption: "References > Citations & Bibliography > Style.",
         },
       ],
     },
 
     {
-      heading: "What Is Researcher?",
+      heading: "Inserting a citation",
       blocks: [
         {
+          type: "list",
+          ordered: true,
+          items: [
+            "Click at the end of the sentence or phrase you want to cite.",
+            "On the References tab, select Insert Citation > Add New Source.",
+            "In the Create Source dialog, choose the Type of Source (for example, Web site or Journal Article) and fill in the author, title, year and the other fields. Select Show All Bibliography Fields if you need more.",
+            "Select OK. Word inserts the citation at the cursor and saves the source in the document.",
+          ],
+        },
+        {
+          type: "image",
+          src: "/images/word/citations/citations_create_source.png",
+          alt: "Create Source dialog filled in for a Web site source by Northshore Heart Health Council, 2025",
+          caption: "Insert Citation > Add New Source opens the Create Source dialog.",
+        },
+        {
           type: "paragraph",
-          text:
-            "Researcher is a more advanced tool designed for writing essays and reports. It finds credible sources from the web, lets you explore topics in depth, and allows you to insert quotes and citations directly into your document.",
+          text: "To cite a source that is already in the document, click where the citation goes, select Insert Citation, and choose the source from the list at the top of the menu. If you do not have a source's details yet, choose Add New Placeholder and fill it in later.",
+        },
+        {
+          type: "image",
+          src: "/images/word/citations/citations_insert_menu.png",
+          alt: "Insert Citation menu listing the document's sources above Add New Source and Add New Placeholder",
+          caption: "Sources already in the document appear at the top of the Insert Citation menu.",
         },
       ],
     },
 
     {
-      heading: "Opening Researcher",
+      heading: "Managing sources",
       blocks: [
         {
           type: "paragraph",
-          text:
-            "Go to the References tab and click Researcher. Type a topic in the search box. Word returns a list of articles and sources. Click any result to read a summary and see available content to insert.",
+          text: "Select References > Manage Sources to open Source Manager. The Master List holds sources you created in earlier documents, and the Current List holds the sources in this document. Select a source in the Master List and choose Copy to bring it into this document; it then appears under Insert Citation. Use Edit to correct a source's details and Delete to remove one you no longer need.",
         },
         {
           type: "image",
-          src: "/images/word/smart-lookup/researcher_references_tab.png",
-          alt: "Researcher button on the References tab",
+          src: "/images/word/citations/citations_source_manager.png",
+          alt: "Source Manager with a journal article selected in the Master List",
+          caption: "Manage Sources: copy a source from the Master List into this document.",
         },
         {
-          type: "image",
-          src: "/images/word/smart-lookup/researcher_search_results.png",
-          alt: "Researcher pane with topic search results",
+          type: "tip",
+          text: "The Master List remembers every source you have created, including weak ones. Reuse a source only after asking the same four questions you would ask about a new one.",
         },
       ],
     },
 
     {
-      heading: "Adding Content and Citations",
+      heading: "Adding the bibliography",
       blocks: [
         {
           type: "paragraph",
-          text:
-            "While exploring a source's text in the Researcher pane, choose Add and Cite to add the text to your document along with a citation for the source. Choose Add instead if you want only the text, with no citation. Word then prompts you to update your bibliography; choose Update to create or update it. You can also click the plus (+) icon in the upper-right corner of any result to add it as a topic heading in your document, with a link to the source saved in a comment.",
+          text: "Click where the list of sources belongs, usually on its own page at the end. Select References > Bibliography and choose a built-in format, such as References for APA or Works Cited for MLA. Word lists every source in the document in the current style.",
         },
         {
           type: "image",
-          src: "/images/word/smart-lookup/researcher_add_citation.png",
-          alt: "Researcher pane with sources, and a citation added after a sentence in the document",
+          src: "/images/word/citations/citations_bibliography.png",
+          alt: "A References list at the end of the handout with two entries in APA style",
+          caption: "References > Bibliography inserts the list in the current style.",
+        },
+        {
+          type: "paragraph",
+          text: "The bibliography does not change by itself. After you cite a new source, click anywhere in the bibliography and select Update Citations and Bibliography.",
+        },
+      ],
+    },
+
+    {
+      heading: "Using the Thesaurus",
+      blocks: [
+        {
+          type: "paragraph",
+          text: "To vary a word you have used too often, right-click it and choose Synonyms for a quick list, or click the word and select Review > Thesaurus to open the Thesaurus pane. Point to a result, select the arrow, and choose Insert to replace your word.",
+        },
+        {
+          type: "image",
+          src: "/images/word/citations/thesaurus_pane.png",
+          alt: "Thesaurus pane listing synonyms for the word regular, with an Insert button beside each",
+          caption: "Review > Thesaurus.",
+        },
+        {
+          type: "callout",
+          variant: "warning",
+          text: "Two cautions. In health writing a synonym can change the meaning: \"chronic\" and \"long-lasting\" are close, but \"hypertension\" and \"stress\" are not, so check each replacement. And swapping a source's words for synonyms is not paraphrasing. Quote a source's exact words in quotation marks, or restate the idea fully in your own words, and cite it either way.",
         },
       ],
     },
@@ -542,20 +635,38 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
       blocks: [
         {
           type: "knowledge-check",
-          question: "What is the main difference between Search and Researcher?",
+          question: "Smart Lookup and Researcher are gone from Word. Where do you find sources for a document now?",
           options: [
-            "Search is only available in Word Online; Researcher works only in the desktop app",
-            "Search provides quick definitions and web results, while Researcher is designed for deeper research with citations",
-            "Researcher searches your local files; Search looks things up on the internet",
-            "There is no difference — they both do the same thing",
+            "References > Researcher, after signing in again",
+            "In a web browser, judging each source before you use it",
+            "Right-click a word > Search",
+            "References > Bibliography, which searches the web for sources",
           ],
           correctIndex: 1,
-          explanation: "Search is for quick understanding while writing — definitions and web context for a selected word. Researcher is for sourcing: it finds citable material and generates formatted citations and a bibliography.",
+          explanation: "Microsoft retired Smart Lookup and Researcher in January 2025. You search in a browser and decide which sources are reliable; Word's References tab then records and formats the citations.",
           optionRationales: [
-            "Both are desktop features. Availability is not the distinction between them.",
-            "Correct. Search gives quick definitions and context; Researcher supports deeper sourcing with citations.",
-            "Neither searches your local files. Both query online sources.",
-            "They serve genuinely different purposes — one for quick context, one for sourced research with citations.",
+            "Researcher was removed from Word for Windows and Mac. Signing in again does not bring it back.",
+            "Correct. Finding and judging sources happens in the browser and in your judgment; Word formats the citations.",
+            "Right-click > Search was Smart Lookup, which was retired starting January 1, 2025.",
+            "Bibliography lists the sources already in your document. It does not search for new ones.",
+          ],
+        },
+        {
+          type: "knowledge-check",
+          question: "You cite a new source after inserting the bibliography. What do you do so the new source appears in it?",
+          options: [
+            "Delete the bibliography and type the new entry by hand",
+            "Nothing; the bibliography updates as you type",
+            "Click in the bibliography and select Update Citations and Bibliography",
+            "Change the citation style and change it back",
+          ],
+          correctIndex: 2,
+          explanation: "A bibliography is built from the sources in the document when you insert it. After you add a source, update it so the list matches what you cite.",
+          optionRationales: [
+            "Typing entries by hand loses the automatic formatting and drifts out of step with your citations.",
+            "The bibliography does not update itself. Until you update it, a new source is missing from the list.",
+            "Correct. Update Citations and Bibliography rebuilds the list from every source in the document.",
+            "Switching styles does not add anything to the list. Update Citations and Bibliography is the step that rebuilds it.",
           ],
         },
       ],
@@ -565,18 +676,19 @@ LESSON 3 – SMART LOOKUP & RESEARCHER
   challenge: [
     {
       type: "paragraph",
-      text: "Complete the following tasks:",
+      text: "Use a short document you are writing for a class or for work, or the practice simulation's handout.",
     },
     {
       type: "list",
       ordered: true,
       items: [
-        "Right-click a word in your document and select Search. Read the definition that appears.",
-        "Close the Search pane and go to References → Researcher.",
-        "Search for a topic related to your document's subject.",
-        "Open one of the source articles in the Researcher pane.",
-        "Insert a passage from the source into your document using Add and Cite.",
-        "Observe the automatically inserted citation.",
+        "In a web browser, find two sources for claims in your document. For each one, write one sentence answering the four questions: who published it, when, what evidence it gives, and why it exists.",
+        "Set the citation style your instructor asks for (APA if none is given).",
+        "Cite the first source with Insert Citation > Add New Source.",
+        "Cite the second source the same way, then cite the first source again in a different sentence by choosing it from the Insert Citation list.",
+        "Insert a bibliography at the end of the document.",
+        "Use the Thesaurus to replace one overused word, and check that the meaning did not change.",
+        "Submit the document and your source notes to your instructor or course folder.",
       ],
     },
   ],

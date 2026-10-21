@@ -75,7 +75,7 @@ function getModule3Exercises(slug: string) {
             question="You need to share your Office Supply Tracker with your whole team. Which step should you take BEFORE sharing to prevent accidental formula damage?"
             options={[
               "Delete all formulas so teammates cannot break them",
-              "Protect important formula cells using Format > Protect range or Review > Protect Sheet",
+              "Protect important formula cells (Google Sheets: Data > Protect sheets and ranges; Excel: Review > Protect Sheet)",
               "Convert the spreadsheet to a PDF before sharing",
               "Move all formulas to a hidden tab",
             ]}
@@ -205,10 +205,12 @@ export default async function LessonPage({
       ? modernOfficeModules[moduleIndex + 1]
       : undefined;
 
+  // Communication Systems is module-9 and Document & Data Workflows is
+  // module-10 since the seven cloud modules were added in front of them.
   const exercises =
-    moduleSlug === "module-2"
+    moduleSlug === "module-9"
       ? getModule2Exercises(slug)
-      : moduleSlug === "module-3"
+      : moduleSlug === "module-10"
       ? getModule3Exercises(slug)
       : undefined;
 

@@ -28,12 +28,12 @@ export const officeAppsModules: OfficeAppsModule[] = [
     title: "Word Essentials",
     emoji: "📝",
     description:
-      "Learn to create, format, and deliver professional documents in Microsoft Word 2019 — from your first letter to polished, print-ready reports.",
+      "Learn to create, format, and deliver professional documents in Microsoft Word for Microsoft 365 — from your first letter to polished, print-ready reports.",
     lessons: module1Lessons,
     level: "Beginner",
     estimatedMinutes: 80,
     whatYoullLearn: [
-      "How to navigate the Word 2019 interface confidently",
+      "How to navigate the Word interface confidently",
       "How to create and format professional documents",
       "How to use styles for consistent, professional appearance",
       "How to work with tables and page layout tools",
@@ -73,7 +73,7 @@ export const officeAppsModules: OfficeAppsModule[] = [
     level: "Beginner",
     estimatedMinutes: 85,
     whatYoullLearn: [
-      "How to navigate Excel 2019 and enter data correctly",
+      "How to navigate Excel and enter data correctly",
       "How to format worksheets for professional presentation",
       "How to write formulas and use essential functions",
       "How to sort, filter, and organize data in tables",
@@ -108,12 +108,12 @@ export const officeAppsModules: OfficeAppsModule[] = [
     title: "PowerPoint",
     emoji: "🖥️",
     description:
-      "Design and deliver professional presentations in PowerPoint 2019 — from staff orientation decks to patient education slide shows — with polish, confidence, and purpose.",
+      "Design and deliver professional presentations in PowerPoint for Microsoft 365 — from staff orientation decks to patient education slide shows — with polish, confidence, and purpose.",
     lessons: module5Lessons,
     level: "Beginner",
     estimatedMinutes: 80,
     whatYoullLearn: [
-      "How to navigate PowerPoint 2019 and build a slide deck",
+      "How to navigate PowerPoint and build a slide deck",
       "How to design professional slides using themes and layouts",
       "How to add media, animations, and transitions effectively",
       "How to deliver a polished, professional presentation",
@@ -133,7 +133,7 @@ export const officeAppsModules: OfficeAppsModule[] = [
     level: "Intermediate",
     estimatedMinutes: 85,
     whatYoullLearn: [
-      "How to manage professional email efficiently in Outlook 2019",
+      "How to manage professional email efficiently in Outlook (classic and new)",
       "How to use Outlook Calendar for scheduling and meeting coordination",
       "How to work across Word, Excel, and PowerPoint in integrated workflows",
       "How to set up Outlook rules and automation for a high-volume inbox",

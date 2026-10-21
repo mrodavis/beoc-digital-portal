@@ -3,16 +3,16 @@ import { Lesson } from "@/types/lesson";
 export const module3Lessons: Lesson[] = [
   {
     slug: "intro-to-excel-2019",
-    title: "Introduction to Microsoft Excel 2019",
+    title: "Introduction to Microsoft Excel",
     description:
-      "Get oriented in the Excel 2019 interface, understand workbooks and worksheets, learn to navigate large spreadsheets efficiently, and manage your files professionally.",
+      "Get oriented in the Excel interface, understand workbooks and worksheets, learn to navigate large spreadsheets efficiently, and manage your files professionally.",
     duration: "15 min",
     videoUrl: "https://www.youtube.com/embed/lgIWIPDJuPo",
 
     slides: [
       {
         src: "/images/office-assistant/office-apps/module-3/intro-to-excel-2019/slide-01.jpg",
-        alt: "Welcome to Microsoft Excel 2019 — the grid-based world of data organization and analysis",
+        alt: "Welcome to Microsoft Excel — the grid-based world of data organization and analysis",
       },
       {
         src: "/images/office-assistant/office-apps/module-3/intro-to-excel-2019/slide-02.jpg",
@@ -40,7 +40,7 @@ export const module3Lessons: Lesson[] = [
       },
       {
         src: "/images/office-assistant/office-apps/module-3/intro-to-excel-2019/slide-08.jpg",
-        alt: "AutoSave, Version History, and File Recovery in Excel 2019",
+        alt: "AutoSave, Version History, and File Recovery in Excel",
       },
       {
         src: "/images/office-assistant/office-apps/module-3/intro-to-excel-2019/slide-09.jpg",
@@ -60,11 +60,11 @@ export const module3Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "The Excel 2019 Interface",
+        heading: "The Excel Interface",
         blocks: [
           {
             type: "paragraph",
-            text: "Excel 2019's interface is fundamentally different from Word's — instead of a text canvas, it presents a grid of rows and columns where each intersection (a cell) can hold a value, a formula, or a label. Understanding the names of each interface element is essential for following instructions, reading documentation, and describing problems accurately:",
+            text: "Excel's interface is fundamentally different from Word's — instead of a text canvas, it presents a grid of rows and columns where each intersection (a cell) can hold a value, a formula, or a label. Understanding the names of each interface element is essential for following instructions, reading documentation, and describing problems accurately:",
           },
           {
             type: "list",
@@ -115,13 +115,13 @@ export const module3Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Quick Reference: Excel 2019 Interface",
+        heading: "Quick Reference: Excel Interface",
         blocks: [
           {
             type: "image",
             src: "/images/office-assistant/office-apps/module-3/intro-to-excel-2019/infographic.png",
-            alt: "Excel 2019 Interface Quick Reference — labeled diagram of the Ribbon tabs, Name Box, Formula Bar, Sheet tabs, Freeze Panes steps, navigation keyboard shortcuts, and file format comparison table",
-            caption: "Excel 2019 Interface Quick Reference — navigating the grid with speed and confidence",
+            alt: "Excel Interface Quick Reference — labeled diagram of the Ribbon tabs, Name Box, Formula Bar, Sheet tabs, Freeze Panes steps, navigation keyboard shortcuts, and file format comparison table",
+            caption: "Excel Interface Quick Reference — navigating the grid with speed and confidence",
           },
         ],
       },
@@ -140,7 +140,7 @@ export const module3Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — 'I am new to Microsoft Excel 2019 and work in a medical office. What are the 12 most important keyboard shortcuts I should learn in my first week, covering navigation, data entry, and file saving? Give me a table with the shortcut, what it does, and a brief example of when I would use it in a medical office setting.' Save the response as a reference document and practice each shortcut in Excel while reviewing this lesson.",
+            text: "AI Task: Ask ChatGPT — 'I am new to Microsoft Excel and work in a medical office. What are the 12 most important keyboard shortcuts I should learn in my first week, covering navigation, data entry, and file saving? Give me a table with the shortcut, what it does, and a brief example of when I would use it in a medical office setting.' Save the response as a reference document and practice each shortcut in Excel while reviewing this lesson.",
           },
         ],
       },
@@ -165,13 +165,13 @@ export const module3Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Explore the Excel 2019 interface hands-on by building and navigating a small practice spreadsheet for Lakeside Medical Associates. This orientation challenge builds familiarity with every major interface element before you start entering real data.",
+        text: "Explore the Excel interface hands-on by building and navigating a small practice spreadsheet for Lakeside Medical Associates. This orientation challenge builds familiarity with every major interface element before you start entering real data.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Open Excel 2019 and create a new blank workbook. Rename Sheet1 to 'Medical Supplies,' add a second sheet named 'Office Supplies,' and a third named 'Summary.' Color the Medical Supplies tab blue, the Office Supplies tab green, and the Summary tab orange.",
+          "Open Excel and create a new blank workbook. Rename Sheet1 to 'Medical Supplies,' add a second sheet named 'Office Supplies,' and a third named 'Summary.' Color the Medical Supplies tab blue, the Office Supplies tab green, and the Summary tab orange.",
           "On the Medical Supplies sheet, type column headers in row 1: Item, Category, Quantity, Unit Cost, Total Cost, Reorder Level, Status. In the Name Box, type A1 and press Enter to confirm navigation. Then use Ctrl+End to find where your data ends after entering 5 rows of sample data.",
           "Freeze the header row (row 1) on the Medical Supplies sheet using View > Freeze Panes. Scroll down beyond row 1 to confirm the header stays visible. Then unfreeze and re-freeze using cell B2 as the selected cell to freeze both the header row and the first column simultaneously.",
           "Use Ctrl+F to search for a specific item you entered (e.g., 'Gloves'). Navigate to the cell using the Find dialog. Then use the Name Box to navigate directly to cell D7 without scrolling.",
@@ -325,7 +325,7 @@ export const module3Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — 'I need to set up conditional formatting rules in Excel for a medical office supply tracker. The tracker has a Quantity column and a Reorder Level column. What conditional formatting rules should I create to automatically highlight: (1) items at or below the reorder level in red, (2) items between 1–5 units above the reorder level in yellow, and (3) items well-stocked (more than 5 units above reorder level) in green? Give me the exact steps for creating each rule in Excel 2019.' Follow the steps to apply all three conditional formatting rules to your supply tracker.",
+            text: "AI Task: Ask ChatGPT — 'I need to set up conditional formatting rules in Excel for a medical office supply tracker. The tracker has a Quantity column and a Reorder Level column. What conditional formatting rules should I create to automatically highlight: (1) items at or below the reorder level in red, (2) items between 1–5 units above the reorder level in yellow, and (3) items well-stocked (more than 5 units above reorder level) in green? Give me the exact steps for creating each rule in Excel.' Follow the steps to apply all three conditional formatting rules to your supply tracker.",
           },
         ],
       },

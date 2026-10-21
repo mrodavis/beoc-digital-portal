@@ -1,5 +1,9 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import { techFoundationsModules } from "@/lib/content/office-assistant/tech-foundations/modules";
+import { officeAppsModules } from "@/lib/content/office-assistant/office-apps/modules";
+import { introDatabaseModules } from "@/lib/content/office-assistant/intro-database/modules";
+import { modernOfficeModules } from "@/lib/content/office-assistant/modern-office/modules";
 
 export default function OfficeAssistantPage() {
   return (
@@ -110,7 +114,7 @@ export default function OfficeAssistantPage() {
                 Live
               </span>
               <span>•</span>
-              <span>8 Modules</span>
+              <span>{techFoundationsModules.length} Modules</span>
             </div>
           </div>
         </Link>
@@ -123,15 +127,15 @@ export default function OfficeAssistantPage() {
               Office Productivity Applications
             </h3>
             <p className="text-gray-600 mb-4 leading-relaxed">
-              Master Microsoft Word, Excel, and PowerPoint for daily
-              professional use.
+              Master Microsoft Word, Excel, PowerPoint, Outlook, and Access,
+              plus Google Workspace, for daily professional use.
             </p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full font-medium">
                 Live
               </span>
               <span>•</span>
-              <span>6 Modules</span>
+              <span>{officeAppsModules.length} Modules</span>
             </div>
           </div>
         </Link>
@@ -152,7 +156,7 @@ export default function OfficeAssistantPage() {
                 Live
               </span>
               <span>•</span>
-              <span>5 Modules</span>
+              <span>{introDatabaseModules.length} Modules</span>
             </div>
           </div>
         </Link>
@@ -174,7 +178,7 @@ export default function OfficeAssistantPage() {
                 Live
               </span>
               <span>•</span>
-              <span>15 Modules</span>
+              <span>{modernOfficeModules.length} Modules</span>
             </div>
           </div>
         </Link>
@@ -195,7 +199,7 @@ export default function OfficeAssistantPage() {
                 Live
               </span>
               <span>•</span>
-              <span>4 Modules</span>
+              <span>3 MOS Exams</span>
             </div>
           </div>
         </Link>
@@ -233,7 +237,8 @@ export default function OfficeAssistantPage() {
                 Master Office Productivity Applications
               </h3>
               <p className="text-sm text-gray-600">
-                Learn Word, Excel, and PowerPoint for daily professional use.
+                Learn Word, Excel, PowerPoint, Outlook, Access, and Google
+                Workspace for daily professional use.
               </p>
             </div>
           </div>

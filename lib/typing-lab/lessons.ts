@@ -39,7 +39,7 @@ export interface KeyLesson {
 const CAPS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
 export const LESSONS: KeyLesson[] = [
-  { id: "home-fj", unit: "home", title: "F and J", kind: "letters", newKeys: ["f", "j"], intro: "Find the small bumps on F and J with your index fingers. Rest your other fingers on A S D and K L ;, and let your thumbs hover over the space bar." },
+  { id: "home-fj", unit: "home", title: "F and J", kind: "letters", newKeys: ["f", "j"], intro: "Find the small bumps on F and J with your index fingers. Rest your other fingers on A, S, D, K, L, and the semicolon (;), and let your thumbs hover over the space bar." },
   { id: "home-dk", unit: "home", title: "D and K", kind: "letters", newKeys: ["d", "k"], intro: "Your middle fingers rest on D and K, right next to your index fingers. Press each key without moving your hand." },
   { id: "home-sl", unit: "home", title: "S and L", kind: "letters", newKeys: ["s", "l"], intro: "Your ring fingers rest on S and L. Keep your wrists level and let only the finger move." },
   { id: "home-a-semicolon", unit: "home", title: "A and ;", kind: "letters", newKeys: ["a", ";"], intro: "Your pinkies rest on A and the semicolon (;). Now all eight fingers are on the home row." },

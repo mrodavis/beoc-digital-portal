@@ -207,7 +207,7 @@ function newMeeting(doc: TeamsDoc, id: string, stage: "prejoin" | "in"): TeamsMe
     mic: doc.av?.mic ?? true,
     background: doc.av?.background ?? "None",
     audio: "Computer audio",
-    participants: ids.map((p) => ({ id: p, muted: !(ev?.unmuted ?? []).includes(p), camera: true })),
+    participants: ids.map((p) => ({ id: p, muted: !(ev?.unmuted ?? []).includes(p), camera: true, role: (ev?.attendeesRole ?? []).includes(p) ? ("Attendee" as const) : ("Presenter" as const) })),
     lobby: ev?.lobby ? [...ev.lobby] : [],
     organizer: Boolean(ev?.youOrganize) || id === "meetnow" || id.startsWith("call-"),
     sharing: null,
@@ -236,10 +236,39 @@ function now(doc: TeamsDoc) {
 
 function postMessage(doc: TeamsDoc, list: TeamsMessage[], text: string, draftKey: string, extra?: Partial<TeamsMessage>): TeamsMessage {
   const attachments = doc.drafts?.[draftKey];
-  const msg: TeamsMessage = { id: nextId(doc), from: "me", time: now(doc), text, ...(attachments?.length ? { attachments: [...attachments] } : {}), ...extra };
+  const important = doc.delivery?.[draftKey] === "Important";
+  const loopKind = doc.loopDrafts?.[draftKey];
+  const msg: TeamsMessage = {
+    id: nextId(doc),
+    from: "me",
+    time: now(doc),
+    text,
+    ...(attachments?.length ? { attachments: [...attachments] } : {}),
+    ...(important ? { important: true } : {}),
+    ...(loopKind ? { loop: { kind: loopKind, items: [] } } : {}),
+    ...extra,
+  };
   list.push(msg);
   if (doc.drafts) delete doc.drafts[draftKey];
+  if (doc.delivery) delete doc.delivery[draftKey];
+  if (doc.loopDrafts) delete doc.loopDrafts[draftKey];
   return msg;
+}
+
+/** Splits a leading "Subject: …" or "Headline: …" line off a channel post. */
+export function splitPostHeader(text: string): { subject?: string; headline?: string; body: string } {
+  const m = /^(Subject|Headline):[ \t]*([^\n]*)\n?/.exec(text);
+  if (!m) return { body: text };
+  const body = text.slice(m[0].length);
+  return m[1] === "Subject" ? { subject: m[2].trim(), body } : { headline: m[2].trim(), body };
+}
+
+function namesToIds(doc: TeamsDoc, list: string | undefined): string[] {
+  return (list ?? "")
+    .split(";")
+    .map((n) => n.trim())
+    .filter(Boolean)
+    .map((n) => doc.people.find((p) => p.name.toLowerCase() === n.toLowerCase())?.id ?? n);
 }
 
 export function applyTeams(input: TeamsDoc, c: SimCommit, uiIn: SimUi): { doc: TeamsDoc; ui?: Partial<SimUi> } {
@@ -272,7 +301,10 @@ export function applyTeams(input: TeamsDoc, c: SimCommit, uiIn: SimUi): { doc: T
       }
       case "channel": {
         const hit = findChannel(doc, id);
-        if (hit) postMessage(doc, hit.channel.posts, text, c.target, { replies: [] });
+        if (hit) {
+          const h = splitPostHeader(text);
+          postMessage(doc, hit.channel.posts, h.body, c.target, { replies: [], ...(h.subject ? { subject: h.subject } : {}), ...(h.headline ? { headline: h.headline } : {}) });
+        }
         return out();
       }
       case "reply": {
@@ -307,12 +339,9 @@ export function applyTeams(input: TeamsDoc, c: SimCommit, uiIn: SimUi): { doc: T
         return out();
       }
       case "schedule": {
-        const f = parseForm(text, ["Title", "Attendees", "Date", "Start", "End", "Repeat", "Channel", "Location", "Details"]);
-        const attendees = (f.attendees ?? "")
-          .split(";")
-          .map((n) => n.trim())
-          .filter(Boolean)
-          .map((n) => doc.people.find((p) => p.name.toLowerCase() === n.toLowerCase())?.id ?? n);
+        const f = parseForm(text, ["Title", "Attendees", "Date", "Start", "End", "Repeat", "Channel", "Location", "Details", "Optional", "Teams meeting"]);
+        const attendees = namesToIds(doc, f.attendees);
+        const optional = namesToIds(doc, f.optional);
         const ev: TeamsEvent = {
           id: nextId(doc, "ev"),
           title: (f.title ?? "").trim() || "New meeting",
@@ -328,12 +357,20 @@ export function applyTeams(input: TeamsDoc, c: SimCommit, uiIn: SimUi): { doc: T
           channel: f.channel && f.channel.trim() !== "None" ? f.channel.trim() : undefined,
           youOrganize: true,
           response: "Accepted",
+          ...(optional.length ? { optional } : {}),
+          ...((f["teams meeting"] ?? "").trim().toLowerCase() === "off" ? { online: false } : {}),
         };
         doc.events = [...(doc.events ?? []), ev];
-        const chat: TeamsChat = { id: `chat-${ev.id}`, title: ev.title, kind: "meeting", event: ev.id, members: attendees, messages: [{ id: nextId(doc), from: "me", time: now(doc), text: "", system: `Meeting scheduled for ${shortDay(ev.day)} ${ev.start}` }] };
-        ev.chat = chat.id;
-        doc.chats.unshift(chat);
-        return out({ overlay: null, view: "calendar", selection: `event:${ev.id}` });
+        if (ev.online !== false) {
+          const chat: TeamsChat = { id: `chat-${ev.id}`, title: ev.title, kind: "meeting", event: ev.id, members: [...attendees, ...optional], messages: [{ id: nextId(doc), from: "me", time: now(doc), text: "", system: `Meeting scheduled for ${shortDay(ev.day)} ${ev.start}` }] };
+          ev.chat = chat.id;
+          doc.chats.unshift(chat);
+        }
+        if (ev.channel) {
+          const ch = allChannels(doc).find((x) => `${x.team.name} > ${x.channel.name}` === ev.channel);
+          ch?.channel.posts.push({ id: nextId(doc), from: "me", time: now(doc), text: "", subject: ev.title, system: `Meeting scheduled: ${ev.title}, ${shortDay(ev.day)} ${ev.start}`, replies: [] });
+        }
+        return out({ overlay: null, view: "calendar", selection: `event:${ev.id}`, prefill: undefined });
       }
       case "rename": {
         const f = findFile(doc, id);
@@ -356,6 +393,58 @@ export function applyTeams(input: TeamsDoc, c: SimCommit, uiIn: SimUi): { doc: T
           f.sharing = link.startsWith("Anyone") ? `Anyone with the link ${perm || "can view"}` : link ? `Shared (${link})` : "Shared";
         }
         if ((v.action ?? "").trim().toLowerCase() === "copy link") doc.clipboard = `https://tortech-my.sharepoint.example/:f:/${id}`;
+        return out();
+      }
+      case "chatname": {
+        const chat = findChat(doc, id);
+        if (chat && text.trim()) chat.title = text.trim();
+        return out();
+      }
+      case "addpeople": {
+        const chat = findChat(doc, id);
+        const f = parseForm(text, ["People", "History"]);
+        if (chat) {
+          for (const p of namesToIds(doc, f.people)) if (!chat.members.includes(p)) chat.members.push(p);
+          if (chat.members.length > 1 && chat.kind !== "meeting") chat.kind = "group";
+          chat.messages.push({ id: nextId(doc), from: "me", time: now(doc), text: "", system: `You added ${(f.people ?? "").split(";").map((x) => x.trim()).filter(Boolean).join(", ")} to the chat.` });
+        }
+        return out();
+      }
+      case "notes": {
+        const m = doc.meeting && doc.meeting.id === id ? doc.meeting : null;
+        if (m && text.trim()) m.notes = [...(m.notes ?? []), text.trim()];
+        return out();
+      }
+      case "comment": {
+        const f = findFile(doc, id);
+        if (f && text.trim()) f.comments = [...(f.comments ?? []), { from: "me", text: text.trim() }];
+        return out();
+      }
+      case "loop": {
+        const hit = findMessage(doc, id);
+        if (hit?.msg.loop && text.trim()) hit.msg.loop = { ...hit.msg.loop, items: [...hit.msg.loop.items, text.trim()] };
+        return out();
+      }
+      case "planner": {
+        const f = parseForm(text, ["Task", "Due", "Assigned to", "Plan"]);
+        const title = (f.task ?? text).trim();
+        if (title) doc.tasks = [...(doc.tasks ?? []), { id: nextId(doc, "task"), title, due: f.due?.trim() || undefined, assigned: f["assigned to"]?.trim() || undefined, plan: f.plan?.trim() || undefined }];
+        return out();
+      }
+      case "approval": {
+        const f = parseForm(text, ["Approval name", "Approvers", "Details"]);
+        const name = (f["approval name"] ?? "").trim();
+        if (name) doc.approvals = [{ id: nextId(doc, "ap"), name, approvers: namesToIds(doc, f.approvers), details: f.details?.trim() || undefined, status: "Requested", from: "me" }, ...(doc.approvals ?? [])];
+        return out();
+      }
+      case "joinid": {
+        const f = parseForm(text, ["Meeting ID", "Passcode"]);
+        const norm = (x: string | undefined) => (x ?? "").replace(/\s+/g, "").toLowerCase();
+        const ev = doc.events?.find((e) => e.meetingId && norm(e.meetingId) === norm(f["meeting id"]) && (!e.passcode || norm(e.passcode) === norm(f.passcode)));
+        if (ev) {
+          doc.meeting = newMeeting(doc, ev.id, "prejoin");
+          return out({ selection: `prejoin:${ev.id}` });
+        }
         return out();
       }
       case "forward": {
@@ -466,6 +555,73 @@ export function applyTeams(input: TeamsDoc, c: SimCommit, uiIn: SimUi): { doc: T
       doc.drafts = drafts;
       return out();
     }
+    case "compose.delivery": {
+      const d = { ...(doc.delivery ?? {}) };
+      if (sv === "Standard") delete d[sel];
+      else d[sel] = sv;
+      doc.delivery = d;
+      return out();
+    }
+    case "compose.loop": {
+      doc.loopDrafts = { ...(doc.loopDrafts ?? {}), [sel]: sv };
+      return out();
+    }
+    case "compose.unloop": {
+      const d = { ...(doc.loopDrafts ?? {}) };
+      delete d[sel];
+      doc.loopDrafts = d;
+      return out();
+    }
+    case "msg.immersiveReader":
+      doc.flags = { ...(doc.flags ?? {}), reader: sv || selId };
+      return out();
+    case "reader.close": {
+      const f = { ...(doc.flags ?? {}) };
+      delete f.reader;
+      doc.flags = f;
+      return out();
+    }
+    case "team.join": {
+      const t = doc.discover?.find((x) => x.id === sv);
+      if (t && !doc.teams.some((x) => x.id === t.id)) {
+        doc.teams = [...doc.teams, clone(t)];
+        doc.discover = (doc.discover ?? []).filter((x) => x.id !== t.id);
+      }
+      const first = t?.channels[0]?.id;
+      return out(first ? { overlay: null, view: doc.layout === "separate" ? "teams" : "chat", conv: first, tab: "posts", selection: `channel:${first}` } : { overlay: null });
+    }
+    case "tab.add": {
+      const hit = selKind === "channel" || selKind === "files" ? findChannel(doc, selId) : undefined;
+      if (hit && sv) {
+        const tabs = hit.channel.tabs ?? [];
+        if (!tabs.some((t) => t.app === sv)) hit.channel.tabs = [...tabs, { id: slug(sv), name: sv, app: sv }];
+      }
+      return out();
+    }
+    case "settings.layout":
+      doc.layout = sv.toLowerCase() === "separate" ? "separate" : "combined";
+      return out();
+    case "settings.theme":
+      doc.settings = { ...(doc.settings ?? {}), theme: sv };
+      return out();
+    case "settings.notify": {
+      const i = sv.indexOf("=");
+      if (i > 0) doc.settings = { ...(doc.settings ?? {}), notify: { ...(doc.settings?.notify ?? {}), [sv.slice(0, i)]: sv.slice(i + 1) } };
+      return out();
+    }
+    case "planner.complete": {
+      const t = doc.tasks?.find((x) => x.id === sv);
+      if (t) t.done = !t.done;
+      return out();
+    }
+    case "apps.pin": {
+      const list = doc.pinnedApps ?? [];
+      doc.pinnedApps = list.includes(sv) ? list.filter((x) => x !== sv) : [...list, sv];
+      return out();
+    }
+    case "apps.open":
+    case "files.openIn":
+      return out();
     case "compose.detach": {
       const drafts = { ...(doc.drafts ?? {}) };
       drafts[sel] = (drafts[sel] ?? []).filter((x) => x !== sv);
@@ -653,6 +809,13 @@ export function applyTeams(input: TeamsDoc, c: SimCommit, uiIn: SimUi): { doc: T
       for (const p of m.participants) p.muted = true;
       return out();
     }
+    case "meeting.role": {
+      const m = meetingFor(doc, sel, "in");
+      const [pid, role] = sv.split("=");
+      const p = m.participants.find((x) => x.id === pid);
+      if (p && (role === "Presenter" || role === "Attendee" || role === "Co-organizer")) p.role = role;
+      return out();
+    }
     case "meeting.mutePerson": {
       const m = meetingFor(doc, sel, "in");
       const p = m.participants.find((x) => x.id === sv);
@@ -707,7 +870,22 @@ export function teamsSelectionExists(doc: TeamsDoc, sel: string): boolean {
     case "settings":
     case "schedule":
     case "view":
+    case "discover":
+    case "planner":
+    case "approval":
+    case "approvals":
+    case "joinid":
       return true;
+    case "chatname":
+    case "addpeople":
+      return Boolean(findChat(doc, id));
+    case "notes":
+      return id === "meetnow" || Boolean(findEvent(doc, id)) || (id.startsWith("call-") && Boolean(findChat(doc, id.slice(5))));
+    case "comment":
+      return Boolean(findFile(doc, id));
+    case "loop":
+    case "reader":
+      return Boolean(findMessage(doc, id));
     case "activity":
       return Boolean(doc.activity?.some((a) => a.id === id));
     case "chat":
@@ -745,12 +923,23 @@ export function teamsSelectionExists(doc: TeamsDoc, sel: string): boolean {
 
 export function teamsInitialUi(doc: TeamsDoc): SimUi {
   const s = doc.start ?? {};
-  const view = s.view ?? "chat";
+  let view = s.view ?? "chat";
   let conv = s.conv;
   if (!conv && view === "chat") conv = doc.chats.find((c) => !c.hidden)?.id;
   if (!conv && view === "teams") conv = doc.teams[0]?.channels[0]?.id;
-  const selection = doc.meeting ? `${doc.meeting.stage === "prejoin" ? "prejoin" : "meeting"}:${doc.meeting.id}` : conv ? `${view === "teams" ? "channel" : "chat"}:${conv}` : "";
-  const u: TeamsUiState = { selection, view, conv, tab: s.tab, folder: s.folder ?? "root", overlay: s.settings ? "settings" : null, settingsPage: "devices" };
+  // In the combined layout (current Teams default) channels open inside Chat.
+  if (view === "teams" && doc.layout !== "separate") view = "chat";
+  const isChannel = Boolean(conv && findChannel(doc, conv));
+  const selection = doc.meeting
+    ? `${doc.meeting.stage === "prejoin" ? "prejoin" : "meeting"}:${doc.meeting.id}`
+    : s.settings
+      ? "settings"
+      : conv
+        ? `${isChannel ? (s.tab === "files" ? "files" : "channel") : "chat"}:${conv}`
+        : view === "planner" || view === "approvals"
+          ? view
+          : "";
+  const u: TeamsUiState = { selection, view, conv, tab: s.tab, folder: s.folder ?? "root", overlay: s.settings ? "settings" : null, settingsPage: s.settingsPage ?? "devices" };
   return u as SimUi;
 }
 

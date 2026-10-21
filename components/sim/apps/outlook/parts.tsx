@@ -124,6 +124,129 @@ const P: Record<string, ReactNode> = {
   arrowLeft: <path d="M13 8H3M7 4L3 8l4 4" />,
   dots: <path d="M8 3.5h.01M8 8h.01M8 12.5h.01" strokeWidth="2.4" />,
   file: <path d="M4 1.5h5.5l3 3v10h-8.5zM9.5 1.5v3h3" />,
+  /* new Outlook */
+  newMail: <path d="M2 4h9M2 4v8h12V8M2 4l6 5 3-2.5M13 1.5v5M10.5 4h5" />,
+  sweep: <path d="M10.5 2l-4 6M4 8.5h5l1.5 5.5h-8zM5 11l-.5 3M7.5 11v3" />,
+  folderMove: <path d="M1.5 4h5l1.5 1.5h6.5v7.5h-13zM6 9.5h5M9 7.5l2 2-2 2" />,
+  rules: <path d="M2.5 4h11M2.5 8h7M2.5 12h4M11 10l2 2 2-3.5" />,
+  bolt: <path d="M9 1.5L3.5 9H8l-1 5.5L12.5 7H8z" />,
+  tag: <path d="M2 2.5h5.5l6.5 6.5-5 5L2.5 7.5zM5 5h.01" />,
+  alarm: (
+    <>
+      <circle cx="8" cy="9" r="5" />
+      <path d="M8 6.5V9l1.8 1.2M2.5 3.5l2-1.5M13.5 3.5l-2-1.5" />
+    </>
+  ),
+  gear: (
+    <>
+      <circle cx="8" cy="8" r="2.2" />
+      <path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4" />
+    </>
+  ),
+  layout: (
+    <>
+      <rect x="1.5" y="2.5" width="13" height="11" rx="1" />
+      <path d="M6 2.5v11M6 8h8.5" />
+    </>
+  ),
+  myday: (
+    <>
+      <rect x="2" y="3" width="12" height="11" rx="1" />
+      <path d="M2 6h12M5 1.5v3M11 1.5v3M5.5 10l1.7 1.5 3.3-3.5" />
+    </>
+  ),
+  filter: <path d="M2 3h12l-4.5 5.5V13l-3 1.5v-6z" />,
+  bold: <path d="M4.5 2.5h4a2.6 2.6 0 0 1 0 5.2h-4zM4.5 7.7h4.8a2.9 2.9 0 0 1 0 5.8H4.5z" strokeWidth="1.7" />,
+  italic: <path d="M7 2.5h5M4 13.5h5M10 2.5l-4 11" />,
+  underline: <path d="M4.5 2v5.5a3.5 3.5 0 0 0 7 0V2M3.5 14h9" />,
+  highlight: <path d="M3 13.5h10M5 11l1-3.5 5-5 2.5 2.5-5 5zM5 11l-1.5 1.5" />,
+  fontColor: <path d="M4 11.5L8 2.5l4 9M5.5 8.5h5M2.5 14h11" />,
+  bullets: <path d="M3 4h.01M3 8h.01M3 12h.01M6 4h7.5M6 8h7.5M6 12h7.5" strokeWidth="1.5" />,
+  numbering: <path d="M2.5 3l1-.5v3M2.5 8h1.5l-1.5 2h1.5M6 4h7.5M6 8h7.5M6 12h7.5" />,
+  pen: <path d="M2.5 13.5c2-3 3-1 4.5-2.5s-1-3 1.5-4.5M8.5 6.5l4-4 1.5 1.5-4 4" />,
+  cloud: <path d="M4.5 12.5h7a3 3 0 0 0 .3-6 4 4 0 0 0-7.6-1A3.5 3.5 0 0 0 4.5 12.5z" />,
+  editor: <path d="M2 12l3-8 3 8M3 9.5h4M9.5 10.5l1.8 1.8 3.2-4" />,
+  mic: <path d="M6 3a2 2 0 0 1 4 0v4a2 2 0 0 1-4 0zM3.5 7a4.5 4.5 0 0 0 9 0M8 11.5v3" />,
+  image: (
+    <>
+      <rect x="1.5" y="2.5" width="13" height="11" rx="1" />
+      <path d="M1.5 11l4-4 3 3 2-2 4 4M10.5 5.5h.01" />
+    </>
+  ),
+  table: (
+    <>
+      <rect x="1.5" y="2.5" width="13" height="11" rx="1" />
+      <path d="M1.5 6.5h13M1.5 10h13M6 2.5v11M10.5 2.5v11" />
+    </>
+  ),
+  emoji: (
+    <>
+      <circle cx="8" cy="8" r="6" />
+      <path d="M5.5 9.5c1.3 1.5 3.7 1.5 5 0M6 6.2h.01M10 6.2h.01" />
+    </>
+  ),
+  alignLeft: <path d="M2 3.5h12M2 6.5h8M2 9.5h12M2 12.5h8" />,
+  alignCenter: <path d="M2 3.5h12M4 6.5h8M2 9.5h12M4 12.5h8" />,
+  alignRight: <path d="M2 3.5h12M6 6.5h8M2 9.5h12M6 12.5h8" />,
+  accessibility: (
+    <>
+      <circle cx="8" cy="8" r="6.3" />
+      <path d="M8 4.6h.01M4.8 6.3L8 7l3.2-.7M8 7v2.5L6.3 12.3M8 9.5l1.7 2.8" />
+    </>
+  ),
+  calendarAdd: (
+    <>
+      <rect x="2" y="3" width="12" height="11" rx="1" />
+      <path d="M2 6h12M5 1.5v3M11 1.5v3M8 8v4M6 10h4" />
+    </>
+  ),
+  share: <path d="M11.5 5.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM4.5 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM11.5 14.5a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM6.3 7.1l3.4-2M6.3 8.9l3.4 2.1" />,
+  personAdd: (
+    <>
+      <circle cx="6.5" cy="5" r="2.8" />
+      <path d="M1.5 14c.5-3.2 2.5-4.6 5-4.6 1 0 1.9.2 2.6.6M12.5 9v5M10 11.5h5" />
+    </>
+  ),
+  headset: <path d="M2.5 10V8a5.5 5.5 0 0 1 11 0v2M2.5 9.5h2v4h-2zM11.5 9.5h2v4h-2zM13.5 13.5c0 1-1.5 1.5-4 1.5" />,
+  comment: <path d="M2 3h12v8H6.5L3.5 14v-3H2z" />,
+  sparkle: <path d="M8 1.5l1.4 4.1 4.1 1.4-4.1 1.4L8 12.5 6.6 8.4 2.5 7l4.1-1.4zM12.5 11l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z" />,
+  save: <path d="M2.5 2.5h9l2 2v9h-11zM5 2.5v3.5h5V2.5M5 13.5V9.5h6v4" />,
+  hamburger: <path d="M2.5 4h11M2.5 8h11M2.5 12h11" />,
+  word: (
+    <>
+      <rect x="2" y="2" width="12" height="12" rx="2" fill="#185abd" stroke="none" />
+      <path d="M4.5 5.5l1.2 5 1.3-4 1.3 4 1.2-5" stroke="#fff" strokeWidth="1.1" />
+    </>
+  ),
+  excel: (
+    <>
+      <rect x="2" y="2" width="12" height="12" rx="2" fill="#107c41" stroke="none" />
+      <path d="M5.5 5.5l5 5M10.5 5.5l-5 5" stroke="#fff" strokeWidth="1.3" />
+    </>
+  ),
+  powerpoint: (
+    <>
+      <rect x="2" y="2" width="12" height="12" rx="2" fill="#c43e1c" stroke="none" />
+      <path d="M6 11V5h2.2a1.7 1.7 0 0 1 0 3.4H6" stroke="#fff" strokeWidth="1.2" />
+    </>
+  ),
+  onedrive: <path d="M4 12.5h8a2.5 2.5 0 0 0 .2-5 3.5 3.5 0 0 0-6.6-1A3 3 0 0 0 4 12.5z" fill="#0f6cbd" stroke="#0f6cbd" />,
+  apps: <path d="M3 3h3v3H3zM10 3h3v3h-3zM3 10h3v3H3zM10 10h3v3h-3z" />,
+  todo: (
+    <>
+      <circle cx="8" cy="8" r="6" />
+      <path d="M5.2 8.2l2 2 3.8-4" />
+    </>
+  ),
+  star: <path d="M8 2l1.8 3.8 4.2.5-3.1 2.9.8 4.1L8 11.3l-3.7 2 .8-4.1L2 6.3l4.2-.5z" />,
+  sun: (
+    <>
+      <circle cx="8" cy="8" r="2.8" />
+      <path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1" />
+    </>
+  ),
+  home: <path d="M2 7.5L8 2.5l6 5M3.5 6.5v7h9v-7" />,
+  undo: <path d="M5 4L2 7l3 3M2 7h7.5a3.5 3.5 0 0 1 0 7H7" />,
 };
 
 export function OIcon({ name, size = 16, className, color }: { name: string; size?: number; className?: string; color?: string }) {

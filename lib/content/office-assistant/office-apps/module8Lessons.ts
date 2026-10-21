@@ -407,7 +407,7 @@ export const module8Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Build a small working database from your Module 5 design.",
+        text: "Build a small working database from the design you drafted in the first lesson of this module (Basic Principles of Database Construction).",
       },
       {
         type: "list",

@@ -141,9 +141,25 @@ export type OlMessage = {
   sendAt?: string;
   reported?: string;
   pinned?: boolean;
+  /* new Outlook (app "outlook-new") */
+  /** Snoozed: hidden from the list until this date-time. */
+  snoozeUntil?: string;
+  /** A calendar sharing invitation (Accept adds the calendar). */
+  shareInvite?: { owner: OlPerson; permission: string; calendar: string };
+  /** Text "Summary by Copilot" shows for this thread. */
+  summary?: string;
+  /** Sent encrypted ("Encrypt" / "Do Not Forward") or with a sensitivity label. */
+  encrypted?: string;
+  sensitivity?: string;
 };
 
-export type OlFolder = { id: string; name: string; parent?: string };
+export type OlFolder = {
+  id: string;
+  name: string;
+  parent?: string;
+  /** new Outlook: folder of a shared mailbox (its email), listed under Shared with me. */
+  mailbox?: string;
+};
 
 export type OlEvent = {
   id: string;
@@ -220,6 +236,11 @@ export type OlTask = {
   /** Who it is assigned to (Assign Task), by name. */
   owner?: string;
   completedOn?: string;
+  /* new Outlook To Do */
+  important?: boolean;
+  myDay?: boolean;
+  /** To Do list name; default "Tasks". */
+  list?: string;
 };
 
 export type OlRule = {
@@ -233,6 +254,13 @@ export type OlRule = {
   flag?: string;
   alert?: boolean;
   sound?: boolean;
+  /* new Outlook rule editor */
+  markRead?: boolean;
+  pin?: boolean;
+  forwardTo?: string;
+  deleteIt?: boolean;
+  stop?: boolean;
+  off?: boolean;
 };
 
 export type OlQuickStep = { id: string; name: string; actions: { action: string; target?: string }[]; tooltip?: string };
@@ -274,6 +302,15 @@ export type OlCompose = {
   prefilled?: boolean;
   /** Address Book open. */
   addressBook?: string | null;
+  /* new Outlook */
+  /** Send from this address (a shared mailbox); default is the account. */
+  from?: string;
+  /** "Encrypt" or "Do Not Forward". */
+  encrypt?: string;
+  /** Sensitivity label name. */
+  sensitivity?: string;
+  /** Pictures inserted in the body, with alt text. */
+  images?: { name: string; alt?: string }[];
 };
 
 export type OlForm = {
@@ -405,6 +442,37 @@ export type OutlookDoc = {
   ribbonCollapsed?: boolean;
   pane?: string | null;
   saved?: { name?: string; location?: string; format?: string; autosave?: boolean };
+
+  /* ---- new Outlook for Windows (app "outlook-new"); classic ignores these ---- */
+  /** Undo send delay in seconds (Settings › Mail › Compose and reply). 0 = off. */
+  undoSend?: number;
+  /** Id of the message just sent while Undo is offered. */
+  lastSent?: string | null;
+  /** Shared mailboxes the account has access to; `added` once it shows under Shared with me. */
+  shared?: { name: string; email: string; added?: boolean }[];
+  /** The organization has Copilot: shows the Copilot button and Summary by Copilot. */
+  copilot?: boolean;
+  /** Sensitivity labels the organization publishes (Options › Sensitivity). */
+  sensitivityLabels?: string[];
+  /** Settings › Calendar › View › Time zones. */
+  timeZone?: string;
+  extraTimeZones?: { zone: string; label?: string }[];
+  /** Senders whose mail always goes to Other / Focused. */
+  alwaysOther?: string[];
+  alwaysFocused?: string[];
+  /** To Do: the list showing (My Day, Important, Planned, Assigned to me, Flagged email, Tasks, or a custom list). */
+  todoList?: string;
+  todoLists?: string[];
+  /** Ribbon layout: simplified (default) or classic. */
+  ribbonLayout?: "Simplified" | "Classic";
+  /** Settings page open ("Mail/Rules"), or null. */
+  settingsPage?: string | null;
+  /** My Day pane open. */
+  myDayOpen?: boolean;
+  /** Accessibility pane open (compose). */
+  accessibilityPane?: boolean;
+  /** The last toast message (shown briefly). */
+  toast?: string | null;
 };
 
 /** Type-checks an Outlook sim's starting document: `initial: outlookDoc({ ... })`. */

@@ -324,6 +324,8 @@ export function visibleMessages(doc: OutlookDoc): OlMessage[] {
     if (folder === "inbox" && doc.focused) list = list.filter((m) => (doc.focusTab === "Other" ? m.other : !m.other));
   }
   list = list.filter((m) => filterMatches(doc, m, doc.filter));
+  // new Outlook: snoozed messages stay hidden until their time comes.
+  list = list.filter((m) => !m.snoozeUntil || toMs(m.snoozeUntil) <= toMs(nowOf(doc)));
   return sortMessages(doc, list);
 }
 
@@ -589,17 +591,17 @@ export function composeFor(doc: OutlookDoc, mode: OlCompose["mode"], m?: OlMessa
   return { id, mode, inline: true, of: m.id, to, cc, bcc: [], subject: prefixed("RE", m.subject), body: startBody(doc, doc.defaultReply), quoted: quoteOf(m), attachments: [] };
 }
 
-function bumpCompose(doc: OutlookDoc) {
+export function bumpCompose(doc: OutlookDoc) {
   doc.flags = { ...(doc.flags ?? {}), composeSeq: ((doc.flags?.composeSeq as number | undefined) ?? 0) + 1 };
 }
 
-function tick(doc: OutlookDoc): string {
+export function tick(doc: OutlookDoc): string {
   const n = addMinutes(nowOf(doc), 1);
   doc.now = n;
   return n;
 }
 
-function nextSlot(doc: OutlookDoc): string {
+export function nextSlot(doc: OutlookDoc): string {
   const base = doc.calDate && doc.calDate !== todayOf(doc) ? at(doc.calDate, "09:00") : nowOf(doc);
   const ms = toMs(base);
   const half = 30 * 60000;
@@ -639,13 +641,13 @@ function eventForm(doc: OutlookDoc, e: OlEvent): OlForm {
 /* Apply helpers                                                       */
 /* ------------------------------------------------------------------ */
 
-function firstVisibleKey(doc: OutlookDoc): string {
+export function firstVisibleKey(doc: OutlookDoc): string {
   const m = visibleMessages(doc)[0];
   return m ? `msg:${m.id}` : "";
 }
 
 /** After removing messages from the list, select the next one, like Outlook. */
-function nextAfter(before: OlMessage[], removed: string[], doc: OutlookDoc): string {
+export function nextAfter(before: OlMessage[], removed: string[], doc: OutlookDoc): string {
   const after = visibleMessages(doc);
   const idx = before.findIndex((m) => removed.includes(m.id));
   for (let i = idx; i < before.length && i >= 0; i++) if (!removed.includes(before[i].id) && after.some((m) => m.id === before[i].id)) return `msg:${before[i].id}`;
@@ -653,11 +655,11 @@ function nextAfter(before: OlMessage[], removed: string[], doc: OutlookDoc): str
   return after[0] ? `msg:${after[0].id}` : "";
 }
 
-function moveMessages(doc: OutlookDoc, ids: string[], folder: string) {
+export function moveMessages(doc: OutlookDoc, ids: string[], folder: string) {
   for (const m of doc.messages) if (ids.includes(m.id)) m.folder = folder;
 }
 
-function setFlag(doc: OutlookDoc, target: { flag?: OlFlag | null }, value: string) {
+export function setFlag(doc: OutlookDoc, target: { flag?: OlFlag | null }, value: string) {
   const today = todayOf(doc);
   if (value === "Clear Flag" || value === "Clear Flag & Mark Complete") target.flag = null;
   else if (value === "Mark Complete") target.flag = { ...(target.flag ?? {}), complete: true };
@@ -671,13 +673,13 @@ function toggleCategory(list: string[] | undefined, slot: string): string[] {
   return l.includes(slot) ? l.filter((c) => c !== slot) : [...l, slot];
 }
 
-function sentCopy(doc: OutlookDoc, to: OlPerson[], subject: string, body: string, extra: Partial<OlMessage> = {}): OlMessage {
+export function sentCopy(doc: OutlookDoc, to: OlPerson[], subject: string, body: string, extra: Partial<OlMessage> = {}): OlMessage {
   const m: OlMessage = { id: nextId(doc.messages, "m"), folder: "sent", from: doc.account, to, subject, body, date: tick(doc), read: true, ...extra };
   doc.messages.push(m);
   return m;
 }
 
-function runRule(doc: OutlookDoc, r: OlRule, msgs: OlMessage[]): number {
+export function runRule(doc: OutlookDoc, r: OlRule, msgs: OlMessage[]): number {
   let n = 0;
   for (const m of msgs) {
     if (r.from && m.from.email.toLowerCase() !== r.from.toLowerCase() && !m.from.email.toLowerCase().endsWith(r.from.toLowerCase().replace(/^\*?/, ""))) continue;
@@ -695,7 +697,7 @@ function runRule(doc: OutlookDoc, r: OlRule, msgs: OlMessage[]): number {
   return n;
 }
 
-function respondInvite(doc: OutlookDoc, m: OlMessage, kind: "Accepted" | "Tentative" | "Declined") {
+export function respondInvite(doc: OutlookDoc, m: OlMessage, kind: "Accepted" | "Tentative" | "Declined") {
   const inv = m.invite!;
   inv.response = kind;
   const events = (doc.events = doc.events ?? []);
@@ -800,7 +802,7 @@ function parseRecurrence(v: string, start: string): OlRecurrence | null {
 /* Built-in behavior                                                   */
 /* ------------------------------------------------------------------ */
 
-type Res = { doc: OutlookDoc; ui?: Partial<SimUi> };
+export type Res = { doc: OutlookDoc; ui?: Partial<SimUi> };
 
 export function applyOutlook(input: OutlookDoc, c: SimCommit, ui: SimUi): Res {
   if (c.kind === "dialog" && c.id === "file.saveAs") {
@@ -1165,11 +1167,11 @@ function applyDialog(doc: OutlookDoc, id: string, v: Record<string, SimValue>, u
 function flagTargets(doc: OutlookDoc, ui: SimUi): { flag?: OlFlag | null }[] {
   return [...selMessages(doc, ui), ...(doc.contacts ?? []).filter((x) => selIds(ui.selection, "contact").includes(x.id))];
 }
-function selTasks(doc: OutlookDoc, ui: SimUi): OlTask[] {
+export function selTasks(doc: OutlookDoc, ui: SimUi): OlTask[] {
   const ids = selIds(ui.selection, "task");
   return (doc.tasks ?? []).filter((t) => ids.includes(t.id));
 }
-function categoryTargets(doc: OutlookDoc, ui: SimUi): { categories?: string[] }[] {
+export function categoryTargets(doc: OutlookDoc, ui: SimUi): { categories?: string[] }[] {
   const out: { categories?: string[] }[] = [...selMessages(doc, ui), ...selTasks(doc, ui)];
   const ev = selIds(ui.selection, "evt");
   out.push(...(doc.events ?? []).filter((e) => ev.includes(e.id)));
@@ -1180,7 +1182,7 @@ function categoryTargets(doc: OutlookDoc, ui: SimUi): { categories?: string[] }[
   return out;
 }
 
-function send(doc: OutlookDoc): Res {
+export function send(doc: OutlookDoc): Res {
   const comp = doc.compose;
   if (!comp) return { doc };
   const p = (list: string[]) => list.map((t) => personFor(doc, t));
@@ -1217,7 +1219,7 @@ function send(doc: OutlookDoc): Res {
   return { doc };
 }
 
-function runQuickStep(doc: OutlookDoc, name: string, ui: SimUi): Res {
+export function runQuickStep(doc: OutlookDoc, name: string, ui: SimUi): Res {
   const msgs = selMessages(doc, ui);
   const before = visibleMessages(doc);
   const ids = msgs.map((m) => m.id);
@@ -1305,7 +1307,7 @@ function runQuickStep(doc: OutlookDoc, name: string, ui: SimUi): Res {
   return done();
 }
 
-function deleteSelection(doc: OutlookDoc, value: SimValue | undefined, ui: SimUi): Res {
+export function deleteSelection(doc: OutlookDoc, value: SimValue | undefined, ui: SimUi): Res {
   const sel = selKeys(ui.selection);
   if (sel.some((k) => k.startsWith("msg:"))) {
     const before = visibleMessages(doc);
@@ -2119,7 +2121,7 @@ export function fileAs(c: { name: string }): string {
   return parts.length > 1 ? `${parts[parts.length - 1]}, ${parts.slice(0, -1).join(" ")}` : c.name;
 }
 
-function openItem(doc: OutlookDoc, key: string): Res {
+export function openItem(doc: OutlookDoc, key: string): Res {
   const k = selKeys(key)[0] ?? "";
   if (k.startsWith("msg:")) {
     const m = doc.messages.find((x) => x.id === k.slice(4));

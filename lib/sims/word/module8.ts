@@ -241,7 +241,7 @@ export const wordModule8Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "In the first paragraph, replace the word “regular” with its synonym “routine”.",
-          hint: "Right-click “regular” and choose routine under Synonyms. Or click “regular”, then Review tab › Proofing group › Thesaurus, and choose Insert next to routine.",
+          hint: "Right-click “regular” and choose routine under Synonyms. Or click “regular”, then Review tab › Proofing group › Thesaurus, select the arrow next to routine, and choose Insert.",
           steps: [
             {
               action: { kind: "command", id: "thesaurus.insert", value: "routine" },

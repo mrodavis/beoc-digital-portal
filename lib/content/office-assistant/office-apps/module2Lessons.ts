@@ -7,7 +7,6 @@ export const module2Lessons: Lesson[] = [
     description:
       "Learn to automate bulk patient and staff communications using Word's mail merge feature — from building a recipient list to producing 200 personalized letters in minutes.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/iHuFzz7Wvt4",
 
     slides: [
       {
@@ -70,7 +69,7 @@ export const module2Lessons: Lesson[] = [
             type: "list",
             items: [
               "Use mail merge when you have 10 or more recipients — for fewer than 10 recipients, manual editing may be faster. But for any bulk communication — appointment reminders, annual wellness check notices, billing statements, staff announcements, or holiday closures — mail merge saves enormous time and eliminates transcription errors.",
-              "Mail merge works for letters, envelopes, labels, and email — while letters are the most common use in a medical office, the same mail merge workflow can automatically print addressed envelopes for a mailing campaign, generate a sheet of address labels from a contact list, or send personalized bulk emails through Outlook if you have Outlook configured as your email client.",
+              "Mail merge works for letters, envelopes, labels, and email — while letters are the most common use in a medical office, the same mail merge workflow can automatically print addressed envelopes for a mailing campaign, generate a sheet of address labels from a contact list, or send personalized bulk emails through Outlook if you have Outlook configured as your email client (email merges work fully with classic Outlook; the new Outlook for Windows supports mail merge only partly).",
               "The two required components are a main document (the template with static content and merge field placeholders) and a data source (a list of records with the variable information — patient names, addresses, appointment dates, provider names) — Word merges these two files together at the moment you complete the merge, producing one output document per data record.",
             ],
           },
@@ -91,7 +90,7 @@ export const module2Lessons: Lesson[] = [
               "Step 3 — Write the main document: compose your letter with standard text in the body and click Mailings > Insert Merge Field wherever variable data should appear. Insert field placeholders like «FirstName», «LastName», «AppointmentDate», and «ProviderName». These appear in the document surrounded by chevrons (« ») to indicate they are merge fields, not static text.",
               "Step 4 — Preview results: click Mailings > Preview Results. Word substitutes real data from your first record into the merge fields so you can verify the letter looks correct with actual patient information. Use the navigation arrows in the Mailings tab to scroll through several records and check for formatting or data issues before committing to the full merge.",
               "Step 5 — Filter or sort if needed: before completing the merge, you can filter the recipient list to include only specific records — for example, only patients assigned to Dr. Chen, or only patients with appointments in June. Use Mailings > Edit Recipient List to apply filters, sort the list, or deselect individual recipients.",
-              "Step 6 — Complete the merge: click Mailings > Finish & Merge and choose 'Edit Individual Documents' (to review all letters in a single new document before printing), 'Print Documents' (to send directly to the printer), or 'Send Email Messages' (to send via Outlook). For patient letters, always choose 'Edit Individual Documents' first so you can spot-check a sample of the output.",
+              "Step 6 — Complete the merge: click Mailings > Finish & Merge and choose 'Edit Individual Documents' (to review all letters in a single new document before printing), 'Print Documents' (to send directly to the printer), or 'Send Email Messages' (to send through classic Outlook). For patient letters, always choose 'Edit Individual Documents' first so you can spot-check a sample of the output.",
             ],
           },
         ],
@@ -171,11 +170,11 @@ export const module2Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Create an Excel spreadsheet with the following columns: FirstName, LastName, StreetAddress, City, State, ZIP, ProviderName, AppointmentDate, AppointmentTime. Enter 8 fictional patient records with realistic data — vary the providers between Dr. Patel, Dr. Chen, and Dr. Okafor, and use appointment dates in June 2025. Save the file as 'Patient Reminder Data – Lakeside Medical.xlsx.'",
-          "Create a Word mail merge main document — a professional appointment reminder letter in block format on Lakeside Medical Associates letterhead (create a simple text letterhead if needed). The letter must include merge fields for: patient first name (in the salutation), appointment date, appointment time, and provider name. Write 2–3 body paragraphs reminding the patient about their appointment, providing the clinic address and parking information, and asking them to confirm by calling (555) 234-5678 by May 30, 2025.",
+          "Create an Excel spreadsheet with the following columns: FirstName, LastName, StreetAddress, City, State, ZIP, ProviderName, AppointmentDate, AppointmentTime. Enter 8 fictional patient records with realistic data — vary the providers between Dr. Patel, Dr. Chen, and Dr. Okafor, and use appointment dates over the next month. Save the file as 'Patient Reminder Data – Lakeside Medical.xlsx.'",
+          "Create a Word mail merge main document — a professional appointment reminder letter in block format on Lakeside Medical Associates letterhead (create a simple text letterhead if needed). The letter must include merge fields for: patient first name (in the salutation), appointment date, appointment time, and provider name. Write 2–3 body paragraphs reminding the patient about their appointment, providing the clinic address and parking information, and asking them to confirm by calling (555) 234-5678 at least two business days before their appointment.",
           "Connect the Excel data source to the Word document using Mailings > Select Recipients > Use an Existing List. Preview results and scroll through all 8 records to confirm each one looks correct and the merge fields are populating properly.",
           "Filter the recipient list to only include patients assigned to Dr. Chen. Complete a partial merge to a new document — confirm the output contains only Dr. Chen's patients.",
-          "Clear the filter and complete the full merge for all 8 patients to a new document. Save the merged document as 'Appointment Reminders – June 2025 – Lakeside Medical.docx.'",
+          "Clear the filter and complete the full merge for all 8 patients to a new document. Save the merged document as 'Appointment Reminders – Lakeside Medical.docx.'",
         ],
       },
       {
@@ -254,8 +253,8 @@ export const module2Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To enter the header or footer zone, double-click in the top or bottom margin of any page, or use Insert > Header or Insert > Footer from the Ribbon. Word provides a gallery of built-in header and footer styles — the 'Blank,' 'Austin,' and 'Grid' styles are clean, professional choices. Once inside the zone, the main document text dims and the Header & Footer Tools tab appears in the Ribbon, providing all the controls you need.",
-              "The 'Different First Page' option — found in the Header & Footer Tools > Options group — removes the header and footer from page 1 only, while all subsequent pages retain the standard header and footer. This is the correct professional setting for any formal document that has a title page or cover: the title page looks clean and uncluttered, while the body pages carry the navigation elements. Check this option for every formal report or multi-page document you produce.",
+              "To enter the header or footer zone, double-click in the top or bottom margin of any page, or use Insert > Header or Insert > Footer from the Ribbon. Word provides a gallery of built-in header and footer styles — the 'Blank,' 'Austin,' and 'Grid' styles are clean, professional choices. Once inside the zone, the main document text dims and the Header & Footer tab appears in the Ribbon, providing all the controls you need.",
+              "The 'Different First Page' option — found in the Options group on the Header & Footer tab — removes the header and footer from page 1 only, while all subsequent pages retain the standard header and footer. This is the correct professional setting for any formal document that has a title page or cover: the title page looks clean and uncluttered, while the body pages carry the navigation elements. Check this option for every formal report or multi-page document you produce.",
               "Odd and even page headers allow you to display different content on left-facing and right-facing pages — similar to how printed books show the book title on even pages and the chapter title on odd pages. This is enabled by checking 'Different Odd & Even Pages' in the same Options group. For most Lakeside Medical Associates documents, this level of complexity is unnecessary, but it is valuable to know for more formal publication-style layouts.",
               "To exit the header or footer zone and return to the main document, double-click anywhere in the main text area, or press Escape. All changes to the header/footer are saved automatically as you exit the zone.",
             ],
@@ -272,8 +271,8 @@ export const module2Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To insert page numbers, enter the footer zone and click Insert > Page Number from the Ribbon, or use Header & Footer Tools > Insert > Page Number. Choose your position (bottom of page is most common), then choose a number format from the gallery. 'Plain Number 2' (centered number) is the standard professional choice. Word inserts a field that automatically shows the current page number and updates as pages are added or removed — never type page numbers manually.",
-              "The 'Page X of Y' format — showing 'Page 3 of 12' — is extremely useful for long documents because readers can immediately gauge how far through the document they are. Select the 'Bold Numbers 3' or similar built-in style from the page number gallery, or insert it manually by clicking Header & Footer Tools > Insert > Page Number > Page X of Y from the format options.",
+              "To insert page numbers, enter the footer zone and click Insert > Page Number from the Ribbon, or use Header & Footer tab > Page Number. Choose your position (bottom of page is most common), then choose a number format from the gallery. 'Plain Number 2' (centered number) is the standard professional choice. Word inserts a field that automatically shows the current page number and updates as pages are added or removed — never type page numbers manually.",
+              "The 'Page X of Y' format — showing 'Page 3 of 12' — is extremely useful for long documents because readers can immediately gauge how far through the document they are. Select the 'Bold Numbers 3' or similar built-in style from the page number gallery, or choose it from Page Number > Current Position > Page X of Y on the Header & Footer tab.",
               "Date and time fields insert the current date (or a specific date) in a format that either updates automatically every time the document is opened, or remains fixed. To insert a date field, click Insert > Date & Time from the Ribbon. Check 'Update automatically' if you want the date to always reflect the current date when the document is opened — useful for meeting agenda templates. Leave 'Update automatically' unchecked if you want the date locked at the time of original creation — appropriate for letters and reports with a specific issuance date.",
             ],
           },
@@ -392,7 +391,6 @@ export const module2Lessons: Lesson[] = [
     description:
       "Learn to collaborate on documents professionally using Track Changes, insert and respond to comments, compare document versions, and protect documents for controlled editing.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/p3Ql9y3eEyo?si=ZQ4tqLb9hhar33zv",
 
     slides: [
       {
@@ -489,8 +487,8 @@ export const module2Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To insert a comment: select the text you are commenting on (or place your cursor at that point), then press Ctrl+Alt+M or click Review > New Comment. A comment balloon appears in the right margin linked to your selected text. Type your comment — be specific and actionable: 'Should we add a deadline here?' is more useful than 'Fix this.' Comments are attributed to your username and timestamp automatically.",
-              "Replying to comments creates a threaded conversation within the document — click inside an existing comment balloon and click the Reply button that appears. The reply is indented below the original comment and attributed to the replier. This allows a dialogue between the document author and reviewers without anyone having to rewrite the document or send emails back and forth. When a comment issue is resolved, click the comment's Resolve button to collapse it — it remains visible (grayed out) but is clearly marked as handled.",
+              "To insert a comment: select the text you are commenting on (or place your cursor at that point), then press Ctrl+Alt+M or click Review > New Comment. A comment card appears in the right margin linked to your selected text. Type your comment — be specific and actionable: 'Should we add a deadline here?' is more useful than 'Fix this.' Comments are attributed to your username and timestamp automatically.",
+              "Replying to comments creates a threaded conversation within the document — click in the Reply box at the bottom of an existing comment card, type your reply, and post it. The reply appears under the original comment and is attributed to the replier. This allows a dialogue between the document author and reviewers without anyone having to rewrite the document or send emails back and forth. When a comment issue is handled, open the comment's More thread actions menu (...) and choose Resolve thread. The comment is marked Resolved and stays in the Comments pane, where anyone can reopen it if the issue comes back.",
               "Comparing two document versions: if a colleague edited a document without using Track Changes, you can still see what changed by using Review > Compare > Compare. Select the original document and the revised document, and Word generates a new combined document showing all differences as tracked changes. This is an invaluable recovery tool when someone edits and saves over an important document without tracking their changes.",
               "Restricting editing: use Review > Restrict Editing to limit what reviewers can change — you can allow only tracked changes (no direct editing), allow only comments (no changes at all), or protect specific sections while leaving others editable. You can set a password so only authorized users can turn off restrictions. This is appropriate for Lakeside Medical Associates policy documents that must go through formal review — reviewers can comment or suggest changes, but cannot make direct edits without approval.",
             ],

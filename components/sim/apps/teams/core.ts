@@ -13,6 +13,10 @@ import { applyTeams, describeTeams, teamsInitialUi, teamsSelectionExists } from 
  *   chat.call (video | audio), channel.notifications (All new posts | Mentions and replies | Off), channel.pin,
  *   compose.attach (file name), status.set (Available | Busy | Do not disturb | Be right back | Appear away | Appear offline | Reset status),
  *   status.clearMessage, files.upload (file name), files.copyLink, files.pin, files.delete, files.download,
+ *   compose.delivery (Important | Standard), compose.loop (Task list | Table | Paragraph), team.join (team id),
+ *   tab.add (app name), settings.layout (Combined | Separate), settings.theme (Follow operating system theme | Light | Dark),
+ *   settings.notify ("<Type>=<Activity feed and banner | Activity feed only | Off>"), planner.complete (task id),
+ *   apps.pin (planner | approvals), meeting.role ("<person id>=Presenter | Attendee"),
  *   files.move (folder id), event.rsvp (Accept | Tentative | Decline),
  *   av.camera (on | off), av.mic (on | off), av.background (None | Blur | background name),
  *   av.audio (Computer audio | Room audio | Phone audio | Don't use audio), av.speaker, av.microphone,
@@ -22,7 +26,8 @@ import { applyTeams, describeTeams, teamsInitialUi, teamsSelectionExists } from 
  *   meeting.transcribe (start | stop), meeting.captions (on | off), meeting.admit (person id | all),
  *   meeting.deny, meeting.muteAll, meeting.mutePerson, meeting.leave, meeting.end, calls.call (person id).
  * Free commands (never a miss): opening the pre-join screen, closing it, meeting panels and views,
- * Meet now, opening files and activity items. Rail, list and tab navigation is selection only.
+ * Meet now, opening files and activity items, Immersive Reader, Open in (desktop app/browser).
+ * Rail, list and tab navigation is selection only.
  */
 export const teamsCore: AppCore<TeamsDoc> = {
   name: "Microsoft Teams",
@@ -45,8 +50,13 @@ export const teamsCore: AppCore<TeamsDoc> = {
     "meeting.raiseHand", "meeting.react", "meeting.share", "meeting.stopShare", "meeting.record", "meeting.transcribe",
     "meeting.captions", "meeting.admit", "meeting.deny", "meeting.muteAll", "meeting.mutePerson", "meeting.leave", "meeting.end",
     "calls.call", "meeting.prejoin", "meeting.cancel", "meeting.panel", "meeting.view", "calendar.meetNow", "files.open", "files.close", "activity.open",
+    "compose.delivery", "compose.loop", "compose.unloop", "msg.immersiveReader", "reader.close", "team.join", "tab.add",
+    "settings.layout", "settings.theme", "settings.notify", "planner.complete", "apps.pin", "apps.open", "files.openIn", "meeting.role",
   ],
-  freeCommands: ["meeting.prejoin", "meeting.cancel", "meeting.panel", "meeting.view", "calendar.meetNow", "files.open", "files.close", "activity.open", "compose.detach", "msg.undoDelete"],
+  freeCommands: [
+    "meeting.prejoin", "meeting.cancel", "meeting.panel", "meeting.view", "calendar.meetNow", "files.open", "files.close", "activity.open",
+    "compose.detach", "msg.undoDelete", "compose.unloop", "msg.immersiveReader", "reader.close", "apps.open", "files.openIn",
+  ],
   initialUi: teamsInitialUi,
   apply: applyTeams,
   ribbonState: () => ({}),

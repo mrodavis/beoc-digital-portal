@@ -3,16 +3,16 @@ import { Lesson } from "@/types/lesson";
 export const module5Lessons: Lesson[] = [
   {
     slug: "intro-to-powerpoint-2019",
-    title: "Introduction to Microsoft PowerPoint 2019",
+    title: "Introduction to Microsoft PowerPoint",
     description:
-      "Get oriented in the PowerPoint 2019 interface, understand slide views and layouts, learn to create and organize a presentation, and manage your files for professional distribution.",
+      "Get oriented in the PowerPoint interface, understand slide views and layouts, learn to create and organize a presentation, and manage your files for professional distribution.",
     duration: "15 min",
     videoUrl: "https://www.youtube.com/embed/k6pg4nZS6fA",
 
     slides: [
       {
         src: "/images/office-assistant/office-apps/module-5/intro-to-powerpoint-2019/slide-01.jpg",
-        alt: "Welcome to Microsoft PowerPoint 2019 — the presentation tool of every professional office",
+        alt: "Welcome to Microsoft PowerPoint — the presentation tool of every professional office",
       },
       {
         src: "/images/office-assistant/office-apps/module-5/intro-to-powerpoint-2019/slide-02.jpg",
@@ -60,7 +60,7 @@ export const module5Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "The PowerPoint 2019 Interface",
+        heading: "The PowerPoint Interface",
         blocks: [
           {
             type: "paragraph",
@@ -115,13 +115,13 @@ export const module5Lessons: Lesson[] = [
         ],
       },
       {
-        heading: "Quick Reference: PowerPoint 2019 Interface",
+        heading: "Quick Reference: PowerPoint Interface",
         blocks: [
           {
             type: "image",
             src: "/images/office-assistant/office-apps/module-5/intro-to-powerpoint-2019/infographic.png",
-            alt: "PowerPoint 2019 Interface Quick Reference — labeled diagram of the Ribbon tabs, Slide Panel, Notes Panel, Status Bar view buttons, slide layout gallery overview, file format comparison (.pptx vs .ppsx vs .pdf), and view mode use cases",
-            caption: "PowerPoint 2019 Interface Quick Reference — navigating the presentation creation environment",
+            alt: "PowerPoint Interface Quick Reference — labeled diagram of the Ribbon tabs, Slide Panel, Notes Panel, Status Bar view buttons, slide layout gallery overview, file format comparison (.pptx vs .ppsx vs .pdf), and view mode use cases",
+            caption: "PowerPoint Interface Quick Reference — navigating the presentation creation environment",
           },
         ],
       },
@@ -165,13 +165,13 @@ export const module5Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Get familiar with the PowerPoint 2019 interface by building a basic slide structure for the Lakeside Medical Associates staff orientation presentation and navigating through all major views.",
+        text: "Get familiar with the PowerPoint interface by building a basic slide structure for the Lakeside Medical Associates staff orientation presentation and navigating through all major views.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Open PowerPoint 2019 and create a new blank presentation. On slide 1, type 'Lakeside Medical Associates — New Staff Orientation' as the title and 'Welcome to the Team' as the subtitle.",
+          "Open PowerPoint and create a new blank presentation. On slide 1, type 'Lakeside Medical Associates — New Staff Orientation' as the title and 'Welcome to the Team' as the subtitle.",
           "Add 9 more slides using Ctrl+M for a total of 10 slides. Give each slide a title using these names in order: Welcome and Our Culture, Office Layout and Access, Key Systems and Tools, Patient Communication Standards, HIPAA Basics, Emergency Procedures, Scheduling and Time-Off, Provider and Staff Directory, Your First Day — Next Steps. Use the 'Title and Content' layout for slides 2–9 and the 'Title Only' layout for slide 10.",
           "Switch to Slide Sorter view and reorder the slides by dragging so that 'HIPAA Basics' appears as slide 4 (before 'Patient Communication Standards'). Confirm the new order, then switch back to Normal view.",
           "Add speaker notes to slides 1, 2, and 3 — each note should be at least 2 sentences describing what the presenter should say for that slide.",
@@ -256,7 +256,7 @@ export const module5Lessons: Lesson[] = [
             items: [
               "The 6×6 rule: a maximum of 6 lines of text per slide and a maximum of 6 words per line keeps slides scannable and forces the presenter to summarize key points rather than reading paragraph text aloud. When you find yourself typing a 4-sentence bullet point, that is a sign to move the detail to speaker notes and keep only the key phrase on the slide. Audiences cannot read dense slide text and listen to the presenter simultaneously — one of the two will lose.",
               "Font size hierarchy makes the slide's information structure immediately visible — slide titles should be 36–44pt bold (large, authoritative), main bullet points should be 24–28pt, and sub-bullets should be 20–22pt. Never use body text smaller than 18pt in a projected presentation — text smaller than that is unreadable beyond the first 3 rows of seats. The font size alone should tell the viewer which is the most important idea on the slide.",
-              "Sans-serif fonts are the professional choice for presentations — Calibri, Arial, Segoe UI, and Helvetica are clean at large sizes and project clearly. Serif fonts like Times New Roman, while appropriate for documents, have thin strokes that blur and lose readability when projected at low resolution. Use a maximum of 2–3 fonts in a presentation: one for titles, one for body text, and optionally a third for accent labels. More fonts signal visual disorder.",
+              "Sans-serif fonts are the professional choice for presentations — Aptos (the current Microsoft 365 default), Calibri, Arial, Segoe UI, and Helvetica are clean at large sizes and project clearly. Serif fonts like Times New Roman, while appropriate for documents, have thin strokes that blur and lose readability when projected at low resolution. Use a maximum of 2–3 fonts in a presentation: one for titles, one for body text, and optionally a third for accent labels. More fonts signal visual disorder.",
               "Contrast is the most critical design principle for presentations — light text on a dark background and dark text on a light background both work, but the contrast ratio must be high. Light blue text on a white background looks fine on your monitor but disappears on a projected screen. Dark navy text on white, white text on dark blue, and black text on light gray are all high-contrast, readable combinations. Avoid pastels on white, red on green, and any color combination that would be invisible to someone with color blindness.",
             ],
           },
@@ -379,7 +379,7 @@ export const module5Lessons: Lesson[] = [
     slides: [
       {
         src: "/images/office-assistant/office-apps/module-5/adding-media-and-animations/slide-01.jpg",
-        alt: "Inserting Images — from file, online search, and stock image library in PowerPoint 2019",
+        alt: "Inserting Images — from file, online search, and stock image library in PowerPoint",
       },
       {
         src: "/images/office-assistant/office-apps/module-5/adding-media-and-animations/slide-02.jpg",
@@ -436,7 +436,7 @@ export const module5Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To insert an image: click Insert > Pictures > This Device (to insert from your computer), Online Pictures (to search Bing for licensed images), or Stock Images (for PowerPoint's built-in royalty-free image and icon library). For the team photo on the introduction slide, insert it from the practice's network drive using This Device. For decorative icons on department slides, use Stock Images > Icons for clean, scalable vector icons that resize without losing quality.",
+              "To insert an image: click Insert > Pictures > This Device (to insert from your computer), Online Pictures (to search the web through Bing; check each image's license before you use it), or Stock Images (for PowerPoint's built-in royalty-free image and icon library). For the team photo on the introduction slide, insert it from the practice's network drive using This Device. For decorative icons on department slides, use Stock Images > Icons for clean, scalable vector icons that resize without losing quality.",
               "Resizing images correctly maintains the aspect ratio — drag a corner handle (not a side handle) to resize. Dragging a side handle stretches or squishes the image disproportionately, which looks unprofessional. Hold Shift while dragging a corner handle to make sure the proportions stay the same. Double-clicking the image opens the Picture Format tab on the Ribbon, where you can type exact height and width values in the Size group. For more size options, open the Format Picture pane by right-clicking the image and choosing Format Picture, or by clicking the dialog box launcher in the corner of the Size group.",
               "Cropping removes unwanted portions of an image — click the image, then click Picture Format > Crop. Black crop handles appear on the image edges. Drag the crop handles to define the area you want to keep, then press Enter or click outside the image to confirm the crop. The cropped area is not deleted — it is hidden, and you can re-crop at any time. Use 'Crop to Shape' (Picture Format > Crop > Crop to Shape) to crop an image into a circle, rectangle, or any other shape for decorative effect.",
               "Compress images to reduce file size — presentations with many high-resolution photos can grow to 50+ MB, which makes email delivery and loading slow. Select an image, click Picture Format > Compress Pictures. Choose 'E-mail (96 ppi)' for presentations shared digitally, or 'Print (220 ppi)' for presentations that will also be printed as handouts. Uncheck 'Apply only to this picture' to compress all images in the presentation at once.",

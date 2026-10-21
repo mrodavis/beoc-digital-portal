@@ -388,6 +388,7 @@ export function Composer({
   autoFocus,
   mentionExtra,
   onCancel,
+  post,
 }: {
   target: string;
   placeholder: string;
@@ -396,9 +397,13 @@ export function Composer({
   autoFocus?: boolean;
   mentionExtra?: string[];
   onCancel?: () => void;
+  /** A new channel post (posts layout): shows Add a subject and the Post type (Post | Announcement). */
+  post?: boolean;
 }) {
   const { doc, act, cmd, openMenu } = useTeams();
   const [text, setText] = useState("");
+  const [subject, setSubject] = useState("");
+  const [postType, setPostType] = useState<"Post" | "Announcement">("Post");
   const [fmt, setFmt] = useState(false);
   const [emoji, setEmoji] = useState(false);
   const [caret, setCaret] = useState(0);
@@ -407,6 +412,8 @@ export function Composer({
   const pendingSel = useRef<[number, number] | null>(null);
   const accepted = useAccepted(doc);
   const attachments = doc.drafts?.[target] ?? [];
+  const delivery = doc.delivery?.[target];
+  const loopKind = doc.loopDrafts?.[target];
 
   // Place the caret right after React applies a programmatic edit.
   useLayoutEffect(() => {
@@ -480,29 +487,72 @@ export function Composer({
   };
 
   const send = () => {
-    const v = text.replace(/\s+$/, "");
-    if (!v.trim() && !attachments.length) return;
+    let v = text.replace(/\s+$/, "");
+    if (!v.trim() && !attachments.length && !loopKind) return;
+    if (post && postType === "Announcement" && subject.trim()) v = `Headline: ${subject.trim()}\n${v}`;
+    else if (post && subject.trim()) v = `Subject: ${subject.trim()}\n${v}`;
     accepted(
       () => act(target, { kind: "type", target, value: v }),
       () => {
         setText("");
+        setSubject("");
+        setPostType("Post");
         setFmt(false);
         onCancel?.();
       },
     );
   };
 
-  const attachMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const attachItems = (): MenuEntry[] => {
     const cloud = (doc.files ?? []).filter((f) => !f.isFolder);
     const local = doc.localFiles ?? [];
+    return [
+      ...(cloud.length ? [{ heading: true, label: "Attach cloud files" }, ...cloud.slice(0, 8).map((f) => ({ label: f.name, icon: "onedrive", onClick: () => cmd(target, "compose.attach", f.name) }))] : []),
+      ...(local.length ? [{ separator: true }, { heading: true, label: "Upload from this device" }, ...local.map((f) => ({ label: f.name, icon: "upload", onClick: () => cmd(target, "compose.attach", f.name) }))] : []),
+      ...(!cloud.length && !local.length ? [{ label: "No files available", disabled: true }] : []),
+    ];
+  };
+
+  /** Actions and apps (+): Attach file, Set delivery options, Loop components. */
+  const actionsMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const sub = (items: MenuEntry[], w = 280) => () => setTimeout(() => openMenu(rect, items, w), 0);
+    const isChat = target.startsWith("chat:") || target.startsWith("newchat:") || target.startsWith("reply:");
     openMenu(
-      e.currentTarget.getBoundingClientRect(),
+      rect,
       [
-        ...(cloud.length ? [{ heading: true, label: "Attach cloud files" }, ...cloud.slice(0, 8).map((f) => ({ label: f.name, icon: "onedrive", onClick: () => cmd(target, "compose.attach", f.name) }))] : []),
-        ...(local.length ? [{ separator: true }, { heading: true, label: "Upload from this device" }, ...local.map((f) => ({ label: f.name, icon: "upload", onClick: () => cmd(target, "compose.attach", f.name) }))] : []),
-        ...(!cloud.length && !local.length ? [{ label: "No files available", disabled: true }] : []),
+        { label: "Attach file", icon: "attach", hint: "›", onClick: sub(attachItems()) },
+        ...(isChat || target.startsWith("channel:")
+          ? [
+              {
+                label: "Set delivery options",
+                icon: "important",
+                hint: "›",
+                onClick: sub(
+                  [
+                    { heading: true, label: "Set delivery options" },
+                    { label: "Standard", checked: !delivery, onClick: () => cmd(target, "compose.delivery", "Standard") },
+                    { label: "Important", checked: delivery === "Important", onClick: () => cmd(target, "compose.delivery", "Important") },
+                  ],
+                  220,
+                ),
+              },
+              {
+                label: "Loop components",
+                icon: "sparkle",
+                hint: "›",
+                onClick: sub(
+                  [
+                    { heading: true, label: "Loop components" },
+                    ...["Task list", "Table", "Paragraph"].map((k) => ({ label: k, onClick: () => cmd(target, "compose.loop", k) })),
+                  ],
+                  220,
+                ),
+              },
+            ]
+          : []),
       ],
-      280,
+      240,
     );
   };
 
@@ -567,6 +617,28 @@ export function Composer({
                 <TIcon name={ic as string} size={16} />
               </button>
             ))}
+          </div>
+        )}
+        {post && (
+          <div className={`flex items-center gap-2 border-b px-3 py-1.5 ${dark ? "border-[#3d3d3d]" : "border-[#ebebeb]"}`}>
+            <input aria-label={postType === "Announcement" ? "Headline" : "Add a subject"} value={subject} onChange={(e) => setSubject(e.target.value)} placeholder={postType === "Announcement" ? "Type a headline" : "Add a subject"} className={`min-w-0 flex-1 bg-transparent py-0.5 outline-none ${postType === "Announcement" ? "text-[18px] font-semibold" : "text-[15px] font-semibold"} placeholder:font-normal placeholder:text-[#707070]`} />
+            <select aria-label="Post type" value={postType} onChange={(e) => setPostType(e.target.value as "Post" | "Announcement")} className="rounded border border-[#d1d1d1] bg-white px-1.5 py-0.5 text-[12px] text-[#242424]">
+              <option>Post</option>
+              <option>Announcement</option>
+            </select>
+          </div>
+        )}
+        {(delivery || loopKind) && (
+          <div className="flex flex-wrap items-center gap-2 px-3 pt-2 text-[12px]">
+            {delivery && <span className="rounded bg-[#fde7e9] px-1.5 py-0.5 font-semibold text-[#c4314b]">IMPORTANT!</span>}
+            {loopKind && (
+              <span className="flex items-center gap-1.5 rounded-md border border-[#c5cbfa] bg-[#f0f1fd] px-2 py-1 text-[#4f52b2]">
+                <TIcon name="sparkle" size={14} /> Loop component: {loopKind}
+                <button type="button" aria-label="Remove Loop component" onClick={() => cmd(target, "compose.unloop")} className="text-[#616161] hover:text-[#242424]">
+                  <TIcon name="close" size={12} />
+                </button>
+              </span>
+            )}
           </div>
         )}
         {attachments.length > 0 && (
@@ -635,15 +707,15 @@ export function Composer({
             <button type="button" title="Emoji" aria-label="Emoji" onClick={() => setEmoji((x) => !x)} className={`rounded p-1 ${iconCls}`}>
               <TIcon name="emoji" size={18} />
             </button>
-            <button type="button" title="Attach file" aria-label="Attach file" onClick={attachMenu} className={`rounded p-1 ${iconCls}`}>
-              <TIcon name="attach" size={18} />
+            <button type="button" title="Actions and apps" aria-label="Actions and apps" onClick={actionsMenu} className={`rounded p-1 ${iconCls}`}>
+              <TIcon name="plus" size={18} />
             </button>
             {onCancel && (
               <button type="button" title="Cancel" aria-label="Cancel" onClick={onCancel} className={`rounded p-1 ${iconCls}`}>
                 <TIcon name="close" size={18} />
               </button>
             )}
-            <button type="button" title="Send (Enter)" aria-label="Send" onClick={send} disabled={!text.trim() && !attachments.length} className={`rounded p-1 ${text.trim() || attachments.length ? "text-[#5b5fc7] hover:bg-[#e8ebfa]" : dark ? "text-[#6e6e6e]" : "text-[#c7c7c7]"}`}>
+            <button type="button" title={post ? "Post" : "Send (Enter)"} aria-label={post ? "Post" : "Send"} onClick={send} disabled={!text.trim() && !attachments.length && !loopKind} className={`rounded p-1 ${text.trim() || attachments.length || loopKind ? "text-[#5b5fc7] hover:bg-[#e8ebfa]" : dark ? "text-[#6e6e6e]" : "text-[#c7c7c7]"}`}>
               <TIcon name="send" size={18} />
             </button>
           </div>
@@ -657,15 +729,16 @@ export function Composer({
 /* Messages                                                            */
 /* ------------------------------------------------------------------ */
 
+/** The quick reactions on the hover bar (Teams shows up to five; the rest are under More reactions). */
 export const REACTIONS: [string, string][] = [
   ["Like", "👍"],
   ["Heart", "❤️"],
   ["Laugh", "😆"],
   ["Surprised", "😮"],
   ["Sad", "😢"],
-  ["Angry", "😠"],
 ];
 export const MORE_REACTIONS: [string, string][] = [
+  ["Angry", "😠"],
   ["Check mark", "✅"],
   ["Eyes", "👀"],
   ["Clap", "👏"],

@@ -91,10 +91,11 @@ export const module5Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Trello — a visual, card-based tool built around the Kanban board. Tasks appear as cards that move across columns as work progresses. Best for teams that want simplicity and instant visual clarity. Free tier is generous and ideal for most small teams.",
+              "Trello — a visual, card-based tool built around the Kanban board. Tasks appear as cards that move across columns as work progresses. Best for teams that want simplicity and instant visual clarity. The free plan allows up to 10 collaborators per Workspace, which fits many small teams; larger teams need a paid plan.",
               "Asana — a more structured tool with list views, timeline views, and project portfolios. Best for teams managing complex projects with dependencies, milestones, and multiple contributors. Widely used in marketing, operations, and project management roles.",
               "ClickUp — a highly customizable platform that supports boards, lists, Gantt charts, goals, and time tracking in a single tool. Best for teams that want maximum control over their workflow structure. Steeper learning curve than Trello but more powerful at scale.",
-              "Microsoft To Do — a lightweight personal and small-team task manager that integrates tightly with Microsoft 365 (Outlook, Teams). Best for individuals tracking their own work or for teams already deep in the Microsoft ecosystem. Not suited for complex multi-project management.",
+              "Microsoft To Do — a lightweight personal and small-team task manager that integrates tightly with Microsoft 365 (Outlook, Teams). Best for individuals tracking their own work. Not suited for complex multi-project management.",
+              "Microsoft Planner — the Microsoft 365 tool for team plans. Planner boards use buckets (columns) and task cards, and the Planner app in Teams and on the web brings together your To Do lists, flagged emails, and team plans in My Day, My Tasks, and My Plans. Microsoft retired Project for the web in 2025 and moved its projects into Planner. Best for teams that already work in Microsoft 365 and Teams.",
               "Notion — a flexible workspace that combines task management with documentation, notes, and databases. Best for teams that want to manage tasks and documentation in the same place. Requires more setup than dedicated task tools but is extremely adaptable.",
             ],
           },
