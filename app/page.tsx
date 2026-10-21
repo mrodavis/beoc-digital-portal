@@ -252,7 +252,7 @@ export default function Home() {
                 Work Through Modules
               </h3>
               <p className="text-gray-600">
-                Each module includes video tutorials, practice files, and guided exercises.
+                Work at your own pace. Modules combine lessons, worked examples, and practice, with videos and simulations where a course has them.
               </p>
             </div>
           </div>
