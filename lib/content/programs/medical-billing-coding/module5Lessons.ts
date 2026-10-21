@@ -144,7 +144,7 @@ export const module5Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Medicare sets its fee schedule using the Resource-Based Relative Value Scale. Each code carries relative value units reflecting physician work, practice expense, and malpractice risk. Those are adjusted geographically and multiplied by a national conversion factor to produce a dollar amount. Many commercial payers set their rates as a percentage of Medicare, which is why Medicare's annual changes ripple across the whole payer mix.",
+            text: "Medicare sets its fee schedule using the Resource-Based Relative Value Scale. Each code carries relative value units reflecting physician work, practice expense, and malpractice risk. Those are adjusted geographically and multiplied by a national conversion factor to produce a dollar amount. Since 2026 the law requires two conversion factors: a slightly higher one for clinicians who qualify through an Advanced Alternative Payment Model, and one for everyone else ($33.57 and $33.40 for 2026). CMS updates them every year. Many commercial payers set their rates as a percentage of Medicare, which is why Medicare's annual changes ripple across the whole payer mix.",
           },
           {
             type: "callout",

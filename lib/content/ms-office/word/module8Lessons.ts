@@ -3,22 +3,21 @@ import { Lesson } from "@/types/lesson";
 export const wordModule8Lessons: Lesson[] = [
 
 /* ============================================================
-LESSON 1 – USING WORD ONLINE
+LESSON 1 – USING WORD FOR THE WEB (slug kept from "Word Online")
 ============================================================ */
 
 {
   slug: "using-word-online",
-  title: "Using Word Online",
+  title: "Using Word for the Web",
   description:
-    "Learn how to access and use Word Online through a browser, edit documents in the cloud, and understand the differences between Word Online and the desktop app.",
+    "Learn how to open and use Word for the web (formerly Word Online) in a browser, edit documents in the cloud, and understand how it differs from the Word desktop app.",
   objectives: [
-    "Access Word Online and create or edit a document in a browser",
+    "Open Word for the web and create or edit a document in a browser",
     "Explain which features the browser version lacks and why that matters",
-    "Move a document between Word Online and the desktop app",
+    "Move a document between Word for the web and the desktop app",
     "Decide which version to use for a given task",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/oXCnZ0e-Vfo",
 
   sections: [
 
@@ -28,19 +27,19 @@ LESSON 1 – USING WORD ONLINE
          {
            type: "scenario",
            role: "You are covering reception at Lakeside Medical Associates.",
-           text: "You need to fix a typo in a handout while working at a shared workstation that does not have Office installed. Word Online opens the file in a browser and the fix takes forty seconds. Later you try to run a mail merge in the same browser tab and find the command does not exist.",
+           text: "You need to fix a typo in a handout while working at a shared workstation that does not have Office installed. Word for the web opens the file in a browser and the fix takes forty seconds. Later you try to run a mail merge in the same browser tab and find the command does not exist.",
            task: "Know what the browser version does well and where you need the desktop app.",
          },
          {
            type: "paragraph",
-           text: "Word Online runs in any modern browser with no installation, which makes it genuinely useful on a shared or borrowed machine. It handles typing, basic formatting, comments, and real-time co-authoring well, and it saves continuously to OneDrive.",
+           text: "Word for the web runs in any modern browser with no installation, which makes it genuinely useful on a shared or borrowed machine. It handles typing, basic formatting, comments, and real-time co-authoring well, and it saves continuously to OneDrive.",
          },
          {
            type: "table",
            caption: "Where each version fits",
            columns: [
              "Task",
-             "Word Online",
+             "Word for the web",
              "Desktop",
            ],
            rows: [
@@ -78,39 +77,40 @@ LESSON 1 – USING WORD ONLINE
          },
          {
            type: "tip",
-           text: "Open in Desktop App, on the Word Online toolbar, hands the file to the installed application with your edits intact. Start in the browser for speed, switch when you hit a feature the browser does not have.",
+           text: "Open in Desktop App hands the file from the browser to the installed Word application with your edits intact. Start in the browser for speed, and switch when you hit a feature the browser does not have.",
          },
        ],
      },
 
     {
-      heading: "What Is Word Online?",
+      heading: "What Is Word for the Web?",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Word Online (also called Word for the web) is a free browser-based version of Microsoft Word available through Microsoft 365. It lets you create, view, and edit Word documents from any device with a browser — no software installation needed.",
+            "Word for the web (formerly called Word Online) is a free browser-based version of Microsoft Word that you use with a Microsoft account. It lets you create, view, and edit Word documents from any device with a browser, with no software to install.",
         },
       ],
     },
 
     {
-      heading: "Accessing Word Online",
+      heading: "Opening Word for the Web",
       blocks: [
         {
           type: "paragraph",
           text:
-            "Go to office.com and sign in with your Microsoft account. Click the Word icon to open Word Online. You can also open any .docx file stored in OneDrive directly in your browser.",
+            "In a browser, go to m365.cloud.microsoft and sign in with your school, work, or personal Microsoft account. The older addresses office.com and microsoft365.com still take you there. Microsoft now calls this start page the Microsoft Copilot app (it was the Microsoft 365 app), so the name at the top may differ from the picture. Choose Word to start or open a document. A .docx file stored in OneDrive also opens in Word for the web when you open it from OneDrive in your browser.",
         },
         {
           type: "image",
           src: "/images/word/word-online/wordonline_office_home.png",
-          alt: "Microsoft 365 home page with Word icon",
+          alt: "Microsoft 365 start page in a browser with the Word app in the left navigation",
+          caption: "The start page after you sign in. Its name has changed over time, but Word is listed with the other apps.",
         },
         {
           type: "image",
           src: "/images/word/word-online/wordonline_interface.png",
-          alt: "Word Online editing interface in a browser",
+          alt: "Word for the web editing a document in a browser",
         },
       ],
     },
@@ -121,12 +121,12 @@ LESSON 1 – USING WORD ONLINE
         {
           type: "paragraph",
           text:
-            "Click New blank document on the Word Online start page to open a new, blank document. Files are saved automatically to OneDrive as you work.",
+            "Start a new blank document from the Word start page. Files you create in Word for the web are saved to OneDrive automatically as you work.",
         },
         {
           type: "image",
           src: "/images/word/word-online/wordonline_new_document.png",
-          alt: "New blank document button in Word Online",
+          alt: "Blank document option on the Word for the web start page",
         },
       ],
     },
@@ -137,12 +137,12 @@ LESSON 1 – USING WORD ONLINE
         {
           type: "paragraph",
           text:
-            "Word Online opens documents in Editing view by default. Click View → Reading View to switch to a clean, non-editable layout. Switch back to Editing view to make changes.",
+            "Word for the web opens documents for editing by default. Click View → Reading View to switch to a clean, non-editable layout. Switch back to editing to make changes.",
         },
         {
           type: "image",
           src: "/images/word/word-online/wordonline_reading_view.png",
-          alt: "Reading View in Word Online",
+          alt: "Reading View in Word for the web",
         },
       ],
     },
@@ -153,12 +153,12 @@ LESSON 1 – USING WORD ONLINE
         {
           type: "paragraph",
           text:
-            "If you need features not available in Word Online, click Edit in Desktop App (or Open in Desktop App) in the toolbar. This opens the file directly in the Word desktop application and syncs changes back to OneDrive automatically.",
+            "If you need a feature that Word for the web does not have, choose Open in Desktop App. The file opens in the Word desktop application, and because it stays in OneDrive, your changes keep saving to the same file.",
         },
         {
           type: "image",
           src: "/images/word/word-online/wordonline_open_desktop.png",
-          alt: "Open in Desktop App button in Word Online",
+          alt: "Open in Desktop App command in Word for the web",
         },
       ],
     },
@@ -169,12 +169,12 @@ LESSON 1 – USING WORD ONLINE
         {
           type: "paragraph",
           text:
-            "Word Online covers the most common tasks but lacks some advanced desktop features, including macros, certain advanced layout tools, and some reference and mail merge functions. For basic writing and editing, Word Online works seamlessly.",
+            "Word for the web covers the most common tasks but lacks some advanced desktop features, including macros, certain advanced layout tools, and some reference and mail merge functions. For everyday writing and editing, it works well.",
         },
         {
           type: "image",
           src: "/images/word/word-online/wordonline_ribbon_comparison.png",
-          alt: "Simplified Word Online ribbon compared to desktop",
+          alt: "Simplified Word for the web ribbon compared to the desktop ribbon",
         },
       ],
     },
@@ -184,7 +184,7 @@ LESSON 1 – USING WORD ONLINE
       blocks: [
         {
           type: "knowledge-check",
-          question: "What is one key advantage of Word Online over the desktop app?",
+          question: "What is one key advantage of Word for the web over the desktop app?",
           options: [
             "It supports macros and advanced automation features",
             "It can be accessed from any device with a browser without installing software",
@@ -192,11 +192,11 @@ LESSON 1 – USING WORD ONLINE
             "It offers more advanced layout tools than the desktop version",
           ],
           correctIndex: 1,
-          explanation: "Word Online runs entirely in a browser, so it works on any machine with internet access and no installed copy of Office. That accessibility is its central advantage; the trade-off is a smaller feature set.",
+          explanation: "Word for the web runs entirely in a browser, so it works on any machine with internet access and no installed copy of Office. That accessibility is its central advantage; the trade-off is a smaller feature set.",
           optionRationales: [
             "Macros and add-ins are desktop-only. The browser version does not run them.",
             "Correct. It runs in any modern browser with no installation, which is what makes it useful on a shared machine.",
-            "The opposite is true: Word Online works from files stored in OneDrive, not on a local drive.",
+            "The opposite is true: Word for the web works from files stored in OneDrive, not on a local drive.",
             "The desktop app has the more advanced layout tools. The browser version is deliberately simpler.",
           ],
         },
@@ -213,11 +213,11 @@ LESSON 1 – USING WORD ONLINE
       type: "list",
       ordered: true,
       items: [
-        "Go to office.com and sign in with your Microsoft account.",
-        "Open Word Online and create a new blank document.",
+        "Go to m365.cloud.microsoft (office.com also takes you there) and sign in with your Microsoft account.",
+        "Open Word and create a new blank document.",
         "Type a short paragraph and add a heading using the Heading 1 style.",
         "Switch to Reading View and then back to Editing view.",
-        "Open the document in the desktop app using the Edit in Desktop App button.",
+        "Open the document in the desktop app with Open in Desktop App.",
       ],
     },
   ],
@@ -239,7 +239,6 @@ LESSON 2 – CO-AUTHORING IN WORD
     "Manage and revoke sharing permissions",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/WCROca-WFiI",
 
   sections: [
 
@@ -289,7 +288,7 @@ LESSON 2 – CO-AUTHORING IN WORD
         {
           type: "paragraph",
           text:
-            "The document must be saved to OneDrive or SharePoint to enable co-authoring. Click Share in the top-right corner, enter the email addresses of your collaborators, choose their permission level (can edit or can view), and click Send.",
+            "The document must be saved to OneDrive or SharePoint to enable co-authoring. Click Share in the top-right corner, enter the email addresses of your collaborators, choose their permission level (Can edit or Can view), and select Share or Send.",
         },
         {
           type: "image",
@@ -358,7 +357,7 @@ LESSON 2 – CO-AUTHORING IN WORD
         {
           type: "paragraph",
           text:
-            "To change or remove someone's access, click Share → Manage Access. From here you can change a collaborator's permission level to View Only or remove their access entirely.",
+            "To change or remove someone's access, click Share → Manage Access. From here you can change a collaborator's permission to Can view or remove their access entirely.",
         },
         {
           type: "image",
@@ -406,7 +405,7 @@ LESSON 2 – CO-AUTHORING IN WORD
         "Click Share and invite a classmate or colleague with Edit permissions.",
         "Ask them to open the document and make a change — observe their cursor flag.",
         "Locate their author icon in the top-right corner and click it to jump to their position.",
-        "Open Manage Access and change their permission to View Only.",
+        "Open Manage Access and change their permission to Can view.",
       ],
     },
   ],
@@ -710,7 +709,6 @@ LESSON 4 – DICTATION & VOICE FEATURES
     "Judge when dictation is appropriate given the setting and the content",
   ],
   duration: "7 min",
-  videoUrl: "https://www.youtube.com/embed/cC3IOqrHMFU",
 
   sections: [
 
@@ -745,7 +743,7 @@ LESSON 4 – DICTATION & VOICE FEATURES
         {
           type: "paragraph",
           text:
-            "Dictation converts your spoken words into typed text in Word. It works with a microphone connected to your computer and uses Microsoft's speech recognition service. Dictation is available on both the desktop app and Word Online.",
+            "Dictation converts your spoken words into typed text in Word. It works with a microphone connected to your computer and uses Microsoft's speech recognition service. Dictation is available in both the desktop app and Word for the web.",
         },
       ],
     },
@@ -793,7 +791,7 @@ LESSON 4 – DICTATION & VOICE FEATURES
         {
           type: "paragraph",
           text:
-            "You can use voice commands to make edits while dictating. Say 'delete last word' to remove the last word, 'undo' to undo the last action, or 'select [word or phrase]' to select specific text for formatting.",
+            "You can use voice commands to make edits while dictating. Say 'delete' followed by a word or phrase to remove it, 'undo' to undo the last action, or 'select' followed by a word or phrase to select that text for formatting.",
         },
         {
           type: "image",
@@ -825,7 +823,7 @@ LESSON 4 – DICTATION & VOICE FEATURES
         {
           type: "paragraph",
           text:
-            "Click the Dictate button again or press the keyboard shortcut (Alt + `) to stop dictation. The microphone icon turns back to its normal color.",
+            "Click the Dictate button again to stop dictation. The microphone icon turns back to its normal color.",
         },
         {
           type: "image",
@@ -851,9 +849,9 @@ LESSON 4 – DICTATION & VOICE FEATURES
           explanation: "Punctuation is dictated as spoken commands — say 'period,' 'comma,' 'question mark,' 'new paragraph.' Word converts the spoken command into the mark rather than typing the word.",
           optionRationales: [
             "This works, but it defeats the purpose of dictating hands-free and is not how the feature is designed to be used.",
-            "Word does not infer punctuation from pauses. Speaking the mark is what inserts it.",
+            "Pausing is not a reliable way to punctuate. Speaking the mark is the dependable way to insert it.",
             "Correct. Saying 'period' inserts the punctuation mark rather than the word.",
-            "The dictation toolbar has settings and a microphone control, but no punctuation button — punctuation is spoken.",
+            "Punctuation is spoken, not clicked: say the name of the mark where it belongs.",
           ],
         },
       ],
@@ -896,7 +894,6 @@ LESSON 5 – ACCESSIBILITY FEATURES
     "Check color contrast and avoid color as the sole carrier of meaning",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/aRvMDhDNB4o",
 
   sections: [
 
@@ -1019,12 +1016,12 @@ LESSON 5 – ACCESSIBILITY FEATURES
         {
           type: "paragraph",
           text:
-            "Alt text describes an image for screen readers. Right-click an image and choose Edit Alt Text. Type a brief, descriptive sentence that explains what the image shows. Avoid vague descriptions like 'image 1'.",
+            "Alt text describes an image for screen readers. Right-click an image and choose View Alt Text (or select it, then Picture Format > Alt Text). Type a brief, descriptive sentence that explains what the image shows. Avoid vague descriptions like 'image 1'.",
         },
         {
           type: "image",
           src: "/images/word/accessibility/accessibility_alttext_rightclick.png",
-          alt: "Edit Alt Text option in right-click menu",
+          alt: "View Alt Text option in the right-click menu for a picture",
         },
         {
           type: "image",
