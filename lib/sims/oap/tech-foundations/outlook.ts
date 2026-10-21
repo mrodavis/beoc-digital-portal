@@ -39,14 +39,14 @@ function base(messages: OlMessage[], extra: Partial<OutlookDoc> = {}): Record<st
   });
 }
 
-const replyHint = "Select the message, then Home tab › Respond group › Reply (or Ctrl+R, or Reply in the Reading Pane). Type your text above the original message and click Send.";
+const replyHint = "Select the message, then Home tab › Reply (or Reply in the reading pane, or Ctrl+R). Type your text above the original message and select Send.";
 
 export const outlookSims: Record<string, SimDefinition[]> = {
   /* ---------------------------------------------------------------- */
   "module-4::email-fundamentals": [
     {
       id: "tf-m4-email-fundamentals-outlook-1",
-      app: "outlook",
+      app: "outlook-new",
       title: "Set up your Student Services mailbox",
       scenario:
         "It is your first day as a student worker in the Northgate College Office of Student Services. Your supervisor, Dana Brooks, wants your mailbox ready before the phones start: a layout you can read quickly, a signature, a folder for student questions, and answers to the messages that came in overnight.",
@@ -65,12 +65,12 @@ export const outlookSims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Show the Reading Pane at the bottom of the window so you can read a message without opening it.",
-          hint: "View tab › Layout group › Reading Pane › Bottom.",
+          hint: "View tab › Layout › Reading pane › Show on the bottom. (Classic Outlook: View tab › Reading Pane › Bottom.)",
           steps: [{ action: { kind: "command", id: "view.readingPane", value: "Bottom" } }],
         },
         {
           instruction: 'Create an email signature named "Standard" with the text "Alex Rivera, Student Services Assistant, Northgate College, (555) 010-4477", and set it as the default signature for new messages.',
-          hint: "File tab › Options › Mail › Signatures... › New › type Standard › OK › type the signature in Edit signature › New messages: Standard › OK. (In a new message you can also use Message tab › Signature › Signatures....)",
+          hint: "Settings (gear, top right) › Accounts › Signatures › Add signature. Name it Standard, type the signature, check Add this signature to new messages, and select Save. (Classic Outlook: File › Options › Mail › Signatures.)",
           steps: [
             signaturesStep(
               { sigs: [{ name: "Standard", text: "Alex Rivera, Student Services Assistant, Northgate College, (555) 010-4477" }], defNew: "Standard" },
@@ -80,12 +80,12 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Create a folder named "Student Inquiries" inside the Inbox.',
-          hint: "Right-click Inbox in the Folder Pane › New Folder... › type Student Inquiries › Enter. (Or Folder tab › New Folder, or Ctrl+Shift+E.)",
+          hint: "Right-click Inbox in the folder pane › Create new subfolder › type Student Inquiries › Enter. (Classic Outlook: right-click Inbox › New Folder.)",
           steps: [{ action: { kind: "dialog", id: "newFolder", values: { name: "Student Inquiries", parent: "Inbox" } } }],
         },
         {
           instruction: 'Move the message "Question about my class schedule" from Jordan Price to the Student Inquiries folder.',
-          hint: "Drag the message onto Student Inquiries in the Folder Pane. Or right-click it › Move › Student Inquiries, or Home tab › Move › Other Folder....",
+          hint: "Drag the message onto Student Inquiries in the folder pane, or right-click it › Move › Student Inquiries, or Home tab › Move to.",
           steps: [{ action: { kind: "command", id: "mail.move", value: "Student Inquiries" }, requires: { selection: "msg:m3" }, selectHint: "Click Jordan Price's message \"Question about my class schedule\" first." }],
         },
         {
@@ -99,7 +99,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Lena Ortiz asked everyone to reply so the whole group can see who is covering. Answer her message "Orientation volunteer schedule" so all recipients see it, with the text "I can help at the welcome table on Saturday."',
-          hint: "Select the message, then Home tab › Respond group › Reply All (or Ctrl+Shift+R). Type your text and click Send.",
+          hint: "Select the message, then Home tab › Reply all (or Ctrl+Shift+R). Type your text and select Send.",
           steps: [
             { action: { kind: "command", id: "mail.replyAll" }, requires: { selection: "msg:m2" }, selectHint: "Select Lena Ortiz's message \"Orientation volunteer schedule\" first." },
             mentions("compose.body", "I can help at the welcome table on Saturday.", ["welcome table", "Saturday"]),
@@ -108,7 +108,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Test your signature: send a new message to yourself (alex.rivera@northgate.example.com) with the subject "Signature Test - Alex Rivera" and the text "Testing my new signature."',
-          hint: "Home tab › New Email (or Ctrl+N). In To, type your own address. Type the subject, then type the text above your signature and click Send. The test arrives in your Inbox.",
+          hint: "Home tab › New mail (or Ctrl+N). In To, type your own address. Type the subject, then type the text above your signature and select Send. The test arrives in your Inbox.",
           steps: [
             OPEN.email,
             { action: { kind: "type", target: "compose.to", value: recipients(ME.email) } },
@@ -125,7 +125,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
   "module-4::writing-professional-emails": [
     {
       id: "tf-m4-writing-professional-emails-outlook-1",
-      app: "outlook",
+      app: "outlook-new",
       title: "Send four professional messages",
       scenario:
         "Dana Brooks left you four messages to send before noon: confirm a student's advising appointment, follow up with the Registrar about a missing transcript, pass a form to Financial Aid, and request a price quote from a vendor. Each one needs a specific subject, a clear first sentence, and the right recipients.",
@@ -151,7 +151,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Create a new message to Priya Shah with a copy (Cc) to Dana Brooks. Use the subject "Transcript Request: Maria Lopez, Needed by October 27" and begin the message with "I am writing to follow up on Maria Lopez\'s transcript request." Then send it.',
-          hint: "Home tab › New Email (Ctrl+N). Type Priya in To and pick her from the list, type Dana in Cc, type the subject, type the first sentence, and click Send.",
+          hint: "Home tab › New mail (Ctrl+N). Type Priya in To and pick her from the list, select Cc and type Dana, type the subject and the first sentence, and select Send.",
           steps: [
             OPEN.email,
             { action: { kind: "type", target: "compose.to", value: recipients(PRIYA.email) } },
@@ -163,7 +163,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Forward Grace Kim\'s message "Room request form" to Tomas Reyes with the note "Tomas, please complete the attached form by Friday."',
-          hint: "Select the message, then Home tab › Respond group › Forward (or Ctrl+F). Type Tomas in To, type the note, and click Send. The attachment travels with the forward.",
+          hint: "Select the message, then Home tab › Forward (or Ctrl+F). Type Tomas in To, type the note, and select Send. The attachment travels with the forward.",
           steps: [
             { action: { kind: "command", id: "mail.forward" }, requires: { selection: "msg:m2" }, selectHint: "Select Grace Kim's message \"Room request form\" first." },
             { action: { kind: "type", target: "compose.to", value: recipients(TOMAS.email) } },
@@ -173,7 +173,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Create a new message to Bayside Office Supply (orders@baysidesupply.example.com). Attach "Supply Quote Request.docx", use the subject "Quote Request: Copy Paper and Toner, Reply by October 27", type "Please see the attached request for a price quote.", and send it.',
-          hint: "New Email › Message tab › Include group › Attach File › Browse This PC... › Supply Quote Request.docx › Insert. Attach first, then fill in To, Subject, and the text, and click Send.",
+          hint: "New mail › Insert tab › Attach file › Browse this computer › Supply Quote Request.docx. Attach first, then fill in To, the subject and the text, and select Send.",
           steps: [
             OPEN.email,
             { action: { kind: "dialog", id: "attachFile", values: { file: "Supply Quote Request.docx" } } },
@@ -191,7 +191,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
   "module-4::inbox-management": [
     {
       id: "tf-m4-inbox-management-outlook-1",
-      app: "outlook",
+      app: "outlook-new",
       title: "Build a filing system for a busy inbox",
       scenario:
         "The Student Services inbox gets dozens of messages a day, and important ones are getting buried under newsletters. Dana Brooks asks you to set up folders and a rule so the Inbox only holds messages that still need action.",
@@ -212,7 +212,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: 'Create a folder named "Financial Aid" inside the Inbox.',
-          hint: "Right-click Inbox › New Folder... and type the name, or Folder tab › New group › New Folder (Ctrl+Shift+E) › Name: Financial Aid › Select Inbox › OK.",
+          hint: "Right-click Inbox › Create new subfolder › type Financial Aid › Enter. (Classic Outlook: right-click Inbox › New Folder, or Ctrl+Shift+E.)",
           steps: [{ action: { kind: "dialog", id: "newFolder", values: { name: "Financial Aid", parent: "Inbox" } } }],
         },
         {
@@ -221,37 +221,46 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "mail.move", value: "Financial Aid" }, requires: { selection: "msg:m2" }, selectHint: "Click the message \"FAFSA verification documents\" first." }],
         },
         {
-          instruction: "Create a rule that moves every message from Campus Tech Weekly (news@campustech.example.com) to the Newsletters folder, and run it now on the Inbox.",
-          hint: "Select a Campus Tech Weekly message, then Home tab › Move group › Rules › Create Rule... › check From Campus Tech Weekly › check Move the item to folder › Newsletters › check Run this rule now › OK. (Rules › Always Move Messages From Sender... also works.)",
+          instruction: "Create a rule that moves every message from Campus Tech Weekly (news@campustech.example.com) to the Newsletters folder.",
+          hint: "Select a Campus Tech Weekly message, then right-click it › Rules › Create rule (or Home tab › Rules › Create rule). Choose the Newsletters folder and select OK. (Classic Outlook: Home tab › Rules › Create Rule.)",
           steps: [
             {
-              action: { kind: "dialog", id: "createRule", values: { fromOn: true, moveOn: true, folder: "Newsletters", runNow: true } },
-              alt: [{ kind: "dialog", id: "alwaysMove", values: { folder: "Newsletters" } }],
+              action: { kind: "dialog", id: "createRuleQuick", values: { folder: "Newsletters" } },
               requires: { selection: ["msg:m4", "msg:m5"] },
               selectHint: "Select one of the Campus Tech Weekly messages first, so the rule is built from that sender.",
             },
           ],
         },
         {
-          instruction: 'Block the sender of the message "You won a free laptop!!!" so future messages from it go to Junk Email.',
-          hint: "Select the message, then Home tab › Delete group › Junk › Block Sender (or right-click › Junk › Block Sender).",
-          steps: [{ action: { kind: "command", id: "home.junk", value: "Block Sender" }, requires: { selection: "msg:m6" }, selectHint: "Select the message \"You won a free laptop!!!\" first." }],
+          instruction: "Run the new Campus Tech Weekly rule now so it also moves the newsletters already in your Inbox.",
+          hint: "Settings › Mail › Rules › select Run rule now (the play button) next to the Campus Tech Weekly rule. (Classic Outlook: Rules › Manage Rules & Alerts › Run Rules Now.)",
+          steps: [{ action: { kind: "command", id: "rules.run", value: "Campus Tech Weekly" } }],
+        },
+        {
+          instruction: 'Block the sender of the message "You won a free laptop!!!" (winner@freeprize-claims.example.biz).',
+          hint: "Settings › Mail › Junk email › Blocked senders: type the address, select Add, then Save. You can also right-click the message › Block › Block sender. (Classic Outlook: Home tab › Junk › Block Sender.)",
+          steps: [
+            {
+              action: { kind: "command", id: "junk.blockAddress", value: "winner@freeprize-claims.example.biz" },
+              alt: [{ kind: "command", id: "home.junk", value: "Block Sender", requires: { selection: "msg:m6" } }],
+            },
+          ],
         },
         {
           instruction: 'Flag the message "Parking permit appeal" from Jordan Price for follow-up this week.',
-          hint: "Select the message, then Home tab › Tags group › Follow Up › This Week (or right-click › Follow Up › This Week).",
+          hint: "Select the message, then Home tab › the arrow next to Flag / Unflag › This week (or right-click › Flag › This week). (Classic Outlook: Home tab › Follow Up › This Week.)",
           steps: [{ action: { kind: "command", id: "item.followUp", value: "This Week" }, requires: { selection: "msg:m3" }, selectHint: "Select Jordan Price's message \"Parking permit appeal\" first." }],
         },
         {
           instruction: 'Assign the Red Category to the message "URGENT: Room change for Monday\'s orientation" so it stands out.',
-          hint: "Select the message, then Home tab › Tags group › Categorize › Red Category (or right-click › Categorize).",
+          hint: "Select the message, then Home tab › Categorize › Red category (or right-click › Categorize).",
           steps: [{ action: { kind: "command", id: "item.categorize", value: "Red Category" }, requires: { selection: "msg:m1" }, selectHint: "Select Dana Brooks's URGENT message first." }],
         },
       ],
     },
     {
       id: "tf-m4-inbox-management-outlook-2",
-      app: "outlook",
+      app: "outlook-new",
       title: "Flag, categorize, and find what you need",
       scenario:
         "Your folders are in place. Now make sure follow-ups have due dates, color labels mean something, and you can find a message even when it was filed in the wrong place.",
@@ -271,38 +280,38 @@ export const outlookSims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: 'Flag the message "Parking permit appeal" for follow-up tomorrow.',
-          hint: "Select the message, then Home tab › Tags group › Follow Up › Tomorrow (or right-click › Follow Up › Tomorrow).",
+          hint: "Select the message, then Home tab › the arrow next to Flag / Unflag › Tomorrow (or right-click › Flag › Tomorrow).",
           steps: [{ action: { kind: "command", id: "item.followUp", value: "Tomorrow" }, requires: { selection: "msg:m1" }, selectHint: "Select \"Parking permit appeal\" first." }],
         },
         {
-          instruction: 'Flag the message "Lab fee refund request" with a due date of 10/30/2026.',
-          hint: "Select the message, then Home tab › Follow Up › Custom... › Due date: 10/30/2026 › OK (or press Ctrl+Shift+G).",
-          steps: [{ action: { kind: "dialog", id: "customFlag", values: { dueDate: "10/30/2026" } }, requires: { selection: "msg:m2" }, selectHint: "Select Maria Lopez's \"Lab fee refund request\" first." }],
+          instruction: 'Flag the message "Lab fee refund request" for follow-up next week.',
+          hint: "Select the message, then Home tab › the arrow next to Flag / Unflag › Next week (or right-click › Flag › Next week).",
+          steps: [{ action: { kind: "command", id: "item.followUp", value: "Next Week" }, requires: { selection: "msg:m2" }, selectHint: "Select Maria Lopez's \"Lab fee refund request\" first." }],
         },
         {
           instruction: 'Assign the Blue Category to the message "Spring registration dates".',
-          hint: "Select the message, then Home tab › Tags group › Categorize › Blue Category.",
+          hint: "Select the message, then Home tab › Categorize › Blue category.",
           steps: [{ action: { kind: "command", id: "item.categorize", value: "Blue Category" }, requires: { selection: "msg:m3" }, selectHint: "Select Priya Shah's \"Spring registration dates\" first." }],
         },
         {
           instruction: 'A student says they emailed about a locker last week, but you cannot see it. Search your mailbox for "locker", then move the message you find to the Student Inquiries folder.',
-          hint: "Click the Search box above the message list (or press Ctrl+E), type locker, and press Enter. Then drag the result to Student Inquiries, or right-click › Move › Student Inquiries.",
+          hint: "Click the Search box at the top of the window, type locker, and press Enter. Then drag the result to Student Inquiries, or right-click › Move › Student Inquiries.",
           steps: [{ action: { kind: "command", id: "mail.move", value: "Student Inquiries" }, requires: { selection: "msg:m6" }, selectHint: "Search for locker, then click the message \"Locker assignment question\"." }],
         },
         {
           instruction: 'Mark the message "Lunch and learn: time management" as unread so it stays on your list.',
-          hint: "Select the message, then Home tab › Tags group › Unread/ Read (or press Ctrl+U, or right-click › Mark as Unread).",
+          hint: "Select the message, then Home tab › Read / Unread (or press Ctrl+U, or right-click › Mark as unread).",
           steps: [{ action: { kind: "command", id: "mail.markUnread" }, alt: [{ kind: "command", id: "mail.toggleRead" }], requires: { selection: "msg:m4" }, selectHint: "Select Grace Kim's \"Lunch and learn\" message first." }],
         },
         {
           instruction: 'The message "Your password was changed" needs no action, but you may need it later. Remove it from the Inbox without deleting it.',
-          hint: "Select the message, then Home tab › Delete group › Archive (or press Backspace). Archived mail stays searchable in the Archive folder.",
+          hint: "Select the message, then Home tab › Archive. Archived mail stays searchable in the Archive folder.",
           steps: [{ action: { kind: "command", id: "mail.archive" }, alt: [{ kind: "command", id: "mail.move", value: "Archive" }], requires: { selection: "msg:m5" }, selectHint: "Select the IT Help Desk message \"Your password was changed\" first." }],
         },
         {
-          instruction: "Show the To-Do Bar with your tasks so your flagged messages stay in view.",
-          hint: "View tab › Layout group › To-Do Bar › Tasks.",
-          steps: [{ action: { kind: "command", id: "view.todoBar", value: "Tasks" } }],
+          instruction: "Open To Do and show the Flagged email list to see your follow-ups in one place.",
+          hint: "Select To Do in the navigation bar on the left, then select Flagged email. (Classic Outlook: View tab › To-Do Bar › Tasks.)",
+          steps: [{ action: { kind: "command", id: "todo.list", value: "Flagged email" } }],
         },
       ],
     },
@@ -312,7 +321,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
   "module-4::email-etiquette": [
     {
       id: "tf-m4-email-etiquette-outlook-1",
-      app: "outlook",
+      app: "outlook-new",
       title: "Handle the tricky messages the right way",
       scenario:
         "It is 9:40 PM and you are finishing a few messages before a three-day absence. Some need Reply instead of Reply All, one needs Bcc, one should wait until morning, and your mailbox needs an out of office reply before you leave.",
@@ -334,7 +343,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: 'Lena Ortiz sent "Who can cover the front desk on Friday?" to six people and asked for direct replies. Answer only Lena with "I can cover the front desk on Friday from 9:00 AM to 1:00 PM."',
-          hint: "Select the message, then Home tab › Respond group › Reply (not Reply All), or Ctrl+R. Type the text and click Send.",
+          hint: "Select the message, then Home tab › Reply (not Reply all), or Ctrl+R. Type the text and select Send.",
           steps: [
             { action: { kind: "command", id: "mail.reply" }, requires: { selection: "msg:m1" }, selectHint: "Select Lena Ortiz's message first." },
             mentions("compose.body", "I can cover the front desk on Friday from 9:00 AM to 1:00 PM.", ["Friday", "9:00 AM"]),
@@ -343,7 +352,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Reply to Jordan Price\'s complaint "Still waiting on my refund" with "I am sorry for the delay. I have asked Financial Aid to review your refund today." and add your supervisor, Dana Brooks, as Cc.',
-          hint: "Select the message › Reply (Ctrl+R) › type Dana in the Cc box and pick her › type the text › Send.",
+          hint: "Select the message › Reply (Ctrl+R) › select Cc at the right end of the To line › type Dana and pick her › type the text › Send.",
           steps: [
             { action: { kind: "command", id: "mail.reply" }, requires: { selection: "msg:m4" }, selectHint: "Select Jordan Price's message first." },
             { action: { kind: "type", target: "compose.cc", value: recipients(DANA.email) } },
@@ -362,8 +371,8 @@ export const outlookSims: Record<string, SimDefinition[]> = {
           ],
         },
         {
-          instruction: 'Send an update to the Orientation Volunteers without showing their addresses to each other: new message, To yourself, the "Orientation Volunteers" contact group in Bcc, subject "Saturday Orientation: Arrive at 8:30 AM", and the text "Please arrive at 8:30 AM instead of 9:00 AM."',
-          hint: "New Email › Options tab › Show Fields group › Bcc. Put your own address in To, type Orientation in Bcc and pick the group, type the subject and text, and click Send.",
+          instruction: 'Send an update to the Orientation Volunteers without showing their addresses to each other: new message, To yourself, the "Orientation Volunteers" contact list in Bcc, subject "Saturday Orientation: Arrive at 8:30 AM", and the text "Please arrive at 8:30 AM instead of 9:00 AM."',
+          hint: "New mail › select Bcc at the right end of the To line (or Options tab › Show Bcc). Put your own address in To, type Orientation in Bcc and pick the list, type the subject and text, and select Send.",
           steps: [
             OPEN.email,
             { action: { kind: "type", target: "compose.to", value: recipients(ME.email) } },
@@ -375,7 +384,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'It is late. Reply to Tomas Reyes\'s "Can you resend the workshop flyer?", attach "Workshop Flyer.pdf", type "Here is the workshop flyer.", and schedule it to send tomorrow morning at 8:00 AM instead of now.',
-          hint: "Select the message › Reply › Message tab › Attach File › Workshop Flyer.pdf › Insert. Type the text, then click the arrow on the Send button › Schedule send › Tomorrow morning 8:00 AM › Send. The message waits in the Outbox.",
+          hint: "Select the message › Reply › Insert tab › Attach file › Workshop Flyer.pdf. Type the text, then select the arrow next to Send › Schedule send › Tomorrow morning 8:00 AM › Send. The message waits in Drafts until then. (Classic Outlook: Options tab › Delay Delivery; the message waits in the Outbox.)",
           steps: [
             { action: { kind: "command", id: "mail.reply" }, requires: { selection: "msg:m2" }, selectHint: "Select Tomas Reyes's message first." },
             { action: { kind: "dialog", id: "attachFile", values: { file: "Workshop Flyer.pdf" } } },
@@ -386,7 +395,7 @@ export const outlookSims: Record<string, SimDefinition[]> = {
         {
           instruction:
             'Before you leave, turn on automatic replies that are sent only from 10/21/2026 8:00 AM to 10/23/2026 5:00 PM. Inside your organization, reply with: "I am out of the office until Monday, October 26. For urgent requests, contact Dana Brooks at dana.brooks@northgate.example.com."',
-          hint: "File tab › Info › Automatic Replies › Send automatic replies › check Only send during this time range › set Start time and End time › type the message on the Inside My Organization tab › OK.",
+          hint: "Settings › Accounts › Automatic replies › turn on Automatic replies › check Send replies only during a time period › set the start and end › type the message › Save. (Classic Outlook: File › Automatic Replies.)",
           steps: [
             autoRepliesStep(
               { start: ["10/21/2026", "8:00 AM"], end: ["10/23/2026", "5:00 PM"], inside: "I am out of the office until Monday, October 26. For urgent requests, contact Dana Brooks at dana.brooks@northgate.example.com." },
