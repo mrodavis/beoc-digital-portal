@@ -218,7 +218,7 @@ function TestResults({ f, onAgain }: { f: Finished; onAgain: () => void }) {
   return (
     <section aria-labelledby="results-heading" className="space-y-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm sm:p-8">
       <div>
-        <h2 id="results-heading" tabIndex={-1} className="text-2xl font-bold text-gray-900">
+        <h2 id="results-heading" tabIndex={-1} className="text-2xl font-bold text-gray-900 focus:outline-none">
           Your {f.minutes}-minute test results
         </h2>
         <p className="mt-1 text-gray-700">
