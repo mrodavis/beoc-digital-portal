@@ -182,6 +182,7 @@ function Composer({ space }: { space: GmSpace }) {
   };
   const placeholder = `Message ${spaceTitle(doc, space)}`;
   return (
+    <>
     <div className="relative m-4 shrink-0">
       {(people.length > 0 || files.length > 0) && (
         <div role="listbox" aria-label="Suggestions" className="absolute bottom-[calc(100%+6px)] left-0 z-20 w-[340px] rounded-lg bg-white py-1 text-[14px] shadow-[0_2px_6px_2px_rgba(60,64,67,.15)]">
@@ -211,6 +212,7 @@ function Composer({ space }: { space: GmSpace }) {
           <IconBtn icon="send" label="Send message" onClick={send} disabled={!text.trim() && !file} color="#0b57d0" />
         </div>
       </div>
+    </div>
       {pending && step === "members" && (
         <Modal
           title={pending.outsiders.length === 1 ? `${pending.outsiders[0].name} isn't in this space` : "Some people aren't in this space"}
@@ -236,7 +238,7 @@ function Composer({ space }: { space: GmSpace }) {
           ))}
         </Modal>
       )}
-    </div>
+    </>
   );
 }
 
@@ -248,7 +250,7 @@ function NewChat({ pos, onClose, onCreateSpace }: { pos: MenuPos; onClose: () =>
   const hits = text.trim() ? g.doc.people.filter((p) => p.email !== g.doc.me.email && !list.includes(p.email) && (p.name.toLowerCase().includes(text.toLowerCase()) || p.email.toLowerCase().includes(text.toLowerCase()))).slice(0, 5) : [];
   const start = () => { if (list.length) { g.type("newdm", `People: ${list.join("; ")}`); onClose(); } };
   return (
-    <div className="absolute inset-0 z-[150]" onMouseDown={onClose}>
+    <div className="fixed inset-0 z-[150]" onMouseDown={onClose}>
       <div role="dialog" aria-label="New chat" onMouseDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()} className="absolute w-[340px] rounded-2xl bg-white p-3 text-[14px] shadow-[0_4px_8px_3px_rgba(60,64,67,.15),0_1px_3px_rgba(60,64,67,.3)]" style={{ left: Math.max(8, pos.x), top: pos.y }}>
         <div className="relative">
           <input autoFocus aria-label="Enter a name or email" placeholder="Add 1 or more people" value={text} onChange={(e) => setText(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") { if (hits[0]) { setList([...list, hits[0].email]); setText(""); } else start(); } }} className="h-10 w-full rounded border border-[#747775] px-3 outline-none focus:border-2 focus:border-[#0b57d0]" />
