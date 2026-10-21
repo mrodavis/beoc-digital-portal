@@ -1,0 +1,144 @@
+Shapes in PowerPoint
+
+Module 5: Images & Objects
+
+Learn how to insert, format, resize, rotate, and customize shapes to make your slides more visually engaging and professional.
+
+By the end of this lesson you can:
+- Insert, resize, and rotate shapes precisely
+- Change one shape into another without rebuilding it
+- Use shape styles consistently across a diagram
+- Build simple diagrams that explain a process
+
+
+## Shapes make relationships visible
+
+ type: scenario
+ role: You explain the referral workflow at Lakeside Medical Associates.
+ text: Described in bullets the workflow takes three slides and still leaves people unsure where the decision point sits. Drawn as boxes a diamond and arrows it fits on one slide and needs no explanation at all.
+ task: Use shapes where the relationship between steps is the actual content.
+
+
+Diagrams are worth building when structure is the point — a sequence, a branch, a hierarchy. Bullets flatten all of these into a list of equal-looking items, which is exactly what loses the structure.
+
+
+ type: table
+ caption: Handles on a selected shape
+ columns: 
+  Handle
+  Appearance
+  Does
+ rows: 
+   Sizing
+   White squares at corners and edges
+   Resizes — use corners to keep proportions
+   Rotation
+   Circular arrow above the shape
+   Rotates; hold Shift for 15° increments
+   Adjustment
+   Yellow dot
+   Changes the shape's proportions such as an arrow's head size
+   Connection
+   Gray dots on the outline
+   Anchors a connector so it follows the shape when moved
+
+
+Edit Shape > Change Shape converts an existing shape to a different one while keeping its size, position, text, and formatting. When a rectangle should have been a diamond, this is one command instead of rebuilding and re-styling it.
+
+
+## Why Shapes Matter
+Shapes are more than decorative objects. In PowerPoint, they can be used to highlight important ideas, create visual emphasis, build diagrams, and make slides feel more polished and intentional.
+
+A simple shape can help direct attention to key content or add personality to a slide. In this lesson, shapes are used to support a wellness presentation by turning plain slides into more visually appealing ones.
+
+Note: Shapes are one of the fastest ways to add structure and visual interest to a slide without needing outside graphics.
+
+
+## Inserting a Shape
+To insert a shape, go to the Insert tab and click Shapes. PowerPoint includes lines, rectangles, arrows, stars, banners, callouts, and many other built-in shape options.
+
+After selecting a shape, click and drag on the slide to draw it. The size and proportions of the shape will depend on how far you drag.
+
+In this example, a sun shape is inserted onto the slide as a starting point for a visual callout.
+
+
+## Resizing and Rotating Shapes
+Once a shape is inserted, you can resize it using the sizing handles around the border. Drag a corner handle to scale the shape larger or smaller.
+
+To rotate a shape, drag the circular rotation handle above it. This allows you to angle the shape to better fit your design.
+
+Resizing and rotating are basic but important adjustments. Even a simple angle change can make a shape look more dynamic and eye-catching.
+
+
+## Using the Yellow Adjustment Handle
+Some shapes include one or more yellow adjustment handles. These allow you to modify the appearance of the shape itself.
+
+For example, with the sun shape, the yellow handle changes the length and spacing of the rays. Other shapes may use this handle to alter corners, arrowheads, banner folds, or other design details.
+
+If a shape looks close to what you want but not quite right, check for a yellow handle before replacing it with a different shape.
+
+
+## Applying Shape Styles
+PowerPoint includes built-in Shape Styles that instantly apply combinations of fill colors, outlines, and effects.
+
+To use them, select the shape and go to the Shape Format tab. In the Shape Styles group, choose a preset style from the gallery.
+
+Applying a style is a quick way to improve the appearance of a shape without manually adjusting every setting.
+
+
+## Changing Shape Fill
+Shape Fill controls the interior color or appearance of a shape. You can apply a solid fill, gradient, texture, picture fill, or choose No Fill.
+
+To change the fill, select the shape, go to the Format tab, and click Shape Fill.
+
+You can use one of the theme colors for consistency, or choose More Fill Colors for additional customization.
+
+In this example, changing the fill color helps transform the sun from a simple green shape into a brighter, more attention-grabbing graphic.
+
+
+## Changing Shape Outline
+Shape Outline controls the border around a shape. You can change its color, thickness, dashes, or remove it entirely.
+
+To change the outline, select the shape and click Shape Outline on the Format tab.
+
+Increasing the outline weight makes the border thicker and more visible. Removing the outline creates a cleaner, flatter look.
+
+In this lesson, outline changes help define the shape and make it coordinate more effectively with the slide theme.
+
+
+## Applying Shape Effects
+Shape Effects add visual enhancements such as shadows, glows, reflections, bevels, and 3-D rotation.
+
+To apply an effect, select the shape, go to Shape Effects, and choose the effect you want to use.
+
+Glow effects are especially useful when you want a shape to stand out from the background.
+
+Note: Effects can make a shape pop, but too many effects at once can make a slide feel cluttered or dated. Use them on purpose.
+
+
+## Editing and Changing a Shape
+You are not locked into the original shape you insert. PowerPoint allows you to change a shape into a different one while keeping much of its formatting.
+
+Select the shape, go to Edit Shape, and choose Change Shape. Then select a new shape from the gallery.
+
+This is useful when you like the color, size, and effects you already applied, but want the object to take on a different form.
+
+
+## Adding Text to a Shape
+You can type directly inside most shapes. Simply select the shape and start typing, or right-click and choose Edit Text.
+
+Once text is added, you can format it using the usual font, color, size, alignment, and WordArt options.
+
+Adding text makes shapes especially useful for labels, callouts, banners, and highlighted messages on a slide.
+
+
+## Completed Slide Example
+After inserting a shape, adjusting its size, rotating it, changing its fill and outline, applying effects, and adding text, the slide becomes much more visually dynamic.
+
+In this example, a plain shape evolves into a bold visual element that reinforces the message of the slide.
+
+
+## Knowledge Check
+Check yourself: Which handle allows you to rotate a shape in PowerPoint? Answer: The circular rotation handle above the shape. The circular arrow handle above a selected shape rotates it. Holding Shift while dragging constrains rotation to 15-degree increments.
+
+Check yourself: Which command lets you turn one shape into a different shape without starting over? Answer: Edit Shape → Change Shape. Edit Shape > Change Shape swaps the shape's geometry while preserving its size, position, text, and formatting — so you never have to rebuild and re-style it.

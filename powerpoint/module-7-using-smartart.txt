@@ -1,0 +1,124 @@
+Using SmartArt
+
+Module 7: Tables, Charts & SmartArt
+
+Learn how to insert SmartArt graphics, choose the right layout for your content, add and edit text, and apply styles to create professional diagrams.
+
+By the end of this lesson you can:
+- Insert SmartArt and choose a category that fits the relationship
+- Add and reorder items using the Text Pane
+- Convert bullet lists into SmartArt
+- Recognize when SmartArt clarifies and when it merely decorates
+
+
+## SmartArt is only useful when the shape means something
+
+ type: scenario
+ role: You present the referral process at Lakeside Medical Associates.
+ text: Six sequential steps as bullets read as six equal items. The same six in a Process graphic show direction order and where the flow branches — the structure becomes visible rather than merely stated.
+ task: Choose the SmartArt category that matches the actual relationship in your content.
+
+
+SmartArt builds a diagram from text you type, keeping every element aligned and consistently styled. Its value is that the layout carries meaning — but only if you choose the category that matches your content's real structure. A Cycle graphic applied to a linear process tells the audience something untrue.
+
+
+ type: table
+ caption: SmartArt categories
+ columns: 
+  Category
+  Shows
+  Use for
+ rows: 
+   Process
+   A sequence with direction
+   Steps in a workflow
+   Cycle
+   A repeating loop
+   A process that genuinely returns to its start
+   Hierarchy
+   Levels of reporting or containment
+   Org charts classification
+   Relationship
+   Connection between items
+   Overlaps opposing forces
+   Matrix
+   Parts of a whole in quadrants
+   Two-axis categorization
+   List
+   Grouped items no sequence
+   Bullets that need visual grouping
+
+
+Type in the Text Pane rather than clicking each shape. Enter adds an item, Tab demotes it, Shift+Tab promotes it — and SmartArt re-lays out and resizes everything automatically. Building a diagram this way takes a fraction of the time of positioning shapes by hand.
+
+
+## What is SmartArt?
+SmartArt lets you transform a list of items into a professional-looking diagram without any design experience.
+
+Instead of placing text and shapes manually, SmartArt handles the layout automatically. You just choose a structure and type your content.
+
+Note: SmartArt works best when your content has a clear relationship — a sequence of steps, a hierarchy, a cycle, or a set of interconnected ideas.
+
+
+## SmartArt Categories
+PowerPoint organizes SmartArt layouts into categories based on the type of relationship they represent.
+
+- List — unordered or grouped items without a directional flow.
+- Process — steps in a sequence or workflow.
+- Cycle — a repeating process with no defined start or end.
+- Hierarchy — org charts and tree structures.
+- Relationship — connections and overlapping concepts, including Venn diagrams.
+- Matrix — how parts relate to a whole across two axes.
+- Pyramid — proportional or foundational relationships.
+
+
+## Inserting SmartArt
+Go to the Insert tab and click SmartArt.
+
+The Choose a SmartArt Graphic dialog opens. Select a category on the left, then pick a layout from the center panel. A preview and description appear on the right.
+
+Click OK. The SmartArt graphic appears on your slide with placeholder text.
+
+
+## Adding Text to SmartArt
+You can type directly into the shapes, or use the Text Pane on the left side of the graphic for easier editing.
+
+To open the Text Pane, click the small arrow on the left edge of the SmartArt border or click Text Pane on the SmartArt Design tab.
+
+Each bullet in the Text Pane corresponds to a shape in the graphic. Press Enter to add a new item and Tab to create a sub-level item.
+
+
+## Adding and Removing Shapes
+SmartArt automatically sizes its shapes based on how many items you have. To add a shape, click Add Shape on the SmartArt Design tab.
+
+To remove a shape, click it in the graphic and press Delete.
+
+
+## Changing the SmartArt Layout
+If the layout you chose doesn't quite fit your content, you can switch to a different one without retyping your text.
+
+On the SmartArt Design tab, click a different layout in the Layouts gallery. Your content transfers to the new structure automatically.
+
+
+## Applying SmartArt Styles and Colors
+The SmartArt Styles gallery offers pre-built visual treatments including flat, polished, and 3D looks that coordinate with your theme.
+
+Click Change Colors to choose a color variation that matches your presentation's palette.
+
+
+## Converting a Bulleted List to SmartArt
+If you already have a bulleted text placeholder, you can convert it directly into SmartArt without starting over.
+
+Select the text placeholder, right-click, and choose Convert to SmartArt. Then select a layout from the mini gallery that appears.
+
+Converting a list to SmartArt is one of the fastest ways to make a plain slide look more polished.
+
+
+## Completed SmartArt Example
+A well-chosen SmartArt layout with consistent colors and readable text can replace several plain bullet-point slides.
+
+
+## Knowledge Check
+Check yourself: Which SmartArt category is most appropriate for showing the steps in a workflow? Answer: Process. Process graphics show a sequence with direction, which is exactly what a workflow is. The arrows communicate order — something a bulleted list cannot do.
+
+Check yourself: How do you add a new item to a SmartArt graphic using the Text Pane? Answer: Press Enter in the Text Pane to create a new bullet. In the Text Pane, pressing Enter creates a new bullet and SmartArt adds a corresponding shape, re-laying out the whole graphic automatically.

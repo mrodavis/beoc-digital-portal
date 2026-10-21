@@ -1,0 +1,88 @@
+Working with Multiple Worksheets
+
+Module 3: Workbook Management, Printing & Basic Calculations
+
+Learn how to insert, rename, move, copy, group, and organize worksheets within a workbook.
+
+By the end of this lesson you can:
+- Add, rename, reorder, color, and delete worksheets
+- Reference a cell on another sheet in a formula
+- Group sheets to edit several at once
+- Structure a workbook so data, calculations, and output are separated
+
+
+## One sheet per purpose
+
+ type: scenario
+ role: You rebuild the supply tracker at Lakeside Medical Associates.
+ text: The current workbook has everything on one sheet: raw orders a summary notes and three abandoned attempts at a chart side by side. Nobody can tell which region is authoritative and every sort risks scrambling something unrelated.
+ task: Separate the workbook into sheets with distinct jobs so each region has one purpose.
+
+
+A durable convention is three kinds of sheet: raw data that is only ever added to, calculations that read from it, and output that people actually look at. Keeping them apart means a change to a formula cannot corrupt source data, and a person reading the summary never has to scroll past 900 rows to find it.
+
+Cross-sheet references use the sheet name and an exclamation mark: =Data!C7, or ='Q3 Orders'!C7 when the name contains a space. Rather than typing them, start the formula, then click the other sheet's tab and the cell — Excel writes the reference correctly, including quoting names that need it.
+
+Note: Grouping sheets — clicking one tab, then Ctrl+clicking others — applies every edit to all of them at once. It is efficient for building twelve identical monthly sheets and dangerous afterwards, because it is easy to forget the group is active and overwrite eleven sheets with one change. Right-click and Ungroup Sheets the moment you are finished, and check the title bar, which says [Group] while grouping is on.
+
+Right-click a tab to set a Tab Color. Coloring input sheets one color and output sheets another gives anyone opening the workbook an immediate sense of its structure, without a word of documentation.
+
+
+## Introduction
+Every workbook contains at least one worksheet by default. When working with large amounts of data, you can create multiple worksheets to better organize your information and make it easier to manage.
+
+You can also group worksheets together to make changes to multiple sheets at the same time.
+
+
+## Insert a New Worksheet
+1. Locate and select the New Sheet (+) button near the bottom-right corner of the Excel window.
+2. A new blank worksheet will appear.
+
+
+## Copy a Worksheet
+Excel allows you to duplicate an existing worksheet without copying and pasting content manually.
+
+1. Right-click the worksheet you want to copy.
+2. Select Move or Copy.
+3. Choose where the sheet should appear.
+4. Check Create a copy and click OK.
+
+
+## Rename a Worksheet
+1. Right-click the worksheet tab.
+2. Select Rename.
+3. Type the desired name and press Enter.
+
+
+## Move a Worksheet
+1. Click and drag the worksheet tab.
+2. Release when the black arrow appears in the desired location.
+
+
+## Change Worksheet Tab Color
+1. Right-click the worksheet tab.
+2. Hover over Tab Color.
+3. Select the desired color.
+
+
+## Delete a Worksheet
+1. Right-click the worksheet tab.
+2. Select Delete.
+
+
+## Switching Between Worksheets
+You can click worksheet tabs to switch between sheets. For large workbooks, right-click the scroll arrows in the lower-left corner to see a list of all worksheets.
+
+
+## Grouping and Ungrouping Worksheets
+Grouping worksheets allows you to make changes to multiple sheets at the same time.
+
+1. Hold the Ctrl key.
+2. Click each worksheet tab you want to group.
+3. Release Ctrl once selected.
+
+To ungroup worksheets, right-click any grouped tab and select Ungroup Sheets.
+
+
+## Knowledge Check
+Check yourself: How do you rename a worksheet tab in Excel? Answer: Double-click the tab and type a new name. Double-clicking a sheet tab puts its name into edit mode so you can type a new one. Right-click > Rename does the same thing.

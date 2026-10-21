@@ -1,0 +1,113 @@
+Presenting Your Slideshow
+
+Module 8: Review & Presenting
+
+Learn how to start a slide show, navigate slides during a presentation, use Presenter View, draw on slides, and use the laser pointer to guide your audience.
+
+By the end of this lesson you can:
+- Start a slide show from the beginning or the current slide
+- Use Presenter View during a live presentation
+- Use pen, highlighter, and screen blanking
+- Set up a self-running presentation
+
+
+## Know the controls before you are standing up
+
+ type: scenario
+ role: You present at the staff meeting at Lakeside Medical Associates.
+ text: Someone asks about slide 22 while you are on slide 8. You either click forward fourteen times while everyone watches or you know that typing 22 and pressing Enter jumps straight there.
+ task: Learn the handful of controls that let you respond to a room instead of fighting the software.
+
+
+
+ type: table
+ caption: Presentation controls
+ columns: 
+  Key
+  Does
+ rows: 
+   F5
+   Starts from the beginning
+   Shift + F5
+   Starts from the current slide
+   Number then Enter
+   Jumps to that slide
+   B / W
+   Blanks the screen black or white
+   Ctrl + P
+   Pen; Ctrl+A returns to the arrow
+   Esc
+   Ends the show
+
+
+Shift+F5 starts from the slide you are on, which is what you want when rehearsing a single section. Restarting from slide one every time you want to check slide 30 is a surprisingly large waste of a rehearsal.
+
+
+## Starting a Slide Show
+F5 starts from the beginning and Shift+F5 starts from the slide you are on. Shift+F5 is the one to learn: restarting from slide one every time you want to check slide 30 wastes most of a rehearsal.
+
+- From Beginning — starts the presentation from the first slide (F5).
+- From Current Slide — starts from whichever slide is currently selected (Shift+F5).
+- Custom Slide Show — presents a subset of slides in a custom order.
+
+You can also click the Slide Show view button in the lower-right corner of the PowerPoint window to start from the current slide.
+
+
+## Navigating During a Presentation
+During a slide show, you can advance slides using the mouse, arrow keys, spacebar, or Page Down. Go back with the left arrow key or Page Up.
+
+Right-click anywhere during the presentation to access a shortcut menu with navigation options, including See All Slides, which lets you jump directly to any slide. (Depending on the show type chosen in Set Up Slide Show, this command may be named Go to Slide instead.)
+
+Press a slide number followed by Enter to jump directly to that slide (e.g., press 5 then Enter to go to slide 5).
+
+
+## Using Presenter View
+Presenter View is a professional presenting mode that shows your slide on the audience's screen while you see a private view with the current slide, upcoming slide, speaker notes, and a timer.
+
+Presenter View is built for two displays — your screen and the projector — and PowerPoint decides which is which. If your notes appear on the projector and the slides on your laptop, use Display Settings at the top of Presenter View and choose Swap Presenter View and Slide Show. Check this in the actual room before the audience arrives; it is the most common thing that goes wrong in the first thirty seconds.
+
+Note: Presenter View is designed for two displays: your laptop screen and a projector or external monitor. To practice with only one screen, start the slide show, select the three-dot button on the control bar at the bottom left, and choose Show Presenter View.
+
+
+## Speaker Notes
+Speaker notes appear in the Notes pane below each slide and are visible only to you in Presenter View. Use them to store reminders, talking points, or key statistics.
+
+The notes pane is where the sentences you plan to say belong. Moving them off the slide is what lets you cut a slide down to the few words that benefit from being seen — the audience cannot read and listen at once, and given the choice they read.
+
+You can also print speaker notes as handouts using File → Print → Notes Pages.
+
+
+## Using the Laser Pointer
+The laser pointer is useful on a dense chart and unnecessary on a slide with four words. If you are reaching for it constantly, the slide is probably carrying too much.
+
+Hold Ctrl and press the left mouse button to activate the laser pointer. Move the mouse to point to any area on the slide.
+
+
+## Drawing on Slides During a Presentation
+PowerPoint's Pen and Highlighter tools let you draw or annotate on slides during a presentation.
+
+Right-click during the slide show, choose Pointer Options, and then select Pen or Highlighter.
+
+At the end of the show, PowerPoint asks if you want to keep your ink annotations. You can keep them on the slides or discard them.
+
+Press E to erase all pen marks on the current slide during a live presentation.
+
+
+## Hiding Slides
+Sometimes you create slides with extra content that you only want to show if an audience member asks. Hidden slides stay in the file but are skipped automatically during the normal slide show.
+
+A hidden slide stays in the file and is skipped during the show, which makes it the right way to hold backup detail for a question you might be asked. Press its number then Enter during the presentation to jump to it, and it appears as if you had planned for the question.
+
+Hidden slides are indicated with a strikethrough number in the slide panel. To jump to a hidden slide during a presentation, type its number and press Enter.
+
+
+## Ending a Slide Show
+Two more keys are worth knowing. B blanks the screen to black and W to white — press either when discussion starts, so the slide stops competing with the conversation. Typing a slide number then Enter jumps straight there, which is how you answer a question about slide 22 without clicking through fourteen slides while everyone watches.
+
+If you have reached the last slide, a black end screen appears. Press Escape or click the screen to exit.
+
+
+## Knowledge Check
+Check yourself: What keyboard shortcut starts a slide show from the beginning? Answer: F5. F5 starts the slide show from the first slide. Shift+F5 starts from the slide you are currently on, which is the one to use when rehearsing a section.
+
+Check yourself: What does Presenter View show that the audience screen does not? Answer: Speaker notes, the next slide, and a timer. Presenter View shows your speaker notes, the next slide, and an elapsed timer on your screen, while the audience display shows only the current slide.

@@ -1,0 +1,65 @@
+Designing a Database Before You Build It
+
+Module 1: Introduction to Access
+
+Plan tables, keys, and relationships on paper first — the step that determines whether the database works or has to be rebuilt.
+
+By the end of this lesson you can:
+- Identify the distinct entities in a set of data
+- Choose a primary key that is unique, stable, and always present
+- Apply the one-fact-per-field rule
+- Recognize data redundancy and the contradictions it permits
+
+
+## Design is the part you cannot skip
+
+ type: scenario
+ role: You are rebuilding the appointment records at Lakeside Medical Associates.
+ text: The flat spreadsheet holds patient name address phone appointment date provider and reason — one row per appointment. Rebuilt in Access as a single table it would have exactly the same problems it has now just in a different application.
+ task: Split the data into tables so each fact is stored once before creating anything in Access.
+
+
+Almost every unusable Access database is a design failure rather than a technical one. Design is done on paper, takes twenty minutes, and cannot practically be retrofitted once staff have entered six months of records.
+
+
+ type: worked-example
+ title: Splitting a flat list into proper tables
+ task: Turn the appointment spreadsheet into a sound table design.
+ steps: 
+   move: List the distinct kinds of thing the data describes.
+   why: There are three: patients providers and appointments. Each becomes a table. Identifying the nouns is the whole of basic database design and doing it before touching Access saves rebuilding later.
+   move: Give each table a primary key that will never change.
+   why: PatientID ProviderID AppointmentID usually AutoNumber. A name is a poor key because names repeat and people change them; a phone number is worse because it changes often. A key's only job is to identify so it should carry no other meaning.
+   move: Move each fact to the table it belongs to.
+   why: The address describes the patient not the appointment so it belongs in Patients. This is the step that eliminates the eleven copies. If a fact is about the patient it goes in the patient's row — once.
+   move: Link Appointments to the others with foreign keys.
+   why: Appointments holds PatientID and ProviderID rather than repeating names and addresses. One appointment row becomes a small row of dates and references.
+   move: Check that every field holds exactly one fact.
+   why: A field holding 'Jane Okafor' should be two fields; one holding a full address should be several. Combined fields cannot be sorted or filtered reliably — you cannot sort by surname if the surname is buried inside a full-name field.
+ result: Three tables where each fact is stored once and a changed address updates everywhere automatically.
+ takeaway: One table per kind of thing one fact per field a stable key on every table. Repeated typing is the symptom that tells you a table is missing.
+
+
+
+ type: table
+ caption: What makes a good primary key
+ columns: 
+  Requirement
+  Means
+  Why phone numbers fail
+ rows: 
+   Unique
+   No two records share it
+   Family members share a number
+   Never empty
+   Every record has one
+   Some patients have no number on file
+   Stable
+   It does not change
+   People change numbers constantly
+   Meaningless
+   It carries no other information
+   A number that means something has a reason to change
+
+
+Check yourself: In a patient database, why is a phone number a poor choice for a primary key? Answer: Phone numbers change, may be shared, and may be missing — a key must be unique, stable, and always present. A primary key must uniquely identify a record, never be empty, and ideally never change. Phone numbers fail all three. An AutoNumber ID has no meaning and therefore no reason to change.

@@ -1,0 +1,78 @@
+Working with Audio
+
+Module 6: Animations & Multimedia
+
+Learn how to insert audio files into your presentation, control playback settings, trim audio clips, and configure music to play across multiple slides.
+
+By the end of this lesson you can:
+- Insert audio and control how it plays
+- Set audio to continue across multiple slides
+- Hide the audio icon during a show
+- Consider accessibility when a presentation relies on sound
+
+
+## Audio that stops at the slide boundary
+
+ type: scenario
+ role: You build a self-running display for the waiting room at Lakeside Medical Associates.
+ text: You add background music to the first slide. It stops the moment the deck advances because by default audio belongs to the slide it was inserted on.
+ task: Configure audio playback so it behaves the way the presentation requires.
+
+
+Select the audio icon and use the Playback tab. 'Play Across Slides' lets it continue as the deck advances; 'Loop until Stopped' repeats it; 'Hide During Show' removes the speaker icon from view. For a looping waiting-room display you generally want all three.
+
+Note: Never let audio be the only way information is conveyed. Deaf and hard-of-hearing viewers, and anyone watching with the sound off — which is most people in a waiting room — receive nothing. Any narration needs on-screen text carrying the same content. Music must be licensed for the use; commercial recordings are not free to play in a public waiting area.
+
+
+## Why Add Audio to a Presentation?
+Audio is worth adding for narration on a self-running deck and rarely worth it in a live presentation, where you are the narration. Two constraints apply whatever the use: any information carried by audio must also appear on screen, because deaf and hard-of-hearing viewers and anyone with the sound off receive none of it; and music must be licensed for the setting, since commercial recordings are not free to play in a waiting room or a classroom.
+
+Common uses include background music for kiosk displays, recorded narration for self-running presentations, and sound cues that accompany specific slides.
+
+Note: Use audio with purpose. Background music or sounds that don't match your content can distract your audience.
+
+
+## Inserting Audio from Your Computer
+To add an audio file, go to the Insert tab and select Audio, then choose Audio on My PC.
+
+Browse to and select your audio file. PowerPoint supports common formats including MP3 and WAV.
+
+After inserting, a speaker icon appears on the slide along with a small audio player bar.
+
+
+## The Audio Format and Playback Tabs
+When the audio icon is selected, two new tabs appear on the ribbon: Audio Format and Playback.
+
+The Playback tab is where you configure most audio settings including start behavior, looping, and volume.
+
+
+## Playback Settings
+Audio stops when the slide changes unless you also turn on Play Across Slides on the Playback tab. That is the setting people miss when background music cuts out one slide in — the file is fine, it simply belongs to the slide it was inserted on.
+
+- In Click Sequence — audio plays when you reach it during your click sequence.
+- Automatically — audio starts as soon as the slide appears.
+- When Clicked On — audio only plays when the audience clicks the icon.
+
+You can also enable Loop until Stopped to repeat the audio continuously, and Hide During Show to keep the speaker icon invisible during the presentation.
+
+
+## Playing Audio Across Slides
+By default, audio stops when you move to the next slide. To have music continue across multiple slides, check Play Across Slides in the Playback tab.
+
+Combine Play Across Slides with Hide During Show and Loop until Stopped for seamless background music throughout a presentation.
+
+
+## Trimming Audio
+Trimming in PowerPoint is non-destructive: it changes the start and end points used during playback and leaves the original file whole, so you can always widen the trim again. It does not shrink the file, though — the untrimmed audio is still embedded, which matters when you are emailing the deck.
+
+Click Trim Audio on the Playback tab. Drag the green start marker and red end marker to define the portion you want to keep.
+
+Click OK to apply the trim. The audio clip will now start and stop at the points you selected.
+
+
+## Adjusting Volume
+Use the Volume button on the Playback tab to set the default playback level to Low, Medium, High, or Mute.
+
+
+## Knowledge Check
+Check yourself: Which setting keeps audio playing as you advance through multiple slides? Answer: Play Across Slides. Play Across Slides lets the audio continue as the presentation advances, instead of stopping when the slide it belongs to is replaced.

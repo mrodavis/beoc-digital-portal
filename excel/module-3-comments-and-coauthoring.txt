@@ -1,0 +1,66 @@
+Comments and Co-authoring
+
+Module 3: Workbook Management, Printing & Basic Calculations
+
+Learn how to add, edit, delete, and manage comments, collaborate in real time, and restore previous versions of a workbook.
+
+By the end of this lesson you can:
+- Add threaded comments and notes, and explain the difference
+- Co-author a workbook stored in OneDrive or SharePoint
+- Manage sharing permissions on a workbook
+- Judge what should never be written in a comment
+
+
+## Comments explain the reasoning behind a number
+
+ type: scenario
+ role: You forecast supply needs at Lakeside Medical Associates.
+ text: One line in the budget is 40% above last year. You know why — a vendor contract ended and the replacement costs more. Six months later nobody remembers and the figure looks like an error to everyone reviewing it.
+ task: Record the reasoning where the number lives so the workbook explains itself.
+
+
+A spreadsheet shows what, rarely why. Comments attach the reasoning to the exact cell, so the explanation is found by whoever questions the number — including you, later. This is one of the highest-value habits in spreadsheet work and one of the least practiced.
+
+Modern Excel distinguishes threaded Comments, which support replies and are built for discussion, from Notes, which are the older single-author annotations. Use Comments for conversation and Notes for standing documentation such as 'source: vendor invoice 4471.'
+
+Note: Comments travel with the file. A frank remark about a colleague or a vendor is visible to everyone the workbook is ever sent to, and comments are among the most common things people forget to remove before sharing. Write every comment as though the subject will read it, and run Document Inspector before the file leaves the practice.
+
+
+## Sharing a Workbook
+To collaborate with others, click the Share button in the top-right corner of Excel.
+
+Upload the workbook to OneDrive if prompted. Then enter the recipient’s email address and choose whether they Can edit or Can view.
+
+
+## Adding Comments
+Comments allow you to leave feedback without changing the contents of a cell. Select a cell, go to the Review tab, and click New Comment (or right-click the cell and choose New Comment). Type your comment and select Post.
+
+A cell with a comment shows a small indicator in its upper-right corner. Point to the cell to read the comment. Others can reply in the same thread.
+
+
+## Editing Comments
+To edit a comment, point to it or click it, then select Edit. You can edit only comments you wrote; on someone else's comment you can reply instead.
+
+Note: In Excel for Microsoft 365, Comments and Notes are separate. The yellow sticky-note boxes with an Edit Comment button that older versions showed are now Notes, found under Review > Notes. Threaded comments have a white background; notes have a yellow one.
+
+
+## Showing All Comments
+To see every comment at once, click Show Comments on the Review tab. The Comments pane opens on the right and lists each comment with its replies. Click a comment in the pane to jump to its cell.
+
+Notes have their own commands: Review > Notes > Show All Notes displays every note on the sheet.
+
+
+## Deleting Comments
+To remove a comment, right-click the cell and choose Delete Comment, or select the cell and click Delete in the Comments group on the Review tab.
+
+
+## Real-Time Co-authoring
+When a workbook is shared through OneDrive, multiple users can edit at the same time. Each collaborator appears with a unique color indicator.
+
+
+## Restoring a Previous Version
+If changes were made that you want to undo, click the file name at the top of the Excel window and select Version history (File > Info > Version History also works). Select a version to open it in a separate window, and select Restore if you want to go back to it.
+
+
+## Knowledge Check
+Check yourself: What allows multiple people to edit an Excel file at the same time? Answer: Sharing via OneDrive and using co-authoring. Co-authoring requires the workbook to be stored in OneDrive or SharePoint, which provides the sync channel that lets several people edit at once and see each other's changes.

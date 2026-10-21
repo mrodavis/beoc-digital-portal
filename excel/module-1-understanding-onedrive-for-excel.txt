@@ -1,0 +1,42 @@
+Understanding OneDrive for Excel
+
+Module 1: Excel Fundamentals
+
+Learn how to sign in to Excel, connect to your Microsoft account, and use OneDrive to save and access workbooks from anywhere.
+
+By the end of this lesson you can:
+- Save a workbook to OneDrive and open it from another device
+- Explain what AutoSave requires and why it may be greyed out
+- Use version history to recover an earlier state of a workbook
+- Judge what data may and may not go into a personal cloud account
+
+
+## Version history is the feature worth the move
+
+ type: scenario
+ role: You maintain the supply budget at Lakeside Medical Associates.
+ text: You sort a 900-row sheet but you select only one column instead of the whole range. Every name is now attached to the wrong number and you cannot tell which row was which. You saved ten minutes ago. Ctrl+Z has already been exhausted.
+ task: Understand what cloud storage gives you beyond access from anywhere — specifically the ability to go back.
+
+
+Saving to OneDrive puts the workbook on Microsoft's servers so it follows you between devices. That much matches Word. What matters more in Excel is version history: OneDrive keeps previous versions, and File > Info > Version History lets you open or restore any of them.
+
+Excel damage is often silent. A mis-sorted column, a formula overwritten with a typed number, a deleted row — none of these announce themselves, and you may not notice for days, long past what undo can reach. Version history is the only realistic recovery, and it exists only for cloud-stored files.
+
+Note: AutoSave changes a habit you may rely on. With AutoSave on, every change is written immediately — there is no 'close without saving' to abandon an experiment. Before trying something drastic on a live workbook, use File > Save a Copy first and experiment on the copy.
+
+Note: A spreadsheet holding patient names, dates of birth, or visit details is protected health information. It belongs only in systems your employer has assessed and covered by a business associate agreement — never in a personal OneDrive account. If you are unsure whether a workbook qualifies, ask before you save it.
+
+
+## Signing In to Excel
+To use OneDrive features, sign in to Excel using your Microsoft account. Click the Sign In button in the upper-right corner.
+
+
+## Saving to OneDrive
+Click File → Save As. If you are signed in, you will see OneDrive listed as a save location.
+
+Saving to OneDrive allows you to access your files from any device and protects against data loss.
+
+
+## Knowledge Check
+Check yourself: What allows you to access your Excel files from any device? Answer: Saving your workbook to OneDrive. Saving to OneDrive stores the workbook on Microsoft's servers and syncs it to any device you sign in on. It is also the prerequisite for AutoSave, co-authoring, and version history.

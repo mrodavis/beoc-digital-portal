@@ -1,0 +1,102 @@
+Applying Slide Transitions
+
+Module 6: Animations & Multimedia
+
+Learn how to add visual effects between slides, preview transitions, and control timing in PowerPoint.
+
+By the end of this lesson you can:
+- Apply transitions and control their duration
+- Explain the difference between a transition and an animation
+- Choose transitions that support rather than distract
+- Apply a consistent transition across a whole deck
+
+
+## Restraint is the whole skill here
+
+ type: scenario
+ role: You present to the board at Lakeside Medical Associates.
+ text: You give each slide a different transition — one spins one checkerboards one flips in three dimensions. The board remembers the effects and not a single figure. Each transition also adds a second and a half which across forty slides is a minute of watching animation.
+ task: Use one subtle transition throughout or none at all.
+
+
+A transition is the effect between slides; an animation is the effect applied to an object on a slide. Both cost attention, and attention is the scarcest thing in a presentation.
+
+The working guidance is: pick one subtle transition — Fade or Push — apply it to every slide with Apply To All, and set the duration to around 0.5 seconds. Consistency makes the transition invisible, which is exactly what you want. Anything the audience notices is competing with your content.
+
+Reserve a distinct transition for genuine structural breaks — the move from one section to the next. Used sparingly it becomes a signal that the topic is changing, which is real communication rather than decoration.
+
+
+## What are Slide Transitions?
+A slide transition is a visual effect that occurs when moving from one slide to the next during a presentation.
+
+Transitions can be simple effects like fading between slides or more dynamic animations that add movement and energy to your presentation.
+
+When used appropriately, transitions can give your presentation a polished and professional appearance.
+
+
+## Transition Categories
+PowerPoint groups transitions into three categories: Subtle, Exciting, and Dynamic Content.
+
+Subtle transitions use simple animations and are the most commonly used for professional presentations.
+
+Exciting transitions contain more complex animations. These can add visual interest but should be used sparingly.
+
+Dynamic Content transitions animate only slide elements instead of the entire slide, helping maintain visual continuity between slides.
+
+
+## Applying a Transition
+Transitions are applied from the Transitions tab on the PowerPoint ribbon.
+
+To apply a transition, first select the slide that you want the transition to appear on.
+
+Open the Transitions tab and locate the Transition to This Slide group.
+
+Click a transition to apply it to the selected slide. PowerPoint will automatically preview the transition.
+
+
+## Previewing Transitions
+You can preview transitions at any time to see how they will appear during your slideshow.
+
+Click the Preview button on the Transitions tab to watch the effect.
+
+You can also preview the transition by clicking the Play Animations button beside a slide in the slide navigation pane.
+
+
+## Applying Transitions to All Slides
+If you want every slide to use the same transition, you can apply it to all slides at once.
+
+After selecting a transition, click Apply to All in the Timing group.
+
+
+## Changing Transition Effects
+Some transitions allow you to customize the direction or style of the effect.
+
+Click Effect Options to choose different variations such as From Left, From Right, From Top, or From Bottom.
+
+
+## Adjusting Duration and Sound
+You can control how fast a transition plays by adjusting the duration setting.
+
+PowerPoint also allows you to add sound effects to transitions. However, these should be used sparingly to avoid distracting the audience.
+
+
+## Automatically Advancing Slides
+Normally slides advance when you click the mouse during a presentation.
+
+You can configure slides to automatically advance after a set amount of time.
+
+This feature is useful for presentations that run automatically, such as kiosk displays or trade show presentations.
+
+
+## Removing Transitions
+If you decide you no longer want a transition on a slide, you can remove it easily.
+
+Select the slide, open the Transitions tab, and choose None from the transition gallery.
+
+
+## Completed Slideshow Example
+When transitions are applied consistently and used in moderation, they can improve the flow and professionalism of your presentation.
+
+
+## Knowledge Check
+Check yourself: What is a slide transition? Answer: A visual effect that plays when moving from one slide to the next. A transition is the visual effect that plays as one slide replaces the next. Effects applied to objects on a single slide are animations, which are a separate tab.

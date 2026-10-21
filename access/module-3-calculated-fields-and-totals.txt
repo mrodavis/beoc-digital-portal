@@ -1,0 +1,77 @@
+Calculated Fields and Totals Queries
+
+Module 3: Queries
+
+Compute values in queries rather than storing them, and summarize grouped data with aggregate functions.
+
+By the end of this lesson you can:
+- Build a calculated field using an expression
+- Explain why calculated values do not belong in tables
+- Use a Totals query with Group By and aggregate functions
+- Choose the right aggregate for a question
+
+
+## Replacing a stored total
+
+ type: worked-example
+ title: Removing a stored TotalCost column
+ task: A previous employee added a TotalCost field to the table and typed the values in. Replace it with a calculation that cannot go stale.
+ steps: 
+   move: Before deleting anything build a query with the calculation and compare it against the stored column.
+   why: The comparison tells you how far the stored values have already drifted and it is worth knowing before you remove the evidence. If they all match nothing has changed since they were typed. If dozens differ the table has been quietly wrong and someone may have made decisions on it.
+   move: In the query grid add a new field: TotalCost: Quantity*UnitCost.
+   why: The name before the colon becomes the column heading; the expression after it is evaluated per row every time the query runs. Square brackets are how Access refers to a field and they are required when a name contains a space.
+   move: Format the calculated field as Currency in its property sheet.
+   why: A calculated field has no inherited format so it displays as a raw number — 41.97 rather than $41.97. Setting the format on the query field fixes it everywhere the query is used including any report built on it.
+   move: Point any forms and reports at the query rather than the table.
+   why: This is the step that is easy to miss. Deleting the table field breaks every object still bound to it. Repoint them first confirm they work then delete.
+   move: Delete the stored field from the table on a copy of the database first.
+   why: Deleting a field deletes its data irreversibly. Work on a copy until you have confirmed nothing else referenced it — Access will not warn you about a report you forgot.
+ result: One calculation always current with nothing left in the table that can contradict it.
+ takeaway: Compare before you delete repoint dependent objects first and format the calculated field — an unformatted currency column looks broken.
+
+
+
+## Calculate, do not store
+
+ type: scenario
+ role: You maintain the supply database at Lakeside Medical Associates.
+ text: Someone added a TotalCost column to the table and typed the values in. A unit price changes. The quantity changes. TotalCost does not because it is a number someone typed six weeks ago. The table now contradicts itself and nothing on screen indicates it.
+ task: Compute derived values in queries so they cannot go stale.
+
+
+A calculated field computes a value from other fields each time the query runs. In the query grid you write it as a new field: TotalCost: [Quantity]*[UnitCost]. The name before the colon becomes the column heading, and the expression after it is evaluated per row.
+
+Note: Never store a value you can calculate. A stored TotalCost is a snapshot that goes wrong the moment someone edits Quantity or UnitCost, silently and with no warning. A calculated field is derived from current data every time, so it cannot contradict its own inputs.
+
+
+ type: table
+ caption: Aggregate functions in a Totals query
+ columns: 
+  Function
+  Returns
+  Answers
+ rows: 
+   Group By
+   The field to group on
+   Per what? — per category per provider
+   Sum
+   The total across the group
+   How much altogether?
+   Avg
+   The mean
+   What is typical?
+   Count
+   How many records
+   How many are there?
+   Min / Max
+   Smallest or largest
+   What is the range?
+   Where
+   A filter applied before grouping
+   Which records should count at all?
+
+
+A Totals query collapses many rows into one per group. Click the Totals button on the Query Design tab and a Total row appears in the grid. Set the field you are grouping by to Group By, and the field you are summarizing to Sum, Count, or whichever aggregate answers the question.
+
+Check yourself: Why should an item's total cost be calculated in a query rather than stored in the table? Answer: A stored value goes wrong when quantity or unit cost changes, with no warning; a calculated field is always current. A stored total is a snapshot that silently goes stale the moment one of its inputs changes. A calculated field is evaluated each time the query runs, so it cannot contradict the data it derives from.

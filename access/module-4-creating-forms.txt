@@ -1,0 +1,73 @@
+Creating Forms for Data Entry
+
+Module 4: Forms & Reports
+
+Build forms that make correct data entry fast and incorrect entry difficult.
+
+By the end of this lesson you can:
+- Generate a form and modify it in Layout and Design view
+- Arrange fields in the order staff actually work
+- Add controls including combo boxes and validation
+- Explain why data entry should go through forms rather than tables
+
+
+## Forms exist to protect the data
+
+ type: scenario
+ role: Three staff share the supply database at Lakeside Medical Associates.
+ text: They enter records directly into the table. Every field of every record is visible and editable at once and within a fortnight two rows have been overwritten by someone who tabbed into the wrong line. A form would have shown one record at a time in a sensible order with the calculated fields not editable at all.
+ task: Build a form that makes correct entry the path of least resistance.
+
+
+A form shows one record at a time in a controlled layout. It can order fields to match the paper document someone is reading from, hide fields staff should not touch, label fields in plain language, and validate entries before they are committed.
+
+
+ type: table
+ caption: Form controls worth knowing
+ columns: 
+  Control
+  Does
+  Use for
+ rows: 
+   Text box
+   Displays and edits a field
+   Most fields
+   Combo box
+   Dropdown optionally from another table
+   Category provider — anything with a fixed set of values
+   List box
+   Shows several options at once
+   Short lists where seeing all options helps
+   Check box
+   A Yes/No field
+   Flags and toggles
+   Command button
+   Runs a macro or VBA
+   Save find open a related form
+   Subform
+   Shows related records from another table
+   A patient's appointments inside the patient form
+
+
+Note: A combo box bound to a lookup table is the single most effective data quality control on a form. It makes 'Medical', 'medical', 'Med.', and 'Medcial' impossible, because the user picks from a list rather than typing. Anywhere a field has a known set of valid values, it should be a combo box.
+
+
+ type: worked-example
+ title: Building a usable supply entry form
+ task: Create a form three staff will use daily to add and update supply records.
+ steps: 
+   move: Select the table then Create > Form to generate a starting point.
+   why: The generated form is complete but laid out in table field order which is rarely entry order. It is a scaffold to modify not a finished product — and starting from it is far faster than building from blank.
+   move: In Layout view reorder fields to match the delivery note staff read from.
+   why: Entry speed comes from not having to hunt. If the paper document lists item quantity then cost the form should too — every mismatch between the document and the form is a place someone loses their position.
+   move: Replace the Category text box with a combo box bound to a Categories table.
+   why: This eliminates spelling variants entirely. Free-text categories are the most reliable way to make a database unsortable because 'Medical' and 'medical' group separately in every report.
+   move: Set calculated and key fields to Locked or remove them from the form.
+   why: Staff have no reason to edit ItemID or a computed total and every editable field is a field that can be broken by a stray keystroke. Removing what is not needed is a design decision not a limitation.
+   move: Set the tab order to follow the visual order.
+   why: Tab order does not update automatically when you rearrange fields. If it is wrong tabbing jumps around the form unpredictably which is both slow and a genuine cause of data landing in the wrong field.
+ result: A form that is faster than the table and makes the common mistakes impossible.
+ takeaway: Match the form to the document staff work from constrain what can be typed and fix the tab order after every rearrangement.
+
+
+Check yourself: Why should staff enter data through a form rather than directly into the table? Answer: A form shows one record at a time in a controlled layout, and can hide, lock, and validate fields. A table exposes every field of every record at once, which is how the wrong row gets edited. A form controls what is visible, what is editable, in what order, and what values are acceptable.

@@ -1,0 +1,82 @@
+Checking Spelling & Using Comments
+
+Module 8: Review & Presenting
+
+Learn how to run a spell check, use the built-in thesaurus, add and review comments, and use Track Changes tools to collaborate and polish your presentation before delivery.
+
+By the end of this lesson you can:
+- Run spell check across a presentation
+- Add, reply to, and resolve comments
+- Remove comments before presenting or distributing
+- Proofread the things spell check cannot catch
+
+
+## Errors are magnified by a projector
+
+ type: scenario
+ role: You present to external partners at Lakeside Medical Associates.
+ text: Slide four carries a typo in a heading three inches tall on the screen. A reviewer's comment is also still attached — 'is this number even right?' — visible to the room.
+ task: Clear comments and proofread properly before anything is projected.
+
+
+Spell check catches misspellings and nothing else. It will not notice 'from' where you meant 'form,' a title that is wrong, or a number that contradicts the previous slide. Reading the deck through once in Reading View is what catches those, and it takes a few minutes.
+
+Note: Comments travel with the file and show in Normal view, so a frank internal remark reaches anyone who opens your copy, and it is on screen if you edit or share your screen in front of a client. Delete every comment before presenting or distributing, and run File > Info > Check for Issues > Inspect Document to confirm none remain, along with any presentation notes or metadata you would not want shared.
+
+
+## Why Review Before You Present?
+Spelling errors and unclear slide content can undermine your credibility with an audience. A final review ensures your presentation is polished, accurate, and ready to deliver.
+
+PowerPoint's Review tab contains all the tools you need to check spelling, look up synonyms, and collaborate with colleagues using comments.
+
+
+## Running Spell Check
+PowerPoint checks spelling as you type, marking errors with a red wavy underline. You can also run a full spell check when you're ready to review everything at once.
+
+Go to the Review tab and click Spelling. PowerPoint will scan your entire presentation and stop at each error.
+
+The Spelling pane shows the flagged word along with suggested corrections. You can choose to change the word, ignore it once, or ignore all occurrences.
+
+Right-click any underlined word directly on the slide to see spelling suggestions without opening the full Spelling pane.
+
+
+## Using the Thesaurus
+The Thesaurus helps you find more precise or varied word choices for your slide content.
+
+Select a word on your slide, then click Thesaurus on the Review tab. The Thesaurus pane opens with a list of synonyms.
+
+Hover over a synonym and click the arrow to insert it directly as a replacement for the selected word.
+
+
+## Adding Comments
+Comments let you add notes to specific parts of a slide without affecting the slide content itself. This is useful for your own reminders or for collaborating with a colleague.
+
+To add a comment, select the object or text you want to comment on, go to the Review tab, and click New Comment.
+
+A comments pane opens where you can type your note. A small comment icon appears on the slide near the object you commented on.
+
+
+## Reviewing and Replying to Comments
+To read all comments in a presentation, open the Comments pane from the Review tab. Use the Previous and Next buttons to navigate between comments.
+
+You can reply to any comment by clicking inside it and typing your response. This creates a threaded conversation visible to anyone who opens the file.
+
+
+## Resolving and Deleting Comments
+Once a comment has been addressed, you can resolve it to mark it as done without deleting it, or delete it entirely.
+
+To delete a comment, select it in the Comments pane and click Delete on the Review tab. To delete all comments in the presentation, use the Delete All Comments in Presentation option.
+
+Note: Always delete or resolve comments before delivering a presentation to a live audience. Comment icons visible on slides can distract your viewers.
+
+
+## Comparing Presentations
+If a colleague has sent back a revised version of your file, the Compare tool lets you merge their changes into your version and review each one.
+
+Click Compare on the Review tab, select the revised file, and PowerPoint highlights every difference between the two versions.
+
+Use the Revisions pane to accept or reject individual changes, then click End Review when finished.
+
+
+## Knowledge Check
+Check yourself: What should you do with all comments before presenting to a live audience? Answer: Delete or resolve them so they are not visible on slide. Comments should be deleted or resolved before presenting so no internal remark can appear on screen or travel with copies of the file. Inspect Document confirms none remain.

@@ -1,0 +1,100 @@
+Inserting Pictures
+
+Module 5: Images & Objects
+
+Learn how to insert pictures from your computer, online sources, screenshots, and screen clippings, then resize and position them on your slides.
+
+By the end of this lesson you can:
+- Insert pictures from your computer, online sources, and screen captures
+- Use Screen Clipping to capture part of the screen
+- Choose images that carry meaning rather than decorate
+- Respect licensing when using images you did not create
+
+
+## An image should do a job
+
+ type: scenario
+ role: You build a training deck at Lakeside Medical Associates.
+ text: You add a stock photo of smiling people in scrubs to every slide because the slides looked bare. None of the photos relate to what the slides say. They add nothing they cost the audience a moment of attention each time and the file is now 40 MB.
+ task: Use images that carry information and leave slides alone when they do not need one.
+
+
+A picture earns its place when it shows something words handle poorly — what a form looks like, where a control sits, how a workflow branches, what a trend does. A screenshot of the actual EHR screen teaches. A stock photo of anonymous clinicians does not.
+
+Note: Images found through a web search are not free to use. Most are copyrighted, and using one in materials your organization distributes creates real exposure. Use PowerPoint's built-in stock images, photographs your practice owns, or sources with an explicit license that permits your use — and keep a note of where each came from.
+
+Note: Screenshots of clinical systems are a particular risk. Before capturing any screen showing patient data, use a training or demo environment, or fully redact the information — and redact by editing the image itself, not by covering it with a shape. A shape laid over a name in PowerPoint can simply be dragged aside by anyone who opens the file.
+
+
+## Why Pictures Matter
+Pictures play a critical role in making presentations more engaging and easier to understand. Instead of relying only on text, visuals help communicate ideas faster and more clearly.
+
+In professional presentations, images are used to reinforce key points, illustrate concepts, and maintain audience attention.
+
+Note: A strong presentation doesn’t just tell—it shows. Use visuals to support your message, not replace it.
+
+
+## Inserting a Picture from Your Computer
+To insert a picture saved on your computer, go to the Insert tab, select Pictures in the Images group, and then select This Device.
+
+This opens a file browser where you can locate and select your image.
+
+Once inserted, the image will appear directly on your slide and can be adjusted as needed.
+
+
+## Using Content Placeholders
+Many slide layouts include content placeholders that allow you to insert images quickly without using the Ribbon.
+
+Clicking the picture icon inside the placeholder lets you insert an image while keeping it aligned with the slide layout. The other icons in the same placeholder insert other kinds of content, such as a table, a chart, or a video.
+
+
+## Inserting Online Pictures
+If you don’t already have an image saved, PowerPoint allows you to search for pictures online directly within the application.
+
+Go to the Insert tab, select Pictures in the Images group, and then select Online Pictures to begin searching. Stock Images, on the same menu, offers PowerPoint's own licensed stock photos, which are the safer choice for work you will share.
+
+Note: Online Pictures needs PowerPoint's connected experiences turned on. If you see a message that the service is turned off (common on managed school or work computers), use Stock Images or a picture saved on the computer instead.
+
+A search window will appear where you can browse categories or type keywords to find specific images.
+
+For example, searching for a topic like 'exercise' or 'healthy food' will return relevant images.
+
+Select the image you want and click Insert. PowerPoint will automatically place it on your slide.
+
+The more specific your search term, the better your results.
+
+
+## Resizing, Moving, and Rotating Pictures
+Once a picture is inserted, you can adjust it to fit your slide layout.
+
+To move an image, click and drag it to a new position.
+
+To resize an image, drag one of the corner handles. This keeps the image proportional.
+
+To rotate an image, drag the circular rotation handle above the picture.
+
+Note: Avoid stretching images using side handles—this will distort the picture.
+
+
+## Inserting Screenshots
+PowerPoint allows you to capture screenshots of open windows directly into your slide.
+
+Go to Insert → Screenshot and choose from available windows.
+
+The selected window will be inserted onto your slide.
+
+
+## Using Screen Clipping
+Screen Clipping allows you to capture a specific portion of your screen instead of an entire window.
+
+Select Screen Clipping, then click and drag to capture only the area you need.
+
+This is especially useful when you want to highlight a specific part of a website or application.
+
+
+## Completed Slide Examples
+By combining images, layout positioning, and resizing, you can create visually appealing slides.
+
+
+## Knowledge Check
+Check yourself: Which tool allows you to capture only part of your screen? Answer: Screen Clipping. Screen Clipping, on the Screenshot dropdown, dims the screen and lets you drag a rectangle around just the region you want, inserting that area alone.

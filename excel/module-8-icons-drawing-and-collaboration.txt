@@ -1,0 +1,80 @@
+Icons, Drawing Tools & Modern Collaboration
+
+Module 8: Modern Excel Features
+
+Add scalable icons and annotations to a workbook, and work in a shared file without getting in anyone's way.
+
+By the end of this lesson you can:
+- Insert and recolor scalable icons
+- Use the Draw tab to annotate a sheet
+- Co-author a workbook and explain what co-authoring requires
+- Use Sheet View to sort and filter without disturbing other people
+
+
+## Icons and annotation
+
+ type: scenario
+ role: You are preparing the quarterly supply summary for a meeting.
+ text: The numbers are correct and the sheet is a wall of gray. Three icons and a status column would let the practice manager find the two categories that need attention in about four seconds.
+ task: Add visual signals that speed up reading without decorating for its own sake.
+
+
+Insert > Icons opens a searchable library of scalable graphics. Because they are vector images rather than pictures, they stay sharp at any size and can be recolored from the Graphics Format tab.
+
+Note: An icon should carry meaning, not fill space. A warning triangle beside a below-reorder row helps; a decorative flourish in a corner costs the reader a moment of attention and returns nothing. And an icon must never be the only signal — pair it with a word, because an icon alone is not readable by a screen reader unless you give it alt text, and its meaning may not be obvious to everyone.
+
+
+ type: table
+ caption: The Draw tab
+ columns: 
+  Tool
+  Use for
+ rows: 
+   Pen and highlighter
+   Marking up a sheet for discussion in a review meeting
+   Ink to Shape
+   Converting a rough drawn shape into a clean one
+   Ink to Math
+   Converting handwritten equations into typed ones
+   Eraser
+   Removing ink strokes without touching cell contents
+
+
+Note: The Draw tab appears by default on touch devices and can be turned on elsewhere through File > Options > Customize Ribbon. What appears under Insert > Illustrations varies with your version and account, so your list may not match a classmate's exactly.
+
+
+## Working in a file with other people
+Co-authoring lets several people edit one workbook at the same time, with each person's selection visible and labelled. It requires the file to be stored in OneDrive or SharePoint, and it requires AutoSave to be on — which is the same requirement, since AutoSave only works on cloud-stored files.
+
+Note: If AutoSave is greyed out, the file is not in OneDrive or SharePoint. That is also the first thing to check when a colleague says they cannot see your changes — almost always someone is working on a downloaded copy rather than the shared file, and two divergent versions are being created.
+
+Sheet View solves the problem co-authoring creates. In a shared workbook, sorting or filtering normally changes the view for everyone — so one person looking for a vendor rearranges the sheet under a colleague who is mid-entry. Sheet View gives you a private sort and filter that nobody else sees. Find it on the View tab, and note that it changes only what you see, never the underlying data.
+
+
+ type: table
+ caption: Collaboration features and what each needs
+ columns: 
+  Feature
+  Requires
+  Note
+ rows: 
+   AutoSave
+   File in OneDrive or SharePoint
+   Saves continuously — there is no 'close without saving'
+   Co-authoring
+   File in OneDrive or SharePoint
+   Each editor's selection is shown and named
+   Sheet View
+   File in OneDrive or SharePoint; Excel for Microsoft 365 2024 or 2021
+   Private sorting and filtering in a shared file
+   Version History
+   File in OneDrive or SharePoint
+   File > Info > Version History; the only real recovery from a bad edit
+   Comments
+   Any workbook
+   Threaded and repliable; Notes are the older single-author kind
+
+
+Note: With AutoSave on, every change is written immediately and there is no unsaved state to abandon. Before trying something drastic on a shared workbook — a large sort, a bulk delete, a restructure — use File > Save a Copy and experiment on the copy. Version History can recover the previous state, but only if you notice in time and know where to look.
+
+Check yourself: You are working in a shared workbook and need to sort by vendor to find something, but a colleague is entering data at the same time. What should you use? Answer: Sheet View, which gives you a private sort that nobody else sees. Sorting a shared workbook normally rearranges it for everyone, which is genuinely disruptive to someone mid-entry and is how data lands in the wrong row. Sheet View gives you a private sort and filter that leaves everyone else's view untouched.

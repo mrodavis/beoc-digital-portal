@@ -1,0 +1,119 @@
+Dynamic Arrays & XLOOKUP
+
+Module 8: Modern Excel Features
+
+Use the modern formula engine: one formula that returns many results, and the lookup function that replaces VLOOKUP.
+
+By the end of this lesson you can:
+- Explain what a dynamic array is and what 'spill' means
+- Use FILTER, SORT, and UNIQUE to build a live list from a data set
+- Write an XLOOKUP and say why it is safer than VLOOKUP
+- Recognize the #SPILL! and #NAME? errors and know what each one means
+
+
+## One formula, many answers
+
+ type: scenario
+ role: You maintain the supply tracker at Lakeside Medical Associates.
+ text: Your supervisor wants a live list of every item below its reorder level sorted by category on its own sheet. The old way is a helper column a filter and a copy-paste every time the data changes — which means it is stale within a day and someone eventually forgets to redo it.
+ task: Write one formula that produces the whole list and updates itself.
+
+
+A dynamic array formula returns more than one result. You write it in a single cell and Excel fills — spills — the results into the cells beneath and beside it automatically. The spilled range has a blue border when you select the formula cell, and you cannot type into it; it belongs to the formula.
+
+This changes how you build a spreadsheet. Where you would previously have copied a formula down 900 rows, one formula now covers the range and grows or shrinks as the source data changes. Nothing to re-copy, and no risk of a row at the bottom being missed.
+
+
+ type: table
+ caption: The dynamic array functions worth learning first
+ columns: 
+  Function
+  Returns
+  Example
+ rows: 
+   FILTER
+   Only the rows meeting a condition
+   =FILTER(A2:E900 D2:D900<E2:E900)
+   SORT
+   A range sorted by a column you choose
+   =SORT(A2:E900 2 1)
+   UNIQUE
+   The distinct values in a range
+   =UNIQUE(B2:B900)
+   SEQUENCE
+   A list of numbers
+   =SEQUENCE(12) for 1 to 12
+   XLOOKUP
+   A matching value from another range
+   =XLOOKUP(A2 Items Prices)
+
+
+Note: Dynamic arrays and XLOOKUP work in Excel for Microsoft 365, Excel 2024, and Excel 2021. They do not exist in Excel 2019 or earlier, which is now out of support. If you type =XLOOKUP( on an older machine and get #NAME?, the formula is not wrong — the function is not there. Opening a newer workbook in Excel 2019 shows the same formula as _xlfn.XLOOKUP with a #NAME? error, which is Excel telling you it does not recognize a function the file was built with.
+
+
+## XLOOKUP, and why VLOOKUP was worth replacing
+VLOOKUP has three long-standing problems. It can only look to the right of the lookup column. It refers to the return column by position number, so inserting a column silently breaks it. And it defaults to an approximate match, which means a typo returns a wrong answer rather than an error.
+
+XLOOKUP fixes all three. It takes the lookup range and the return range as separate arguments, so direction does not matter and inserting a column cannot break it. It defaults to an exact match. And it has a built-in argument for what to return when nothing is found.
+
+
+ type: table
+ caption: The same lookup both ways
+ columns: 
+  VLOOKUP
+  XLOOKUP
+ rows: 
+   Formula
+   =VLOOKUP(A2 Items!A:D 4 FALSE)
+   =XLOOKUP(A2 ItemsName ItemsPrice)
+   Can look left
+   No
+   Yes
+   Breaks if a column is inserted
+   Yes — the position number is now wrong
+   No — the return range moves with it
+   Default match type
+   Approximate unless you add FALSE
+   Exact
+   Handles 'not found'
+   Returns #N/A; needs IFERROR wrapped around it
+   Fourth argument: =XLOOKUP(A2 names prices \Not found\)
+
+
+
+ type: worked-example
+ title: Building the live reorder list
+ task: Produce a self-updating list of every supply item below its reorder level sorted by category.
+ steps: 
+   move: Start with FILTER alone and check what it returns.
+   why: =FILTER(A2:E900 D2:D900<E2:E900) returns the matching rows and nothing else. Building one function at a time is how you find which part is wrong when something misbehaves — nesting first and debugging afterwards is much harder.
+   move: Add a message for the case where nothing matches.
+   why: =FILTER(A2:E900 D2:D900<E2:E900 \All items in stock\) — without the third argument a fully stocked week returns #CALC! which looks like a broken spreadsheet rather than good news.
+   move: Wrap it in SORT to order by category.
+   why: =SORT(FILTER(...) 2 1) sorts the filtered result by its second column ascending. Sorting the output rather than the source means the underlying data is never rearranged so nothing can be scrambled.
+   move: Leave the cells below and to the right of the formula empty.
+   why: The result needs room to spill. Anything already sitting in the spill range produces #SPILL! and the fix is to clear those cells — not to change the formula.
+ result: One formula that produces the full reorder list and updates the moment any quantity changes.
+ takeaway: Build dynamic array formulas one function at a time always give FILTER an if-empty argument and keep the spill range clear.
+
+
+
+ type: table
+ caption: The two errors you will meet
+ columns: 
+  Error
+  Means
+  Fix
+ rows: 
+   #SPILL!
+   Something is blocking the range the result needs
+   Clear the cells in the spill range
+   #NAME?
+   Excel does not recognize the function name
+   Check the spelling — or check whether your version has it
+   #CALC!
+   A dynamic array returned an empty result
+   Add the if-empty argument to FILTER
+
+
+Check yourself: You write =XLOOKUP(A2, Items, Prices) and Excel returns #NAME?. What is the most likely cause? Answer: Your version of Excel does not have XLOOKUP — it requires Microsoft 365, Excel 2021, or Excel 2024. #NAME? means Excel does not recognize a name in the formula — a misspelled function, or a function this version does not have. XLOOKUP was introduced with Microsoft 365 and is absent from Excel 2019, so on a 2019 machine the formula is correct and unavailable.

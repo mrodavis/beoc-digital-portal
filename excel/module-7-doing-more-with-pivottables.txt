@@ -1,0 +1,66 @@
+Doing More with PivotTables
+
+Module 7: Data Analysis Tools
+
+Learn how to perform deeper analysis with PivotTables by filtering, grouping, and refreshing summarized data.
+
+By the end of this lesson you can:
+- Add slicers and timelines as visual filters
+- Group dates and numeric values into meaningful bands
+- Change value calculations to show percentages and running totals
+- Connect one slicer to several PivotTables
+
+
+## Making a PivotTable usable by someone else
+
+ type: scenario
+ role: You build the spending dashboard at Lakeside Medical Associates.
+ text: The practice manager needs to look at one department at a time. Explaining the PivotTable field list means explaining Rows Columns Values and Filters. Adding a slicer means saying 'click the department you want.'
+ task: Add controls that let a non-Excel user explore the data without instruction.
+
+
+A slicer is a filter with buttons. It does exactly what the Filters area does, but visibly — and crucially, it shows the current filter state, so nobody misreads a filtered table as the full picture. That failure mode is common enough with the Filters dropdown to justify slicers on its own.
+
+A timeline is the equivalent for dates: a slider for choosing months, quarters, or years. Both can be connected to several PivotTables at once through Report Connections, so one click filters an entire dashboard consistently.
+
+Show Values As (right-click a value > Show Values As) reframes numbers without any formula work: % of Grand Total, % of Parent Row, Running Total, or Difference From the previous period. 'Medical supplies are 46% of spending' often lands better than the raw dollar figure.
+
+Note: Right-click a date field and choose Group to band dates by month, quarter, or year; the same command bands numbers into ranges. This is how a thousand individual transaction dates become a readable twelve-row monthly summary.
+
+
+## Filtering PivotTables
+PivotTables allow you to filter data to focus on specific information. You can filter by fields such as Salesperson, Region, or Month to quickly analyze subsets of your dataset.
+
+To filter a PivotTable, drag a field such as Salesperson into the Filters area of the PivotTable Fields panel.
+
+
+## Filtering Multiple Items
+You can filter multiple values from a PivotTable field. Select the filter dropdown, enable Select Multiple Items, and choose the items you want to analyze.
+
+
+## Using Slicers for Visual Filtering
+Slicers provide a visual way to filter PivotTable data. Instead of dropdown menus, slicers use clickable buttons that allow you to filter data quickly.
+
+To insert a slicer, select the PivotTable and go to PivotTable Analyze → Insert Slicer.
+
+
+## Filtering with Slicers
+You can click individual buttons in the slicer to filter the PivotTable instantly. Hold Ctrl to select multiple items.
+
+
+## Creating PivotCharts
+PivotCharts allow you to visualize PivotTable data in a chart format. When the PivotTable changes, the chart updates automatically.
+
+Select the PivotTable and go to Insert → PivotChart.
+
+
+## Interacting with PivotCharts
+PivotCharts remain connected to their PivotTables. When filters or slicers change, the chart updates automatically.
+
+
+## Final Result
+After applying filters, slicers, and charts, you can quickly analyze patterns in your dataset. PivotTables and PivotCharts together provide powerful tools for summarizing and visualizing data.
+
+
+## Knowledge Check
+Check yourself: What does a Slicer do in a PivotTable? Answer: Provides a visual, clickable filter to quickly narrow PivotTable results. A slicer is a visual filter: clickable buttons for each value in a field. Its advantage over the Filters dropdown is that the current filter state is always visible, so nobody mistakes a filtered table for the whole data set.

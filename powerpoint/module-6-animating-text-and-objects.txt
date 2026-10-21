@@ -1,0 +1,110 @@
+Animating Text and Objects
+
+Module 6: Animations & Multimedia
+
+Learn how to apply animation effects to text and objects, customize timing, use the Animation Pane, and control the order animations play.
+
+By the end of this lesson you can:
+- Apply entrance, emphasis, and exit animations
+- Control animation order and start timing
+- Use the Animation Pane to manage a sequence
+- Judge when animation clarifies and when it distracts
+
+
+## Animate to control attention, not to decorate
+
+ type: scenario
+ role: You explain a four-stage process at Lakeside Medical Associates.
+ text: All four stages appear at once and the audience reads ahead to stage four while you are still on stage one. Revealing each stage as you reach it keeps everyone with you — which is the one thing animation genuinely does well.
+ task: Use animation to control when information arrives and leave it alone otherwise.
+
+
+The legitimate use of animation is sequencing: revealing points as you discuss them so the audience attends to the one you are on. Almost every other use costs attention without returning any.
+
+
+ type: table
+ caption: Start timing options
+ columns: 
+  Setting
+  Plays
+  Use for
+ rows: 
+   On Click
+   When you click
+   Revealing points at your own pace
+   With Previous
+   At the same time as the previous animation
+   Two elements that belong together
+   After Previous
+   Automatically when the previous one finishes
+   A self-running sequence with no clicking
+
+
+Note: The Animation Pane (Animations > Animation Pane) lists every animation on the slide in order, with its trigger and duration. On any slide with more than two animations it is the only practical way to see and reorder the sequence — dragging entries in the pane is far easier than guessing from the numbered markers on the slide.
+
+
+## What Are Animations?
+Animations in PowerPoint control how individual objects — text, images, and shapes — appear, move, or disappear on a slide.
+
+Unlike transitions, which affect the entire slide, animations target specific objects. This makes them useful for revealing bullet points one at a time or drawing attention to a key graphic.
+
+Note: Use animations purposefully. Too many competing effects on a single slide can distract your audience instead of helping them follow along.
+
+
+## Animation Categories
+Entrance brings something onto the slide, Emphasis draws attention to something already there, Exit removes it, and Motion Path moves it along a route you draw. Entrance is the one with a legitimate everyday use — revealing points as you discuss them — and the other three are usually decoration.
+
+- Entrance — controls how an object appears on the slide (e.g., Fade, Fly In, Appear).
+- Emphasis — draws attention to an object that is already visible (e.g., Pulse, Spin, Grow/Shrink).
+- Exit — controls how an object leaves the slide (e.g., Fade Out, Fly Out).
+- Motion Paths — moves an object along a defined path on the slide.
+
+
+## Applying an Animation
+To apply an animation, select an object on the slide and open the Animations tab.
+
+Click an effect from the Animation gallery. PowerPoint will immediately preview the animation on your slide.
+
+Those badges are the running order, and they do not renumber when you rearrange objects on the slide. If your reveals fire in an order that surprises you during a rehearsal, the badges will show you why.
+
+
+## Effect Options
+Many animations offer additional variations through Effect Options. For example, a text box can fade in all at once, or paragraph by paragraph.
+
+Click Effect Options on the Animations tab to see the available choices for the selected animation.
+
+
+## The Animation Pane
+The Animation Pane gives you a detailed list of every animation on the current slide and the order in which they play.
+
+To open it, click Animation Pane on the Animations tab.
+
+You can drag items up or down in the pane to reorder them, and click the Play All button at the top to preview the full sequence.
+
+
+## Start, Duration, and Delay
+Start decides what triggers it: On Click waits for you, With Previous fires alongside the animation before it, and After Previous fires automatically once that one finishes. Duration sets the speed — under half a second for most things, because anything slower makes the audience wait. Delay staggers a sequence without needing extra clicks.
+
+- Start — On Click (default), With Previous (plays at the same time as the animation before it), or After Previous (plays automatically after the previous animation ends).
+- Duration — how long the animation takes to complete.
+- Delay — how many seconds to wait before the animation begins.
+
+Set multiple animations to With Previous or After Previous so the sequence plays automatically without requiring extra clicks.
+
+
+## Reordering Animations
+To change the order that animations play, select an animation in the Animation Pane and use the Move Earlier or Move Later buttons on the Animations tab.
+
+
+## Removing an Animation
+To remove an animation, select the object on the slide or select the animation entry in the Animation Pane, then press the Delete key.
+
+You can also select the object and choose None from the Animation gallery to clear all animations from that object.
+
+
+## Completed Slide Example
+When animations are applied consistently and sequenced correctly, they guide the audience through your content in a controlled and professional way.
+
+
+## Knowledge Check
+Check yourself: Which animation start setting causes an animation to play automatically after the previous one ends? Answer: After Previous. After Previous starts the animation automatically once the preceding one finishes, requiring no click. With Previous starts it simultaneously with the preceding animation instead.

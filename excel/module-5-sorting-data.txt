@@ -1,0 +1,86 @@
+Sorting Data
+
+Module 5: Working with Data
+
+Learn how to sort text, numbers, and custom lists in Excel. Master basic sorting, multi-level sorting, and logical ordering using the Sort dialog box.
+
+By the end of this lesson you can:
+- Sort by one column and by several columns in priority order
+- Explain why selecting a single column before sorting corrupts data
+- Use custom sort orders for non-alphabetical sequences
+- Recognize when a sort has gone wrong and recover
+
+
+## The most destructive mistake in Excel
+
+ type: scenario
+ role: You organize the supply list at Lakeside Medical Associates.
+ text: You click the Item Name column select just that column and sort A to Z. The names reorder. The quantities prices and vendors do not. Every row now pairs a name with another item's data and there is no way to tell what belonged with what.
+ task: Sort in a way that keeps each record intact and know how to recover when it goes wrong.
+
+
+This is the error worth being genuinely careful about, because it is silent and often unrecoverable. Sorting one selected column reorders only that column. Every other column stays put, so the association between a name and its data is destroyed — and nothing on screen indicates anything is wrong.
+
+The safe method is to click a single cell inside the data and use Data > Sort. Excel then detects the whole contiguous range and sorts complete rows, keeping records together. If a warning offers to 'Expand the selection,' always accept it — that dialog is Excel catching this exact mistake.
+
+Note: If you realize you have mis-sorted, press Ctrl+Z immediately and do nothing else first. Once you save and close, the original pairing is gone — there is no way to reconstruct which name belonged to which quantity. This is the strongest practical argument for storing working files in OneDrive, where version history can recover the previous state.
+
+Add an index column numbered 1, 2, 3 before you start sorting a data set. Sorting by that column returns the sheet to its original order at any point, which turns an irreversible operation into a reversible one.
+
+
+## Understanding Sorting in Excel
+Sorting reorganizes your dataset based on the values in one or more columns. Instead of manually rearranging rows, Excel automatically moves entire records together so your data remains aligned.
+
+You can sort alphabetically, numerically, by date, or by a custom logical order such as T-shirt sizes.
+
+
+## Step 1: Select a Cell Inside Your Dataset
+Before sorting, click anywhere inside your dataset. Excel will automatically detect the surrounding data range.
+
+If you select only one column instead of the entire dataset, you risk misaligning rows and corrupting your data.
+
+
+## Step 2: Locate the Sort Commands
+Sorting tools are located on the Data tab inside the Sort & Filter group.
+
+There are two quick-sort buttons (A–Z and Z–A) and a full Sort button for advanced options.
+
+
+## Basic Sorting: A to Z
+The A–Z button sorts text alphabetically (A to Z), numbers from smallest to largest, and dates from oldest to newest.
+
+After clicking A–Z, Excel reorganizes the entire dataset based on the selected column.
+
+
+## Basic Sorting: Z to A
+The Z–A button reverses the order. It sorts text from Z to A, numbers from largest to smallest, and dates from newest to oldest.
+
+This is useful when identifying top performers, highest values, or most recent entries.
+
+
+## Using the Sort Dialog for More Control
+For advanced sorting, click the Sort button instead of the A–Z icons.
+
+The Sort dialog box allows you to choose specific columns and define custom sorting rules.
+
+If your dataset includes headers, ensure 'My data has headers' is checked so Excel recognizes column names.
+
+
+## Multi-Level Sorting
+Multi-level sorting allows you to sort by more than one column. Excel sorts by the first column, then breaks ties using the second column.
+
+For example, you could sort by Homeroom number first, then by Last Name.
+
+Use Add Level to introduce another sorting rule. You can adjust priority using Move Up or Move Down.
+
+
+## Sorting with Custom Lists
+Alphabetical order is not always logical. For example, T-shirt sizes should follow Small, Medium, Large, X-Large — not alphabetical order.
+
+To create a logical order, use Custom Lists.
+
+Enter your logical sequence (Small, Medium, Large, X-Large) and click Add.
+
+
+## Knowledge Check
+Check yourself: What type of sort would you use to organize a list from A to Z? Answer: Ascending sort. An ascending sort runs smallest to largest — A to Z for text, earliest to latest for dates, lowest to highest for numbers.

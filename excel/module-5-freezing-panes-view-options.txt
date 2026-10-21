@@ -1,0 +1,82 @@
+Freezing Panes and View Options
+
+Module 5: Working with Data
+
+Learn how to freeze rows and columns, split worksheets, and open multiple windows to compare data more effectively.
+
+By the end of this lesson you can:
+- Freeze rows and columns so headers stay visible while scrolling
+- Split a window to view distant parts of a sheet at once
+- Open a second window onto the same workbook
+- Choose the right view tool for a given navigation problem
+
+
+## Losing the headers is a data-entry hazard
+
+ type: scenario
+ role: You update quantities in a 900-row tracker at Lakeside Medical Associates.
+ text: At row 340 the headers are long gone. You are counting columns from the left to work out which is Reorder Level and which is Quantity on Hand. Eventually you miscount and the entries go into the wrong column.
+ task: Keep the headers on screen so every row is entered against a visible label.
+
+
+Freeze Panes keeps chosen rows and columns fixed while the rest scrolls. The rule that catches everyone: Excel freezes everything above and to the left of the selected cell. To freeze row 1 and column A together, select B2 — not A1 — and then Freeze Panes.
+
+
+ type: table
+ caption: Which view tool to use
+ columns: 
+  You want
+  Use
+  How
+ rows: 
+   Headers visible while scrolling
+   Freeze Panes
+   Select the cell below and right of what should stay then freeze
+   To compare row 5 with row 400
+   Split
+   View > Split — each pane scrolls independently
+   Two sheets side by side
+   New Window
+   View > New Window then Arrange All
+   To hide detail temporarily
+   Group
+   Data > Group creates collapsible sections
+
+
+View > New Window opens a second window onto the same workbook — not a copy. Edits in one appear instantly in the other, so you can watch a summary sheet update as you type into the data sheet. Arrange All tiles them side by side.
+
+
+## Why Freeze Panes and View Tools Matter
+As spreadsheets grow larger, important information like headers and identifiers can disappear when scrolling. Excel provides Freeze Panes, Split, and New Window tools to improve navigation and comparison.
+
+
+## Freeze the Top Row
+If your headers are in Row 1, use Freeze Top Row to keep them visible while scrolling.
+
+
+## Freeze Multiple Rows
+To freeze more than one row, select the row below the rows you want frozen, then choose Freeze Panes.
+
+
+## Freeze Columns
+To freeze columns, select the column to the right of the columns you want frozen.
+
+
+## Unfreeze Panes
+To remove any freeze settings, go to View → Freeze Panes → Unfreeze Panes.
+
+
+## Open a New Window
+Excel allows you to open a second window of the same workbook for comparison.
+
+
+## Arrange All Windows
+Use Arrange All to automatically tile workbook windows for comparison.
+
+
+## Split a Worksheet
+The Split command divides your worksheet into panes that scroll independently.
+
+
+## Knowledge Check
+Check yourself: What does freezing the top row in Excel do? Answer: Keeps the header row visible when you scroll down. Freezing keeps the top row fixed on screen while the rest of the sheet scrolls beneath it, so column headers stay visible at any row. It affects display only — nothing about the data changes.

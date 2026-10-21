@@ -1,0 +1,87 @@
+Groups and Subtotals
+
+Module 5: Working with Data
+
+Learn how to organize large datasets using grouping and automatically summarize data with the Subtotal command.
+
+By the end of this lesson you can:
+- Group rows and columns into collapsible outlines
+- Apply automatic subtotals to a sorted data set
+- Explain why data must be sorted before subtotalling
+- Remove subtotals and return to a clean data range
+
+
+## Subtotals require a sort first
+
+ type: scenario
+ role: You summarize spending by category at Lakeside Medical Associates.
+ text: You run Data > Subtotal on the supply sheet without sorting it first. Excel inserts a subtotal every time the category changes from one row to the next — producing forty-one subtotals across a sheet with four categories.
+ task: Sort by the grouping column first so each category occupies one contiguous block.
+
+
+The Subtotal command inserts a summary row whenever the value in your chosen column changes. It has no memory of categories it has already seen, so if the categories are scattered it dutifully subtotals each run. Sorting by that column first gathers each category into one block, and you get one subtotal per category.
+
+Subtotals add an outline down the left edge with numbered buttons. Clicking 1 shows the grand total alone, 2 shows category subtotals, and 3 shows every row. That collapsibility is the real benefit — the same sheet serves both a manager wanting four numbers and an analyst wanting all 900 rows.
+
+Note: Subtotals insert real rows into your data, which means the range is no longer a clean data set — sorting it again will scramble the subtotal rows in with the data. Remove them with Data > Subtotal > Remove All before doing anything else with the range. For repeated analysis, a PivotTable is the better tool, because it summarizes without altering the source at all.
+
+
+## Why Groups and Subtotals Matter
+Large datasets can quickly become overwhelming. Groups and Subtotals allow you to organize data into collapsible sections and automatically calculate summaries such as totals, counts, or averages.
+
+When subtotals are applied, Excel creates an outline structure that lets you expand or collapse levels of detail.
+
+
+## Grouping Rows or Columns
+You can manually group selected rows or columns to create collapsible sections.
+
+1. Select the rows or columns you want to group.
+2. Go to the Data tab.
+3. Click the Group command in the Outline group.
+
+
+## Hide and Show Detail
+Once data is grouped, minus (-) and plus (+) buttons appear to the left of the worksheet.
+
+Click the minus sign to collapse (hide) detail. Click the plus sign to expand (show) detail.
+
+
+## Important: Sort Before Using Subtotal
+Before creating subtotals, you must sort your data by the column you plan to group by.
+
+For example, if you want to subtotal by T-Shirt Size, sort the worksheet by T-Shirt Size first.
+
+
+## Creating a Subtotal
+1. Sort your worksheet by the column you want to subtotal.
+2. Go to the Data tab.
+3. Click Subtotal.
+
+In the Subtotal dialog box:
+
+• At each change in: Select the grouping column (e.g., T-Shirt Size)
+• Use function: Choose COUNT, SUM, AVERAGE, etc.
+• Add subtotal to: Select the column to calculate
+
+
+## Understanding Outline Levels
+After applying subtotals, Excel creates outline levels on the left side of the worksheet.
+
+Level 1 shows only the Grand Total.
+Level 2 shows subtotal rows.
+Level 3 shows all detailed data.
+
+
+## Removing Subtotals
+To remove subtotals entirely:
+
+1. Go to Data → Subtotal.
+2. Click Remove All.
+
+
+## Clearing Groups Without Removing Data
+If you want to remove grouping but keep the data, use Clear Outline.
+
+
+## Knowledge Check
+Check yourself: What does the Subtotal command do? Answer: Automatically calculates summary values (sum, average, etc.) for grouped data. Subtotal inserts summary rows into a sorted data set, calculating a sum, average, count, or similar for each group, and adds a collapsible outline so you can move between summary and detail.

@@ -1,0 +1,68 @@
+Modifying Columns, Rows, and Cells
+
+Module 2: Cells, Formatting & Basic Formulas
+
+Learn how to resize, insert, delete, hide, move, and format rows and columns in Excel.
+
+By the end of this lesson you can:
+- Adjust column width and row height, including AutoFit
+- Insert, delete, hide, and unhide rows and columns
+- Explain why merged cells cause problems in data ranges
+- Wrap text so long entries stay readable
+
+
+## Merged cells break more than they fix
+
+ type: scenario
+ role: You inherit the supply tracker at Lakeside Medical Associates.
+ text: Your predecessor merged cells across the top of each section to make headings look centered. Now sorting throws an error filtering behaves unpredictably and selecting a column selects far more than you asked for.
+ task: Learn the layout tools that make a sheet readable without damaging its structure.
+
+
+Merging combines cells into one, which destroys the grid the merged region covered. Sorting, filtering, and many formulas depend on every row having the same shape, so a merged range breaks them. In a data table, merged cells are close to always the wrong tool.
+
+'Center Across Selection' gives the same visual result without the damage. Select the cells, open Format Cells > Alignment, and set Horizontal to Center Across Selection. The text appears centered across the range while every cell remains individually addressable — so sorting and filtering keep working.
+
+Note: Hiding a column does not remove its data. Hidden columns are fully present in the file and unhide in two clicks, so hiding is never a way to withhold information from someone you send the workbook to. If data should not travel, delete it from a copy.
+
+Double-clicking the boundary between two column headers AutoFits that column to its widest entry. Select every column first and one double-click sizes them all — the fastest way to make an inherited sheet readable.
+
+
+## Resizing Columns
+You can manually resize columns by dragging the boundary between column headers or use AutoFit to automatically adjust the width.
+
+
+## Resizing Rows
+Row height can be adjusted manually or through the Row Height command.
+
+
+## Wrap Text
+Wrap Text allows content to appear on multiple lines within a single cell instead of expanding the column width.
+
+
+## Inserting Rows and Columns
+You can insert new rows or columns using the Insert command from the Home tab.
+
+
+## Deleting Rows and Columns
+Rows and columns can be deleted using the Delete command or right-click menu.
+
+
+## Hiding and Unhiding Rows and Columns
+Rows and columns can be hidden to temporarily remove them from view without deleting data.
+
+
+## Moving Rows and Columns
+Rows and columns can be moved using Cut and Insert Cut Cells.
+
+
+## Merge & Center vs Center Across Selection
+Merge & Center combines cells into one. Center Across Selection centers text without merging cells.
+
+
+## Selecting All Cells
+Click the Select All button to highlight the entire worksheet at once.
+
+
+## Knowledge Check
+Check yourself: What does AutoFit do to a column? Answer: Adjusts the column width to fit the widest content. AutoFit sizes a column to exactly fit its widest entry, so nothing is cut off and no space is wasted. Double-clicking the boundary in the column header is the fastest way to apply it.

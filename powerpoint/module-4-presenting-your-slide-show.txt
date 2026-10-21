@@ -1,0 +1,128 @@
+Presenting Your Slide Show
+
+Module 4: Managing Slides & Presentations
+
+Learn how to deliver your presentation using Slide Show view, navigation tools, Presenter View, and interactive presentation features.
+
+By the end of this lesson you can:
+- Start a slide show and navigate it confidently
+- Use Presenter View to see notes, timing, and the next slide
+- Use presentation tools such as the pen and screen blanking
+- Prepare for the practical failures that occur during presentations
+
+
+## Presenter View is the reason to stop reading your slides
+
+ type: scenario
+ role: You present at the all-staff meeting at Lakeside Medical Associates.
+ text: Without Presenter View you turn to the screen to see what is on the slide which means talking to the wall. You cannot see what is coming next and you have no idea whether you are running long.
+ task: Use Presenter View so your notes the next slide and a timer are in front of you and the audience sees only the presentation.
+
+
+Presenter View puts your notes, a timer, a preview of the next slide, and navigation controls on your screen while the audience sees the slide alone. It is the single feature that most improves how a presentation is delivered, because it removes every reason to look at the projection.
+
+
+ type: table
+ caption: Controls worth knowing before you stand up
+ columns: 
+  Key
+  Does
+ rows: 
+   F5
+   Starts the show from the beginning
+   Shift + F5
+   Starts from the current slide — what you want when rehearsing
+   B or W
+   Blanks the screen to black or white
+   Number then Enter
+   Jumps directly to that slide
+   Esc
+   Ends the show
+   Ctrl + P
+   Turns the pointer into a pen for annotating
+
+
+Pressing B blanks the screen to black. When discussion starts, or a question takes you off the deck, blanking removes the slide as a distraction and brings attention back to the room. It is the most useful key in the list and almost nobody knows it.
+
+Note: Have a fallback. Carry the deck on a USB drive and a PDF export, know your opening two minutes well enough to start without slides, and arrive early enough to test the display. Presentations fail on unfamiliar hardware more often than on anything you did wrong in PowerPoint.
+
+
+## Starting a Slide Show
+To present your slides, you must enter Slide Show view. This mode displays your presentation in full screen, just as your audience will see it.
+
+You can start a slide show in several ways depending on your situation.
+
+- Press F5 to start from the beginning
+- Use the Slide Show tab → From Beginning
+- Use From Current Slide to start from your current position
+- Click the Slide Show button in the bottom-right corner
+
+Use 'From Current Slide' when practicing or presenting updates so you don’t restart the entire presentation every time.
+
+
+## Navigating Slides
+While presenting, you can move between slides using several methods.
+
+- Click the mouse to move forward
+- Press the spacebar or arrow keys
+- Use on-screen navigation arrows
+
+Using multiple navigation methods ensures you can present smoothly whether using a keyboard, mouse, or remote clicker.
+
+
+## Ending a Slide Show
+To end your presentation, you can press the Esc key at any time.
+
+You can also right-click during the presentation and select End Show from the menu.
+
+At the end of the final slide, PowerPoint will display a message indicating the presentation has finished.
+
+
+## Using Presentation Tools
+During a presentation, you can access additional tools by right-clicking or using the Slide Options menu.
+
+These tools allow you to navigate slides, access settings, and control your presentation without exiting Slide Show view.
+
+
+## Jumping Between Slides
+You can jump to any slide instantly by selecting 'See All Slides' during your presentation.
+
+This is especially useful when answering audience questions or navigating a presentation out of order.
+
+
+## Using Drawing Tools
+PowerPoint includes drawing tools that allow you to annotate slides during a presentation.
+
+- Pen for writing
+- Highlighter for emphasis
+- Different colors for visibility
+
+Use drawing tools to emphasize key data points while speaking—it keeps your audience engaged and focused.
+
+
+## Using the Laser Pointer
+The laser pointer allows you to highlight areas without permanently marking the slide.
+
+This is useful when you want to guide attention without adding annotations.
+
+
+## Presenter View
+Presenter View allows you to see additional information while your audience only sees the slides.
+
+Presenter View includes tools like a timer, slide previews, notes, and navigation controls.
+
+Always use Presenter View when available—it allows you to stay organized and deliver a more professional presentation.
+
+
+## Setting Up a Slide Show
+PowerPoint allows you to configure how your presentation behaves using the Set Up Slide Show dialog box.
+
+You can choose presentation type, slide range, and how slides advance.
+
+
+## Completed Presentation Example
+A well-delivered presentation uses navigation tools, annotations, and Presenter View to guide the audience effectively.
+
+
+## Knowledge Check
+Check yourself: Which feature allows you to view notes and upcoming slides while the audience sees only the presentation? Answer: Presenter View. Presenter View shows your notes, a timer, and the upcoming slide on your screen while the audience sees only the current slide — which is what lets you speak to the room rather than read the projection.

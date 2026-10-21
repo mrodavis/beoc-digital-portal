@@ -1,0 +1,106 @@
+Inserting Charts
+
+Module 7: Tables, Charts & SmartArt
+
+Learn how to insert charts into PowerPoint, choose the right chart type, edit chart data, and format your chart to communicate information visually.
+
+By the end of this lesson you can:
+- Insert a chart and edit its underlying data
+- Choose a chart type that answers the audience's question
+- Simplify a chart so it reads from the back of a room
+- Update a chart when the source figures change
+
+
+## A presentation chart needs to be simpler than a report chart
+
+ type: scenario
+ role: You present spending trends at Lakeside Medical Associates.
+ text: You paste the chart from your Excel report: eight series gridlines a legend on the right and axis labels at nine point. In the report where a reader can study it it works. Projected it is a colored tangle.
+ task: Rebuild the chart for a glance from six meters away not for a reader at a desk.
+
+
+A report chart is read; a presentation chart is glanced at. That difference means fewer series — two or three, not eight — larger type, no gridlines, and direct labels on the lines rather than a legend the eye has to travel to and match by color.
+
+
+ type: table
+ caption: Choosing a chart type
+ columns: 
+  The question
+  Chart
+ rows: 
+   How did this change over time?
+   Line
+   How do these categories compare?
+   Column or bar
+   What share of the whole is each part?
+   Pie five or fewer slices
+   Are these two measures related?
+   Scatter
+
+
+Note: Start a column chart's value axis at zero. Readers judge bar length, so a truncated axis makes a small difference look dramatic. Presenting a misleading chart damages your credibility even when the distortion was accidental — and it usually is.
+
+
+## Why Use Charts in Presentations?
+Charts transform raw numbers into visuals that are far easier to interpret at a glance. A bar chart comparing sales figures communicates instantly what a table of numbers takes time to process.
+
+In professional presentations, charts are among the most effective tools for presenting data-driven arguments and trends.
+
+Note: Choose your chart type based on what you want to communicate, not just what looks interesting. The wrong chart type can mislead your audience.
+
+
+## Common Chart Types
+PowerPoint includes many chart types. These are the most commonly used in business presentations:
+
+- Column and Bar — compare values across categories. Column charts are vertical; bar charts are horizontal.
+- Line — show trends over time. Best when data has a clear sequence like months or years.
+- Pie — show proportions of a whole. Use only when you have a small number of categories.
+- Area — similar to line charts but filled with color, emphasizing volume.
+
+
+## Inserting a Chart
+Go to the Insert tab and click Chart.
+
+The Insert Chart dialog opens. Choose a chart type from the left panel and select a specific subtype from the top row, then click OK.
+
+A sample chart appears on your slide alongside a small Excel-style spreadsheet where you enter your actual data.
+
+
+## Editing Chart Data
+Replace the placeholder data in the spreadsheet with your own numbers. The chart on the slide updates automatically as you type.
+
+Column headers become the chart's legend labels. Row headers become the category labels along the axis.
+
+Close the spreadsheet when you're done. To edit the data again later, right-click the chart and select Edit Data.
+
+
+## Chart Design and Format Tabs
+When a chart is selected, the Chart Design and Format tabs appear on the ribbon. These tabs contain all chart customization tools.
+
+
+## Applying a Chart Style
+The Chart Design tab includes a Chart Styles gallery with pre-built color and shading combinations that coordinate with your theme.
+
+Click Change Colors to select a different color palette for your chart's data series.
+
+
+## Changing the Chart Layout
+Quick Layouts on the Chart Design tab let you change what elements appear on the chart — such as the title, legend, gridlines, and data labels.
+
+You can also use Add Chart Element to turn individual elements on or off, such as axis titles, data labels, and the legend.
+
+
+## Changing the Chart Type
+If you decide that a different chart type would represent your data better, you don't have to start over.
+
+Click Change Chart Type on the Chart Design tab, select the new type, and click OK. Your data transfers to the new chart format.
+
+
+## Completed Chart Example
+A well-chosen chart type with a matching style and clear labels can make even complex data easy to understand at a glance.
+
+
+## Knowledge Check
+Check yourself: Which chart type is best suited for showing a trend over a period of time? Answer: Line. A line chart shows change over a continuous period. The connecting line is read as continuity, which makes the shape of the trend immediately visible.
+
+Check yourself: How do you update the data in a chart after it has been inserted? Answer: Right-click the chart and select Edit Data. Right-clicking the chart and choosing Edit Data opens the embedded worksheet holding the chart's values. Change them there and the chart redraws immediately.

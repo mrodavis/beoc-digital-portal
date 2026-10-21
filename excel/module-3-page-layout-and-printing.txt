@@ -1,0 +1,84 @@
+Page Layout and Printing
+
+Module 3: Workbook Management, Printing & Basic Calculations
+
+Learn how to control margins, orientation, scaling, print area, print titles, and page breaks to produce professional printed reports.
+
+By the end of this lesson you can:
+- Set a print area and control what appears on each page
+- Repeat header rows on every printed page
+- Use Page Break Preview to control pagination
+- Fit a wide worksheet onto a sensible number of pages
+
+
+## Spreadsheets print badly by default
+
+ type: scenario
+ role: You print the supply report for a meeting at Lakeside Medical Associates.
+ text: You press print. Fourteen pages emerge: columns A through F on pages one to seven columns G through J on pages eight to fourteen with no headers on any page but the first. Nobody can reassemble it into anything readable.
+ task: Configure the print setup so a spreadsheet becomes a document someone can read on paper.
+
+
+The default assumes you want everything at full size, which almost never suits a worksheet wider than a page. Four settings fix nearly every printing problem, and they take about a minute.
+
+
+ type: table
+ caption: The four settings that fix spreadsheet printing
+ columns: 
+  Setting
+  Where
+  What it does
+ rows: 
+   Print Area
+   Page Layout > Print Area > Set
+   Prints only the selected range not every stray cell
+   Print Titles
+   Page Layout > Print Titles > Rows to repeat at top
+   Repeats the header row on every page
+   Fit All Columns on One Page
+   File > Print > Scaling
+   Stops columns splitting across separate pages
+   Orientation
+   Page Layout > Orientation
+   Landscape suits most worksheets which are wider than tall
+
+
+Page Break Preview (View tab) shows blue lines marking where pages will break, and you can drag them. It is far more direct than adjusting scaling percentages and guessing — you see the pagination and set it explicitly.
+
+Note: 'Fit Sheet on One Page' will shrink a large worksheet until it is genuinely unreadable — six-point type is common. If a sheet will not fit legibly, print it in sections with repeated headers, or reconsider whether the recipient needs all the columns.
+
+
+## Accessing the Print Pane
+To begin printing in Excel, select the File tab to open Backstage View, then choose Print. The Print pane allows you to preview and configure all print settings.
+
+
+## Choosing What to Print
+From the Settings section, you can choose to print Active Sheets, the Entire Workbook, or a Selection. Always verify the preview before printing.
+
+
+## Setting a Print Area
+To define exactly what prints, select the desired cells, go to the Page Layout tab, click Print Area, and choose Set Print Area.
+
+
+## Changing Page Orientation
+Excel offers Portrait (vertical) and Landscape (horizontal) orientation. Landscape is best for wide data tables.
+
+
+## Using Scaling Options
+If your worksheet content is cut off, use scaling options such as 'Fit All Columns on One Page' or 'Fit Sheet on One Page'. Be aware that scaling reduces text size.
+
+
+## Adjusting Margins
+Margins control the spacing between your worksheet content and the page edge. Choose presets like Normal, Wide, or Narrow, or manually adjust margins in the preview pane.
+
+
+## Using Print Titles
+Use Print Titles to repeat header rows or columns on every printed page. Go to Page Layout → Print Titles and specify rows to repeat at top and columns to repeat at left.
+
+
+## Adjusting Page Breaks
+Switch to Page Break Preview to manually control where printed pages divide. Drag the blue lines to reposition page breaks.
+
+
+## Knowledge Check
+Check yourself: What does setting a print area do in Excel? Answer: Limits printing to only the selected cells. The print area defines the range Excel will print, so everything outside it is ignored. This is how you print a summary without also printing the 900 rows of source data beside it.

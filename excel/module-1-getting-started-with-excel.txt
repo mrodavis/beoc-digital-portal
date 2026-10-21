@@ -1,0 +1,96 @@
+Getting Started with Excel
+
+Module 1: Excel Fundamentals
+
+Learn your way around the Excel interface, including the Ribbon, Backstage view, Quick Access Toolbar, workbook views, and zoom controls.
+
+By the end of this lesson you can:
+- Identify the Ribbon, formula bar, Name Box, and status bar and say what each does
+- Describe a cell address and how rows and columns are labeled
+- Read the status bar's automatic sum, average, and count
+- Move around a large worksheet efficiently with keyboard navigation
+
+
+## A spreadsheet is a grid of addresses
+
+ type: scenario
+ role: You are taking over supply tracking at Lakeside Medical Associates.
+ text: Your predecessor left a workbook with four sheets and about 900 rows. Your supervisor asks a simple question: what did we spend on medical supplies last quarter? You can see all the numbers. You just have no way to make the file answer the question.
+ task: Learn how a worksheet is addressed and navigated because every Excel skill after this depends on referring to cells precisely.
+
+
+Excel's power rests on one idea: every cell has an address. Columns are lettered, rows are numbered, and their intersection names the cell — C7 is column C, row 7. Because each cell has a stable address, a formula can refer to it, and when the value at that address changes, everything referring to it recalculates. That is the whole basis of a spreadsheet.
+
+The formula bar is the other thing to understand early. A cell shows you a result; the formula bar shows you what is actually in it. A cell displaying 1,240 might contain the number 1240 or the formula =SUM(C2:C15). Those are very different things, and only the formula bar tells you which. When a spreadsheet behaves unexpectedly, clicking a cell and reading the formula bar is nearly always the first diagnostic step.
+
+
+ type: key-terms
+ terms: 
+   term: Cell reference
+   definition: A cell's address formed from its column letter and row number — C7. Formulas use references rather than values so they update when the data changes.
+   term: Range
+   definition: A block of cells written with a colon. C2:C15 means every cell from C2 through C15.
+   term: Formula bar
+   definition: The bar above the grid showing the actual contents of the selected cell as opposed to its displayed result.
+   term: Name Box
+   definition: The box left of the formula bar showing the selected cell's address. Type an address into it to jump straight there.
+   term: Worksheet vs workbook
+   definition: A workbook is the file. A worksheet is one tab inside it. One workbook can hold many worksheets.
+
+
+
+ type: table
+ caption: Navigation worth learning on day one
+ columns: 
+  Keys
+  Does
+  Why it matters
+ rows: 
+   Ctrl + Arrow
+   Jumps to the edge of the current block of data
+   Reaches the end of 900 rows instantly
+   Ctrl + Home
+   Returns to A1
+   Gets you back from anywhere
+   Ctrl + End
+   Jumps to the last used cell
+   Shows the true extent of a sheet including stray data
+   Ctrl + Shift + Arrow
+   Selects to the edge of the block
+   Selects a whole column of data without dragging
+   F2
+   Edits the active cell in place
+   Faster than double-clicking and shows the formula
+
+
+Select several numbers and look at the bottom-right of the status bar: Excel is already showing their sum, average, and count. For a quick total you never need a formula at all. Right-click the status bar to choose which statistics appear there.
+
+
+## The Excel Interface
+When you open Excel, you’ll see a workbook made up of rows, columns, and cells. The active cell is highlighted and ready for data entry.
+
+
+## Understanding the Ribbon
+The Ribbon contains tabs like Home, Insert, Page Layout, Formulas, Data, Review, and View. Each tab contains groups of related commands.
+
+
+## Backstage View
+Click the File tab to open Backstage view. From here, you can save, open, print, share, and manage your workbook.
+
+
+## Quick Access Toolbar
+The Quick Access Toolbar lets you quickly access frequently used commands like Save, Undo, and Redo. You can customize it to add more tools.
+
+
+## Using the Search Box
+The Search box at the top of the window helps you find commands quickly. Click it or press Alt+Q, type what you want to do, such as freeze, and choose a command from the list of results.
+
+Note: Excel 2016 and 2019 called this the Tell Me box and placed it on the Ribbon, to the right of the tabs. It works the same way.
+
+
+## Workbook Views & Zoom
+Excel includes different worksheet views, such as Normal view and Page Break view. You can also adjust zoom levels using the zoom slider.
+
+
+## Knowledge Check
+Check yourself: Where are most Excel commands found? Answer: The Ribbon at the top of the screen. The Ribbon holds Excel's commands, grouped into tabs by task — Home for formatting, Formulas for functions, Data for sorting and filtering. The formula bar and status bar display information about your data rather than housing commands.

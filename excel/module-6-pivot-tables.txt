@@ -1,0 +1,95 @@
+Introduction to PivotTables
+
+Module 6: Tables, Charts & PivotTables
+
+PivotTables allow you to summarize large datasets instantly and reorganize your data to answer questions quickly.
+
+By the end of this lesson you can:
+- Build a PivotTable from a clean data range
+- Arrange fields across Rows, Columns, Values, and Filters
+- Change how values are summarized
+- Refresh a PivotTable when the source data changes
+
+
+## Answering four questions in three minutes
+
+ type: scenario
+ role: You are asked for a spending breakdown at Lakeside Medical Associates.
+ text: Your supervisor asks: what did we spend per department last month what are the top categories which vendors got the most and how does May compare with April? Answered with formulas and manual summary tables that is most of an afternoon. Answered with one PivotTable it is about three minutes.
+ task: Learn to summarize a large data set by rearranging fields rather than writing formulas.
+
+
+A PivotTable summarizes a data set by whatever fields you drag into it, without altering the source in any way. Drag Department to Rows and Amount to Values and you have spending per department. Drag Month to Columns as well and you have a full cross-tab. Each rearrangement is a new question answered, and the underlying data is never touched.
+
+
+ type: table
+ caption: The four areas
+ columns: 
+  Area
+  Field goes here to
+  Example
+ rows: 
+   Rows
+   Become the row labels
+   Department one per row
+   Columns
+   Become the column headings
+   Month one per column
+   Values
+   Be summarized — summed counted averaged
+   Amount summed
+   Filters
+   Filter the whole table
+   Year to show one year at a time
+
+
+Note: PivotTables do not update automatically when the source data changes. You must click Refresh on the PivotTable Analyze tab, and forgetting is one of the most common ways a stale figure reaches a report. Building the PivotTable on an Excel Table rather than a fixed range at least ensures new rows are included when you do refresh.
+
+If Excel summarizes a numeric column with Count instead of Sum, that column contains text somewhere — often a stray note or a number stored as text. The PivotTable is telling you about a data quality problem worth fixing at the source.
+
+
+## Why PivotTables Are Powerful
+When a worksheet contains many rows of data, calculating totals manually becomes difficult. PivotTables automatically summarize and analyze large datasets.
+
+
+## Step 1: Select Your Data
+Select the entire dataset including the column headers. These headers will become the fields used in the PivotTable.
+
+
+## Step 2: Insert the PivotTable
+Go to the Insert tab and click PivotTable.
+
+Excel will open the Create PivotTable dialog box.
+
+
+## Step 3: Understanding the PivotTable Fields Panel
+A blank PivotTable and the PivotTable Fields panel will appear in a new worksheet.
+
+
+## Step 4: Add Fields to Build the PivotTable
+To calculate total sales by salesperson:
+
+1. Add Salesperson to the Rows area
+2. Add Order Amount to the Values area
+
+
+## Adding Columns to Analyze More Data
+You can analyze the data further by dragging the Month field into the Columns area.
+
+
+## Changing the PivotTable Perspective
+PivotTables allow you to reorganize (pivot) the data to answer different questions.
+
+For example, remove Salesperson and instead add Region to see total sales by region.
+
+
+## Sorting and Filtering
+PivotTables allow sorting and filtering so you can analyze your data more easily.
+
+
+## Final PivotTable Example
+
+
+
+## Knowledge Check
+Check yourself: What does a PivotTable allow you to do? Answer: Summarize and reorganize large datasets without changing the original data. A PivotTable summarizes and reorganizes a large data set — totalling, counting, and cross-tabulating by whatever fields you choose — without altering the source data at all. Rearranging fields answers a new question in seconds.

@@ -1,0 +1,64 @@
+Creating and Opening Presentations
+
+Module 1: Getting Started with PowerPoint
+
+Learn how to create new PowerPoint presentations, use templates, open existing files, pin presentations, and understand Compatibility Mode.
+
+By the end of this lesson you can:
+- Create presentations from blank files and from templates
+- Open and pin recent presentations
+- Evaluate whether a template suits your content
+- Explain what a template supplies beyond appearance
+
+
+## A template is a set of decisions already made
+
+ type: scenario
+ role: You produce recurring briefings at Lakeside Medical Associates.
+ text: Every month you rebuild the same deck: the same title arrangement the same colors the same closing slide. Twenty minutes each time spent re-making decisions you already made in January — and the decks still do not quite match each other.
+ task: Build the practice's design once as a template then start every deck from it.
+
+
+A template supplies the theme, the slide layouts, and often placeholder content — all the structural decisions. Starting from one means starting with the design settled, so your attention goes to the argument rather than to fonts.
+
+Note: Judge a template by its layouts, not its title slide. Many attractive templates supply three usable layouts and nothing else, so the moment you need a comparison slide or a full-width chart you are improvising with text boxes — and the consistency you chose the template for is gone. Open the Slide Master and look at what layouts exist before committing to a template.
+
+
+## Creating a New Presentation
+PowerPoint files are called presentations. When starting a new project, you will usually begin with a blank presentation.
+
+To create a new presentation, click the File tab to open Backstage view, then select New and choose Blank Presentation.
+
+
+## Using Templates
+Templates are predesigned presentations that allow you to quickly start a slideshow with built-in formatting, layouts, and color themes.
+
+From the New screen in Backstage view, you can search for templates using the search bar or choose from suggested templates.
+
+
+## Opening Existing Presentations
+You can open presentations that have already been saved on your computer or OneDrive.
+
+Click File → Open to view recent files or browse your computer to locate a presentation.
+
+
+## Pinning Presentations
+If you frequently use the same presentation, you can pin it to the Recent list so it stays easy to access.
+
+Hover your mouse over a recent file and click the pushpin icon to pin the presentation.
+
+
+## Understanding Compatibility Mode
+If you open a presentation created in an older version of PowerPoint, it may open in Compatibility Mode.
+
+Compatibility Mode disables certain newer features so the presentation remains compatible with older versions of PowerPoint.
+
+
+## Converting a Presentation
+To access newer PowerPoint features, you can convert a presentation from Compatibility Mode to the latest file format.
+
+Open Backstage view, click Convert, and save the presentation as the newer format.
+
+
+## Knowledge Check
+Check yourself: What is a PowerPoint template? Answer: A pre-designed presentation you can customize as a starting point. A template is a pre-designed presentation supplying the theme, slide layouts, and often sample content, used as a starting point. Opening one creates a new presentation and leaves the template intact.

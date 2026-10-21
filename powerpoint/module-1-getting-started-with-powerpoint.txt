@@ -1,0 +1,138 @@
+Getting Started with PowerPoint
+
+Module 1: Getting Started with PowerPoint
+
+Learn your way around the PowerPoint interface including the Ribbon, Quick Access Toolbar, slide views, zoom controls, and Backstage view.
+
+By the end of this lesson you can:
+- Identify the Ribbon, slide pane, thumbnail pane, and notes pane
+- Switch between Normal, Slide Sorter, Reading, and Presenter views
+- Explain what a placeholder is and why it matters
+- Navigate a deck efficiently while building it
+
+
+## PowerPoint is a visual aid, not the presentation
+
+ type: scenario
+ role: You prepare the monthly all-staff briefing at Lakeside Medical Associates.
+ text: Your first deck has fourteen slides carrying every word you plan to say. During the meeting the room reads ahead stops listening and you end up reading your own slides aloud to people who finished them a minute ago.
+ task: Learn the tool and learn what belongs on a slide versus what belongs in your mouth.
+
+
+The most useful principle in this entire course is that the audience cannot read and listen at the same time. Text-heavy slides force a choice, and the audience reliably chooses reading — which makes the presenter redundant. Slides should carry the few things that genuinely benefit from being seen: an image, a number, a chart, a short phrase that anchors what you are saying.
+
+Everything else goes in the notes pane, which only you see in Presenter View. This is what the notes pane is actually for, and using it properly is the difference between a deck that supports you and a deck that replaces you.
+
+
+ type: key-terms
+ terms: 
+   term: Placeholder
+   definition: A pre-positioned content box defined by the slide layout. Typing into placeholders rather than free text boxes is what keeps a deck consistent.
+   term: Layout
+   definition: A named arrangement of placeholders — Title Slide Title and Content Two Content. Chosen per slide.
+   term: Slide Master
+   definition: The design definition behind every layout. Change it once and the whole deck follows.
+   term: Theme
+   definition: The coordinated colors fonts and effects applied across the presentation.
+   term: Notes pane
+   definition: Text attached to a slide that the audience never sees. Visible to you in Presenter View.
+
+
+
+ type: table
+ caption: The views and when to use each
+ columns: 
+  View
+  Shows
+  Use it to
+ rows: 
+   Normal
+   One slide plus thumbnails and notes
+   Build and edit slides
+   Outline
+   Text only as a hierarchy
+   Draft and reorder the argument before designing anything
+   Slide Sorter
+   All slides as thumbnails
+   Reorder delete and check visual consistency
+   Reading
+   Full screen in a window
+   Review the flow without leaving your desktop
+   Presenter
+   Notes timer and next slide
+   Actually present
+
+
+Build the deck in Outline View first. It shows only the text hierarchy, so you are forced to work on the argument before you can be distracted by design. A deck whose outline does not make sense will not be rescued by a theme.
+
+
+## PowerPoint Start Screen
+When you open PowerPoint, the Start Screen appears. From here you can create a new presentation, choose from templates, or open recent files.
+
+Select Blank Presentation to open the PowerPoint editing environment and begin building your slides.
+
+
+## Understanding the PowerPoint Interface
+Once a presentation opens, you will see the PowerPoint interface. The main workspace includes the Ribbon, slide navigation pane, slide editing area, and status bar.
+
+The slide pane is where you build your presentation, while the navigation pane on the left allows you to organize and switch between slides.
+
+
+## The Ribbon
+The Ribbon contains the commands you use to create and edit presentations. It is organized into tabs such as Home, Insert, Design, Transitions, Animations, Slide Show, Review, and View.
+
+Each tab contains groups of related commands. For example, the Font group contains tools for formatting text.
+
+
+## Showing and Hiding the Ribbon
+You can control how much of the Ribbon is visible with Ribbon Display Options, the small arrow in the lower-right corner of the Ribbon.
+
+- Full-screen mode hides the Ribbon so the slide gets as much room as possible.
+- Show tabs only keeps just the tab names on screen. Click a tab to see its commands.
+- Always show Ribbon keeps the tabs and their commands on screen all the time. This is the setting to come back to.
+
+To hide the commands quickly, double-click any tab name, or right-click a tab and choose Collapse the ribbon. Double-click a tab again to bring them back.
+
+
+## Quick Access Toolbar
+The Quick Access Toolbar sits above the Ribbon in the title bar (you can move it below the Ribbon) and holds commonly used commands such as Save, Undo, Redo, and Start From Beginning.
+
+You can customize the Quick Access Toolbar by clicking its Customize Quick Access Toolbar arrow and selecting additional commands. To add any Ribbon command, right-click it and choose Add to Quick Access Toolbar.
+
+If you do not see the Quick Access Toolbar, it is hidden. Right-click the Ribbon and choose Show Quick Access Toolbar.
+
+
+## Using the Search Box
+The Search box at the top of the PowerPoint window finds commands for you. Click it (or press Alt+Q), type the name of a command or feature, and choose it from the list. It can also find help and recent files.
+
+This is especially useful when you are learning PowerPoint and do not know where certain tools are located.
+
+Note: Older versions of PowerPoint called this the Tell Me box ("Tell me what you want to do") and placed it beside the Ribbon tabs. It works the same way.
+
+
+## Ruler, Guides, and Gridlines
+PowerPoint includes layout tools to help align objects on your slides. These include the ruler, guides, and gridlines.
+
+You can enable these tools from the View tab in the Ribbon under the Show group.
+
+
+## Slide Views
+PowerPoint includes multiple slide views that change how your presentation is displayed. These include Normal view, Slide Sorter view, Reading view, and Slide Show view.
+
+You can switch between these views using the view buttons in the bottom-right corner of the PowerPoint window.
+
+
+## Zoom Controls
+The Zoom slider located in the bottom-right corner allows you to zoom in or out of your slide.
+
+This helps you adjust your workspace when working on detailed slide content.
+
+
+## Backstage View
+Backstage view is accessed by clicking the File tab. It contains options for saving, printing, sharing, exporting, and managing your presentation.
+
+This area also shows presentation information such as file size, slide count, and document properties.
+
+
+## Knowledge Check
+Check yourself: Where are most PowerPoint commands organized? Answer: The Ribbon at the top of the screen. The Ribbon organizes PowerPoint's commands into task-based tabs — Home for text and slides, Insert for objects, Design for themes, Transitions and Animations for motion.

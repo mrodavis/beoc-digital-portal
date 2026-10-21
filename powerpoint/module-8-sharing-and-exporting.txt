@@ -1,0 +1,109 @@
+Sharing and Exporting Presentations
+
+Module 8: Review & Presenting
+
+Learn how to share your presentation via OneDrive, export it as a PDF, create a video from your slides, and package your file for delivery on another computer.
+
+By the end of this lesson you can:
+- Export a presentation to PDF, video, and other formats
+- Package a presentation with its media for another machine
+- Share by link with appropriate permissions
+- Choose a distribution format based on the recipient's need
+
+
+## Decide what the recipient needs to do with it
+
+ type: scenario
+ role: You distribute the orientation deck at Lakeside Medical Associates.
+ text: Three audiences: new hires who need to watch it a colleague who must update it next quarter and a partner organization that only needs to read it. One format cannot serve all three.
+ task: Match the export format to what each recipient actually needs to do.
+
+
+
+ type: table
+ caption: Distribution formats
+ columns: 
+  Recipient needs to
+  Send
+  Why
+ rows: 
+   Watch it without you
+   MP4 video
+   Preserves animation timing and narration
+   Edit it
+   .pptx via OneDrive link
+   Editable and everyone stays on one version
+   Read it
+   PDF
+   Opens anywhere and cannot be altered casually
+   Present it elsewhere
+   Package for CD
+   Bundles fonts and media into a portable folder
+
+
+Note: Package Presentation for CD is badly named — it produces a folder, and CDs are long gone. What it actually does is still useful: it bundles the presentation with all linked media and embedded fonts, so the whole thing works on a machine that has neither. Copy that folder to a USB drive when you are presenting somewhere unfamiliar.
+
+
+## Why Sharing and Exporting Matter
+A great presentation needs to reach your audience in the right format. Sometimes that means sharing a live editable file; other times you need a locked PDF or a self-contained video that can play anywhere.
+
+Decide what the recipient needs to do before choosing the format. Watch it without you means video. Edit it means a .pptx via a link, not an attachment. Read it means PDF. Present it themselves means a PowerPoint Show or a packaged folder.
+
+
+## Sharing via OneDrive
+The Share button in the upper-right corner of PowerPoint lets you invite people to view or edit your presentation using OneDrive.
+
+That prompt is telling you something useful: a share link points at a file in the cloud, so a local file has nothing to link to. Emailing a copy instead creates a second version that immediately starts diverging from yours.
+
+Enter email addresses, choose whether recipients can edit or only view, and optionally add a message before clicking Send.
+
+Use Can View instead of Can Edit when sharing with clients or stakeholders who should not modify the presentation.
+
+
+## Sending as an Email Attachment
+To attach a copy of the presentation to an email, click Share in the upper-right corner and choose Share. In the Share dialog, select More options (...), then Send a copy, and choose the format to attach. PowerPoint opens your email app with the file attached to a new message.
+
+- PowerPoint Presentation: attaches the editable .pptx file.
+- PDF: converts the presentation and attaches a PDF version.
+
+
+## Exporting as a PDF
+A PDF version of your presentation preserves formatting exactly as you designed it and can be opened on any device without PowerPoint installed.
+
+PDF locks the layout and fonts so the deck renders identically anywhere, which also solves the font-substitution problem — if a recipient lacks a font you used, PowerPoint silently swaps it and your text reflows. PDF drops animation, transitions, and embedded video, so it suits a deck to be read rather than watched.
+
+Click Options before publishing to control what is included — all slides, a range of slides, or hidden slides.
+
+Note: PDF is the best format to use when you need recipients to view but not edit your presentation.
+
+
+## Creating a Video from Your Presentation
+PowerPoint can export your entire presentation — including animations and transitions — as a standalone video file that plays without PowerPoint.
+
+Video keeps animation, timing, and any recorded narration, which makes it the right format for training people watch on their own. Rendering a long deck takes several minutes and the file is large, so produce it the day before rather than the hour of.
+
+PowerPoint will render the video and save it as an MP4 or WMV file. This can be shared, uploaded to a website, or played at a kiosk.
+
+For most purposes choose Full HD (1080p). Use HD (720p) only if file size is a concern.
+
+
+## Packaging a Presentation for Delivery
+If you need to present on another computer, and especially if your presentation uses linked media files or fonts that computer may not have, use Package Presentation for CD.
+
+Go to File → Export → Package Presentation for CD, then click Package for CD. This bundles your presentation and its linked files (and, if you choose them under Options, its TrueType fonts) into a single folder you can copy to a USB drive. The package does not include a viewer (Microsoft retired PowerPoint Viewer in 2018), so the computer you present on still needs PowerPoint, or you can open the file in PowerPoint for the web.
+
+Note: Despite the name, you do not need an actual CD. Copy to Folder saves everything to a location you choose, such as a USB drive or a network folder.
+
+
+## Marking a Presentation as Final
+Mark as Final signals to recipients that the presentation is complete and discourages further editing. It sets the file to read-only and displays an information banner.
+
+Mark as Final is advisory, not protection. It sets the file read-only and shows a notice, and any recipient can dismiss it with one click. If a deck genuinely must not be altered, send a PDF; if it must be confidential, use Encrypt with Password on the same menu and consider where the file is stored.
+
+Note: Mark as Final is not a security feature. Any recipient can click Edit Anyway to remove the restriction and modify the file.
+
+
+## Knowledge Check
+Check yourself: Which export format preserves slide formatting and can be opened without PowerPoint? Answer: PDF. PDF preserves layout and fonts exactly and opens on any device without PowerPoint. It loses animation, transitions, and embedded media, so it suits reading rather than presenting.
+
+Check yourself: What is the primary purpose of Package Presentation for CD? Answer: To bundle the presentation and media into a portable folder for use on other computers. Package Presentation for CD bundles the presentation with its linked media and embedded fonts into one folder, so it plays correctly on a computer that lacks those fonts or media files.

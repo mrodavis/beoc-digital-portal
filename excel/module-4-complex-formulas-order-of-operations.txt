@@ -1,0 +1,98 @@
+Complex Formulas & Order of Operations
+
+Module 4: Complex Formulas, Functions & Cell References
+
+Use PEMDAS and parentheses to control calculation order when building multi-step formulas such as subtotals and tax.
+
+By the end of this lesson you can:
+- Predict the result of a formula using the order of operations
+- Use parentheses to make evaluation order explicit
+- Break a long formula into intermediate steps for auditability
+- Use Evaluate Formula to see how Excel works through a calculation
+
+
+## Excel follows precedence, not reading order
+
+ type: scenario
+ role: You calculate supply costs with tax at Lakeside Medical Associates.
+ text: You write =C2+D2*0.08 intending to add the item cost to the tax. Excel multiplies first so it adds 8% of the shipping to the item price instead. Every line is wrong by a small amount which is exactly the kind of error nobody notices for months.
+ task: Know the order Excel evaluates in and use parentheses so intent is never ambiguous.
+
+
+Excel evaluates in a fixed order regardless of how the formula reads left to right: parentheses first, then exponents, then multiplication and division, then addition and subtraction. Operators at the same level evaluate left to right. So =2+3*4 is 14, not 20 — the multiplication happens first.
+
+
+ type: table
+ caption: Order of operations
+ columns: 
+  Order
+  Operators
+  Example
+ rows: 
+   1
+   Parentheses ( )
+   =(2+3)*4 gives 20
+   2
+   Exponents ^
+   =2^3*4 gives 32
+   3
+   Multiplication and division * /
+   =2+3*4 gives 14
+   4
+   Addition and subtraction + -
+   =2+3-1 gives 4
+   5
+   Comparison = < > <= >= <>
+   =A1>B1 gives TRUE or FALSE
+
+
+Add parentheses even where precedence already gives the right answer. =(C2*D2)+(E2*F2) and =C2*D2+E2*F2 produce the same number, but the first states its intent, and the next person to edit it — quite possibly you — will not have to work out whether the omission was deliberate.
+
+Note: For a formula you cannot reason about, select the cell and use Formulas > Evaluate Formula. It steps through the calculation one operation at a time, showing intermediate results. It is the fastest way to find where a long formula diverges from what you intended.
+
+
+## Order of Operations (PEMDAS)
+When a formula includes multiple operators, Excel follows an order of operations. PEMDAS stands for Parentheses, Exponents, Multiplication, Division, Addition, and Subtraction.
+
+If a result looks incorrect, it is often because Excel evaluated a part of the formula in a different order than you expected.
+
+Excel evaluates expressions inside parentheses first before moving on to other operations.
+
+After parentheses, Excel evaluates exponents if present.
+
+Multiplication and division are evaluated next, working from left to right.
+
+Finally, Excel performs addition and subtraction from left to right.
+
+
+## Building a Subtotal Formula
+A subtotal often involves adding multiple calculations together. In this example, we multiply Unit Price by Quantity for each item, then add the results.
+
+Click the subtotal cell first, then type an equals sign (=) to begin entering your formula.
+
+By adding parentheses, Excel performs the multiplication steps first before summing the results. If your subtotal seems too large or too small, check whether parentheses are controlling the order properly.
+
+
+## Calculating Tax Correctly
+To calculate tax, you typically add totals first, then multiply by the tax rate. Parentheses ensure Excel performs the addition before multiplying.
+
+If your tax calculation is incorrect, check whether Excel multiplied something before completing the addition.
+
+
+## Key Takeaways
+- Excel follows PEMDAS automatically.
+- Use parentheses to control the order of calculations.
+- Multiplication and division happen before addition and subtraction.
+- If totals look wrong, check parentheses first.
+
+
+## Understanding Excel's Order of Operations (PEMDAS)
+Excel calculates complex formulas using a specific hierarchy known as the Order of Operations. If you do not understand this hierarchy, your formulas may return unexpected results.
+
+Excel follows PEMDAS: Parentheses, Exponents, Multiplication, Division, Addition, and Subtraction.
+
+When operators share the same priority level—such as multiplication and division—Excel evaluates them from left to right.
+
+
+## Knowledge Check
+Check yourself: In the formula =2+3*4, what is the result? Answer: 14. Multiplication is evaluated before addition, so Excel computes 3*4 = 12 first and then adds 2, giving 14. Writing =(2+3)*4 would give 20.

@@ -1,0 +1,83 @@
+Understanding Number Formats in Excel
+
+Module 2: Cells, Formatting & Basic Formulas
+
+Learn how to apply Date, Currency, Percentage, and Decimal number formats, and understand how formatting affects calculations.
+
+By the end of this lesson you can:
+- Apply currency, percentage, date, and accounting formats appropriately
+- Explain the difference between a displayed value and a stored value
+- Diagnose why a percentage or date displays unexpectedly
+- Use custom number formats for identifiers with leading zeros
+
+
+## What you see is not always what is stored
+
+ type: scenario
+ role: You reconcile invoices at Lakeside Medical Associates.
+ text: A column of costs displays as whole dollars and the total is off by four dollars against the vendor statement. Nothing looks wrong. The cells actually contain cents and the display is rounding each one for you while the total sums the real values.
+ task: Separate what a cell displays from what it stores because formulas always use the stored value.
+
+
+Number formatting changes appearance only. A cell holding 1240.4567 formatted to no decimals displays 1240, but every formula referring to it uses 1240.4567. This is why a column of rounded-looking numbers produces a total that appears not to add up — the total is correct, and the display is what is lying.
+
+If you need the value itself rounded, use the ROUND function: =ROUND(A1,2). Formatting is for presentation; ROUND is for changing the number. Confusing the two is one of the most common sources of reconciliation discrepancies.
+
+
+ type: table
+ caption: Formats and their traps
+ columns: 
+  Format
+  Displays 0.25 as
+  Watch out for
+ rows: 
+   General
+   0.25
+   No formatting applied
+   Percentage
+   25%
+   Excel multiplies by 100 to display — typing 25 into a percent cell gives 2500%
+   Currency
+   $0.25
+   Places the symbol next to the number
+   Accounting
+   $   0.25
+   Aligns symbols and decimals in a column; shows zero as a dash
+   Text
+   0.25
+   Excel stops treating it as a number — it will not sum
+
+
+Note: Dates are stored as serial numbers counting from 1 January 1900, which is why a date can suddenly display as 45,292 if the format is reset to General. The data is intact — apply a date format and it returns. It is also why dates can be used in arithmetic: subtracting one date from another gives the number of days between them.
+
+
+## General Format vs Specific Formats
+By default, Excel uses the General format. This does not apply any special formatting such as currency symbols, percentage signs, or date styling.
+
+
+## Applying Date Formats
+Dates can be formatted as Short Date, Long Date, or customized through the Format Cells dialog box.
+
+
+## Currency and Accounting Formats
+Currency format adds a currency symbol and decimal places. Accounting format aligns currency symbols and decimal points for professional financial reports.
+
+
+## Decimal Places and Rounding
+Use Increase Decimal and Decrease Decimal to control how many decimal places are displayed.
+
+
+## Understanding Percentage Format
+Percentage format multiplies a value by 100 and adds a percent symbol. For example, typing 0.05 and applying Percentage becomes 5%.
+
+
+## How Formatting Affects Calculations
+Formatting changes how data is displayed, but it does not change the underlying value. Understanding this is critical for accurate calculations.
+
+
+## Real-World Example: Customer Invoice
+In professional documents like invoices, proper number formatting ensures totals, tax rates, and currency values are displayed correctly.
+
+
+## Knowledge Check
+Check yourself: If a cell is formatted as Percentage, what does the value 0.25 display as? Answer: 25%. Percentage format multiplies the stored value by 100 for display and adds a percent sign, so 0.25 displays as 25%. This is also the trap: typing 25 into a cell already formatted as percentage gives 2500%.

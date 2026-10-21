@@ -1,0 +1,100 @@
+Formatting Pictures
+
+Module 5: Images & Objects
+
+Learn how to enhance and customize images using picture styles, corrections, color adjustments, artistic effects, cropping, and compression tools in PowerPoint.
+
+By the end of this lesson you can:
+- Crop, resize, and adjust images without distorting them
+- Compress images to control presentation file size
+- Remove a background to isolate a subject
+- Add alt text so images are accessible
+
+
+## Never resize an image by dragging a side handle
+
+ type: scenario
+ role: You finish the orientation deck at Lakeside Medical Associates.
+ text: You widen a staff photo by dragging the right-hand handle to fill the space. Everyone in the photo is now noticeably stretched. The file is also 60 MB because eleven phone photos are embedded at full resolution and it bounces from the practice's email.
+ task: Resize proportionally and compress deliberately.
+
+
+Dragging a side or top handle changes one dimension only, which distorts the image — obvious and unflattering on any photo containing a face. Always drag a corner handle, which preserves the aspect ratio, and hold Shift if you want to be certain.
+
+Compression is the other habit. Picture Format > Compress Pictures reduces embedded images to a resolution appropriate for the output. For a projected presentation, 150 ppi is ample and will typically cut the file size by an order of magnitude. Uncheck 'Apply only to this picture' to compress the whole deck at once.
+
+Note: Check 'Delete cropped areas of pictures' when compressing. Cropping only hides the removed region — the pixels remain in the file, and anyone can drag the crop handles back out to reveal them. If you cropped a photo to remove a patient in the background, that person is still in the file until you delete the cropped areas.
+
+Add alt text to every meaningful image: right-click > View Alt Text (or Picture Format > Alt Text). Describe what the image conveys rather than what it depicts. Mark purely decorative images as decorative so screen readers skip them.
+
+
+## Introduction to Formatting Pictures
+PowerPoint provides a wide range of tools that allow you to enhance and customize your images. These tools help you improve clarity, adjust colors, apply styles, and make your visuals more professional.
+
+All picture formatting tools are located on the Picture Format tab, which appears when you select an image. (Older versions of PowerPoint labeled it Format, under a Picture Tools heading.)
+
+Note: Think of formatting as polishing your image—this is where your presentation starts to look professional instead of basic.
+
+
+## Cropping Pictures
+Cropping allows you to remove unwanted parts of an image so you can focus on the most important content.
+
+Select your image, go to the Format tab, and click Crop. Drag the black handles to trim the image.
+
+Once you’re done adjusting, click Crop again to apply the changes.
+
+
+## Cropping to a Shape
+You can also crop images into shapes to better match your slide design.
+
+Click the Crop dropdown, choose Crop to Shape, and select a shape like a rounded rectangle or circle.
+
+This instantly transforms your image into the selected shape.
+
+
+## Adding Picture Borders
+Borders help your images stand out and match your presentation’s theme.
+
+Select your image, click Picture Border, then choose a color, thickness, or style.
+
+You can customize the border to match your slide’s color scheme.
+
+
+## Image Corrections
+Corrections allow you to adjust brightness, contrast, and sharpness to improve image clarity.
+
+Use this when your image looks too dark, too bright, or slightly blurry.
+
+
+## Adjusting Image Color
+The Color tool allows you to modify saturation, tone, and recolor your image.
+
+This is useful when you want to match your image with your presentation’s theme or create a specific mood.
+
+
+## Applying Artistic Effects
+Artistic Effects allow you to transform your image into stylized versions like sketches, paintings, or blur effects.
+
+These are best used sparingly to enhance visual storytelling without distracting your audience.
+
+
+## Using Picture Styles
+Picture Styles provide quick, pre-designed visual enhancements like frames, shadows, and reflections.
+
+These styles can instantly upgrade the appearance of your image with just one click.
+
+
+## Compressing Pictures
+Large images can make your presentation file size too big, especially when sharing via email.
+
+PowerPoint allows you to compress images to reduce file size by lowering resolution and removing cropped areas.
+
+For sharing presentations, choosing Email resolution creates the smallest file size.
+
+
+## Completed Slide Example
+By combining cropping, styles, borders, and adjustments, you can transform basic images into polished, professional visuals.
+
+
+## Knowledge Check
+Check yourself: Which tool helps reduce presentation file size? Answer: Compress Pictures. Compress Pictures reduces the resolution of embedded images to what the output actually needs, which is usually the largest single reduction available to a presentation's file size.

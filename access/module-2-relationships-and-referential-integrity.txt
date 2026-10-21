@@ -1,0 +1,70 @@
+Relationships and Referential Integrity
+
+Module 2: Tables & Relationships
+
+Link tables so Access enforces the connections between them, and understand what referential integrity actually prevents.
+
+By the end of this lesson you can:
+- Create a relationship between two tables
+- Explain one-to-many and many-to-many relationships
+- Enable referential integrity and describe what it enforces
+- Explain what cascade update and cascade delete do
+
+
+## Building the relationship
+
+ type: worked-example
+ title: Linking Appointments to Patients
+ task: Connect the two tables so Access refuses to accept an appointment for a patient who does not exist.
+ steps: 
+   move: Open Database Tools > Relationships and add both tables.
+   why: The Relationships window is where links are defined for the whole database not per-query. A join drawn inside one query applies only to that query; a relationship defined here is enforced everywhere including direct table entry.
+   move: Drag PatientID from Patients onto PatientID in Appointments.
+   why: Drag from the 'one' side to the 'many' side — from the primary key to the foreign key. Access reads the direction to decide which table is which and dragging the wrong way produces a relationship that does not mean what you intended.
+   move: Tick Enforce Referential Integrity before clicking Create.
+   why: This is the whole point of the exercise and it is off by default. Without it you get a line on a diagram and no enforcement — Access will happily accept an appointment for PatientID 4471 when no such patient exists.
+   move: Confirm Access reports the relationship as One-To-Many.
+   why: If it says One-To-One the foreign key has a unique index on it and each patient could have only one appointment. If it says Indeterminate the fields are different data types — usually a Number joined to a Short Text — and integrity cannot be enforced until you fix that.
+   move: Test it: try to enter an appointment with a PatientID that does not exist.
+   why: A relationship you have not tested is a relationship you are assuming. Access should refuse the record. If it accepts it integrity is not actually on.
+ result: Appointments can only reference real patients and a patient with appointments on file cannot be deleted.
+ takeaway: Drag from the one side to the many side and tick Enforce Referential Integrity — it is off by default and without it the relationship is decorative.
+
+
+
+## Relationships turn tables into a database
+
+ type: scenario
+ role: You finish the appointment database at Lakeside Medical Associates.
+ text: Your tables are well designed but unconnected. Nothing stops someone entering an appointment for PatientID 4471 when no such patient exists and nothing warns anyone deleting a patient who still has twelve appointments on file. Those appointments become orphans pointing at nobody.
+ task: Define relationships so Access enforces the links your design assumes.
+
+
+A relationship connects a primary key in one table to a foreign key in another. The overwhelmingly common form is one-to-many: one patient has many appointments; one provider has many appointments. The 'one' side holds the primary key and the 'many' side holds the foreign key.
+
+
+ type: table
+ caption: Relationship types
+ columns: 
+  Type
+  Means
+  Example
+ rows: 
+   One-to-many
+   One record relates to many in the other table
+   One patient many appointments
+   One-to-one
+   One record relates to exactly one
+   A patient and a rarely-used detail record
+   Many-to-many
+   Records on both sides relate to many
+   Patients and insurance plans — requires a junction table
+
+
+Access cannot represent many-to-many directly. You create a third junction table holding a foreign key to each side, which turns one many-to-many into two one-to-many relationships. A PatientInsurance table linking PatientID to PlanID is the standard pattern.
+
+Referential integrity is the rule Access enforces once you switch it on. It refuses to let you create an appointment for a patient who does not exist, and refuses to delete a patient who still has appointments. It converts your design assumption into something the database actually guarantees.
+
+Note: Cascade Delete Related Records removes the children when you delete the parent. Deleting one patient silently deletes all twelve of their appointments, with no second confirmation. That is occasionally what you want and usually a disaster in a records system where history must be retained. Leave it off unless you have a specific reason, and think hard before enabling it on anything holding patient data. Cascade Update, which propagates a changed key value, is far safer and rarely needed if your keys are AutoNumbers that never change.
+
+Check yourself: With referential integrity enabled and cascade delete off, what happens when you try to delete a patient who has twelve appointments on file? Answer: Access refuses the deletion, because appointments still reference that patient. Referential integrity prevents orphaned records. Since the appointments reference that PatientID, Access refuses the deletion until those child records are dealt with. That refusal is the feature working — it is what stops twelve appointments pointing at a patient who no longer exists.

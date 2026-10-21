@@ -1,0 +1,68 @@
+Using Find & Replace in PowerPoint
+
+Module 2: Working with Text
+
+Learn how to quickly locate text in your presentation and replace it with new content using the Find and Replace tools.
+
+By the end of this lesson you can:
+- Find text across all slides in a presentation
+- Replace text throughout a deck
+- Use Replace Fonts to swap a typeface everywhere
+- Check that a replacement has not broken anything
+
+
+## One command for a change that touches every slide
+
+ type: scenario
+ role: You update the orientation deck at Lakeside Medical Associates.
+ text: The practice changes its name. The old name appears on thirty-one of forty slides including several inside diagrams. Slide by slide this is half an hour and a guarantee of missing two.
+ task: Replace throughout the deck in one action then verify the result.
+
+
+Replace (Ctrl+H) works across every slide at once. Match case is available and worth using for a proper noun, so you change the practice name without touching an ordinary word that happens to contain the same letters.
+
+Note: Replace Fonts, on the Replace dropdown, swaps one typeface for another everywhere in the deck. It is the correct fix when you inherit a presentation using a font your machine does not have, and far faster than selecting text on every slide. Check the deck afterwards — different fonts have different widths, so text that fitted before may now overflow its placeholder.
+
+Find and Replace does not reach text inside images or embedded objects. After a replacement, use Outline View to confirm the old text is gone from all the real text, and then look through the slides for any that appears in a picture or a screenshot.
+
+
+## Finding Text
+The Find tool allows you to search for specific words or phrases within your presentation.
+
+This is useful when working with presentations that contain many slides or repeated information.
+
+To use Find, go to the Home tab and click the Find command in the Editing group.
+
+The Find dialog box will appear where you can enter the word or phrase you want to locate.
+
+
+## Locating Text
+After entering the search text, click Find Next to move through the presentation and locate each occurrence.
+
+When PowerPoint finds the text, it will highlight the matching word or phrase on the slide.
+
+
+## Using Replace
+The Replace feature allows you to search for text and replace it with different text automatically.
+
+This tool is especially useful when you need to update names, dates, or repeated information across multiple slides.
+
+To open Replace, click the Replace command in the Editing group on the Home tab.
+
+The Replace dialog box allows you to enter both the text you want to find and the text you want to replace it with.
+
+
+## Replacing Text
+Once the text is found, you can click Replace to change the highlighted occurrence.
+
+If you want PowerPoint to replace every occurrence of the text in the presentation, click Replace All.
+
+
+## Completed Slide Example
+After replacing the text, the updated content will appear throughout the presentation.
+
+This allows you to quickly update repeated information without manually editing each slide.
+
+
+## Knowledge Check
+Check yourself: What is the main use of Replace in PowerPoint? Answer: To swap one word or phrase for another throughout the whole presentation. Replace swaps one word or phrase for another throughout the entire presentation in a single action, rather than requiring you to edit each slide.
