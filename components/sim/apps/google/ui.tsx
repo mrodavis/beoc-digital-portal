@@ -289,7 +289,7 @@ export function MenuList({ entries, pos, onPick, state, resolve, onClose, width 
             <span className="flex w-5 shrink-0 justify-center">
               {checked ? <GIcon name="check" size={18} color="#1f1f1f" /> : e.swatch ? <span className="h-4 w-4 rounded-full" style={{ background: e.swatch }} /> : e.icon ? <GIcon name={e.icon} size={18} color="#444746" /> : null}
             </span>
-            <span className="flex-1 truncate">{e.swatch ? "" : lbl(e.label)}</span>
+            <span className="flex-1 truncate">{lbl(e.label)}</span>
             {e.shortcut && <span className="ml-6 whitespace-nowrap text-[12.5px] text-[#5f6368]">{e.shortcut}</span>}
             {e.sub && <GIcon name="chevronRight" size={18} color="#5f6368" />}
           </button>

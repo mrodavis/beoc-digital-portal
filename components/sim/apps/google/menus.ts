@@ -565,6 +565,12 @@ export const DRIVE_NEW: GEntry[] = [
   c("Google Forms", "g.new", "Google Forms", { icon: "form", sub: [c("Blank form", "g.new", "Google Forms"), c("Blank quiz", "g.new", "Google Forms")] }),
 ];
 
+/** Folder colors offered in Organize (name, hex). Colors show only in your own Drive. */
+export const FOLDER_COLORS: [string, string][] = [
+  ["Gray", "#8f8f8f"], ["Brown", "#ac725e"], ["Red", "#f83a22"], ["Coral", "#fa573c"], ["Orange", "#ff7537"],
+  ["Yellow", "#ffad46"], ["Green", "#16a765"], ["Blue", "#4986e7"], ["Periwinkle", "#9a9cff"], ["Purple", "#b99aff"],
+];
+
 /** Right-click menu for a Drive item (file or folder). `$id` is replaced with the item ids. */
 export function driveItemMenu(opts: { folder: boolean; starred: boolean; trashed: boolean; editor: boolean }): GEntry[] {
   if (opts.trashed) return [c("Restore", "g.restore", "$id", { icon: "restore" }), c("Delete forever", "g.deleteForever", "$id", { icon: "trash" })];
@@ -582,7 +588,8 @@ export function driveItemMenu(opts: { folder: boolean; starred: boolean; trashed
         d("Move", "g.move", { icon: "move", shortcut: "Ctrl+Alt+M" }),
         d("Add shortcut", "g.shortcut", { icon: "shortcut", shortcut: "Shift+Z" }),
         c(opts.starred ? "Remove from starred" : "Add to starred", "g.star", "$id", { icon: opts.starred ? "starFilled" : "star", shortcut: "S" }),
-        ...(opts.folder ? [s("Change color", ["#8f8f8f", "#ac725e", "#f83a22", "#fa573c", "#ff7537", "#ffad46", "#16a765", "#4986e7", "#9a9cff", "#b99aff"].map((col) => c(col, "g.color", `$id|${col}`, { swatch: col })))] : []),
+        // Folders: the color choices sit right in Organize, under Folder color.
+        ...(opts.folder ? [{ head: "Folder color" } as GEntry, ...FOLDER_COLORS.map(([name, col]) => c(name, "g.color", `$id|${col}`, { swatch: col }))] : []),
       ],
       { icon: "move" },
     ),

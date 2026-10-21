@@ -269,7 +269,7 @@ export function FolderPicker({ fileIds, mode, onClose }: { fileIds: string[]; mo
       footer={
         <>
           <PillBtn kind="text" onClick={onClose}>Cancel</PillBtn>
-          <PillBtn onClick={go} disabled={mode === "move" && target === current}>{mode === "move" ? "Move" : "Add"}</PillBtn>
+          <PillBtn onClick={go} disabled={mode === "move" && target === current}>{mode === "move" ? "Move" : "Add shortcut"}</PillBtn>
         </>
       }
     >

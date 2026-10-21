@@ -274,7 +274,7 @@ export function FileViewer() {
                 openMenu(
                   e.currentTarget.getBoundingClientRect(),
                   [
-                    { label: `Open in ${appName} desktop app`, icon: "popout", onClick: () => cmd(`file:${f.id}`, "files.openIn", "Desktop app") },
+                    { label: "Desktop app", icon: "popout", hint: appName, onClick: () => cmd(`file:${f.id}`, "files.openIn", "Desktop app") },
                     { label: "Open in browser", icon: "globe", onClick: () => cmd(`file:${f.id}`, "files.openIn", "Browser") },
                   ],
                   240,
@@ -343,6 +343,12 @@ function fileMenuItems(ctx: ReturnType<typeof useTeams>, f: TeamsFile, opts: { c
   const key = `file:${f.id}`;
   return [
     { label: "Open", icon: "popout", onClick: () => (f.isFolder ? ctx.go({ folder: f.id, selection: `folder:${f.id}` }) : ctx.cmd(key, "files.open", f.id)) },
+    ...(!f.isFolder && /\.(docx|xlsx|pptx)$/i.test(f.name)
+      ? [
+          { label: "Open in desktop app", icon: "popout", onClick: () => ctx.cmd(key, "files.openIn", "Desktop app") },
+          { label: "Open in browser", icon: "globe", onClick: () => ctx.cmd(key, "files.openIn", "Browser") },
+        ]
+      : []),
     ...(opts.onShare ? [{ label: "Share", icon: "share", onClick: opts.onShare }] : []),
     { label: "Copy link", icon: "link", onClick: () => ctx.cmd(key, "files.copyLink") },
     ...(opts.channel ? [{ label: f.pinned ? "Unpin" : "Pin to top", icon: "pin", onClick: () => ctx.cmd(key, "files.pin") }] : []),
@@ -404,9 +410,7 @@ export function ChannelFiles({ channelId }: { channelId: string }) {
         </span>
         <div className="flex-1" />
         <span className="text-[12px] text-[#616161]">Documents › {findChannelName(doc, channelId)}</span>
-        <button type="button" aria-label="Open in SharePoint" onClick={() => cmd(`files:${channelId}`, "files.openIn", "SharePoint")} className="ml-2 flex items-center gap-1 rounded px-2 py-1 text-[#424242] hover:bg-[#f5f5f5]">
-          <TIcon name="globe" size={14} /> Open in SharePoint
-        </button>
+
       </div>
       <div className="min-h-0 flex-1 overflow-auto px-5">
         <div className="flex border-b border-[#ebebeb] py-2 text-[12px] text-[#616161]">

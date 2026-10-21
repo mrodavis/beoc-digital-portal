@@ -2,6 +2,7 @@ import { Lesson } from "@/types/lesson";
 import { teamsModule1Lessons } from "./module1Lessons";
 import { teamsModule2Lessons } from "./module2Lessons";
 import { teamsModule3Lessons } from "./module3Lessons";
+import { teamsModule4Lessons } from "./module4Lessons";
 
 export type TeamsModule = {
   moduleNumber: number;
@@ -44,6 +45,16 @@ export const teamsModules: TeamsModule[] = [
     description: "Join a team, post and reply in channels, make announcements, set channel notifications, and use the Shared tab and channel tabs.",
     lessons: teamsModule3Lessons,
     level: "Beginner",
+    estimatedMinutes: 50,
+  },
+  {
+    moduleNumber: 4,
+    moduleSlug: "module-4",
+    title: "Files and Collaboration",
+    emoji: "📁",
+    description: "Where Teams stores files, sharing with the right people and permissions, and co-authoring one shared file with comments.",
+    lessons: teamsModule4Lessons,
+    level: "Intermediate",
     estimatedMinutes: 50,
   },
 ];

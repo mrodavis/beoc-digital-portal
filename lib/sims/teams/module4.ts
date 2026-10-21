@@ -209,9 +209,9 @@ export const teamsModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Open the file in the Word desktop app.",
-          hint: "Select Open › Open in Word desktop app.",
+          hint: "At the top of the open file, select Open › Desktop app. (On the Shared tab you can also right-click the file › Open in desktop app.)",
           judgeFree: true,
-          steps: [cmd("files.openIn", "Desktop app", "file:f-team", "Use Open › Open in Word desktop app.")],
+          steps: [cmd("files.openIn", "Desktop app", "file:f-team", "Use Open › Desktop app at the top of the file.")],
         },
         {
           instruction: "Close the file. Reply to Maria's post in General: “Reviewed. I left a comment on step 3.”",

@@ -146,7 +146,7 @@ export function CalendarSurface() {
         <SettingsPage page={page} />
       ) : (
         <div className="flex min-h-0 flex-1">
-          <aside className="flex w-[256px] shrink-0 flex-col overflow-y-auto px-2 pb-4">
+          <aside className="flex w-[256px] shrink-0 flex-col overflow-y-auto px-2 pb-4 [&>*]:shrink-0">
             <button type="button" aria-label="Create" onClick={(e) => { const r = e.currentTarget.getBoundingClientRect(); setCreate({ x: r.left, y: r.bottom + 4 }); }} className="mb-4 ml-1 mt-1 flex h-14 w-[136px] items-center gap-3 rounded-2xl bg-white px-4 text-[14px] font-medium shadow-[0_1px_3px_rgba(60,64,67,.3),0_4px_8px_3px_rgba(60,64,67,.15)] hover:bg-[#f6fafe]" style={{ fontFamily: FONT }}>
               <Icon name="plus" size={26} color={BLUE} /> Create <Icon name="dropDown" size={18} />
             </button>
