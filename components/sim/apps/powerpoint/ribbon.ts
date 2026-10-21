@@ -600,7 +600,7 @@ export const pptRibbon: RibbonTab[] = [
       ] },
       { label: "Video Options", controls: [
         { type: "dropdown", id: "media.volume", label: "Volume", icon: "audio", size: "large", options: mediaVolume },
-        { type: "dropdown", id: "media.start", label: "Start", combo: true, width: 120, options: mediaStart },
+        { type: "dropdown", id: "media.start", label: "Start", combo: true, width: 136, options: mediaStart },
         { type: "toggle", id: "media.fullScreen", label: "Play Full Screen", showLabel: true },
         { type: "toggle", id: "media.hide", label: "Hide While Not Playing", showLabel: true },
         { type: "toggle", id: "media.loop", label: "Loop until Stopped", showLabel: true },
@@ -632,7 +632,7 @@ export const pptRibbon: RibbonTab[] = [
       ] },
       { label: "Audio Options", controls: [
         { type: "dropdown", id: "media.volume", label: "Volume", icon: "audio", size: "large", options: mediaVolume },
-        { type: "dropdown", id: "media.start", label: "Start", combo: true, width: 120, options: mediaStart },
+        { type: "dropdown", id: "media.start", label: "Start", combo: true, width: 136, options: mediaStart },
         { type: "toggle", id: "media.playAcross", label: "Play Across Slides", showLabel: true },
         { type: "toggle", id: "media.loop", label: "Loop until Stopped", showLabel: true },
         { type: "toggle", id: "media.hide", label: "Hide During Show", showLabel: true },
