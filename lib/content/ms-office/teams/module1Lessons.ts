@@ -116,7 +116,7 @@ export const teamsModule1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "version",
-            text: "There is now one Teams app. Microsoft ended classic Teams: after July 1, 2025, the classic client no longer works, and people use the new Teams app or Teams on the web instead. If a guide or video shows an older Teams window with a purple Teams button and a Files button on the left, it is out of date. This course shows current Teams.",
+            text: "There is now one Teams app. Microsoft ended classic Teams: after July 1, 2025, the classic client no longer works, and people use the new Teams app or Teams on the web instead. If a guide tells you to download or switch to classic Teams, it is out of date. This course shows current Teams.",
           },
         ],
       },

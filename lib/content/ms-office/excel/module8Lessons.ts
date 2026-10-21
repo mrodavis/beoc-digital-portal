@@ -3,11 +3,12 @@ import { Lesson } from "@/types/lesson";
 /**
  * MODULE 8 — Modern Excel Features
  *
- * The features here are the reason to be on a current release. Dynamic arrays,
- * XLOOKUP, and the Intelligent Services do not exist in Office 2019, so this
- * module carries version callouts throughout — a student on a 2019 lab machine
- * needs to know why a formula they read about returns #NAME? rather than
- * concluding they typed it wrong.
+ * The features here are the reason to be on a current release. Dynamic arrays
+ * and XLOOKUP do not exist in Excel 2019 or earlier, and the connected services
+ * (data types, Analyze Data) are Microsoft 365 features, so this module carries
+ * version callouts — a student on an older lab machine needs to know why a
+ * formula they read about returns #NAME? rather than concluding they typed it
+ * wrong.
  */
 export const excelModule8Lessons: Lesson[] = [
 
@@ -60,7 +61,7 @@ LESSON 1 – DYNAMIC ARRAYS AND XLOOKUP
         {
           type: "callout",
           variant: "version",
-          text: "Dynamic arrays and XLOOKUP require Microsoft 365, Excel 2021, or Excel 2024. They do not exist in Excel 2019. If you type =XLOOKUP( on a 2019 machine and get #NAME?, the formula is not wrong — the function is not there. Opening a 365 workbook in 2019 shows the same formula as _xlfn.XLOOKUP with a #NAME? error, which is Excel telling you it does not recognize a function the file was built with.",
+          text: "Dynamic arrays and XLOOKUP work in Excel for Microsoft 365, Excel 2024, and Excel 2021. They do not exist in Excel 2019 or earlier, which is now out of support. If you type =XLOOKUP( on an older machine and get #NAME?, the formula is not wrong — the function is not there. Opening a newer workbook in Excel 2019 shows the same formula as _xlfn.XLOOKUP with a #NAME? error, which is Excel telling you it does not recognize a function the file was built with.",
         },
       ],
     },
@@ -130,7 +131,7 @@ LESSON 1 – DYNAMIC ARRAYS AND XLOOKUP
             "You write =XLOOKUP(A2, Items, Prices) and Excel returns #NAME?. What is the most likely cause?",
           options: [
             "The lookup value in A2 does not exist in the Items range",
-            "Your version of Excel does not have XLOOKUP — it requires Microsoft 365, Excel 2021, or 2024",
+            "Your version of Excel does not have XLOOKUP — it requires Microsoft 365, Excel 2021, or Excel 2024",
             "The Items and Prices ranges are different sizes",
             "The formula needs an equals sign",
           ],
@@ -167,11 +168,11 @@ LESSON 1 – DYNAMIC ARRAYS AND XLOOKUP
 },
 
 /* ============================================================
-LESSON 2 – INTELLIGENT SERVICES: DATA TYPES AND ANALYZE DATA
+LESSON 2 – LINKED DATA TYPES AND ANALYZE DATA (slug kept)
 ============================================================ */
 {
   slug: "intelligent-services-and-data-types",
-  title: "Intelligent Services: Data Types & Analyze Data",
+  title: "Linked Data Types & Analyze Data",
   description:
     "Use Excel's connected data types and its automated analysis, and learn where both need checking.",
   duration: "15 min",
@@ -208,7 +209,7 @@ LESSON 2 – INTELLIGENT SERVICES: DATA TYPES AND ANALYZE DATA
         {
           type: "callout",
           variant: "version",
-          text: "Linked data types and Analyze Data require a Microsoft 365 subscription and an internet connection. They are not in Excel 2019, and they are not in the perpetual-license Office 2024 either — these are subscription services, not local features. On a machine without them, the Data tab simply will not show Geography and Stocks.",
+          text: "Linked data types are a feature of Excel for Microsoft 365 (they also work in Excel for the web with a free Microsoft account), and Analyze Data needs a Microsoft 365 subscription. Neither is in one-time-purchase versions such as Excel 2024 or Excel 2019. Linked data types also need an internet connection to fetch and refresh their data. On a machine without them, the Data tab will not show Stocks and Geography.",
         },
         {
           type: "callout",
@@ -312,7 +313,7 @@ LESSON 3 – ICONS, DRAWING TOOLS, AND MODERN COLLABORATION
     "Add scalable icons and annotations to a workbook, and work in a shared file without getting in anyone's way.",
   duration: "15 min",
   objectives: [
-    "Insert and recolour scalable icons",
+    "Insert and recolor scalable icons",
     "Use the Draw tab to annotate a sheet",
     "Co-author a workbook and explain what co-authoring requires",
     "Use Sheet View to sort and filter without disturbing other people",
@@ -330,7 +331,7 @@ LESSON 3 – ICONS, DRAWING TOOLS, AND MODERN COLLABORATION
         },
         {
           type: "paragraph",
-          text: "Insert > Icons opens a searchable library of scalable graphics. Because they are vector images rather than pictures, they stay sharp at any size and can be recoloured from the Graphics Format tab. Insert > Illustrations also offers stock images and, on some builds, 3D models.",
+          text: "Insert > Icons opens a searchable library of scalable graphics. Because they are vector images rather than pictures, they stay sharp at any size and can be recolored from the Graphics Format tab.",
         },
         {
           type: "callout",
@@ -351,7 +352,7 @@ LESSON 3 – ICONS, DRAWING TOOLS, AND MODERN COLLABORATION
         {
           type: "callout",
           variant: "version",
-          text: "The Draw tab appears by default on touch devices and can be turned on elsewhere through File > Options > Customize Ribbon. Icons are available in Excel 2019 and later. The 3D model and some stock content features are Microsoft 365 only, so what you see under Insert > Illustrations depends on your build.",
+          text: "The Draw tab appears by default on touch devices and can be turned on elsewhere through File > Options > Customize Ribbon. What appears under Insert > Illustrations varies with your version and account, so your list may not match a classmate's exactly.",
         },
       ],
     },
@@ -378,7 +379,7 @@ LESSON 3 – ICONS, DRAWING TOOLS, AND MODERN COLLABORATION
           rows: [
             ["AutoSave", "File in OneDrive or SharePoint", "Saves continuously — there is no 'close without saving'"],
             ["Co-authoring", "File in OneDrive or SharePoint", "Each editor's selection is shown and named"],
-            ["Sheet View", "Microsoft 365", "Private sorting and filtering in a shared file"],
+            ["Sheet View", "File in OneDrive or SharePoint; Excel for Microsoft 365, 2024, or 2021", "Private sorting and filtering in a shared file"],
             ["Version History", "File in OneDrive or SharePoint", "File > Info > Version History; the only real recovery from a bad edit"],
             ["Comments", "Any workbook", "Threaded and repliable; Notes are the older single-author kind"],
           ],

@@ -98,11 +98,6 @@ export const wordModule3Lessons: Lesson[] = [
           text:
             "To insert a picture from your computer, go to the Insert tab and click Pictures. Then choose This Device and select your image.",
         },
-        {
-          type: "image",
-          src: "/images/word/pictures-text-wrapping/pictures_insert.jpg",
-          alt: "Insert picture from device",
-        },
       ],
     },
 
@@ -113,7 +108,7 @@ export const wordModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "You can also insert images from online sources. Click Insert → Online Pictures, search for a keyword, select an image, and click Insert.",
+            "You can also insert images from online sources. Click Insert → Pictures → Online Pictures, search for a keyword, select an image, and click Insert. Insert → Pictures → Stock Images offers a library of high-quality images as well.",
         },
         {
           type: "image",
@@ -124,6 +119,11 @@ export const wordModule3Lessons: Lesson[] = [
           type: "image",
           src: "/images/word/pictures-text-wrapping/pictures_onedrive.jpg",
           alt: "Online pictures category screen",
+        },
+        {
+          type: "image",
+          src: "/images/word/pictures-text-wrapping/pictures_insert.jpg",
+          alt: "Online Pictures search results with one image selected and the Insert button",
         },
       ],
     },
@@ -400,7 +400,7 @@ export const wordModule3Lessons: Lesson[] = [
         {
           type: "image",
           src: "/images/word/format-pictures/formatpics_adjust_all.png",
-          alt: "Format tab with picture tools",
+          alt: "Picture Format tab with the picture tools",
         },
       ],
     },
@@ -412,7 +412,7 @@ export const wordModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Cropping removes unwanted areas of an image. Select the image, go to the Format tab, and click Crop.",
+            "Cropping removes unwanted areas of an image. Select the image, go to the Picture Format tab, and click Crop.",
         },
         {
           type: "image",
@@ -802,7 +802,7 @@ export const wordModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "For complex documents, use the Selection Pane (Format tab → Selection Pane) to select and manage overlapping shapes.",
+            "For complex documents, use the Selection Pane (Shape Format tab → Selection Pane) to select and manage overlapping shapes.",
         },
         {
           type: "image",
@@ -819,7 +819,7 @@ export const wordModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Use Shape Styles on the Format tab to quickly apply preset combinations of fill, outline, and effects.",
+            "Use Shape Styles on the Shape Format tab to quickly apply preset combinations of fill, outline, and effects.",
         },
         {
           type: "image",
@@ -1177,7 +1177,7 @@ export const wordModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "When a text box is selected, the Format tab appears. Use Shape Styles to quickly apply preset fill, outline, and effect combinations.",
+            "When a text box is selected, the Shape Format tab appears. Use Shape Styles to quickly apply preset fill, outline, and effect combinations.",
         },
         {
           type: "image",
@@ -1412,7 +1412,7 @@ export const wordModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Use the Rotate dropdown in the Format tab to rotate or flip objects horizontally or vertically.",
+            "Use the Rotate dropdown on the Shape Format tab (Picture Format for pictures) to rotate or flip objects horizontally or vertically.",
         },
         {
           type: "image",

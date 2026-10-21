@@ -18,7 +18,6 @@ LESSON 1 – WORKING WITH STYLES
     "Describe the three things heading styles enable beyond appearance",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/fLmJV5RVJoM",
 
   practiceFiles: [
     {
@@ -260,7 +259,6 @@ LESSON 2 – MODIFYING STYLES
     "Explain the difference between changing this document and changing the template",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/fLmJV5RVJoM",
 
   practiceFiles: [
     {
@@ -457,7 +455,6 @@ LESSON 3 – STYLE SETS
     "Save a custom style set for reuse",
   ],
   duration: "7 min",
-  videoUrl: "https://www.youtube.com/embed/CvnSSnm6bAc",
 
   practiceFiles: [
     {
@@ -634,7 +631,6 @@ LESSON 4 – USING THEMES
     "Explain why theme colors are better than fixed colors",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/CvnSSnm6bAc",
 
   practiceFiles: [
     {
@@ -840,7 +836,6 @@ LESSON 5 – TABLE OF CONTENTS
     "Navigate a long document using the Navigation pane",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/eiStMVS9ooQ",
 
   practiceFiles: [
     {

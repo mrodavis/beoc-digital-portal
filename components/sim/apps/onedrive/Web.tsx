@@ -680,12 +680,15 @@ function FileList({ items, empty, bin, columns = "files" }: { items: OdItem[]; e
     );
   }
 
-  const cols =
+  const allCols =
     bin ? ["Name", "Date deleted", "Deleted by", "Original location"]
     : columns === "recent" ? ["Name", "Opened", "Owner", "Location"]
     : columns === "sharedWith" ? ["Name", "Date shared", "Shared by", "Shared in"]
     : columns === "sharedBy" ? ["Name", "Modified", "Sharing", "Has access"]
     : ["Name", "Modified", "Modified By", "File size", "Sharing"];
+  // With the details pane open there is less room: keep the most useful columns.
+  const cols = doc.view?.details ? allCols.filter((c) => !["Modified By", "File size", "Deleted by", "Owner"].includes(c)) : allCols;
+  const W: Record<string, string> = { Modified: "w-[140px]", Opened: "w-[130px]", "Date shared": "w-[110px]", "Modified By": "w-[120px]", "File size": "w-[80px]", Sharing: "w-[110px]", Owner: "w-[120px]", Location: "w-[150px]", "Shared by": "w-[120px]", "Shared in": "w-[150px]", "Has access": "w-[170px]", "Date deleted": "w-[120px]", "Deleted by": "w-[110px]", "Original location": "w-[170px]" };
 
   const cell = (it: OdItem, c: string): React.ReactNode => {
     switch (c) {
@@ -731,7 +734,7 @@ function FileList({ items, empty, bin, columns = "files" }: { items: OdItem[]; e
           <tr className="h-10 border-b border-[#e0e0e0] text-left text-[12px] font-semibold text-[#424242]">
             <th className="w-8" />
             {cols.map((c, i) => (
-              <th key={c} className={`font-semibold ${i === 0 ? "" : c === "Sharing" || c === "File size" ? "w-[120px]" : "w-[150px]"}`}>{c}</th>
+              <th key={c} className={`font-semibold ${i === 0 ? "" : W[c] ?? "w-[130px]"}`}>{c}</th>
             ))}
           </tr>
         </thead>

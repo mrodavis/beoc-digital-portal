@@ -549,6 +549,30 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
       }
       return { doc };
     }
+    case "mail.recall": {
+      const doc = clone(input);
+      const m = doc.messages.find((x) => x.id === (sv || doc.window));
+      if (!m || m.from.email.toLowerCase() !== doc.account.email.toLowerCase()) return { doc };
+      const domain = doc.account.email.split("@")[1].toLowerCase();
+      const all = [...(m.to ?? []), ...(m.cc ?? [])];
+      const outside = all.filter((p) => !p.email.toLowerCase().endsWith("@" + domain));
+      const ok = outside.length === 0;
+      doc.messages.push({
+        id: nextId(doc.messages, "m"),
+        folder: "inbox",
+        from: { name: "Microsoft Outlook", email: `postmaster@${domain}` },
+        to: [doc.account],
+        subject: `Message Recall Report for message: ${m.subject}`,
+        body: ok
+          ? `Recall Succeeded. Your request to recall the message "${m.subject}" succeeded for: ${all.map((p) => p.name).join("; ")}. The message was removed before it was read.`
+          : `Recall Failed. The message "${m.subject}" couldn't be recalled for: ${outside.map((p) => p.email).join("; ")}. Recall only works for recipients in your organization.`,
+        date: nowOf(doc),
+        read: false,
+      });
+      doc.flags = { ...(doc.flags ?? {}), [`recalled:${m.id}`]: ok ? "Succeeded" : "Failed" };
+      doc.window = null;
+      return { doc };
+    }
     case "people.addToList": {
       const doc = clone(input);
       const emails = (doc.contacts ?? []).filter((x) => selIds(ui.selection, "contact").includes(x.id)).map((x) => x.email ?? "").filter(Boolean);

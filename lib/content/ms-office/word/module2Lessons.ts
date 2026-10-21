@@ -86,7 +86,7 @@ export const wordModule2Lessons: Lesson[] = [
            {
              type: "callout",
              variant: "version",
-             text: "In Microsoft 365, Word can be set to default to Keep Text Only for pasted content: File > Options > Advanced > Cut, copy, and paste, and set 'Pasting from other programs' to 'Keep Text Only.' If you paste from the web frequently, changing this once saves the cleanup every time. Office 2019 and Office 2024 have the same setting in the same place.",
+             text: "In Microsoft 365, Word can be set to default to Keep Text Only for pasted content: File > Options > Advanced > Cut, copy, and paste, and set 'Pasting from other programs' to 'Keep Text Only.' If you paste from the web frequently, changing this once saves the cleanup every time. Word 2024 has the same setting in the same place.",
            },
          ],
        },
@@ -1105,7 +1105,6 @@ export const wordModule2Lessons: Lesson[] = [
     "Control Word's automatic hyperlink formatting",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/mNJZo8ESMp0",
 
   practiceFiles: [
     {
@@ -1274,7 +1273,7 @@ export const wordModule2Lessons: Lesson[] = [
             "Press Enter while the link is selected",
           ],
           correctIndex: 1,
-          explanation: "In the Word desktop app, links are Ctrl+click by default so that a normal click can place your cursor for editing without launching a browser. In Word Online and in Reading view, a plain click follows the link.",
+          explanation: "In the Word desktop app, links are Ctrl+click by default so that a normal click can place your cursor for editing without launching a browser.",
           optionRationales: [
             "Double-clicking selects the word under the cursor. It edits the link text rather than following the link.",
             "Correct. Ctrl+click follows the link, while a plain click places the insertion point so you can edit the text.",

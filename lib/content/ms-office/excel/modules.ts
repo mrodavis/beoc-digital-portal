@@ -111,7 +111,7 @@ export const excelModules: ExcelModule[] = [
     title: "Modern Excel Features",
     emoji: "⚡",
     description:
-      "Dynamic arrays and XLOOKUP, the Intelligent Services, icons and drawing tools, and co-authoring — the features that distinguish a current release from Excel 2019.",
+      "Dynamic arrays and XLOOKUP, linked data types and Analyze Data, icons and drawing tools, and co-authoring: the features that set current Excel apart from older versions.",
     lessons: excelModule8Lessons,
     level: "Advanced",
     estimatedMinutes: 45,

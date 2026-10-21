@@ -416,7 +416,6 @@ export const excelModule1Lessons: Lesson[] = [
     "Explain what CSV files lose compared with .xlsx",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/EBGrJckHadw",
 
   practiceFiles: [
     {

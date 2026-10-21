@@ -883,7 +883,7 @@ export const windowsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "This PC is shared, so turn off \"Offer to save passwords\" in Edge.",
-          hint: "Settings and more (…) › Settings › Passwords › Offer to save passwords › Off.",
+          hint: "Settings and more (…) › Passwords, then turn Offer to save passwords off.",
           steps: [set("edge.savePasswords=off")],
         },
       ],

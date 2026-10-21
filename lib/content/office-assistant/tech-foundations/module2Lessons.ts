@@ -69,6 +69,25 @@ export const module2Lessons: Lesson[] = [
               "Cloud storage (OneDrive, SharePoint) works like a network drive but is accessible from anywhere with an internet connection — it is increasingly common in medical offices that use Microsoft 365. OneDrive files sync automatically between your computer and the cloud, so you can work on a document from home or on a different workstation if needed. In an office with proper IT setup, the network drive and OneDrive may be the same location — SharePoint drives can be mapped like network drives.",
             ],
           },
+          {
+            type: "drag-drop",
+            mode: "sort",
+            title: "Where can a scanned intake form go?",
+            prompt: "Sort each storage location: is it an approved place for patient documents at Lakeside Medical Associates, or never for patient documents?",
+            buckets: [
+              { id: "ok", label: "Approved for patient documents" },
+              { id: "no", label: "Never for patient documents" },
+            ],
+            items: [
+              { id: "net", text: "The practice's network drive (Patient Files folder)", bucket: "ok" },
+              { id: "sp", text: "The practice's Microsoft 365 SharePoint or OneDrive set up by IT", bucket: "ok" },
+              { id: "desk", text: "Your Desktop on the local C: drive", bucket: "no" },
+              { id: "usb", text: "Your personal USB flash drive", bucket: "no" },
+              { id: "pcloud", text: "Your personal Google Drive, Dropbox, or iCloud", bucket: "no" },
+              { id: "pmail", text: "Your personal email account", bucket: "no" },
+            ],
+            explanation: "Patient records belong only in locations the practice controls, backs up, and protects. Local drives, personal devices, and personal accounts are not covered by the practice's safeguards.",
+          },
         ],
       },
       {
@@ -110,22 +129,27 @@ export const module2Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Build a practice folder structure and apply consistent file naming conventions.",
+        text: "Build a practice folder structure and apply consistent file naming conventions. Use made-up patient names only.",
+      },
+      {
+        type: "callout",
+        variant: "info",
+        text: "On your own computer, do these steps in File Explorer. On a school computer, your Documents folder may be locked or wiped when you sign out, so do the steps in the Challenge Lab below. The next two lessons build on this folder structure.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "In your Documents folder, create a top-level folder called 'Lakeside Medical Practice Drive.' Inside it, create four subfolders: Patient Files, Billing, Staff, and Policies.",
-          "Inside Patient Files, create subfolders for 2024 and 2025. Inside 2025, create a subfolder for each month from January through June.",
-          "Create three practice files (blank Word documents) with professional names following this convention: LastName_FirstName_DocumentType_YYYY-MM. Save each file in the correct monthly subfolder within 2025.",
-          "Open File Explorer, navigate to your Lakeside Medical Practice Drive, and take a screenshot showing the full folder tree expanded. Submit this screenshot as your deliverable.",
+          "In your Documents folder, create a top-level folder named \"Lakeside Medical Practice Drive\". Inside it, create four folders: Patient Files, Billing, Staff, and Policies.",
+          "Inside Patient Files, create folders for last year and this year (2025 and 2026 in the Challenge Lab). Inside this year's folder, create a folder for each of the first three months: January, February, and March.",
+          "Create three blank Word documents (New › Microsoft Word Document) with names that follow the convention LastName_FirstName_DocumentType_YYYY-MM, one in each month's folder, for example Rivera_Ana_Intake_2026-01 in January.",
+          "In File Explorer, expand the Lakeside Medical Practice Drive folder in the navigation pane so the whole folder tree shows.",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your screenshot showing the complete folder tree. Your structure will be evaluated for correct hierarchy, logical naming, and consistent conventions. A well-organized folder structure you design today demonstrates the organizational skill that employers in medical offices value most.",
+        text: "Deliverable: Submit your Challenge Lab results page (enter your name on the lab's finish screen and select Print or save results) or, if you used your own computer, a screenshot of the expanded folder tree. Submit it to your instructor or course folder. Your structure will be evaluated for correct hierarchy, logical naming, and consistent conventions.",
       },
     ],
   },
@@ -157,7 +181,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To create a new folder in File Explorer: navigate to the location where the folder should live, right-click in an empty area of the right panel, select New > Folder, type the folder name, and press Enter. Alternatively, use the New Folder button in the File Explorer ribbon at the top. Always name folders before pressing Enter — changing a folder name after files have been saved inside it does not affect the files, but links or shortcuts pointing to the old path may break.",
+              "To create a new folder in File Explorer: navigate to the location where the folder should live, right-click in an empty area of the right panel, select New > Folder, type the folder name, and press Enter. Alternatively, select New › Folder on the command bar at the top of File Explorer. Always name folders before pressing Enter — changing a folder name after files have been saved inside it does not affect the files, but links or shortcuts pointing to the old path may break.",
               "To rename a file or folder: click it once to select it, then press F2 (the rename keyboard shortcut), type the new name, and press Enter. Alternatively, right-click and choose Rename. When renaming files, be careful not to accidentally change or delete the file extension — if you rename 'Report.docx' to 'Report' (removing .docx), Windows may not know how to open it until you add the extension back.",
               "File name characters to avoid: Windows does not allow the following characters in file names: / \\ : * ? \" < > | — using any of these will produce an error. Hyphens (-), underscores (_), and periods (.) are safe. Spaces are technically allowed but can cause problems when files are accessed by programs or shared with other systems. Many offices prefer underscores instead of spaces for maximum compatibility.",
             ],
@@ -179,6 +203,21 @@ export const module2Lessons: Lesson[] = [
               "An important distinction: dragging between different drives (e.g., from C: to Z:) copies by default, not moves. To move across drives, hold Shift while dragging, or use Cut (Ctrl+X) and Paste (Ctrl+V). If you drag and end up with duplicates when you wanted a move, undo the action immediately with Ctrl+Z before doing anything else.",
               "To move or copy multiple files at once: select the first file, then hold Shift and click the last file to select a continuous range, or hold Ctrl and click individual files to select non-adjacent ones. Then cut or copy the selection. This is much faster than moving files one at a time when reorganizing large folders.",
             ],
+          },
+          {
+            type: "drag-drop",
+            mode: "match",
+            title: "Pick the right file operation",
+            prompt: "Match each file operation to what happens to the file.",
+            items: [
+              { id: "copy", text: "Copy (Ctrl+C), then Paste (Ctrl+V)", match: "The file stays where it was, and a duplicate appears in the new folder" },
+              { id: "cut", text: "Cut (Ctrl+X), then Paste (Ctrl+V)", match: "The file leaves its old folder and now exists only in the new one" },
+              { id: "rename", text: "Rename (F2)", match: "Same file, same folder, new name" },
+              { id: "del", text: "Delete", match: "The file goes to the Recycle Bin, where it can be restored" },
+              { id: "sdel", text: "Shift+Delete", match: "The file is deleted permanently without going to the Recycle Bin" },
+              { id: "undo", text: "Undo (Ctrl+Z)", match: "Reverses your last move, copy, rename, or Recycle Bin delete" },
+            ],
+            explanation: "Copy when two places each need the file, move when it belongs somewhere else, and use the normal Delete key for routine cleanup so the Recycle Bin gives you a way back.",
           },
         ],
       },
@@ -239,22 +278,27 @@ export const module2Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Practice essential file operations using the folder structure you created in the previous lesson.",
+        text: "Practice the essential file operations on the Lakeside Medical Practice Drive you built in the previous lesson, the same end-of-month jobs described in this lesson's scenario.",
+      },
+      {
+        type: "callout",
+        variant: "info",
+        text: "On your own computer, first create these text documents (New › Text Document) so you have files to work with: in Billing, Invoices_2026-01, Late_Notices_2026-01, Invoices_2026-02, and a duplicate named \"Invoices_2026-01 - Copy\"; in Policies, Supply_Order_Template. On a school computer, do the steps in the Challenge Lab below, where these files are already in place.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "In your 'Lakeside Medical Practice Drive' folder, create a new subfolder called 'Archive' inside the Billing folder. Move your three practice files from their current locations into the Archive folder. Confirm they are no longer in their original locations.",
-          "Copy one of the files from Archive into both the Patient Files > 2025 > March folder and the Staff folder. Confirm the original in Archive is still there — you should now have three copies of this file across different folders.",
-          "Rename all three copies of the file to follow this format: LastName_FirstName_Type_Archive_2025. Each copy should have a slightly different name (e.g., different document type).",
-          "Delete one of the three copies by pressing Delete (not Shift+Delete). Open the Recycle Bin, confirm the file is there, then restore it. Now delete it again with Shift+Delete and confirm it no longer appears in the Recycle Bin.",
+          "In Billing, create a folder named Archive. Move the two January files (Invoices_2026-01 and Late_Notices_2026-01) into Archive and confirm they are no longer in Billing.",
+          "Copy Supply_Order_Template from Policies into Billing and into Staff, so each department has its own copy. Confirm the original is still in Policies.",
+          "Rename the Billing copy to Supply_Order_Template_Billing and the Staff copy to Supply_Order_Template_Staff.",
+          "Delete the duplicate \"Invoices_2026-01 - Copy\" from Billing by pressing Delete (not Shift+Delete). Open the Recycle Bin, confirm the file is there, and restore it. Then delete it again with Shift+Delete and confirm it does not appear in the Recycle Bin.",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit two screenshots — one showing the Archive folder with the moved files, and one showing the Recycle Bin confirmation that the permanently deleted file is not there. These exercises confirm you can perform all critical file operations (copy, move, rename, delete, and restore) accurately and safely.",
+        text: "Deliverable: Submit your Challenge Lab results page (enter your name on the lab's finish screen and select Print or save results) or, if you used your own computer, two screenshots: the Archive folder with the moved files, and the Recycle Bin showing that the permanently deleted file is not there. Submit it to your instructor or course folder. This confirms you can copy, move, rename, delete, and restore files accurately and safely.",
       },
     ],
   },
@@ -287,9 +331,9 @@ export const module2Lessons: Lesson[] = [
             type: "list",
             items: [
               "The File Explorer search bar (top-right corner) searches the current folder and all subfolders for files matching your search term. Type any part of the file name, and results appear in real time. This is best when you know roughly where the file is — for example, searching inside the Patient Files folder for a specific patient's last name.",
-              "The Windows Search bar (Windows key + S or the taskbar search) searches your entire computer — every drive, folder, and indexed location. Type the file name or a word you remember from inside the file. Results are grouped by Apps, Documents, Email, and Web — click 'Documents' to narrow to files only. This is fastest when you have no idea where the file is saved.",
-              "Search filters in File Explorer add precision — after searching, use the Search tab that appears in the Ribbon to filter by Date Modified, Kind (Document, PDF, Spreadsheet), or Size. For example, if you are searching for 'Rodriguez' and there are 50 results, filter by Date Modified > This Month to narrow it to recent files. This is an underused feature that dramatically speeds up document retrieval in large shared drives.",
-              "Searching inside file content: by default, Windows searches file names only, not the text inside files. To search inside file content, go to File Explorer's Search Options and enable 'Always search file names and contents.' Note that this search is slower than name-only search. Alternatively, use the search inside programs like Outlook's built-in search to find emails containing specific patient names or topics.",
+              "Windows search (the Search box on the taskbar, or Windows logo key + S) searches your computer's apps, settings, and indexed files at once. Type the file name or a word you remember from the file. Results are grouped by type (apps, settings, documents), and the best match appears at the top with Open file location next to it. This is fastest when you have no idea where the file is saved.",
+              "Sorting search results adds precision — the results list shows Date modified, Type, Size, and the folder each file is in. If you search for 'Rodriguez' and get 50 results, select the Date modified column heading to bring the most recent files to the top, or Type to group PDFs together. This is an underused habit that speeds up document retrieval in large shared drives.",
+              "Searching inside files: Windows keeps a search index, and for files with text it indexes their contents too, so a word you remember from inside a document can find it. By default (the Classic setting) the index covers your Documents, Pictures, and Music folders and the desktop; locations outside the index are searched more slowly. To find emails that mention a topic, use the search box in Outlook instead.",
             ],
           },
         ],
@@ -323,10 +367,30 @@ export const module2Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Sort by Date Modified to find recently changed files — right-click any column header in File Explorer's Details view and choose 'Sort by' > 'Date Modified.' The most recently saved file appears at the top, which is useful when you know you just worked on something but cannot remember exactly what it was named.",
+              "Sort by Date modified to find recently changed files — in Details view, select the Date modified column heading (or choose Sort › Date modified on the command bar). Select it again to reverse the order. The most recently saved file appears at the top, which is useful when you know you just worked on something but cannot remember exactly what it was named.",
               "Sort by Name for alphabetical browsing — this is the most useful sort when looking for a specific patient's files in a folder organized by last name. Alphabetical sort with consistent naming means you can scan to 'R' for Rodriguez in seconds.",
-              "Group files by type to distinguish documents from spreadsheets from PDFs at a glance — right-click in the folder and choose Group by > Type. All PDFs appear together, all Word documents together, making it easy to find a specific format when you know you are looking for, for example, a PDF form.",
+              "Group files by type to distinguish documents from spreadsheets from PDFs at a glance — right-click an empty area of the folder and choose Group by > Type. All PDFs appear together, all Word documents together, making it easy to find a specific format when you know you are looking for, for example, a PDF form.",
             ],
+          },
+          {
+            type: "drag-drop",
+            mode: "sort",
+            title: "Follows the convention or not?",
+            prompt: "The office convention is LastName_FirstName_DocumentType_YYYY-MM with no clinical details in the name. Sort each file name.",
+            buckets: [
+              { id: "good", label: "Follows the convention" },
+              { id: "bad", label: "Needs to be renamed" },
+            ],
+            items: [
+              { id: "g1", text: "Rivera_Ana_Intake_2026-01.pdf", bucket: "good" },
+              { id: "g2", text: "Chen_David_Referral_2026-02.docx", bucket: "good" },
+              { id: "g3", text: "Okafor_Grace_LabResult_2026-03.pdf", bucket: "good" },
+              { id: "b1", text: "scan0042.pdf", bucket: "bad" },
+              { id: "b2", text: "intake final v2.docx", bucket: "bad" },
+              { id: "b3", text: "Ana Rivera diabetes followup.docx", bucket: "bad" },
+              { id: "b4", text: "Rivera_Ana_Intake_Jan.pdf", bucket: "bad" },
+            ],
+            explanation: "Good names start with the patient's last and first name, say what the document is, and end with a sortable YYYY-MM date. A diagnosis in a file name exposes clinical information to anyone who can see the folder, and words like Jan or final do not sort or age well.",
           },
         ],
       },
@@ -369,22 +433,27 @@ export const module2Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Apply professional naming conventions and practice file search techniques.",
+        text: "Apply professional naming conventions and practice file search techniques on your Lakeside Medical Practice Drive.",
+      },
+      {
+        type: "callout",
+        variant: "info",
+        text: "On your own computer, use the practice drive you built in the earlier lessons. On a school computer, do the steps in the Challenge Lab below, where the drive already holds a patient's carelessly named files for you to fix.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "In your Lakeside Medical Practice Drive folder, rename all existing files to follow this convention: LastName_FirstName_DocumentType_YYYY-MM. Each file should have a unique, meaningful name. Screenshot the renamed files in File Explorer's Details view.",
-          "Create 5 new files (blank documents or PDFs — you can right-click > New > Text Document and rename to .txt) with correctly formatted names across different subfolders.",
-          "Use the File Explorer search bar to search for one patient's last name across your entire Lakeside Medical Practice Drive folder. Screenshot the results showing files from multiple subfolders appearing in one search.",
-          "Sort the results by Date Modified, then by Name. Screenshot both sort orders. Write a one-sentence note on which sort would be more useful for finding a specific patient's most recent document.",
+          "In Details view, rename any files that do not follow the convention LastName_FirstName_DocumentType_YYYY-MM. In the Challenge Lab, fix Ana Rivera's \"rivera intake\" (January) and \"scan0042\" (her insurance card, February).",
+          "Create two new text documents (New › Text Document) with correctly formatted names in two different folders, for example Rivera_Ana_VisitNotes_2026-03 in March and Rivera_Ana_PaymentPlan_2026-03 in Billing.",
+          "Open the Lakeside Medical Practice Drive folder and use the File Explorer search box to search for one patient's last name. Notice that files from several folders appear in one list.",
+          "Sort the results by Date modified, then by Name. Write a one-sentence note on which sort is more useful for finding a patient's most recent document.",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your three screenshots (renamed files, search results, and both sort orders) along with your one-sentence note to your instructor. This exercise confirms that you can apply professional naming conventions and find any file quickly — two skills that every medical office employer values highly.",
+        text: "Deliverable: Submit your Challenge Lab results page (enter your name on the lab's finish screen and select Print or save results) or, if you used your own computer, screenshots of the renamed files, the search results, and both sort orders. Add your one-sentence note and submit it to your instructor or course folder.",
       },
     ],
   },
@@ -419,7 +488,7 @@ export const module2Lessons: Lesson[] = [
               "Use dates, not version numbers, to distinguish drafts — 'StaffPolicy_2025-04-Draft.docx' and 'StaffPolicy_2025-05-Approved.docx' are immediately understandable in any order. 'StaffPolicy_v3_Final.docx' requires context to interpret and becomes meaningless when a v4 exists.",
               "When a document is finalized and approved, delete or move drafts to an Archive folder — keeping both the draft and the final version in the same working folder creates confusion. Move drafts to a 'Drafts' or 'Archive' subfolder so the working folder contains only the current, active version.",
               "Track Changes in Word (Review > Track Changes) is the correct tool for collaborative editing — it records every change made to a document, who made it, and when. Use Track Changes when multiple people need to edit the same document rather than creating a new copy for each reviewer. When the final version is approved, Accept All Changes (Review > Accept > Accept All Changes in Document) to create a clean final copy.",
-              "OneDrive and SharePoint maintain automatic version history — if your files are saved in Microsoft 365 cloud storage, you can right-click any file and choose 'Version History' to see and restore any previous version from the past 30+ days. This is a powerful safety net that eliminates the need for manual 'save as v2' copies when cloud storage is properly configured.",
+              "OneDrive and SharePoint keep version history automatically — with the OneDrive sync app, right-click a file in File Explorer and select Version history to see and restore an earlier version. Personal OneDrive accounts keep versions for 30 days; for work or school accounts, your organization's settings decide (and an administrator can turn versioning off). This is a powerful safety net that eliminates the need for manual 'save as v2' copies when cloud storage is properly configured.",
             ],
           },
         ],
@@ -435,9 +504,9 @@ export const module2Lessons: Lesson[] = [
             type: "list",
             items: [
               "Archive on a schedule — at the end of each month or quarter, move all closed or completed files from the active working folders into an Archive folder organized by year and month. This keeps working folders showing only current, active documents and reduces search time dramatically.",
-              "Do not archive and delete at the same time — when moving files to an archive, leave them in the archive for at least 90 days before considering deletion, in case they are needed for a follow-up task, audit, or records request. Patient records have specific legal retention periods — in most states, medical records must be retained for at least 7–10 years. Never delete patient records without explicit authorization from your supervisor and confirmation of legal retention requirements.",
+              "Do not archive and delete at the same time — when moving files to an archive, leave them in the archive for at least 90 days before considering deletion, in case they are needed for a follow-up task, audit, or records request. Patient records have legal retention periods: the HIPAA Privacy Rule itself does not set how long medical records must be kept, but state laws generally do, and your practice's records policy follows them. Never delete patient records without explicit authorization from your supervisor and confirmation of the retention requirements.",
               "Identify and remove duplicates regularly — search for files with the same or very similar names in the same folder. If you find duplicates, confirm which is the latest version before deleting the others. A monthly 10-minute housekeeping session prevents the accumulation of hundreds of duplicate files that slow down search and create confusion.",
-              "Empty deleted items regularly — the Recycle Bin (on the desktop) and Deleted Items folder (in Outlook) accumulate deleted content until manually emptied. Empty the Recycle Bin monthly after confirming you do not need any of its contents. In Outlook, configure Deleted Items to empty automatically when Outlook closes: File > Options > Advanced > 'Empty Deleted Items folders when exiting Outlook.'",
+              "Empty deleted items regularly — the Recycle Bin (on the desktop) and Deleted Items folder (in Outlook) accumulate deleted content until manually emptied. Empty the Recycle Bin monthly after confirming you do not need any of its contents. In classic Outlook for Windows, you can have Deleted Items emptied automatically when Outlook closes: File > Options > Advanced > 'Empty Deleted Items folders when exiting Outlook.'",
             ],
           },
         ],
@@ -465,7 +534,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Proper file management at a medical office is not just an organizational preference — it is a compliance requirement. HIPAA requires that patient records be stored securely, accessible to authorized staff, and retained for a minimum period defined by state law. Poor file management that results in lost patient records, unauthorized access, or accidental deletion is a potential compliance violation with serious legal consequences. Treat every patient file you manage with the same care you would expect your own medical records to receive.",
+            text: "Proper file management at a medical office is not just an organizational preference — it is a compliance requirement. HIPAA requires that patient records be stored securely and be accessible only to authorized staff for as long as the practice keeps them, and state law sets how long they must be kept. Poor file management that results in lost patient records, unauthorized access, or accidental deletion is a potential compliance violation with serious legal consequences. Treat every patient file you manage with the same care you would expect your own medical records to receive.",
           },
         ],
       },
@@ -498,7 +567,7 @@ export const module2Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Create a simple, practical File Management Quick Reference guide that could be used by a new hire on their first day at Lakeside Medical Associates.",
+        text: "Create a simple, practical File Management Quick Reference guide that could be used by a new hire on their first day at Lakeside Medical Associates. This challenge is a writing task in Word, so it works on school computers as well as your own.",
       },
       {
         type: "list",
@@ -506,7 +575,7 @@ export const module2Lessons: Lesson[] = [
         items: [
           "In a new Word document, write a File Management Guide for Lakeside Medical Associates. Include five sections: Where to Save Files, File Naming Convention, Archiving Policy (when and how to archive), Duplicate File Handling, and What to Never Do (local storage, personal cloud, PHI in file names).",
           "Format the guide using Heading styles (Heading 1 for each section title) and bulleted lists for each section's content. The guide should be printable on one page (use narrow margins if needed).",
-          "Save the document as 'LMA_FileManagementGuide_2025-05.docx' in your practice folder, then export it as a PDF.",
+          "Save the document as 'LMA_FileManagementGuide_YYYY-MM.docx' (use the current year and month) in your practice folder, then export it as a PDF (File › Export › Create PDF/XPS, or File › Save As and choose PDF).",
           "Ask a classmate or family member to read your guide and tell you whether they could follow it on their first day. Make any revisions based on their feedback and save the updated version with the same name.",
         ],
       },

@@ -103,7 +103,7 @@ export const wordModule4Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Double-click at the top of the page to open the header area. The Header & Footer Tools Design tab will appear.",
+            "Double-click at the top of the page to open the header area. The Header & Footer tab appears on the Ribbon.",
         },
         {
           type: "image",
@@ -113,7 +113,7 @@ export const wordModule4Lessons: Lesson[] = [
         {
           type: "image",
           src: "/images/word/headers/header_create_design_tab.png",
-          alt: "Header design tab",
+          alt: "Header & Footer tab on the Ribbon",
         },
       ],
     },
@@ -166,7 +166,7 @@ export const wordModule4Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Select Different First Page from the Design tab to remove the header from the first page only.",
+            "Select Different First Page on the Header & Footer tab to remove the header from the first page only.",
         },
         {
           type: "image",
@@ -280,7 +280,6 @@ LESSON 2 – TRACK CHANGES
     "Remove all tracked changes and comments before sending a document externally",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/pLKHMRBR0Z0",
 
   practiceFiles: [
     {
@@ -554,7 +553,6 @@ LESSON 3 – COMMENTS
     "Write comments that a colleague can act on without asking a follow-up question",
   ],
   duration: "6 min",
-  videoUrl: "https://www.youtube.com/embed/pLKHMRBR0Z0",
 
   practiceFiles: [
     {
@@ -585,7 +583,7 @@ LESSON 3 – COMMENTS
          {
            type: "callout",
            variant: "info",
-           text: "Resolving and deleting are different. A resolved comment greys out and stays in the document, preserving the record of what was raised and that it was addressed. A deleted comment is gone. During an active review, resolve rather than delete — the thread is the evidence of why the document says what it says. Delete everything only in the final cleanup before the document leaves the practice.",
+           text: "Resolving and deleting are different. A resolved thread is marked Resolved and stays in the document, preserving the record of what was raised and that it was addressed. A deleted thread is gone. During an active review, resolve rather than delete — the thread is the evidence of why the document says what it says. Delete everything only in the final cleanup before the document leaves the practice.",
          },
          {
            type: "tip",
@@ -600,7 +598,7 @@ LESSON 3 – COMMENTS
         {
           type: "paragraph",
           text:
-            "Comments let you attach notes to specific text in a document without changing the content. They appear as colored bubbles in the margin and are ideal for feedback, questions, and review notes.",
+            "Comments let you attach notes to specific text in a document without changing the content. They appear as comment cards beside the text, or in the Comments pane, and are ideal for feedback, questions, and review notes.",
         },
       ],
     },
@@ -611,7 +609,7 @@ LESSON 3 – COMMENTS
         {
           type: "paragraph",
           text:
-            "Select the text you want to comment on, then go to Review → New Comment. A comment balloon appears in the margin linked to your selected text. Type your note inside the balloon.",
+            "Select the text you want to comment on, then go to Review → New Comment (or press Ctrl+Alt+M). A comment card opens beside your selected text. Type your note, then select Post comment (or press Ctrl+Enter).",
         },
         {
           type: "image",
@@ -621,7 +619,7 @@ LESSON 3 – COMMENTS
         {
           type: "image",
           src: "/images/word/comments/comments_balloon_example.png",
-          alt: "Comment balloon in the document margin",
+          alt: "Comment card in the margin beside the commented text",
         },
       ],
     },
@@ -653,17 +651,17 @@ LESSON 3 – COMMENTS
         {
           type: "paragraph",
           text:
-            "Click the three-dot menu (…) inside a comment balloon and choose Resolve Thread. The comment turns gray to indicate it has been addressed but keeps it visible for reference.",
+            "Select More thread actions (…) on the comment card and choose Resolve thread. The thread is marked Resolved and stays in the document. In the Comments pane's default Contextual view, resolved threads are hidden from the margin; switch to List view (Review > Show Comments > List) to see every comment, resolved ones included.",
         },
         {
           type: "image",
           src: "/images/word/comments/comments_resolve_menu.png",
-          alt: "Resolve Thread option in comment menu",
+          alt: "Resolve thread option in the More thread actions menu",
         },
         {
           type: "image",
           src: "/images/word/comments/comments_resolved_state.png",
-          alt: "Resolved comment shown in gray",
+          alt: "A resolved comment thread marked Resolved",
         },
       ],
     },
@@ -674,17 +672,12 @@ LESSON 3 – COMMENTS
         {
           type: "paragraph",
           text:
-            "To permanently remove a comment, right-click the comment balloon and choose Delete Comment, or use the Delete button on the Review tab. Choose Delete All Comments in Document to remove all at once.",
-        },
-        {
-          type: "image",
-          src: "/images/word/comments/comments_delete_command.png",
-          alt: "Delete Comment option on right-click menu",
+            "To permanently remove a comment, select More thread actions (…) on the comment card and choose Delete thread, or click in the commented text and select Delete on the Review tab. To remove every comment at once, select the arrow under Delete and choose Delete All Comments in Document.",
         },
         {
           type: "image",
           src: "/images/word/comments/comments_delete_all_menu.png",
-          alt: "Delete All Comments option on Review tab",
+          alt: "Delete All Comments in Document option under Delete on the Review tab",
         },
       ],
     },
@@ -714,15 +707,15 @@ LESSON 3 – COMMENTS
           options: [
             "The comment is permanently deleted from the document",
             "The comment is saved as a footnote at the bottom of the page",
-            "The comment turns gray to show it has been addressed but remains visible",
+            "The thread is marked Resolved and stays in the document as a record",
             "The commented text is automatically accepted and formatted",
           ],
           correctIndex: 2,
-          explanation: "Resolving greys the comment out to show it has been dealt with, while keeping it in the document as a record of what was raised and settled. Deleting removes it entirely, along with that history.",
+          explanation: "Resolving marks the thread as dealt with while keeping it in the document as a record of what was raised and settled. It drops out of the margin in the default view but still appears in the Comments pane's List view. Deleting removes it entirely, along with that history.",
           optionRationales: [
             "That describes deleting. Resolving deliberately keeps the comment so the review history survives.",
             "Comments and footnotes are unrelated features. Resolving never converts one into the other.",
-            "Correct. The comment greys out to show it is addressed but remains visible as a record of the discussion.",
+            "Correct. The thread is marked Resolved and kept in the document as a record of the discussion.",
             "Resolving a comment changes nothing in the document text. Comments annotate; they never edit.",
           ],
         },

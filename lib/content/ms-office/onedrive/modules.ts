@@ -1,5 +1,6 @@
 import { Lesson } from "@/types/lesson";
 import { onedriveModule1Lessons } from "./module1Lessons";
+import { onedriveModule2Lessons } from "./module2Lessons";
 
 export type OneDriveModule = {
   moduleNumber: number;
@@ -21,6 +22,16 @@ export const onedriveModules: OneDriveModule[] = [
     emoji: "☁️",
     description: "What OneDrive is, signing in, finding your way around OneDrive on the web, and work versus personal accounts.",
     lessons: onedriveModule1Lessons,
+    level: "Beginner",
+    estimatedMinutes: 45,
+  },
+  {
+    moduleNumber: 2,
+    moduleSlug: "module-2",
+    title: "Organizing Your Files",
+    emoji: "🗂️",
+    description: "Upload files and folders, create folders and Office files, move, copy, rename and delete, and find any file fast with Search, Favorites, and shortcuts.",
+    lessons: onedriveModule2Lessons,
     level: "Beginner",
     estimatedMinutes: 45,
   },

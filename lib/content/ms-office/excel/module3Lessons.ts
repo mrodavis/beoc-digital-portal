@@ -1110,7 +1110,7 @@ export const excelModule3Lessons: Lesson[] = [
 
   practiceFiles: [
     {
-      name: "Comments & Track Changes Practice File",
+      name: "Comments Practice File",
       url: "/practice/excel/module-3/comments/Excel_TrackChangesComments_Practice.xlsx",
     },
   ],
@@ -1195,27 +1195,28 @@ export const excelModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Comments allow you to leave feedback without changing the contents of a cell. Select a cell, go to the Review tab, and click New Comment.",
+            "Comments allow you to leave feedback without changing the contents of a cell. Select a cell, go to the Review tab, and click New Comment (or right-click the cell and choose New Comment). Type your comment and select Post.",
         },
         {
           type: "image",
           src: "/images/excel/module-3/comments/track_comment_new.png",
-          alt: "New Comment button on Review tab",
+          alt: "New Comment button in the Comments group on the Review tab",
         },
         {
           type: "image",
           src: "/images/excel/module-3/comments/track_comment_type.png",
-          alt: "Typing a comment",
+          alt: "A comment typed for cell C5, ready to post",
+          caption: "Type the comment, then select Post.",
         },
         {
           type: "paragraph",
           text:
-            "Cells with comments display a red indicator in the corner. Select the cell to view the comment.",
+            "A cell with a comment shows a small indicator in its upper-right corner. Point to the cell to read the comment. Others can reply in the same thread.",
         },
         {
           type: "image",
           src: "/images/excel/module-3/comments/track_comment_indicator_close.png",
-          alt: "Cell with comment indicator",
+          alt: "Comment indicators in the corners of two cells",
         },
       ],
     },
@@ -1229,51 +1230,40 @@ export const excelModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "To edit a comment, select the cell and click Edit Comment on the Review tab.",
+            "To edit a comment, point to it or click it, then select Edit. You can edit only comments you wrote; on someone else's comment you can reply instead.",
         },
         {
-          type: "image",
-          src: "/images/excel/module-3/comments/track_edit_click.png",
-          alt: "Edit Comment button",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-3/comments/track_edit_type.png",
-          alt: "Editing comment text",
+          type: "callout",
+          variant: "version",
+          text: "In Excel for Microsoft 365, Comments and Notes are separate. The yellow sticky-note boxes with an Edit Comment button that older versions showed are now Notes, found under Review > Notes. Threaded comments have a white background; notes have a yellow one.",
         },
       ],
     },
 
     // ------------------------------------------------------------
-    // Showing and Hiding Comments
+    // Showing Comments
     // ------------------------------------------------------------
     {
-      heading: "Showing and Hiding Comments",
+      heading: "Showing All Comments",
       blocks: [
         {
           type: "paragraph",
           text:
-            "To display every comment at once, click Show All Comments on the Review tab.",
+            "To see every comment at once, click Show Comments on the Review tab. The Comments pane opens on the right and lists each comment with its replies. Click a comment in the pane to jump to its cell.",
         },
         {
           type: "image",
           src: "/images/excel/module-3/comments/track_show_click.png",
-          alt: "Show All Comments button",
+          alt: "Show Comments button on the Review tab",
         },
         {
           type: "image",
           src: "/images/excel/module-3/comments/track_show_comments.png",
-          alt: "All comments displayed",
+          alt: "The Comments pane listing the comments on cells D4 and C5",
         },
         {
-          type: "paragraph",
-          text:
-            "You can also show or hide a single comment by selecting the cell and clicking Show/Hide Comment.",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-3/comments/track_show_one.png",
-          alt: "Show or hide individual comment",
+          type: "tip",
+          text: "Notes have their own commands: Review > Notes > Show All Notes displays every note on the sheet.",
         },
       ],
     },
@@ -1287,22 +1277,12 @@ export const excelModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "To remove a comment, select the cell and click Delete in the Comments group on the Review tab.",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-3/comments/track_delete_select.png",
-          alt: "Selecting comment to delete",
+            "To remove a comment, right-click the cell and choose Delete Comment, or select the cell and click Delete in the Comments group on the Review tab.",
         },
         {
           type: "image",
           src: "/images/excel/module-3/comments/track_delete_click.png",
-          alt: "Delete comment button",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-3/comments/track_delete_deleted.png",
-          alt: "Comment deleted",
+          alt: "Delete button in the Comments group on the Review tab",
         },
       ],
     },
@@ -1335,12 +1315,7 @@ export const excelModule3Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "If changes were made that you want to undo, click the clock icon next to the Share button to open Version History.",
-        },
-        {
-          type: "image",
-          src: "/images/excel/module-3/comments/comments_restore_clock.png",
-          alt: "Version history clock icon",
+            "If changes were made that you want to undo, click the file name at the top of the Excel window and select Version history (File > Info > Version History also works). Select a version to open it in a separate window, and select Restore if you want to go back to it.",
         },
         {
           type: "image",
@@ -1393,15 +1368,11 @@ export const excelModule3Lessons: Lesson[] = [
         "Add four comments to different cells.",
         "Edit one of the comments.",
         "Delete one comment.",
-        "Use Show All Comments to display every comment.",
-        "Open Version History and review a previous version.",
+        "Use Show Comments to open the Comments pane and read every comment.",
+        "Open Version History (click the file name at the top of the window) and review a previous version.",
       ],
     },
-    {
-      type: "image",
-      src: "/images/excel/module-3/comments/comments_challenge.png",
-      alt: "Final challenge worksheet with comments",
-    },
+
   ],
 },
 

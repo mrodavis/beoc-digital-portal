@@ -157,7 +157,7 @@ const CANVAS = [
   "mail.forward", "event.forward", "mail.newEmail", "mail.archive", "settings.open", "settings.close", "settings.page", "settings.focusedInbox", "rules.run",
   "rules.toggle", "rules.delete", "junk.blockAddress", "junk.safeAddress", "junk.remove", "share.accept", "todo.list", "todo.important", "todo.myDay", "todo.due",
   "copilot.summarize", "copilot.open", "pane.close", "view.myDay", "toggle.newOutlook", "app.launch", "toast.close", "mail.ignore", "event.saveClose", "contact.saveClose",
-  "group.saveClose", "event.recurrence", "review.accessibility", "people.addToList", "people.newContact", "people.newGroup", "cal.newTeamsMeeting", "qat.undo",
+  "group.saveClose", "event.recurrence", "review.accessibility", "people.addToList", "mail.recall", "people.newContact", "people.newGroup", "cal.newTeamsMeeting", "qat.undo",
 ];
 
 function initialUi(doc: OutlookDoc): SimUi {

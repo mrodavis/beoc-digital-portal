@@ -64,11 +64,25 @@ export const module3Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Step 1 — Check if only your computer is affected or if it affects all computers. Ask a colleague if they can reach the internet. If only your computer is affected, the issue is specific to your workstation (check your Wi-Fi or ethernet connection, try toggling airplane mode, or restart your network adapter: right-click the network icon in the taskbar > Troubleshoot). If multiple computers are affected, the problem is the router or ISP.",
-              "Step 2 — Restart the computer and the router. Most temporary connectivity issues resolve with a restart. For the router, unplug it from the wall for 30 seconds, then plug it back in and wait 2 minutes for it to fully reconnect. The router should not need to be restarted more than once a month — if it does, there is an underlying problem to report to IT.",
+              "Step 1 — Check if only your computer is affected or if it affects all computers. Ask a colleague if they can reach the internet. If only your computer is affected, the issue is specific to your workstation: check the Wi-Fi or ethernet connection, make sure Airplane mode is off (Settings > Network & internet), and run the Network and Internet troubleshooter in the Get Help app. If multiple computers are affected, the problem is the router or ISP.",
+              "Step 2 — Restart the computer and, if IT allows it, the modem and router. Most temporary connectivity issues resolve with a restart. Unplug the router and then the modem, wait at least 30 seconds, plug the modem back in and wait for its lights to stop blinking, then plug the router back in and wait a few minutes for both to fully reconnect. The router should not need to be restarted more than once a month — if it does, there is an underlying problem to report to IT.",
               "Step 3 — Check the ISP status page from a phone on cellular data to determine whether there is a known outage. Most ISPs have a status page or app. If a known outage is listed, the only action is to wait and notify your supervisor so they can manage patient appointments accordingly.",
               "Step 4 — Report to IT with specifics. 'The internet is not working' is not actionable. 'All workstations in the front office cannot reach the internet but local network printing works. We restarted the router 10 minutes ago with no change. The ISP status page shows no outage in our area' gives IT exactly what they need to diagnose the problem remotely.",
             ],
+          },
+          {
+            type: "drag-drop",
+            mode: "order",
+            title: "Put the troubleshooting steps in order",
+            prompt: "Drag the steps into the order you would follow when the internet goes down at the front desk.",
+            items: [
+              { id: "s1", text: "Ask a coworker whether their computer can reach the internet" },
+              { id: "s2", text: "Check your own cable or Wi-Fi and make sure Airplane mode is off" },
+              { id: "s3", text: "Restart the computer (and, if IT allows, the modem and router)" },
+              { id: "s4", text: "Check the ISP's outage page from a phone on cellular data" },
+              { id: "s5", text: "Report to IT with what you saw and what you already tried" },
+            ],
+            explanation: "Start by finding out how far the problem reaches, try the simple fixes, rule out a provider outage, and only then escalate, with details IT can act on.",
           },
         ],
       },
@@ -114,19 +128,24 @@ export const module3Lessons: Lesson[] = [
         text: "Build a simple Internet Troubleshooting Checklist for Lakeside Medical Associates.",
       },
       {
+        type: "callout",
+        variant: "info",
+        text: "On your own computer, do steps 1 and 2 in Windows. On a school computer, Command Prompt is often blocked, so do steps 1 and 2 in the Challenge Lab below. Steps 3 and 4 are a Word document and work on any computer.",
+      },
+      {
         type: "list",
         ordered: true,
         items: [
-          "Check your workstation's current IP address: open Command Prompt (search 'cmd' in the Start menu) and type 'ipconfig'. Record your IPv4 address. Note whether it starts with 192.168 (local network) or something else.",
-          "Test your internet connection by opening a web browser and navigating to three different websites. Note which ones load and which do not. Open one from a well-known provider (google.com) and one from a medical professional site.",
-          "In a Word document, write a 5-step Internet Connectivity Troubleshooting Checklist for Lakeside Medical Associates — one sentence per step, written clearly enough for a non-technical new hire to follow.",
-          "Save the checklist as 'LMA_InternetTroubleshooting_2025-05.docx' and export as a PDF. This is a real deliverable your office could use.",
+          "Check the computer's IP address: search for cmd, open Command Prompt, type ipconfig, and press Enter. Record the IPv4 Address and note whether it starts with 192.168 (a common private, local-network address) or something else.",
+          "Test the connection in a web browser by going to three different websites, including a government health site such as cdc.gov or cms.gov. Note which ones load and which do not.",
+          "In a Word document, write a 5-step Internet Connectivity Troubleshooting Checklist for Lakeside Medical Associates, one sentence per step, written clearly enough for a non-technical new hire to follow.",
+          "Save the checklist as 'LMA_InternetTroubleshooting_YYYY-MM.docx' (use the current year and month) and export it as a PDF.",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit the PDF version of your troubleshooting checklist to your instructor. It will be evaluated on whether the steps are logical, complete, and written clearly enough for a first-day employee to follow without prior IT knowledge.",
+        text: "Deliverable: Submit the PDF of your troubleshooting checklist, plus your Challenge Lab results page (enter your name on the lab's finish screen and select Print or save results) or, if you used your own computer, your notes from steps 1 and 2. Submit them to your instructor or course folder. The checklist will be evaluated on whether the steps are logical, complete, and clear enough for a first-day employee to follow.",
       },
     ],
   },
@@ -159,10 +178,10 @@ export const module3Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "The address bar (URL bar) at the top of the browser serves two purposes — type a website address (URL) to navigate directly to a specific page, or type a search query and press Enter to search Google (or your default search engine). If you type a full website address like 'cms.gov' and press Enter, the browser goes directly to that site. If you type 'medicare coding guidelines 2025,' the browser opens a search results page.",
+              "The address bar (URL bar) at the top of the browser serves two purposes — type a website address (URL) to navigate directly to a specific page, or type a search query and press Enter to search with your default search engine (Bing in Microsoft Edge unless it has been changed). If you type a full website address like 'cms.gov' and press Enter, the browser goes directly to that site. If you type 'medicare coding guidelines,' the browser opens a search results page.",
               "Tabs allow you to have multiple websites open simultaneously without opening multiple browser windows — Ctrl+T opens a new tab, Ctrl+W closes the current tab, and Ctrl+Tab cycles through open tabs. In a medical office workflow, you might have the EHR web portal in one tab, the insurance billing site in another, a reference page in a third, and Outlook web in a fourth. Managing tabs effectively means you switch between tasks in one click rather than reopening pages constantly.",
-              "Bookmarks (also called Favorites) save a page's URL so you can return to it instantly without remembering the address — Ctrl+D saves the current page as a bookmark. Organize bookmarks into folders in the Bookmarks Manager for important sites you visit regularly: create folders like 'Insurance Portals,' 'Medical References,' 'CMS & Regulatory,' and 'Practice Management.' Share the bookmark folder with new staff by exporting bookmarks: Menu > Bookmarks > Import/Export.",
-              "Browser history records every page you have visited — press Ctrl+H to view it. History is useful for returning to a site you forgot to bookmark. Clear your history periodically (Ctrl+Shift+Delete) for privacy and browser performance — a browser history file that has grown to millions of entries can slow down the browser. At a shared workstation, clear history at the end of each shift.",
+              "Favorites (called bookmarks in Chrome) save a page's address so you can return to it instantly — Ctrl+D saves the current page, and you choose which folder it goes in. Organize them into folders for sites you visit regularly, such as 'Insurance Portals,' 'Medical References,' and 'Government & Regulatory.' In Edge, open Favorites (Ctrl+Shift+O), select Add folder to make a folder, and use More options (…) › Export favorites to save them as a file you can share with new staff. Other browsers have a similar export option in their bookmark manager.",
+              "Browser history records every page you have visited — press Ctrl+H to view it. History is useful for returning to a site you forgot to save as a favorite. To clear it in Edge, go to Settings and more (…) › Settings › Privacy, search, and services › Clear browsing data › Choose what to clear, pick a time range and the data types, and select Clear now. At a shared workstation, follow your office's policy for clearing browsing data at the end of a shift.",
             ],
           },
         ],
@@ -177,10 +196,10 @@ export const module3Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Use specific terms, not vague questions — 'flu vaccine schedule 2025 CDC' returns more precise results than 'when should I get the flu vaccine.' In professional research, include the source you want (CDC, CMS, WHO), the specific topic, and the year when recency matters.",
+              "Use specific terms, not vague questions — 'CDC flu vaccine recommendations adults' returns more precise results than 'when should I get the flu vaccine.' In professional research, include the source you want (CDC, CMS, WHO), the specific topic, and the year when recency matters.",
               "Use quotation marks for exact phrases — searching 'HIPAA Notice of Privacy Practices' (with quotes) returns only pages containing that exact phrase, not pages that contain those words scattered separately. This is highly useful when searching for official titles of documents, regulations, or procedures.",
-              "Filter by recency — in Google, click Tools > Any time > Past year to filter results to content published in the last 12 months. Medical and regulatory information changes frequently; a search result from 2019 may be outdated guidance. Always check the publication or update date on any page you are citing as a reference.",
-              "Prefer .gov and .org domains for medical and regulatory information — websites ending in .gov (government) and .org (established organizations like AHA, AMA, CDC) are typically the most authoritative sources for healthcare information. Be more skeptical of .com sources, especially when researching clinical guidelines, billing codes, or compliance requirements.",
+              "Check recency — many search engines let you limit results by date (look for a date or time filter on the results page). Medical and regulatory information changes frequently; a page that was last updated years ago may be outdated guidance. Always check the publication or update date on any page you are citing as a reference.",
+              "Prefer official sources for medical and regulatory information — websites ending in .gov belong to U.S. government agencies (such as CDC at cdc.gov and CMS at cms.gov) and are the most authoritative sources for regulations and public health guidance. Professional associations often use .org, but anyone can register a .org or .com address, so check who runs the site before you trust it, especially for clinical guidelines, billing codes, or compliance requirements.",
             ],
           },
         ],
@@ -208,7 +227,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Never save passwords for medical practice portals, EHR systems, or insurance websites in your browser's built-in password manager on a shared workstation. Anyone who uses that computer after you can access saved passwords. Use a password manager approved by your IT department instead, or log in manually each time for sensitive systems. If a browser prompt asks 'Save password?' on a shared workstation, always click 'Never for this site' for any system that accesses patient data.",
+            text: "Never save passwords for medical practice portals, EHR systems, or insurance websites in your browser's built-in password manager on a shared workstation. Anyone who uses that computer after you can access saved passwords. Use a password manager approved by your IT department instead, or log in manually each time for sensitive systems. If a browser offers to save a password on a shared workstation, decline (choose Never) for any system that accesses patient data. In Edge, you can turn the prompt off: Settings and more (…) › Passwords › Settings › Offer to save passwords › Off.",
           },
         ],
       },
@@ -226,10 +245,10 @@ export const module3Lessons: Lesson[] = [
         blocks: [
           {
             type: "knowledge-check",
-            question: "You need to find the current CMS reimbursement rate for a specific procedure code, published in 2024 or 2025. Which search approach gives you the most reliable result?",
+            question: "You need the current CMS payment rate for a specific procedure code. Which search approach gives you the most reliable result?",
             options: [
               "Search 'procedure code payment' and click the first result",
-              "Search '\"CMS physician fee schedule\" 2025 site:cms.gov' and filter results to the past year",
+              "Search '\"CMS physician fee schedule\" site:cms.gov' and check that the page is for the current year",
               "Ask a colleague and rely on their memory",
               "Search in Wikipedia for the procedure code",
             ],
@@ -241,22 +260,27 @@ export const module3Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Build a professional bookmark library for Lakeside Medical Associates and practice advanced search techniques.",
+        text: "Build a professional favorites (bookmarks) library for Lakeside Medical Associates and practice advanced search techniques.",
+      },
+      {
+        type: "callout",
+        variant: "info",
+        text: "On your own computer, do these steps in Microsoft Edge (Chrome works the same way with bookmarks). On a school computer, the browser may not save favorites or allow exports, so do the steps in the Challenge Lab below.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "In your browser, create a Bookmarks folder called 'Lakeside Medical References.' Inside it, create four subfolders: Government & Regulatory, Insurance Portals, Medical References, and Practice Tools.",
-          "Bookmark at least two real websites in each subfolder. Use your search skills to find relevant, authoritative sites for each category (e.g., cms.gov and cdc.gov for Government & Regulatory).",
-          "Search for 'HIPAA Privacy Rule summary site:hhs.gov' and locate the official HHS summary page. Bookmark it in your Government & Regulatory folder. Write one sentence on why this is a more reliable source than a general Google result.",
-          "Export your Bookmarks folder as an HTML file (Menu > Bookmarks > Export): this creates a file you could share with a colleague. Save the export file with a professional name and submit it as your deliverable.",
+          "Create four favorites folders: Government & Regulatory, Insurance Portals, Medical References, and Practice Tools. (On your own computer you can put all four inside one folder named Lakeside Medical References.)",
+          "Save authoritative websites into the folders, for example cdc.gov in Government & Regulatory and medlineplus.gov in Medical References. On your own computer, save at least two sites in each folder.",
+          "Search for 'HIPAA Privacy Rule summary site:hhs.gov', open the official HHS summary page, and save it in Government & Regulatory. Write one sentence on why this is a more reliable source than a general search result.",
+          "Export your favorites to an HTML file you could share with a colleague: in Edge, Favorites › More options (…) › Export favorites. Give the file a professional name, such as LMA_Favorites.",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your exported Bookmarks HTML file and your one-sentence source evaluation note to your instructor. The bookmark library will be evaluated for appropriate organization and authoritative site selection. This is a practical deliverable a new employer might genuinely ask you to set up on your first week.",
+        text: "Deliverable: Submit your Challenge Lab results page (enter your name on the lab's finish screen and select Print or save results) or, if you used your own computer, the exported favorites HTML file. Add your one-sentence source evaluation note and submit it to your instructor or course folder. The library will be evaluated for organization and authoritative site selection.",
       },
     ],
   },
@@ -370,22 +394,40 @@ export const module3Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Practice URL analysis and build a Safe Browsing Quick Reference for your workstation.",
+        text: "Practice URL analysis and build a Safe Browsing Quick Reference for your workstation. Contoso Health Plan is a made-up insurer whose real website is contoso.com.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Analyze the following five URLs and identify which are legitimate and which are suspicious. Write one sentence explaining your reasoning for each: (1) https://www.cms.gov/Medicare/Billing (2) https://cms-medicare-update.net/login (3) https://mybenefits.bcbs.com/provider/login (4) https://bcbs-provider-portal.com/update-credentials (5) https://oig.hhs.gov/fraud/consumer-alerts/",
-          "Search for 'URL phishing checker' and use a reputable free tool (such as Google Safe Browsing or URLVoid) to check two of the suspicious URLs above. Screenshot the results.",
+          "Analyze these five web addresses and decide which are legitimate and which are suspicious. Write one sentence explaining your reasoning for each: (1) https://www.cms.gov/ (2) https://cms-medicare-update.net/login (3) https://providers.contoso.com/login (4) https://contoso-provider-portal.com/update-credentials (5) https://oig.hhs.gov/. Check your answers with the sorting activity below.",
+          "Inspect the two suspicious links in the Challenge Lab below (on any computer, because you should never open suspicious links on a real computer to test them): view the site information, report the fake page to Microsoft, heed the Microsoft Defender SmartScreen warning, and reach the real sites by typing their addresses.",
           "In a Word document, write a 5-point Safe Browsing Checklist for Lakeside Medical Associates front desk staff. Each point should be one actionable sentence.",
-          "Save the checklist as 'LMA_SafeBrowsing_2025-05.docx' and export as PDF.",
+          "Save the checklist as 'LMA_SafeBrowsing_YYYY-MM.docx' (use the current year and month) and export it as a PDF.",
         ],
+      },
+      {
+        type: "drag-drop",
+        mode: "sort",
+        title: "Legitimate or suspicious?",
+        prompt: "Look at the domain, the part just before the first single slash. Sort each address.",
+        buckets: [
+          { id: "ok", label: "Legitimate domain" },
+          { id: "bad", label: "Suspicious look-alike" },
+        ],
+        items: [
+          { id: "u1", text: "https://www.cms.gov/", bucket: "ok" },
+          { id: "u2", text: "https://cms-medicare-update.net/login", bucket: "bad" },
+          { id: "u3", text: "https://providers.contoso.com/login", bucket: "ok" },
+          { id: "u4", text: "https://contoso-provider-portal.com/update-credentials", bucket: "bad" },
+          { id: "u5", text: "https://oig.hhs.gov/", bucket: "ok" },
+        ],
+        explanation: "cms.gov and oig.hhs.gov are U.S. government domains, and providers.contoso.com is a page on the insurer's own contoso.com domain. The other two only borrow familiar words: their real domains are cms-medicare-update.net and contoso-provider-portal.com, which have nothing to do with CMS or Contoso.",
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your URL analysis (5 sentences), screenshots from the phishing checker, and your Safe Browsing Checklist PDF to your instructor. The analysis will be graded on accuracy and reasoning, and the checklist on clarity and completeness.",
+        text: "Deliverable: Submit your URL analysis (5 sentences), your Challenge Lab results page (enter your name on the lab's finish screen and select Print or save results), and your Safe Browsing Checklist PDF to your instructor or course folder. The analysis is graded on accuracy and reasoning, and the checklist on clarity and completeness.",
       },
     ],
   },

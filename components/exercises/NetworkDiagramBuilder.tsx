@@ -216,6 +216,7 @@ export default function NetworkDiagramBuilder() {
   const board = useRef<HTMLDivElement>(null);
   const drag = useRef<{ type: "part"; kind: Kind; moved: boolean } | { type: "node"; id: string; dx: number; dy: number; moved: boolean } | { type: "wire"; id: string } | null>(null);
   const loaded = useRef(false);
+  const downAt = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     try {
@@ -285,27 +286,45 @@ export default function NetworkDiagramBuilder() {
 
   /* ---------------- pointer handling ---------------- */
 
+  type XY = { clientX: number; clientY: number };
+  /** Follow the pointer on the whole window until it is released, so drags work anywhere on the page. */
+  const startDrag = (d: NonNullable<typeof drag.current>, e: React.PointerEvent) => {
+    e.preventDefault();
+    drag.current = d;
+    downAt.current = { x: e.clientX, y: e.clientY };
+    const move = (ev: PointerEvent) => onMove(ev);
+    const up = (ev: PointerEvent) => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+      onUp(ev);
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
+  };
+  const farEnough = (e: XY) => Math.hypot(e.clientX - downAt.current.x, e.clientY - downAt.current.y) > 6;
+
   const onPartDown = (e: React.PointerEvent, kind: Kind) => {
     if (left(kind) <= 0) return;
-    drag.current = { type: "part", kind, moved: false };
-    (e.target as Element).setPointerCapture?.(e.pointerId);
+    startDrag({ type: "part", kind, moved: false }, e);
   };
   const onNodeDown = (e: React.PointerEvent, n: Node) => {
     e.stopPropagation();
     const p = toBoard(e.clientX, e.clientY);
     if (!p) return;
     if (mode === "connect") {
-      drag.current = { type: "wire", id: n.id };
       setRubber(p);
+      startDrag({ type: "wire", id: n.id }, e);
     } else {
-      drag.current = { type: "node", id: n.id, dx: p.x - n.x, dy: p.y - n.y, moved: false };
+      startDrag({ type: "node", id: n.id, dx: p.x - n.x, dy: p.y - n.y, moved: false }, e);
     }
-    (e.target as Element).setPointerCapture?.(e.pointerId);
   };
-  const onMove = (e: React.PointerEvent) => {
+  const onMove = (e: XY) => {
     const d = drag.current;
     if (!d) return;
     if (d.type === "part") {
+      if (!d.moved && !farEnough(e)) return;
       d.moved = true;
       setGhost({ x: e.clientX, y: e.clientY, label: PARTS.find((p) => p.kind === d.kind)!.label });
       return;
@@ -313,6 +332,7 @@ export default function NetworkDiagramBuilder() {
     const p = toBoard(e.clientX, e.clientY);
     if (!p) return;
     if (d.type === "node") {
+      if (!d.moved && !farEnough(e)) return;
       d.moved = true;
       setS((prev) => ({ ...prev, nodes: prev.nodes.map((n) => (n.id === d.id ? { ...n, x: clamp(p.x - d.dx, 0, W - NODE_W), y: clamp(p.y - d.dy, 0, H - NODE_H) } : n)) }));
       setChecks(null);
@@ -320,7 +340,7 @@ export default function NetworkDiagramBuilder() {
       setRubber(p);
     }
   };
-  const onUp = (e: React.PointerEvent) => {
+  const onUp = (e: XY) => {
     const d = drag.current;
     drag.current = null;
     setGhost(null);
@@ -336,18 +356,16 @@ export default function NetworkDiagramBuilder() {
       if (!d.moved) setSel(d.id);
       return;
     }
-    if (d.type === "wire") {
-      const target = p ? nodeAt(p.x, p.y) : undefined;
-      if (target && target.id !== d.id) {
-        toggleLink(d.id, target.id);
+    const target = p && farEnough(e) ? nodeAt(p.x, p.y) : undefined;
+    if (target && target.id !== d.id) {
+      toggleLink(d.id, target.id);
+      setFrom(null);
+    } else if (!farEnough(e)) {
+      // A tap without dragging: click one part, then the other.
+      if (from && from !== d.id) {
+        toggleLink(from, d.id);
         setFrom(null);
-      } else if (!target || target.id === d.id) {
-        // A tap without dragging: click-click connecting.
-        if (from && from !== d.id) {
-          toggleLink(from, d.id);
-          setFrom(null);
-        } else setFrom(from === d.id ? null : d.id);
-      }
+      } else setFrom(from === d.id ? null : d.id);
     }
   };
   const onBoardClick = (e: React.MouseEvent) => {
@@ -394,40 +412,12 @@ export default function NetworkDiagramBuilder() {
   const selNode = sel ? nodeById(sel) : undefined;
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5 shadow-md" onPointerMove={onMove} onPointerUp={onUp}>
+    <div className="select-none rounded-2xl border border-gray-200 bg-white p-5 shadow-md">
       <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-primary-700">Network Diagram Builder</div>
       <h3 className="mb-1 text-xl font-bold text-gray-900">Design Lakeside&apos;s second location</h3>
       <p className="mb-3 text-sm text-gray-700">
         The brief: eight workstations, two printers, staff wireless, patient wireless in the waiting room, four IoT devices, and a link to the main office. Drag each part onto the board: equipment goes in the top band, and each device goes in the zone for its network segment. Then switch to <b>Connect</b> and drag from one part to another to run a cable (to an access point it becomes Wi-Fi; to Main office, a VPN). Set the router rules, then select <b>Check my design</b>.
       </p>
-
-      {/* Parts bin */}
-      <div className="mb-3 flex flex-wrap gap-1.5" aria-label="Parts bin">
-        {PARTS.map((p) => {
-          const n = left(p.kind);
-          return (
-            <button
-              key={p.kind}
-              type="button"
-              aria-label={`${p.label}, ${n} left${picked === p.kind ? ", picked" : ""}`}
-              aria-pressed={picked === p.kind}
-              disabled={n <= 0}
-              onPointerDown={(e) => onPartDown(e, p.kind)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault();
-                  setPicked((cur) => (cur === p.kind ? null : p.kind));
-                }
-              }}
-              className={`flex touch-none select-none items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-[13px] font-medium ${picked === p.kind ? "border-primary-600 bg-primary-50 text-primary-800 ring-2 ring-primary-300" : "border-gray-300 bg-gray-50 text-gray-800 hover:bg-gray-100"} disabled:cursor-not-allowed disabled:opacity-40`}
-            >
-              <span aria-hidden="true">{ICON[p.kind]}</span>
-              {p.label}
-              <span className="rounded bg-white px-1 text-[11px] text-gray-500">×{n}</span>
-            </button>
-          );
-        })}
-      </div>
 
       {/* Toolbar */}
       <div className="mb-2 flex flex-wrap items-center gap-2 text-[13px]">
@@ -471,6 +461,37 @@ export default function NetworkDiagramBuilder() {
         </button>
       </div>
 
+      <div className="flex flex-col gap-3 md:flex-row md:items-start">
+      {/* Parts bin */}
+      <div className="flex flex-wrap gap-1.5 md:w-48 md:flex-none md:flex-col md:flex-nowrap" aria-label="Parts bin">
+        <div className="hidden text-[11px] font-semibold uppercase tracking-wider text-gray-500 md:block">Parts: drag onto the board</div>
+        {PARTS.map((p) => {
+          const n = left(p.kind);
+          return (
+            <button
+              key={p.kind}
+              type="button"
+              aria-label={`${p.label}, ${n} left${picked === p.kind ? ", picked" : ""}`}
+              aria-pressed={picked === p.kind}
+              disabled={n <= 0}
+              onPointerDown={(e) => onPartDown(e, p.kind)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setPicked((cur) => (cur === p.kind ? null : p.kind));
+                }
+              }}
+              className={`flex touch-none select-none items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-left text-[12.5px] font-medium md:w-full ${picked === p.kind ? "border-primary-600 bg-primary-50 text-primary-800 ring-2 ring-primary-300" : "border-gray-300 bg-gray-50 text-gray-800 hover:bg-gray-100"} disabled:cursor-not-allowed disabled:opacity-40`}
+            >
+              <span aria-hidden="true">{ICON[p.kind]}</span>
+              <span className="flex-1">{p.label}</span>
+              <span className="rounded bg-white px-1 text-[11px] text-gray-500">×{n}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="min-w-0 flex-1">
       {/* Board */}
       <div
         ref={board}
@@ -554,6 +575,9 @@ export default function NetworkDiagramBuilder() {
         <span><span className="mr-1 inline-block h-0.5 w-6 bg-slate-700 align-middle" />Cable</span>
         <span><span className="mr-1 inline-block w-6 border-t-2 border-dashed border-blue-600 align-middle" />Wi-Fi</span>
         <span><span className="mr-1 inline-block w-6 border-t-2 border-dotted border-teal-700 align-middle" />VPN</span>
+      </div>
+
+      </div>
       </div>
 
       {/* Router rules */}

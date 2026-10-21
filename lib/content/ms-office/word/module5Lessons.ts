@@ -18,7 +18,6 @@ LESSON 1 – INSERTING TABLES
     "Mark a header row so the table stays readable across pages and for screen readers",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/sOkNrU3JKUA",
 
   practiceFiles: [
     {
@@ -219,7 +218,6 @@ LESSON 2 – MODIFYING TABLES
     "Apply table styles that aid reading rather than decorate",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/sOkNrU3JKUA",
 
   practiceFiles: [
     {
@@ -462,7 +460,6 @@ LESSON 3 – INSERTING CHARTS
     "Decide when to build the chart in Excel and link it instead",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/Jqa9A3FuUss",
 
   practiceFiles: [
     {
@@ -701,7 +698,6 @@ LESSON 4 – MAIL MERGE BASICS
     "Judge when mail merge saves time and when it is overkill",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/Xh_gWMqF17c",
 
   practiceFiles: [
     {
