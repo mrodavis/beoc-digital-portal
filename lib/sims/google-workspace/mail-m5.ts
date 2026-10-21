@@ -157,8 +157,8 @@ export const gwMailM5: Record<string, SimDefinition[]> = {
           hint: "Right-click slide 5 in the filmstrip › Skip slide. (Or Slide › Skip slide.)",
           steps: [{ action: { kind: "command", id: "slides.hide" }, requires: { slide: "s5" }, selectHint: "Click slide 5 in the filmstrip first." }],
         },
-        { instruction: "Rehearse in presenter view so you can see your speaker notes.", hint: "Select the arrow next to Slideshow at the top right › Presenter view. When you're done looking, select End show.", steps: [{ action: { kind: "command", id: "slideshow.presenterStart" } }] },
-        { instruction: "Start the slideshow from the beginning.", hint: "End presenter view first (End show). Then select the arrow next to Slideshow › Present from beginning. Press Esc to stop.", steps: [{ action: { kind: "command", id: "slideshow.fromBeginning" } }] },
+        { instruction: "Rehearse in presenter view so you can see your speaker notes.", hint: "Select the arrow next to Slideshow at the top right › Presenter view. When you're done looking, press Esc to stop presenting.", steps: [{ action: { kind: "command", id: "slideshow.presenterStart" } }] },
+        { instruction: "Start the slideshow from the beginning.", hint: "Stop presenter view first (press Esc). Then select the arrow next to Slideshow › Present from beginning. Press Esc to stop.", steps: [{ action: { kind: "command", id: "slideshow.fromBeginning" } }] },
         {
           instruction: "Share the presentation with Andre Wallace as a Commenter so he can suggest changes without editing.",
           hint: "Press Esc to leave the slideshow. Select Share (top right), type Andre's address, choose Commenter, and select Send.",
