@@ -314,16 +314,16 @@ export const newOutlookRibbon: RibbonTab[] = [
     contextual: "people",
     plain: true,
     groups: [
+      { label: "New", controls: [b("people.newContact", "New contact", "personAdd")] },
       {
-        label: "New",
+        label: "Manage",
         controls: [
-          dd("people.new", "New contact", "personAdd", [
-            { value: "New contact", icon: "person", command: "people.newContact" },
-            { value: "New contact list", icon: "group", command: "people.newGroup" },
-          ], { split: true, faceValue: "New contact" }),
+          dd("people.addToList", "Add to list", "group", [{ value: "New contact list", icon: "plus" }]),
+          b("contact.edit", "Edit", "edit"),
+          b("item.delete", "Delete", "trash"),
+          b("contact.emailTo", "Email", "mail"),
         ],
       },
-      { label: "Manage", controls: [b("contact.edit", "Edit", "edit"), b("item.delete", "Delete", "trash"), b("contact.emailTo", "Email", "mail")] },
     ],
   },
   /* ---------------- Event form ---------------- */

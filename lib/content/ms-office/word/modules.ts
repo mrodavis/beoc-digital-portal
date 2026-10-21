@@ -24,7 +24,7 @@ export const wordModules: WordModule[] = [
   {
     moduleNumber: 1,
     moduleSlug: "module-1",
-    title: "Introduction to Word 2019",
+    title: "Introduction to Word in Microsoft 365",
     emoji: "📝",
     description:
       "Interface navigation, document creation, saving, and essential formatting.",
@@ -108,10 +108,10 @@ export const wordModules: WordModule[] = [
   {
     moduleNumber: 8,
     moduleSlug: "module-8",
-    title: "Office 365 and More",
+    title: "Microsoft 365 and More",
     emoji: "☁️",
     description:
-      "Explore modern Microsoft 365 features, cloud collaboration, and advanced Word productivity tools.",
+      "Word for the web, co-authoring, researching and citing sources, dictation, and accessibility.",
     lessons: wordModule8Lessons,
     level: "Advanced",
     estimatedMinutes: 45,

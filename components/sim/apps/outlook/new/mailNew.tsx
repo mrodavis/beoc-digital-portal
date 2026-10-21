@@ -556,8 +556,8 @@ function InviteCardNew({ ctx, m }: { ctx: NCtx; m: OlMessage }) {
               dd="invite.propose"
               ariaLabel="Propose new time"
               items={[
-                { label: "Tentative and propose new time", dlg: "proposeTime", onPick: () => ctx.openDialog("proposeTime") },
-                { label: "Decline and propose new time", dlg: "proposeTimeDecline", onPick: () => ctx.openDialog("proposeTimeDecline") },
+                { label: "I might attend", dlg: "proposeTime", onPick: () => ctx.openDialog("proposeTime") },
+                { label: "No, I won't attend", dlg: "proposeTimeDecline", onPick: () => ctx.openDialog("proposeTimeDecline") },
               ]}
               className={btn}
             >

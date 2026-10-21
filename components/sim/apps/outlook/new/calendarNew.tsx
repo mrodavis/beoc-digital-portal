@@ -288,7 +288,7 @@ export function EventFormNew({ ctx }: { ctx: NCtx }) {
       <div className="mb-2 flex flex-wrap items-center gap-2 text-[13px]">
         <OIcon name="recur" size={16} className="text-gray-500" />
         <button type="button" data-dlg="recurrence" onClick={() => ctx.openDialog("recurrence")} className="rounded-[4px] border border-gray-300 px-2.5 py-1 hover:bg-gray-50">
-          {rec ? `Repeats: ${rec}` : "Make recurring"}
+          {rec ? `Repeats: ${rec}` : "Recurring"}
         </button>
         <button type="button" data-c="event.view" data-v="Scheduling Assistant" onClick={() => ctx.cmd("event.view", "Scheduling Assistant")} className="rounded-[4px] border border-gray-300 px-2.5 py-1 hover:bg-gray-50">
           <span className="flex items-center gap-1.5"><OIcon name="group" size={14} /> Scheduling Assistant</span>

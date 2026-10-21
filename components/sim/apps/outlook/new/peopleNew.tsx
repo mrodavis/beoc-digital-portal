@@ -5,7 +5,7 @@ import type { OlContact, OlGroup } from "../types";
 import { Avatar, OIcon } from "../parts";
 import { people, selIds, sortedContacts } from "../model";
 import type { NCtx } from "./mailNew";
-import { inputCls } from "./ui";
+import { NMenuButton, inputCls } from "./ui";
 import { resolveToken, suggestionsFor } from "../mail";
 
 /* ------------------------------------------------------------------ */
@@ -38,7 +38,7 @@ export function PeoplePaneNew({ ctx, view, setView }: { ctx: NCtx; view: "contac
       </button>
       <div className="px-3 pb-1 text-[12px] font-semibold text-gray-600">Contacts</div>
       {row("contacts", "All contacts", "person", (ctx.doc.contacts ?? []).length)}
-      {row("lists", "Contact lists", "group", (ctx.doc.groups ?? []).length)}
+      {row("lists", "All contact lists", "group", (ctx.doc.groups ?? []).length)}
     </div>
   );
 }
@@ -75,7 +75,7 @@ export function PeopleListNew({ ctx, view }: { ctx: NCtx; view: "contacts" | "li
           ? contacts.map((c) => item(`contact:${c.id}`, c.name, c.email ?? c.company ?? ""))
           : groups.map((g) => item(`group:${g.id}`, g.name, `${g.members.length} member${g.members.length === 1 ? "" : "s"}`, "group"))}
         {view === "contacts" && !contacts.length && <p className="p-4 text-center text-[12.5px] text-gray-500">No contacts to show.</p>}
-        {view === "lists" && !groups.length && <p className="p-4 text-center text-[12.5px] text-gray-500">No contact lists yet. Select New contact › New contact list.</p>}
+        {view === "lists" && !groups.length && <p className="p-4 text-center text-[12.5px] text-gray-500">No contact lists yet. Select a contact, then Add to list › New contact list.</p>}
       </div>
     </section>
   );
@@ -118,6 +118,19 @@ export function ContactDetailsNew({ ctx }: { ctx: NCtx }) {
         <button type="button" className={btn} data-c="contact.emailTo" onClick={() => ctx.cmd("contact.emailTo")}>
           <OIcon name="mail" size={14} /> Email
         </button>
+        {c && (
+          <NMenuButton
+            dd="people.addToList"
+            ariaLabel="Add to list"
+            items={[
+              { label: "New contact list", icon: "plus", cmd: "people.addToList", val: "New contact list", onPick: () => ctx.cmd("people.addToList", "New contact list") },
+              ...(doc.groups ?? []).map((g) => ({ label: g.name, icon: "group", cmd: "people.addToList", val: g.name, onPick: () => ctx.cmd("people.addToList", g.name) })),
+            ]}
+            className={btn}
+          >
+            <OIcon name="group" size={14} /> Add to list
+          </NMenuButton>
+        )}
         <button type="button" className={btn} data-c="contact.edit" onClick={() => ctx.cmd("contact.edit")}>
           <OIcon name="edit" size={14} /> Edit
         </button>

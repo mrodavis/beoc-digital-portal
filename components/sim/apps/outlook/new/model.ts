@@ -4,7 +4,7 @@ import { clone } from "@/lib/sim/ops";
 import type { OlMessage, OlPerson, OlRule, OutlookDoc } from "../types";
 import {
   CATEGORY_SLOTS, allFolders, applyOutlook, catSlot, currentFolder, firstVisibleKey, folderByName, messagesIn, moduleOf, nextAfter, nextId,
-  normalizeOutlook, nowOf, outlookRibbonState, personFor, selIds, selMessage, selMessages, setFlag, todayOf, visibleMessages, type Res,
+  formFor, normalizeOutlook, nowOf, outlookRibbonState, personFor, selIds, selMessage, selMessages, setFlag, todayOf, visibleMessages, type Res,
 } from "../model";
 import { addDays, dateOf, dow, toMs } from "../dates";
 
@@ -547,6 +547,17 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
           t.due = /tomorrow/i.test(sv) ? addDays(today, 1) : /next week/i.test(sv) ? addDays(today, ((8 - d) % 7) || 7) : /remove/i.test(sv) ? undefined : today;
         }
       }
+      return { doc };
+    }
+    case "people.addToList": {
+      const doc = clone(input);
+      const emails = (doc.contacts ?? []).filter((x) => selIds(ui.selection, "contact").includes(x.id)).map((x) => x.email ?? "").filter(Boolean);
+      if (!sv || /^new contact list$/i.test(sv)) {
+        doc.form = formFor(doc, "group", { members: emails });
+        return { doc };
+      }
+      const g = (doc.groups ?? []).find((x) => x.name.toLowerCase() === sv.toLowerCase());
+      if (g) g.members = Array.from(new Set([...g.members, ...emails]));
       return { doc };
     }
     case "review.accessibility": {
