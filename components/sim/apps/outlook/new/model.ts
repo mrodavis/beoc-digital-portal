@@ -60,7 +60,7 @@ export const RULE_ACTIONS = ["Move to", "Categorize", "Mark as read", "Pin to to
 export const NEW_REMINDERS = [
   "Don't remind me", "At time of event", "5 minutes before", "15 minutes before", "30 minutes before", "1 hour before", "2 hours before", "12 hours before", "1 day before", "1 week before",
 ];
-export const NEW_SHOW_AS = ["Free", "Working elsewhere", "Tentative", "Busy", "Away"];
+export const NEW_SHOW_AS = ["Free", "Working elsewhere", "Tentative", "Busy", "Out of office"];
 
 export const TIME_ZONES = [
   "(UTC-10:00) Hawaii",
@@ -141,7 +141,7 @@ const REMINDER_MAP: Record<string, string> = {
   "don't remind me": "None", "at time of event": "0 minutes", "5 minutes before": "5 minutes", "15 minutes before": "15 minutes", "30 minutes before": "30 minutes",
   "1 hour before": "1 hour", "2 hours before": "2 hours", "12 hours before": "12 hours", "1 day before": "1 day", "1 week before": "1 week",
 };
-const SHOW_AS_MAP: Record<string, string> = { away: "Out of Office", "working elsewhere": "Working Elsewhere", free: "Free", tentative: "Tentative", busy: "Busy" };
+const SHOW_AS_MAP: Record<string, string> = { away: "Out of Office", "out of office": "Out of Office", "working elsewhere": "Working Elsewhere", free: "Free", tentative: "Tentative", busy: "Busy" };
 const FILTER_MAP: Record<string, string> = { "has files": "Has Attachments", "mentions me": "Mentioned", "to me": "Sent To: Me", flagged: "Flagged", unread: "Unread", all: "All" };
 const QS_MAP: Record<string, string> = {
   "move to folder": "Move to folder", "copy to folder": "Copy to folder", delete: "Delete message", "delete message": "Delete message", "mark as read": "Mark as read",
