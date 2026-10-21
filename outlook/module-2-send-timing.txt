@@ -1,0 +1,66 @@
+Schedule Send, Undo Send, and Recall
+
+Module 2: Writing Professional Email
+
+Give yourself a few seconds to catch mistakes with Undo send, schedule a message to arrive during business hours, and know when recalling a sent message works and when it doesn't.
+
+By the end of this lesson you can:
+- Turn on Undo send and use it to stop a message
+- Schedule a message to send later, and find it in Drafts
+- Recall a message and read the Message Recall Report
+- Explain the limits of recall and why prevention matters more
+
+
+## The few seconds after Send
+
+ type: scenario
+ role: You are wrapping up at the Lakeside front desk at 5:40 PM.
+ text: You answer Omar's request for the Saturday checklist but he is off until tomorrow and you don't want him to feel he has to answer tonight. You also just sent \Lunch order for Friday\ to Dr. Hill instead of Luis and you notice the mistake the moment you select Send.
+ task: Set up Outlook so you can catch mistakes send at a good time and pull back the message that went to the wrong person.
+
+
+Undo send makes Outlook wait a few seconds before it actually sends. After you select Send, a bar with Undo appears; select it and the message reopens so you can fix it. Turn it on in Settings › Mail › Compose and reply › Undo send, and choose up to 10 seconds.
+
+Note: Classic Outlook doesn't have Undo send. Some people use a rule that delays all outgoing messages instead.
+
+
+## Schedule send
+1. While you write the message, select the arrow next to Send, then Schedule send.
+2. Choose one of the suggested times, or a custom date and time, and select Send.
+3. The message waits in your Drafts folder until its delivery time.
+4. To send it right away instead, open it from Drafts, select Cancel send, then Send.
+
+Scheduling respects the reader. A message that arrives at 8:00 AM instead of 9:45 PM doesn't ask anyone to work at night, and it lands at the top of the inbox when the reader starts the day. Scheduling isn't available for IMAP or POP accounts.
+
+Note: Classic Outlook uses Delay Delivery (Options tab in the message window). The message waits in the Outbox, not Drafts.
+
+
+## Recall: useful, but limited
+1. Select Sent Items and double-click the message to open it in its own window.
+2. Select Recall Message, then OK.
+3. Outlook sends you a Message Recall Report in your Inbox. Open it to see whether the recall succeeded, is pending, or failed.
+
+
+ type: table
+ caption: When recall can work
+ columns: 
+  Recall can work when...
+  Recall won't work when...
+ rows: 
+   You and the recipient have Microsoft 365 work or school accounts in the same organization
+   The recipient is outside your organization or uses Gmail Outlook.com or another service
+   The recipient hasn't opened the message yet
+   The recipient already opened it
+
+
+Note: Recall is not a safety net for patient information. If a message with patient information goes to the wrong person, tell your supervisor right away, even if you try a recall. Undo send and checking the To line before you select Send prevent the problem in the first place.
+
+Note: Classic Outlook: open the sent message, then look for Recall This Message (on the Message tab under Actions, or File › Info › Message Resend and Recall).
+
+Practice: Match each situation to the feature that handles it.
+
+
+## Knowledge Check
+Check yourself: Where does a scheduled message wait in new Outlook until it is sent? Answer: Drafts. In new Outlook, a scheduled message stays in Drafts until its delivery time. Classic Outlook's Delay Delivery uses the Outbox.
+
+Check yourself: You sent a message to a patient's Gmail address by mistake. Will recall work? Answer: No; recall only works inside your organization. Recall needs both people to have Microsoft 365 work or school accounts in the same organization. Report the mistake to your supervisor.

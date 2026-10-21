@@ -1,0 +1,87 @@
+Reading and Managing Messages
+
+Module 1: Getting Started with Outlook
+
+Read messages efficiently, use Focused and Other, delete, recover and archive messages, and group replies into conversations.
+
+By the end of this lesson you can:
+- Mark messages as read or unread on purpose, so bold means "still needs me"
+- Use the Focused and Other tabs and move a sender between them
+- Delete, recover from Deleted Items, and archive messages
+- Turn conversation grouping on or off in Settings
+
+
+## Every message gets a decision
+
+ type: scenario
+ role: You are covering the Lakeside front desk inbox this week.
+ text: Denise's rule is simple: the Inbox holds only messages that still need action. On Monday morning there are a referral confirmation a handout to print two newsletters a fridge temperature log the practice must keep and an IT notice that is already out of date.
+ task: Read each message once and decide right away: act keep or let it go.
+
+
+Reading mail is not the job; deciding is. A message that you read and leave in the Inbox will be read again tomorrow, and the day after. Make one decision per message the first time you open it.
+
+
+ type: table
+ caption: One decision per message
+ columns: 
+  If the message...
+  Do this
+  Where it goes
+ rows: 
+   Needs action you can't finish now
+   Leave it in the Inbox mark it unread or flag it
+   Inbox
+   Must be kept (records logs confirmations)
+   Archive it or move it to a folder
+   Archive or a folder
+   Is no longer useful
+   Delete it
+   Deleted Items
+   Is a newsletter or promotion
+   Read later in Other or delete
+   Other tab
+
+
+Practice: Sort the front desk messages by what you should do with them after reading.
+
+
+## Read, unread, and opening messages
+- Unread messages show in bold with a blue bar at the left edge. When you select a message and then move to another one, Outlook marks the first one as read.
+- To keep a message bold as a reminder, select it and choose Read / Unread on the Home tab, or right-click it and choose Mark as unread.
+- Point to a message in the list to see quick buttons for Delete, Mark as read or unread, Flag and Pin.
+- Double-click a message to open it in its own window, which helps when you need to compare two messages.
+- Attachments show as tiles above the message text. Never open an attachment you weren't expecting; you will learn why in Module 6.
+
+
+## Focused Inbox: Focused and Other
+Focused Inbox splits the Inbox into two tabs. Focused holds the messages Outlook thinks matter most to you; Other holds the rest, such as newsletters and automated notices. You can teach it: right-click a message, choose Move, and pick Move to Other inbox or Move to Focused inbox. Choose Always move to Other inbox (or to Focused inbox) and future messages from that sender go there too.
+
+Note: Turn Focused Inbox on or off in Settings › Mail › Message list with the option Sort messages into Focused and Other. Microsoft notes that Focused Inbox doesn't work with shared mailboxes.
+
+Note: Classic Outlook: turn Focused Inbox on or off on the View tab with Show Focused Inbox. Moving messages between Focused and Other works the same way, from the right-click menu.
+
+
+## Delete, recover, and archive
+- Delete moves a message to Deleted Items. It isn't gone yet: open Deleted Items, select the message, and use Move to › Inbox (or drag it back) to recover it.
+- Archive moves a message to the Archive folder. Use it for mail you are finished with but must keep, such as logs and confirmations. Archived mail is still searchable.
+- Archive is a filing step, not a storage saver: Microsoft notes that archiving doesn't reduce your mailbox size.
+- Deleting from Deleted Items removes a message for good, depending on your organization's retention settings. When in doubt, archive instead of deleting.
+
+Note: Classic Outlook: the Archive button is in the Delete group on the Home tab and works the same way. Classic Outlook also has AutoArchive, which new Outlook does not have.
+
+Note: In a medical office, email about appointments, claims and referrals can be part of the practice's records. Never empty Deleted Items or delete groups of messages to make room without checking your practice's retention policy with your supervisor.
+
+
+## Conversations
+With conversation grouping on, Outlook shows a message and all its replies as one item in the message list, so a long back-and-forth about one referral takes one line instead of eight. Change it in Settings › Mail › Reading pane, under Message organization: Group messages by conversation, Group messages by branches within conversations, or Do not group messages.
+
+Note: Classic Outlook: turn conversations on or off on the View tab with Show as Conversations.
+
+
+## Knowledge Check
+Check yourself: You deleted a message by mistake. Where do you find it? Answer: Deleted Items. Delete moves a message to Deleted Items. Open that folder and move the message back to the Inbox.
+
+Check yourself: Every newsletter from Healthcare Admin Weekly lands in Focused. What is the best fix? Answer: Right-click one › Move › Always move to Other inbox. Always move to Other inbox moves this message and sends future messages from the same sender to Other.
+
+Check yourself: Which message should you archive instead of delete? Answer: A referral confirmation from an imaging center. A referral confirmation may be needed later to show that the office received it. Archive keeps it out of the Inbox but keeps it searchable.

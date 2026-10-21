@@ -1,0 +1,67 @@
+To Do, Flagged Email, and My Day
+
+Module 5: People and To Do
+
+Bring tasks and flagged email together in To Do, set due dates and importance, plan today with My Day, and close the loop when work is done.
+
+By the end of this lesson you can:
+- Add tasks in To Do and give them due dates
+- Mark tasks important and add them to My Day
+- Use the Flagged email list to follow up on messages
+- Complete tasks and flags when the work is done
+
+
+## One place for follow-ups
+
+ type: scenario
+ role: You run the Lakeside front desk on a busy Tuesday.
+ text: Your follow-ups are everywhere: a sticky note to restock brochures a flagged prior authorization message a promise to Dr. Patel to confirm volunteers and a call to Metro Health Plan you keep putting off.
+ task: Put every follow-up in To Do decide what happens today and mark things done as you finish them.
+
+
+Select To Do in the navigation bar on the left. The list pane shows smart lists that Outlook fills for you, plus Tasks and any lists you create.
+
+
+ type: table
+ caption: To Do lists
+ columns: 
+  List
+  What's in it
+ rows: 
+   My Day
+   Tasks you chose for today. It clears at midnight; the tasks stay in their lists.
+   Important
+   Tasks you starred
+   Planned
+   Tasks with due dates
+   Flagged email
+   Messages you flagged in Mail
+   Tasks
+   Your default list; tasks you add in a smart list are saved here too
+
+
+
+## Tasks, due dates, importance
+- Add a task: select a list, select Add a task, type it, and press Enter. Start with a verb: "Call Metro about claim 48190", not "Metro".
+- Due date: select the task, then Add due date › Today, Tomorrow, Next week, or pick a date. Remind me sets a reminder time, and Repeat makes it recur.
+- Important: select the star on the task. It also appears in the Important list.
+- My Day: select the task and choose Add to My Day. You can also open My Day from the icon next to Notifications at the top of Outlook; it has Calendar and To Do tabs.
+- Done: select the circle next to the task. Completed tasks move to the Completed section.
+- Steps and notes: in the task details, use Add step for small parts of a bigger task and Add a note for details.
+
+Note: Classic Outlook: Tasks (Ctrl+4) and the To-Do Bar hold tasks and flagged items. New Outlook uses To Do, the same service as the Microsoft To Do app.
+
+
+## Flagged email and closing the loop
+- Flag a message in Mail (Module 3) and it appears in To Do's Flagged email list, so message follow-ups sit next to your tasks.
+- When the follow-up is done, select the circle next to the message in Flagged email, or choose Mark complete on the message in Mail.
+- You can turn the Flagged email list on or off in Settings.
+- End the day by reviewing My Day: finish, move to tomorrow, or delete. A list you trust is a list you keep up to date.
+
+Practice: Match each follow-up to the To Do feature that handles it.
+
+
+## Knowledge Check
+Check yourself: What happens to tasks in My Day at midnight? Answer: My Day clears, but the tasks stay in their lists. My Day is a daily plan. Unfinished tasks stay in their lists for you to plan again.
+
+Check yourself: Where do flagged messages show up in To Do? Answer: Flagged email. Flag a message in Mail and it appears in the Flagged email list.

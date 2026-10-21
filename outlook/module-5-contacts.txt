@@ -1,0 +1,68 @@
+Contacts in People
+
+Module 5: People and To Do
+
+Use People in new Outlook to add, find, update and remove contacts, add a sender straight from a message, and start an email from a contact.
+
+By the end of this lesson you can:
+- Create a contact with the details a front desk needs
+- Add a message's sender to your contacts from the profile card
+- Find, edit and delete contacts
+- Start an email from a contact
+
+
+## Why keep contacts?
+
+ type: scenario
+ role: You keep the Lakeside front desk's outside contacts.
+ text: Every day the front desk calls the imaging center the lab the supply company and three insurance plans. Phone numbers are on sticky notes and when a scheduler changes nobody updates them. A wrong number costs a patient a missed referral.
+ task: Move those numbers into Outlook contacts that anyone at the desk can use and keep them current.
+
+
+Select People in the navigation bar on the left. All contacts lists your contacts; select one to see its details. Coworkers in your organization appear in Outlook's directory automatically, so contacts are most useful for outside offices, vendors and services.
+
+
+ type: table
+ caption: What to record for an outside office
+ columns: 
+  Field
+  Example
+  Why
+ rows: 
+   Name
+   Dana Whitaker
+   Who you ask for
+   Email
+   dana.whitaker@riversideimaging.example.com
+   Outlook suggests it as you type
+   Phone
+   (555) 014-2215
+   The direct line not the main switchboard
+   Company and job title
+   Riverside Imaging Scheduling Coordinator
+   Find the contact by company later
+   Notes
+   Fax referrals before 3:00 PM
+   Office habits that save time
+
+
+Note: Contacts are for business contacts. Don't store patient information in Outlook contacts; patient demographics belong in the practice's EHR or practice management system.
+
+
+## Add, find, edit, delete
+- Add: People › Home tab › New contact. Type the name and details, then select Save.
+- Add from a message: in Mail, select the sender's name to open the profile card, then More options (…) › Add to contacts. Add details such as a phone number and select Save.
+- Find: type a name, phone number or company in the Search box.
+- Edit: double-click the contact (or select it › Edit contact), make the change, and select Save.
+- Delete: select the contact › Delete (or right-click › Delete), then select Delete again to confirm.
+- Email a contact: select it and select Email. The To line is filled in for you.
+
+Note: Classic Outlook: People (Ctrl+3) › Home tab › New Contact opens a Contact window; Save & Close saves it. To add a sender, right-click their name in the message › Add to Outlook Contacts.
+
+Practice: Put the steps for adding a message's sender to your contacts in order.
+
+
+## Knowledge Check
+Check yourself: A new scheduler at the imaging center emailed you. What's the fastest way to add her as a contact? Answer: Select her name in the message › More options › Add to contacts. The profile card fills in her name and email address; you add the phone number and save.
+
+Check yourself: Which of these belongs in an Outlook contact at a medical office? Answer: A vendor's direct phone line. Contacts are for business contacts like vendors and partner offices. Patient information belongs in the practice's systems.

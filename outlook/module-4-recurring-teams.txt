@@ -1,0 +1,67 @@
+Recurring Meetings, Teams Meetings, and Cancellations
+
+Module 4: Calendar and Meetings
+
+Set up meetings that repeat, add a Microsoft Teams link so people can join from anywhere, change one occurrence or the whole series, and cancel a meeting the right way.
+
+By the end of this lesson you can:
+- Create a meeting that repeats on a schedule
+- Turn a meeting into a Teams meeting, including one already on the calendar
+- Choose whether to change one occurrence or the whole series
+- Cancel a meeting you organized so attendees are told
+
+
+## Meetings that repeat
+
+ type: scenario
+ role: You organize meetings for the Lakeside front desk team.
+ text: Starting next week Denise wants a 15-minute huddle every Monday morning before the doors open. Keisha works from home on Tuesdays and needs to join your check-in online. The kiosk vendor just canceled Wednesday's demo.
+ task: Set up the weekly huddle once add a Teams link where it's needed and cancel the demo so everyone knows.
+
+
+1. Create the event as usual: New event, title, attendees, date and time.
+2. Select Recurring. In the Repeat window, choose how often it repeats (for example, weekly on Monday) and when the series ends, then select Save.
+3. The event now shows how it repeats. Select Send.
+
+When you open one meeting in a series you organized, Outlook asks what to change: Edit the one event in the series (just that date), Edit series (every occurrence), or Edit this and all following events. Choose carefully: moving the whole series when you meant to move one Monday changes everyone's calendar for months.
+
+Note: Classic Outlook: Recurrence is a button on the Meeting (or Appointment) tab and opens the Appointment Recurrence dialog.
+
+
+## Teams meetings
+Turn on Teams meeting in the event form and Outlook adds a Microsoft Teams link and join details to the invitation when you send it. Attendees join with one click from the invitation or their calendar. Teams meetings are built into new Outlook for work and school accounts; your organization decides whether they are available.
+
+- New meeting: turn on Teams meeting before you select Send.
+- Existing meeting you organized: double-click it, turn on Teams meeting, and select Send to send the update with the link.
+- In-person and online: keep the room in the location and turn on Teams meeting so remote people can join.
+
+Note: Anyone who has a Teams meeting link can try to join. Send meeting invitations only to the people who need them, and don't paste the link into public places.
+
+Practice: Sort each change by what you should edit.
+
+
+## Cancel a meeting the right way
+- Right-click a meeting you organized and select Cancel, or open it and select Cancel. Add a short note, such as the reason or what happens next, and send the cancellation.
+- Attendees get a cancellation message that lets them remove the meeting from their calendars.
+- Don't just delete a meeting you organized and say nothing. Attendees would still show up.
+- Only the organizer can cancel. If you were invited, Decline instead.
+
+
+ type: worked-example
+ title: Next week's calendar changes
+ task: Set up the huddle add Teams for Keisha and cancel the vendor demo.
+ steps: 
+   move: New event \Front desk huddle\ with Omar and Priya Monday 8:30 to 8:45 AM Recurring weekly on Monday Teams meeting on Send.
+   why: One series replaces fifty separate invitations.
+   move: Open \Billing workflow check-in\ turn on Teams meeting Send.
+   why: Keisha gets an update with a join link for her day at home.
+   move: Right-click \Vendor demo\ › Cancel add \The vendor canceled; we'll reschedule\ send.
+   why: Omar and Denise are told and the time comes off their calendars.
+ result: Every attendee's calendar is correct and nobody waits for a meeting that isn't happening.
+
+
+
+## Knowledge Check
+Check yourself: Next Monday's huddle has to move to 9:00 AM, but every other Monday stays at 8:30. What do you edit? Answer: Edit the one event in the series. A one-time change goes on that one event. The rest of the series stays the same.
+
+Check yourself: You organized a meeting that's no longer needed. What should you do? Answer: Cancel it so attendees get a cancellation. Cancel sends a cancellation, so the meeting comes off attendees' calendars too.

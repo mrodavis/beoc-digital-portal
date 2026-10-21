@@ -1,0 +1,95 @@
+Writing a New Message
+
+Module 2: Writing Professional Email
+
+Address a message correctly with To, Cc and Bcc, write a subject people can find later, structure the message so the point comes first, and use @mentions and importance only when they help.
+
+By the end of this lesson you can:
+- Create a new message and choose between To, Cc and Bcc for each recipient
+- Write a specific subject line and a message whose first sentence states the purpose
+- Use an @mention to get one person's attention and add them to the message
+- Mark a message high importance only when it is truly time-sensitive
+
+
+## Every message has a job
+
+ type: scenario
+ role: You are the front desk coordinator at Lakeside Medical Associates.
+ text: Keisha in billing is waiting to hear that the new patients' insurance cards are scanned. Denise wants a copy of anything that goes to billing. Omar needs a heads-up about Saturday's flu clinic and three volunteers from outside the practice need a reminder. Four messages four different audiences.
+ task: Write each message so the right people get it the subject says what it is and the reader knows what to do after the first sentence.
+
+
+To start a message in new Outlook, select New mail on the Home tab, or press Ctrl+N. The message opens in the reading pane, next to your Inbox, and the Ribbon adds the Message, Insert, Format text and Options tabs. Fill in the recipients, type a subject in Add a subject, write the message, and select Send.
+
+Note: Classic Outlook: New Email on the Home tab (or Ctrl+N) opens the message in its own window, with To, Cc and Subject boxes and the Send button to the left of them.
+
+
+## To, Cc, or Bcc?
+
+ type: table
+ caption: Choosing the right line for each recipient
+ columns: 
+  Line
+  Use it for
+  Example at Lakeside
+ rows: 
+   To
+   The people who need to act or answer
+   Keisha who files the insurance cards
+   Cc
+   People who should know but don't need to act
+   Denise who wants a copy of billing messages
+   Bcc
+   People who should get the message without seeing each other's addresses
+   Outside volunteers so their personal emails stay private
+
+
+Everyone on the To and Cc lines can see everyone else on those lines, and Reply all reaches all of them. People on the Bcc line are hidden from the other recipients, and they don't get later Reply all messages. In new Outlook, select Cc or Bcc at the right end of the To line to show those lines. Type a few letters of a name and pick the person from the suggestions, or type a full email address.
+
+Note: When you email a group of patients or outside volunteers, put their addresses in Bcc, not To or Cc. Showing a list of patient email addresses to every patient on the list is a privacy problem, and in a medical office it can be a HIPAA incident.
+
+Practice: Put each recipient on the line where they belong.
+
+
+## Subject and structure
+- Make the subject specific enough to find later: "Insurance cards scanned: 3 new patients" beats "Update." Put the key fact first.
+- Open with a greeting that fits the reader: "Hi Keisha," for a coworker, "Dear Dr. Lee," for an outside physician you haven't met.
+- State the purpose in the first sentence. "I scanned the insurance cards for this afternoon's three new patients" tells Keisha everything before she reads further.
+- Keep paragraphs to two or three sentences. Use a numbered list for steps and a bulleted list for items.
+- End with what happens next ("Let me know if any are missing.") and your signature. You will set up signatures in Lesson 4.
+- Never put patient names, dates of birth or diagnoses in a subject line. Subjects show in notifications and message lists where others can see them.
+
+
+ type: worked-example
+ title: Rewriting a vague message
+ task: Taylor's first draft to billing says: Subject \cards\. \Hey did the thing you asked. lmk.\ Make it professional.
+ steps: 
+   move: Change the subject to \Insurance cards scanned: 3 new patients\.
+   why: Keisha will search for this next week. A specific subject is how she finds it.
+   move: Replace \Hey\ with \Hi Keisha\.
+   why: \Hey\ is too casual for work email. A name shows the message was written for her.
+   move: Write the purpose: \I scanned the insurance cards for this afternoon's three new patients.\
+   why: \The thing you asked\ makes her remember what she asked. Say it.
+   move: Replace \lmk\ with \Let me know if any are missing.\
+   why: Texting abbreviations read as careless in a professional message.
+ result: A message Keisha understands in one read and can find later.
+ takeaway: Subject that says what it is first sentence that says why you are writing last sentence that says what happens next.
+
+
+
+## @mentions and importance
+To get one person's attention in a message, type @ and the first few letters of their first or last name in the message text, then pick them from the suggestions. Outlook adds their full name to the message and adds them to the To line. Messages that mention you show an @ symbol in the message list, and you can use Filter › Mentions me to find them.
+
+High importance shows the reader a red exclamation point. Use it rarely, for messages that really are time-sensitive, such as a same-day schedule change. If every message is high importance, none of them stand out. In new Outlook, find High importance and Low importance on the Options tab while you write the message.
+
+Note: Classic Outlook: High Importance and Low Importance are in the Tags group on the Message tab of the message window.
+
+New Outlook saves what you are writing in the Drafts folder as you go. If you click away to check another message, open Drafts to finish it.
+
+
+## Knowledge Check
+Check yourself: You are sending a flu clinic reminder to twelve patients. Where do their addresses go? Answer: Bcc. Bcc hides recipients from each other, which protects patient privacy. Put your own or the office address in To.
+
+Check yourself: Which subject line is best for a message to billing? Answer: Insurance cards scanned: 3 new patients. A specific subject without patient details tells the reader what the message is and is easy to search for.
+
+Check yourself: What happens when you @mention Luis Ortega in the text of a message to Priya? Answer: Luis is added to the To line. When you pick someone from the @mention suggestions, Outlook adds them to the To line so they get the message.

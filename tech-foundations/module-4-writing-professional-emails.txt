@@ -1,0 +1,45 @@
+Writing and Sending Professional Emails
+
+Module 4: Professional Email Communication
+
+Write clear, correctly structured professional emails that represent Lakeside Medical Associates with competence and credibility.
+
+
+## Real-World Scenario
+Note: You have five emails to send this morning: a response to a patient's appointment question, a follow-up to an insurance company about a delayed reimbursement, a request to a medical supply vendor for a quote, a reminder to a referring physician's office about missing records, and an internal memo to the clinical staff about a schedule change. Each requires a different tone, level of formality, and structure — but all five must be professional, clear, and represent Lakeside Medical Associates well.
+
+
+## Professional Email Structure
+Every professional email follows a consistent structure that makes it easy for the recipient to understand your purpose and respond appropriately. Deviating from this structure creates confusion and signals a lack of professionalism:
+
+- The subject line is the most important line in your email — it determines whether the email is opened and how quickly. A good subject line is specific, actionable, and front-loads the key information: 'Appointment Question — Thursday, 10:30 AM' is better than 'Question.' 'Reimbursement Follow-Up — Claim #4892' is better than 'RE: RE: RE: Claim.' Keep patient names and health details out of subject lines; they show up in notifications and message lists where anyone nearby can read them. In a medical office inbox that receives hundreds of emails per day, vague subject lines get deprioritized.
+- The salutation opens the email professionally — use 'Dear Dr. Yuen,' for a physician you have not met, 'Dear Ms. Thompson,' for a formal external contact, or 'Hi James,' for a colleague you work with regularly. 'Hello,' without a name is acceptable when you do not know the recipient's name. 'Hey' is never appropriate in professional email. When in doubt, err toward the more formal option.
+- The opening sentence states your purpose immediately — do not bury the main point. 'I am writing to follow up on Claim #4892, submitted to Metro Health Plan on March 10' is professional and efficient. 'I hope this email finds you well' wastes the recipient's time and is considered hollow filler in most professional settings. State your purpose in the first sentence.
+- The body expands on the purpose with all relevant details — include only what the recipient needs to take action. If you are requesting a callback, include the best time and number. If you are attaching a document, name it specifically in the email body. Keep paragraphs short (3–4 sentences each). Use numbered lists for sequential steps and bullet points for grouped information.
+- The closing should be professional and direct — 'Please let me know if you have any questions' or 'I look forward to your response by [date]' sets clear expectations. Close with 'Sincerely,' 'Best regards,' or 'Thank you,' followed by your full signature. Do not close with 'Thanks!' or abbreviations like 'Thx.'
+
+
+## Tone and Language
+Tone in email is harder to control than tone in person because the recipient cannot hear your voice or see your body language. Everything must be conveyed through word choice and sentence structure:
+
+- Use formal language for external communications — when emailing patients, insurance companies, vendors, or referring physicians, write in a formal register. Use full words rather than abbreviations, complete sentences, and correct grammar. 'We will follow up regarding your claim within 48 hours' is formal. 'We'll get back to u about that' is not appropriate in any professional email.
+- Use a neutral, professional tone for sensitive topics — when addressing a billing dispute, a patient complaint, or a delayed service, acknowledge the issue without blame and state what will be done. 'I understand this has caused inconvenience. We are reviewing the claim and will follow up within 48 hours' is professionally appropriate. Defensive or accusatory language ('That is not our fault') escalates conflict and reflects poorly on the practice.
+- Match formality to the relationship — internal emails to close colleagues can be less formal than external communications, but should never be casual to the point of being unprofessional. An internal email saying 'Hey team, heads up — patient schedule is updated for Tuesday' is appropriate. The same message sent to a referring physician's office would require a formal structure.
+- Proofread before sending — fix the words Outlook underlines as you type (in classic Outlook, F7 runs a full spelling and grammar check), re-read the email once for clarity, and verify the recipient's name and email address are correct before clicking Send. Sending an email with the wrong name in the salutation to a physician is embarrassing. Sending patient information to the wrong email address can be a HIPAA breach that your practice must report.
+
+
+## Attachments and Forwarding
+Attachments and forwarded messages require extra care in a medical office environment:
+
+- Attach files before writing the body — do not write the email first and then try to remember whether you attached the file. If your email says 'I have attached the referral form' but you forgot to attach it, you must send a follow-up apology — a situation easily avoided by attaching first. Outlook may warn you if your message mentions an attachment but no file is attached, but don't count on the reminder.
+- Name attachments descriptively before attaching — 'Referral_Form_2026-05_Riverside_Imaging.pdf' is a professional attachment name that the recipient can save and find later. 'Document1.docx' or 'Scan0042.pdf' provides no information and reflects poorly on your organization.
+- Think carefully before forwarding — a forwarded email thread may contain information the new recipient should not see. Before forwarding, scroll through the entire thread to confirm all content is appropriate for the new recipient. In a medical office, a forwarded thread that accidentally includes another patient's information is a HIPAA incident.
+
+
+## Responsible Use
+Note: Treat Protected Health Information (PHI) in email with care. HIPAA does not forbid email, but health care providers must use reasonable safeguards, such as checking the address, limiting the information to what is needed, and using encryption or a secure messaging system when the practice requires it. A patient may ask to receive information by regular email after being told about the risks. Follow your practice's policy for any email containing patient names, diagnoses, appointment details, or billing information, and if you are unsure whether a message contains PHI, ask your supervisor before sending.
+
+
+
+## Knowledge Check
+Check yourself: Which subject line is most appropriate for a follow-up email to an insurance company about a delayed claim? Answer: Reimbursement Follow-Up — Claim #4892-2025 — Submitted March 10.

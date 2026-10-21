@@ -1,0 +1,63 @@
+Phishing, Junk Email, and Blocked Senders
+
+Module 6: Working Smarter and Safely
+
+Recognize phishing, report it the right way, keep junk out of your Inbox, rescue real mail from Junk Email, and manage blocked and safe senders.
+
+By the end of this lesson you can:
+- Recognize common signs of a phishing message
+- Report phishing and junk from new Outlook
+- Block a sender and add a safe sender
+- Move a real message out of Junk Email
+
+
+## Why the front desk is a target
+
+ type: scenario
+ role: You check the Lakeside front desk inbox first thing Monday.
+ text: A message that looks like it's from IT says your mailbox is full and asks you to verify your password. A gift card offer three glove promotions and a real imaging confirmation stuck in Junk Email are waiting too.
+ task: Handle each message the safe way: report block or rescue.
+
+
+Phishing messages pretend to come from someone you trust to get you to click a link, open an attachment, or type a password. Medical offices are common targets because they handle health and payment information, and front desk staff open messages from strangers all day.
+
+
+ type: table
+ caption: Signs of phishing
+ columns: 
+  Sign
+  Example
+ rows: 
+   Urgency or threats
+   \Verify your password within 24 hours or your account will be closed\
+   A look-alike sender
+   it-support@lakesidemed-help.example.net instead of the real lakesidemed.example.com
+   Rewards or refunds
+   \Click this link to get your tax refund!\
+   Fake shared files and invoices
+   A document that asks for your email and password to open or an invoice for something you never ordered
+   Outlook warnings
+   A '?' in the sender's picture or a \via\ tag when Outlook can't verify the sender
+
+
+Point to a link without clicking to see where it really goes. If a message claims to be from someone you know, check with them by phone using a number you already have, not one in the message.
+
+
+## Report, block, and rescue
+- Report phishing: select the message, then Report › Report phishing. Reporting tells Microsoft about the sender but doesn't block it.
+- Report junk: Report › Report junk for unwanted ads and spam.
+- Block a sender: Settings › Mail › Junk email. Under Blocked senders, type the address and select Add (or add a whole domain under Blocked domains), then select Save.
+- Safe senders: in the same place, add addresses or domains you always want in the Inbox, then select Save.
+- Rescue real mail: open the Junk Email folder, select the message, and select Not junk. It moves back to the Inbox.
+
+Note: Follow your office's policy too. Many organizations want suspected phishing reported to IT as well, especially if you already clicked a link or typed a password. Report it right away; speed limits the damage.
+
+Note: Classic Outlook: Home tab › Junk › Block Sender, Never Block Sender, or Junk E-mail Options. A Report button may also be available, depending on your organization.
+
+Practice: Sort each message by the right action.
+
+
+## Knowledge Check
+Check yourself: You report a message as phishing. Will that sender's next message be blocked? Answer: No. Reporting doesn't block; add the sender to Blocked senders to stop their mail. Reporting and blocking are separate. Block the sender in Settings › Mail › Junk email.
+
+Check yourself: A message from "Lakeside IT Support" comes from it-support@lakesidemed-help.example.net and asks for your password. What's the safest move? Answer: Report it as phishing and don't click anything. The domain isn't Lakeside's, and IT never needs your password by email. Report it.

@@ -1,0 +1,63 @@
+Search and Filters
+
+Module 3: Organizing Your Inbox
+
+Find any message in seconds with the Search box, search filters and search operators, and narrow a folder with the message list Filter.
+
+By the end of this lesson you can:
+- Search the whole mailbox from the Search box
+- Narrow a search with filters or operators such as from: and hasattachment:yes
+- Act on a search result and leave search
+- Filter a folder to show only unread, flagged or attached messages
+
+
+## Search beats scrolling
+
+ type: scenario
+ role: You are answering the phones at the Lakeside front desk.
+ text: A patient calls about claim 48213. Keisha wants to know which spreadsheets she sent you this month. Luis can't find the vaccine fridge log he emailed weeks ago which someone archived.
+ task: Find each message in under a minute without scrolling.
+
+
+- Select the Search box at the top of the Outlook window, type a word, name, or number, and press Enter.
+- Search looks through your folders, including Archive, so filed mail is still easy to find.
+- Select the filter button at the right end of the Search box to search by From, To, Subject, keywords or attachments. The Ribbon also shows a Search tab with options to refine the results.
+- Act on a result the same way as any message: open it, reply, move it, flag it.
+- To leave search, select the X in the Search box or Exit search on the Search tab.
+
+
+ type: table
+ caption: Search operators (type them in the Search box)
+ columns: 
+  Type this
+  To find
+ rows: 
+   from:keisha
+   Messages from Keisha
+   from:\Keisha Grant\
+   Messages from a full name (quotes around names with spaces)
+   subject:claim
+   Messages with \claim\ in the subject
+   hasattachment:yes
+   Messages with attachments
+   received:\this week\
+   Messages received this week
+   claim AND metro
+   Messages with both words (AND OR and NOT must be in capital letters)
+
+
+Practice: Match each request to the search that finds it.
+
+
+## Filter a folder
+Filter works on the folder you are looking at, without searching. Select Filter (the funnel at the top of the message list) and choose Unread, Flagged, To me, Has files, or Mentions me. Choose All, or select the X on the filter label, to see everything again.
+
+Note: Classic Outlook: search with the Search box above the message list (Ctrl+E). The Search tab lets you choose Current Folder or All Mailboxes and refine by From, Subject, Has Attachments and more. Filter Email on the Home tab filters a folder.
+
+Never search by a patient's full name and date of birth on a shared screen where others can see the results. Use claim numbers or account numbers when you can.
+
+
+## Knowledge Check
+Check yourself: Which search finds messages from Keisha that have attachments? Answer: from:keisha hasattachment:yes. from: limits the search to a sender, and hasattachment:yes limits it to messages with attachments.
+
+Check yourself: A message was archived weeks ago. Will search find it? Answer: Yes, search looks through your folders, including Archive. Archived mail stays searchable.

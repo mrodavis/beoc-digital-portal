@@ -1,0 +1,91 @@
+Calendar Basics: Views, Events, and Reminders
+
+Module 4: Calendar and Meetings
+
+Move around the Outlook calendar, switch views, create events with locations and reminders, block whole days, and change or delete events when plans change.
+
+By the end of this lesson you can:
+- Switch between Day, Work week, Week and Month views
+- Create an event with a title, date, time, location and reminder
+- Add an all-day event and set how it shows on your calendar (Show as)
+- Move, change or delete an event when plans change
+
+
+## A calendar people can trust
+
+ type: scenario
+ role: You keep the Lakeside Medical Associates front desk calendar.
+ text: Coworkers check your calendar before they ask you to cover a phone line or help with a patient. Last week a supply delivery moved and nobody updated the calendar so the delivery driver waited at a locked back door for twenty minutes.
+ task: Learn to keep the calendar accurate: the right view for the question events with useful details and quick updates when something changes.
+
+
+Select Calendar in the navigation bar at the far left. The calendar has the same parts as Mail: a Ribbon at the top, a pane on the left with a small month calendar and your list of calendars, and the main grid where your events appear.
+
+
+ type: table
+ caption: Calendar views (Calendar › Home tab)
+ columns: 
+  View
+  Best for
+ rows: 
+   Day
+   A busy day hour by hour such as a clinic day with back-to-back appointments
+   Work week
+   Monday through Friday at a glance; the most common view at a front desk
+   Week
+   All seven days including weekend events like a Saturday flu clinic
+   Month
+   Planning ahead: time off trainings deadlines across the month
+
+
+Note: Classic Outlook: Home tab › Arrange group has Day, Work Week, Week, Month and Schedule View. Schedule view, List view and Calendar Peek are not available in new Outlook.
+
+
+## Create an event
+1. In Calendar, select New event on the Home tab. (You can also double-click an empty time on the grid.)
+2. Type a short, specific title, such as "Flu clinic setup".
+3. Set the date, start time and end time. For something that lasts all day, such as time off, turn on All day.
+4. Type a location, such as "Front lobby".
+5. On the Event tab, use Reminder to choose when Outlook reminds you, or Don't remind me. Use Show as (the Busy button) to choose Free, Tentative, Busy, Out of office or Working elsewhere.
+6. Select Save. An event with no invited attendees is just yours, so there is nothing to send.
+
+Show as tells everyone who checks your availability what that time means. Use Out of office for time off so the Scheduling Assistant (next lesson) shows coworkers that you're away, not just busy.
+
+Note: To set the reminder Outlook uses for every new event, go to Settings › Calendar › Events and invitations, and under Events you create, choose a Default reminder.
+
+Note: Classic Outlook: Home tab › New Appointment opens an Appointment window. Reminder and Show As are in the Options group of the Appointment tab; Save & Close saves it.
+
+
+## When plans change
+- Move an event: drag it to the new time, or double-click it, change the date or time, and select Save. Changing the start time keeps the same length.
+- Change a meeting you organized: double-click it, make the change, and select Send so attendees get the update.
+- Delete an event that is only yours: select it and press Delete, or right-click it and select Delete.
+- For a meeting you organized, use Cancel instead of Delete so the attendees are told (Lesson 3).
+
+Practice: Match each question to the calendar view that answers it fastest.
+
+
+ type: worked-example
+ title: Fixing the front desk week
+ task: Make the calendar match what is really happening this week.
+ steps: 
+   move: Switch to Month view.
+   why: Saturday's flu clinic and Friday's time off are easier to see across the whole month.
+   move: Create \Flu clinic setup\ on Saturday 7:00 to 8:00 AM Front lobby reminder 1 day before.
+   why: A reminder the day before gives time to gather supplies.
+   move: Add an all-day \Dr. Hill out of office\ event on Friday that shows as Out of office.
+   why: Coworkers checking the calendar see the day is blocked.
+   move: Drag the supply delivery to 1:00 PM.
+   why: The calendar now matches the new delivery time.
+   move: Delete the postponed lunch and learn.
+   why: An event that isn't happening only causes confusion.
+ result: A calendar that answers \what's happening and where?\ correctly for anyone who checks it.
+
+
+
+## Knowledge Check
+Check yourself: Which view shows Monday through Friday without the weekend? Answer: Work week. Work week shows the working days only. Week includes Saturday and Sunday.
+
+Check yourself: You are taking Friday off. What is the best way to show it on your calendar? Answer: An all-day event with Show as Out of office. An all-day event shown as Out of office blocks the whole day, and anyone checking your availability sees you're away.
+
+Check yourself: Where do you choose a reminder for one event in new Outlook? Answer: The Reminder button on the Event tab. Open the event and use Reminder on the Event tab. The default for all new events is in Settings › Calendar › Events and invitations.

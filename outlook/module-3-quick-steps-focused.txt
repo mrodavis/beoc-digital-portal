@@ -1,0 +1,46 @@
+Quick Steps and Focused Inbox
+
+Module 3: Organizing Your Inbox
+
+Bundle the actions you repeat into one-click quick steps, and train Focused Inbox so the mail that matters stays in front of you.
+
+By the end of this lesson you can:
+- Create a quick step with more than one action
+- Use a quick step on a message
+- Turn Focused Inbox on or off
+- Move senders between Focused and Other for good
+
+
+## Quick steps: your repeated work, in one click
+
+ type: scenario
+ role: You process billing mail at the Lakeside front desk.
+ text: Each time you finish with a billing message you do the same three clicks: mark it read open Move to choose Insurance & Billing. You do it thirty times a day.
+ task: Turn those clicks into one quick step and set up Focused Inbox so billing and lab notices don't get lost under newsletters.
+
+
+1. On the Home tab, select the arrow next to Quick steps and choose Manage quick steps.
+2. Under Quick steps in Settings, select New quick step.
+3. Name it, then under Choose an action pick the first action, such as Move to folder › Insurance & Billing.
+4. Select Add another action for more, such as Mark as read.
+5. Optionally choose a shortcut (Ctrl+Shift+5 through 9) and add a description that shows when you point to the quick step.
+6. Select Save. Your quick step appears in the Quick steps menu on the Home tab.
+
+Note: Microsoft notes that quick steps can't be undone with Ctrl+Z, because some actions, such as permanently deleting, can't be reversed. Test a new quick step on one message first.
+
+Note: Classic Outlook: Quick Steps is a group on the Home tab with ready-made steps such as To Manager and Team Email. Select Create New in the group to make your own.
+
+
+## Focused Inbox
+- Turn it on or off: Settings › Mail › Message list › Sort messages into Focused and Other.
+- Move one message: right-click › Move › Move to Other inbox (or Move to Focused inbox).
+- Move a sender for good: right-click › Move › Always move to Other inbox (or Always move to Focused inbox). Future messages from that sender follow.
+- Check Other once or twice a day. Important mail can land there until Outlook learns.
+
+Practice: Decide where each sender's mail belongs for the front desk.
+
+
+## Knowledge Check
+Check yourself: Where do you create a quick step in new Outlook? Answer: Home tab › Quick steps › Manage quick steps. Manage quick steps opens the Quick steps page in Settings, where you select New quick step.
+
+Check yourself: A newsletter keeps landing in Focused. What makes future issues go to Other? Answer: Always move to Other inbox. Always move to Other inbox applies to future messages from that sender.

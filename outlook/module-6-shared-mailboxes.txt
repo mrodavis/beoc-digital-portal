@@ -1,0 +1,51 @@
+Shared Mailboxes and Sending From a Team Address
+
+Module 6: Working Smarter and Safely
+
+Open a shared mailbox like a front desk or billing inbox, answer messages from the team address instead of your own, and keep the team in sync.
+
+By the end of this lesson you can:
+- Explain what a shared mailbox is and why offices use one
+- Add a shared mailbox to your folder pane
+- Reply and send from the shared address
+- Leave clear signals for teammates who share the mailbox
+
+
+## One address, a whole team
+
+ type: scenario
+ role: You are one of three people who answer the Lakeside front desk mailbox.
+ text: Patients write to frontdesk@lakesidemed.example.com not to you. When you're out Omar or Priya answers. Replies should come from the front desk address so patients keep writing there and so the next person can see what was already answered.
+ task: Add the shared mailbox answer from the team address and leave it tidy for your teammates.
+
+
+A shared mailbox is a mailbox several people can open, such as frontdesk@ or billing@. Nobody signs in to it directly; your administrator gives your own account permission to it. It has its own Inbox, Sent Items and calendar, separate from your personal mailbox.
+
+1. In the folder pane, right-click your email address (the top of your folder list) and select Add shared folder or mailbox.
+2. Type the shared mailbox's name or email address and select Add.
+3. The mailbox appears under Shared with me. Expand it to see its Inbox and other folders.
+
+
+## Send from the team address
+- Start a reply or a new message. If you don't see a From line, select Options › Show From.
+- Select From and choose the shared mailbox's address.
+- Check the From line before you select Send. A reply from your personal address sends the patient's next message to you instead of the team.
+- Your administrator decides whether you may send from the shared address. If sending fails, ask IT to check your permissions.
+
+Note: Classic Outlook: a shared mailbox you have full access to often appears in the folder pane automatically. To send from it, turn on From (Options tab › From) and choose Other Email Address if the shared address isn't listed.
+
+Practice: Put the steps for replying from a shared mailbox in order.
+
+
+## Working as a team
+- Everyone sees the same messages, so read, flag and file with the team in mind: a flag tells teammates something still needs action.
+- Agree on simple rules, such as "whoever replies files the message" or a category for each person.
+- Patient messages in a shared mailbox follow the same privacy rules as any practice email: answer only what's needed and keep health details out of subject lines.
+
+Note: When you're added to a shared mailbox, its calendar is usually added to your calendar list too, so the team can schedule from one place.
+
+
+## Knowledge Check
+Check yourself: You replied to a patient from the front desk shared mailbox, but your personal address was in From. What's the problem? Answer: The patient's next message comes to you, not the team. The patient replies to whatever address sent the message. Use the shared address so the whole team sees the answer.
+
+Check yourself: Where does a shared mailbox appear after you add it in new Outlook? Answer: Under Shared with me. Added shared mailboxes are listed under Shared with me in the folder pane.

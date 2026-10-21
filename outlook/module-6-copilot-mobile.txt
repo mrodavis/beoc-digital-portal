@@ -1,0 +1,65 @@
+Copilot and Outlook on Other Devices
+
+Module 6: Working Smarter and Safely
+
+Use Microsoft 365 Copilot in Outlook to summarize threads and draft messages when your organization provides it, check its work, and keep your mail consistent across the web and your phone.
+
+By the end of this lesson you can:
+- Summarize a long thread with Copilot
+- Draft a message with Copilot and edit it before sending
+- Check AI-generated text against the source
+- Use the same mailbox in Outlook on the web and the mobile app
+
+
+## Copilot in Outlook
+
+ type: scenario
+ role: You coordinate Saturday's flu clinic at Lakeside.
+ text: The planning thread has eleven replies and you need the final decisions in a minute. Then the clinic staff need a short friendly reminder.
+ task: Let Copilot do the first draft then make sure every fact is right before anything goes out.
+
+
+Microsoft 365 Copilot is an AI assistant built into Outlook for organizations that provide it. Whether you have it depends on your organization's license and settings; if you can't find Copilot, check with your IT administrator. Copilot doesn't replace your judgment: you're responsible for every message you send.
+
+- Summarize: open a thread and select Summary by Copilot (it may say Summarize) at the top. The summary appears above the message and may include numbered citations that jump to the message they came from.
+- Draft: start a new message, select the Copilot icon on the toolbar › Draft (or Draft with Copilot in the message area), type what you want, and select the Generate arrow. Change the length or tone, or try a new prompt, until it's right, then select Keep it and edit it.
+- Draft with Copilot doesn't work in plain text messages; switch to HTML in Settings › Mail › Compose and reply if needed.
+
+
+## Check its work
+- Compare every date, time, name and number with the original message.
+- Add what Copilot couldn't know ("Please bring your badge").
+- Match your office's tone, and remove anything you wouldn't say yourself.
+- Follow your organization's rules about using AI with patient information.
+
+Practice: Put the steps in a safe order.
+
+
+ type: worked-example
+ title: From thread to reminder
+ task: Turn Denise's eleven-message thread into a staff reminder.
+ steps: 
+   move: Select Summary by Copilot on the thread.
+   why: The decisions (7:30 AM arrival Elm Street parking) are visible in seconds.
+   move: New mail › Draft with Copilot: \Write a short friendly reminder to arrive by 7:30 AM Saturday for the flu clinic.\
+   why: The prompt carries the facts that matter.
+   move: Compare the draft with the thread then add \Please bring your badge.\
+   why: You confirm the facts and add what Copilot couldn't know.
+   move: Address it to Omar and Priya add a subject and send.
+   why: You are the one sending so you check last.
+ result: A correct friendly reminder in a couple of minutes.
+
+
+
+## Outlook on the web and on your phone
+Your mailbox lives in Microsoft 365, not on one computer. Outlook on the web (sign in from a browser) looks and works almost exactly like new Outlook, so everything in this course applies there. The Outlook mobile app for iPhone and Android shows the same mail, calendar and contacts in a smaller layout.
+
+- On a shared or public computer, use Outlook on the web and sign out when you're done.
+- On a phone, use a screen lock. Your organization may require extra protection before work email can be opened on a personal device.
+- Changes sync: a message you file or a meeting you accept on your phone shows up the same way on your computer.
+
+
+## Knowledge Check
+Check yourself: Copilot drafted a reminder that says staff should arrive at 7:00 AM. The thread says 7:30 AM. What do you do? Answer: Fix the time before sending. You're responsible for what you send. Correct anything that doesn't match the source.
+
+Check yourself: You don't see Copilot in Outlook. What's the most likely reason? Answer: Your organization hasn't provided a Copilot license or turned it on. Copilot depends on your organization's license and settings. Ask your IT administrator.

@@ -1,0 +1,80 @@
+Reply, Reply All, and Forward
+
+Module 2: Writing Professional Email
+
+Choose between Reply, Reply all and Forward, keep subject lines useful as a thread changes, and check a thread for private information before you forward it.
+
+By the end of this lesson you can:
+- Choose Reply, Reply all or Forward for a message based on who needs your answer
+- Reply and forward from the reading pane or the Home tab
+- Change a vague subject line when you reply
+- Check a thread for information the new recipient shouldn't see before forwarding
+
+
+## Who needs your answer?
+
+ type: scenario
+ role: You are answering the morning's messages at the Lakeside front desk.
+ text: Denise asked six people who can cover Saturday's flu clinic and said to reply to her only. Priya asked you and Luis to reply all so you don't both restock Room 3. An imaging center confirmed an MRI that Dr. Patel ordered. Keisha's message is titled just \Question.\
+ task: Pick the right response for each message and leave each thread easier to follow than you found it.
+
+
+
+ type: table
+ caption: Reply Reply all or Forward
+ columns: 
+  Command
+  Who gets it
+  Use it when
+ rows: 
+   Reply
+   Only the person who sent the message
+   Your answer matters only to the sender such as volunteering for a shift
+   Reply all
+   The sender and everyone on To and Cc
+   Everyone on the thread needs your update such as \I restocked Room 3\
+   Forward
+   People you add; the original and its attachments go along
+   Someone who wasn't on the message needs it such as Dr. Patel and the MRI confirmation
+
+
+In new Outlook, the Reply, Reply all and Forward buttons are at the top right of the message in the reading pane, and on the Home tab. Your reply opens in the reading pane above the original message, with RE: added to the subject (FW: for a forward).
+
+Note: Classic Outlook: Reply, Reply All and Forward are in the Respond group on the Home tab, and in the reading pane. Ctrl+R, Ctrl+Shift+R and Ctrl+F are the shortcuts.
+
+
+## Reply all with care
+Reply all is the source of some of the most common email mistakes: twenty people getting "Thanks!", or a private comment reaching everyone on a thread. Before you select Reply all, ask: does every person on To and Cc need this? If the answer is no, use Reply, or reply all and remove the people who don't need it.
+
+Practice: Decide how to answer each message.
+
+
+## Keep threads useful
+- Change a vague subject when you reply. Click in the subject line and replace "Question" with "RE: Copay amount for Metro Health Plan visits". Your reply and future replies are easier to find.
+- Type your answer above the original message. The original stays below for context.
+- When you forward, add a sentence that tells the new reader why they are getting it: "Dr. Patel, Riverside Imaging confirmed the MRI for Thursday at 10:30 AM."
+- Forwarding includes the attachments. Replying does not, so if the other person needs the file back, attach it.
+
+Note: Before you forward, scroll through the whole thread. Earlier messages may contain another patient's information, a private comment, or details the new reader shouldn't have. Delete those parts or start a new message instead.
+
+
+ type: worked-example
+ title: Forwarding an imaging confirmation to a physician
+ task: Riverside Imaging confirmed an MRI that Dr. Patel ordered. Get the confirmation to her.
+ steps: 
+   move: Select the message and choose Forward.
+   why: Dr. Patel wasn't on the original so Reply would only go back to the imaging center.
+   move: Type Dr. Patel in To and pick her from the suggestions.
+   why: Picking from the suggestions uses her internal address so it can't go to the wrong Dr. Patel.
+   move: Write one sentence with the date and time above the original.
+   why: She can act without opening the attachment.
+   move: Scroll the thread then Send.
+   why: A quick check that nothing else is in the thread. The PDF goes along automatically.
+ result: Dr. Patel gets the confirmation with a one-line summary and the attachment.
+
+
+
+## Knowledge Check
+Check yourself: A message went to 15 staff asking who can cover the front desk Friday, with "reply to me" at the end. You are available. What do you do? Answer: Reply to the sender only. The sender asked for direct replies, and only she needs your answer.
+
+Check yourself: Which of these is sent along automatically when you forward a message? Answer: The attachments. Forward includes the original message and its attachments. Reply doesn't include attachments.

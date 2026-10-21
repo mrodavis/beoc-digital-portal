@@ -1,0 +1,65 @@
+Attachments and Cloud Links
+
+Module 2: Writing Professional Email
+
+Attach files from your computer or share them as OneDrive links, choose who can edit a shared link, fix a wrong attachment, and name files so the reader knows what they are.
+
+By the end of this lesson you can:
+- Attach a file from your computer or from OneDrive
+- Decide between sharing a link and attaching a copy
+- Check and change the permissions on a shared link
+- Remove a wrong attachment before you send
+
+
+## A copy or a link?
+
+ type: scenario
+ role: You handle files for the Lakeside front desk.
+ text: Omar needs to add his name to the flu clinic volunteer schedule which lives in OneDrive. A supply vendor needs a copy of your quote request. And the draft you started to billing has \Scan0042.pdf\ attached which turns out to be the wrong patient's card.
+ task: Send each file the right way and fix the wrong attachment before it leaves the office.
+
+
+In new Outlook, select Attach file on the Message tab (in the Insert group) or on the Insert tab. You can pick from suggested files you used recently, browse OneDrive and SharePoint, or choose Browse this computer. For a file stored in OneDrive or SharePoint, Outlook asks whether to send a link or attach a copy.
+
+
+ type: table
+ caption: Share a link or attach a copy?
+ columns: 
+  Share link
+  Attach a copy
+ rows: 
+   What the reader gets
+   A link to the one file in OneDrive
+   Their own separate copy
+   Edits
+   Everyone works on the same file
+   Each copy changes separately
+   Message size
+   Small
+   Grows with the file
+   Best for
+   Coworkers who need to update a shared file
+   People outside your organization or a final version that shouldn't change
+
+
+When you share a link, select the arrow on the attachment to choose who can use it: people in your organization or only your recipients, and whether they can edit or only view. In a business account the default is that people in your organization can edit, so change it when a file should be view-only.
+
+Note: Classic Outlook: Attach File is in the Include group on the Message tab of the message window. Choosing a OneDrive file gives the same choice between Share link and Attach as copy.
+
+Practice: Decide how to send each file.
+
+
+## Check before you send
+- Attach first, then write. If you write "the form is attached" and forget the file, you have to send a second, apologetic message.
+- Look at every attachment tile before you send. To remove one, select the X on its tile.
+- Name files so the reader knows what they are: "Supply Quote Request.docx", not "Document1.docx" or "Scan0042.pdf".
+- Open a scanned file before attaching it to make sure it is the right patient and the right page.
+- A file stored in OneDrive can be shared as a link even when it is too large to attach as a copy.
+
+Note: Attaching the wrong patient's document is one of the most common ways patient information goes to the wrong person. If you catch it in a draft, remove the file. If you already sent it, tell your supervisor right away; your practice has a process for possible privacy incidents.
+
+
+## Knowledge Check
+Check yourself: Omar needs to add his name to the volunteer schedule stored in OneDrive. How do you send it? Answer: Share a link. A link lets Omar edit the same file everyone else uses.
+
+Check yourself: Your draft has the wrong file attached. What do you do? Answer: Select the X on the attachment tile, attach the right file, then send. Remove the wrong attachment with the X on its tile, attach the correct file, and check again before sending.

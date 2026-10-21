@@ -1,0 +1,63 @@
+Protecting Sensitive Mail and Writing Accessible Messages
+
+Module 6: Working Smarter and Safely
+
+Decide when a message needs protection, apply sensitivity labels and encryption, add alt text to pictures, check accessibility, and request a read receipt.
+
+By the end of this lesson you can:
+- Decide when a message needs extra protection
+- Apply a sensitivity label and encrypt a message
+- Add alt text to pictures and check a message for accessibility
+- Request a read receipt and know its limits
+
+
+## Sensitive information in email
+
+ type: scenario
+ role: You send internal reports and notices from the Lakeside front desk.
+ text: Keisha needs the October billing report which lists patient account balances. The new staff parking map goes to the front desk team including Omar who uses a screen reader. Dr. Patel must see a Friday schedule change.
+ task: Protect the report make the map usable for everyone and confirm Dr. Patel reads the change.
+
+
+Under the HIPAA Privacy Rule, health care providers may email patients and others about health information, but they must use reasonable safeguards. Email isn't forbidden; carelessness is. Your practice decides which tools to use. Follow its policy, send only the minimum information needed, and double-check every recipient.
+
+- Sensitivity labels (for example Confidential) are created and published by your organization. While writing, select Sensitivity on the Message tab (if the window is narrow, it may be under More options (…)) and choose a label. The label shows above the message for everyone who reads it.
+- Encryption: Options › Encrypt › Encrypt keeps the message and attachments readable only by the recipients. Do Not Forward also stops recipients from forwarding, printing or copying it.
+- Both need a work or school account, and your organization decides whether they are available. If you don't see them, ask your IT department.
+
+Note: Classic Outlook: Options tab › Encrypt, and Sensitivity on the Home or Message tab, when your organization has turned them on.
+
+
+## Accessible messages
+- Alt text: insert a picture (Insert tab › Pictures), then select Alt text on the picture and describe what matters in it: "Map of the staff lot: park in rows C and D and use the Elm Street door", not "map.png".
+- Links: use text that says where the link goes ("staff parking policy"), not "click here".
+- Readable text: a clear font at a normal size, short paragraphs, and lists for steps.
+- Color: don't use color alone to show meaning; add a word such as "Required".
+- Before you send, select Check Accessibility on the Ribbon (if you don't see it, look under More options (…)) and fix what it finds. In classic Outlook it's on the Review tab while you write.
+
+Practice: Match each problem to its fix.
+
+
+## Read receipts
+To ask for confirmation that a message was opened, select Options › Request a read receipt (in the Tracking area) before you send. Recipients can choose not to send a receipt, so a missing receipt doesn't prove a message wasn't read. For anything that matters, ask for a reply instead.
+
+
+ type: key-terms
+ terms: 
+   term: Sensitivity label
+   definition: A label your organization defines such as Confidential that can mark or protect a message.
+   term: Encrypt
+   definition: Protects a message so only its recipients can read it.
+   term: Do Not Forward
+   definition: Encrypts and also stops recipients from forwarding printing or copying.
+   term: Alt text
+   definition: A short description of a picture that screen readers read aloud.
+   term: Read receipt
+   definition: An optional notice that a recipient opened your message.
+
+
+
+## Knowledge Check
+Check yourself: Does the HIPAA Privacy Rule forbid sending health information by email? Answer: No, but providers must use reasonable safeguards and follow their policies. HHS says email is allowed with reasonable safeguards. Follow your practice's policy on encryption and what to send.
+
+Check yourself: What should alt text for the staff parking map say? Answer: "Map of the staff lot: park in rows C and D and use the Elm Street door". Good alt text tells a screen reader user what the picture is for.

@@ -1,0 +1,83 @@
+Sharing Calendars, Delegates, and Time Zones
+
+Module 4: Calendar and Meetings
+
+Share your calendar at the right permission level, open calendars others share with you, understand what a delegate can do, and add a second time zone for people you work with in other places.
+
+By the end of this lesson you can:
+- Share your calendar and choose the right permission level
+- Explain the difference between edit access and delegate access
+- Accept a calendar someone shares with you
+- Add a second time zone to your calendar
+
+
+## Who needs to see what?
+
+ type: scenario
+ role: You are the Lakeside front desk coordinator.
+ text: Omar covers the front desk when you're away and needs to know where you are. Denise manages your meetings while you're at a training. Dr. Patel shared her calendar so you can book around her clinic hours. The billing service you call every Thursday is three hours behind you.
+ task: Give each person exactly the access they need open Dr. Patel's calendar and show the billing service's time next to yours.
+
+
+In Calendar, select Share calendar on the Home tab. Type the person's name or email address, choose a permission level, and select Share. They get an invitation by email and accept it to add your calendar to their list. To change or remove someone's access later, open the same sharing window and change their permission.
+
+
+ type: table
+ caption: Calendar permission levels in new Outlook
+ columns: 
+  Permission
+  What the other person can do
+ rows: 
+   Can view when I'm busy
+   See the times you're busy with no titles or details
+   Can view titles and locations
+   See the times titles and locations of your events
+   Can view all details
+   See everything about your events
+   Can edit
+   Create change and delete events on your calendar
+   Delegate
+   Edit your calendar and receive and respond to meeting invitations for you
+
+
+Note: Event titles are visible to anyone who can view titles. Keep patient names and health details out of event titles and locations; use something like "New patient intake" instead of a patient's name.
+
+
+## Delegates and shared calendars
+- A delegate can create meetings and respond to meeting invitations on your behalf. Depending on the options you choose, invitations can go to your delegate as well as to you.
+- Use Can edit when someone only needs to manage events on your calendar. Use Delegate when they also need to handle your meeting invitations, such as an office manager covering for you.
+- When someone shares a calendar with you, open the sharing invitation in Mail and select Accept. The calendar appears under your calendar list, where you can turn it on or off.
+- Delegate and sharing options depend on your organization's settings and account type.
+
+Practice: Match each person to the permission that gives them what they need and no more.
+
+Note: Classic Outlook: Calendar › Home tab › Share Calendar opens Calendar Properties, where you add people and choose permissions. Delegates are added under File › Account Settings › Delegate Access.
+
+
+## A second time zone
+1. In Calendar, select the View tab › Calendar settings (or Settings › Calendar › View).
+2. Under time zones, select Add time zone and choose the time zone, for example (UTC-08:00) Pacific Time (US & Canada).
+3. Type a label, such as "Billing service", so you remember why it's there.
+4. Select Save. Day, Work week and Week views now show both times side by side.
+
+The same settings page has Display my calendar in time zone, which changes your own time zone. Use it if you move or travel; use Add time zone when you just need to see someone else's time.
+
+
+ type: worked-example
+ title: Before you call the billing service
+ task: Avoid calling Seattle at 8:30 AM Eastern when their office is still closed.
+ steps: 
+   move: Add (UTC-08:00) Pacific Time with the label \Billing service\.
+   why: Their time appears next to yours on every day.
+   move: Check the column: 8:30 AM for you is 5:30 AM for them.
+   why: Seeing both times prevents a call before they open.
+   move: Book the call for 1:00 PM Eastern (10:00 AM Pacific).
+   why: It's well inside both offices' hours.
+ result: Calls and meetings land inside everyone's working hours.
+
+
+
+## Knowledge Check
+Check yourself: Omar needs to see where you are when he covers the desk, but not the details of your meetings. Which permission fits? Answer: Can view titles and locations. Titles and locations tell him where you are without sharing descriptions or attachments.
+
+Check yourself: What can a delegate do that someone with Can edit can't? Answer: Receive and respond to meeting invitations for you. Both can manage events, but a delegate also handles meeting invitations on your behalf.

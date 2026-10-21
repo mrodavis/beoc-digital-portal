@@ -1,0 +1,51 @@
+Rules and Sweep
+
+Module 3: Organizing Your Inbox
+
+Have Outlook file predictable mail for you: create rules from a message or in Settings, run a rule on messages you already have, and clear out repeat senders with Sweep.
+
+By the end of this lesson you can:
+- Create a rule from a message in a few clicks
+- Build a rule in Settings with a condition and an action
+- Run a rule on messages already in the Inbox, and turn rules off or on
+- Use Sweep to clear out messages from one sender
+
+
+## Let Outlook do the predictable filing
+
+ type: scenario
+ role: You manage the Lakeside front desk inbox.
+ text: Every Monday a newsletter arrives. Every day Metro Health Plan sends claim notices and BrightPath sends a promotion. You file them by hand every time.
+ task: Turn the filing you do by hand into rules and use Sweep to clear the backlog.
+
+
+A rule has three parts: a condition (when a message is from this sender, or has these words in the subject), an action (move it to this folder, categorize it, mark it read), and optional exceptions. Rules run on messages as they arrive. They are the best tool for mail that is predictable: the same sender, the same kind of message, every time.
+
+
+## Create a rule
+1. Fastest: right-click a message from the sender › Rules › Create rule. Choose the folder for messages from that sender and select OK. Select More options to build a fuller rule.
+2. From Settings: Settings › Mail › Rules › Add new rule. Name the rule, select Add a condition and Add an action (and Add an exception if needed).
+3. Check Stop processing more rules when a message that matches this rule shouldn't be handled by any later rules.
+4. Select Save.
+
+New rules only handle messages that arrive after you create them. To apply a rule to messages already in your Inbox, go to Settings › Mail › Rules and select Run rule now next to it. The switch next to each rule turns it off and on without deleting it.
+
+Note: Classic Outlook: Home tab › Rules › Create Rule, or Manage Rules & Alerts for the Rules Wizard. Classic Outlook can run some rules only while Outlook is open on your computer; Microsoft notes that some rules made in classic Outlook may not run in new Outlook.
+
+Practice: Put the steps for creating a rule in Settings in order.
+
+
+## Sweep
+Sweep clears out messages from one sender in a few clicks. Select a message from the sender, then select Sweep on the Home tab and choose what to do: move all messages from that sender, move them and any future ones, always keep only the latest message, or always move messages older than 10 days. Choose where they go, such as Deleted Items or Archive, and select Sweep.
+
+- Sweep is ideal for daily promotions, automated notices and newsletters where only the newest matters.
+- Sweep isn't available in Junk Email, Drafts, Sent Items or Deleted Items.
+- Sweep is a new Outlook and Outlook on the web feature; classic Outlook doesn't have it. The closest classic tool is Clean Up Conversation.
+
+Note: Don't sweep or rule-delete mail that might be a record, such as claim notices or lab messages. Move those to a folder instead, and delete only mail with no future value.
+
+
+## Knowledge Check
+Check yourself: You created a rule that moves newsletters to a folder, but last week's newsletters are still in the Inbox. Why, and how do you fix it? Answer: Rules handle new messages; run the rule now from Settings › Mail › Rules. Rules run on arriving mail. Run rule now applies the rule to messages already in your Inbox.
+
+Check yourself: A vendor sends a promotion every day and only the newest one matters. Which Sweep choice fits? Answer: Always keep the latest message and move the rest. Keeping only the latest message clears the old ones and keeps doing it.

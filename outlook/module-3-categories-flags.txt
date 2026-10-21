@@ -1,0 +1,71 @@
+Categories, Flags, Pins, and Snooze
+
+Module 3: Organizing Your Inbox
+
+Label messages with color categories, flag them for follow-up, pin the ones you use every day, and snooze the ones you can't act on yet.
+
+By the end of this lesson you can:
+- Create a category, give it a meaningful name, and apply it
+- Flag a message for follow-up and mark the flag complete
+- Pin a message to the top of the list
+- Snooze a message so it comes back when you can act on it
+
+
+## Tags that don't move the message
+
+ type: scenario
+ role: You are working the Lakeside front desk inbox.
+ text: Keisha's copay questions and a vendor invoice both need billing's attention but they live in different places. A prior authorization needs a follow-up tomorrow. Denise's procedure list should never scroll out of sight. Next week's meeting agenda is noise until next week.
+ task: Use categories flags pins and snooze so each message shows up when and where you need it.
+
+
+
+ type: table
+ caption: Four ways to tag a message
+ columns: 
+  Tool
+  What it does
+  Use it for
+ rows: 
+   Category
+   A named color label
+   Grouping by topic across folders: Billing Referrals Urgent
+   Flag
+   Marks a message for follow-up with a due date if you choose one
+   Things you must do later; flagged messages also appear in To Do
+   Pin
+   Keeps a message at the top of the message list
+   Reference messages you use every day
+   Snooze
+   Hides a message until a time you choose then brings it back
+   Messages you can't act on yet
+
+
+Practice: Match each situation to the tool that handles it best.
+
+
+## Categories
+- Apply a category: select the message, then Home tab › Categorize and pick one. You can also right-click the message › Categorize.
+- Create a category: Categorize › New category. Name it, choose a color, and save. Outlook lists it under Categorize from then on.
+- Rename or recolor categories in Settings › Accounts › Categories, or from Categorize › Manage categories.
+- Names matter more than colors. "Billing" means something to everyone; "Green category" doesn't. About one in twelve men has some form of color vision deficiency, so never rely on color alone.
+
+Note: Classic Outlook: Home tab › Tags › Categorize › All Categories to rename, recolor or add categories.
+
+
+## Flags, pins, and snooze
+- Flag: select the message and choose Flag / Unflag on the Home tab, or point to it and select the flag. Use the arrow next to Flag / Unflag to pick Today, Tomorrow, This week, Next week or No date.
+- Flagged messages appear in the Flagged email list in To Do, so your follow-ups sit next to your tasks (Module 5).
+- When you are done, choose Mark complete. Clear flag removes the flag without completing it.
+- Pin: Home tab › Pin / Unpin, or the pin that appears when you point to a message. Pinned messages stay at the top of the folder.
+- Snooze: Home tab › Snooze, then choose when the message should come back. It disappears from the list and reappears at that time.
+
+Note: Classic Outlook: Home tab › Tags › Follow Up sets flags with due dates. Microsoft's feature comparison lists Snooze and Pin as new Outlook features that classic Outlook doesn't support.
+
+Flags are promises. A flag left on a message for weeks trains you to ignore flags. Review flagged messages at the start and end of each day, and clear or complete them.
+
+
+## Knowledge Check
+Check yourself: You want every billing-related message to show a "Billing" label, wherever it is filed. What do you use? Answer: A category named Billing. Categories are named labels that work across folders.
+
+Check yourself: Where else do flagged messages show up in new Outlook? Answer: The Flagged email list in To Do. Flagging a message places it in To Do's Flagged email list.
