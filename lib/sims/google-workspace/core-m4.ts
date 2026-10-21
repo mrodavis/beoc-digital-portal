@@ -72,11 +72,11 @@ const LOG = grid(
   ["Date", "Building", "Apartment", "Problem", "Priority", "Status"],
   [
     ["10/1", "Riverside Commons", "River 210", "Heater not working", "High", "Open"],
-    ["10/3", "Elm Street Apartments", "Elm 3B", "Leaking kitchen faucet", "Medium", "Done"],
+    ["10/3", "Elm Street Apartments", "Elm 3B", "Leaking kitchen faucet", "Medium", "Open"],
     ["10/6", "Riverside Commons", "River 114", "Dishwasher not draining", "Medium", "Open"],
     ["10/8", "Elm Street Apartments", "Elm 1A", "Broken mailbox lock", "Low", "Done"],
     ["10/9", "Riverside Commons", "River 305", "Window will not latch", "Low", "Open"],
-    ["10/12", "Elm Street Apartments", "Elm 2C", "Bathroom fan noisy", "Low", "Open"],
+    ["10/12", "Elm Street Apartments", "Elm 2C", "Bathroom fan noisy", "Low", "Done"],
     ["10/14", "Riverside Commons", "River 118", "No hot water", "High", "Done"],
     ["10/15", "Elm Street Apartments", "Elm 2A", "Garbage disposal stuck", "Medium", "Open"],
     ["10/17", "Riverside Commons", "River 220", "Smoke detector beeping", "High", "Open"],
@@ -296,7 +296,7 @@ export const gwModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Close the filter view. Then add a conditional formatting rule that gives Priority cells (E2:E11) that say “High” a red fill.",
-          hint: "Close the filter view with the X at the right of the dark bar. Select E2:E11, then Format › Conditional formatting. Choose Text is exactly, type High, pick Red fill, and click Done.",
+          hint: "Close the filter view with the X at the right of the dark bar. Click E2, Shift-click E11, then Format › Conditional formatting. Choose Text is exactly, type High, pick Red fill, and click Done.",
           steps: [{ action: { kind: "dialog", id: "g.cf", values: { range: "E2:E11", condition: "Text is exactly", value: "High", style: "Red fill" } } }],
         },
         {
