@@ -122,7 +122,7 @@ export const outlookModule6Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Add the Lakeside Front Desk shared mailbox (frontdesk@lakesidemed.example.com) to your folder pane.",
-          hint: "Right-click your account name (your email address at the top of the folder list) › Add shared folder or mailbox. Type frontdesk@lakesidemed.example.com and select Add. It appears under Shared with me.",
+          hint: "Right-click your account name (your email address at the top of the folder list) › Add shared folder or mailbox. Type frontdesk@lakesidemed.example.com and add it. It appears under Shared with me.",
           steps: [{ action: { kind: "dialog", id: "addShared", values: { email: [FRONTDESK.email, "Lakeside Front Desk"] } } }],
         },
         {
@@ -170,7 +170,7 @@ export const outlookModule6Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Add the front desk shared mailbox, frontdesk@lakesidemed.example.com.",
-          hint: "Right-click your account name in the folder pane › Add shared folder or mailbox › type the address › Add.",
+          hint: "Right-click your account name in the folder pane › Add shared folder or mailbox › type the address and add it.",
           steps: [{ action: { kind: "dialog", id: "addShared", values: { email: [FRONTDESK.email, "Lakeside Front Desk"] } } }],
         },
         {
