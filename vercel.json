@@ -1,0 +1,8 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "simulations-wip": false,
+      "nlm-sources": false
+    }
+  }
+}
