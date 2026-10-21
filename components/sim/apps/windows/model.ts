@@ -545,8 +545,8 @@ function renameItem(d: WinDoc, target: string, value: string): string | null {
   const parent = getItem(d, parentOf(path));
   if (parent?.children?.some((c) => c !== it && c.name.toLowerCase() === name.toLowerCase())) return null;
   const real = realPath(d, path);
+  // Renaming does not change a file's Date modified in File Explorer.
   it.name = name;
-  it.modified = STAMP;
   const np = `${parentOf(real)}/${name}`;
   rebaseAll(d, real, np);
   return np;
