@@ -235,11 +235,11 @@ export const eng0300ResourceCategories: ResourceCategory[] = [
         href: "https://www.bklynlibrary.org/",
       },
       {
-        title: "CUNY Adult Literacy and HSE Program",
+        title: "City University of New York (CUNY)",
         description:
-          "Information on CUNY adult literacy, HSE, and college transition programs.",
+          "CUNY's main site, with information on its colleges, admissions, and adult education programs.",
         kind: "external",
-        href: "https://www.cuny.edu/academics/current-initiatives/adult-literacy-hse/",
+        href: "https://www.cuny.edu/",
       },
     ],
   },
