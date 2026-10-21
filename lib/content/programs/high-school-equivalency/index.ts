@@ -5,9 +5,10 @@ import { Program } from "@/types/program";
  * High School Equivalency Preparation.
  *
  * Covers the four subject areas the HSE exams test, plus the test-taking
- * strategy that is worth as much as any single subject. Which exam a student
- * sits — GED, HiSET, or TASC — depends on their state, so the course teaches
- * the shared content and points to the state for the specifics.
+ * strategy that is worth as much as any single subject. New York State has
+ * used the GED since 2022 (TASC, used 2014-2021, is retired), so the New York
+ * facts here are GED facts, verified October 2026 against NYSED
+ * (acces.nysed.gov/hse) and GED.com's New York policy page.
  */
 
 const m1: Lesson[] = [
@@ -35,7 +36,20 @@ const m1: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "There is no single national high school equivalency exam. States choose which to accept — most commonly the GED, HiSET, or TASC — and some accept more than one. They differ in format, scoring, number of subtests, and whether they are offered on paper. Everything else you do depends on this answer, so get it first.",
+            text: "There is no single national high school equivalency exam. Each state chooses which test it accepts, most commonly the GED or the HiSET, and the tests differ in format, scoring, and number of subject tests. In New York State the exam is the GED, which replaced the TASC in 2022, so a TASC study guide describes a test New York no longer gives. Everything else you do depends on this answer, so get it first.",
+          },
+          {
+            type: "table",
+            caption: "If you are testing in New York State (checked against NYSED and GED.com)",
+            columns: ["Question", "New York answer"],
+            rows: [
+              ["Which exam?", "The GED: four subject tests (Reasoning Through Language Arts, Mathematical Reasoning, Science, and Social Studies), taken on a computer at a testing center"],
+              ["What does it cost?", "New York State pays for testing for New York residents who are age eligible"],
+              ["Who can test?", "You must have lived in New York for at least 30 days and not already hold a high school or HSE diploma. At 19 or older you can register directly; at 16 to 18 you need an age eligibility form signed by an authorized official"],
+              ["What is a passing score?", "At least 145 on each subject test"],
+              ["What if I do not pass?", "Wait 60 days, then retake that subject. Each subject can be taken up to three times in a calendar year, and subjects you passed stay passed"],
+              ["Is there another way?", "Yes. Passing Regents exam scores can stand in for matching subject tests, and NYSED also accepts 24 qualifying college credits or the National External Diploma Program (NEDP). An advisor can tell you whether one fits you"],
+            ],
           },
           {
             type: "table",
@@ -46,7 +60,7 @@ const m1: Lesson[] = [
               ["What are the subject areas?", "Determines what you actually have to prepare"],
               ["What is the passing score per subject?", "Tells you when a subject is finished"],
               ["Can I take subjects separately?", "Almost always yes — and taking them one at a time is usually the right strategy"],
-              ["What does it cost, and is there help?", "Many states have vouchers or funded programs"],
+              ["What does it cost, and is there help?", "In New York testing is free for eligible residents; elsewhere, many states have vouchers or funded programs"],
               ["Is there a retake policy and a waiting period?", "Affects how you schedule"],
               ["Is a practice test available?", "The best single predictor of readiness"],
             ],
@@ -54,7 +68,7 @@ const m1: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "All the common HSE exams let you take the subjects separately and keep a passing score while you retake others. This matters strategically: pass the subject you are strongest at first. It is banked, it is done, and it changes how the rest of the process feels. Students who try to prepare for everything at once take longer and quit more often.",
+            text: "The GED lets you take the subjects separately and keeps a passing score while you retake others. This matters strategically: pass the subject you are strongest at first. It is banked, it is done, and it changes how the rest of the process feels. Students who try to prepare for everything at once take longer and quit more often.",
           },
           {
             type: "table",
@@ -101,10 +115,10 @@ const m1: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "Find which HSE exam your state accepts and write down the official source you found it on.",
+          "Confirm which HSE exam your state accepts and write down the official source you found it on. In New York, that is the NYSED High School Equivalency office and GED.com.",
           "Record the subject areas, the passing score for each, and the cost.",
-          "Find out whether your state offers vouchers, funded preparation, or free retakes.",
-          "Find and schedule an official practice test. Write down the order you will take the four subjects in, and why.",
+          "If you are testing outside New York, find out whether your state offers vouchers, funded preparation, or free retakes.",
+          "Ask your instructor or program about an official practice test. Write down the order you will take the four subjects in, and why.",
         ],
       },
     ],
@@ -344,17 +358,16 @@ const m2: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "The extended response is not an opinion essay. You are given source material and asked to analyze it — usually to judge which of two arguments is better supported by evidence. Your own view of the topic is not being assessed and does not earn points. What earns points is a clear position, evidence drawn from the passages, and organized, readable prose.",
+            text: "On the GED, the extended response is not an opinion essay. You read two passages that take opposite sides of an issue and explain which argument is better supported by evidence. Your own view of the topic is not being assessed and does not earn points. What earns points is a clear position, evidence drawn from the passages, and organized, readable prose. If you are taking a different exam, read its own rubric, because the task may differ.",
           },
           {
             type: "table",
-            caption: "What the rubric rewards",
-            columns: ["Dimension", "What scores well"],
+            caption: "The three traits on the GED extended response rubric (each scored 0 to 2)",
+            columns: ["Trait", "What scores well"],
             rows: [
-              ["Analysis and argument", "A clear position, stated early, that answers the actual question"],
-              ["Use of evidence", "Specific references to the passages, not general assertions"],
-              ["Organization", "An introduction, body paragraphs each with one point, a conclusion"],
-              ["Clarity and conventions", "Varied sentences, correct grammar, readable at speed"],
+              ["1. Creation of Arguments and Use of Evidence", "A clear position on which argument is better supported, stated early, backed by specific evidence from the passages rather than general assertions"],
+              ["2. Development of Ideas and Organizational Structure", "Each point explained and connected to the next: an introduction, body paragraphs with one point each, a conclusion"],
+              ["3. Clarity and Command of Standard English Conventions", "Clear, varied sentences and correct grammar, usage, and punctuation"],
             ],
           },
           {
@@ -415,7 +428,7 @@ const m2: Lesson[] = [
             optionRationales: [
               "Your view is not what is being scored, however sincerely held.",
               "Correct. Answer the question asked, using the passages as evidence.",
-              "Refusing to take a position loses marks on analysis and argument, which is the largest dimension.",
+              "Refusing to take a position loses points on Trait 1, creating an argument and using evidence, which is the heart of the task.",
               "This does not answer the prompt at all.",
             ],
           },
@@ -542,9 +555,9 @@ export const highSchoolEquivalency: Program = {
   icon: "📚",
   accent: "from-violet-700 to-violet-900",
   description:
-    "Preparation for the GED, HiSET, or TASC: which exam your state uses, the test-taking strategy that raises scores independently of content, and the four subject areas.",
+    "Preparation for the high school equivalency exam (the GED in New York State): how the exam works, the test-taking strategy that raises scores independently of content, and the four subject areas.",
   overview:
-    "There is no single national high school equivalency exam — states choose which to accept, and the formats differ. This course starts by establishing which exam you are actually sitting, because studying against the wrong format is a common and expensive mistake. It then covers test strategy, which is worth as much as any single subject, and the four subject areas. Two things surprise most students: the science and social studies papers ask far less about memorized facts than expected and far more about reading data, and the extended response is an analytical task rather than an opinion essay.",
+    "There is no single national high school equivalency exam. States choose which to accept, and the formats differ; New York uses the GED. This course starts by establishing which exam you are actually sitting, because studying against the wrong format is a common and expensive mistake. It then covers test strategy, which is worth as much as any single subject, and the four subject areas. Two things surprise most students: the science and social studies papers ask far less about memorized facts than expected and far more about reading data, and the extended response is an analytical task rather than an opinion essay.",
   outcomes: [
     "Identify which HSE exam your state accepts and what it costs",
     "Sequence the subject tests to bank a pass early",
