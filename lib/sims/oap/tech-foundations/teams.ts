@@ -245,7 +245,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Turn on live captions.",
-          hint: "More (…) › Language and speech › Turn on live captions.",
+          hint: "More (…) › Language and speech › Show live captions.",
           steps: [{ action: { kind: "command", id: "meeting.captions", value: "on" }, requires: { selection: "meeting:e2" }, selectHint: "Turn on captions from the meeting toolbar." }],
         },
         {

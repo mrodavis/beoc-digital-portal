@@ -55,11 +55,16 @@ const m1: Lesson[] = [
             rows: [
               ["State-approved EMT course", "Classroom, skills lab, and clinical or field time — commonly 150 to 200 hours"],
               ["Course completion", "Including a psychomotor skills evaluation"],
-              ["Cognitive (written) exam", "Computer-based, taken at an approved testing center. Most states use the NREMT exam; confirm which one your state uses"],
+              ["Cognitive (written) exam", "Computer-based. Most states use the NREMT exam, which is computer-adaptive: 70 to 120 questions in up to 2 hours. Confirm which exam your state uses"],
               ["Psychomotor (skills) exam", "Hands-on skill stations, in the form your state requires"],
               ["State licensure or certification", "The state grants the credential; NREMT is a common prerequisite"],
-              ["Recertification", "Continuing education on a defined cycle"],
+              ["Recertification", "Continuing education on a defined cycle. National Registry certification renews every 2 years, with 40 continuing education credits or by retaking the exam"],
             ],
+          },
+          {
+            type: "callout",
+            variant: "info",
+            text: "In New York State, the Department of Health's Bureau of EMS certifies EMTs. After a NYS-approved course, you need a skills evaluation the Bureau accepts, then one of two approved cognitive exams: the New York State exam, scheduled through the state's testing vendor (PSI) at a test center or, for EMTs, by live remote proctoring, or the National Registry cognitive exam. You have three attempts, within two years of your course end date. New York EMT certifications issued after July 1, 2024 last 48 months.",
           },
           {
             type: "callout",

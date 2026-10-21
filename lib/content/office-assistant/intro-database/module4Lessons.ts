@@ -46,10 +46,10 @@ export const module4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Open Query Design: On the Create tab on the Ribbon, click Query Design. The Show Table dialog appears. Select the table(s) you want to query and click Add. Then click Close.",
+              "Open Query Design: On the Create tab on the Ribbon, click Query Design. Access lists the tables in your database; double-click each table you want to query (or select it and click Add).",
               "Add fields to the query grid: The upper half of Design View shows a field list for each table you added. Double-click a field name to add it to the grid at the bottom, or drag it down. Each column in the grid represents one field that will appear in the query results.",
               "Set criteria for filtering: In the Criteria row under any field, type what you want to filter by. To find appointments on a specific date, click the Criteria row under AppointmentDate and type: #04/01/2025# (Access requires date values enclosed in # symbols). To find a specific provider, type the name in quotes: \"Rivera\" under ProviderLastName.",
-              "Run the query: Click the red exclamation mark Run button (!) on the Design tab. Access immediately searches all records and displays only the matches. If the results are wrong, switch back to Design View (View button) and adjust your criteria.",
+              "Run the query: Click the red exclamation mark Run button (!) on the Query Design tab. Access immediately searches all records and displays only the matches. If the results are wrong, switch back to Design View (View button) and adjust your criteria.",
             ],
           },
           {
@@ -87,7 +87,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Add both tables to Design View: When you open Query Design, use Show Table to add both the Patients table and the Appointments table. Access draws a line (a join line) between the two tables at the shared key field, indicating they are related.",
+              "Add both tables to Design View: When you open Query Design, add both the Patients table and the Appointments table from the list of tables. Access draws a line (a join line) between the two tables at the shared key field, indicating they are related.",
               "Add fields from either table: Now you can pull fields from both tables into the grid — PatientFirstName and PatientLastName from Patients, plus AppointmentDate and ProviderLastName from Appointments. When you run the query, Access automatically matches each appointment record to its corresponding patient record using the join.",
               "The join does the work: Without the relationship and join, you would have to manually cross-reference two tables. With the join, Access handles the matching instantly across thousands of records.",
             ],
@@ -194,7 +194,7 @@ export const module4Lessons: Lesson[] = [
             items: [
               "Switch to Design View: Right-click the form tab or use the View button. Design View shows the form as a canvas with a grid. Fields appear as text boxes with associated labels. Click any control to select it, then drag to move or resize.",
               "Improve labels: The label to the left of each field defaults to the field name (PatientFirstName). Double-click the label box and change it to something staff will recognize: 'First Name'. Use sentence case, not camelCase or underscores.",
-              "Set the tab order: When staff press Tab to move between fields, Access should move in a logical order — not the order fields were added. On the Design tab, click Tab Order and drag field names into the correct sequence: First Name → Last Name → Date of Birth → Phone Number → Email → Insurance Plan.",
+              "Set the tab order: When staff press Tab to move between fields, Access should move in a logical order — not the order fields were added. On the Form Design tab, click Tab Order and drag field names into the correct sequence: First Name → Last Name → Date of Birth → Phone Number → Email → Insurance Plan.",
               "Add combo boxes for controlled data entry: Instead of a plain text box for InsurancePlan (where someone might type 'Blue Cross' vs 'BlueCross' vs 'blue cross'), convert it to a Combo Box. In Design View, right-click the InsurancePlan text box and choose Change To > Combo Box. Set the Row Source to the list of valid insurance plan names. Now staff pick from a dropdown instead of typing freehand.",
               "Mark required fields visually: Add an asterisk (*) to the labels of required fields, or use the form's header section to add a note: '* Required fields'. This is a visual convention that staff will recognize immediately.",
             ],
@@ -234,7 +234,7 @@ export const module4Lessons: Lesson[] = [
             type: "list",
             items: [
               "Main form / subform relationship: The main form shows one patient record. The subform at the bottom shows all appointments for that patient — fetched automatically based on the PatientID. As you move to a different patient in the main form, the subform updates instantly to show that patient's appointments.",
-              "Building a subform: In Design View, use the Subform/Subreport control on the Controls panel (or run the Subform Wizard from the Design tab). Select the Appointments table as the data source, choose the fields to display (AppointmentDate, ProviderLastName, AppointmentType), and Access handles the linking automatically.",
+              "Building a subform: In Design View, use the Subform/Subreport control on the Controls panel (on the Form Design tab). Select the Appointments table as the data source, choose the fields to display (AppointmentDate, ProviderLastName, AppointmentType), and Access handles the linking automatically.",
               "Read-only vs editable subforms: For a registration form, the appointments subform might be set to read-only (so front desk staff can see a patient's history but not accidentally change appointment records). For a scheduling form, the appointments subform would be editable.",
             ],
           },
@@ -319,7 +319,7 @@ export const module4Lessons: Lesson[] = [
             items: [
               "Report sections: Access divides a report into sections — Report Header (appears once at the top), Page Header (repeats at the top of every page), Group Header (appears at the start of each provider group), Detail (repeats for every record), Group Footer (appears at the end of each provider group), Page Footer (repeats at the bottom of every page), and Report Footer (appears once at the end).",
               "Adding a title: Click in the Report Header section and add a label control. Type the report title: 'Monthly Appointment Summary — Lakeside Medical Associates'. Increase the font size to 16pt and make it bold.",
-              "Adding the report date: In the Page Footer section, use the Date() function to insert today's date automatically. On the Design tab, click Date and Time — Access inserts a text box with =Date() that displays the current date every time the report is printed.",
+              "Adding the report date: In the Page Footer section, use the Date() function to insert today's date automatically. On the Report Design tab, click Date and Time — Access inserts a text box with =Date() that displays the current date every time the report is printed.",
               "Adding subtotals to group footers: Click in the ProviderLastName Footer section and add a text box. In the Control Source property, type: =Count([AppointmentDate]). This counts appointments for each provider group and displays the count in the footer row. Label it 'Total Appointments:'.",
               "Adjusting column widths: If fields overlap or get cut off, drag the right edge of the field control to resize. Preview the report frequently with Print Preview to see exactly how it will look when printed.",
             ],

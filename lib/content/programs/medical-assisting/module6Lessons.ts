@@ -141,6 +141,11 @@ export const module6Lessons: Lesson[] = [
             task: "Perform every check every time, including the ones that feel unnecessary.",
           },
           {
+            type: "callout",
+            variant: "warning",
+            text: "Check your state first. In New York State, the State Education Department's guidance says medical assistants and other unlicensed staff may not administer medications by any route, draw up medications, or give vaccinations or injections of any kind. If you work in New York, learn this lesson so you can support the licensed staff who give medications and catch errors around you, not so you can give them yourself.",
+          },
+          {
             type: "table",
             caption: "The rights of medication administration",
             columns: ["Right", "Verify"],

@@ -139,7 +139,7 @@ export function ShareDialog({ fileId, startCopy }: { fileId: string; startCopy?:
   const copy = () => {
     const list = link.scope === "People you choose" ? allPeople() : [];
     if (link.scope === "People you choose" && !list.length) return;
-    ctx.commit("od.link", { file: it.id, scope: link.scope, permission: link.scope === "Existing" ? "Can view" : link.perm, people: [...list].sort().join("; "), expiration: link.expiration, password: Boolean(link.password) });
+    ctx.commit("od.link", { file: it.id, scope: link.scope, permission: link.scope === "Existing" ? "Can view" : link.perm, people: [...list].sort().join("; "), expiration: link.expiration, hasExpiration: Boolean(link.expiration), password: Boolean(link.password) });
     setCopied(true);
   };
   const external = chips.filter((c) => isExternal(doc, c));

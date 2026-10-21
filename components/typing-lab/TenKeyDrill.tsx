@@ -140,7 +140,7 @@ export default function TenKeyDrill() {
               </p>
               {usedPad !== null && <p className="mt-1 text-xs text-gray-600">You are typing on the {usedPad ? "numeric keypad" : "number row"}.</p>}
             </div>
-            <ol className="max-h-56 overflow-auto rounded-xl border border-gray-200 bg-white text-sm" aria-label="Entries so far">
+            {log.length > 0 && <ol className="max-h-56 overflow-auto rounded-xl border border-gray-200 bg-white text-sm" aria-label="Entries so far">
               {log.map((l, n) => (
                 <li key={n} className={`flex justify-between gap-4 border-b border-gray-100 px-3 py-1.5 font-mono ${l.ok ? "text-gray-900" : "bg-red-50 text-red-800"}`}>
                   <span>{n + 1}.</span>
@@ -148,7 +148,7 @@ export default function TenKeyDrill() {
                   <span>{l.ok ? "✓" : `✗ ${l.want}`}</span>
                 </li>
               ))}
-            </ol>
+            </ol>}
           </div>
           <div className="text-center">
             <Keypad next={next} />

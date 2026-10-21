@@ -28,7 +28,7 @@ export const module5Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Field-level data type enforcement: When you set a field's data type (Date/Time, Number, Currency, Yes/No), Access automatically rejects values that do not match. A Date/Time field will not accept 'January 15 1990' — Access requires it to be entered in a recognized date format and stores it internally in a consistent way regardless of how it was typed.",
+              "Field-level data type enforcement: When you set a field's data type (Date/Time, Number, Currency, Yes/No), Access automatically rejects values that do not match. A Date/Time field will not accept 'N/A' or 'next Tuesday' — Access accepts only entries it recognizes as dates and stores every date internally in one consistent way, regardless of how it was typed.",
               "Field-level Validation Rule: A rule you write in Table Design View that restricts what values are acceptable. For example, a Validation Rule of >=Date() on an AppointmentDate field prevents staff from entering past dates when scheduling future appointments. A rule of Between 1 And 120 on an Age field prevents impossible age values.",
               "Required fields: Setting a field's Required property to Yes in Table Design View means Access will refuse to save the record until that field has a value. PatientID on the Appointments table should be Required — no appointment should exist without a patient linked to it.",
               "Lookup / Combo Box in forms: Replacing a free-text field with a combo box (dropdown) in a Form is the most effective way to enforce consistency — staff pick from a list of valid values instead of typing. This eliminates the BlueCross vs. Blue Cross vs. BCBS problem entirely.",
@@ -178,7 +178,7 @@ export const module5Lessons: Lesson[] = [
           },
           {
             type: "tip",
-            text: "Store backups in OneDrive or SharePoint automatically by setting the database file location to a synced folder. Every time the .accdb file is saved, OneDrive syncs a copy to the cloud. OneDrive also maintains version history — you can recover earlier versions of the file if the current version becomes corrupted.",
+            text: "Save your backup copies (the files Back Up Database creates) to a OneDrive or SharePoint folder, so a copy survives even if the computer fails. Keep the working database itself where your IT staff tell you to, usually the practice's network drive.",
           },
         ],
       },
@@ -307,7 +307,7 @@ export const module5Lessons: Lesson[] = [
           },
           {
             type: "knowledge-check",
-            question: "A patient was seen at Lakeside Medical Associates in 2015. The practice uses a 7-year retention policy for adult patient records. It is now 2025. What is the correct action regarding this patient's records?",
+            question: "An adult patient was last seen at Lakeside Medical Associates ten years ago. The practice uses a 7-year retention policy for adult patient records. What is the correct action regarding this patient's records?",
             options: [
               "Delete the records immediately — they are past the 7-year minimum",
               "The records may be eligible for destruction, but the practice should verify state law, confirm no active legal holds, document the destruction, and ensure all backup copies are also removed",

@@ -56,6 +56,11 @@ const m1: Lesson[] = [
             text: "Scope varies by state and sometimes by employer, and some states allow a certified technician to do things others prohibit — tech-check-tech, administering immunizations, taking transfers. Never assume a task you performed in one state is permitted in another, and never rely on what a colleague tells you. The state board of pharmacy is the authority.",
           },
           {
+            type: "callout",
+            variant: "info",
+            text: "In New York State, the State Education Department licenses Registered Pharmacy Technicians under Education Law Article 137-A, in effect since April 25, 2021. To qualify you must be at least 18, of good moral character, have a high school diploma or its equivalent, and hold PTCB or NHA certification; there is no grandfathering route. Since November 21, 2025 (Chapter 543 of the Laws of 2025), a registered pharmacy technician may work in any registered pharmacy under the direct personal supervision of a licensed pharmacist. Before that, registered pharmacy technicians could work only in hospitals, nursing homes, and other Article 28 facilities, or in pharmacies those facilities own and operate. Staff who are not registered may still do pharmacy tasks that need no license, such as receiving prescriptions, typing labels, and counting dosage units.",
+          },
+          {
             type: "paragraph",
             text: "The script for a clinical question is short and worth having ready: “That's a good question for the pharmacist — let me get them for you.” It is not an admission of ignorance. It is the correct answer, and every experienced technician says it several times a day.",
           },

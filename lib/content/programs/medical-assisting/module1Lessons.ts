@@ -185,6 +185,11 @@ export const module1Lessons: Lesson[] = [
             ],
           },
           {
+            type: "callout",
+            variant: "info",
+            text: "In New York State, \"medical assistant\" is not a licensed title, and national certification does not change that: a CMA or CCMA is still an unlicensed person. The State Education Department's guidance on using medical assistants (revised December 2023) says unlicensed staff may, with proper training and supervision, measure vital signs, perform ECGs, collect specimens (including phlebotomy, if trained, in a CLIA-waived facility), act as a scribe, and change dressings. They may not triage, administer medications by any route, draw up or give vaccinations or injections of any kind, insert or remove IVs or catheters, or tell a patient about a positive test result.",
+          },
+          {
             type: "worked-example",
             title: "Responding to a request outside your scope",
             task: "A provider asks you to administer an immunization, and you are not certain it is permitted in this state or that you have been trained for it here.",

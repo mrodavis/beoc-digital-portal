@@ -121,7 +121,7 @@ export const module1Lessons: Lesson[] = [
           "Create a Word table with 5 columns: Data Type, Example Value, Accuracy Issue?, Completeness Issue?, Consistency Issue?. Fill in 8 rows using fictional patient data you create — deliberately include at least 3 rows with data quality problems.",
           "For each problem row, write a one-sentence description of the problem and its potential consequence (claim rejection, patient contact failure, duplicate record, etc.).",
           "Write a 2-paragraph Data Quality Summary as if reporting to your supervisor: describe what you found in the data and recommend two specific process improvements that would prevent the most common errors going forward.",
-          "Save as 'DataQualityAssessment_[YourName]_2025-05.docx' and export as PDF.",
+          "Save as 'DataQualityAssessment_[YourName].docx' and export as PDF.",
         ],
       },
       {
@@ -248,7 +248,7 @@ export const module1Lessons: Lesson[] = [
           "Create a table in Word with 4 columns: Step in Patient Visit, Record Type Created, Key Data Entered, Who Enters It. Fill in rows for: Phone scheduling, Patient check-in, Insurance verification, Clinical intake, Provider visit, Billing claim submission, Payment posting.",
           "For each row, identify one specific data field that, if entered incorrectly, would cause a problem downstream (e.g., wrong date of birth at check-in causes insurance claim rejection).",
           "Write a paragraph describing which record type you consider most critical to get right and why — use a specific example from the table to support your reasoning.",
-          "Save the completed document as 'PatientDataFlow_[YourName]_2025-05.docx'.",
+          "Save the completed document as 'PatientDataFlow_[YourName].docx'.",
         ],
       },
       {
@@ -509,7 +509,7 @@ export const module1Lessons: Lesson[] = [
           "For each of the following scenarios, write a recommendation (Excel or Access) and a 3-sentence justification: (A) A list of 50 vendor phone numbers and contact names for the front desk reference binder. (B) A patient appointment database that tracks 1,500 patients across 4 providers with 80 appointments per day. (C) A one-time quarterly billing summary showing total revenue by insurance payer.",
           "For scenario B, sketch the table structure you would recommend (on paper or in Word): which tables, what fields, and how they relate.",
           "Write a one-paragraph recommendation memo to your supervisor explaining which scenarios require Access and which can stay in Excel — with clear, non-technical reasoning a practice manager would find persuasive.",
-          "Save as 'ToolSelectionAnalysis_[YourName]_2025-05.docx'.",
+          "Save as 'ToolSelectionAnalysis_[YourName].docx'.",
         ],
       },
       {

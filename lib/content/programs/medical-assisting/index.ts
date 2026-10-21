@@ -44,7 +44,7 @@ export const medicalAssisting: Program = {
     {
       name: "CMA (AAMA) — Certified Medical Assistant",
       body: "American Association of Medical Assistants",
-      note: "Requires graduation from a CAAHEP- or ABHES-accredited medical assisting program.",
+      note: "Open to students and graduates of CAAHEP- or ABHES-accredited medical assisting programs, and through the AAMA's Alternative Pathway to graduates of other postsecondary medical assisting programs or apprenticeships at accredited institutions (at least 560 contact hours plus a 160-hour practicum, or 1,000 hours of work after the program).",
     },
     {
       name: "RMA — Registered Medical Assistant",

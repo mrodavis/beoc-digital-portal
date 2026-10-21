@@ -61,7 +61,7 @@ export const accessModule3Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Every query you build in the grid exists as SQL, viewable through View > SQL View. Reading it is worth learning: a complex query is far easier to understand as eight lines of text than as a grid spanning four tables, and the same SQL fundamentals work in every other relational database you will ever meet.",
+            text: "Every query you build in the grid exists as SQL, viewable through Home > View > SQL View. Reading it is worth learning: a complex query is far easier to understand as eight lines of text than as a grid spanning four tables, and the same SQL fundamentals work in every other relational database you will ever meet.",
           },
           {
             type: "code",
@@ -222,7 +222,7 @@ ORDER BY Category ASC;`,
           },
           {
             type: "paragraph",
-            text: "A Totals query collapses many rows into one per group. Click the Totals button on the Design tab and a Total row appears in the grid. Set the field you are grouping by to Group By, and the field you are summarizing to Sum, Count, or whichever aggregate answers the question.",
+            text: "A Totals query collapses many rows into one per group. Click the Totals button on the Query Design tab and a Total row appears in the grid. Set the field you are grouping by to Group By, and the field you are summarizing to Sum, Count, or whichever aggregate answers the question.",
           },
           {
             type: "knowledge-check",

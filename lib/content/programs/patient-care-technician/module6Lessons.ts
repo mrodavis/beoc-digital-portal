@@ -107,7 +107,7 @@ export const module6Lessons: Lesson[] = [
               ],
               [
                 "Choking, cannot speak or cough",
-                "Call for help and start choking relief exactly as your current BLS course taught it",
+                "Call for help. If trained, alternate 5 back blows with 5 abdominal thrusts (chest thrusts for a late-pregnancy patient or one you cannot reach around) until the object comes out or the patient becomes unresponsive, then start CPR. This is the 2025 American Heart Association sequence",
                 "Do not leave them",
               ],
               [

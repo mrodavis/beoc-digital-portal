@@ -268,7 +268,7 @@ function command(doc: OneDriveDoc, id: string, value: SimValue | undefined, ui: 
       doc.surface = "web";
       return { doc, ui: { selection: "" } };
     }
-    case "od.open": {
+    case "od.openWebInternal": {
       const it = mustItem(doc, v);
       if (isFolder(it)) {
         doc.view!.location = it.shortcutTo ?? it.id;
@@ -276,12 +276,23 @@ function command(doc: OneDriveDoc, id: string, value: SimValue | undefined, ui: 
         return { doc, ui: { selection: "" } };
       }
       const from = doc.surface;
-      doc.viewer = { ...(doc.viewer ?? {}), file: it.id, app: doc.viewer?.app ?? "web", pane: doc.viewer?.pane ?? null };
+      doc.viewer = { ...(doc.viewer ?? {}), file: it.id, app: "web", pane: doc.viewer?.file === it.id ? doc.viewer?.pane ?? null : null };
       doc.flags = { ...(doc.flags ?? {}), returnTo: from === "viewer" ? String(doc.flags?.returnTo ?? "web") : from };
       doc.surface = "viewer";
       if (it.sync === "cloud") it.sync = "local";
       return { doc, ui: { selection: "" } };
     }
+    case "od.openApp": {
+      const it = mustItem(doc, v);
+      const from = doc.surface;
+      doc.viewer = { ...(doc.viewer ?? {}), file: it.id, app: it.kind === "word" ? "desktop" : "web", pane: null };
+      doc.flags = { ...(doc.flags ?? {}), returnTo: from === "viewer" ? String(doc.flags?.returnTo ?? "web") : from };
+      doc.surface = "viewer";
+      if (it.sync === "cloud") it.sync = "local";
+      return { doc, ui: { selection: "" } };
+    }
+    case "od.open":
+      return openWeb(doc, v);
     case "od.close": {
       const back = String(doc.flags?.returnTo ?? "web");
       doc.surface = back === "explorer" ? "explorer" : "web";
@@ -329,6 +340,10 @@ function command(doc: OneDriveDoc, id: string, value: SimValue | undefined, ui: 
   }
 }
 
+function openWeb(doc: OneDriveDoc, v: string): R {
+  return command(doc, "od.openWebInternal", v, { selection: "" });
+}
+
 function typed(doc: OneDriveDoc, target: string, value: string): R {
   const text = value.trim();
   if (target.startsWith("comment:")) {
@@ -366,7 +381,9 @@ function dialog(doc: OneDriveDoc, id: string, values: Record<string, SimValue>):
     case "od.newFile": {
       const parent = folderTarget(doc, values.folder);
       const kind = String(values.kind ?? "Word document");
-      const name = kind.startsWith("Excel") ? "Book.xlsx" : kind.startsWith("PowerPoint") ? "Presentation.pptx" : "Document.docx";
+      const ext = kind.startsWith("Excel") ? "xlsx" : kind.startsWith("PowerPoint") ? "pptx" : "docx";
+      let name = String(values.name ?? "").trim() || (kind.startsWith("Excel") ? "Book.xlsx" : kind.startsWith("PowerPoint") ? "Presentation.pptx" : "Document.docx");
+      if (!extOf(name)) name = `${name}.${ext}`;
       const nid = `new${seq(doc)}`;
       doc.items.push({ id: nid, name: uniqueName(doc, parent, name), kind: kindFromName(name), parent, modified: NOW_LABEL, modifiedBy: me, size: "12 KB", version: "1.0", text: [""], sync: "local" });
       return { doc, ui: { selection: `item:${nid}` } };

@@ -52,7 +52,7 @@ export function itemMenu(ctx: OdCtxValue, it: OdItem, sel: string[]): MenuItem[]
   if (!multi || !work) items.push({ label: "Share", icon: "share", onClick: () => ctx.open({ kind: "share", file: it.id }) });
   if (!multi) items.push({ label: "Copy link", icon: "link", onClick: () => ctx.open({ kind: "copylink", file: it.id }) });
   if (!multi && mine) items.push({ label: "Manage access", icon: "people", onClick: () => ctx.open({ kind: "manage", file: it.id }) });
-  if (!multi && !mine && folder && it.parent === undefined)
+  if (!multi && !mine && folder && (it.parent === undefined || it.parent.startsWith("lib:")) && !ctx.doc.items.some((x) => x.shortcutTo === it.id))
     items.push({ label: "Add shortcut to My files", icon: "shortcut", onClick: () => ctx.commit("od.shortcut", { file: it.id }) });
   if (!multi && work) items.push(it.favorite ? { label: "Remove from favorites", icon: "star", onClick: () => ctx.commit("od.favorite", { file: it.id, on: false }) } : { label: "Add to favorites", icon: "star", onClick: () => ctx.commit("od.favorite", { file: it.id, on: true }) });
   items.push({ label: "Download", icon: "download", onClick: () => ctx.commit("od.download", { file: it.id }) });
@@ -78,11 +78,7 @@ export function openItem(ctx: OdCtxValue, it: OdItem) {
 }
 
 function openInApp(ctx: OdCtxValue, it: OdItem) {
-  if (it.kind === "word") {
-    ctx.cmd("od.open", it.id);
-    return;
-  }
-  ctx.cmd("od.open", it.id);
+  ctx.cmd("od.openApp", it.id);
 }
 
 /* ------------------------------------------------------------------ */

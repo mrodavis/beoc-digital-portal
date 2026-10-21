@@ -41,7 +41,7 @@ export const powerpointModule8Lessons: Lesson[] = [
          {
            type: "callout",
            variant: "warning",
-           text: "Comments are visible in Normal view and can appear in Presenter View, so a frank internal remark can end up in front of an audience or a client. Delete every comment before presenting or distributing, and run File > Info > Check for Issues > Inspect Document to confirm none remain — along with any presentation notes or metadata you would not want shared.",
+           text: "Comments travel with the file and show in Normal view, so a frank internal remark reaches anyone who opens your copy, and it is on screen if you edit or share your screen in front of a client. Delete every comment before presenting or distributing, and run File > Info > Check for Issues > Inspect Document to confirm none remain, along with any presentation notes or metadata you would not want shared.",
          },
        ],
      },
@@ -247,7 +247,7 @@ export const powerpointModule8Lessons: Lesson[] = [
             "Move them to the Notes pane",
           ],
           correctIndex: 2,
-          explanation: "Comments should be deleted or resolved before presenting so no internal remark can appear on screen or in Presenter View. Inspect Document confirms none remain.",
+          explanation: "Comments should be deleted or resolved before presenting so no internal remark can appear on screen or travel with copies of the file. Inspect Document confirms none remain.",
           optionRationales: [
             "Printing internal comments as handouts distributes exactly what should not be shared.",
             "PowerPoint has no footnotes, and converting would not remove the content anyway.",
@@ -425,7 +425,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Presenter View needs two displays — your screen and the projector — and PowerPoint decides which is which. If your notes appear on the projector and the slides on your laptop, use Display Settings during the show to swap them. Check this in the actual room before the audience arrives; it is the most common thing that goes wrong in the first thirty seconds.",
+            "Presenter View is built for two displays — your screen and the projector — and PowerPoint decides which is which. If your notes appear on the projector and the slides on your laptop, use Display Settings at the top of Presenter View and choose Swap Presenter View and Slide Show. Check this in the actual room before the audience arrives; it is the most common thing that goes wrong in the first thirty seconds.",
         },
         {
           type: "image",
@@ -441,7 +441,7 @@ export const powerpointModule8Lessons: Lesson[] = [
           type: "callout",
           variant: "info",
           text:
-            "Presenter View requires two displays — your laptop screen and a projector or external monitor. It only works when PowerPoint detects a second screen.",
+            "Presenter View is designed for two displays: your laptop screen and a projector or external monitor. To practice with only one screen, start the slide show, select the three-dot button on the control bar at the bottom left, and choose Show Presenter View.",
         },
       ],
     },
@@ -773,7 +773,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "To attach a copy of the presentation to an email, click Share in the upper-right corner and choose Share. In the Share dialog, select More options (...), then Send a copy, and choose the format to attach. PowerPoint opens your email app with the file attached to a new message. (In PowerPoint 2019, look under File > Share > Email instead.)",
+            "To attach a copy of the presentation to an email, click Share in the upper-right corner and choose Share. In the Share dialog, select More options (...), then Send a copy, and choose the format to attach. PowerPoint opens your email app with the file attached to a new message.",
         },
         {
           type: "image",

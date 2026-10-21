@@ -29,7 +29,7 @@
  * JUDGED COMMITS: dialog commits with named values, so a task checks only the
  * values it cares about. File/folder values are item ids ("root" = My files).
  *   od.newFolder      { parent, name }
- *   od.newFile        { folder, kind: "Word document" | "Excel workbook" | "PowerPoint presentation" }
+ *   od.newFile        { folder, kind: "Word document" | "Excel workbook" | "PowerPoint presentation", name }
  *   od.upload         { folder, file }            file = names chosen on the computer, sorted, "; "
  *   od.rename         { file, name }              full new name, extension included
  *   od.move / od.copy { file, folder }            file = ids sorted ","
@@ -37,7 +37,7 @@
  *   od.favorite       { file, on: true | false }
  *   od.download       { file }
  *   od.share          { file, people, permission, message }   Invite; people = emails sorted "; "
- *   od.link           { file, scope, permission, people, expiration, password }   Copy (a link)
+ *   od.link           { file, scope, permission, people, expiration, hasExpiration, password }   Copy (a link)
  *                     scope: "Anyone" | "Organization" | "Existing" | "People you choose"
  *                     permission: "Can edit" | "Can view" | "Can review" | "Can't download"
  *                     expiration: "" or "YYYY-MM-DD"; password: true | false
@@ -63,7 +63,7 @@
  *   "comment:<fileId>.<paraId>"   a new comment on a paragraph (value: text, may contain "@Full Name")
  *   "reply:<commentId>"           a reply in a comment thread
  * FREE COMMANDS (navigation, never a miss)
- *   od.go (location), od.open (file id), od.close, od.layout ("list" | "tiles"), od.details,
+ *   od.go (location), od.open (file id; Word for the web), od.openApp (file id; the Word app), od.close, od.layout ("list" | "tiles"), od.details,
  *   od.search (query), od.sort, od.surface ("web" | "explorer" | "viewer"), od.sharedTab ("with" | "by"),
  *   od.exp.nav (Explorer location), od.toast, od.help, od.pane (viewer pane: "comments" | "")
  */

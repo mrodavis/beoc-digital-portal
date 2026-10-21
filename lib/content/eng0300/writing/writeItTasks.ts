@@ -7,7 +7,7 @@ import { SkillId, WriteIt } from "@/types/eng0300";
  * tied to a passage the student has just read in that lab rather than to a
  * generic prompt. They live together in one file so the strand can be reviewed
  * as a sequence: an instructor can read all seven and check that the demand
- * actually escalates from Week 1 to Week 7.
+ * actually escalates from Skill 1 to Skill 7.
  *
  * SCOPE
  * -----
@@ -25,13 +25,13 @@ import { SkillId, WriteIt } from "@/types/eng0300";
  * sees in Brightspace. See ENG0300_WRITING_URLS.md.
  */
 
-/** Weeks 1-2 predate the WRITE IT! sub-modules, so their drafts go to the portfolio. */
+/** Skills 1-2 predate the WRITE IT! sub-modules, so their drafts go to the portfolio. */
 const PORTFOLIO_DROPBOX = "WRITING PORTFOLIO — Backfill Collection";
 
 export const writeItTasks: Partial<Record<SkillId, WriteIt>> = {
   /* ---------------------------------------------------------------- *
    * WEEK 3 — Vocabulary in Context
-   * Built first: this is the live week (Week 3 began Sept 9).
+   * Built first (Skill 3).
    * ---------------------------------------------------------------- */
   vocabulary: {
     lab: 3,
@@ -350,7 +350,7 @@ export const writeItTasks: Partial<Record<SkillId, WriteIt>> = {
     prompt: [
       "You worked out the main idea of this passage: employer-paid training is a practical trade, not generosity. Now write that understanding down, which is a different and harder task than picking it from four choices.",
       "Write a summary paragraph of four to six sentences. Open with a topic sentence that states the main idea in your own words. Follow it with three supporting details drawn from the passage — the cost of replacing an employee, the skills gap employers cannot hire their way out of, or what the employee gains from a transferable certificate.",
-      "A summary reports. It does not praise the passage, argue with it, or add your own opinion about tuition benefits. Save that for Week 6.",
+      "A summary reports. It does not praise the passage, argue with it, or add your own opinion about tuition benefits. Save that for Skill 6, Evidence & Argument Quality.",
     ],
     checklist: [
       "My first sentence states the main idea in my own words",

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Difficulty } from "@/types/eng0300";
 import {
   SentenceQuestion,
@@ -94,11 +94,19 @@ export default function SentenceSkillsEngine({
     [questions, skill, difficulty]
   );
 
+  /*
+   * The server cannot know the random order, so the first render uses the bank
+   * order and the shuffle happens after mount. Shuffling during the first
+   * render made the server HTML and the client disagree (a hydration error).
+   */
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+
   /** Question order is fixed per filter selection, not reshuffled per render. */
   const ordered = useMemo(
-    () => shuffle(filtered),
+    () => (mounted ? shuffle(filtered) : filtered),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [skill, difficulty, filtered.length]
+    [skill, difficulty, filtered.length, mounted]
   );
 
   const current = ordered[index];

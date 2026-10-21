@@ -27,6 +27,7 @@ export function ExplorerView() {
   const [fly, setFly] = useState(false);
   const [renaming, setRenaming] = useState<string | null>(null);
   const [renameText, setRenameText] = useState("");
+  const [creating, setCreating] = useState<{ kind: "folder" | "word"; name: string } | null>(null);
   const label = odLabel(doc);
   const sel = selItems(ui.selection);
   const errors = doc.items.filter((i) => i.sync === "error" && !i.deleted && !i.purged);
@@ -151,7 +152,7 @@ export function ExplorerView() {
           <span className="flex h-9 w-11 items-center justify-center"><OIcon name="close" size={12} /></span>
         </div>
         <div className="flex h-11 shrink-0 items-center gap-1 border-b border-[#e0e0e0] bg-[#f9f9f9] px-2 text-[12px]" onClick={(e) => e.stopPropagation()}>
-          <button type="button" aria-label="New" disabled={!isOd} onClick={(e) => ctx.menu(e, [{ label: "Folder", icon: "folder", onClick: () => odFolder && ctx.commit("od.newFolder", { parent: odFolder, name: "New folder" }) }])} className="flex h-8 items-center gap-1 rounded px-2 hover:bg-[#e8e8e8] disabled:opacity-40">
+          <button type="button" aria-label="New" disabled={!isOd} onClick={(e) => ctx.menu(e, [{ label: "Folder", icon: "folder", onClick: () => setCreating({ kind: "folder", name: "New folder" }) }, { label: "Microsoft Word Document", icon: "documents", onClick: () => setCreating({ kind: "word", name: "New Microsoft Word Document" }) }])} className="flex h-8 items-center gap-1 rounded px-2 hover:bg-[#e8e8e8] disabled:opacity-40">
             <OIcon name="plus" size={15} color={BRAND} /> New <OIcon name="chevronDown" size={10} />
           </button>
           <span className="mx-1 h-6 border-l border-[#d1d1d1]" />
@@ -220,6 +221,34 @@ export function ExplorerView() {
                   <span className="min-w-0 flex-1">Type</span>
                   <span className="w-20 shrink-0 text-right">Size</span>
                 </div>
+                {creating && odFolder && (
+                  <div className="flex h-7 items-center bg-[#cce4f7] px-3 text-[12px]" onClick={(e) => e.stopPropagation()}>
+                    <span className="flex min-w-0 flex-[2.4] items-center gap-2">
+                      <FileIcon kind={creating.kind === "folder" ? "folder" : "word"} size={16} />
+                      <input
+                        aria-label={creating.kind === "folder" ? "New folder name" : "New document name"}
+                        autoFocus
+                        value={creating.name}
+                        onFocus={(e) => e.currentTarget.select()}
+                        onChange={(e) => setCreating({ ...creating, name: e.target.value })}
+                        onKeyDown={(e) => {
+                          e.stopPropagation();
+                          if (e.key === "Escape") setCreating(null);
+                          if (e.key === "Enter") {
+                            const n = creating.name.trim();
+                            if (!n) return;
+                            if (creating.kind === "folder") ctx.commit("od.newFolder", { parent: odFolder, name: n });
+                            else ctx.commit("od.newFile", { folder: odFolder, kind: "Word document", name: /\.docx$/i.test(n) ? n : `${n}.docx` });
+                            setCreating(null);
+                          }
+                        }}
+                        className="h-6 min-w-0 flex-1 border border-[#0f6cbd] px-1 outline-none"
+                      />
+                    </span>
+                    <span className="w-16 shrink-0" />
+                    <span className="min-w-0 flex-1 text-[#616161]">Press Enter to finish</span>
+                  </div>
+                )}
                 {odItems.map((it) => {
                   const on = sel.includes(it.id);
                   return (

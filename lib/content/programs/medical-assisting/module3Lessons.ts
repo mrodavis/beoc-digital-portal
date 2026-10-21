@@ -49,7 +49,8 @@ export const module3Lessons: Lesson[] = [
               ["Elevated", "120-129", "and", "Below 80"],
               ["Stage 1 hypertension", "130-139", "or", "80-89"],
               ["Stage 2 hypertension", "140 or higher", "or", "90 or higher"],
-              ["Hypertensive crisis", "Higher than 180", "and/or", "Higher than 120"],
+              ["Severe hypertension (no symptoms)", "Higher than 180", "and/or", "Higher than 120"],
+              ["Hypertensive emergency (with symptoms such as chest pain, shortness of breath, weakness, or vision changes)", "Higher than 180", "and/or", "Higher than 120"],
             ],
           },
           {

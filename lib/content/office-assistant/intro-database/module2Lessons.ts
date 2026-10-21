@@ -209,7 +209,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "When sharing a filtered view of a spreadsheet (by email or screenshot), always note clearly that the data is filtered. A recipient who sees a filtered spreadsheet may believe they are seeing all the data when they are only seeing a subset. In a billing or patient management context, an incomplete view of the data could lead to incorrect decisions. Either clear all filters before sharing, or include a clear label: 'Filtered: Provider = Dr. Walsh, Month = May 2025.'",
+            text: "When sharing a filtered view of a spreadsheet (by email or screenshot), always note clearly that the data is filtered. A recipient who sees a filtered spreadsheet may believe they are seeing all the data when they are only seeing a subset. In a billing or patient management context, an incomplete view of the data could lead to incorrect decisions. Either clear all filters before sharing, or include a clear label: 'Filtered: Provider = Dr. Walsh, Month = May.'",
           },
         ],
       },
@@ -289,7 +289,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Syntax: =COUNTIF(range, criteria) — range is the column to check, criteria is the condition to match. To count how many appointments belong to Dr. Walsh: =COUNTIF(Appointments[ProviderID], \"Dr. Walsh\"). To count appointments in May 2025 you would use COUNTIFS (plural) which supports multiple criteria.",
+              "Syntax: =COUNTIF(range, criteria) — range is the column to check, criteria is the condition to match. To count how many appointments belong to Dr. Walsh: =COUNTIF(Appointments[ProviderID], \"Dr. Walsh\"). To count Dr. Walsh's appointments in one month you would use COUNTIFS (plural) which supports multiple criteria.",
               "COUNTIFS extends COUNTIF to multiple conditions — =COUNTIFS(Appointments[ProviderID],\"Dr. Walsh\",Appointments[VisitType],\"New Patient\") counts only Dr. Walsh's new patient appointments. Each pair of arguments is a range + criteria combination, and all conditions must be true for a row to be counted.",
               "Use cell references instead of typed values for flexibility — =COUNTIF(Appointments[ProviderID],H2) where H2 contains 'Dr. Walsh' is more flexible than hardcoding the name in the formula. When you change the provider name in H2, the count updates automatically. This makes it easy to build a provider summary table where each row shows the count for a different provider.",
             ],
@@ -325,7 +325,7 @@ export const module2Lessons: Lesson[] = [
             items: [
               "Syntax: =VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup]) — lookup_value is the key you are searching for, table_array is the range containing the lookup table, col_index_num is which column of that table to return, and range_lookup should almost always be FALSE (for exact match).",
               "Example: If the Appointments sheet has PatientIDs and you want the patient's last name from the Patients sheet — =VLOOKUP(A2,Patients!A:C,2,FALSE). This looks for the PatientID in column A2, searches the Patients sheet columns A through C, and returns the value from the 2nd column of that range (LastName).",
-              "VLOOKUP only looks left-to-right — the lookup column must be the leftmost column in the table_array. If your key column is not on the left, use INDEX/MATCH instead. For most medical office tasks, VLOOKUP is sufficient.",
+              "VLOOKUP only looks left-to-right — the lookup column must be the leftmost column in the table_array. If your key column is not on the left, use XLOOKUP, which can return values from either side of the lookup column (it is in current versions of Excel but not in Excel 2016 or 2019), or INDEX/MATCH. VLOOKUP still works everywhere, and you will meet it in many existing workbooks.",
               "VLOOKUP returns #N/A when no match is found — this happens when a Patient ID in the Appointments sheet does not exist in the Patients sheet (a data integrity problem). Wrap VLOOKUP in IFERROR to handle these gracefully.",
             ],
           },
@@ -363,7 +363,7 @@ export const module2Lessons: Lesson[] = [
         blocks: [
           {
             type: "tip",
-            text: "AI Task: Ask ChatGPT — 'Write Excel formulas for these specific tasks in a medical office appointment tracking spreadsheet with a Table named Appointments containing columns: PatientID, LastName, ProviderID, AppointmentDate, VisitType, InsurancePlan, BilledAmount: (1) Count appointments for Dr. Walsh in May 2025. (2) Sum total BilledAmount for all BlueCross patients. (3) Look up a patient's LastName from a Patients table using their PatientID, showing \"Not Found\" if no match. (4) Count all New Patient appointments across all providers.' Test each formula in your spreadsheet.",
+            text: "AI Task: Ask ChatGPT — 'Write Excel formulas for these specific tasks in a medical office appointment tracking spreadsheet with a Table named Appointments containing columns: PatientID, LastName, ProviderID, AppointmentDate, VisitType, InsurancePlan, BilledAmount: (1) Count appointments for Dr. Walsh in May. (2) Sum total BilledAmount for all BlueCross patients. (3) Look up a patient's LastName from a Patients table using their PatientID, showing \"Not Found\" if no match. (4) Count all New Patient appointments across all providers.' Test each formula in your spreadsheet.",
           },
         ],
       },
@@ -525,7 +525,7 @@ export const module2Lessons: Lesson[] = [
         items: [
           "Create a new sheet called 'Monthly Report.' Build a PivotTable summarizing total appointments and total billed amount by ProviderID. Screenshot the completed PivotTable.",
           "Create a second PivotTable (or modify the first) to show appointment counts by InsurancePlan. Screenshot.",
-          "Create a column chart from the Provider PivotTable showing appointment count per provider. Add a title: 'Appointments by Provider — May 2025.' Screenshot the chart.",
+          "Create a column chart from the Provider PivotTable showing appointment count per provider. Add a title: 'Appointments by Provider — May.' Screenshot the chart.",
           "Set a print area covering both PivotTables and the chart. Format the print area to fit on one page with a header ('Lakeside Medical Associates — Monthly Appointment Summary') and footer (date + page number). Use Ctrl+P to preview and screenshot the print preview.",
         ],
       },

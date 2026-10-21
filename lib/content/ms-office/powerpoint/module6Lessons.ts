@@ -1085,7 +1085,7 @@ alt: "Final slideshow with transitions applied",
         {
           type: "paragraph",
           text:
-            "Go to Insert → Video → Online Video. Paste the video URL into the search box and click Insert.",
+            "Copy the video's web address from your browser. Then go to Insert → Video → Online Videos, paste the address into the box, and click Insert.",
         },
         {
           type: "image",

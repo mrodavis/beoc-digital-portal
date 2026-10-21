@@ -65,7 +65,7 @@ export const module3Lessons: Lesson[] = [
             type: "list",
             items: [
               "When Access opens, the home screen offers 'Blank Database' and various templates. For a practice database, start with 'Blank Database.' Click it, then in the panel on the right, name the file (e.g., 'LakesideMedical_Appointments.accdb') and choose a save location — the network drive shared folder, not your local Documents. Click Create.",
-              "Access immediately creates the database file and opens a blank Table (named 'Table1') in Datasheet View. This is the default starting point. Before entering any data, switch to Design View to define the table structure: click the Design View button in the View menu or press Ctrl+Enter in the table header area. If prompted to save the table, give it a meaningful name (e.g., 'Patients').",
+              "Access immediately creates the database file and opens a blank Table (named 'Table1') in Datasheet View. This is the default starting point. Before entering any data, switch to Design View to define the table structure: on the Home tab, click View › Design View. Access asks you to save the table first; give it a meaningful name (e.g., 'Patients').",
               "Unlike Excel where you can start typing data immediately, Access requires you to define the structure (field names and data types) before entering records. This up-front design step is what makes Access enforce data quality — it cannot be skipped or done after the fact without significant rework.",
             ],
           },
@@ -77,7 +77,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "An Access database containing patient information is a covered system under HIPAA. It must be saved in an access-controlled location (the appropriate network drive, not your personal desktop or USB drive), backed up on the same schedule as other practice data, and accessible only to staff whose role requires it. In addition, Access does not encrypt its database file by default — for databases containing PHI, enable database password protection or full database encryption (Database Tools > Encrypt with Password) and store the password securely with IT. An unencrypted .accdb file containing patient data on an unprotected network share is a compliance risk.",
+            text: "An Access database containing patient information is a covered system under HIPAA. It must be saved in an access-controlled location (the appropriate network drive, not your personal desktop or USB drive), backed up on the same schedule as other practice data, and accessible only to staff whose role requires it. In addition, Access does not encrypt its database file by default — for databases containing PHI, encrypt the database with a password (File > Info > Encrypt with Password) and store the password securely with IT. An unencrypted .accdb file containing patient data on an unprotected network share is a compliance risk.",
           },
         ],
       },
@@ -117,8 +117,8 @@ export const module3Lessons: Lesson[] = [
         ordered: true,
         items: [
           "Open Microsoft Access and create a new Blank Database. Name it 'LakesideMedical_Practice_[YourName].accdb' and save it to your practice folder (not your desktop). Screenshot the Access home screen showing the file being created.",
-          "Access opens with a default Table1. In the Navigation Pane, right-click Table1 and rename it 'Patients.' Switch to Design View when prompted to save. Screenshot the Design View of the empty Patients table.",
-          "In the Navigation Pane, explore what tabs are available (Tables, Queries, Forms, Reports). Take a screenshot of the Navigation Pane showing the category tabs.",
+          "Access opens with a default Table1. Switch it to Design View (Home › View › Design View), and when Access asks you to save the table, name it 'Patients.' Screenshot the Design View of the empty Patients table.",
+          "In the Navigation Pane, look at how objects are grouped (Tables, Queries, Forms, Reports). Take a screenshot of the Navigation Pane showing the Tables group with your Patients table.",
           "In a Word document, write a 3-sentence summary of the four Access object types (Tables, Queries, Forms, Reports) in your own words — as if explaining them to a colleague who has never used Access. Save as 'AccessIntro_Summary_[YourName].docx'.",
         ],
       },
@@ -198,8 +198,8 @@ export const module3Lessons: Lesson[] = [
             type: "list",
             items: [
               "The AutoNumber field is the standard primary key approach — by default, Access creates an 'ID' field of type AutoNumber in every new table and sets it as the primary key (indicated by a key icon in the row selector). Rename this field to something meaningful: PatientID, AppointmentID, ProviderID.",
-              "To set a different field as primary key: in Design View, click the row selector (gray box) of the field you want as the primary key, then click the Primary Key button in the Design tab. The key icon moves to that field. Only one field (or one defined combination) can be the primary key.",
-              "The primary key field is automatically indexed — this means Access creates an index on the primary key field, making lookups by that field very fast. You can also manually add indexes to other frequently searched fields (LastName, InsuranceID) via the Indexes button in the Design tab.",
+              "To set a different field as primary key: in Design View, click the row selector (gray box) of the field you want as the primary key, then click the Primary Key button on the Table Design tab. The key icon moves to that field. Only one field (or one defined combination) can be the primary key.",
+              "The primary key field is automatically indexed — this means Access creates an index on the primary key field, making lookups by that field very fast. You can also manually add indexes to other frequently searched fields (LastName, InsuranceID) via the Indexes button on the Table Design tab.",
             ],
           },
         ],
@@ -210,7 +210,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Changing a table's structure — adding, deleting, or modifying fields — after data has been entered is risky. Deleting a field permanently deletes all data stored in that field across every record. Changing a field's data type may corrupt data that does not match the new type. Before making structural changes to a table with existing data, create a backup copy of the entire database (File > Save As > Copy). Only make structural changes to the backup until you verify the changes work correctly, then apply them to the production database.",
+            text: "Changing a table's structure — adding, deleting, or modifying fields — after data has been entered is risky. Deleting a field permanently deletes all data stored in that field across every record. Changing a field's data type may corrupt data that does not match the new type. Before making structural changes to a table with existing data, create a backup copy of the entire database (File > Save As > Back Up Database). Only make structural changes to the backup until you verify the changes work correctly, then apply them to the production database.",
           },
         ],
       },
@@ -420,7 +420,7 @@ export const module3Lessons: Lesson[] = [
             items: [
               "One-to-Many: one patient can have many appointments, but each appointment belongs to exactly one patient. The Patients table (PatientID is the primary key) is the 'one' side. The Appointments table (PatientID is the foreign key) is the 'many' side. This is the most common relationship type in a medical office database.",
               "Foreign key setup: the PatientID field in the Appointments table must have the same data type as the PatientID primary key in the Patients table. Both should be Number (Long Integer) if PatientID is an AutoNumber in Patients. The field names do not need to be identical, but they typically are for clarity.",
-              "To open the Relationships view: click Database Tools > Relationships. This shows a visual diagram of all relationships in your database. Drag each table from the Show Table dialog into the diagram, then drag the primary key field from the 'one' table to the foreign key field in the 'many' table to create the relationship line.",
+              "To open the Relationships view: click Database Tools > Relationships. This shows a visual diagram of all relationships in your database. Add each table to the diagram (double-click it in the list of tables Access shows), then drag the primary key field from the 'one' table to the foreign key field in the 'many' table to create the relationship line.",
             ],
           },
         ],

@@ -72,60 +72,64 @@ export const module9Lessons: Lesson[] = [
               ],
               [
                 "Format",
-                "Scored multiple-choice questions plus unscored pretest items",
+                "100 scored questions plus 25 unscored pretest questions, 125 minutes",
               ],
               [
                 "Scaled score",
-                "Reported on a scale to 500",
+                "200 to 500; 390 or higher passes",
               ],
               [
                 "Eligibility",
-                "Completion of a training program or relevant work experience",
+                "A high school diploma or equivalent (or one expected within 18 months), plus either an EHR specialist training program finished in the last 5 years or supervised EHR work experience (1 year in the last 3, or 2 years in the last 5)",
+              ],
+              [
+                "Where you test",
+                "At your school, at a PSI testing center, or with live remote proctoring",
               ],
               [
                 "Renewal",
-                "Continuing education on a recurring cycle",
+                "Every 2 years, with 10 continuing education credits",
               ],
             ],
           },
           {
             type: "callout",
             variant: "warning",
-            text: "Exam format, question count, time limit, passing score, and eligibility are set by NHA and change from time to time. Verify every detail against NHA's current candidate handbook before you register — this page is orientation, not the authority.",
+            text: "Exam format, question count, time limit, passing score, fees, and eligibility are set by NHA and change from time to time. The figures here come from NHA's CEHRS page, test plan, and candidate handbook as of October 2026. Check them again on nhanow.com before you register, because this page is orientation, not the authority.",
           },
           {
             type: "table",
-            caption: "The topic areas an EHR specialist exam draws on, mapped to this course",
+            caption: "The CEHRS test plan domains, mapped to this course",
             columns: [
-              "Topic area",
+              "Domain (scored questions)",
               "Covered in",
             ],
             rows: [
               [
-                "Non-clinical operations — scheduling, registration, workflow",
+                "Non-Clinical Operations (28) — scheduling, registration, workflow",
                 "Modules 1, 2, 7",
               ],
               [
-                "Clinical operations — charting, orders, results",
+                "Clinical Operations (32) — charting, orders, results",
                 "Modules 5, 6",
               ],
               [
-                "Revenue cycle and financial — coding, claims, payment",
+                "Revenue Cycle/Finance (15) — coding, claims, payment",
                 "Modules 2, 3, 4, 7, 8",
               ],
               [
-                "Regulatory compliance — HIPAA, Cures Act, fraud and abuse",
+                "Regulatory Compliance (15) — HIPAA, Cures Act, fraud and abuse",
                 "Modules 6, 8",
               ],
               [
-                "Reporting — data extraction and quality measures",
+                "Reporting (10) — data extraction and quality measures",
                 "Modules 7, 8",
               ],
             ],
           },
           {
             type: "tip",
-            text: "Prepare by retrieval, not rereading. For each topic above, close the material and explain it out loud. Where you hesitate is your study list; where you answer instantly needs no more work, however reassuring rereading feels.",
+            text: "Prepare by retrieval, not rereading. For each domain above, close the material and explain it out loud. Where you hesitate is your study list; where you answer instantly needs no more work, however reassuring rereading feels.",
           },
         ],
       },
@@ -139,10 +143,10 @@ export const module9Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Exam format: scored multiple-choice questions plus a small number of unscored pretest questions",
-              "Delivery: computer-based, at an approved testing site or remotely proctored",
-              "Passing score: a scaled score of 390, on a scale that runs to 500",
-              "Time limit and fee: set by NHA and listed in the current candidate handbook",
+              "Exam format: 125 questions in 125 minutes. 100 are scored and 25 are unscored pretest questions",
+              "Delivery: computer-based, at your school, at a PSI testing center, or with live remote proctoring",
+              "Passing score: a scaled score of 390 or higher, on a scale of 200 to 500",
+              "Fee: listed by NHA when you schedule; check it on nhanow.com",
             ],
           },
         ],
@@ -151,13 +155,23 @@ export const module9Lessons: Lesson[] = [
         heading: "CEHRS Content Domains",
         blocks: [
           {
+            type: "list",
+            items: [
+              "Clinical Operations: 32 scored questions",
+              "Non-Clinical Operations: 28 scored questions",
+              "Revenue Cycle/Finance: 15 scored questions",
+              "Regulatory Compliance: 15 scored questions",
+              "Reporting: 10 scored questions",
+            ],
+          },
+          {
             type: "paragraph",
-            text: "NHA publishes a test plan for the CEHRS that names each content domain and how many questions it carries. Download the current test plan from NHA before you start studying, because the domains and their weights are revised from time to time.",
+            text: "NHA's free CEHRS test plan lists the tasks and knowledge under each domain. Download it from nhanow.com before you start studying; the domains above are from the current plan, which is based on a 2019 job analysis, and NHA revises the plan from time to time.",
           },
           {
             type: "callout",
             variant: "success",
-            text: "This course covers the main areas the CEHRS draws on: workflow, documentation, coding and revenue cycle, privacy and compliance, and reporting. Lay the test plan beside the topic table above and mark any topic it lists that this course did not cover. That short list is where to spend extra study time.",
+            text: "Clinical and non-clinical operations together carry 60 of the 100 scored questions, so the chart, order, scheduling, and registration work you did in the EHR Simulator labs is the heart of the exam. Lay the test plan beside the domain table above and mark any task it lists that this course did not cover. That short list is where to spend extra study time.",
           },
         ],
       },
@@ -173,11 +187,11 @@ export const module9Lessons: Lesson[] = [
           "450 out of 500",
         ],
         correctIndex: 1,
-        explanation: "NHA reports the CEHRS on a scaled score to 500, with 390 as the passing standard. Verify the current figure in NHA's candidate handbook before you register, since exam parameters are periodically revised.",
+        explanation: "NHA reports every certification exam, including the CEHRS, as a scaled score from 200 to 500, and 390 or higher passes. Verify the current figure in NHA's candidate handbook before you register, since exam parameters are periodically revised.",
         optionRationales: [
           "The exam is not scored out of 100. NHA uses a scaled score.",
-          "Correct — 390 on a 500-point scale, per NHA's published standard. Confirm against the current candidate handbook.",
-          "This resembles a raw question count rather than the reported score.",
+          "Correct — 390 on NHA's 200-to-500 scale, per the candidate handbook.",
+          "This looks like a count of questions rather than a score. The CEHRS has 100 scored questions plus 25 pretest questions, and results are reported as a scaled score.",
           "450 is above the passing standard on this scale.",
         ],
       },

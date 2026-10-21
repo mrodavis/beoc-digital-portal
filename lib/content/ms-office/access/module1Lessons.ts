@@ -106,7 +106,7 @@ export const accessModule1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "version",
-            text: "Access is included in Microsoft 365 Apps for business and enterprise, and in Office Professional. It is Windows-only — there is no Mac version and no full browser version, which is why the Google Workspace half of this program has no Access equivalent. If Access is missing from your Office installation, check which edition you have before assuming something is broken.",
+            text: "Access is available for Windows PCs only; there is no Mac version, which is also why the Google Workspace half of this program has no Access equivalent. The current version comes with Microsoft 365 subscriptions that include the desktop apps, and Access 2024 is the version sold as a one-time purchase. Not every Office package includes Access, so if it is missing from your computer, check which edition you have before assuming something is broken.",
           },
           {
             type: "knowledge-check",

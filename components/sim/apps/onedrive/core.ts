@@ -10,7 +10,7 @@ import type { OneDriveDoc } from "./types";
  * the top of types.ts.
  */
 export const OD_FREE = [
-  "od.go", "od.open", "od.close", "od.layout", "od.details", "od.search", "od.sort", "od.surface", "od.sharedTab",
+  "od.go", "od.open", "od.openApp", "od.close", "od.layout", "od.details", "od.search", "od.sort", "od.surface", "od.sharedTab",
   "od.exp.nav", "od.toast", "od.help", "od.pane",
 ];
 
