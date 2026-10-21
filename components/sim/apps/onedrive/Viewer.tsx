@@ -154,8 +154,6 @@ function WordDoc({ it, desktop }: { it: OdItem; desktop?: boolean }) {
           <>
             <button type="button" aria-label="New comment" onClick={() => startComment()} className="flex h-8 items-center gap-1.5 rounded px-2 hover:bg-[#ebebeb]"><OIcon name="comment" size={17} color={WORD_BLUE} /> New comment</button>
             <button type="button" aria-label="Show comments" onClick={() => ctx.cmd("od.pane", "comments")} className="flex h-8 items-center gap-1.5 rounded px-2 hover:bg-[#ebebeb]"><OIcon name="chat" size={17} color={WORD_BLUE} /> Show comments</button>
-            <span className="mx-2 h-6 border-l border-[#d1d1d1]" />
-            <span className="text-[#616161]">Track changes and the Editor are on the Review tab too.</span>
           </>
         ) : tab === "File" ? (
           <>
@@ -198,7 +196,7 @@ function WordDoc({ it, desktop }: { it: OdItem; desktop?: boolean }) {
                 >
                   {p.text || "\u00a0"}
                   {co && (
-                    <span className="absolute -top-3 left-1 rounded px-1 text-[10px] font-semibold text-white" style={{ background: colorFor(co.person) }}>{co.person.name.split(" ")[0]}</span>
+                    <span className="absolute right-full top-0.5 mr-1.5 rounded px-1 text-[10px] font-semibold text-white" style={{ background: colorFor(co.person) }}>{co.person.name.split(" ")[0]}</span>
                   )}
                   {n > 0 && (
                     <button type="button" aria-label={`${n} comment${n === 1 ? "" : "s"}`} onClick={(e) => { e.stopPropagation(); ctx.cmd("od.pane", "comments"); }} className="absolute -right-9 top-0 rounded p-1 hover:bg-[#f0f0f0]">
