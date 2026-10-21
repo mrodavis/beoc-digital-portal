@@ -455,7 +455,7 @@ export const outlookModule6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Sensitivity labels (for example Confidential) are created and published by your organization. While writing, select Sensitivity on the Message tab and choose a label. The label shows above the message for everyone who reads it.",
+              "Sensitivity labels (for example Confidential) are created and published by your organization. While writing, select Sensitivity on the Message tab (if the window is narrow, it may be under More options (…)) and choose a label. The label shows above the message for everyone who reads it.",
               "Encryption: Options › Encrypt › Encrypt keeps the message and attachments readable only by the recipients. Do Not Forward also stops recipients from forwarding, printing or copying it.",
               "Both need a work or school account, and your organization decides whether they are available. If you don't see them, ask your IT department.",
             ],
