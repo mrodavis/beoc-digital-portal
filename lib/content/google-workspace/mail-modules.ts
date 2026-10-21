@@ -2,6 +2,7 @@ import type { GoogleWorkspaceModule } from "./modules";
 import { gwModule5Lessons } from "./module5Lessons";
 import { gwModule6Lessons } from "./module6Lessons";
 import { gwModule7Lessons } from "./module7Lessons";
+import { gwModule8Lessons } from "./module8Lessons";
 
 /**
  * Modules 5-8 (Google Slides, Gmail, Google Calendar & Meet, Working Together).
@@ -66,5 +67,24 @@ export const mailModules: GoogleWorkspaceModule[] = [
     ],
     scenario:
       "Parkview runs on schedules: inspections at Riverside Commons, showings at Elm Street Apartments, owner calls, and the weekly leasing huddle on Google Meet. Denise Carter asks you to keep the calendars accurate and shared with the right people, book meetings at times that work for everyone, and run your part of each call smoothly.",
+  },
+  {
+    moduleNumber: 8,
+    moduleSlug: "module-8",
+    title: "Working Together",
+    emoji: "🤝",
+    description:
+      "Work as a team in Google Workspace: quick conversations in Google Chat, comments and assigned action items in shared files, version history for team mistakes, and a small project that brings Gmail, Chat, Drive, Calendar, and Meet together.",
+    lessons: gwModule8Lessons,
+    level: "Beginner",
+    estimatedMinutes: 65,
+    whatYoullLearn: [
+      "How to use Google Chat direct messages and spaces, @mentions, reactions, and Drive files with the right access",
+      "How to comment, assign action items, and resolve comments in shared Sheets and Slides files",
+      "How to recover from a teammate's mistake with version history and name versions at milestones",
+      "How to choose the right tool for each job and start a team project, with the matching Microsoft 365 tools",
+    ],
+    scenario:
+      "Parkview is repainting the Riverside Commons lobby and moving new tenants into Elm Street Apartments. You coordinate the team: messages in Google Chat, a shared move-in tracker, and a project kickoff that uses every app in this course.",
   },
 ];
