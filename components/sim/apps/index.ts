@@ -22,4 +22,5 @@ export const APP_LOADERS: Record<SimApp, Loader> = {
   ehr: () => import("./ehr").then((m) => as(m.ehrApp)),
   "outlook-new": () => import("./outlook/new").then((m) => as(m.newOutlookApp)),
   onedrive: () => import("./onedrive").then((m) => as(m.onedriveApp)),
+  gmail: () => import("./gmail").then((m) => as(m.gmailApp)),
 };

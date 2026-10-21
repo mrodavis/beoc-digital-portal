@@ -725,7 +725,17 @@ export function applyGmail(doc: GmailDoc, c: SimCommit, ui: SimUi): { doc: Gmail
     }
     if (t === "settings:timezone") {
       const ls = linesOf(v);
-      return { doc: toast({ ...d, flags: { ...(d.flags ?? {}), tz: field(ls, "Primary time zone") ?? "", tz2: field(ls, "Show additional time zones") === "on" ? field(ls, "Secondary time zone") ?? "" : "" } }, "Settings saved") };
+      const f = { ...(d.flags ?? {}) };
+      const p = field(ls, "Primary time zone");
+      if (p) f.tz = p;
+      const show = field(ls, "Show additional time zones");
+      if (show) {
+        f.tz2on = show === "on";
+        if (show === "on" && !f.tz2) f.tz2 = TIME_ZONES[3];
+      }
+      const s2 = field(ls, "Secondary time zone");
+      if (s2) { f.tz2 = s2; f.tz2on = true; }
+      return { doc: toast({ ...d, flags: f }, "Settings saved") };
     }
     if (t === "meetcode") {
       const code = v.trim().toLowerCase().replace(/^https?:\/\/(meet\.google\.com\/)?/, "").replace(/^meet\.google\.com\//, "");
@@ -739,6 +749,11 @@ export function applyGmail(doc: GmailDoc, c: SimCommit, ui: SimUi): { doc: Gmail
     if (t.startsWith("chat:")) {
       const id = t.slice(5);
       return { doc: { ...d, spaces: (d.spaces ?? []).map((s) => (s.id === id ? { ...s, messages: [...s.messages, { from: "me", text: v, time: fmtTime(nowOf(d)) }] } : s)) } };
+    }
+    if (t.startsWith("addpeople:")) {
+      const id = t.slice(10);
+      const add = (field(linesOf(v), "People") ?? "").split(";").map((x) => x.trim()).filter(Boolean);
+      return { doc: toast({ ...d, spaces: (d.spaces ?? []).map((s) => (s.id === id ? { ...s, members: Array.from(new Set([...s.members, ...add])) } : s)) }, `Added ${add.length} ${add.length === 1 ? "person" : "people"}`) };
     }
     if (t === "newspace") {
       const ls = linesOf(v);
@@ -924,6 +939,8 @@ export function applyGmail(doc: GmailDoc, c: SimCommit, ui: SimUi): { doc: Gmail
     }
     case "meet.home":
       return { doc: { ...d, surface: "meet", tabs: Array.from(new Set([...(d.tabs ?? ["mail"]), "meet" as const])), meeting: null }, ui: { selection: "" } };
+    case "chat.open":
+      return { doc: { ...d, surface: "chat", view: { ...view, space: v } }, ui: { selection: `space:${v}` } };
     case "meet.panel":
       return d.meeting ? { doc: { ...d, meeting: { ...d.meeting, panel: v || null } } } : { doc: d };
   }

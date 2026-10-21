@@ -20,10 +20,11 @@ import { officeAppsModules } from "@/lib/content/office-assistant/office-apps/mo
 import { modernOfficeModules } from "@/lib/content/office-assistant/modern-office/modules";
 import { introDatabaseModules } from "@/lib/content/office-assistant/intro-database/modules";
 import { introToEHRModules } from "@/lib/content/ehr/intro-to-ehr/modules";
+import { googleWorkspaceModules } from "@/lib/content/google-workspace";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const CORES: Record<string, AppCore<any>> = { word: wordCore };
-for (const app of ["excel", "powerpoint", "windows", "outlook", "teams", "typing", "assistant", "access", "google", "ehr", "onedrive"]) {
+for (const app of ["excel", "powerpoint", "windows", "outlook", "teams", "typing", "assistant", "access", "google", "ehr", "onedrive", "gmail"]) {
   try {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const mod = require(`@/components/sim/apps/${app}/core`);
@@ -165,6 +166,7 @@ const COURSE_MODULES: Record<string, Mods> = {
   "oap/modern-office": modernOfficeModules as unknown as Mods,
   "oap/intro-database": introDatabaseModules as unknown as Mods,
   "ehr/intro-to-ehr": introToEHRModules as unknown as Mods,
+  "google-workspace": googleWorkspaceModules as unknown as Mods,
 };
 
 function lessonKeys(courseId: string): Set<string> | null {

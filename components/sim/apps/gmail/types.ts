@@ -37,7 +37,7 @@
  *   app (mail | calendar | meet | chat), gm.go (inbox | starred | snoozed | sent | drafts |
  *   scheduled | important | all | spam | trash | label:<name>), gm.tab (a category),
  *   gm.open (message id), gm.back, gm.settings (General | Labels | Inbox | Filters and
- *   blocked addresses | close), gm.draft, cal.view (Day | Week | Month), cal.go (ISO date),
+ *   Blocked Addresses | close), gm.draft, cal.view (Day | Week | Month), cal.go (ISO date),
  *   cal.today, cal.open (event id), cal.close, cal.page (settings | settings:<calId> | newcal |
  *   close), cal.show ("<calId>|on" | "<calId>|off"), meet.open (meeting code), meet.home,
  *   meet.panel (people | chat | details | tools | ""), chat.open (space id), toast
@@ -83,12 +83,14 @@
  *   calshare:<calId>    Share with: <email> / Permission: <permission label>
  *   calpublic:<calId>   Make available to public: on | off
  *   newcal              Name / Description
- *   settings:timezone   Primary time zone: … / Show additional time zones: on | off /
- *                       Secondary time zone: …
+ *   settings:timezone   one change per commit (Calendar settings save as you go):
+ *                       "Primary time zone: …" | "Show additional time zones: on | off" |
+ *                       "Secondary time zone: …"
  *   meetcode            the code typed on meet.google.com ("Enter a code or nickname")
  *   meetchat            a message sent in the meeting's chat
  *   chat:<spaceId>      a message posted in Google Chat
- *   newspace            Space name: … / People: <email>; <email>
+ *   newspace            Space name: …
+ *   addpeople:<spaceId> People: <email>; <email>
  */
 import type { SimValue } from "@/types/sim";
 
