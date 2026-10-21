@@ -336,7 +336,7 @@ export const labsCloudSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Upload “LMA_FileManagementGuide.docx” to the Check-In channel's Shared tab.",
-          hint: "In Chat, under Teams and channels, select Lakeside Front Desk › Check-In. Select the Shared tab › Upload › Upload files, choose LMA_FileManagementGuide.docx, and select Open.",
+          hint: "In Chat, under Teams and channels, select Lakeside Front Desk › Check-In. Select the Shared tab › Upload › Files, choose LMA_FileManagementGuide.docx, and select Open.",
           steps: [{ action: { kind: "command", id: "files.upload", value: "LMA_FileManagementGuide.docx" }, requires: { selection: "files:ch-fd" }, selectHint: "Upload it on the Check-In channel's Shared tab." }],
         },
         {

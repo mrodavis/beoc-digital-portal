@@ -296,12 +296,12 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Start a new chat with Tasha Greene. @mention her and ask: “Should walk-in students sign the visitor log or the advising sheet?”",
-          hint: "In Chat, select New items (+) › New message. Type Tasha in To and select Tasha Greene. In the message box, type @Tas and pick Tasha Greene from the list, then type the question and press Enter.",
+          hint: "In Chat, select New message (the pencil next to New items). Type Tasha in To and select Tasha Greene. In the message box, type @Tas and pick Tasha Greene from the list, then type the question and press Enter.",
           steps: [typeAll("newchat:p-tasha", "@Tasha Greene Should walk-in students sign the visitor log or the advising sheet?", ["@Tasha Greene", "visitor log", "advising sheet"])],
         },
         {
           instruction: "Upload “Front Desk Schedule - Fall.xlsx” to the Shared tab of the Front Desk channel.",
-          hint: "Chat › Teams and channels › Student Services › Front Desk › Shared tab › Upload › Upload files. Choose Front Desk Schedule - Fall.xlsx and select Open.",
+          hint: "Chat › Teams and channels › Student Services › Front Desk › Shared tab › Upload › Files. Choose Front Desk Schedule - Fall.xlsx and select Open.",
           steps: [{ action: { kind: "command", id: "files.upload", value: "Front Desk Schedule - Fall.xlsx" }, requires: { selection: "files:ch-fd" }, selectHint: "Upload it on the Shared tab of the Front Desk channel." }],
         },
         {
