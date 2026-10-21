@@ -87,12 +87,12 @@ export const onedriveModule6Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Send Renee Walker a view-only link to “Monthly Supply Report.xlsx” with a short message.",
-          hint: "Select the report › Share. Add Renee Walker, choose Can view, type a message, then select Invite.",
+          hint: "Select the report › Share. Add Renee Walker, choose Can view, type a message, then select Send.",
           steps: [on("root-report", "od.share", { people: P.renee.email, permission: "Can view" }, "Share Monthly Supply Report.xlsx.")],
         },
         {
-          instruction: "Kevin Patel and Maria Santos both update the report. Invite both of them at once so they can edit.",
-          hint: "Select the report › Share. Add Kevin Patel and Maria Santos, keep Can edit, then Invite.",
+          instruction: "Kevin Patel and Maria Santos both update the report. Share it with both of them at once so they can edit.",
+          hint: "Select the report › Share. Add Kevin Patel and Maria Santos, keep Can edit, then Send.",
           steps: [on("root-report", "od.share", { people: `${P.kevin.email}; ${P.maria.email}`, permission: "Can edit" }, "Share Monthly Supply Report.xlsx.")],
         },
         {
@@ -102,7 +102,7 @@ export const onedriveModule6Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Copy a view-only link to the “Health Fair Photos” folder that works only for events@harborcommunity.example.",
-          hint: "Select Health Fair Photos › Share. Type events@harborcommunity.example in the box and press Enter (don't select Invite). Select the gear, choose People you choose and Can view, Apply, then Copy.",
+          hint: "Select Health Fair Photos › Share. Type events@harborcommunity.example in the box and press Enter (don't select Send). Select the gear, choose People you choose and Can view, Apply, then Copy.",
           steps: [on("root-photos", "od.link", { scope: "People you choose", permission: "Can view", people: P.harbor.email }, "Copy a link to the Health Fair Photos folder.")],
         },
       ],
@@ -147,7 +147,7 @@ export const onedriveModule6Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Restore yesterday's version 2.0 from Word's title bar.",
-          hint: "Select the file name in the title bar › Version History. Next to 2.0, select More options (…) › Restore.",
+          hint: "Select the file name in the title bar › Version History. Next to 2.0, select the ellipses (…) › Restore.",
           steps: [on("doc-checkin", "od.restoreVersion", { version: "ck2" }, "Open Version History for Check-In Procedures.")],
         },
         {

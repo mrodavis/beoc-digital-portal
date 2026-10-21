@@ -139,76 +139,71 @@ function winFs(onedrive: WinItem[]): WinRoot[] {
   ];
 }
 
+/*
+ * Work or school account pages, from Microsoft Support: the Security info page is
+ * mysignins.microsoft.com/security-info ("select Add sign-in method" and choose a method your
+ * organization supports); My Account is myaccount.microsoft.com, where "Recent Activity" in the
+ * left navigation pane lists your sign-ins. For a successful sign-in you don't recognize,
+ * Microsoft says to change your password and then update your Security info. The pages show
+ * only those documented names; other wording on the real pages may differ.
+ */
+const MYACCOUNT_NAV = [
+  { text: "Overview", href: "myaccount.microsoft.com" },
+  { text: "Security info", href: "mysignins.microsoft.com/security-info" },
+  { text: "Recent Activity", href: "mysignins.microsoft.com/activity" },
+];
+
 const SIGNIN_PAGES: Record<string, WebPage> = {
   "mysignins.microsoft.com/security-info": {
-    title: "My Sign-Ins | Security info",
-    site: "My Sign-Ins",
+    title: "My Sign-ins | Security info",
+    site: "My Sign-ins",
     color: "#0f6cbd",
-    nav: [
-      { text: "Overview", href: "myaccount.microsoft.com" },
-      { text: "Security info", href: "mysignins.microsoft.com/security-info" },
-      { text: "Recent activity", href: "mysignins.microsoft.com/activity" },
-    ],
+    nav: MYACCOUNT_NAV,
     blocks: [
       { t: "h1", text: "Security info" },
-      { t: "p", text: "These are the methods you use to sign in to your account or reset your password." },
-      { t: "table", head: ["Method", "Detail", ""], rows: [["Password", "Last updated: 6 months ago", "Change"], ["Phone", "+1 (555) 010-0148", "Change"]] },
+      { t: "table", head: ["Method", "Detail"], rows: [["Password", "Last updated: 6 months ago"], ["Phone", "+1 (555) 010-0148"]] },
       { t: "link", text: "+ Add sign-in method", href: "mysignins.microsoft.com/security-info/add", button: true },
     ],
   },
   "mysignins.microsoft.com/security-info/add": {
-    title: "My Sign-Ins | Add a method",
-    site: "My Sign-Ins",
+    title: "My Sign-ins | Add sign-in method",
+    site: "My Sign-ins",
     color: "#0f6cbd",
     blocks: [
-      { t: "h1", text: "Add a method" },
-      { t: "p", text: "Which method would you like to add?" },
-      { t: "form", id: "add-method", title: "Add a sign-in method", fields: [{ name: "method", label: "Method", type: "select", options: ["Choose a method", "Authenticator app", "Phone", "Alternate email", "Security key"] }], submit: "Add", goto: "mysignins.microsoft.com/security-info/added" },
+      { t: "h1", text: "Add sign-in method" },
+      { t: "p", text: "Choose a method your organization supports." },
+      { t: "form", id: "add-method", title: "Add sign-in method", fields: [{ name: "method", label: "Method", type: "select", options: ["Choose a method", "Microsoft Authenticator", "Phone"] }], submit: "Add", goto: "mysignins.microsoft.com/security-info/added" },
     ],
   },
   "mysignins.microsoft.com/security-info/added": {
-    title: "My Sign-Ins | Security info",
-    site: "My Sign-Ins",
+    title: "My Sign-ins | Security info",
+    site: "My Sign-ins",
     color: "#0f6cbd",
-    nav: [
-      { text: "Overview", href: "myaccount.microsoft.com" },
-      { text: "Security info", href: "mysignins.microsoft.com/security-info" },
-      { text: "Recent activity", href: "mysignins.microsoft.com/activity" },
-    ],
+    nav: MYACCOUNT_NAV,
     blocks: [
-      { t: "alert", tone: "ok", text: "Microsoft Authenticator was registered. You'll approve sign-ins with a notification on your phone." },
-      { t: "table", head: ["Method", "Detail"], rows: [["Password", "Last updated: 6 months ago"], ["Phone", "+1 (555) 010-0148"], ["Microsoft Authenticator", "Push multi-factor authentication (MFA)"]] },
+      { t: "alert", tone: "ok", text: "Microsoft Authenticator was added. You'll approve sign-ins with the app on your phone." },
+      { t: "table", head: ["Method", "Detail"], rows: [["Password", "Last updated: 6 months ago"], ["Phone", "+1 (555) 010-0148"], ["Microsoft Authenticator", "Approve sign-ins on your phone"]] },
     ],
   },
   "myaccount.microsoft.com": {
     title: "My Account",
     site: "My Account",
     color: "#0f6cbd",
-    nav: [
-      { text: "Overview", href: "myaccount.microsoft.com" },
-      { text: "Security info", href: "mysignins.microsoft.com/security-info" },
-      { text: "Recent activity", href: "mysignins.microsoft.com/activity" },
-    ],
+    nav: MYACCOUNT_NAV,
     blocks: [
       { t: "h1", text: "Alex Morgan" },
       { t: "p", text: "amorgan@lakesidemedical.example · Lakeside Medical Associates" },
-      { t: "link", text: "Review recent activity", href: "mysignins.microsoft.com/activity", button: true },
     ],
   },
   "mysignins.microsoft.com/activity": {
-    title: "My Sign-Ins | Recent activity",
-    site: "My Sign-Ins",
+    title: "My Sign-ins | Recent Activity",
+    site: "My Sign-ins",
     color: "#0f6cbd",
-    nav: [
-      { text: "Overview", href: "myaccount.microsoft.com" },
-      { text: "Security info", href: "mysignins.microsoft.com/security-info" },
-      { text: "Recent activity", href: "mysignins.microsoft.com/activity" },
-    ],
+    nav: MYACCOUNT_NAV,
     blocks: [
-      { t: "h1", text: "Recent activity" },
+      { t: "h1", text: "Recent Activity" },
       { t: "table", head: ["When", "Location", "App", "Result"], rows: [["Today 8:02 AM", "Brooklyn, New York, US", "OneDrive", "Successful"], ["Yesterday 2:14 AM", "Unknown location, overseas", "Office 365", "Successful"], ["Yesterday 8:10 AM", "Brooklyn, New York, US", "Outlook", "Successful"]] },
-      { t: "p", text: "Don't recognize the overseas sign-in from yesterday at 2:14 AM?" },
-      { t: "button", id: "not-me", text: "This wasn't me", style: "danger", toast: "Thanks. Change your password now and tell IT." },
+      { t: "alert", tone: "warn", text: "Don't recognize a successful sign-in? Change your password, then update your Security info, and tell IT." },
     ],
   },
 };
@@ -290,7 +285,7 @@ export const labsCloudSims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Share “CloudTest.docx” with Tasha Greene so she can only view it.",
-          hint: "Select CloudTest.docx › Share. Add Tasha Greene, choose Can view, then Invite.",
+          hint: "Select CloudTest.docx › Share. Add Tasha Greene, choose Can view, then Send.",
           steps: [onItem("cloudtest", "od.share", { people: TASHA.email, permission: "Can view" }, "Share CloudTest.docx.")],
         },
         {
@@ -374,7 +369,7 @@ export const labsCloudSims: Record<string, SimDefinition[]> = {
       role: "challenge",
       title: "Challenge Lab: Audit your cloud account security",
       scenario:
-        "Challenge Lab. Do steps 1 to 3 of this lesson's challenge on a practice PC at Lakeside: check your sign-in methods and add the Authenticator app, review recent sign-ins, and fix risky sharing on three OneDrive files. Write the checklist in step 4 in Word as usual.",
+        "Challenge Lab. Do steps 1 to 3 of this lesson's challenge on a practice PC at Lakeside: check your sign-in methods and add the Microsoft Authenticator app, review recent sign-ins, and fix risky sharing on three OneDrive files. Write the checklist in step 4 in Word as usual.",
       fileName: "Windows",
       minutes: 7,
       initial: winDoc({
@@ -396,14 +391,14 @@ export const labsCloudSims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "edge.nav", value: "mysignins.microsoft.com/security-info" } }],
         },
         {
-          instruction: "Add the Authenticator app as a sign-in method.",
-          hint: "Select + Add sign-in method, choose Authenticator app, then select Add.",
-          steps: [{ action: { kind: "type", target: "form:add-method", value: "Method: Authenticator app", match: "includes" } }],
+          instruction: "Add the Microsoft Authenticator app as a sign-in method.",
+          hint: "Select + Add sign-in method, choose Microsoft Authenticator, then select Add.",
+          steps: [{ action: { kind: "type", target: "form:add-method", value: "Method: Microsoft Authenticator", match: "includes" } }],
         },
         {
-          instruction: "Open Recent activity and report the overseas sign-in you don't recognize.",
-          hint: "Select Recent activity at the top of the page, then This wasn't me.",
-          steps: [{ action: { kind: "click", target: "web:not-me" } }],
+          instruction: "Open Recent Activity in My Account and find the sign-in you don't recognize.",
+          hint: "Select Recent Activity at the top of the page. (On your own computer: go to myaccount.microsoft.com and select Recent Activity.)",
+          steps: [{ action: { kind: "command", id: "edge.nav", value: "mysignins.microsoft.com/activity" } }],
         },
         {
           instruction: "In File Explorer › OneDrive, remove the Anyone link from “Staff Phone List.xlsx”.",

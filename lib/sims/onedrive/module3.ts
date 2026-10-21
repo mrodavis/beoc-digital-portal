@@ -16,13 +16,13 @@ export const onedriveModule3Sims: Record<string, SimDefinition[]> = {
       }),
       tasks: [
         {
-          instruction: "Invite Maria Santos to “Flu Clinic Flyer.docx” so she can edit it.",
-          hint: "Select Flu Clinic Flyer.docx › Share. Type Maria and pick Maria Santos, keep Can edit (the pencil), then select Invite.",
+          instruction: "Share “Flu Clinic Flyer.docx” with Maria Santos so she can edit it.",
+          hint: "Select Flu Clinic Flyer.docx › Share. Type Maria and pick Maria Santos, keep Can edit (the pencil), then select Send.",
           steps: [on("root-flyer", "od.share", { people: P.maria.email, permission: "Can edit" }, "Share Flu Clinic Flyer.docx.")],
         },
         {
-          instruction: "Invite Kevin Patel to “Staff Schedule - November.xlsx” so he can only view it.",
-          hint: "Select the schedule › Share. Add Kevin Patel, select the permission button and choose Can view, then Invite.",
+          instruction: "Share “Staff Schedule - November.xlsx” with Kevin Patel so he can only view it.",
+          hint: "Select the schedule › Share. Add Kevin Patel, select the permission button and choose Can view, then Send.",
           steps: [on("root-schedule", "od.share", { people: P.kevin.email, permission: "Can view" }, "Share Staff Schedule - November.xlsx.")],
         },
         {
@@ -31,8 +31,8 @@ export const onedriveModule3Sims: Record<string, SimDefinition[]> = {
           steps: [on("root-phones", "od.link", { scope: "Organization", permission: "Can view" }, "Copy a link to Office Phone List.docx.")],
         },
         {
-          instruction: "Invite Tasha Greene to review “Phone Script - New Patients.docx” so she can suggest changes and comment, but not edit directly.",
-          hint: "Open the Front Desk folder, select Phone Script - New Patients.docx › Share. Add Tasha Greene, choose Can review, then Invite.",
+          instruction: "Share “Phone Script - New Patients.docx” with Tasha Greene for review, so she can suggest changes and comment, but not edit directly.",
+          hint: "Open the Front Desk folder, select Phone Script - New Patients.docx › Share. Add Tasha Greene, choose Can review, then Send.",
           steps: [on("frontdesk-script", "od.share", { people: P.tasha.email, permission: "Can review" }, "Share Phone Script - New Patients.docx.")],
         },
         {
@@ -62,13 +62,13 @@ export const onedriveModule3Sims: Record<string, SimDefinition[]> = {
       }),
       tasks: [
         {
-          instruction: "Invite only scheduling@riversideimaging.example to “Referral Packet - Patient 10482.pdf”, view-only.",
-          hint: "Select the referral packet › Share. Type scheduling@riversideimaging.example and press Enter, choose Can view, then Invite.",
+          instruction: "Share “Referral Packet - Patient 10482.pdf” with only scheduling@riversideimaging.example, view-only.",
+          hint: "Select the referral packet › Share. Type scheduling@riversideimaging.example and press Enter, choose Can view, then Send.",
           steps: [on("ref-packet", "od.share", { people: P.riverside.email, permission: "Can view" }, "Share Referral Packet - Patient 10482.pdf.")],
         },
         {
-          instruction: "Invite Dr. Priya Shah to “Referral Letter - Patient 10482.docx” so she can edit it.",
-          hint: "Select the referral letter › Share. Add Dr. Priya Shah, keep Can edit, then Invite.",
+          instruction: "Share “Referral Letter - Patient 10482.docx” with Dr. Priya Shah so she can edit it.",
+          hint: "Select the referral letter › Share. Add Dr. Priya Shah, keep Can edit, then Send.",
           steps: [on("ref-letter", "od.share", { people: P.shah.email, permission: "Can edit" }, "Share Referral Letter - Patient 10482.docx.")],
         },
         {
@@ -78,7 +78,7 @@ export const onedriveModule3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Copy a view-only link to the lab results summary that works only for Dr. Priya Shah.",
-          hint: "Select the lab results summary › Share. Type Dr. Priya Shah in the box (don't select Invite). Select the gear, choose People you choose, set Can view, Apply, then Copy.",
+          hint: "Select the lab results summary › Share. Type Dr. Priya Shah in the box (don't select Send). Select the gear, choose People you choose, set Can view, Apply, then Copy.",
           steps: [on("ref-labs", "od.link", { scope: "People you choose", permission: "Can view", people: P.shah.email }, "Copy a link to Lab Results Summary - Patient 20931.pdf.")],
         },
       ],

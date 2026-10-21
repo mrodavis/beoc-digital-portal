@@ -146,14 +146,14 @@ export const onedriveModule6Lessons: Lesson[] = [
       "Send coworkers a link to the one real file instead of an attached copy, choose what the link allows, and know when a copy (or a secure method) is the right call.",
     objectives: [
       "Explain why a link beats an attachment for files people work on",
-      "Send a file from OneDrive with Invite and a message, or with Copy link",
+      "Send a file from OneDrive with Share and a message, or with Copy link",
       "Choose link permissions when attaching a OneDrive file in the new Outlook",
       "Recognize when to attach a copy or use your office's secure method instead",
     ],
     duration: "12 min",
     slides: slides("sending-links-not-attachments", [
       "Attachments make copies. Links share the file",
-      "Send from OneDrive: Invite or Copy link",
+      "Send from OneDrive: Share › Send, or Copy link",
       "Attaching a OneDrive file in the new Outlook",
       "When a copy is the right call",
     ]),
@@ -186,7 +186,7 @@ export const onedriveModule6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "From OneDrive: select the file › Share, add people, choose the permission, type a message, and select Invite. OneDrive emails them a link.",
+              "From OneDrive: select the file › Share, add people, choose the permission, type a message, and select Send. OneDrive emails them a link.",
               "Or select Copy link, check who the link works for (the gear), select Copy, and paste the link in your email or Teams message.",
               "In the new Outlook for Windows: in a new message, select Attach file and pick a file from OneDrive (or Suggested files). You choose whether to send a link or a copy. For a link, select the arrow on the attachment to change permissions: Organization can Edit, Organization can View, Recipients can Edit, or Recipients can View. In a business account the default lets everyone in your organization edit, so check it before you send.",
             ],
@@ -264,7 +264,7 @@ export const onedriveModule6Lessons: Lesson[] = [
         type: "list",
         ordered: true,
         items: [
-          "In OneDrive on the web, select a practice file and select Share. Invite your instructor or a classmate with Can view and a one-line message. Take a screenshot before you select Invite.",
+          "In OneDrive on the web, select a practice file and select Share. Add your instructor or a classmate with Can view and a one-line message. Take a screenshot before you select Send.",
           "Select Copy link for another practice file and paste the link into an email to yourself from your school email. Take a screenshot of the email showing the link.",
           "Write one sentence about a time a link would have been better than an attachment, and one about a time a copy would be better.",
         ],

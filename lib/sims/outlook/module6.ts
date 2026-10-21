@@ -48,7 +48,7 @@ export const outlookModule6Sims: Record<string, SimDefinition[]> = {
         {
           instruction:
             'Denise asks you to answer outside senders too, but only people in your contacts. Add this outside message: "Thank you for your message. I will reply on Monday, October 26. For scheduling, please call (555) 010-2400."',
-          hint: "Settings › Accounts › Automatic replies. Check Send replies outside your organization, choose Send replies only to contacts, type the outside message, and select Save.",
+          hint: "Settings › Accounts › Automatic replies. Check Send replies outside your organization, check Send replies only to contacts, type the outside message, and select Save.",
           steps: [
             mentions("autoReplies", "Outside (My Contacts only): Thank you for your message. I will reply on Monday, October 26. For scheduling, please call (555) 010-2400.", ["Outside (My Contacts only)", "(555) 010-2400"]),
           ],
@@ -84,8 +84,8 @@ export const outlookModule6Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction:
-            'Add an outside message for all external senders: "Thank you for contacting Lakeside Medical Associates. I will reply on Monday, November 2. For appointments, call (555) 010-2400."',
-          hint: "Check Send replies outside your organization, leave it set to all external senders, type the message, and Save.",
+            'Add an outside message for everyone outside Lakeside, not only your contacts: "Thank you for contacting Lakeside Medical Associates. I will reply on Monday, November 2. For appointments, call (555) 010-2400."',
+          hint: "Check Send replies outside your organization, leave Send replies only to contacts unchecked, type the message, and Save.",
           steps: [
             mentions("autoReplies", "Outside (Anyone outside my organization): Thank you for contacting Lakeside Medical Associates. I will reply on Monday, November 2. For appointments, call (555) 010-2400.", [
               "Outside (Anyone outside my organization)",
@@ -122,7 +122,7 @@ export const outlookModule6Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Add the Lakeside Front Desk shared mailbox (frontdesk@lakesidemed.example.com) to your folder pane.",
-          hint: "Right-click your email address at the top of the folder list › Add shared folder or mailbox. Type frontdesk@lakesidemed.example.com and select Add. It appears under Shared with me.",
+          hint: "Right-click your account name (your email address at the top of the folder list) › Add shared folder or mailbox. Type frontdesk@lakesidemed.example.com and select Add. It appears under Shared with me.",
           steps: [{ action: { kind: "dialog", id: "addShared", values: { email: [FRONTDESK.email, "Lakeside Front Desk"] } } }],
         },
         {
@@ -170,7 +170,7 @@ export const outlookModule6Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Add the front desk shared mailbox, frontdesk@lakesidemed.example.com.",
-          hint: "Right-click your email address in the folder pane › Add shared folder or mailbox › type the address › Add.",
+          hint: "Right-click your account name in the folder pane › Add shared folder or mailbox › type the address › Add.",
           steps: [{ action: { kind: "dialog", id: "addShared", values: { email: [FRONTDESK.email, "Lakeside Front Desk"] } } }],
         },
         {
@@ -306,7 +306,7 @@ export const outlookModule6Sims: Record<string, SimDefinition[]> = {
         {
           instruction:
             'Send the front desk team (Omar Haddad and Priya Nair) the picture "Staff parking map.png" with the subject "New staff parking". Add the alt text "Map of the staff lot: park in rows C and D and use the Elm Street door".',
-          hint: "New mail › Insert tab › Pictures › Staff parking map.png. Select Alt text on the picture, type the description, and select OK. Then add Omar and Priya, the subject, and Send.",
+          hint: "New mail › Insert tab › Pictures › Staff parking map.png. Then Options tab › Check accessibility, select Fix this next to the missing alternative text, type the description, and select OK. Then add Omar and Priya, the subject, and Send.",
           steps: [
             NEW_MAIL,
             { action: { kind: "dialog", id: "insertPicture", values: { file: "Staff parking map.png" } } },
@@ -361,7 +361,7 @@ export const outlookModule6Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: 'Send Denise the picture "Front desk seating chart.png" with the alt text "Seating chart: Omar at window 1, Priya at window 2, Taylor at the phone desk" and the subject "Seating chart".',
-          hint: "New mail › Pictures › the picture › Alt text › describe it › OK › To › subject › Send.",
+          hint: "New mail › Insert › Pictures › the picture › Options › Check accessibility › Fix this › describe it › OK › To › subject › Send.",
           steps: [
             NEW_MAIL,
             { action: { kind: "dialog", id: "insertPicture", values: { file: "Front desk seating chart.png" } } },
@@ -427,7 +427,7 @@ export const outlookModule6Sims: Record<string, SimDefinition[]> = {
         {
           instruction:
             'Start a new message to Omar and Priya and use Draft with Copilot. Ask for a short, friendly reminder to arrive by 7:30 AM Saturday for the flu clinic, and keep the draft.',
-          hint: "New mail › Draft with Copilot. Type a prompt that includes 7:30 AM and Saturday, select Generate (the arrow), read the draft, and select Keep it.",
+          hint: "New mail › Message tab › Copilot › Draft with Copilot. Type a prompt that includes 7:30 AM and Saturday, select Generate, read the draft, and select Keep.",
           steps: [
             NEW_MAIL,
             {

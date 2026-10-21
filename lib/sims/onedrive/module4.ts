@@ -90,12 +90,12 @@ export const onedriveModule4Sims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Restore version 4.0 of “Staff Schedule - November.xlsx”, the one Maria saved yesterday.",
-          hint: "Right-click Staff Schedule - November.xlsx › Version history. Next to version 4.0, select More options (…) › Open file to check it, then More options (…) › Restore.",
+          hint: "Right-click Staff Schedule - November.xlsx › Version history. Select the date of version 4.0 to read it first, then select the ellipses (…) next to 4.0 › Restore.",
           steps: [on("root-schedule", "od.restoreVersion", { version: "sv4" }, "Open the version history of Staff Schedule - November.xlsx.")],
         },
         {
           instruction: "In the Front Desk folder, restore version 2.0 of “Phone Script - New Patients.docx”.",
-          hint: "Open Front Desk, right-click Phone Script - New Patients.docx › Version history › More options (…) next to 2.0 › Restore.",
+          hint: "Open Front Desk, right-click Phone Script - New Patients.docx › Version history › the ellipses (…) next to 2.0 › Restore.",
           steps: [on("frontdesk-script", "od.restoreVersion", { version: "ps2" }, "Open the version history of Phone Script - New Patients.docx.")],
         },
         {
@@ -105,7 +105,7 @@ export const onedriveModule4Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "From inside Word, restore yesterday's version 2.0 of the huddle notes.",
-          hint: "Select the file name in Word's title bar › Version History (or File › Info › Version History). Next to 2.0, select More options (…) › Restore.",
+          hint: "Select the file name in Word's title bar › Version History (or File › Info › Version History). Next to 2.0, select the ellipses (…) › Restore.",
           steps: [on("frontdesk-huddle", "od.restoreVersion", { version: "hn2" }, "Open Version History for Daily Huddle Notes.")],
         },
         {

@@ -9,16 +9,16 @@ export const onedriveModule3Lessons: Lesson[] = [
     slug: "sharing-with-the-right-permission",
     title: "Sharing Files with the Right Permission",
     description:
-      "Share a file by inviting specific people or by copying a link, choose who the link works for and what it allows, and share patient information the safe way.",
+      "Share a file by sending it to specific people or by copying a link, choose who the link works for and what it allows, and share patient information the safe way.",
     objectives: [
-      "Invite specific people to a file with Can edit, Can view, or Can review",
+      "Share a file with specific people with Can edit, Can view, or Can review",
       "Copy a link and choose who it works for: Anyone, People in your organization, People with existing access, or People you choose",
       "Add an expiration date or password to a link where your organization allows it",
       "Share patient information only with named people, view-only unless editing is needed, and never with an Anyone link",
     ],
     duration: "20 min",
     slides: slides("sharing-with-the-right-permission", [
-      "Two ways to share: invite people, or copy a link",
+      "Two ways to share: send to people, or copy a link",
       "Permissions: Can edit, Can view, Can review, Can't download",
       "Link settings: who the link works for",
       "Expiration dates and passwords",
@@ -37,7 +37,7 @@ export const onedriveModule3Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Select a file and select Share (in the command bar, or by right-clicking the file). The Share window has two parts. At the top, you invite specific people: type their names or email addresses in Add a name, group, or email, choose a permission with the permission button next to the box, add a message if you like, and select Invite. (Some accounts label this button Send.) They get an email with a link to the file. At the bottom, Copy link makes a link you can paste into an email, a Teams chat, or a document. The gear next to Copy link opens Link settings, where you choose who the link works for.",
+            text: "Select a file and select Share (in the command bar, or by right-clicking the file). The Share window has two parts. At the top, you share with specific people: type their names or email addresses in Add a name, group, or email, choose a permission with the permission button next to the box, add a message if you like, and select Send. They get an email with a link to the file. At the bottom, Copy link makes a link you can paste into an email, a Teams chat, or a document. The gear next to Copy link opens Link settings, where you choose who the link works for.",
           },
         ],
       },
@@ -117,9 +117,9 @@ export const onedriveModule3Lessons: Lesson[] = [
             task: "Riverside Imaging's scheduler needs to read the referral packet for an upcoming patient appointment.",
             steps: [
               { move: "Confirm Lakeside shares with Riverside Imaging this way.", why: "Practices share patient information with outside organizations only under agreements and processes they have approved. If you aren't sure, ask your supervisor before sharing." },
-              { move: "Select the packet and select Share. Type scheduling@riversideimaging.example.", why: "Inviting the named person means only that person can open the file. OneDrive warns you that the address is outside your organization, which is your cue to double-check it." },
+              { move: "Select the packet and select Share. Type scheduling@riversideimaging.example.", why: "Sharing with the named person means only that person can open the file. OneDrive warns you that the address is outside your organization, which is your cue to double-check it." },
               { move: "Set the permission to Can view.", why: "The scheduler needs to read the packet, not change it. Least access is the rule for patient information." },
-              { move: "Add a short message and select Invite.", why: "The message tells them what it is without repeating any patient details in the email." },
+              { move: "Add a short message and select Send.", why: "The message tells them what it is without repeating any patient details in the email." },
               { move: "Never switch to an Anyone link to save time.", why: "An Anyone link opens for whoever has it. It can be forwarded, pasted in the wrong chat, or seen over a shoulder." },
             ],
             result: "One person, view-only access, to one file, and an email that contains no patient details.",
@@ -138,7 +138,7 @@ export const onedriveModule3Lessons: Lesson[] = [
           {
             type: "knowledge-check",
             question: "Kevin needs to read the November staff schedule but shouldn't change it. What do you choose?",
-            options: ["Invite Kevin with Can edit", "Invite Kevin with Can view", "Copy an Anyone link", "Email Kevin a downloaded copy"],
+            options: ["Share with Kevin, Can edit", "Share with Kevin, Can view", "Copy an Anyone link", "Email Kevin a downloaded copy"],
             correctIndex: 1,
             explanation: "Can view lets Kevin open and read the one real schedule, which stays current, without being able to change it.",
             optionRationales: [
@@ -151,12 +151,12 @@ export const onedriveModule3Lessons: Lesson[] = [
           {
             type: "knowledge-check",
             question: "Which Share option is never right for a patient's records?",
-            options: ["People you choose, with Can view", "Inviting a named person with Can view", "Anyone", "People with existing access"],
+            options: ["People you choose, with Can view", "Sharing with a named person, Can view", "Anyone", "People with existing access"],
             correctIndex: 2,
             explanation: "An Anyone link works for whoever has it, with no sign-in. Patient information is shared only with named people.",
             optionRationales: [
               "People you choose limits the link to named people. That fits patient information.",
-              "Inviting a named person with view-only access is the safe pattern.",
+              "Sharing with a named person with view-only access is the safe pattern.",
               "Correct. Never use an Anyone link for patient information.",
               "This only works for people who already have access, so it doesn't expose the file to anyone new.",
             ],
@@ -172,7 +172,7 @@ export const onedriveModule3Lessons: Lesson[] = [
         items: [
           "Sign in at onedrive.com with your school account and open your OneDrive Practice folder (create it if you don't have it).",
           "Select Practice Notes and select Share. Type your classmate's school email address, set the permission to Can view, and type a short message.",
-          "Before you select Invite (or Send), take a screenshot of the Share window showing the person and the permission. Then send it.",
+          "Before you select Send, take a screenshot of the Share window showing the person and the permission. Then send it.",
           "Open the Share window again and select the gear next to Copy link. Write down which Share the link with options your school allows and which are greyed out.",
           "Ask your classmate to confirm they can open the file but not edit it.",
         ],
