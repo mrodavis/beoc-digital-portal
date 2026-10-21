@@ -260,6 +260,15 @@ export function FloatingMenu({ x, y, items, width, onClose }: { x: number; y: nu
     if (ny + r.height > window.innerHeight - 8) ny = Math.max(8, y - r.height - 4);
     setPos({ x: nx, y: ny });
   }, [x, y]);
+  // When the menu closes, give focus back to the button that opened it (if it is still there), so keyboard shortcuts keep working.
+  useEffect(() => {
+    const opener = document.activeElement as HTMLElement | null;
+    return () => {
+      setTimeout(() => {
+        if (opener && opener !== document.body && opener.isConnected && (!document.activeElement || document.activeElement === document.body)) opener.focus({ preventScroll: true });
+      }, 0);
+    };
+  }, []);
   useEffect(() => {
     const down = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) onClose();
