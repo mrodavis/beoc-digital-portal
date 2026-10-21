@@ -29,8 +29,8 @@ export const module6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "The print queue is the list of pending print jobs waiting to reach the printer — access it by double-clicking the printer icon in the taskbar notification area, or through Settings > Devices > Printers & Scanners > Open Queue. If the printer is not printing, check the queue first. A stalled or paused job at the top of the queue blocks all subsequent jobs. Right-click a stalled job and select Cancel to remove it and allow the queue to resume.",
-              "Default printer settings — every Windows computer has a default printer that receives print jobs when you click Print without specifying a printer. At Lakeside Medical Associates, your default printer should be set to the correct local printer, not a cloud printer or a printer in another room. Change it in Settings > Devices > Printers & Scanners — click the correct printer and select 'Set as default.'",
+              "The print queue is the list of pending print jobs waiting to reach the printer — open it from Settings > Bluetooth & devices > Printers & scanners: select the printer, then Open print queue. A job stays in the queue only while it is waiting or printing; finished jobs disappear. If the printer is not printing, check the queue first. A stalled or paused job at the top of the queue blocks all subsequent jobs. Right-click a stalled job and select Cancel to remove it and allow the queue to resume.",
+              "Default printer settings — every Windows computer has a default printer that receives print jobs when you click Print without specifying a printer. At Lakeside Medical Associates, your default printer should be set to the correct local printer, not a cloud printer or a printer in another room. Change it in Settings > Bluetooth & devices > Printers & scanners: first turn off Let Windows manage my default printer (under Printer preferences; when it is on, Windows picks the printer you used most recently), then select the correct printer and select Set as default.",
               "Print dialog options every professional should know: Copies (how many), Pages (all, current, or a page range), Print One Sided vs. Duplex (both sides — saves paper), and Orientation (portrait or landscape). Always preview before printing a multi-page document with complex formatting. Use Ctrl+P to open the print dialog from any application.",
               "Managing paper — different printers accept different paper sizes and types. Most office printers use 8.5×11 inch standard copy paper (letter size), 20 lb weight. When loading paper, align it properly in the tray — paper that is not square causes paper jams. Do not overfill the tray beyond the maximum fill line. When refilling, check that the paper guides are touching the paper edges without squeezing — loose guides allow paper to skew and jam.",
             ],
@@ -50,7 +50,7 @@ export const module6Lessons: Lesson[] = [
               "Open all printer panels to locate the jam — most multifunction printers have a front panel, a rear access panel, and a duplexing unit. The printer's display usually indicates which panel contains the jam. Open the indicated panel first but check all panels — torn paper fragments in any section prevent the jam from clearing.",
               "Remove jammed paper slowly and completely — grip the paper firmly and pull it out gently in the direction of the paper path. Never pull against the paper path direction — this tears the paper and leaves fragments inside the printer. If the paper tears, carefully remove every fragment before closing the panels. Even a small torn piece left inside will cause a new jam on the next print job.",
               "Check for paper fragments after clearing — open every access panel after removing the obvious jam and look carefully for small torn pieces. Use a flashlight if needed. The printer will not function correctly until every fragment is removed.",
-              "Never use sharp objects to remove jammed paper — scissors, pens, or screwdrivers can damage the printer's rollers, the drum, or the fuser unit, turning a $0 paper jam into a $300 repair bill. Use only your hands, and only when the printer is powered on (so the fuser has fully cooled for laser printers — they operate at very high temperatures internally).",
+              "Never use sharp objects to remove jammed paper — scissors, pens, or screwdrivers can damage the printer's rollers, the drum, or the fuser unit, turning a $0 paper jam into a $300 repair bill. Use only your hands, follow the jam instructions on the printer's display or in its manual, and keep your hands away from the fuser area of a laser printer, which gets very hot.",
             ],
           },
         ],
@@ -66,10 +66,24 @@ export const module6Lessons: Lesson[] = [
             type: "list",
             items: [
               "Document feeder vs. flatbed scanning — most office multifunction printers have both. The automatic document feeder (ADF) accepts a stack of pages and scans each one automatically — use it for multi-page documents where the original condition does not matter. The flatbed (the glass surface) scans one page at a time but handles fragile, wrinkled, or bound documents that cannot go through the ADF. Always use the flatbed for original insurance cards, passports, and any document that cannot be damaged.",
-              "Scan resolution for medical offices — 200–300 DPI (dots per inch) produces a clear, readable scan of most documents at a manageable file size. Higher resolutions (600+ DPI) are for detailed graphics or when text must be very small. Scanning at 600 DPI creates files 4× larger than 300 DPI for no practical improvement in readability for standard documents. Set your scanner's default to 300 DPI PDF output for consistent, efficient document handling.",
+              "Scan resolution for medical offices — 200–300 DPI (dots per inch) produces a clear, readable scan of most documents at a manageable file size. Higher resolutions (600+ DPI) are for detailed graphics or when text must be very small. Scanning at 600 DPI creates files 4× larger than 300 DPI for no practical improvement in readability for standard documents. Set the scanner's default to 300 DPI PDF output (on the multifunction printer or in its scanning software) for consistent, efficient document handling. The free Windows Scan app is simpler: it saves JPEG, PNG, TIFF, or Bitmap files, by default to Pictures › Scans.",
               "Scan-to-email routes the scanned file directly to an email address without a computer — set up on the printer's touchscreen by entering a scan destination email address. At Lakeside Medical Associates, scan-to-email is typically configured to send scanned documents to a shared email inbox or directly to your workstation email. If scan-to-email stops working, the most common causes are an expired email password (update it in the printer's network settings) or a change in the email server settings (notify IT).",
               "Scan-to-folder sends the scanned file directly to a network folder — a common and efficient setup in medical offices where scanned patient documents should go directly to a specific folder on the network drive. This avoids the email attachment workflow entirely. If your printer supports it, ask IT to configure scan-to-folder destinations for the most common document types you handle.",
             ],
+          },
+          {
+            type: "drag-drop",
+            mode: "order",
+            title: "Clear a paper jam in the right order",
+            prompt: "Drag the steps into the order you would follow when the front desk printer jams.",
+            items: [
+              { id: "j1", text: "Read the printer's display to see where the jam is" },
+              { id: "j2", text: "Open the panel it names (and check the other panels too)" },
+              { id: "j3", text: "Pull the paper out slowly in the direction the paper travels" },
+              { id: "j4", text: "Look for torn scraps in every panel, keeping clear of the hot fuser" },
+              { id: "j5", text: "Close the panels and print a test page" },
+            ],
+            explanation: "Find the jam, open the right panel, remove the paper in the paper path direction, check for scraps (the usual cause of a repeat jam), then confirm with a test print.",
           },
         ],
       },
@@ -112,22 +126,27 @@ export const module6Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Complete a printer and scanner assessment for your workstation.",
+        text: "Complete a printer and scanner assessment for a workstation.",
+      },
+      {
+        type: "callout",
+        variant: "info",
+        text: "On your own computer, do steps 1 to 3 with your printer and scanner. On a school computer, printer settings and scanning are blocked, so do steps 1 to 3 in the Challenge Lab below. Step 4 is a Word document and works on any computer.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Open Settings > Devices > Printers & Scanners and list all printers and scanners currently installed on your workstation. Identify which is the default printer. Screenshot the Printers & Scanners page.",
-          "Print a one-page test document (any Word document) using Ctrl+P. Confirm it prints correctly. Then open the print queue, locate your print job in Completed status, and screenshot it.",
-          "If you have access to a scanner, scan one sample document at 300 DPI to PDF and confirm the file saves to the correct location. Note the file size of the resulting PDF.",
-          "Write a 5-step Paper Jam Resolution Procedure for Lakeside Medical Associates, formatted as a numbered list that could be laminated and attached to the printer. Save as 'LMA_PaperJamProcedure_2025-05.docx'.",
+          "Open Settings › Bluetooth & devices › Printers & scanners and list the printers and scanners installed. Identify the default printer (it says Default under its name). In the Challenge Lab, the default is the wrong printer: turn off Let Windows manage my default printer and set Front Desk Printer as the default.",
+          "Open a one-page Word document and print it with Ctrl+P. Then open the print queue (select the printer › Open print queue) and find your job while it is waiting or printing.",
+          "Scan one sample document and check where it saved and its file size. With the Windows Scan app, choose the scanner, the Source (Flatbed or Feeder), and the File type; scans save to Pictures › Scans. If your scanner's own software offers PDF at 300 DPI, use that. Note the file size.",
+          "Write a 5-step Paper Jam Resolution Procedure for Lakeside Medical Associates, formatted as a numbered list that could be laminated and attached to the printer. Save it as 'LMA_PaperJamProcedure_YYYY-MM.docx' (use the current year and month).",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your Printers & Scanners screenshot, your print queue screenshot, your scanner file size note, and your Paper Jam Procedure document to your instructor. This exercise confirms you can independently assess and operate office printing and scanning equipment.",
+        text: "Deliverable: Submit your Challenge Lab results page (enter your name on the lab's finish screen and select Print or save results) or, if you used your own computer, screenshots of Printers & scanners and the print queue plus your scan file size note. Add your Paper Jam Procedure document and submit everything to your instructor or course folder.",
       },
     ],
   },
@@ -160,9 +179,9 @@ export const module6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Monitor height — the top of the monitor should be at or slightly below eye level when you are sitting in your normal working posture. If the monitor is too low, you tilt your head down and strain the back of your neck. If it is too high, you tilt your head back and strain the front of the neck and upper back. Adjust using the monitor's height adjustment stand, or place the monitor on a riser or monitor arm.",
-              "Monitor distance — your eyes should be approximately 20–28 inches from the screen (roughly arm's length). Too close increases eye fatigue; too far causes squinting and leaning forward. If you find yourself leaning toward the screen to read, increase the font size or zoom level in your application rather than moving closer.",
-              "Monitor tilt — the monitor should be tilted slightly back (5–15 degrees) so the screen faces your eyes naturally without requiring you to tilt your head. Most monitors have a tilt adjustment on the base stand.",
+              "Monitor height — the top of the monitor (the top line of the screen) should be at or slightly below eye level when you are sitting in your normal working posture. If the monitor is too low, you tilt your head down and strain the back of your neck. If it is too high, you tilt your head back and strain the front of the neck and upper back. Adjust using the monitor's height adjustment stand, or place the monitor on a riser or monitor arm.",
+              "Monitor distance — OSHA's preferred viewing distance is 20 to 40 inches from your eyes to the screen, and at least 20 inches. Too close increases eye fatigue; too far causes squinting and leaning forward. If you find yourself leaning toward the screen to read, increase the font size or zoom level in your application rather than moving closer.",
+              "Monitor tilt — keep the screen perpendicular to your line of sight, which usually means tilting it back no more than 10 to 20 degrees, so it faces your eyes without you tilting your head. Most monitors have a tilt adjustment on the base stand.",
               "Dual monitor setup — if you use two monitors, position the primary monitor directly in front of you and the secondary monitor to the side. If you use both equally, position them symmetrically with a slight inward angle. Avoid twisting to view the secondary monitor for extended periods — this causes neck strain. Use Alt+Tab to move between applications rather than constantly turning your neck to look at the secondary screen.",
             ],
           },
@@ -178,7 +197,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Keyboard height — your elbows should be at approximately 90 degrees (or slightly more open — 100–110 degrees) when your hands rest on the keyboard in a natural typing position. Your wrists should be straight or very slightly inclined — never bent upward (extended) or downward (flexed). If your keyboard is on a standard desk and your chair is at the correct height, your wrists may be in an unnatural position — a keyboard tray that drops the keyboard below desk level corrects this.",
+              "Keyboard height — your elbows should stay close to your body and be bent between 90 and 120 degrees when your hands rest on the keyboard, with your hands, wrists, and forearms straight, in line, and roughly parallel to the floor — never bent upward (extended) or downward (flexed). If your keyboard is on a standard desk and your chair is at the correct height, your wrists may be in an unnatural position — a keyboard tray that drops the keyboard below desk level corrects this.",
               "Mouse position — the mouse should be at the same height as the keyboard and as close to the keyboard as possible so you do not have to reach for it. A mouse positioned too far to the side causes shoulder strain from holding the arm out. Consider a compact keyboard (without a numeric keypad) if the full-size keyboard pushes the mouse too far to the right.",
               "Wrist position while typing — keep your wrists hovering slightly above the keyboard surface while actively typing, not resting on the desk or a wrist pad. Rest on the wrist pad only during pauses. Resting on the pad while typing bends the wrist and compresses the carpal tunnel.",
               "Touchpad vs. mouse — laptop touchpads are convenient but not ergonomic for extended office use. A separate external mouse with natural grip reduces strain for staff who do significant mouse work. Consider a vertical mouse (angled to keep the forearm in a more neutral rotation) if you experience forearm fatigue or pain.",
@@ -230,7 +249,7 @@ export const module6Lessons: Lesson[] = [
             question: "You notice that you frequently lean forward toward your monitor to read the screen clearly. What is the most correct ergonomic solution?",
             options: [
               "Move the monitor closer to your eyes",
-              "Increase the font size or zoom level in your applications so you can read comfortably from the correct 20–28 inch distance",
+              "Increase the font size or zoom level in your applications so you can read comfortably from the recommended 20 to 40 inch distance",
               "Tilt the monitor further back",
               "Reduce your screen resolution so text appears larger",
             ],
@@ -242,22 +261,28 @@ export const module6Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Conduct a complete ergonomic assessment and adjustment of your own workstation.",
+        text: "Conduct a complete ergonomic assessment and adjustment of a workstation, at home or at school.",
+      },
+      {
+        type: "callout",
+        variant: "info",
+        text: "Steps 1 to 3 use a ruler and the furniture, so they work on any computer (at school, ask before moving equipment). Step 4 changes Windows display settings: on your own computer, do it in Settings; on a school computer, do it in the Challenge Lab below.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Using a ruler or measuring tape, measure: your current monitor's top edge height vs. your seated eye level, the distance from your eyes to the screen, and your keyboard height relative to your elbow position. Record these measurements.",
-          "Based on the measurements, identify any adjustments needed. Make at least two ergonomic adjustments to your workstation (chair height, monitor height or tilt, keyboard position). Re-measure after adjusting.",
-          "Sit in your adjusted workstation for 10 minutes and type a paragraph. Write 2–3 sentences describing how the adjusted position feels compared to your previous setup.",
-          "Create a 10-item Workstation Ergonomics Checklist for Lakeside Medical Associates new hires, formatted for printing. Save as 'LMA_ErgonomicsChecklist_2025-05.docx'.",
+          "Using a ruler or measuring tape, measure: the monitor's top edge height compared with your seated eye level, the distance from your eyes to the screen, and your keyboard height compared with your elbows. Record these measurements.",
+          "Based on the measurements, identify the adjustments needed. Make at least two ergonomic adjustments (chair height, monitor height or tilt, keyboard position), then measure again.",
+          "Sit at the adjusted workstation for 10 minutes and type a paragraph. Write 2 to 3 sentences describing how the adjusted position feels compared with the previous setup.",
+          "Adjust the display so you can read from 20 to 40 inches away instead of leaning in: in Settings › System › Display, use the recommended Display resolution and set Scale (for example, 125%); if a second monitor is connected but dark, select Detect and choose Extend these displays; if text is still small, raise Settings › Accessibility › Text size.",
+          "Create a 10-item Workstation Ergonomics Checklist for Lakeside Medical Associates new hires, formatted for printing. Save it as 'LMA_ErgonomicsChecklist_YYYY-MM.docx' (use the current year and month).",
         ],
       },
       {
         type: "callout",
         variant: "success",
-        text: "Deliverable: Submit your before/after measurements, your comfort description, and your Ergonomics Checklist to your instructor. This exercise demonstrates both practical ergonomic knowledge and the ability to create a training resource that could be used with real new hires.",
+        text: "Deliverable: Submit your before and after measurements, your comfort description, your Challenge Lab results page for step 4 (enter your name on the lab's finish screen and select Print or save results) or a note of the display settings you chose on your own computer, and your Ergonomics Checklist. Submit them to your instructor or course folder.",
       },
     ],
   },
