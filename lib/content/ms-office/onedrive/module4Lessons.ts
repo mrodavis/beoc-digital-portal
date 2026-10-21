@@ -94,6 +94,12 @@ export const onedriveModule4Lessons: Lesson[] = [
             variant: "info",
             text: "Version history fixes changes inside one file. If many files were changed at once, for example by ransomware, Restore your OneDrive (later in this module) can roll back your whole OneDrive.",
           },
+          {
+            type: "image",
+            src: `${IMG}/version-history/infographic.png`,
+            alt: "Quick reference: version history for one changed file, the Recycle bin for deleted files, and Restore your OneDrive for many changed files",
+            caption: "Quick reference: recover almost anything.",
+          },
         ],
       },
       {
