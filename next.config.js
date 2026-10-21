@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
 
+  // Dev server only: let compiled pages go after a minute idle so a long
+  // `next dev` session that visits hundreds of lesson pages stays small.
+  onDemandEntries: { maxInactiveAge: 60 * 1000, pagesBufferLength: 4 },
+
   // Short links students can type from a whiteboard. The simulator itself
   // lives at ehr.beocdigital.org; these land on the portal's student guide.
   async redirects() {
