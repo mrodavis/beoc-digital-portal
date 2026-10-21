@@ -56,7 +56,7 @@ export default function TechFoundationsPage() {
         </div>
         <div className="bg-white rounded-lg shadow-md border border-gray-200 p-4 text-center">
           <div className="text-2xl font-bold text-primary-600">Windows</div>
-          <div className="text-sm text-gray-600">10 / 11</div>
+          <div className="text-sm text-gray-600">11</div>
         </div>
       </div>
 
