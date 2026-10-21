@@ -14,6 +14,7 @@ const JUDGED = [
   "cal.rsvp", "cal.delete", "cal.taskDone",
   "meet.mic", "meet.camera", "meet.effects", "meet.join", "meet.captions", "meet.react", "meet.present", "meet.stopPresent",
   "meet.hand", "meet.layout", "meet.leave", "meet.record",
+  "chat.react",
 ];
 const FREE = [
   "app", "gm.go", "gm.tab", "gm.open", "gm.back", "gm.settings", "gm.draft", "toast",

@@ -760,7 +760,28 @@ export function applyGmail(doc: GmailDoc, c: SimCommit, ui: SimUi): { doc: Gmail
     }
     if (t.startsWith("chat:")) {
       const id = t.slice(5);
-      return { doc: { ...d, spaces: (d.spaces ?? []).map((s) => (s.id === id ? { ...s, messages: [...s.messages, { from: "me", text: v, time: fmtTime(nowOf(d)) }] } : s)) } };
+      const ls = linesOf(v);
+      const structured = ls.some((l) => /^(Message|Add member|File|File access):/i.test(l));
+      const text = structured ? field(ls, "Message") ?? "" : v;
+      const addMembers = structured ? ls.filter((l) => /^Add member:/i.test(l)).map((l) => l.replace(/^Add member:\s*/i, "").trim()).filter(Boolean) : [];
+      const file = structured ? field(ls, "File") : undefined;
+      const access = structured ? field(ls, "File access") : undefined;
+      const space = (d.spaces ?? []).find((s) => s.id === id);
+      if (!space) return { doc: d };
+      const members = Array.from(new Set([...space.members, ...addMembers]));
+      const drive = file && access ? (d.drive ?? []).map((f) => (f.name === file ? { ...f, sharedWith: Array.from(new Set([...(f.sharedWith ?? []), ...members])) } : f)) : d.drive;
+      const msg = { from: "me", text, time: fmtTime(nowOf(d)), ...(file ? { files: [file] } : {}) };
+      return { doc: { ...d, drive, spaces: (d.spaces ?? []).map((s) => (s.id === id ? { ...s, members, messages: [...s.messages, msg] } : s)) } };
+    }
+    if (t === "newdm") {
+      const people = (field(linesOf(v), "People") ?? "").split(";").map((x) => x.trim().toLowerCase()).filter(Boolean);
+      if (!people.length) return { doc: d };
+      const same = (d.spaces ?? []).find((s) => s.kind === "dm" && s.members.length === people.length && s.members.every((m) => people.includes(m.toLowerCase())));
+      if (same) return { doc: { ...d, surface: "chat", view: { ...view, space: same.id } }, ui: { selection: `space:${same.id}` } };
+      d = bump(d);
+      const id = `dm${d.seq}`;
+      const name = people.map((e) => nameOf(d, e)).join(", ");
+      return { doc: { ...d, surface: "chat", spaces: [...(d.spaces ?? []), { id, name, kind: "dm", members: people, messages: [] }], view: { ...view, space: id } }, ui: { selection: `space:${id}` } };
     }
     if (t.startsWith("addpeople:")) {
       const id = t.slice(10);
@@ -951,6 +972,32 @@ export function applyGmail(doc: GmailDoc, c: SimCommit, ui: SimUi): { doc: Gmail
     }
     case "meet.home":
       return { doc: { ...d, surface: "meet", tabs: Array.from(new Set([...(d.tabs ?? ["mail"]), "meet" as const])), meeting: null }, ui: { selection: "" } };
+    case "chat.react": {
+      // "<spaceId>:<message index>|<emoji>": add (or remove) your reaction.
+      const m = /^([^:]+):(\d+)\|(.+)$/.exec(v);
+      if (!m) return { doc: d };
+      const [, sid, idx, emoji] = m;
+      return {
+        doc: {
+          ...d,
+          spaces: (d.spaces ?? []).map((s) => {
+            if (s.id !== sid) return s;
+            return {
+              ...s,
+              messages: s.messages.map((msg, i) => {
+                if (i !== Number(idx)) return msg;
+                const rs = msg.reactions ?? [];
+                const has = rs.find((r) => r.emoji === emoji);
+                const next = has
+                  ? rs.map((r) => (r.emoji === emoji ? { ...r, by: r.by.includes("me") ? r.by.filter((b) => b !== "me") : [...r.by, "me"] } : r)).filter((r) => r.by.length)
+                  : [...rs, { emoji, by: ["me"] }];
+                return { ...msg, reactions: next };
+              }),
+            };
+          }),
+        },
+      };
+    }
     case "chat.open":
       return { doc: { ...d, surface: "chat", view: { ...view, space: v } }, ui: { selection: `space:${v}` } };
     case "meet.panel":
@@ -1007,7 +1054,7 @@ export function gmailInitialUi(doc: GmailDoc): SimUi {
 }
 
 /** Type targets of the canvas's forms (not selections). */
-const FORM_TARGET = /^(send:(new|reply:|replyAll:|forward:)|newlabel$|filter$|categories$|settings:|event:|task:new$|appointments:new$|calshare:|calpublic:|newcal$|meetcode$|meetchat$|chat:|newspace$|addpeople:)/;
+const FORM_TARGET = /^(send:(new|reply:|replyAll:|forward:)|newlabel$|filter$|categories$|settings:|event:|task:new$|appointments:new$|calshare:|calpublic:|newcal$|meetcode$|meetchat$|chat:|newdm$|newspace$|addpeople:)/;
 
 export function gmailSelectionExists(doc: GmailDoc, sel: string): boolean {
   if (!sel) return true;
