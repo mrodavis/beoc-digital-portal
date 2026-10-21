@@ -84,6 +84,21 @@ export const wordModule2Sims: Record<string, SimDefinition[]> = {
 };
 ```
 
+### Challenge Labs (`role: "challenge"`)
+
+A lesson's Challenge often asks students to do something on a real
+computer (open Task Manager, change display settings, set up a mail rule)
+that a locked-down school computer blocks. Give that lesson a sim with
+`role: "challenge"`: it renders as a **Challenge Lab** after the Challenge
+section instead of under Practice Simulation. Mirror the challenge's own
+steps, in order, as tasks. The finish card (every sim has it) takes the
+student's name and opens a printable results page ("Print or save as
+PDF"), which is what the challenge's deliverable should ask for, e.g.
+"Submit your Challenge Lab results page (or the screenshots, if you did
+this on your own computer)." Ids end in `-lab` (`tf-m1-task-manager-lab`).
+The results page lists every task's instruction, so write instructions
+that read well as a checklist.
+
 ### Rules for good sims
 
 - **Match the lesson.** Read the lesson file (objectives, worked examples,

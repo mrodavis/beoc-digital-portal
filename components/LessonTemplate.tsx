@@ -87,7 +87,9 @@ export default function ModuleTemplate({
   exercises,
 }: ModuleTemplateProps) {
 
-  const sims = simsFor(courseId, lessonId);
+  const allSims = simsFor(courseId, lessonId);
+  const sims = allSims.filter((s) => s.role !== "challenge");
+  const labs = allSims.filter((s) => s.role === "challenge");
   const hasSections = sections.length > 0;
   const hasChallenge = challenge.length > 0;
   const hasObjectives = objectives.length > 0;
@@ -147,6 +149,11 @@ export default function ModuleTemplate({
           {sims.length > 0 && (
             <a href="#practice-simulation" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-primary-600 px-3 py-1.5 text-sm font-semibold text-white hover:bg-primary-700">
               ▶ Practice simulation{sims.length > 1 ? `s (${sims.length})` : ""} on this page
+            </a>
+          )}
+          {labs.length > 0 && (
+            <a href="#challenge-lab" className="ml-2 mt-4 inline-flex items-center gap-2 rounded-lg border border-primary-600 px-3 py-1.5 text-sm font-semibold text-primary-700 hover:bg-primary-50">
+              ▶ Challenge Lab{labs.length > 1 ? `s (${labs.length})` : ""}
             </a>
           )}
         </div>
@@ -304,6 +311,24 @@ export default function ModuleTemplate({
 
           <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-8">
             <BlockList blocks={challenge} />
+          </div>
+        </div>
+      )}
+
+      {/* Challenge Lab: the same challenge in a simulated computer, for locked-down school machines */}
+      {labs.length > 0 && (
+        <div id="challenge-lab" className="mb-12 scroll-mt-24">
+          <SectionHeader
+            title="Challenge Lab"
+            description="School computers block some of these settings. Do the challenge here in a simulated computer instead. When you finish, enter your name and print or save your results to submit."
+          />
+          <div
+            className="space-y-10"
+            style={{ width: "min(1360px, calc(100vw - 2rem))", marginLeft: "calc((100% - min(1360px, calc(100vw - 2rem))) / 2)" }}
+          >
+            {labs.map((sim) => (
+              <SimSlot key={sim.id} sim={sim} />
+            ))}
           </div>
         </div>
       )}

@@ -522,6 +522,14 @@ interface SimBase {
   tasks: SimTask[];
   /** Estimated minutes, shown on the start card. */
   minutes?: number;
+  /**
+   * "practice" (default) renders under Practice Simulation, right after the
+   * lesson. "challenge" renders as a Challenge Lab after the lesson's
+   * Challenge section: a simulated stand-in for a challenge students cannot
+   * do on a locked-down school computer, with a printable results card as
+   * the deliverable.
+   */
+  role?: "practice" | "challenge";
 }
 
 export type SimDefinition =

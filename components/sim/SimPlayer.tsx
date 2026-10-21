@@ -10,6 +10,7 @@ import { Icon } from "./chrome/icons";
 import { applyOps } from "@/lib/sim/ops";
 import { commitMatches, commitSameCommand, selectionMatches, normText } from "@/lib/sim/match";
 import { closesBackstage } from "@/lib/sim/common";
+import { loadStudentName, printResults, saveStudentName } from "@/lib/printResults";
 
 type Feedback = { tone: "good" | "bad" | "info"; text: string } | null;
 
@@ -51,6 +52,9 @@ export default function SimPlayer({ sim, app }: { sim: SimDefinition; app: AppMo
   const [finished, setFinished] = useState(false);
   /** After the last task: hide the results card and let the learner look around (still finished). */
   const [exploring, setExploring] = useState(false);
+  /** For the printable results card (proof of completion for self-paced work). */
+  const [studentName, setStudentName] = useState("");
+  useEffect(() => setStudentName(loadStudentName()), []);
   const [activeTab, setActiveTab] = useState(app.ribbon[0]?.id ?? "");
   const [dialog, setDialog] = useState<string | null>(null);
   const [backstage, setBackstage] = useState<string | null>(null);
@@ -562,6 +566,46 @@ export default function SimPlayer({ sim, app }: { sim: SimDefinition; app: AppMo
                   );
                 })}
               </ol>
+              <div className="mb-4 rounded-lg border border-gray-200 bg-gray-50 p-3">
+                <label className="mb-1 block text-[12px] font-semibold text-gray-700" htmlFor={`${sim.id}-name`}>
+                  Your name (for your results page)
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  <input
+                    id={`${sim.id}-name`}
+                    value={studentName}
+                    onChange={(e) => setStudentName(e.target.value)}
+                    onKeyDown={(e) => e.stopPropagation()}
+                    placeholder="First and last name"
+                    className="min-w-0 flex-1 rounded-md border border-gray-300 bg-white px-2.5 py-1.5 text-[13px] text-gray-900 outline-none focus:border-blue-500"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      saveStudentName(studentName.trim());
+                      printResults({
+                        kind: sim.role === "challenge" ? "Challenge Lab" : "Practice Simulation",
+                        title: sim.title,
+                        studentName: studentName.trim(),
+                        summary: firstTry === tasks.length ? `All ${tasks.length} tasks done on the first try` : `All ${tasks.length} tasks done, ${firstTry} on the first try`,
+                        rows: tasks.map((t, i) => {
+                          const s = scores[i];
+                          const clean = s.misses === 0 && !s.hint;
+                          return {
+                            label: t.instruction,
+                            value: clean ? "first try" : `${s.misses} miss${s.misses === 1 ? "" : "es"}${s.hint ? ", hint used" : ""}`,
+                            ok: clean,
+                          };
+                        }),
+                        note: "A first try means no wrong commands and no hint. Completed in the BEOC Digital practice simulator.",
+                      });
+                    }}
+                    className="rounded-md border border-gray-300 bg-white px-3 py-1.5 text-[13px] font-semibold text-gray-800 hover:bg-gray-100"
+                  >
+                    Print or save results
+                  </button>
+                </div>
+              </div>
               <div className="flex gap-2">
                 <button type="button" onClick={restart} className="rounded-lg px-4 py-2 font-semibold text-white" style={{ background: app.accent }}>
                   Practice again
