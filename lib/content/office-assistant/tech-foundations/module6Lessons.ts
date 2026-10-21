@@ -517,7 +517,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Scheduling a Teams meeting — in the new Outlook, go to Calendar, select New event, and turn on the Teams meeting toggle next to the title; in classic Outlook, create a Meeting and select Teams Meeting. You can also use New meeting in the Teams calendar. Add attendees, set the date and time, add an agenda, and send. Recipients receive a calendar invitation with a Join button that opens the Teams meeting at the scheduled time.",
+              "Scheduling a Teams meeting — in the new Outlook, go to Calendar, select New event, and turn on the Teams meeting toggle next to the title; in classic Outlook, create a Meeting and select Teams Meeting. You can also use New event in the Teams calendar. Add attendees, set the date and time, add an agenda, and send. Recipients receive a calendar invitation with a Join button that opens the Teams meeting at the scheduled time.",
               "Meeting controls during the call — as a host or presenter, you can: Mute all participants (to stop background noise during a presentation), manage the participant list (Participants panel), share your screen (Share > select window or desktop), and record the meeting (Record — with participant notification as required by policy and law).",
               "Screen sharing — press the Share button in Teams or Zoom to share your entire screen or a specific window. Best practice: share a specific window (not your entire screen) to avoid accidentally showing other open content. Before sharing, close any tabs or windows that should not be visible, and check that no patient records or PHI are open.",
             ],
@@ -575,7 +575,7 @@ export const module6Lessons: Lesson[] = [
         ordered: true,
         items: [
           "In Teams, select Settings and more (…) › Settings › Devices. Choose your speaker and microphone (a headset if you have one) and select Make a test call. Note the result.",
-          "Schedule a practice meeting with only yourself (in the Teams calendar, select New meeting, add a title, and send). Open it, select Join, and on the pre-join screen check your video preview: camera at eye level, facing a light source, nothing confidential or PHI in the frame. Blur your background.",
+          "Schedule a practice meeting with only yourself (in the Teams calendar, select New event, add a title, keep Teams meeting turned on, and select Save). Open it, select Join, and on the pre-join screen check your video preview: camera at eye level, facing a light source, nothing confidential or PHI in the frame. Blur your background.",
           "Join the meeting and practice screen sharing by sharing a single Word document window, not your entire screen. Then stop sharing and leave.",
           "Write a 5-item Video Meeting Conduct Guide for Lakeside Medical Associates staff covering the five most important professional behaviors before and during video calls. Save it as 'LMA_VideoMeetingGuide_YYYY-MM.docx' (use the current year and month).",
         ],

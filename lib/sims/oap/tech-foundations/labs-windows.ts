@@ -1023,9 +1023,9 @@ export const labsWindowsSims: Record<string, SimDefinition[]> = {
           steps: [{ action: { kind: "command", id: "settings.testCall" }, requires: { selection: "settings" }, selectHint: "Make the test call from Settings › Devices." }],
         },
         {
-          instruction: "Schedule a meeting titled \"Video Practice\" with no other attendees.",
-          hint: "Close Settings with the back arrow. Select Calendar › New meeting. Type Video Practice in Add title, leave the attendees empty, then select Send.",
-          steps: [{ action: { kind: "type", target: "schedule", value: ["Title: Video Practice"], match: "all" } }],
+          instruction: "Schedule a Teams meeting titled \"Video Practice\" with no other attendees.",
+          hint: "Close Settings with the back arrow. Select Calendar › New event. Type Video Practice in Add a title, leave the attendee box empty and Teams meeting turned on, then select Save.",
+          steps: [{ action: { kind: "type", target: "schedule", value: ["Title: Video Practice", "Teams meeting: On"], match: "all" } }],
         },
         {
           instruction: "Open Video Practice from the calendar and select Join. On the pre-join screen, check your video preview and blur your background.",
