@@ -249,6 +249,11 @@ export function EventFormNew({ ctx }: { ctx: NCtx }) {
         <button type="button" data-c="event.discard" onClick={() => ctx.cmd("event.discard")} className="flex items-center gap-1.5 rounded-[4px] border border-gray-300 px-3 py-1.5 text-[13px] hover:bg-gray-50">
           <OIcon name="trash" size={15} /> Discard
         </button>
+        {f.id && f.kind === "meeting" && (!ctx.doc.events?.find((x) => x.id === f.id)?.organizer || ctx.doc.events?.find((x) => x.id === f.id)?.organizer?.email === ctx.doc.account.email) && (
+          <button type="button" data-c="event.cancelMeeting" onClick={() => ctx.cmd("event.cancelMeeting")} className="flex items-center gap-1.5 rounded-[4px] border border-gray-300 px-3 py-1.5 text-[13px] hover:bg-gray-50">
+            <OIcon name="close" size={15} /> Cancel
+          </button>
+        )}
         <span className="flex-1" />
         <span className="text-[12px] text-gray-500">{f.id ? "Edit event" : "New event"}</span>
       </div>

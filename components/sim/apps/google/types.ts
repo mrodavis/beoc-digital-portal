@@ -29,12 +29,28 @@
  *   "vername:<versionId>"   naming a version in Version history ("vername:current" names the current version)
  *   "filterview:<id>"       renaming a filter view
  *   "note:<cell>"           a note on a cell (Insert › Note)
+ *   "signin:email"          the Email or phone box on the sign-in page
+ *   "signin:password"       the Enter your password box
+ *   "signin:code"           a 2-Step Verification code (Try another way › Get a verification code)
+ *
+ * Smart chips in Docs are runs with `chip` (see GRun): `@` on a selected paragraph or
+ * Insert › Smart chips opens a picker that commits the g.chip dialog
+ * ({ kind: "person" | "date" | "file", value: email | date label | file id }).
+ * The chip is added at the end of the selected paragraph (or after the selected run).
  *
  * Commands and dialogs are listed in core.ts.
  */
 import type { ExcelBook, PptDeck, SimValue, WordDoc, WordRun } from "@/types/sim";
 
-export type GSurface = "drive" | "docs" | "sheets" | "slides";
+/**
+ * "home" is an app's home screen (docs.google.com, sheets.google.com, slides.google.com:
+ * Start a new …, the template strip and recent files), shown in the first browser tab
+ * in place of Drive; `GoogleDoc.homeApp` says which app. "signin" is the Google
+ * sign-in page (accounts.google.com), shown after Sign out or when a sim starts
+ * signed out; `flags.signin` is the step ("chooser" | "email" | "password" | "2sv" | "code").
+ */
+export type GSurface = "drive" | "docs" | "sheets" | "slides" | "home" | "signin";
+export type GHomeApp = "docs" | "sheets" | "slides";
 export type GRole = "Viewer" | "Commenter" | "Editor";
 export type GAccess = "Restricted" | "Organization" | "Anyone with the link";
 export type GMode = "Editing" | "Suggesting" | "Viewing";
@@ -91,8 +107,11 @@ export type GComment = {
 
 export type GContent = WordDoc | ExcelBook | PptDeck;
 
-/** A Docs run that is a suggestion (`ins` or `del`) records who suggested it. */
-export type GRun = WordRun & { author?: string; time?: string };
+/** A smart chip in a Docs paragraph. `ref` is the person's email, the file id, or the date text. */
+export type GChip = { kind: "person" | "date" | "file"; label: string; ref?: string };
+
+/** A Docs run that is a suggestion (`ins` or `del`) records who suggested it; a smart chip carries `chip`. */
+export type GRun = WordRun & { author?: string; time?: string; chip?: GChip };
 
 export type GVersion = {
   id: string;
@@ -121,7 +140,12 @@ export type GFilterView = {
   range: string;
   /** Criteria by column letter, in the Excel engine's filterValues syntax. */
   values?: Record<string, string[]>;
+  /** A new filter view is temporary until Save view (then it is named and kept). */
+  saved?: boolean;
 };
+
+/** A shared drive (Workspace accounts). Files inside it have `parent` = the drive id. */
+export type GSharedDrive = { id: string; name: string };
 
 export type GFile = {
   id: string;
@@ -169,11 +193,19 @@ export type GoogleDoc = {
   /** Editor tabs open in the browser, by file id. */
   tabs?: string[];
   drive?: {
-    /** Folder id, or a section: "root" (My Drive), "home", "shared", "recent", "starred", "trash", "storage", "computers". */
+    /** Folder id, shared drive id, or a section: "root" (My Drive), "home", "shareddrives", "shared", "recent", "starred", "spam", "trash", "storage", "computers". */
     location?: string;
     layout?: "list" | "grid";
     details?: boolean;
+    /** The search committed with Enter in Search in Drive (g.search). */
+    query?: string;
+    /** Filter chips under the search box (g.filter "Type=Spreadsheets", "People=<email>", "Modified=Last 7 days", "Location=My Drive"). */
+    chips?: { type?: string; people?: string; modified?: string; location?: string };
   };
+  /** Which app's home screen is showing when surface is "home". */
+  homeApp?: GHomeApp;
+  /** Shared drives (Workspace accounts only). */
+  sharedDrives?: GSharedDrive[];
   /** Files on this computer, offered by File upload. */
   computer?: string[];
   /** Docs editing mode. */

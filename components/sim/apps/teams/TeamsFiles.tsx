@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { createPortal } from "react-dom";
 import type { TeamsFile } from "./types";
 import { FileIcon, FolderIcon, TIcon } from "./icons";
@@ -78,6 +78,7 @@ export function UploadPicker({ onPick, onClose }: { onPick: (name: string) => vo
 const LINK_OPTIONS = (org: string) => ["Anyone with the link", `People in ${org}`, "People with existing access", "People you choose"];
 
 export function ShareDialog({ file, onClose }: { file: TeamsFile; onClose: () => void }) {
+  const rid = useId();
   const { doc, act } = useTeams();
   const org = doc.org ?? "Contoso";
   const [ids, setIds] = useState<string[]>([]);
@@ -125,7 +126,7 @@ export function ShareDialog({ file, onClose }: { file: TeamsFile; onClose: () =>
         <div className="mb-4 space-y-1">
           {LINK_OPTIONS(org).map((o) => (
             <label key={o} className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-[14px] ${draftLink === o ? "border-[#5b5fc7] bg-[#f0f1fd]" : "border-[#e0e0e0]"}`}>
-              <input type="radio" name="tm-link" checked={draftLink === o} onChange={() => setDraftLink(o)} aria-label={o} />
+              <input type="radio" name={`${rid}-link`} checked={draftLink === o} onChange={() => setDraftLink(o)} aria-label={o} />
               <TIcon name={o.startsWith("Anyone") ? "globe" : o.startsWith("People in") ? "teams" : o.startsWith("People with") ? "lock" : "people"} size={16} />
               {o}
             </label>

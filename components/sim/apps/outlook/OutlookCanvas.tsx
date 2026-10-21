@@ -358,7 +358,6 @@ export function OutlookCanvas({ doc, ui, accent, onSelect, onCommit, openDialog 
         ) : (
           <FolderPane ctx={ctx} />
         )}
-        <NavBar ctx={ctx} compact={paneMode === "Minimized"} />
       </aside>
     );
 
@@ -429,11 +428,11 @@ export function OutlookCanvas({ doc, ui, accent, onSelect, onCommit, openDialog 
   return (
     <div ref={rootRef} onKeyDown={onKeyDown} className="flex h-full min-h-0 flex-col bg-[#f3f2f1] text-gray-900" style={{ fontFamily: "'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif" }}>
       <div className="flex min-h-0 flex-1">
+        {!windowMode && <NavBar ctx={ctx} side />}
         {!windowMode && left}
         {main}
         {!windowMode && mod === "mail" && doc.todoBar && doc.todoBar !== "Off" && <TodoBar ctx={ctx} />}
       </div>
-      {!windowMode && paneMode === "Off" && <NavBar ctx={ctx} />}
 
       {menu && <ContextMenu x={menu.x} y={menu.y} items={menu.items} onClose={() => setMenu(null)} />}
       {alert && <AlertBox spec={alert} onClose={() => setAlert(null)} />}

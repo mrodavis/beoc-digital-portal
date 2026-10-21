@@ -101,6 +101,8 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
   const [undo, setUndo] = useState<{ id: string; left: number } | null>(null);
   const [width, setWidth] = useState(1100);
   const [search, setSearch] = useState(doc.search ?? "");
+  const [adv, setAdv] = useState(false);
+  const [advV, setAdvV] = useState<Record<string, string>>({});
   useEffect(() => setSearch(doc.search ?? ""), [doc.search]);
 
   useLayoutEffect(() => {
@@ -486,7 +488,7 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
           Outlook
         </span>
         <div className="flex flex-1 justify-center">
-          <div className="flex w-full max-w-[460px] items-center gap-2 rounded-md border border-transparent bg-white px-2.5 py-1 shadow-[0_0_2px_rgba(0,0,0,0.12)] focus-within:border-[#0f6cbd]">
+          <div className="relative flex w-full max-w-[460px] items-center gap-2 rounded-md border border-transparent bg-white px-2.5 py-1 shadow-[0_0_2px_rgba(0,0,0,0.12)] focus-within:border-[#0f6cbd]">
             <OIcon name="search" size={15} className="text-[#0f6cbd]" />
             <input
               aria-label="Search"
@@ -505,6 +507,42 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
               <button type="button" aria-label="Exit search" data-c="search.close" onClick={() => cmd("search.close")} className="text-gray-500 hover:text-gray-800">
                 <OIcon name="close" size={12} />
               </button>
+            )}
+            <button type="button" aria-label="Search filters" title="Filters" data-searchfilters="1" onClick={() => setAdv((v) => !v)} className="text-gray-600 hover:text-gray-900">
+              <OIcon name="filter" size={14} />
+            </button>
+            {adv && (
+              <div className="absolute left-1/2 top-11 z-[95] w-[380px] -translate-x-1/2 rounded-lg border border-gray-200 bg-white p-4 text-[13px] shadow-[0_8px_24px_rgba(0,0,0,0.18)]">
+                {(["From", "To", "Subject", "Keywords"] as const).map((k) => (
+                  <label key={k} className="mb-2 flex items-center gap-2">
+                    <span className="w-16 text-gray-700">{k}</span>
+                    <input data-f={`adv${k}`} value={advV[k] ?? ""} onChange={(e) => setAdvV({ ...advV, [k]: e.target.value })} onKeyDown={(e) => e.stopPropagation()} className="min-w-0 flex-1 rounded-[4px] border border-gray-300 px-2 py-1 outline-none focus:border-[#0f6cbd]" />
+                  </label>
+                ))}
+                <label className="mb-3 flex items-center gap-2">
+                  <input type="checkbox" data-f="advFiles" checked={Boolean(advV.files)} onChange={(e) => setAdvV({ ...advV, files: e.target.checked ? "yes" : "" })} className="accent-[#0f6cbd]" /> Has attachments
+                </label>
+                <div className="flex justify-end gap-2">
+                  <FButton onClick={() => setAdvV({})}>Clear filters</FButton>
+                  <FButton
+                    primary
+                    ok
+                    onClick={() => {
+                      const q = [
+                        advV.From ? `from:${/\s/.test(advV.From) ? `"${advV.From}"` : advV.From}` : "",
+                        advV.To ? `to:${/\s/.test(advV.To) ? `"${advV.To}"` : advV.To}` : "",
+                        advV.Subject ? `subject:${/\s/.test(advV.Subject) ? `"${advV.Subject}"` : advV.Subject}` : "",
+                        advV.Keywords ?? "",
+                        advV.files ? "hasattachment:yes" : "",
+                      ].filter(Boolean).join(" ");
+                      setAdv(false);
+                      if (q) cmd("mail.search", q);
+                    }}
+                  >
+                    Search
+                  </FButton>
+                </div>
+              </div>
             )}
           </div>
         </div>

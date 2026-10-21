@@ -95,7 +95,7 @@ function hash(s: string): number {
 /** A presence badge on its own (status menus). */
 export function StatusDot({ presence, size = 12 }: { presence: TeamsPresence; size?: number }) {
   return (
-    <span className="relative inline-block shrink-0" style={{ width: size + 2, height: size + 2 }}>
+    <span className="relative inline-block shrink-0" style={{ width: size + 2, height: size + 2 }} aria-hidden="true">
       <PresenceDot presence={presence} size={size} ring="transparent" />
     </span>
   );

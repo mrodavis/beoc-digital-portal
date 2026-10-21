@@ -5,8 +5,8 @@ import type { DialogField, SimCommit, SimValue } from "@/types/sim";
 import type { SimUi } from "../../types";
 import { googleDialogs } from "./dialogs";
 import { AppLogo, DriveLogo, GIcon } from "./icons";
-import { isItem, PALETTE_ROWS, type GEntry, type GItem, type GTool } from "./menus";
-import { fileOf, meOf, openFile, personOf, viewOn } from "./model";
+import { isItem, PALETTE_ROWS, SAVE_AS_GOOGLE, SEP, type GEntry, type GItem, type GTool } from "./menus";
+import { fileOf, isOffice, meOf, officeExt, openFile, personOf, viewOn } from "./model";
 import type { GComment, GoogleDoc, GPerson } from "./types";
 
 /* ------------------------------------------------------------------ */
@@ -74,6 +74,107 @@ export function Avatar({ person, size = 32, ring }: { person?: GPerson | { name:
     >
       {initials(name)}
     </span>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Google apps menu and account menu                                    */
+/* ------------------------------------------------------------------ */
+
+function AppTile({ name, children, onClick }: { name: string; children: React.ReactNode; onClick: () => void }) {
+  return (
+    <button type="button" role="menuitem" aria-label={name} onClick={onClick} className="flex h-[86px] w-[86px] flex-col items-center justify-center gap-1.5 rounded-xl text-[13px] text-[#1f1f1f] hover:bg-[#e8f0fe]">
+      <span className="flex h-10 w-10 items-center justify-center">{children}</span>
+      <span className="truncate">{name}</span>
+    </button>
+  );
+}
+
+const ROUND = (bg: string, icon: string) => (
+  <span className="flex h-9 w-9 items-center justify-center rounded-full" style={{ background: bg }}>
+    <GIcon name={icon} size={22} color="#fff" />
+  </span>
+);
+
+/** The Google apps menu (the grid of dots at the top right). */
+export function AppsMenu({ onClose, pos }: { onClose: () => void; pos: MenuPos }) {
+  const g = useG();
+  const me = meOf(g.doc);
+  const go = (app: string) => { onClose(); g.cmd("g.app", app); };
+  const apps: [string, React.ReactNode][] = [
+    ["Account", <Avatar key="a" person={me} size={34} />],
+    ["Gmail", ROUND("#ea4335", "mail")],
+    ["Drive", <DriveLogo key="d" size={36} />],
+    ["Calendar", ROUND("#1a73e8", "calendar")],
+    ["Meet", ROUND("#188038", "video")],
+    ["Chat", ROUND("#34a853", "chat")],
+    ["Docs", <AppLogo key="doc" kind="doc" size={38} />],
+    ["Sheets", <AppLogo key="sheet" kind="sheet" size={38} />],
+    ["Slides", <AppLogo key="slides" kind="slides" size={38} />],
+    ["Forms", <AppLogo key="form" kind="form" size={38} />],
+    ["Keep", ROUND("#f4b400", "note")],
+    ["Contacts", ROUND("#1a73e8", "person")],
+  ];
+  return (
+    <Popup onClose={onClose}>
+      <div role="menu" aria-label="Google apps" className="fixed z-[200] w-[310px] rounded-[28px] bg-[#e9eef6] p-2" style={{ left: Math.max(8, pos.x - 310), top: pos.y + 6, boxShadow: "0 4px 8px 3px rgba(60,64,67,.15)", fontFamily: TEXT_FONT }}>
+        <div className="grid grid-cols-3 justify-items-center gap-1 rounded-[22px] bg-white p-3">
+          {apps.map(([n, icon]) => (
+            <AppTile key={n} name={n} onClick={() => (n === "Account" ? (onClose(), g.cmd("g.account")) : go(n))}>
+              {icon}
+            </AppTile>
+          ))}
+        </div>
+      </div>
+    </Popup>
+  );
+}
+
+export function AppsButton() {
+  const [pos, setPos] = useState<MenuPos | null>(null);
+  return (
+    <>
+      <IconBtn icon="apps" label="Google apps" pressed={Boolean(pos)} onClick={(e) => { e.stopPropagation(); const r = (e.currentTarget as HTMLElement).getBoundingClientRect(); setPos({ x: r.right, y: r.bottom }); }} />
+      {pos && <AppsMenu pos={pos} onClose={() => setPos(null)} />}
+    </>
+  );
+}
+
+/** The account menu that opens from your profile picture: Manage your Google Account, Add account, Sign out. */
+export function AccountButton({ size = 32 }: { size?: number }) {
+  const g = useG();
+  const me = meOf(g.doc);
+  const [pos, setPos] = useState<MenuPos | null>(null);
+  return (
+    <>
+      <button type="button" aria-label={`Google Account: ${me.name} (${me.email})`} title={`Google Account\n${me.name}\n${me.email}`} onClick={(e) => { e.stopPropagation(); const r = e.currentTarget.getBoundingClientRect(); setPos({ x: r.right, y: r.bottom }); }} className="shrink-0 rounded-full p-1 hover:bg-black/5">
+        <Avatar person={me} size={size} />
+      </button>
+      {pos && (
+        <Popup onClose={() => setPos(null)}>
+          <div role="dialog" aria-label="Account" className="fixed z-[200] w-[360px] rounded-[28px] bg-[#e9eef6] p-3 text-center text-[#1f1f1f]" style={{ left: Math.max(8, pos.x - 360), top: pos.y + 6, boxShadow: "0 4px 8px 3px rgba(60,64,67,.15)", fontFamily: TEXT_FONT }}>
+            <div className="mb-3 flex items-center">
+              <span className="flex-1 truncate pl-8 text-[14px] font-medium">{me.email}</span>
+              <IconBtn icon="close" label="Close" onClick={() => setPos(null)} />
+            </div>
+            <div className="mb-2 flex justify-center"><Avatar person={me} size={80} /></div>
+            <div className="mb-4 text-[22px]" style={{ fontFamily: FONT }}>Hi, {me.name.split(" ")[0]}!</div>
+            <button type="button" onClick={() => { setPos(null); g.cmd("g.account"); }} className="mb-4 rounded-full border border-[#747775] px-6 py-2 text-[14px] font-medium text-[#0b57d0] hover:bg-[#0b57d0]/10" style={{ fontFamily: FONT }}>
+              Manage your Google Account
+            </button>
+            <div className="flex gap-1 overflow-hidden rounded-[22px] text-[14px]">
+              <button type="button" onClick={() => { setPos(null); g.cmd("g.toast", "Add another account opens the sign-in page"); }} className="flex flex-1 items-center justify-center gap-2 bg-white py-4 hover:bg-[#f1f3f4]">
+                <GIcon name="plus" size={20} /> Add account
+              </button>
+              <button type="button" aria-label="Sign out" onClick={() => { setPos(null); g.cmd("g.signOut"); }} className="flex flex-1 items-center justify-center gap-2 bg-white py-4 hover:bg-[#f1f3f4]">
+                <GIcon name="logout" size={20} /> Sign out
+              </button>
+            </div>
+            <div className="mt-3 text-[12px] text-[#444746]">Privacy Policy · Terms of Service</div>
+          </div>
+        </Popup>
+      )}
+    </>
   );
 }
 
@@ -617,9 +718,12 @@ export function Toast() {
 
 export function urlFor(doc: GoogleDoc): string {
   const f = openFile(doc);
+  if (doc.surface === "signin") return "accounts.google.com/v3/signin/identifier";
+  if (doc.surface === "home") return `${doc.homeApp === "sheets" ? "docs.google.com/spreadsheets" : doc.homeApp === "slides" ? "docs.google.com/presentation" : "docs.google.com/document"}/u/0/`;
   if (doc.surface === "drive") {
     const loc = doc.drive?.location ?? "root";
-    const seg: Record<string, string> = { root: "my-drive", home: "home", shared: "shared-with-me", recent: "recent", starred: "starred", trash: "trash", storage: "quota", computers: "computers" };
+    const seg: Record<string, string> = { root: "my-drive", home: "home", shared: "shared-with-me", recent: "recent", starred: "starred", trash: "trash", storage: "quota", computers: "computers", shareddrives: "shared-drives", spam: "spam" };
+    if (doc.drive?.query) return `drive.google.com/drive/search?q=${encodeURIComponent(doc.drive.query)}`;
     return `drive.google.com/drive/${seg[loc] ?? `folders/${loc}`}`;
   }
   const kind = doc.surface === "docs" ? "document" : doc.surface === "sheets" ? "spreadsheets" : "presentation";
@@ -632,7 +736,13 @@ export function BrowserFrame({ children }: { children: React.ReactNode }) {
   const g = useG();
   const { doc } = g;
   const loc = doc.drive?.location ?? "root";
-  const locName = loc === "root" ? "My Drive" : loc === "home" ? "Home" : loc === "shared" ? "Shared with me" : loc === "recent" ? "Recent" : loc === "starred" ? "Starred" : loc === "trash" ? "Trash" : loc === "storage" ? "Storage" : loc === "computers" ? "Computers" : fileOf(doc, loc)?.name ?? "My Drive";
+  const locName = loc === "root" ? "My Drive" : loc === "home" ? "Home" : loc === "shared" ? "Shared with me" : loc === "recent" ? "Recent" : loc === "starred" ? "Starred" : loc === "trash" ? "Trash" : loc === "storage" ? "Storage" : loc === "computers" ? "Computers" : loc === "shareddrives" ? "Shared drives" : loc === "spam" ? "Spam" : fileOf(doc, loc)?.name ?? doc.sharedDrives?.find((d) => d.id === loc)?.name ?? "My Drive";
+  const firstTab =
+    doc.surface === "signin"
+      ? { icon: <GIcon name="person" size={14} color="#5f6368" />, title: "Sign in - Google Accounts" }
+      : doc.homeApp
+        ? { icon: <AppLogo kind={doc.homeApp === "docs" ? "doc" : doc.homeApp === "sheets" ? "sheet" : "slides"} size={14} />, title: SUFFIX[doc.homeApp] }
+        : { icon: <DriveLogo size={14} />, title: doc.drive?.query ? "Search results - Google Drive" : `${locName} - Google Drive` };
   const tabs = (doc.tabs ?? []).map((id) => fileOf(doc, id)).filter(Boolean);
   const tab = (active: boolean, icon: React.ReactNode, title: string, onClick: () => void, onClose?: () => void, key?: string) => (
     <div
@@ -655,8 +765,8 @@ export function BrowserFrame({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-full flex-col bg-[#dfe3e7]" style={{ fontFamily: TEXT_FONT }}>
       <div className="flex h-[34px] shrink-0 items-end gap-0.5 px-2" role="tablist" aria-label="Browser tabs">
-        {tab(doc.surface === "drive", <DriveLogo size={14} />, `${locName} - Google Drive`, () => g.cmd("g.tab", "drive"), undefined, "drive")}
-        {tabs.map((f) => tab(doc.surface !== "drive" && doc.open === f!.id, <AppLogo kind={f!.kind} size={14} />, `${f!.name} - ${SUFFIX[f!.kind === "doc" ? "docs" : f!.kind === "sheet" ? "sheets" : "slides"]}`, () => g.cmd("g.tab", f!.id), () => g.cmd("g.closeTab", f!.id), f!.id))}
+        {tab(doc.surface === "drive" || doc.surface === "home" || doc.surface === "signin", firstTab.icon, firstTab.title, () => { if (doc.surface !== "signin") g.cmd("g.tab", "drive"); }, undefined, "drive")}
+        {tabs.map((f) => tab(doc.surface !== "drive" && doc.surface !== "home" && doc.surface !== "signin" && doc.open === f!.id, <AppLogo kind={f!.kind} size={14} />, `${f!.name} - ${SUFFIX[f!.kind === "doc" || f!.kind === "word" ? "docs" : f!.kind === "sheet" || f!.kind === "excel" ? "sheets" : "slides"]}`, () => g.cmd("g.tab", f!.id), () => g.cmd("g.closeTab", f!.id), f!.id))}
         <span className="mb-1 ml-1 flex h-6 w-6 items-center justify-center rounded-full text-[#3c4043]" aria-hidden="true">+</span>
         <span className="flex-1" />
       </div>
@@ -668,7 +778,7 @@ export function BrowserFrame({ children }: { children: React.ReactNode }) {
           <GIcon name="tune" size={14} color="#5f6368" />
           <span className="truncate">{urlFor(doc)}</span>
         </div>
-        <Avatar person={meOf(doc)} size={22} />
+        {doc.surface === "signin" && !doc.flags?.signedIn ? <span className="h-[22px] w-[22px] rounded-full bg-[#e8eaed]" aria-hidden="true" /> : <Avatar person={meOf(doc)} size={22} />}
       </div>
       <div className="relative min-h-0 flex-1 bg-white">{children}</div>
     </div>
@@ -700,8 +810,8 @@ export function EditorHeader({ menus, extraRight }: { menus: Record<string, GEnt
   const others = (f.sharing?.people ?? []).length > 0 || (f.sharing?.access && f.sharing.access !== "Restricted");
   return (
     <div className="flex shrink-0 items-start gap-1 px-3 pt-2" style={{ fontFamily: TEXT_FONT }}>
-      <button type="button" aria-label={`${SUFFIX[surface]} home`} title={`${SUFFIX[surface]} home`} onClick={() => g.cmd("g.tab", "drive")} className="mt-1 shrink-0 rounded-full p-1 hover:bg-[#e9eef6]">
-        <AppLogo kind={f.kind} size={34} />
+      <button type="button" aria-label={`${SUFFIX[surface]} home`} title={`${SUFFIX[surface]} home`} onClick={() => g.cmd("g.app", surface === "docs" ? "Docs" : surface === "sheets" ? "Sheets" : "Slides")} className="mt-1 shrink-0 rounded-full p-1 hover:bg-[#e9eef6]">
+        <AppLogo kind={surface === "docs" ? "doc" : surface === "sheets" ? "sheet" : "slides"} size={34} />
       </button>
       <div className="min-w-0 flex-1 pl-1">
         <div className="flex h-8 items-center gap-1">
@@ -722,6 +832,11 @@ export function EditorHeader({ menus, extraRight }: { menus: Record<string, GEnt
               {f.name}
             </button>
           )}
+          {isOffice(f.kind) && (
+            <span title="This is a Microsoft Office file. Changes are saved in its original format." className="shrink-0 rounded border border-[#747775] px-1.5 text-[11px] font-medium leading-[18px] text-[#444746]">
+              {officeExt(f.kind)}
+            </span>
+          )}
           <IconBtn icon={f.starred ? "starFilled" : "star"} label={f.starred ? "Remove from starred" : "Star"} color={f.starred ? "#f4b400" : undefined} onClick={() => g.cmd("g.star", f.id)} size={18} box={28} />
           <IconBtn icon="move" label="Move" onClick={() => g.dialog("g.move", { file: f.id })} size={18} box={28} />
           <span className="relative">
@@ -737,7 +852,7 @@ export function EditorHeader({ menus, extraRight }: { menus: Record<string, GEnt
           </span>
           {doc.flags?.edited && <span className="ml-1 hidden truncate text-[12px] text-[#5f6368] md:inline">Saved to Drive</span>}
         </div>
-        <MenuBar menus={menus} />
+        <MenuBar menus={isOffice(f.kind) ? { ...menus, File: [SAVE_AS_GOOGLE[surface], SEP, ...menus.File] } : menus} />
       </div>
       <div className="flex shrink-0 items-center gap-1 pt-1">
         <IconBtn icon="history" label={`Last edit was ${f.modified === "10:42 AM" ? "seconds ago" : f.modified ? `on ${f.modified}` : "recently"}. Open version history`} onClick={() => g.cmd("g.versions")} />
@@ -755,7 +870,7 @@ export function EditorHeader({ menus, extraRight }: { menus: Record<string, GEnt
           <GIcon name={others ? "people" : "lock"} size={18} color="#001d35" />
           Share
         </button>
-        <span className="ml-2"><Avatar person={meOf(doc)} size={32} /></span>
+        <span className="ml-1"><AccountButton /></span>
       </div>
     </div>
   );

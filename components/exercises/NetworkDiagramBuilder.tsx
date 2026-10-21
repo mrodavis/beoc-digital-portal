@@ -22,7 +22,7 @@ import { loadStudentName, printResults, saveStudentName } from "@/lib/printResul
 type Kind = "internet" | "office" | "modem" | "router" | "switch" | "ap" | "ws" | "printer" | "laptop" | "phone" | "fridge" | "thermostat" | "camera" | "door";
 type Zone = "core" | "clinical" | "staff" | "guest" | "iot";
 type Seg = Exclude<Zone, "core">;
-type Node = { id: string; kind: Kind; label: string; x: number; y: number };
+type Node = { id: string; kind: Kind; label: string; short?: string; x: number; y: number };
 type Link = { a: string; b: string };
 type Reach = Record<Seg, Record<string, boolean>>;
 type State = { nodes: Node[]; links: Link[]; reach: Reach };
@@ -30,22 +30,22 @@ type State = { nodes: Node[]; links: Link[]; reach: Reach };
 const W = 1000;
 const H = 700;
 const CORE_H = 190;
-const NODE_W = 92;
+const NODE_W = 100;
 const NODE_H = 40;
 
-const PARTS: { kind: Kind; label: string; count: number; group: "Equipment" | "Devices" | "IoT" }[] = [
-  { kind: "modem", label: "Modem", count: 1, group: "Equipment" },
-  { kind: "router", label: "Router / firewall", count: 1, group: "Equipment" },
-  { kind: "switch", label: "Switch", count: 1, group: "Equipment" },
-  { kind: "ap", label: "Access point", count: 2, group: "Equipment" },
-  { kind: "ws", label: "Workstation", count: 8, group: "Devices" },
-  { kind: "printer", label: "Printer", count: 2, group: "Devices" },
-  { kind: "laptop", label: "Staff laptop", count: 2, group: "Devices" },
-  { kind: "phone", label: "Patient phone", count: 1, group: "Devices" },
-  { kind: "fridge", label: "Fridge monitor", count: 1, group: "IoT" },
-  { kind: "thermostat", label: "Thermostat", count: 1, group: "IoT" },
-  { kind: "camera", label: "Lobby camera", count: 1, group: "IoT" },
-  { kind: "door", label: "Door controller", count: 1, group: "IoT" },
+const PARTS: { kind: Kind; label: string; short: string; count: number; group: "Equipment" | "Devices" | "IoT" }[] = [
+  { kind: "modem", label: "Modem", short: "Modem", count: 1, group: "Equipment" },
+  { kind: "router", label: "Router / firewall", short: "Router", count: 1, group: "Equipment" },
+  { kind: "switch", label: "Switch", short: "Switch", count: 1, group: "Equipment" },
+  { kind: "ap", label: "Access point", short: "AP", count: 2, group: "Equipment" },
+  { kind: "ws", label: "Workstation", short: "WS", count: 8, group: "Devices" },
+  { kind: "printer", label: "Printer", short: "Printer", count: 2, group: "Devices" },
+  { kind: "laptop", label: "Staff laptop", short: "Laptop", count: 2, group: "Devices" },
+  { kind: "phone", label: "Patient phone", short: "Patient phone", count: 1, group: "Devices" },
+  { kind: "fridge", label: "Fridge monitor", short: "Fridge monitor", count: 1, group: "IoT" },
+  { kind: "thermostat", label: "Thermostat", short: "Thermostat", count: 1, group: "IoT" },
+  { kind: "camera", label: "Lobby camera", short: "Camera", count: 1, group: "IoT" },
+  { kind: "door", label: "Door controller", short: "Door controller", count: 1, group: "IoT" },
 ];
 
 const ICON: Record<Kind, string> = {
@@ -85,8 +85,8 @@ const WIRELESS: Kind[] = ["laptop", "phone"];
 const IOT: Kind[] = ["fridge", "thermostat", "camera", "door"];
 
 const FIXED: Node[] = [
-  { id: "internet", kind: "internet", label: "Internet (ISP line)", x: 20, y: 20 },
-  { id: "office", kind: "office", label: "Main office", x: W - NODE_W - 20, y: 20 },
+  { id: "internet", kind: "internet", label: "Internet (ISP line)", short: "Internet", x: 20, y: 20 },
+  { id: "office", kind: "office", label: "Main office", short: "Main office", x: W - NODE_W - 20, y: 20 },
 ];
 
 function flatReach(): Reach {
@@ -267,8 +267,9 @@ export default function NetworkDiagramBuilder() {
     const part = PARTS.find((p) => p.kind === kind)!;
     const nth = (used[kind] ?? 0) + 1;
     const label = part.count > 1 ? `${part.label} ${nth}` : part.label;
+    const short = part.count > 1 ? `${part.short} ${nth}` : part.short;
     const id = `${kind}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
-    change((p) => ({ ...p, nodes: [...p.nodes, { id, kind, label, x: clamp(x - NODE_W / 2, 0, W - NODE_W), y: clamp(y - NODE_H / 2, 0, H - NODE_H) }] }));
+    change((p) => ({ ...p, nodes: [...p.nodes, { id, kind, label, short, x: clamp(x - NODE_W / 2, 0, W - NODE_W), y: clamp(y - NODE_H / 2, 0, H - NODE_H) }] }));
     setSel(id);
     if (left(kind) <= 1) setPicked(null);
   };
@@ -412,7 +413,11 @@ export default function NetworkDiagramBuilder() {
   const selNode = sel ? nodeById(sel) : undefined;
 
   return (
-    <div className="select-none rounded-2xl border border-gray-200 bg-white p-5 shadow-md">
+    // Wider than the reading column on big screens, like the practice simulations, so the parts stay legible.
+    <div
+      className="select-none rounded-2xl border border-gray-200 bg-white p-5 shadow-md"
+      style={{ width: "min(1240px, calc(100vw - 2rem))", marginLeft: "calc((100% - min(1240px, calc(100vw - 2rem))) / 2)" }}
+    >
       <div className="mb-1 text-[11px] font-semibold uppercase tracking-wider text-primary-700">Network Diagram Builder</div>
       <h3 className="mb-1 text-xl font-bold text-gray-900">Design Lakeside&apos;s second location</h3>
       <p className="mb-3 text-sm text-gray-700">
@@ -457,7 +462,7 @@ export default function NetworkDiagramBuilder() {
           }}
           className="rounded border border-gray-300 px-2.5 py-1 text-gray-700 hover:bg-gray-100"
         >
-          Start over
+          Clear board
         </button>
       </div>
 
@@ -554,7 +559,7 @@ export default function NetworkDiagramBuilder() {
                   } else setSel(n.id);
                 } else if ((e.key === "Delete" || e.key === "Backspace") && mode === "move") removeNode(n.id);
               }}
-              className={`absolute flex touch-none items-center gap-1 overflow-hidden rounded-md border-2 bg-white px-1.5 text-left text-[11px] font-semibold leading-tight text-gray-900 shadow-sm ${active ? "ring-2 ring-amber-400" : ""}`}
+              className={`absolute flex touch-none items-center gap-1 overflow-hidden rounded-md border-2 bg-white px-1 text-left text-[10.5px] font-semibold leading-tight text-gray-900 shadow-sm ${active ? "ring-2 ring-amber-400" : ""}`}
               style={{
                 left: `${(n.x / W) * 100}%`,
                 top: `${(n.y / H) * 100}%`,
@@ -564,8 +569,8 @@ export default function NetworkDiagramBuilder() {
                 cursor: mode === "connect" ? "crosshair" : "grab",
               }}
             >
-              <span aria-hidden="true" className="text-[15px]">{ICON[n.kind]}</span>
-              <span className="min-w-0 flex-1 truncate">{n.label}</span>
+              <span aria-hidden="true" className="text-[13px]">{ICON[n.kind]}</span>
+              <span className="line-clamp-2 min-w-0 flex-1 break-words" title={n.label}>{n.short ?? n.label}</span>
             </button>
           );
         })}

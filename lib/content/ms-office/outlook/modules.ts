@@ -1,5 +1,7 @@
 import { Lesson } from "@/types/lesson";
 import { outlookModule1Lessons } from "./module1Lessons";
+import { outlookModule2Lessons } from "./module2Lessons";
+import { outlookModule3Lessons } from "./module3Lessons";
 
 export type OutlookModule = {
   moduleNumber: number;
@@ -23,5 +25,25 @@ export const outlookModules: OutlookModule[] = [
     lessons: outlookModule1Lessons,
     level: "Beginner",
     estimatedMinutes: 45,
+  },
+  {
+    moduleNumber: 2,
+    moduleSlug: "module-2",
+    title: "Writing Professional Email",
+    emoji: "✍️",
+    description: "Addressing and structuring messages, replying and forwarding, attachments and cloud links, signatures, and Schedule send, Undo send and recall.",
+    lessons: outlookModule2Lessons,
+    level: "Beginner",
+    estimatedMinutes: 80,
+  },
+  {
+    moduleNumber: 3,
+    moduleSlug: "module-3",
+    title: "Organizing Your Inbox",
+    emoji: "🗂️",
+    description: "Folders and Favorites, categories, flags, pins and snooze, rules and Sweep, search and filters, quick steps and Focused Inbox.",
+    lessons: outlookModule3Lessons,
+    level: "Intermediate",
+    estimatedMinutes: 80,
   },
 ];

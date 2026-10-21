@@ -166,6 +166,7 @@ function EventBlock({ ctx, o, style, compact }: { ctx: Ctx; o: Occurrence; style
     <div
       role="button"
       tabIndex={0}
+      data-sel={o.key}
       aria-label={`${e.title}, ${e.allDay ? "all day" : `${fmtTime(o.start)} to ${fmtTime(o.end)}`}${e.location ? `, ${e.location}` : ""}`}
       aria-pressed={selected}
       draggable={!e.calendar}
@@ -227,7 +228,12 @@ function TimeGrid({ ctx, days }: { ctx: Ctx; days: string[] }) {
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="flex border-b border-gray-300 bg-white pr-3">
-        <div className="w-14 shrink-0" />
+        {(doc.extraTimeZones ?? []).slice(0, 1).map((z) => (
+          <div key={z.zone} className="w-12 shrink-0 truncate px-0.5 pt-2 text-right text-[9.5px] text-gray-500" title={z.zone}>
+            {z.label || z.zone.replace(/^\(UTC[^)]*\)\s*/, "").split(" ")[0]}
+          </div>
+        ))}
+        <div className="w-14 shrink-0 pt-2 text-right text-[9.5px] text-gray-500">{doc.extraTimeZones?.length ? "Local" : ""}</div>
         {days.map((d) => (
           <div key={d} className={`min-w-0 flex-1 border-l border-gray-200 px-2 py-1 ${d === today ? "border-t-2" : ""}`} style={d === today ? { borderTopColor: ctx.accent } : undefined}>
             <span className={`text-[20px] font-light ${d === today ? "" : "text-gray-700"}`} style={d === today ? { color: ctx.accent } : undefined}>
@@ -238,6 +244,7 @@ function TimeGrid({ ctx, days }: { ctx: Ctx; days: string[] }) {
         ))}
       </div>
       <div className="flex border-b border-gray-300 bg-white pr-3">
+        {(doc.extraTimeZones ?? []).slice(0, 1).map((z) => <div key={z.zone} className="w-12 shrink-0" />)}
         <div className="w-14 shrink-0 py-0.5 text-right text-[10px] text-gray-500" />
         {days.map((d) => {
           const list = allDay.filter((o) => dateOf(o.start) <= d && dateOf(addMinutes(o.end, -1)) >= d);
@@ -254,6 +261,19 @@ function TimeGrid({ ctx, days }: { ctx: Ctx; days: string[] }) {
       </div>
       <div ref={scrollRef} className="relative min-h-0 flex-1 overflow-y-auto bg-white">
         <div className="flex" style={{ height: 48 * SLOT }}>
+          {(doc.extraTimeZones ?? []).slice(0, 1).map((z) => {
+            const m = /UTC([+-]\d{2}):(\d{2})/.exec(z.zone);
+            const off = (m ? +m[1] : 0) - (doc.timeZone ? +(/UTC([+-]\d{2})/.exec(doc.timeZone)?.[1] ?? -5) : -5);
+            return (
+              <div key={z.zone} className="w-12 shrink-0 border-r border-gray-100 text-right text-[10px] text-gray-400" title={z.label ? `${z.label}: ${z.zone}` : z.zone}>
+                {Array.from({ length: 24 }, (_, h) => (
+                  <div key={h} className="pr-1" style={{ height: 2 * SLOT }}>
+                    {fmtHour((((h + off) % 24) + 24) % 24)}
+                  </div>
+                ))}
+              </div>
+            );
+          })}
           <div className="w-14 shrink-0 text-right text-[10.5px] text-gray-500">
             {Array.from({ length: 24 }, (_, h) => (
               <div key={h} className="pr-1.5" style={{ height: 2 * SLOT }}>

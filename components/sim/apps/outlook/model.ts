@@ -244,6 +244,7 @@ export function searchMatches(m: OlMessage, q: string): boolean {
         case "subject":
           return m.subject.toLowerCase().includes(v);
         case "hasattachments":
+        case "hasattachment":
           return (v === "yes" || v === "true") === Boolean(m.attachments?.length);
         case "category":
           return (m.categories ?? []).some((c) => c.toLowerCase().includes(v));

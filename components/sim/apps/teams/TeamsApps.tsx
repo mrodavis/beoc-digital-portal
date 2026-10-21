@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import type { TeamsChat } from "./types";
 import { TIcon } from "./icons";
 import { DEFAULT_TODAY, addDays, findChannel, findMessage, isoToMDY, personName, serializeForm, shortDay } from "./model";
@@ -135,6 +135,7 @@ export function AddTabDialog({ channelId, onClose }: { channelId: string; onClos
 /* ------------------------------------------------------------------ */
 
 export function ParticipantsPanel({ chat, onClose }: { chat: TeamsChat; onClose: () => void }) {
+  const rid = useId();
   const { doc, act } = useTeams();
   const accepted = useAccepted(doc);
   const [adding, setAdding] = useState(false);
@@ -198,7 +199,7 @@ export function ParticipantsPanel({ chat, onClose }: { chat: TeamsChat; onClose:
           {chat.members.length > 1 &&
             ["Don't include chat history", "Include all chat history"].map((o) => (
               <label key={o} className="mb-1 flex items-center gap-2">
-                <input type="radio" name={`tm-hist-${chat.id}`} checked={history === o} onChange={() => setHistory(o)} aria-label={o} /> {o}
+                <input type="radio" name={`${rid}-hist`} checked={history === o} onChange={() => setHistory(o)} aria-label={o} /> {o}
               </label>
             ))}
           <div className="mt-3 flex justify-end gap-2">

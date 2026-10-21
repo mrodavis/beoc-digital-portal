@@ -28,10 +28,19 @@ import type { GoogleDoc } from "./types";
  *   g.shortcut, g.makeCopy, g.email, g.emailCollaborators, g.print, g.nameVersion, g.pageSetup,
  *   g.indent, g.spacing, g.image, g.sortRange, g.validation, g.cf, g.pivot, g.protect,
  *   g.removeDuplicates, g.background, g.slideSize; plus link and replace.
+ *   g.template (template name, from an app home screen or Docs' File › New › From a template),
+ *   g.saveAsGoogle (File › Save as Google Docs/Sheets/Slides for an Office file), g.signOut,
+ *   g.2sv (Yes | No on the phone prompt), g.block (Meeting notes | Email draft), g.convertTable.
+ * Google-only dialogs also include g.chip (smart chips: kind person | date | file, value).
  * Free (navigation, never a miss): g.go (folder id | root | shared | recent | starred | trash |
- *   storage | home | computers), g.open (file id), g.tab, g.closeTab, g.layout, g.details,
- *   g.pane (panel name), g.view, g.versions, g.versions.close, g.copyLink, g.help, g.toast,
- *   g.filterView.close, slideshow.next / prev / end.
+ *   storage | home | computers | shareddrives | shared drive id), g.open (file id), g.tab, g.closeTab,
+ *   g.layout, g.details, g.pane (panel name), g.view, g.versions, g.versions.close, g.copyLink,
+ *   g.help, g.toast, g.filterView.close, g.filterView.open (view id), g.app (Drive | Docs | Sheets |
+ *   Slides | Gmail | …, the Google apps menu), g.account (Manage your Google Account),
+ *   g.signin.step (chooser | email | password | code), g.search (query, Enter in Search in Drive),
+ *   g.filter (search chips: "Type=Spreadsheets", "People=<email>", "Modified=Last 7 days",
+ *   "Location=My Drive", "" clears), slideshow.next / prev / end.
+ *   Use `judgeFree: true` on a task that asks for one of these (open Sheets from the apps menu, search).
  */
 export const googleCore: AppCore<GoogleDoc> = {
   name: "Google Workspace",
@@ -57,7 +66,8 @@ export const googleCore: AppCore<GoogleDoc> = {
     "g.new", "g.upload", "g.star", "g.trash", "g.restore", "g.deleteForever", "g.emptyTrash", "g.drive.copy", "g.drive.download",
     "g.copyLink", "g.color", "g.open", "g.go", "g.tab", "g.closeTab", "g.layout", "g.details", "g.pane", "g.view", "g.versions",
     "g.versions.close", "g.version.restore", "g.comment.resolve", "g.comment.reopen", "g.comment.delete", "g.help", "g.toast",
-    "g.zoom", "g.freeze", "g.check", "g.filterView", "g.filterView.close", "g.wordCountWhileTyping",
+    "g.zoom", "g.freeze", "g.check", "g.filterView", "g.filterView.close", "g.filterView.open", "g.wordCountWhileTyping",
+    "g.app", "g.account", "g.signOut", "g.signin.step", "g.2sv", "g.search", "g.filter", "g.template", "g.saveAsGoogle",
     // Editor commands the canvas emits from cards, grids, panels and right-click menus.
     "spelling.change", "spelling.ignore", "review.accept", "review.reject", "edit.delete", "edit.clearContents",
     "home.formatPainter.apply", "excel.fill", "filter.by", "filter.sort", "sheet.add", "sheet.delete", "sheet.duplicate",
@@ -70,8 +80,8 @@ export const googleCore: AppCore<GoogleDoc> = {
   ],
   freeCommands: [
     "g.go", "g.open", "g.tab", "g.closeTab", "g.layout", "g.details", "g.pane", "g.view", "g.versions", "g.versions.close",
-    "g.copyLink", "g.help", "g.toast", "g.filterView.close", "g.zoom", "view.zoom", "slideshow.next", "slideshow.prev",
-    "slideshow.end", "slideshow.goto",
+    "g.copyLink", "g.help", "g.toast", "g.filterView.close", "g.filterView.open", "g.zoom", "view.zoom", "slideshow.next", "slideshow.prev",
+    "slideshow.end", "slideshow.goto", "g.app", "g.account", "g.signin.step", "g.search", "g.filter",
   ],
   initialUi: googleInitialUi,
   apply: applyGoogle,

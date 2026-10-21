@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import type { TeamsMeeting } from "./types";
 import { TIcon, FileIcon } from "./icons";
 import { chatTitle, findChat, findEvent, personName } from "./model";
@@ -102,6 +102,7 @@ function DeviceSelect({ label, value, options, onChange, dark }: { label: string
 /* ------------------------------------------------------------------ */
 
 function PreJoin({ m }: { m: TeamsMeeting }) {
+  const rid = useId();
   const { doc, cmd } = useTeams();
   const key = `prejoin:${m.id}`;
   const [panel, setPanel] = useState<"effects" | "devices" | null>(null);
@@ -146,7 +147,7 @@ function PreJoin({ m }: { m: TeamsMeeting }) {
                 {audio.map((a) => (
                   <div key={a} className={`rounded-md border ${m.audio === a ? "border-[#5b5fc7] bg-[#f0f1fd]" : "border-transparent"}`}>
                     <label className="flex cursor-pointer items-center gap-2 px-3 py-2 text-[13px]">
-                      <input type="radio" name={`tm-audio-${m.id}`} checked={m.audio === a} onChange={() => cmd(key, "av.audio", a)} aria-label={a} />
+                      <input type="radio" name={`${rid}-audio`} checked={m.audio === a} onChange={() => cmd(key, "av.audio", a)} aria-label={a} />
                       <TIcon name={a === "Computer audio" ? "monitor" : a === "Room audio" ? "people" : a === "Phone audio" ? "calls" : "speaker"} size={16} />
                       {a}
                     </label>
@@ -742,6 +743,7 @@ export function MeetingWindow() {
 const SETTINGS_PAGES = ["General", "Accounts and orgs", "Privacy", "Notifications and activity", "Appearance and accessibility", "Files and links", "Chats and channels", "Calls", "Devices", "Captions and transcripts", "About Teams"];
 
 export function SettingsPage() {
+  const rid = useId();
   const { doc, ui, go, cmd } = useTeams();
   const page = ui.settingsPage ?? "devices";
   const d = doc.devices;
@@ -862,7 +864,7 @@ export function SettingsPage() {
                 const on = (doc.layout ?? "combined") === v.toLowerCase();
                 return (
                   <label key={v} className={`mb-2 flex cursor-pointer items-center gap-3 rounded-md border px-3 py-2 ${on ? "border-[#5b5fc7] bg-[#f0f1fd]" : "border-[#e0e0e0]"}`}>
-                    <input type="radio" name="tm-layout" checked={on} onChange={() => cmd("settings", "settings.layout", v)} aria-label={v} />
+                    <input type="radio" name={`${rid}-layout`} checked={on} onChange={() => cmd("settings", "settings.layout", v)} aria-label={v} />
                     <span>
                       <span className="block font-semibold">{v}</span>
                       <span className="text-[12px] text-[#616161]">{text}</span>

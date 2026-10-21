@@ -275,6 +275,56 @@ export const outlookModule2Sims: Record<string, SimDefinition[]> = {
         },
       ],
     },
+    {
+      id: "ol-m2-signatures-lab",
+      app: "outlook-new",
+      role: "challenge",
+      title: "Challenge Lab: Create your professional signatures",
+      scenario:
+        "Do the lesson Challenge in a working copy of new Outlook. Use your own first and last name in the signatures. When you finish, enter your name and print or save your results page to submit.",
+      fileName: "Inbox",
+      minutes: 6,
+      initial: lakeside([msg("m1", DENISE, "Signatures", "Please set up your email signature today. Denise", "2026-10-20T08:00", { to: [ME] })]),
+      tasks: [
+        {
+          instruction: 'Create a signature named "Full" with your name, "Office Assistant", "Lakeside Medical Associates" and "(555) 010-2400", and set it for new messages.',
+          hint: "Settings (gear) › Accounts › Signatures › Add signature. Name it Full, type the signature, check Add this signature to new messages, and select Save.",
+          steps: [
+            signaturesStep(
+              { sigs: [{ name: "Full", text: "Taylor Brooks | Office Assistant | Lakeside Medical Associates | (555) 010-2400" }], defNew: "Full" },
+              ["[Full]", "Office Assistant", "Lakeside Medical Associates", "(555) 010-2400", "New messages: Full"],
+            ),
+          ],
+        },
+        {
+          instruction: 'Create a short signature named "Short" with your name and "Lakeside Medical Associates", and set it for replies and forwards.',
+          hint: "Settings › Accounts › Signatures › Add signature. Name it Short, type it, check Add this signature to replies and forwards, and select Save.",
+          steps: [
+            signaturesStep(
+              {
+                sigs: [
+                  { name: "Full", text: "Taylor Brooks | Office Assistant | Lakeside Medical Associates | (555) 010-2400" },
+                  { name: "Short", text: "Taylor Brooks, Lakeside Medical Associates" },
+                ],
+                defNew: "Full",
+                defReply: "Short",
+              },
+              ["[Short]", "Replies/forwards: Short", "New messages: Full"],
+            ),
+          ],
+        },
+        {
+          instruction: 'Send yourself a test message with the subject "Signature test" and check that your Full signature is in it.',
+          hint: "Close Settings, select New mail, put your own address (taylor.brooks@lakesidemed.example.com) in To, type the subject, and select Send. The test arrives in your Inbox.",
+          steps: [
+            OPEN.email,
+            { action: { kind: "type", target: "compose.to", value: recipients(ME.email) } },
+            { action: { kind: "type", target: "compose.subject", value: "Signature test" } },
+            sendStep,
+          ],
+        },
+      ],
+    },
   ],
 
   "module-2::send-timing": [
@@ -334,6 +384,48 @@ export const outlookModule2Sims: Record<string, SimDefinition[]> = {
             { action: { kind: "command", id: "item.open", value: "msg:m2" }, requires: { selection: "msg:m2" }, selectHint: "Open Sent Items and select \"Lunch order for Friday\"." },
             { action: { kind: "command", id: "mail.recall" } },
           ],
+        },
+      ],
+    },
+    {
+      id: "ol-m2-send-timing-lab",
+      app: "outlook-new",
+      role: "challenge",
+      title: "Challenge Lab: Undo send and Schedule send",
+      scenario:
+        "Do the lesson Challenge in a working copy of new Outlook: turn on Undo send, use it, and schedule a message for the morning. When you finish, enter your name and print or save your results page to submit.",
+      fileName: "Inbox",
+      minutes: 5,
+      initial: lakeside([msg("m1", DENISE, "End of day", "Thanks for today, Taylor. Denise", "2026-10-20T17:00", { to: [ME] })], { now: "2026-10-20T17:45" }),
+      tasks: [
+        {
+          instruction: "Turn on Undo send with a 10-second wait.",
+          hint: "Settings (gear) › Mail › Compose and reply › Undo send › 10 seconds › Save.",
+          steps: [{ action: { kind: "dialog", id: "settings.undoSend", values: { seconds: 10 } } }],
+        },
+        {
+          instruction: 'Send yourself a message with the subject "Undo test", then select Undo before it is sent.',
+          hint: "Close Settings, New mail, put your own address in To, type the subject, select Send, then select Undo on the Sending bar at the bottom.",
+          steps: [
+            OPEN.email,
+            { action: { kind: "type", target: "compose.to", value: recipients(ME.email) } },
+            { action: { kind: "type", target: "compose.subject", value: "Undo test" } },
+            sendStep,
+            { action: { kind: "command", id: "mail.undoSend" } },
+          ],
+        },
+        {
+          instruction: 'Change the subject of the reopened message to "Scheduled test" and schedule it to send tomorrow morning at 8:00 AM.',
+          hint: "Click in the subject and replace it. Then select the arrow next to Send › Schedule send › Tomorrow morning 8:00 AM › Send.",
+          steps: [
+            { action: { kind: "type", target: "compose.subject", value: "Scheduled test" } },
+            { action: { kind: "dialog", id: "scheduleSend", values: { when: "Tomorrow morning 8:00 AM" } } },
+          ],
+        },
+        {
+          instruction: "Open the Drafts folder to see the scheduled message waiting there.",
+          hint: "In the folder pane, select Drafts.",
+          steps: [{ action: { kind: "command", id: "mail.folder", value: "Drafts" } }],
         },
       ],
     },

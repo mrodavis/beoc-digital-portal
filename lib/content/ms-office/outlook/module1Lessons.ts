@@ -121,7 +121,7 @@ export const outlookModule1Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Microsoft is moving organizations from classic Outlook to new Outlook in stages. Recent versions of Windows 11 already include the new Outlook app. In organizations that use Microsoft 365, new Outlook is being turned on by default, while people can still switch back to classic Outlook during the move. Microsoft has said it will keep supporting classic Outlook until at least 2029, so you will see both for years. New Outlook is where Microsoft is adding new features, and it matches Outlook on the web, which is what many schools and clinics give staff and students in a browser.",
+            text: "Microsoft is moving organizations from classic Outlook to new Outlook in stages. Recent versions of Windows 11 already include the new Outlook app. For large organizations, Microsoft has announced that new Outlook will be turned on by default starting in March 2027, and people will still be able to switch back to classic Outlook during that stage. Microsoft has also said it will keep supporting classic Outlook until at least 2029, so you will see both versions at work for years. New Outlook is where Microsoft adds new features, and it matches Outlook on the web, which many schools and clinics give staff and students in a browser.",
           },
           {
             type: "list",

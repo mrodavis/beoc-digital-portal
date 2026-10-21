@@ -725,7 +725,15 @@ export function selItems(sel: string): string[] {
 export function odSelectionExists(doc: OneDriveDoc, sel: string): boolean {
   if (!sel) return true;
   if (sel.startsWith("item:")) return selItems(sel).every((x) => Boolean(itemOf(doc, x)));
-  if (sel.startsWith("comment:")) return doc.items.some((i) => i.comments?.some((c) => c.id === sel.slice(8)));
+  if (sel.startsWith("comment:") && sel.includes(".")) {
+    const [fid, para] = sel.slice(8).split(".");
+    const it = itemOf(doc, fid);
+    return Boolean(it && /^p\d+$/.test(para) && Number(para.slice(1)) <= (it.text ?? []).length);
+  }
+  if (sel.startsWith("comment:") || sel.startsWith("reply:")) {
+    const cid = sel.slice(sel.indexOf(":") + 1);
+    return doc.items.some((i) => i.comments?.some((c) => c.id === cid));
+  }
   if (sel.startsWith("para:")) return true;
   return false;
 }

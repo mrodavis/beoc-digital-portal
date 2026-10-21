@@ -15,7 +15,7 @@ import { addDays, dateGroup, dateOf, fmtDate, fmtListDate, fmtLong, fmtTime, toM
 /* Navigation bar (Mail · Calendar · People · Tasks)                  */
 /* ------------------------------------------------------------------ */
 
-export function NavBar({ ctx, compact }: { ctx: Ctx; compact?: boolean }) {
+export function NavBar({ ctx, compact, side }: { ctx: Ctx; compact?: boolean; side?: boolean }) {
   const mod = moduleOf(ctx.doc);
   const items: [string, string, string][] = [
     ["Mail", "mail", "mail"],
@@ -23,6 +23,31 @@ export function NavBar({ ctx, compact }: { ctx: Ctx; compact?: boolean }) {
     ["People", "people", "people"],
     ["Tasks", "tasks", "tasks"],
   ];
+  if (side) {
+    // Current classic Outlook (Microsoft 365) shows the apps in a bar down the left edge of the window.
+    return (
+      <nav aria-label="Navigation bar" className="flex w-12 shrink-0 flex-col items-center gap-1 border-r border-gray-200 bg-[#f3f2f1] py-2">
+        {items.map(([label, key, icon], i) => (
+          <button
+            key={key}
+            type="button"
+            aria-label={label}
+            aria-current={mod === key ? "page" : undefined}
+            title={`${label} (Ctrl+${i + 1})`}
+            onClick={() => ctx.cmd("nav.module", label)}
+            className={`relative flex h-10 w-10 items-center justify-center rounded ${mod === key ? "bg-white shadow-sm" : "text-gray-600 hover:bg-white/70"}`}
+            style={mod === key ? { color: ctx.accent } : undefined}
+          >
+            {mod === key && <span className="absolute left-0 top-2 h-6 w-[3px] rounded-r" style={{ background: ctx.accent }} />}
+            <OIcon name={icon} size={20} />
+          </button>
+        ))}
+        <MenuButton ariaLabel="More apps" className="mt-1 flex h-10 w-10 items-center justify-center rounded text-gray-600 hover:bg-white/70" items={[{ label: "Notes", disabled: true }, { label: "Folders", onPick: () => ctx.cmd("nav.module", "Mail") }, { label: "Shortcuts", disabled: true }]}>
+          <OIcon name="more" />
+        </MenuButton>
+      </nav>
+    );
+  }
   return (
     <nav aria-label="Navigation bar" className={`flex shrink-0 border-t border-gray-200 bg-white ${compact ? "flex-col items-center gap-1 py-1" : "items-center gap-0.5 px-1 py-1"}`}>
       {items.map(([label, key, icon]) => (

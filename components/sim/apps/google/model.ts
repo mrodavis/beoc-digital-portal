@@ -5,8 +5,9 @@ import { evaluateCell, normalizeRange, numToCol, parseRange, parseRef, rectToRan
 import { applyWord, paraText, parseSel as wordSel } from "../word/model";
 import { activeCell, applyExcel, currentRegion, selRect, sheetOf, usedRect } from "../excel/model";
 import { applyPpt, activeSlide } from "../powerpoint/model";
-import { CF_STYLES, googleLayout } from "./menus";
-import type { GComment, GContent, GFile, GKind, GoogleDoc, GPerson, GProtected, GRole, GRun, GSurface } from "./types";
+import { BUILDING_BLOCKS, CF_STYLES, googleLayout } from "./menus";
+import { templateNamed } from "./templates";
+import type { GChip, GComment, GContent, GFile, GHomeApp, GKind, GoogleDoc, GPerson, GProtected, GRole, GRun, GSurface } from "./types";
 
 /* ------------------------------------------------------------------ */
 /* Basics                                                              */
@@ -16,6 +17,8 @@ export const DEFAULT_ME: GPerson = { name: "BEOC Student", email: "bstudent@lake
 /** The sim clock: Tuesday, October 20, 2026. */
 export const NOW = "10:42 AM";
 export const TODAY = "October 20, 2026";
+/** Today as a date chip shows it. */
+export const TODAY_SHORT = "Oct 20, 2026";
 
 export const meOf = (doc: GoogleDoc): GPerson => doc.me ?? DEFAULT_ME;
 export const fileOf = (doc: GoogleDoc, id?: string): GFile | undefined => (id ? doc.files.find((f) => f.id === id) : undefined);
@@ -29,16 +32,21 @@ export function personOf(doc: GoogleDoc, emailOrName?: string): GPerson | undefi
   return (doc.people ?? []).find((p) => p.email.toLowerCase() === k || p.name.toLowerCase() === k);
 }
 
+/** The editor a file opens in. Word, Excel and PowerPoint files open in Docs, Sheets and Slides (Office editing). */
 export function surfaceOf(kind: GKind): GSurface | null {
-  if (kind === "doc") return "docs";
-  if (kind === "sheet") return "sheets";
-  if (kind === "slides") return "slides";
+  if (kind === "doc" || kind === "word") return "docs";
+  if (kind === "sheet" || kind === "excel") return "sheets";
+  if (kind === "slides" || kind === "powerpoint") return "slides";
   return null;
 }
 
+/** Microsoft Office files opened in a Google editor keep their format (the .DOCX chip by the title). */
+export const isOffice = (kind: GKind) => kind === "word" || kind === "excel" || kind === "powerpoint";
+export const officeExt = (kind: GKind) => (kind === "word" ? ".DOCX" : kind === "excel" ? ".XLSX" : kind === "powerpoint" ? ".PPTX" : "");
+
 export function emptyContent(kind: GKind): GContent {
-  if (kind === "sheet") return { sheets: [{ name: "Sheet1", cells: {} }], active: "Sheet1" } as ExcelBook;
-  if (kind === "slides") return { slides: [{ id: "s1", layout: "Title slide" }], active: "s1", theme: "Simple Light" } as PptDeck;
+  if (kind === "sheet" || kind === "excel") return { sheets: [{ name: "Sheet1", cells: {} }], active: "Sheet1" } as ExcelBook;
+  if (kind === "slides" || kind === "powerpoint") return { slides: [{ id: "s1", layout: "Title slide" }], active: "s1", theme: "Simple Light" } as PptDeck;
   return { paragraphs: [{ id: "p1", text: "" }] } as WordDoc;
 }
 
@@ -50,11 +58,11 @@ export const asDeck = (f: GFile) => contentOf(f) as PptDeck;
 export function editorUi(f: GFile | undefined): SimUi {
   if (!f) return { selection: "" };
   const c = contentOf(f);
-  if (f.kind === "sheet") {
+  if (f.kind === "sheet" || f.kind === "excel") {
     const b = c as ExcelBook;
     return { selection: "A1", sheet: b.active ?? b.sheets[0]?.name };
   }
-  if (f.kind === "slides") {
+  if (f.kind === "slides" || f.kind === "powerpoint") {
     const d = c as PptDeck;
     const s = d.slides.find((x) => x.id === d.active) ?? d.slides[0];
     return { slide: s?.id, selection: s?.id ?? "" };
@@ -63,9 +71,16 @@ export function editorUi(f: GFile | undefined): SimUi {
 }
 
 export function googleInitialUi(doc: GoogleDoc): SimUi {
-  if (doc.surface === "drive") return { selection: "" };
+  if (doc.surface === "drive" || doc.surface === "home" || doc.surface === "signin") return { selection: "" };
   return editorUi(openFile(doc));
 }
+
+/** Where the first browser tab goes back to: Drive, or the app home screen the learner opened. */
+function baseSurface(doc: GoogleDoc): GSurface {
+  return doc.homeApp ? "home" : "drive";
+}
+
+const APP_HOME: Record<string, GHomeApp> = { Docs: "docs", Sheets: "sheets", Slides: "slides" };
 
 function nextId(doc: GoogleDoc, prefix: string): string {
   let n = 1;
@@ -192,9 +207,13 @@ function applyType(doc: GoogleDoc, target: string, value: string, ui: SimUi): R 
   if (target.startsWith("filterview:")) {
     const f = openFile(doc);
     const fv = f?.filterViews?.find((x) => x.id === target.slice(11));
-    if (fv && text) fv.name = text;
+    if (fv && text) {
+      fv.name = text;
+      fv.saved = true;
+    }
     return { doc };
   }
+  if (target.startsWith("signin:")) return signIn(doc, target.slice(7), text);
   if (target.startsWith("note:")) {
     const f = openFile(doc);
     if (!f || f.kind !== "sheet") return { doc };
@@ -206,6 +225,48 @@ function applyType(doc: GoogleDoc, target: string, value: string, ui: SimUi): R 
     return { doc };
   }
   return editor(doc, { kind: "type", target, value }, ui);
+}
+
+/* ---------- signing in ---------- */
+
+/** The sign-in page: Email → Password → 2-Step Verification (when `flags.twoStep`). */
+function signIn(doc: GoogleDoc, step: string, text: string): R {
+  const me = meOf(doc);
+  if (step === "email") {
+    if (text.toLowerCase() !== me.email.toLowerCase()) {
+      flag(doc, { signinError: "Couldn't find your Google Account" });
+      return { doc };
+    }
+    flag(doc, { signin: "password", signinError: undefined });
+    return { doc };
+  }
+  if (step === "password") {
+    const want = doc.flags?.password;
+    if (want !== undefined && String(want) !== text) {
+      flag(doc, { signinError: "Wrong password. Try again or click Forgot password to reset it." });
+      return { doc };
+    }
+    if (doc.flags?.twoStep) {
+      flag(doc, { signin: "2sv", signinError: undefined });
+      return { doc };
+    }
+    return finishSignIn(doc);
+  }
+  if (step === "code") {
+    const want = doc.flags?.code;
+    if (want !== undefined && String(want) !== text.replace(/\s|-/g, "").replace(/^G/i, "")) {
+      flag(doc, { signinError: "Wrong code. Try again." });
+      return { doc };
+    }
+    return finishSignIn(doc);
+  }
+  return { doc };
+}
+
+function finishSignIn(doc: GoogleDoc): R {
+  doc.surface = baseSurface(doc);
+  flag(doc, { signin: undefined, signinError: undefined, signedOut: undefined, signedIn: true });
+  return { doc, ui: { selection: "" } };
 }
 
 /** What a new comment is anchored to: the current editor selection. */
@@ -351,9 +412,68 @@ function applyCommand(doc: GoogleDoc, id: string, value: SimValue | undefined, u
     /* ---- navigation (free) ---- */
     case "g.go":
       doc.surface = "drive";
-      doc.drive = { ...(doc.drive ?? {}), location: sv || "root" };
+      doc.homeApp = undefined;
+      doc.drive = { ...(doc.drive ?? {}), location: sv || "root", query: undefined, chips: undefined };
       doc.pane = null;
       return { doc, ui: { selection: "" } };
+    case "g.app": {
+      // Google apps menu (and New › … › From a template): Drive, or an app's home screen.
+      doc.pane = null;
+      doc.overlay = null;
+      if (sv === "Drive") {
+        doc.surface = "drive";
+        doc.homeApp = undefined;
+        return { doc, ui: { selection: "" } };
+      }
+      const app = APP_HOME[sv];
+      if (!app) {
+        doc.toast = `${sv || "That app"} opens in a new tab`;
+        return { doc };
+      }
+      doc.surface = "home";
+      doc.homeApp = app;
+      return { doc, ui: { selection: "" } };
+    }
+    case "g.account":
+      doc.toast = "Your Google Account opens in a new tab";
+      return { doc };
+    case "g.signOut":
+      doc.surface = "signin";
+      doc.open = undefined;
+      doc.tabs = [];
+      doc.pane = null;
+      doc.overlay = null;
+      doc.homeApp = undefined;
+      flag(doc, { signin: "chooser", signedOut: true, signinError: undefined });
+      return { doc, ui: { selection: "" } };
+    case "g.signin.step":
+      // Choose an account / Use another account / Try another way (free).
+      flag(doc, { signin: sv || "email", signinError: undefined });
+      return { doc };
+    case "g.2sv": {
+      if (sv === "Yes") return finishSignIn(doc);
+      flag(doc, { signinError: "Sign-in blocked. If this was not you, someone may know your password: change it." });
+      return { doc };
+    }
+    case "g.search":
+      doc.surface = "drive";
+      doc.homeApp = undefined;
+      doc.drive = { ...(doc.drive ?? {}), query: sv.trim() || undefined };
+      return { doc, ui: { selection: "" } };
+    case "g.filter": {
+      // Search chips: "Type=Spreadsheets", "People=<email>", "Modified=Last 7 days", "Location=My Drive", "Type=" clears one, "" clears all.
+      const chips = { ...(doc.drive?.chips ?? {}) };
+      if (!sv) doc.drive = { ...(doc.drive ?? {}), chips: undefined };
+      else {
+        const [k, ...rest] = sv.split("=");
+        const key = k.trim().toLowerCase() as keyof typeof chips;
+        const v = rest.join("=").trim();
+        if (v) chips[key] = v;
+        else delete chips[key];
+        doc.drive = { ...(doc.drive ?? {}), chips: Object.keys(chips).length ? chips : undefined };
+      }
+      return { doc, ui: { selection: "" } };
+    }
     case "g.open": {
       let f = fileOf(doc, sv.replace(/^file:/, ""));
       if (f?.kind === "shortcut") f = fileOf(doc, f.shortcutTo);
@@ -367,7 +487,7 @@ function applyCommand(doc: GoogleDoc, id: string, value: SimValue | undefined, u
     }
     case "g.tab": {
       if (sv === "drive" || !sv) {
-        doc.surface = "drive";
+        doc.surface = baseSurface(doc);
         doc.pane = null;
         doc.overlay = null;
         return { doc, ui: { selection: "" } };
@@ -380,8 +500,8 @@ function applyCommand(doc: GoogleDoc, id: string, value: SimValue | undefined, u
       doc.tabs = (doc.tabs ?? []).filter((t) => t !== tid);
       if (doc.open === tid || doc.surface !== "drive") {
         const next = doc.tabs.length ? fileOf(doc, doc.tabs[doc.tabs.length - 1]) : undefined;
-        if (next && doc.surface !== "drive") return openTab(doc, next);
-        doc.surface = "drive";
+        if (next && doc.surface !== "drive" && doc.surface !== "home") return openTab(doc, next);
+        doc.surface = baseSurface(doc);
         doc.open = undefined;
         doc.pane = null;
         doc.overlay = null;
@@ -428,12 +548,37 @@ function applyCommand(doc: GoogleDoc, id: string, value: SimValue | undefined, u
     case "g.filterView.close":
       flag(doc, { filterView: undefined });
       return { doc };
+    case "g.filterView.open":
+      flag(doc, { filterView: sv || undefined });
+      return { doc };
 
     /* ---- Drive ---- */
+    case "g.template": {
+      const t = templateNamed(sv);
+      if (!t) return { doc };
+      const f: GFile = { id: nextId(doc, "new"), name: t.name, kind: t.kind, parent: "root", modified: NOW, modifiedBy: me.email, current: { time: NOW, author: me.name }, content: t.content() };
+      // From File › New › From a template in an empty document, the template fills that document.
+      if (open && open.kind === "doc" && t.kind === "doc" && doc.surface === "docs" && asWord(open).paragraphs.every((p) => !paraText(p).trim() && (!p.kind || p.kind === "p"))) {
+        open.content = f.content;
+        open.modified = NOW;
+        doc.pane = null;
+        return { doc, ui: editorUi(open) };
+      }
+      doc.files.push(f);
+      return openTab(doc, f);
+    }
+    case "g.saveAsGoogle": {
+      if (!open || !isOffice(open.kind)) return { doc };
+      const kind: GKind = open.kind === "word" ? "doc" : open.kind === "excel" ? "sheet" : "slides";
+      const copy: GFile = { ...clone(open), id: nextId(doc, "new"), name: open.name.replace(/\.(docx?|xlsx?|xlsm|pptx?)$/i, ""), kind, owner: me.email, starred: false, sharing: undefined, versions: [], current: { time: NOW, author: me.name }, modified: NOW, modifiedBy: me.email, size: undefined };
+      doc.files.push(copy);
+      doc.toast = "Saved as a Google file. The original Office file is unchanged.";
+      return openTab(doc, copy);
+    }
     case "g.new": {
       const spec = NEW_NAMES[sv] ?? NEW_NAMES["Google Docs"];
       const loc = doc.surface === "drive" ? doc.drive?.location ?? "root" : "root";
-      const parent = loc === "root" || fileOf(doc, loc)?.kind === "folder" ? loc : "root";
+      const parent = loc === "root" || fileOf(doc, loc)?.kind === "folder" || (doc.sharedDrives ?? []).some((d) => d.id === loc) ? loc : "root";
       const f: GFile = { id: nextId(doc, "new"), name: spec.name, kind: spec.kind, parent, modified: NOW, modifiedBy: me.email, current: { time: NOW, author: me.name } };
       if (surfaceOf(spec.kind)) f.content = emptyContent(spec.kind);
       doc.files.push(f);
@@ -467,7 +612,7 @@ function applyCommand(doc: GoogleDoc, id: string, value: SimValue | undefined, u
       if (doc.open && list.includes(doc.open)) {
         doc.tabs = (doc.tabs ?? []).filter((t) => t !== doc.open);
         doc.open = undefined;
-        doc.surface = "drive";
+        doc.surface = baseSurface(doc);
         doc.pane = null;
         doc.overlay = null;
       }
@@ -629,7 +774,7 @@ function commitContent(doc: GoogleDoc, f: GFile, next: GContent) {
 
 function editor(doc: GoogleDoc, c: SimCommit, ui: SimUi): R {
   const f = openFile(doc);
-  if (!f || doc.surface === "drive" || doc.overlay === "history") return { doc };
+  if (!f || doc.surface === "drive" || doc.surface === "home" || doc.surface === "signin" || doc.overlay === "history") return { doc };
   const content = clone(contentOf(f));
   let r: { doc: GContent; ui?: Partial<SimUi> };
   if (doc.surface === "docs") r = docsApply(doc, content as WordDoc, c, ui);
@@ -706,11 +851,15 @@ function docsApply(doc: GoogleDoc, w: WordDoc, c: SimCommit, ui: SimUi): { doc: 
       case "g.zoom":
         w.zoom = sv === "Fit" ? undefined : Number(sv.replace("%", "")) || 100;
         return { doc: w };
+      case "g.block":
+        return insertBlock(w, sv, sel.run?.para ?? sel.paras[sel.paras.length - 1]);
     }
   }
   if (c.kind === "dialog") {
     const v = c.values;
     switch (c.id) {
+      case "g.chip":
+        return insertChip(doc, w, String(v.kind ?? "person"), String(v.value ?? ""), ui);
       case "g.image":
         return applyWord(w, { kind: "dialog", id: "insertPicture", values: { file: v.file ?? "Image" } }, ui);
       case "g.indent":
@@ -730,6 +879,66 @@ function docsApply(doc: GoogleDoc, w: WordDoc, c: SimCommit, ui: SimUi): { doc: 
     }
   }
   return tagSuggestions(doc, applyWord(w, c, ui));
+}
+
+/** Smart chip text for a picker value. */
+export function chipFor(doc: GoogleDoc, kind: string, value: string): GChip | null {
+  if (kind === "person") {
+    const p = personOf(doc, value);
+    return { kind: "person", label: p?.name ?? value, ref: p?.email ?? value };
+  }
+  if (kind === "file") {
+    const f = fileOf(doc, value) ?? doc.files.find((x) => x.name.toLowerCase() === value.toLowerCase());
+    return f ? { kind: "file", label: f.name, ref: f.id } : null;
+  }
+  if (kind === "date") return value.trim() ? { kind: "date", label: value.trim(), ref: value.trim() } : null;
+  return null;
+}
+
+function insertChip(doc: GoogleDoc, w: WordDoc, kind: string, value: string, ui: SimUi): { doc: WordDoc; ui?: Partial<SimUi> } {
+  const chip = chipFor(doc, kind, value);
+  const sel = wordSel(w, ui.selection);
+  const pid = sel.run?.para ?? sel.paras[sel.paras.length - 1];
+  const p = w.paragraphs.find((x) => x.id === pid);
+  if (!chip || !p || (p.kind && p.kind !== "p")) return { doc: w };
+  const runs: GRun[] = (p.runs ?? (p.text ? [{ text: p.text }] : [])) as GRun[];
+  let n = 1;
+  while (runs.some((r) => r.id === `chip${n}`)) n++;
+  const run: GRun = { id: `chip${n}`, text: chip.label, chip };
+  const at = sel.run ? runs.findIndex((r) => r.id === sel.run!.run) + 1 : runs.length;
+  const before = runs[at - 1];
+  const pad: GRun[] = before && before.text && !/\s$/.test(before.text) ? [{ text: " " }] : [];
+  runs.splice(at, 0, ...pad, run);
+  p.runs = runs;
+  p.text = undefined;
+  return { doc: w, ui: { selection: `${p.id}.${run.id}` } };
+}
+
+/** Insert › Building blocks: Meeting notes or Email draft, after the selected paragraph. */
+function insertBlock(w: WordDoc, name: string, after: string | undefined): { doc: WordDoc; ui?: Partial<SimUi> } {
+  if (!BUILDING_BLOCKS.includes(name)) return { doc: w };
+  const at = Math.max(0, w.paragraphs.findIndex((p) => p.id === after) + 1) || w.paragraphs.length;
+  const made: WordPara[] = [];
+  const add = (p: Omit<WordPara, "id">) => {
+    let n = 1;
+    while (w.paragraphs.some((x) => x.id === `blk${n}`) || made.some((x) => x.id === `blk${n}`)) n++;
+    const para = { ...p, id: `blk${n}` } as WordPara;
+    made.push(para);
+    return para;
+  };
+  if (name === "Meeting notes") {
+    add({ style: "Heading 2", runs: [{ id: "chip1", text: TODAY_SHORT, chip: { kind: "date", label: TODAY_SHORT, ref: TODAY_SHORT } } as GRun, { text: " | Meeting title" }] });
+    add({ text: "Attendees: " });
+    add({ style: "Heading 3", text: "Notes" });
+    add({ list: "bullet", text: "" });
+    add({ style: "Heading 3", text: "Action items" });
+    add({ list: "bullet", bulletChar: "☐", text: "" });
+  } else {
+    add({ kind: "table", table: { rows: [["To", ""], ["Cc", ""], ["Bcc", ""], ["Subject", ""]], widths: [20, 80] } });
+    add({ text: "" });
+  }
+  w.paragraphs.splice(at, 0, ...made);
+  return { doc: w, ui: { selection: made[0].kind === "table" ? `${made[0].id}.r1c2` : made[0].id } };
 }
 
 /** Suggestions typed in Suggesting mode carry your name. */
@@ -859,6 +1068,14 @@ function sheetsApply(doc: GoogleDoc, f: GFile, book: ExcelBook, c: SimCommit, ui
         else if (sv.startsWith("Up to column")) cols = /column ([A-Z]+)/.exec(sv) ? parseRef(`${/column ([A-Z]+)/.exec(sv)![1]}1`)!.c : p.c;
         sheet.freeze = rows || cols ? refOf(cols + 1, rows + 1) : null;
         return { doc: book };
+      }
+      case "g.convertTable": {
+        const rc = regionOf(sheet, ui);
+        if (!rc) return { doc: book };
+        let n = 1;
+        while (book.sheets.some((x) => x.table?.name === `Table${n}`)) n++;
+        sheet.table = { range: rectToRange(rc), style: "Google table", name: `Table${n}` };
+        return { doc: book, ui: { selection: rectToRange(rc) } };
       }
       case "g.altColors": {
         const rc = regionOf(sheet, ui);
@@ -1127,7 +1344,7 @@ function withActive(r: { doc: PptDeck; ui?: Partial<SimUi> }, ui: SimUi) {
 /* Selection checks (validator)                                        */
 /* ------------------------------------------------------------------ */
 
-const TYPE_TARGETS = /^(rename|newfolder|assign|reply|vername|filterview|note):/;
+const TYPE_TARGETS = /^(rename|newfolder|assign|reply|vername|filterview|note|signin):/;
 
 export function googleSelectionExists(doc: GoogleDoc, sel: string): boolean {
   if (!sel) return true;
@@ -1136,7 +1353,7 @@ export function googleSelectionExists(doc: GoogleDoc, sel: string): boolean {
   const f = openFile(doc);
   if (sel.startsWith("ver:")) return sel === "ver:current" ? Boolean(f) : Boolean(f?.versions?.some((v) => v.id === sel.slice(4)));
   if (sel.startsWith("comment:")) return Boolean(f?.comments?.some((c) => c.id === sel.slice(8)));
-  if (!f || doc.surface === "drive") return false;
+  if (!f || doc.surface === "drive" || doc.surface === "home" || doc.surface === "signin") return false;
   const content = contentOf(f);
   if (doc.surface === "docs") {
     const w = content as WordDoc;

@@ -123,6 +123,15 @@ export const googleDialogs: Record<string, DialogDef> = {
   },
 
   /* ---------- Docs ---------- */
+  "g.chip": {
+    id: "g.chip",
+    title: "Smart chips",
+    okLabel: "Insert",
+    fields: [
+      { type: "select", key: "kind", label: "Chip", options: ["person", "date", "file"], default: "person" },
+      { type: "text", key: "value", label: "Person, date, or file" },
+    ],
+  },
   "g.pageSetup": {
     id: "g.pageSetup",
     title: "Page setup",

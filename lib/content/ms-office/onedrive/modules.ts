@@ -1,6 +1,7 @@
 import { Lesson } from "@/types/lesson";
 import { onedriveModule1Lessons } from "./module1Lessons";
 import { onedriveModule2Lessons } from "./module2Lessons";
+import { onedriveModule3Lessons } from "./module3Lessons";
 
 export type OneDriveModule = {
   moduleNumber: number;
@@ -34,5 +35,15 @@ export const onedriveModules: OneDriveModule[] = [
     lessons: onedriveModule2Lessons,
     level: "Beginner",
     estimatedMinutes: 45,
+  },
+  {
+    moduleNumber: 3,
+    moduleSlug: "module-3",
+    title: "Sharing and Collaboration",
+    emoji: "🤝",
+    description: "Share with the right permission and the right kind of link, manage and remove access, and co-author with comments and @mentions. Patient information is never shared with an Anyone link.",
+    lessons: onedriveModule3Lessons,
+    level: "Beginner",
+    estimatedMinutes: 50,
   },
 ];

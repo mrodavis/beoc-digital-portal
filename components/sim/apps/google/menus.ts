@@ -57,6 +57,8 @@ export const DOWNLOAD_SHEETS = ["Microsoft Excel (.xlsx)", "OpenDocument (.ods)"
 export const DOWNLOAD_SLIDES = ["Microsoft PowerPoint (.pptx)", "ODP Document (.odp)", "PDF Document (.pdf)", "Plain Text (.txt)", "JPEG image (.jpg, current slide)", "PNG image (.png, current slide)"];
 export const PAGE_NUMBERS = ["Top right, all pages", "Bottom right, all pages", "Top right, skip first page", "Bottom right, skip first page"];
 export const TOC_STYLES = ["Plain text", "Dotted", "With blue links"];
+/** Building blocks offered in Insert › Building blocks and the @ menu. */
+export const BUILDING_BLOCKS = ["Meeting notes", "Email draft"];
 export const SPECIAL_CHARS = ["©", "®", "™", "°", "±", "×", "÷", "≤", "≥", "≠", "½", "¼", "¾", "→", "←", "↑", "↓", "•", "–", "—", "§", "¶", "€", "£", "¥", "¢", "✓", "✗", "★", "☎", "✉", "♥", "µ", "Ω", "α", "β"];
 
 /** Google's color grid: names for tooltips, hex values for commands. */
@@ -177,10 +179,17 @@ const NEW_SUB: GEntry[] = [
   c("Form", "g.new", "Google Forms", { icon: "form" }),
 ];
 
+/** File menu item shown only while an Office file (.docx, .xlsx, .pptx) is open in Office editing. */
+export const SAVE_AS_GOOGLE: Record<"docs" | "sheets" | "slides", GItem> = {
+  docs: c("Save as Google Docs", "g.saveAsGoogle", undefined, { icon: "doc" }),
+  sheets: c("Save as Google Sheets", "g.saveAsGoogle", undefined, { icon: "sheet" }),
+  slides: c("Save as Google Slides", "g.saveAsGoogle", undefined, { icon: "slides" }),
+};
+
 function fileMenu(kind: "docs" | "sheets" | "slides"): GEntry[] {
   const downloads = kind === "docs" ? DOWNLOAD_DOCS : kind === "sheets" ? DOWNLOAD_SHEETS : DOWNLOAD_SLIDES;
   return [
-    s("New", NEW_SUB, { icon: "newFile" }),
+    s("New", kind === "docs" ? [...NEW_SUB, SEP, a("From a template", "templates", { icon: "template" })] : NEW_SUB, { icon: "newFile" }),
     a("Open", "open", { icon: "folderOpen", shortcut: "Ctrl+O" }),
     d("Make a copy", "g.makeCopy", { icon: "copy" }),
     SEP,
@@ -293,7 +302,7 @@ export const DOCS_MENUS: Record<string, GEntry[]> = {
     SEP,
     c("Show print layout", "g.view", "printLayout", { check: "view:printLayout" }),
     c("Show ruler", "g.view", "ruler", { check: "view:ruler" }),
-    c("Show outline", "g.view", "outline", { check: "view:outline", shortcut: "Ctrl+Alt+A Ctrl+Alt+H" }),
+    c("Show tabs & outlines", "g.view", "outline", { check: "view:outline", shortcut: "Ctrl+Alt+A Ctrl+Alt+H" }),
     c("Show non-printing characters", "g.view", "nonPrinting", { check: "view:nonPrinting", shortcut: "Ctrl+Shift+P" }),
     SEP,
     c("Full screen", "g.view", "fullScreen", { icon: "fullscreen" }),
@@ -305,19 +314,27 @@ export const DOCS_MENUS: Record<string, GEntry[]> = {
       { icon: "image" },
     ),
     a("Table", "table", { icon: "table" }),
+    s("Building blocks", BUILDING_BLOCKS.map((b) => c(b, "g.block", b)), { icon: "blocks" }),
+    s("Smart chips", [a("People", "chip:person", { icon: "person" }), a("Files", "chip:file", { icon: "doc" }), a("Date", "chip:date", { icon: "calendar" })], { icon: "chip" }),
+    a("Link", "link", { icon: "link", shortcut: "Ctrl+K" }),
     s("Chart", [c("Bar", "insert.chart", "Bar"), c("Column", "insert.chart", "Column"), c("Line", "insert.chart", "Line"), c("Pie", "insert.chart", "Pie")], { icon: "chart" }),
-    c("Horizontal line", "g.hr", undefined, { icon: "hr" }),
-    c("Footnote", "insert.footnote", undefined, { icon: "footnote", shortcut: "Ctrl+Alt+F" }),
     a("Special characters", "special", { icon: "omega" }),
+    c("Horizontal line", "g.hr", undefined, { icon: "hr" }),
     SEP,
-    s("Headers & footers", [c("Header", "insert.header", undefined, { shortcut: "Ctrl+Alt+O Ctrl+Alt+H" }), c("Footer", "insert.footer", undefined, { shortcut: "Ctrl+Alt+O Ctrl+Alt+F" })], { icon: "header" }),
-    s("Page numbers", PAGE_NUMBERS.map((p) => c(p, "insert.pageNumber", p)), { icon: "pageNumber" }),
+    s(
+      "Page elements",
+      [
+        c("Header", "insert.header", undefined, { shortcut: "Ctrl+Alt+O Ctrl+Alt+H" }),
+        c("Footer", "insert.footer", undefined, { shortcut: "Ctrl+Alt+O Ctrl+Alt+F" }),
+        s("Page number", PAGE_NUMBERS.map((p) => c(p, "insert.pageNumber", p))),
+        c("Footnote", "insert.footnote", undefined, { shortcut: "Ctrl+Alt+F" }),
+        s("Table of contents", TOC_STYLES.map((t) => c(t, "references.toc", t))),
+      ],
+      { icon: "header" },
+    ),
     s("Break", [c("Page break", "insert.pageBreak", undefined, { shortcut: "Ctrl+Enter" }), c("Section break (next page)", "layout.breaks", "Next Page"), c("Section break (continuous)", "layout.breaks", "Continuous")], { icon: "break" }),
     SEP,
-    a("Link", "link", { icon: "link", shortcut: "Ctrl+K" }),
     a("Comment", "comment", { icon: "addComment", shortcut: "Ctrl+Alt+M" }),
-    SEP,
-    s("Table of contents", TOC_STYLES.map((t) => c(t, "references.toc", t)), { icon: "toc" }),
   ],
   Format: [
     s("Text", TEXT_SUB(), { icon: "bold" }),
@@ -358,7 +375,6 @@ export const DOCS_MENUS: Record<string, GEntry[]> = {
     c("Word count", "g.pane", "Word count", { icon: "wordCount", shortcut: "Ctrl+Shift+C" }),
     c("Review suggested edits", "g.pane", "Review suggested edits", { icon: "suggest", shortcut: "Ctrl+Alt+O Ctrl+Alt+U" }),
     SEP,
-    c("Explore", "g.pane", "Explore", { icon: "explore", shortcut: "Ctrl+Alt+Shift+I" }),
     c("Dictionary", "g.pane", "Dictionary", { icon: "dictionary", shortcut: "Ctrl+Shift+Y" }),
     SEP,
     c("Voice typing", "g.pane", "Voice typing", { icon: "mic", shortcut: "Ctrl+Shift+S" }),
@@ -416,6 +432,8 @@ export const SHEETS_MENUS: Record<string, GEntry[]> = {
     s("Font size", [6, 7, 8, 9, 10, 11, 12, 14, 18, 24, 36].map((n) => c(String(n), "home.fontSize", String(n))), { icon: "textSize" }),
     s("Merge cells", MERGES.map((m) => c(m, "home.merge", m)), { icon: "merge" }),
     SEP,
+    c("Convert to table", "g.convertTable", undefined, { icon: "table" }),
+    SEP,
     c("Conditional formatting", "g.pane", "Conditional format rules", { icon: "cf" }),
     c("Alternating colors", "g.altColors", undefined, { icon: "altColors" }),
     SEP,
@@ -427,6 +445,7 @@ export const SHEETS_MENUS: Record<string, GEntry[]> = {
     SEP,
     c("Create a filter", "data.filter", undefined, { icon: "filter", check: "filter" }),
     c("Create filter view", "g.filterView", "Create new filter view", { icon: "filterView" }),
+    a("Change view", "changeView", { icon: "filterView" }),
     SEP,
     c("Protect sheets and ranges", "g.pane", "Protected sheets and ranges", { icon: "lock" }),
     SEP,
@@ -436,8 +455,6 @@ export const SHEETS_MENUS: Record<string, GEntry[]> = {
   ],
   Tools: [
     c("Spelling", "review.spelling", undefined, { icon: "spellcheck", shortcut: "F7" }),
-    SEP,
-    c("Explore", "g.pane", "Explore", { icon: "explore", shortcut: "Alt+Shift+X" }),
     SEP,
     c("Notification settings", "g.help", "Notification settings", { icon: "bell" }),
     c("Accessibility", "g.help", "Accessibility", { icon: "accessibility" }),
@@ -521,7 +538,6 @@ export const SLIDES_MENUS: Record<string, GEntry[]> = {
   ],
   Tools: [
     c("Spelling", "review.spelling", undefined, { icon: "spellcheck" }),
-    c("Explore", "g.pane", "Explore", { icon: "explore", shortcut: "Ctrl+Alt+Shift+I" }),
     c("Dictionary", "g.pane", "Dictionary", { icon: "dictionary", shortcut: "Ctrl+Shift+Y" }),
     SEP,
     c("Q&A history", "g.help", "Q&A history", { icon: "qa" }),
@@ -541,9 +557,9 @@ export const DRIVE_NEW: GEntry[] = [
   a("File upload", "upload", { icon: "upload", shortcut: "Alt+C then U" }),
   a("Folder upload", "folderUpload", { icon: "folderUpload", shortcut: "Alt+C then I" }),
   SEP,
-  c("Google Docs", "g.new", "Google Docs", { icon: "doc", sub: [c("Blank document", "g.new", "Google Docs"), c("From a template", "g.new", "Google Docs")] }),
-  c("Google Sheets", "g.new", "Google Sheets", { icon: "sheet", sub: [c("Blank spreadsheet", "g.new", "Google Sheets"), c("From a template", "g.new", "Google Sheets")] }),
-  c("Google Slides", "g.new", "Google Slides", { icon: "slides", sub: [c("Blank presentation", "g.new", "Google Slides"), c("From a template", "g.new", "Google Slides")] }),
+  c("Google Docs", "g.new", "Google Docs", { icon: "doc", sub: [c("Blank document", "g.new", "Google Docs"), c("From a template", "g.app", "Docs")] }),
+  c("Google Sheets", "g.new", "Google Sheets", { icon: "sheet", sub: [c("Blank spreadsheet", "g.new", "Google Sheets"), c("From a template", "g.app", "Sheets")] }),
+  c("Google Slides", "g.new", "Google Slides", { icon: "slides", sub: [c("Blank presentation", "g.new", "Google Slides"), c("From a template", "g.app", "Slides")] }),
   c("Google Forms", "g.new", "Google Forms", { icon: "form", sub: [c("Blank form", "g.new", "Google Forms"), c("Blank quiz", "g.new", "Google Forms")] }),
 ];
 
@@ -782,6 +798,7 @@ export function catalogRibbon(): RibbonTab[] {
   add("docs", "Docs", [...Object.entries(DOCS_MENUS).map(([k, v]) => ({ label: k, entries: v })), { label: "Toolbar", tools: DOCS_TOOLBAR }]);
   add("sheets", "Sheets", [...Object.entries(SHEETS_MENUS).map(([k, v]) => ({ label: k, entries: v })), { label: "Toolbar", tools: SHEETS_TOOLBAR }]);
   add("slides", "Slides", [...Object.entries(SLIDES_MENUS).map(([k, v]) => ({ label: k, entries: v })), { label: "Toolbar", tools: SLIDES_TOOLBAR }]);
+  add("office", "Office editing", [{ label: "File", entries: Object.values(SAVE_AS_GOOGLE) }]);
   add("drive", "Drive", [{ label: "New", entries: DRIVE_NEW }, { label: "Item", entries: driveItemMenu({ folder: true, starred: false, trashed: false, editor: true }) }, { label: "Trash", entries: driveItemMenu({ folder: false, starred: true, trashed: true, editor: true }) }]);
   // Dialogs the canvas opens from buttons, cards and popups (Share, Link, Comment boxes, pickers).
   tabs.push({
