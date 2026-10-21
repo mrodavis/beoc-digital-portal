@@ -177,6 +177,7 @@ export const teamsModule4Lessons: Lesson[] = [
       "Apply least access: the narrowest link and permission that lets people do the job",
     ],
     duration: "18 min",
+    videoUrl: "https://www.youtube.com/embed/RbOkcOqlavw",
     slides: slides("share-with-the-right-people", [
       "Share the one real file with the right access",
       "Share: pick people, settings, then Send or Copy link",
