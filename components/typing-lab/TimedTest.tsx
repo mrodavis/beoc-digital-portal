@@ -43,6 +43,8 @@ export default function TimedTest({ initialMinutes = 1, initialTopic = "mixed" }
   const latest = useRef(state);
   latest.current = state;
   const inputRef = useRef<HTMLTextAreaElement>(null);
+  /** Guards against scoring the same test twice if the clock ticks again before React re-renders. */
+  const scored = useRef(false);
 
   // New text whenever the settings change or the student restarts.
   useEffect(() => {
@@ -50,12 +52,15 @@ export default function TimedTest({ initialMinutes = 1, initialTopic = "mixed" }
     const built = buildTestText(topic, minutes * 700, recent, rng(seed || freshSeed()));
     setIds(built.ids);
     reset(built.text, "free");
+    scored.current = false;
     setFinished(null);
     setReady(true);
   }, [minutes, topic, seed, reset]);
 
   const finish = useCallback(
     (seconds: number, early: boolean) => {
+      if (scored.current) return;
+      scored.current = true;
       const s = latest.current;
       const score = scoreTest(s.text, s.typed, seconds, s.mistakes);
       // Remember the passages the student reached, so the next test starts somewhere new.
