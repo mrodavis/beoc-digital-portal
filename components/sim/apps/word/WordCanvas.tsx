@@ -18,7 +18,6 @@ import {
   paraRange,
   paraText,
   parseSel,
-  researchResults,
   runsOf,
   sectionIndex,
   sectionProps,
@@ -117,6 +116,7 @@ function editState(doc: WordDoc, key: string, initial?: string, selectAll = fals
   return { key, text: initial ?? (ph ? "" : cur), ph, phText: ph ? cur.trim() : undefined, selectAll: selectAll && initial === undefined && !ph && Boolean(cur) };
 }
 
+/** Right-click › Synonyms and Review › Thesaurus offer these replacements (keys are lowercase). */
 const SYNONYMS: Record<string, string[]> = {
   important: ["significant", "essential", "critical", "key"],
   help: ["assist", "support", "aid"],
@@ -125,21 +125,9 @@ const SYNONYMS: Record<string, string[]> = {
   big: ["large", "substantial", "major"],
   begin: ["start", "commence", "initiate"],
   urgent: ["pressing", "time-sensitive", "critical"],
-};
-
-/** Smart Lookup definitions the sim can show. */
-const GLOSSARY: Record<string, string> = {
-  hypertension: "Abnormally high blood pressure in the arteries. A reading of 130/80 mm Hg or higher is generally considered high.",
-  systolic: "The top number in a blood pressure reading: the pressure in the arteries when the heart beats.",
-  diastolic: "The bottom number in a blood pressure reading: the pressure in the arteries between heartbeats.",
-  influenza: "A contagious respiratory illness caused by influenza viruses, often called the flu.",
-  copay: "A fixed amount a patient pays for a covered health care service, usually at the time of the visit.",
-  copayment: "A fixed amount a patient pays for a covered health care service, usually at the time of the visit.",
-  deductible: "The amount a patient pays for covered services before the insurance plan starts to pay.",
-  "prior authorization": "Approval from a health plan that may be required before a service or medication is covered.",
-  hipaa: "The Health Insurance Portability and Accountability Act, a U.S. law that protects patients' health information.",
-  triage: "The process of sorting patients by how urgently they need care.",
-  "a1c": "A blood test that shows a person's average blood sugar level over the past two to three months.",
+  check: ["monitor", "verify", "examine", "inspect"],
+  reliable: ["dependable", "trustworthy", "consistent", "accurate"],
+  regular: ["routine", "steady", "frequent", "consistent"],
 };
 
 const PALETTES: Record<string, string[]> = {
@@ -407,7 +395,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
         { separator: true },
       );
     } else if (p?.object || p?.kind === "chart") {
-      items.push({ label: "Edit Alt Text...", icon: "altText", dialog: "altText" });
+      items.push({ label: "View Alt Text...", icon: "altText", dialog: "altText" });
       if (p.object) {
         items.push(
           { label: "Wrap Text: Square", icon: "wrapText", command: p.kind === "image" ? "picture.wrap" : "shape.wrap", value: "Square" },
@@ -433,7 +421,13 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
       }
       items.push({ separator: true });
     }
-    items.push({ label: "Search", icon: "smartLookup", command: "review.smartLookup" });
+    // Right-click › Synonyms (shown flat): one entry per synonym for a single selected word, then Thesaurus.
+    const syns = run && !run.misspelled ? SYNONYMS[run.text.trim().toLowerCase()] : undefined;
+    if (syns) {
+      items.push({ label: "Synonyms", icon: "thesaurus", disabled: true });
+      syns.forEach((w) => items.push({ label: w, command: "thesaurus.insert", value: w }));
+      items.push({ label: "Thesaurus...", icon: "thesaurus", command: "review.thesaurus", shortcut: "Shift+F7" }, { separator: true });
+    }
     if (run?.link) {
       items.push(
         { label: "Edit Hyperlink...", icon: "link", dialog: "link" },
@@ -1635,58 +1629,29 @@ function SidePane({ doc, ui, pane, onCommit, onSelect, openDialog }: { doc: Word
       </div>
     );
   } else if (pane === "Thesaurus") {
-    const word = (run?.text ?? "").trim().toLowerCase();
-    const syns = SYNONYMS[word] ?? ["(select a single word)"];
-    body = (
-      <div>
-        <p className="mb-2 font-semibold">{word || "Thesaurus"}</p>
-        {syns.map((x) => <p key={x} className="py-0.5">{x}</p>)}
-      </div>
-    );
-  } else if (pane === "Search") {
-    const paraWords = selPara && (!selPara.kind || selPara.kind === "p") ? paraText(selPara).trim() : "";
-    const term = (run?.text ?? (paraWords.split(/\s+/).length <= 3 ? paraWords : "")).trim().replace(/[.,;:]$/, "");
-    const def = GLOSSARY[term.toLowerCase()];
-    title = "Search";
-    body = term ? (
-      <div className="space-y-2">
-        <p className="text-[14px] font-semibold">{term}</p>
-        <p className="text-[11px] uppercase tracking-wide text-gray-500">Definition</p>
-        <p className="text-gray-800">{def ?? "No definition found. Results from the web for this text would appear here."}</p>
-        <p className="text-[11px] text-gray-500">Results powered by Bing. Check that a source is trustworthy before you rely on it.</p>
-      </div>
-    ) : (
-      <p className="text-gray-700">Select a word or phrase, then choose Search to look it up without leaving the document.</p>
-    );
-  } else if (pane === "Researcher") {
-    const query = (run?.text ?? (selPara ? paraText(selPara) : "")).trim().slice(0, 60);
-    const results = researchResults(query || paraText(doc.paragraphs[0] ?? { id: "" }));
-    const cited = new Set((xdoc(doc).sources ?? []).map((x) => x.title));
-    body = (
-      <div className="space-y-2">
-        <div className="flex items-center gap-1 rounded border border-gray-400 px-2 py-1 text-gray-700"><Icon name="find" size={12} /> {query || "Search"}</div>
-        <p className="text-[11px] uppercase tracking-wide text-gray-500">Top sources</p>
-        {results.map((r) => (
-          <div key={r.title} className="rounded border border-gray-200 p-2">
-            <div className="mb-1 flex items-center gap-1">
-              <span className="rounded bg-gray-100 px-1 text-[9px] uppercase text-gray-600">{r.kind}</span>
-              <span className="flex-1 font-semibold leading-tight">{r.title}</span>
-              <button
-                type="button"
-                aria-label={`Add and cite: ${r.title}`}
-                title="Add and cite"
-                onClick={() => onCommit({ kind: "command", id: "researcher.add", value: r.title })}
-                className="flex h-5 w-5 items-center justify-center rounded-full border border-[#2b579a] text-[#2b579a] hover:bg-[#e5f1fb]"
-              >
-                {cited.has(r.title) ? "✓" : "+"}
-              </button>
-            </div>
-            <p className="text-[10px] text-gray-500">{r.publisher} · {r.year}</p>
-            <p className="mt-1 text-gray-700">{r.snippet}</p>
+    const word = (run?.text ?? "").trim();
+    const syns = SYNONYMS[word.toLowerCase()];
+    body = syns ? (
+      <div className="space-y-1">
+        <div className="mb-2 flex items-center gap-1 rounded border border-gray-400 px-2 py-1 text-gray-800"><Icon name="find" size={12} /> {word}</div>
+        <p className="text-[11px] uppercase tracking-wide text-gray-500">Synonyms</p>
+        {syns.map((x) => (
+          <div key={x} className="group flex items-center gap-1 rounded px-1 py-0.5 hover:bg-[#e5f1fb]">
+            <span className="flex-1">{x}</span>
+            <button
+              type="button"
+              aria-label={`Insert ${x}`}
+              onClick={() => onCommit({ kind: "command", id: "thesaurus.insert", value: x })}
+              className="rounded border border-gray-300 bg-white px-1.5 text-[11px] text-[#2b579a] hover:bg-[#cce4f7]"
+            >
+              Insert
+            </button>
           </div>
         ))}
-        <p className="text-[10px] text-gray-500">Researcher does not judge sources for you. Prefer journals and public health agencies over blogs.</p>
+        <p className="pt-2 text-[10px] text-gray-500">Point to a word and choose Insert to replace the selected word.</p>
       </div>
+    ) : (
+      <p className="text-gray-700">{word ? `No results found for “${word}”.` : "Select a single word, then open the Thesaurus to see synonyms."}</p>
     );
   } else if (pane === "Selection") {
     const objs = doc.paragraphs.filter((p) => p.object || p.kind === "chart");

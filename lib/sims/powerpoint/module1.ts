@@ -65,7 +65,7 @@ export const pptModule1Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Collapse the Ribbon so only the tab names show.",
-          hint: "Click the small up arrow at the right end of the Ribbon (Collapse the Ribbon), double-click any tab name, or press Ctrl+F1.",
+          hint: "Double-click any tab name, or press Ctrl+F1. (In PowerPoint you can also right-click a tab › Collapse the Ribbon, or open Ribbon Display Options at the lower right of the Ribbon › Show tabs only.)",
           steps: [{ action: { kind: "command", id: "view.ribbonCollapse" } }],
         },
         {

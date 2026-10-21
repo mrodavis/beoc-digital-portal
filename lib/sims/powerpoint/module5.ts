@@ -117,12 +117,12 @@ export const pptModule5Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Add the alt text “Patients preparing a vegetable stir-fry in the teaching kitchen” to the cooking class picture.",
-          hint: "Right-click the picture › Edit Alt Text… (or Picture Format tab › Alt Text). Type the description, then click OK.",
+          hint: "Right-click the picture › View Alt Text… (or Picture Format tab › Alt Text). Type the description, then click OK.",
           steps: [{ action: { kind: "dialog", id: "altText", values: { text: "Patients preparing a vegetable stir-fry in the teaching kitchen" } }, requires: { slide: "s3", selection: "s3.o1" }, selectHint: "Click the cooking class picture on slide 3 first." }],
         },
         {
           instruction: "On slide 4, mark the leaf divider at the bottom of the slide as decorative so screen readers skip it.",
-          hint: "Right-click the leaf divider › Edit Alt Text… (or Picture Format tab › Alt Text). Check Mark as decorative, then click OK.",
+          hint: "Right-click the leaf divider › View Alt Text… (or Picture Format tab › Alt Text). Check Mark as decorative, then click OK.",
           steps: [{ action: { kind: "dialog", id: "altText", values: { decorative: true } }, requires: { slide: "s4", selection: "s4.o2" }, selectHint: "Click the thin leaf divider picture at the bottom of slide 4 first." }],
         },
       ],

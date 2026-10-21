@@ -46,7 +46,7 @@ import {
 } from "./Explorer";
 import { SecurityApp, SettingsApp, connectWifi } from "./Settings";
 import { EdgeApp, ShareDialog } from "./Edge";
-import { CalculatorApp, CmdApp, GenericApp, NotepadApp, OfficeApp, OutlookApp, PrintQueueApp, SaveDialog, SnipApp, TaskMgrApp, TeamsApp } from "./Apps";
+import { CalculatorApp, CmdApp, DeviceManagerApp, GenericApp, NotepadApp, OfficeApp, OutlookApp, PrintQueueApp, SaveDialog, ScanApp, SnipApp, TaskMgrApp, TeamsApp } from "./Apps";
 
 const TASKBAR_H = 48;
 
@@ -63,6 +63,8 @@ const SIZES: Record<string, Partial<Rect>> = {
   cmd: { w: 66, h: 66 },
   notepad: { w: 62, h: 72 },
   taskmgr: { w: 76, h: 82 },
+  devmgmt: { w: 58, h: 74 },
+  scan: { w: 64, h: 82 },
 };
 
 function frameStyle(w: WinWindow, r: Rect): React.CSSProperties {
@@ -90,6 +92,8 @@ function AppBody({ w }: { w: WinWindow }) {
     case "cmd": return <CmdApp w={w} />;
     case "snip": return <SnipApp w={w} />;
     case "printqueue": return <PrintQueueApp w={w} />;
+    case "devmgmt": return <DeviceManagerApp w={w} />;
+    case "scan": return <ScanApp w={w} />;
     case "word":
     case "excel":
     case "powerpoint": return <OfficeApp w={w} />;
@@ -329,7 +333,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
       { label: "Power Options", onClick: () => cmd("settings.nav", "system/power") },
       { label: "Event Viewer", disabled: true },
       { label: "System", onClick: () => cmd("settings.nav", "system/about") },
-      { label: "Device Manager", disabled: true },
+      { label: "Device Manager", onClick: () => cmd("win.open", "devmgmt") },
       { label: "Network Connections", onClick: () => cmd("settings.nav", "network") },
       { label: "Disk Management", disabled: true },
       { label: "Computer Management", disabled: true },
@@ -468,7 +472,7 @@ export function WindowsCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<WinDo
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return null;
-    const apps = [...APPS.filter((a) => a.list), ...(doc.webApps ?? []).map((w) => ({ id: `webapp:${w.url}`, name: w.name, keys: "" }))].filter((a) => `${a.name} ${a.keys ?? ""}`.toLowerCase().includes(q));
+    const apps = [...APPS.filter((a) => a.list || a.search), ...(doc.webApps ?? []).map((w) => ({ id: `webapp:${w.url}`, name: w.name, keys: "" }))].filter((a) => `${a.name} ${a.keys ?? ""}`.toLowerCase().includes(q));
     apps.sort((a, b) => (a.name.toLowerCase().startsWith(q) ? -1 : 0) - (b.name.toLowerCase().startsWith(q) ? -1 : 0));
     const settings: { id: string; title: string }[] = [];
     for (const c of SETTINGS_CATS) for (const p of c.pages) if (`${p.title} ${p.keys ?? ""}`.toLowerCase().includes(q)) settings.push({ id: p.id, title: p.title });

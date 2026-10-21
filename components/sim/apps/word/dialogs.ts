@@ -292,6 +292,21 @@ export const wordDialogs: Record<string, DialogDef> = {
       { type: "text", key: "url", label: "URL:" },
     ],
   },
+  /**
+   * References › Manage Sources (Source Manager). The Master List holds sources
+   * saved from earlier documents (doc.masterSources); OK ("Copy →") copies the
+   * chosen one to this document's Current List without citing it. Options are
+   * filled in by wordDialogDef.
+   */
+  manageSources: {
+    id: "manageSources",
+    title: "Source Manager",
+    okLabel: "Copy →",
+    width: 520,
+    fields: [
+      { type: "list", key: "source", label: "Master List:", options: [], height: 120 },
+    ],
+  },
   insertChart: {
     id: "insertChart",
     title: "Insert Chart",
@@ -580,6 +595,21 @@ export function wordDialogDef(doc: WordDoc, ui: SimUi, id: string): DialogDef | 
     case "crossRef": {
       const items = [...headingsOf(doc).map((h) => h.text), ...(d.bookmarks ?? []).map((b) => b.name)];
       return withOptions(base, "item", (f) => ({ ...f, options: items.length ? Array.from(new Set(items)) : ["(no headings or bookmarks)"] }) as DialogField);
+    }
+    case "manageSources": {
+      const master = d.masterSources ?? [];
+      const current = d.sources ?? [];
+      const label = (s: { author: string; title: string; year: string }) => `${s.author}; ${s.title} (${s.year})`;
+      return {
+        ...base,
+        fields: [
+          master.length
+            ? { type: "list", key: "source", label: "Master List:", options: master.map(label), height: 120 }
+            : { type: "note", text: "Master List: (empty) Sources you create in other documents are saved here." },
+          { type: "note", text: current.length ? `Current List: ${current.map(label).join(" | ")}` : "Current List: no sources in this document yet." },
+          { type: "note", text: "Select a source in the Master List, then Copy → to add it to this document. It then appears under Insert Citation." },
+        ],
+      };
     }
     case "bookmark": {
       const names = (d.bookmarks ?? []).map((b) => b.name);

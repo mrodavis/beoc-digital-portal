@@ -87,7 +87,29 @@ export default function TechFoundationsPage() {
           </span>
           <span className="mt-1 block text-gray-600">
             {techFoundationsClassExerciseCount} in-class labs, simulators, and the
-            Unit 1 review, organized by week. Practice here, submit in Brightspace.
+            Unit 1 review, organized by topic. Practice here, submit in Brightspace.
+          </span>
+        </span>
+        <span className="font-semibold text-primary-600 group-hover:text-primary-800">
+          Open →
+        </span>
+      </Link>
+
+      {/* Typing Lab: site-wide typing practice, used by Module 5 */}
+      <Link
+        href="/typing-lab"
+        className="group -mt-8 mb-12 flex flex-col gap-4 rounded-xl border-2 border-primary-200 bg-white p-6 transition-all hover:border-primary-400 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 sm:flex-row sm:items-center"
+      >
+        <span className="text-4xl" aria-hidden="true">
+          ⌨️
+        </span>
+        <span className="flex-1">
+          <span className="block text-xl font-bold text-gray-900 group-hover:text-primary-700">
+            Typing Lab
+          </span>
+          <span className="mt-1 block text-gray-600">
+            Key-by-key lessons, 1- to 5-minute timed tests, data entry and 10-key
+            drills, and printable results for Module 5. No outside sites needed.
           </span>
         </span>
         <span className="font-semibold text-primary-600 group-hover:text-primary-800">

@@ -237,7 +237,7 @@ export const module8Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Healthcare organizations are required to maintain formal compliance programs that prevent, detect, and correct violations of applicable laws and regulations.",
+            text: "Healthcare organizations are expected, and in some cases legally required, to maintain formal compliance programs that prevent, detect, and correct violations of applicable laws and regulations. The HHS Office of Inspector General publishes guidance describing what an effective program includes.",
           },
           {
             type: "list",
@@ -280,7 +280,7 @@ export const module8Lessons: Lesson[] = [
         optionRationales: [
           "Correct. Upcoding reports a level the documentation does not support.",
           "That describes coordination of benefits — billing a secondary payer after the primary pays, which is normal and proper.",
-          "Reporting multiple CPT codes can be correct when several distinct procedures were performed. Improperly splitting one service into components is unbundling, a related but different offence.",
+          "Reporting multiple CPT codes can be correct when several distinct procedures were performed. Improperly splitting one service into components is unbundling, a related but different offense.",
           "Updating insurance information after a denial is ordinary corrective work.",
         ],
       },
@@ -303,7 +303,7 @@ export const module8Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are rooming a patient at Northstar Medical Center.",
-            text: "This case does not announce which skill each step needs. That is the point — real work does not arrive labelled by module.",
+            text: "This case does not announce which skill each step needs. That is the point — real work does not arrive labeled by module.",
             task: "Work the case end to end and notice which decisions you hesitated on.",
           },
           {

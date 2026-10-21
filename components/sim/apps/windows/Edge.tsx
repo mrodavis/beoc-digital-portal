@@ -1227,7 +1227,7 @@ function FavoritesPane({ onClose, currentUrl }: { onClose: () => void; currentUr
         <>
           <button type="button" aria-label="Add this page to favorites" title="Add this page to favorites" onClick={() => { ctx.select(`page:${currentUrl}`); ctx.cmd("edge.favorite", "Favorites bar"); }} className="rounded p-1.5 hover:bg-[var(--w-hover)]"><G n="star" s={15} /></button>
           <button type="button" aria-label="Add folder" title="Add folder" onClick={() => setAdding(true)} className="rounded p-1.5 hover:bg-[var(--w-hover)]"><G n="newFolder" s={15} /></button>
-          <button type="button" aria-label="More options" title="More options" onClick={(e) => ctx.menu(e, [{ label: doc.showFavBar ? "Hide favorites bar" : "Show favorites bar", icon: "favorites", shortcut: "Ctrl+Shift+B", onClick: () => ctx.cmd("edge.favBar") }, { label: "Open favorites page", onClick: () => ctx.cmd("edge.nav", "edge://favorites") }])} className="rounded p-1.5 hover:bg-[var(--w-hover)]"><G n="more" s={15} /></button>
+          <button type="button" aria-label="More options" title="More options" onClick={(e) => ctx.menu(e, [{ label: doc.showFavBar ? "Hide favorites bar" : "Show favorites bar", icon: "favorites", shortcut: "Ctrl+Shift+B", onClick: () => ctx.cmd("edge.favBar") }, { label: "Open favorites page", onClick: () => ctx.cmd("edge.nav", "edge://favorites") }, { sep: true }, { label: "Import favorites", disabled: true }, { label: "Export favorites", icon: "upload", onClick: () => { const docs = doc.fs.find((r) => r.root === "documents")?.name ?? doc.fs[0]?.name ?? ""; ctx.saveAs({ title: "Save As", dir: docs, name: "", types: ["Microsoft Edge HTML Document (*.html)"], onSave: (p) => ctx.cmd("edge.favExport", p) }); } }])} className="rounded p-1.5 hover:bg-[var(--w-hover)]"><G n="more" s={15} /></button>
         </>
       }
     >
@@ -1531,6 +1531,7 @@ export function EdgeApp({ w }: { w: WinWindow }) {
       { label: "Favorites", icon: "favorites", shortcut: "Ctrl+Shift+O", onClick: () => ctx.cmd("edge.pane", "favorites") },
       { label: "History", icon: "history", shortcut: "Ctrl+H", onClick: () => ctx.cmd("edge.pane", "history") },
       { label: "Downloads", icon: "download", shortcut: "Ctrl+J", onClick: () => ctx.cmd("edge.pane", "downloads") },
+      { label: "Passwords", icon: "key", onClick: () => ctx.cmd("edge.nav", "edge://settings/passwords") },
       { label: "Apps", icon: "apps", sub: [{ label: "Install this site as an app", disabled: r.kind !== "page", onClick: () => ctx.cmd("edge.installApp", normUrl(url)) }, { label: "View apps", onClick: () => ctx.cmd("settings.nav", "apps/installed") }] },
       { label: "Extensions", icon: "apps", disabled: true },
       { sep: true },

@@ -312,6 +312,23 @@ const APP_ART: Record<string, ReactNode> = {
       <rect x="6" y="13" width="12" height="8" fill="#fff" stroke="#999" />
     </>
   ),
+  devmgmt: (
+    <>
+      <rect x="3" y="4" width="16" height="11" rx="1.5" fill="#3a6ea5" />
+      <rect x="4.5" y="5.5" width="13" height="8" fill="#9fd0ff" />
+      <rect x="8" y="15" width="6" height="2.5" fill="#6b6b6b" />
+      <circle cx="17.5" cy="17.5" r="4" fill="#f3f3f3" stroke="#555" strokeWidth="1" />
+      <path d="M17.5 15.3v4.4M15.3 17.5h4.4" stroke="#555" strokeWidth="1.2" />
+    </>
+  ),
+  scan: (
+    <>
+      <rect x="2.5" y="9" width="19" height="9" rx="2" fill="#5a5a5a" />
+      <rect x="2.5" y="7" width="19" height="3" rx="1" fill="#8a8a8a" />
+      <rect x="4.5" y="12" width="15" height="1.6" rx=".8" fill="#4fc3f7" />
+      <rect x="6" y="3.5" width="12" height="5" fill="#fff" stroke="#bbb" strokeWidth=".8" />
+    </>
+  ),
 };
 
 export function AppIcon({ id, s = 24 }: { id: string; s?: number }) {

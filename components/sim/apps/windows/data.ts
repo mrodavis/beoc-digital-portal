@@ -11,6 +11,8 @@ export type AppInfo = {
   keys?: string;
   /** Shown in Start › All apps. */
   list?: boolean;
+  /** Found by Search but not listed in All apps (Windows Tools such as Device Manager). */
+  search?: boolean;
   /** File extensions it opens. */
   opens?: string[];
 };
@@ -36,6 +38,8 @@ export const APPS: AppInfo[] = [
   { id: "clock", name: "Clock", keys: "clock alarm timer focus", list: true },
   { id: "camera", name: "Camera", keys: "camera webcam", list: true },
   { id: "onedrive", name: "OneDrive", keys: "onedrive cloud sync", list: true },
+  { id: "devmgmt", name: "Device Manager", keys: "device manager drivers hardware usb keyboard mouse monitor yellow warning", search: true },
+  { id: "scan", name: "Scan", keys: "windows scan scanner scanning flatbed feeder document", list: true },
   { id: "printqueue", name: "Print queue", keys: "print queue printer jobs" },
   { id: "edgeprivate", name: "InPrivate - Microsoft Edge" },
 ];
@@ -62,6 +66,7 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   "sound.input": "Microphone Array (Realtek(R) Audio)",
   volume: "50",
   "sound.mute": "off",
+  "sound.inputVolume": "80",
   "notifications.dnd": "off",
   "notifications.all": "on",
   "notifications.lock": "on",
@@ -312,6 +317,7 @@ export function settingsTitle(page: string): string {
   if (page.startsWith("apps/default/")) return page.split("/").slice(2).join("/");
   if (page === "network/wifi/networks") return "Manage known networks";
   if (page === "network/wifi/props" || page === "network/ethernet/props") return "Hardware properties";
+  if (page === "system/sound/input") return "Properties";
   return page;
 }
 
@@ -434,6 +440,8 @@ export const APP_MEM: Record<string, string> = {
   camera: "51.2 MB",
   printqueue: "14.6 MB",
   onedrive: "38.2 MB",
+  devmgmt: "12.4 MB",
+  scan: "33.9 MB",
 };
 
 export const DEFAULT_PRINTERS: WinPrinter[] = [

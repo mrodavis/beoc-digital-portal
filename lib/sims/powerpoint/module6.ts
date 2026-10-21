@@ -253,7 +253,7 @@ export const pptModule6Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Add the alt text “Nurse demonstrating the steps of hand washing” to the video.",
-          hint: "Right-click the video › Edit Alt Text… (or Video Format tab › Alt Text). Type the description, then click OK.",
+          hint: "Right-click the video › View Alt Text… (or Video Format tab › Alt Text). Type the description, then click OK.",
           steps: [{ action: { kind: "dialog", id: "altText", values: { text: "Nurse demonstrating the steps of hand washing" } }, requires: { slide: "s3", selection: "s3.o1" }, selectHint: "Click the video on slide 3 first." }],
         },
       ],

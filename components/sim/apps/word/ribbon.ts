@@ -173,17 +173,42 @@ const TABLE_STYLE_COLORS: Record<string, string> = {
 
 export const PICTURE_FILES = ["clinic-front-desk.jpg", "lakeside-logo.png", "handwashing-poster.png", "team-photo.jpg", "flu-shot-clinic.jpg", "map-directions.png"];
 
-/** The Ribbon with this document's custom styles in the Styles gallery (no shared state between players). */
+/**
+ * The Ribbon for this document (no shared state between players): its custom
+ * styles in the Styles gallery, and its sources (References › Insert Citation
+ * lists the document's Current List above Add New Source, like Word). A source
+ * entry commits references.citeSource with the source title.
+ */
 export function wordRibbonFor(doc: Parameters<typeof customStyleNames>[0]): RibbonTab[] {
   const own = customStyleNames(doc ?? null);
-  if (!own.length) return wordRibbon.map((t) => t);
+  const sources = ((doc as { sources?: { author: string; title: string; year: string }[] } | null)?.sources ?? []).filter((s) => s.title);
+  if (!own.length && !sources.length) return wordRibbon.map((t) => t);
   const options: RibbonOption[] = [...builtInStyleOpts, ...own.map((n): RibbonOption => ({ value: n, command: "home.customStyle" })), ...styleCommandOpts];
-  return wordRibbon.map((t) =>
-    t.groups.some((g) => g.controls.includes(stylesGallery))
-      ? { ...t, groups: t.groups.map((g) => (g.controls.includes(stylesGallery) ? { ...g, controls: g.controls.map((c) => (c === stylesGallery ? { ...stylesGallery, options } : c)) } : g)) }
-      : t,
-  );
+  const citeOpts: RibbonOption[] = [
+    ...sources.map((s): RibbonOption => ({ value: s.title, label: `${s.author}: ${s.title} (${s.year})`, command: "references.citeSource" })),
+    ...insertCitation.options,
+  ];
+  return wordRibbon.map((t) => ({
+    ...t,
+    groups: t.groups.map((g) =>
+      g.controls.includes(stylesGallery) && own.length
+        ? { ...g, controls: g.controls.map((c) => (c === stylesGallery ? { ...stylesGallery, options } : c)) }
+        : g.controls.includes(insertCitation) && sources.length
+          ? { ...g, controls: g.controls.map((c) => (c === insertCitation ? { ...insertCitation, options: citeOpts } : c)) }
+          : g,
+    ),
+  }));
 }
+
+/** References › Insert Citation (the document's sources are added by wordRibbonFor). */
+const insertCitation: Extract<RibbonControl, { type: "dropdown" }> = {
+  type: "dropdown",
+  id: "references.citation",
+  label: "Insert Citation",
+  icon: "citation",
+  size: "large",
+  options: [{ value: "Add New Source...", dialog: "createSource" }, { value: "Add New Placeholder..." }],
+};
 
 export const wordRibbon: RibbonTab[] = [
   {
@@ -658,12 +683,12 @@ export const wordRibbon: RibbonTab[] = [
           { type: "button", id: "references.nextFootnote", label: "Next Footnote", icon: "footnote", showLabel: true },
         ],
       },
-      { label: "Research", controls: [{ type: "button", id: "references.smartLookup", label: "Search", icon: "smartLookup", size: "large" }, { type: "button", id: "references.researcher", label: "Researcher", icon: "researcher", size: "large" }] },
+      // Smart Lookup ("Search") and Researcher were retired from Word in January 2025, so the Research group is gone.
       {
         label: "Citations & Bibliography",
         controls: [
-          { type: "dropdown", id: "references.citation", label: "Insert Citation", icon: "citation", size: "large", options: [{ value: "Add New Source...", dialog: "createSource" }, { value: "Add New Placeholder..." }] },
-          { type: "button", id: "references.manageSources", label: "Manage Sources", icon: "folder", showLabel: true },
+          insertCitation,
+          { type: "button", id: "references.manageSources", label: "Manage Sources", icon: "folder", showLabel: true, dialog: "manageSources" },
           { type: "dropdown", id: "references.citationStyle", label: "Style", icon: "styles", showLabel: true, options: ["APA", "Chicago", "MLA", "IEEE", "Harvard"].map((v) => ({ value: v })) },
           { type: "dropdown", id: "references.bibliography", label: "Bibliography", icon: "toc", showLabel: true, options: ["Bibliography", "References", "Works Cited"].map((v) => ({ value: v })) },
         ],

@@ -25,7 +25,7 @@ export const module3Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "ICD-10-CM stands for International Classification of Diseases, Tenth Revision, Clinical Modification. It is the diagnosis code set used in the United States, maintained by the CDC's National Center for Health Statistics and CMS, and updated annually with changes effective 1 October.",
+            text: "ICD-10-CM stands for International Classification of Diseases, Tenth Revision, Clinical Modification. It is the diagnosis code set used in the United States, maintained by the CDC's National Center for Health Statistics and CMS. A new code set takes effect every October 1 (the FY 2027 code set took effect October 1, 2026), and some years bring a smaller update on April 1 as well, as April 1, 2026 did. Always code from the set in effect on the date of service.",
           },
           {
             type: "table",
@@ -203,7 +203,7 @@ export const module3Lessons: Lesson[] = [
               [
                 "Excludes1",
                 "NOT CODED HERE — the two conditions cannot occur together",
-                "Never report both codes for the same encounter",
+                "Do not report both, unless the provider documents that the two conditions are unrelated to each other (Official Guidelines, Section I.A.12.a)",
               ],
               [
                 "Excludes2",
@@ -214,7 +214,7 @@ export const module3Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "The way to remember it: Excludes1 means mutually exclusive — one or the other, never both. Excludes2 means not part of this code, so if the patient has both conditions, code both. Payers apply Excludes1 edits automatically, so a claim carrying an Excludes1 pair is typically rejected without human review.",
+            text: "The way to remember it: Excludes1 means mutually exclusive — one or the other, not both. The guidelines allow one exception: when the two conditions are documented as unrelated to each other, both may be reported. Excludes2 means not part of this code, so if the patient has both conditions, code both. Payers and claim scrubbers often apply Excludes1 edits automatically, so a claim carrying an Excludes1 pair can be rejected without human review.",
           },
           {
             type: "worked-example",
@@ -235,7 +235,7 @@ export const module3Lessons: Lesson[] = [
               },
               {
                 move: "If it had been Excludes1, choose the single code the documentation supports and query if genuinely ambiguous.",
-                why: "Excludes1 means the code set asserts these cannot coexist. Reporting both is a definite rejection. When the documentation truly seems to describe both, that is a question for the provider rather than a coding judgment.",
+                why: "Excludes1 means the code set asserts these cannot coexist, so reporting both will usually be rejected. The only exception is when the provider documents that the two conditions are unrelated. When the documentation truly seems to describe both, that is a question for the provider rather than a coding judgment.",
               },
             ],
             result:

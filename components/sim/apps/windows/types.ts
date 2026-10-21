@@ -20,6 +20,7 @@
  *   proc:<name>               a row on Task Manager's Processes page
  *   startup:<name>            a startup app (Task Manager or Settings › Apps › Startup)
  *   job:<document>            a job in a printer's queue
+ *   dev:<device name>         a device in Device Manager
  *   page:<url>                the page a browser command acts on (set by the
  *                             canvas just before Add to favorites, Report unsafe site)
  *
@@ -60,6 +61,12 @@
  *   edge.clearData (items), edge.historyDelete (url), web.set ("id=value"), cloud.restore (version),
  *   doc.accept / doc.reject (suggestion id), power.restart/sleep/shutdown/signout,
  *   taskbar.pin/unpin, start.pin/unpin (app id), snip.save (path).
+ *   Also judged: office.save (path of the open Word/Excel/PowerPoint file), office.print
+ *   (printer name; adds the document to that printer's queue), devmgr.uninstall (selection
+ *   dev:…), devmgr.scan (Action › Scan for hardware changes), scan.run ("<scanner>|<source>|<file type>",
+ *   saves to Pictures/Scans), sound.micTest (Sound › input device › Start test),
+ *   update.schedule ("<day> <time>"), edge.favExport (path of the saved .html file).
+ *   Free: devmgr.view (category to expand), scan.view (the scanned file opens in Photos).
  *   Clicks: { kind: "click", target: "web:<buttonId>" } for buttons on mock web pages.
  *
  * SETTINGS KEYS (settings.set "key=value"; see DEFAULT_SETTINGS in data.ts)
@@ -167,6 +174,8 @@ export type WinWindow = {
   /* Task Manager */
   tm?: string;
   perf?: string;
+  /* Device Manager: expanded categories */
+  exp?: string[];
   /* Notepad, Office apps, print queue, Photos */
   file?: string;
   text?: string;
@@ -286,6 +295,15 @@ export type WinDevice = {
   bt?: boolean;
 };
 
+/**
+ * An extra row in Device Manager (the usual processor, disk, display, network and
+ * USB rows are built from specs and devices). `problem` shows the yellow warning and
+ * its status text; uninstalling the device and then restarting or choosing Action ›
+ * Scan for hardware changes reinstalls it without the problem. `device` names a
+ * WinDevice that becomes connected when this row is reinstalled.
+ */
+export type WinHardware = { cat: string; name: string; problem?: string; device?: string; manufacturer?: string; location?: string };
+
 export type WinDoc = {
   user?: { name: string; email?: string; org?: string };
   locked?: boolean;
@@ -321,6 +339,8 @@ export type WinDoc = {
   processes?: WinProcess[];
   printers?: WinPrinter[];
   devices?: WinDevice[];
+  /** Extra Device Manager rows (see WinHardware). */
+  hardware?: WinHardware[];
   /** Bluetooth devices that show up in Add a device. */
   nearby?: string[];
   /** Second monitor connected (Display shows 1 and 2). */

@@ -14,7 +14,7 @@ export const WIN_FREE = [
   "edge.pane", "edge.siteInfo", "edge.inPrivate", "edge.smartBack", "edge.favBar", "edge.zoom", "edge.dlShow",
   "cloud.open", "cloud.view",
   "taskmgr.tab", "taskmgr.perf", "cmd.run", "snip.capture", "printer.queue", "display.identify",
-  "clip.open", "notify.clear", "notepad.new",
+  "clip.open", "notify.clear", "notepad.new", "devmgr.view", "scan.view",
 ];
 
 /** Changes: judged against the current task. */
@@ -34,6 +34,7 @@ export const WIN_JUDGED = [
   "web.set", "cloud.restore", "doc.accept", "doc.reject",
   "power.restart", "power.sleep", "power.shutdown", "power.signout",
   "taskbar.pin", "taskbar.unpin", "start.pin", "start.unpin", "snip.save",
+  "office.save", "office.print", "devmgr.uninstall", "devmgr.scan", "scan.run", "sound.micTest", "update.schedule", "edge.favExport",
 ];
 
 export const windowsCore: AppCore<WinDoc> = {

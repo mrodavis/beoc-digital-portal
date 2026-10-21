@@ -143,7 +143,10 @@ export interface Source {
 export type XDoc = WordDoc & {
   styleDefs?: Record<string, StyleDef>;
   customStyles?: Record<string, StyleDef & { basedOn?: string; type?: string }>;
+  /** References › Manage Sources: the Current List (sources this document cites). */
   sources?: Source[];
+  /** Source Manager's Master List: sources saved from earlier documents. New sources are added here too. */
+  masterSources?: Source[];
   /** Endnotes, in document order (footnotes live on `footnotes`). */
   endnotes?: string[];
   autoText?: AutoTextEntry[];
@@ -1097,29 +1100,23 @@ function chartOf(p: WordPara | undefined): XChart | undefined {
 
 /* ---------- Citations ---------- */
 
-/** Built-in Researcher results, keyed by topic words. */
-export const RESEARCH_TOPICS: { keys: string[]; sources: (Source & { snippet: string; kind: string })[] }[] = [
-  {
-    keys: ["blood pressure", "hypertension"],
-    sources: [
-      { kind: "Journal", type: "Journal Article", author: "Alvarez, M.", title: "Home Blood Pressure Monitoring in Adults: A Review", year: "2024", publisher: "Journal of Community Health Practice", snippet: "Readings taken at home at the same time each day give a more reliable picture than a single office reading." },
-      { kind: "Website", type: "Web site", author: "National Health Education Institute", title: "Understanding High Blood Pressure", year: "2025", publisher: "National Health Education Institute", snippet: "A reading of 130/80 mm Hg or higher is considered high blood pressure for most adults." },
-      { kind: "Website", type: "Web site", author: "Miracle Cures Daily", title: "Cure Your Blood Pressure in 7 Days With This One Trick", year: "2019", publisher: "Miracle Cures Daily (blog)", snippet: "Doctors don't want you to know this one simple trick." },
-    ],
-  },
-  {
-    keys: ["flu", "influenza", "vaccine"],
-    sources: [
-      { kind: "Website", type: "Web site", author: "National Health Education Institute", title: "Seasonal Flu Vaccines: Who Should Get One", year: "2025", publisher: "National Health Education Institute", snippet: "Everyone 6 months and older should get a flu vaccine every season, with rare exceptions." },
-      { kind: "Journal", type: "Journal Article", author: "Okafor, A.", title: "Flu Vaccination Rates in Urban Primary Care", year: "2023", publisher: "Journal of Community Health Practice", snippet: "Reminder letters raised vaccination rates by 12 percentage points." },
-      { kind: "Website", type: "Web site", author: "Natural Immunity Now", title: "Why You Never Need a Flu Shot", year: "2018", publisher: "Natural Immunity Now (blog)", snippet: "Skip the shot and boost immunity with our supplement." },
-    ],
-  },
-];
+/*
+ * References › Citations & Bibliography: Insert Citation › Add New Source
+ * (createSource dialog) cites a new source and saves it to the Current List
+ * and the Master List; an Insert Citation entry for a source already in the
+ * document commits references.citeSource (value = title); Manage Sources
+ * (manageSources dialog, value = the Master List entry "Author; Title (Year)"
+ * or just the title) copies a source to the Current List without citing it.
+ * Word's Smart Lookup and Researcher were retired in January 2025 and are not
+ * simulated.
+ */
 
-export function researchResults(query: string) {
-  const q = query.toLowerCase();
-  return (RESEARCH_TOPICS.find((t) => t.keys.some((k) => q.includes(k))) ?? RESEARCH_TOPICS[0]).sources;
+/** "Author; Title (Year)", the way Source Manager lists a source. */
+export const sourceLabel = (s: Source) => `${s.author}; ${s.title} (${s.year})`;
+
+function findSource(list: Source[] | undefined, v: string): Source | undefined {
+  const t = v.trim().toLowerCase();
+  return (list ?? []).find((s) => s.title.toLowerCase() === t || sourceLabel(s).toLowerCase() === t);
 }
 
 function citationText(doc: WordDoc, s: Source): string {
@@ -1647,6 +1644,15 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
           url: String(val.url ?? "").trim() || undefined,
         };
         addCitation(doc, ui, s);
+        // Word also saves a new source to the Master List, for use in later documents.
+        const d = xd(doc);
+        d.masterSources = [...(d.masterSources ?? []).filter((x) => x.title !== s.title), s];
+        return { doc };
+      }
+      case "manageSources": {
+        const d = xd(doc);
+        const s = findSource(d.masterSources, String(val.source ?? ""));
+        if (s && !findSource(d.sources, s.title)) d.sources = [...(d.sources ?? []), { ...s }];
         return { doc };
       }
     }
@@ -2469,10 +2475,9 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     case "references.citationStyle":
       doc.flags = { ...(doc.flags ?? {}), citationStyle: sv };
       return { doc };
-    case "researcher.add": {
-      const all = RESEARCH_TOPICS.flatMap((t) => t.sources);
-      const s = all.find((x) => x.title === sv);
-      if (s) addCitation(doc, ui, { type: s.type, author: s.author, title: s.title, year: s.year, publisher: s.publisher });
+    case "references.citeSource": {
+      const s = findSource(xd(doc).sources, sv);
+      if (s) addCitation(doc, ui, s);
       return { doc };
     }
 
@@ -2586,11 +2591,20 @@ export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordD
     case "review.wordCount": doc.pane = "Word Count"; return { doc };
     case "review.accessibility": doc.pane = "Accessibility"; return { doc };
     case "review.thesaurus": doc.pane = "Thesaurus"; return { doc };
+    case "thesaurus.insert": {
+      // Thesaurus pane › Insert, or right-click › Synonyms › a word: replaces the selected word, keeping its capital letter.
+      if (sel.run && sv) {
+        const r = doc.paragraphs.find((x) => x.id === sel.run!.para)?.runs?.find((x) => x.id === sel.run!.run);
+        if (r) {
+          const m = /^(\s*)([\s\S]*?)(\s*)$/.exec(r.text)!;
+          const cap = /^[A-Z]/.test(m[2]);
+          r.text = `${m[1]}${cap ? sv.charAt(0).toUpperCase() + sv.slice(1) : sv}${m[3]}`;
+        }
+      }
+      return { doc };
+    }
     case "review.readAloud": doc.pane = doc.pane === "Read Aloud" ? null : "Read Aloud"; return { doc };
     case "review.translate": doc.pane = "Translator"; return { doc };
-    case "review.smartLookup":
-    case "references.smartLookup": doc.pane = "Search"; return { doc };
-    case "references.researcher": doc.pane = "Researcher"; return { doc };
     case "review.restrict":
       // Opens the Restrict Editing pane (the canvas draws it).
       doc.flags = { ...(doc.flags ?? {}), [c.id]: sv || true };

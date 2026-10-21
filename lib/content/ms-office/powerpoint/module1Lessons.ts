@@ -14,7 +14,6 @@ export const powerpointModule1Lessons: Lesson[] = [
     "Navigate a deck efficiently while building it",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/k6pg4nZS6fA",
 
   practiceFiles: [],
 
@@ -175,17 +174,20 @@ export const powerpointModule1Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "You can control how much of the Ribbon is visible using the Ribbon Display Options in the top-right corner of PowerPoint.",
+            "You can control how much of the Ribbon is visible with Ribbon Display Options, the small arrow in the lower-right corner of the Ribbon.",
         },
         {
-          type: "paragraph",
+          type: "list",
+          items: [
+            "Full-screen mode hides the Ribbon so the slide gets as much room as possible.",
+            "Show tabs only keeps just the tab names on screen. Click a tab to see its commands.",
+            "Always show Ribbon keeps the tabs and their commands on screen all the time. This is the setting to come back to.",
+          ],
+        },
+        {
+          type: "tip",
           text:
-            "Options include Auto-hide Ribbon, Show Tabs, and Show Tabs and Commands.",
-        },
-        {
-          type: "image",
-          src: "/images/powerpoint/module-1/getting-started/powerpoint_ribbon_dropdown.png",
-          alt: "Ribbon display options",
+            "To hide the commands quickly, double-click any tab name, or right-click a tab and choose Collapse the ribbon. Double-click a tab again to bring them back.",
         },
       ],
     },
@@ -196,12 +198,17 @@ export const powerpointModule1Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "The Quick Access Toolbar is located above the Ribbon and provides quick access to commonly used commands such as Save, Undo, Redo, and Start From Beginning.",
+            "The Quick Access Toolbar sits above the Ribbon in the title bar (you can move it below the Ribbon) and holds commonly used commands such as Save, Undo, Redo, and Start From Beginning.",
         },
         {
           type: "paragraph",
           text:
-            "You can customize the Quick Access Toolbar by clicking the drop-down arrow and selecting additional commands.",
+            "You can customize the Quick Access Toolbar by clicking its Customize Quick Access Toolbar arrow and selecting additional commands. To add any Ribbon command, right-click it and choose Add to Quick Access Toolbar.",
+        },
+        {
+          type: "tip",
+          text:
+            "If you do not see the Quick Access Toolbar, it is hidden. Right-click the Ribbon and choose Show Quick Access Toolbar.",
         },
         {
           type: "image",
@@ -222,12 +229,12 @@ export const powerpointModule1Lessons: Lesson[] = [
     },
 
     {
-      heading: "Using the Tell Me Box",
+      heading: "Using the Search Box",
       blocks: [
         {
           type: "paragraph",
           text:
-            "The Tell Me box works like a search tool inside PowerPoint. You can type the name of a command or feature and PowerPoint will help you find it instantly.",
+            "The Search box at the top of the PowerPoint window finds commands for you. Click it (or press Alt+Q), type the name of a command or feature, and choose it from the list. It can also find help and recent files.",
         },
         {
           type: "paragraph",
@@ -237,7 +244,13 @@ export const powerpointModule1Lessons: Lesson[] = [
         {
           type: "image",
           src: "/images/powerpoint/module-1/getting-started/powerpoint_shapes.png",
-          alt: "Using the Tell Me box to search commands",
+          alt: "Typing shapes in the Search box at the top of the PowerPoint window to find the Shapes command",
+        },
+        {
+          type: "callout",
+          variant: "version",
+          text:
+            "Older versions of PowerPoint called this the Tell Me box (\"Tell me what you want to do\") and placed it beside the Ribbon tabs. It works the same way.",
         },
       ],
     },
@@ -367,13 +380,13 @@ export const powerpointModule1Lessons: Lesson[] = [
       ordered: true,
       items: [
         "Open PowerPoint and create a blank presentation.",
-        "Change the Ribbon Display Options to Show Tabs.",
+        "Change the Ribbon Display Options to Show tabs only.",
         "Add New, Quick Print, and Spelling to the Quick Access Toolbar.",
-        "Use the Tell Me box to search for Shapes.",
+        "Use the Search box to search for Shapes.",
         "Insert a shape onto the slide.",
         "Enable the Ruler from the View tab.",
         "Zoom the presentation to 120%.",
-        "Return the Ribbon display to Show Tabs and Commands.",
+        "Return the Ribbon Display Options to Always show Ribbon.",
       ],
     },
     {

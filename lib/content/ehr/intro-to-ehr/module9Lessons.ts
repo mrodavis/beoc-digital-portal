@@ -44,7 +44,7 @@ export const module9Lessons: Lesson[] = [
       "Prepare for the NHA CEHRS certification exam with a review of exam content domains, test-taking strategies, and practice questions.",
     objectives: [
       "Describe the CEHRS exam format and eligibility",
-      "Map the exam's domains to what this course covered",
+      "Map the exam's test plan to what this course covered",
       "Build a study plan based on retrieval rather than rereading",
     ],
     duration: "25 min",
@@ -95,9 +95,9 @@ export const module9Lessons: Lesson[] = [
           },
           {
             type: "table",
-            caption: "Exam domains against this course",
+            caption: "The topic areas an EHR specialist exam draws on, mapped to this course",
             columns: [
-              "Domain area",
+              "Topic area",
               "Covered in",
             ],
             rows: [
@@ -139,10 +139,10 @@ export const module9Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Exam format: 110 questions (100 scored + 10 pretest)",
-              "Time limit: 3 hours",
-              "Delivery: Computer-based at an approved testing site or remotely proctored",
-              "Passing score: 390 out of 500",
+              "Exam format: scored multiple-choice questions plus a small number of unscored pretest questions",
+              "Delivery: computer-based, at an approved testing site or remotely proctored",
+              "Passing score: a scaled score of 390, on a scale that runs to 500",
+              "Time limit and fee: set by NHA and listed in the current candidate handbook",
             ],
           },
         ],
@@ -151,20 +151,13 @@ export const module9Lessons: Lesson[] = [
         heading: "CEHRS Content Domains",
         blocks: [
           {
-            type: "list",
-            items: [
-              "EHR Functions and Workflows (~22%)",
-              "Data Management and Entry (~20%)",
-              "Revenue Cycle Management (~18%)",
-              "Legal and Ethical Aspects (~16%)",
-              "Patient Communication and Education (~12%)",
-              "Health Informatics and Technology (~12%)",
-            ],
+            type: "paragraph",
+            text: "NHA publishes a test plan for the CEHRS that names each content domain and how many questions it carries. Download the current test plan from NHA before you start studying, because the domains and their weights are revised from time to time.",
           },
           {
             type: "callout",
             variant: "success",
-            text: "Everything covered in this course maps directly to CEHRS content domains. Strong performance in this course puts you on the right track for certification.",
+            text: "This course covers the main areas the CEHRS draws on: workflow, documentation, coding and revenue cycle, privacy and compliance, and reporting. Lay the test plan beside the topic table above and mark any topic it lists that this course did not cover. That short list is where to spend extra study time.",
           },
         ],
       },

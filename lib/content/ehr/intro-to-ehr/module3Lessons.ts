@@ -139,11 +139,11 @@ export const module3Lessons: Lesson[] = [
           "American Health Information Management Association (AHIMA)",
         ],
         correctIndex: 2,
-        explanation: "CPT is maintained by the American Medical Association and revised annually, with changes effective 1 January. CMS maintains HCPCS Level II; the WHO maintains the base ICD classification.",
+        explanation: "CPT is maintained by the American Medical Association and revised annually, with changes effective January 1. CMS maintains HCPCS Level II; the WHO maintains the base ICD classification.",
         optionRationales: [
           "CMS maintains HCPCS Level II and, with the CDC, ICD-10-CM. It does not own CPT.",
           "The WHO maintains the international ICD classification, not CPT.",
-          "Correct. CPT is an AMA code set, updated annually with changes effective 1 January.",
+          "Correct. CPT is an AMA code set, updated annually with changes effective January 1.",
           "AHIMA is a professional association that credentials coders. It does not maintain a code set.",
         ],
       },

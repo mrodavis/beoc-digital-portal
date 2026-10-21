@@ -142,7 +142,7 @@ export const module2Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "ICD stands for International Classification of Diseases. The World Health Organization maintains the base classification; the United States uses a clinical modification of the tenth revision, ICD-10-CM, for diagnosis coding in every setting. It is maintained jointly by the CDC's National Center for Health Statistics and CMS, and it is updated annually with changes effective 1 October.",
+            text: "ICD stands for International Classification of Diseases. The World Health Organization maintains the base classification; the United States uses a clinical modification of the tenth revision, ICD-10-CM, for diagnosis coding in every setting. It is maintained jointly by the CDC's National Center for Health Statistics and CMS. A new code set takes effect every October 1 (the FY 2027 code set took effect October 1, 2026), and some years bring a smaller update on April 1 as well, as April 1, 2026 did. Always code from the set in effect on the date of service.",
           },
           {
             type: "table",
@@ -191,7 +191,7 @@ export const module2Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "ICD stands for International Classification of Diseases. It is the global standard for classifying diagnoses, symptoms, and health conditions. In the United States, ICD-10-CM is used for outpatient and physician billing.",
+            text: "ICD stands for International Classification of Diseases. It is the global standard for classifying diagnoses, symptoms, and health conditions. In the United States, ICD-10-CM is the diagnosis code set for every setting, inpatient and outpatient.",
           },
           {
             type: "list",

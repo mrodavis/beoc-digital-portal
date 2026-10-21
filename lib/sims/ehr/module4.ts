@@ -8,7 +8,7 @@ export const ehrModule4Sims: Record<string, SimDefinition[]> = {
       app: "ehr",
       title: "Bill the drug, the injection and the crutches",
       scenario:
-        "Walter Simmons, a Medicare patient, sprained his right ankle in a fall at home. At Northstar Orthopedics Dr. Reyes gave ketorolac 30 mg by intramuscular injection and the clinic dispensed a pair of crutches. CPT covers giving the injection but not the drug or the equipment. Add the HCPCS Level II codes, get the drug units right, and link every line.",
+        "Walter Simmons, who has an Empire Northstar Health Plan policy through his employer, sprained his right ankle in a fall at home. At Northstar Orthopedics Dr. Reyes gave ketorolac 30 mg by intramuscular injection and the clinic dispensed a pair of crutches. CPT covers giving the injection but not the drug or the equipment. Add the HCPCS Level II codes, get the drug units right, and link every line.",
       fileName: "Northstar EHR · Coding",
       minutes: 5,
       initial: practice({
@@ -17,7 +17,7 @@ export const ehrModule4Sims: Record<string, SimDefinition[]> = {
         workspaces: ["charges", "encoder"],
         nav: { ws: "encoder", sub: "hcpcs", enc: "E1" },
         patients: [
-          { id: "P1", mrn: "1225718", last: "Simmons", first: "Walter", dob: "02/08/1955", sex: "Male", pcp: "PRV1", signatures: SIGNED, coverage: [{ priority: 1, payer: "PAY3", memberId: "3RK7WN2PH48", relationship: "Self", subscriber: "Simmons, Walter" }] },
+          { id: "P1", mrn: "1225718", last: "Simmons", first: "Walter", dob: "02/08/1955", sex: "Male", pcp: "PRV1", signatures: SIGNED, coverage: [{ priority: 1, payer: "PAY1", plan: "Gold PPO", memberId: "ENH44175107", group: "BEOC-2026", relationship: "Self", subscriber: "Simmons, Walter" }] },
         ],
         encounters: [
           {

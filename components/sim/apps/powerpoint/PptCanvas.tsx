@@ -423,7 +423,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
         { label: "Bring to Front", icon: "bringForward", command: "object.bringToFront" },
         { label: "Send to Back", icon: "sendBackward", command: "object.sendToBack" },
         { label: "Link...", icon: "link", dialog: "link" },
-        { label: "Edit Alt Text...", icon: "altText", dialog: "altText" },
+        { label: "View Alt Text...", icon: "altText", dialog: "altText" },
         { label: "Size and Position...", icon: "rotate", dialog: "rotation" },
         { separator: true },
       );

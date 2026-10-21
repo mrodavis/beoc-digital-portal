@@ -138,8 +138,8 @@ export const wordCore: AppCore<WordDoc> = {
     "pane.close", "view.zoom", "view.zoomTo", "view.onePage", "view.multiplePages", "view.pageWidth", "home.find", "review.wordCount",
     "home.showMarks", "view.ruler", "view.navPane", "view.gridlines", "review.thesaurus", "help.help", "review.nextComment",
     "review.prevComment", "review.nextChange", "review.prevChange", "mail.next", "mail.prev", "home.selectAll", "file.browse", "file.options",
-    "table.select", "header.gotoHeader", "header.gotoFooter", "object.selectionPane", "review.smartLookup", "references.smartLookup",
-    "references.researcher", "review.readAloud", "review.showComments", "header.showDocText", "references.nextFootnote",
+    "table.select", "header.gotoHeader", "header.gotoFooter", "object.selectionPane",
+    "review.readAloud", "review.showComments", "header.showDocText", "references.nextFootnote",
   ],
   initialUi: (doc) => ({ selection: doc.paragraphs[0]?.id ?? "" }),
   normalize,
@@ -157,8 +157,12 @@ export const wordCore: AppCore<WordDoc> = {
   canvasCommands: [
     "edit.delete", "home.formatPainter.apply", "spelling.change", "spelling.ignore", "view.mode", "view.zoom",
     "pane.close", "view.navPane", "review.wordCount", "qat.undo", "qat.redo", "qat.autosave", "view.ribbonCollapse",
-    // Right-click menu items (numbered lists, links), the comment card's Reply box, Researcher's Add button.
-    "list.restart", "list.continue", "link.remove", "comment.reply", "researcher.add",
+    // Right-click menu items (numbered lists, links), the comment card's Reply box.
+    "list.restart", "list.continue", "link.remove", "comment.reply",
+    // Right-click › Synonyms and the Thesaurus pane's Insert (value = the replacement word).
+    "thesaurus.insert",
+    // Insert Citation entries for the document's own sources (value = source title; see ribbon.wordRibbonFor).
+    "references.citeSource",
     // Custom styles (Styles gallery / Styles pane entries that come from the document, so any name).
     "home.customStyle",
     // Clicking a content control on the page: a check box, or an entry of a drop-down list or date picker.

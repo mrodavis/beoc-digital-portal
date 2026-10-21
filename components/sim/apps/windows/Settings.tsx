@@ -493,9 +493,14 @@ function Page({ page }: { page: string }) {
           <Card>
             <Row icon="headset" title="Choose a device for speaking or recording" desc="Apps might have their own settings" />
             {ins.map((o) => (
-              <Row key={o} indent label={o} title={<label className="flex items-center gap-2"><input type="radio" name="in" aria-label={o} checked={S(doc, "sound.input") === o} onChange={() => set("sound.input", o)} style={{ accentColor: "var(--w-accent)" }} />{o}</label>} />
+              <Row
+                key={o}
+                indent
+                label={o}
+                title={<label className="flex items-center gap-2"><input type="radio" name="in" aria-label={o} checked={S(doc, "sound.input") === o} onChange={() => set("sound.input", o)} style={{ accentColor: "var(--w-accent)" }} />{o}</label>}
+                right={<button type="button" aria-label={`Properties for ${o}`} title="Properties" onClick={() => ctx.cmd("settings.nav", `system/sound/input`)} className="rounded p-1.5 hover:bg-[var(--w-hover)]"><G n="chevR" s={12} /></button>}
+              />
             ))}
-            <Row indent title="Test your microphone" right={<Btn small label="Start test">Start test</Btn>} />
           </Card>
           <H>Advanced</H>
           <Card>
@@ -505,6 +510,8 @@ function Page({ page }: { page: string }) {
         </>
       );
     }
+    case "system/sound/input":
+      return <MicPage />;
     case "system/notifications":
       return (
         <>
@@ -595,7 +602,7 @@ function Page({ page }: { page: string }) {
               ["Device name", sp.deviceName],
               ["Processor", sp.processor],
               ["Installed RAM", sp.ram],
-              ["Storage", `${sp.storage} SSD ${sp.diskModel}`],
+              ["Storage", `${sp.storage} ${sp.diskType.split(" ")[0]} ${sp.diskModel}`],
               ["Graphics card", `${sp.gpu} (${sp.gpuMemory})`],
               ["Device ID", sp.deviceId],
               ["Product ID", sp.productId],
@@ -1148,6 +1155,70 @@ export function secStatus(doc: ReturnType<typeof useWin>["doc"], id: string): st
   return id === "family" ? "Manage how your family uses their devices." : "View status and manage settings.";
 }
 
+function MicPage() {
+  const ctx = useWin();
+  const doc = ctx.doc;
+  const [phase, setPhase] = useState<"idle" | "testing" | "done">(doc.flags?.micTested ? "done" : "idle");
+  return (
+    <>
+      <Card>
+        <div className="flex items-center gap-4 p-4">
+          <G n="headset" s={32} />
+          <div className="flex-1">
+            <div className="text-[15px] font-semibold">{S(doc, "sound.input")}</div>
+            <div className="text-[12px]" style={{ color: T.sub }}>Audio</div>
+          </div>
+        </div>
+      </Card>
+      <H>Input settings</H>
+      <Card>
+        <Row icon="volume" title="Input volume" right={<Slider k="sound.inputVolume" min={0} max={100} step={10} label="Input volume" />} />
+        <Row
+          icon="headset"
+          title="Test your microphone"
+          desc={phase === "testing" ? "Speak normally. Select Stop test when you're done." : phase === "done" ? "Select Play to hear your recorded sample." : "Record a short sample to check how you sound"}
+          right={
+            phase === "testing" ? (
+              <>
+                <span className="flex h-2 w-24 overflow-hidden rounded-full" style={{ background: T.line }}><span className="h-full w-3/5 rounded-full" style={{ background: T.accent }} /></span>
+                <Btn small label="Stop test" onClick={() => { setPhase("done"); ctx.cmd("sound.micTest", S(doc, "sound.input")); }}>Stop test</Btn>
+              </>
+            ) : (
+              <>
+                {phase === "done" && <Btn small label="Play">Play</Btn>}
+                <Btn small label="Start test" onClick={() => setPhase("testing")}>Start test</Btn>
+              </>
+            )
+          }
+        />
+      </Card>
+    </>
+  );
+}
+
+function ScheduleRestartDialog() {
+  const ctx = useWin();
+  const [time, setTime] = useState("6:00 PM");
+  const [day, setDay] = useState("Today");
+  return (
+    <Modal
+      title="Schedule the restart"
+      width={380}
+      onClose={() => ctx.modal(null)}
+      footer={
+        <>
+          <Btn primary label="Schedule" onClick={() => { ctx.modal(null); ctx.cmd("update.schedule", `${day} ${time}`); }}>Schedule</Btn>
+          <Btn label="Cancel" onClick={() => ctx.modal(null)}>Cancel</Btn>
+        </>
+      }
+    >
+      <p className="mb-3" style={{ color: T.sub }}>Choose a time when you won&apos;t be using this device.</p>
+      <div className="mb-2 flex items-center gap-3"><span className="w-20">Pick a time</span><Select label="Pick a time" value={time} options={["12:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM", "11:00 PM"]} onChange={setTime} width={150} /></div>
+      <div className="flex items-center gap-3"><span className="w-20">Pick a day</span><Select label="Pick a day" value={day} options={["Today", "Tomorrow"]} onChange={setDay} width={150} /></div>
+    </Modal>
+  );
+}
+
 function TextSizePage() {
   const ctx = useWin();
   const cur = parseInt(S(ctx.doc, "access.textSize"), 10) || 100;
@@ -1348,14 +1419,14 @@ function UpdatePage() {
           <span style={{ color: state === "restart" ? "#c42b1c" : T.accent }}><G n={state === "uptodate" ? "update" : state === "paused" ? "pause" : "sync"} s={40} /></span>
           <div className="flex-1">
             <div className="text-[16px] font-semibold">{state === "paused" ? `Updates paused until ${paused.replace("Pause for ", "") === "1 week" ? "10/27/2026" : "a later date"}` : state === "restart" ? "Restart required" : state === "available" ? "Updates available" : "You're up to date"}</div>
-            <div className="text-[12px]" style={{ color: T.sub }}>{state === "restart" ? "Your device will restart outside of active hours." : `Last checked: ${checked ? `Today, ${NOW.time}` : "Yesterday, 4:12 PM"}`}</div>
+            <div className="text-[12px]" style={{ color: T.sub }}>{state === "restart" ? (f.restartScheduled ? `Restart scheduled for ${f.restartScheduled}` : "Your device will restart outside of active hours.") : `Last checked: ${checked ? `Today, ${NOW.time}` : "Yesterday, 4:12 PM"}`}</div>
           </div>
           {state === "paused" ? (
             <Btn primary label="Resume updates" onClick={() => ctx.cmd("settings.set", "update.pause=")}>Resume updates</Btn>
           ) : state === "restart" ? (
             <>
               <Btn primary label="Restart now" onClick={() => ctx.cmd("update.restart")}>Restart now</Btn>
-              <Btn label="Schedule the restart">Schedule the restart</Btn>
+              <Btn label="Schedule the restart" onClick={() => ctx.modal(<ScheduleRestartDialog />)}>Schedule the restart</Btn>
             </>
           ) : state === "available" ? (
             <Btn primary label="Download & install all" onClick={() => ctx.cmd("update.install")}>Download &amp; install all</Btn>
@@ -1403,6 +1474,7 @@ export function SettingsApp({ w }: { w: WinWindow }) {
   if (page !== cat && page !== "home") {
     if (page.startsWith("bluetooth/printers/")) crumbs.push("Printers & scanners");
     if (page.startsWith("apps/default/")) crumbs.push("Default apps");
+    if (page === "system/sound/input") crumbs.push("Sound");
     crumbs.push(settingsTitle(page));
   }
   return (
@@ -1459,7 +1531,7 @@ export function SettingsApp({ w }: { w: WinWindow }) {
               <span key={i} className="flex items-center gap-2">
                 {i > 0 && <G n="chevR" s={14} style={{ color: T.sub }} />}
                 {i < crumbs.length - 1 ? (
-                  <button type="button" aria-label={c} onClick={() => ctx.cmd("settings.nav", i === 0 ? cat : page.startsWith("bluetooth/printers/") ? "bluetooth/printers" : "apps/default")} style={{ color: T.sub }} className="hover:underline">{c}</button>
+                  <button type="button" aria-label={c} onClick={() => ctx.cmd("settings.nav", i === 0 ? cat : page.startsWith("bluetooth/printers/") ? "bluetooth/printers" : page === "system/sound/input" ? "system/sound" : "apps/default")} style={{ color: T.sub }} className="hover:underline">{c}</button>
                 ) : (
                   <span>{c}</span>
                 )}

@@ -3,10 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { WinWindow } from "./types";
 import { AppIcon, FileArt, G, kindForName } from "./icons";
-import { Btn, Modal, T, useWin, type SaveOpts } from "./ui";
+import { Btn, Modal, Select, T, useWin, type SaveOpts } from "./ui";
 import { TitleBar } from "./frame";
 import { NOW, appInfo } from "./data";
-import { net, printers, processes, specs, startupApps, userName } from "./model";
+import { HW_CATS, hardwareRows, net, printers, processes, specs, startupApps, userName } from "./model";
 import { baseOf, extOf, getItem, isFolder, realPath, splitPath } from "./fs";
 
 /* ------------------------------------------------------------------ */
@@ -267,6 +267,28 @@ export function TaskMgrApp({ w }: { w: WinWindow }) {
   const bg = procs.filter((p) => p.background);
   const selName = ctx.sel.startsWith("proc:") ? ctx.sel.slice(5) : ctx.sel.startsWith("startup:") ? ctx.sel.slice(8) : "";
   const [q, setQ] = useState("");
+  const [sortBy, setSortBy] = useState<{ col: "name" | "cpu" | "mem"; desc: boolean } | null>(null);
+  const memMB = (m?: string) => {
+    const x = parseFloat(m ?? "") || 0;
+    return /GB/i.test(m ?? "") ? x * 1024 : x;
+  };
+  const sorted = <P extends { name: string; cpu?: string; mem?: string }>(list: P[]): P[] => {
+    if (!sortBy) return list;
+    const val = (p: P) => (sortBy.col === "name" ? 0 : sortBy.col === "cpu" ? parseFloat(p.cpu ?? "0") || 0 : memMB(p.mem));
+    const out = list.slice().sort((a, b) => (sortBy.col === "name" ? a.name.localeCompare(b.name) : val(a) - val(b)));
+    return sortBy.desc ? out.reverse() : out;
+  };
+  const sortHead = (col: "name" | "cpu" | "mem", label: string, cls: string) => (
+    <button
+      type="button"
+      aria-label={`Sort by ${label}`}
+      onClick={() => setSortBy((s) => (s && s.col === col ? { col, desc: !s.desc } : { col, desc: col !== "name" }))}
+      className={`${cls} flex h-full items-center gap-1 hover:bg-[var(--w-hover)]`}
+    >
+      {label}
+      {sortBy?.col === col && <G n={sortBy.desc ? "chevD" : "chevU"} s={9} />}
+    </button>
+  );
   useEffect(() => {
     ctx.keys.current[w.id] = (e) => {
       if (e.key === "Delete" && ctx.sel.startsWith("proc:")) {
@@ -322,7 +344,7 @@ export function TaskMgrApp({ w }: { w: WinWindow }) {
   const perfItems: [string, string, string, string][] = [
     ["cpu", "CPU", `${procs.some((p) => p.status) ? "38%" : "6%"}  ${sp.baseSpeed}`, "#1a8ad4"],
     ["memory", "Memory", `5.8/${sp.ram.split(" (")[0]} (36%)`, "#9b30b0"],
-    ["disk", `Disk 0 (C:)`, `SSD\n1%`, "#4caf50"],
+    ["disk", `Disk 0 (C:)`, `${sp.diskType}\n1%`, "#4caf50"],
     [n.type === "wifi" ? "wifi" : "ethernet", n.type === "wifi" ? "Wi-Fi" : "Ethernet", n.type === "wifi" ? `${n.ssid}\nS: 0 R: 8.0 Kbps` : "Ethernet\nS: 0 R: 16.0 Kbps", "#c27c0e"],
     ["gpu", "GPU 0", `${sp.gpu.replace(/^Intel\(R\) /, "Intel ")}\n2%`, "#3a7bd5"],
   ];
@@ -363,13 +385,13 @@ export function TaskMgrApp({ w }: { w: WinWindow }) {
                 <Btn small label="Efficiency mode" disabled><G n="efficiency" s={14} /> Efficiency mode</Btn>
               </div>
               <div className="flex h-8 shrink-0 items-center text-[11px]" style={{ color: T.sub, borderBottom: `1px solid ${T.line}` }}>
-                <span className="flex-[3] px-3">Name</span><span className="w-28 px-2">Status</span><span className="w-16 px-2 text-right">CPU</span><span className="w-24 px-2 text-right">Memory</span><span className="w-16 px-2 text-right">Disk</span><span className="w-16 px-2 text-right">Network</span>
+                {sortHead("name", "Name", "flex-[3] px-3 text-left")}<span className="w-28 px-2">Status</span>{sortHead("cpu", "CPU", "w-16 justify-end px-2")}{sortHead("mem", "Memory", "w-24 justify-end px-2")}<span className="w-16 px-2 text-right">Disk</span><span className="w-16 px-2 text-right">Network</span>
               </div>
               <div className="min-h-0 flex-1 overflow-auto">
                 <div className="px-3 py-1.5 text-[12px] font-semibold">Apps ({apps.length})</div>
-                {apps.map(row)}
+                {sorted(apps).map(row)}
                 <div className="px-3 py-1.5 text-[12px] font-semibold">Background processes ({bg.length})</div>
-                {bg.map(row)}
+                {sorted(bg).map(row)}
               </div>
             </>
           )}
@@ -667,23 +689,100 @@ const OFFICE: Record<string, { color: string; doc: string; tabs: string[] }> = {
   powerpoint: { color: "#c43e1c", doc: "Presentation", tabs: ["File", "Home", "Insert", "Draw", "Design", "Transitions", "Animations", "Slide Show", "Review", "View"] },
 };
 
+function OfficePrint({ w, onClose }: { w: WinWindow; onClose: () => void }) {
+  const ctx = useWin();
+  const list = printers(ctx.doc).filter((p) => p.kind !== "scanner");
+  const [printer, setPrinter] = useState((list.find((p) => p.default) ?? list[0])?.name ?? "");
+  const [copies, setCopies] = useState("1");
+  const name = w.file ? baseOf(w.file) : "Document1";
+  return (
+    <Modal
+      title="Print"
+      width={460}
+      onClose={onClose}
+      footer={
+        <>
+          <Btn primary label="Print" disabled={!printer} onClick={() => { onClose(); ctx.cmd("office.print", printer); }}><G n="print" s={14} /> Print</Btn>
+          <Btn label="Cancel" onClick={onClose}>Cancel</Btn>
+        </>
+      }
+    >
+      <p className="mb-3 text-[12px]" style={{ color: T.sub }}>{name}</p>
+      <label className="mb-3 flex items-center gap-3 text-[12px]">
+        <span className="w-20">Copies:</span>
+        <input aria-label="Copies" type="number" min={1} value={copies} onChange={(e) => setCopies(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className="h-8 w-20 rounded px-2" style={{ background: T.input, border: `1px solid ${T.line}`, color: T.text }} />
+      </label>
+      <div className="mb-1 text-[13px] font-semibold">Printer</div>
+      <div className="mb-3">
+        <Select label="Printer" value={printer} options={list.map((p) => p.name)} onChange={setPrinter} width={380} fmt={(v) => `${v}${list.find((p) => p.name === v)?.default ? " (Default)" : ""}`} />
+        <div className="mt-1 text-[11px]" style={{ color: T.sub }}>{list.find((p) => p.name === printer)?.paused ? "Paused" : "Ready"}</div>
+      </div>
+      <div className="mb-1 text-[13px] font-semibold">Settings</div>
+      {["Print All Pages", "Print One Sided", "Collated", "Portrait Orientation", "Letter"].map((x) => (
+        <div key={x} className="mb-1 flex h-8 items-center rounded px-3 text-[12px]" style={{ background: T.input, border: `1px solid ${T.line}` }}>{x}</div>
+      ))}
+    </Modal>
+  );
+}
+
 export function OfficeApp({ w }: { w: WinWindow }) {
   const ctx = useWin();
   const o = OFFICE[w.app];
   const it = w.file ? getItem(ctx.doc, w.file) : null;
   const name = w.file ? baseOf(w.file) : `${o.doc}1`;
   const frozen = processes(ctx.doc).some((p) => p.app === w.app && p.status);
+  const save = () => {
+    if (frozen) return;
+    if (w.file) ctx.cmd("office.save", w.file);
+  };
+  const print = () => {
+    if (frozen) return;
+    ctx.modal(<OfficePrint w={w} onClose={() => ctx.modal(null)} />);
+  };
+  useEffect(() => {
+    ctx.keys.current[w.id] = (e) => {
+      const ctrl = e.ctrlKey || e.metaKey;
+      const k = e.key.toLowerCase();
+      if (ctrl && k === "s") {
+        save();
+        return true;
+      }
+      if (ctrl && k === "p") {
+        print();
+        return true;
+      }
+      return false;
+    };
+    return () => {
+      delete ctx.keys.current[w.id];
+    };
+  });
+  const fileMenu = (e: React.MouseEvent) =>
+    ctx.menu(e, [
+      { label: "Save", shortcut: "Ctrl+S", disabled: !w.file || frozen, onClick: save },
+      { label: "Print", shortcut: "Ctrl+P", disabled: frozen, onClick: print },
+      { sep: true },
+      { label: "Close", onClick: () => ctx.cmd("win.close", w.id) },
+    ]);
+  const saved = ctx.doc.flags?.saved === w.file;
   return (
     <div className="relative flex h-full flex-col" style={{ background: "#f3f3f3" }}>
       {frozen && <div className="absolute inset-0 top-10 z-10 flex items-start justify-center bg-white/55 pt-10 text-[12px] text-[#333]"><span className="rounded bg-white px-3 py-2 shadow">{appInfo(w.app).name} is not responding. Wait a minute, or end the task in Task Manager.</span></div>}
       <TitleBar app={w.app} bg={o.color} darkText>
         <div className="flex min-w-0 flex-1 items-center gap-2 px-3 text-[12px] text-white">
           <AppIcon id={w.app} s={16} />
-          <span className="truncate">{name} - {appInfo(w.app).name}{frozen ? " (Not Responding)" : ""}</span>
+          <button type="button" aria-label="Save" title="Save (Ctrl+S)" onMouseDown={(e) => e.stopPropagation()} onClick={save} className="rounded p-1 hover:bg-white/20"><G n="save" s={14} /></button>
+          <span className="truncate">{name}{saved ? " • Saved to this PC" : ""} - {appInfo(w.app).name}{frozen ? " (Not Responding)" : ""}</span>
         </div>
       </TitleBar>
       <div className="flex h-8 shrink-0 items-center gap-4 px-3 text-[12px] text-[#333]" style={{ background: "#f3f3f3" }}>
-        {o.tabs.map((t, i) => <span key={t} className={i === 1 ? "border-b-2 pb-1 font-semibold" : ""} style={{ borderColor: o.color }}>{t}</span>)}
+        {o.tabs.map((t, i) =>
+          t === "File" ? (
+            <button key={t} type="button" aria-label="File" onClick={fileMenu} className="rounded px-1 hover:bg-[#e1e1e1]">File</button>
+          ) : (
+            <span key={t} className={i === 1 ? "border-b-2 pb-1 font-semibold" : ""} style={{ borderColor: o.color }}>{t}</span>
+          ),
+        )}
       </div>
       <div className="h-16 shrink-0 border-b border-[#ddd] bg-[#fafafa]" />
       <div className="min-h-0 flex-1 overflow-auto bg-[#e6e6e6] p-6">
@@ -703,6 +802,197 @@ export function OfficeApp({ w }: { w: WinWindow }) {
             {!it?.text && w.file && [0, 1, 2, 3].map((i) => <div key={i} className="mb-2 h-2 rounded bg-[#e6e6e6]" style={{ width: `${88 - i * 9}%` }} />)}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Device Manager                                                      */
+/* ------------------------------------------------------------------ */
+
+function DevProps({ row, onClose }: { row: { cat: string; name: string; problem?: string; manufacturer?: string; location?: string }; onClose: () => void }) {
+  return (
+    <Modal title={`${row.name} Properties`} width={420} onClose={onClose} footer={<><Btn primary label="OK" onClick={onClose}>OK</Btn><Btn label="Cancel" onClick={onClose}>Cancel</Btn></>}>
+      <div className="mb-3 flex gap-4 border-b pb-1 text-[12px]" style={{ borderColor: T.line }}>
+        {["General", "Driver", "Details", "Events"].map((t, i) => <span key={t} className={i === 0 ? "border-b-2 font-semibold" : ""} style={{ borderColor: T.accent, color: i ? T.sub : undefined }}>{t}</span>)}
+      </div>
+      <div className="mb-3 grid grid-cols-[110px_1fr] gap-y-1 text-[12px]">
+        <span style={{ color: T.sub }}>Device type:</span><span>{row.cat}</span>
+        <span style={{ color: T.sub }}>Manufacturer:</span><span>{row.manufacturer ?? "(Standard system devices)"}</span>
+        <span style={{ color: T.sub }}>Location:</span><span>{row.location ?? "Port_#0001.Hub_#0001"}</span>
+      </div>
+      <div className="mb-1 text-[12px]">Device status</div>
+      <div className="min-h-[64px] rounded p-2 text-[12px]" style={{ background: T.input, border: `1px solid ${T.line}` }}>{row.problem ?? "This device is working properly."}</div>
+    </Modal>
+  );
+}
+
+export function DeviceManagerApp({ w }: { w: WinWindow }) {
+  const ctx = useWin();
+  const doc = ctx.doc;
+  const rows = hardwareRows(doc);
+  const selName = ctx.sel.startsWith("dev:") ? ctx.sel.slice(4) : "";
+  const selRow = rows.find((r) => r.name === selName);
+  const cats = HW_CATS.filter((c) => rows.some((r) => r.cat === c));
+  for (const r of rows) if (!cats.includes(r.cat)) cats.push(r.cat);
+  const open = new Set([...(w.exp ?? []), ...rows.filter((r) => r.problem).map((r) => r.cat)]);
+  const uninstall = (name: string) =>
+    ctx.modal(
+      <Modal
+        title="Uninstall Device"
+        width={420}
+        onClose={() => ctx.modal(null)}
+        footer={
+          <>
+            <Btn primary label="Uninstall" onClick={() => { ctx.modal(null); ctx.select(`dev:${name}`); ctx.cmd("devmgr.uninstall"); }}>Uninstall</Btn>
+            <Btn label="Cancel" onClick={() => ctx.modal(null)}>Cancel</Btn>
+          </>
+        }
+      >
+        <div className="mb-2 font-semibold">{name}</div>
+        <p>Warning: You are about to uninstall this device from your system.</p>
+      </Modal>,
+    );
+  const devItems = (name: string | null) => [
+    { label: "Update driver", disabled: true },
+    { label: "Disable device", disabled: true },
+    { label: "Uninstall device", disabled: !name, onClick: () => name && uninstall(name) },
+    { sep: true },
+    { label: "Scan for hardware changes", onClick: () => ctx.cmd("devmgr.scan") },
+    { sep: true },
+    { label: "Properties", disabled: !name, onClick: () => { const r = rows.find((x) => x.name === name); if (r) ctx.modal(<DevProps row={r} onClose={() => ctx.modal(null)} />); } },
+  ];
+  const menuAt = (e: React.MouseEvent) => {
+    const r = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    return { clientX: r.left, clientY: r.bottom + 2 };
+  };
+  return (
+    <div className="flex h-full flex-col" style={{ background: T.bg, color: T.text }}>
+      <TitleBar app="devmgmt" title="Device Manager" />
+      <div className="flex h-7 shrink-0 items-center gap-1 px-2 text-[12px]" style={{ background: T.panel }}>
+        <button type="button" aria-label="File" onClick={(e) => ctx.menu(menuAt(e), [{ label: "Options", disabled: true }, { label: "Exit", onClick: () => ctx.cmd("win.close", w.id) }])} className="rounded px-2 py-0.5 hover:bg-[var(--w-hover)]">File</button>
+        <button type="button" aria-label="Action" onClick={(e) => ctx.menu(menuAt(e), devItems(selRow ? selRow.name : null))} className="rounded px-2 py-0.5 hover:bg-[var(--w-hover)]">Action</button>
+        <button type="button" aria-label="View" onClick={(e) => ctx.menu(menuAt(e), [{ label: "Devices by type", dot: true }, { label: "Devices by connection", disabled: true }, { label: "Show hidden devices", disabled: true }])} className="rounded px-2 py-0.5 hover:bg-[var(--w-hover)]">View</button>
+        <button type="button" aria-label="Help" className="rounded px-2 py-0.5 hover:bg-[var(--w-hover)]">Help</button>
+      </div>
+      <div className="flex h-8 shrink-0 items-center gap-1 px-2" style={{ background: T.panel, borderBottom: `1px solid ${T.line}` }}>
+        <button type="button" aria-label="Properties" title="Properties" disabled={!selRow} onClick={() => selRow && ctx.modal(<DevProps row={selRow} onClose={() => ctx.modal(null)} />)} className="rounded p-1 hover:bg-[var(--w-hover)] disabled:opacity-30"><G n="properties" s={15} /></button>
+        <button type="button" aria-label="Scan for hardware changes" title="Scan for hardware changes" onClick={() => ctx.cmd("devmgr.scan")} className="rounded p-1 hover:bg-[var(--w-hover)]"><G n="search" s={15} /></button>
+        <button type="button" aria-label="Uninstall device" title="Uninstall device" disabled={!selRow} onClick={() => selRow && uninstall(selRow.name)} className="rounded p-1 hover:bg-[var(--w-hover)] disabled:opacity-30"><G n="close" s={13} /></button>
+      </div>
+      <div className="min-h-0 flex-1 overflow-auto p-2 text-[12px]" style={{ background: T.panel }} role="tree" aria-label="Devices">
+        <div className="flex h-6 items-center gap-1.5 px-1"><G n="chevD" s={9} /><G n="monitor" s={14} /> {specs(doc).deviceName}</div>
+        {cats.map((c) => {
+          const isOpen = open.has(c);
+          const list = rows.filter((r) => r.cat === c);
+          return (
+            <div key={c}>
+              <div role="treeitem" aria-label={c} aria-expanded={isOpen} onClick={() => ctx.cmd("devmgr.view", c)} className="flex h-6 cursor-default items-center gap-1.5 rounded pl-5 pr-2 hover:bg-[var(--w-hover)]">
+                <G n={isOpen ? "chevD" : "chevR"} s={9} />
+                <G n={/keyboard/i.test(c) ? "keyboard" : /mice/i.test(c) ? "mouse" : /monitor|display/i.test(c) ? "monitor" : /print/i.test(c) ? "printer" : /network/i.test(c) ? "ethernet" : /disk|storage/i.test(c) ? "disk" : /audio|sound/i.test(c) ? "volume" : /bluetooth/i.test(c) ? "bluetooth" : /universal serial/i.test(c) ? "usb" : "chip"} s={14} />
+                <span>{c}</span>
+              </div>
+              {isOpen &&
+                list.map((r, i) => {
+                  const key = `dev:${r.name}`;
+                  const selected = ctx.sel === key;
+                  return (
+                    <div
+                      key={`${r.name}-${i}`}
+                      role="treeitem"
+                      aria-label={r.problem ? `${r.name} (problem)` : r.name}
+                      aria-selected={selected}
+                      onMouseDown={() => ctx.select(key)}
+                      onDoubleClick={() => ctx.modal(<DevProps row={r} onClose={() => ctx.modal(null)} />)}
+                      onContextMenu={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        ctx.select(key);
+                        ctx.menu(e, devItems(r.name));
+                      }}
+                      className="flex h-6 cursor-default items-center gap-1.5 rounded pl-12 pr-2"
+                      style={{ background: selected ? T.sel : undefined }}
+                    >
+                      <span className="relative">
+                        <G n={/keyboard/i.test(c) ? "keyboard" : /mice/i.test(c) ? "mouse" : /monitor|display/i.test(c) ? "monitor" : /print/i.test(c) ? "printer" : "chip"} s={14} />
+                        {r.problem && <span title={r.problem} className="absolute -bottom-1 -right-1 flex h-[10px] w-[10px] items-center justify-center rounded-sm text-[8px] font-bold leading-none" style={{ background: "#f7c500", color: "#000" }}>!</span>}
+                      </span>
+                      <span className="truncate">{r.name}</span>
+                    </div>
+                  );
+                })}
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex h-6 shrink-0 items-center px-3 text-[11px]" style={{ background: T.panel2, color: T.sub, borderTop: `1px solid ${T.line}` }}>
+        {selRow?.problem ? selRow.problem : ""}
+      </div>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+/* Scan (Windows Scan app)                                             */
+/* ------------------------------------------------------------------ */
+
+export function ScanApp({ w }: { w: WinWindow }) {
+  const ctx = useWin();
+  const doc = ctx.doc;
+  const scanners = printers(doc).filter((p) => p.kind === "scanner" || p.kind === "mfp").map((p) => p.name);
+  const [scanner, setScanner] = useState(scanners[0] ?? "");
+  const [source, setSource] = useState("Auto-configured");
+  const [type, setType] = useState("JPEG");
+  const [more, setMore] = useState(false);
+  const [done, setDone] = useState(false);
+  const last = String(doc.flags?.lastScan ?? "");
+  const lastN = useRef(last);
+  useEffect(() => {
+    if (last && last !== lastN.current) setDone(true);
+    lastN.current = last;
+  }, [last]);
+  return (
+    <div className="flex h-full flex-col" style={{ background: T.bg, color: T.text }}>
+      <TitleBar app="scan" title="Scan" />
+      <div className="flex min-h-0 flex-1">
+        <div className="flex min-w-0 flex-1 items-center justify-center p-6" style={{ background: T.panel2 }}>
+          {done && last ? (
+            <div className="flex flex-col items-center gap-3 text-center">
+              <div className="flex h-48 w-36 items-center justify-center rounded bg-white text-[11px] text-[#555] shadow">{baseOf(last)}</div>
+              <p className="text-[12px]">The scanned file was saved to the Scans folder.</p>
+              <div className="flex gap-2">
+                <Btn primary label="View" onClick={() => { setDone(false); ctx.cmd("scan.view"); }}>View</Btn>
+                <Btn label="Close" onClick={() => setDone(false)}>Close</Btn>
+              </div>
+            </div>
+          ) : (
+            <div className="flex h-56 w-44 items-center justify-center rounded border border-dashed text-[12px]" style={{ borderColor: T.line, color: T.sub }}>Place the item on the scanner</div>
+          )}
+        </div>
+        <div className="flex w-[260px] shrink-0 flex-col gap-3 overflow-auto p-4 text-[12px]" style={{ background: T.panel, borderLeft: `1px solid ${T.line}` }}>
+          <div className="text-[18px] font-semibold">Scan</div>
+          {scanners.length === 0 ? (
+            <p style={{ color: T.sub }}>No scanners were detected. Make sure your scanner is turned on and connected.</p>
+          ) : (
+            <>
+              <div><div className="mb-1">Scanner</div><Select label="Scanner" value={scanner} options={scanners} onChange={setScanner} width={220} /></div>
+              <div><div className="mb-1">Source</div><Select label="Source" value={source} options={["Auto-configured", "Flatbed", "Feeder"]} onChange={setSource} width={220} /></div>
+              <div><div className="mb-1">File type</div><Select label="File type" value={type} options={["JPEG", "PNG", "TIFF", "Bitmap"]} onChange={setType} width={220} /></div>
+              {!more ? (
+                <button type="button" aria-label="Show more" onClick={() => setMore(true)} className="self-start hover:underline" style={{ color: T.accent }}>Show more</button>
+              ) : (
+                <div>
+                  <div className="mb-1">Save file to</div>
+                  <span style={{ color: T.accent }}>Scans</span>
+                  <button type="button" aria-label="Show less" onClick={() => setMore(false)} className="mt-2 block hover:underline" style={{ color: T.accent }}>Show less</button>
+                </div>
+              )}
+              <span className="flex-1" />
+              <Btn primary label="Scan" disabled={!scanner} onClick={() => ctx.cmd("scan.run", `${scanner}|${source}|${type}`)}>Scan</Btn>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ import {
   walkItems,
   within,
 } from "./fs";
-import type { WebBlock, WebPage, WinApp, WinDevice, WinDoc, WinItem, WinNet, WinPrinter, WinProcess, WinSpecs, WinStartup, WinTab, WinWindow } from "./types";
+import type { WebBlock, WebPage, WinApp, WinDevice, WinDoc, WinHardware, WinItem, WinNet, WinPrinter, WinProcess, WinSpecs, WinStartup, WinTab, WinWindow } from "./types";
 
 /* ------------------------------------------------------------------ */
 /* Effective values (document overrides on top of defaults)            */
@@ -99,6 +99,96 @@ export function printers(doc: WinDoc): WinPrinter[] {
 }
 
 export const devices = (doc: WinDoc): WinDevice[] => doc.devices ?? DEFAULT_DEVICES;
+
+/** Device Manager categories, in the order Windows 11 lists them. */
+export const HW_CATS = [
+  "Audio inputs and outputs",
+  "Batteries",
+  "Bluetooth",
+  "Cameras",
+  "Computer",
+  "Disk drives",
+  "Display adapters",
+  "Firmware",
+  "Human Interface Devices",
+  "Keyboards",
+  "Mice and other pointing devices",
+  "Monitors",
+  "Network adapters",
+  "Print queues",
+  "Processors",
+  "Security devices",
+  "Software components",
+  "Software devices",
+  "Sound, video and game controllers",
+  "Storage controllers",
+  "System devices",
+  "Universal Serial Bus controllers",
+];
+
+/** Every Device Manager row: built from the PC's specs and devices, plus doc.hardware. */
+export function hardwareRows(doc: WinDoc): WinHardware[] {
+  const sp = specs(doc);
+  const n = net(doc);
+  const devs = devices(doc);
+  const rows: WinHardware[] = [];
+  const add = (cat: string, name: string, extra: Partial<WinHardware> = {}) => rows.push({ cat, name, ...extra });
+  add("Audio inputs and outputs", "Speakers (Realtek(R) Audio)");
+  add("Audio inputs and outputs", "Microphone Array (Realtek(R) Audio)");
+  for (const x of devs.filter((x) => x.connected && ["headset", "earbuds"].includes(x.kind))) {
+    add("Audio inputs and outputs", `Headphones (${x.name})`);
+    add("Audio inputs and outputs", `Headset Microphone (${x.name})`);
+  }
+  if (sp.battery) add("Batteries", "Microsoft ACPI-Compliant Control Method Battery");
+  add("Bluetooth", "Intel(R) Wireless Bluetooth(R)");
+  for (const x of devs.filter((x) => x.bt && x.connected)) add("Bluetooth", x.name);
+  if (devs.some((x) => x.kind === "camera" && x.connected)) add("Cameras", "USB Video Device");
+  add("Computer", "ACPI x64-based PC");
+  add("Disk drives", sp.diskModel);
+  for (const r of doc.fs.filter((r) => r.root === "usb")) add("Disk drives", `${r.label ?? r.name.replace(/ \([A-Z]:\)$/, "")} USB Device`);
+  add("Display adapters", sp.gpu);
+  add("Firmware", "System Firmware");
+  add("Human Interface Devices", "USB Input Device");
+  add("Human Interface Devices", "HID-compliant consumer control device");
+  for (const x of devs.filter((x) => x.kind === "keyboard" && x.connected)) add("Keyboards", x.bt ? x.name : "HID Keyboard Device");
+  for (const x of devs.filter((x) => x.kind === "mouse" && x.connected)) add("Mice and other pointing devices", x.bt ? x.name : "HID-compliant mouse");
+  for (let i = 0; i < Math.max(1, doc.displays ?? 1); i++) add("Monitors", "Generic PnP Monitor");
+  add("Network adapters", "Intel(R) Ethernet Connection (17) I219-LM");
+  add("Network adapters", "Intel(R) Wi-Fi 6E AX211 160MHz");
+  if (n.vpns.length) add("Network adapters", "WAN Miniport (IKEv2)");
+  for (const p of printers(doc)) add("Print queues", p.name);
+  const cpu = sp.processor.replace(/\s{2,}.*$/, "").trim();
+  for (let i = 0; i < (Number(sp.logical) || 1); i++) add("Processors", cpu);
+  add("Security devices", "Trusted Platform Module 2.0");
+  add("Software components", "Microsoft Radio Device Enumeration Bus");
+  add("Software devices", "Microsoft Device Association Root Enumerator");
+  add("Sound, video and game controllers", "Realtek(R) Audio");
+  add("Sound, video and game controllers", "Intel(R) Display Audio");
+  add("Storage controllers", "Standard NVM Express Controller");
+  add("System devices", "PCI Express Root Complex");
+  add("System devices", "System CMOS/real time clock");
+  add("Universal Serial Bus controllers", "Intel(R) USB 3.20 eXtensible Host Controller - 1.20 (Microsoft)");
+  add("Universal Serial Bus controllers", "USB Root Hub (USB 3.0)");
+  add("Universal Serial Bus controllers", "USB Composite Device");
+  for (const h of doc.hardware ?? []) {
+    const i = rows.findIndex((r) => r.name === h.name && r.cat === h.cat);
+    if (i >= 0) rows.splice(i, 1, h);
+    else rows.push(h);
+  }
+  const gone = flagList(doc, "devUninstalled");
+  const fixed = flagList(doc, "devFixed");
+  return rows.filter((r) => !gone.includes(r.name)).map((r) => (fixed.includes(r.name) ? { ...r, problem: undefined } : r));
+}
+
+/** Uninstalled devices come back (without their problem) on restart or Scan for hardware changes. */
+function reinstallDevices(d: WinDoc) {
+  const gone = flagList(d, "devUninstalled");
+  if (!gone.length) return;
+  for (const g of gone) addFlag(d, "devFixed", g);
+  d.flags = { ...(d.flags ?? {}), devUninstalled: "" };
+  const linked = (d.hardware ?? []).filter((h) => gone.includes(h.name) && h.device).map((h) => h.device as string);
+  if (linked.length) d.devices = devices(d).map((x) => (linked.includes(x.name) ? { ...x, connected: true } : x));
+}
 
 /* ------------------------------------------------------------------ */
 /* URLs and web pages                                                  */
@@ -296,6 +386,7 @@ export function selectionExists(doc: WinDoc, sel: string): boolean {
       case "notepad": return true;
       case "form": return Boolean(allPagesBlock(doc, v));
       case "web": return Boolean(allPagesBlock(doc, v));
+      case "dev": return hardwareRows(doc).some((r) => r.name.toLowerCase() === v.toLowerCase());
       default:
         // A rename target (a plain path).
         return Boolean(getItem(doc, s)) || Boolean(getItem(doc, freshAlias(doc, s) ?? ""));
@@ -927,6 +1018,7 @@ export function applyWin(doc: WinDoc, c: SimCommit, ui: SimUi): { doc: WinDoc; u
       d.flags.boot = c.id === "power.signout" ? "signout" : "restart";
       d.flags.bootN = Number(d.flags.bootN ?? 0) + 1;
       if (c.id !== "power.signout" && d.flags.updateInstalled) d.flags.updateDone = true;
+      if (c.id !== "power.signout") reinstallDevices(d);
       return { doc: d };
     case "power.shutdown":
       d.windows = [];
@@ -1644,6 +1736,87 @@ export function applyWin(doc: WinDoc, c: SimCommit, ui: SimUi): { doc: WinDoc; u
     case "notepad.new":
       openWin(d, "notepad", { file: undefined, text: "" });
       return { doc: d };
+
+    /* ---------------- Office apps (save and print) ---------------- */
+    case "office.save": {
+      const it = v ? getItem(d, v) : null;
+      if (it) {
+        it.modified = STAMP;
+        d.flags.saved = realPath(d, v);
+      }
+      return { doc: d };
+    }
+    case "office.print": {
+      const w = [...d.windows].reverse().find((x) => ["word", "excel", "powerpoint"].includes(x.app) && x.id === d.focus) ?? [...d.windows].reverse().find((x) => ["word", "excel", "powerpoint"].includes(x.app));
+      const name = w?.file ? baseOf(w.file) : "Document1";
+      d.printers = printers(d).map((p) => (p.name === v ? { ...p, jobs: [...(p.jobs ?? []).filter((j) => j.name !== name), { name, owner: userName(d), pages: 1, status: p.paused ? "Paused" : "Printing", size: "96.0 KB", submitted: NOW.time }] } : p));
+      return { doc: d };
+    }
+
+    /* ---------------- Device Manager ---------------- */
+    case "devmgr.view": {
+      const w = openWin(d, "devmgmt");
+      const e = new Set(w.exp ?? []);
+      if (e.has(v)) e.delete(v);
+      else if (v) e.add(v);
+      w.exp = Array.from(e);
+      return { doc: d };
+    }
+    case "devmgr.uninstall": {
+      const name = selPaths(sel, "dev:")[0] ?? v;
+      if (name) {
+        addFlag(d, "devUninstalled", name);
+        d.flags.devFixed = flagList(d, "devFixed").filter((x) => x !== name).join("|");
+      }
+      return { doc: d, ui: { selection: "" } };
+    }
+    case "devmgr.scan":
+      reinstallDevices(d);
+      d.flags.hwScanned = true;
+      return { doc: d };
+
+    /* ---------------- Scan app ---------------- */
+    case "scan.run": {
+      const [, , type] = v.split("|").map((x) => x.trim());
+      const ext = ({ JPEG: ".jpg", PNG: ".png", TIFF: ".tif", Bitmap: ".bmp" } as Record<string, string>)[type] ?? ".jpg";
+      const size = ({ ".jpg": "812 KB", ".png": "4.61 MB", ".tif": "6.84 MB", ".bmp": "24.1 MB" } as Record<string, string>)[ext];
+      const pics = d.fs.find((r) => r.root === "pictures")?.name ?? "Pictures";
+      const folder = ensureFolder(d, `${pics}/Scans`);
+      if (folder) {
+        folder.children = folder.children ?? [];
+        const name = uniqueName(folder.children, `Scan 2026-10-20 094112${ext}`);
+        folder.children.push({ name, size, modified: STAMP });
+        d.flags.lastScan = `${pics}/Scans/${name}`;
+      }
+      return { doc: d };
+    }
+    case "scan.view": {
+      const p = String(d.flags.lastScan ?? "");
+      if (p && getItem(d, p)) openWin(d, "photos", { file: p });
+      return { doc: d };
+    }
+
+    /* ---------------- Settings extras ---------------- */
+    case "sound.micTest":
+      d.flags.micTested = v || "on";
+      return { doc: d };
+    case "update.schedule":
+      d.flags.restartScheduled = v;
+      return { doc: d };
+
+    /* ---------------- Edge extras ---------------- */
+    case "edge.favExport": {
+      const path = /\.html?$/i.test(v) ? v : `${v}.html`;
+      const parent = getItem(d, parentOf(path));
+      if (parent && isFolder(parent)) {
+        parent.children = (parent.children ?? []).filter((x) => x.name.toLowerCase() !== baseOf(path).toLowerCase());
+        const favs = d.favorites ?? [];
+        const text = ["<!DOCTYPE NETSCAPE-Bookmark-file-1>", "<TITLE>Bookmarks</TITLE>", "<H1>Bookmarks</H1>", ...favs.map((f) => `<DT><A HREF="https://${f.url}">${f.name}</A> (${f.folder ?? "Favorites bar"})`)].join("\n");
+        parent.children.push({ name: baseOf(path), size: `${Math.max(1, Math.ceil(text.length / 1024))} KB`, modified: STAMP, text });
+        d.flags.favExported = realPath(d, path);
+      }
+      return { doc: d };
+    }
   }
   return { doc: d };
 }

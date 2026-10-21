@@ -330,7 +330,6 @@ export const pptRibbon: RibbonTab[] = [
       { label: "Start Slide Show", controls: [
         { type: "button", id: "slideshow.fromBeginning", label: "From Beginning", icon: "slideShow", size: "large", shortcut: "F5" },
         { type: "button", id: "slideshow.fromCurrent", label: "From Current Slide", icon: "slideShow", size: "large", shortcut: "Shift+F5" },
-        { type: "button", id: "slideshow.online", label: "Present Online", icon: "share", size: "large" },
         { type: "dropdown", id: "slideshow.custom", label: "Custom Slide Show", icon: "sorter", size: "large", options: [{ value: "Custom Shows..." }] },
       ] },
       { label: "Set Up", controls: [
@@ -349,7 +348,6 @@ export const pptRibbon: RibbonTab[] = [
     groups: [
       { label: "Proofing", controls: [{ type: "button", id: "review.spelling", label: "Spelling", icon: "spelling", size: "large", shortcut: "F7" }, { type: "button", id: "review.thesaurus", label: "Thesaurus", icon: "thesaurus", showLabel: true, shortcut: "Shift+F7" }] },
       { label: "Accessibility", controls: [{ type: "dropdown", id: "review.accessibility", label: "Check Accessibility", icon: "accessibility", size: "large", split: true, options: [{ value: "Check Accessibility" }, { value: "Alt Text", dialog: "altText" }] }] },
-      { label: "Insights", controls: [{ type: "button", id: "review.smartLookup", label: "Smart Lookup", icon: "smartLookup", size: "large" }] },
       { label: "Language", controls: [{ type: "button", id: "review.translate", label: "Translate", icon: "translate", size: "large" }] },
       { label: "Comments", controls: [
         { type: "button", id: "review.newComment", label: "New Comment", icon: "comment", size: "large", dialog: "newComment", shortcut: "Ctrl+Alt+M" },

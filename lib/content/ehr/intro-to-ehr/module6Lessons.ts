@@ -229,8 +229,8 @@ export const module6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Civil penalties: $100–$50,000 per violation",
-              "Criminal penalties: Up to 10 years imprisonment for intentional misuse",
+              "Civil penalties: four tiers, from violations the organization did not know about up to willful neglect left uncorrected. HHS raises the dollar amounts for inflation every year, so check the current figures rather than memorizing old ones; the yearly cap for repeated violations of one requirement runs into the millions",
+              "Criminal penalties: Up to 10 years imprisonment for knowingly obtaining or disclosing PHI with intent to sell it or use it for personal gain or malicious harm",
               "Reputational damage to the healthcare organization",
             ],
           },
