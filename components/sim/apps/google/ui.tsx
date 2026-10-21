@@ -1100,6 +1100,7 @@ export function KeyboardShortcuts() {
     ["Normal text (Docs)", "Ctrl+Alt+0"],
     ["Numbered, bulleted list (Docs)", "Ctrl+Shift+7, Ctrl+Shift+8"],
     ["Currency, percent (Sheets)", "Ctrl+Shift+4, Ctrl+Shift+5"],
+    ["Fill down, fill right (Sheets)", "Ctrl+D, Ctrl+R"],
     ["New slide (Slides)", "Ctrl+M"],
     ["Present from beginning (Slides)", "Ctrl+Shift+F5"],
     ["Version history", "Ctrl+Alt+Shift+H"],

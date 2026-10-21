@@ -315,6 +315,8 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
         "Ctrl+Shift+R": () => run("home.alignRight"),
         "Ctrl+\\": () => run("home.clear", "Clear Formats"),
         "Ctrl+Shift+V": () => run("home.paste", "Values"),
+        "Ctrl+D": () => run("home.fillSeries", "Down"),
+        "Ctrl+R": () => run("home.fillSeries", "Right"),
         "Shift+F2": () => { handled(); act("note"); },
         "Shift+F11": () => run("sheet.add"),
       };
@@ -435,6 +437,8 @@ export function GoogleCanvas({ doc, ui, onSelect, onCommit }: CanvasProps<Google
         onMouseUp={(e) => {
           const t = e.target as HTMLElement;
           if (!t.closest("input,textarea,select,[role=dialog]")) focus();
+          // A click that closed a dialog (OK, Cancel, X) leaves focus on the page body; give it back to the app, as Google does.
+          else setTimeout(() => { const a = document.activeElement; if (!a || a === document.body) focus(); }, 0);
         }}
         className="h-full outline-none"
         style={{ fontFamily: "Roboto, Arial, sans-serif" }}
