@@ -324,7 +324,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Send Renee your top three priorities as a numbered list: “1. Calendar invites 2. Client emails 3. Tracker updates.”",
-          hint: "Chat › Renee Ortiz. Type 1. Calendar invites, press Shift+Enter, type 2. Client emails, press Shift+Enter, type 3. Tracker updates, then press Enter to send. (Format › Numbered list also works.)",
+          hint: "Chat › Renee Ortiz. Select Format › Numbered list. Type Calendar invites, press Shift+Enter (the next number appears for you), type Client emails, press Shift+Enter, type Tracker updates, then press Enter to send.",
           steps: [typeAll("chat:c-renee", "My top three priorities:\n1. Calendar invites\n2. Client emails\n3. Tracker updates", ["1. calendar invites", "2. client emails", "3. tracker updates"])],
         },
         {
