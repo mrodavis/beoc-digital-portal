@@ -13,8 +13,7 @@ export const wordModule2Lessons: Lesson[] = [
       "Insert symbols and special characters that are not on the keyboard",
     ],
     duration: "9 min",
-    videoUrl:
-      "https://www.youtube.com/embed/vmEzxQfVj5c?si=FydXQ8y--1kuD0b1",
+    videoUrl: "https://www.youtube.com/embed/mYNKg96cZEY",
 
     practiceFiles: [
       {
@@ -285,7 +284,7 @@ export const wordModule2Lessons: Lesson[] = [
     "Recognize when direct formatting should be replaced by a style",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/pmAl-8Tf8Pg?si=ObAc154cTG0NXlLk",
+  videoUrl: "https://www.youtube.com/embed/g26E0Tg88ek",
 
   practiceFiles: [
     {
@@ -639,7 +638,7 @@ export const wordModule2Lessons: Lesson[] = [
       "Find and replace formatting, not just words",
     ],
     duration: "8 min",
-    videoUrl: "https://www.youtube.com/embed/p3Ql9y3eEyo?si=ZQ4tqLb9hhar33zv",
+    videoUrl: "https://www.youtube.com/embed/AxE7PEfR88I",
 
     practiceFiles: [
         {
@@ -842,7 +841,7 @@ export const wordModule2Lessons: Lesson[] = [
     "Explain why manually typed numbers cause problems that list formatting avoids",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/tyXahko-tX8",
+  videoUrl: "https://www.youtube.com/embed/XHIZHOQeMkQ",
 
   practiceFiles: [
     {
@@ -1105,6 +1104,7 @@ export const wordModule2Lessons: Lesson[] = [
     "Control Word's automatic hyperlink formatting",
   ],
   duration: "10 min",
+  videoUrl: "https://www.youtube.com/embed/diGW-OzgQqA",
 
   practiceFiles: [
     {
@@ -1317,7 +1317,7 @@ export const wordModule2Lessons: Lesson[] = [
     "Diagnose the common causes of a document that prints differently than it appears",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/7bLQFTCsH8Y",
+  videoUrl: "https://www.youtube.com/embed/L2BmzAY1YGE",
 
   practiceFiles: [
     {
