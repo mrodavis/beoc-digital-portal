@@ -18,6 +18,7 @@ LESSON 1 – USING WORD FOR THE WEB (slug kept from "Word Online")
     "Decide which version to use for a given task",
   ],
   duration: "8 min",
+  videoUrl: "https://www.youtube.com/embed/67QLky2P5CU",
 
   sections: [
 
@@ -239,6 +240,7 @@ LESSON 2 – CO-AUTHORING IN WORD
     "Manage and revoke sharing permissions",
   ],
   duration: "9 min",
+  videoUrl: "https://www.youtube.com/embed/bAhKW18VaoQ",
 
   sections: [
 
@@ -429,6 +431,7 @@ LESSON 3 – RESEARCHING AND CITING SOURCES
     "Replace a word with a synonym using the Thesaurus",
   ],
   duration: "12 min",
+  videoUrl: "https://www.youtube.com/embed/QrqpTWivIhc",
   slides: [
     { src: "/images/word/citations/slide-01.jpg", alt: "Researching and citing sources in Word: find sources in a browser, judge them, and cite them with the References tab" },
     { src: "/images/word/citations/slide-02.jpg", alt: "What changed: Smart Lookup and Researcher were retired in January 2025; use a web browser to find sources and the References tab to cite them" },
@@ -894,6 +897,7 @@ LESSON 5 – ACCESSIBILITY FEATURES
     "Check color contrast and avoid color as the sole carrier of meaning",
   ],
   duration: "8 min",
+  videoUrl: "https://www.youtube.com/embed/ETSap9J9tTY",
 
   sections: [
 
