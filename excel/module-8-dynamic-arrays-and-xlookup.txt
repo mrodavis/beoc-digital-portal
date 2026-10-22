@@ -90,7 +90,7 @@ XLOOKUP fixes all three. It takes the lookup range and the return range as separ
  takeaway: Build dynamic array formulas one function at a time, always give FILTER an if-empty argument, and keep the spill range clear.
 
  type: table
- caption: The two errors you will meet
+ caption: The three errors you will meet
  columns:
    Error
    Means

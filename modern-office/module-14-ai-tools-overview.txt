@@ -46,13 +46,12 @@ Beyond general-purpose assistants, a set of specialized AI tools addresses speci
 - Otter.ai and Fireflies.ai — AI transcription and meeting summary tools that join video calls and produce searchable transcripts and summaries within minutes of the meeting ending. Transformative for anyone responsible for taking meeting notes.
 - Notion AI — AI embedded in Notion workspaces for generating documents, summarizing pages, and drafting structured content within a team's shared workspace. Best for organizations that already use Notion as their primary documentation platform.
 - Adobe Acrobat's AI Assistant — document summarization and question-answering inside PDFs. Best for quickly extracting key information from long contracts, reports, or policy documents without reading every page.
-- The 'right tool' principle — specialized tools outperform general tools at their specific task. Grammarly is better at grammar than ChatGPT. Otter.ai is better at transcription than any general AI. Knowing when to reach for a specialized tool versus a general one is a mark of genuine AI fluency.
+- The 'right tool' principle — specialized tools such as Grammarly (grammar) or Otter.ai (transcription) are often stronger at their one job than a general assistant. Knowing when to reach for a specialized tool versus a general one is a mark of genuine AI fluency.
 
 
 
 ## Responsible Use
 Note: AI tools can make mistakes — including confident, well-written mistakes. Always review AI output before sending it to clients or supervisors. Never include AI-generated statistics, dates, or claims in a work document without verifying them from a reliable source. Use AI as a first-draft tool, not a final-answer tool. Your name goes on everything you submit — make sure it reflects your judgment and standards, not just the AI's output.
-
 
 
 ## Knowledge Check

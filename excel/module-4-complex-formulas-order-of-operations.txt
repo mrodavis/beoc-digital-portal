@@ -14,7 +14,7 @@ By the end of this lesson you can:
 ## Excel follows precedence, not reading order
  type: scenario
  role: You calculate supply costs with tax at Lakeside Medical Associates.
- text: You write =C2+D2*0.08 intending to add the item cost to the tax. Excel multiplies first, so it adds 8% of the shipping to the item price instead. Every line is wrong by a small amount, which is exactly the kind of error nobody notices for months.
+ text: You want 8% tax on each line's item cost (C2) plus shipping (D2), which needs =(C2+D2)*0.08, but you type =C2+D2*0.08. Excel multiplies first, so that formula takes 8% of the shipping and adds it to the item cost, which is not the tax at all. Copy it down the sheet and every line is wrong, which is exactly the kind of error that slips through when nobody checks the math.
  task: Know the order Excel evaluates in, and use parentheses so intent is never ambiguous.
 
 Excel evaluates in a fixed order regardless of how the formula reads left to right: parentheses first, then exponents, then multiplication and division, then addition and subtraction. Operators at the same level evaluate left to right. So =2+3*4 is 14, not 20 — the multiplication happens first.

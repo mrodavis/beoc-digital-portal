@@ -86,7 +86,7 @@ In the scenario above, Access would hold one Patients table with one row per pat
 
 Only tables store data. Queries, forms, and reports all display data that lives in tables. Delete a query and you lose the question, not the data. Delete a table and the data is genuinely gone.
 
-Note: Access saves record edits the moment you move off a row. There is no Ctrl+S for data and no undo once you have moved on. This is the biggest adjustment coming from Excel, where nothing is committed until you save. Before working on a live database, make a copy of the file — and make another before any structural change.
+Note: Access saves record edits the moment you move off a row. There is no Ctrl+S for data, and only the record you just left can be undone (Ctrl+Z), and only until you start editing another. This is the biggest adjustment coming from Excel, where nothing is committed until you save. Before working on a live database, make a copy of the file — and make another before any structural change.
 
 Note: Access is available for Windows PCs only; there is no Mac version, which is also why the Google Workspace half of this program has no Access equivalent. The current version comes with Microsoft 365 subscriptions that include the desktop apps, and Access 2024 is the version sold as a one-time purchase. Not every Office package includes Access, so if it is missing from your computer, check which edition you have before assuming something is broken.
 

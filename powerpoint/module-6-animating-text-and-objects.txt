@@ -61,7 +61,7 @@ To apply an animation, select an object on the slide and open the Animations tab
 
 Click an effect from the Animation gallery. PowerPoint will immediately preview the animation on your slide.
 
-Those badges are the running order, and they do not renumber when you rearrange objects on the slide. If your reveals fire in an order that surprises you during a rehearsal, the badges will show you why.
+A small number badge appears beside each animated object. Those badges are the running order, and they do not renumber when you rearrange objects on the slide. If your reveals fire in an order that surprises you during a rehearsal, the badges will show you why.
 
 
 ## Effect Options

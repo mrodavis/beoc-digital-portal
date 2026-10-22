@@ -17,7 +17,7 @@ By the end of this lesson you can:
  text: Five staff produce decks and all five look different. Patients and partners see materials that do not appear to come from the same organization. Everyone is choosing colors from scratch each time, because there is nothing to choose from.
  task: Define the practice's colors and fonts once as a saved theme, so consistency is the easy path.
 
-Theme colors, fonts, and effects can each be changed independently from the Design tab's Variants dropdown. Set the practice's palette and typefaces, then Save Current Theme — the theme appears in the gallery for everyone it is shared with, in PowerPoint, Word, and Excel alike.
+Theme colors, fonts, and effects can each be changed independently from the Design tab's Variants dropdown. Set the practice's palette and typefaces, then Save Current Theme. The theme appears in your theme gallery in PowerPoint, Word, and Excel; share the saved .thmx file so colleagues get it too.
 
 Once the theme exists, staff choose from theme colors rather than inventing them, and every deck matches without anyone needing to remember a hex code. Making the consistent choice the easy one is what actually produces consistency.
 

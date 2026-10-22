@@ -2,7 +2,7 @@ Checking Spelling & Using Comments
 
 Module 8: Review & Presenting
 
-Learn how to run a spell check, use the built-in thesaurus, add and review comments, and use Track Changes tools to collaborate and polish your presentation before delivery.
+Learn how to run a spell check, use the built-in thesaurus, and add and review comments to collaborate and polish your presentation before delivery.
 
 By the end of this lesson you can:
 - Run spell check across a presentation

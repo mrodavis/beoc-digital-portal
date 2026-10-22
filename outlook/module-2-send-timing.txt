@@ -46,8 +46,8 @@ Note: Classic Outlook uses Delay Delivery (Options tab in the message window). T
  rows:
     You and the recipient have Microsoft 365 work or school accounts in the same organization
     The recipient is outside your organization, or uses Gmail, Outlook.com or another service
-    The recipient hasn't opened the message yet
-    The recipient already opened it
+    By default, even if the recipient already opened the message
+    The recipient opened it and your organization turned off recall of read messages
 
 Note: Recall is not a safety net for patient information. If a message with patient information goes to the wrong person, tell your supervisor right away, even if you try a recall. Undo send and checking the To line before you select Send prevent the problem in the first place.
 

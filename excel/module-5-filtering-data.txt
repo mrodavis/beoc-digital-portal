@@ -19,7 +19,7 @@ By the end of this lesson you can:
 
 Filtering hides rows that do not match. The data is entirely intact and returns when the filter is cleared — which is what makes it safe. But SUM and AVERAGE include hidden rows, because they operate on the range, not on what happens to be visible.
 
-=SUBTOTAL(109, E2:E900) is the fix: it sums only visible rows and updates as the filter changes. The 109 specifies sum-ignoring-hidden-rows. There is a parallel code for each function — 101 for average, 103 for count. Converting the range to an Excel Table gives you a Total Row that uses SUBTOTAL automatically.
+=SUBTOTAL(109, E2:E900) is the fix: it sums only visible rows and updates as the filter changes. The 109 specifies sum-ignoring-hidden-rows. There is a parallel code for each function — 101 for average, 102 for count of numbers, 103 for count of non-empty cells. Converting the range to an Excel Table gives you a Total Row that uses SUBTOTAL automatically.
 
 When a filter is active, Excel's status bar reports the count of visible rows, and the filtered column's dropdown arrow shows a funnel icon. If a sheet looks like it is missing data, check for that funnel before concluding anything was deleted — an unnoticed filter is a very common false alarm.
 

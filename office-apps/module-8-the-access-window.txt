@@ -55,7 +55,7 @@ The critical point is that only tables store data. Queries, forms, and reports a
     The structure — fields, data types, properties
     Change what the object is, not what it contains
 
-Note: Access saves record edits the moment you move off a row — there is no Ctrl+S and no undo once you have moved on. This is the single biggest adjustment for anyone coming from Excel, where nothing is committed until you save. Before working on a live database, make a copy. Before a structural change, make another.
+Note: Access saves record edits the moment you move off a row — there is no Ctrl+S, and only the record you just left can be undone (Ctrl+Z), and only until you start editing another. This is the single biggest adjustment for anyone coming from Excel, where nothing is committed until you save. Before working on a live database, make a copy. Before a structural change, make another.
 
 Data entry should happen through forms rather than directly into tables. A form can show one record at a time, present fields in a sensible order with clear labels, validate entries, and hide fields the user should not touch. Typing directly into a table exposes every field of every record at once, which is how the wrong row gets edited.
 

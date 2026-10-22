@@ -41,7 +41,7 @@ A PivotTable summarizes a data set by whatever fields you drag into it, without 
 
 Note: PivotTables do not update automatically when the source data changes. You must click Refresh on the PivotTable Analyze tab, and forgetting is one of the most common ways a stale figure reaches a report. Building the PivotTable on an Excel Table rather than a fixed range at least ensures new rows are included when you do refresh.
 
-If Excel summarizes a numeric column with Count instead of Sum, that column contains text somewhere — often a stray note or a number stored as text. The PivotTable is telling you about a data quality problem worth fixing at the source.
+If Excel summarizes a numeric column with Count instead of Sum, that column contains text or blank cells somewhere — often a stray note or a number stored as text. The PivotTable is telling you about a data quality problem worth fixing at the source.
 
 
 ## Why PivotTables Are Powerful

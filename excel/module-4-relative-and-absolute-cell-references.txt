@@ -96,7 +96,7 @@ When referencing another worksheet, Excel automatically inserts the sheet name f
 
 If the sheet name contains spaces, Excel will wrap it in single quotation marks. Example: ='Paper Goods'!E13
 
-If the sheet name or cell reference is incorrect, Excel will return a #REF! error.
+If the referenced sheet or cells are later deleted, the formula shows a #REF! error; if you type a sheet name that does not exist, Excel opens a dialog asking you to find a file.
 
 
 ## Knowledge Check

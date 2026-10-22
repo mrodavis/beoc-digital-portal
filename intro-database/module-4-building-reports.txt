@@ -41,7 +41,7 @@ Report Design View works similarly to Form Design View but has additional sectio
 ## Print Preview and Page Setup
 Before printing or exporting, use Print Preview to confirm the report looks exactly right:
 
-- Access Print Preview via the View button or by double-clicking the report in the Navigation Pane. The report renders exactly as it will print, with page breaks, headers, and footers visible.
+- Access Print Preview via the View button (double-clicking the report in the Navigation Pane opens Report View instead). The report renders exactly as it will print, with page breaks, headers, and footers visible.
 - Check page orientation: Long reports with many columns often need Landscape orientation. In Print Preview, click Page Setup and change Orientation to Landscape if needed.
 - Check that nothing is cut off: A common report problem is that a field's text is wider than the column, so it shows as '####' or is simply truncated. Switch to Design View, widen the field control, and check again.
 - Navigate pages: Use the navigation arrows at the bottom of Print Preview to move through all pages. Check the first page, last page, and at least one middle page to confirm consistency.

@@ -49,7 +49,7 @@ Decide what the recipient needs to do before choosing the format. Watch it witho
 ## Sharing via OneDrive
 The Share button in the upper-right corner of PowerPoint lets you invite people to view or edit your presentation using OneDrive.
 
-That prompt is telling you something useful: a share link points at a file in the cloud, so a local file has nothing to link to. Emailing a copy instead creates a second version that immediately starts diverging from yours.
+If the file is saved only on your computer, PowerPoint first asks you to save it to OneDrive. That prompt is telling you something useful: a share link points at a file in the cloud, so a local file has nothing to link to. Emailing a copy instead creates a second version that immediately starts diverging from yours.
 
 Enter email addresses, choose whether recipients can edit or only view, and optionally add a message before clicking Send.
 

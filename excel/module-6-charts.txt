@@ -71,7 +71,7 @@ Quick Layout is the fastest way to make a chart look presentable. It adds titles
 
 
 ## Add Chart Title and Elements
-Use the green + button (Chart Elements) to add a Chart Title, Axis Titles, Data Labels, and more.
+Use the + button (Chart Elements) to add a Chart Title, Axis Titles, Data Labels, and more.
 
 
 ## Change Chart Type

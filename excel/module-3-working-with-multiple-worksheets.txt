@@ -33,7 +33,7 @@ You can also group worksheets together to make changes to multiple sheets at the
 
 
 ## Insert a New Worksheet
-1. Locate and select the New Sheet (+) button near the bottom-right corner of the Excel window.
+1. Select the New Sheet (+) button just to the right of the sheet tabs at the bottom of the window.
 2. A new blank worksheet will appear.
 
 
