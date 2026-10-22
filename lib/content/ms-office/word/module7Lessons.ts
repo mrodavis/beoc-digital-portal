@@ -544,7 +544,7 @@ LESSON 3 – STYLE SETS
         {
           type: "paragraph",
           text:
-            "To return to Word's original default styles, click the first thumbnail (Default) or right-click the Style Set gallery and choose Reset to the Default Style Set.",
+            "To return to Word's original default styles, go to Design, click the More arrow in the Document Formatting group, and choose Reset to the Default Style Set.",
         },
         {
           type: "image",
