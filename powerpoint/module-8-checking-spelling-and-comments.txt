@@ -2,11 +2,12 @@ Checking Spelling & Using Comments
 
 Module 8: Review & Presenting
 
-Learn how to run a spell check, use the built-in thesaurus, and add and review comments to collaborate and polish your presentation before delivery.
+Learn how to run a spell check, use the built-in thesaurus, add and review comments, and review a colleague's changes in a shared file so your presentation is polished before delivery.
 
 By the end of this lesson you can:
 - Run spell check across a presentation
 - Add, reply to, and resolve comments
+- Review a colleague's changes with a shared file, @mentions, and Version History
 - Remove comments before presenting or distributing
 - Proofread the things spell check cannot catch
 
@@ -68,13 +69,18 @@ To delete a comment, select it in the Comments pane and click Delete on the Revi
 Note: Always delete or resolve comments before delivering a presentation to a live audience. Comment icons visible on slides can distract your viewers.
 
 
-## Comparing Presentations
-If a colleague has sent back a revised version of your file, the Compare tool lets you merge their changes into your version and review each one.
+## Reviewing a Colleague's Changes
+PowerPoint's old Compare command was retired in 2025 (version 2502). Today you review a colleague's work in one shared file instead of merging separate copies.
 
-Click Compare on the Review tab, select the revised file, and PowerPoint highlights every difference between the two versions.
+1. Share the file: select Share and invite your colleague. If the presentation isn't saved to OneDrive yet, PowerPoint asks you to save it there first.
+2. Work together: once the file is shared, you can both edit at the same time. PowerPoint shows who else is working in the file and where each person is editing.
+3. Discuss changes in comments: select Review > New Comment and type your note. To get a coworker's attention, type @ and the first letters of their name, then pick them from the list; with a work or school account, they get an email with a link to your comment. Anyone can reply in the same thread.
+4. See or restore earlier versions: select the file name at the top of the window (or File > Info) and choose Version History. Select a version to open it in a separate window, and select Restore if you want that version back. Version History works only for files saved in OneDrive or SharePoint.
 
-Use the Revisions pane to accept or reject individual changes, then click End Review when finished.
+Ask colleagues to edit the shared file rather than sending you back a copy, so every change lands in one place.
 
 
 ## Knowledge Check
 Check yourself: What should you do with all comments before presenting to a live audience? Answer: Delete or resolve them so they are not visible on slide. Comments should be deleted or resolved before presenting so no internal remark can appear on screen or travel with copies of the file. Inspect Document confirms none remain.
+
+Check yourself: A colleague needs to review your presentation and suggest changes. What is the current way to do this in PowerPoint for Microsoft 365? Answer: Share the file from OneDrive so you both work in one copy, and follow the changes with comments and Version History. Compare was retired in version 2502. A shared file keeps everyone's edits in one place, comments carry the discussion, and Version History lets you see or restore an earlier version.
