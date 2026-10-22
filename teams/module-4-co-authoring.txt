@@ -1,0 +1,74 @@
+Co-Authoring: Edit Files Together in Teams
+
+Module 4: Files and Collaboration
+
+Open Word, Excel, and PowerPoint files inside Teams, work on the same file at the same time as coworkers, use comments and @mentions to review, and open a file in the desktop app or browser when you need more tools.
+
+By the end of this lesson you can:
+- Open an Office file in Teams and recognize when others are editing it with you
+- Add a comment and @mention the person who should act on it
+- Open a file in the desktop app or in the browser
+- Explain why co-authoring one shared file beats emailing copies
+
+
+## One file, many editors
+
+ type: scenario
+ role: You are the front office assistant at Lakeside Medical Associates.
+ text: Maria shared the team copy of the front desk procedures in the General channel and asked everyone to review step 3. Last year the same review happened by email: five people sent back five edited copies and it took Maria an afternoon to combine them.
+ task: Review the document in the one shared copy with your coworkers and leave clear comments instead of a sixth copy.
+
+
+Co-authoring means several people work in the same Word, Excel, or PowerPoint file at the same time. When a file is stored in OneDrive or a team's SharePoint site and shared with you, you can open it and edit it while others do. You see their pictures or initials at the top of the file and their changes as they make them. There is only one file, so there is nothing to combine afterward.
+
+- Select a file on a channel's or chat's Shared tab, in the message where it was attached, or in OneDrive. By default it opens inside Teams with the usual Office tools at the top.
+- Select Close to go back to where you were in Teams.
+- To work in the full app, open the file's Open menu and choose Desktop app or Open in browser. On the Shared tab you can also right-click the file and choose Open in. You can change the default for all files in Settings › Files and links.
+
+
+## Review with comments
+A comment is a note attached to the document, not a change to its text. Use comments to ask a question or suggest something the owner should decide. Type @ and a name in a comment to notify that person. The comment stays with the document, so everyone reviewing sees it in one place.
+
+
+ type: worked-example
+ title: Reviewing step 3
+ task: Check step 3 of the team procedures against the new copay rule.
+ steps: 
+   move: Open Front Desk Procedures - Team.docx from the General channel's Shared tab.
+   why: Opening the shared file not a downloaded copy means everyone sees the same document.
+   move: Notice Maria's and Omar's initials at the top of the file.
+   why: They are editing too. Avoid rewriting the paragraph someone else is working on right now.
+   move: Open Comments and add: “@Maria Santos Step 3 now matches the new copay rule.”
+   why: Maria owns the document. The @mention notifies her and the comment stays with step 3.
+   move: Reply to Maria's post: “Reviewed. I left a comment on step 3.”
+   why: The rest of the team can see the review is done without opening the file.
+ result: One document with everyone's input and no copies to combine.
+ takeaway: Edit the shared file use comments for questions and @mention the person who decides.
+
+
+Practice: Drag these steps into the order you would do them.
+
+
+## Co-authoring etiquette
+
+ type: table
+ caption: Working in a shared file
+ columns: 
+  Do
+  Don't
+ rows: 
+   Edit the shared copy
+   Download it edit and upload a second copy
+   Use comments for questions and suggestions
+   Rewrite someone else's section without asking
+   @mention the person who must decide
+   Leave a comment nobody is notified about
+   Close the file when you are done
+   Leave it open for days on a shared computer
+
+
+
+## Knowledge check
+Check yourself: You open the team procedures and see Maria's and Omar's initials at the top. What does that mean? Answer: They are editing the same file right now. Co-authoring shows the people working in the file with you.
+
+Check yourself: You have a question about step 5 for Omar. What is the best way to ask it? Answer: Add a comment on the document with @Omar Haddad. A comment with an @mention notifies Omar and keeps the question with the text it is about.

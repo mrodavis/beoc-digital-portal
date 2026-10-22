@@ -1,0 +1,77 @@
+Calls in Teams
+
+Module 6: Working Smarter in Teams
+
+Make audio and video calls to coworkers from a chat or the Calls app, use the call controls, know when a call beats a message, and understand what calling phone numbers requires.
+
+By the end of this lesson you can:
+- Start an audio or video call from a chat, or call someone from the Calls app
+- Use the call controls: Mic, Camera, Share, and Leave, with their shortcuts
+- Decide when a quick call works better than a chat, and follow up in writing
+- Explain that calls between Teams users at work are built in, while calling phone numbers needs Teams Phone
+
+
+## When a call beats a chat
+
+ type: scenario
+ role: You are the front office assistant at Lakeside Medical Associates.
+ text: The check-in label printer is jammed again. You and Luis in IT have traded nine chat messages (“Is the light blinking?” “Which light?”) while patients wait in line. A two-minute call would have fixed it.
+ task: Know when to call instead of typing place the call quickly and confirm what you agreed in writing afterward.
+
+
+Teams calls are one-on-one or small-group audio or video conversations that you start right away, without scheduling a meeting. They work best for something urgent, something easier to show than to describe, or a back-and-forth that is going nowhere in chat. If the person's status is Busy or Do not disturb and it is not urgent, send a message instead.
+
+1. From a chat: open the chat and select Video call or Audio call at the top right. To call several people, start a group chat with them first (calls from a chat work for up to 20 people).
+2. From the Calls app: select Calls on the app bar, type a name in the box, and select the person to call. You can also call from someone's profile card.
+3. To answer an incoming call, choose video or audio on the call notification (Ctrl+Shift+A accepts with video, Ctrl+Shift+S with audio).
+
+
+## Call controls
+
+ type: table
+ caption: Call controls work like meeting controls
+ columns: 
+  Control
+  Shortcut (Windows)
+  Use it to
+ rows: 
+   Mic
+   Ctrl+Shift+M
+   Mute while the front desk is noisy
+   Camera
+   Ctrl+Shift+O
+   Turn on video to show something
+   Share
+   Ctrl+Shift+E
+   Show one window such as an error message
+   Leave
+   Ctrl+Shift+H
+   Hang up
+
+
+Note: Calls between Teams users in your organization are built into Teams. Calling regular phone numbers from Teams is different: your organization needs Teams Phone licenses and a phone service connected to Teams. If you see a dial pad in Calls, your organization has set that up for you.
+
+
+ type: worked-example
+ title: Fixing the printer with one call
+ task: Get the label printer working before the next patient reaches the window.
+ steps: 
+   move: In Calls type Luis and select Luis Ortega to call him.
+   why: Showing and talking is faster than describing lights in a chat.
+   move: Mute while Luis checks the printer log on his end.
+   why: Your microphone would pick up the waiting room. Mute until you need to talk.
+   move: When it works unmute thank him and hang up with Leave.
+   why: Short calls end when the problem is solved.
+   move: Send a chat: “Printer fixed: Luis cleared the jam and replaced the roller.”
+   why: A written note tells anyone who checks later what happened. Calls leave no record unless you write one.
+ result: The printer works and the fix is written down.
+ takeaway: Call to solve then write to confirm.
+
+
+Practice: Sort each situation.
+
+
+## Knowledge check
+Check yourself: Where do you start an audio call with someone you are already chatting with? Answer: Audio call at the top right of the chat. Every chat has Video call and Audio call at the top right.
+
+Check yourself: Which is true about calling phone numbers from Teams at work? Answer: It needs Teams Phone licenses and a phone service your organization sets up. Teams-to-Teams calls are built in. Calling regular phone numbers needs Teams Phone and a connected phone service.

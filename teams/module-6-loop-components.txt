@@ -1,0 +1,42 @@
+Loop Components: Lists and Tables Everyone Can Edit
+
+Module 6: Working Smarter in Teams
+
+Send a Loop component (a paragraph, checklist, or table) in a chat so everyone can edit the same content right in the conversation, and know where Loop components are stored and who can see them.
+
+By the end of this lesson you can:
+- Send a Loop component in a chat with the Loop components button
+- Add to a Loop component someone else sent
+- Explain that Loop components are saved in the creator's OneDrive and editable by everyone in the chat
+- Decide when a Loop component works better than a string of replies
+
+
+## One list instead of twenty replies
+
+ type: scenario
+ role: You are the front office assistant at Lakeside Medical Associates.
+ text: Last year the flu clinic supply list was built from 23 chat replies (“also gloves” “we have gloves” “need more bandages”) and two boxes of the wrong supplies were ordered. This year Maria sent the list as a Loop component.
+ task: Add to a shared Loop list and send your own Loop components so a group works on one up-to-date list.
+
+
+A Loop component is a small piece of content, such as a paragraph, a checklist, or a table, that you send in a chat. Everyone in the chat can edit it right in the conversation, and changes appear for everyone instantly. Instead of replying “add alcohol pads,” you add alcohol pads to the list.
+
+1. Open the chat.
+2. In the compose box, select Loop components (the Loop icon).
+3. Choose a component type, such as Paragraph, Checklist, or Table.
+4. Add a title or a short message and any first items, then select Send.
+5. Others edit the component right in the chat. In a Loop component, typing / offers options such as @mentions and dates, and typing // adds a comment.
+
+
+## Where Loop components live
+A Loop component you send in chat is saved automatically as a .loop file in your OneDrive, and people in the chat can edit it. The file also shows up in OneDrive and the Loop app, where it opens in a browser. You need a OneDrive to create Loop components; without one, you may still be able to edit components others send, but you can't create your own.
+
+Note: Treat a Loop component like any shared file: everyone in the chat can see and change it, and the link can be shared. Keep patient information out of Loop components in chats unless Lakeside has approved it.
+
+Practice: Sort each situation.
+
+
+## Knowledge check
+Check yourself: How do you send a Loop component in a Teams chat? Answer: Select Loop components in the compose box and pick a component type. The Loop components button in the compose box lets you choose a paragraph, checklist, table, or other component.
+
+Check yourself: Who can edit a Loop component you send in a group chat? Answer: Everyone in the chat. Everyone in the chat can edit it inline, and the changes show for everyone.

@@ -1,0 +1,77 @@
+Captions, Transcripts, Recordings, and Follow-Up
+
+Module 5: Meetings
+
+Use live captions, understand the difference between captions, transcripts, and recordings, find a meeting's recording and notes afterward, and send a follow-up that turns a meeting into action.
+
+By the end of this lesson you can:
+- Turn live captions on and off, and explain that captions are not saved
+- Explain the difference between live captions, a transcript, and a recording
+- Find a meeting's recording and notes in the meeting chat after it ends
+- Post a follow-up with clear action items in the meeting chat
+
+
+## Captions help everyone follow along
+
+ type: scenario
+ role: You are the front office assistant at Lakeside Medical Associates.
+ text: You missed the second half of yesterday's Billing Workflow Check-in to help a patient at the window. Today's huddle is in the middle of the noisy front office where you can barely hear Maria through your earbuds. By Friday nobody will remember who agreed to cover what.
+ task: Use captions to follow along catch up from a recording and send a follow-up that records the decisions.
+
+
+Live captions show what people say as text on your screen during a meeting. Turning captions on changes only your own screen. To turn them on, select More (…) › Language and speech › Show live captions. To turn them off, choose Hide live captions. Teams does not save captions; if you need a record, turn on transcription.
+
+
+ type: table
+ caption: Captions transcripts and recordings
+ columns: 
+  Live captions
+  Transcript
+  Recording
+ rows: 
+   What it is
+   Text of what people say on your screen
+   A saved written record of the meeting
+   Saved video and audio of the meeting
+   Saved afterward?
+   No
+   Yes
+   Yes
+   Who turns it on
+   Anyone for themselves
+   Organizer or presenter
+   Organizer or presenter
+   Others notified?
+   No
+   Yes
+   Yes
+
+
+
+## Notes and the meeting chat
+Select Notes in the meeting controls to open shared meeting notes that people in the meeting can see and add to. Notes are a good place for decisions and action items as they happen. Every Teams meeting also has a meeting chat. It is available before, during, and after the meeting: messages posted during the meeting stay there, and when a meeting is recorded, a link to the recording appears in the meeting chat (or in the channel conversation for a channel meeting).
+
+
+ type: worked-example
+ title: Following up on the huddle
+ task: Make sure Friday's coverage decisions do not get lost.
+ steps: 
+   move: During the huddle turn on live captions and add “Alex covers check-in 12:00 to 1:00 on Friday” in Notes.
+   why: Captions help in a noisy room and the note captures the decision at the moment it is made.
+   move: After you leave open the Front Office Huddle meeting chat.
+   why: Everyone who was invited can see the meeting chat so it is the natural place for the follow-up.
+   move: Post “Action items:” with a bulleted list of who does what.
+   why: A short list with names makes each person's task clear and easy to find later.
+ result: Everyone has the decisions in writing in the place they look for this meeting.
+ takeaway: Capture decisions during the meeting then post action items with names in the meeting chat.
+
+
+Practice: Drag these steps into the order they happen.
+
+Note: Some organizations also have AI meeting features, such as recap summaries and Copilot in Teams meetings. These need extra licenses (such as a Microsoft 365 Copilot license or Teams Premium), so you may not see them at work. Notes and a written follow-up work everywhere.
+
+
+## Knowledge check
+Check yourself: You turned on live captions during a meeting. What happens after the meeting ends? Answer: Teams does not save captions. Captions appear only during the meeting. For a saved record, the organizer or a presenter turns on transcription.
+
+Check yourself: Where do you usually find the recording of a meeting you were invited to? Answer: In the meeting chat. A link to the recording appears in the meeting chat (or the channel conversation for a channel meeting).

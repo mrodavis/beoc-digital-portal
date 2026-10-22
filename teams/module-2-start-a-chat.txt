@@ -1,0 +1,84 @@
+One-on-One and Group Chats
+
+Module 2: Chat
+
+Start a chat with one person, start and name a group chat, add people with or without the chat history, and keep your chat list organized with Pin, Mute, and Hide.
+
+By the end of this lesson you can:
+- Start a one-on-one chat with New message
+- Start a group chat and give it a name that says what it is for
+- Add someone to a group chat and decide how much history they see
+- Organize your chat list with Pin, Mute, and Hide
+
+
+## Who needs to be in the conversation?
+
+ type: scenario
+ role: You are the front office assistant at Lakeside Medical Associates.
+ text: The label printer at check-in is jammed again. Room 3 is low on gloves and exam table paper and the afternoon patients start at 2:00. Maria is waiting to hear whether you can take the noon shift. Three problems three different groups of people.
+ task: Start the right chat for each problem with exactly the people who can solve it.
+
+
+A chat is a private conversation. Only the people in it can see the messages. Use a one-on-one chat for something between you and one person, and a group chat when a few people need to work something out together. If the whole team needs the information, or will need to find it later, it belongs in a channel instead (Module 3).
+
+1. Select New message at the top of your list of chats and channels (or press Ctrl+N).
+2. In To, type a name and select the person from the list. Add more names for a group chat (a group chat can include up to 250 people).
+3. To name a group chat, select the down arrow at the far right of To and type a Group name.
+4. Type your message in the box at the bottom and press Enter (or select Send).
+
+Note: If you already have a one-on-one chat with someone, New message takes you to that same chat. Teams keeps one ongoing chat per person, so your whole history with them is in one place.
+
+
+## Name group chats and add the right people
+An unnamed group chat shows up in your list as a string of first names, which is hard to find a week later. A name such as “Room 3 Restock” or “Friday Coverage” says what the chat is for. Name it when you start it.
+
+To bring someone into an existing group chat, select View and add participants (the person icon at the top right of the chat) › Add people, type the name, and select Add. For a group chat, Teams asks how much of the earlier conversation the new person should see. Choose based on what they need: someone joining to help with the restock does not need to read last week's messages, but your manager stepping in to make a decision probably does. You cannot share history when you add someone to a one-on-one chat; Teams starts a new group chat instead.
+
+
+ type: worked-example
+ title: Setting up the Room 3 restock
+ task: Get gloves and exam table paper into Room 3 before 2:00 PM.
+ steps: 
+   move: New message › To: Marcus Bell and Tasha Greene.
+   why: Marcus and Tasha work in the clinical area and can check the room. Adding the whole front office would only add noise.
+   move: Select the down arrow at the far right of To and type the Group name “Room 3 Restock.”
+   why: The name tells everyone what the chat is for and it is easy to find in the list and in Search later.
+   move: Send: “Room 3 needs gloves and exam table paper before the 2:00 PM patients.”
+   why: One message says what is needed where and by when. Nobody has to ask a follow-up question.
+   move: When Omar offers to carry the boxes add him with View and add participants › Add people and choose not to include the history.
+   why: Omar only needs to know what to carry now. The earlier back-and-forth would not help him.
+ result: Four people one named chat and the room is stocked before the afternoon patients arrive.
+ takeaway: Invite only the people who can act name the chat after its purpose and add people with the history they actually need.
+
+
+
+## Keep your chat list organized
+
+ type: table
+ caption: Pin Mute and Hide (point to a chat › More options (…))
+ columns: 
+  Command
+  What it does
+  Use it for
+ rows: 
+   Pin
+   Moves the chat into Favorites at the top of the list
+   Chats you use every day like your manager's
+   Mute
+   Stops notifications; the chat stays in your list
+   Busy social chats such as lunch orders
+   Hide
+   Removes the chat from your list until someone sends a new message
+   Finished conversations you want out of the way
+   Mark as unread
+   Shows the chat in bold again
+   A reminder to come back and answer
+
+
+Practice: Drag each command onto the situation it fits.
+
+
+## Knowledge check
+Check yourself: Omar is joining the Friday Coverage group chat so he can help decide who calls which patients. The earlier messages list the times already covered. What should you do when you add him? Answer: Add him and include the chat history. He needs the earlier messages to make the decision, so include the history when you add him.
+
+Check yourself: Which is the best name for a group chat about covering the check-in window while Omar is on vacation? Answer: Check-in Coverage: Omar's Vacation. A good name says what the chat is for, so anyone can find it and know why they are in it.

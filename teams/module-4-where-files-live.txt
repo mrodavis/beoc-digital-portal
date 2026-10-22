@@ -1,0 +1,77 @@
+Where Your Files Live: OneDrive, Chats, and Channels
+
+Module 4: Files and Collaboration
+
+Learn where Teams stores every file you share, find your files with OneDrive in Teams, and keep your own files organized with folders, Move to, and Rename.
+
+By the end of this lesson you can:
+- Explain where Teams stores files shared in chats, in channels, and in your own OneDrive
+- Use OneDrive in Teams: Home, My files, Shared, Favorites, and the Recycle bin
+- Create folders, upload, move, and rename files in OneDrive
+- Choose the right home for a file based on who owns it
+
+
+## Three homes for a file
+
+ type: scenario
+ role: You are the front office assistant at Lakeside Medical Associates.
+ text: Three weeks into the job your OneDrive has eleven files with no folders a Microsoft Teams Chat Files folder you never created and two copies of the reminder call script. Maria asks for the latest version and you are not sure which one it is.
+ task: Understand where Teams puts every file and organize your own files so you can always find the right one.
+
+
+Teams does not have its own separate file storage. Every file you see in Teams lives in one of two Microsoft 365 places: your OneDrive (files that belong to you) or a team's SharePoint site (files that belong to the team). Where a file ends up depends on where you share it.
+
+
+ type: table
+ caption: Where Teams stores files
+ columns: 
+  You add a file to
+  It is stored in
+  Who can open it
+ rows: 
+   Your OneDrive (OneDrive on the app bar)
+   Your OneDrive › My files
+   You plus anyone you share it with
+   A one-on-one or group chat
+   Your OneDrive › Microsoft Teams Chat Files
+   The people in that chat
+   A channel (post or Shared tab)
+   The team's SharePoint site in the channel's folder
+   Members of the team
+
+
+
+## OneDrive in Teams
+Select OneDrive on the app bar to see your work files without leaving Teams. Home lists files you recently opened or edited. My files is your OneDrive, with your folders. Shared shows files others shared with you and files you shared. Favorites holds files you starred, and the Recycle bin holds files you deleted, so you can restore them. You can also browse files by People, Meetings, or Media type, and Quick access takes you to files in your teams' channels.
+
+1. To create a folder: in My files, select Add new › Folder, type a name, and select Create.
+2. To upload: open the folder, select Upload, choose the file, and select Open.
+3. To move a file: point to it › More options (…) › Move to, choose the folder, and select Move here.
+4. To rename a file: point to it › More options (…) › Rename, type the new name, and press Enter.
+
+
+ type: worked-example
+ title: Cleaning up My files
+ task: Put three weeks of files in order so the right version is easy to find.
+ steps: 
+   move: Open OneDrive › My files and look inside Microsoft Teams Chat Files.
+   why: That folder holds every file you uploaded in a chat. Knowing it exists explains files you do not remember saving.
+   move: Create a folder named Front Desk Training.
+   why: One folder per kind of work beats eleven loose files.
+   move: Move Reminder Call Script.docx into the folder and rename files so the name says what they are.
+   why: A clear name and place mean you open the right file the first time and so does anyone you share it with.
+ result: Your files are in named folders and the latest script is the one in Front Desk Training.
+ takeaway: Keep one copy in one place with a name that says what it is.
+
+
+
+## Choose the right home
+Practice: Sort each file to its best home.
+
+Note: Lakeside's rule for files with patient information: keep them only in locations the practice approves and share them only with people who need them. Never move patient files into a personal OneDrive or a personal email account, and never upload them to a channel that includes people who do not need them.
+
+
+## Knowledge check
+Check yourself: You find a folder named Microsoft Teams Chat Files in your OneDrive. What is in it? Answer: Files you uploaded in Teams chats. When you upload a file in a chat, Teams stores it in your OneDrive in Microsoft Teams Chat Files and shares it with the people in that chat.
+
+Check yourself: You deleted a file from your OneDrive by mistake. Where do you look first? Answer: The Recycle bin in OneDrive. Deleted OneDrive files go to the Recycle bin, where you can restore them.

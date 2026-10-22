@@ -1,0 +1,80 @@
+Share Files in Chat
+
+Module 2: Chat
+
+Attach files from the cloud or your computer, find shared files on a chat's Shared tab, understand where Teams stores chat files and who can open them, and forward messages and links.
+
+By the end of this lesson you can:
+- Attach a cloud file or upload a file from your device with Actions and apps › Attach file
+- Find files shared in a chat on its Shared tab
+- Explain where Teams stores chat files (Microsoft Teams Chat Files in your OneDrive) and who can open them
+- Forward a message and copy a link to a message
+
+
+## Share files where the conversation is
+
+ type: scenario
+ role: You are the front office assistant at Lakeside Medical Associates.
+ text: Jen Cole the temporary receptionist starts today and needs the front desk procedures. The Holiday Coverage chat is waiting for the draft schedule you saved on your computer. Last year someone emailed the schedule to six people everyone edited their own copy and nobody knew which version was right.
+ task: Share each file with the people who need it in the conversation where they are already talking.
+
+
+1. In the chat, select Actions and apps (+) next to the message box › Attach file.
+2. Pick a recent file, choose Attach cloud files to pick a file from OneDrive or Teams, or choose Upload from this device for a file on your computer.
+3. Add a short message that says why you are sharing it, and press Enter.
+
+Teams shows a preview for images, videos, and many document types. Every file shared in a chat is collected on the chat's Shared tab at the top of the conversation, so nobody has to scroll back through messages to find it.
+
+
+## Where chat files are stored
+When you upload a file in a one-on-one or group chat, Teams saves it in your OneDrive, in a folder named Microsoft Teams Chat Files, and shares it only with the people in that chat. Files shared in a channel are different: they are stored in the team's SharePoint site and appear on the channel's Shared tab (Module 3). This is why it matters where you share: a file you upload in chat lives in your OneDrive, and if you leave the organization, files in your OneDrive can be removed along with your account.
+
+
+ type: table
+ caption: Chat files and channel files
+ columns: 
+  Shared in a chat
+  Shared in a channel
+ rows: 
+   Stored in
+   Your OneDrive › Microsoft Teams Chat Files
+   The team's SharePoint site
+   Who can open it
+   The people in that chat
+   Members of the team
+   Find it on
+   The chat's Shared tab
+   The channel's Shared tab
+   Best for
+   A file for a few people
+   Files the whole team uses and keeps
+
+
+Practice: Where should each file be shared?
+
+
+## Forward and link to messages
+To pass a message along, point to it › More options (…) › Forward, choose the person or chat, add an optional note, and select Forward. To point someone to a message instead of copying it, choose Copy link and paste the link where you need it. Only people who can already see that chat or channel can open a message link.
+
+
+ type: worked-example
+ title: Getting the schedule to the holiday group
+ task: Share the draft holiday schedule from your computer with the Holiday Coverage chat.
+ steps: 
+   move: Open the Holiday Coverage chat and select Actions and apps (+) › Attach file › Upload from this device.
+   why: The file is on your computer so you upload it. Teams stores the uploaded copy in your OneDrive.
+   move: Pick Holiday Coverage Schedule.xlsx and type: “Here is the draft. Add your name to the days you can work.”
+   why: The message says what the file is and exactly what you want people to do with it.
+   move: Press Enter then check OneDrive › My files › Microsoft Teams Chat Files.
+   why: That folder holds the copy everyone in the chat opens. From now on edit that one not the copy on your desktop.
+ result: Three coworkers edit the same file and there is only one version of the schedule.
+ takeaway: Share one file in the conversation and work on that file; do not pass copies around.
+
+
+Note: Before you attach a file, check its contents. Files with patient information belong only in the locations Lakeside approves and only with people who need them. Never upload patient lists or forms to a group chat that includes people who do not need them, or to any chat with someone outside Lakeside.
+
+
+## Knowledge check
+Check yourself: You upload a spreadsheet in a group chat. Where does Teams store it? Answer: In your OneDrive, in the Microsoft Teams Chat Files folder. Files uploaded in chats are stored in the sender's OneDrive, in Microsoft Teams Chat Files, and shared with the people in the chat.
+
+Check yourself: Where do you look for every file that was shared in a particular chat? Answer: The chat's Shared tab. The Shared tab at the top of the chat lists the files shared in that conversation.

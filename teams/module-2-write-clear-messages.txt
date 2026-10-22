@@ -1,0 +1,94 @@
+Write Clear Messages: Formatting, @Mentions, and Delivery Options
+
+Module 2: Chat
+
+Write chat messages that people can act on: use formatting and lists, @mention the right person, mark urgent information as Important, and share only the patient information someone needs.
+
+By the end of this lesson you can:
+- Use Format to add bold text and bulleted or numbered lists, and Shift+Enter for a new line
+- @mention a person so they get a notification
+- Mark a message as Important with Set delivery options
+- Apply the minimum necessary rule to messages about patients
+
+
+## A message should do one job
+
+ type: scenario
+ role: You are the front office assistant at Lakeside Medical Associates.
+ text: Kevin asked what to bring to the billing meeting. Maria wants confirmation of the noon shift. The fire alarm test is at 3:00 PM and somebody needs to warn the waiting room. Tasha needs to know the 10:30 patient is ready for vitals. Each of these takes one short message if it is written well.
+ task: Write messages that are easy to read reach the right person and share no more patient information than needed.
+
+
+Chat feels casual, but at work it is still business writing. A good chat message is short, gives the key detail first, and makes the next step obvious. If someone has to ask “Which shift?” or “Which room?”, the message did not do its job.
+
+
+ type: table
+ caption: Rewrite for clarity
+ columns: 
+  Unclear
+  Clear
+ rows: 
+   “ok”
+   “Yes I'll cover the check-in window from 12:00 to 1:00 PM.”
+   “the thing is broken again”
+   “The label printer at check-in is jammed again. Could you take a look?”
+   “can u check rm”
+   “Can you check whether Room 3 has gloves before the 2:00 PM patients?”
+
+
+
+## Formatting and lists
+Select Format, to the right of the message box, to see formatting options such as Bold, Italic, Strikethrough, Bulleted list, and Numbered list. Ctrl+B and Ctrl+I also work while you type. Press Shift+Enter to start a new line without sending; pressing Enter on its own sends the message. To get a bigger box for a longer message, select Format or press Ctrl+Shift+X.
+
+- Bold one key detail, such as a time or a room, so it stands out. Bolding everything means nothing stands out.
+- Use a bulleted list for items in any order, such as things to bring.
+- Use a numbered list for steps that happen in order.
+- Keep emoji for friendly moments, not for important instructions.
+
+Practice: Drag the steps for sending Kevin a bulleted list into the right order.
+
+
+## @mentions and Important messages
+Type @ followed by the first few letters of a name, then pick the person from the list. The name turns into a highlighted @mention, and that person gets a notification in their Activity feed, even in a busy channel. @mention people when you need something from them, not to tag everyone on every message.
+
+When a message must not be missed, mark it Important before you send it: select Actions and apps (+) next to the message box › Set delivery options › Important. The message appears with the label IMPORTANT! To remove the label from a message you already sent, edit the message and choose Standard. Save Important for messages that truly are, or people learn to ignore it.
+
+
+ type: worked-example
+ title: Warning about the fire alarm test
+ task: Make sure Maria knows to warn the waiting room before the 3:00 PM fire alarm test.
+ steps: 
+   move: Open the chat with Maria and select Actions and apps (+) › Set delivery options › Important.
+   why: This is time-sensitive and affects patients. The IMPORTANT! label makes it stand out from routine messages.
+   move: Type: “The fire alarm test is at 3:00 PM today. Please warn patients in the waiting room.”
+   why: It says what happens when and what you need Maria to do.
+   move: Press Enter.
+   why: Done in one message. No follow-up needed.
+ result: Maria sees a clearly marked message with the time and the action.
+ takeaway: Key detail first one clear request and Important only when it truly matters.
+
+
+
+## Patient information: minimum necessary
+Note: HIPAA's minimum necessary standard means sharing only the patient information someone needs to do their job. In Teams at Lakeside, that usually means no patient names with health details, no dates of birth, and no diagnoses. Refer to patients the way the office allows, such as by appointment time and room. Clinical details belong in the EHR.
+
+
+ type: table
+ caption: Rewrite to the minimum necessary
+ columns: 
+  Too much
+  Minimum necessary
+ rows: 
+   “Mrs. name DOB date is here for her diabetes follow-up and is in Room 2.”
+   “The 10:30 patient is checked in and ready for vitals in Room 2.”
+   “Can you call name about his positive test result?”
+   “There is a callback in the EHR task list for you.”
+
+
+Practice: Sort each message.
+
+
+## Knowledge check
+Check yourself: You are typing a list in a chat and want to start the next line without sending the message. What do you press? Answer: Shift+Enter. Shift+Enter starts a new line. Enter alone sends the message.
+
+Check yourself: How do you mark a chat message as Important before sending it? Answer: Actions and apps (+) › Set delivery options › Important. Set delivery options › Important adds the IMPORTANT! label that Teams displays on the message.
