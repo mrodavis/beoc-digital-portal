@@ -12,38 +12,34 @@ By the end of this lesson you can:
 
 
 ## The word limit is the design
-
  type: scenario
  role: You present quarterly results at Lakeside Medical Associates.
- text: Your key slide holds ninety words in five bullets. You watch the room read it and by the time you reach your second sentence they have finished and are checking their phones. The information was delivered. The point was not.
- task: Reduce each slide to what genuinely benefits from being seen and move the rest to the notes.
-
+ text: Your key slide holds ninety words in five bullets. You watch the room read it, and by the time you reach your second sentence they have finished and are checking their phones. The information was delivered. The point was not.
+ task: Reduce each slide to what genuinely benefits from being seen, and move the rest to the notes.
 
 A commonly cited guide is roughly six words per line and six lines per slide. The number matters less than the principle behind it: a slide is glanced at, not read. Anything requiring sustained reading belongs in a handout or in the notes pane.
 
 Font size is the other half. Twenty-four point is a sensible floor for body text — not for aesthetics, but because it is what remains legible from the back of a room. If your content only fits at eighteen point, the slide has too much on it, and shrinking the type just makes it unreadable as well as crowded.
 
-
  type: table
  caption: Where content belongs
- columns: 
-  Content
-  Put it
-  Because
- rows: 
-   The single point of the slide
-   The slide as a short phrase
-   It anchors what you are saying
-   Your supporting explanation
-   The notes pane
-   You say it; the audience listens rather than reads
-   Detailed figures and tables
-   A handout
-   Detail needs reading time a live audience does not have
-   The source of a statistic
-   A small line on the slide
-   It establishes credibility without being read aloud
-
+ columns:
+   Content
+   Put it
+   Because
+ rows:
+    The single point of the slide
+    The slide, as a short phrase
+    It anchors what you are saying
+    Your supporting explanation
+    The notes pane
+    You say it; the audience listens rather than reads
+    Detailed figures and tables
+    A handout
+    Detail needs reading time a live audience does not have
+    The source of a statistic
+    A small line on the slide
+    It establishes credibility without being read aloud
 
 
 ## Selecting Text

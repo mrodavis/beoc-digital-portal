@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## Working backwards from the answer you need
-
  type: scenario
  role: You plan next year's supply budget at Lakeside Medical Associates.
- text: The budget must come in at $85000. Current projections say $92400. The question is not what the total is — it is how much the per-visit supply cost would have to fall to reach the target. Guessing and re-checking is slow and imprecise.
+ text: The budget must come in at $85,000. Current projections say $92,400. The question is not what the total is — it is how much the per-visit supply cost would have to fall to reach the target. Guessing and re-checking is slow and imprecise.
  task: Let Excel solve for the input value that produces the result you need.
-
 
 Goal Seek (Data > What-If Analysis > Goal Seek) reverses a calculation. You name the formula cell, the result you want, and the input cell to vary. Excel adjusts that input until the formula produces the target. It answers 'what would this need to be?' rather than 'what is this?'
 
-
  type: table
  caption: The three What-If tools
- columns: 
-  Tool
-  Answers
-  Varies
- rows: 
-   Goal Seek
-   What input gives me this exact result?
-   One input
-   Data Table
-   What happens across a range of inputs?
-   One or two inputs many values
-   Scenario Manager
-   How do named alternatives compare?
-   Several inputs saved as named sets
-
+ columns:
+   Tool
+   Answers
+   Varies
+ rows:
+    Goal Seek
+    What input gives me this exact result?
+    One input
+    Data Table
+    What happens across a range of inputs?
+    One or two inputs, many values
+    Scenario Manager
+    How do named alternatives compare?
+    Several inputs, saved as named sets
 
 Note: Goal Seek finds the arithmetic answer, not the achievable one. It may report that the per-visit supply cost needs to fall 31%, which is a real number and possibly an impossible operational target. The tool tells you what the model requires; whether that is attainable is a judgment it cannot make. Always state the required change to a decision-maker rather than presenting it as a plan.
 

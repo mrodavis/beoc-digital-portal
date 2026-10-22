@@ -12,41 +12,37 @@ By the end of this lesson you can:
 
 
 ## Excel is always deciding what you typed
-
  type: scenario
  role: You are entering supply orders at Lakeside Medical Associates.
- text: You type a catalog number as 03-4521 and Excel displays a date. You type another as 1/2 and get January 2nd. Your totals column will not sum because half its values are text that merely looks numeric.
- task: Understand how Excel interprets what you type so your data behaves as data.
-
+ text: You type a catalog number as 03-4521 and Excel displays a date. You type another as 1/2 and get January 2nd. Your totals column will not sum, because half its values are text that merely looks numeric.
+ task: Understand how Excel interprets what you type, so your data behaves as data.
 
 Every entry is classified the moment you press Enter: number, date, or text. That classification governs everything afterwards — whether it sums, how it sorts, whether a formula can use it. Numbers align right by default and text aligns left, which gives you a free visual check: a column of right-aligned figures with one left-aligned entry has one text value hiding in it.
 
 To force text, format the cells as Text before typing, or begin the entry with an apostrophe: '03-4521. The apostrophe is not stored — it tells Excel to keep what follows verbatim. This is the standard fix for catalog numbers, account codes, and any identifier with leading zeros.
 
-
  type: table
  caption: The fill handle's behaviors
- columns: 
-  You enter and drag
-  Excel produces
-  Why
- rows: 
-   One cell containing 5
-   5 5 5 5
-   A single value is copied
-   Two cells containing 5 and 10
-   15 20 25
-   Two cells establish a pattern — a step of 5
-   A cell containing Monday
-   Tuesday Wednesday…
-   Excel knows built-in lists for days and months
-   A cell containing =A1+B1
-   =A2+B2 =A3+B3
-   Relative references shift as the formula moves down
-   Ctrl held while dragging
-   One number: 5 6 7. Monday: Monday Monday…
-   Ctrl switches between copying and filling a series the opposite of what a plain drag would do
-
+ columns:
+   You enter and drag
+   Excel produces
+   Why
+ rows:
+    One cell containing 5
+    5, 5, 5, 5
+    A single value is copied
+    Two cells containing 5 and 10
+    15, 20, 25
+    Two cells establish a pattern — a step of 5
+    A cell containing Monday
+    Tuesday, Wednesday…
+    Excel knows built-in lists for days and months
+    A cell containing =A1+B1
+    =A2+B2, =A3+B3
+    Relative references shift as the formula moves down
+    Ctrl held while dragging
+    One number: 5, 6, 7. Monday: Monday, Monday…
+    Ctrl switches between copying and filling a series, the opposite of what a plain drag would do
 
 Note: Delete clears a cell's contents but leaves the cell in place. Right-click > Delete removes the cell itself and shifts its neighbors, which will break formulas that referred to the shifted cells. When you mean to empty cells, press Delete; when you mean to remove rows, select the whole row.
 

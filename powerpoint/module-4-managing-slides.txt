@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Structure the deck before you polish it
-
  type: scenario
  role: You assemble the annual review deck at Lakeside Medical Associates.
  text: Forty-five slides in Normal view means scrolling a thumbnail strip to find anything. Reordering means dragging a slide past thirty others and hoping it lands where you meant.
  task: Use Slide Sorter and sections to work on the deck's shape rather than one slide at a time.
-
 
 Slide Sorter view shows every slide as a thumbnail on one screen, which is the right place to reorder, delete, and check visual consistency. Seeing all forty-five at once also reveals patterns you cannot notice one slide at a time — six consecutive bullet slides, or a title that jumps position.
 

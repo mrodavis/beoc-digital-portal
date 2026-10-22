@@ -12,60 +12,54 @@ By the end of this lesson you can:
 
 
 ## Specification is a series of trade-offs
-
  type: scenario
  role: Lakeside Medical Associates is replacing four workstations.
- text: The budget is $900 per machine. They run an EHR Office and a browser with a dozen tabs all day for five years. A gaming machine at that price would be poor value here and so would the cheapest available laptop. The right specification comes from the workload not from the price.
+ text: The budget is $900 per machine. They run an EHR, Office, and a browser with a dozen tabs, all day, for five years. A gaming machine at that price would be poor value here, and so would the cheapest available laptop. The right specification comes from the workload, not from the price.
  task: Learn to specify a machine from the job it must do.
-
 
 Every specification is a trade-off within a budget. Money spent on one component is not available for another, so the skill is knowing which components affect the workload you actually have.
 
-
  type: table
  caption: What each component affects
- columns: 
-  Component
-  Affects
-  For office work
- rows: 
-   CPU
-   Overall speed; how much runs at once
-   A current mid-range chip is ample; high-end is wasted
-   RAM
-   How many programs and tabs before slowdown
-   16 GB is the comfortable target; 8 GB is a floor
-   Storage type
-   Startup and file-opening speed
-   An SSD is essential; this is the most noticeable upgrade
-   Storage size
-   How much you can keep locally
-   Modest if files live on a server or in the cloud
-   Graphics
-   Visual rendering
-   Integrated graphics are fine; a dedicated card is wasted
-   Monitor
-   Comfort and how much fits on screen
-   Two modest monitors beat one expensive one for most office work
-
-
+ columns:
+   Component
+   Affects
+   For office work
+ rows:
+    CPU
+    Overall speed; how much runs at once
+    A current mid-range chip is ample; high-end is wasted
+    RAM
+    How many programs and tabs before slowdown
+    16 GB is the comfortable target; 8 GB is a floor
+    Storage type
+    Startup and file-opening speed
+    An SSD is essential; this is the most noticeable upgrade
+    Storage size
+    How much you can keep locally
+    Modest if files live on a server or in the cloud
+    Graphics
+    Visual rendering
+    Integrated graphics are fine; a dedicated card is wasted
+    Monitor
+    Comfort and how much fits on screen
+    Two modest monitors beat one expensive one for most office work
 
  type: worked-example
  title: Specifying the front-desk workstation
- task: Specify a machine for EHR Office and heavy browser use at $900 expected to last five years.
- steps: 
-   move: Start from the workload not the price list.
-   why: The workload is many applications open simultaneously none of them computationally heavy. That immediately says RAM matters more than CPU here — and knowing that before looking at prices stops you being sold a fast processor you cannot use.
+ task: Specify a machine for EHR, Office, and heavy browser use, at $900, expected to last five years.
+ steps:
+   move: Start from the workload, not the price list.
+   why: The workload is many applications open simultaneously, none of them computationally heavy. That immediately says RAM matters more than CPU here — and knowing that before looking at prices stops you being sold a fast processor you cannot use.
    move: Fix the non-negotiables first: an SSD and 16 GB of RAM.
    why: These two produce the largest felt difference for this workload. Spending here is the difference between a machine that feels fast for five years and one that frustrates people from month one.
    move: Choose a current mid-range CPU rather than the fastest affordable.
-   why: This workload never saturates a modern processor. Money moved from CPU to RAM and a second monitor buys far more actual productivity which is the point of the purchase.
+   why: This workload never saturates a modern processor. Money moved from CPU to RAM and a second monitor buys far more actual productivity, which is the point of the purchase.
    move: Add a second monitor rather than upgrading the first.
-   why: Front-desk staff work across the EHR and a browser constantly. Two screens removes continuous window-switching — usually the single most valuable thing you can buy at this budget and the one most often left out.
+   why: Front-desk staff work across the EHR and a browser constantly. Two screens removes continuous window-switching — usually the single most valuable thing you can buy at this budget, and the one most often left out.
    move: Check the warranty and support terms before finalizing.
-   why: A five-year expected life against a one-year warranty is a real risk. Business lines typically offer three-year on-site support for modest extra cost and a failed workstation at the front desk is not a minor inconvenience.
- result: A specification with an SSD 16 GB RAM mid-range CPU dual monitors and a warranty matching the expected life.
+   why: A five-year expected life against a one-year warranty is a real risk. Business lines typically offer three-year on-site support for modest extra cost, and a failed workstation at the front desk is not a minor inconvenience.
+ result: A specification with an SSD, 16 GB RAM, mid-range CPU, dual monitors, and a warranty matching the expected life.
  takeaway: Specify from the workload. The fastest component is only the right one if the workload can actually use it.
-
 
 Check yourself: For a front-desk workstation running an EHR, Office, and many browser tabs, which upgrade delivers the most noticeable improvement for the money? Answer: Increasing RAM from 8 GB to 16 GB. This workload is defined by many applications open at once, which is precisely what RAM governs. When RAM runs out the system swaps to disk and everything slows noticeably. Graphics and CPU headroom go unused by office software.

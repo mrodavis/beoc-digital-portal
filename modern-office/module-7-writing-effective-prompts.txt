@@ -12,59 +12,53 @@ By the end of this lesson you can:
 
 
 ## A vague prompt gets a generic answer
-
  type: scenario
  role: You draft patient communications at Lakeside Medical Associates.
- text: You type 'write a letter about missed appointments' and get four bland paragraphs that could belong to any organization at a reading level most of your patients would struggle with in a tone that sounds faintly like a debt collector. The tool was not wrong; it had nothing to work with.
+ text: You type 'write a letter about missed appointments' and get four bland paragraphs that could belong to any organization, at a reading level most of your patients would struggle with, in a tone that sounds faintly like a debt collector. The tool was not wrong; it had nothing to work with.
  task: Learn to supply the context that turns a generic response into a usable draft.
-
 
 A model cannot infer your situation. It does not know your organization, your audience, your tone, or what a good answer looks like to you. Everything it does not know, it fills in with the most statistically average option — which is exactly why unspecified prompts produce bland output.
 
-
  type: table
  caption: The components of a useful prompt
- columns: 
-  Component
-  Supplies
-  Example
- rows: 
-   Role
-   The perspective to write from
-   You are an administrator at a small family medicine practice
-   Task
-   What you want specifically
-   Draft a letter to a patient who missed a follow-up
-   Context
-   The situation and audience
-   The patient has a chronic condition needing regular monitoring
-   Format
-   The shape of the output
-   Three short paragraphs under 200 words
-   Constraints
-   Rules it must respect
-   Plain language at a sixth-grade reading level; warm never accusatory; no medical advice
-   Examples
-   What good looks like
-   Match the tone of this previous letter: paste
-
-
+ columns:
+   Component
+   Supplies
+   Example
+ rows:
+    Role
+    The perspective to write from
+    You are an administrator at a small family medicine practice
+    Task
+    What you want, specifically
+    Draft a letter to a patient who missed a follow-up
+    Context
+    The situation and audience
+    The patient has a chronic condition needing regular monitoring
+    Format
+    The shape of the output
+    Three short paragraphs, under 200 words
+    Constraints
+    Rules it must respect
+    Plain language at a sixth-grade reading level; warm, never accusatory; no medical advice
+    Examples
+    What good looks like
+    Match the tone of this previous letter: [paste]
 
  type: worked-example
  title: Improving a prompt in three passes
  task: Turn 'write a letter about missed appointments' into a prompt that produces something usable.
- steps: 
+ steps:
    move: Add the role and the audience.
-   why: 'You are an administrator at a small family medicine practice writing to a patient' immediately narrows register and vocabulary. Without it the model averages across every organization that has ever written about missed appointments including debt collectors.
+   why: 'You are an administrator at a small family medicine practice writing to a patient' immediately narrows register and vocabulary. Without it the model averages across every organization that has ever written about missed appointments, including debt collectors.
    move: Add the constraints that matter most to you.
-   why: 'Sixth-grade reading level warm and non-accusatory no medical advice under 200 words.' Each constraint eliminates a failure mode you would otherwise have to fix by hand. The reading level constraint alone usually transforms the output.
+   why: 'Sixth-grade reading level, warm and non-accusatory, no medical advice, under 200 words.' Each constraint eliminates a failure mode you would otherwise have to fix by hand. The reading level constraint alone usually transforms the output.
    move: Add an example of the tone you want.
    why: Pasting a previous letter you were happy with communicates tone far more precisely than adjectives can. Models match demonstrated patterns much better than they follow descriptions of them.
-   move: Iterate on what is still wrong specifically.
+   move: Iterate on what is still wrong, specifically.
    why: 'The second paragraph sounds like a warning — rewrite it to emphasize that we want to help' is actionable. 'Make it better' is not. Treat it as a conversation with a competent drafter who cannot see your reaction.
- result: A draft in the right register and length needing edits rather than a rewrite.
- takeaway: Role task context format constraints. Everything you leave unstated is filled in with the most average option available.
-
+ result: A draft in the right register and length, needing edits rather than a rewrite.
+ takeaway: Role, task, context, format, constraints. Everything you leave unstated is filled in with the most average option available.
 
 Note: Prompting is not a mystical skill and does not need a course of its own. It is mostly the ordinary discipline of stating what you want clearly — the same thing that makes a good email to a colleague. If you would have to explain something to a new temp before they could do the task, it belongs in the prompt.
 

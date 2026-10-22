@@ -12,50 +12,44 @@ By the end of this lesson you can:
 
 
 ## Someone typed over the schedule
-
  type: scenario
  role: You keep the staff schedule up to date at Lakeside.
- text: At 9:05 this morning Kevin pasted October's shifts over the November staff schedule by mistake and saved. Half the office is looking at the wrong shifts. Nobody made a backup copy and nobody needs to: OneDrive kept the earlier versions.
- task: Find yesterday's correct version check it and restore it without losing anything.
-
+ text: At 9:05 this morning, Kevin pasted October's shifts over the November staff schedule by mistake and saved. Half the office is looking at the wrong shifts. Nobody made a backup copy, and nobody needs to: OneDrive kept the earlier versions.
+ task: Find yesterday's correct version, check it, and restore it, without losing anything.
 
 Version history is a list of earlier versions of a file that OneDrive keeps as people change it. Each version shows when it was saved and who saved it. You can open an earlier version to read it, and restore it to make it the current version again.
 
-
  type: table
  caption: Three ways to open version history
- columns: 
-  From
-  Steps
- rows: 
-   OneDrive on the web
-   Right-click the file (or select it and select More actions …) › Version history
-   File Explorer (with the sync app)
-   Right-click the file in your OneDrive folder › Version history
-   Word Excel or PowerPoint (desktop)
-   Select the file name in the title bar › Version History or File › Info › Version History
-
+ columns:
+   From
+   Steps
+ rows:
+    OneDrive on the web
+    Right-click the file (or select it and select More actions …) › Version history
+    File Explorer (with the sync app)
+    Right-click the file in your OneDrive folder › Version history
+    Word, Excel, or PowerPoint (desktop)
+    Select the file name in the title bar › Version History, or File › Info › Version History
 
 
 ## Check, then restore
-
  type: worked-example
  title: Restoring yesterday's staff schedule
  task: Put back the version of Staff Schedule - November.xlsx that Maria saved yesterday afternoon.
- steps: 
+ steps:
    move: Right-click Staff Schedule - November.xlsx and select Version history.
-   why: The Version history panel lists every saved version with the date time and person.
-   move: Find the version Maria saved yesterday before Kevin's change this morning.
+   why: The Version history panel lists every saved version with the date, time, and person.
+   move: Find the version Maria saved yesterday, before Kevin's change this morning.
    why: The Modified and Modified by columns tell you which version is the last good one.
-   move: Select More options (…) next to it and select Open file.
+   move: Open that version and read it before you restore it.
    why: Opening it first lets you confirm it really has the November shifts. Restoring the wrong version just creates a new problem.
-   move: Select More options (…) again and select Restore.
-   why: Restore makes a copy of that version the new current version. Kevin's version stays in the list so nothing is lost.
+   move: Select the ellipses (…) next to that version and select Restore.
+   why: Restore makes that version the current version again. Kevin's version stays in the list, so nothing is lost.
    move: Tell the team the schedule is fixed.
    why: People who opened the wrong shifts need to know to look again.
- result: The current version is November's schedule again and Kevin's version is still in the history if anyone needs it.
- takeaway: Open it check it then restore. Restoring never erases the version you are replacing.
-
+ result: The current version is November's schedule again, and Kevin's version is still in the history if anyone needs it.
+ takeaway: Open it, check it, then restore. Restoring never erases the version you are replacing.
 
 Practice: Drag the steps for restoring an earlier version into order.
 

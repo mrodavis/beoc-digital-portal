@@ -12,27 +12,23 @@ By the end of this lesson you can:
 
 
 ## Starting from the right place
-
  type: scenario
  role: You are preparing correspondence at Lakeside Medical Associates.
- text: You need to send fourteen referral letters this week. The first time you build one from a blank page: margins letterhead address block closing. It takes twenty minutes. If you start the next thirteen from blank pages too you will spend four hours and produce fourteen letters that do not quite match each other.
- task: Learn when to start from blank when to start from a template and how to stop re-solving a problem you already solved.
-
+ text: You need to send fourteen referral letters this week. The first time, you build one from a blank page: margins, letterhead, address block, closing. It takes twenty minutes. If you start the next thirteen from blank pages too, you will spend four hours and produce fourteen letters that do not quite match each other.
+ task: Learn when to start from blank, when to start from a template, and how to stop re-solving a problem you already solved.
 
 A blank document is the right choice when the format is genuinely new or so simple that setup costs nothing. A template is the right choice the second time you produce the same kind of document. Templates carry margins, fonts, styles, and boilerplate, which means every letter that leaves the practice looks like it came from the same organization — and consistency is most of what 'professional' means in document design.
 
 Compatibility Mode is the other thing to understand here. When you open a .doc file created in Word 2003 or earlier, Word disables features that old format cannot store, and the title bar says Compatibility Mode. Your document is not broken; Word is protecting the file so it still opens correctly for whoever sent it. Converting unlocks modern features but produces a file that older Word versions may render differently — so convert when the file is yours going forward, and leave it alone when you are editing something you must hand back.
 
-
  type: key-terms
- terms: 
+ terms:
    term: Template (.dotx)
-   definition: A reusable starting point. Opening one creates a new copy and leaves the original untouched so you cannot accidentally overwrite your master.
+   definition: A reusable starting point. Opening one creates a new copy and leaves the original untouched, so you cannot accidentally overwrite your master.
    term: Compatibility Mode
-   definition: A restricted mode Word enters for pre-2007 file formats disabling features the old format cannot represent.
+   definition: A restricted mode Word enters for pre-2007 file formats, disabling features the old format cannot represent.
    term: Pinning
    definition: Fixing a file to the top of the Recent list so it stays there permanently instead of scrolling off as you open other documents.
-
 
 
 ## Creating a New Document

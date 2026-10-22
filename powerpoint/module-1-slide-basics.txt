@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## Layouts are what keep a deck from drifting
-
  type: scenario
  role: You build a twenty-slide orientation deck at Lakeside Medical Associates.
- text: You add text boxes wherever you need them rather than using layouts. Your titles land at slightly different heights on almost every slide. Watching the deck the title jitters up and down from slide to slide and the whole thing feels amateurish for reasons nobody can name.
+ text: You add text boxes wherever you need them rather than using layouts. Your titles land at slightly different heights on almost every slide. Watching the deck, the title jitters up and down from slide to slide, and the whole thing feels amateurish for reasons nobody can name.
  task: Use layouts and placeholders so alignment is structural rather than something you re-achieve each time.
-
 
 A layout is a set of placeholders positioned by the Slide Master. Type into placeholders and every title lands in exactly the same place on every slide, with the same font and size. That invisible consistency is most of what separates a professional deck from a homemade one.
 
 Free text boxes place themselves wherever you drop them, which is why title jitter happens. They have a legitimate role — a caption over an image, an annotation on a diagram — but they should never be doing a placeholder's job.
 
-
  type: worked-example
  title: Building a slide that stays consistent with the rest of the deck
- task: Add a slide comparing two intake processes without breaking the deck's alignment.
- steps: 
-   move: Home > New Slide and pick the Two Content layout rather than accepting the default.
-   why: The layout is chosen for the content not the other way round. Two Content gives two side-by-side placeholders already aligned to the master so the comparison structure is built in before you type anything.
+ task: Add a slide comparing two intake processes, without breaking the deck's alignment.
+ steps:
+   move: Home > New Slide, and pick the Two Content layout rather than accepting the default.
+   why: The layout is chosen for the content, not the other way round. Two Content gives two side-by-side placeholders already aligned to the master, so the comparison structure is built in before you type anything.
    move: Click into each placeholder and type.
-   why: Placeholder text inherits the master's font size and position automatically and it appears in the outline. Text in a free box does neither which is also why it will not appear if anyone builds a summary from the outline.
-   move: If the text does not fit cut the text rather than shrinking the font.
-   why: PowerPoint offers to autofit by reducing the size which is how a deck ends up with eight different body sizes. Overflow is a signal that the slide is carrying too much — move the detail to the notes which is where it belonged.
+   why: Placeholder text inherits the master's font, size, and position automatically, and it appears in the outline. Text in a free box does neither, which is also why it will not appear if anyone builds a summary from the outline.
+   move: If the text does not fit, cut the text rather than shrinking the font.
+   why: PowerPoint offers to autofit by reducing the size, which is how a deck ends up with eight different body sizes. Overflow is a signal that the slide is carrying too much — move the detail to the notes, which is where it belonged.
    move: Use Outline View to check the slide's place in the argument.
-   why: The outline shows the deck as structure stripped of design. If a slide's title does not make sense in that list the problem is with the content rather than the layout.
+   why: The outline shows the deck as structure, stripped of design. If a slide's title does not make sense in that list, the problem is with the content rather than the layout.
  result: A comparison slide that matches every other slide's alignment and typography exactly.
- takeaway: Pick the layout that fits the content type into placeholders and treat overflow as a content problem rather than a font-size problem.
-
+ takeaway: Pick the layout that fits the content, type into placeholders, and treat overflow as a content problem rather than a font-size problem.
 
 
 ## Understanding Slides

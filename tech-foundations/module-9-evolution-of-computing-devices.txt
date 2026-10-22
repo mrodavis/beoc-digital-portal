@@ -12,65 +12,59 @@ By the end of this lesson you can:
 
 
 ## One trend, repeated
-
  type: scenario
  role: You are asked to advise on equipment at Lakeside Medical Associates.
- text: The practice manager asks whether to replace the aging desktop workstations with laptops tablets or thin clients running everything from the cloud. Each option reflects a different stage of the same fifty-year trend and knowing that trend is what makes the recommendation more than a guess.
- task: Understand the direction computing has moved so you can reason about what comes next rather than only what exists now.
-
+ text: The practice manager asks whether to replace the aging desktop workstations with laptops, tablets, or thin clients running everything from the cloud. Each option reflects a different stage of the same fifty-year trend, and knowing that trend is what makes the recommendation more than a guess.
+ task: Understand the direction computing has moved, so you can reason about what comes next rather than only what exists now.
 
 The history of computing devices is essentially one trend expressed repeatedly: computing gets smaller, cheaper, and more connected, and each time it does, it reaches people who could not use it before. Every generation below is that same movement at a different scale.
 
-
  type: table
  caption: Generations of computing
- columns: 
-  Era
-  Device
-  Who could use it
- rows: 
-   1940s-50s
-   Mainframes filling a room using vacuum tubes
-   Governments and large institutions; operated by specialists
-   1960s-70s
-   Minicomputers transistors then integrated circuits
-   Universities and larger businesses
-   1970s-80s
-   The microprocessor and the personal computer
-   Small businesses and for the first time individuals
-   1990s
-   Networked PCs laptops the consumer internet
-   Most offices and many households
-   2000s
-   Smartphones — a connected computer in a pocket
-   Effectively everyone
-   2010s
-   Tablets cloud services wearables
-   Computing without a computer in front of you
-   2020s
-   IoT devices edge computing AI assistants
-   Objects that compute without being thought of as computers
-
+ columns:
+   Era
+   Device
+   Who could use it
+ rows:
+    1940s-50s
+    Mainframes filling a room, using vacuum tubes
+    Governments and large institutions; operated by specialists
+    1960s-70s
+    Minicomputers, transistors, then integrated circuits
+    Universities and larger businesses
+    1970s-80s
+    The microprocessor and the personal computer
+    Small businesses and, for the first time, individuals
+    1990s
+    Networked PCs, laptops, the consumer internet
+    Most offices and many households
+    2000s
+    Smartphones — a connected computer in a pocket
+    Effectively everyone
+    2010s
+    Tablets, cloud services, wearables
+    Computing without a computer in front of you
+    2020s
+    IoT devices, edge computing, AI assistants
+    Objects that compute without being thought of as computers
 
 Practice: Drag these devices into the order in which they reached people, earliest first.
 
 The trend has a consequence worth naming: as devices became connected, the important resource stopped being the machine and became the data and the network. A modern workstation is largely a window onto services running elsewhere, which is why a practice can lose a computer without losing any work — and why losing network access stops everything.
 
-
  type: worked-example
  title: Evaluating a new technology
  task: The practice manager asks whether Lakeside should adopt smart-watch notifications so clinical staff see alerts without checking a workstation.
- steps: 
-   move: Ask what problem it solves specifically.
+ steps:
+   move: Ask what problem it solves, specifically.
    why: 'Staff miss alerts while away from a workstation' is a real problem worth solving. 'Everyone has smart watches now' is not a problem statement. A technology without a named problem is a purchase looking for a justification.
    move: Ask what it would replace or add to.
-   why: If it adds a fourth notification channel to three that already exist it likely increases noise rather than reducing missed alerts. Technology that adds rather than replaces usually adds work.
+   why: If it adds a fourth notification channel to three that already exist, it likely increases noise rather than reducing missed alerts. Technology that adds rather than replaces usually adds work.
    move: Ask what new risk it introduces.
-   why: A watch displaying patient information is a screen visible to anyone standing nearby and it leaves the building on someone's wrist. That is a genuine privacy exposure requiring its own controls and it is the question most likely to be skipped.
+   why: A watch displaying patient information is a screen visible to anyone standing nearby, and it leaves the building on someone's wrist. That is a genuine privacy exposure requiring its own controls, and it is the question most likely to be skipped.
    move: Ask who supports it when it fails.
-   why: Every device needs configuration updates and a person to call. A pilot with two users reveals the support burden cheaply; a practice-wide rollout discovers it expensively.
- result: A recommendation grounded in the problem the risk and the support cost rather than in novelty.
- takeaway: Name the problem name what it replaces name the new risk name who supports it. A technology that cannot answer all four is not ready to adopt.
-
+   why: Every device needs configuration, updates, and a person to call. A pilot with two users reveals the support burden cheaply; a practice-wide rollout discovers it expensively.
+ result: A recommendation grounded in the problem, the risk, and the support cost rather than in novelty.
+ takeaway: Name the problem, name what it replaces, name the new risk, name who supports it. A technology that cannot answer all four is not ready to adopt.
 
 Check yourself: What single trend best describes the evolution of computing devices from mainframes to smartphones? Answer: Devices became smaller, cheaper, and more connected, reaching progressively more people. The consistent movement is toward smaller, cheaper, more connected devices, each generation reaching people the previous one could not. Mainframes needed trained operators; smartphones are used by billions with no training at all.

@@ -12,36 +12,32 @@ By the end of this lesson you can:
 
 
 ## Share a calendar
-
  type: scenario
  role: You keep the Leasing Showings calendar for Parkview.
- text: Andre Wallace the leasing agent needs to see every showing. Kim Nguyen needs to add and change showings when maintenance work moves them. And Denise is tired of tenants emailing back and forth to set up quick calls with the office.
- task: Give each person exactly the access they need and let tenants book their own times.
-
+ text: Andre Wallace, the leasing agent, needs to see every showing. Kim Nguyen needs to add and change showings when maintenance work moves them. And Denise is tired of tenants emailing back and forth to set up quick calls with the office.
+ task: Give each person exactly the access they need, and let tenants book their own times.
 
 1. In the left panel under My calendars, point to the calendar and select Options (three dots), then Settings and sharing.
 2. On the left, select Shared with, then Add people and groups.
 3. Type the person's email address or name.
 4. Choose a permission level, then select Send.
 
-
  type: table
  caption: Permission levels
- columns: 
-  Permission
-  They can
- rows: 
-   See only free/busy (hide details)
-   See when you're busy but not what the events are
-   See event details
-   See every event's details but not change them
-   Make changes (see private events as free/busy)
-   Add and change events; private events show only as busy
-   Make changes and see event details
-   Add and change events and see all details
-   Make changes and manage sharing
-   Everything you can do including sharing the calendar with others
-
+ columns:
+   Permission
+   They can
+ rows:
+    See only free/busy (hide details)
+    See when you're busy, but not what the events are
+    See event details
+    See every event's details, but not change them
+    Make changes (see private events as free/busy)
+    Add and change events; private events show only as busy
+    Make changes and see event details
+    Add and change events and see all details
+    Make changes and manage sharing
+    Everything you can do, including sharing the calendar with others
 
 Practice: Drag the permission each person needs onto their situation.
 

@@ -12,42 +12,38 @@ By the end of this lesson you can:
 
 
 ## A concrete example of the SaaS model
-
  type: scenario
  role: You work across two locations for Lakeside Medical Associates.
- text: You start a document at the main office continue on a tablet between sites and finish at the second location. With files on a local drive that means emailing yourself three times and losing track of which copy is current. With a SaaS application there is only ever one document.
+ text: You start a document at the main office, continue on a tablet between sites, and finish at the second location. With files on a local drive that means emailing yourself three times and losing track of which copy is current. With a SaaS application there is only ever one document.
  task: Use Google Workspace as a working example of everything the SaaS model implies.
-
 
 Google Workspace is software as a service in its clearest form. Nothing is installed, the application updates itself, files live on the provider's servers, and any device with a browser and your credentials reaches the same document. Every characteristic from the SaaS lesson is directly observable here.
 
-
  type: table
  caption: What changes in a browser-based application
- columns: 
-  Behavior
-  Desktop application
-  SaaS application
- rows: 
-   Saving
-   You press Ctrl+S
-   Continuous and automatic
-   Version history
-   Only if you saved copies
-   Complete with named contributors
-   Collaboration
-   One editor at a time or awkward merging
-   Several people editing simultaneously
-   Updates
-   You install them
-   Already applied when you open it
-   Working offline
-   Normal
-   Requires setup and is limited
-   Where files live
-   Your drive
-   The provider's servers
-
+ columns:
+   Behavior
+   Desktop application
+   SaaS application
+ rows:
+    Saving
+    You press Ctrl+S
+    Continuous and automatic
+    Version history
+    Only if you saved copies
+    Complete, with named contributors
+    Collaboration
+    One editor at a time, or awkward merging
+    Several people editing simultaneously
+    Updates
+    You install them
+    Already applied when you open it
+    Working offline
+    Normal
+    Requires setup and is limited
+    Where files live
+    Your drive
+    The provider's servers
 
 Continuous saving is the habit change that catches people. There is no unsaved state to abandon, so 'close without saving' does not exist as an escape route. Before experimenting on a document that matters, make a copy — File > Make a copy — because undo is your only other option.
 

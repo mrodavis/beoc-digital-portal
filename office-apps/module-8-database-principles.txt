@@ -12,76 +12,68 @@ By the end of this lesson you can:
 
 
 ## When a spreadsheet stops being enough
-
  type: scenario
  role: You maintain the patient contact list at Lakeside Medical Associates.
- text: The list is a spreadsheet with one row per appointment. A patient who has visited eleven times appears in eleven rows with her address typed eleven times. She moves. Someone updates four of the rows. The practice now holds two addresses for one patient and no way to tell which is current.
+ text: The list is a spreadsheet with one row per appointment. A patient who has visited eleven times appears in eleven rows, with her address typed eleven times. She moves. Someone updates four of the rows. The practice now holds two addresses for one patient and no way to tell which is current.
  task: Understand why storing a fact once is the central idea of database design.
-
 
 A spreadsheet stores a grid of values. A database stores related tables, each describing one kind of thing, linked so that each fact is recorded once. That difference sounds academic until data changes — and data always changes.
 
 In the scenario above, a database would hold one Patients table with one row per patient, and one Appointments table with one row per appointment, linked by a patient ID. The address exists in exactly one place. Changing it changes it everywhere, because everywhere is one row.
 
-
  type: key-terms
- terms: 
+ terms:
    term: Table
-   definition: A collection of records about one kind of thing — patients appointments providers. One table per kind of thing.
+   definition: A collection of records about one kind of thing — patients, appointments, providers. One table per kind of thing.
    term: Record (row)
-   definition: One instance: one patient one appointment.
+   definition: One instance: one patient, one appointment.
    term: Field (column)
-   definition: One attribute of that thing: last name date of birth appointment date.
+   definition: One attribute of that thing: last name, date of birth, appointment date.
    term: Primary key
-   definition: A field whose value uniquely identifies each record. No duplicates never empty.
+   definition: A field whose value uniquely identifies each record. No duplicates, never empty.
    term: Foreign key
    definition: A field holding another table's primary key. This is what links tables together.
    term: Redundancy
    definition: The same fact stored in more than one place — the condition that allows a database to contradict itself.
 
-
-
  type: table
  caption: Spreadsheet or database?
- columns: 
-  Situation
-  Use
-  Why
- rows: 
-   A one-off calculation or budget
-   Spreadsheet
-   Fast to build; relationships do not matter
-   Data about several related things
-   Database
-   Each fact stored once linked by keys
-   Records many people update over years
-   Database
-   Validation and integrity rules prevent contradictions
-   Ad-hoc analysis of a data extract
-   Spreadsheet
-   Better analysis and charting tools
-   Anything where the same value is typed repeatedly
-   Database
-   Repeated typing is the signal that a second table is needed
-
-
+ columns:
+   Situation
+   Use
+   Why
+ rows:
+    A one-off calculation or budget
+    Spreadsheet
+    Fast to build; relationships do not matter
+    Data about several related things
+    Database
+    Each fact stored once, linked by keys
+    Records many people update over years
+    Database
+    Validation and integrity rules prevent contradictions
+    Ad-hoc analysis of a data extract
+    Spreadsheet
+    Better analysis and charting tools
+    Anything where the same value is typed repeatedly
+    Database
+    Repeated typing is the signal that a second table is needed
 
  type: worked-example
  title: Splitting one flat list into proper tables
- task: Turn the appointment spreadsheet — patient name address phone appointment date provider reason — into a sound table design.
- steps: 
+ task: Turn the appointment spreadsheet — patient name, address, phone, appointment date, provider, reason — into a sound table design.
+ steps:
    move: List the distinct kinds of thing the data describes.
-   why: There are three: patients providers and appointments. Each becomes a table. Identifying the nouns is the whole of basic database design and doing it before touching Access saves rebuilding later.
+   why: There are three: patients, providers, and appointments. Each becomes a table. Identifying the nouns is the whole of basic database design, and doing it before touching Access saves rebuilding later.
    move: Give each table a primary key that will never change.
-   why: PatientID ProviderID AppointmentID — usually auto-numbered. A name is a poor key because names repeat and people change them; a phone number is worse because it changes often. A key's only job is to identify so it should carry no other meaning.
+   why: PatientID, ProviderID, AppointmentID — usually auto-numbered. A name is a poor key because names repeat and people change them; a phone number is worse because it changes often. A key's only job is to identify, so it should carry no other meaning.
    move: Move each fact to the table it actually belongs to.
-   why: The address describes the patient not the appointment so it belongs in Patients. This is the step that eliminates the eleven copies. If a fact is about the patient it goes in the patient's row — once.
+   why: The address describes the patient, not the appointment, so it belongs in Patients. This is the step that eliminates the eleven copies. If a fact is about the patient, it goes in the patient's row — once.
    move: Link Appointments to the other tables with foreign keys.
-   why: Appointments holds PatientID and ProviderID rather than repeating names and addresses. One appointment row is then a small row of dates and references and the patient's details are reached through the link.
+   why: Appointments holds PatientID and ProviderID rather than repeating names and addresses. One appointment row is then a small row of dates and references, and the patient's details are reached through the link.
    move: Check that every field holds exactly one fact.
-   why: A field holding 'Jane Okafor' should be two fields and one holding '123 Main St Brooklyn NY 11201' should be several. Combined fields cannot be sorted or filtered reliably — you cannot sort by surname if the surname is buried in a full-name field.
- result: Three tables where each fact is stored once and a changed address updates everywhere automatically.
- takeaway: One table per kind of thing one fact per field a stable key on every table. Repeated typing is the symptom that tells you a table is missing.
-
+   why: A field holding 'Jane Okafor' should be two fields, and one holding '123 Main St, Brooklyn NY 11201' should be several. Combined fields cannot be sorted or filtered reliably — you cannot sort by surname if the surname is buried in a full-name field.
+ result: Three tables where each fact is stored once, and a changed address updates everywhere automatically.
+ takeaway: One table per kind of thing, one fact per field, a stable key on every table. Repeated typing is the symptom that tells you a table is missing.
 
 Check yourself: In a patient database, why is a patient's phone number a poor choice for a primary key? Answer: Phone numbers change, and may be shared or missing — a key must be unique, stable, and always present. A primary key must uniquely identify a record, never be empty, and ideally never change. Phone numbers fail all three: people change them, family members share them, and some patients have none on file. An auto-numbered ID has no meaning and therefore no reason to change.

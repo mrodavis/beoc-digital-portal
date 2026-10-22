@@ -13,12 +13,10 @@ By the end of this lesson you can:
 
 
 ## Writing a new message
-
  type: scenario
  role: You are the office assistant at Parkview Property Management.
- text: Andre's showing moved to Thursday and the whole team needs to know. A plumbing invoice has to get to Priya the bookkeeper. A tenant needs a repair notice three tenants need the same water shutoff notice and Denise wants a walkthrough video that is far too big to attach.
- task: Send each message to exactly the right people with the right files the first time.
-
+ text: Andre's showing moved to Thursday and the whole team needs to know. A plumbing invoice has to get to Priya, the bookkeeper. A tenant needs a repair notice, three tenants need the same water shutoff notice, and Denise wants a walkthrough video that is far too big to attach.
+ task: Send each message to exactly the right people, with the right files, the first time.
 
 1. At the top left, select Compose. A New Message window opens at the bottom right.
 2. In To, type a name or address. Pick the person from the suggestions. To add more than one, put a comma between addresses.
@@ -26,28 +24,26 @@ By the end of this lesson you can:
 4. Add a short, specific subject, such as “Plumbing repair scheduled for Unit 4B”.
 5. Write the message, then select Send at the bottom.
 
-
  type: table
- caption: To Cc or Bcc?
- columns: 
-  Field
-  Who goes here
-  Who can see it
-  Parkview example
- rows: 
-   To
-   People who need to read and act
-   Everyone on the message
-   Darnell the tenant whose sink will be repaired
-   Cc
-   People who should know but don't need to act
-   Everyone on the message
-   Kim the maintenance coordinator
-   Bcc
-   People whose addresses should stay private
-   Only you. Other recipients don't know they were added and Reply all doesn't reach them
-   Three tenants getting the same shutoff notice
-
+ caption: To, Cc, or Bcc?
+ columns:
+   Field
+   Who goes here
+   Who can see it
+   Parkview example
+ rows:
+    To
+    People who need to read and act
+    Everyone on the message
+    Darnell, the tenant whose sink will be repaired
+    Cc
+    People who should know but don't need to act
+    Everyone on the message
+    Kim, the maintenance coordinator
+    Bcc
+    People whose addresses should stay private
+    Only you. Other recipients don't know they were added, and Reply all doesn't reach them
+    Three tenants getting the same shutoff notice
 
 Note: Tenant, customer, and client email addresses are private information. When you send one message to many people who don't know each other, put them in Bcc and put your own address (or the office's) in To.
 
@@ -63,43 +59,39 @@ Before you select Reply all, look at who is on the message. A reply meant for on
 ## Attachments and Google Drive links
 To attach a file from your computer, select Attach files (the paper clip) at the bottom of the compose window, choose the file, and select Open. In a personal Gmail account, attachments can total up to 25 MB; in a work or school account, your Google Workspace administrator sets the limit. If a file is larger than the limit, Gmail doesn't attach it. It adds a Google Drive link instead.
 
-To share a file that's already in Google Drive, select Insert files using Drive (the Drive icon), pick the file, and select Insert. A Drive link works for any file in Drive, including Google Docs, Sheets, Slides, and Forms. Sending a Drive file as an attachment works only for files that weren't created in Docs, Sheets, Slides, or Forms. When you send, Gmail checks whether your recipients can open the file. If they can't, it prompts you to change the file's sharing settings first.
-
+To share a file that's already in Google Drive, select Insert files using Drive (the Drive icon), pick the file, and select Insert. A Drive link works for any file in Drive, including Google Docs, Sheets, Slides, and Forms. Sending a Drive file as an attachment works only for files that weren't created in Docs, Sheets, Slides, or Forms. When you send, Gmail checks whether your recipients can open the file. If they can't, it prompts you to change the file's sharing settings first. If you choose Anyone with the link, you pick whether people can view, comment in, or edit the file; to limit access to the people on the email, select More options.
 
  type: table
  caption: Attachment or Drive link?
- columns: 
-  Attachment
-  Google Drive link
- rows: 
-   What the recipient gets
-   Their own copy of the file
-   A link to the one file in your Drive
-   Edits after you send
-   Your later changes don't reach them
-   They always see the current version
-   Size
-   Up to 25 MB in personal Gmail
-   Works for large files
-   Access
-   Anyone who gets the email has the copy
-   Only people you give access to can open it
-
-
+ columns:
+   Attachment
+   Google Drive link
+ rows:
+    What the recipient gets
+    Their own copy of the file
+    A link to the one file in your Drive
+    Edits after you send
+    Your later changes don't reach them
+    They always see the current version
+    Size
+    Up to 25 MB in personal Gmail
+    Works for large files
+    Access
+    Anyone who gets the email has the copy
+    Only people you give access to can open it
 
  type: worked-example
  title: Sending the Tenant Handbook to a new applicant
- task: Rosa Delgado applied for an apartment and needs the Tenant Handbook a Google Doc in the office Drive.
- steps: 
+ task: Rosa Delgado applied for an apartment and needs the Tenant Handbook, a Google Doc in the office Drive.
+ steps:
    move: Compose a message to Rosa and select Insert files using Drive.
-   why: The handbook is a Google Doc so it can only be sent as a Drive link.
-   move: Pick Tenant Handbook and select Insert then Send.
+   why: The handbook is a Google Doc, so it can only be sent as a Drive link.
+   move: Pick Tenant Handbook and select Insert, then Send.
    why: Gmail checks access when you send.
-   move: When Gmail says Rosa can't open the file choose that recipients can view it.
-   why: Rosa needs to read the handbook not change it. View access keeps the office's copy safe.
- result: Rosa can open and read the current handbook and only the office can edit it.
- takeaway: Share Drive files with the least access the person needs: view to read comment to suggest edit only for coworkers who maintain the file.
-
+   move: Gmail prompts you to change the file's sharing settings. Select More options, limit access to the email's recipients, and give view access. Then send.
+   why: Rosa needs to read the handbook, not change it. View access for just the people on the email keeps the office's copy safe; Anyone with the link would let anyone who gets the link open it.
+ result: Rosa can open and read the current handbook, and only the office can edit it.
+ takeaway: Share Drive files with the least access the person needs: view to read, comment to suggest, edit only for coworkers who maintain the file.
 
 
 ## Undo Send

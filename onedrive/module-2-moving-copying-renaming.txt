@@ -12,34 +12,30 @@ By the end of this lesson you can:
 
 
 ## Clean up before it gets out of hand
-
  type: scenario
  role: You are tidying the front desk's OneDrive after a busy week.
- text: My files has a scanned invoice called scan0042.pdf three patient forms that should be in Patient Forms a Copy of Flu Clinic Flyer nobody needs and a supply log with no folder. Tasha needs the reminder template for her training packet but the original must stay with the front desk files.
- task: Rename move copy and delete so every file has a clear name and one home.
-
-
+ text: My files has a scanned invoice called scan0042.pdf, three patient forms that should be in Patient Forms, a Copy of Flu Clinic Flyer nobody needs, and a supply log with no folder. Tasha needs the reminder template for her training packet, but the original must stay with the front desk files.
+ task: Rename, move, copy, and delete so every file has a clear name and one home.
 
  type: table
- caption: Four commands and when to use each
- columns: 
-  Command
-  What happens
-  Use it when
- rows: 
-   Rename
-   The same file gets a new name
-   The name doesn't say what the file is
-   Move to
-   The same file goes to a new folder
-   A file is in the wrong place
-   Copy to
-   A second separate file is created in another folder
-   You need a starting point for something new (a template)
-   Delete
-   The file goes to the Recycle bin
-   A file is a duplicate or no longer needed
-
+ caption: Four commands, and when to use each
+ columns:
+   Command
+   What happens
+   Use it when
+ rows:
+    Rename
+    The same file gets a new name
+    The name doesn't say what the file is
+    Move to
+    The same file goes to a new folder
+    A file is in the wrong place
+    Copy to
+    A second, separate file is created in another folder
+    You need a starting point for something new (a template)
+    Delete
+    The file goes to the Recycle bin
+    A file is a duplicate or no longer needed
 
 Select a file and these commands appear in the command bar. You can also right-click the file or select More actions (…) next to its name. To work on several files at once, select their round check boxes (or hold Ctrl and click each row), then choose the command once.
 
@@ -49,22 +45,20 @@ Moving keeps one file; it just lives somewhere else. Its sharing, version histor
 
 Practice: Sort each situation.
 
-
  type: worked-example
  title: Moving three forms in one step
- task: Move Medical Records Release Form Financial Policy Form and Telehealth Consent Form from My files into Patient Forms.
- steps: 
+ task: Move Medical Records Release Form, Financial Policy Form, and Telehealth Consent Form from My files into Patient Forms.
+ steps:
    move: Select the round check box on each of the three rows.
    why: Selecting all three first means one Move instead of three.
    move: Select Move to in the command bar.
-   why: Move to opens a panel where you choose a destination folder which is more precise than dragging in a long list.
-   move: Select Patient Forms in the panel then Move here.
+   why: Move to opens a panel where you choose a destination folder, which is more precise than dragging in a long list.
+   move: Select Patient Forms in the panel, then Move here.
    why: Move here puts the files inside the folder you opened in the panel.
    move: Open Patient Forms to confirm.
    why: A quick look confirms all three arrived.
- result: All three forms are in Patient Forms and My files is shorter.
- takeaway: Select everything first then act once. You can also drag selected files onto a folder in the list.
-
+ result: All three forms are in Patient Forms, and My files is shorter.
+ takeaway: Select everything first, then act once. You can also drag selected files onto a folder in the list.
 
 
 ## Deleting safely

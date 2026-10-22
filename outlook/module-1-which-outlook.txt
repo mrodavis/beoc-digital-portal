@@ -12,36 +12,32 @@ By the end of this lesson you can:
 
 
 ## Same mailbox, different windows
-
  type: scenario
  role: You are the new front desk coordinator at Lakeside Medical Associates.
- text: On your first morning Denise Carter the office manager emails you the front desk training binder. Every screenshot in it shows a File tab. Your desk computer shows no File tab at all just Home View and Help and a switch at the top that says New Outlook. That evening you check the same mailbox in a web browser at home and it looks almost like your desk computer. Same messages three different windows.
- task: Figure out which Outlook you are looking at so you know which set of instructions to follow.
-
+ text: On your first morning, Denise Carter, the office manager, emails you the front desk training binder. Every screenshot in it shows a File tab. Your desk computer shows no File tab at all, just Home, View and Help, and a switch at the top that says New Outlook. That evening you check the same mailbox in a web browser at home, and it looks almost like your desk computer. Same messages, three different windows.
+ task: Figure out which Outlook you are looking at, so you know which set of instructions to follow.
 
 Outlook is not one program. When your employer or school uses Microsoft 365, your mail, calendar and contacts live in your organization's mailbox on Microsoft's servers. Each version of Outlook is a different window onto that same mailbox. A message you file in a folder on your desk computer is already in that folder when you open Outlook on your phone, because you moved it on the server, not on the computer.
 
-
  type: table
  caption: The versions of Outlook you are most likely to meet
- columns: 
-  Version
-  Where it runs
-  How to recognize it
- rows: 
-   New Outlook for Windows
-   An app on Windows 11 and Windows 10 computers
-   A Settings button (gear) at the top right. Ribbon tabs Home View and Help. No File tab.
-   Classic Outlook
-   The desktop app that comes with Microsoft 365 Apps or Office
-   A File tab at the left end of the Ribbon. May show a Try the new Outlook switch.
-   Outlook on the web
-   Any web browser after you sign in with a work or school account
-   Looks almost the same as new Outlook inside a browser tab.
-   Outlook mobile
-   The Outlook app for iPhone and Android phones
-   Built for a small screen. Covered in the last module.
-
+ columns:
+   Version
+   Where it runs
+   How to recognize it
+ rows:
+    New Outlook for Windows
+    An app on Windows 11 and Windows 10 computers
+    A Settings button (gear) at the top right. Ribbon tabs Home, View and Help. No File tab.
+    Classic Outlook
+    The desktop app that comes with Microsoft 365 Apps or Office
+    A File tab at the left end of the Ribbon. May show a Try the new Outlook switch.
+    Outlook on the web
+    Any web browser, after you sign in with a work or school account
+    Looks almost the same as new Outlook, inside a browser tab.
+    Outlook mobile
+    The Outlook app for iPhone and Android phones
+    Built for a small screen. Covered in the last module.
 
 Note: Microsoft built new Outlook for Windows from Outlook on the web. The two share the same layout, the same Settings pages and most of the same features. If you learn one, you can use the other.
 
@@ -49,33 +45,29 @@ Note: Microsoft built new Outlook for Windows from Outlook on the web. The two s
 ## How to tell which one you have
 Microsoft's own test is simple. Look at the top right corner of the window. If you see a Settings button, the gear icon, you have the new Outlook. If the Settings button is missing, you are in classic Outlook. The Ribbon gives you a second clue: new Outlook shows the tabs Home, View and Help, and classic Outlook has a File tab at the left end of the Ribbon.
 
-
  type: table
  caption: Where to find version details
- columns: 
-  In this version
-  Go to
- rows: 
-   New Outlook for Windows
-   Settings › General › About Outlook
-   Classic Outlook
-   File › Office Account (or File › Help on some installations)
-
-
+ columns:
+   In this version
+   Go to
+ rows:
+    New Outlook for Windows
+    Settings › General › About Outlook
+    Classic Outlook
+    File › Office Account (or File › Help on some installations)
 
  type: worked-example
  title: Helping a coworker over the phone
- task: Omar calls from the back office: \Denise told me to change my signature but I can't find File › Options.\ Work out which Outlook he has before giving directions.
- steps: 
+ task: Omar calls from the back office: "Denise told me to change my signature, but I can't find File › Options." Work out which Outlook he has before giving directions.
+ steps:
    move: Ask him to look at the top right corner of the Outlook window and tell you whether there is a gear icon.
    why: The gear is the quickest test Microsoft gives. It does not depend on window size or on which tab is open.
-   move: He says yes there is a gear and the tabs say Home View and Help.
-   why: Two clues agree: that is new Outlook. File › Options is a classic Outlook path which is why he can't find it.
+   move: He says yes, there is a gear, and the tabs say Home, View and Help.
+   why: Two clues agree: that is new Outlook. File › Options is a classic Outlook path, which is why he can't find it.
    move: Give him the new Outlook path: Settings › Accounts › Signatures.
-   why: Directions only help if they match the version on the screen. Most confusion with Outlook help articles comes from following classic steps in new Outlook or the other way around.
+   why: Directions only help if they match the version on the screen. Most confusion with Outlook help articles comes from following classic steps in new Outlook, or the other way around.
  result: Omar finds the Signatures page in under a minute.
- takeaway: Before you give or follow Outlook directions check for the Settings gear. It tells you which set of steps applies.
-
+ takeaway: Before you give or follow Outlook directions, check for the Settings gear. It tells you which set of steps applies.
 
 Practice: Sort each clue into the version of Outlook it points to.
 
@@ -89,20 +81,18 @@ Microsoft is moving organizations from classic Outlook to new Outlook in stages.
 
 Note: Classic Outlook: if your computer shows a File tab, you are using classic Outlook. The ideas in this course are the same. Look for the Classic Outlook notes for the click paths that differ, such as File › Options, File › Automatic Replies and Home › Rules.
 
-
  type: key-terms
- terms: 
+ terms:
    term: Mailbox
-   definition: Your organization's copy of your mail calendar contacts and tasks stored on the mail server. Every Outlook app shows the same mailbox.
+   definition: Your organization's copy of your mail, calendar, contacts and tasks, stored on the mail server. Every Outlook app shows the same mailbox.
    term: Work or school account
-   definition: The Microsoft 365 account your employer or school gives you. Shared mailboxes Teams meetings and encryption need one.
+   definition: The Microsoft 365 account your employer or school gives you. Shared mailboxes, Teams meetings and encryption need one.
    term: New Outlook for Windows
-   definition: The current Outlook app for Windows built from Outlook on the web. It has a Settings button and no File tab.
+   definition: The current Outlook app for Windows, built from Outlook on the web. It has a Settings button and no File tab.
    term: Classic Outlook
    definition: The long-standing desktop Outlook with a File tab. Still supported and still common in offices.
    term: Outlook on the web
    definition: Outlook in a web browser. Nearly identical to new Outlook for Windows.
-
 
 
 ## Certification: the MOS Outlook exam

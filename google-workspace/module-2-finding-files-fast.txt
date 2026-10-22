@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Search first
-
  type: scenario
  role: You answer Denise's file requests all day.
- text: Denise calls from Riverside Commons: she needs the lease for apartment 210 the October rent tracker Priya keeps and the water shutoff notice she remembers editing last week. Clicking through folders would take minutes. Search takes seconds.
+ text: Denise calls from Riverside Commons: she needs the lease for apartment 210, the October rent tracker Priya keeps, and the water shutoff notice she remembers editing last week. Clicking through folders would take minutes. Search takes seconds.
  task: Find each file with search and filters.
-
 
 1. Click Search in Drive at the top of the screen.
 2. Type a word from the file's name or from inside it, such as lease or shutoff, and press Enter.
@@ -30,52 +28,48 @@ Drive searches inside Google Docs, Sheets, and Slides and many other files, not 
 ## Filter chips
 The filter chips under the search box narrow what you see. Use them with or without words in the search box. A chip turns blue when it is on. To remove one, open it and choose Clear; to remove them all, click Clear filters.
 
-
  type: table
  caption: Drive's filter chips
- columns: 
-  Chip
-  Narrows to
-  Example
- rows: 
-   Type
-   Documents Spreadsheets Presentations PDFs Photos and images Folders and more
-   Only PDFs for scanned forms
-   People
-   Files owned by or shared with a person
-   Files Priya owns
-   Modified
-   When the file last changed: Today Last 7 days Last 30 days this year last year
-   What changed last week
-   Location
-   Where the file is: anywhere in Drive My Drive Shared with me Starred Trash
-   Only files shared with you
-
+ columns:
+   Chip
+   Narrows to
+   Example
+ rows:
+    Type
+    Documents, Spreadsheets, Presentations, PDFs, Photos and images, Folders, and more
+    Only PDFs, for scanned forms
+    People
+    Files owned by or shared with a person
+    Files Priya owns
+    Modified
+    When the file last changed: Today, Last 7 days, Last 30 days, this year, last year
+    What changed last week
+    Location
+    Where the file is: anywhere in Drive, My Drive, Shared with me, Starred, Trash
+    Only files shared with you
 
 Practice: Match each request to the chip that narrows it.
 
 
 ## Search words for exact searches
-
  type: table
  caption: Search words you can type in Search in Drive
- columns: 
-  Type this
-  To find
- rows: 
-   \water shutoff\
-   Files with that exact phrase (use quotes)
-   notice -draft
-   Files with notice but not draft
-   owner:pshah@parkviewpm.example
-   Files Priya owns
-   type:spreadsheet
-   Spreadsheets only
-   after:2026-10-01
-   Files changed after a date (YYYY-MM-DD)
-   is:starred
-   Your starred files
-
+ columns:
+   Type this
+   To find
+ rows:
+    "water shutoff"
+    Files with that exact phrase (use quotes)
+    notice -draft
+    Files with notice but not draft
+    owner:pshah@parkviewpm.example
+    Files Priya owns
+    type:spreadsheet
+    Spreadsheets only
+    after:2026-10-01
+    Files changed after a date (YYYY-MM-DD)
+    is:starred
+    Your starred files
 
 When you know where to look, the left side is faster than search: Recent for what you opened lately, Starred for what you marked, and Shared with me for what others sent you. To find what is using your storage, open Storage and sort by Storage used.
 

@@ -13,12 +13,10 @@ By the end of this lesson you can:
 
 
 ## Invite guests
-
  type: scenario
  role: You schedule meetings for Parkview's office.
- text: Denise wants a lease renewal review with Priya on Thursday at the first hour all three of you are free. Grace Holloway the owner of Riverside Commons lives in Los Angeles and needs a call at a time that makes sense for her. And two invitations are waiting for your answer.
- task: Schedule meetings people can actually attend and answer invitations so organizers know who's coming.
-
+ text: Denise wants a lease renewal review with Priya on Thursday, at the first hour all three of you are free. Grace Holloway, the owner of Riverside Commons, lives in Los Angeles and needs a call at a time that makes sense for her. And two invitations are waiting for your answer.
+ task: Schedule meetings people can actually attend, and answer invitations so organizers know who's coming.
 
 1. Open the event's full page (create the event and select More options, or open an event and select Edit event).
 2. On the right, under Guests, start typing a name or email and choose the person.
@@ -32,22 +30,20 @@ Note: Guests answer Yes, No, or Maybe from the invitation email or from their ow
 ## Find a time
 After you add guests on the event page, open the Find a time tab. It shows your calendar and your guests' calendars side by side for that day, with busy times blocked out. Click a time when everyone is free and the event moves there. You can only see someone's busy times if they share their calendar with you or their calendar is shared within your organization; if not, you can ask them to share it.
 
-
  type: worked-example
  title: Scheduling the lease renewal review
- task: Find the first free hour after 1:00 PM on Thursday for you Denise and Priya.
- steps: 
-   move: Create the event name it set Thursday and select More options.
+ task: Find the first free hour after 1:00 PM on Thursday for you, Denise, and Priya.
+ steps:
+   move: Create the event, name it, set Thursday, and select More options.
    why: Find a time is on the full event page.
    move: Add Denise and Priya under Guests.
    why: Find a time can only show people who are on the guest list.
    move: Open Find a time and look at the three columns after 1:00 PM.
-   why: Denise is busy 1:00 to 2:00 and Priya is busy 3:00 to 4:00 so 2:00 to 3:00 is the first hour everyone is free.
-   move: Click 2:00 PM add Google Meet video conferencing and select Save then Send.
-   why: The Meet link lets anyone join from wherever they are and the invitation puts it on their calendars.
- result: A one-hour review on Thursday at 2:00 PM that everyone can attend with a Meet link.
- takeaway: Add guests first then use Find a time instead of trading emails about availability.
-
+   why: Denise is busy 1:00 to 2:00 and Priya is busy 3:00 to 4:00, so 2:00 to 3:00 is the first hour everyone is free.
+   move: Click 2:00 PM, add Google Meet video conferencing, and select Save, then Send.
+   why: The Meet link lets anyone join from wherever they are, and the invitation puts it on their calendars.
+ result: A one-hour review on Thursday at 2:00 PM that everyone can attend, with a Meet link.
+ takeaway: Add guests first, then use Find a time instead of trading emails about availability.
 
 To add a video call to any event, select Add Google Meet video conferencing on the event. Calendar creates a meeting link that every guest can use; it appears on the event and in the invitation.
 
@@ -61,16 +57,14 @@ Practice: Drag the best response onto each invitation.
 ## Time zones
 Calendar shows events in your time zone, and each guest sees the event in their own time zone. When you schedule with someone in another zone, you can set the event in their zone: on the event page, select Time zone next to the time and choose theirs. To keep another zone in view, open Settings › General › Time zone, check Show additional time zones, and choose a Secondary time zone. It appears as a second column of times next to yours.
 
-
  type: table
- caption: One call two clocks
- columns: 
-  Grace Holloway in Los Angeles sees
-  You in New York see
- rows: 
-   1:00 PM to 1:30 PM Pacific Time
-   4:00 PM to 4:30 PM Eastern Time
-
+ caption: One call, two clocks
+ columns:
+   Grace Holloway in Los Angeles sees
+   You in New York see
+ rows:
+    1:00 PM to 1:30 PM Pacific Time
+    4:00 PM to 4:30 PM Eastern Time
 
 Note: Before you send an invitation across time zones, check the time on your own calendar. A call set for 1:00 PM in Los Angeles is 4:00 PM in New York.
 

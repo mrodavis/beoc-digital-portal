@@ -12,39 +12,35 @@ By the end of this lesson you can:
 
 
 ## Why keep contacts?
-
  type: scenario
  role: You keep the Lakeside front desk's outside contacts.
- text: Every day the front desk calls the imaging center the lab the supply company and three insurance plans. Phone numbers are on sticky notes and when a scheduler changes nobody updates them. A wrong number costs a patient a missed referral.
- task: Move those numbers into Outlook contacts that anyone at the desk can use and keep them current.
-
+ text: Every day the front desk calls the imaging center, the lab, the supply company and three insurance plans. Phone numbers are on sticky notes, and when a scheduler changes, nobody updates them. A wrong number costs a patient a missed referral.
+ task: Move those numbers into Outlook contacts that anyone at the desk can use, and keep them current.
 
 Select People in the navigation bar on the left. All contacts lists your contacts; select one to see its details. Coworkers in your organization appear in Outlook's directory automatically, so contacts are most useful for outside offices, vendors and services.
 
-
  type: table
  caption: What to record for an outside office
- columns: 
-  Field
-  Example
-  Why
- rows: 
-   Name
-   Dana Whitaker
-   Who you ask for
-   Email
-   dana.whitaker@riversideimaging.example.com
-   Outlook suggests it as you type
-   Phone
-   (555) 014-2215
-   The direct line not the main switchboard
-   Company and job title
-   Riverside Imaging Scheduling Coordinator
-   Find the contact by company later
-   Notes
-   Fax referrals before 3:00 PM
-   Office habits that save time
-
+ columns:
+   Field
+   Example
+   Why
+ rows:
+    Name
+    Dana Whitaker
+    Who you ask for
+    Email
+    dana.whitaker@riversideimaging.example.com
+    Outlook suggests it as you type
+    Phone
+    (555) 014-2215
+    The direct line, not the main switchboard
+    Company and job title
+    Riverside Imaging, Scheduling Coordinator
+    Find the contact by company later
+    Notes
+    Fax referrals before 3:00 PM
+    Office habits that save time
 
 Note: Contacts are for business contacts. Don't store patient information in Outlook contacts; patient demographics belong in the practice's EHR or practice management system.
 

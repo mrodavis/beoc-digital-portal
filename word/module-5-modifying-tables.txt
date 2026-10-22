@@ -12,38 +12,34 @@ By the end of this lesson you can:
 
 
 ## Table formatting should make data easier to read
-
  type: scenario
  role: You are formatting the quarterly supply report at Lakeside Medical Associates.
- text: The table is accurate and nobody can read it. Every cell has a heavy border the header row looks identical to the data and the columns are all the same width whether they hold a date or a paragraph. The reader has to work to find anything.
- task: Format the table so its structure does the reading work — headers that announce themselves columns sized to their content.
-
+ text: The table is accurate and nobody can read it. Every cell has a heavy border, the header row looks identical to the data, and the columns are all the same width whether they hold a date or a paragraph. The reader has to work to find anything.
+ task: Format the table so its structure does the reading work — headers that announce themselves, columns sized to their content.
 
 Merging cells combines adjacent cells into one, which is how you build a header spanning several columns — a single 'Q3 Expenses' cell above three month columns. Splitting does the reverse. Both are on the Table Layout tab, and both operate on whatever you have selected.
 
 For column widths, AutoFit to Contents (Table Layout > AutoFit) sizes each column to what it actually holds, so the date column stops being as wide as the description column. It is one click and it fixes most of what makes a table look amateurish.
 
-
  type: table
- caption: Table formatting that helps and formatting that hurts
- columns: 
-  Do
-  Instead of
-  Because
- rows: 
-   Bold header row with a fill
-   Headers styled like data
-   The reader needs to see where the labels are
-   Light horizontal rules or banded rows
-   A full grid of heavy borders
-   Borders on every cell compete with the data for attention
-   Right-align numbers
-   Left-align everything
-   Aligned decimal points make columns of figures comparable at a glance
-   AutoFit to Contents
-   Equal-width columns
-   Column width should reflect what the column holds
-
+ caption: Table formatting that helps, and formatting that hurts
+ columns:
+   Do
+   Instead of
+   Because
+ rows:
+    Bold header row with a fill
+    Headers styled like data
+    The reader needs to see where the labels are
+    Light horizontal rules or banded rows
+    A full grid of heavy borders
+    Borders on every cell compete with the data for attention
+    Right-align numbers
+    Left-align everything
+    Aligned decimal points make columns of figures comparable at a glance
+    AutoFit to Contents
+    Equal-width columns
+    Column width should reflect what the column holds
 
 Note: Merged cells complicate screen reader navigation and can break sorting. Use them for genuine spanning headers, and avoid them inside the data area of a table someone may need to sort or read with assistive technology.
 

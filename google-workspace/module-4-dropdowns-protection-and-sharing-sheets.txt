@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Dropdowns and checkboxes
-
  type: scenario
  role: You manage the shared supply order sheet.
- text: Four people add items to the monthly supply order. Categories are typed five different ways (cleaning Cleaning cleaning supplies) someone typed over the Total formulas last month and Priya needs a copy in Excel for the accounting system.
- task: Make the sheet hard to break then share and download it.
-
+ text: Four people add items to the monthly supply order. Categories are typed five different ways (cleaning, Cleaning, cleaning supplies), someone typed over the Total formulas last month, and Priya needs a copy in Excel for the accounting system.
+ task: Make the sheet hard to break, then share and download it.
 
 - Select the cells, then Insert › Dropdown (or Data › Data validation › Add rule, or right-click › Dropdown). The Data validation rules panel opens.
 - Under Criteria, keep Dropdown and type each option, clicking Add another item for more. Choose Dropdown from a range to use a list already in the sheet.
@@ -34,23 +32,21 @@ By the end of this lesson you can:
 
 Note: Protection prevents accidents; it is not a security measure. People who can view the sheet can still print, copy, paste, and export protected content. Share sheets only with people who should see what is in them.
 
-
  type: table
  caption: Notes or comments?
- columns: 
-  Note
-  Comment
- rows: 
-   Add it
-   Right-click › Insert note or Shift+F2
-   Right-click › Comment or Ctrl+Alt+M
-   Looks like
-   A small black triangle in the cell's corner
-   A yellow triangle with the discussion in a card
-   Use it for
-   A quiet explanation like Price went up in October
-   A question or task for someone with replies and @mentions
-
+ columns:
+   Note
+   Comment
+ rows:
+    Add it
+    Right-click › Insert note, or Shift+F2
+    Right-click › Comment, or Ctrl+Alt+M
+    Looks like
+    A small black triangle in the cell's corner
+    A yellow triangle, with the discussion in a card
+    Use it for
+    A quiet explanation, like Price went up in October
+    A question or task for someone, with replies and @mentions
 
 Practice: Sort each request.
 

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## One file, many editors
-
  type: scenario
  role: You are the front office assistant at Lakeside Medical Associates.
- text: Maria shared the team copy of the front desk procedures in the General channel and asked everyone to review step 3. Last year the same review happened by email: five people sent back five edited copies and it took Maria an afternoon to combine them.
- task: Review the document in the one shared copy with your coworkers and leave clear comments instead of a sixth copy.
-
+ text: Maria shared the team copy of the front desk procedures in the General channel and asked everyone to review step 3. Last year the same review happened by email: five people sent back five edited copies, and it took Maria an afternoon to combine them.
+ task: Review the document in the one shared copy, with your coworkers, and leave clear comments instead of a sixth copy.
 
 Co-authoring means several people work in the same Word, Excel, or PowerPoint file at the same time. When a file is stored in OneDrive or a team's SharePoint site and shared with you, you can open it and edit it while others do. You see their pictures or initials at the top of the file and their changes as they make them. There is only one file, so there is nothing to combine afterward.
 
@@ -29,43 +27,39 @@ Co-authoring means several people work in the same Word, Excel, or PowerPoint fi
 ## Review with comments
 A comment is a note attached to the document, not a change to its text. Use comments to ask a question or suggest something the owner should decide. Type @ and a name in a comment to notify that person. The comment stays with the document, so everyone reviewing sees it in one place.
 
-
  type: worked-example
  title: Reviewing step 3
  task: Check step 3 of the team procedures against the new copay rule.
- steps: 
+ steps:
    move: Open Front Desk Procedures - Team.docx from the General channel's Shared tab.
-   why: Opening the shared file not a downloaded copy means everyone sees the same document.
+   why: Opening the shared file, not a downloaded copy, means everyone sees the same document.
    move: Notice Maria's and Omar's initials at the top of the file.
    why: They are editing too. Avoid rewriting the paragraph someone else is working on right now.
    move: Open Comments and add: “@Maria Santos Step 3 now matches the new copay rule.”
-   why: Maria owns the document. The @mention notifies her and the comment stays with step 3.
+   why: Maria owns the document. The @mention notifies her, and the comment stays with step 3.
    move: Reply to Maria's post: “Reviewed. I left a comment on step 3.”
    why: The rest of the team can see the review is done without opening the file.
- result: One document with everyone's input and no copies to combine.
- takeaway: Edit the shared file use comments for questions and @mention the person who decides.
-
+ result: One document with everyone's input, and no copies to combine.
+ takeaway: Edit the shared file, use comments for questions, and @mention the person who decides.
 
 Practice: Drag these steps into the order you would do them.
 
 
 ## Co-authoring etiquette
-
  type: table
  caption: Working in a shared file
- columns: 
-  Do
-  Don't
- rows: 
-   Edit the shared copy
-   Download it edit and upload a second copy
-   Use comments for questions and suggestions
-   Rewrite someone else's section without asking
-   @mention the person who must decide
-   Leave a comment nobody is notified about
-   Close the file when you are done
-   Leave it open for days on a shared computer
-
+ columns:
+   Do
+   Don't
+ rows:
+    Edit the shared copy
+    Download it, edit, and upload a second copy
+    Use comments for questions and suggestions
+    Rewrite someone else's section without asking
+    @mention the person who must decide
+    Leave a comment nobody is notified about
+    Close the file when you are done
+    Leave it open for days on a shared computer
 
 
 ## Knowledge check

@@ -12,39 +12,35 @@ By the end of this lesson you can:
 
 
 ## Excel follows precedence, not reading order
-
  type: scenario
  role: You calculate supply costs with tax at Lakeside Medical Associates.
- text: You write =C2+D2*0.08 intending to add the item cost to the tax. Excel multiplies first so it adds 8% of the shipping to the item price instead. Every line is wrong by a small amount which is exactly the kind of error nobody notices for months.
- task: Know the order Excel evaluates in and use parentheses so intent is never ambiguous.
-
+ text: You write =C2+D2*0.08 intending to add the item cost to the tax. Excel multiplies first, so it adds 8% of the shipping to the item price instead. Every line is wrong by a small amount, which is exactly the kind of error nobody notices for months.
+ task: Know the order Excel evaluates in, and use parentheses so intent is never ambiguous.
 
 Excel evaluates in a fixed order regardless of how the formula reads left to right: parentheses first, then exponents, then multiplication and division, then addition and subtraction. Operators at the same level evaluate left to right. So =2+3*4 is 14, not 20 — the multiplication happens first.
 
-
  type: table
  caption: Order of operations
- columns: 
-  Order
-  Operators
-  Example
- rows: 
-   1
-   Parentheses ( )
-   =(2+3)*4 gives 20
-   2
-   Exponents ^
-   =2^3*4 gives 32
-   3
-   Multiplication and division * /
-   =2+3*4 gives 14
-   4
-   Addition and subtraction + -
-   =2+3-1 gives 4
-   5
-   Comparison = < > <= >= <>
-   =A1>B1 gives TRUE or FALSE
-
+ columns:
+   Order
+   Operators
+   Example
+ rows:
+    1
+    Parentheses ( )
+    =(2+3)*4 gives 20
+    2
+    Exponents ^
+    =2^3*4 gives 32
+    3
+    Multiplication and division * /
+    =2+3*4 gives 14
+    4
+    Addition and subtraction + -
+    =2+3-1 gives 4
+    5
+    Comparison = < > <= >= <>
+    =A1>B1 gives TRUE or FALSE
 
 Add parentheses even where precedence already gives the right answer. =(C2*D2)+(E2*F2) and =C2*D2+E2*F2 produce the same number, but the first states its intent, and the next person to edit it — quite possibly you — will not have to work out whether the omission was deliberate.
 

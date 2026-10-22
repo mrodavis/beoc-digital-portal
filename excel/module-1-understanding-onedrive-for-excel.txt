@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Version history is the feature worth the move
-
  type: scenario
  role: You maintain the supply budget at Lakeside Medical Associates.
- text: You sort a 900-row sheet but you select only one column instead of the whole range. Every name is now attached to the wrong number and you cannot tell which row was which. You saved ten minutes ago. Ctrl+Z has already been exhausted.
- task: Understand what cloud storage gives you beyond access from anywhere — specifically the ability to go back.
-
+ text: You sort a 900-row sheet, but you select only one column instead of the whole range. Every name is now attached to the wrong number and you cannot tell which row was which. You saved ten minutes ago. Ctrl+Z has already been exhausted.
+ task: Understand what cloud storage gives you beyond access from anywhere — specifically, the ability to go back.
 
 Saving to OneDrive puts the workbook on Microsoft's servers so it follows you between devices. That much matches Word. What matters more in Excel is version history: OneDrive keeps previous versions, and File > Info > Version History lets you open or restore any of them.
 

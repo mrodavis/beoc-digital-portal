@@ -12,31 +12,27 @@ By the end of this lesson you can:
 
 
 ## A place for everything
-
  type: scenario
  role: You track patient referrals at Lakeside Medical Associates.
- text: Referral paperwork lives in three places right now: an email folder a USB drive and a printout on Maria's desk. Maria asks you to set up a Referrals folder in OneDrive put the tracking log and fax cover sheet in it start a phone log and upload the Health Fair materials a volunteer gave you on a flash drive.
- task: Create the folder upload files and a folder and start a new document with names the whole team will understand.
-
+ text: Referral paperwork lives in three places right now: an email folder, a USB drive, and a printout on Maria's desk. Maria asks you to set up a Referrals folder in OneDrive, put the tracking log and fax cover sheet in it, start a phone log, and upload the Health Fair materials a volunteer gave you on a flash drive.
+ task: Create the folder, upload files and a folder, and start a new document, with names the whole team will understand.
 
 In OneDrive on the web, everything new starts from one button. In a work or school OneDrive it is Create or upload; in a personal OneDrive it is Add new. It creates a folder, a new Word document, Excel workbook, or PowerPoint presentation, or uploads files or a whole folder from your computer. Whatever you create goes into the folder you have open, so open the right folder first.
 
-
  type: table
  caption: The Create or upload menu
- columns: 
-  Choice
-  What it does
- rows: 
-   Folder
-   Asks for a folder name then creates the folder where you are
-   Word document Excel workbook PowerPoint presentation
-   Creates a blank file and opens it in the web app. It starts with a name like Document or Book so rename it
-   Files upload
-   Opens your computer's file picker. Hold Ctrl to pick several files
-   Folder upload
-   Uploads a whole folder with everything inside it in one step
-
+ columns:
+   Choice
+   What it does
+ rows:
+    Folder
+    Asks for a folder name, then creates the folder where you are
+    Word document, Excel workbook, PowerPoint presentation
+    Creates a blank file and opens it in the web app. It starts with a name like Document or Book, so rename it
+    Files upload
+    Opens your computer's file picker. Hold Ctrl to pick several files
+    Folder upload
+    Uploads a whole folder, with everything inside it, in one step
 
 Note: Microsoft is moving Create or upload from the top of the left pane to the right side of the page, near the command bar. Same button, same choices, new spot.
 
@@ -50,22 +46,20 @@ Note: Characters OneDrive doesn't allow in file or folder names: " * : < > ? / \
 
 
 ## Uploading
-
  type: worked-example
  title: Uploading two referral files into the new folder
  task: Put Referral Tracking Log.xlsx and Referral Fax Cover Sheet.docx from your computer into the Referrals folder.
- steps: 
+ steps:
    move: Open the Referrals folder first.
    why: Uploads land in the folder you have open. Uploading from My files and moving later is extra work.
-   move: Select Create or upload then Files upload.
-   why: Files upload opens your computer's file picker the same Open window you use everywhere in Windows.
-   move: Click the first file hold Ctrl click the second then select Open.
-   why: Ctrl+click picks several files at once so both upload in one step.
-   move: Watch for the upload message then check that both files are in the list.
+   move: Select Create or upload, then Files upload.
+   why: Files upload opens your computer's file picker, the same Open window you use everywhere in Windows.
+   move: Click the first file, hold Ctrl, click the second, then select Open.
+   why: Ctrl+click picks several files at once, so both upload in one step.
+   move: Watch for the upload message, then check that both files are in the list.
    why: Confirming takes a second and catches a file that was skipped or picked by mistake.
- result: Both files are in OneDrive in the folder where the team will look for them.
- takeaway: Open the destination first then upload. Use Folder upload when you have a whole folder to bring in.
-
+ result: Both files are in OneDrive, in the folder where the team will look for them.
+ takeaway: Open the destination first, then upload. Use Folder upload when you have a whole folder to bring in.
 
 Practice: Drag the steps into the right order for uploading a file into a folder.
 

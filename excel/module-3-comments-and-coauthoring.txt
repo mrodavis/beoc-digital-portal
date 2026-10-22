@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Comments explain the reasoning behind a number
-
  type: scenario
  role: You forecast supply needs at Lakeside Medical Associates.
- text: One line in the budget is 40% above last year. You know why — a vendor contract ended and the replacement costs more. Six months later nobody remembers and the figure looks like an error to everyone reviewing it.
- task: Record the reasoning where the number lives so the workbook explains itself.
-
+ text: One line in the budget is 40% above last year. You know why — a vendor contract ended and the replacement costs more. Six months later, nobody remembers, and the figure looks like an error to everyone reviewing it.
+ task: Record the reasoning where the number lives, so the workbook explains itself.
 
 A spreadsheet shows what, rarely why. Comments attach the reasoning to the exact cell, so the explanation is found by whoever questions the number — including you, later. This is one of the highest-value habits in spreadsheet work and one of the least practiced.
 

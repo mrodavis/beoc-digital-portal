@@ -12,58 +12,52 @@ By the end of this lesson you can:
 
 
 ## Your files, wherever you sign in
-
  type: scenario
  role: You are a front office assistant at Lakeside Medical Associates.
- text: Last month the computer at the second check-in window stopped starting. Everything saved on its desktop including the only copy of the new-patient phone script was gone. Lakeside has now moved everyone to Microsoft 365 and your office manager Maria Santos has a new rule: work files are saved to OneDrive or the shared team library not to one computer's desktop or a USB drive.
- task: Understand what OneDrive is what it protects you from and which of your files belong in it.
-
+ text: Last month the computer at the second check-in window stopped starting. Everything saved on its desktop, including the only copy of the new-patient phone script, was gone. Lakeside has now moved everyone to Microsoft 365, and your office manager, Maria Santos, has a new rule: work files are saved to OneDrive or the shared team library, not to one computer's desktop or a USB drive.
+ task: Understand what OneDrive is, what it protects you from, and which of your files belong in it.
 
 Cloud storage keeps your files on servers that you reach over the internet instead of only on the hard drive inside one computer. OneDrive is Microsoft's cloud storage. You sign in with an account, and your files are there on any computer, phone, or tablet where you sign in with that same account. If a computer breaks, is replaced, or is stolen, the files are still in OneDrive.
 
-
  type: key-terms
- terms: 
+ terms:
    term: Cloud storage
    definition: Saving files on internet servers so you can reach them from any device you sign in on.
    term: OneDrive
    definition: Microsoft's cloud storage. Each person has their own OneDrive.
    term: Work or school account
-   definition: The account your employer or school gives you (for example amorgan@lakesidemedical.example). The organization manages it.
+   definition: The account your employer or school gives you (for example, amorgan@lakesidemedical.example). The organization manages it.
    term: Microsoft account
    definition: A personal account you create yourself (often an Outlook.com address). It comes with a personal OneDrive.
    term: Sync
-   definition: Keeping the copy on your PC and the copy in OneDrive the same automatically.
+   definition: Keeping the copy on your PC and the copy in OneDrive the same, automatically.
    term: SharePoint
    definition: Microsoft's shared storage for teams and whole organizations. Files in a Teams channel are stored in SharePoint.
 
 
-
 ## What OneDrive does for you
-
  type: table
  caption: OneDrive features and what they mean at the front desk
- columns: 
-  Feature
-  What it does
-  Front desk example
- rows: 
-   Access anywhere
-   Your files open on any device where you sign in
-   Open the phone script at any check-in window not only the one where you wrote it
-   Share with a link
-   People open the one real file instead of an email copy
-   Maria edits the staff schedule you started and everyone sees the same version
-   Version history
-   Earlier versions of a file are kept so you can go back
-   Someone typed over the November schedule; restore yesterday's version
-   Recycle bin
-   Deleted files can be restored for a period of time
-   You deleted the wrong flyer; restore it in seconds
-   Sync with your PC
-   Your OneDrive appears as a folder in File Explorer
-   Save from Word straight into OneDrive without a browser
-
+ columns:
+   Feature
+   What it does
+   Front desk example
+ rows:
+    Access anywhere
+    Your files open on any device where you sign in
+    Open the phone script at any check-in window, not only the one where you wrote it
+    Share with a link
+    People open the one real file instead of an email copy
+    Maria edits the staff schedule you started, and everyone sees the same version
+    Version history
+    Earlier versions of a file are kept so you can go back
+    Someone typed over the November schedule; restore yesterday's version
+    Recycle bin
+    Deleted files can be restored for a period of time
+    You deleted the wrong flyer; restore it in seconds
+    Sync with your PC
+    Your OneDrive appears as a folder in File Explorer
+    Save from Word straight into OneDrive without a browser
 
 All of these work because there is one copy of the file, in one place, that everyone with permission opens. That is the habit OneDrive asks you to build: save to OneDrive, then share the file, instead of saving to the desktop and emailing copies around.
 
@@ -71,24 +65,22 @@ All of these work because there is one copy of the file, in one place, that ever
 ## OneDrive, SharePoint, and Teams at a glance
 Microsoft 365 has two main places for files. OneDrive is yours: files you are working on, drafts, and files that belong to your job. A SharePoint site or a Teams team is shared: the front desk team's procedures, the forms everyone uses, and files the whole team owns. When you share a file in a Teams chat, Teams stores it in your OneDrive, in a folder named Microsoft Teams Chat Files. When you add a file to a Teams channel, it is stored in that team's SharePoint site.
 
-
  type: table
  caption: Where a file usually belongs
- columns: 
-  Put it in
-  When
-  Who owns it
- rows: 
-   Your OneDrive
-   Drafts your own work files files you share with a few people
-   You
-   A SharePoint site or Teams channel
-   Files the whole team uses and keeps even if you leave
-   The team
-   A Teams chat
-   A quick file for the people in that chat (it is saved in your OneDrive)
-   You
-
+ columns:
+   Put it in
+   When
+   Who owns it
+ rows:
+    Your OneDrive
+    Drafts, your own work files, files you share with a few people
+    You
+    A SharePoint site or Teams channel
+    Files the whole team uses and keeps, even if you leave
+    The team
+    A Teams chat
+    A quick file for the people in that chat (it is saved in your OneDrive)
+    You
 
 Practice: Drag each file to where it belongs at Lakeside.
 

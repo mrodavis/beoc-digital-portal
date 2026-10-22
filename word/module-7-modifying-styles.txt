@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Change the style, not the sixty paragraphs
-
  type: scenario
  role: You are updating the policy manual at Lakeside Medical Associates.
- text: Every Heading 1 in the manual must become 16 point in the practice's new typeface. The headings already use the Heading 1 style so the work is one dialog rather than sixty selections.
+ text: Every Heading 1 in the manual must become 16 point in the practice's new typeface. The headings already use the Heading 1 style, so the work is one dialog rather than sixty selections.
  task: Modify a style once and watch the whole document follow.
-
 
 There are two routes and they suit different moments. Right-click the style in the gallery and choose Modify to open a dialog where you set the formatting explicitly — best when you know exactly what you want. Or format one paragraph until it looks right, then right-click the style and choose 'Update Heading 1 to Match Selection' — best when you are designing visually and want to lock in what you have arrived at.
 

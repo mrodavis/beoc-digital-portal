@@ -12,39 +12,35 @@ By the end of this lesson you can:
 
 
 ## Speed comes from the keyboard
-
  type: scenario
  role: You work the front desk at Lakeside Medical Associates.
- text: You move between the EHR Outlook a browser and a spreadsheet constantly. Done with the mouse — minimize find click restore — each switch costs several seconds. Across a day of hundreds of switches that is a meaningful part of your time spent managing windows rather than doing work.
+ text: You move between the EHR, Outlook, a browser, and a spreadsheet constantly. Done with the mouse — minimize, find, click, restore — each switch costs several seconds. Across a day of hundreds of switches, that is a meaningful part of your time spent managing windows rather than doing work.
  task: Learn the navigation shortcuts that make window management nearly free.
-
-
 
  type: table
  caption: Shortcuts worth learning first
- columns: 
-  Keys
-  Does
- rows: 
-   Windows key
-   Opens the Start menu — then just type to search
-   Windows + E
-   Opens File Explorer
-   Windows + D
-   Shows the desktop; press again to restore
-   Windows + L
-   Locks the workstation immediately
-   Alt + Tab
-   Switches between open windows
-   Windows + Arrow
-   Snaps the window to half or a quarter of the screen
-   Windows + Ctrl + D
-   Creates a new virtual desktop
-   Windows + Ctrl + Arrow
-   Switches between virtual desktops
-   Windows + number
-   Opens or switches to that taskbar item
-
+ columns:
+   Keys
+   Does
+ rows:
+    Windows key
+    Opens the Start menu — then just type to search
+    Windows + E
+    Opens File Explorer
+    Windows + D
+    Shows the desktop; press again to restore
+    Windows + L
+    Locks the workstation immediately
+    Alt + Tab
+    Switches between open windows
+    Windows + Arrow
+    Snaps the window to half or a quarter of the screen
+    Windows + Ctrl + D
+    Creates a new virtual desktop
+    Windows + Ctrl + Arrow
+    Switches between virtual desktops
+    Windows + number
+    Opens or switches to that taskbar item
 
 The Start menu's search is the fastest route to almost anything. Press the Windows key and start typing — applications, files, and settings all appear. Learning this one habit replaces most menu navigation entirely.
 

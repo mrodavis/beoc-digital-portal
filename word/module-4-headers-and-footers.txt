@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Headers are how a page proves where it came from
-
  type: scenario
  role: You prepare clinical documentation packets at Lakeside Medical Associates.
- text: A twelve-page packet goes to a specialist. It is unstapled at the other end mixed with pages from two other practices and reassembled. Half the pages carry no identification and no page numbers. Nobody can tell which pages belong together or whether any are missing.
- task: Put identifying information on every page automatically so a loose sheet is never anonymous.
-
+ text: A twelve-page packet goes to a specialist. It is unstapled at the other end, mixed with pages from two other practices, and reassembled. Half the pages carry no identification and no page numbers. Nobody can tell which pages belong together, or whether any are missing.
+ task: Put identifying information on every page automatically, so a loose sheet is never anonymous.
 
 A header or footer is defined once and repeats on every page — the practice name, the document title, and 'Page X of Y' so a reader can tell at a glance that page 7 of 12 is missing. Typing that on each page by hand is not just slow; it breaks the moment the document repaginates.
 

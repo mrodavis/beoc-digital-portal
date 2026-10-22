@@ -12,39 +12,35 @@ By the end of this lesson you can:
 
 
 ## Print preview is a proofreading tool
-
  type: scenario
  role: You are preparing packets for tomorrow's new-patient orientation at Lakeside Medical Associates.
- text: You send forty copies of a six-page packet to the printer. Two hundred and forty sheets later you discover a seventh page containing one orphaned line — 'Thank you for choosing Lakeside.' Forty extra sheets forty stapling errors and a recycling bin full of paper.
+ text: You send forty copies of a six-page packet to the printer. Two hundred and forty sheets later, you discover a seventh page containing one orphaned line — 'Thank you for choosing Lakeside.' Forty extra sheets, forty stapling errors, and a recycling bin full of paper.
  task: Use the print pane to catch layout problems before they become physical objects.
-
 
 The print pane in Backstage view shows the document as the printer will produce it, including margins the screen view can hide. Check the page count first — a document that shows six pages on screen and seven in preview has an orphaned line, a stray page break, or an empty paragraph at the end. Deleting that is thirty seconds of work that saves forty sheets.
 
-
  type: table
  caption: Print settings worth understanding before a large job
- columns: 
-  Setting
-  What it does
-  When it matters
- rows: 
-   Print Range
-   Prints specific pages e.g. 1-3 7
-   Reprinting one corrected page instead of the whole packet
-   Print Selection
-   Prints only the highlighted text
-   Pulling one section out of a long document
-   Collated
-   Produces complete sets in order
-   Any multi-page document you will hand out as packets
-   Print on Both Sides
-   Duplex printing
-   Halves the paper for anything over two pages
-   Scale to Paper Size
-   Fits the layout to the loaded paper
-   A document laid out for Letter printing on A4 or the reverse
-
+ columns:
+   Setting
+   What it does
+   When it matters
+ rows:
+    Print Range
+    Prints specific pages, e.g. 1-3, 7
+    Reprinting one corrected page instead of the whole packet
+    Print Selection
+    Prints only the highlighted text
+    Pulling one section out of a long document
+    Collated
+    Produces complete sets in order
+    Any multi-page document you will hand out as packets
+    Print on Both Sides
+    Duplex printing
+    Halves the paper for anything over two pages
+    Scale to Paper Size
+    Fits the layout to the loaded paper
+    A document laid out for Letter printing on A4, or the reverse
 
 If a document prints with different line breaks than it shows on screen, the usual cause is a font the printer does not have, or a printer driver substituting one. Exporting to PDF and printing that instead embeds the fonts and guarantees the output matches what you designed.
 

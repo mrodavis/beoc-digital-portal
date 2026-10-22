@@ -12,42 +12,38 @@ By the end of this lesson you can:
 
 
 ## The chart type is a claim about the data
-
  type: scenario
  role: You present supply spending to the board at Lakeside Medical Associates.
- text: You build a pie chart with eleven slices to show spending by category. Four slices are under 3% and their labels overlap into an unreadable tangle. A board member asks which of two similar slices is larger and nobody can tell by looking.
- task: Match the chart to the question and recognize when a table would serve better.
-
+ text: You build a pie chart with eleven slices to show spending by category. Four slices are under 3% and their labels overlap into an unreadable tangle. A board member asks which of two similar slices is larger, and nobody can tell by looking.
+ task: Match the chart to the question, and recognize when a table would serve better.
 
 Human perception judges length far more accurately than angle or area. That single fact explains most chart guidance: bar and column charts are read accurately, pie charts poorly. A pie chart works only for parts of one whole, with few enough slices that the comparison is obvious — five or fewer is the usual advice.
 
-
  type: table
  caption: Choosing a chart type
- columns: 
-  The question
-  Chart
-  Why
- rows: 
-   How did this change over time?
-   Line
-   A continuous line is read as continuity
-   How do these categories compare?
-   Column or bar
-   Length is judged accurately
-   What share is each part of the whole?
-   Pie
-   Only for parts of one whole five or fewer slices
-   Are these two measures related?
-   Scatter
-   Shows the relationship directly
-   How does this distribute?
-   Histogram
-   Shows shape and spread
-   Exact values matter more than shape
-   A table
-   Charts show patterns; tables give precision
-
+ columns:
+   The question
+   Chart
+   Why
+ rows:
+    How did this change over time?
+    Line
+    A continuous line is read as continuity
+    How do these categories compare?
+    Column or bar
+    Length is judged accurately
+    What share is each part of the whole?
+    Pie
+    Only for parts of one whole, five or fewer slices
+    Are these two measures related?
+    Scatter
+    Shows the relationship directly
+    How does this distribute?
+    Histogram
+    Shows shape and spread
+    Exact values matter more than shape
+    A table
+    Charts show patterns; tables give precision
 
 Note: On a column or bar chart, always start the value axis at zero. Readers compare bar lengths, so truncating the axis makes a 3% difference look like a doubling. Excel sometimes chooses a non-zero start automatically, which means a misleading chart can be produced entirely by accident — check the axis before you present it.
 

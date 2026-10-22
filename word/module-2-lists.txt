@@ -12,38 +12,34 @@ By the end of this lesson you can:
 
 
 ## The choice between bullets and numbers is a meaning choice
-
  type: scenario
  role: You are writing front-desk procedures at Lakeside Medical Associates.
- text: You document the check-in process as a bulleted list. A new hire reads it verifies insurance before confirming the patient's identity and discloses coverage details to the wrong person. The steps were all correct. Nothing told the reader they had to happen in order.
+ text: You document the check-in process as a bulleted list. A new hire reads it, verifies insurance before confirming the patient's identity, and discloses coverage details to the wrong person. The steps were all correct. Nothing told the reader they had to happen in order.
  task: Use list type to communicate whether sequence matters — because readers genuinely read it that way.
-
 
 Numbers mean sequence: do this, then this, then this. Bullets mean membership: these items belong to a set, in no particular order. Readers process that distinction automatically, which is exactly why using the wrong one misleads them. Any procedure where doing step three before step two causes a problem must be numbered.
 
 There is also a mechanical reason to use Word's list formatting rather than typing numbers yourself. A real numbered list renumbers itself when you insert or delete an item. A list of hand-typed numbers does not — insert a step in the middle and you must retype everything below it, and sooner or later a document goes out with two step fours. Let Word own the numbering.
 
-
  type: table
  caption: Which list type to use
- columns: 
-  Content
-  List type
-  Reason
- rows: 
-   Check-in procedure
-   Numbered
-   Order is required; doing them out of sequence causes harm
-   Documents to bring to an appointment
-   Bulleted
-   All are needed; order is irrelevant
-   Policy manual with sections and subsections
-   Multilevel
-   Hierarchy is part of the meaning and cross-references depend on it
-   Ranked priorities
-   Numbered
-   The numbers carry the ranking not just the sequence
-
+ columns:
+   Content
+   List type
+   Reason
+ rows:
+    Check-in procedure
+    Numbered
+    Order is required; doing them out of sequence causes harm
+    Documents to bring to an appointment
+    Bulleted
+    All are needed; order is irrelevant
+    Policy manual with sections and subsections
+    Multilevel
+    Hierarchy is part of the meaning and cross-references depend on it
+    Ranked priorities
+    Numbered
+    The numbers carry the ranking, not just the sequence
 
 Inside a list, Tab demotes an item to the next level and Shift+Tab promotes it. This is far faster than the Multilevel List menu, and it works while you are typing, so you never have to break your rhythm to restructure.
 

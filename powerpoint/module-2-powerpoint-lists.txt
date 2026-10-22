@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## The bullet list is the default, and rarely the best choice
-
  type: scenario
  role: You explain the referral workflow at Lakeside Medical Associates.
- text: Six bullets describing six sequential steps. The audience sees six equal-looking items and cannot tell that order matters that step three depends on step two or where the decision point is. A simple diagram would have shown all three instantly.
- task: Use numbers when sequence matters and consider whether a list is the right form at all.
-
+ text: Six bullets describing six sequential steps. The audience sees six equal-looking items and cannot tell that order matters, that step three depends on step two, or where the decision point is. A simple diagram would have shown all three instantly.
+ task: Use numbers when sequence matters, and consider whether a list is the right form at all.
 
 Bullets signal a set with no order. Numbers signal sequence. Using bullets for a procedure actively misinforms, because readers take the formatting as meaning — the same rule that applies in Word applies here, and matters more, because a slide gets a glance rather than a careful read.
 

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Formatting should help someone read the numbers
-
  type: scenario
  role: You prepare the monthly budget review at Lakeside Medical Associates.
- text: You shade the over-budget rows red. The report is printed in black and white for the board meeting where every row is now identical gray. The one thing the report existed to communicate is invisible.
- task: Format so the meaning survives printing photocopying and colorblind readers.
-
+ text: You shade the over-budget rows red. The report is printed in black and white for the board meeting, where every row is now identical gray. The one thing the report existed to communicate is invisible.
+ task: Format so the meaning survives printing, photocopying, and colorblind readers.
 
 The rule is that color may reinforce meaning but must never be the only thing carrying it. Add a status column reading 'Over budget,' or a symbol, or bold. Then the red shading is a helpful accent rather than the sole signal — and the report still works in greyscale.
 

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Restraint is the whole skill here
-
  type: scenario
  role: You present to the board at Lakeside Medical Associates.
- text: You give each slide a different transition — one spins one checkerboards one flips in three dimensions. The board remembers the effects and not a single figure. Each transition also adds a second and a half which across forty slides is a minute of watching animation.
- task: Use one subtle transition throughout or none at all.
-
+ text: You give each slide a different transition — one spins, one checkerboards, one flips in three dimensions. The board remembers the effects and not a single figure. Each transition also adds a second and a half, which across forty slides is a minute of watching animation.
+ task: Use one subtle transition throughout, or none at all.
 
 A transition is the effect between slides; an animation is the effect applied to an object on a slide. Both cost attention, and attention is the scarcest thing in a presentation.
 

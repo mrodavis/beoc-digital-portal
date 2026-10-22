@@ -12,35 +12,31 @@ By the end of this lesson you can:
 
 
 ## The Inbox is a to-do list
-
  type: scenario
  role: You are organizing the Lakeside front desk mailbox.
- text: The Inbox has 140 messages: referral confirmations insurance notices from three plans vendor invoices newsletters and a few messages that actually need you today. Denise asks for a system so that anyone covering the desk can find a referral in seconds.
- task: Build a short list of folders that matches the work and keep the Inbox for messages that still need action.
-
+ text: The Inbox has 140 messages: referral confirmations, insurance notices from three plans, vendor invoices, newsletters, and a few messages that actually need you today. Denise asks for a system so that anyone covering the desk can find a referral in seconds.
+ task: Build a short list of folders that matches the work, and keep the Inbox for messages that still need action.
 
 A good folder structure follows the work, not the sender. Ask what question you will be answering when you look for a message later: "Did the imaging center confirm the referral?" points to a Referrals folder. Keep it short. Five to eight top-level folders are easier to use than thirty, and search (Lesson 4) finds the rest.
 
-
  type: table
  caption: A front desk folder plan
- columns: 
-  Folder
-  What goes in it
- rows: 
-   Referrals
-   Referral requests and confirmations from other offices
-   Insurance & Billing › Metro Health Plan
-   Claim and prior authorization messages one subfolder per busy plan
-   Vendors
-   Quotes orders and invoices
-   Staff & Internal
-   Schedules and procedures from coworkers
-   Newsletters
-   Subscriptions you read later (a rule can fill this for you)
-   Archive (built in)
-   Finished messages you must keep
-
+ columns:
+   Folder
+   What goes in it
+ rows:
+    Referrals
+    Referral requests and confirmations from other offices
+    Insurance & Billing › Metro Health Plan
+    Claim and prior authorization messages, one subfolder per busy plan
+    Vendors
+    Quotes, orders and invoices
+    Staff & Internal
+    Schedules and procedures from coworkers
+    Newsletters
+    Subscriptions you read later (a rule can fill this for you)
+    Archive (built in)
+    Finished messages you must keep
 
 
 ## Create folders and move messages
@@ -60,12 +56,11 @@ Favorites, at the top of the folder pane, keeps the folders you open most within
 
 Note: Folders don't change who can see a message, and they don't replace your practice's records rules. Keep email about patient care, claims and referrals in the practice mailbox, never in personal email or a USB drive.
 
-
  type: worked-example
  title: Setting up for the next person on the desk
  task: Make the Lakeside mailbox easy for whoever covers the front desk tomorrow.
- steps: 
-   move: Create Referrals under the Inbox and Metro Health Plan under Insurance & Billing.
+ steps:
+   move: Create Referrals under the Inbox, and Metro Health Plan under Insurance & Billing.
    why: Folders named for the work answer the questions people actually ask.
    move: Ctrl+click both Metro claim messages and move them together.
    why: Moving in batches is faster and keeps related messages together.
@@ -73,8 +68,7 @@ Note: Folders don't change who can see a message, and they don't replace your pr
    why: Referrals are checked many times a day; Favorites keeps the folder at the top.
    move: Archive the newsletter you already read.
    why: It's finished but harmless to keep. The Inbox now shows only work left to do.
- result: A short folder list Referrals one click away and an Inbox that is a to-do list.
-
+ result: A short folder list, Referrals one click away, and an Inbox that is a to-do list.
 
 
 ## Knowledge Check

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Build the practice's theme once
-
  type: scenario
  role: You standardize presentations across Lakeside Medical Associates.
- text: Five staff produce decks and all five look different. Patients and partners see materials that do not appear to come from the same organization. Everyone is choosing colors from scratch each time because there is nothing to choose from.
- task: Define the practice's colors and fonts once as a saved theme so consistency is the easy path.
-
+ text: Five staff produce decks and all five look different. Patients and partners see materials that do not appear to come from the same organization. Everyone is choosing colors from scratch each time, because there is nothing to choose from.
+ task: Define the practice's colors and fonts once as a saved theme, so consistency is the easy path.
 
 Theme colors, fonts, and effects can each be changed independently from the Design tab's Variants dropdown. Set the practice's palette and typefaces, then Save Current Theme — the theme appears in the gallery for everyone it is shared with, in PowerPoint, Word, and Excel alike.
 

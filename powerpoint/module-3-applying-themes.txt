@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Choose a theme for the room, not for the monitor
-
  type: scenario
  role: You design the annual staff briefing at Lakeside Medical Associates.
- text: You pick a theme with pale gray text on a white background. It looks refined on your monitor. Projected in a room where the lights must stay on the text is close to invisible from the fourth row.
+ text: You pick a theme with pale gray text on a white background. It looks refined on your monitor. Projected in a room where the lights must stay on, the text is close to invisible from the fourth row.
  task: Evaluate a theme by whether it survives a real projector in a real room.
-
 
 A theme sets colors, fonts, and effects across every slide at once, so the whole deck stays coherent and a redesign is one click rather than forty. That is its value. Its risk is that theme choice is usually made on a bright monitor a foot from your face, under conditions nothing like a presentation.
 

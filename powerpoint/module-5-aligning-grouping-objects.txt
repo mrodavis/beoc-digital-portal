@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Alignment is what the audience notices without noticing
-
  type: scenario
  role: You finish the workflow diagram at Lakeside Medical Associates.
- text: Five boxes positioned by dragging. Projected at three meters wide the small misalignments become very visible and the diagram reads as careless — which is not a good impression for a document describing a clinical process.
- task: Use alignment and distribution so the layout is exact then group it so it stays that way.
-
+ text: Five boxes positioned by dragging. Projected at three meters wide, the small misalignments become very visible, and the diagram reads as careless — which is not a good impression for a document describing a clinical process.
+ task: Use alignment and distribution so the layout is exact, then group it so it stays that way.
 
 Select several objects and use Shape Format > Align. Align Left puts every left edge on the same coordinate; Distribute Horizontally makes the gaps mathematically equal. Both are exact, and projection magnifies every error that dragging leaves behind.
 

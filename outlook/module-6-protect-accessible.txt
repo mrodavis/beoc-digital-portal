@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Sensitive information in email
-
  type: scenario
  role: You send internal reports and notices from the Lakeside front desk.
- text: Keisha needs the October billing report which lists patient account balances. The new staff parking map goes to the front desk team including Omar who uses a screen reader. Dr. Patel must see a Friday schedule change.
- task: Protect the report make the map usable for everyone and confirm Dr. Patel reads the change.
-
+ text: Keisha needs the October billing report, which lists patient account balances. The new staff parking map goes to the front desk team, including Omar, who uses a screen reader. Dr. Patel must see a Friday schedule change.
+ task: Protect the report, make the map usable for everyone, and confirm Dr. Patel reads the change.
 
 Under the HIPAA Privacy Rule, health care providers may email patients and others about health information, but they must use reasonable safeguards. Email isn't forbidden; carelessness is. Your practice decides which tools to use. Follow its policy, send only the minimum information needed, and double-check every recipient.
 
@@ -29,11 +27,11 @@ Note: Classic Outlook: Options tab › Encrypt, and Sensitivity on the Home or M
 
 
 ## Accessible messages
-- Alt text: insert a picture (Insert tab › Pictures), then select Alt text on the picture and describe what matters in it: "Map of the staff lot: park in rows C and D and use the Elm Street door", not "map.png".
+- Alt text: every picture you insert (Insert tab › Pictures) needs a description of what matters in it: "Map of the staff lot: park in rows C and D and use the Elm Street door", not "map.png".
 - Links: use text that says where the link goes ("staff parking policy"), not "click here".
 - Readable text: a clear font at a normal size, short paragraphs, and lists for steps.
 - Color: don't use color alone to show meaning; add a word such as "Required".
-- Before you send, select Check Accessibility on the Ribbon (if you don't see it, look under More options (…)) and fix what it finds. In classic Outlook it's on the Review tab while you write.
+- Before you send, select Check accessibility on the Options tab. The Accessibility Checker lists what it finds; select Fix this next to an issue (for a picture with no alt text, this opens Add alternative text, where you type the description), then select Check again. In classic Outlook, Check Accessibility is on the Review tab while you write.
 
 Practice: Match each problem to its fix.
 
@@ -41,20 +39,18 @@ Practice: Match each problem to its fix.
 ## Read receipts
 To ask for confirmation that a message was opened, select Options › Request a read receipt (in the Tracking area) before you send. Recipients can choose not to send a receipt, so a missing receipt doesn't prove a message wasn't read. For anything that matters, ask for a reply instead.
 
-
  type: key-terms
- terms: 
+ terms:
    term: Sensitivity label
-   definition: A label your organization defines such as Confidential that can mark or protect a message.
+   definition: A label your organization defines, such as Confidential, that can mark or protect a message.
    term: Encrypt
    definition: Protects a message so only its recipients can read it.
    term: Do Not Forward
-   definition: Encrypts and also stops recipients from forwarding printing or copying.
+   definition: Encrypts and also stops recipients from forwarding, printing or copying.
    term: Alt text
    definition: A short description of a picture that screen readers read aloud.
    term: Read receipt
    definition: An optional notice that a recipient opened your message.
-
 
 
 ## Knowledge Check

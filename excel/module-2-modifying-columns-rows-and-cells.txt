@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Merged cells break more than they fix
-
  type: scenario
  role: You inherit the supply tracker at Lakeside Medical Associates.
- text: Your predecessor merged cells across the top of each section to make headings look centered. Now sorting throws an error filtering behaves unpredictably and selecting a column selects far more than you asked for.
+ text: Your predecessor merged cells across the top of each section to make headings look centered. Now sorting throws an error, filtering behaves unpredictably, and selecting a column selects far more than you asked for.
  task: Learn the layout tools that make a sheet readable without damaging its structure.
-
 
 Merging combines cells into one, which destroys the grid the merged region covered. Sorting, filtering, and many formulas depend on every row having the same shape, so a merged range breaks them. In a data table, merged cells are close to always the wrong tool.
 

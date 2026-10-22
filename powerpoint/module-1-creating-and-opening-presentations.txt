@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## A template is a set of decisions already made
-
  type: scenario
  role: You produce recurring briefings at Lakeside Medical Associates.
- text: Every month you rebuild the same deck: the same title arrangement the same colors the same closing slide. Twenty minutes each time spent re-making decisions you already made in January — and the decks still do not quite match each other.
- task: Build the practice's design once as a template then start every deck from it.
-
+ text: Every month you rebuild the same deck: the same title arrangement, the same colors, the same closing slide. Twenty minutes each time, spent re-making decisions you already made in January — and the decks still do not quite match each other.
+ task: Build the practice's design once as a template, then start every deck from it.
 
 A template supplies the theme, the slide layouts, and often placeholder content — all the structural decisions. Starting from one means starting with the design settled, so your attention goes to the argument rather than to fonts.
 

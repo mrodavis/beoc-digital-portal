@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Let Outlook do the predictable filing
-
  type: scenario
  role: You manage the Lakeside front desk inbox.
- text: Every Monday a newsletter arrives. Every day Metro Health Plan sends claim notices and BrightPath sends a promotion. You file them by hand every time.
- task: Turn the filing you do by hand into rules and use Sweep to clear the backlog.
-
+ text: Every Monday a newsletter arrives. Every day Metro Health Plan sends claim notices, and BrightPath sends a promotion. You file them by hand every time.
+ task: Turn the filing you do by hand into rules, and use Sweep to clear the backlog.
 
 A rule has three parts: a condition (when a message is from this sender, or has these words in the subject), an action (move it to this folder, categorize it, mark it read), and optional exceptions. Rules run on messages as they arrive. They are the best tool for mail that is predictable: the same sender, the same kind of message, every time.
 
@@ -36,7 +34,7 @@ Practice: Put the steps for creating a rule in Settings in order.
 
 
 ## Sweep
-Sweep clears out messages from one sender in a few clicks. Select a message from the sender, then select Sweep on the Home tab and choose what to do: move all messages from that sender, move them and any future ones, always keep only the latest message, or always move messages older than 10 days. Choose where they go, such as Deleted Items or Archive, and select Sweep.
+Sweep clears out messages from one sender in a few clicks. Select a message from the sender, then select Sweep on the Home tab and choose how to handle that sender's mail: clear out all of it (and, if you like, everything they send from now on), keep only the latest message, or clear out messages older than 10 days. Then select Sweep.
 
 - Sweep is ideal for daily promotions, automated notices and newsletters where only the newest matters.
 - Sweep isn't available in Junk Email, Drafts, Sent Items or Deleted Items.
@@ -48,4 +46,4 @@ Note: Don't sweep or rule-delete mail that might be a record, such as claim noti
 ## Knowledge Check
 Check yourself: You created a rule that moves newsletters to a folder, but last week's newsletters are still in the Inbox. Why, and how do you fix it? Answer: Rules handle new messages; run the rule now from Settings › Mail › Rules. Rules run on arriving mail. Run rule now applies the rule to messages already in your Inbox.
 
-Check yourself: A vendor sends a promotion every day and only the newest one matters. Which Sweep choice fits? Answer: Always keep the latest message and move the rest. Keeping only the latest message clears the old ones and keeps doing it.
+Check yourself: A vendor sends a promotion every day and only the newest one matters. Which Sweep choice fits? Answer: Keep only the latest message. Keeping only the latest message clears the old ones and keeps doing it.

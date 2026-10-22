@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Ready for orientation
-
  type: scenario
  role: The welcome presentation is almost done.
- text: A draft slide about parking isn't approved yet. Denise will present at orientation sometimes over Google Meet for tenants who can't come in. Andre Wallace the leasing agent wants to suggest changes. The lobby screen needs a PowerPoint copy and new tenants get a PDF by email.
- task: Hide the draft slide rehearse share with Andre and make both downloads.
-
+ text: A draft slide about parking isn't approved yet. Denise will present at orientation, sometimes over Google Meet for tenants who can't come in. Andre Wallace, the leasing agent, wants to suggest changes. The lobby screen needs a PowerPoint copy, and new tenants get a PDF by email.
+ task: Hide the draft slide, rehearse, share with Andre, and make both downloads.
 
 - To skip a slide, right-click it in the filmstrip and choose Skip slide. It stays in the file but doesn't appear in the slideshow. Choose it again to show the slide.
 - Skipping is safer than deleting a slide you'll need later: the content and its notes stay in the presentation.
@@ -38,24 +36,22 @@ Practice: Put Denise's steps in order for orientation day.
 ## Share or download?
 Share the Google Slides file when people should see the current version and work with you. Download a copy when someone needs a separate file: a PowerPoint for a screen that runs PowerPoint, or a PDF for people who only need to read it. A downloaded copy doesn't update when you change the original.
 
-
  type: table
  caption: Choose the access level (see Module 2 for the full Share box)
- columns: 
-  Role
-  Can
-  Good for
- rows: 
-   Viewer
-   See the presentation
-   Staff who only need to watch or read it
-   Commenter
-   See it and add comments
-   Andre who should suggest changes without changing slides
-   Editor
-   Change slides and share the file
-   Denise who co-owns the work
-
+ columns:
+   Role
+   Can
+   Good for
+ rows:
+    Viewer
+    See the presentation
+    Staff who only need to watch or read it
+    Commenter
+    See it and add comments
+    Andre, who should suggest changes without changing slides
+    Editor
+    Change slides and share the file
+    Denise, who co-owns the work
 
 - Share: select Share (top right), type the person's name or email, choose Viewer, Commenter, or Editor, and select Send.
 - PowerPoint copy: File › Download › Microsoft PowerPoint (.pptx).

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Pictures make the point
-
  type: scenario
  role: You're finishing the Riverside Commons welcome presentation.
- text: The words are in place but the slides look plain. Denise sent you a photo of the Riverside Commons lobby wants the Who to Call slide to stand out and asks for a copy of the first-week slide that you can adapt for Elm Street Apartments.
- task: Add the photo a shape and a background color and organize the slides.
-
+ text: The words are in place, but the slides look plain. Denise sent you a photo of the Riverside Commons lobby, wants the Who to Call slide to stand out, and asks for a copy of the first-week slide that you can adapt for Elm Street Apartments.
+ task: Add the photo, a shape, and a background color, and organize the slides.
 
 1. Select the slide, then select Insert › Image (or Insert image on the toolbar).
 2. Choose where the picture comes from: Upload from computer, Stock & web (stock images, GIFs, stickers, and Google images), Drive & Photos, Camera, or By URL.
@@ -37,31 +35,29 @@ Note: Use only pictures you have the right to use: photos the company took, its 
 ## Change the background
 1. Select the slide in the filmstrip.
 2. Select Slide › Change background (or Background on the toolbar).
-3. Next to Color, pick a color. Or next to Image, select Choose to use a picture.
-4. Select Done to change only this slide, or Add to theme to use that background on every slide in the theme.
+3. To the right of Color, click the box and pick a color. Or, to the right of Image, select Choose to use a picture.
+4. Select Done to change only this slide, or select the Add to theme button to use that background for the whole presentation.
 
 Keep enough contrast between the text and the background. Dark text on a light background (or light on dark) is readable on a lobby screen from across the room; mid-tone on mid-tone isn't.
 
 
 ## Organize your slides
-
  type: table
  caption: Working with slides in the filmstrip
- columns: 
-  To
-  Do this
- rows: 
-   Duplicate a slide
-   Right-click it › Duplicate slide
-   Move a slide
-   Drag it to a new place in the filmstrip or right-click › Move slide to end (or to the beginning)
-   Move several at once
-   Ctrl+click to select them then drag
-   Delete a slide
-   Select it and press Delete or right-click › Delete
-   See all slides at once
-   Grid view (button at the bottom left of the filmstrip)
-
+ columns:
+   To
+   Do this
+ rows:
+    Duplicate a slide
+    Right-click it › Duplicate slide
+    Move a slide
+    Drag it to a new place in the filmstrip, or right-click › Move slide to end (or to the beginning)
+    Move several at once
+    Ctrl+click to select them, then drag
+    Delete a slide
+    Select it and press Delete, or right-click › Delete
+    See all slides at once
+    Grid view (button at the bottom left of the filmstrip)
 
 Practice: Put the steps in order to make an Elm Street Apartments version of the First Week slide at the end of the presentation.
 
@@ -73,4 +69,4 @@ Practice: Sort each choice for a slide that tenants will read on a lobby screen.
 ## Knowledge Check
 Check yourself: You want a new lobby photo in the exact spot and size of the old one. What's the fastest way? Answer: Right-click the old photo › Replace image. Replace image swaps the picture and keeps its size and position.
 
-Check yourself: In Change background, you choose a light blue color. What does Done do? Answer: Applies it to the selected slide only. Done changes the selected slide. Add to theme changes every slide that uses the theme.
+Check yourself: In Change background, you choose a light blue color. What does Done do? Answer: Applies it to the selected slide only. Done changes the selected slide. The Add to theme button changes the whole presentation.

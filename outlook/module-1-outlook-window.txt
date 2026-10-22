@@ -12,42 +12,38 @@ By the end of this lesson you can:
 
 
 ## A window built for scanning
-
  type: scenario
  role: You share the front desk computer at Lakeside Medical Associates.
- text: Omar works the early shift and likes the reading pane at the bottom and the folder list hidden. When you sit down at 10:00 the window looks nothing like yours a patient is waiting and you can't find the Junk Email folder.
- task: Learn what each part of the window is for so you can put it back the way you work in a few clicks.
-
+ text: Omar works the early shift and likes the reading pane at the bottom and the folder list hidden. When you sit down at 10:00, the window looks nothing like yours, a patient is waiting, and you can't find the Junk Email folder.
+ task: Learn what each part of the window is for, so you can put it back the way you work in a few clicks.
 
 New Outlook arranges everything from left to right in the order you use it: pick an app, pick a folder, pick a message, read it. Knowing the names of the parts matters, because help articles and coworkers use them: "select the folder pane," "open the reading pane."
 
-
  type: table
  caption: Parts of the new Outlook window
- columns: 
-  Part
-  Where
-  What it does
- rows: 
-   Title bar
-   Very top
-   The Search box in the center. Settings My Day and Notifications on the right.
-   Ribbon
-   Below the title bar
-   Tabs (Home View Help) and one row of commands. When you write a message Message Insert Format text and Options tabs appear.
-   Navigation bar
-   Far left edge
-   Switches between Mail Calendar People and To Do. Also has icons for other Microsoft 365 apps.
-   Folder pane
-   Left next to the navigation bar
-   Favorites then your folders: Inbox Drafts Sent Items Deleted Items Junk Email Archive and any folders you make.
-   Message list
-   Center
-   The messages in the folder you chose newest first with Focused and Other tabs in the Inbox.
-   Reading pane
-   Right (or bottom)
-   Shows the selected message and is where replies and new messages open.
-
+ columns:
+   Part
+   Where
+   What it does
+ rows:
+    Title bar
+    Very top
+    The Search box in the center. Settings, My Day and Notifications on the right.
+    Ribbon
+    Below the title bar
+    Tabs (Home, View, Help) and one row of commands. When you write a message, Message, Insert, Format text and Options tabs appear.
+    Navigation bar
+    Far left edge
+    Switches between Mail, Calendar, People and To Do. Also has icons for other Microsoft 365 apps.
+    Folder pane
+    Left, next to the navigation bar
+    Favorites, then your folders: Inbox, Drafts, Sent Items, Deleted Items, Junk Email, Archive and any folders you make.
+    Message list
+    Center
+    The messages in the folder you chose, newest first, with Focused and Other tabs in the Inbox.
+    Reading pane
+    Right (or bottom)
+    Shows the selected message, and is where replies and new messages open.
 
 Practice: Drag each job onto the part of the Outlook window that does it.
 
@@ -70,20 +66,18 @@ Note: Classic Outlook: the Ribbon has more tabs (File, Home, Send / Receive, Fol
 
 Search sits at the top of the window no matter which app you are in. Type a name, a subject word or a claim number and press Enter. You will learn search filters in Module 3.
 
-
  type: worked-example
  title: Putting the front desk window back the way you work
  task: Omar left the reading pane at the bottom and the folder pane hidden. Restore your layout before the next patient arrives.
- steps: 
+ steps:
    move: Select the three-line button at the left end of the Ribbon tab row.
    why: That button shows or hides the folder pane. You need it to reach Junk Email and your own folders.
-   move: On the View tab open Layout and choose to show the reading pane on the right.
-   why: Side by side you can scan the list and read the selected message at the same time which is faster on a wide monitor.
+   move: On the View tab, open Layout and choose to show the reading pane on the right.
+   why: Side by side, you can scan the list and read the selected message at the same time, which is faster on a wide monitor.
    move: Open My Day from the top right.
    why: The front desk runs on the schedule. My Day keeps today's appointments in view while you work through the inbox.
- result: Folder pane showing reading pane on the right today's calendar in My Day. About four clicks.
+ result: Folder pane showing, reading pane on the right, today's calendar in My Day. About four clicks.
  takeaway: Shared computers drift. Learn where the layout controls are so you can reset a window in seconds instead of working around it.
-
 
 
 ## Knowledge Check

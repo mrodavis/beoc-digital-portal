@@ -12,54 +12,48 @@ By the end of this lesson you can:
 
 
 ## Four object types, four jobs
-
  type: scenario
  role: You open the practice database for the first time at Lakeside Medical Associates.
- text: The Navigation Pane lists about twenty items with different icons. Some open as grids some as forms some produce printable pages. Until you know what each type is for the database is an undifferentiated list of things you are afraid to click.
+ text: The Navigation Pane lists about twenty items with different icons. Some open as grids, some as forms, some produce printable pages. Until you know what each type is for, the database is an undifferentiated list of things you are afraid to click.
  task: Learn the four object types so the Navigation Pane becomes a map.
-
 
 Access databases are built from four object types, and each has one job. Understanding the division is most of what makes Access comprehensible.
 
-
  type: table
  caption: The four object types
- columns: 
-  Object
-  Job
-  Think of it as
- rows: 
-   Table
-   Stores the data
-   The filing cabinet — the only place data actually lives
-   Query
-   Asks a question of the data
-   A saved question re-answered against current data each time it runs
-   Form
-   Provides an interface for entering and viewing records
-   The data entry screen staff actually use
-   Report
-   Formats data for printing or distribution
-   The printed output
-
+ columns:
+   Object
+   Job
+   Think of it as
+ rows:
+    Table
+    Stores the data
+    The filing cabinet — the only place data actually lives
+    Query
+    Asks a question of the data
+    A saved question, re-answered against current data each time it runs
+    Form
+    Provides an interface for entering and viewing records
+    The data entry screen staff actually use
+    Report
+    Formats data for printing or distribution
+    The printed output
 
 The critical point is that only tables store data. Queries, forms, and reports all display data that lives in tables. Delete a query and you lose the question, not the data. Delete a table and the data is genuinely gone.
 
-
  type: table
  caption: The two main views
- columns: 
-  View
-  Shows
-  Use it to
- rows: 
-   Datasheet view
-   The data in a grid like a spreadsheet
-   Read and enter records
-   Design view
-   The structure — fields data types properties
-   Change what the object is not what it contains
-
+ columns:
+   View
+   Shows
+   Use it to
+ rows:
+    Datasheet view
+    The data in a grid, like a spreadsheet
+    Read and enter records
+    Design view
+    The structure — fields, data types, properties
+    Change what the object is, not what it contains
 
 Note: Access saves record edits the moment you move off a row — there is no Ctrl+S and no undo once you have moved on. This is the single biggest adjustment for anyone coming from Excel, where nothing is committed until you save. Before working on a live database, make a copy. Before a structural change, make another.
 

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Filtered rows are hidden, not gone
-
  type: scenario
  role: You report on medical supply spending at Lakeside Medical Associates.
- text: You filter the sheet to Medical Supplies and read the total at the bottom: $18400. That figure is the total of every row in the sheet including the office and cleaning supplies currently hidden. You report it as the medical supply spend and it is wrong by about two-thirds.
- task: Understand that filtering changes what you see not what formulas calculate.
-
+ text: You filter the sheet to Medical Supplies and read the total at the bottom: $18,400. That figure is the total of every row in the sheet, including the office and cleaning supplies currently hidden. You report it as the medical supply spend, and it is wrong by about two-thirds.
+ task: Understand that filtering changes what you see, not what formulas calculate.
 
 Filtering hides rows that do not match. The data is entirely intact and returns when the filter is cleared — which is what makes it safe. But SUM and AVERAGE include hidden rows, because they operate on the range, not on what happens to be visible.
 

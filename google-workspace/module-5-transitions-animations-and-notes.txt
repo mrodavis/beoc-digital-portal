@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## Motion with a purpose
-
  type: scenario
  role: The welcome presentation will run two ways.
- text: On the lobby screen the slides play by themselves so bullet points can't wait for a click. At tenant orientation Denise presents it and wants reminders of what to hand out and say. Both need gentle motion not spinning text.
- task: Add a transition animate the first-week list and write speaker notes.
-
-
+ text: On the lobby screen, the slides play by themselves, so bullet points can't wait for a click. At tenant orientation, Denise presents it and wants reminders of what to hand out and say. Both need gentle motion, not spinning text.
+ task: Add a transition, animate the first-week list, and write speaker notes.
 
  type: table
  caption: Two kinds of motion
- columns: 
-  Transition
-  Animation
- rows: 
-   What moves
-   The whole slide as it replaces the one before
-   One object on a slide: a text box picture or shape
-   Where to set it
-   Slide › Transition (or Transition on the toolbar)
-   Insert › Animation (or View › Motion)
-   Examples
-   Dissolve Fade Slide from right
-   Fade in Fly in from left Zoom in
-   PowerPoint
-   Transitions tab
-   Animations tab
-
+ columns:
+   Transition
+   Animation
+ rows:
+    What moves
+    The whole slide, as it replaces the one before
+    One object on a slide: a text box, picture, or shape
+    Where to set it
+    Slide › Transition (or Transition on the toolbar)
+    Insert › Animation (or View › Motion)
+    Examples
+    Dissolve, Fade, Slide from right
+    Fade in, Fly in from left, Zoom in
+    PowerPoint
+    Transitions tab
+    Animations tab
 
 
 ## Add a transition
@@ -51,8 +47,8 @@ By the end of this lesson you can:
 
 ## Animate an object
 1. Select the object on the slide, such as the bulleted text.
-2. Select Insert › Animation. In the Motion panel, a new animation is added (Appear, On click, by default).
-3. Choose the animation, such as Fade in.
+2. Select Insert › Animation (or View › Motion) to open the Motion panel. If no animation is listed for the object under Object Animations, select Add animation. New object animations are set to Appear (On click) by default.
+3. Choose the animation you want from the drop-down, such as Fade in.
 4. Choose when it starts: On click, After previous, or With previous. For text, check By paragraph to bring in one bullet at a time.
 5. Drag the speed slider if needed, and select Play to preview.
 
@@ -64,20 +60,18 @@ Use one or two kinds of motion for the whole presentation. If every slide spins,
 ## Speaker notes
 Speaker notes sit under each slide. They're for the presenter: reminders, details, and what to hand out. The audience doesn't see them during the slideshow. If the notes area is hidden, choose View › Show speaker notes, then click in it (it says Click to add speaker notes) and type.
 
-
  type: worked-example
  title: Notes for the First Week slide
  task: Help whoever presents the welcome presentation cover everything on slide 2.
- steps: 
+ steps:
    move: Keep the slide short: three bullet points.
    why: Tenants read the slide; the presenter adds the details.
-   move: In the notes write “Hand out the key fob form here.”
-   why: It's an action for the presenter not something tenants need to read on screen.
+   move: In the notes, write “Hand out the key fob form here.”
+   why: It's an action for the presenter, not something tenants need to read on screen.
    move: Add the office phone hours to the notes.
-   why: If someone asks the presenter has the answer without adding clutter to the slide.
- result: A clean slide for the audience and a script for the presenter.
+   why: If someone asks, the presenter has the answer without adding clutter to the slide.
+ result: A clean slide for the audience, and a script for the presenter.
  takeaway: Put what the audience must see on the slide; put what the presenter must say or do in the notes.
-
 
 
 ## Knowledge Check

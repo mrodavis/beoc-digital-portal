@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## One list instead of twenty replies
-
  type: scenario
  role: You are the front office assistant at Lakeside Medical Associates.
- text: Last year the flu clinic supply list was built from 23 chat replies (“also gloves” “we have gloves” “need more bandages”) and two boxes of the wrong supplies were ordered. This year Maria sent the list as a Loop component.
+ text: Last year the flu clinic supply list was built from 23 chat replies (“also gloves,” “we have gloves,” “need more bandages”), and two boxes of the wrong supplies were ordered. This year Maria sent the list as a Loop component.
  task: Add to a shared Loop list and send your own Loop components so a group works on one up-to-date list.
-
 
 A Loop component is a small piece of content, such as a paragraph, a checklist, or a table, that you send in a chat. Everyone in the chat can edit it right in the conversation, and changes appear for everyone instantly. Instead of replying “add alcohol pads,” you add alcohol pads to the list.
 

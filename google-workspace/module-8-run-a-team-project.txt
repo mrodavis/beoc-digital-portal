@@ -12,37 +12,33 @@ By the end of this lesson you can:
 
 
 ## The right tool for each job
-
  type: scenario
  role: Denise asks you to coordinate the Riverside Commons lobby repaint.
- text: Kim and Marcus will work on it with you. Denise wants a Chat space for the three of you the Lobby Repaint Plan shared so they can comment on it and a short kickoff call on Thursday morning.
- task: Answer Denise set up the space share the plan and schedule the kickoff each in the right tool.
-
-
+ text: Kim and Marcus will work on it with you. Denise wants a Chat space for the three of you, the Lobby Repaint Plan shared so they can comment on it, and a short kickoff call on Thursday morning.
+ task: Answer Denise, set up the space, share the plan, and schedule the kickoff, each in the right tool.
 
  type: table
  caption: Which tool for what
- columns: 
-  Tool
-  Best for
-  At Parkview
- rows: 
-   Gmail
-   Formal messages people outside the company anything that needs a record
-   Notices to tenants vendor invoices owner reports
-   Google Chat
-   Quick informal talk inside a team
-   “The side door is unlocked” daily repaint updates
-   Comments
-   Feedback about one part of a file
-   A question on one cell of the move-in tracker
-   Google Drive
-   One shared copy of every file
-   The Lobby Repaint Plan everyone edits
-   Calendar and Meet
-   Meetings and decisions that need discussion
-   The Thursday kickoff call
-
+ columns:
+   Tool
+   Best for
+   At Parkview
+ rows:
+    Gmail
+    Formal messages, people outside the company, anything that needs a record
+    Notices to tenants, vendor invoices, owner reports
+    Google Chat
+    Quick, informal talk inside a team
+    “The side door is unlocked,” daily repaint updates
+    Comments
+    Feedback about one part of a file
+    A question on one cell of the move-in tracker
+    Google Drive
+    One shared copy of every file
+    The Lobby Repaint Plan everyone edits
+    Calendar and Meet
+    Meetings and decisions that need discussion
+    The Thursday kickoff call
 
 Practice: Drag the best tool onto each need.
 
@@ -63,24 +59,22 @@ Practice: Drag the steps into a sensible order.
 - After a meeting, write down decisions and who does what, and assign comments or tasks for the open items.
 - When the project ends, name the final versions of its files.
 
-
  type: table
- caption: Google Workspace and Microsoft 365 side by side
- columns: 
-  Google Workspace
-  Microsoft 365
- rows: 
-   Gmail and Google Calendar
-   Outlook mail and calendar
-   Google Chat (DMs and spaces)
-   Microsoft Teams (chats and channels)
-   Google Meet
-   Microsoft Teams meetings
-   Google Drive and shared drives
-   OneDrive and SharePoint
-   Google Docs Sheets and Slides
-   Word Excel and PowerPoint
-
+ caption: Google Workspace and Microsoft 365, side by side
+ columns:
+   Google Workspace
+   Microsoft 365
+ rows:
+    Gmail and Google Calendar
+    Outlook mail and calendar
+    Google Chat (DMs and spaces)
+    Microsoft Teams (chats and channels)
+    Google Meet
+    Microsoft Teams meetings
+    Google Drive and shared drives
+    OneDrive and SharePoint
+    Google Docs, Sheets, and Slides
+    Word, Excel, and PowerPoint
 
 
 ## AI helpers: check before you use

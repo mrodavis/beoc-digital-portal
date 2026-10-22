@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## The most destructive mistake in Excel
-
  type: scenario
  role: You organize the supply list at Lakeside Medical Associates.
- text: You click the Item Name column select just that column and sort A to Z. The names reorder. The quantities prices and vendors do not. Every row now pairs a name with another item's data and there is no way to tell what belonged with what.
- task: Sort in a way that keeps each record intact and know how to recover when it goes wrong.
-
+ text: You click the Item Name column, select just that column, and sort A to Z. The names reorder. The quantities, prices, and vendors do not. Every row now pairs a name with another item's data, and there is no way to tell what belonged with what.
+ task: Sort in a way that keeps each record intact, and know how to recover when it goes wrong.
 
 This is the error worth being genuinely careful about, because it is silent and often unrecoverable. Sorting one selected column reorders only that column. Every other column stays put, so the association between a name and its data is destroyed — and nothing on screen indicates anything is wrong.
 

@@ -12,70 +12,64 @@ By the end of this lesson you can:
 
 
 ## Data types are a validation decision
-
  type: scenario
  role: You build a supply inventory database at Lakeside Medical Associates.
- text: You set every field to Short Text because it accepts anything. Six months later the quantity field contains '12' 'twelve' '12 boxes' and 'approx 12'. Nothing can be summed sorted or reported on and the database cannot answer the one question it was built for.
+ text: You set every field to Short Text because it accepts anything. Six months later the quantity field contains '12', 'twelve', '12 boxes', and 'approx 12'. Nothing can be summed, sorted, or reported on, and the database cannot answer the one question it was built for.
  task: Choose data types that make wrong data impossible to enter rather than merely discouraged.
-
 
 A data type is the first line of defense for data quality. A Number field will not accept 'twelve'. A Date/Time field will not accept 'next Tuesday'. Choosing the right type at design time prevents an entire category of problem that is extremely tedious to fix afterwards.
 
-
  type: table
  caption: Access data types
- columns: 
-  Type
-  Use for
-  Note
- rows: 
-   Short Text
-   Names addresses codes
-   Up to 255 characters
-   Long Text
-   Notes and comments
-   Sortable but not efficiently indexed
-   Number
-   Quantities you will calculate with
-   Choose an appropriate field size
-   Currency
-   Money
-   Avoids the rounding errors of floating-point numbers
-   Date/Time
-   Dates and times
-   Enables date arithmetic and proper sorting
-   Yes/No
-   Two-state values
-   Stored as true/false
-   AutoNumber
-   Primary keys
-   Access assigns a unique value automatically
-   Attachment
-   Files linked to a record
-   Grows the database file quickly
-
+ columns:
+   Type
+   Use for
+   Note
+ rows:
+    Short Text
+    Names, addresses, codes
+    Up to 255 characters
+    Long Text
+    Notes and comments
+    Sortable but not efficiently indexed
+    Number
+    Quantities you will calculate with
+    Choose an appropriate field size
+    Currency
+    Money
+    Avoids the rounding errors of floating-point numbers
+    Date/Time
+    Dates and times
+    Enables date arithmetic and proper sorting
+    Yes/No
+    Two-state values
+    Stored as true/false
+    AutoNumber
+    Primary keys
+    Access assigns a unique value automatically
+    Attachment
+    Files linked to a record
+    Grows the database file quickly
 
 Note: Store an identifier that is never calculated with — a phone number, a ZIP code, a patient ID — as Short Text, not Number. A Number field strips leading zeros, so ZIP code 07030 becomes 7030. The test is simple: if you would never add two of these values together, it is text.
 
-
  type: worked-example
  title: Building a supply inventory table
- task: Create a table recording supply items quantities costs and reorder levels designed so bad data cannot be entered.
- steps: 
+ task: Create a table recording supply items, quantities, costs, and reorder levels, designed so bad data cannot be entered.
+ steps:
    move: Create the table in Design view rather than by typing into a datasheet.
-   why: Design view makes you name each field and choose its type deliberately. Building by typing into a datasheet lets Access guess the types and it guesses Short Text far too often — which is how the scenario above happens.
+   why: Design view makes you name each field and choose its type deliberately. Building by typing into a datasheet lets Access guess the types, and it guesses Short Text far too often — which is how the scenario above happens.
    move: Add ItemID as AutoNumber and set it as the primary key.
-   why: AutoNumber guarantees uniqueness with no effort and no meaning attached which is exactly what a key should be. Access will not enforce record uniqueness without a primary key.
-   move: Set types by what each field is for: Quantity as Number UnitCost as Currency LastOrdered as Date/Time.
+   why: AutoNumber guarantees uniqueness with no effort and no meaning attached, which is exactly what a key should be. Access will not enforce record uniqueness without a primary key.
+   move: Set types by what each field is for: Quantity as Number, UnitCost as Currency, LastOrdered as Date/Time.
    why: Each type rejects data that does not belong. Currency specifically avoids the floating-point rounding that makes money columns fail to reconcile by a cent — a real problem with ordinary decimal number fields.
-   move: Set field properties: Required on the fields that must be filled and a Default Value where one is sensible.
-   why: Required stops half-entered records which are worse than no record because they look complete in a list. Defaults reduce typing and mistakes on fields that are usually the same.
-   move: Generate a form with Create > Form and reorder the fields to match how staff work.
-   why: The generated form is a starting point in table order which is rarely entry order. Arranging fields in the sequence someone reading off a delivery note would use is what makes the form fast rather than merely functional.
-   move: Generate a report with Create > Report then check it in Print Preview.
-   why: The default report is almost always too wide for the page. Print Preview shows the real pagination and narrowing or removing columns there is what turns it into something usable on paper.
- result: A table that rejects invalid entries a form staff can work through quickly and a report that prints correctly.
+   move: Set field properties: Required on the fields that must be filled, and a Default Value where one is sensible.
+   why: Required stops half-entered records, which are worse than no record because they look complete in a list. Defaults reduce typing and mistakes on fields that are usually the same.
+   move: Generate a form with Create > Form, and reorder the fields to match how staff work.
+   why: The generated form is a starting point in table order, which is rarely entry order. Arranging fields in the sequence someone reading off a delivery note would use is what makes the form fast rather than merely functional.
+   move: Generate a report with Create > Report, then check it in Print Preview.
+   why: The default report is almost always too wide for the page. Print Preview shows the real pagination, and narrowing or removing columns there is what turns it into something usable on paper.
+ result: A table that rejects invalid entries, a form staff can work through quickly, and a report that prints correctly.
  takeaway: Design the table first and deliberately. Forms and reports are generated in seconds; a badly typed table takes months to repair.
-
 
 Check yourself: Which data type should be used for a five-digit ZIP code field? Answer: Short Text, because a Number field would strip leading zeros. A Number field treats 07030 as the value 7030 and drops the leading zero, corrupting every ZIP code in the Northeast. ZIP codes are identifiers rather than quantities — you never add two together — so they belong in a text field.

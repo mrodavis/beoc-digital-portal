@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Errors are magnified by a projector
-
  type: scenario
  role: You present to external partners at Lakeside Medical Associates.
- text: Slide four carries a typo in a heading three inches tall on the screen. A reviewer's comment is also still attached — 'is this number even right?' — visible to the room.
+ text: Slide four carries a typo in a heading, three inches tall on the screen. A reviewer's comment is also still attached — 'is this number even right?' — visible to the room.
  task: Clear comments and proofread properly before anything is projected.
-
 
 Spell check catches misspellings and nothing else. It will not notice 'from' where you meant 'form,' a title that is wrong, or a number that contradicts the previous slide. Reading the deck through once in Reading View is what catches those, and it takes a few minutes.
 

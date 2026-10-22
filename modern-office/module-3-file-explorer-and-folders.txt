@@ -12,38 +12,34 @@ By the end of this lesson you can:
 
 
 ## Organization is a decision made once
-
  type: scenario
  role: You inherit the shared drive at Lakeside Medical Associates.
- text: It contains 1400 files across four levels of folders. Names include 'letter final.docx' 'letter final v2.docx' 'letter FINAL USE THIS.docx' and 'Copy of Copy of intake form.docx'. Nobody can find anything so people save new copies rather than search — which makes it worse every week.
+ text: It contains 1,400 files across four levels of folders. Names include 'letter final.docx', 'letter final v2.docx', 'letter FINAL USE THIS.docx', and 'Copy of Copy of intake form.docx'. Nobody can find anything, so people save new copies rather than search — which makes it worse every week.
  task: Design a structure and naming convention that stays usable as it grows.
-
 
 Folder structure should mirror how people look for things, not how they were created. Most offices organize by function, then by year, then by type — because that is the order someone actually thinks in when searching: what kind of thing, from when.
 
 Naming matters as much as structure, because search only works if names are predictable. A good file name contains the date in year-month-day order, a description, and a version if versions matter.
 
-
  type: table
  caption: Naming that works against naming that does not
- columns: 
-  Poor
-  Better
-  Why
- rows: 
-   letter final v2.docx
-   2026-09-01_Insurance-Appeal_Ramirez_v2.docx
-   Sorts by date says what it is versions unambiguous
-   Copy of intake form.docx
-   Intake-Form_Template_v3.docx
-   Names the purpose rather than its history
-   notes 9-1-26.docx
-   2026-09-01_Staff-Meeting-Notes.docx
-   Year-first dates sort chronologically in any file list
-   FINAL FINAL.pdf
-   2026-08-15_Policy-Manual_v4-approved.pdf
-   'Final' is not a version; a number and a status is
-
+ columns:
+   Poor
+   Better
+   Why
+ rows:
+    letter final v2.docx
+    2026-09-01_Insurance-Appeal_Ramirez_v2.docx
+    Sorts by date, says what it is, versions unambiguous
+    Copy of intake form.docx
+    Intake-Form_Template_v3.docx
+    Names the purpose rather than its history
+    notes 9-1-26.docx
+    2026-09-01_Staff-Meeting-Notes.docx
+    Year-first dates sort chronologically in any file list
+    FINAL FINAL.pdf
+    2026-08-15_Policy-Manual_v4-approved.pdf
+    'Final' is not a version; a number and a status is
 
 Note: Year-first dates — 2026-09-01 rather than 09-01-2026 — are the single highest-value naming habit. They sort chronologically in every file list automatically, with no effort and no special tooling. Once you have used them for a month, the alternative starts to look broken.
 

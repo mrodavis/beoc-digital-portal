@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## The few seconds after Send
-
  type: scenario
  role: You are wrapping up at the Lakeside front desk at 5:40 PM.
- text: You answer Omar's request for the Saturday checklist but he is off until tomorrow and you don't want him to feel he has to answer tonight. You also just sent \Lunch order for Friday\ to Dr. Hill instead of Luis and you notice the mistake the moment you select Send.
- task: Set up Outlook so you can catch mistakes send at a good time and pull back the message that went to the wrong person.
-
+ text: You answer Omar's request for the Saturday checklist, but he is off until tomorrow and you don't want him to feel he has to answer tonight. You also just sent "Lunch order for Friday" to Dr. Hill instead of Luis, and you notice the mistake the moment you select Send.
+ task: Set up Outlook so you can catch mistakes, send at a good time, and pull back the message that went to the wrong person.
 
 Undo send makes Outlook wait a few seconds before it actually sends. After you select Send, a bar with Undo appears; select it and the message reopens so you can fix it. Turn it on in Settings › Mail › Compose and reply › Undo send, and choose up to 10 seconds.
 
@@ -40,18 +38,16 @@ Note: Classic Outlook uses Delay Delivery (Options tab in the message window). T
 2. Select Recall Message, then OK.
 3. Outlook sends you a Message Recall Report in your Inbox. Open it to see whether the recall succeeded, is pending, or failed.
 
-
  type: table
  caption: When recall can work
- columns: 
-  Recall can work when...
-  Recall won't work when...
- rows: 
-   You and the recipient have Microsoft 365 work or school accounts in the same organization
-   The recipient is outside your organization or uses Gmail Outlook.com or another service
-   The recipient hasn't opened the message yet
-   The recipient already opened it
-
+ columns:
+   Recall can work when...
+   Recall won't work when...
+ rows:
+    You and the recipient have Microsoft 365 work or school accounts in the same organization
+    The recipient is outside your organization, or uses Gmail, Outlook.com or another service
+    The recipient hasn't opened the message yet
+    The recipient already opened it
 
 Note: Recall is not a safety net for patient information. If a message with patient information goes to the wrong person, tell your supervisor right away, even if you try a recall. Undo send and checking the To line before you select Send prevent the problem in the first place.
 

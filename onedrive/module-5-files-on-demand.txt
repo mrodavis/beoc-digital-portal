@@ -12,39 +12,35 @@ By the end of this lesson you can:
 
 
 ## All your files, without filling the drive
-
  type: scenario
  role: You are packing the laptop for the community health fair.
- text: The health fair is in a gym with no reliable Wi-Fi. You need the patient forms on the laptop but the laptop's drive is almost full mostly with old training videos you rarely watch.
- task: Make sure the forms are on the laptop for offline use and free up space from files that can stay in the cloud.
-
+ text: The health fair is in a gym with no reliable Wi-Fi. You need the patient forms on the laptop, but the laptop's drive is almost full, mostly with old training videos you rarely watch.
+ task: Make sure the forms are on the laptop for offline use, and free up space from files that can stay in the cloud.
 
 Files On-Demand lets File Explorer show every file in your OneDrive without downloading all of them. A file can be online-only (it takes no space and downloads when you open it), locally available (downloaded because you opened it), or always available (kept on the device on purpose). Starting with OneDrive build 23.066, Files On-Demand is turned on by default.
 
-
  type: table
  caption: Status icons in File Explorer's Status column
- columns: 
-  Icon
-  Status
-  Means
- rows: 
-   Blue cloud outline
-   Online-only
-   Takes no space on this PC. Opens only when you are connected to the internet
-   Green check in a white circle
-   Available on this device
-   Downloaded when you opened it. Opens offline. Free up space can make it online-only again
-   White check in a solid green circle
-   Always available
-   You chose Always keep on this device. Stays on the PC and opens offline
-   Blue circular arrows
-   Syncing
-   Uploading or downloading now
-   Red circle with an X
-   Sync problem
-   Open the activity center to see why
-
+ columns:
+   Icon
+   Status
+   Means
+ rows:
+    Blue cloud outline
+    Online-only
+    Takes no space on this PC. Opens only when you are connected to the internet
+    Green check in a white circle
+    Available on this device
+    Downloaded when you opened it. Opens offline. Free up space can make it online-only again
+    White check in a solid green circle
+    Always available
+    You chose Always keep on this device. Stays on the PC and opens offline
+    Blue circular arrows
+    Syncing
+    Uploading or downloading now
+    Red circle with an X
+    Sync problem
+    Open the activity center to see why
 
 Practice: Drag each meaning onto its status icon.
 
@@ -54,20 +50,18 @@ Practice: Drag each meaning onto its status icon.
 - Free up space: right-click a file or folder and select it. The files become online-only and stop taking space, but they stay in OneDrive and in File Explorer.
 - For everything at once, open OneDrive settings (cloud icon › Help & Settings › Settings) › Sync and backup › Advanced settings. Free up disk space (the recommended choice) makes files online-only; Download all files keeps everything on the device.
 
-
  type: worked-example
  title: Packing for the health fair
  task: Keep the patient forms on the laptop and reclaim space from training videos.
- steps: 
+ steps:
    move: Right-click the Patient Forms folder › Always keep on this device.
-   why: Every form downloads now and stays on the laptop so it opens in a gym with no Wi-Fi.
+   why: Every form downloads now and stays on the laptop, so it opens in a gym with no Wi-Fi.
    move: Watch the Status column until each form shows the solid green circle.
    why: The icon confirms the files are really on the laptop before you leave the office.
    move: Right-click the Training folder › Free up space.
    why: The videos become online-only. They still appear in File Explorer and download if someone opens them later.
  result: The forms work offline and the drive has room again.
  takeaway: Always keep what you need offline; free up space on what can wait for the internet.
-
 
 Note: OneDrive on the web also has an offline mode for work or school accounts on Windows and Mac computers with the sync app. It is on by default, and while you are offline you can still view, rename, move, and copy files and create folders in the OneDrive web app.
 

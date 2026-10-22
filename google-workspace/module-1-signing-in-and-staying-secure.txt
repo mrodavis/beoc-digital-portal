@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## One account opens everything
-
  type: scenario
  role: You are covering the front desk at Parkview Property Management.
- text: The front desk computer is shared by everyone who covers the desk: you Andre the leasing agent and sometimes Kim from maintenance. Your Google account opens your email every shared file and the tenant contact list. If you leave it signed in the next person at the desk is working as you.
- task: Sign in safely understand the 2-Step Verification prompt and always leave the shared computer signed out.
-
+ text: The front desk computer is shared by everyone who covers the desk: you, Andre the leasing agent, and sometimes Kim from maintenance. Your Google account opens your email, every shared file, and the tenant contact list. If you leave it signed in, the next person at the desk is working as you.
+ task: Sign in safely, understand the 2-Step Verification prompt, and always leave the shared computer signed out.
 
 Your Google account is the key to every app in Google Workspace. Because one account opens your email, your files, and your calendar, protecting it protects all of them. Two habits do most of the work: turning on 2-Step Verification and signing out of shared computers.
 
@@ -33,24 +31,22 @@ Practice: Drag the steps into the order you do them.
 ## 2-Step Verification
 With 2-Step Verification, signing in takes something you know (your password) and something you have (usually your phone). If someone steals or guesses your password, they still cannot get in without the second step.
 
-
  type: table
  caption: Second steps Google offers
- columns: 
-  Second step
-  How it works
- rows: 
-   Google prompts
-   A notification on your signed-in phone asks if you are trying to sign in. You tap Yes or No.
-   Passkeys and security keys
-   Your phone computer or a small hardware key confirms it is you often with your fingerprint face or screen lock.
-   Authenticator app
-   An app such as Google Authenticator shows a one-time code. It works without internet or cell service.
-   Text message or call
-   Google sends a 6-digit code to your phone number. Google notes these codes can be vulnerable to phone-number scams.
-   Backup codes
-   A printed list of 8-digit codes for when you do not have your phone. Keep them private and somewhere safe.
-
+ columns:
+   Second step
+   How it works
+ rows:
+    Google prompts
+    A notification on your signed-in phone asks if you are trying to sign in. You tap Yes or No.
+    Passkeys and security keys
+    Your phone, computer, or a small hardware key confirms it is you, often with your fingerprint, face, or screen lock.
+    Authenticator app
+    An app such as Google Authenticator shows a one-time code. It works without internet or cell service.
+    Text message or call
+    Google sends a 6-digit code to your phone number. Google notes these codes can be vulnerable to phone-number scams.
+    Backup codes
+    A printed list of 8-digit codes for when you do not have your phone. Keep them private and somewhere safe.
 
 - To turn it on in a personal account: go to myaccount.google.com, select Security & sign-in, and under How you sign in to Google, choose Turn on 2-Step Verification. Follow the steps on the screen.
 - In a work or school account, your administrator may already require it or may manage it for you. If the steps do not work, contact your administrator.
@@ -59,20 +55,18 @@ Note: If a sign-in prompt appears on your phone and you are not signing in, tap 
 
 
 ## Shared and public computers
-
  type: table
  caption: What to do on each kind of computer
- columns: 
-  Computer
-  What to do when you finish
- rows: 
-   Your own computer
-   You can stay signed in. Lock the screen when you step away (Windows key + L).
-   A shared work computer like the front desk
-   Sign out: click your profile picture at the top right then Sign out. Do not let the browser save your password.
-   A public computer like a library
-   Sign in only in a private browsing window (Incognito in Chrome InPrivate in Edge). When you finish close every private window and you are signed out.
-
+ columns:
+   Computer
+   What to do when you finish
+ rows:
+    Your own computer
+    You can stay signed in. Lock the screen when you step away (Windows key + L).
+    A shared work computer, like the front desk
+    Sign out: click your profile picture at the top right, then Sign out. Do not let the browser save your password.
+    A public computer, like a library
+    Sign in only in a private browsing window (Incognito in Chrome, InPrivate in Edge). When you finish, close every private window and you are signed out.
 
 Forgot to sign out somewhere? Go to your Google Account, open Your devices, and use Manage devices to remove the computer you no longer use. If your password could have been saved on someone else's computer, change it.
 

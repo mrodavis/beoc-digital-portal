@@ -13,12 +13,10 @@ By the end of this lesson you can:
 
 
 ## One file, many editors
-
  type: scenario
- role: You keep Parkview's Elm Street move-in tracker a Google Sheets file the whole office edits.
+ role: You keep Parkview's Elm Street move-in tracker, a Google Sheets file the whole office edits.
  text: Priya asked a question in a comment. This morning someone cleared the Walkthrough column by mistake. And one new tenant still has no walkthrough on the schedule.
- task: Answer and resolve the comment recover the lost dates assign the open item and mark the checked version.
-
+ task: Answer and resolve the comment, recover the lost dates, assign the open item, and mark the checked version.
 
 When a file is shared with editors, everyone works in the same copy at the same time. Changes save automatically, and you can see who else has the file open by their pictures or initials at the top right. There's no “latest version” to email around: the file in Drive is always the latest.
 
@@ -28,8 +26,8 @@ Note: Module 2 covered sharing and access levels, and Module 3 covered comments,
 ## Comments and action items
 - Select a cell (Sheets), or an object or slide (Slides), then select Insert › Comment or press Ctrl+Alt+M. Type and select Comment.
 - A cell with a comment shows a small mark in its corner. Select the cell to read the comment and reply.
-- To assign an action item, type @ and the person's name in the comment, check Assign to, and select Assign. They get an email and are responsible for marking it done.
-- When a comment is handled, select the check mark (Mark as done and hide discussion) to resolve it. Resolved comments stay in the comment history, and you can re-open them.
+- To assign an action item, type @ and the person's name in the comment, check Assign to, and select Assign. They get an email, and they select Done on the comment when the task is finished.
+- When a comment is handled, select Resolve (the check mark in the top corner of the comment) to close it. Closed comments are listed under Comments at the top of the window, and Re-open brings one back.
 - People you mention need access to the file. Share it with them, or make sure it's already shared.
 
 Practice: Put the steps in order.
@@ -40,27 +38,25 @@ Note: Microsoft 365 has the same idea: in Word, Excel, and PowerPoint you can @m
 ## Version history: undo a team mistake
 1. Open version history: File › Version history › See version history, or select Last edit (the clock) at the top right.
 2. Select a version on the right to see what the file looked like then, and who changed what.
-3. Select Restore this version, then Restore. The current content is kept as a version too, so nothing is lost.
+3. Select Restore this version at the top, then select Restore.
 4. At a milestone, name the version: File › Version history › Name current version. A spreadsheet can have up to 15 named versions; a document up to 40.
 
 Restoring an older version undoes every change made since then, not just the mistake. Check the newer versions first; if a coworker added something important after that point, copy it before you restore, or fix the mistake by hand instead.
 
-
  type: worked-example
  title: Recovering the walkthrough dates
  task: Get back the Walkthrough column that was cleared at 9:40 AM.
- steps: 
-   move: Open version history and select October 20 4:10 PM.
+ steps:
+   move: Open version history and select October 20, 4:10 PM.
    why: That version still has every walkthrough date.
    move: Check the 9:40 AM version.
-   why: It shows the only change since then was clearing the column so restoring loses nothing else.
-   move: Select Restore this version › Restore.
-   why: The dates come back and the cleared version stays in the history.
+   why: It shows the only change since then was clearing the column, so restoring loses nothing else.
+   move: Select Restore this version, then Restore.
+   why: The tracker goes back to how it was on October 20, so the dates come back.
    move: Name the current version “Checked by office”.
-   why: If something goes wrong later you can find this good version by name.
- result: The tracker is back to normal in a minute without retyping anything.
- takeaway: Before you restore look at what changed since that version.
-
+   why: If something goes wrong later, you can find this good version by name.
+ result: The tracker is back to normal in a minute, without retyping anything.
+ takeaway: Before you restore, look at what changed since that version.
 
 
 ## Comment, suggest, or edit?
@@ -68,6 +64,6 @@ Practice: Drag the best choice onto each situation.
 
 
 ## Knowledge Check
-Check yourself: How do you hand Kim a task about one cell in a shared sheet? Answer: Comment on the cell with @Kim Nguyen and check Assign to. An assigned comment stays on the cell, emails Kim, and makes her responsible for marking it done.
+Check yourself: How do you hand Kim a task about one cell in a shared sheet? Answer: Comment on the cell with @Kim Nguyen and check Assign to. An assigned comment stays on the cell and emails Kim, and she marks it Done when the task is finished.
 
 Check yourself: Someone deleted a column in a shared sheet an hour ago. What's the best way to get it back? Answer: Restore the version from before the deletion in version history. Version history keeps earlier versions of the file. Check what changed since then, then restore.

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Cropping is editing, not trimming
-
  type: scenario
  role: You are building a staff directory at Lakeside Medical Associates.
- text: Eleven staff photos arrive from eleven different phones. Some are portrait some landscape some show the whole waiting room with a person somewhere in it. Dropped into the directory as-is they make the page look like a scrapbook. The document is going to new patients.
+ text: Eleven staff photos arrive from eleven different phones. Some are portrait, some landscape, some show the whole waiting room with a person somewhere in it. Dropped into the directory as-is, they make the page look like a scrapbook. The document is going to new patients.
  task: Crop and adjust the photos so they read as one consistent set.
-
 
 Cropping serves composition, not just size. Cropping every headshot to the same aspect ratio and framing each face in roughly the same position makes eleven unrelated photos read as one deliberate set. Resizing alone cannot do that — a wide photo scaled down is still a wide photo of a waiting room.
 

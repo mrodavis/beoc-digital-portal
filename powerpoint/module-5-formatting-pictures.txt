@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Never resize an image by dragging a side handle
-
  type: scenario
  role: You finish the orientation deck at Lakeside Medical Associates.
- text: You widen a staff photo by dragging the right-hand handle to fill the space. Everyone in the photo is now noticeably stretched. The file is also 60 MB because eleven phone photos are embedded at full resolution and it bounces from the practice's email.
+ text: You widen a staff photo by dragging the right-hand handle to fill the space. Everyone in the photo is now noticeably stretched. The file is also 60 MB, because eleven phone photos are embedded at full resolution, and it bounces from the practice's email.
  task: Resize proportionally and compress deliberately.
-
 
 Dragging a side or top handle changes one dimension only, which distorts the image — obvious and unflattering on any photo containing a face. Always drag a corner handle, which preserves the aspect ratio, and hold Shift if you want to be certain.
 

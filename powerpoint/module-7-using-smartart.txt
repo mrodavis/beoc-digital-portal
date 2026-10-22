@@ -12,42 +12,38 @@ By the end of this lesson you can:
 
 
 ## SmartArt is only useful when the shape means something
-
  type: scenario
  role: You present the referral process at Lakeside Medical Associates.
- text: Six sequential steps as bullets read as six equal items. The same six in a Process graphic show direction order and where the flow branches — the structure becomes visible rather than merely stated.
+ text: Six sequential steps as bullets read as six equal items. The same six in a Process graphic show direction, order, and where the flow branches — the structure becomes visible rather than merely stated.
  task: Choose the SmartArt category that matches the actual relationship in your content.
-
 
 SmartArt builds a diagram from text you type, keeping every element aligned and consistently styled. Its value is that the layout carries meaning — but only if you choose the category that matches your content's real structure. A Cycle graphic applied to a linear process tells the audience something untrue.
 
-
  type: table
  caption: SmartArt categories
- columns: 
-  Category
-  Shows
-  Use for
- rows: 
-   Process
-   A sequence with direction
-   Steps in a workflow
-   Cycle
-   A repeating loop
-   A process that genuinely returns to its start
-   Hierarchy
-   Levels of reporting or containment
-   Org charts classification
-   Relationship
-   Connection between items
-   Overlaps opposing forces
-   Matrix
-   Parts of a whole in quadrants
-   Two-axis categorization
-   List
-   Grouped items no sequence
-   Bullets that need visual grouping
-
+ columns:
+   Category
+   Shows
+   Use for
+ rows:
+    Process
+    A sequence with direction
+    Steps in a workflow
+    Cycle
+    A repeating loop
+    A process that genuinely returns to its start
+    Hierarchy
+    Levels of reporting or containment
+    Org charts, classification
+    Relationship
+    Connection between items
+    Overlaps, opposing forces
+    Matrix
+    Parts of a whole in quadrants
+    Two-axis categorization
+    List
+    Grouped items, no sequence
+    Bullets that need visual grouping
 
 Type in the Text Pane rather than clicking each shape. Enter adds an item, Tab demotes it, Shift+Tab promotes it — and SmartArt re-lays out and resizes everything automatically. Building a diagram this way takes a fraction of the time of positioning shapes by hand.
 

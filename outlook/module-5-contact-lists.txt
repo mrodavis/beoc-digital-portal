@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## One name for a group
-
  type: scenario
  role: You send the weekly clinic reminders at Lakeside.
- text: Every Thursday you type the same three or four names to remind the Saturday clinic staff and last month you forgot Priya. Keisha now joins the front desk team meetings and an old holiday party list keeps appearing when you type.
- task: Set up contact lists so one name reaches the right people every time and clean up the old one.
-
+ text: Every Thursday you type the same three or four names to remind the Saturday clinic staff, and last month you forgot Priya. Keisha now joins the front desk team meetings, and an old holiday party list keeps appearing when you type.
+ task: Set up contact lists so one name reaches the right people every time, and clean up the old one.
 
 A contact list is a saved group of email addresses with a name. Type the name in To, Cc or Bcc and everyone on the list gets the message. Classic Outlook calls these contact groups. A contact list belongs to you; for a team that needs a shared inbox, calendar or files, your organization may use a Microsoft 365 group instead.
 
@@ -39,23 +37,21 @@ Note: Classic Outlook: People › Home tab › New Contact Group, then Add Membe
 
 Practice: Decide where each list belongs in the message.
 
-
  type: worked-example
  title: Saturday clinic lists
  task: Make Thursday's reminder a one-name job.
- steps: 
+ steps:
    move: Select Luis Ortega › Add to list › New contact list.
    why: Starting from a contact puts that person on the list right away.
-   move: Name it Saturday Clinic Staff add Priya and Omar select Create.
+   move: Name it Saturday Clinic Staff, add Priya and Omar, select Create.
    why: A clear name is easy to find when you type.
    move: Select Keisha › Add to list › Front Desk Team.
    why: Existing lists grow as the team changes.
    move: New mail › To: Saturday Clinic Staff › subject › Send.
-   why: One name reaches everyone and nobody is forgotten.
+   why: One name reaches everyone, and nobody is forgotten.
    move: Delete Holiday Party 2025.
    why: Old lists clutter suggestions and invite mistakes.
- result: Lists that match the real teams and reminders that reach everyone.
-
+ result: Lists that match the real teams, and reminders that reach everyone.
 
 
 ## Knowledge Check

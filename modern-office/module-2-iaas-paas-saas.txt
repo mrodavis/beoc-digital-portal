@@ -12,72 +12,66 @@ By the end of this lesson you can:
 
 
 ## Three models, one question: how much do you manage?
-
  type: scenario
  role: You review vendor proposals at Lakeside Medical Associates.
  text: Three vendors all describe their product as 'cloud-based.' One provides virtual servers the practice must configure and patch. One provides a platform for building an application. One provides a finished scheduling application accessed in a browser. Calling all three 'the cloud' obscures the only thing that matters: who is responsible for what.
  task: Distinguish the three service models by what the customer is left managing.
 
-
 The three models form a stack. At each level upward, the provider manages more and you manage less — gaining convenience and losing control. There is no best model; there is only the right amount of responsibility for what you are trying to do.
-
 
  type: table
  caption: Who manages what
- columns: 
-  Layer
-  On-premises
-  IaaS
-  PaaS
-  SaaS
- rows: 
-   Application
-   You
-   You
-   You
-   Provider
-   Data
-   You
-   You
-   You
-   You
-   Runtime
-   You
-   You
-   Provider
-   Provider
-   Operating system
-   You
-   You
-   Provider
-   Provider
-   Virtualization
-   You
-   Provider
-   Provider
-   Provider
-   Servers and storage
-   You
-   Provider
-   Provider
-   Provider
-   Networking
-   You
-   Provider
-   Provider
-   Provider
-
-
+ columns:
+   Layer
+   On-premises
+   IaaS
+   PaaS
+   SaaS
+ rows:
+    Application
+    You
+    You
+    You
+    Provider
+    Data
+    You
+    You
+    You
+    You
+    Runtime
+    You
+    You
+    Provider
+    Provider
+    Operating system
+    You
+    You
+    Provider
+    Provider
+    Virtualization
+    You
+    Provider
+    Provider
+    Provider
+    Servers and storage
+    You
+    Provider
+    Provider
+    Provider
+    Networking
+    You
+    Provider
+    Provider
+    Provider
 
  type: key-terms
- terms: 
+ terms:
    term: IaaS — Infrastructure as a Service
-   definition: Rented virtual machines storage and networking. You install and maintain everything above the hardware. Examples: Amazon EC2 Azure Virtual Machines.
+   definition: Rented virtual machines, storage, and networking. You install and maintain everything above the hardware. Examples: Amazon EC2, Azure Virtual Machines.
    term: PaaS — Platform as a Service
-   definition: A managed environment for running applications you write without managing the servers or operating system. Examples: Azure App Service Google App Engine.
+   definition: A managed environment for running applications you write, without managing the servers or operating system. Examples: Azure App Service, Google App Engine.
    term: SaaS — Software as a Service
-   definition: A finished application you simply use. Examples: Google Workspace Microsoft 365 most EHR systems.
-
+   definition: A finished application you simply use. Examples: Google Workspace, Microsoft 365, most EHR systems.
 
 A useful analogy is transport. IaaS is leasing a car — you drive, fuel, and maintain it. PaaS is a rental with servicing included — you drive, someone else maintains. SaaS is a taxi — you state a destination and someone else handles everything. The analogy also captures the trade: the taxi is easiest and gives you the least control over the route.
 

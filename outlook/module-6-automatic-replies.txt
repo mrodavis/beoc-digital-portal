@@ -12,52 +12,46 @@ By the end of this lesson you can:
 
 
 ## A reply that does your job while you're away
-
  type: scenario
  role: You are leaving the Lakeside front desk for a two-day training class.
- text: Patients partner offices and coworkers will keep emailing you. Coworkers need to know who's covering; outside senders need a polite answer and a phone number without an announcement that you're away to every stranger who writes.
+ text: Patients, partner offices and coworkers will keep emailing you. Coworkers need to know who's covering; outside senders need a polite answer and a phone number, without an announcement that you're away to every stranger who writes.
  task: Schedule automatic replies with one message for inside the organization and a shorter one for outside senders.
 
-
-1. Select Settings (the gear at the top right) › Accounts › Automatic replies.
-2. Turn on Automatic replies.
+1. On the View tab, select View settings (or select Settings, the gear at the top right), then Accounts › Automatic replies.
+2. Turn on the Automatic replies toggle.
 3. Check Send replies only during a time period and set the start and end dates and times, so the replies stop on their own.
 4. Type the message for people in your organization.
-5. To answer outside senders, check Send replies outside your organization. Choose Send replies only to contacts if only people you know should get it. Type the outside message.
+5. To answer outside senders (work or school accounts), check Send replies outside your organization and type the outside message. Also check Send replies only to contacts if only people in your contacts should get it; Microsoft recommends this, because replying to everyone outside also answers newsletters, ads and junk mail.
 6. Select Save.
 
 Note: Classic Outlook: File › Automatic Replies. Choose Send automatic replies, Only send during this time range, and use the Inside My Organization and Outside My Organization tabs.
 
 
 ## What to say
-
  type: table
- caption: Two audiences two messages
- columns: 
-  Inside the organization
-  Outside the organization
- rows: 
-   When you're back
-   When they can expect a reply
-   Who covers for you by name
-   A general phone number or shared mailbox
-   Anything urgent coworkers should know
-   Nothing about where you are or why
-
-
+ caption: Two audiences, two messages
+ columns:
+   Inside the organization
+   Outside the organization
+ rows:
+    When you're back
+    When they can expect a reply
+    Who covers for you, by name
+    A general phone number or shared mailbox
+    Anything urgent coworkers should know
+    Nothing about where you are or why
 
  type: worked-example
  title: Writing the replies
  task: Cover Thursday and Friday at a training class.
- steps: 
-   move: Inside: \I am at a training class and back on Monday October 26. For front desk help contact Omar Haddad.\
+ steps:
+   move: Inside: "I am at a training class and back on Monday, October 26. For front desk help, contact Omar Haddad."
    why: Coworkers get a date and a name.
-   move: Outside contacts only: \Thank you for your message. I will reply on Monday October 26. For scheduling please call (555) 010-2400.\
-   why: Partners get a date and a number without details about your absence.
+   move: Outside, contacts only: "Thank you for your message. I will reply on Monday, October 26. For scheduling, please call (555) 010-2400."
+   why: Partners get a date and a number, without details about your absence.
    move: Set the time period from Thursday 8:00 AM to Friday 5:00 PM.
-   why: The replies stop automatically even if you forget.
- result: Everyone who writes knows what to do next and nothing private is shared.
-
+   why: The replies stop automatically, even if you forget.
+ result: Everyone who writes knows what to do next, and nothing private is shared.
 
 Note: Keep outside replies short. Saying you're on vacation, traveling, or away from home tells strangers more than they need to know.
 

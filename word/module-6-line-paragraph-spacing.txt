@@ -12,38 +12,34 @@ By the end of this lesson you can:
 
 
 ## Press Enter twice and you have made a formatting problem
-
  type: scenario
  role: You are formatting a twelve-page policy document at Lakeside Medical Associates.
- text: You separate paragraphs by pressing Enter twice throughout. Your supervisor asks for slightly tighter spacing. There is no setting to change — the spacing is made of empty paragraphs so you must find and delete a hundred and forty of them by hand and some of them are now stranded at the tops of pages.
- task: Create vertical space with paragraph spacing settings so it can be adjusted everywhere in one action.
-
+ text: You separate paragraphs by pressing Enter twice throughout. Your supervisor asks for slightly tighter spacing. There is no setting to change — the spacing is made of empty paragraphs, so you must find and delete a hundred and forty of them by hand, and some of them are now stranded at the tops of pages.
+ task: Create vertical space with paragraph spacing settings, so it can be adjusted everywhere in one action.
 
 Space Before and Space After are properties of a paragraph, set in the Paragraph dialog or under Layout > Spacing. Because they are properties, they can be changed globally — or built into a style, so every paragraph using that style updates at once. Blank paragraphs are content, and content has to be edited one instance at a time.
 
 Empty paragraphs cause a second problem: they land at page boundaries. A blank paragraph pushed to the top of a page leaves an unexplained gap, and screen readers announce empty paragraphs, so a document padded this way is read aloud with meaningless pauses.
 
-
  type: table
  caption: Spacing conventions
- columns: 
-  Document
-  Line spacing
-  Paragraph spacing
- rows: 
-   Business letter
-   Single
-   6-12 pt after
-   Academic paper
-   Double
-   0 pt first-line indent instead
-   Document for review
-   1.5 lines
-   Extra room for handwritten notes
-   Dense reference table
-   Single
-   Minimal — the structure does the separating
-
+ columns:
+   Document
+   Line spacing
+   Paragraph spacing
+ rows:
+    Business letter
+    Single
+    6-12 pt after
+    Academic paper
+    Double
+    0 pt, first-line indent instead
+    Document for review
+    1.5 lines
+    Extra room for handwritten notes
+    Dense reference table
+    Single
+    Minimal — the structure does the separating
 
 Paragraph > Line and Page Breaks > Keep with next binds a paragraph to the one after it, so a heading can never be left alone at the bottom of a page. Setting it on your heading styles fixes the problem permanently across the whole document.
 

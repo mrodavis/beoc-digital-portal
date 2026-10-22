@@ -12,38 +12,34 @@ By the end of this lesson you can:
 
 
 ## The dollar sign means 'do not move this'
-
  type: scenario
  role: You apply a tax rate across the supply sheet at Lakeside Medical Associates.
- text: The rate is in F1. You write =E2*F1 in the first row and fill down. Row 3 becomes =E3*F2 row 4 becomes =E4*F3 — the reference slid down with the formula off the rate and into empty cells. Every row below the first is now wrong and most show a plausible-looking zero.
+ text: The rate is in F1. You write =E2*F1 in the first row and fill down. Row 3 becomes =E3*F2, row 4 becomes =E4*F3 — the reference slid down with the formula, off the rate and into empty cells. Every row below the first is now wrong, and most show a plausible-looking zero.
  task: Control which parts of a reference move when a formula is copied.
-
 
 A relative reference like F1 is really an instruction about position: 'the cell one column right and one row up from me.' Copy the formula down and that instruction is re-evaluated from the new location, which is why it slides. This is exactly what you want for =C2*D2, and exactly what you do not want for a rate cell.
 
 A dollar sign freezes the part it precedes. $F$1 is fully absolute and never moves. F$1 locks the row but lets the column shift. $F1 locks the column but lets the row shift. These mixed forms are what let a single formula fill across a whole grid — a rate table where one axis is fixed by row and the other by column.
 
-
  type: table
  caption: Reference types
- columns: 
-  Written
-  Called
-  When copied
- rows: 
-   F1
-   Relative
-   Both column and row shift
-   $F$1
-   Absolute
-   Never changes
-   F$1
-   Mixed — row locked
-   Column shifts row stays at 1
-   $F1
-   Mixed — column locked
-   Row shifts column stays at F
-
+ columns:
+   Written
+   Called
+   When copied
+ rows:
+    F1
+    Relative
+    Both column and row shift
+    $F$1
+    Absolute
+    Never changes
+    F$1
+    Mixed — row locked
+    Column shifts, row stays at 1
+    $F1
+    Mixed — column locked
+    Row shifts, column stays at F
 
 While editing a formula, put the cursor in a reference and press F4 to cycle F1 → $F$1 → F$1 → $F1 → F1. It is far faster than typing dollar signs and is the standard way experienced users set reference types.
 

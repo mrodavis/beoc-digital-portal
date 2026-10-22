@@ -12,17 +12,15 @@ By the end of this lesson you can:
 
 
 ## Copilot in Outlook
-
  type: scenario
  role: You coordinate Saturday's flu clinic at Lakeside.
- text: The planning thread has eleven replies and you need the final decisions in a minute. Then the clinic staff need a short friendly reminder.
- task: Let Copilot do the first draft then make sure every fact is right before anything goes out.
-
+ text: The planning thread has eleven replies, and you need the final decisions in a minute. Then the clinic staff need a short, friendly reminder.
+ task: Let Copilot do the first draft, then make sure every fact is right before anything goes out.
 
 Microsoft 365 Copilot is an AI assistant built into Outlook for organizations that provide it. Whether you have it depends on your organization's license and settings; if you can't find Copilot, check with your IT administrator. Copilot doesn't replace your judgment: you're responsible for every message you send.
 
 - Summarize: open a thread and select Summary by Copilot (it may say Summarize) at the top. The summary appears above the message and may include numbered citations that jump to the message they came from.
-- Draft: start a new message, select the Copilot icon on the toolbar › Draft (or Draft with Copilot in the message area), type what you want, and select the Generate arrow. Change the length or tone, or try a new prompt, until it's right, then select Keep it and edit it.
+- Draft: start a new message (Home › New mail), select the Copilot icon on the toolbar › Draft with Copilot, type what you want, and select Generate. You can choose the length and tone, or change your prompt and generate again, until it's right. Then select Keep and edit the draft.
 - Draft with Copilot doesn't work in plain text messages; switch to HTML in Settings › Mail › Compose and reply if needed.
 
 
@@ -34,21 +32,19 @@ Microsoft 365 Copilot is an AI assistant built into Outlook for organizations th
 
 Practice: Put the steps in a safe order.
 
-
  type: worked-example
  title: From thread to reminder
  task: Turn Denise's eleven-message thread into a staff reminder.
- steps: 
+ steps:
    move: Select Summary by Copilot on the thread.
-   why: The decisions (7:30 AM arrival Elm Street parking) are visible in seconds.
-   move: New mail › Draft with Copilot: \Write a short friendly reminder to arrive by 7:30 AM Saturday for the flu clinic.\
+   why: The decisions (7:30 AM arrival, Elm Street parking) are visible in seconds.
+   move: New mail › Copilot › Draft with Copilot: "Write a short, friendly reminder to arrive by 7:30 AM Saturday for the flu clinic."
    why: The prompt carries the facts that matter.
-   move: Compare the draft with the thread then add \Please bring your badge.\
+   move: Compare the draft with the thread, then add "Please bring your badge."
    why: You confirm the facts and add what Copilot couldn't know.
-   move: Address it to Omar and Priya add a subject and send.
-   why: You are the one sending so you check last.
- result: A correct friendly reminder in a couple of minutes.
-
+   move: Address it to Omar and Priya, add a subject, and send.
+   why: You are the one sending, so you check last.
+ result: A correct, friendly reminder in a couple of minutes.
 
 
 ## Outlook on the web and on your phone

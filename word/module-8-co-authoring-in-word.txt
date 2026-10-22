@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Two people, one document, no emailed versions
-
  type: scenario
  role: You are revising the intake form with a nurse manager at Lakeside Medical Associates.
  text: Emailing versions back and forth produces 'Intake Form v3 FINAL (JM edits) revised.docx' and a genuine question about which copy is current. Two of the three changes made on Tuesday are in a file nobody opens again.
  task: Work in one shared document so there is only ever one current version.
-
 
 Co-authoring lets several people edit the same document simultaneously. Each person's cursor is visible with their name, edits appear within seconds, and there is exactly one file — so the question of which version is current stops existing.
 

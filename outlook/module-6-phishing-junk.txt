@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## Why the front desk is a target
-
  type: scenario
  role: You check the Lakeside front desk inbox first thing Monday.
- text: A message that looks like it's from IT says your mailbox is full and asks you to verify your password. A gift card offer three glove promotions and a real imaging confirmation stuck in Junk Email are waiting too.
- task: Handle each message the safe way: report block or rescue.
-
+ text: A message that looks like it's from IT says your mailbox is full and asks you to verify your password. A gift card offer, three glove promotions, and a real imaging confirmation stuck in Junk Email are waiting too.
+ task: Handle each message the safe way: report, block, or rescue.
 
 Phishing messages pretend to come from someone you trust to get you to click a link, open an attachment, or type a password. Medical offices are common targets because they handle health and payment information, and front desk staff open messages from strangers all day.
 
-
  type: table
  caption: Signs of phishing
- columns: 
-  Sign
-  Example
- rows: 
-   Urgency or threats
-   \Verify your password within 24 hours or your account will be closed\
-   A look-alike sender
-   it-support@lakesidemed-help.example.net instead of the real lakesidemed.example.com
-   Rewards or refunds
-   \Click this link to get your tax refund!\
-   Fake shared files and invoices
-   A document that asks for your email and password to open or an invoice for something you never ordered
-   Outlook warnings
-   A '?' in the sender's picture or a \via\ tag when Outlook can't verify the sender
-
+ columns:
+   Sign
+   Example
+ rows:
+    Urgency or threats
+    "Verify your password within 24 hours or your account will be closed"
+    A look-alike sender
+    it-support@lakesidemed-help.example.net instead of the real lakesidemed.example.com
+    Rewards or refunds
+    "Click this link to get your tax refund!"
+    Fake shared files and invoices
+    A document that asks for your email and password to open, or an invoice for something you never ordered
+    Outlook warnings
+    A '?' in the sender's picture or a "via" tag when Outlook can't verify the sender
 
 Point to a link without clicking to see where it really goes. If a message claims to be from someone you know, check with them by phone using a number you already have, not one in the message.
 

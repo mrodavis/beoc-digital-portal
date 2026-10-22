@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Office files keep arriving
-
  type: scenario
  role: You handle the paperwork that comes into the Parkview office.
- text: Not everyone uses Google Workspace. Russo Plumbing emails its invoices as Excel files the lease renewal notice came from the company lawyer as a Word file and a tenant who uses Word asked for the move-in checklist in Word. Parkview's files live in Drive so you need to handle all of these without retyping anything.
- task: Edit Office files in Drive convert them when you need Google features and send people the format they can use.
-
+ text: Not everyone uses Google Workspace. Russo Plumbing emails its invoices as Excel files, the lease renewal notice came from the company lawyer as a Word file, and a tenant who uses Word asked for the move-in checklist in Word. Parkview's files live in Drive, so you need to handle all of these without retyping anything.
+ task: Edit Office files in Drive, convert them when you need Google features, and send people the format they can use.
 
 Drive stores any kind of file. When you double-click a Word, Excel, or PowerPoint file in Drive, it opens in Google Docs, Sheets, or Slides. You can read it, edit it, and comment on it. Your changes are saved back to the original Office file.
 
@@ -35,52 +33,48 @@ Note: Converting makes a copy. The original Office file stays in Drive, unchange
 ## Download as Office or PDF
 To send someone a file they can open without Google, download it in another format: open the file and choose File › Download, then pick the format. The download goes to your computer's Downloads folder, and you can attach it to an email. The file in Drive does not change.
 
-
  type: table
  caption: Common File › Download formats
- columns: 
-  App
-  Format
-  Use it when
- rows: 
-   Docs
-   Microsoft Word (.docx)
-   The other person needs to edit it in Word
-   Docs
-   PDF Document (.pdf)
-   The other person only needs to read print or sign it
-   Sheets
-   Microsoft Excel (.xlsx)
-   The other person needs to work with the numbers in Excel
-   Sheets
-   Comma Separated Values (.csv)
-   Another system needs the data (a CSV file holds one sheet of plain data)
-   Slides
-   Microsoft PowerPoint (.pptx)
-   The presenter uses PowerPoint
-   Slides
-   PDF Document (.pdf)
-   People only need to read the slides
-
+ columns:
+   App
+   Format
+   Use it when
+ rows:
+    Docs
+    Microsoft Word (.docx)
+    The other person needs to edit it in Word
+    Docs
+    PDF Document (.pdf)
+    The other person only needs to read, print, or sign it
+    Sheets
+    Microsoft Excel (.xlsx)
+    The other person needs to work with the numbers in Excel
+    Sheets
+    Comma Separated Values (.csv)
+    Another system needs the data (a CSV file holds one sheet of plain data)
+    Slides
+    Microsoft PowerPoint (.pptx)
+    The presenter uses PowerPoint
+    Slides
+    PDF Document (.pdf)
+    People only need to read the slides
 
 Practice: Sort each request.
 
-
  type: worked-example
  title: The lease renewal notice
- task: The lawyer sent Lease Renewal Notice.docx. Denise wants it styled like Parkview's other notices and kept as a Google Doc and a tenant needs a copy to print.
- steps: 
+ task: The lawyer sent Lease Renewal Notice.docx. Denise wants it styled like Parkview's other notices and kept as a Google Doc, and a tenant needs a copy to print.
+ steps:
    move: Double-click the .docx file in Drive.
-   why: It opens in Docs with the .DOCX chip so you can check it right away without converting.
+   why: It opens in Docs with the .DOCX chip, so you can check it right away without converting.
    move: File › Save as Google Docs.
-   why: Denise wants a Google Doc and converting gives you a Google copy while the lawyer's original stays as it was.
+   why: Denise wants a Google Doc, and converting gives you a Google copy while the lawyer's original stays as it was.
    move: Format the Google copy.
-   why: Edits now go into Parkview's Google Doc not the lawyer's file.
+   why: Edits now go into Parkview's Google Doc, not the lawyer's file.
    move: File › Download › PDF Document (.pdf) for the tenant.
    why: A PDF prints the same on any computer and cannot be changed by accident.
- result: A Google Doc for the office and a PDF for the tenant with the lawyer's original untouched.
+ result: A Google Doc for the office and a PDF for the tenant, with the lawyer's original untouched.
  takeaway: Edit Office files in place when you only need a quick change; convert when Parkview will keep and maintain the file.
-
 
 
 ## Knowledge Check

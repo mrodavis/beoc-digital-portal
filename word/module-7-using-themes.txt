@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Themes keep everything in a document agreeing with itself
-
  type: scenario
  role: You produce patient-facing materials at Lakeside Medical Associates.
- text: The practice adopts a new color palette. Your documents contain headings chart series table shading and shape fills all colored by hand from the standard palette. Updating them means finding every colored object in every document.
- task: Use theme colors so a palette change is one selection rather than an audit.
-
+ text: The practice adopts a new color palette. Your documents contain headings, chart series, table shading, and shape fills, all colored by hand from the standard palette. Updating them means finding every colored object in every document.
+ task: Use theme colors, so a palette change is one selection rather than an audit.
 
 A theme controls three things: a palette of colors, a pair of fonts for headings and body text, and a set of graphic effects for shapes and charts. Together they keep every element in a document visually consistent — and consistent across Word, Excel, and PowerPoint, since all three share the same theme system.
 

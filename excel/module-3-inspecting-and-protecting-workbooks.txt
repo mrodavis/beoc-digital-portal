@@ -12,31 +12,27 @@ By the end of this lesson you can:
 
 
 ## Protect the formulas, not the people
-
  type: scenario
  role: You built the supply tracker three staff members use daily at Lakeside Medical Associates.
- text: Within a fortnight two formula cells have been overwritten with typed numbers. Nobody did it deliberately — they tabbed into the wrong cell and typed. The tracker now reports figures that are simply wrong and nothing on screen indicates it.
- task: Lock the calculated cells and leave the data entry cells open so the tool survives daily use.
-
+ text: Within a fortnight, two formula cells have been overwritten with typed numbers. Nobody did it deliberately — they tabbed into the wrong cell and typed. The tracker now reports figures that are simply wrong, and nothing on screen indicates it.
+ task: Lock the calculated cells and leave the data entry cells open, so the tool survives daily use.
 
 Sheet protection works in two stages, and the order surprises people. Every cell is marked Locked by default, but locking has no effect until the sheet is protected. So you first unlock the cells people should edit, then protect the sheet — which activates the lock on everything you did not unlock.
-
 
  type: worked-example
  title: Protecting a shared tracker
  task: Let three staff enter quantities and prices while making the formula columns impossible to overwrite by accident.
- steps: 
-   move: Select the data entry cells then Format Cells > Protection and uncheck Locked.
-   why: This is the step that feels backwards. You are unlocking the cells you want editable because protection will lock everything else. Skipping straight to Protect Sheet locks the entire sheet and nobody can enter anything.
+ steps:
+   move: Select the data entry cells, then Format Cells > Protection and uncheck Locked.
+   why: This is the step that feels backwards. You are unlocking the cells you want editable, because protection will lock everything else. Skipping straight to Protect Sheet locks the entire sheet and nobody can enter anything.
    move: Give the unlocked cells a distinct fill color.
    why: People should be able to see where they may type before they try. A consistent color for input cells prevents most of the confused clicking that protection would otherwise produce.
-   move: Review > Protect Sheet and leave 'Select unlocked cells' checked.
+   move: Review > Protect Sheet, and leave 'Select unlocked cells' checked.
    why: This activates the locks. Leaving selection of unlocked cells enabled means staff can still tab through the sheet normally — protection should stop mistakes without making the tool awkward.
-   move: Set a password only if you will still have it in a year and record it somewhere durable.
-   why: Sheet protection is designed to prevent accidents not to resist attack — the passwords are trivially removable with freely available tools. Its real value is stopping honest mistakes and a lost password locks you out of your own workbook for no security benefit.
+   move: Set a password only if you will still have it in a year, and record it somewhere durable.
+   why: Sheet protection is designed to prevent accidents, not to resist attack — the passwords are trivially removable with freely available tools. Its real value is stopping honest mistakes, and a lost password locks you out of your own workbook for no security benefit.
  result: A tracker three people use daily where the formulas cannot be overwritten by a stray keystroke.
- takeaway: Unlock first then protect. And treat Excel protection as accident prevention rather than security.
-
+ takeaway: Unlock first, then protect. And treat Excel protection as accident prevention rather than security.
 
 Note: Excel's worksheet and workbook passwords are not real security. They stop accidents and casual curiosity. If a workbook genuinely must be confidential, use File > Info > Protect Workbook > Encrypt with Password, which encrypts the file contents — and rely primarily on where the file is stored and who has access to it.
 

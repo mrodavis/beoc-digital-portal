@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Video is where presentations fail on unfamiliar hardware
-
  type: scenario
  role: You present a training deck at Lakeside Medical Associates.
- text: Your video plays perfectly at your desk. On the conference room machine the slide shows a black rectangle because the deck was linked to a file still sitting on your computer and the guest network cannot reach the online copy either.
+ text: Your video plays perfectly at your desk. On the conference room machine the slide shows a black rectangle, because the deck was linked to a file still sitting on your computer, and the guest network cannot reach the online copy either.
  task: Embed and optimize media so the deck is genuinely self-contained.
-
 
 Video inserted from your PC is embedded in the file, which is what makes the deck portable — at the cost of size. Online video is linked, so it needs a working connection and an unblocked site at presentation time. Conference room networks frequently block video platforms.
 

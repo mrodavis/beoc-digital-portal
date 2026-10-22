@@ -12,19 +12,17 @@ By the end of this lesson you can:
 
 
 ## Your name on every message
-
  type: scenario
  role: You are setting up your mailbox at Lakeside Medical Associates.
- text: Denise wants every front desk message to end with the same signature: your name your title the practice name and the front desk number. For quick replies to coworkers a full signature block on every two-line message is too much.
- task: Make a full signature for new messages and a short one for replies and know how to swap them when a reply goes outside the office.
+ text: Denise wants every front desk message to end with the same signature: your name, your title, the practice name and the front desk number. For quick replies to coworkers, a full signature block on every two-line message is too much.
+ task: Make a full signature for new messages and a short one for replies, and know how to swap them when a reply goes outside the office.
 
-
-1. Select Settings (the gear at the top right), then Accounts › Signatures.
+1. On the View tab, select View settings (or select Settings, the gear at the top right), then Accounts › Signatures.
 2. If you have more than one account, choose the account the signature is for.
-3. Select Add signature and give it a name you'll recognize, such as Front Desk.
-4. Type and format the signature in the editing box.
-5. Use the checkboxes under the signature to have Outlook add it automatically to new messages, to replies and forwards, or both. Leave them clear if you'd rather add it yourself.
-6. Select Save.
+3. Select New signature and give it a name you'll recognize, such as Front Desk.
+4. Type and format the signature in the editing box, then select Save.
+5. Under Select default signatures, choose whether Outlook adds it automatically to new messages, to replies and forwards, or both. Leave them set to no signature if you'd rather add it yourself.
+6. Select Save again.
 
 Note: Classic Outlook: File › Options › Mail › Signatures. Select New, name the signature, type it in Edit signature, then choose it under New messages and Replies/forwards and select OK.
 
@@ -36,22 +34,20 @@ Note: Classic Outlook: in the message window, Message tab › Include group › 
 
 
 ## What belongs in a work signature
-
  type: table
  caption: Professional signature checklist
- columns: 
-  Include
-  Leave out
- rows: 
-   Full name and job title
-   Personal phone number or personal email
-   Practice name
-   Quotes emojis or decorative images
-   Main phone number and extension
-   Your home address
-   The confidentiality notice your practice requires
-   Anything your practice hasn't approved
-
+ columns:
+   Include
+   Leave out
+ rows:
+    Full name and job title
+    Personal phone number or personal email
+    Practice name
+    Quotes, emojis, or decorative images
+    Main phone number and extension
+    Your home address
+    The confidentiality notice your practice requires
+    Anything your practice hasn't approved
 
 Many healthcare organizations add a short confidentiality notice to every signature, telling a reader who got the message by mistake to notify the sender and delete it. Use the exact wording your practice gives you; don't write your own.
 

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Signing in
-
  type: scenario
  role: You are covering the check-in window at Lakeside Medical Associates.
- text: A patient is waiting while you look for the Office Phone List. You know it is in OneDrive somewhere but you are on a computer you have never used and every click feels like a guess.
- task: Learn the OneDrive layout well enough to find any file in a few seconds on any computer.
-
+ text: A patient is waiting while you look for the Office Phone List. You know it is in OneDrive somewhere, but you are on a computer you have never used, and every click feels like a guess.
+ task: Learn the OneDrive layout well enough to find any file in a few seconds, on any computer.
 
 1. Open a browser and go to onedrive.com. Sign in with your work or school account (at Lakeside, your lakesidemedical.example address).
 2. Or go to microsoft365.com, sign in, select the app launcher (the grid of dots at the top left), and select OneDrive.
@@ -27,26 +25,24 @@ Note: On a shared or public computer, always sign out when you finish: select yo
 
 
 ## The parts of the screen
-
  type: table
- caption: OneDrive on the web from top to bottom and left to right
- columns: 
-  Part
-  What it is for
- rows: 
-   Header
-   The app launcher the search box Settings (gear) Help (?) and your account picture
-   Create or upload
-   Makes a new folder or Office file or uploads files and folders. (A personal account shows Add new.)
-   Left pane
-   Home My files Shared Favorites Recycle bin then Browse files by People Meetings and Media and Quick access
-   Command bar
-   Commands for whatever you select: Share Copy link Download Delete Move to Copy to Rename and More actions (…)
-   File list
-   Your files and folders. Switch between list and tiles views at the top right
-   Details pane
-   Select the information (i) button to see who has access the file's path size and version
-
+ caption: OneDrive on the web, from top to bottom and left to right
+ columns:
+   Part
+   What it is for
+ rows:
+    Header
+    The app launcher, the search box, Settings (gear), Help (?), and your account picture
+    Create or upload
+    Makes a new folder or Office file, or uploads files and folders. (A personal account shows Add new.)
+    Left pane
+    Home, My files, Shared, Favorites, Recycle bin, then Browse files by People, Meetings, and Media, and Quick access
+    Command bar
+    Commands for whatever you select: Share, Copy link, Download, Delete, Move to, Copy to, Rename, and More actions (…)
+    File list
+    Your files and folders. Switch between list and tiles views at the top right
+    Details pane
+    Select the information (i) button to see who has access, the file's path, size, and version
 
 Note: Microsoft is moving the Create or upload button from the top of the left pane to the right side of the page, next to the command bar. If you don't see it on the left, look at the top right of the file list. The choices in it are the same.
 
@@ -60,22 +56,20 @@ Practice: Drag each description onto the view it belongs to.
 ## Selecting, the command bar, and the details pane
 Click a file's row to select it. A round check box appears at the left of the row; select more check boxes (or hold Ctrl and click) to select several files. The command bar above the list changes to show what you can do with what is selected. Right-clicking a file, or selecting More actions (…) next to its name, shows the same commands in a menu. Select the file's name to open it.
 
-
  type: worked-example
  title: Finding the phone list in a hurry
- task: Open the Office Phone List and check who last changed it on a computer you have never used.
- steps: 
+ task: Open the Office Phone List and check who last changed it, on a computer you have never used.
+ steps:
    move: Type phone in the Search box at the top and press Enter.
-   why: Search looks through your OneDrive and the files shared with you so you don't have to remember which folder it is in.
-   move: Select the row for Office Phone List not the name.
-   why: Selecting a row picks the file without opening it so the command bar and details pane show its information.
+   why: Search looks through your OneDrive and the files shared with you, so you don't have to remember which folder it is in.
+   move: Select the row for Office Phone List, not the name.
+   why: Selecting a row picks the file without opening it, so the command bar and details pane show its information.
    move: Select the information (i) button at the top right.
-   why: The details pane shows who modified the file and when and who has access which tells you whether this copy is current.
+   why: The details pane shows who modified the file and when, and who has access, which tells you whether this copy is current.
    move: Select the file name to open it.
-   why: Now you know it is the right file so opening it is the last step not a guess.
- result: The current phone list is open and you know who updated it last.
- takeaway: Search first select to check then open. It is faster than clicking through folders.
-
+   why: Now you know it is the right file, so opening it is the last step, not a guess.
+ result: The current phone list is open, and you know who updated it last.
+ takeaway: Search first, select to check, then open. It is faster than clicking through folders.
 
 Switch to tiles view (the button at the top right of the list) when you are looking for photos or scanned documents. Switch back to list view to see dates, sizes, and sharing.
 

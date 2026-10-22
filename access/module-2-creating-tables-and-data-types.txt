@@ -12,102 +12,94 @@ By the end of this lesson you can:
 
 
 ## Data types are your first line of defense
-
  type: scenario
  role: You build a supply inventory database at Lakeside Medical Associates.
- text: You set every field to Short Text because it accepts anything. Six months later the quantity field contains '12' 'twelve' '12 boxes' and 'approx 12'. Nothing can be summed sorted or reported on and the database cannot answer the one question it was built for.
+ text: You set every field to Short Text because it accepts anything. Six months later the quantity field contains '12', 'twelve', '12 boxes', and 'approx 12'. Nothing can be summed, sorted, or reported on, and the database cannot answer the one question it was built for.
  task: Choose types that reject wrong data at the moment of entry.
-
 
 A data type constrains what a field will accept. A Number field will not take 'twelve'. A Date/Time field will not take 'next Tuesday'. Choosing correctly at design time prevents a category of problem that is extremely tedious to repair afterwards.
 
-
  type: table
  caption: Access data types
- columns: 
-  Type
-  Use for
-  Note
- rows: 
-   Short Text
-   Names addresses codes identifiers
-   Up to 255 characters
-   Long Text
-   Notes and comments
-   Sortable but not efficiently indexed
-   Number
-   Quantities you will calculate with
-   Set an appropriate Field Size
-   Currency
-   Money
-   Avoids the rounding errors of floating-point numbers
-   Date/Time
-   Dates and times
-   Enables date arithmetic and correct sorting
-   Yes/No
-   Two-state values
-   Stored as true/false
-   AutoNumber
-   Primary keys
-   Access assigns a unique value automatically
-   Lookup
-   A value chosen from a list or another table
-   Enforces consistent entry
-   Attachment
-   Files linked to a record
-   Grows the file quickly; use sparingly
-
+ columns:
+   Type
+   Use for
+   Note
+ rows:
+    Short Text
+    Names, addresses, codes, identifiers
+    Up to 255 characters
+    Long Text
+    Notes and comments
+    Sortable but not efficiently indexed
+    Number
+    Quantities you will calculate with
+    Set an appropriate Field Size
+    Currency
+    Money
+    Avoids the rounding errors of floating-point numbers
+    Date/Time
+    Dates and times
+    Enables date arithmetic and correct sorting
+    Yes/No
+    Two-state values
+    Stored as true/false
+    AutoNumber
+    Primary keys
+    Access assigns a unique value automatically
+    Lookup
+    A value chosen from a list or another table
+    Enforces consistent entry
+    Attachment
+    Files linked to a record
+    Grows the file quickly; use sparingly
 
 Note: Store an identifier you would never calculate with — a phone number, a ZIP code, a patient ID — as Short Text, not Number. A Number field strips leading zeros, so ZIP code 07030 becomes 7030. The test is simple: if you would never add two of these values together, it is text.
 
-
  type: table
  caption: Field properties worth setting
- columns: 
-  Property
-  Does
-  Use it to
- rows: 
-   Required
-   Refuses to save a record with this field empty
-   Stop half-entered records
-   Default Value
-   Pre-fills a value
-   Reduce typing on fields that are usually the same
-   Field Size
-   Caps the length or numeric range
-   Prevent a 200-character state abbreviation
-   Validation Rule
-   Rejects entries failing a condition
-   Refuse a negative quantity
-   Validation Text
-   The message shown when the rule fails
-   Explain what the user should do instead
-   Input Mask
-   Guides entry into a fixed format
-   Phone numbers and dates
-   Indexed
-   Speeds searching and can enforce uniqueness
-   Fields you search or sort on constantly
-
-
+ columns:
+   Property
+   Does
+   Use it to
+ rows:
+    Required
+    Refuses to save a record with this field empty
+    Stop half-entered records
+    Default Value
+    Pre-fills a value
+    Reduce typing on fields that are usually the same
+    Field Size
+    Caps the length or numeric range
+    Prevent a 200-character state abbreviation
+    Validation Rule
+    Rejects entries failing a condition
+    Refuse a negative quantity
+    Validation Text
+    The message shown when the rule fails
+    Explain what the user should do instead
+    Input Mask
+    Guides entry into a fixed format
+    Phone numbers and dates
+    Indexed
+    Speeds searching and can enforce uniqueness
+    Fields you search or sort on constantly
 
  type: worked-example
  title: Building the supply inventory table
- task: Create a table recording items quantities costs and reorder levels designed so bad data cannot be entered.
- steps: 
-   move: Create the table in Design view not by typing into a datasheet.
-   why: Design view makes you name each field and choose its type deliberately. Building by typing lets Access guess and it guesses Short Text far too often — which is exactly how the scenario above happens.
+ task: Create a table recording items, quantities, costs, and reorder levels, designed so bad data cannot be entered.
+ steps:
+   move: Create the table in Design view, not by typing into a datasheet.
+   why: Design view makes you name each field and choose its type deliberately. Building by typing lets Access guess, and it guesses Short Text far too often — which is exactly how the scenario above happens.
    move: Add ItemID as AutoNumber and set it as the primary key.
-   why: AutoNumber guarantees uniqueness with no effort and carries no meaning which is what a key should be. Access will not enforce record uniqueness without a primary key.
-   move: Set types by purpose: Quantity as Number UnitCost as Currency LastOrdered as Date/Time.
+   why: AutoNumber guarantees uniqueness with no effort and carries no meaning, which is what a key should be. Access will not enforce record uniqueness without a primary key.
+   move: Set types by purpose: Quantity as Number, UnitCost as Currency, LastOrdered as Date/Time.
    why: Each type rejects data that does not belong. Currency specifically avoids the floating-point rounding that makes money columns fail to reconcile by a cent — a real problem with ordinary decimal fields.
-   move: Add a Validation Rule of >=0 on Quantity with Validation Text explaining it.
-   why: A negative quantity on hand is meaningless. Catching it at entry is far cheaper than discovering it in a report and the Validation Text is what makes the rejection useful rather than confusing.
+   move: Add a Validation Rule of >=0 on Quantity, with Validation Text explaining it.
+   why: A negative quantity on hand is meaningless. Catching it at entry is far cheaper than discovering it in a report, and the Validation Text is what makes the rejection useful rather than confusing.
    move: Set Required on ItemName and Quantity.
-   why: Half-entered records are worse than no record because they look complete in a list. Required makes the incomplete record impossible rather than merely discouraged.
+   why: Half-entered records are worse than no record, because they look complete in a list. Required makes the incomplete record impossible rather than merely discouraged.
  result: A table that refuses invalid entries at the point of entry rather than accumulating them.
  takeaway: Design the table deliberately and constrain it. Forms and reports are generated in seconds; a badly typed table takes months to repair.
-
 
 Check yourself: Which data type should be used for a five-digit ZIP code? Answer: Short Text, because a Number field would strip leading zeros. A Number field treats 07030 as 7030, dropping the leading zero and corrupting every ZIP in the Northeast. ZIP codes are identifiers rather than quantities — you never add two together — so they belong in a text field.

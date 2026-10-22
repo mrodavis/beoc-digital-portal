@@ -13,72 +13,64 @@ By the end of this lesson you can:
 
 
 ## Finding sources is your job; formatting them is Word's
-
  type: scenario
  role: You are drafting a patient education handout at Lakeside Medical Associates.
- text: The handout says that a reading of 130/80 or higher is considered high blood pressure for most adults and that home readings can be more reliable than a single office reading. Your supervisor asks where each claim came from. A browser search returns dozens of pages and they range from a medical journal to a blog selling supplements.
- task: Choose sources you can defend then cite them so every claim in the handout can be traced.
-
+ text: The handout says that a reading of 130/80 or higher is considered high blood pressure for most adults, and that home readings can be more reliable than a single office reading. Your supervisor asks where each claim came from. A browser search returns dozens of pages, and they range from a medical journal to a blog selling supplements.
+ task: Choose sources you can defend, then cite them so every claim in the handout can be traced.
 
 Research and citation are two separate jobs. Finding a source and deciding whether to trust it happens in your web browser and in your own judgment. Recording the source and formatting the citation happens in Word, on the References tab, where Word builds each in-text citation and the bibliography in the style you choose.
 
 Note: Older guides show two research panes inside Word: Smart Lookup (right-click a word > Search) and Researcher (References > Researcher). Microsoft retired both. Smart Lookup was retired starting January 1, 2025, and Researcher was removed from Word for Windows and Mac between late December 2024 and January 2025. If an older computer still shows them, do not rely on them. Search for sources in a web browser instead, and cite them with the References tab as this lesson shows.
 
-
  type: key-terms
- terms: 
+ terms:
    term: Citation
-   definition: A short reference in the text such as (Alvarez 2024) that points the reader to a full entry in the bibliography.
+   definition: A short reference in the text, such as (Alvarez, 2024), that points the reader to a full entry in the bibliography.
    term: Bibliography
-   definition: The list of every source cited at the end of the document. APA calls it References; MLA calls it Works Cited.
+   definition: The list of every source cited, at the end of the document. APA calls it References; MLA calls it Works Cited.
    term: Citation style
-   definition: A set of formatting rules (APA MLA Chicago and others). Use the style your instructor or employer asks for.
+   definition: A set of formatting rules (APA, MLA, Chicago and others). Use the style your instructor or employer asks for.
    term: Source Manager
    definition: The Manage Sources dialog. Its Master List holds sources from your earlier documents; its Current List holds the sources in this document.
-
 
 
 ## Judging a source before you use it
 A citation makes a claim traceable; it does not make it correct. Before a source goes into a document, ask four questions about it. A source that fails any of them needs a second look, and for health information that patients will rely on, the bar is high.
 
-
  type: table
  caption: Four questions for any source
- columns: 
-  Question
-  Look for
-  Warning signs
- rows: 
-   Who published it?
-   A named author or organization with relevant expertise: a medical school a government health agency a peer-reviewed journal
-   No author or organization or a seller of the product being discussed
-   When?
-   A publication or review date recent enough for the topic
-   No date or guidance old enough to have been replaced
-   What is the evidence?
-   References to studies or data and claims that match other reliable sources
-   Promises of a cure \one simple trick\ or claims nobody else makes
-   Why does it exist?
-   To inform or educate
-   To sell persuade or collect your information
-
-
+ columns:
+   Question
+   Look for
+   Warning signs
+ rows:
+    Who published it?
+    A named author or organization with relevant expertise: a medical school, a government health agency, a peer-reviewed journal
+    No author or organization, or a seller of the product being discussed
+    When?
+    A publication or review date recent enough for the topic
+    No date, or guidance old enough to have been replaced
+    What is the evidence?
+    References to studies or data, and claims that match other reliable sources
+    Promises of a cure, "one simple trick," or claims nobody else makes
+    Why does it exist?
+    To inform or educate
+    To sell, persuade, or collect your information
 
  type: worked-example
  title: Choosing between three search results
  task: Find a source for the sentence about home blood pressure readings in the handout.
- steps: 
+ steps:
    move: Open each result and find the publisher and the date before you read the content.
    why: Who wrote something and when tells you how much weight it can carry. Reading first and checking later makes it easy to talk yourself into a source because it says what you hoped.
-   move: Keep the journal article: a named author a 2024 review in a health journal with references to studies.
-   why: It passes all four questions. A review article summarizes many studies which is exactly the kind of support a general claim needs.
+   move: Keep the journal article: a named author, a 2024 review in a health journal, with references to studies.
+   why: It passes all four questions. A review article summarizes many studies, which is exactly the kind of support a general claim needs.
    move: Skip the blog post promising to cure high blood pressure in seven days.
    why: It fails on evidence and purpose: it sells a product and makes a claim no clinical source supports. Citing it would make the whole handout look careless.
-   move: Write down what Word will need: author title year and the website or journal name.
+   move: Write down what Word will need: author, title, year, and the website or journal name.
    why: These are the fields of Word's Create Source dialog. Capturing them while the page is open saves a second search later.
- result: One defensible source per claim with the details Word needs already in hand.
+ result: One defensible source per claim, with the details Word needs already in hand.
  takeaway: Check who and when before what. Then have clinical staff review any claim about care before the handout goes to patients.
-
 
 Note: If your school or employer's Microsoft 365 account includes Copilot, a Copilot button appears in the corner of your Word document. Copilot in Word can summarize a long document you have open or answer questions about it, which can speed up reading a source. It works within Word and your Microsoft 365 content, so it does not replace searching for sources, and its answers still need checking: confirm every fact in the original source and cite that source. If you do not see Copilot, your account does not include it or your organization has not turned it on. Never paste patient information into an AI tool your employer has not approved for it.
 

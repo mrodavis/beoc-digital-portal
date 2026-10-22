@@ -12,38 +12,34 @@ By the end of this lesson you can:
 
 
 ## Margins are a reading decision
-
  type: scenario
  role: You are producing the staff handbook at Lakeside Medical Associates.
- text: To save paper you set every margin to half an inch. The handbook is then three-hole punched for binders and the punch removes the first character of every line on odd pages. Sixty pages reprinted.
- task: Set margins for how the document will physically be used not only for how it looks on screen.
-
+ text: To save paper you set every margin to half an inch. The handbook is then three-hole punched for binders, and the punch removes the first character of every line on odd pages. Sixty pages, reprinted.
+ task: Set margins for how the document will physically be used, not only for how it looks on screen.
 
 Margins do three jobs: they leave room for hands and binding, they give the eye a rest at the end of each line, and they control line length. Very wide text is genuinely harder to read, because the eye loses its place traveling back to the start of the next line. The one-inch default is a reasonable compromise for most documents, not an arbitrary number.
 
 Orientation should follow the content. Portrait suits text, because it produces comfortable line lengths. Landscape suits wide tables, timelines, and charts that do not fit across a portrait page. A landscape page of body text has lines so long they are tiring to read — if you are reaching for landscape to fit text, the real fix is usually columns.
 
-
  type: table
  caption: Margin settings by purpose
- columns: 
-  Purpose
-  Setting
-  Note
- rows: 
-   Standard letter or report
-   1 inch all round
-   Word's default; safe for any printer
-   Bound or hole-punched
-   Gutter margin 0.5 in left
-   Page Setup > Margins > Gutter adds space for binding without shifting the text block
-   Double-sided binding
-   Mirror margins
-   Inside margins face each other so binding space lands correctly on both sides
-   Maximum content per page
-   0.5 in
-   Only for documents that stay flat and unbound
-
+ columns:
+   Purpose
+   Setting
+   Note
+ rows:
+    Standard letter or report
+    1 inch all round
+    Word's default; safe for any printer
+    Bound or hole-punched
+    Gutter margin 0.5 in, left
+    Page Setup > Margins > Gutter adds space for binding without shifting the text block
+    Double-sided binding
+    Mirror margins
+    Inside margins face each other so binding space lands correctly on both sides
+    Maximum content per page
+    0.5 in
+    Only for documents that stay flat and unbound
 
 Almost every printer has an unprintable edge, typically a quarter inch. Margins narrower than that will have content clipped, regardless of what the screen shows. If you must go narrow, print one test page before running the job.
 

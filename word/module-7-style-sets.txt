@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## A coordinated redesign in one click
-
  type: scenario
  role: You are preparing a report for the board at Lakeside Medical Associates.
- text: The content is finished but the document looks like a first draft. You could adjust each style by hand or you could apply a style set and see the whole document restyled coherently in one click — then fine-tune from there.
- task: Use style sets to reach a professional baseline quickly instead of designing every style from scratch.
-
+ text: The content is finished but the document looks like a first draft. You could adjust each style by hand, or you could apply a style set and see the whole document restyled coherently in one click — then fine-tune from there.
+ task: Use style sets to reach a professional baseline quickly, instead of designing every style from scratch.
 
 A style set is a coordinated collection of definitions for the built-in styles — Heading 1 through 3, Normal, Quote, and the rest — designed to look right together. Applying one from Design > Document Formatting changes fonts, sizes, and spacing across the whole document simultaneously.
 

@@ -12,41 +12,37 @@ By the end of this lesson you can:
 
 
 ## Styles are the single highest-leverage skill in Word
-
  type: scenario
  role: You maintain the policy manual at Lakeside Medical Associates.
- text: The manual has sixty section headings each formatted by hand: select set 14 point bold dark blue. Leadership adopts a new visual identity and headings must become 16 point in a different typeface. Formatted by hand that is sixty repetitions. Formatted with a style it is one change.
- task: Understand styles well enough that a document-wide formatting change is one action not sixty.
-
+ text: The manual has sixty section headings, each formatted by hand: select, set 14 point, bold, dark blue. Leadership adopts a new visual identity and headings must become 16 point in a different typeface. Formatted by hand, that is sixty repetitions. Formatted with a style, it is one change.
+ task: Understand styles well enough that a document-wide formatting change is one action, not sixty.
 
 Direct formatting applies appearance to the specific text you selected — Word remembers 'this text is bold' and nothing more. A style is a named, saved package of formatting applied by reference: the text is marked as Heading 1, and Heading 1 is defined once. Redefine the style and every paragraph carrying it updates instantly.
 
 The larger point is that heading styles carry meaning, not just looks. Three important features depend on them and work only when they are used properly. An automatic table of contents is built from heading styles. The Navigation pane's document outline comes from heading styles. And screen readers announce heading levels so a blind reader can jump between sections — text that merely looks like a heading provides none of this.
 
-
  type: table
  caption: Style types
- columns: 
-  Type
-  Applies to
-  Example
- rows: 
-   Paragraph
-   The whole paragraph including spacing and indents
-   Heading 1 Normal Quote
-   Character
-   Only the selected characters
-   Emphasis Strong Book Title
-   Linked
-   Either depending on your selection
-   Most heading styles
-   Table
-   A whole table's borders shading and banding
-   Grid Table 4 Accent 1
-   List
-   The numbering scheme of a multilevel list
-   List Paragraph
-
+ columns:
+   Type
+   Applies to
+   Example
+ rows:
+    Paragraph
+    The whole paragraph, including spacing and indents
+    Heading 1, Normal, Quote
+    Character
+    Only the selected characters
+    Emphasis, Strong, Book Title
+    Linked
+    Either, depending on your selection
+    Most heading styles
+    Table
+    A whole table's borders, shading, and banding
+    Grid Table 4 Accent 1
+    List
+    The numbering scheme of a multilevel list
+    List Paragraph
 
 Note: Formatting a paragraph to look like a heading — bigger, bold, blue — produces something that only looks structural. It will not appear in a table of contents, will not show in the Navigation pane, and will not be announced as a heading by a screen reader. Use the real Heading styles and change how they look, rather than making body text look like headings.
 

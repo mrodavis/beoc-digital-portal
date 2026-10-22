@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Who needs to be in the conversation?
-
  type: scenario
  role: You are the front office assistant at Lakeside Medical Associates.
- text: The label printer at check-in is jammed again. Room 3 is low on gloves and exam table paper and the afternoon patients start at 2:00. Maria is waiting to hear whether you can take the noon shift. Three problems three different groups of people.
- task: Start the right chat for each problem with exactly the people who can solve it.
-
+ text: The label printer at check-in is jammed again. Room 3 is low on gloves and exam table paper, and the afternoon patients start at 2:00. Maria is waiting to hear whether you can take the noon shift. Three problems, three different groups of people.
+ task: Start the right chat for each problem, with exactly the people who can solve it.
 
 A chat is a private conversation. Only the people in it can see the messages. Use a one-on-one chat for something between you and one person, and a group chat when a few people need to work something out together. If the whole team needs the information, or will need to find it later, it belongs in a channel instead (Module 3).
 
@@ -34,46 +32,42 @@ An unnamed group chat shows up in your list as a string of first names, which is
 
 To bring someone into an existing group chat, select View and add participants (the person icon at the top right of the chat) › Add people, type the name, and select Add. For a group chat, Teams asks how much of the earlier conversation the new person should see. Choose based on what they need: someone joining to help with the restock does not need to read last week's messages, but your manager stepping in to make a decision probably does. You cannot share history when you add someone to a one-on-one chat; Teams starts a new group chat instead.
 
-
  type: worked-example
  title: Setting up the Room 3 restock
  task: Get gloves and exam table paper into Room 3 before 2:00 PM.
- steps: 
+ steps:
    move: New message › To: Marcus Bell and Tasha Greene.
    why: Marcus and Tasha work in the clinical area and can check the room. Adding the whole front office would only add noise.
    move: Select the down arrow at the far right of To and type the Group name “Room 3 Restock.”
-   why: The name tells everyone what the chat is for and it is easy to find in the list and in Search later.
+   why: The name tells everyone what the chat is for, and it is easy to find in the list and in Search later.
    move: Send: “Room 3 needs gloves and exam table paper before the 2:00 PM patients.”
-   why: One message says what is needed where and by when. Nobody has to ask a follow-up question.
-   move: When Omar offers to carry the boxes add him with View and add participants › Add people and choose not to include the history.
+   why: One message says what is needed, where, and by when. Nobody has to ask a follow-up question.
+   move: When Omar offers to carry the boxes, add him with View and add participants › Add people, and choose not to include the history.
    why: Omar only needs to know what to carry now. The earlier back-and-forth would not help him.
- result: Four people one named chat and the room is stocked before the afternoon patients arrive.
- takeaway: Invite only the people who can act name the chat after its purpose and add people with the history they actually need.
-
+ result: Four people, one named chat, and the room is stocked before the afternoon patients arrive.
+ takeaway: Invite only the people who can act, name the chat after its purpose, and add people with the history they actually need.
 
 
 ## Keep your chat list organized
-
  type: table
- caption: Pin Mute and Hide (point to a chat › More options (…))
- columns: 
-  Command
-  What it does
-  Use it for
- rows: 
-   Pin
-   Moves the chat into Favorites at the top of the list
-   Chats you use every day like your manager's
-   Mute
-   Stops notifications; the chat stays in your list
-   Busy social chats such as lunch orders
-   Hide
-   Removes the chat from your list until someone sends a new message
-   Finished conversations you want out of the way
-   Mark as unread
-   Shows the chat in bold again
-   A reminder to come back and answer
-
+ caption: Pin, Mute, and Hide (point to a chat › More options (…))
+ columns:
+   Command
+   What it does
+   Use it for
+ rows:
+    Pin
+    Moves the chat into Favorites at the top of the list
+    Chats you use every day, like your manager's
+    Mute
+    Stops notifications; the chat stays in your list
+    Busy social chats, such as lunch orders
+    Hide
+    Removes the chat from your list until someone sends a new message
+    Finished conversations you want out of the way
+    Mark as unread
+    Shows the chat in bold again
+    A reminder to come back and answer
 
 Practice: Drag each command onto the situation it fits.
 

@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## Know the controls before you are standing up
-
  type: scenario
  role: You present at the staff meeting at Lakeside Medical Associates.
- text: Someone asks about slide 22 while you are on slide 8. You either click forward fourteen times while everyone watches or you know that typing 22 and pressing Enter jumps straight there.
+ text: Someone asks about slide 22 while you are on slide 8. You either click forward fourteen times while everyone watches, or you know that typing 22 and pressing Enter jumps straight there.
  task: Learn the handful of controls that let you respond to a room instead of fighting the software.
-
-
 
  type: table
  caption: Presentation controls
- columns: 
-  Key
-  Does
- rows: 
-   F5
-   Starts from the beginning
-   Shift + F5
-   Starts from the current slide
-   Number then Enter
-   Jumps to that slide
-   B / W
-   Blanks the screen black or white
-   Ctrl + P
-   Pen; Ctrl+A returns to the arrow
-   Esc
-   Ends the show
-
+ columns:
+   Key
+   Does
+ rows:
+    F5
+    Starts from the beginning
+    Shift + F5
+    Starts from the current slide
+    Number then Enter
+    Jumps to that slide
+    B / W
+    Blanks the screen black or white
+    Ctrl + P
+    Pen; Ctrl+A returns to the arrow
+    Esc
+    Ends the show
 
 Shift+F5 starts from the slide you are on, which is what you want when rehearsing a single section. Restarting from slide one every time you want to check slide 30 is a surprisingly large waste of a rehearsal.
 

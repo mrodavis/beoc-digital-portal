@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Audio that stops at the slide boundary
-
  type: scenario
  role: You build a self-running display for the waiting room at Lakeside Medical Associates.
- text: You add background music to the first slide. It stops the moment the deck advances because by default audio belongs to the slide it was inserted on.
+ text: You add background music to the first slide. It stops the moment the deck advances, because by default audio belongs to the slide it was inserted on.
  task: Configure audio playback so it behaves the way the presentation requires.
-
 
 Select the audio icon and use the Playback tab. 'Play Across Slides' lets it continue as the deck advances; 'Loop until Stopped' repeats it; 'Hide During Show' removes the speaker icon from view. For a looping waiting-room display you generally want all three.
 

@@ -12,35 +12,31 @@ By the end of this lesson you can:
 
 
 ## Sharing needs upkeep
-
  type: scenario
  role: Maria asked you to clean up sharing on the front desk's files.
  text: A temporary receptionist finished her assignment last week but can still edit the holiday coverage plan. Kevin can edit a plan he should only read. Somebody created an Anyone link to the staff schedule. And the supply vendor whose contract ended still has access to the supply order log.
- task: Find every shared file fix each person's access remove the risky link and stop sharing where nobody outside should have access.
-
+ task: Find every shared file, fix each person's access, remove the risky link, and stop sharing where nobody outside should have access.
 
 Start in Shared › Shared by you. It lists your files that other people can open. Then open Manage access for a file in any of these ways: right-click the file and select Manage access; select the file, open the details pane with the information (i) button, and select Manage access; or select the people pictures at the bottom of the Share window.
 
 
 ## Inside Manage access
-
  type: table
  caption: The Manage access panel
- columns: 
-  Part
-  What it shows or does
- rows: 
-   People tab
-   Everyone with access and their permission. Select a person's permission to change it to Can edit or Can view or choose Remove direct access
-   Groups tab
-   Groups (such as a team) that have access
-   Links tab
-   Every sharing link for the file who it works for and what it allows. Remove link deletes one
-   Grant access
-   Opens the Share window to give someone access
-   Stop sharing
-   Removes everyone's access and every link. You keep access
-
+ columns:
+   Part
+   What it shows or does
+ rows:
+    People tab
+    Everyone with access, and their permission. Select a person's permission to change it to Can edit or Can view, or choose Remove direct access
+    Groups tab
+    Groups (such as a team) that have access
+    Links tab
+    Every sharing link for the file, who it works for, and what it allows. Remove link deletes one
+    Grant access
+    Opens the Share window to give someone access
+    Stop sharing
+    Removes everyone's access and every link. You keep access
 
 Note: You can't change a link from edit to view. Remove the link, then create a new one with the permission you want. Anyone who had the old link loses access when you remove it.
 
@@ -53,22 +49,20 @@ Practice: Drag each fix onto the problem it solves.
 - Whenever you notice an Anyone link on a file that isn't public
 - On a regular schedule your office sets for sensitive files
 
-
  type: worked-example
  title: Removing a temp's access
  task: Jen Cole's temporary assignment ended. Remove her access to the Holiday Coverage Plan.
- steps: 
+ steps:
    move: Right-click Holiday Coverage Plan and select Manage access.
    why: Manage access is the one place that lists everyone and every link for the file.
-   move: On the People tab select Jen Cole's permission (Can edit).
+   move: On the People tab, select Jen Cole's permission (Can edit).
    why: The menu has the permissions and Remove direct access.
-   move: Select Remove direct access then Remove to confirm.
+   move: Select Remove direct access, then Remove to confirm.
    why: Jen loses access right away. Everyone else keeps theirs.
    move: Check the Links tab for links that might still include her.
    why: A person can have access through a link as well as directly.
  result: Only current staff can open the plan.
  takeaway: Removing access is part of sharing. Do it as soon as someone's need ends.
-
 
 
 ## Knowledge Check

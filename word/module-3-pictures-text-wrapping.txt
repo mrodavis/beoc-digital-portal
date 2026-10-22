@@ -12,44 +12,40 @@ By the end of this lesson you can:
 
 
 ## Wrapping decides whether an image behaves like a letter or like a sticker
-
  type: scenario
  role: You are laying out a wellness newsletter at Lakeside Medical Associates.
- text: You place a photo beside a paragraph about flu season. You add two sentences higher up the page and the photo leaps to page three landing beside an unrelated article about parking. You drag it back. You add another sentence. It jumps again.
+ text: You place a photo beside a paragraph about flu season. You add two sentences higher up the page and the photo leaps to page three, landing beside an unrelated article about parking. You drag it back. You add another sentence. It jumps again.
  task: Understand anchoring and wrapping well enough that images stay where you put them.
-
 
 There are really only two behaviors, and everything else is a variation. In Line with Text treats the image as an enormous character — it sits in the line, moves when text moves, and cannot have text beside it. Every other mode makes the image floating: it sits in its own layer, text flows around it according to the mode you choose, and it is tied to a paragraph by an anchor.
 
 The anchor is the part almost nobody is taught, and it explains the jumping. A floating image is attached to a specific paragraph; when that paragraph moves to another page, the image follows. Turn on the anchor symbol display and you can see which paragraph owns the image — and drag the anchor to a different paragraph if it is attached to the wrong one.
 
-
  type: table
  caption: Wrap modes and what they are for
- columns: 
-  Mode
-  Behavior
-  Use for
- rows: 
-   In Line with Text
-   Sits in the text line like a character
-   Icons signatures anything in a table cell
-   Square
-   Text flows around the bounding box
-   A photo beside a paragraph — the common newsletter case
-   Tight
-   Text follows the image's actual shape
-   Cut-out images with transparent backgrounds
-   Top and Bottom
-   Text stops above and resumes below
-   A wide figure that should own its horizontal band
-   Behind Text
-   Image sits under the text
-   Watermarks and background graphics
-   In Front of Text
-   Image covers the text
-   Callout arrows and annotations over a screenshot
-
+ columns:
+   Mode
+   Behavior
+   Use for
+ rows:
+    In Line with Text
+    Sits in the text line like a character
+    Icons, signatures, anything in a table cell
+    Square
+    Text flows around the bounding box
+    A photo beside a paragraph — the common newsletter case
+    Tight
+    Text follows the image's actual shape
+    Cut-out images with transparent backgrounds
+    Top and Bottom
+    Text stops above and resumes below
+    A wide figure that should own its horizontal band
+    Behind Text
+    Image sits under the text
+    Watermarks and background graphics
+    In Front of Text
+    Image covers the text
+    Callout arrows and annotations over a screenshot
 
 If an image will not stop moving, select it, open Layout Options, and choose 'Fix position on page.' The image stays put on that page regardless of text edits. Use it sparingly — it is right for a masthead and wrong for a figure that must stay next to its caption.
 

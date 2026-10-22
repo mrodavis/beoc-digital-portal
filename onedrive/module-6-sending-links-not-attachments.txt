@@ -6,43 +6,39 @@ Send coworkers a link to the one real file instead of an attached copy, choose w
 
 By the end of this lesson you can:
 - Explain why a link beats an attachment for files people work on
-- Send a file from OneDrive with Invite and a message, or with Copy link
+- Send a file from OneDrive with Share and a message, or with Copy link
 - Choose link permissions when attaching a OneDrive file in the new Outlook
 - Recognize when to attach a copy or use your office's secure method instead
 
 
 ## Five copies of one report
-
  type: scenario
  role: You send the monthly supply report to the practice administrator.
- text: Last month you attached the supply report to an email for Renee. She forwarded it to Kevin who made changes and sent it back while Maria edited her own copy. By the end of the week there were five versions and nobody knew which was right.
- task: Send links to the one real file with the right permission and know when a copy is actually what you want.
-
-
+ text: Last month you attached the supply report to an email for Renee. She forwarded it to Kevin, who made changes and sent it back, while Maria edited her own copy. By the end of the week there were five versions and nobody knew which was right.
+ task: Send links to the one real file, with the right permission, and know when a copy is actually what you want.
 
  type: table
  caption: Link or attachment?
- columns: 
-  Link to a OneDrive file
-  Attached copy
- rows: 
-   How many versions
-   One always current
-   One per person out of date the moment it is sent
-   Email size
-   Small
-   Large files can be too big to send
-   Who can open it
-   Only people the link works for
-   Anyone the email reaches including forwards
-   Changing your mind
-   Remove access or stop sharing anytime
-   You can't take a copy back
-
+ columns:
+   Link to a OneDrive file
+   Attached copy
+ rows:
+    How many versions
+    One, always current
+    One per person, out of date the moment it is sent
+    Email size
+    Small
+    Large files can be too big to send
+    Who can open it
+    Only people the link works for
+    Anyone the email reaches, including forwards
+    Changing your mind
+    Remove access or stop sharing anytime
+    You can't take a copy back
 
 
 ## Sending a link
-- From OneDrive: select the file › Share, add people, choose the permission, type a message, and select Invite. OneDrive emails them a link.
+- From OneDrive: select the file › Share, add people, choose the permission, type a message, and select Send. OneDrive emails them a link.
 - Or select Copy link, check who the link works for (the gear), select Copy, and paste the link in your email or Teams message.
 - In the new Outlook for Windows: in a new message, select Attach file and pick a file from OneDrive (or Suggested files). You choose whether to send a link or a copy. For a link, select the arrow on the attachment to change permissions: Organization can Edit, Organization can View, Recipients can Edit, or Recipients can View. In a business account the default lets everyone in your organization edit, so check it before you send.
 

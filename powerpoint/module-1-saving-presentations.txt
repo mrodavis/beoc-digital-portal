@@ -12,37 +12,33 @@ By the end of this lesson you can:
 
 
 ## Choose the format for how it will be opened
-
  type: scenario
  role: You distribute the orientation deck at Lakeside Medical Associates.
- text: You email the .pptx to twelve new hires. Three cannot open it two see substituted fonts that break every slide layout and one edits it and forwards their version to the rest.
+ text: You email the .pptx to twelve new hires. Three cannot open it, two see substituted fonts that break every slide layout, and one edits it and forwards their version to the rest.
  task: Match the distribution format to what recipients actually need to do with it.
-
-
 
  type: table
  caption: Export formats
- columns: 
-  Format
-  Preserves
-  Use for
- rows: 
-   .pptx
-   Everything fully editable
-   Colleagues who must edit it
-   PDF
-   Layout and fonts; loses animation and video
-   Distributing to read — opens anywhere
-   MP4 video
-   Animation timing and narration
-   Self-paced training people watch without you
-   PowerPoint Show (.ppsx)
-   Everything; opens straight into the slide show
-   Handing to someone who should present not edit
-   Images (PNG/JPG)
-   One picture per slide
-   Dropping a slide into another document
-
+ columns:
+   Format
+   Preserves
+   Use for
+ rows:
+    .pptx
+    Everything, fully editable
+    Colleagues who must edit it
+    PDF
+    Layout and fonts; loses animation and video
+    Distributing to read — opens anywhere
+    MP4 video
+    Animation, timing, and narration
+    Self-paced training people watch without you
+    PowerPoint Show (.ppsx)
+    Everything; opens straight into the slide show
+    Handing to someone who should present, not edit
+    Images (PNG/JPG)
+    One picture per slide
+    Dropping a slide into another document
 
 Note: Fonts are the most common cause of a deck that looks wrong on someone else's machine. If a font is not installed there, PowerPoint substitutes another and your layout reflows — text overflows placeholders and line breaks land in the wrong places. File > Options > Save > Embed fonts in the file prevents it, and PDF sidesteps the problem entirely.
 

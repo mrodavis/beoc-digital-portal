@@ -12,45 +12,41 @@ By the end of this lesson you can:
 
 
 ## Every invitation needs an answer
-
  type: scenario
  role: You are the Lakeside front desk coordinator.
- text: Three invitations are waiting: a required safety training from Denise a vendor lunch you may not be able to attend and a billing review that lands in the middle of your front desk shift. Dr. Patel also wants a short flu clinic planning meeting with Denise on Thursday afternoon.
- task: Answer each invitation in a way that helps the organizer plan then book the planning meeting at a time that works for everyone.
-
+ text: Three invitations are waiting: a required safety training from Denise, a vendor lunch you may not be able to attend, and a billing review that lands in the middle of your front desk shift. Dr. Patel also wants a short flu clinic planning meeting with Denise on Thursday afternoon.
+ task: Answer each invitation in a way that helps the organizer plan, then book the planning meeting at a time that works for everyone.
 
 A meeting invitation arrives in your Inbox like a message, with response buttons in the reading pane. Your answer updates the organizer's attendee list and puts the meeting on your calendar (Tentative shows it as tentative). Answering promptly is part of being professional: the organizer may be booking a room or ordering lunch based on the count.
 
-
  type: table
  caption: Choosing a response
- columns: 
-  Response
-  When to use it
-  What happens
- rows: 
-   Accept
-   You will attend
-   The meeting is added to your calendar as busy
-   Tentative
-   You might attend but can't promise
-   The meeting is added as tentative; the organizer sees a maybe
-   Decline
-   You can't or shouldn't attend
-   The organizer sees a no; add a short reason if it helps
-   Propose new time
-   You want to attend but the time doesn't work
-   The organizer gets your suggested time and can accept it or not
-
+ columns:
+   Response
+   When to use it
+   What happens
+ rows:
+    Accept
+    You will attend
+    The meeting is added to your calendar as busy
+    Tentative
+    You might attend but can't promise
+    The meeting is added as tentative; the organizer sees a maybe
+    Decline
+    You can't or shouldn't attend
+    The organizer sees a no; add a short reason if it helps
+    Propose new time
+    You want to attend, but the time doesn't work
+    The organizer gets your suggested time and can accept it or not
 
 
 ## Respond and propose a new time
-- Select the invitation, then select Accept, Tentative or Decline in the reading pane. Outlook lets you send the response right away, edit it first to add a note, or not send a response.
-- To suggest another time, select Propose new time and choose I might attend (tentative) or No, I won't attend (decline). Pick the new time, then add a short message and select Send.
+- Select the invitation, then select Accept, Tentative or Decline in the reading pane. The organizer gets your answer, and Accept or Tentative puts the meeting on your calendar.
+- To suggest another time, select Propose new time and choose I might attend or No, I won't attend. Pick the new time and select Done, then add a short message and select Send.
 - The organizer decides. Your proposal doesn't move the meeting until the organizer accepts it.
-- Propose new time isn't available for recurring meetings; reply to the organizer with a message instead.
+- Propose new time works with work or school accounts, and it isn't available for recurring meetings; reply to the organizer with a message instead.
 
-Edit the response when it helps the organizer: "I can attend the first 30 minutes" is more useful than a silent Tentative.
+A short note helps the organizer: "I can attend the first 30 minutes" is more useful than a silent Tentative. Reply to the invitation, or use Propose new time, to add one.
 
 Note: Classic Outlook: the response buttons are on the Meeting tab of the invitation, and Propose New Time offers Tentative and Propose New Time or Decline and Propose New Time.
 
@@ -67,18 +63,16 @@ Practice: Put the steps for scheduling a meeting in order.
 
 Note: What you can see in the Scheduling Assistant depends on your organization. Inside one Microsoft 365 organization you usually see coworkers' free and busy times; people outside it usually don't appear.
 
-
  type: key-terms
- terms: 
+ terms:
    term: Organizer
    definition: The person who sent the invitation. Only the organizer can change or cancel the meeting.
    term: Required attendee
    definition: Someone the meeting needs. Listed under Invite attendees.
    term: Optional attendee
-   definition: Someone who is welcome but not needed such as a person who only needs to know it's happening.
+   definition: Someone who is welcome but not needed, such as a person who only needs to know it's happening.
    term: Free/busy
-   definition: The availability Outlook shares for scheduling: free busy tentative out of office or working elsewhere.
-
+   definition: The availability Outlook shares for scheduling: free, busy, tentative, out of office or working elsewhere.
 
 
 ## Knowledge Check

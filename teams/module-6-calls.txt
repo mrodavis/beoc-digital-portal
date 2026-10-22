@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## When a call beats a chat
-
  type: scenario
  role: You are the front office assistant at Lakeside Medical Associates.
  text: The check-in label printer is jammed again. You and Luis in IT have traded nine chat messages (“Is the light blinking?” “Which light?”) while patients wait in line. A two-minute call would have fixed it.
- task: Know when to call instead of typing place the call quickly and confirm what you agreed in writing afterward.
-
+ task: Know when to call instead of typing, place the call quickly, and confirm what you agreed in writing afterward.
 
 Teams calls are one-on-one or small-group audio or video conversations that you start right away, without scheduling a meeting. They work best for something urgent, something easier to show than to describe, or a back-and-forth that is going nowhere in chat. If the person's status is Busy or Do not disturb and it is not urgent, send a message instead.
 
@@ -27,46 +25,42 @@ Teams calls are one-on-one or small-group audio or video conversations that you 
 
 
 ## Call controls
-
  type: table
  caption: Call controls work like meeting controls
- columns: 
-  Control
-  Shortcut (Windows)
-  Use it to
- rows: 
-   Mic
-   Ctrl+Shift+M
-   Mute while the front desk is noisy
-   Camera
-   Ctrl+Shift+O
-   Turn on video to show something
-   Share
-   Ctrl+Shift+E
-   Show one window such as an error message
-   Leave
-   Ctrl+Shift+H
-   Hang up
-
+ columns:
+   Control
+   Shortcut (Windows)
+   Use it to
+ rows:
+    Mic
+    Ctrl+Shift+M
+    Mute while the front desk is noisy
+    Camera
+    Ctrl+Shift+O
+    Turn on video to show something
+    Share
+    Ctrl+Shift+E
+    Show one window, such as an error message
+    Leave
+    Ctrl+Shift+H
+    Hang up
 
 Note: Calls between Teams users in your organization are built into Teams. Calling regular phone numbers from Teams is different: your organization needs Teams Phone licenses and a phone service connected to Teams. If you see a dial pad in Calls, your organization has set that up for you.
-
 
  type: worked-example
  title: Fixing the printer with one call
  task: Get the label printer working before the next patient reaches the window.
- steps: 
-   move: In Calls type Luis and select Luis Ortega to call him.
+ steps:
+   move: In Calls, type Luis and select Luis Ortega to call him.
    why: Showing and talking is faster than describing lights in a chat.
    move: Mute while Luis checks the printer log on his end.
    why: Your microphone would pick up the waiting room. Mute until you need to talk.
-   move: When it works unmute thank him and hang up with Leave.
+   move: When it works, unmute, thank him, and hang up with Leave.
    why: Short calls end when the problem is solved.
    move: Send a chat: “Printer fixed: Luis cleared the jam and replaced the roller.”
    why: A written note tells anyone who checks later what happened. Calls leave no record unless you write one.
- result: The printer works and the fix is written down.
- takeaway: Call to solve then write to confirm.
-
+ result: The printer works, and the fix is written down.
+ takeaway: Call to solve, then write to confirm.
 
 Practice: Sort each situation.
 

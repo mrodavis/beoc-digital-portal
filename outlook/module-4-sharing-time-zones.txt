@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## Who needs to see what?
-
  type: scenario
  role: You are the Lakeside front desk coordinator.
  text: Omar covers the front desk when you're away and needs to know where you are. Denise manages your meetings while you're at a training. Dr. Patel shared her calendar so you can book around her clinic hours. The billing service you call every Thursday is three hours behind you.
- task: Give each person exactly the access they need open Dr. Patel's calendar and show the billing service's time next to yours.
-
+ task: Give each person exactly the access they need, open Dr. Patel's calendar, and show the billing service's time next to yours.
 
 In Calendar, select Share calendar on the Home tab. Type the person's name or email address, choose a permission level, and select Share. They get an invitation by email and accept it to add your calendar to their list. To change or remove someone's access later, open the same sharing window and change their permission.
 
-
  type: table
  caption: Calendar permission levels in new Outlook
- columns: 
-  Permission
-  What the other person can do
- rows: 
-   Can view when I'm busy
-   See the times you're busy with no titles or details
-   Can view titles and locations
-   See the times titles and locations of your events
-   Can view all details
-   See everything about your events
-   Can edit
-   Create change and delete events on your calendar
-   Delegate
-   Edit your calendar and receive and respond to meeting invitations for you
-
+ columns:
+   Permission
+   What the other person can do
+ rows:
+    Can view when I'm busy
+    See the times you're busy, with no titles or details
+    Can view titles and locations
+    See the times, titles and locations of your events
+    Can view all details
+    See everything about your events
+    Can edit
+    Create, change and delete events on your calendar
+    Delegate
+    Edit your calendar, and receive and respond to meeting invitations for you
 
 Note: Event titles are visible to anyone who can view titles. Keep patient names and health details out of event titles and locations; use something like "New patient intake" instead of a patient's name.
 
@@ -62,19 +58,17 @@ Note: Classic Outlook: Calendar › Home tab › Share Calendar opens Calendar P
 
 The same settings page has Display my calendar in time zone, which changes your own time zone. Use it if you move or travel; use Add time zone when you just need to see someone else's time.
 
-
  type: worked-example
  title: Before you call the billing service
- task: Avoid calling Seattle at 8:30 AM Eastern when their office is still closed.
- steps: 
-   move: Add (UTC-08:00) Pacific Time with the label \Billing service\.
+ task: Avoid calling Seattle at 8:30 AM Eastern, when their office is still closed.
+ steps:
+   move: Add (UTC-08:00) Pacific Time with the label "Billing service".
    why: Their time appears next to yours on every day.
    move: Check the column: 8:30 AM for you is 5:30 AM for them.
    why: Seeing both times prevents a call before they open.
    move: Book the call for 1:00 PM Eastern (10:00 AM Pacific).
    why: It's well inside both offices' hours.
  result: Calls and meetings land inside everyone's working hours.
-
 
 
 ## Knowledge Check

@@ -12,34 +12,30 @@ By the end of this lesson you can:
 
 
 ## Decide what the recipient needs to do with it
-
  type: scenario
  role: You distribute the orientation deck at Lakeside Medical Associates.
- text: Three audiences: new hires who need to watch it a colleague who must update it next quarter and a partner organization that only needs to read it. One format cannot serve all three.
+ text: Three audiences: new hires who need to watch it, a colleague who must update it next quarter, and a partner organization that only needs to read it. One format cannot serve all three.
  task: Match the export format to what each recipient actually needs to do.
-
-
 
  type: table
  caption: Distribution formats
- columns: 
-  Recipient needs to
-  Send
-  Why
- rows: 
-   Watch it without you
-   MP4 video
-   Preserves animation timing and narration
-   Edit it
-   .pptx via OneDrive link
-   Editable and everyone stays on one version
-   Read it
-   PDF
-   Opens anywhere and cannot be altered casually
-   Present it elsewhere
-   Package for CD
-   Bundles fonts and media into a portable folder
-
+ columns:
+   Recipient needs to
+   Send
+   Why
+ rows:
+    Watch it without you
+    MP4 video
+    Preserves animation, timing, and narration
+    Edit it
+    .pptx via OneDrive link
+    Editable, and everyone stays on one version
+    Read it
+    PDF
+    Opens anywhere and cannot be altered casually
+    Present it elsewhere
+    Package for CD
+    Bundles fonts and media into a portable folder
 
 Note: Package Presentation for CD is badly named — it produces a folder, and CDs are long gone. What it actually does is still useful: it bundles the presentation with all linked media and embedded fonts, so the whole thing works on a machine that has neither. Copy that folder to a USB drive when you are presenting somewhere unfamiliar.
 

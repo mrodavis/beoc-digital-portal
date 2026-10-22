@@ -12,36 +12,32 @@ By the end of this lesson you can:
 
 
 ## Losing the headers is a data-entry hazard
-
  type: scenario
  role: You update quantities in a 900-row tracker at Lakeside Medical Associates.
- text: At row 340 the headers are long gone. You are counting columns from the left to work out which is Reorder Level and which is Quantity on Hand. Eventually you miscount and the entries go into the wrong column.
- task: Keep the headers on screen so every row is entered against a visible label.
-
+ text: At row 340 the headers are long gone. You are counting columns from the left to work out which is Reorder Level and which is Quantity on Hand. Eventually you miscount, and the entries go into the wrong column.
+ task: Keep the headers on screen, so every row is entered against a visible label.
 
 Freeze Panes keeps chosen rows and columns fixed while the rest scrolls. The rule that catches everyone: Excel freezes everything above and to the left of the selected cell. To freeze row 1 and column A together, select B2 — not A1 — and then Freeze Panes.
 
-
  type: table
  caption: Which view tool to use
- columns: 
-  You want
-  Use
-  How
- rows: 
-   Headers visible while scrolling
-   Freeze Panes
-   Select the cell below and right of what should stay then freeze
-   To compare row 5 with row 400
-   Split
-   View > Split — each pane scrolls independently
-   Two sheets side by side
-   New Window
-   View > New Window then Arrange All
-   To hide detail temporarily
-   Group
-   Data > Group creates collapsible sections
-
+ columns:
+   You want
+   Use
+   How
+ rows:
+    Headers visible while scrolling
+    Freeze Panes
+    Select the cell below and right of what should stay, then freeze
+    To compare row 5 with row 400
+    Split
+    View > Split — each pane scrolls independently
+    Two sheets side by side
+    New Window
+    View > New Window, then Arrange All
+    To hide detail temporarily
+    Group
+    Data > Group creates collapsible sections
 
 View > New Window opens a second window onto the same workbook — not a copy. Edits in one appear instantly in the other, so you can watch a summary sheet update as you type into the data sheet. Arrange All tiles them side by side.
 

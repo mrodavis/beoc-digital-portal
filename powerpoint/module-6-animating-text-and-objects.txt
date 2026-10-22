@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## Animate to control attention, not to decorate
-
  type: scenario
  role: You explain a four-stage process at Lakeside Medical Associates.
  text: All four stages appear at once and the audience reads ahead to stage four while you are still on stage one. Revealing each stage as you reach it keeps everyone with you — which is the one thing animation genuinely does well.
- task: Use animation to control when information arrives and leave it alone otherwise.
-
+ task: Use animation to control when information arrives, and leave it alone otherwise.
 
 The legitimate use of animation is sequencing: revealing points as you discuss them so the audience attends to the one you are on. Almost every other use costs attention without returning any.
 
-
  type: table
  caption: Start timing options
- columns: 
-  Setting
-  Plays
-  Use for
- rows: 
-   On Click
-   When you click
-   Revealing points at your own pace
-   With Previous
-   At the same time as the previous animation
-   Two elements that belong together
-   After Previous
-   Automatically when the previous one finishes
-   A self-running sequence with no clicking
-
+ columns:
+   Setting
+   Plays
+   Use for
+ rows:
+    On Click
+    When you click
+    Revealing points at your own pace
+    With Previous
+    At the same time as the previous animation
+    Two elements that belong together
+    After Previous
+    Automatically when the previous one finishes
+    A self-running sequence with no clicking
 
 Note: The Animation Pane (Animations > Animation Pane) lists every animation on the slide in order, with its trigger and duration. On any slide with more than two animations it is the only practical way to see and reorder the sequence — dragging entries in the pane is far easier than guessing from the numbered markers on the slide.
 

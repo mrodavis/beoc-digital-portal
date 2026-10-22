@@ -12,42 +12,38 @@ By the end of this lesson you can:
 
 
 ## Why your status matters at the front desk
-
  type: scenario
  role: You are covering the check-in window at Lakeside Medical Associates.
- text: Twice this morning Kevin messaged you a billing question while you were checking in a line of patients then walked over to ask why you had not answered. Your Teams status said Available the whole time so as far as Kevin could tell you were ignoring him.
+ text: Twice this morning, Kevin messaged you a billing question while you were checking in a line of patients, then walked over to ask why you had not answered. Your Teams status said Available the whole time, so as far as Kevin could tell, you were ignoring him.
  task: Use your status and a status message so coworkers know when you can answer and who to ask in the meantime.
-
 
 Your status (Teams also calls it presence) is the small colored dot on your picture. Everyone in your organization sees it next to your name in chats, channels, and meetings. It answers one question for them: can I expect a reply from this person right now? A status message adds a sentence of detail, such as when you will be back and who to contact instead.
 
-
  type: table
  caption: Statuses you can choose
- columns: 
-  Status
-  What it tells people
-  Use it when
- rows: 
-   Available
-   You can respond
-   You are at your desk and free
-   Busy
-   You are working on something; messages still notify you
-   You are checking in patients but can glance at messages
-   Do not disturb
-   Only priority contacts get through; notifications are silenced
-   Training a meeting you are leading or focused work
-   Be right back
-   You stepped away briefly
-   A short break
-   Appear away
-   You are away from your desk
-   Lunch or a longer break
-   Appear offline
-   You look offline but you can still receive messages
-   Rarely; use Do not disturb instead when you need quiet
-
+ columns:
+   Status
+   What it tells people
+   Use it when
+ rows:
+    Available
+    You can respond
+    You are at your desk and free
+    Busy
+    You are working on something; messages still notify you
+    You are checking in patients but can glance at messages
+    Do not disturb
+    Only priority contacts get through; notifications are silenced
+    Training, a meeting you are leading, or focused work
+    Be right back
+    You stepped away briefly
+    A short break
+    Appear away
+    You are away from your desk
+    Lunch or a longer break
+    Appear offline
+    You look offline, but you can still receive messages
+    Rarely; use Do not disturb instead when you need quiet
 
 
 ## Automatic status changes
@@ -64,20 +60,18 @@ Practice: Drag the status that fits each situation.
 ## Status messages that help
 A status message appears when people point to your name and, if you choose, when they start typing a message to you. Select your picture › Set status message, type the message, check Show when people message me, pick when it should clear under Clear status message after, and select Done. Choosing a clear time matters: a message that says “At lunch” is confusing at 4:00 PM.
 
-
  type: worked-example
  title: Writing a status message for a check-in shift
  task: Let coworkers know you are at the check-in window and who to call for something urgent.
- steps: 
+ steps:
    move: Set your status to Busy.
-   why: You can still glance at messages but people should not expect an instant reply.
-   move: Type: “Covering the check-in window until 1:00 PM. For urgent schedule changes call ext. 210.”
-   why: It says what you are doing when it ends and gives a backup for anything urgent. That is everything someone needs to decide whether to wait.
-   move: Choose Today under Clear status message after and select Done.
-   why: The message disappears on its own so you do not leave an out-of-date note for tomorrow.
+   why: You can still glance at messages, but people should not expect an instant reply.
+   move: Type: “Covering the check-in window until 1:00 PM. For urgent schedule changes, call ext. 210.”
+   why: It says what you are doing, when it ends, and gives a backup for anything urgent. That is everything someone needs to decide whether to wait.
+   move: Choose Today under Clear status message after, and select Done.
+   why: The message disappears on its own, so you do not leave an out-of-date note for tomorrow.
  result: Kevin sees the note the moment he starts typing and calls ext. 210 for the urgent question instead of walking over.
- takeaway: A good status message answers three questions: what are you doing until when and who can help in the meantime.
-
+ takeaway: A good status message answers three questions: what are you doing, until when, and who can help in the meantime.
 
 Note: Everyone in the organization can see your status message. Never include patient details, such as “With Mrs. ___ about her test results.” Describe your task, not the patient.
 

@@ -12,41 +12,37 @@ By the end of this lesson you can:
 
 
 ## What you see is not always what is stored
-
  type: scenario
  role: You reconcile invoices at Lakeside Medical Associates.
- text: A column of costs displays as whole dollars and the total is off by four dollars against the vendor statement. Nothing looks wrong. The cells actually contain cents and the display is rounding each one for you while the total sums the real values.
- task: Separate what a cell displays from what it stores because formulas always use the stored value.
-
+ text: A column of costs displays as whole dollars and the total is off by four dollars against the vendor statement. Nothing looks wrong. The cells actually contain cents, and the display is rounding each one for you while the total sums the real values.
+ task: Separate what a cell displays from what it stores, because formulas always use the stored value.
 
 Number formatting changes appearance only. A cell holding 1240.4567 formatted to no decimals displays 1240, but every formula referring to it uses 1240.4567. This is why a column of rounded-looking numbers produces a total that appears not to add up — the total is correct, and the display is what is lying.
 
 If you need the value itself rounded, use the ROUND function: =ROUND(A1,2). Formatting is for presentation; ROUND is for changing the number. Confusing the two is one of the most common sources of reconciliation discrepancies.
 
-
  type: table
  caption: Formats and their traps
- columns: 
-  Format
-  Displays 0.25 as
-  Watch out for
- rows: 
-   General
-   0.25
-   No formatting applied
-   Percentage
-   25%
-   Excel multiplies by 100 to display — typing 25 into a percent cell gives 2500%
-   Currency
-   $0.25
-   Places the symbol next to the number
-   Accounting
-   $   0.25
-   Aligns symbols and decimals in a column; shows zero as a dash
-   Text
-   0.25
-   Excel stops treating it as a number — it will not sum
-
+ columns:
+   Format
+   Displays 0.25 as
+   Watch out for
+ rows:
+    General
+    0.25
+    No formatting applied
+    Percentage
+    25%
+    Excel multiplies by 100 to display — typing 25 into a percent cell gives 2500%
+    Currency
+    $0.25
+    Places the symbol next to the number
+    Accounting
+    $   0.25
+    Aligns symbols and decimals in a column; shows zero as a dash
+    Text
+    0.25
+    Excel stops treating it as a number — it will not sum
 
 Note: Dates are stored as serial numbers counting from 1 January 1900, which is why a date can suddenly display as 45,292 if the format is reset to General. The data is intact — apply a date format and it returns. It is also why dates can be used in arithmetic: subtracting one date from another gives the number of days between them.
 

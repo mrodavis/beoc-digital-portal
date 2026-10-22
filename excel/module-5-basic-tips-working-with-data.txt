@@ -12,42 +12,38 @@ By the end of this lesson you can:
 
 
 ## Excel's data tools assume a shape
-
  type: scenario
  role: You inherit the supply log at Lakeside Medical Associates.
- text: The sheet has a title in A1 two blank rows merged headings a blank row separating each month and totals in the middle of the data. Sorting scrambles it filtering catches only the first month and a PivotTable refuses to build at all.
- task: Learn the layout Excel's data tools expect because every one of them assumes it.
-
+ text: The sheet has a title in A1, two blank rows, merged headings, a blank row separating each month, and totals in the middle of the data. Sorting scrambles it, filtering catches only the first month, and a PivotTable refuses to build at all.
+ task: Learn the layout Excel's data tools expect, because every one of them assumes it.
 
 Sorting, filtering, subtotals, tables, and PivotTables all assume the same structure: one header row, one record per row, one field per column, and no blank rows or columns inside the data. Meet that and every tool works. Break it and each tool fails in its own confusing way.
 
-
  type: table
  caption: Layout rules that make the data tools work
- columns: 
-  Rule
-  Why
-  Common violation
- rows: 
-   One header row
-   Tools read row 1 as field names
-   A title above the headers or two header rows
-   One record per row
-   Each row is treated as a unit when sorted
-   One item's data split across two rows
-   No blank rows inside the data
-   A blank row is read as the end of the range
-   Blank rows used as visual separators
-   No merged cells
-   Merging destroys the row and column grid
-   Merged section headings
-   Totals outside the data
-   A total inside the range sorts along with the data
-   A subtotal row in the middle of the records
-   One type per column
-   Mixed text and numbers break sorting and summing
-   Notes typed into a numeric column
-
+ columns:
+   Rule
+   Why
+   Common violation
+ rows:
+    One header row
+    Tools read row 1 as field names
+    A title above the headers, or two header rows
+    One record per row
+    Each row is treated as a unit when sorted
+    One item's data split across two rows
+    No blank rows inside the data
+    A blank row is read as the end of the range
+    Blank rows used as visual separators
+    No merged cells
+    Merging destroys the row and column grid
+    Merged section headings
+    Totals outside the data
+    A total inside the range sorts along with the data
+    A subtotal row in the middle of the records
+    One type per column
+    Mixed text and numbers break sorting and summing
+    Notes typed into a numeric column
 
 Put titles and notes on a separate sheet, or above a blank row that sits outside the range you select. Keep the data region itself clean — a rectangle with a header row and nothing else. Presentation belongs on the output sheet, not in the data.
 

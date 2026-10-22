@@ -12,59 +12,53 @@ By the end of this lesson you can:
 
 
 ## The failure mode is confident invention
-
  type: scenario
  role: You prepare a policy summary at Lakeside Medical Associates.
- text: You ask an AI tool to summarize the HIPAA requirements for records retention. The answer is well organized appropriately hedged and cites a specific section of the regulation with a specific retention period. The section number does not exist. Nothing in the response looked wrong.
+ text: You ask an AI tool to summarize the HIPAA requirements for records retention. The answer is well organized, appropriately hedged, and cites a specific section of the regulation with a specific retention period. The section number does not exist. Nothing in the response looked wrong.
  task: Build a verification habit strong enough that plausible errors do not reach anyone.
-
 
 A hallucination is output that is fluent, confident, and false. It happens because the model generates plausible continuations rather than retrieving verified facts — and a fabricated regulation citation is just as plausible-looking, statistically, as a real one. The model has no mechanism to tell the difference, which is why it presents both identically.
 
-
  type: table
  caption: What always needs verification
- columns: 
-  Output type
-  Risk
-  How to verify
- rows: 
-   Citations and sources
-   Frequently fabricated including plausible authors and dates
-   Locate every source. If you cannot find it it does not exist
-   Statistics and figures
-   Invented or misremembered
-   Trace to the original publication
-   Legal or regulatory claims
-   Confidently wrong; consequences are serious
-   Check the actual regulation or ask compliance
-   Clinical information
-   Potentially harmful
-   Never rely on it. Use authoritative clinical references
-   Arithmetic
-   Language models are unreliable at calculation
-   Recompute it yourself
-   Names dates specifics
-   Plausibly wrong
-   Check against the source record
-
-
+ columns:
+   Output type
+   Risk
+   How to verify
+ rows:
+    Citations and sources
+    Frequently fabricated, including plausible authors and dates
+    Locate every source. If you cannot find it, it does not exist
+    Statistics and figures
+    Invented or misremembered
+    Trace to the original publication
+    Legal or regulatory claims
+    Confidently wrong; consequences are serious
+    Check the actual regulation, or ask compliance
+    Clinical information
+    Potentially harmful
+    Never rely on it. Use authoritative clinical references
+    Arithmetic
+    Language models are unreliable at calculation
+    Recompute it yourself
+    Names, dates, specifics
+    Plausibly wrong
+    Check against the source record
 
  type: worked-example
  title: Matching verification to the stakes
  task: Decide how much checking four different AI-assisted tasks need.
- steps: 
+ steps:
    move: Rephrasing a paragraph you wrote — read it once.
-   why: You already know the content so you can spot a change in meaning immediately. The risk is low and the check is nearly free. This is the category where AI is most straightforwardly useful.
+   why: You already know the content, so you can spot a change in meaning immediately. The risk is low and the check is nearly free. This is the category where AI is most straightforwardly useful.
    move: Drafting a routine internal email — read it properly before sending.
-   why: Low stakes but it goes to colleagues under your name. An ordinary proofread is proportionate — the same attention you would give anything you wrote yourself.
+   why: Low stakes, but it goes to colleagues under your name. An ordinary proofread is proportionate — the same attention you would give anything you wrote yourself.
    move: Summarizing a policy for staff — verify every specific against the source.
-   why: Staff will act on this. Every number deadline and requirement must be checked against the actual policy document because a confident wrong retention period becomes practice behavior.
+   why: Staff will act on this. Every number, deadline, and requirement must be checked against the actual policy document, because a confident wrong retention period becomes practice behavior.
    move: Anything clinical or regulatory — do not use AI output as the source at all.
-   why: The consequences of a confident error are serious enough that AI-generated content should not be the basis of the answer. Use it to help you phrase what an authoritative source already told you never to establish the fact.
- result: Verification effort proportionate to consequence rather than uniform or absent.
+   why: The consequences of a confident error are serious enough that AI-generated content should not be the basis of the answer. Use it to help you phrase what an authoritative source already told you, never to establish the fact.
+ result: Verification effort proportionate to consequence, rather than uniform or absent.
  takeaway: Ask what happens if this is wrong. The answer sets how hard you check — and sometimes says not to use the tool for it.
-
 
 Note: You are accountable for anything you send, regardless of what produced the draft. 'The AI wrote it' is not a defense for an incorrect letter to a patient, a wrong figure in a report, or a fabricated citation in a policy. Treat AI output as a draft from a fast, confident, sometimes-wrong assistant whose work you are signing off.
 

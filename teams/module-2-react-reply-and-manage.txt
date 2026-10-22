@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Acknowledge without adding clutter
-
  type: scenario
  role: You are the front office assistant at Lakeside Medical Associates.
- text: Your lunch-order chat has 31 messages and 14 of them say “ok” or “thanks.” The question you needed to answer is buried in the middle. You also just noticed that the message you sent Tasha was meant for the potluck chat.
- task: Use reactions replies and message tools so conversations stay short and easy to follow and fix your own mistakes cleanly.
-
+ text: Your lunch-order chat has 31 messages, and 14 of them say “ok” or “thanks.” The question you needed to answer is buried in the middle. You also just noticed that the message you sent Tasha was meant for the potluck chat.
+ task: Use reactions, replies, and message tools so conversations stay short and easy to follow, and fix your own mistakes cleanly.
 
 Point to a message and Teams shows a small bar with up to five quick reactions, such as 👍 Like and ❤️ Heart. Select one and it appears under the message. Select More reactions (the smiley face) to pick from many more, such as ✅. Select a reaction you already added to remove it. You can add several different reactions to one message (up to 20). A reaction tells the sender “seen and understood” without starting a new message that everyone has to read.
 
@@ -25,62 +23,56 @@ When you need to answer a specific earlier message, point to it and choose Reply
 
 
 ## Fix mistakes
-
  type: table
  caption: Changing a message you sent
- columns: 
-  To
-  Do this
-  What others see
- rows: 
-   Fix a typo or detail
-   Point to the message › Edit (pencil). Change it and select Done.
-   Your corrected message marked Edited
-   Remove a message
-   Point to it › More options (…) › Delete
-   This message has been deleted.
-   Bring it back
-   Select Undo on the deleted message
-   The original message
-
+ columns:
+   To
+   Do this
+   What others see
+ rows:
+    Fix a typo or detail
+    Point to the message › Edit (pencil). Change it and select Done.
+    Your corrected message, marked Edited
+    Remove a message
+    Point to it › More options (…) › Delete
+    This message has been deleted.
+    Bring it back
+    Select Undo on the deleted message
+    The original message
 
 Note: Deleting a message is not a privacy fix. If you sent patient information to the wrong person, delete the message and then tell your supervisor or privacy officer, following Lakeside's policy. Someone may have already read it or received a notification with a preview.
-
 
  type: worked-example
  title: The message that went to the wrong chat
  task: “See you at the potluck!” went to Tasha instead of the Staff Events channel.
- steps: 
-   move: In the chat with Tasha point to the message › More options (…) › Delete.
-   why: The message is not for Tasha and leaving it would confuse her.
+ steps:
+   move: In the chat with Tasha, point to the message › More options (…) › Delete.
+   why: The message is not for Tasha, and leaving it would confuse her.
    move: Post the message where it belongs.
    why: Deleting fixes the wrong chat; you still need to say it in the right place.
-   move: If the wrong message had contained patient details report it as well.
+   move: If the wrong message had contained patient details, report it as well.
    why: A notification preview may already have shown the content. Reporting it is part of the fix.
  result: Tasha's chat is clean and the message is where it belongs.
  takeaway: Edit fixes words; Delete removes a message from the chat; neither one erases what someone may already have seen.
 
 
-
 ## Keep track of what matters
-
  type: table
  caption: Tools for finding messages again (point to a message › More options (…))
- columns: 
-  Command
-  What it does
- rows: 
-   Pin for everyone
-   Shows the message at the top of the chat for everyone. Only one message is pinned at a time; Unpin for everyone removes it.
-   Save this message
-   Adds the message to the Saved section at the top of your chat list (only you see it).
-   Mark as unread
-   Turns the message bold again so you remember to come back to it.
-   Copy link
-   Copies a link to the exact message to paste somewhere else.
-   Forward
-   Sends a copy of the message to another chat with an optional note.
-
+ columns:
+   Command
+   What it does
+ rows:
+    Pin for everyone
+    Shows the message at the top of the chat for everyone. Only one message is pinned at a time; Unpin for everyone removes it.
+    Save this message
+    Adds the message to the Saved section at the top of your chat list (only you see it).
+    Mark as unread
+    Turns the message bold again so you remember to come back to it.
+    Copy link
+    Copies a link to the exact message to paste somewhere else.
+    Forward
+    Sends a copy of the message to another chat, with an optional note.
 
 To find an older message, use Search at the top of Teams (Ctrl+E). Type a few words you remember, such as “holiday schedule,” and choose a result. Saved messages also appear in the Saved section of your chat list.
 

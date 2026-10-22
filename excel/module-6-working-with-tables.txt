@@ -12,37 +12,33 @@ By the end of this lesson you can:
 
 
 ## A Table knows where its data ends
-
  type: scenario
  role: You maintain the supply tracker at Lakeside Medical Associates.
- text: Your chart and PivotTable are built on A1:F200. Twelve new rows are added at row 201. The chart does not include them the PivotTable does not include them and both look completely normal. Nobody notices for a month.
+ text: Your chart and PivotTable are built on A1:F200. Twelve new rows are added at row 201. The chart does not include them, the PivotTable does not include them, and both look completely normal. Nobody notices for a month.
  task: Use a Table so the range grows with the data and everything built on it follows.
-
 
 Insert > Table converts a range into a named object that tracks its own extent. Type into the row below and the Table absorbs it — and so does every chart, PivotTable, and formula referencing the Table. This is the single feature that prevents the silent staleness above.
 
 Tables also change how formulas read. =SUM(Orders[Cost]) says what it means, where =SUM(E2:E200) requires you to go and look. Structured references make formulas self-documenting, and they cannot drift out of alignment with the data the way fixed ranges do.
 
-
  type: table
  caption: What converting to a Table gives you
- columns: 
-  Feature
-  Effect
- rows: 
-   Auto-expanding range
-   New rows and columns are included automatically everywhere
-   Structured references
-   =SUM(OrdersCost) instead of =SUM(E2:E200)
-   Filter buttons
-   Added to every header automatically
-   Total row
-   Uses SUBTOTAL so it respects filtering
-   Banded rows
-   Readability that survives sorting and inserting
-   Formula fill
-   A formula entered in one cell fills the whole column
-
+ columns:
+   Feature
+   Effect
+ rows:
+    Auto-expanding range
+    New rows and columns are included automatically everywhere
+    Structured references
+    =SUM(Orders[Cost]) instead of =SUM(E2:E200)
+    Filter buttons
+    Added to every header automatically
+    Total row
+    Uses SUBTOTAL, so it respects filtering
+    Banded rows
+    Readability that survives sorting and inserting
+    Formula fill
+    A formula entered in one cell fills the whole column
 
 Name the Table as soon as you create it — Table Design > Table Name. 'Orders' reads far better in formulas than 'Table1', and in a workbook with several tables the default names become impossible to keep straight.
 

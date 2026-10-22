@@ -12,31 +12,27 @@ By the end of this lesson you can:
 
 
 ## Why the interface is worth ten minutes
-
  type: scenario
  role: You are a new administrative assistant at Lakeside Medical Associates.
  text: Your supervisor forwards a referral letter and asks you to 'clean it up and add our letterhead before it goes out at four.' You open Word and face a screen with roughly two hundred commands. You know what the letter should look like. The only thing standing between you and finishing is knowing where things live.
- task: Learn the map of the Word window well enough that you spend your time on the writing not on the hunting.
-
+ task: Learn the map of the Word window well enough that you spend your time on the writing, not on the hunting.
 
 Almost every Word command is organized by a single principle: the Ribbon groups commands by the kind of work you are doing, not by the menu someone filed them under. Home holds the things you change constantly — font, alignment, lists, styles. Insert holds things you add to a page — pictures, tables, page numbers. Layout holds things that affect the page itself — margins, orientation, columns. Once you know that logic, you can usually predict which tab a command is on before you look.
 
 That prediction is the real skill. Memorizing button positions stops working the moment Microsoft moves one, and they do move. Understanding the organizing logic survives every update, and it transfers to Excel and PowerPoint, which use the same system.
 
-
  type: key-terms
- terms: 
+ terms:
    term: Ribbon
    definition: The tabbed command bar across the top. Tabs group commands by task; each tab is divided into labeled groups such as Font or Paragraph.
    term: Contextual tab
-   definition: A tab that appears only when it is relevant — click a picture and a Picture Format tab appears. If a command seems missing you often just need to select the object it applies to.
+   definition: A tab that appears only when it is relevant — click a picture and a Picture Format tab appears. If a command seems missing, you often just need to select the object it applies to.
    term: Quick Access Toolbar
-   definition: The small always-visible strip above or below the Ribbon. It holds the few commands you want regardless of which tab is open and you choose what goes on it.
+   definition: The small always-visible strip above or below the Ribbon. It holds the few commands you want regardless of which tab is open, and you choose what goes on it.
    term: Backstage view
-   definition: Everything behind the File tab. This is where you act on the file as a whole — open save print share inspect — rather than on the text inside it.
+   definition: Everything behind the File tab. This is where you act on the file as a whole — open, save, print, share, inspect — rather than on the text inside it.
    term: Search box
-   definition: The box at the top of the window (Alt+Q). Type what you want to do in plain words and choose the command from the results without needing to know its tab. Office 2016 and 2019 called it Tell Me and put it on the Ribbon.
-
+   definition: The box at the top of the window (Alt+Q). Type what you want to do in plain words and choose the command from the results, without needing to know its tab. Office 2016 and 2019 called it Tell Me and put it on the Ribbon.
 
 Note: Some screenshots in this lesson come from an older version of Word, so colors and icons may look a little different from your screen. Two things moved. The Tell Me box that Office 2016 and 2019 showed on the Ribbon is now the Search box at the top of the window in Word for Microsoft 365 (press Alt+Q to jump to it). And the Ribbon Display Options button is now at the bottom-right corner of the Ribbon, with new option names. Both are covered below.
 
@@ -102,22 +98,20 @@ You can zoom in or out using the zoom slider in the bottom-right corner of the w
 
 
 ## Finding a command you have never used
-
  type: worked-example
  title: Adding a non-breaking space without knowing where it lives
- task: Your referral letter breaks the line between 'Dr.' and 'Okafor' leaving the title stranded at the end of a line. You need a non-breaking space which keeps two words together. You have no idea which tab that is on.
- steps: 
+ task: Your referral letter breaks the line between 'Dr.' and 'Okafor,' leaving the title stranded at the end of a line. You need a non-breaking space, which keeps two words together. You have no idea which tab that is on.
+ steps:
    move: Predict the tab before searching.
-   why: A non-breaking space is a character you are adding to the page so Insert is a reasonable first guess — it lives under Insert > Symbol > More Symbols > Special Characters. Making the prediction first is what builds the mental map even when the guess is wrong.
+   why: A non-breaking space is a character you are adding to the page, so Insert is a reasonable first guess — it lives under Insert > Symbol > More Symbols > Special Characters. Making the prediction first is what builds the mental map, even when the guess is wrong.
    move: Use the Search box rather than opening every tab.
-   why: Press Alt+Q (or click Search at the top of the window) and type 'symbol.' Word lists matching commands directly. Hunting tab by tab can take a minute; Search takes five seconds and it works for any command whose name you can approximately describe.
+   why: Press Alt+Q (or click Search at the top of the window) and type 'symbol.' Word lists matching commands directly. Hunting tab by tab can take a minute; Search takes five seconds, and it works for any command whose name you can approximately describe.
    move: Note where Search found it.
-   why: This is the step most people skip. Search runs the command but does not teach you the location. Afterwards go look at Insert > Symbol so the next time you need a special character you go straight there. Search is a shortcut not a substitute for the map.
+   why: This is the step most people skip. Search runs the command but does not teach you the location. Afterwards, go look at Insert > Symbol so the next time you need a special character you go straight there. Search is a shortcut, not a substitute for the map.
    move: Put it on the Quick Access Toolbar if you will repeat it.
-   why: Right-click any Ribbon command and choose Add to Quick Access Toolbar. For a task you do twenty times a day — like Save As or Print Preview — this removes two clicks each time. For something you do twice a year leave it where it is; a cluttered toolbar is its own kind of slow.
- result: The title and surname stay together on one line and you now know both the shortcut for finding commands and the actual home of special characters.
- takeaway: Predict the tab use Search when the prediction fails then go learn where it actually lives. That loop turns two hundred commands into a map you can navigate.
-
+   why: Right-click any Ribbon command and choose Add to Quick Access Toolbar. For a task you do twenty times a day — like Save As or Print Preview — this removes two clicks each time. For something you do twice a year, leave it where it is; a cluttered toolbar is its own kind of slow.
+ result: The title and surname stay together on one line, and you now know both the shortcut for finding commands and the actual home of special characters.
+ takeaway: Predict the tab, use Search when the prediction fails, then go learn where it actually lives. That loop turns two hundred commands into a map you can navigate.
 
 
 ## Knowledge Check

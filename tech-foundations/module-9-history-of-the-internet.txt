@@ -12,72 +12,66 @@ By the end of this lesson you can:
 
 
 ## Why the history is worth knowing
-
  type: scenario
  role: You support staff technology at Lakeside Medical Associates.
- text: A colleague asks why email arrives unencrypted by default why phishing works so well and why the practice needs so many security add-ons for something that 'just works.' The honest answer is historical: the network was built by a small group of researchers who trusted each other and security was not among its original requirements.
+ text: A colleague asks why email arrives unencrypted by default, why phishing works so well, and why the practice needs so many security add-ons for something that 'just works.' The honest answer is historical: the network was built by a small group of researchers who trusted each other, and security was not among its original requirements.
  task: Learn the sequence well enough to explain why today's internet behaves the way it does.
-
 
 The internet was not designed as a consumer product. It began as a research project to connect a handful of universities and defense laboratories, and its founding assumptions — a small number of known, trusted participants — are visible in almost every security problem we have now.
 
-
  type: table
  caption: The major stages
- columns: 
-  Period
-  Development
-  Why it mattered
- rows: 
-   1960s
-   Packet switching proposed; ARPANET funded
-   Data split into packets routed independently so no single failure stops delivery
-   1969
-   ARPANET's first node-to-node message
-   Four connected sites — the first working version of the idea
-   1970s
-   TCP/IP developed
-   A common protocol letting different networks interconnect — the actual birth of an 'internet'
-   1983
-   ARPANET adopts TCP/IP
-   Often treated as the internet's birthday
-   1983
-   Domain Name System designed
-   Names instead of numeric addresses which made the network usable by people
-   1989-1991
-   Tim Berners-Lee proposes and releases the World Wide Web
-   HTTP HTML and URLs — a way to link documents across the network
-   1993
-   The Mosaic browser; CERN makes the web's software free for anyone to use
-   Images alongside text; the web becomes something non-specialists want to use
-   Late 1990s
-   Commercial internet search engines e-commerce
-   The network becomes public infrastructure
-   2000s
-   Broadband social platforms smartphones
-   Always-on and always-carried rather than a place you went to
-   2010s
-   Cloud computing mobile-first IoT
-   Computing moves off the device and into data centers
-   2020s
-   AI assistants built into everyday software; passkeys begin replacing passwords
-   The network carries AI services and security is finally being designed in rather than added on
-
+ columns:
+   Period
+   Development
+   Why it mattered
+ rows:
+    1960s
+    Packet switching proposed; ARPANET funded
+    Data split into packets routed independently, so no single failure stops delivery
+    1969
+    ARPANET's first node-to-node message
+    Four connected sites — the first working version of the idea
+    1970s
+    TCP/IP developed
+    A common protocol letting different networks interconnect — the actual birth of an 'internet'
+    1983
+    ARPANET adopts TCP/IP
+    Often treated as the internet's birthday
+    1983
+    Domain Name System designed
+    Names instead of numeric addresses, which made the network usable by people
+    1989-1991
+    Tim Berners-Lee proposes and releases the World Wide Web
+    HTTP, HTML, and URLs — a way to link documents across the network
+    1993
+    The Mosaic browser; CERN makes the web's software free for anyone to use
+    Images alongside text; the web becomes something non-specialists want to use
+    Late 1990s
+    Commercial internet, search engines, e-commerce
+    The network becomes public infrastructure
+    2000s
+    Broadband, social platforms, smartphones
+    Always-on and always-carried, rather than a place you went to
+    2010s
+    Cloud computing, mobile-first, IoT
+    Computing moves off the device and into data centers
+    2020s
+    AI assistants built into everyday software; passkeys begin replacing passwords
+    The network carries AI services, and security is finally being designed in rather than added on
 
 Practice: Drag these eight events into the order they happened, earliest first.
 
-
  type: key-terms
- terms: 
+ terms:
    term: Packet switching
    definition: Splitting data into packets routed independently and reassembled at the destination. Chosen because it survives the loss of any single route.
    term: TCP/IP
    definition: The protocol suite that lets dissimilar networks interoperate. IP routes packets; TCP ensures they arrive complete and in order.
    term: DNS
-   definition: The Domain Name System which translates a name like beocdigital.org into the numeric address computers actually use.
+   definition: The Domain Name System, which translates a name like beocdigital.org into the numeric address computers actually use.
    term: The World Wide Web
    definition: One service that runs on the internet — linked documents delivered over HTTP. Not a synonym for the internet.
-
 
 Note: The internet and the web are not the same thing, and the distinction is genuinely useful. The internet is the network — the cables, routers, and protocols. The web is one application running on it, alongside email, video calls, file transfer, and the traffic your practice's EHR generates. When a colleague says 'the internet is down,' the useful diagnostic question is which of those has actually stopped.
 

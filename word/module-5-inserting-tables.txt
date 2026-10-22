@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Tables are for data, not for layout
-
  type: scenario
  role: You maintain the provider schedule at Lakeside Medical Associates.
- text: You build the weekly schedule using tabs and spaces to line up the columns. It looks correct. Then a provider's name gets one character longer and every row below shifts out of alignment. You spend twenty minutes nudging tab stops that will break again next week.
+ text: You build the weekly schedule using tabs and spaces to line up the columns. It looks correct. Then a provider's name gets one character longer, and every row below shifts out of alignment. You spend twenty minutes nudging tab stops that will break again next week.
  task: Use a real table so alignment is structural and survives editing.
-
 
 Anything with genuine rows and columns belongs in a table. Cells hold their alignment no matter what you type into them, columns resize as a unit, and the structure carries meaning that spaces and tabs cannot. Spaces produce alignment that is accidental — it holds only until the content changes.
 

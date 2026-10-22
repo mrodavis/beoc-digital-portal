@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## The same cell, described two ways
-
  type: scenario
  role: You audit an inherited workbook at Lakeside Medical Associates.
- text: You open a colleague's file and the column headers are numbers instead of letters. Formulas read =RC-1*R1C6. Nothing is broken — the workbook is simply using the other reference style and R1C1 is not something most people ever see.
- task: Recognize R1C1 notation know how to switch it off and understand why it exists.
-
+ text: You open a colleague's file and the column headers are numbers instead of letters. Formulas read =RC[-1]*R1C6. Nothing is broken — the workbook is simply using the other reference style, and R1C1 is not something most people ever see.
+ task: Recognize R1C1 notation, know how to switch it off, and understand why it exists.
 
 A1 style names a cell by column letter and row number. R1C1 style names it by row and column number, so row 3 column 2 is R3C2 — the same cell A1 style calls B3. Both describe an identical grid; only the notation differs.
 

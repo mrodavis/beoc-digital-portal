@@ -13,12 +13,10 @@ By the end of this lesson you can:
 
 
 ## Sorting
-
  type: scenario
  role: You keep the maintenance request log with Kim.
- text: The log has dozens of requests from both buildings. Kim wants the requests grouped by building Denise wants to see only what is still open Marcus wants his own Riverside view without changing anyone else's and the high-priority requests should stand out at a glance.
- task: Sort filter and highlight the log for each person's needs.
-
+ text: The log has dozens of requests from both buildings. Kim wants the requests grouped by building, Denise wants to see only what is still open, Marcus wants his own Riverside view without changing anyone else's, and the high-priority requests should stand out at a glance.
+ task: Sort, filter, and highlight the log for each person's needs.
 
 1. Select the data, including the header row.
 2. Data › Sort range › Advanced range sorting options.
@@ -45,24 +43,22 @@ Practice: Sort each situation.
 
 A table turns a range into a structured list: select the data and choose Format › Convert to table. The table gets a header style and a name, and you can set a type for each column (such as number, date, dropdown, or checkbox) so entries that do not fit are flagged.
 
-
  type: table
  caption: If you know Excel
- columns: 
-  Google Sheets
-  Excel
- rows: 
-   Data › Sort range
-   Data › Sort
-   Data › Create a filter
-   Data › Filter
-   Data › Create filter view
-   Sheet views (in shared workbooks)
-   Format › Conditional formatting
-   Home › Conditional Formatting
-   Format › Convert to table
-   Insert › Table
-
+ columns:
+   Google Sheets
+   Excel
+ rows:
+    Data › Sort range
+    Data › Sort
+    Data › Create a filter
+    Data › Filter
+    Data › Create filter view
+    Sheet views (in shared workbooks)
+    Format › Conditional formatting
+    Home › Conditional Formatting
+    Format › Convert to table
+    Insert › Table
 
 
 ## Knowledge Check

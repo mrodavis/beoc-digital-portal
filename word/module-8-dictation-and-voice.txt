@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Dictation is fast, and it is spoken out loud
-
  type: scenario
  role: You are writing up notes at the front desk of Lakeside Medical Associates.
- text: Dictation would let you produce the summary in a third of the time. The front desk is also within earshot of the waiting room and the summary contains a patient's name and reason for visit.
- task: Use dictation where it genuinely helps and recognize where speaking aloud is the wrong choice.
-
+ text: Dictation would let you produce the summary in a third of the time. The front desk is also within earshot of the waiting room, and the summary contains a patient's name and reason for visit.
+ task: Use dictation where it genuinely helps, and recognize where speaking aloud is the wrong choice.
 
 Dictation (Home > Dictate) converts speech to text using cloud speech recognition, which means it requires an internet connection. Most people speak far faster than they type, so for long-form drafting it is a substantial gain — and for anyone for whom typing is painful or difficult, it is an accessibility tool rather than a convenience.
 

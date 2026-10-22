@@ -12,56 +12,50 @@ By the end of this lesson you can:
 
 
 ## The Shared tab
-
  type: scenario
  role: You are the front office assistant at Lakeside Medical Associates.
- text: Omar asks for the provider schedule for the third time this week. It is in the Scheduling channel but it was shared in a post two weeks ago and has scrolled out of sight. New hires keep using an old copy of the intake packet they saved to their desktops.
- task: Use the Shared tab so the team's files are easy to find and keep the most-used ones at the top.
-
+ text: Omar asks for the provider schedule for the third time this week. It is in the Scheduling channel, but it was shared in a post two weeks ago and has scrolled out of sight. New hires keep using an old copy of the intake packet they saved to their desktops.
+ task: Use the Shared tab so the team's files are easy to find, and keep the most-used ones at the top.
 
 At the top of every channel are tabs. Posts shows the conversation. Shared lists the files and links shared in that channel. (In January 2026 Microsoft renamed the channel's Files tab to Shared, so older guides may still say Files.) A file posted in a channel's conversation shows up on its Shared tab too, so nobody has to scroll back through posts to find it.
 
 Files you add to a channel are stored in the team's SharePoint site, in a folder for that channel. The team owns them: they stay when someone leaves Lakeside, and every member of the team can open them. That is the difference from chat files, which live in the sender's OneDrive (Module 2).
 
-
  type: table
  caption: On the Shared tab (point to a file › More options (…))
- columns: 
-  Command
-  What it does
- rows: 
-   Upload › Files
-   Adds a file from your computer to the channel
-   Open
-   Opens the file in Teams
-   Pin to top
-   Keeps the file at the top of the list
-   Copy link
-   Copies a link you can paste into a post or chat
-   Share
-   Shares the file with specific people
-
+ columns:
+   Command
+   What it does
+ rows:
+    Upload › Files
+    Adds a file from your computer to the channel
+    Open
+    Opens the file in Teams
+    Pin to top
+    Keeps the file at the top of the list
+    Copy link
+    Copies a link you can paste into a post or chat
+    Share
+    Shares the file with specific people
 
 
 ## Add a tab
 Tabs put the tools a team uses every day one click away. Select Add a tab (+) at the top of the channel, choose an app such as Planner (a shared task plan), Lists (a tracker), or Forms (a survey), and select Add. To show a single file as a tab, first share the file in the channel, then add a tab for its app (for example, Excel), pick the file, and select Save. Posts and Shared are always there; your team owner may limit who can add or remove other tabs.
 
-
  type: worked-example
  title: Cleaning up the Scheduling channel
- task: Make the schedule and intake packet easy to find and give the team one place for scheduling tasks.
- steps: 
+ task: Make the schedule and intake packet easy to find, and give the team one place for scheduling tasks.
+ steps:
    move: Open Scheduling › Shared and upload Holiday Coverage Schedule.xlsx.
-   why: Uploading to the channel stores the file in the team's SharePoint site where everyone works on the same copy.
+   why: Uploading to the channel stores the file in the team's SharePoint site, where everyone works on the same copy.
    move: Point to New Patient Intake Packet.pdf › More options › Pin to top.
    why: The most-used file is first in the list for everyone.
-   move: Point to Provider Schedule - November.xlsx › More options › Copy link and paste it in your reply to Omar.
+   move: Point to Provider Schedule - November.xlsx › More options › Copy link, and paste it in your reply to Omar.
    why: A link opens the one real file. Nobody saves another copy to their desktop.
    move: Select Add a tab (+) › Planner › Add.
    why: Reschedule calls and coverage tasks get a shared plan at the top of the channel instead of getting lost in posts.
- result: The channel's key files are pinned and linkable and the team has a shared task plan.
- takeaway: Put team files in the channel pin the ones people use most and share links not copies.
-
+ result: The channel's key files are pinned and linkable, and the team has a shared task plan.
+ takeaway: Put team files in the channel, pin the ones people use most, and share links, not copies.
 
 Practice: Sort each file.
 

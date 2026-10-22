@@ -12,62 +12,56 @@ By the end of this lesson you can:
 
 
 ## Accessibility tools are for everyone
-
  type: scenario
  role: You are the front office assistant at Lakeside Medical Associates.
- text: Renee posted a long list of new privacy steps for check-in. Omar who has dyslexia says long posts are hard to get through. The afternoon sun makes your screen hard to read and the front desk is too loud to hear the huddle clearly.
- task: Use the tools built into Teams so everyone including you can read hear and take part.
-
-
+ text: Renee posted a long list of new privacy steps for check-in. Omar, who has dyslexia, says long posts are hard to get through. The afternoon sun makes your screen hard to read, and the front desk is too loud to hear the huddle clearly.
+ task: Use the tools built into Teams so everyone, including you, can read, hear, and take part.
 
  type: table
  caption: Accessibility tools in Teams
- columns: 
-  Need
-  Tool
-  Where
- rows: 
-   Reading long text
-   Immersive Reader: read aloud text size and spacing line focus translation
-   Point to a message › More options (…) › Immersive Reader
-   Seeing the screen
-   Theme (Follow operating system theme Light Dark) and high contrast
-   Settings and more (…) › Settings › Appearance and accessibility
-   Seeing the screen
-   Zoom in and out
-   Ctrl+= and Ctrl+-
-   Hearing meetings
-   Live captions
-   In a meeting: More (…) › Language and speech › Show live captions
-   Being heard
-   Noise suppression
-   Settings › Devices
-   Using the keyboard
-   Keyboard shortcuts
-   Ctrl+. shows them all
-   Using a screen reader
-   Support for Windows Narrator JAWS and NVDA
-   Works with Teams on Windows
-
+ columns:
+   Need
+   Tool
+   Where
+ rows:
+    Reading long text
+    Immersive Reader: read aloud, text size and spacing, line focus, translation
+    Point to a message › More options (…) › Immersive Reader
+    Seeing the screen
+    Theme (Follow operating system theme, Light, Dark) and high contrast
+    Settings and more (…) › Settings › Appearance and accessibility
+    Seeing the screen
+    Zoom in and out
+    Ctrl+= and Ctrl+-
+    Hearing meetings
+    Live captions
+    In a meeting: More (…) › Captions
+    Being heard
+    Noise suppression
+    Settings › Devices
+    Using the keyboard
+    Keyboard shortcuts
+    Ctrl+. shows them all
+    Using a screen reader
+    Support for Windows Narrator, JAWS, and NVDA
+    Works with Teams on Windows
 
 Teams also has a Sign language mode for meetings with sign language interpreters. Your coworkers may use any of these tools. Writing clear posts with headings or numbered lists, and not relying on color alone, helps everyone who uses them.
 
 
 ## Use the tools
-
  type: worked-example
  title: Getting through Renee's privacy steps
  task: Read a long post comfortably and make sure you understood it.
- steps: 
+ steps:
    move: Point to Renee's post › More options (…) › Immersive Reader.
-   why: It opens the text full screen with larger spaced-out text and can read it aloud.
-   move: Use the text size controls and select Play to hear it read.
-   why: Hearing and seeing the text together helps many readers not only people with dyslexia.
+   why: It opens the text full screen with larger, spaced-out text and can read it aloud.
+   move: Use the text size controls, and select Play to hear it read.
+   why: Hearing and seeing the text together helps many readers, not only people with dyslexia.
    move: Close Immersive Reader and reply to confirm what you changed at your desk.
    why: Replying shows Renee the steps were understood and done.
  result: You read the full post and confirmed it in the thread.
- takeaway: Use the reading tools whenever text is long or hard to read and write posts that work well with them.
-
+ takeaway: Use the reading tools whenever text is long or hard to read, and write posts that work well with them.
 
 Practice: Drag the tool that helps each coworker.
 

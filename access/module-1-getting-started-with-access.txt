@@ -12,85 +12,77 @@ By the end of this lesson you can:
 
 
 ## Why Access exists
-
  type: scenario
  role: You maintain records at Lakeside Medical Associates.
- text: The patient contact list is a spreadsheet with one row per appointment. A patient who has visited eleven times appears in eleven rows with her address typed eleven times. She moves. Someone updates four rows. The practice now holds two addresses for one patient and no way to tell which is current.
- task: Understand the problem Access solves so you know when reaching for it is worth the extra effort.
-
+ text: The patient contact list is a spreadsheet with one row per appointment. A patient who has visited eleven times appears in eleven rows, with her address typed eleven times. She moves. Someone updates four rows. The practice now holds two addresses for one patient and no way to tell which is current.
+ task: Understand the problem Access solves, so you know when reaching for it is worth the extra effort.
 
 Excel stores a grid of values. Access stores related tables, each describing one kind of thing, linked so that every fact is recorded exactly once. That difference sounds academic until data changes — and data always changes.
 
 In the scenario above, Access would hold one Patients table with one row per patient and one Appointments table with one row per appointment, linked by a patient ID. The address exists in one place. Changing it changes it everywhere, because everywhere is one row.
 
-
  type: table
  caption: Access or Excel?
- columns: 
-  Situation
-  Use
-  Why
- rows: 
-   A budget or one-off calculation
-   Excel
-   Fast to build; relationships do not matter
-   Data about several related things
-   Access
-   Each fact stored once linked by keys
-   Records many people update over years
-   Access
-   Validation and integrity rules prevent contradictions
-   Ad-hoc analysis and charting
-   Excel
-   Far better analysis tooling
-   The same value typed repeatedly
-   Access
-   Repeated typing is the signal a second table is needed
-   More rows than Excel handles comfortably
-   Access
-   Designed for larger record counts
-
-
+ columns:
+   Situation
+   Use
+   Why
+ rows:
+    A budget or one-off calculation
+    Excel
+    Fast to build; relationships do not matter
+    Data about several related things
+    Access
+    Each fact stored once, linked by keys
+    Records many people update over years
+    Access
+    Validation and integrity rules prevent contradictions
+    Ad-hoc analysis and charting
+    Excel
+    Far better analysis tooling
+    The same value typed repeatedly
+    Access
+    Repeated typing is the signal a second table is needed
+    More rows than Excel handles comfortably
+    Access
+    Designed for larger record counts
 
  type: key-terms
- terms: 
+ terms:
    term: Database
-   definition: A structured collection of related data organized so each fact is stored once and can be linked to others.
+   definition: A structured collection of related data, organized so each fact is stored once and can be linked to others.
    term: Object
-   definition: One of the four building blocks of an Access database: table query form or report.
+   definition: One of the four building blocks of an Access database: table, query, form, or report.
    term: Navigation Pane
-   definition: The list down the left showing every object in the database grouped by type.
+   definition: The list down the left showing every object in the database, grouped by type.
    term: Datasheet view
-   definition: Shows an object's data in a grid like a spreadsheet.
+   definition: Shows an object's data in a grid, like a spreadsheet.
    term: Design view
-   definition: Shows an object's structure — its fields types and properties — rather than its contents.
+   definition: Shows an object's structure — its fields, types, and properties — rather than its contents.
    term: .accdb
-   definition: The Access database file format. One file holds every table query form and report.
-
+   definition: The Access database file format. One file holds every table, query, form, and report.
 
 
 ## Four object types, four jobs
-
  type: table
  caption: The Access objects
- columns: 
-  Object
-  Job
-  Think of it as
- rows: 
-   Table
-   Stores the data
-   The filing cabinet — the only place data actually lives
-   Query
-   Asks a question of the data
-   A saved question re-answered against current data
-   Form
-   Interface for entering and viewing records
-   The data entry screen staff use
-   Report
-   Formats data for printing
-   The printed output
-
+ columns:
+   Object
+   Job
+   Think of it as
+ rows:
+    Table
+    Stores the data
+    The filing cabinet — the only place data actually lives
+    Query
+    Asks a question of the data
+    A saved question, re-answered against current data
+    Form
+    Interface for entering and viewing records
+    The data entry screen staff use
+    Report
+    Formats data for printing
+    The printed output
 
 Only tables store data. Queries, forms, and reports all display data that lives in tables. Delete a query and you lose the question, not the data. Delete a table and the data is genuinely gone.
 

@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## The command that saves an hour and the mistake that costs one
-
  type: scenario
  role: You maintain practice documents at Lakeside Medical Associates.
- text: The practice's billing contact changes and you must update the name in a forty-page policy manual. You open Replace type the old surname type the new one and click Replace All. Word reports 63 replacements. The name appeared 61 times — the other two were inside the words 'Manning' and 'planning' which are now nonsense.
+ text: The practice's billing contact changes and you must update the name in a forty-page policy manual. You open Replace, type the old surname, type the new one, and click Replace All. Word reports 63 replacements. The name appeared 61 times — the other two were inside the words 'Manning' and 'planning,' which are now nonsense.
  task: Learn the two checkboxes that turn Replace All from a risk into a reliable tool.
-
 
 Find (Ctrl+F) opens the Navigation pane and lists every match, letting you jump between them. Replace (Ctrl+H) swaps one string for another. The power of Replace All is genuine — it does in one second what would take forty minutes by hand — and so is its danger, because it does exactly what you asked across the entire document, including places you did not think about.
 
 Two options in the More menu prevent nearly every Replace accident. Find whole words only stops 'Ann' from matching inside 'Manning' and 'planning.' Match case stops 'IT' from matching inside 'it,' 'with,' and 'admit.' Together they narrow the search to what you actually meant.
 
-
  type: worked-example
  title: Replacing a name across a long document without breaking words
- task: Change every occurrence of the billing contact's surname in a forty-page manual without touching words that merely contain those letters.
- steps: 
-   move: Press Ctrl+H then click More to expand the options.
-   why: The default Replace dialog hides the settings that make it safe. Expanding it first is the habit that prevents the mistake because the checkboxes are not visible in the collapsed view.
+ task: Change every occurrence of the billing contact's surname in a forty-page manual, without touching words that merely contain those letters.
+ steps:
+   move: Press Ctrl+H, then click More to expand the options.
+   why: The default Replace dialog hides the settings that make it safe. Expanding it first is the habit that prevents the mistake, because the checkboxes are not visible in the collapsed view.
    move: Check 'Find whole words only' and 'Match case.'
    why: Whole words stops the match from landing inside a longer word. Match case ensures you replace the proper noun and not a lowercase coincidence. These two settings account for the overwhelming majority of Replace All accidents.
    move: Click Find Next two or three times before replacing anything.
-   why: This is the step that separates a careful operator from a hopeful one. Stepping through a few matches shows you what the search is actually catching. If the first three look right the remaining sixty almost certainly are.
-   move: Click Replace All then read the count Word reports.
-   why: The count is a free verification. If you expected about sixty and Word says sixty-one that is plausible. If it says two hundred something matched far more broadly than you intended — press Ctrl+Z immediately before doing anything else.
- result: Sixty-one accurate replacements and no corrupted words verified by a count that matched expectation.
- takeaway: Expand More restrict the match spot-check with Find Next then read the count. Replace All is safe when you have told it precisely what you mean.
-
+   why: This is the step that separates a careful operator from a hopeful one. Stepping through a few matches shows you what the search is actually catching. If the first three look right, the remaining sixty almost certainly are.
+   move: Click Replace All, then read the count Word reports.
+   why: The count is a free verification. If you expected about sixty and Word says sixty-one, that is plausible. If it says two hundred, something matched far more broadly than you intended — press Ctrl+Z immediately, before doing anything else.
+ result: Sixty-one accurate replacements and no corrupted words, verified by a count that matched expectation.
+ takeaway: Expand More, restrict the match, spot-check with Find Next, then read the count. Replace All is safe when you have told it precisely what you mean.
 
 Replace also works on formatting. With the cursor in the Find field, click Format > Font to search for, say, all red text and replace it with black — useful for stripping the editing marks out of a draft that circulated for comment.
 

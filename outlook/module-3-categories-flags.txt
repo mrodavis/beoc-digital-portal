@@ -12,34 +12,30 @@ By the end of this lesson you can:
 
 
 ## Tags that don't move the message
-
  type: scenario
  role: You are working the Lakeside front desk inbox.
- text: Keisha's copay questions and a vendor invoice both need billing's attention but they live in different places. A prior authorization needs a follow-up tomorrow. Denise's procedure list should never scroll out of sight. Next week's meeting agenda is noise until next week.
- task: Use categories flags pins and snooze so each message shows up when and where you need it.
-
-
+ text: Keisha's copay questions and a vendor invoice both need billing's attention, but they live in different places. A prior authorization needs a follow-up tomorrow. Denise's procedure list should never scroll out of sight. Next week's meeting agenda is noise until next week.
+ task: Use categories, flags, pins and snooze so each message shows up when and where you need it.
 
  type: table
  caption: Four ways to tag a message
- columns: 
-  Tool
-  What it does
-  Use it for
- rows: 
-   Category
-   A named color label
-   Grouping by topic across folders: Billing Referrals Urgent
-   Flag
-   Marks a message for follow-up with a due date if you choose one
-   Things you must do later; flagged messages also appear in To Do
-   Pin
-   Keeps a message at the top of the message list
-   Reference messages you use every day
-   Snooze
-   Hides a message until a time you choose then brings it back
-   Messages you can't act on yet
-
+ columns:
+   Tool
+   What it does
+   Use it for
+ rows:
+    Category
+    A named color label
+    Grouping by topic across folders: Billing, Referrals, Urgent
+    Flag
+    Marks a message for follow-up, with a due date if you choose one
+    Things you must do later; flagged messages also appear in To Do
+    Pin
+    Keeps a message at the top of the message list
+    Reference messages you use every day
+    Snooze
+    Hides a message until a time you choose, then brings it back
+    Messages you can't act on yet
 
 Practice: Match each situation to the tool that handles it best.
 
@@ -54,9 +50,9 @@ Note: Classic Outlook: Home tab › Tags › Categorize › All Categories to re
 
 
 ## Flags, pins, and snooze
-- Flag: select the message and choose Flag / Unflag on the Home tab, or point to it and select the flag. Use the arrow next to Flag / Unflag to pick Today, Tomorrow, This week, Next week or No date.
+- Flag: select the message and choose Flag / Unflag on the Home tab, or point to it and select the flag. Use the arrow next to Flag / Unflag to choose when you want to follow up, such as today or tomorrow.
 - Flagged messages appear in the Flagged email list in To Do, so your follow-ups sit next to your tasks (Module 5).
-- When you are done, choose Mark complete. Clear flag removes the flag without completing it.
+- When you are done, mark the flag complete. Clearing a flag removes it without completing it.
 - Pin: Home tab › Pin / Unpin, or the pin that appears when you point to a message. Pinned messages stay at the top of the folder.
 - Snooze: Home tab › Snooze, then choose when the message should come back. It disappears from the list and reappears at that time.
 

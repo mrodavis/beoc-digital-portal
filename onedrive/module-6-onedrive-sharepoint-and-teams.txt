@@ -12,34 +12,30 @@ By the end of this lesson you can:
 
 
 ## Where did that Teams file go?
-
  type: scenario
  role: You use Teams and OneDrive every day at Lakeside.
- text: Kevin sent you a billing spreadsheet in a Teams chat last week. Maria posted the updated procedures in the Front Desk channel. And the Monday huddle was recorded. Today you need all three and you only have OneDrive open.
+ text: Kevin sent you a billing spreadsheet in a Teams chat last week. Maria posted the updated procedures in the Front Desk channel. And the Monday huddle was recorded. Today you need all three, and you only have OneDrive open.
  task: Know where Teams put each file and find it from OneDrive.
-
-
 
  type: table
  caption: Where Teams stores files
- columns: 
-  You share a file…
-  It is stored in…
-  Who can open it
- rows: 
-   In a Teams chat (one-on-one or group)
-   The sender's OneDrive in the folder Microsoft Teams Chat Files
-   The people in that chat (Teams sets the permissions)
-   In a standard Teams channel
-   The team's SharePoint site in that channel's folder of the Documents library
-   The members of the team
-   A meeting recording (not a channel meeting)
-   The organizer's OneDrive in the Recordings folder
-   Meeting participants as the organizer's settings allow
-   A channel meeting recording
-   The team's SharePoint site in a Recordings folder in the channel's files
-   The members of the team
-
+ columns:
+   You share a file…
+   It is stored in…
+   Who can open it
+ rows:
+    In a Teams chat (one-on-one or group)
+    The sender's OneDrive, in the folder Microsoft Teams Chat Files
+    The people in that chat (Teams sets the permissions)
+    In a standard Teams channel
+    The team's SharePoint site, in that channel's folder of the Documents library
+    The members of the team
+    A meeting recording (not a channel meeting)
+    The organizer's OneDrive, in the Recordings folder
+    Meeting participants, as the organizer's settings allow
+    A channel meeting recording
+    The team's SharePoint site, in a Recordings folder in the channel's files
+    The members of the team
 
 Note: In current Teams, a channel's files are on its Shared tab (it used to be called the Files tab). See the Microsoft Teams course for working with files inside Teams.
 

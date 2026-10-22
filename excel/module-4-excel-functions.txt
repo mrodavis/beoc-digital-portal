@@ -12,42 +12,38 @@ By the end of this lesson you can:
 
 
 ## Functions are named calculations that survive editing
-
  type: scenario
  role: You total supply costs at Lakeside Medical Associates.
- text: You write =E2+E3+E4+E5+E6 to total five items. A sixth item is added on a new row inside that range and the total silently ignores it. The number looks entirely reasonable so the omission is never questioned.
- task: Use range-based functions which absorb inserted rows instead of ignoring them.
-
+ text: You write =E2+E3+E4+E5+E6 to total five items. A sixth item is added on a new row inside that range, and the total silently ignores it. The number looks entirely reasonable, so the omission is never questioned.
+ task: Use range-based functions, which absorb inserted rows instead of ignoring them.
 
 =SUM(E2:E6) refers to a region rather than a list of cells. Insert a row inside that region and Excel expands the range automatically, so the new value is included. This is the practical reason to prefer functions over chains of arithmetic, quite apart from the typing they save.
 
-
  type: table
  caption: The functions worth knowing first
- columns: 
-  Function
-  Returns
-  Note
- rows: 
-   =SUM(A1:A10)
-   The total
-   Ignores text and empty cells
-   =AVERAGE(A1:A10)
-   The mean
-   Skips empty cells but includes zeros — these give different answers
-   =COUNT(A1:A10)
-   How many cells hold numbers
-   Text and blanks are not counted
-   =COUNTA(A1:A10)
-   How many cells are not empty
-   Counts text as well as numbers
-   =MIN / =MAX(A1:A10)
-   The smallest or largest value
-   Useful for range checks on entered data
-   =IF(A1>100\Over\\OK\)
-   One of two values by condition
-   The basis of every status column
-
+ columns:
+   Function
+   Returns
+   Note
+ rows:
+    =SUM(A1:A10)
+    The total
+    Ignores text and empty cells
+    =AVERAGE(A1:A10)
+    The mean
+    Skips empty cells but includes zeros — these give different answers
+    =COUNT(A1:A10)
+    How many cells hold numbers
+    Text and blanks are not counted
+    =COUNTA(A1:A10)
+    How many cells are not empty
+    Counts text as well as numbers
+    =MIN / =MAX(A1:A10)
+    The smallest or largest value
+    Useful for range checks on entered data
+    =IF(A1>100,"Over","OK")
+    One of two values, by condition
+    The basis of every status column
 
 Note: AVERAGE ignores empty cells but includes zeros, and the difference matters. Ten items where two are genuinely zero average differently from ten items where two were never filled in. If blanks mean 'not yet recorded,' leave them blank; if they mean zero, enter 0. The distinction changes the answer.
 

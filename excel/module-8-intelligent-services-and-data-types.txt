@@ -12,30 +12,26 @@ By the end of this lesson you can:
 
 
 ## Cells that know what they contain
-
  type: scenario
  role: You are preparing a facilities report at Lakeside Medical Associates.
- text: You have a column of city names for the practice's three locations and you need population and state for each. You could look all six values up by hand or Excel can attach them to the cells and keep them there.
- task: Use linked data types where they save real work and understand what they depend on.
-
+ text: You have a column of city names for the practice's three locations, and you need population and state for each. You could look all six values up by hand, or Excel can attach them to the cells and keep them there.
+ task: Use linked data types where they save real work, and understand what they depend on.
 
 A linked data type turns a cell's text into a record with fields behind it. Select a column of city names, choose Data > Geography, and Excel matches each to a place. A small icon appears in the cell, and clicking it opens a card of fields — population, area, leader, and so on. You pull a field into a neighboring cell with the dot operator: =A2.Population.
 
-
  type: table
  caption: The two data types you are most likely to use
- columns: 
-  Type
-  Attaches
-  Reached from
- rows: 
-   Geography
-   Cities states countries regions
-   Data tab > Geography
-   Stocks
-   Companies funds and currencies
-   Data tab > Stocks
-
+ columns:
+   Type
+   Attaches
+   Reached from
+ rows:
+    Geography
+    Cities, states, countries, regions
+    Data tab > Geography
+    Stocks
+    Companies, funds, and currencies
+    Data tab > Stocks
 
 Note: Linked data types are a feature of Excel for Microsoft 365 (they also work in Excel for the web with a free Microsoft account), and Analyze Data needs a Microsoft 365 subscription. Neither is in one-time-purchase versions such as Excel 2024 or Excel 2019. Linked data types also need an internet connection to fetch and refresh their data. On a machine without them, the Data tab will not show Stocks and Geography.
 
@@ -49,21 +45,19 @@ It works well on clean data and poorly on messy data, which makes it a reasonabl
 
 Note: Analyze Data finds correlations, and a correlation is not a cause. It may report that supply spending rises with appointment volume, which is unsurprising, or that two unrelated columns move together, which is coincidence. It has no knowledge of your practice and cannot tell the difference. Treat every suggestion as a question to investigate, never as a finding to report.
 
-
  type: worked-example
  title: Using an automated suggestion responsibly
  task: Analyze Data reports that costs in one supply category rose sharply in Q3.
- steps: 
+ steps:
    move: Check the underlying numbers before repeating the claim.
-   why: The tool read your table. If the table has a data problem — a duplicated row a decimal error a category typo splitting one thing into two — the pattern is real in the data and false in the world.
+   why: The tool read your table. If the table has a data problem — a duplicated row, a decimal error, a category typo splitting one thing into two — the pattern is real in the data and false in the world.
    move: Ask whether anything changed that would explain it.
-   why: A vendor contract ending a price increase a new service line. A rise with a known cause is a fact; a rise with no known cause is a question for someone who would know.
+   why: A vendor contract ending, a price increase, a new service line. A rise with a known cause is a fact; a rise with no known cause is a question for someone who would know.
    move: Look at what the chart is not showing.
-   why: A category can rise in dollars while falling as a share of spending and a chart of one category alone will not tell you that. Ask what the denominator is.
+   why: A category can rise in dollars while falling as a share of spending, and a chart of one category alone will not tell you that. Ask what the denominator is.
    move: Report it as a question rather than a conclusion.
-   why: 'Category X is up 31% in Q3 — I have checked the data and it looks correct and I don't know why' is genuinely useful. Presenting it as a finding invites a decision built on an unverified number.
- result: A verified observation handed to a decision-maker as a question not an unchecked chart presented as analysis.
- takeaway: Automated analysis is good at spotting patterns and has no idea what they mean. Verify the data look for the cause and report honestly what you do not know.
-
+   why: 'Category X is up 31% in Q3 — I have checked the data and it looks correct, and I don't know why' is genuinely useful. Presenting it as a finding invites a decision built on an unverified number.
+ result: A verified observation handed to a decision-maker as a question, not an unchecked chart presented as analysis.
+ takeaway: Automated analysis is good at spotting patterns and has no idea what they mean. Verify the data, look for the cause, and report honestly what you do not know.
 
 Check yourself: Analyze Data returns no useful suggestions for your table. What is the most likely cause? Answer: The data layout breaks the rules — merged cells, blank rows, multiple header rows, or mixed data types in a column. Analyze Data expects the same structure every other Excel data tool expects: one header row, one record per row, no blanks or merged cells inside the range, and one data type per column. When it finds nothing, the table is usually the problem — which makes it a quick check on your own layout.

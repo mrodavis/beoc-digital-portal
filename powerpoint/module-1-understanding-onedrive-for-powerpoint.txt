@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## The file has to be there when you stand up to present
-
  type: scenario
  role: You present at the quarterly staff meeting at Lakeside Medical Associates.
- text: Your deck is on your desk computer. The meeting is in the conference room on a different machine and the guest network is refusing connections. You have four minutes and thirty people waiting.
- task: Store the deck so it is reachable from anywhere and carry a fallback for when the network is not.
-
+ text: Your deck is on your desk computer. The meeting is in the conference room, on a different machine, and the guest network is refusing connections. You have four minutes and thirty people waiting.
+ task: Store the deck so it is reachable from anywhere, and carry a fallback for when the network is not.
 
 OneDrive makes the presentation reachable from any machine you can sign in on, which solves the ordinary case well. It also gives you version history, so an accidental deletion of six slides is recoverable rather than final.
 

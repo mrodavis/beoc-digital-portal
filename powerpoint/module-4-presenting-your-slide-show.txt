@@ -12,35 +12,31 @@ By the end of this lesson you can:
 
 
 ## Presenter View is the reason to stop reading your slides
-
  type: scenario
  role: You present at the all-staff meeting at Lakeside Medical Associates.
- text: Without Presenter View you turn to the screen to see what is on the slide which means talking to the wall. You cannot see what is coming next and you have no idea whether you are running long.
- task: Use Presenter View so your notes the next slide and a timer are in front of you and the audience sees only the presentation.
-
+ text: Without Presenter View you turn to the screen to see what is on the slide, which means talking to the wall. You cannot see what is coming next, and you have no idea whether you are running long.
+ task: Use Presenter View so your notes, the next slide, and a timer are in front of you and the audience sees only the presentation.
 
 Presenter View puts your notes, a timer, a preview of the next slide, and navigation controls on your screen while the audience sees the slide alone. It is the single feature that most improves how a presentation is delivered, because it removes every reason to look at the projection.
 
-
  type: table
  caption: Controls worth knowing before you stand up
- columns: 
-  Key
-  Does
- rows: 
-   F5
-   Starts the show from the beginning
-   Shift + F5
-   Starts from the current slide — what you want when rehearsing
-   B or W
-   Blanks the screen to black or white
-   Number then Enter
-   Jumps directly to that slide
-   Esc
-   Ends the show
-   Ctrl + P
-   Turns the pointer into a pen for annotating
-
+ columns:
+   Key
+   Does
+ rows:
+    F5
+    Starts the show from the beginning
+    Shift + F5
+    Starts from the current slide — what you want when rehearsing
+    B or W
+    Blanks the screen to black or white
+    Number then Enter
+    Jumps directly to that slide
+    Esc
+    Ends the show
+    Ctrl + P
+    Turns the pointer into a pen for annotating
 
 Pressing B blanks the screen to black. When discussion starts, or a question takes you off the deck, blanking removes the slide as a distraction and brings attention back to the room. It is the most useful key in the list and almost nobody knows it.
 

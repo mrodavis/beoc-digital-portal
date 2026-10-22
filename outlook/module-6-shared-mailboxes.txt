@@ -12,18 +12,16 @@ By the end of this lesson you can:
 
 
 ## One address, a whole team
-
  type: scenario
  role: You are one of three people who answer the Lakeside front desk mailbox.
- text: Patients write to frontdesk@lakesidemed.example.com not to you. When you're out Omar or Priya answers. Replies should come from the front desk address so patients keep writing there and so the next person can see what was already answered.
- task: Add the shared mailbox answer from the team address and leave it tidy for your teammates.
-
+ text: Patients write to frontdesk@lakesidemed.example.com, not to you. When you're out, Omar or Priya answers. Replies should come from the front desk address so patients keep writing there, and so the next person can see what was already answered.
+ task: Add the shared mailbox, answer from the team address, and leave it tidy for your teammates.
 
 A shared mailbox is a mailbox several people can open, such as frontdesk@ or billing@. Nobody signs in to it directly; your administrator gives your own account permission to it. It has its own Inbox, Sent Items and calendar, separate from your personal mailbox.
 
-1. In the folder pane, right-click your email address (the top of your folder list) and select Add shared folder or mailbox.
-2. Type the shared mailbox's name or email address and select Add.
-3. The mailbox appears under Shared with me. Expand it to see its Inbox and other folders.
+1. In the folder pane, right-click your account name (your email address at the top of your folder list) and select Add shared folder or mailbox.
+2. In the Add shared folder or mailbox window, type the shared mailbox's name or email address and add it.
+3. The mailbox appears under Shared with me (it can take a few minutes after your administrator gives you access). Expand it to see its Inbox and other folders.
 
 
 ## Send from the team address

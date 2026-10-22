@@ -12,41 +12,37 @@ By the end of this lesson you can:
 
 
 ## Formatting is communication, not decoration
-
  type: scenario
  role: You are producing a discharge instruction sheet at Lakeside Medical Associates.
- text: A patient needs to know two things above all: take the medication with food and call immediately if a fever passes 101°F. You have written both. They sit in the middle of a wall of identical gray text and the patient will read neither.
+ text: A patient needs to know two things above all: take the medication with food, and call immediately if a fever passes 101°F. You have written both. They sit in the middle of a wall of identical gray text, and the patient will read neither.
  task: Use formatting to make the most important information impossible to miss — and to make everything else recede.
-
 
 Emphasis works by contrast, which means it is a budget. If you bold six things on a page, you have bolded nothing — the reader's eye has no landing place. A page with two bold phrases directs attention exactly where you want it. The discipline is not learning what the buttons do; it is restraint about how often you press them.
 
 Conventions matter too, because readers have absorbed them. Bold signals importance and survives scanning. Italic signals a title, a term being defined, or a mild emphasis, and it is harder to read in long runs. Underline, on screen, reads as a hyperlink — underlining ordinary text is the fastest way to make readers click something that is not there. Use bold for emphasis and reserve underline for links.
 
-
  type: table
  caption: What each treatment conventionally means
- columns: 
-  Treatment
-  Conventional meaning
-  Avoid
- rows: 
-   Bold
-   This is critical; do not skip it
-   More than two or three per page
-   Italic
-   Title of a work a defined term or light emphasis
-   Long passages — it slows reading
-   Underline
-   A hyperlink
-   Ordinary emphasis on screen especially
-   ALL CAPS
-   Short labels and warnings only
-   Sentences — capitals remove word shape and slow reading
-   Color
-   Category or status when there is a legend
-   Color alone as the only signal — it fails for colorblind readers
-
+ columns:
+   Treatment
+   Conventional meaning
+   Avoid
+ rows:
+    Bold
+    This is critical; do not skip it
+    More than two or three per page
+    Italic
+    Title of a work, a defined term, or light emphasis
+    Long passages — it slows reading
+    Underline
+    A hyperlink
+    Ordinary emphasis, on screen especially
+    ALL CAPS
+    Short labels and warnings only
+    Sentences — capitals remove word shape and slow reading
+    Color
+    Category or status, when there is a legend
+    Color alone as the only signal — it fails for colorblind readers
 
 Note: Never let color be the only thing carrying meaning. Roughly one in twelve men has some form of color vision deficiency, and a red 'urgent' line that is otherwise identical to the rest of the text is invisible to them. Pair color with bold, an icon, or a word — 'Urgent: call the office' works for everyone.
 

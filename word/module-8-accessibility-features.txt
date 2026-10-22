@@ -12,58 +12,52 @@ By the end of this lesson you can:
 
 
 ## Accessibility is a requirement, not a courtesy
-
  type: scenario
  role: You produce patient materials at Lakeside Medical Associates.
- text: A patient with low vision requests the new patient handbook in a format their screen reader can use. You send the .docx. Their software reports 'image' fourteen times with no descriptions finds no headings to navigate by and reads a table as one continuous run of words. The document is technically delivered and practically unusable.
- task: Build accessibility in as you write rather than retrofitting it under time pressure.
-
+ text: A patient with low vision requests the new patient handbook in a format their screen reader can use. You send the .docx. Their software reports 'image' fourteen times with no descriptions, finds no headings to navigate by, and reads a table as one continuous run of words. The document is technically delivered and practically unusable.
+ task: Build accessibility in as you write, rather than retrofitting it under time pressure.
 
 For an organization providing healthcare services, this is also a legal matter. Section 504 of the Rehabilitation Act and the Americans with Disabilities Act require that people with disabilities have meaningful access to services and information. A document that cannot be read by assistive technology is a barrier to access.
 
 Review > Check Accessibility scans the document and lists problems with explanations and one-click fixes. Running it before distribution takes under a minute and catches the great majority of issues.
 
-
  type: table
  caption: The five checks that matter most
- columns: 
-  Check
-  What to do
-  Why
- rows: 
-   Alt text on images
-   Describe purpose not appearance
-   Screen readers announce alt text in place of the image
-   Real heading styles
-   Use Heading 1-3 not bold body text
-   Lets users jump between sections instead of reading linearly
-   Table header rows
-   Mark the header row in Table Layout
-   Lets a screen reader announce which column a cell belongs to
-   Meaningful link text
-   'Download the intake form' not 'click here'
-   Links are often read as a standalone list
-   Color contrast
-   At least 4.5:1 for body text
-   Low-contrast text is unreadable for many especially in print
-
-
+ columns:
+   Check
+   What to do
+   Why
+ rows:
+    Alt text on images
+    Describe purpose, not appearance
+    Screen readers announce alt text in place of the image
+    Real heading styles
+    Use Heading 1-3, not bold body text
+    Lets users jump between sections instead of reading linearly
+    Table header rows
+    Mark the header row in Table Layout
+    Lets a screen reader announce which column a cell belongs to
+    Meaningful link text
+    'Download the intake form', not 'click here'
+    Links are often read as a standalone list
+    Color contrast
+    At least 4.5:1 for body text
+    Low-contrast text is unreadable for many, especially in print
 
  type: worked-example
  title: Writing alt text that is actually useful
  task: Describe a bar chart showing appointment volume by month in a patient handbook.
- steps: 
+ steps:
    move: Ask what the image is doing in the document.
-   why: Alt text conveys purpose not appearance. 'Bar chart with blue bars' describes pixels. The reader needs the information the chart carries which is why the answer depends on why you put it there.
+   why: Alt text conveys purpose, not appearance. 'Bar chart with blue bars' describes pixels. The reader needs the information the chart carries, which is why the answer depends on why you put it there.
    move: State the finding: 'Bar chart showing appointment volume rising from 320 in January to 480 in June.'
-   why: A sighted reader takes the trend from the chart in a second. Alt text should deliver that same trend not force the reader to reconstruct it from a description of the axes.
-   move: For a complex figure put the full data in a table nearby and keep the alt text short.
-   why: Alt text is announced as one unbroken run of speech so it becomes unusable past a sentence or two. A real table beside the figure is navigable cell by cell — genuinely better than a long description.
+   why: A sighted reader takes the trend from the chart in a second. Alt text should deliver that same trend, not force the reader to reconstruct it from a description of the axes.
+   move: For a complex figure, put the full data in a table nearby and keep the alt text short.
+   why: Alt text is announced as one unbroken run of speech, so it becomes unusable past a sentence or two. A real table beside the figure is navigable cell by cell — genuinely better than a long description.
    move: Mark purely decorative images as decorative.
-   why: A border flourish with alt text interrupts reading for no benefit. The Alt Text pane has a 'Mark as decorative' checkbox that tells screen readers to skip it — which is the accessible choice not a shortcut.
- result: Images that convey the same information to every reader without padding the document with noise.
- takeaway: Ask what the image tells a sighted reader then write that. If it tells them nothing mark it decorative.
-
+   why: A border flourish with alt text interrupts reading for no benefit. The Alt Text pane has a 'Mark as decorative' checkbox that tells screen readers to skip it — which is the accessible choice, not a shortcut.
+ result: Images that convey the same information to every reader, without padding the document with noise.
+ takeaway: Ask what the image tells a sighted reader, then write that. If it tells them nothing, mark it decorative.
 
 
 ## Why Accessibility Matters

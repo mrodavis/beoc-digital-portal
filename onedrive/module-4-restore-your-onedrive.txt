@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## When many files go wrong at once
-
  type: scenario
  role: You open OneDrive first thing in the morning.
- text: Overnight five front desk files were renamed to end in .locked none of them open and a new file called READ_ME_TO_RECOVER.txt is demanding payment. Luis in IT confirms it: an infected home laptop that was synced to a coworker's account reached shared files. He has cleaned the laptop and asks you to roll the files back.
- task: Report it then use Restore your OneDrive to undo the attack without undoing more than necessary.
-
+ text: Overnight, five front desk files were renamed to end in .locked, none of them open, and a new file called READ_ME_TO_RECOVER.txt is demanding payment. Luis in IT confirms it: an infected home laptop that was synced to a coworker's account reached shared files. He has cleaned the laptop and asks you to roll the files back.
+ task: Report it, then use Restore your OneDrive to undo the attack without undoing more than necessary.
 
 Ransomware is malicious software that encrypts or scrambles files so they can't be opened, then demands money to unlock them. Signs include many files renamed with an unfamiliar extension, files that won't open, and a new note asking for payment. A sync accident (someone deleting or overwriting a whole folder) can look similar.
 
@@ -32,22 +30,20 @@ Restore your OneDrive rolls back everything that changed in your OneDrive after 
 3. Use the activity chart and the activity feed to review what changed. With Custom date and time, select the earliest activity you want to undo; every activity after it is selected too.
 4. Select Restore and confirm.
 
-
  type: table
  caption: What restoring does
- columns: 
-  Item
-  After the restore
- rows: 
-   Files changed after the restore point
-   Go back to how they were
-   Files deleted after the restore point
-   Come back
-   Files created after the restore point
-   Move to the Recycle bin where you can still restore them
-   Files permanently deleted from the Recycle bin
-   Can't be recovered
-
+ columns:
+   Item
+   After the restore
+ rows:
+    Files changed after the restore point
+    Go back to how they were
+    Files deleted after the restore point
+    Come back
+    Files created after the restore point
+    Move to the Recycle bin, where you can still restore them
+    Files permanently deleted from the Recycle bin
+    Can't be recovered
 
 Note: Every activity after the restore point is undone, including good work. Pick the earliest bad activity, not an earlier date, and redo any legitimate changes afterward. If you restored to the wrong point, run Restore again and select the restore activity to undo it.
 

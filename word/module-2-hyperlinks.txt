@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Link text is read out loud
-
  type: scenario
  role: You are publishing the patient resources page at Lakeside Medical Associates.
- text: Your document has nine links and every one says 'click here.' A patient using a screen reader asks it to list the links on the page — a standard way to navigate. The software reads: click here click here click here nine times. The page is unusable and nothing about it looks wrong on screen.
- task: Write link text that says where the link goes so the document works for everyone reading it.
-
+ text: Your document has nine links, and every one says 'click here.' A patient using a screen reader asks it to list the links on the page — a standard way to navigate. The software reads: click here, click here, click here, nine times. The page is unusable, and nothing about it looks wrong on screen.
+ task: Write link text that says where the link goes, so the document works for everyone reading it.
 
 Screen readers can extract a list of every link in a document, and many people navigate that way rather than reading linearly. That means link text has to make sense standing alone. 'Click here' conveys nothing out of context. 'Download the new patient intake form' conveys everything, and it reads better on screen too.
 

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Replace All reaches further than you think
-
  type: scenario
  role: You standardize vendor names in the supply tracker at Lakeside Medical Associates.
- text: You replace 'Med' with 'Medical' across the sheet. 'MedSupply Co' becomes 'MedicalSupply Co' 'Medline' becomes 'Medicalline' and a formula referencing a defined name called MedRate breaks entirely. One click several hundred cells.
- task: Constrain the search before running it and know what Replace can reach.
-
+ text: You replace 'Med' with 'Medical' across the sheet. 'MedSupply Co' becomes 'MedicalSupply Co', 'Medline' becomes 'Medicalline', and a formula referencing a defined name called MedRate breaks entirely. One click, several hundred cells.
+ task: Constrain the search before running it, and know what Replace can reach.
 
 Excel's Find and Replace has an option Word does not: 'Match entire cell contents.' It requires the whole cell to equal your search term rather than merely containing it, and it is the single most effective protection against a runaway replacement in a data column.
 

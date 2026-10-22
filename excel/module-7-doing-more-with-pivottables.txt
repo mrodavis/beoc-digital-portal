@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Making a PivotTable usable by someone else
-
  type: scenario
  role: You build the spending dashboard at Lakeside Medical Associates.
- text: The practice manager needs to look at one department at a time. Explaining the PivotTable field list means explaining Rows Columns Values and Filters. Adding a slicer means saying 'click the department you want.'
+ text: The practice manager needs to look at one department at a time. Explaining the PivotTable field list means explaining Rows, Columns, Values, and Filters. Adding a slicer means saying 'click the department you want.'
  task: Add controls that let a non-Excel user explore the data without instruction.
-
 
 A slicer is a filter with buttons. It does exactly what the Filters area does, but visibly — and crucially, it shows the current filter state, so nobody misreads a filtered table as the full picture. That failure mode is common enough with the Filters dropdown to justify slicers on its own.
 

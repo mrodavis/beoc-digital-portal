@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Moving between apps
-
  type: scenario
  role: You are setting up your first files at Parkview Property Management.
- text: Denise asks you to start a letter to a vendor and a supply order spreadsheet. You know Word and Excel but the Google apps are new and you want to stop guessing where things are.
- task: Open the right app start each file from a blank page or a template name it and find commands quickly.
-
+ text: Denise asks you to start a letter to a vendor and a supply order spreadsheet. You know Word and Excel, but the Google apps are new, and you want to stop guessing where things are.
+ task: Open the right app, start each file from a blank page or a template, name it, and find commands quickly.
 
 - The Google apps menu is the grid of dots at the top right of Drive, Gmail, and the app home screens. Click it, then click an app. The order of the apps is set by Google; you cannot rearrange them.
 - Each app also has its own address: docs.google.com, sheets.google.com, slides.google.com, drive.google.com, mail.google.com, calendar.google.com.
@@ -28,24 +26,22 @@ By the end of this lesson you can:
 ## Home screens and templates
 Docs, Sheets, and Slides each open to a home screen. Across the top is Start a new document (or spreadsheet, or presentation) with a Blank option and a few templates. Template gallery at the top right shows more. Below that is a list of your recent files.
 
-
  type: table
  caption: Ways to start a new file
- columns: 
-  From
-  How
-  Same as in Microsoft Office
- rows: 
-   An app's home screen
-   Click Blank or click a template
-   File › New in Word or Excel
-   Drive
-   New › Google Docs (or Sheets Slides) › Blank document or From a template
-   Creating a file in a OneDrive folder
-   Inside Docs
-   File › New › Document or From a template
-   File › New in Word
-
+ columns:
+   From
+   How
+   Same as in Microsoft Office
+ rows:
+    An app's home screen
+    Click Blank, or click a template
+    File › New in Word or Excel
+    Drive
+    New › Google Docs (or Sheets, Slides) › Blank document or From a template
+    Creating a file in a OneDrive folder
+    Inside Docs
+    File › New › Document, or From a template
+    File › New in Word
 
 Note: A file you start from a home screen is saved in My Drive. A file you start with New in a Drive folder is saved in that folder. Either way, you can move it later.
 
@@ -53,42 +49,40 @@ A new file is named Untitled document (or Untitled spreadsheet). Rename it right
 
 
 ## The parts of every editor
-
  type: table
- caption: Parts of the Docs Sheets and Slides screen
- columns: 
-  Part
-  Where
-  What it does
- rows: 
-   App logo
-   Top left
-   Goes back to the app's home screen
-   File name
-   Next to the logo
-   Click it to rename the file
-   Star Move and document status
-   Right of the file name
-   Star the file move it to a folder and see that changes are saved to Drive
-   Menus
-   Under the file name
-   File Edit View Insert Format and more. Like Word's Ribbon tabs
-   Toolbar
-   Under the menus
-   One-click formatting: undo print styles font bold and more
-   Version history
-   Top right (the clock icon Last edit)
-   See and restore earlier versions
-   Comments
-   Top right
-   Open the comment history
-   Share
-   Top right
-   Give people access to the file
-   Profile picture
-   Top right
-   Shows which account you are using and signs you out
-
+ caption: Parts of the Docs, Sheets, and Slides screen
+ columns:
+   Part
+   Where
+   What it does
+ rows:
+    App logo
+    Top left
+    Goes back to the app's home screen
+    File name
+    Next to the logo
+    Click it to rename the file
+    Star, Move, and document status
+    Right of the file name
+    Star the file, move it to a folder, and see that changes are saved to Drive
+    Menus
+    Under the file name
+    File, Edit, View, Insert, Format, and more. Like Word's Ribbon tabs
+    Toolbar
+    Under the menus
+    One-click formatting: undo, print, styles, font, bold, and more
+    Version history
+    Top right (the clock icon, Last edit)
+    See and restore earlier versions
+    Comments
+    Top right
+    Open the comment history
+    Share
+    Top right
+    Give people access to the file
+    Profile picture
+    Top right
+    Shows which account you are using, and signs you out
 
 Practice: Match each job to the part of the screen that does it.
 
@@ -96,26 +90,24 @@ Practice: Match each job to the part of the screen that does it.
 ## Find any command
 Can't find a command? Click Search the menus (the magnifying glass at the left end of the toolbar) or press Alt+/ and type what you want, like word count or page setup. Press Enter to run the first match. Ctrl+/ shows the keyboard shortcuts.
 
-
  type: table
  caption: Shortcuts that work like Microsoft Office
- columns: 
-  Shortcut
-  What it does
- rows: 
-   Ctrl+B Ctrl+I Ctrl+U
-   Bold italic underline
-   Ctrl+Z Ctrl+Y
-   Undo redo
-   Ctrl+C Ctrl+X Ctrl+V
-   Copy cut paste
-   Ctrl+K
-   Insert a link
-   Ctrl+P
-   Print
-   Alt+/
-   Search the menus
-
+ columns:
+   Shortcut
+   What it does
+ rows:
+    Ctrl+B, Ctrl+I, Ctrl+U
+    Bold, italic, underline
+    Ctrl+Z, Ctrl+Y
+    Undo, redo
+    Ctrl+C, Ctrl+X, Ctrl+V
+    Copy, cut, paste
+    Ctrl+K
+    Insert a link
+    Ctrl+P
+    Print
+    Alt+/
+    Search the menus
 
 Ctrl+S does nothing harmful in Google's editors, but you never need it. Look for Saved to Drive by the document status icon if you want to be sure.
 

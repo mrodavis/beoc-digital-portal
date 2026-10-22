@@ -12,35 +12,31 @@ By the end of this lesson you can:
 
 
 ## A copy or a link?
-
  type: scenario
  role: You handle files for the Lakeside front desk.
- text: Omar needs to add his name to the flu clinic volunteer schedule which lives in OneDrive. A supply vendor needs a copy of your quote request. And the draft you started to billing has \Scan0042.pdf\ attached which turns out to be the wrong patient's card.
- task: Send each file the right way and fix the wrong attachment before it leaves the office.
-
+ text: Omar needs to add his name to the flu clinic volunteer schedule, which lives in OneDrive. A supply vendor needs a copy of your quote request. And the draft you started to billing has "Scan0042.pdf" attached, which turns out to be the wrong patient's card.
+ task: Send each file the right way, and fix the wrong attachment before it leaves the office.
 
 In new Outlook, select Attach file on the Message tab (in the Insert group) or on the Insert tab. You can pick from suggested files you used recently, browse OneDrive and SharePoint, or choose Browse this computer. For a file stored in OneDrive or SharePoint, Outlook asks whether to send a link or attach a copy.
 
-
  type: table
  caption: Share a link or attach a copy?
- columns: 
-  Share link
-  Attach a copy
- rows: 
-   What the reader gets
-   A link to the one file in OneDrive
-   Their own separate copy
-   Edits
-   Everyone works on the same file
-   Each copy changes separately
-   Message size
-   Small
-   Grows with the file
-   Best for
-   Coworkers who need to update a shared file
-   People outside your organization or a final version that shouldn't change
-
+ columns:
+   Share link
+   Attach a copy
+ rows:
+    What the reader gets
+    A link to the one file in OneDrive
+    Their own separate copy
+    Edits
+    Everyone works on the same file
+    Each copy changes separately
+    Message size
+    Small
+    Grows with the file
+    Best for
+    Coworkers who need to update a shared file
+    People outside your organization, or a final version that shouldn't change
 
 When you share a link, select the arrow on the attachment to choose who can use it: people in your organization or only your recipients, and whether they can edit or only view. In a business account the default is that people in your organization can edit, so change it when a file should be view-only.
 

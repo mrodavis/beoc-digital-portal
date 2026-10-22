@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Subtotals require a sort first
-
  type: scenario
  role: You summarize spending by category at Lakeside Medical Associates.
  text: You run Data > Subtotal on the supply sheet without sorting it first. Excel inserts a subtotal every time the category changes from one row to the next — producing forty-one subtotals across a sheet with four categories.
- task: Sort by the grouping column first so each category occupies one contiguous block.
-
+ task: Sort by the grouping column first, so each category occupies one contiguous block.
 
 The Subtotal command inserts a summary row whenever the value in your chosen column changes. It has no memory of categories it has already seen, so if the categories are scattered it dutifully subtotals each run. Sorting by that column first gathers each category into one block, and you get one subtotal per category.
 

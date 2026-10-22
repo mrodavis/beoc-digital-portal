@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## One command for a change that touches every slide
-
  type: scenario
  role: You update the orientation deck at Lakeside Medical Associates.
- text: The practice changes its name. The old name appears on thirty-one of forty slides including several inside diagrams. Slide by slide this is half an hour and a guarantee of missing two.
- task: Replace throughout the deck in one action then verify the result.
-
+ text: The practice changes its name. The old name appears on thirty-one of forty slides, including several inside diagrams. Slide by slide, this is half an hour and a guarantee of missing two.
+ task: Replace throughout the deck in one action, then verify the result.
 
 Replace (Ctrl+H) works across every slide at once. Match case is available and worth using for a proper noun, so you change the practice name without touching an ordinary word that happens to contain the same letters.
 

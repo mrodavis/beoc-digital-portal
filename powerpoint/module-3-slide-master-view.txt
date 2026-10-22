@@ -12,53 +12,47 @@ By the end of this lesson you can:
 
 
 ## One change instead of forty
-
  type: scenario
  role: You maintain the standard deck at Lakeside Medical Associates.
- text: The practice logo must appear on every slide of a forty-slide deck. Pasted onto each slide by hand it lands in forty slightly different positions and takes twenty minutes. Placed on the Slide Master it appears once on every slide in exactly the same place in about fifteen seconds.
+ text: The practice logo must appear on every slide of a forty-slide deck. Pasted onto each slide by hand, it lands in forty slightly different positions and takes twenty minutes. Placed on the Slide Master, it appears once on every slide, in exactly the same place, in about fifteen seconds.
  task: Use the master for anything that should appear on every slide.
-
 
 Slide Master view (View > Slide Master) shows a hierarchy. The master is at the top, and every layout beneath inherits from it. A change to the master reaches all layouts; a change to one layout affects only slides using that layout. This is the same inheritance idea as styles in Word, applied to slide design.
 
-
  type: table
  caption: Where to make a change
- columns: 
-  You want to change
-  Edit
-  Effect
- rows: 
-   Logo on every slide
-   The master
-   Appears on all layouts at once
-   Title font throughout
-   The master's title placeholder
-   Every layout's title updates
-   The title slide only
-   The Title Slide layout
-   Other slides are unaffected
-   Add a new arrangement
-   Insert Layout
-   Becomes available in the New Slide gallery
-
-
+ columns:
+   You want to change
+   Edit
+   Effect
+ rows:
+    Logo on every slide
+    The master
+    Appears on all layouts at once
+    Title font throughout
+    The master's title placeholder
+    Every layout's title updates
+    The title slide only
+    The Title Slide layout
+    Other slides are unaffected
+    Add a new arrangement
+    Insert Layout
+    Becomes available in the New Slide gallery
 
  type: worked-example
  title: Putting the practice logo on every slide
  task: Add the logo to a forty-slide deck so it sits identically on every slide and stays there as slides are added.
- steps: 
-   move: View > Slide Master and select the top thumbnail — the master itself.
-   why: The top thumbnail is larger and sits above the indented layouts. Selecting a layout instead is the usual mistake and it puts the logo on only the slides using that one layout.
-   move: Insert the logo and position it allowing clear space from the edges.
-   why: Projectors and video calls sometimes crop the outer edge of a slide. Keeping the logo a little inside the boundary means it survives that and it looks deliberate rather than jammed into the corner.
-   move: Close Master View and check several slides including the title slide.
+ steps:
+   move: View > Slide Master, and select the top thumbnail — the master itself.
+   why: The top thumbnail is larger and sits above the indented layouts. Selecting a layout instead is the usual mistake, and it puts the logo on only the slides using that one layout.
+   move: Insert the logo and position it, allowing clear space from the edges.
+   why: Projectors and video calls sometimes crop the outer edge of a slide. Keeping the logo a little inside the boundary means it survives that, and it looks deliberate rather than jammed into the corner.
+   move: Close Master View and check several slides, including the title slide.
    why: The Title Slide layout often has its own background and may position or hide the logo differently. Checking a few slides of different layouts confirms the change reached them as intended.
    move: Add a new slide and confirm the logo appears on it too.
    why: This is the actual test of whether you edited the master rather than individual slides. A logo that appears on new slides automatically is inherited; one that does not was pasted onto existing slides.
- result: The logo on every slide in one position appearing automatically on any slide added later.
+ result: The logo on every slide, in one position, appearing automatically on any slide added later.
  takeaway: Edit the master for what belongs everywhere and a layout for what belongs on one kind of slide. Never paste a standing element onto individual slides.
-
 
 
 ## What Slide Master View Does

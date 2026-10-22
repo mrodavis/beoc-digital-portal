@@ -12,52 +12,46 @@ By the end of this lesson you can:
 
 
 ## Three words that are not synonyms
-
  type: scenario
  role: You evaluate a vendor's claims at Lakeside Medical Associates.
- text: A scheduling vendor says its product is 'AI-powered.' That could mean a large language model reading appointment requests a statistical model predicting no-shows or a set of if-then rules someone wrote in 2015. All three are marketed the same way and they carry very different risks.
+ text: A scheduling vendor says its product is 'AI-powered.' That could mean a large language model reading appointment requests, a statistical model predicting no-shows, or a set of if-then rules someone wrote in 2015. All three are marketed the same way, and they carry very different risks.
  task: Understand the terms precisely enough to ask a vendor what their product actually does.
 
-
-
  type: key-terms
- terms: 
+ terms:
    term: Artificial intelligence
-   definition: The broad field of building systems that perform tasks normally requiring human intelligence. An umbrella term not a specific technology.
+   definition: The broad field of building systems that perform tasks normally requiring human intelligence. An umbrella term, not a specific technology.
    term: Machine learning
-   definition: A subset of AI where a system learns patterns from data rather than following rules a person wrote. The system is trained not programmed.
+   definition: A subset of AI where a system learns patterns from data rather than following rules a person wrote. The system is trained, not programmed.
    term: Large language model (LLM)
-   definition: A machine learning model trained on very large amounts of text to predict likely continuations. ChatGPT Claude and Gemini are LLM-based products.
+   definition: A machine learning model trained on very large amounts of text to predict likely continuations. ChatGPT, Claude, and Gemini are LLM-based products.
    term: Training data
-   definition: The material a model learned from. It determines what the model knows what it is good at and which biases it carries.
+   definition: The material a model learned from. It determines what the model knows, what it is good at, and which biases it carries.
    term: Generative AI
-   definition: Models that produce new content — text images code — rather than only classifying or predicting.
+   definition: Models that produce new content — text, images, code — rather than only classifying or predicting.
    term: Prompt
-   definition: The input you give a model. With generative systems the quality of the prompt substantially determines the quality of the output.
-
+   definition: The input you give a model. With generative systems, the quality of the prompt substantially determines the quality of the output.
 
 A large language model works by predicting likely next words, over and over, given everything before them. That description sounds reductive, and it genuinely is how these systems operate. The output is fluent because the patterns it learned are fluent — not because the system checked whether the content is true.
 
 Note: This is the single most important fact about these tools: a language model optimizes for plausible text, not for accurate text. It has no mechanism that distinguishes a fact it learned from a fluent invention. When it states a drug interaction, a policy citation, or a date with total confidence, that confidence carries no information about whether the statement is correct. Everything in the next lesson about verification follows from this.
 
-
  type: table
  caption: What each kind of system is suited to
- columns: 
-  Type
-  Good at
-  Poor at
- rows: 
-   Rule-based system
-   Consistent auditable decisions with known logic
-   Anything its author did not anticipate
-   Machine learning classifier
-   Predicting categories from many examples — spam no-show risk
-   Explaining why; handling cases unlike its training data
-   Large language model
-   Drafting summarizing rephrasing explaining
-   Facts arithmetic citations anything needing to be verifiably true
-
+ columns:
+   Type
+   Good at
+   Poor at
+ rows:
+    Rule-based system
+    Consistent, auditable decisions with known logic
+    Anything its author did not anticipate
+    Machine learning classifier
+    Predicting categories from many examples — spam, no-show risk
+    Explaining why; handling cases unlike its training data
+    Large language model
+    Drafting, summarizing, rephrasing, explaining
+    Facts, arithmetic, citations, anything needing to be verifiably true
 
 These models are delivered as cloud services for a straightforward reason: training and running them requires hardware far beyond a workstation. This is the IaaS/PaaS/SaaS stack from Module 2 in its newest form — you consume AI as SaaS, over the internet, with all the shared-responsibility implications that carries. Your prompt leaves your building.
 

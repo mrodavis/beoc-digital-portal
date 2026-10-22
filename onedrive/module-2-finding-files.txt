@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## Stop clicking through folders
-
  type: scenario
  role: You start every shift at the Lakeside check-in desk.
- text: Every morning you open the same three files: the New Patient Intake Form the Office Phone List and the Front Desk Procedures folder that Maria shares with the team. Every morning you click through folders to reach them while patients wait.
- task: Set up OneDrive so your everyday files are one click away and learn the fastest way to find anything else.
-
-
+ text: Every morning you open the same three files: the New Patient Intake Form, the Office Phone List, and the Front Desk Procedures folder that Maria shares with the team. Every morning you click through folders to reach them, while patients wait.
+ task: Set up OneDrive so your everyday files are one click away, and learn the fastest way to find anything else.
 
  type: table
- caption: Where to look depending on what you remember
- columns: 
-  You remember…
-  Look in
- rows: 
-   Part of the name
-   Search (type it and press Enter)
-   You opened it recently
-   Home
-   Someone sent it to you
-   Shared › Shared with you
-   Who you worked on it with
-   People
-   It came up in a Teams meeting
-   Meetings
-   You use it all the time
-   Favorites
-
+ caption: Where to look, depending on what you remember
+ columns:
+   You remember…
+   Look in
+ rows:
+    Part of the name
+    Search (type it and press Enter)
+    You opened it recently
+    Home
+    Someone sent it to you
+    Shared › Shared with you
+    Who you worked on it with
+    People
+    It came up in a Teams meeting
+    Meetings
+    You use it all the time
+    Favorites
 
 
 ## Favorites and shortcuts

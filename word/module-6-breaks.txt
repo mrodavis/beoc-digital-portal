@@ -12,41 +12,37 @@ By the end of this lesson you can:
 
 
 ## The difference between a page break and a section break
-
  type: scenario
  role: You are assembling the annual report at Lakeside Medical Associates.
- text: The report is portrait but the budget table in the middle needs a landscape page. You set orientation to landscape and every page in the document rotates. You undo try again and get the same result.
- task: Learn which break creates an independent region of the document because orientation applies to sections not pages.
-
+ text: The report is portrait, but the budget table in the middle needs a landscape page. You set orientation to landscape and every page in the document rotates. You undo, try again, and get the same result.
+ task: Learn which break creates an independent region of the document, because orientation applies to sections, not pages.
 
 A page break simply moves the following content to the next page. Everything stays in the same section, so it keeps the same margins, orientation, headers, and page numbering. It is the right tool for starting a new chapter on a fresh page.
 
 A section break creates a genuinely independent region that can have its own orientation, margins, columns, headers, and page numbering. That is why the landscape budget table needs section breaks before and after it: only then can that one region rotate while the rest of the report stays portrait.
 
-
  type: table
  caption: Break types
- columns: 
-  Break
-  Effect
-  Use for
- rows: 
-   Page
-   Content continues on the next page
-   Starting a chapter on a new page
-   Column
-   Content continues in the next column
-   Controlling where a column ends in a newsletter
-   Section: Next Page
-   New section starting on a new page
-   A landscape page inside a portrait document
-   Section: Continuous
-   New section on the same page
-   Changing column count partway down a page
-   Section: Even/Odd Page
-   New section on the next even or odd page
-   Chapters that must always start on a right-hand page
-
+ columns:
+   Break
+   Effect
+   Use for
+ rows:
+    Page
+    Content continues on the next page
+    Starting a chapter on a new page
+    Column
+    Content continues in the next column
+    Controlling where a column ends in a newsletter
+    Section: Next Page
+    New section starting on a new page
+    A landscape page inside a portrait document
+    Section: Continuous
+    New section on the same page
+    Changing column count partway down a page
+    Section: Even/Odd Page
+    New section on the next even or odd page
+    Chapters that must always start on a right-hand page
 
 Note: Never create a page break by pressing Enter repeatedly. Those empty paragraphs stay where they are while the text around them reflows, so adding one sentence earlier in the document pushes your heading to the middle of the next page. Ctrl+Enter inserts a real page break that always starts a new page regardless of what changes above it.
 

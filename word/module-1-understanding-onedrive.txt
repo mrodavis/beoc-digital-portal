@@ -12,38 +12,34 @@ By the end of this lesson you can:
 
 
 ## What OneDrive actually changes
-
  type: scenario
  role: You are covering the front desk at Lakeside Medical Associates.
- text: You spent Tuesday afternoon building a new patient intake packet on the front-desk computer. On Wednesday that machine will not boot and IT says the drive is being replaced. Your supervisor asks for the packet. If you saved it to the desktop it is gone. If you saved it to OneDrive you open it on any other machine in the building and carry on.
- task: Understand where your files physically live so that a failed hard drive is an inconvenience rather than a lost week.
-
+ text: You spent Tuesday afternoon building a new patient intake packet on the front-desk computer. On Wednesday that machine will not boot, and IT says the drive is being replaced. Your supervisor asks for the packet. If you saved it to the desktop, it is gone. If you saved it to OneDrive, you open it on any other machine in the building and carry on.
+ task: Understand where your files physically live, so that a failed hard drive is an inconvenience rather than a lost week.
 
 The single most useful idea here is the difference between local and cloud storage. A file saved to This PC lives on the physical drive inside that one computer. A file saved to OneDrive is uploaded to Microsoft's servers and synchronized back down to any device you sign in on. The document looks identical either way — the difference only becomes visible when the machine fails, when you need the file from home, or when a colleague needs to work on it with you.
 
 OneDrive also unlocks two features that do not work on locally saved files at all. AutoSave, which writes your changes continuously instead of when you remember to press Ctrl+S, requires a file stored in OneDrive or SharePoint. So does real-time co-authoring, where two people edit the same document simultaneously. If AutoSave is greyed out, the reason is almost always that the file is saved locally.
 
-
  type: table
  caption: Choosing where to save
- columns: 
-  Situation
-  Save to
-  Why
- rows: 
-   Draft you will finish on another machine
-   OneDrive
-   Follows you to any device you sign in on.
-   Document a colleague must edit with you
-   OneDrive or SharePoint
-   Co-authoring and AutoSave only work on cloud-stored files.
-   Anything containing patient information
-   The practice's approved system only
-   Protected health information belongs in systems your employer has assessed. Never a personal OneDrive.
-   Large video or scratch file
-   Local drive
-   Avoids consuming your sync quota and bandwidth for a file nobody else needs.
-
+ columns:
+   Situation
+   Save to
+   Why
+ rows:
+    Draft you will finish on another machine
+    OneDrive
+    Follows you to any device you sign in on.
+    Document a colleague must edit with you
+    OneDrive or SharePoint
+    Co-authoring and AutoSave only work on cloud-stored files.
+    Anything containing patient information
+    The practice's approved system only
+    Protected health information belongs in systems your employer has assessed. Never a personal OneDrive.
+    Large video or scratch file
+    Local drive
+    Avoids consuming your sync quota and bandwidth for a file nobody else needs.
 
 Note: A personal OneDrive account is not an approved place for protected health information. At a real practice, patient data belongs only in systems your employer has vetted and covered under a business associate agreement. When you are unsure whether a document counts, ask your supervisor before saving it anywhere — that question is never the wrong thing to ask.
 

@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## One sheet per purpose
-
  type: scenario
  role: You rebuild the supply tracker at Lakeside Medical Associates.
- text: The current workbook has everything on one sheet: raw orders a summary notes and three abandoned attempts at a chart side by side. Nobody can tell which region is authoritative and every sort risks scrambling something unrelated.
- task: Separate the workbook into sheets with distinct jobs so each region has one purpose.
-
+ text: The current workbook has everything on one sheet: raw orders, a summary, notes, and three abandoned attempts at a chart, side by side. Nobody can tell which region is authoritative, and every sort risks scrambling something unrelated.
+ task: Separate the workbook into sheets with distinct jobs, so each region has one purpose.
 
 A durable convention is three kinds of sheet: raw data that is only ever added to, calculations that read from it, and output that people actually look at. Keeping them apart means a change to a formula cannot corrupt source data, and a person reading the summary never has to scroll past 900 rows to find it.
 

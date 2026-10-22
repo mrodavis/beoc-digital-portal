@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## What phishing looks like
-
  type: scenario
  role: You check the Parkview mailbox first thing every morning.
- text: Today there's a message from “Parkview IT Support” saying your mailbox will be deactivated in 24 hours unless you verify your account. There's also a gift card prize a landlord newsletter you signed up for months ago and a missing water bill that Priya is asking about.
- task: Decide which messages are dangerous report them correctly and make sure the real bill isn't lost in Spam.
-
+ text: Today there's a message from “Parkview IT Support” saying your mailbox will be deactivated in 24 hours unless you verify your account. There's also a gift card prize, a landlord newsletter you signed up for months ago, and a missing water bill that Priya is asking about.
+ task: Decide which messages are dangerous, report them correctly, and make sure the real bill isn't lost in Spam.
 
 Phishing is email (or a text or call) designed to trick you into giving away a password, money, or personal information, or into opening a harmful link or file. Gmail checks for phishing and warns you about many dangerous messages, but some get through, so you are the last line of defense. Google's own rule is simple: Gmail will never ask for your password or other personal information by email.
 
-
  type: table
  caption: Warning signs
- columns: 
-  Sign
-  In the fake IT message
- rows: 
-   The sender's address doesn't match the name
-   “Parkview IT Support” but the address is it-support@parkview-pm-help.example not parkviewpm.example
-   Urgency or a threat
-   “DEACTIVATED within 24 hours”
-   A request for a password or personal information
-   “Verify your account now”
-   A link that doesn't go where it says
-   Point to the link: it goes to parkview-pm-help.example
-   Too good to be true or an unexpected fee
-   The gift card that needs a $4.99 “processing fee”
-
+ columns:
+   Sign
+   In the fake IT message
+ rows:
+    The sender's address doesn't match the name
+    “Parkview IT Support” but the address is it-support@parkview-pm-help.example, not parkviewpm.example
+    Urgency or a threat
+    “DEACTIVATED within 24 hours”
+    A request for a password or personal information
+    “Verify your account now”
+    A link that doesn't go where it says
+    Point to the link: it goes to parkview-pm-help.example
+    Too good to be true, or an unexpected fee
+    The gift card that needs a $4.99 “processing fee”
 
 On a computer, point to a link without clicking. The real address appears at the bottom of the browser window. If it doesn't match the company that supposedly sent the message, don't click.
 
@@ -46,30 +42,28 @@ Practice: Drag each message to the right group. Look for the warning signs.
 
 
 ## Report it the right way
-
  type: table
  caption: Which action?
- columns: 
-  The message is…
-  Do this
-  How
- rows: 
-   Trying to steal a password money or personal information
-   Report phishing
-   Open the message › More (three dots next to Reply) › Report phishing
-   Junk you never asked for
-   Report spam
-   Check the box (or open it) › Report spam at the top
-   From someone you never want to hear from
-   Block the sender
-   Open the message › More › Block “sender”. Their future messages go to Spam.
-   A newsletter or list you signed up for
-   Unsubscribe
-   Select Unsubscribe next to the sender's name (or Go to website)
-   Real mail that landed in Spam
-   Not spam
-   More › Spam › check the message › Not spam
-
+ columns:
+   The message is…
+   Do this
+   How
+ rows:
+    Trying to steal a password, money, or personal information
+    Report phishing
+    Open the message › More (three dots, next to Reply) › Report phishing
+    Junk you never asked for
+    Report spam
+    Check the box (or open it) › Report spam at the top
+    From someone you never want to hear from
+    Block the sender
+    Open the message › More › Block “sender”. Their future messages go to Spam.
+    A newsletter or list you signed up for
+    Unsubscribe
+    Select Unsubscribe next to the sender's name (or Go to website)
+    Real mail that landed in Spam
+    Not spam
+    More › Spam › check the message › Not spam
 
 Note: Only unsubscribe from mail you actually signed up for. Selecting Unsubscribe (or any link) in a phishing or spam message can confirm that your address is active. For those, use Report phishing or Report spam instead.
 

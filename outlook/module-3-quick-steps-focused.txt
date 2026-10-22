@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Quick steps: your repeated work, in one click
-
  type: scenario
  role: You process billing mail at the Lakeside front desk.
- text: Each time you finish with a billing message you do the same three clicks: mark it read open Move to choose Insurance & Billing. You do it thirty times a day.
- task: Turn those clicks into one quick step and set up Focused Inbox so billing and lab notices don't get lost under newsletters.
-
+ text: Each time you finish with a billing message you do the same three clicks: mark it read, open Move to, choose Insurance & Billing. You do it thirty times a day.
+ task: Turn those clicks into one quick step, and set up Focused Inbox so billing and lab notices don't get lost under newsletters.
 
 1. On the Home tab, select the arrow next to Quick steps and choose Manage quick steps.
 2. Under Quick steps in Settings, select New quick step.

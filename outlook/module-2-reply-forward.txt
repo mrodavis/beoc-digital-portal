@@ -12,31 +12,27 @@ By the end of this lesson you can:
 
 
 ## Who needs your answer?
-
  type: scenario
  role: You are answering the morning's messages at the Lakeside front desk.
- text: Denise asked six people who can cover Saturday's flu clinic and said to reply to her only. Priya asked you and Luis to reply all so you don't both restock Room 3. An imaging center confirmed an MRI that Dr. Patel ordered. Keisha's message is titled just \Question.\
- task: Pick the right response for each message and leave each thread easier to follow than you found it.
-
-
+ text: Denise asked six people who can cover Saturday's flu clinic and said to reply to her only. Priya asked you and Luis to reply all so you don't both restock Room 3. An imaging center confirmed an MRI that Dr. Patel ordered. Keisha's message is titled just "Question."
+ task: Pick the right response for each message, and leave each thread easier to follow than you found it.
 
  type: table
- caption: Reply Reply all or Forward
- columns: 
-  Command
-  Who gets it
-  Use it when
- rows: 
-   Reply
-   Only the person who sent the message
-   Your answer matters only to the sender such as volunteering for a shift
-   Reply all
-   The sender and everyone on To and Cc
-   Everyone on the thread needs your update such as \I restocked Room 3\
-   Forward
-   People you add; the original and its attachments go along
-   Someone who wasn't on the message needs it such as Dr. Patel and the MRI confirmation
-
+ caption: Reply, Reply all, or Forward
+ columns:
+   Command
+   Who gets it
+   Use it when
+ rows:
+    Reply
+    Only the person who sent the message
+    Your answer matters only to the sender, such as volunteering for a shift
+    Reply all
+    The sender and everyone on To and Cc
+    Everyone on the thread needs your update, such as "I restocked Room 3"
+    Forward
+    People you add; the original and its attachments go along
+    Someone who wasn't on the message needs it, such as Dr. Patel and the MRI confirmation
 
 In new Outlook, the Reply, Reply all and Forward buttons are at the top right of the message in the reading pane, and on the Home tab. Your reply opens in the reading pane above the original message, with RE: added to the subject (FW: for a forward).
 
@@ -57,21 +53,19 @@ Practice: Decide how to answer each message.
 
 Note: Before you forward, scroll through the whole thread. Earlier messages may contain another patient's information, a private comment, or details the new reader shouldn't have. Delete those parts or start a new message instead.
 
-
  type: worked-example
  title: Forwarding an imaging confirmation to a physician
  task: Riverside Imaging confirmed an MRI that Dr. Patel ordered. Get the confirmation to her.
- steps: 
+ steps:
    move: Select the message and choose Forward.
-   why: Dr. Patel wasn't on the original so Reply would only go back to the imaging center.
+   why: Dr. Patel wasn't on the original, so Reply would only go back to the imaging center.
    move: Type Dr. Patel in To and pick her from the suggestions.
-   why: Picking from the suggestions uses her internal address so it can't go to the wrong Dr. Patel.
+   why: Picking from the suggestions uses her internal address, so it can't go to the wrong Dr. Patel.
    move: Write one sentence with the date and time above the original.
    why: She can act without opening the attachment.
-   move: Scroll the thread then Send.
+   move: Scroll the thread, then Send.
    why: A quick check that nothing else is in the thread. The PDF goes along automatically.
  result: Dr. Patel gets the confirmation with a one-line summary and the attachment.
-
 
 
 ## Knowledge Check

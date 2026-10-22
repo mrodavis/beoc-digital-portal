@@ -12,41 +12,37 @@ By the end of this lesson you can:
 
 
 ## Never align with the space bar
-
  type: scenario
  role: You are compiling a reference list for a staff training packet at Lakeside Medical Associates.
- text: You align the second line of each reference with spaces until it looks right. You then change the font from Calibri to Times New Roman and every alignment collapses because the new font's space character is a different width. Forty references all wrong.
- task: Use indents and tab stops so alignment is a property of the paragraph and survives every font change.
-
+ text: You align the second line of each reference with spaces until it looks right. You then change the font from Calibri to Times New Roman, and every alignment collapses, because the new font's space character is a different width. Forty references, all wrong.
+ task: Use indents and tab stops, so alignment is a property of the paragraph and survives every font change.
 
 The distinction is worth stating plainly. A space is a character whose width depends on the font. An indent is a measured property of the paragraph. A tab stop is a defined position on the ruler. Indents and tab stops are exact and stable; spaces are approximate and break the moment anything changes.
 
 A hanging indent puts the first line at the margin and indents every subsequent line. It is what citation styles require for reference lists, because it makes the author surnames line up down the left edge so a reader can scan them. Set it in Paragraph > Indentation > Special > Hanging, or by dragging the lower triangle on the ruler.
 
-
  type: table
  caption: Tab stop types
- columns: 
-  Type
-  Aligns text
-  Use for
- rows: 
-   Left
-   Left edge at the stop
-   Ordinary columns of text
-   Center
-   Centered on the stop
-   Column headings
-   Right
-   Right edge at the stop
-   Page numbers in a contents list
-   Decimal
-   Decimal points at the stop
-   Columns of currency or measurements
-   Bar
-   Draws a vertical line
-   A visual divider between columns
-
+ columns:
+   Type
+   Aligns text
+   Use for
+ rows:
+    Left
+    Left edge at the stop
+    Ordinary columns of text
+    Center
+    Centered on the stop
+    Column headings
+    Right
+    Right edge at the stop
+    Page numbers in a contents list
+    Decimal
+    Decimal points at the stop
+    Columns of currency or measurements
+    Bar
+    Draws a vertical line
+    A visual divider between columns
 
 Decimal tabs are the reason a column of prices lines up on the decimal point regardless of how many digits each number has. Click the tab selector at the left end of the ruler until it shows the decimal tab, then click on the ruler where the decimal points should sit.
 

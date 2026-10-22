@@ -12,44 +12,38 @@ By the end of this lesson you can:
 
 
 ## Oops
-
  type: scenario
  role: You cleaned up My files at the end of a long day.
- text: This morning the flu clinic team can't find the flyer. While tidying yesterday you selected one file too many and deleted it along with the vendor contacts list and a folder of health fair photos.
- task: Get back what you deleted by mistake and permanently remove only what you are sure nobody needs.
-
+ text: This morning the flu clinic team can't find the flyer. While tidying yesterday you selected one file too many and deleted it, along with the vendor contacts list and a folder of health fair photos.
+ task: Get back what you deleted by mistake, and permanently remove only what you are sure nobody needs.
 
 When you delete a file or folder in OneDrive, it goes to the Recycle bin, not straight out of existence. Select Recycle bin in the left pane to see what you deleted, when, and where it came from (the Original location column). Select items with their check boxes and select Restore to put them back where they were.
 
-
  type: table
  caption: How long deleted items are kept
- columns: 
-  Account
-  Kept in the Recycle bin for
- rows: 
-   Work or school
-   93 days unless your organization changed this
-   Personal
-   30 days
-
+ columns:
+   Account
+   Kept in the Recycle bin for
+ rows:
+    Work or school
+    93 days, unless your organization changed this
+    Personal
+    30 days
 
 
 ## Restore, delete, or empty
-
  type: table
  caption: Recycle bin commands
- columns: 
-  Command
-  What it does
- rows: 
-   Restore
-   Puts the selected items back in their original location. Restoring a folder brings back everything that was in it
-   Delete
-   Permanently deletes the selected items. You can't restore them afterward
-   Empty recycle bin
-   Permanently deletes everything in the Recycle bin
-
+ columns:
+   Command
+   What it does
+ rows:
+    Restore
+    Puts the selected items back in their original location. Restoring a folder brings back everything that was in it
+    Delete
+    Permanently deletes the selected items. You can't restore them afterward
+    Empty recycle bin
+    Permanently deletes everything in the Recycle bin
 
 Note: Files permanently deleted from the Recycle bin can't be restored, not with Restore your OneDrive and not with version history. In a work account, leave permanent deletion to the retention rules unless you have a reason, and never empty the Recycle bin to hide a mistake.
 

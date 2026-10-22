@@ -12,42 +12,38 @@ By the end of this lesson you can:
 
 
 ## The browser version is a different tool, not a smaller one
-
  type: scenario
  role: You are covering reception at Lakeside Medical Associates.
  text: You need to fix a typo in a handout while working at a shared workstation that does not have Office installed. Word for the web opens the file in a browser and the fix takes forty seconds. Later you try to run a mail merge in the same browser tab and find the command does not exist.
  task: Know what the browser version does well and where you need the desktop app.
 
-
 Word for the web runs in any modern browser with no installation, which makes it genuinely useful on a shared or borrowed machine. It handles typing, basic formatting, comments, and real-time co-authoring well, and it saves continuously to OneDrive.
-
 
  type: table
  caption: Where each version fits
- columns: 
-  Task
-  Word for the web
-  Desktop
- rows: 
-   Quick edit on a borrowed machine
-   Yes
-   Requires installation
-   Real-time co-authoring
-   Yes
-   Yes for files in OneDrive or SharePoint
-   Mail merge
-   No
-   Yes
-   Advanced layout: sections columns precise object placement
-   Limited
-   Yes
-   Macros and add-ins
-   No
-   Yes
-   Working offline
-   No
-   Yes
-
+ columns:
+   Task
+   Word for the web
+   Desktop
+ rows:
+    Quick edit on a borrowed machine
+    Yes
+    Requires installation
+    Real-time co-authoring
+    Yes
+    Yes, for files in OneDrive or SharePoint
+    Mail merge
+    No
+    Yes
+    Advanced layout: sections, columns, precise object placement
+    Limited
+    Yes
+    Macros and add-ins
+    No
+    Yes
+    Working offline
+    No
+    Yes
 
 Open in Desktop App hands the file from the browser to the installed Word application with your edits intact. Start in the browser for speed, and switch when you hit a feature the browser does not have.
 

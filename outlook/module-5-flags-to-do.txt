@@ -12,33 +12,29 @@ By the end of this lesson you can:
 
 
 ## One place for follow-ups
-
  type: scenario
  role: You run the Lakeside front desk on a busy Tuesday.
- text: Your follow-ups are everywhere: a sticky note to restock brochures a flagged prior authorization message a promise to Dr. Patel to confirm volunteers and a call to Metro Health Plan you keep putting off.
- task: Put every follow-up in To Do decide what happens today and mark things done as you finish them.
-
+ text: Your follow-ups are everywhere: a sticky note to restock brochures, a flagged prior authorization message, a promise to Dr. Patel to confirm volunteers, and a call to Metro Health Plan you keep putting off.
+ task: Put every follow-up in To Do, decide what happens today, and mark things done as you finish them.
 
 Select To Do in the navigation bar on the left. The list pane shows smart lists that Outlook fills for you, plus Tasks and any lists you create.
 
-
  type: table
  caption: To Do lists
- columns: 
-  List
-  What's in it
- rows: 
-   My Day
-   Tasks you chose for today. It clears at midnight; the tasks stay in their lists.
-   Important
-   Tasks you starred
-   Planned
-   Tasks with due dates
-   Flagged email
-   Messages you flagged in Mail
-   Tasks
-   Your default list; tasks you add in a smart list are saved here too
-
+ columns:
+   List
+   What's in it
+ rows:
+    My Day
+    Tasks you chose for today. It clears at midnight; the tasks stay in their lists.
+    Important
+    Tasks you starred
+    Planned
+    Tasks with due dates
+    Flagged email
+    Messages you flagged in Mail
+    Tasks
+    Your default list; tasks you add in a smart list are saved here too
 
 
 ## Tasks, due dates, importance
@@ -54,7 +50,7 @@ Note: Classic Outlook: Tasks (Ctrl+4) and the To-Do Bar hold tasks and flagged i
 
 ## Flagged email and closing the loop
 - Flag a message in Mail (Module 3) and it appears in To Do's Flagged email list, so message follow-ups sit next to your tasks.
-- When the follow-up is done, select the circle next to the message in Flagged email, or choose Mark complete on the message in Mail.
+- When the follow-up is done, select the circle next to the message in Flagged email, or mark its flag complete on the message in Mail.
 - You can turn the Flagged email list on or off in Settings.
 - End the day by reviewing My Day: finish, move to tomorrow, or delete. A list you trust is a list you keep up to date.
 

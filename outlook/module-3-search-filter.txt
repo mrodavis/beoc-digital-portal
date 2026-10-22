@@ -12,12 +12,10 @@ By the end of this lesson you can:
 
 
 ## Search beats scrolling
-
  type: scenario
  role: You are answering the phones at the Lakeside front desk.
- text: A patient calls about claim 48213. Keisha wants to know which spreadsheets she sent you this month. Luis can't find the vaccine fridge log he emailed weeks ago which someone archived.
- task: Find each message in under a minute without scrolling.
-
+ text: A patient calls about claim 48213. Keisha wants to know which spreadsheets she sent you this month. Luis can't find the vaccine fridge log he emailed weeks ago, which someone archived.
+ task: Find each message in under a minute, without scrolling.
 
 - Select the Search box at the top of the Outlook window, type a word, name, or number, and press Enter.
 - Search looks through your folders, including Archive, so filed mail is still easy to find.
@@ -25,26 +23,24 @@ By the end of this lesson you can:
 - Act on a result the same way as any message: open it, reply, move it, flag it.
 - To leave search, select the X in the Search box or Exit search on the Search tab.
 
-
  type: table
  caption: Search operators (type them in the Search box)
- columns: 
-  Type this
-  To find
- rows: 
-   from:keisha
-   Messages from Keisha
-   from:\Keisha Grant\
-   Messages from a full name (quotes around names with spaces)
-   subject:claim
-   Messages with \claim\ in the subject
-   hasattachment:yes
-   Messages with attachments
-   received:\this week\
-   Messages received this week
-   claim AND metro
-   Messages with both words (AND OR and NOT must be in capital letters)
-
+ columns:
+   Type this
+   To find
+ rows:
+    from:keisha
+    Messages from Keisha
+    from:"Keisha Grant"
+    Messages from a full name (quotes around names with spaces)
+    subject:claim
+    Messages with "claim" in the subject
+    hasattachment:yes
+    Messages with attachments
+    received:"this week"
+    Messages received this week
+    claim AND metro
+    Messages with both words (AND, OR and NOT must be in capital letters)
 
 Practice: Match each request to the search that finds it.
 

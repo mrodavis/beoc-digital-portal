@@ -12,37 +12,33 @@ By the end of this lesson you can:
 
 
 ## A printed deck serves a different purpose from a projected one
-
  type: scenario
  role: You prepare materials for the board meeting at Lakeside Medical Associates.
- text: You print forty slides full page one per sheet on a dark-backgrounded theme. Forty sheets per attendee most of the toner cartridge and pages so dark the text is barely legible on paper.
+ text: You print forty slides full page, one per sheet, on a dark-backgrounded theme. Forty sheets per attendee, most of the toner cartridge, and pages so dark the text is barely legible on paper.
  task: Pick the print layout that matches what the reader will do with it.
-
-
 
  type: table
  caption: Print layouts
- columns: 
-  Layout
-  Produces
-  Use for
- rows: 
-   Full Page Slides
-   One slide per sheet
-   Rarely — only when detail genuinely needs the size
-   Notes Pages
-   Slide plus your notes
-   Your own copy while presenting
-   Handouts 3 per page
-   Slides with ruled lines beside them
-   Audience handouts — the lines invite notes
-   Handouts 6 per page
-   Six thumbnails per sheet
-   A compact reference after the session
-   Outline
-   Text only
-   Reviewing the argument without design
-
+ columns:
+   Layout
+   Produces
+   Use for
+ rows:
+    Full Page Slides
+    One slide per sheet
+    Rarely — only when detail genuinely needs the size
+    Notes Pages
+    Slide plus your notes
+    Your own copy while presenting
+    Handouts, 3 per page
+    Slides with ruled lines beside them
+    Audience handouts — the lines invite notes
+    Handouts, 6 per page
+    Six thumbnails per sheet
+    A compact reference after the session
+    Outline
+    Text only
+    Reviewing the argument without design
 
 For a dark-themed deck, choose Color/Grayscale > Pure Black and White in the print settings. It prints readable text on a white background instead of reproducing the dark background, saving most of the toner and producing something people can actually read and annotate.
 
