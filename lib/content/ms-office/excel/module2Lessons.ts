@@ -77,8 +77,8 @@ export const excelModule2Lessons: Lesson[] = [
               ],
               [
                 "Ctrl held while dragging",
-                "Copies instead of extending",
-                "Overrides Excel's pattern detection",
+                "One number: 5, 6, 7. Monday: Monday, Monday…",
+                "Ctrl switches between copying and filling a series, the opposite of what a plain drag would do",
               ],
             ],
           },
