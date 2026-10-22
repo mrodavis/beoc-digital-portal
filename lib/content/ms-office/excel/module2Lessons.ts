@@ -18,10 +18,7 @@ export const excelModule2Lessons: Lesson[] = [
     ],
     duration: "12 min",
 
-    videoUrls: [
-      "https://www.youtube.com/embed/6mSKsaquTAM",
-      "https://www.youtube.com/embed/Ww56q-BSSXw",
-    ],
+    videoUrl: "https://www.youtube.com/embed/dgNlM5NrrkA",
     practiceFiles: [
       {
         name: "Cell Basics Practice File",
