@@ -712,6 +712,7 @@ LESSON 4 – DICTATION & VOICE FEATURES
     "Judge when dictation is appropriate given the setting and the content",
   ],
   duration: "7 min",
+  videoUrl: "https://www.youtube.com/embed/bTTuOBdblSg",
 
   sections: [
 
