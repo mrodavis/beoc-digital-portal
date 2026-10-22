@@ -1085,7 +1085,7 @@ challenge: [
          },
          {
            type: "paragraph",
-           text: "=SUBTOTAL(109, E2:E900) is the fix: it sums only visible rows and updates as the filter changes. The 109 specifies sum-ignoring-hidden-rows. There is a parallel code for each function — 101 for average, 103 for count. Converting the range to an Excel Table gives you a Total Row that uses SUBTOTAL automatically.",
+           text: "=SUBTOTAL(109, E2:E900) is the fix: it sums only visible rows and updates as the filter changes. The 109 specifies sum-ignoring-hidden-rows. There is a parallel code for each function — 101 for average, 102 for count of numbers, 103 for count of non-empty cells. Converting the range to an Excel Table gives you a Total Row that uses SUBTOTAL automatically.",
          },
          {
            type: "tip",

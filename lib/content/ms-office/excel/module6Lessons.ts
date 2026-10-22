@@ -617,7 +617,7 @@ export const excelModule6Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "Use the green + button (Chart Elements) to add a Chart Title, Axis Titles, Data Labels, and more.",
+            "Use the + button (Chart Elements) to add a Chart Title, Axis Titles, Data Labels, and more.",
         },
         {
           type: "image",
@@ -845,7 +845,7 @@ export const excelModule6Lessons: Lesson[] = [
          },
          {
            type: "tip",
-           text: "If Excel summarizes a numeric column with Count instead of Sum, that column contains text somewhere — often a stray note or a number stored as text. The PivotTable is telling you about a data quality problem worth fixing at the source.",
+           text: "If Excel summarizes a numeric column with Count instead of Sum, that column contains text or blank cells somewhere — often a stray note or a number stored as text. The PivotTable is telling you about a data quality problem worth fixing at the source.",
          },
        ],
      },

@@ -117,7 +117,7 @@ LESSON 1 – DYNAMIC ARRAYS AND XLOOKUP
         },
         {
           type: "table",
-          caption: "The two errors you will meet",
+          caption: "The three errors you will meet",
           columns: ["Error", "Means", "Fix"],
           rows: [
             ["#SPILL!", "Something is blocking the range the result needs", "Clear the cells in the spill range"],

@@ -718,7 +718,7 @@ LESSON 3 – REFERENCE STYLES
            },
            {
              type: "tip",
-             text: "To switch, go to File > Options > Formulas and check or uncheck 'R1C1 reference style.' It is a per-application setting rather than a property of the file, so a workbook that looks wrong to you looks normal to whoever created it.",
+             text: "To switch, go to File > Options > Formulas and check or uncheck 'R1C1 reference style.' The setting is saved with the workbook, so opening a colleague's R1C1 file can switch your Excel to R1C1 until you uncheck it again.",
            },
          ],
        },
