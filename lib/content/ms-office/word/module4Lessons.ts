@@ -14,7 +14,7 @@ export const wordModule4Lessons: Lesson[] = [
     "Choose between a date that updates automatically and one that stays fixed",
   ],
   duration: "7 min",
-  videoUrl: "https://www.youtube.com/embed/hxSGN6IJAFc?si=lsvChAnjpi3Hb-kj",
+  videoUrl: "https://www.youtube.com/embed/kmnYNR6Ho30",
 
   practiceFiles: [
     {
@@ -553,6 +553,7 @@ LESSON 3 – COMMENTS
     "Write comments that a colleague can act on without asking a follow-up question",
   ],
   duration: "6 min",
+  videoUrl: "https://www.youtube.com/embed/9zz09ZBkcTs",
 
   practiceFiles: [
     {
