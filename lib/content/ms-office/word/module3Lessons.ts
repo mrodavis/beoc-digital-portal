@@ -1532,7 +1532,7 @@ export const wordModule3Lessons: Lesson[] = [
             "Lets you move and resize them together as one unit",
           ],
           correctIndex: 3,
-          explanation: "Grouping combines several objects into one, so moving, resizing, or rotating the group applies to everything inside it and preserves the relationships between the pieces. Ctrl+Shift+G ungroups them again.",
+          explanation: "Grouping combines several objects into one, so moving, resizing, or rotating the group applies to everything inside it and preserves the relationships between the pieces. Group > Ungroup separates them again.",
           optionRationales: [
             "Grouping does not lock anything — the group moves freely. You are thinking of 'Fix position on page,' which is a layout option rather than grouping.",
             "Grouping leaves every object's fill exactly as it was. It changes how they are selected and moved, not how they look.",
