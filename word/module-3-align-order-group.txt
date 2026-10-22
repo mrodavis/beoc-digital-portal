@@ -21,7 +21,7 @@ By the end of this lesson you can:
 
 Human eyes are good at detecting misalignment and bad at preventing it. Select several objects, then Shape Format > Align > Align Left, and Word puts every left edge on precisely the same coordinate. Align > Distribute Horizontally makes the gaps between them mathematically equal. Both take one click and are exact in a way dragging never is.
 
-Grouping is the follow-up. Once a diagram is aligned, select every piece and press Ctrl+G to group them into a single object. From then on, moving or resizing the group preserves every internal relationship. Without grouping, moving a six-box diagram means moving six objects and re-aligning them at the destination.
+Grouping is the follow-up. Once a diagram is aligned, select every piece and choose Shape Format > Group > Group (Picture Format > Group for pictures) to join them into a single object. From then on, moving or resizing the group preserves every internal relationship. Without grouping, moving a six-box diagram means moving six objects and re-aligning them at the destination.
 
 The Selection pane (Home > Select > Selection Pane, or Alt+F10) lists every object on the page. It is the only practical way to select something completely hidden behind another object, and you can rename entries — 'Step 3 box' rather than 'Rectangle 47' — which makes a complex diagram far easier to maintain.
 
@@ -36,8 +36,8 @@ The Selection pane (Home > Select > Selection Pane, or Alt+F10) lists every obje
    why: Word moves every selected object so its left edge sits at the leftmost edge in the selection. This is exact to the pixel which is the difference between a diagram that looks intentional and one that looks hand-placed.
    move: Shape Format > Align > Distribute Vertically.
    why: This equalizes the vertical gaps between all six. Distribution needs at least three objects to be meaningful and it fixes the uneven spacing that dragging always produces.
-   move: With all six still selected press Ctrl+G to group.
-   why: The diagram becomes one object. It can now be moved resized or wrapped as a unit without any internal drift. Ctrl+Shift+G ungroups again when you need to edit an individual box.
+   move: With all six still selected choose Shape Format > Group > Group.
+   why: The diagram becomes one object. It can now be moved resized or wrapped as a unit without any internal drift. Shape Format > Group > Ungroup separates the pieces again when you need to edit an individual box.
  result: A precisely aligned evenly distributed diagram that behaves as a single object.
  takeaway: Align distribute then group. Three commands convert an approximate layout into an exact one and stop it from degrading the next time someone edits the page.
 
@@ -72,4 +72,4 @@ After aligning, ordering, and grouping objects, your completed layout should loo
 
 
 ## Knowledge Check
-Check yourself: What does grouping multiple objects do in Word? Answer: Lets you move and resize them together as one unit. Grouping combines several objects into one, so moving, resizing, or rotating the group applies to everything inside it and preserves the relationships between the pieces. Ctrl+Shift+G ungroups them again.
+Check yourself: What does grouping multiple objects do in Word? Answer: Lets you move and resize them together as one unit. Grouping combines several objects into one, so moving, resizing, or rotating the group applies to everything inside it and preserves the relationships between the pieces. Group > Ungroup separates them again.
