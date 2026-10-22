@@ -6,10 +6,11 @@ export const powerpointModule8Lessons: Lesson[] = [
   slug: "checking-spelling-and-comments",
   title: "Checking Spelling & Using Comments",
   description:
-    "Learn how to run a spell check, use the built-in thesaurus, and add and review comments to collaborate and polish your presentation before delivery.",
+    "Learn how to run a spell check, use the built-in thesaurus, add and review comments, and review a colleague's changes in a shared file so your presentation is polished before delivery.",
   objectives: [
     "Run spell check across a presentation",
     "Add, reply to, and resolve comments",
+    "Review a colleague's changes with a shared file, @mentions, and Version History",
     "Remove comments before presenting or distributing",
     "Proofread the things spell check cannot catch",
   ],
@@ -59,11 +60,6 @@ export const powerpointModule8Lessons: Lesson[] = [
           text:
             "PowerPoint's Review tab contains all the tools you need to check spelling, look up synonyms, and collaborate with colleagues using comments.",
         },
-        {
-          type: "image",
-          src: "/images/powerpoint/module-8/review/review_tab_ribbon.png",
-          alt: "Review tab on the PowerPoint ribbon",
-        },
       ],
     },
 
@@ -79,11 +75,6 @@ export const powerpointModule8Lessons: Lesson[] = [
           type: "paragraph",
           text:
             "Go to the Review tab and click Spelling. PowerPoint will scan your entire presentation and stop at each error.",
-        },
-        {
-          type: "image",
-          src: "/images/powerpoint/module-8/review/review_spelling_ribbon.png",
-          alt: "Spelling button on the Review tab",
         },
         {
           type: "paragraph",
@@ -143,11 +134,6 @@ export const powerpointModule8Lessons: Lesson[] = [
             "To add a comment, select the object or text you want to comment on, go to the Review tab, and click New Comment.",
         },
         {
-          type: "image",
-          src: "/images/powerpoint/module-8/review/review_new_comment.png",
-          alt: "New Comment button on the Review tab",
-        },
-        {
           type: "paragraph",
           text:
             "A comments pane opens where you can type your note. A small comment icon appears on the slide near the object you commented on.",
@@ -195,11 +181,6 @@ export const powerpointModule8Lessons: Lesson[] = [
             "To delete a comment, select it in the Comments pane and click Delete on the Review tab. To delete all comments in the presentation, use the Delete All Comments in Presentation option.",
         },
         {
-          type: "image",
-          src: "/images/powerpoint/module-8/review/review_delete_comment.png",
-          alt: "Delete comment options on the Review tab",
-        },
-        {
           type: "callout",
           variant: "warning",
           text:
@@ -209,27 +190,27 @@ export const powerpointModule8Lessons: Lesson[] = [
     },
 
     {
-      heading: "Comparing Presentations",
+      heading: "Reviewing a Colleague's Changes",
       blocks: [
         {
           type: "paragraph",
           text:
-            "If a colleague has sent back a revised version of your file, the Compare tool lets you merge their changes into your version and review each one.",
+            "PowerPoint's old Compare command was retired in 2025 (version 2502). Today you review a colleague's work in one shared file instead of merging separate copies.",
         },
         {
-          type: "paragraph",
+          type: "list",
+          ordered: true,
+          items: [
+            "Share the file: select Share and invite your colleague. If the presentation isn't saved to OneDrive yet, PowerPoint asks you to save it there first.",
+            "Work together: once the file is shared, you can both edit at the same time. PowerPoint shows who else is working in the file and where each person is editing.",
+            "Discuss changes in comments: select Review > New Comment and type your note. To get a coworker's attention, type @ and the first letters of their name, then pick them from the list; with a work or school account, they get an email with a link to your comment. Anyone can reply in the same thread.",
+            "See or restore earlier versions: select the file name at the top of the window (or File > Info) and choose Version History. Select a version to open it in a separate window, and select Restore if you want that version back. Version History works only for files saved in OneDrive or SharePoint.",
+          ],
+        },
+        {
+          type: "tip",
           text:
-            "Click Compare on the Review tab, select the revised file, and PowerPoint highlights every difference between the two versions.",
-        },
-        {
-          type: "image",
-          src: "/images/powerpoint/module-8/review/review_compare_ribbon.png",
-          alt: "Compare button on the Review tab",
-        },
-        {
-          type: "paragraph",
-          text:
-            "Use the Revisions pane to accept or reject individual changes, then click End Review when finished.",
+            "Ask colleagues to edit the shared file rather than sending you back a copy, so every change lands in one place.",
         },
       ],
     },
@@ -255,6 +236,24 @@ export const powerpointModule8Lessons: Lesson[] = [
             "Moving comments to the Notes pane keeps them in the file, and notes are visible in Presenter View.",
           ],
         },
+        {
+          type: "knowledge-check",
+          question: "A colleague needs to review your presentation and suggest changes. What is the current way to do this in PowerPoint for Microsoft 365?",
+          options: [
+            "Email them a copy, then use Review > Compare to merge their copy into yours",
+            "Share the file from OneDrive so you both work in one copy, and follow the changes with comments and Version History",
+            "Turn on Track Changes on the Review tab",
+            "Ask them to type their changes into the Notes pane",
+          ],
+          correctIndex: 1,
+          explanation: "Compare was retired in version 2502. A shared file keeps everyone's edits in one place, comments carry the discussion, and Version History lets you see or restore an earlier version.",
+          optionRationales: [
+            "Compare was retired in PowerPoint for Microsoft 365 version 2502, so there is no command to merge a returned copy.",
+            "Correct. One shared file, comments for discussion, and Version History for earlier versions.",
+            "PowerPoint's Review tab has no Track Changes button; that is a Word feature.",
+            "Notes are speaker notes that show in Presenter View; they are not a review tool.",
+          ],
+        },
       ],
     },
 
@@ -274,6 +273,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         "Add a comment to slide 3 noting that the chart data needs to be updated.",
         "Navigate to slide 4 and reply to the existing comment with a short confirmation.",
         "Delete all comments from the presentation so it is ready to present.",
+        "If your school account lets you save to OneDrive, save the presentation there, then select the file name at the top of the window (or File > Info) and open Version History. Write down how many versions are listed.",
       ],
     },
   ],

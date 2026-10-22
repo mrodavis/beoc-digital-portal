@@ -356,7 +356,7 @@ export const pptRibbon: RibbonTab[] = [
         { type: "button", id: "review.nextComment", label: "Next", icon: "redo", showLabel: true },
         { type: "toggle", id: "review.showComments", label: "Show Comments", icon: "comment", showLabel: true },
       ] },
-      { label: "Compare", controls: [{ type: "button", id: "review.compare", label: "Compare", icon: "compare", size: "large" }] },
+      // Compare and Merge was retired in PowerPoint for Microsoft 365 version 2502, so the Review tab no longer has a Compare group.
     ],
   },
   {
