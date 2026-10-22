@@ -280,6 +280,7 @@ LESSON 2 – TRACK CHANGES
     "Remove all tracked changes and comments before sending a document externally",
   ],
   duration: "8 min",
+  videoUrl: "https://www.youtube.com/embed/wPfm8PxHIXo",
 
   practiceFiles: [
     {
