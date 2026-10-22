@@ -44,8 +44,8 @@ To force text, format the cells as Text before typing, or begin the entry with a
    =A2+B2 =A3+B3
    Relative references shift as the formula moves down
    Ctrl held while dragging
-   Copies instead of extending
-   Overrides Excel's pattern detection
+   One number: 5 6 7. Monday: Monday Monday…
+   Ctrl switches between copying and filling a series the opposite of what a plain drag would do
 
 
 Note: Delete clears a cell's contents but leaves the cell in place. Right-click > Delete removes the cell itself and shifts its neighbors, which will break formulas that referred to the shifted cells. When you mean to empty cells, press Delete; when you mean to remove rows, select the whole row.
