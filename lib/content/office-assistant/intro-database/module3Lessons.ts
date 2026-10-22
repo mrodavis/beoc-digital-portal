@@ -292,7 +292,7 @@ export const module3Lessons: Lesson[] = [
             items: [
               "Navigating between fields: press Tab to move to the next field in a record, Shift+Tab to move back. Tab on the last field of a record moves to the first field of a new record. This Tab-key navigation keeps your hands on the keyboard for efficient data entry without touching the mouse.",
               "The record selector star (*) marks the new record row — the row with a star in the gray row selector on the far left is the next empty record waiting for data. Click it or Tab to it to start entering a new record. The pencil icon in the row selector indicates the current record is being edited and has not yet been saved.",
-              "Records are saved automatically when you move to another record — unlike Excel where you press Ctrl+S to save, Access saves records when you move the cursor to a different row. If you make a change to a record and then click to a different row, the change is permanently saved. There is no 'undo after saving' for record data in Access.",
+              "Records are saved automatically when you move to another record — unlike Excel where you press Ctrl+S to save, Access saves records when you move the cursor to a different row. If you make a change to a record and then click to a different row, the change is saved. You can still undo the record you just left with Ctrl+Z (or Undo on the Quick Access Toolbar), but only until you start editing another record.",
               "Undo while still in the record: if you make a mistake and have not yet moved to another row, press Escape once to undo the change to the current field, or Escape twice to undo all changes to the current record. Once you move to another row, those changes are saved and Escape will not reverse them.",
             ],
           },
@@ -325,7 +325,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "To delete a record: click the gray row selector on the far left of the record to select the entire row (it highlights blue), then press the Delete key. Access displays a confirmation dialog: 'Are you sure you want to delete 1 record(s)? This operation cannot be undone.' Click Yes only when you are certain.",
+              "To delete a record: click the gray row selector on the far left of the record to select the entire row (it highlights blue), then press the Delete key. Access asks you to confirm the deletion and warns that you won't be able to undo it. Click Yes only when you are certain.",
               "Referential integrity prevents deleting records with dependencies — if you try to delete a Patient record that has related Appointments records (and referential integrity is enforced), Access will refuse the deletion with an error message: 'The record cannot be deleted or changed because table Appointments includes related records.' This is the correct behavior — you cannot delete a patient who has appointment records without first deleting or reassigning those appointments.",
               "In a medical office, deleting patient records may be a HIPAA violation — patient records have legal retention requirements. Do not delete patient records simply because a patient has not returned. Mark them as inactive (IsActivePatient = No) rather than deleting. Deletion should only occur under an authorized records purge process that complies with your state's retention requirements.",
             ],

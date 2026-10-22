@@ -90,7 +90,7 @@ export const module7Lessons: Lesson[] = [
               "Otter.ai and Fireflies.ai — AI transcription and meeting summary tools that join video calls and produce searchable transcripts and summaries within minutes of the meeting ending. Transformative for anyone responsible for taking meeting notes.",
               "Notion AI — AI embedded in Notion workspaces for generating documents, summarizing pages, and drafting structured content within a team's shared workspace. Best for organizations that already use Notion as their primary documentation platform.",
               "Adobe Acrobat's AI Assistant — document summarization and question-answering inside PDFs. Best for quickly extracting key information from long contracts, reports, or policy documents without reading every page.",
-              "The 'right tool' principle — specialized tools outperform general tools at their specific task. Grammarly is better at grammar than ChatGPT. Otter.ai is better at transcription than any general AI. Knowing when to reach for a specialized tool versus a general one is a mark of genuine AI fluency.",
+              "The 'right tool' principle — specialized tools such as Grammarly (grammar) or Otter.ai (transcription) are often stronger at their one job than a general assistant. Knowing when to reach for a specialized tool versus a general one is a mark of genuine AI fluency.",
             ],
           },
         ],

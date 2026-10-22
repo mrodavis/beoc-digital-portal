@@ -254,7 +254,7 @@ export const module8Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Access saves record edits the moment you move off a row — there is no Ctrl+S and no undo once you have moved on. This is the single biggest adjustment for anyone coming from Excel, where nothing is committed until you save. Before working on a live database, make a copy. Before a structural change, make another.",
+            text: "Access saves record edits the moment you move off a row — there is no Ctrl+S, and only the record you just left can be undone (Ctrl+Z), and only until you start editing another. This is the single biggest adjustment for anyone coming from Excel, where nothing is committed until you save. Before working on a live database, make a copy. Before a structural change, make another.",
           },
           {
             type: "paragraph",

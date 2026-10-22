@@ -299,7 +299,7 @@ sections: [
        },
        {
          type: "paragraph",
-         text: "Theme colors, fonts, and effects can each be changed independently from the Design tab's Variants dropdown. Set the practice's palette and typefaces, then Save Current Theme — the theme appears in the gallery for everyone it is shared with, in PowerPoint, Word, and Excel alike.",
+         text: "Theme colors, fonts, and effects can each be changed independently from the Design tab's Variants dropdown. Set the practice's palette and typefaces, then Save Current Theme. The theme appears in your theme gallery in PowerPoint, Word, and Excel; share the saved .thmx file so colleagues get it too.",
        },
        {
          type: "paragraph",

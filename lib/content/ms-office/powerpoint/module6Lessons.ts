@@ -516,7 +516,7 @@ alt: "Final slideshow with transitions applied",
         {
           type: "paragraph",
           text:
-            "Those badges are the running order, and they do not renumber when you rearrange objects on the slide. If your reveals fire in an order that surprises you during a rehearsal, the badges will show you why.",
+            "A small number badge appears beside each animated object. Those badges are the running order, and they do not renumber when you rearrange objects on the slide. If your reveals fire in an order that surprises you during a rehearsal, the badges will show you why.",
         },
         {
           type: "image",

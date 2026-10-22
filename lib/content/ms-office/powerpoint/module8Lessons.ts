@@ -742,7 +742,7 @@ export const powerpointModule8Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "That prompt is telling you something useful: a share link points at a file in the cloud, so a local file has nothing to link to. Emailing a copy instead creates a second version that immediately starts diverging from yours.",
+            "If the file is saved only on your computer, PowerPoint first asks you to save it to OneDrive. That prompt is telling you something useful: a share link points at a file in the cloud, so a local file has nothing to link to. Emailing a copy instead creates a second version that immediately starts diverging from yours.",
         },
         {
           type: "image",

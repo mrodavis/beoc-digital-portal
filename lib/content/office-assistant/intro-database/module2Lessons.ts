@@ -453,7 +453,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Select the data to chart: click any cell in a summary table, select the entire table (Ctrl+Shift+End), then go to Insert > Charts and choose the chart type. Excel recommends appropriate chart types based on your data selection.",
+              "Select the data to chart: click any cell in a summary table, select the entire table (Ctrl+A), then go to Insert > Charts and choose the chart type. Excel recommends appropriate chart types based on your data selection.",
               "Chart types for medical office reports: Bar/Column charts compare values across categories (appointments per provider, revenue by insurance plan). Line charts show trends over time (daily or weekly appointment volume). Pie charts show proportions (percentage of appointments per visit type) — use these sparingly as they become hard to read with more than 5 slices.",
               "Format charts for professional presentation: add a descriptive title (click the chart title and type), label the axes (Chart Design > Add Chart Element > Axis Titles), and remove unnecessary gridlines and legends when the chart is self-explanatory. A chart for a manager's report should tell its story immediately without the reader needing to study it.",
             ],
