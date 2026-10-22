@@ -580,6 +580,7 @@ export const excelModule3Lessons: Lesson[] = [
       "Build validation that catches data errors spell check never will",
     ],
     duration: "4 min",
+    videoUrl: "https://www.youtube.com/embed/VJDUOPBMH28",
 
     practiceFiles: [
         {

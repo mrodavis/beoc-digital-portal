@@ -19,7 +19,7 @@ export const excelModule6Lessons: Lesson[] = [
   ],
   duration: "12 min",
 
-  videoUrl: "https://www.youtube.com/embed/iroIA8_3soo",
+  videoUrl: "https://www.youtube.com/embed/dBdDRHzsK9I",
 
   practiceFiles: [
     {

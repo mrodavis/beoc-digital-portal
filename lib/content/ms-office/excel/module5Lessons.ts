@@ -1060,7 +1060,7 @@ challenge: [
   ],
   duration: "14 min",
 
-  videoUrl: "https://www.youtube.com/embed/_OdsZR_rL1U",
+  videoUrl: "https://www.youtube.com/embed/XI6RpHdfOhc",
 
   practiceFiles: [
         {
