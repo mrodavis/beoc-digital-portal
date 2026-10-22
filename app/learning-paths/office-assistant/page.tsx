@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import TabeRequirementBox from "@/components/TabeRequirementBox";
 import { techFoundationsModules } from "@/lib/content/office-assistant/tech-foundations/modules";
 import { officeAppsModules } from "@/lib/content/office-assistant/office-apps/modules";
 import { introDatabaseModules } from "@/lib/content/office-assistant/intro-database/modules";
@@ -79,15 +80,18 @@ export default function OfficeAssistantPage() {
         </div>
       </div>
 
-      {/* Career Outcomes */}
-      <div className="bg-blue-50 border border-blue-200 rounded-xl p-6 mb-12">
-        <h3 className="text-xl font-bold text-gray-900 mb-3">Career Outcomes</h3>
-        <ul className="list-disc pl-6 text-gray-700 space-y-1">
-          <li>Office Assistant</li>
-          <li>Administrative Assistant</li>
-          <li>Front Desk Coordinator</li>
-          <li>Medical Office Assistant</li>
-        </ul>
+      {/* Career Outcomes + BEOC entry requirement */}
+      <div className="grid md:grid-cols-2 gap-6 mb-12">
+        <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+          <h3 className="text-xl font-bold text-gray-900 mb-3">Career Outcomes</h3>
+          <ul className="list-disc pl-6 text-gray-700 space-y-1">
+            <li>Office Assistant</li>
+            <li>Administrative Assistant</li>
+            <li>Front Desk Coordinator</li>
+            <li>Medical Office Assistant</li>
+          </ul>
+        </div>
+        <TabeRequirementBox programKey="office-assistant" />
       </div>
 
       {/* Courses */}

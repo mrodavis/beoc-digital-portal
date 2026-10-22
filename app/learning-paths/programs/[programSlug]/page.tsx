@@ -5,6 +5,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import EhrSimulatorCallout from "@/components/EhrSimulatorCallout";
+import TabeRequirementBox from "@/components/TabeRequirementBox";
 
 /** Programs whose students have a track in the BEOC EHR Simulator. */
 const SIMULATOR_PROGRAMS: Record<string, string> = {
@@ -109,6 +110,8 @@ export default async function ProgramPage({
         </div>
 
         <div className="space-y-6">
+          <TabeRequirementBox programKey={program.slug} />
+
           <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
             <h3 className="font-semibold text-gray-900 mb-3">
               Roles This Prepares You For
