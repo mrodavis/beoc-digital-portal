@@ -739,7 +739,7 @@ export const outlookModule2Lessons: Lesson[] = [
             columns: ["Recall can work when...", "Recall won't work when..."],
             rows: [
               ["You and the recipient have Microsoft 365 work or school accounts in the same organization", "The recipient is outside your organization, or uses Gmail, Outlook.com or another service"],
-              ["The recipient hasn't opened the message yet", "The recipient already opened it"],
+              ["By default, even if the recipient already opened the message", "The recipient opened it and your organization turned off recall of read messages"],
             ],
           },
           {
@@ -763,7 +763,7 @@ export const outlookModule2Lessons: Lesson[] = [
               { id: "t3", text: "Recall Message", match: "A coworker in your office got a message meant for someone else, and hasn't opened it" },
               { id: "t4", text: "Tell your supervisor", match: "Patient information went to an outside address by mistake" },
             ],
-            explanation: "Undo send covers the first seconds. Schedule send controls timing. Recall can help only inside your organization and only for unopened messages. A privacy mistake always goes to your supervisor.",
+            explanation: "Undo send covers the first seconds. Schedule send controls timing. Recall can help only inside your organization. A privacy mistake always goes to your supervisor.",
           },
         ],
       },
@@ -791,9 +791,9 @@ export const outlookModule2Lessons: Lesson[] = [
             explanation: "Recall needs both people to have Microsoft 365 work or school accounts in the same organization. Report the mistake to your supervisor.",
             optionRationales: [
               "Recall has requirements and often fails.",
-              "Being unopened is necessary but not enough; the recipient must be in your organization.",
+              "Whether they opened it is not the issue here; the recipient must be in your organization.",
               "Correct.",
-              "Recall has no time window like this; the requirements are the organization and whether it was opened.",
+              "An hour is not the rule; what matters is that the recipient is in your organization.",
             ],
           },
         ],

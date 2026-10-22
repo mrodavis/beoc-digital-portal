@@ -167,7 +167,7 @@ export const accessModule2Lessons: Lesson[] = [
               },
               {
                 move: "Confirm Access reports the relationship as One-To-Many.",
-                why: "If it says One-To-One, the foreign key has a unique index on it and each patient could have only one appointment. If it says Indeterminate, the fields are different data types — usually a Number joined to a Short Text — and integrity cannot be enforced until you fix that.",
+                why: "If it says One-To-One, the foreign key has a unique index on it and each patient could have only one appointment. If it says Indeterminate, neither field is a primary key or uniquely indexed; check that you dragged from the primary key. If the two fields are different data types, Access will refuse to enforce integrity until you make them match (an AutoNumber key pairs with a Number field set to Long Integer).",
               },
               {
                 move: "Test it: try to enter an appointment with a PatientID that does not exist.",

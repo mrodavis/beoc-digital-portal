@@ -702,7 +702,7 @@ export const excelModule4Lessons: Lesson[] = [
         {
           type: "paragraph",
           text:
-            "If the sheet name or cell reference is incorrect, Excel will return a #REF! error.",
+            "If the referenced sheet or cells are later deleted, the formula shows a #REF! error; if you type a sheet name that does not exist, Excel opens a dialog asking you to find a file.",
         },
         {
           type: "image",

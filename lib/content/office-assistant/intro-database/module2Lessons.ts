@@ -66,7 +66,7 @@ export const module2Lessons: Lesson[] = [
             type: "list",
             items: [
               "Merged cells — merged cells are the enemy of data analysis. They prevent sorting, filtering, and formula referencing from working correctly. In a data table, never use merged cells. Unmerge all cells in the data area: select the data, Home > Alignment > Merge & Center dropdown > Unmerge Cells.",
-              "Mixed data types in date columns — a Date of Birth column with some entries as dates (displaying in blue as 1/22/1978) and others as text (displaying in black as '01/22/1978' or 'January 22, 1978') will not sort correctly and cannot be used in date calculations. Select the entire column and apply a consistent date format: Home > Number > Short Date.",
+              "Mixed data types in date columns — a Date of Birth column with some entries as real dates (right-aligned by default, like 1/22/1978) and others as text (left-aligned, sometimes with a small green triangle in the corner, like '01/22/1978' or 'January 22, 1978') will not sort correctly and cannot be used in date calculations. Changing the format alone does not turn text into dates: convert the text entries with the DATEVALUE function, then apply a consistent date format: Home > Number > Short Date.",
               "Subtotals or summary rows mixed into the data — some spreadsheets have monthly subtotals inserted within the data range (a row saying 'January Total: $12,450' between January and February data). These rows break every analysis tool. Move summary rows below the main data table, or better, generate them with a PivotTable.",
               "Invisible leading or trailing spaces — text cells that look identical ('BlueCross' and 'BlueCross ' with a trailing space) are treated as different values by filtering, VLOOKUP, and sorting. Use the TRIM function to remove extra spaces: create a helper column with =TRIM(A2) and paste values over the original column.",
             ],
@@ -97,10 +97,10 @@ export const module2Lessons: Lesson[] = [
         blocks: [
           {
             type: "knowledge-check",
-            question: "A column in your patient spreadsheet shows some dates in blue (date format) and some in black (text format). When you sort by this column, the dates are not in chronological order. What is the problem and how do you fix it?",
+            question: "A column in your patient spreadsheet shows some dates right-aligned and some left-aligned. When you sort by this column, the dates are not in chronological order. What is the problem and how do you fix it?",
             options: [
               "The sort direction is wrong — change from A to Z to Z to A",
-              "The column has mixed data types (some dates, some text strings that look like dates). Select the column and apply a consistent Date format to convert all entries to true dates.",
+              "The column has mixed data types (some dates, some text strings that look like dates). Convert the text entries to true dates (for example, with DATEVALUE), then apply one consistent Date format.",
               "The column needs to be converted to a Table before sorting works",
               "The dates in text format need to be moved to a separate column",
             ],

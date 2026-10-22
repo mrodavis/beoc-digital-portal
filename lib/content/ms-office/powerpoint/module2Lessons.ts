@@ -470,12 +470,12 @@ blocks: [
 {
 type: "paragraph",
 text:
-"When you create numbered lists across multiple slides or sections, PowerPoint can continue numbering automatically.",
+"PowerPoint does not continue numbering from one slide to the next; each slide's list starts at 1.",
 },
 {
 type: "paragraph",
 text:
-"You can adjust where numbering starts by opening the Bullets and Numbering dialog box and changing the Start At value.",
+"To continue a list on a new slide, open the Bullets and Numbering dialog box and set Start At to the next number.",
 },
 {
 type: "image",

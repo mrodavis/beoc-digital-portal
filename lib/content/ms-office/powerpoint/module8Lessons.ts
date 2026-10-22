@@ -6,7 +6,7 @@ export const powerpointModule8Lessons: Lesson[] = [
   slug: "checking-spelling-and-comments",
   title: "Checking Spelling & Using Comments",
   description:
-    "Learn how to run a spell check, use the built-in thesaurus, add and review comments, and use Track Changes tools to collaborate and polish your presentation before delivery.",
+    "Learn how to run a spell check, use the built-in thesaurus, and add and review comments to collaborate and polish your presentation before delivery.",
   objectives: [
     "Run spell check across a presentation",
     "Add, reply to, and resolve comments",

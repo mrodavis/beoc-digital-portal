@@ -77,7 +77,7 @@ export const excelModule3Lessons: Lesson[] = [
           type: "list",
           ordered: true,
           items: [
-            "Locate and select the New Sheet (+) button near the bottom-right corner of the Excel window.",
+            "Select the New Sheet (+) button just to the right of the sheet tabs at the bottom of the window.",
             "A new blank worksheet will appear.",
           ],
         },
