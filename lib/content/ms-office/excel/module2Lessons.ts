@@ -600,10 +600,7 @@ export const excelModule2Lessons: Lesson[] = [
   ],
   duration: "20 min",
 
-  videoUrls: [
-    "https://www.youtube.com/embed/etAMC0KRuBE",
-    "https://www.youtube.com/embed/LHSJJvkVrvA",
-  ],
+  videoUrl: "https://www.youtube.com/embed/mtmszjF2jF4",
 
   practiceFiles: [
     {
@@ -958,10 +955,7 @@ export const excelModule2Lessons: Lesson[] = [
   ],
   duration: "18 min",
 
-  videoUrls: [
-    "https://www.youtube.com/embed/fjyOG7Ls7BA",
-    "https://www.youtube.com/embed/LLmSAQ2PgVc",
-  ],
+  videoUrl: "https://www.youtube.com/embed/4DUPvSKhueE",
 
   practiceFiles: [
     {
@@ -1264,7 +1258,7 @@ export const excelModule2Lessons: Lesson[] = [
   ],
   duration: "15 min",
 
-  videoUrl: "https://www.youtube.com/embed/xc14gFFyiTw",
+  videoUrl: "https://www.youtube.com/embed/7HMcmeWTC6E",
 
   practiceFiles: [
     {

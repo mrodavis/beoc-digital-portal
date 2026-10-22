@@ -652,6 +652,7 @@ export const excelModule1Lessons: Lesson[] = [
     "Explain what a recipient can still see in a shared workbook",
   ],
   duration: "14 min",
+  videoUrl: "https://www.youtube.com/embed/LSTt-BsMNhI",
 
   practiceFiles: [
     {
