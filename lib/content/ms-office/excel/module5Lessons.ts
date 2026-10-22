@@ -18,6 +18,7 @@ export const excelModule5Lessons: Lesson[] = [
     "Use Data Validation to prevent bad entries at the source",
   ],
   duration: "6 min",
+  videoUrl: "https://www.youtube.com/embed/9Bv4czIlKmQ",
 
   sections: [
 
@@ -371,7 +372,7 @@ export const excelModule5Lessons: Lesson[] = [
   ],
   duration: "10 min",
 
-  videoUrl: "https://www.youtube.com/embed/zuhsUNBeNHw",
+  videoUrl: "https://www.youtube.com/embed/cuKOkfYPEd8",
 
   practiceFiles: [
     {
@@ -709,7 +710,7 @@ export const excelModule5Lessons: Lesson[] = [
   ],
   duration: "12 min",
 
-  videoUrl: "https://www.youtube.com/embed/Ep5q1cUhQas",
+  videoUrl: "https://www.youtube.com/embed/avHKajfppRM",
 
   practiceFiles: [
     {
@@ -1496,7 +1497,7 @@ challenge: [
   ],
   duration: "15 min",
 
-  videoUrl: "https://www.youtube.com/embed/7JJOBFSHbZk",
+  videoUrl: "https://www.youtube.com/embed/wm50C1F3kFk",
 
   practiceFiles: [
     {
@@ -1846,7 +1847,7 @@ challenge: [
     ],
     duration: "15 min",
 
-    videoUrl: "https://www.youtube.com/embed/zfQ8uOBoIj8",
+    videoUrl: "https://www.youtube.com/embed/ySApHiLCqD8",
 
     practiceFiles: [
         {
