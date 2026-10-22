@@ -13,7 +13,7 @@ export const wordModule6Lessons: Lesson[] = [
           "Account for binding and hole-punching when setting margins",
         ],
         duration: "12 min",
-        videoUrl: "https://www.youtube.com/embed/aRvVeiWmFZk",
+        videoUrl: "https://www.youtube.com/embed/Mv8PbGPuelA",
 
         practiceFiles: [
             {
@@ -289,7 +289,7 @@ export const wordModule6Lessons: Lesson[] = [
       "Recognize why spaces are never a substitute for tabs or indents",
     ],
     duration: "8 min",
-    videoUrl: "https://www.youtube.com/embed/vJGYWVe52T4?si=P2fE667vh32d5DfJ",
+    videoUrl: "https://www.youtube.com/embed/52C1SRK-nHU",
 
     practiceFiles: [
         {
@@ -532,7 +532,7 @@ export const wordModule6Lessons: Lesson[] = [
       "Use Keep with next to stop headings being stranded at the foot of a page",
     ],
     duration: "10 min",
-    videoUrl: "https://www.youtube.com/embed/mXWvKHWe2Co?si=ALpc88kNziEZhfGI",
+    videoUrl: "https://www.youtube.com/embed/bGsx3_gKxvc",
 
     practiceFiles: [
       {
@@ -730,7 +730,7 @@ export const wordModule6Lessons: Lesson[] = [
     "Replace repeated Enter presses with a proper page break",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/78fvQ9Ks8DA",
+  videoUrl: "https://www.youtube.com/embed/nGIW3cFNW5I",
 
   practiceFiles: [
     {
@@ -1016,7 +1016,7 @@ export const wordModule6Lessons: Lesson[] = [
     "Explain why columns are a readability tool",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/X1n2VG1yxFs?si=WLrIc_XyiWiQtSBB",
+  videoUrl: "https://www.youtube.com/embed/N_pjTI1tOWM",
 
   practiceFiles: [
     {
