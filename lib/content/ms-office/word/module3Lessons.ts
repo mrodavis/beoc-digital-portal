@@ -1322,7 +1322,7 @@ export const wordModule3Lessons: Lesson[] = [
          },
          {
            type: "paragraph",
-           text: "Grouping is the follow-up. Once a diagram is aligned, select every piece and press Ctrl+G to group them into a single object. From then on, moving or resizing the group preserves every internal relationship. Without grouping, moving a six-box diagram means moving six objects and re-aligning them at the destination.",
+           text: "Grouping is the follow-up. Once a diagram is aligned, select every piece and choose Shape Format > Group > Group (Picture Format > Group for pictures) to join them into a single object. From then on, moving or resizing the group preserves every internal relationship. Without grouping, moving a six-box diagram means moving six objects and re-aligning them at the destination.",
          },
          {
            type: "tip",
@@ -1346,8 +1346,8 @@ export const wordModule3Lessons: Lesson[] = [
                why: "This equalizes the vertical gaps between all six. Distribution needs at least three objects to be meaningful, and it fixes the uneven spacing that dragging always produces.",
              },
              {
-               move: "With all six still selected, press Ctrl+G to group.",
-               why: "The diagram becomes one object. It can now be moved, resized, or wrapped as a unit without any internal drift. Ctrl+Shift+G ungroups again when you need to edit an individual box.",
+               move: "With all six still selected, choose Shape Format > Group > Group.",
+               why: "The diagram becomes one object. It can now be moved, resized, or wrapped as a unit without any internal drift. Shape Format > Group > Ungroup separates the pieces again when you need to edit an individual box.",
              },
            ],
            result: "A precisely aligned, evenly distributed diagram that behaves as a single object.",
