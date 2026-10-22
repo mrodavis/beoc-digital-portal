@@ -359,7 +359,7 @@ export const module7Lessons: Lesson[] = [
             type: "list",
             items: [
               "Joining a scheduled meeting — click the Join button in the Teams calendar or in your Outlook calendar invitation. Depending on the meeting options, you may wait in a lobby until the organizer admits you. Before joining, Teams shows a pre-join screen to check your camera and microphone — use it every time to prevent audio/video problems in the meeting itself.",
-              "Starting an instant meeting — in any Chat or Channel, click the Video Call (camera) or Audio Call (phone) button to start an impromptu meeting with that person or group. This is faster than scheduling a formal meeting for quick consultations.",
+              "Starting an instant meeting — in a chat, select Video call (camera) or Audio call (phone) to call that person or group right away; in a channel, select Meet now. This is faster than scheduling a formal meeting for quick consultations.",
               "Scheduling a Teams meeting — in the Teams calendar, select New event; in Outlook, create a new event and make it a Teams meeting (the new Outlook has a Teams meeting switch; classic Outlook has New Teams Meeting). Add your attendees, set the time, add an agenda to the body, and send. Recipients can join from the Outlook calendar invite or from their Teams calendar.",
               "Meeting features during a call: use the meeting toolbar to mute/unmute (Mic), turn your camera on/off (Camera), share your screen (Share), see the participant list (People), open the meeting chat (Chat), raise your hand (Raise), and send reactions (React). More (…) › Video effects and settings lets you blur your background. The Chat panel in a meeting allows sharing links, files, and written notes without interrupting the spoken conversation.",
             ],
@@ -430,7 +430,7 @@ export const module7Lessons: Lesson[] = [
         items: [
           "Send a private chat message to yourself in Teams (or to a classmate): type a professional message as if checking in about a patient appointment, and @mention the recipient. Screenshot the sent message showing the @mention.",
           "Upload your 'LMA_FileManagementGuide' document (from Module 2) to a Teams channel's Shared tab. Screenshot the Shared tab showing the uploaded document.",
-          "Schedule a 5-minute test Teams meeting with yourself or a classmate. Join it, test your camera and microphone using the preview screen, and take a screenshot of the meeting lobby view before joining.",
+          "Schedule a 5-minute test Teams meeting with yourself or a classmate. Open it, test your camera and microphone on the pre-join screen, and take a screenshot of the pre-join screen before you select Join now.",
           "Find and use the background blur feature in Teams during your test meeting (More (…) › Video effects and settings › Blur). Screenshot the blurred background in the active meeting. This is a professional alternative to a virtual background when your physical background is not ideal.",
           "On a school computer, do this in the Challenge Lab below.",
         ],

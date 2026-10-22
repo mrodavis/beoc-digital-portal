@@ -421,8 +421,8 @@ export const teamsModule5Lessons: Lesson[] = [
             ordered: true,
             items: [
               "Tell people first. A short note in the meeting chat (“This meeting will be recorded for staff who can't attend”) is a good habit.",
-              "Select More (…) › Record and transcribe › Start recording, then Confirm. Everyone in the meeting is notified that recording has started.",
-              "To stop, select More (…) › Record and transcribe › Stop recording. Stop transcription stops only the transcript.",
+              "Select More (…) › Record. Check the spoken language and what to record (audio and video, or audio only), then select Confirm. Everyone in the meeting is notified that recording has started, and live transcription starts with it.",
+              "To stop, select More (…) › Recording; this stops the recording and the transcript. Selecting Transcribing stops only the transcript and keeps recording. To get a transcript without a recording, select More (…) › Transcribe › Confirm.",
               "The recording is saved in the organizer's OneDrive for work or school (or SharePoint for a channel meeting) and a link appears in the meeting chat. Your organization may set recordings to expire after a period of time.",
             ],
           },
@@ -443,8 +443,8 @@ export const teamsModule5Lessons: Lesson[] = [
               { move: "Join, then Admit Dana Brooks from the lobby banner.", why: "An outside guest waits in the lobby; admitting her right away keeps the meeting on time." },
               { move: "People › Omar Haddad › More options › Make a presenter. Leave Dana as an attendee.", why: "Omar needs to share the schedule. Dana only needs to talk." },
               { move: "People › Mute all.", why: "Several people are in noisy areas; muting everyone keeps the audio clean. People can unmute to speak." },
-              { move: "Post the recording notice in the meeting chat, then More › Record and transcribe › Start recording › Confirm.", why: "People know before it starts, and Teams notifies everyone too." },
-              { move: "At the end, Stop recording, then the arrow next to Leave › End meeting.", why: "End meeting closes it for everyone, so nobody stays in an empty meeting." },
+              { move: "Post the recording notice in the meeting chat, then More › Record › Confirm.", why: "People know before it starts, and Teams notifies everyone too." },
+              { move: "At the end, More › Recording to stop the recording, then the arrow next to Leave › End meeting.", why: "End meeting closes it for everyone, so nobody stays in an empty meeting." },
             ],
             result: "A meeting that started and ended on time, with a recording everyone knew about.",
             takeaway: "Admit promptly, give the least role needed, announce before recording, and end the meeting for everyone.",
@@ -518,7 +518,7 @@ export const teamsModule5Lessons: Lesson[] = [
     duration: "15 min",
     slides: slides("captions-recordings-and-follow-up", [
       "Captions, transcripts, and recordings",
-      "Show live captions",
+      "Turn on live captions",
       "Captions vs. transcript vs. recording",
       "Meeting notes everyone can see",
       "After the meeting: the meeting chat",
@@ -536,7 +536,7 @@ export const teamsModule5Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Live captions show what people say as text on your screen during a meeting. Turning captions on changes only your own screen. To turn them on, select More (…) › Language and speech › Show live captions. To turn them off, choose Hide live captions. Teams does not save captions; if you need a record, turn on transcription.",
+            text: "Live captions show what people say as text on your screen during a meeting. Turning captions on changes only your own screen. To turn them on, select More (…) › Captions. To turn them off, select More (…) › Captions again. Teams does not save captions; if you need a record, turn on transcription.",
           },
           {
             type: "table",
@@ -587,7 +587,7 @@ export const teamsModule5Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "Some organizations also have AI meeting features, such as recap summaries and Copilot in Teams meetings. These need extra licenses (such as a Microsoft 365 Copilot license or Teams Premium), so you may not see them at work. Notes and a written follow-up work everywhere.",
+            text: "Some organizations also have AI meeting features. AI-generated recaps (intelligent recap, such as AI meeting notes and recommended tasks) need a Teams Premium or Microsoft 365 Copilot license, and Copilot in Teams meetings needs a Microsoft 365 Copilot license, so you may not see them at work. Notes and a written follow-up work everywhere.",
           },
         ],
       },

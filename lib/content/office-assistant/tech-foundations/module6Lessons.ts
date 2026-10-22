@@ -518,7 +518,7 @@ export const module6Lessons: Lesson[] = [
             type: "list",
             items: [
               "Scheduling a Teams meeting — in the new Outlook, go to Calendar, select New event, and turn on the Teams meeting toggle next to the title; in classic Outlook, create a Meeting and select Teams Meeting. You can also use New event in the Teams calendar. Add attendees, set the date and time, add an agenda, and send. Recipients receive a calendar invitation with a Join button that opens the Teams meeting at the scheduled time.",
-              "Meeting controls during the call — as a host or presenter, you can: Mute all participants (to stop background noise during a presentation), manage the participant list (Participants panel), share your screen (Share > select window or desktop), and record the meeting (Record — with participant notification as required by policy and law).",
+              "Meeting controls during the call — as a host or presenter, you can: mute all participants (to stop background noise during a presentation), manage the participant list (People in Teams, Participants in Zoom), share your screen (Share › choose a window or your screen), and record the meeting (in Teams, More › Record › Confirm; in Zoom, Record), telling participants first as required by policy and law.",
               "Screen sharing — press the Share button in Teams or Zoom to share your entire screen or a specific window. Best practice: share a specific window (not your entire screen) to avoid accidentally showing other open content. Before sharing, close any tabs or windows that should not be visible, and check that no patient records or PHI are open.",
             ],
           },

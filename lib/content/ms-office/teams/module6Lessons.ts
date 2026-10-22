@@ -222,7 +222,7 @@ export const teamsModule6Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "The Approvals app sends a request to one or more approvers and keeps a record of the request and the answer. Open Approvals, select New approval request, give it a clear name, add the approvers, add the details they need to decide (what, why, and how much), and send it. You can see the status of requests you sent and received in the app. Your organization must have Approvals set up; it relies on Power Automate behind the scenes.",
+            text: "The Approvals app sends a request to one or more approvers and keeps a record of the request and the answer. Open Approvals, select New approval request, give it a clear name, add the approvers, add the details they need to decide (what, why, and how much), and select Send. You can see the status of requests you sent and received in the app. Approvals is available in Teams by default, but your organization can turn it off, and it runs on Power Automate behind the scenes.",
           },
           {
             type: "table",
@@ -254,7 +254,7 @@ export const teamsModule6Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Some organizations give staff Microsoft 365 Copilot, an AI assistant. In Teams, Copilot Chat appears at the top of your chat list, where you can ask it things like “Catch up on unread chats” or “Draft a message about the new check-in hours.” With a Microsoft 365 Copilot license, Copilot can also help during and after meetings (such as summarizing what was discussed and listing follow-up tasks). Many Copilot meeting features require that license, and some recap features need Teams Premium, so you may not see them at work. Whether you see Copilot at all depends on your organization.",
+            text: "Some organizations turn on Copilot, Microsoft's AI assistant, in Teams. When it is turned on, Copilot appears at the top of Chat, where you can ask it questions or ask it to draft a message. Using Copilot in your chats, meetings, and calls (for example, to summarize what was discussed in a meeting or list follow-up tasks) needs a Microsoft 365 Copilot license. AI meeting recaps (intelligent recap) need a Teams Premium or Microsoft 365 Copilot license. Your organization decides whether you see Copilot and which licenses you have, so you may not see these features at work.",
           },
           {
             type: "callout",
@@ -481,7 +481,7 @@ export const teamsModule6Lessons: Lesson[] = [
               ["Reading long text", "Immersive Reader: read aloud, text size and spacing, line focus, translation", "Point to a message › More options (…) › Immersive Reader"],
               ["Seeing the screen", "Theme (Follow operating system theme, Light, Dark) and high contrast", "Settings and more (…) › Settings › Appearance and accessibility"],
               ["Seeing the screen", "Zoom in and out", "Ctrl+= and Ctrl+-"],
-              ["Hearing meetings", "Live captions", "In a meeting: More (…) › Language and speech › Show live captions"],
+              ["Hearing meetings", "Live captions", "In a meeting: More (…) › Captions"],
               ["Being heard", "Noise suppression", "Settings › Devices"],
               ["Using the keyboard", "Keyboard shortcuts", "Ctrl+. shows them all"],
               ["Using a screen reader", "Support for Windows Narrator, JAWS, and NVDA", "Works with Teams on Windows"],

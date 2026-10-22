@@ -793,7 +793,8 @@ export function applyTeams(input: TeamsDoc, c: SimCommit, uiIn: SimUi): { doc: T
     case "meeting.record": {
       const m = meetingFor(doc, sel, "in");
       m.recording = sv.toLowerCase() !== "stop";
-      if (m.recording) m.transcribing = true;
+      // Recording starts live transcription too; selecting Recording to stop ends both (Transcribing stops only the transcript).
+      m.transcribing = m.recording;
       return out();
     }
     case "meeting.transcribe": {

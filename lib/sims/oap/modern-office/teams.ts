@@ -99,7 +99,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
                 {
                   id: "ch-random",
                   name: "Random",
-                  notifications: "All new posts",
+                  notifications: "All activity",
                   posts: [
                     { id: "m-z1", from: "p-sam", time: "9:30 AM", text: "Who wants to order lunch from the taco place?", replies: [{ id: "m-z1r", from: "p-dana", time: "9:31 AM", text: "Me!" }] },
                     { id: "m-z2", from: "p-alex", time: "9:44 AM", text: "Coffee machine on 3 is fixed 🎉", replies: [] },
@@ -299,7 +299,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Start your first morning by checking Activity. Open Renee Ortiz's mention.",
-          hint: "Select Activity on the left rail, then select Renee Ortiz's mention.",
+          hint: "Select Activity on the left side of Teams, then select Renee Ortiz's mention.",
           steps: [{ action: { kind: "select", target: "activity:a1" } }],
         },
         {
@@ -382,7 +382,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Schedule the client meeting “TOR Tech / Marcus Webb - Q3 Contract Review” with Marcus Webb and Dana Cole on Wednesday, October 21, 2026, from 10:00 AM to 10:45 AM. In the details, type the agenda “1. Contract terms 2. Renewal pricing 3. Next steps.”",
-          hint: "Calendar › New meeting. Type the title, add Marcus Webb and Dana Cole, choose Wed 10/21/2026, 10:00 AM to 10:45 AM, type the agenda in the details box, and select Send.",
+          hint: "Calendar › New event. Type the title, add Marcus Webb and Dana Cole, choose Wed 10/21/2026, 10:00 AM to 10:45 AM, type the agenda in the details box, and select Send.",
           steps: [
             typeAll(
               "schedule",
@@ -393,7 +393,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Schedule the internal meeting “Q3 Renewal Prep” with Dana Cole and Sam Patel on Wednesday, October 21, 2026, from 9:30 AM to 10:00 AM, so it ends before the client meeting. Agenda: “1. Pricing options 2. Client history.”",
-          hint: "Calendar › New meeting. Title Q3 Renewal Prep, add Dana Cole and Sam Patel, Wed 10/21/2026, 9:30 AM to 10:00 AM, type the agenda, and select Send.",
+          hint: "Calendar › New event. Title Q3 Renewal Prep, add Dana Cole and Sam Patel, Wed 10/21/2026, 9:30 AM to 10:00 AM, type the agenda, and select Send.",
           steps: [
             typeAll(
               "schedule",
@@ -539,7 +539,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Schedule the client-facing meeting “Q3 Contract Review - Marcus Webb” with Marcus Webb and Dana Cole on Thursday, October 22, 2026, from 10:00 AM to 10:45 AM. Agenda: “1. Contract terms 2. Renewal pricing 3. Next steps.”",
-          hint: "Calendar › New meeting. Type the title, add Marcus Webb and Dana Cole, choose Thu 10/22/2026, 10:00 AM to 10:45 AM, type the agenda, and select Send.",
+          hint: "Calendar › New event. Type the title, add Marcus Webb and Dana Cole, choose Thu 10/22/2026, 10:00 AM to 10:45 AM, type the agenda, and select Send.",
           steps: [
             typeAll(
               "schedule",
@@ -555,7 +555,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Schedule the internal meeting “Capstone Prep” with Renee Ortiz on Wednesday, October 21, 2026, from 3:00 PM to 3:30 PM. Agenda: “1. Final checks 2. Portfolio review.”",
-          hint: "Calendar › New meeting. Title Capstone Prep, add Renee Ortiz, Wed 10/21/2026, 3:00 PM to 3:30 PM, type the agenda, and select Send.",
+          hint: "Calendar › New event. Title Capstone Prep, add Renee Ortiz, Wed 10/21/2026, 3:00 PM to 3:30 PM, type the agenda, and select Send.",
           steps: [
             typeAll(
               "schedule",

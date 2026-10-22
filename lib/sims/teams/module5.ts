@@ -352,7 +352,7 @@ export const teamsModule5Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Turn on live captions.",
-          hint: "More (…) in the meeting controls › Language and speech › Show live captions.",
+          hint: "More (…) in the meeting controls › Captions.",
           steps: [cmd("meeting.captions", "on", "meeting:e-priv", "Turn on captions from the meeting controls.")],
         },
         {
@@ -415,17 +415,17 @@ export const teamsModule5Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Start recording.",
-          hint: "More (…) › Record and transcribe › Start recording › Confirm.",
+          hint: "More (…) › Record › Confirm.",
           steps: [cmd("meeting.record", "start", "meeting:e-review", "Start the recording from the meeting controls.")],
         },
         {
           instruction: "Turn on live captions.",
-          hint: "More (…) › Language and speech › Show live captions.",
+          hint: "More (…) › Captions.",
           steps: [cmd("meeting.captions", "on", "meeting:e-review", "Turn on captions from the meeting controls.")],
         },
         {
           instruction: "The review is done. Stop recording, then end the meeting for everyone.",
-          hint: "More (…) › Record and transcribe › Stop recording. Then select the arrow next to Leave › End meeting.",
+          hint: "More (…) › Recording (selecting it stops the recording and the transcript). Then select the arrow next to Leave › End meeting.",
           steps: [
             cmd("meeting.record", "stop", "meeting:e-review", "Stop the recording from the meeting controls."),
             cmd("meeting.end", undefined, "meeting:e-review", "End the meeting from the arrow next to Leave."),
@@ -461,7 +461,7 @@ export const teamsModule5Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Start transcription (without recording).",
-          hint: "More (…) › Record and transcribe › Start transcription.",
+          hint: "More (…) › Transcribe › Confirm.",
           steps: [cmd("meeting.transcribe", "start", "meeting:e-pec", "Start transcription from the meeting controls.")],
         },
         {
@@ -471,7 +471,7 @@ export const teamsModule5Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Stop transcription and end the meeting for everyone.",
-          hint: "More (…) › Record and transcribe › Stop transcription. Then the arrow next to Leave › End meeting.",
+          hint: "More (…) › Transcribing (selecting it stops the transcript). Then the arrow next to Leave › End meeting.",
           steps: [
             cmd("meeting.transcribe", "stop", "meeting:e-pec", "Stop transcription from the meeting controls."),
             cmd("meeting.end", undefined, "meeting:e-pec", "End the meeting from the arrow next to Leave."),
@@ -513,7 +513,7 @@ export const teamsModule5Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "The front office is noisy. Turn on live captions.",
-          hint: "More (…) › Language and speech › Show live captions.",
+          hint: "More (…) › Captions.",
           steps: [cmd("meeting.captions", "on", "meeting:e-huddle", "Turn on captions from the meeting controls.")],
         },
         {
@@ -557,7 +557,7 @@ export const teamsModule5Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Join the Front Office Huddle and turn on live captions.",
-          hint: "Calendar › Front Office Huddle › Join › Join now. Then More (…) › Language and speech › Show live captions.",
+          hint: "Calendar › Front Office Huddle › Join › Join now. Then More (…) › Captions.",
           steps: [
             cmd("meeting.joinNow", undefined, "prejoin:e-huddle", "Select Join now on the pre-join screen."),
             cmd("meeting.captions", "on", "meeting:e-huddle", "Turn on captions from the meeting controls."),

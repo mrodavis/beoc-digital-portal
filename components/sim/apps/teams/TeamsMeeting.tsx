@@ -255,7 +255,7 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
   const key = `meeting:${m.id}`;
   const [panel, setPanel] = useState<"chat" | "people" | "effects" | "devices" | "notes" | null>(null);
   const [shareOpen, setShareOpen] = useState(false);
-  const [confirmRec, setConfirmRec] = useState(false);
+  const [confirmRec, setConfirmRec] = useState<"record" | "transcribe" | null>(null);
   const [note, setNote] = useState("");
   const [bgDraft, setBgDraft] = useState(m.background);
   const [floating, setFloating] = useState<{ k: number; em: string } | null>(null);
@@ -315,14 +315,14 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
     return () => document.removeEventListener("keydown", onKey);
   }, [cmd, key]);
 
+  // More actions, as in Microsoft's Teams meeting docs (October 2026): Record › Confirm starts recording and
+  // transcription; while recording, selecting Recording stops both and Transcribing stops only the transcript.
+  // Transcribe › Confirm starts a transcript without recording. Captions turns live captions on and off.
   const moreMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
     const items: MenuEntry[] = [
-      { heading: true, label: "Record and transcribe" },
-      m.recording ? { label: "Stop recording", icon: "record", onClick: () => cmd(key, "meeting.record", "stop") } : { label: "Start recording", icon: "record", onClick: () => setConfirmRec(true) },
-      m.transcribing ? { label: "Stop transcription", icon: "note", onClick: () => cmd(key, "meeting.transcribe", "stop") } : { label: "Start transcription", icon: "note", onClick: () => cmd(key, "meeting.transcribe", "start") },
-      { separator: true },
-      { heading: true, label: "Language and speech" },
-      m.captions ? { label: "Hide live captions", icon: "cc", onClick: () => cmd(key, "meeting.captions", "off") } : { label: "Show live captions", icon: "cc", onClick: () => cmd(key, "meeting.captions", "on") },
+      m.recording ? { label: "Recording", icon: "record", onClick: () => cmd(key, "meeting.record", "stop") } : { label: "Record", icon: "record", onClick: () => setConfirmRec("record") },
+      m.transcribing ? { label: "Transcribing", icon: "note", onClick: () => cmd(key, "meeting.transcribe", "stop") } : { label: "Transcribe", icon: "note", onClick: () => setConfirmRec("transcribe") },
+      { label: "Captions", icon: "cc", checked: Boolean(m.captions), onClick: () => cmd(key, "meeting.captions", m.captions ? "off" : "on") },
       { separator: true },
       { label: "Video effects and settings", icon: "effects", onClick: () => { setBgDraft(m.background); panelOpen("effects"); } },
       { label: "Audio settings", icon: "speaker", onClick: () => panelOpen("devices") },
@@ -680,20 +680,44 @@ function InMeeting({ m }: { m: TeamsMeeting }) {
         )}
       </div>
       {confirmRec && (
-        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50" role="dialog" aria-label="Start recording">
-          <div className="w-[380px] rounded-lg bg-[#292929] p-5 text-[13px] shadow-2xl">
-            <div className="mb-2 text-[16px] font-semibold">Start recording?</div>
-            <p className="mb-4 text-[#d6d6d6]">Everyone in the meeting will be notified that recording and transcription have started. Make sure participants know before you record.</p>
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/50" role="dialog" aria-label={confirmRec === "record" ? "Record" : "Transcribe"}>
+          <div className="w-[400px] rounded-lg bg-[#292929] p-5 text-[13px] shadow-2xl">
+            <div className="mb-2 text-[16px] font-semibold">{confirmRec === "record" ? "Record" : "Transcribe"}</div>
+            <p className="mb-3 text-[#d6d6d6]">
+              {confirmRec === "record"
+                ? "Everyone in the meeting is notified when recording and transcription start. Make sure participants know before you record."
+                : "Everyone in the meeting is notified when transcription starts."}
+            </p>
+            <label className="mb-3 block">
+              <span className="mb-1 block text-[12px] font-semibold text-[#d6d6d6]">Spoken language</span>
+              <select aria-label="Spoken language" defaultValue="English (United States)" className="w-full rounded-[4px] border border-[#5c5c5c] bg-[#1f1f1f] px-2 py-1.5 text-[13px] text-white outline-none">
+                {["English (United States)", "Spanish (United States)", "Chinese (Simplified)", "French (France)"].map((o) => (
+                  <option key={o}>{o}</option>
+                ))}
+              </select>
+            </label>
+            {confirmRec === "record" && (
+              <label className="mb-4 block">
+                <span className="mb-1 block text-[12px] font-semibold text-[#d6d6d6]">Choose what to record</span>
+                <select aria-label="Choose what to record" defaultValue="Audio and video" className="w-full rounded-[4px] border border-[#5c5c5c] bg-[#1f1f1f] px-2 py-1.5 text-[13px] text-white outline-none">
+                  {["Audio and video", "Audio only"].map((o) => (
+                    <option key={o}>{o}</option>
+                  ))}
+                </select>
+              </label>
+            )}
             <div className="flex justify-end gap-2">
-              <button type="button" onClick={() => setConfirmRec(false)} className="rounded-[4px] border border-white/40 px-4 py-1 font-semibold hover:bg-white/10">
+              <button type="button" onClick={() => setConfirmRec(null)} className="rounded-[4px] border border-white/40 px-4 py-1 font-semibold hover:bg-white/10">
                 Cancel
               </button>
               <button
                 type="button"
                 aria-label="Confirm"
                 onClick={() => {
-                  setConfirmRec(false);
-                  cmd(key, "meeting.record", "start");
+                  const what = confirmRec;
+                  setConfirmRec(null);
+                  if (what === "record") cmd(key, "meeting.record", "start");
+                  else cmd(key, "meeting.transcribe", "start");
                 }}
                 className="rounded-[4px] bg-[#5b5fc7] px-4 py-1 font-semibold hover:bg-[#4f52b2]"
               >

@@ -324,7 +324,7 @@ export const teamsModule6Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Close Settings, join the Front Office Huddle, and turn on live captions.",
-          hint: "Back arrow › Calendar › Front Office Huddle › Join › Join now. Then More (…) › Language and speech › Show live captions.",
+          hint: "Back arrow › Calendar › Front Office Huddle › Join › Join now. Then More (…) › Captions.",
           steps: [cmd("meeting.joinNow", undefined, "prejoin:e-huddle", "Select Join now on the pre-join screen."), cmd("meeting.captions", "on", "meeting:e-huddle", "Turn on captions from the meeting controls.")],
         },
       ],
@@ -353,7 +353,7 @@ export const teamsModule6Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Join the Front Office Huddle and turn on live captions.",
-          hint: "Calendar › Front Office Huddle › Join › Join now › More (…) › Language and speech › Show live captions.",
+          hint: "Calendar › Front Office Huddle › Join › Join now › More (…) › Captions.",
           steps: [cmd("meeting.joinNow", undefined, "prejoin:e-huddle", "Select Join now on the pre-join screen."), cmd("meeting.captions", "on", "meeting:e-huddle", "Turn on captions from the meeting controls.")],
         },
         {

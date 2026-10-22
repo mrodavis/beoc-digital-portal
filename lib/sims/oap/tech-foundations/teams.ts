@@ -235,7 +235,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Start recording the meeting.",
-          hint: "Select More (…) in the meeting toolbar › Record and transcribe › Start recording.",
+          hint: "Select More (…) in the meeting toolbar › Record, then select Confirm.",
           steps: [{ action: { kind: "command", id: "meeting.record", value: "start" }, requires: { selection: "meeting:e2" }, selectHint: "Start the recording from the meeting toolbar." }],
         },
         {
@@ -245,7 +245,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Turn on live captions.",
-          hint: "More (…) › Language and speech › Show live captions.",
+          hint: "More (…) › Captions.",
           steps: [{ action: { kind: "command", id: "meeting.captions", value: "on" }, requires: { selection: "meeting:e2" }, selectHint: "Turn on captions from the meeting toolbar." }],
         },
         {
@@ -255,7 +255,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "The review is finished. Stop recording, then end the meeting for everyone.",
-          hint: "More (…) › Record and transcribe › Stop recording. Then select the arrow next to Leave › End meeting.",
+          hint: "More (…) › Recording (selecting it stops the recording). Then select the arrow next to Leave › End meeting.",
           steps: [
             { action: { kind: "command", id: "meeting.record", value: "stop" }, requires: { selection: "meeting:e2" }, selectHint: "Stop the recording from the meeting toolbar." },
             { action: { kind: "command", id: "meeting.end" }, requires: { selection: "meeting:e2" }, selectHint: "End the meeting from the arrow next to Leave." },
@@ -281,7 +281,7 @@ export const teamsSims: Record<string, SimDefinition[]> = {
       tasks: [
         {
           instruction: "Check your Activity feed and open the mention from Elena Alvarez.",
-          hint: "Select Activity on the left rail, then select Elena Alvarez's mention in the list.",
+          hint: "Select Activity on the left side of Teams, then select Elena Alvarez's mention in the list.",
           steps: [{ action: { kind: "select", target: "activity:a1" } }],
         },
         {
