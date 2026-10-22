@@ -357,7 +357,7 @@ export const wordModule1Lessons: Lesson[] = [
     "Describe what AutoSave requires in order to work",
     "Judge when a clinical or personal document should not go into a personal OneDrive account",
   ],
-  videoUrl: "https://www.youtube.com/embed/OR_RjjqF1qc", // replace later if needed
+  videoUrl: "https://www.youtube.com/embed/zN3yc29RoVg",
   duration: "2 min",
 
   sections: [
@@ -531,7 +531,7 @@ export const wordModule1Lessons: Lesson[] = [
     "Recognize Compatibility Mode and decide whether to convert the file",
     "Explain what converting a .doc file changes and who it might affect",
   ],
-  videoUrl: "https://www.youtube.com/embed/PafCMUVH_OA",
+  videoUrl: "https://www.youtube.com/embed/ZMRtJUm3Hos",
   duration: "8 min",
 
   practiceFiles: [
@@ -767,7 +767,7 @@ export const wordModule1Lessons: Lesson[] = [
       "Set AutoRecover to an interval that matches how much work you can afford to lose",
       "Share a document by link and choose an appropriate permission level",
     ],
-    videoUrl: "https://www.youtube.com/embed/iHuFzz7Wvt4",
+    videoUrl: "https://www.youtube.com/embed/NVh7pnMS-cE",
     duration: "8 min",
 
     practiceFiles: [
