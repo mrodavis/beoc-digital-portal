@@ -784,7 +784,7 @@ export const powerpointModule4Lessons: Lesson[] = [
   practiceFiles: [
     {
       name: "Presenting Practice File",
-      url: "/practice/powerpoint/module-4/presenting/PowerPoint_Presenting_Practice.pptx",
+      url: "/practice/powerpoint/module-4/presenting/Powerpoint_Presenting_Practice.pptx",
     },
   ],
 

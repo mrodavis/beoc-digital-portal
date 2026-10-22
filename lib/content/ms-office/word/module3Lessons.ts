@@ -1301,7 +1301,7 @@ export const wordModule3Lessons: Lesson[] = [
   practiceFiles: [
     {
       name: "Word Align & Group Practice File",
-      url: "/practice/word/module-3/align/word2016_align_order_group_img.docx",
+      url: "/practice/word/module-3/align/word_alignordergroup_practice.docx",
     },
   ],
 
