@@ -13,7 +13,7 @@ export const wordModule3Lessons: Lesson[] = [
     "Anchor an image so it stays with the content it illustrates",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/sqkEDw99szg",
+  videoUrl: "https://www.youtube.com/embed/uc_Z9JAj7eY",
 
   practiceFiles: [
     {
@@ -348,7 +348,7 @@ export const wordModule3Lessons: Lesson[] = [
     "Judge when a picture style helps and when it distracts",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/eC4bRXx9k6g?si=9Y7ajF4Ato7_DjyJ",
+  videoUrl: "https://www.youtube.com/embed/cW7626Vszx4",
 
   practiceFiles: [
     {
@@ -633,7 +633,7 @@ export const wordModule3Lessons: Lesson[] = [
     "Understand stacking order and how it affects what is visible",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/6OJRvC1C7-U?si=ecqD5EXs5t_XiW_e",
+  videoUrl: "https://www.youtube.com/embed/iVRND7KVfTc",
 
   practiceFiles: [
     {
@@ -1021,7 +1021,7 @@ export const wordModule3Lessons: Lesson[] = [
     "Keep text boxes accessible for screen reader users",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/LRGZEi7lSnA?si=HO6IryaHGHU_-Ss6",
+  videoUrl: "https://www.youtube.com/embed/grXEwPhldaM",
 
   practiceFiles: [
     {
