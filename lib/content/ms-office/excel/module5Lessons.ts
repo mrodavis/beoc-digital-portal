@@ -1501,7 +1501,7 @@ challenge: [
   practiceFiles: [
     {
         name: "Download Practice Workbook",
-        url: "/files/excel/Excel_Subtotals_Practice.xlsx",
+        url: "/practice/excel/module-5/groups-subtotals/Excel_Subtotals_Practice.xlsx",
     },
     ],
 

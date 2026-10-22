@@ -728,6 +728,10 @@ alt: "Final slideshow with transitions applied",
       name: "Working with Audio Practice File",
       url: "/practice/powerpoint/module-6/audio/Powerpoint_Audio_Practice.pptx",
     },
+    {
+      name: "Sample music clip (MP3, 60 seconds)",
+      url: "/practice/powerpoint/module-6/audio/waiting-room-music.mp3",
+    },
   ],
 
   sections: [
@@ -991,6 +995,10 @@ alt: "Final slideshow with transitions applied",
     {
       name: "Working with Video Practice File",
       url: "/practice/powerpoint/module-6/video/Powerpoint_Video_Practice.pptx",
+    },
+    {
+      name: "Sample video clip (MP4, 30 seconds)",
+      url: "/practice/powerpoint/module-6/video/handwashing-steps.mp4",
     },
   ],
 
