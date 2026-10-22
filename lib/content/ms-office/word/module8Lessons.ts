@@ -807,7 +807,7 @@ LESSON 4 – DICTATION & VOICE FEATURES
         {
           type: "paragraph",
           text:
-            "Click the dropdown arrow on the Dictate button to select a different spoken language. Word supports dozens of languages and regional accents for dictation.",
+            "Open the dictation settings (the gear icon on the dictation toolbar) and choose a language under Spoken Language. Word supports dozens of languages and regional accents for dictation.",
         },
         {
           type: "image",
@@ -823,7 +823,7 @@ LESSON 4 – DICTATION & VOICE FEATURES
         {
           type: "paragraph",
           text:
-            "Click the Dictate button again to stop dictation. The microphone icon turns back to its normal color.",
+            "To stop, select Dictate again or close the dictation toolbar. You can also say \"stop dictation\". The microphone icon turns back to its normal color.",
         },
         {
           type: "image",
