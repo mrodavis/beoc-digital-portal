@@ -123,7 +123,7 @@ alt: "Copy command on the PowerPoint ribbon",
 {
 type: "paragraph",
 text:
-"Pasting normally brings the source formatting with it, which is why text copied from a web page arrives in the wrong font on a colored background. Ctrl+Shift+V, or Paste Options > Keep Text Only, brings the words and leaves the formatting behind. On a slide, where consistency is most of what looks professional, that is almost always what you want.",
+"Pasting normally brings the source formatting with it, which is why text copied from a web page arrives in the wrong font on a colored background. Paste Options > Keep Text Only (on the Home tab's Paste arrow, on the right-click menu, or on the Paste Options button that appears after pasting) brings the words and leaves the formatting behind. Unlike in Word, Ctrl+Shift+V does not do this in PowerPoint: it pastes formatting you copied with Ctrl+Shift+C. On a slide, where consistency is most of what looks professional, that is almost always what you want.",
 },
 {
 type: "image",
