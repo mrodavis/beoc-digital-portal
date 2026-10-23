@@ -14,7 +14,7 @@ export const powerpointModule2Lessons: Lesson[] = [
     "Recognize when a slide is carrying too much text",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/F9RL0Lk5cmw",
+  videoUrl: "https://www.youtube.com/embed/lstuTfQakSs",
 
   practiceFiles: [
     {

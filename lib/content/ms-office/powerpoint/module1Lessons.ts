@@ -587,7 +587,7 @@ export const powerpointModule1Lessons: Lesson[] = [
     "Explain what a template supplies beyond appearance",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/OX3vRazm4fw",
+  videoUrl: "https://www.youtube.com/embed/NLtLC4Po1BY",
 
   practiceFiles: [
     {
@@ -838,7 +838,7 @@ export const powerpointModule1Lessons: Lesson[] = [
     "Prepare a deck for a machine that may not have PowerPoint",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/pKqcEG4WMs4",
+  videoUrl: "https://www.youtube.com/embed/aYD23pDAO9U",
 
   practiceFiles: [
     {
@@ -1159,7 +1159,7 @@ sections: [
     "Use the outline to structure a deck before designing it",
   ],
   duration: "14 min",
-  videoUrl: "https://www.youtube.com/embed/TZfcVbKJs1E",
+  videoUrl: "https://www.youtube.com/embed/08qJ6ZAApo0",
 
   practiceFiles: [
     {
