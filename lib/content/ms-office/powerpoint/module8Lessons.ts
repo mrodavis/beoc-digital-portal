@@ -15,7 +15,7 @@ export const powerpointModule8Lessons: Lesson[] = [
     "Proofread the things spell check cannot catch",
   ],
   duration: "8 min",
-  videoUrl: "",
+  videoUrl: "https://www.youtube.com/embed/mhPCEHK_wT0",
 
   practiceFiles: [
     {
@@ -292,7 +292,7 @@ export const powerpointModule8Lessons: Lesson[] = [
     "Set up a self-running presentation",
   ],
   duration: "10 min",
-  videoUrl: "",
+  videoUrl: "https://www.youtube.com/embed/CG-63yjCrOg",
 
   practiceFiles: [
     {
