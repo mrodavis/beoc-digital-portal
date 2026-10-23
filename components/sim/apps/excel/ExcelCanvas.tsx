@@ -867,6 +867,10 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const nameBoxText = sel.startsWith("chart:") ? `Chart ${sel.slice(7)}` : sel.startsWith("obj:") ? `Graphic ${sel.slice(5)}` : r1c1 && actP ? `R${actP.r}C${actP.c}` : sel.includes(":") ? act : sel;
 
   const cells: React.ReactNode[] = [];
+  // Frozen panes: these cells go in sticky zero-size wrappers (like the headers), so they stay put while the rest scrolls.
+  const frozenRowCells: React.ReactNode[] = [];
+  const frozenColCells: React.ReactNode[] = [];
+  const frozenCornerCells: React.ReactNode[] = [];
   for (let r = 1; r <= nRows; r++) {
     if (hiddenRows.has(r)) continue;
     for (let c = 1; c <= nCols; c++) {
@@ -916,7 +920,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       const hasFilter = filterRect && r === filterRect.r1 && c >= filterRect.c1 && c <= filterRect.c2;
       const spark = sparklineAt(sheet, ref);
       const border = fmt.border;
-      cells.push(
+      (frozenRow && frozenCol ? frozenCornerCells : frozenRow ? frozenRowCells : frozenCol ? frozenColCells : cells).push(
         <div
           key={ref}
           data-cell={ref}
@@ -931,7 +935,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
             top: rowY[r],
             width: w,
             height: h,
-            background: cfs?.background ?? bg ?? (sheet.gridlines === false ? "#fff" : undefined),
+            background: cfs?.background ?? bg ?? (sheet.gridlines === false || frozenRow || frozenCol ? "#fff" : undefined),
             backgroundImage: cfs?.backgroundImage,
             borderRight: sheet.gridlines === false ? undefined : "1px solid #e1e1e1",
             borderBottom: border === "thickBottom" ? "2px solid #000" : border === "bottom" || border === "all" ? "1px solid #000" : sheet.gridlines === false ? undefined : "1px solid #e1e1e1",
@@ -955,8 +959,6 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
             display: fmt.wrap ? "flex" : undefined,
             alignItems: fmt.wrap ? (fmt.valign === "top" ? "flex-start" : fmt.valign === "middle" ? "center" : "flex-end") : undefined,
             zIndex: isEditing ? 8 : frozenRow || frozenCol ? 3 : cas ? 2 : overflowZ(nextEmpty, align),
-            position: frozenRow || frozenCol ? "sticky" : "absolute",
-            marginTop: frozenRow ? undefined : undefined,
             // The in-cell editor grows to the right over the next cells, as in Excel.
             ...(isEditing ? { overflow: "visible" } : {}),
           }}
@@ -1015,7 +1017,6 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     }
   }
 
-  // Frozen panes use sticky positioning on a wrapper; positions above are absolute within the grid.
   function overflowZ(nextEmpty: boolean, align: string) {
     return nextEmpty && align === "left" ? 1 : 0;
   }
@@ -1166,7 +1167,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
             <div className="sticky left-0 z-[5] w-0">
               {sheet.headings !== false &&
                 Array.from({ length: nRows }, (_, i) => i + 1).map((r) =>
-                  hiddenRows.has(r) ? null : (
+                  hiddenRows.has(r) || (freeze && r < freeze.r) ? null : (
                     <div
                       key={r}
                       onMouseDown={(e) => rowDown(e, r)}
@@ -1187,6 +1188,33 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
                   ),
                 )}
             </div>
+            {/* row headers of frozen rows stay at the top too */}
+            {freeze && freeze.r > 1 && (
+            <div className="sticky left-0 top-0 z-[6] h-0 w-0">
+              {sheet.headings !== false &&
+                Array.from({ length: nRows }, (_, i) => i + 1).map((r) =>
+                  hiddenRows.has(r) || !(freeze && r < freeze.r) ? null : (
+                    <div
+                      key={r}
+                      onMouseDown={(e) => rowDown(e, r)}
+                      onMouseEnter={() => drag.current?.mode === "row" && onSelect({ selection: `${Math.min(Number(drag.current.anchor.slice(1)), r)}:${Math.max(Number(drag.current.anchor.slice(1)), r)}` })}
+                      onContextMenu={(e) => cellMenu(e, `A${r}`, "row")}
+                      className={`absolute flex cursor-e-resize select-none items-center justify-center border-b border-r border-gray-300 text-[11px] ${selR && r >= selR.r1 && r <= selR.r2 ? "bg-[#d3e7dc] font-semibold text-[#217346]" : sheetView ? "bg-[#3b3b3b] text-gray-100" : "bg-[#f3f3f3] text-gray-600"}`}
+                      style={{ left: outW, top: rowY[r], width: HEAD_W, height: rowH(r) }}
+                    >
+                      {r}
+                      <span
+                        aria-label={`Bottom border of row ${r}`}
+                        title="Double-click to AutoFit"
+                        onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); }}
+                        onDoubleClick={(e) => { e.stopPropagation(); autoFitAt("row", r); }}
+                        className="absolute -bottom-[3px] left-0 z-[1] h-[6px] w-full cursor-row-resize"
+                      />
+                    </div>
+                  ),
+                )}
+            </div>
+            )}
             {/* outline bar: one bracket and +/- button per group */}
             {outW > 0 && (
               <div className="sticky left-0 z-[5] w-0">
@@ -1214,6 +1242,20 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
               </div>
             )}
             {cells}
+            {/* frozen panes: sticky wrappers keep the frozen rows/columns in place while the grid scrolls */}
+            {freeze && freeze.c > 1 && (
+              <div className="sticky left-0 z-[3] h-0 w-0">
+                {frozenColCells}
+                <div className="pointer-events-none absolute z-[4] w-px bg-gray-500" style={{ top: 0, left: colX[freeze.c], height: gridH }} />
+              </div>
+            )}
+            {freeze && freeze.r > 1 && (
+              <div className="sticky top-0 z-[4] h-0">
+                {frozenRowCells}
+                <div className="pointer-events-none absolute z-[4] h-px bg-gray-500" style={{ left: 0, top: rowY[freeze.r], width: gridW }} />
+              </div>
+            )}
+            {freeze && freeze.r > 1 && freeze.c > 1 && <div className="sticky left-0 top-0 z-[4] h-0 w-0">{frozenCornerCells}</div>}
             {/* split bars */}
             {(() => {
               const sp = sheet.split ? parseRef(String(doc.flags?.[`split:${sheet.name}`] || "")) : null;
@@ -1255,9 +1297,6 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
                     </div>
                   );
                 })}
-            {/* freeze lines */}
-            {freeze && freeze.r > 1 && <div className="pointer-events-none absolute z-[4] h-px bg-gray-500" style={{ left: 0, top: rowY[freeze.r], width: gridW }} />}
-            {freeze && freeze.c > 1 && <div className="pointer-events-none absolute z-[4] w-px bg-gray-500" style={{ top: 0, left: colX[freeze.c], height: gridH }} />}
             {/* print area / page break preview */}
             {(sheet.view === "pageBreak" || sheet.printArea) && used && (() => {
               const pa = sheet.printArea ? parseRange(sheet.printArea) ?? used : used;
