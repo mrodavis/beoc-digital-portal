@@ -14,7 +14,7 @@ export const excelModule1Lessons: Lesson[] = [
     "Move around a large worksheet efficiently with keyboard navigation",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/1owpnrOMezU",
+  videoUrl: "https://www.youtube.com/embed/WNlfhAr8zRg",
 
   practiceFiles: [],
 
