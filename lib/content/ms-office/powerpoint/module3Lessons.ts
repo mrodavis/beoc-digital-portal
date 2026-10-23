@@ -14,7 +14,7 @@ objectives: [
   "Keep a deck consistent with organizational branding",
 ],
 duration: "8 min",
-videoUrl: "https://www.youtube.com/embed/_gYShFl6i94",
+videoUrl: "https://www.youtube.com/embed/XwdrHSsy5Hs",
 
 practiceFiles: [
 {
@@ -277,7 +277,7 @@ objectives: [
   "Apply organizational branding consistently",
 ],
 duration: "10 min",
-videoUrl: "https://www.youtube.com/embed/UH7Gzjd3rGA",
+videoUrl: "https://www.youtube.com/embed/I1J-ll2K6v8",
 
 practiceFiles: [
 {
@@ -605,7 +605,7 @@ alt: "Final result after modifying a theme",
     "Edit a layout without affecting the rest of the deck",
   ],
   duration: "16 min",
-  videoUrl: "https://www.youtube.com/embed/h6ARCTypPTg",
+  videoUrl: "https://www.youtube.com/embed/9jMKjO0yFmg",
 
   practiceFiles: [
     {
