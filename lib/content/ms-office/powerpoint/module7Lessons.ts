@@ -14,7 +14,7 @@ export const powerpointModule7Lessons: Lesson[] = [
     "Judge when a table belongs on a slide at all",
   ],
   duration: "10 min",
-  videoUrl: "",
+  videoUrl: "https://www.youtube.com/embed/p2ERYECbneU",
 
   practiceFiles: [
     {
@@ -355,7 +355,7 @@ export const powerpointModule7Lessons: Lesson[] = [
     "Update a chart when the source figures change",
   ],
   duration: "11 min",
-  videoUrl: "",
+  videoUrl: "https://www.youtube.com/embed/U4Nbaem6zEU",
 
   practiceFiles: [
     {
@@ -718,7 +718,7 @@ export const powerpointModule7Lessons: Lesson[] = [
     "Recognize when SmartArt clarifies and when it merely decorates",
   ],
   duration: "9 min",
-  videoUrl: "",
+  videoUrl: "https://www.youtube.com/embed/4DNk2p2voAE",
 
   practiceFiles: [
     {
