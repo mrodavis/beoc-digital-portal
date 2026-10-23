@@ -19,7 +19,7 @@ export const excelModule4Lessons: Lesson[] = [
   ],
   duration: "12 min",
 
-  videoUrl: "https://www.youtube.com/embed/J-W3thqtDpQ",
+  videoUrl: "https://www.youtube.com/embed/Ion8gAxelVM",
 
   practiceFiles: [
     {
@@ -395,7 +395,7 @@ export const excelModule4Lessons: Lesson[] = [
   ],
   duration: "25 min",
 
-  videoUrl: "https://www.youtube.com/embed/iDg9s7BJ2m4",
+  videoUrl: "https://www.youtube.com/embed/6IM7RrmKgqI",
 
   practiceFiles: [
     {

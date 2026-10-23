@@ -785,7 +785,7 @@ export const excelModule3Lessons: Lesson[] = [
     ],
     duration: "12 min",
 
-    videoUrl: "https://www.youtube.com/embed/8XcFTeCu98k",
+    videoUrl: "https://www.youtube.com/embed/QEL-3uYBt-U",
 
     practiceFiles: [
       {
@@ -1107,7 +1107,7 @@ export const excelModule3Lessons: Lesson[] = [
   ],
   duration: "11 min",
 
-  videoUrl: "https://www.youtube.com/embed/eK23Fzttlyo",
+  videoUrl: "https://www.youtube.com/embed/FP2cibwYxTM",
 
   practiceFiles: [
     {
