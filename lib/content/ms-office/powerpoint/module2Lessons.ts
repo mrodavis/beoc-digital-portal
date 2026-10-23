@@ -315,7 +315,7 @@ objectives: [
   "Convert a list into a stronger visual when appropriate",
 ],
 duration: "8 min",
-videoUrl: "https://www.youtube.com/embed/hL5XQGFdmDo",
+videoUrl: "https://www.youtube.com/embed/tMpitD8YpqE",
 
 practiceFiles: [
 {
@@ -568,7 +568,7 @@ objectives: [
   "Recognize when spacing changes are hiding a content problem",
 ],
 duration: "11 min",
-videoUrl: "https://www.youtube.com/embed/fhLlISfmGqA",
+videoUrl: "https://www.youtube.com/embed/AZpEN38IMcE",
 
 practiceFiles: [
 {
@@ -877,7 +877,7 @@ objectives: [
   "Check that a replacement has not broken anything",
 ],
 duration: "7 min",
-videoUrl: "https://www.youtube.com/embed/TEqzwdC4x58",
+videoUrl: "https://www.youtube.com/embed/EjFgTzxRCEs",
 
 practiceFiles: [
 {
