@@ -14,6 +14,7 @@ export const powerpointModule5Lessons: Lesson[] = [
     "Respect licensing when using images you did not create",
   ],
   duration: "13 min",
+  videoUrl: "https://www.youtube.com/embed/lMjjPZWVKd4",
 
   practiceFiles: [
     {
@@ -424,7 +425,7 @@ export const powerpointModule5Lessons: Lesson[] = [
       "Add alt text so images are accessible",
     ],
     duration: "14 min",
-    videoUrl: "https://www.youtube.com/embed/LD52XcAhL3s",
+    videoUrl: "https://www.youtube.com/embed/wpPsuGqtT0s",
 
     practiceFiles: [
       {
@@ -815,7 +816,7 @@ export const powerpointModule5Lessons: Lesson[] = [
     "Build simple diagrams that explain a process",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/lwBSCkmhwJA",
+  videoUrl: "https://www.youtube.com/embed/m69GOqWc4dw",
 
   practiceFiles: [
     {
@@ -1280,7 +1281,7 @@ export const powerpointModule5Lessons: Lesson[] = [
     "Diagnose why the Group command is sometimes unavailable",
   ],
   duration: "13 min",
-  videoUrl: "https://www.youtube.com/embed/2GyjYgr-tSM",
+  videoUrl: "https://www.youtube.com/embed/ohpEEpniXio",
 
   practiceFiles: [
     {
