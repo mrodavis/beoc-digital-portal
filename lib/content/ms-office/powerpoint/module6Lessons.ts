@@ -14,7 +14,7 @@ objectives: [
   "Apply a consistent transition across a whole deck",
 ],
 duration: "9 min",
-videoUrl: "https://www.youtube.com/embed/Ey1atEavZ-M",
+videoUrl: "https://www.youtube.com/embed/rR2CsS5a6ps",
 
 practiceFiles: [
 {
@@ -384,7 +384,7 @@ alt: "Final slideshow with transitions applied",
     "Judge when animation clarifies and when it distracts",
   ],
   duration: "11 min",
-  videoUrl: "",
+  videoUrl: "https://www.youtube.com/embed/jtabhdO9_rk",
 
   practiceFiles: [
     {
@@ -721,7 +721,7 @@ alt: "Final slideshow with transitions applied",
     "Consider accessibility when a presentation relies on sound",
   ],
   duration: "8 min",
-  videoUrl: "",
+  videoUrl: "https://www.youtube.com/embed/z_3yCCOT8lM",
 
   practiceFiles: [
     {
@@ -989,7 +989,7 @@ alt: "Final slideshow with transitions applied",
     "Prepare video so it works on another machine",
   ],
   duration: "10 min",
-  videoUrl: "",
+  videoUrl: "https://www.youtube.com/embed/Sc9QdNe-qIs",
 
   practiceFiles: [
     {
