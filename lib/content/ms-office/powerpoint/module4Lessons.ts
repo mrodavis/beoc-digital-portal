@@ -13,7 +13,7 @@ export const powerpointModule4Lessons: Lesson[] = [
     "Choose the right view for reorganizing a presentation",
   ],
   duration: "11 min",
-  videoUrl: "https://www.youtube.com/embed/UmOJXAr_riE",
+  videoUrl: "https://www.youtube.com/embed/jT3tJNXizEs",
 
   practiceFiles: [
     {
@@ -492,7 +492,7 @@ export const powerpointModule4Lessons: Lesson[] = [
     "Reduce ink and improve legibility on printed slides",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/fzuHplbKD9A",
+  videoUrl: "https://www.youtube.com/embed/8yaQx6Hb2Qg",
 
   practiceFiles: [
     {
@@ -779,7 +779,7 @@ export const powerpointModule4Lessons: Lesson[] = [
     "Prepare for the practical failures that occur during presentations",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/7-2oM3AGHQM",
+  videoUrl: "https://www.youtube.com/embed/6ktRPWkb6nM",
 
   practiceFiles: [
     {
