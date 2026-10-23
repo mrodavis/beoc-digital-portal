@@ -391,7 +391,7 @@ export const excelModule6Lessons: Lesson[] = [
   ],
   duration: "30 min",
 
-  videoUrl: "https://www.youtube.com/embed/_Wu7jYTr1Pk",
+  videoUrl: "https://www.youtube.com/embed/2ATJ4TQqWqY",
 
   // OPTIONAL: if your Lesson type supports multiple videos, keep this.
   // If it doesn't, remove it.
@@ -782,7 +782,7 @@ export const excelModule6Lessons: Lesson[] = [
     "Change how values are summarized",
     "Refresh a PivotTable when the source data changes",
   ],
-  videoUrl: "https://www.youtube.com/embed/N4K3xjM76kI",
+  videoUrl: "https://www.youtube.com/embed/gI8_hJEj83o",
   duration: "35 min",
 
   practiceFiles: [

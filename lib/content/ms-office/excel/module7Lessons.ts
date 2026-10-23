@@ -19,7 +19,7 @@ LESSON 1 – DOING MORE WITH PIVOTTABLES
   ],
   duration: "10 min",
 
-  videoUrl: "https://www.youtube.com/embed/FVzX4I88DBs",
+  videoUrl: "https://www.youtube.com/embed/xnPbjHugAM4",
 
     practiceFiles: [
     {
@@ -271,7 +271,7 @@ LESSON 2 – WHAT-IF ANALYSIS
     ],
     duration: "35 min",
 
-    videoUrl: "https://www.youtube.com/embed/STTYxT6iFio",
+    videoUrl: "https://www.youtube.com/embed/4p0zt05ZsqU",
 
     practiceFiles: [
     {
