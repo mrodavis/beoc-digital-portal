@@ -21,6 +21,7 @@ LESSON 1 – DYNAMIC ARRAYS AND XLOOKUP
   description:
     "Use the modern formula engine: one formula that returns many results, and the lookup function that replaces VLOOKUP.",
   duration: "15 min",
+  videoUrl: "https://www.youtube.com/embed/LNzNzDgRGhw",
   objectives: [
     "Explain what a dynamic array is and what 'spill' means",
     "Use FILTER, SORT, and UNIQUE to build a live list from a data set",
@@ -176,6 +177,7 @@ LESSON 2 – LINKED DATA TYPES AND ANALYZE DATA (slug kept)
   description:
     "Use Excel's connected data types and its automated analysis, and learn where both need checking.",
   duration: "15 min",
+  videoUrl: "https://www.youtube.com/embed/ynxMKssMoe0",
   objectives: [
     "Convert text into a linked data type and pull fields from it",
     "Use Analyze Data to generate charts and summaries from a table",
@@ -312,6 +314,7 @@ LESSON 3 – ICONS, DRAWING TOOLS, AND MODERN COLLABORATION
   description:
     "Add scalable icons and annotations to a workbook, and work in a shared file without getting in anyone's way.",
   duration: "15 min",
+  videoUrl: "https://www.youtube.com/embed/dlwPJq40MK4",
   objectives: [
     "Insert and recolor scalable icons",
     "Use the Draw tab to annotate a sheet",

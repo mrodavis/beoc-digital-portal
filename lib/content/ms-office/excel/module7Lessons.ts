@@ -696,6 +696,7 @@ LESSON 3 – REFERENCE STYLES
       "Recognize when R1C1 is genuinely useful",
     ],
     duration: "10 min",
+    videoUrl: "https://www.youtube.com/embed/3weNkyZU_r8",
 
     sections: [
 
