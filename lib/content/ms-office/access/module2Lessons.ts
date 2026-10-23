@@ -7,6 +7,7 @@ export const accessModule2Lessons: Lesson[] = [
     description:
       "Build tables in Design view and choose data types that make invalid entries impossible rather than merely discouraged.",
     duration: "24 min",
+    videoUrl: "https://www.youtube.com/embed/Nav4kYIH6u4",
     objectives: [
       "Create a table in Design view and set a primary key",
       "Choose the appropriate data type for each field",
