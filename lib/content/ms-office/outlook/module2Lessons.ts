@@ -526,6 +526,7 @@ export const outlookModule2Lessons: Lesson[] = [
       "Decide what belongs in a professional medical office signature",
     ],
     duration: "14 min",
+    videoUrl: "https://www.youtube.com/embed/oO8F3rcMK9k",
     slides: outlookSlides["module-2/signatures"],
     sections: [
       {
