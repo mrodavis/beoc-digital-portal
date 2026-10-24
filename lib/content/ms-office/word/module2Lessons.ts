@@ -1317,7 +1317,7 @@ export const wordModule2Lessons: Lesson[] = [
     "Diagnose the common causes of a document that prints differently than it appears",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/L2BmzAY1YGE",
+  videoUrl: "https://www.youtube.com/embed/WyGxKzUjUS8",
 
   practiceFiles: [
     {
