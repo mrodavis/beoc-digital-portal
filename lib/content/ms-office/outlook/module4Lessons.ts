@@ -17,6 +17,7 @@ export const outlookModule4Lessons: Lesson[] = [
       "Move, change or delete an event when plans change",
     ],
     duration: "16 min",
+    videoUrl: "https://www.youtube.com/embed/FNVhO49_2zs",
     slides: outlookSlides["module-4/calendar-basics"],
     sections: [
       {
