@@ -782,7 +782,7 @@ export const excelModule6Lessons: Lesson[] = [
     "Change how values are summarized",
     "Refresh a PivotTable when the source data changes",
   ],
-  videoUrl: "https://www.youtube.com/embed/gI8_hJEj83o",
+  videoUrl: "https://www.youtube.com/embed/JpCrHruWlnY",
   duration: "35 min",
 
   practiceFiles: [
