@@ -391,7 +391,7 @@ export const excelModule6Lessons: Lesson[] = [
   ],
   duration: "30 min",
 
-  videoUrl: "https://www.youtube.com/embed/2ATJ4TQqWqY",
+  videoUrl: "https://www.youtube.com/embed/UkYj6yGDLa4",
 
   // OPTIONAL: if your Lesson type supports multiple videos, keep this.
   // If it doesn't, remove it.
