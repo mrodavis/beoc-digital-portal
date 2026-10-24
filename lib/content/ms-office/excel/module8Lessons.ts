@@ -21,7 +21,7 @@ LESSON 1 – DYNAMIC ARRAYS AND XLOOKUP
   description:
     "Use the modern formula engine: one formula that returns many results, and the lookup function that replaces VLOOKUP.",
   duration: "15 min",
-  videoUrl: "https://www.youtube.com/embed/LNzNzDgRGhw",
+  videoUrl: "https://www.youtube.com/embed/LT9PtKGbXec",
   objectives: [
     "Explain what a dynamic array is and what 'spill' means",
     "Use FILTER, SORT, and UNIQUE to build a live list from a data set",
