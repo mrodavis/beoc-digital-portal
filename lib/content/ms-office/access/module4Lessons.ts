@@ -7,6 +7,7 @@ export const accessModule4Lessons: Lesson[] = [
     description:
       "Build forms that make correct data entry fast and incorrect entry difficult.",
     duration: "22 min",
+    videoUrl: "https://www.youtube.com/embed/ySfLRKqR2RI",
     objectives: [
       "Generate a form and modify it in Layout and Design view",
       "Arrange fields in the order staff actually work",
@@ -122,6 +123,7 @@ export const accessModule4Lessons: Lesson[] = [
     description:
       "Build reports that organize data into groups with totals, and print correctly on the page.",
     duration: "22 min",
+    videoUrl: "https://www.youtube.com/embed/iMmIjnxhxQ4",
     objectives: [
       "Generate a report and adjust it for printing",
       "Group and sort report data",
