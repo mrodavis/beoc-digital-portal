@@ -721,7 +721,7 @@ alt: "Final slideshow with transitions applied",
     "Consider accessibility when a presentation relies on sound",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/z_3yCCOT8lM",
+  videoUrl: "https://www.youtube.com/embed/ML6aExRe4vQ",
 
   practiceFiles: [
     {
