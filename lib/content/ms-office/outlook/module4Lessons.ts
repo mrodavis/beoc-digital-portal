@@ -375,6 +375,7 @@ export const outlookModule4Lessons: Lesson[] = [
       "Cancel a meeting you organized so attendees are told",
     ],
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/aqtyuHID-i0",
     slides: outlookSlides["module-4/recurring-teams"],
     sections: [
       {
