@@ -284,7 +284,7 @@ export const wordModule2Lessons: Lesson[] = [
     "Recognize when direct formatting should be replaced by a style",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/g26E0Tg88ek",
+  videoUrl: "https://www.youtube.com/embed/EF8eSk-RrxM",
 
   practiceFiles: [
     {
