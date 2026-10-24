@@ -487,6 +487,7 @@ export const outlookModule3Lessons: Lesson[] = [
       "Filter a folder to show only unread, flagged or attached messages",
     ],
     duration: "14 min",
+    videoUrl: "https://www.youtube.com/embed/W5TY_Tp9Sc0",
     slides: outlookSlides["module-3/search-filter"],
     sections: [
       {
