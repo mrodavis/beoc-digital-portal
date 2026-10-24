@@ -253,6 +253,7 @@ export const outlookModule1Lessons: Lesson[] = [
       "Use the Search box, the Settings button and My Day",
     ],
     duration: "14 min",
+    videoUrl: "https://www.youtube.com/embed/cH9peZkJsgM",
     slides: outlookSlides["module-1/outlook-window"],
     sections: [
       {
