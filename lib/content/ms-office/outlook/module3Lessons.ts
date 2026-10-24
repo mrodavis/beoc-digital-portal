@@ -17,6 +17,7 @@ export const outlookModule3Lessons: Lesson[] = [
       "Add a folder to Favorites and use Archive for finished mail",
     ],
     duration: "16 min",
+    videoUrl: "https://www.youtube.com/embed/3t6wwrWm0rM",
     slides: outlookSlides["module-3/folders-archive"],
     sections: [
       {
