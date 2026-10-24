@@ -17,6 +17,7 @@ export const outlookModule1Lessons: Lesson[] = [
       "Describe the Microsoft Office Specialist (MOS) exam that currently covers Outlook",
     ],
     duration: "12 min",
+    videoUrl: "https://www.youtube.com/embed/kG9Sj5IVA5U",
     slides: outlookSlides["module-1/which-outlook"],
     sections: [
       {
