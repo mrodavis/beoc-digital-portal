@@ -149,6 +149,7 @@ ORDER BY Category ASC;`,
     description:
       "Compute values in queries rather than storing them, and summarize grouped data with aggregate functions.",
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/1TVlS8fJ2Eo",
     objectives: [
       "Build a calculated field using an expression",
       "Explain why calculated values do not belong in tables",
