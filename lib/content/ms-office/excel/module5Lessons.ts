@@ -18,7 +18,7 @@ export const excelModule5Lessons: Lesson[] = [
     "Use Data Validation to prevent bad entries at the source",
   ],
   duration: "6 min",
-  videoUrl: "https://www.youtube.com/embed/9Bv4czIlKmQ",
+  videoUrl: "https://www.youtube.com/embed/be3-8lXQtYk",
 
   sections: [
 
