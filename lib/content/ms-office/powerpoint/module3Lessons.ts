@@ -14,7 +14,7 @@ objectives: [
   "Keep a deck consistent with organizational branding",
 ],
 duration: "8 min",
-videoUrl: "https://www.youtube.com/embed/XwdrHSsy5Hs",
+videoUrl: "https://www.youtube.com/embed/xjsLD9TaFrM",
 
 practiceFiles: [
 {
