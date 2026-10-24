@@ -531,7 +531,7 @@ export const wordModule1Lessons: Lesson[] = [
     "Recognize Compatibility Mode and decide whether to convert the file",
     "Explain what converting a .doc file changes and who it might affect",
   ],
-  videoUrl: "https://www.youtube.com/embed/ZMRtJUm3Hos",
+  videoUrl: "https://www.youtube.com/embed/lSb227QHO1Q",
   duration: "8 min",
 
   practiceFiles: [
