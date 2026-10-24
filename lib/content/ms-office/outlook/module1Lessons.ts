@@ -419,6 +419,7 @@ export const outlookModule1Lessons: Lesson[] = [
       "Turn conversation grouping on or off in Settings",
     ],
     duration: "16 min",
+    videoUrl: "https://www.youtube.com/embed/VXC53fDeqVU",
     slides: outlookSlides["module-1/reading-mail"],
     sections: [
       {
