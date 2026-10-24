@@ -841,7 +841,7 @@ export const wordModule2Lessons: Lesson[] = [
     "Explain why manually typed numbers cause problems that list formatting avoids",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/XHIZHOQeMkQ",
+  videoUrl: "https://www.youtube.com/embed/IoLbk8SUR6I",
 
   practiceFiles: [
     {
