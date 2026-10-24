@@ -17,6 +17,7 @@ export const outlookModule5Lessons: Lesson[] = [
       "Start an email from a contact",
     ],
     duration: "14 min",
+    videoUrl: "https://www.youtube.com/embed/LBObKUQ6VJ0",
     slides: outlookSlides["module-5/contacts"],
     sections: [
       {
