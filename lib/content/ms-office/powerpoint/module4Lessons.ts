@@ -492,7 +492,7 @@ export const powerpointModule4Lessons: Lesson[] = [
     "Reduce ink and improve legibility on printed slides",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/8yaQx6Hb2Qg",
+  videoUrl: "https://www.youtube.com/embed/DN2_8dmYK7k",
 
   practiceFiles: [
     {
