@@ -14,7 +14,7 @@ export const powerpointModule1Lessons: Lesson[] = [
     "Navigate a deck efficiently while building it",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/IQ3NZckUJ3M",
+  videoUrl: "https://www.youtube.com/embed/2RzOpd5rmO0",
 
   practiceFiles: [],
 
