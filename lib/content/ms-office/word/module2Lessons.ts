@@ -638,7 +638,7 @@ export const wordModule2Lessons: Lesson[] = [
       "Find and replace formatting, not just words",
     ],
     duration: "8 min",
-    videoUrl: "https://www.youtube.com/embed/AxE7PEfR88I",
+    videoUrl: "https://www.youtube.com/embed/1KjDZRCjRTk",
 
     practiceFiles: [
         {
