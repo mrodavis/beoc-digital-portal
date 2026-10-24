@@ -1104,7 +1104,7 @@ export const wordModule2Lessons: Lesson[] = [
     "Control Word's automatic hyperlink formatting",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/diGW-OzgQqA",
+  videoUrl: "https://www.youtube.com/embed/RKHWsWVjLJ0",
 
   practiceFiles: [
     {
