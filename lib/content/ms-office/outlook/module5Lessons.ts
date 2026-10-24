@@ -310,6 +310,7 @@ export const outlookModule5Lessons: Lesson[] = [
       "Complete tasks and flags when the work is done",
     ],
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/rWk5kqMzZCA",
     slides: outlookSlides["module-5/flags-to-do"],
     sections: [
       {
