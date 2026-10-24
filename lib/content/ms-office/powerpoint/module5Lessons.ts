@@ -14,7 +14,7 @@ export const powerpointModule5Lessons: Lesson[] = [
     "Respect licensing when using images you did not create",
   ],
   duration: "13 min",
-  videoUrl: "https://www.youtube.com/embed/lMjjPZWVKd4",
+  videoUrl: "https://www.youtube.com/embed/JXbKrYQzsKU",
 
   practiceFiles: [
     {

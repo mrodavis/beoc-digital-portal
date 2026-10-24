@@ -13,7 +13,7 @@ export const powerpointModule4Lessons: Lesson[] = [
     "Choose the right view for reorganizing a presentation",
   ],
   duration: "11 min",
-  videoUrl: "https://www.youtube.com/embed/jT3tJNXizEs",
+  videoUrl: "https://www.youtube.com/embed/QpTd7nzvNwE",
 
   practiceFiles: [
     {
