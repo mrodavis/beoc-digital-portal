@@ -7,7 +7,7 @@ export const accessModule3Lessons: Lesson[] = [
     description:
       "Ask questions of your data using the query grid, and understand the SQL Access writes underneath it.",
     duration: "24 min",
-    videoUrl: "https://www.youtube.com/embed/ReU2xIG-kc4",
+    videoUrl: "https://www.youtube.com/embed/UKji-43DwJk",
     objectives: [
       "Create a select query using the query design grid",
       "Filter with criteria and sort results",
