@@ -155,6 +155,7 @@ export const accessModule1Lessons: Lesson[] = [
     description:
       "Plan tables, keys, and relationships on paper first — the step that determines whether the database works or has to be rebuilt.",
     duration: "24 min",
+    videoUrl: "https://www.youtube.com/embed/J35myb3rDIA",
     objectives: [
       "Identify the distinct entities in a set of data",
       "Choose a primary key that is unique, stable, and always present",

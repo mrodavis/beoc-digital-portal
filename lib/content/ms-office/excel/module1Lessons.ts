@@ -291,7 +291,7 @@ export const excelModule1Lessons: Lesson[] = [
     "Judge what data may and may not go into a personal cloud account",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/ATPgqXPyCzo",
+  videoUrl: "https://www.youtube.com/embed/f_r-C_RQxbw",
 
   sections: [
 
@@ -417,7 +417,7 @@ export const excelModule1Lessons: Lesson[] = [
     "Explain what CSV files lose compared with .xlsx",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/IZ21LnWnQp4",
+  videoUrl: "https://www.youtube.com/embed/ykvwAtxWGf8",
 
   practiceFiles: [
     {
