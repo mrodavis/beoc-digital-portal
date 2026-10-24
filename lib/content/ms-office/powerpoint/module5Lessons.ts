@@ -816,7 +816,7 @@ export const powerpointModule5Lessons: Lesson[] = [
     "Build simple diagrams that explain a process",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/m69GOqWc4dw",
+  videoUrl: "https://www.youtube.com/embed/8VjozAQVBcI",
 
   practiceFiles: [
     {

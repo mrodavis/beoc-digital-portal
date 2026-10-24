@@ -328,6 +328,7 @@ export const outlookModule3Lessons: Lesson[] = [
       "Use Sweep to clear out messages from one sender",
     ],
     duration: "18 min",
+    videoUrl: "https://www.youtube.com/embed/cPq_AJCmgrw",
     slides: outlookSlides["module-3/rules-sweep"],
     sections: [
       {
