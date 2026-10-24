@@ -14,7 +14,7 @@ export const powerpointModule7Lessons: Lesson[] = [
     "Judge when a table belongs on a slide at all",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/p2ERYECbneU",
+  videoUrl: "https://www.youtube.com/embed/P9EIqRqZAEA",
 
   practiceFiles: [
     {
