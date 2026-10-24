@@ -1281,7 +1281,7 @@ export const powerpointModule5Lessons: Lesson[] = [
     "Diagnose why the Group command is sometimes unavailable",
   ],
   duration: "13 min",
-  videoUrl: "https://www.youtube.com/embed/ohpEEpniXio",
+  videoUrl: "https://www.youtube.com/embed/rD28H6GO3S0",
 
   practiceFiles: [
     {
