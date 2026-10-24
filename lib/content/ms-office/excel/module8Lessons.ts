@@ -177,7 +177,7 @@ LESSON 2 – LINKED DATA TYPES AND ANALYZE DATA (slug kept)
   description:
     "Use Excel's connected data types and its automated analysis, and learn where both need checking.",
   duration: "15 min",
-  videoUrl: "https://www.youtube.com/embed/ynxMKssMoe0",
+  videoUrl: "https://www.youtube.com/embed/nN6r78heaCk",
   objectives: [
     "Convert text into a linked data type and pull fields from it",
     "Use Analyze Data to generate charts and summaries from a table",
