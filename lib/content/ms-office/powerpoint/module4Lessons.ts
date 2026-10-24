@@ -779,7 +779,7 @@ export const powerpointModule4Lessons: Lesson[] = [
     "Prepare for the practical failures that occur during presentations",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/6ktRPWkb6nM",
+  videoUrl: "https://www.youtube.com/embed/F06DfR-tBzs",
 
   practiceFiles: [
     {
