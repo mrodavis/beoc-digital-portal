@@ -271,7 +271,7 @@ LESSON 2 – WHAT-IF ANALYSIS
     ],
     duration: "35 min",
 
-    videoUrl: "https://www.youtube.com/embed/4p0zt05ZsqU",
+    videoUrl: "https://www.youtube.com/embed/qQUgv9UkFKI",
 
     practiceFiles: [
     {
