@@ -17,7 +17,7 @@ export const excelModule3Lessons: Lesson[] = [
     "Structure a workbook so data, calculations, and output are separated",
   ],
   
-  videoUrl: "https://www.youtube.com/embed/w5AIrqS83S4",
+  videoUrl: "https://www.youtube.com/embed/6Ku4D0z-R6o",
 
     practiceFiles: [
       {
@@ -785,7 +785,7 @@ export const excelModule3Lessons: Lesson[] = [
     ],
     duration: "12 min",
 
-    videoUrl: "https://www.youtube.com/embed/QEL-3uYBt-U",
+    videoUrl: "https://www.youtube.com/embed/7-S2ogP7w34",
 
     practiceFiles: [
       {
