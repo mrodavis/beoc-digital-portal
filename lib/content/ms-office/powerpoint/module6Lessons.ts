@@ -384,7 +384,7 @@ alt: "Final slideshow with transitions applied",
     "Judge when animation clarifies and when it distracts",
   ],
   duration: "11 min",
-  videoUrl: "https://www.youtube.com/embed/jtabhdO9_rk",
+  videoUrl: "https://www.youtube.com/embed/0XMDKcUcuEA",
 
   practiceFiles: [
     {
