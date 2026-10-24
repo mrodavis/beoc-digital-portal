@@ -587,7 +587,7 @@ export const powerpointModule1Lessons: Lesson[] = [
     "Explain what a template supplies beyond appearance",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/nLq35O3Adu8",
+  videoUrl: "https://www.youtube.com/embed/qqAKdvi6pvg",
 
   practiceFiles: [
     {
