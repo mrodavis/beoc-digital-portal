@@ -989,7 +989,7 @@ alt: "Final slideshow with transitions applied",
     "Prepare video so it works on another machine",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/Sc9QdNe-qIs",
+  videoUrl: "https://www.youtube.com/embed/Kc9Qch6SknU",
 
   practiceFiles: [
     {
