@@ -161,6 +161,7 @@ export const outlookModule6Lessons: Lesson[] = [
       "Leave clear signals for teammates who share the mailbox",
     ],
     duration: "13 min",
+    videoUrl: "https://www.youtube.com/embed/nsBGU_TvAJc",
     slides: outlookSlides["module-6/shared-mailboxes"],
     sections: [
       {
