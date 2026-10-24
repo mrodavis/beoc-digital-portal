@@ -17,6 +17,7 @@ export const outlookModule2Lessons: Lesson[] = [
       "Mark a message high importance only when it is truly time-sensitive",
     ],
     duration: "18 min",
+    videoUrl: "https://www.youtube.com/embed/Rc-LOJ1n4x4",
     slides: outlookSlides["module-2/compose-message"],
     sections: [
       {

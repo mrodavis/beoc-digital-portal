@@ -605,7 +605,7 @@ alt: "Final result after modifying a theme",
     "Edit a layout without affecting the rest of the deck",
   ],
   duration: "16 min",
-  videoUrl: "https://www.youtube.com/embed/9jMKjO0yFmg",
+  videoUrl: "https://www.youtube.com/embed/G0_PdA8v_GQ",
 
   practiceFiles: [
     {
