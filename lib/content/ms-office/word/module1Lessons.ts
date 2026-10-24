@@ -767,7 +767,7 @@ export const wordModule1Lessons: Lesson[] = [
       "Set AutoRecover to an interval that matches how much work you can afford to lose",
       "Share a document by link and choose an appropriate permission level",
     ],
-    videoUrl: "https://www.youtube.com/embed/NVh7pnMS-cE",
+    videoUrl: "https://www.youtube.com/embed/PTtqa5a3hCg",
     duration: "8 min",
 
     practiceFiles: [
