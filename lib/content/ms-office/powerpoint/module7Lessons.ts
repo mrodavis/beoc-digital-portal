@@ -718,7 +718,7 @@ export const powerpointModule7Lessons: Lesson[] = [
     "Recognize when SmartArt clarifies and when it merely decorates",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/4DNk2p2voAE",
+  videoUrl: "https://www.youtube.com/embed/JAa9U3YGbKw",
 
   practiceFiles: [
     {
