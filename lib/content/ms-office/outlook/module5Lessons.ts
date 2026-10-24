@@ -164,6 +164,7 @@ export const outlookModule5Lessons: Lesson[] = [
       "Delete a list without deleting its contacts",
     ],
     duration: "13 min",
+    videoUrl: "https://www.youtube.com/embed/TrFVOn95pwM",
     slides: outlookSlides["module-5/contact-lists"],
     sections: [
       {
