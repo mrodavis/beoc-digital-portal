@@ -838,7 +838,7 @@ export const powerpointModule1Lessons: Lesson[] = [
     "Prepare a deck for a machine that may not have PowerPoint",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/nlxWMUkYy8Q",
+  videoUrl: "https://www.youtube.com/embed/Ab4k-xIGrYY",
 
   practiceFiles: [
     {
