@@ -406,7 +406,7 @@ export const powerpointModule1Lessons: Lesson[] = [
     "Plan for presenting when the network is unavailable",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/iuZ1Udg76Ks",
+  videoUrl: "https://www.youtube.com/embed/0bjHZ2L9F4w",
 
   sections: [
 
