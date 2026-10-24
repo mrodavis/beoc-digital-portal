@@ -222,6 +222,7 @@ export const outlookModule2Lessons: Lesson[] = [
       "Check a thread for information the new recipient shouldn't see before forwarding",
     ],
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/8AQ17pZEaVg",
     slides: outlookSlides["module-2/reply-forward"],
     sections: [
       {
