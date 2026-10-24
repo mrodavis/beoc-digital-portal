@@ -1159,7 +1159,7 @@ sections: [
     "Use the outline to structure a deck before designing it",
   ],
   duration: "14 min",
-  videoUrl: "https://www.youtube.com/embed/08qJ6ZAApo0",
+  videoUrl: "https://www.youtube.com/embed/OB0jvBj55TM",
 
   practiceFiles: [
     {
