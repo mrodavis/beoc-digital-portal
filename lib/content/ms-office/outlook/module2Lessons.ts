@@ -679,7 +679,7 @@ export const outlookModule2Lessons: Lesson[] = [
       "Explain the limits of recall and why prevention matters more",
     ],
     duration: "16 min",
-    videoUrl: "https://www.youtube.com/embed/AM36TCPYlJ0",
+    videoUrl: "https://www.youtube.com/embed/tFHs8vuVcgI",
     slides: outlookSlides["module-2/send-timing"],
     sections: [
       {
