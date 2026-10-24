@@ -139,6 +139,7 @@ export const accessModule2Lessons: Lesson[] = [
     description:
       "Link tables so Access enforces the connections between them, and understand what referential integrity actually prevents.",
     duration: "22 min",
+    videoUrl: "https://www.youtube.com/embed/iEESJ3iqgKw",
     objectives: [
       "Create a relationship between two tables",
       "Explain one-to-many and many-to-many relationships",
