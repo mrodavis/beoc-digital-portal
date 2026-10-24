@@ -381,6 +381,7 @@ export const outlookModule2Lessons: Lesson[] = [
       "Remove a wrong attachment before you send",
     ],
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/02IrCuz3apM",
     slides: outlookSlides["module-2/attachments-links"],
     sections: [
       {
