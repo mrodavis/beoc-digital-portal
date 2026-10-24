@@ -425,7 +425,7 @@ export const powerpointModule5Lessons: Lesson[] = [
       "Add alt text so images are accessible",
     ],
     duration: "14 min",
-    videoUrl: "https://www.youtube.com/embed/wpPsuGqtT0s",
+    videoUrl: "https://www.youtube.com/embed/5VasmDhTQq0",
 
     practiceFiles: [
       {
