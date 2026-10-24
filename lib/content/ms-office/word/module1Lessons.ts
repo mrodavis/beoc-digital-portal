@@ -357,7 +357,7 @@ export const wordModule1Lessons: Lesson[] = [
     "Describe what AutoSave requires in order to work",
     "Judge when a clinical or personal document should not go into a personal OneDrive account",
   ],
-  videoUrl: "https://www.youtube.com/embed/zN3yc29RoVg",
+  videoUrl: "https://www.youtube.com/embed/79quunztnwk",
   duration: "2 min",
 
   sections: [
