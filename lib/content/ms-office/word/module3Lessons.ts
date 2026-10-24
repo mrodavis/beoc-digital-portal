@@ -13,7 +13,7 @@ export const wordModule3Lessons: Lesson[] = [
     "Anchor an image so it stays with the content it illustrates",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/uc_Z9JAj7eY",
+  videoUrl: "https://www.youtube.com/embed/2FE0lIM_ltc",
 
   practiceFiles: [
     {
