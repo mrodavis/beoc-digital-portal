@@ -19,7 +19,7 @@ LESSON 1 – DOING MORE WITH PIVOTTABLES
   ],
   duration: "10 min",
 
-  videoUrl: "https://www.youtube.com/embed/xnPbjHugAM4",
+  videoUrl: "https://www.youtube.com/embed/kGVaNXlaGBk",
 
     practiceFiles: [
     {
