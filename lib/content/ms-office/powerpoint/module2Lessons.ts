@@ -877,7 +877,7 @@ objectives: [
   "Check that a replacement has not broken anything",
 ],
 duration: "7 min",
-videoUrl: "https://www.youtube.com/embed/EjFgTzxRCEs",
+videoUrl: "https://www.youtube.com/embed/fG0qgZm8j9I",
 
 practiceFiles: [
 {
