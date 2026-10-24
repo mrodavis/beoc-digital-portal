@@ -301,6 +301,7 @@ export const outlookModule6Lessons: Lesson[] = [
       "Move a real message out of Junk Email",
     ],
     duration: "16 min",
+    videoUrl: "https://www.youtube.com/embed/eCYKa471OzM",
     slides: outlookSlides["module-6/phishing-junk"],
     sections: [
       {
