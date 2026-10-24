@@ -277,7 +277,7 @@ objectives: [
   "Apply organizational branding consistently",
 ],
 duration: "10 min",
-videoUrl: "https://www.youtube.com/embed/I1J-ll2K6v8",
+videoUrl: "https://www.youtube.com/embed/iA1UxyV1Mnw",
 
 practiceFiles: [
 {
