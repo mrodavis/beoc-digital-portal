@@ -17,6 +17,7 @@ export const outlookModule6Lessons: Lesson[] = [
       "Turn automatic replies off",
     ],
     duration: "12 min",
+    videoUrl: "https://www.youtube.com/embed/qCeQX4Lf5eg",
     slides: outlookSlides["module-6/automatic-replies"],
     sections: [
       {
