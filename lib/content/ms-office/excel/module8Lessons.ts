@@ -314,7 +314,7 @@ LESSON 3 – ICONS, DRAWING TOOLS, AND MODERN COLLABORATION
   description:
     "Add scalable icons and annotations to a workbook, and work in a shared file without getting in anyone's way.",
   duration: "15 min",
-  videoUrl: "https://www.youtube.com/embed/dlwPJq40MK4",
+  videoUrl: "https://www.youtube.com/embed/mKxv4zzX2KM",
   objectives: [
     "Insert and recolor scalable icons",
     "Use the Draw tab to annotate a sheet",
