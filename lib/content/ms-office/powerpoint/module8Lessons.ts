@@ -656,7 +656,7 @@ export const powerpointModule8Lessons: Lesson[] = [
     "Choose a distribution format based on the recipient's need",
   ],
   duration: "9 min",
-  videoUrl: "",
+  videoUrl: "https://www.youtube.com/embed/EtyOEyYNmP4",
 
   practiceFiles: [],
 
