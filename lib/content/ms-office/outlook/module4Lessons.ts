@@ -538,6 +538,7 @@ export const outlookModule4Lessons: Lesson[] = [
       "Add a second time zone to your calendar",
     ],
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/EcFNNJ1LA3o",
     slides: outlookSlides["module-4/sharing-time-zones"],
     sections: [
       {
