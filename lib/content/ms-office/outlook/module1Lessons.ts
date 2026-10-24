@@ -420,7 +420,7 @@ export const outlookModule1Lessons: Lesson[] = [
       "Turn conversation grouping on or off in Settings",
     ],
     duration: "16 min",
-    videoUrl: "https://www.youtube.com/embed/VXC53fDeqVU",
+    videoUrl: "https://www.youtube.com/embed/Z1rhbgGSHJQ",
     slides: outlookSlides["module-1/reading-mail"],
     sections: [
       {
