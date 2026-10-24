@@ -209,6 +209,7 @@ export const outlookModule4Lessons: Lesson[] = [
       "Use the Scheduling Assistant to find a time when everyone is free",
     ],
     duration: "17 min",
+    videoUrl: "https://www.youtube.com/embed/jMQTx_qlOGg",
     slides: outlookSlides["module-4/meetings-invitations"],
     sections: [
       {
