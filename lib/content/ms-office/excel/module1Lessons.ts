@@ -291,7 +291,7 @@ export const excelModule1Lessons: Lesson[] = [
     "Judge what data may and may not go into a personal cloud account",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/f_r-C_RQxbw",
+  videoUrl: "https://www.youtube.com/embed/cp7HPjt_oJo",
 
   sections: [
 
