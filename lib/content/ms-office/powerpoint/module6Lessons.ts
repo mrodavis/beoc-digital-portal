@@ -14,7 +14,7 @@ objectives: [
   "Apply a consistent transition across a whole deck",
 ],
 duration: "9 min",
-videoUrl: "https://www.youtube.com/embed/rR2CsS5a6ps",
+videoUrl: "https://www.youtube.com/embed/HprSDm6JSo0",
 
 practiceFiles: [
 {

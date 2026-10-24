@@ -186,6 +186,7 @@ export const outlookModule3Lessons: Lesson[] = [
       "Snooze a message so it comes back when you can act on it",
     ],
     duration: "15 min",
+    videoUrl: "https://www.youtube.com/embed/2iml6FlyQak",
     slides: outlookSlides["module-3/categories-flags"],
     sections: [
       {
