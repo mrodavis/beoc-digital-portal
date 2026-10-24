@@ -292,7 +292,7 @@ export const powerpointModule8Lessons: Lesson[] = [
     "Set up a self-running presentation",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/CG-63yjCrOg",
+  videoUrl: "https://www.youtube.com/embed/wFth5q7ERdU",
 
   practiceFiles: [
     {
