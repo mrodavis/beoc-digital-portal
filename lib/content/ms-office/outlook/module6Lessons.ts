@@ -581,6 +581,7 @@ export const outlookModule6Lessons: Lesson[] = [
       "Use the same mailbox in Outlook on the web and the mobile app",
     ],
     duration: "13 min",
+    videoUrl: "https://www.youtube.com/embed/BUed_P7LDWw",
     slides: outlookSlides["module-6/copilot-mobile"],
     sections: [
       {
