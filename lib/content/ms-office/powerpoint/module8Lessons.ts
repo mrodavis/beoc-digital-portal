@@ -15,7 +15,7 @@ export const powerpointModule8Lessons: Lesson[] = [
     "Proofread the things spell check cannot catch",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/mhPCEHK_wT0",
+  videoUrl: "https://www.youtube.com/embed/t10bRb-ctDE",
 
   practiceFiles: [
     {
