@@ -13,7 +13,7 @@ export const wordModule2Lessons: Lesson[] = [
       "Insert symbols and special characters that are not on the keyboard",
     ],
     duration: "9 min",
-    videoUrl: "https://www.youtube.com/embed/mYNKg96cZEY",
+    videoUrl: "https://www.youtube.com/embed/KjeEnYejaOQ",
 
     practiceFiles: [
       {
