@@ -348,7 +348,7 @@ export const wordModule3Lessons: Lesson[] = [
     "Judge when a picture style helps and when it distracts",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/cW7626Vszx4",
+  videoUrl: "https://www.youtube.com/embed/IsrRcnXoY4M",
 
   practiceFiles: [
     {
