@@ -7,7 +7,7 @@ export const accessModule1Lessons: Lesson[] = [
     description:
       "Learn what a database does that a spreadsheet cannot, and find your way around the Access window.",
     duration: "20 min",
-    videoUrl: "https://www.youtube.com/embed/CCh7eRKeg-w",
+    videoUrl: "https://www.youtube.com/embed/yFPHMxtmVd8",
     objectives: [
       "Explain when a database is the right tool and when a spreadsheet is",
       "Identify the Navigation Pane, Ribbon, and object tabs",
