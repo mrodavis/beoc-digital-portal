@@ -617,6 +617,7 @@ export const outlookModule3Lessons: Lesson[] = [
       "Move senders between Focused and Other for good",
     ],
     duration: "14 min",
+    videoUrl: "https://www.youtube.com/embed/f4cnZONKKXc",
     slides: outlookSlides["module-3/quick-steps-focused"],
     sections: [
       {
