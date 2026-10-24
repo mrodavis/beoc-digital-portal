@@ -440,6 +440,7 @@ export const outlookModule6Lessons: Lesson[] = [
       "Request a read receipt and know its limits",
     ],
     duration: "17 min",
+    videoUrl: "https://www.youtube.com/embed/ReJuAxSGfZY",
     slides: outlookSlides["module-6/protect-accessible"],
     sections: [
       {
