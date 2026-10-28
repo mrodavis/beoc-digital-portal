@@ -27,7 +27,7 @@ const STEPS = [
   },
   {
     title: "Open your assignments",
-    body: "You land in the simulator signed in. Open Assignments in the left menu and press Start simulation on the one your instructor has assigned. The simulator switches you to the right role for it.",
+    body: "You land in the simulator signed in. Open Assignments in the toolbar across the top and press Start simulation on the one your instructor has assigned. The simulator switches you to the right role for it.",
   },
 ];
 

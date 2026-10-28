@@ -340,7 +340,7 @@ export const module3Lessons: Lesson[] = [
             path: "/ehr/billing",
             role: "Billing",
             steps: [
-              "Switch to Billing and open Billing from the left menu. This is the revenue work queue: every open claim in the building and where it stands.",
+              "Switch to Billing and open Billing from the toolbar across the top. This is the revenue work queue: every open claim in the building and where it stands.",
               "Read the statuses a claim moves through: draft, ready, submitted, accepted or denied, paid.",
               "Open a claim and find its Claim Scrub and Claim History. Read only; these claims belong to the whole class.",
             ],
