@@ -315,7 +315,7 @@ objectives: [
   "Convert a list into a stronger visual when appropriate",
 ],
 duration: "8 min",
-videoUrl: "https://www.youtube.com/embed/QAd5Td9KuBg",
+videoUrl: "https://www.youtube.com/embed/Lolgy1bLe2k",
 
 practiceFiles: [
 {

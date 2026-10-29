@@ -554,7 +554,7 @@ LESSON 3 – COMMENTS
     "Write comments that a colleague can act on without asking a follow-up question",
   ],
   duration: "6 min",
-  videoUrl: "https://www.youtube.com/embed/9zz09ZBkcTs",
+  videoUrl: "https://www.youtube.com/embed/o3dAN9V8gVg",
 
   practiceFiles: [
     {
