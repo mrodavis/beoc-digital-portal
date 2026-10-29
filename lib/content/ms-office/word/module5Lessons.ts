@@ -18,7 +18,7 @@ LESSON 1 – INSERTING TABLES
     "Mark a header row so the table stays readable across pages and for screen readers",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/fVaQy7fkHaM",
+  videoUrl: "https://www.youtube.com/embed/Uw3rCTU9x2I",
 
   practiceFiles: [
     {

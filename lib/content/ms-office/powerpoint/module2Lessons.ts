@@ -568,7 +568,7 @@ objectives: [
   "Recognize when spacing changes are hiding a content problem",
 ],
 duration: "11 min",
-videoUrl: "https://www.youtube.com/embed/7hIOAejXgIE",
+videoUrl: "https://www.youtube.com/embed/El1867TDXgs",
 
 practiceFiles: [
 {
