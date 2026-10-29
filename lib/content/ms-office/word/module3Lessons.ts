@@ -633,7 +633,7 @@ export const wordModule3Lessons: Lesson[] = [
     "Understand stacking order and how it affects what is visible",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/iVRND7KVfTc",
+  videoUrl: "https://www.youtube.com/embed/k6L4juZXAg8",
 
   practiceFiles: [
     {
