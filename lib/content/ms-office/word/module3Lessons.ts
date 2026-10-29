@@ -1021,7 +1021,7 @@ export const wordModule3Lessons: Lesson[] = [
     "Keep text boxes accessible for screen reader users",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/grXEwPhldaM",
+  videoUrl: "https://www.youtube.com/embed/jev_i7r2h8w",
 
   practiceFiles: [
     {
