@@ -14,7 +14,7 @@ export const wordModule4Lessons: Lesson[] = [
     "Choose between a date that updates automatically and one that stays fixed",
   ],
   duration: "7 min",
-  videoUrl: "https://www.youtube.com/embed/kmnYNR6Ho30",
+  videoUrl: "https://www.youtube.com/embed/mKh_p5f7-FU",
 
   practiceFiles: [
     {
@@ -280,7 +280,7 @@ LESSON 2 – TRACK CHANGES
     "Remove all tracked changes and comments before sending a document externally",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/wPfm8PxHIXo",
+  videoUrl: "https://www.youtube.com/embed/E_X1ncjji2E",
 
   practiceFiles: [
     {
