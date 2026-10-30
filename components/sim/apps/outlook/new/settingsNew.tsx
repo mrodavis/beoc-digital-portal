@@ -58,19 +58,23 @@ function SignaturesPage({ ctx }: { ctx: NCtx }) {
   const doc = ctx.doc;
   const [sigs, setSigs] = useState(doc.signatures ?? []);
   const [cur, setCur] = useState<number>(sigs.length ? 0 : -1);
-  const [defNew, setDefNew] = useState(doc.defaultNew ?? "");
-  const [defReply, setDefReply] = useState(doc.defaultReply ?? "");
+  // The defaults point at a signature (by position), so renaming one keeps it the default, and a
+  // new signature never becomes a default by itself: the learner picks it under Select default signatures.
+  const idxOf = (name?: string) => (name ? sigs.findIndex((x) => x.name === name) : -1);
+  const [defNew, setDefNew] = useState(() => idxOf(doc.defaultNew));
+  const [defReply, setDefReply] = useState(() => idxOf(doc.defaultReply));
   const s = cur >= 0 ? sigs[cur] : undefined;
   const upd = (patch: Partial<{ name: string; text: string }>) => {
     if (cur < 0) return;
-    const prev = sigs[cur];
-    const next = sigs.map((x, i) => (i === cur ? { ...x, ...patch } : x));
-    setSigs(next);
-    if (patch.name !== undefined) {
-      if (defNew === prev.name) setDefNew(patch.name);
-      if (defReply === prev.name) setDefReply(patch.name);
-    }
+    setSigs(sigs.map((x, i) => (i === cur ? { ...x, ...patch } : x)));
   };
+  const named = (i: number) => (i >= 0 && sigs[i]?.name.trim() ? sigs[i].name : undefined);
+  const pick = (v: number, set: (n: number) => void, label: string) => (
+    <select aria-label={label} data-f={label.includes("new") ? "sigNew" : "sigReply"} value={named(v) ? String(v) : ""} onChange={(e) => set(e.target.value === "" ? -1 : Number(e.target.value))} className={inputCls}>
+      <option value="">(no signature)</option>
+      {sigs.map((x, i) => (x.name.trim() ? <option key={i} value={String(i)}>{x.name}</option> : null))}
+    </select>
+  );
   return (
     <>
       <H>Signatures</H>
@@ -105,23 +109,13 @@ function SignaturesPage({ ctx }: { ctx: NCtx }) {
       <Sub>Select default signatures</Sub>
       <div className="grid max-w-[420px] grid-cols-[150px_1fr] items-center gap-2 text-[13px]">
         <span>New messages</span>
-        <select aria-label="Default signature for new messages" data-f="sigNew" value={defNew} onChange={(e) => setDefNew(e.target.value)} className={inputCls}>
-          <option value="">(no signature)</option>
-          {sigs.filter((x) => x.name.trim()).map((x, i) => (
-            <option key={i} value={x.name}>{x.name}</option>
-          ))}
-        </select>
+        {pick(defNew, setDefNew, "Default signature for new messages")}
         <span>Replies and forwards</span>
-        <select aria-label="Default signature for replies and forwards" data-f="sigReply" value={defReply} onChange={(e) => setDefReply(e.target.value)} className={inputCls}>
-          <option value="">(no signature)</option>
-          {sigs.filter((x) => x.name.trim()).map((x, i) => (
-            <option key={i} value={x.name}>{x.name}</option>
-          ))}
-        </select>
+        {pick(defReply, setDefReply, "Default signature for replies and forwards")}
       </div>
       <Footer
         onSave={() =>
-          ctx.commit({ kind: "type", target: "signatures", value: serializeSignatures(sigs.filter((x) => x.name.trim()), defNew || undefined, defReply || undefined) })
+          ctx.commit({ kind: "type", target: "signatures", value: serializeSignatures(sigs.filter((x) => x.name.trim()), named(defNew), named(defReply)) })
         }
       />
     </>
