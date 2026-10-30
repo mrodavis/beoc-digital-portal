@@ -792,6 +792,8 @@ export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onCo
 }
 
 export function PptStatusBar({ doc: deck, ui, onCommit }: StatusBarProps<PptDeck>) {
+  // A slide show (and Presenter View) fills the screen: PowerPoint's window and its status bar are hidden.
+  if (deck.view === "show") return null;
   const slide = activeSlide(deck, ui);
   const idx = deck.slides.findIndex((s) => s.id === slide?.id);
   const zoom = Number(deck.flags?.zoom ?? 100);

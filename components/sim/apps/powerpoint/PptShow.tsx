@@ -8,25 +8,29 @@ import { SlideView } from "./PptSlide";
 
 type Stroke = { color: string; width: number; pts: [number, number][] };
 
-function useSize(ref: React.RefObject<HTMLDivElement | null>) {
+/**
+ * The size of the stage element. A callback ref, so switching between the normal show and Presenter
+ * View (different stage elements) measures the one on screen, not the one that was just removed.
+ */
+function useSize(): [(el: HTMLDivElement | null) => void, { w: number; h: number }] {
+  const [el, setEl] = useState<HTMLDivElement | null>(null);
   const [size, setSize] = useState({ w: 800, h: 450 });
   useEffect(() => {
-    const el = ref.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => setSize({ w: el.clientWidth, h: el.clientHeight }));
+    const measure = () => { if (el.isConnected && el.clientWidth > 0) setSize({ w: el.clientWidth, h: el.clientHeight }); };
+    const ro = new ResizeObserver(measure);
     ro.observe(el);
-    setSize({ w: el.clientWidth, h: el.clientHeight });
+    measure();
     return () => ro.disconnect();
-  }, [ref]);
-  return size;
+  }, [el]);
+  return [setEl, size];
 }
 
 const fmt = (sec: number) => `${Math.floor(sec / 3600)}:${String(Math.floor((sec % 3600) / 60)).padStart(2, "0")}:${String(sec % 60).padStart(2, "0")}`;
 
 export function SlideShow({ deck, onCommit, onContextMenu }: { deck: PptDeck; onCommit: (c: SimCommit) => void; onContextMenu: (x: number, y: number, items: MenuItem[]) => void }) {
   const focusRef = useRef<HTMLDivElement>(null);
-  const stageRef = useRef<HTMLDivElement>(null);
-  const size = useSize(stageRef);
+  const [stageRef, size] = useSize();
   const f = deck.flags ?? {};
   const curId = showSlideId(deck);
   const idx = deck.slides.findIndex((s) => s.id === curId);
