@@ -1,7 +1,7 @@
 import type { DialogDef, DialogField, PptDeck, SimCommit, SimValue } from "@/types/sim";
 import type { AppCore, SimUi } from "../../types";
 import { applyPpt, pptContextual, pptDialogDefaults, pptRibbonState, activeSlide, clipHistory, clipLabel, customShows, pasteSpecialInfo, pptSelectionExists, parseSel, animSequence } from "./model";
-import { pptRibbon, pptDialogs, PPT_VIEW_ALIASES } from "./ribbon";
+import { pptRibbon, pptDialogs, pptRibbonFor, PPT_VIEW_ALIASES } from "./ribbon";
 import { ICONS } from "./ext";
 
 /** Dialogs whose options come from the presentation (the clipboard, the custom shows, the icon picked). */
@@ -187,6 +187,7 @@ export const pptCore: AppCore<PptDeck> = {
     if (slide && r.doc.active !== slide && r.doc.slides.some((s) => s.id === slide)) r.doc = { ...r.doc, active: slide };
     return r;
   },
+  ribbonFor: pptRibbonFor,
   ribbonState: pptRibbonState,
   contextualTabs: pptContextual,
   dialogDef,

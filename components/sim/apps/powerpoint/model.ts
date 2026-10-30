@@ -68,13 +68,20 @@ export const PPT_THEMES: Record<string, PptTheme> = {
 };
 export const PPT_THEME_NAMES = Object.keys(PPT_THEMES);
 
-const VARIANT_ACCENTS = ["", "#4472C4", "#70AD47", "#ED7D31", "#7030A0"];
+/** Design › Variants: variant 1 keeps the theme's own accent; variants 2 to 4 swap in these. */
+const VARIANT_ACCENTS = ["", "", "#70AD47", "#ED7D31", "#7030A0"];
+
+/** The accent color a Variants thumbnail shows, and the one choosing it applies. */
+export function variantAccent(themeName: string | undefined, v: number): string {
+  const t = PPT_THEMES[themeName ?? "Office Theme"] ?? PPT_THEMES["Office Theme"];
+  return v > 1 ? VARIANT_ACCENTS[v] || t.accent : t.accent;
+}
 
 export function themeOf(deck: PptDeck): PptTheme {
   let t = PPT_THEMES[deck.theme ?? "Office Theme"] ?? PPT_THEMES["Office Theme"];
   const v = deck.variant ?? 1;
   if (v > 1) {
-    const accent = VARIANT_ACCENTS[v] ?? t.accent;
+    const accent = variantAccent(deck.theme, v);
     t = { ...t, accent, band: t.band ? { ...t.band, color: accent } : { side: "bottom", color: accent, size: 4 } };
   }
   const colors = deck.flags?.themeColors;
