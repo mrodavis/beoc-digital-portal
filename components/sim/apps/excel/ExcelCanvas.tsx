@@ -486,7 +486,9 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     }
     return out;
   }, [doc, sheet]);
-  const colW = (c: number) => (hiddenCols.has(numToCol(c)) ? 0 : (sheet.colWidths?.[numToCol(c)] ?? COL_W) * z);
+  // Show Formulas (Ctrl+`) widens the columns, as Excel does; they go back when it is turned off.
+  const widen = sheet.showFormulas ? 2 : 1;
+  const colW = (c: number) => (hiddenCols.has(numToCol(c)) ? 0 : (sheet.colWidths?.[numToCol(c)] ?? COL_W) * z * widen);
   const rowH = (r: number) => (hiddenRows.has(r) ? 0 : (sheet.rowHeights?.[String(r)] ?? autoH[r] ?? ROW_H) * z);
   const colX: number[] = [0, headW];
   for (let c = 1; c <= nCols; c++) colX[c + 1] = colX[c] + colW(c);
@@ -1028,7 +1030,9 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       // Center Across Selection: the text in the first cell is centered over the whole range.
       const cas = typeof value === "string" || typeof value === "number" ? casRanges.find((rc) => r >= rc.r1 && r <= rc.r2 && c >= rc.c1 && c <= rc.c2) : undefined;
       const pivotFilterField = sheet.pivot && virtual && c === parseRef(sheet.pivot.at ?? "A3")!.c + 1 && sheet.pivot.filters.includes(String(pivotCells[refOf(c - 1, r)]?.v ?? "")) ? String(pivotCells[refOf(c - 1, r)]?.v) : null;
-      let text = sheet.showFormulas && cell?.f && !formulaHidden(ref) ? cell.f : formatValue(value as Val, fmt);
+      // Show Formulas: formulas as typed (left-aligned), and numbers as stored, without their number format.
+      const showF = Boolean(sheet.showFormulas && cell?.f && !formulaHidden(ref));
+      let text = showF ? cell!.f! : sheet.showFormulas && typeof value === "number" && !cell?.f ? formatValue(value, undefined) : formatValue(value as Val, fmt);
       const isNum = typeof value === "number";
       const isErr = typeof value === "string" && value.startsWith("#");
       // Header/banding for tables
@@ -1052,7 +1056,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
         bg = bg ?? `${tblColor}33`;
       }
       const cfs = cf[ref];
-      const align = fmt.align ?? (isNum ? "right" : isErr || typeof value === "boolean" ? "center" : "left");
+      const align = fmt.align ?? (showF ? "left" : isNum ? "right" : isErr || typeof value === "boolean" ? "center" : "left");
       const w = merge ? colX[merge.c2 + 1] - colX[c] : colW(c);
       const h = merge ? rowY[merge.r2 + 1] - rowY[r] : rowH(r);
       const nextEmpty = !sheet.cells[refOf(c + 1, r)]?.v && !sheet.cells[refOf(c + 1, r)]?.f && !pivotCells[refOf(c + 1, r)];
