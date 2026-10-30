@@ -219,7 +219,7 @@ LESSON 2 – MODIFYING TABLES
     "Apply table styles that aid reading rather than decorate",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/fDtlMwyxHa4",
+  videoUrl: "https://www.youtube.com/embed/tskVdAodDpY",
 
   practiceFiles: [
     {
@@ -701,7 +701,7 @@ LESSON 4 – MAIL MERGE BASICS
     "Judge when mail merge saves time and when it is overkill",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/EmqzIf-_6Uk",
+  videoUrl: "https://www.youtube.com/embed/hTVSaei6mjs",
 
   practiceFiles: [
     {
