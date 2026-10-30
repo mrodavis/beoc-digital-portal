@@ -762,7 +762,7 @@ function RecipientRow({
   const [hi, setHi] = useState(0);
   const [focus, setFocus] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
-  const sugg = focus ? suggestionsFor(ctx, pending) : [];
+  const sugg = focus ? suggestionsFor(ctx, pending, "Contact list") : [];
   const add = (tok: string) => {
     if (!tokens.some((t) => t.toLowerCase() === tok.toLowerCase())) onTokens([...tokens, tok]);
     onPending("");

@@ -810,11 +810,12 @@ export function ReadingPane({ ctx }: { ctx: Ctx }) {
 /* Compose                                                             */
 /* ------------------------------------------------------------------ */
 
-export function suggestionsFor(ctx: Ctx, text: string): { label: string; sub: string; token: string }[] {
+/** Address suggestions for a To/Cc box. `groupTerm` names a group: "Contact group" in classic Outlook, "Contact list" in new Outlook. */
+export function suggestionsFor(ctx: Ctx, text: string, groupTerm = "Contact group"): { label: string; sub: string; token: string }[] {
   const t = text.trim().toLowerCase();
   if (!t) return [];
   const out: { label: string; sub: string; token: string }[] = [];
-  for (const g of ctx.doc.groups ?? []) if (g.name.toLowerCase().includes(t)) out.push({ label: g.name, sub: "Contact group", token: g.name });
+  for (const g of ctx.doc.groups ?? []) if (g.name.toLowerCase().includes(t)) out.push({ label: g.name, sub: groupTerm, token: g.name });
   for (const p of people(ctx.doc)) {
     if (p.name.toLowerCase().split(/\s+/).some((w) => w.startsWith(t)) || p.name.toLowerCase().startsWith(t) || p.email.toLowerCase().startsWith(t)) out.push({ label: p.name, sub: p.email, token: p.email });
   }
