@@ -1,6 +1,7 @@
-import type { RibbonOption, RibbonTab } from "@/types/sim";
+import type { ExcelBook, RibbonControl, RibbonOption, RibbonTab } from "@/types/sim";
+import type { SimUi } from "../../types";
 import { THEME_COLORS } from "../../chrome/colors";
-import { SPARKLINE_COLORS, TAB_COLORS } from "./model";
+import { activeCell, pivotCellAt, sheetOf, SPARKLINE_COLORS, TAB_COLORS } from "./model";
 
 const FONTS = ["Aptos Narrow", "Aptos", "Calibri", "Arial", "Cambria", "Century Gothic", "Courier New", "Georgia", "Segoe UI", "Tahoma", "Times New Roman", "Verdana"];
 const SIZES = ["8", "9", "10", "11", "12", "14", "16", "18", "20", "24", "28", "36"];
@@ -664,3 +665,26 @@ export const EXCEL_VIEW_ALIASES: Record<string, string> = {
   "view.mode.pageBreak": "Page Break Preview",
   "view.mode.pageLayout": "Page Layout",
 };
+
+/**
+ * The Ribbon as Excel shows it for the active sheet: the first Freeze Panes item toggles between
+ * Freeze Panes and Unfreeze Panes; on a protected sheet Protect Sheet becomes Unprotect Sheet (Review
+ * tab and Home › Format); with the active cell in a PivotTable, Insert › PivotChart charts that PivotTable.
+ */
+export function excelRibbonFor(doc: ExcelBook, ui: SimUi): RibbonTab[] {
+  const sheet = sheetOf(doc, ui);
+  const frozen = Boolean(sheet.freeze);
+  const prot = Boolean(sheet.protected);
+  const inPivot = Boolean(sheet.pivot && pivotCellAt(doc, sheet, activeCell(ui)));
+  const swap = (c: RibbonControl, tab: string): RibbonControl => {
+    if (c.type === "dropdown" && c.id === "view.freeze") return { ...c, options: [frozen ? "Unfreeze Panes" : "Freeze Panes", "Freeze Top Row", "Freeze First Column"].map((v) => ({ value: v, icon: "freeze" })) };
+    if (prot && c.type === "button" && c.id === "review.protectSheet") return { type: "button", id: "review.unprotectSheet", label: "Unprotect Sheet", icon: "protect", size: "large" };
+    if (prot && c.type === "dropdown" && c.id === "home.format") return { ...c, options: c.options.map((o) => (o.value === "Protect Sheet..." ? { value: "Unprotect Sheet...", command: "review.unprotectSheet" } : o)) };
+    if (inPivot && tab === "insert" && c.type === "button" && c.id === "insert.pivotChart") return { ...c, dialog: "insertChart" };
+    return c;
+  };
+  return excelRibbon.map((t) => ({
+    ...t,
+    groups: t.groups.map((g) => ({ ...g, controls: g.controls.map((c) => swap(c, t.id)), ...(g.rows ? { rows: g.rows.map((row) => row.map((c) => swap(c, t.id))) } : {}) })),
+  }));
+}

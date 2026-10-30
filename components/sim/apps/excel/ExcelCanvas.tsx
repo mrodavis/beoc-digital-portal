@@ -82,6 +82,8 @@ function cellRaw(sheet: ExcelSheet, ref: string): string {
   if (!c) return "";
   if (c.f) return c.f;
   if (c.v === undefined) return "";
+  // Text typed with a leading apostrophe shows it in the formula bar (not in the cell), as in Excel.
+  if (typeof c.v === "string" && (c.fmt as XCellFormat | undefined)?.quotePrefix) return `'${c.v}`;
   if (typeof c.v === "number") {
     if (c.fmt?.numFmt === "Percentage") return `${Math.round(c.v * 10000) / 100}%`;
     if (c.fmt?.numFmt === "Short Date" || c.fmt?.numFmt === "Long Date") return formatValue(c.v, { numFmt: "Short Date" });
@@ -391,8 +393,11 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const z = (sheet.zoom ?? 100) / 100;
   const sel = ui.selection || "A1";
   const act = activeCell(ui);
-  /** The cell being edited; `typed` when editing began with a keystroke (AutoComplete applies). */
-  const [edit, setEdit] = useState<{ ref: string; text: string; bar?: boolean; typed?: boolean } | null>(null);
+  /**
+   * The cell being edited; `typed` when editing began with a keystroke (AutoComplete applies).
+   * `sheet` is set once a formula points to another sheet: the cell being edited stays on this sheet.
+   */
+  const [edit, setEdit] = useState<{ ref: string; text: string; bar?: boolean; typed?: boolean; sheet?: string } | null>(null);
   const editRef = useRef(edit);
   editRef.current = edit;
   const [renaming, setRenaming] = useState<{ name: string; text: string } | null>(null);
@@ -406,12 +411,27 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const [unlock, setUnlock] = useState<{ ref: string; text?: string; title: string; password: string; tries: number } | null>(null);
   const [unlocked, setUnlocked] = useState<Set<string>>(new Set());
   const [totalMenu, setTotalMenu] = useState<{ x: number; y: number } | null>(null);
-  const drag = useRef<{ mode: "select" | "fill" | "point" | "col" | "row"; anchor: string; src?: Rect; target?: Rect; pointStart?: number } | null>(null);
+  const drag = useRef<{ mode: "select" | "fill" | "point" | "col" | "row"; anchor: string; src?: Rect; target?: Rect } | null>(null);
   const [fillPreview, setFillPreview] = useState<Rect | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const focusRef = useRef<HTMLDivElement>(null);
   const nameBoxRef = useRef<HTMLInputElement>(null);
   const [nameBox, setNameBox] = useState<string | null>(null);
+  const formulaBarRef = useRef<HTMLInputElement>(null);
+  /** The reference last put into a formula by pointing, so the next click replaces it, as in Excel. */
+  const pointRef = useRef<{ start: number; text: string; sheet?: string; range?: string } | null>(null);
+  /** The grid window's inside size, so the grid can fill it. */
+  const [viewSize, setViewSize] = useState({ w: 0, h: 0 });
+  useLayoutEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const measure = () => setViewSize((v) => (v.w === el.clientWidth && v.h === el.clientHeight ? v : { w: el.clientWidth, h: el.clientHeight }));
+    measure();
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     setEdit(null);
@@ -448,8 +468,9 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
 
   const used = usedRect(sheet);
   const spillMax = Object.values(spill.ranges).reduce((m, r) => ({ c: Math.max(m.c, r.c2), r: Math.max(m.r, r.r2) }), { c: 0, r: 0 });
-  const nCols = Math.max(sheet.cols ?? DEFAULT_COLS, (used?.c2 ?? 0) + 2, spillMax.c + 1);
-  const nRows = Math.max(sheet.rows ?? DEFAULT_ROWS, (used?.r2 ?? 0) + 3, spillMax.r + 2);
+  /** The sheet's working size (Select All, Ctrl+A); the grid draws more columns and rows to fill the window. */
+  const dataCols = Math.max(sheet.cols ?? DEFAULT_COLS, (used?.c2 ?? 0) + 2, spillMax.c + 1);
+  const dataRows = Math.max(sheet.rows ?? DEFAULT_ROWS, (used?.r2 ?? 0) + 3, spillMax.r + 2);
   const hiddenRows = new Set(sheet.hiddenRows ?? []);
   const hiddenCols = new Set(sheet.hiddenCols ?? []);
   const filterRect = sheet.filter ? parseRange(sheet.filter) : null;
@@ -478,8 +499,21 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     }
     return out;
   }, [doc, sheet]);
-  const colW = (c: number) => (hiddenCols.has(numToCol(c)) ? 0 : (sheet.colWidths?.[numToCol(c)] ?? COL_W) * z);
+  // Show Formulas (Ctrl+`) widens the columns, as Excel does; they go back when it is turned off.
+  const widen = sheet.showFormulas ? 2 : 1;
+  const colW = (c: number) => (hiddenCols.has(numToCol(c)) ? 0 : (sheet.colWidths?.[numToCol(c)] ?? COL_W) * z * widen);
   const rowH = (r: number) => (hiddenRows.has(r) ? 0 : (sheet.rowHeights?.[String(r)] ?? autoH[r] ?? ROW_H) * z);
+  // Like Excel, the grid runs past the data to the window's right and bottom edges (not in Page Layout view).
+  let nCols = dataCols;
+  let nRows = dataRows;
+  if (sheet.view !== "pageLayout" && viewSize.w > 0) {
+    let x = headW;
+    for (let c = 1; c <= nCols; c++) x += colW(c);
+    while (x < viewSize.w && nCols < 200) x += colW(++nCols) || COL_W;
+    let y = HEAD_H;
+    for (let r = 1; r <= nRows; r++) y += rowH(r);
+    while (y < viewSize.h && nRows < 500) y += rowH(++nRows) || ROW_H;
+  }
   const colX: number[] = [0, headW];
   for (let c = 1; c <= nCols; c++) colX[c + 1] = colX[c] + colW(c);
   const rowY: number[] = [0, HEAD_H];
@@ -514,12 +548,16 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     const text = textOverride ?? e.text;
     setEdit(null);
     editRef.current = null;
-    if (blockedEdit(e.ref)) return;
-    const changed = text !== cellRaw(sheet, e.ref);
+    pointRef.current = null;
+    // A formula that pointed to another sheet is entered in its own cell, back on its own sheet.
+    const home = e.sheet && e.sheet !== sheet.name ? doc.sheets.find((x) => x.name === e.sheet) ?? sheet : sheet;
+    if (home !== sheet) onSelect({ sheet: home.name, selection: e.ref });
+    if (blockedEdit(e.ref, undefined, home)) return;
+    const changed = text !== cellRaw(home, e.ref);
     if (changed && /^[A-Z]+\d+$/.test(e.ref)) {
-      const v = validationAt(sheet, e.ref);
+      const v = validationAt(home, e.ref);
       // The Error Alert: Stop rejects the entry, Warning asks, Information only tells.
-      if (v && v.rule.showError !== false && !validationAllows(doc, sheet, v.rule, text)) {
+      if (v && v.rule.showError !== false && !validationAllows(doc, home, v.rule, text)) {
         setAlert({ ref: e.ref, text, rule: v.rule, move });
         return;
       }
@@ -540,15 +578,15 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
    * Ranges (after their password, if they have one); a workbook marked as
    * final allows none.
    */
-  const blockedEdit = (ref: string, text?: string) => {
+  const blockedEdit = (ref: string, text?: string, on: ExcelSheet = sheet) => {
     if (markedFinal && /^[A-Z]+\d+$/.test(ref)) {
       setMessage("An author has marked this workbook as final to discourage editing. Click Edit Anyway on the yellow bar to edit it.");
       return true;
     }
-    if (sheet.protected && /^[A-Z]+\d+$/.test(ref) && !isUnlocked(doc, sheet, ref)) {
-      const range = editRangeAt(doc, sheet, ref);
+    if (on.protected && /^[A-Z]+\d+$/.test(ref) && !isUnlocked(doc, on, ref)) {
+      const range = editRangeAt(doc, on, ref);
       if (range) {
-        if (!range.password || unlocked.has(`${sheet.name}:${range.title}`)) return false;
+        if (!range.password || unlocked.has(`${on.name}:${range.title}`)) return false;
         setUnlock({ ref, text, title: range.title, password: "", tries: 0 });
         return true;
       }
@@ -585,12 +623,62 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     setEdit({ ref: act, text: text ?? cellRaw(sheet, act), typed: text !== undefined && text.length === 1 });
   };
 
-  const insertRef = (ref: string) => {
+  /** Is a formula being typed, so clicking a cell or a sheet tab points to it? */
+  const pointing = () => Boolean(editRef.current?.text.startsWith("="));
+
+  /**
+   * Point to a cell or range while typing a formula: the reference goes in at the end, or replaces
+   * the one put there by the last click. On another sheet it is written Sheet!A1 ('Two Words'!A1).
+   */
+  const insertRef = (ref: string, onSheet: string = sheet.name) => {
     const e = editRef.current;
     if (!e) return;
-    const base = drag.current?.pointStart ?? e.text.length;
-    setEdit({ ...e, text: e.text.slice(0, base) + ref });
+    const p = pointRef.current;
+    const base = p && p.text === e.text ? p.start : e.text.length;
+    const home = e.sheet ?? sheet.name;
+    const text = e.text.slice(0, base) + (onSheet !== home ? sheetPrefix(onSheet) : "") + ref;
+    pointRef.current = { start: base, text, sheet: onSheet, range: ref };
+    const next = { ...e, text };
+    editRef.current = next;
+    setEdit(next);
+    // On another sheet the pointed cell becomes that sheet's selection, as in Excel.
+    if (onSheet !== home) onSelect({ selection: ref });
   };
+
+  /** Click a sheet tab while typing a formula: show that sheet and start a reference to it (=January!). */
+  const pointToSheet = (name: string) => {
+    const e = editRef.current;
+    if (!e) return;
+    const home = e.sheet ?? sheet.name;
+    const p = pointRef.current;
+    const base = p && p.text === e.text ? p.start : e.text.length;
+    const text = e.text.slice(0, base) + (name !== home ? sheetPrefix(name) : "");
+    pointRef.current = { start: base, text };
+    const next = { ...e, text, sheet: home };
+    editRef.current = next;
+    setEdit(next);
+    onSelect({ sheet: name, selection: name === home ? e.ref : "A1" });
+  };
+
+  /** Esc or the Cancel button: drop the entry and go back to the cell's own sheet. */
+  const cancelEdit = () => {
+    const e = editRef.current;
+    setEdit(null);
+    editRef.current = null;
+    pointRef.current = null;
+    if (e?.sheet && e.sheet !== sheet.name) onSelect({ sheet: e.sheet, selection: e.ref });
+  };
+
+  // While a formula points to another sheet, the formula bar holds the entry and takes the typing.
+  const awayEdit = Boolean(edit?.sheet && edit.sheet !== sheet.name);
+  useEffect(() => {
+    if (!awayEdit) return;
+    const el = formulaBarRef.current;
+    if (el && document.activeElement !== el) {
+      el.focus({ preventScroll: true });
+      el.setSelectionRange(el.value.length, el.value.length);
+    }
+  });
 
   /* ---------- mouse ---------- */
 
@@ -618,8 +706,8 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     e.preventDefault();
     setFilterMenu(null);
     setMessage(null);
-    if (edit && edit.text.startsWith("=")) {
-      drag.current = { mode: "point", anchor: ref, pointStart: edit.text.length };
+    if (edit && pointing()) {
+      drag.current = { mode: "point", anchor: ref };
       insertRef(ref);
       return;
     }
@@ -641,10 +729,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     const a = parseRef(d.anchor)!, b = parseRef(ref)!;
     const rect = { c1: Math.min(a.c, b.c), r1: Math.min(a.r, b.r), c2: Math.max(a.c, b.c), r2: Math.max(a.r, b.r) };
     if (d.mode === "select") onSelect({ selection: rectToRange(rect) });
-    else if (d.mode === "point") {
-      const e = editRef.current;
-      if (e) setEdit({ ...e, text: e.text.slice(0, d.pointStart) + rectToRange(rect) });
-    } else if (d.mode === "fill" && d.src) {
+    else if (d.mode === "point") insertRef(rectToRange(rect)); else if (d.mode === "fill" && d.src) {
       const s = d.src;
       let t: Rect = s;
       if (b.r > s.r2) t = { ...s, r2: b.r };
@@ -689,25 +774,84 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
 
   /* ---------- keyboard ---------- */
 
+  /** A cell holds something Ctrl+Arrow stops at: a value, a formula, a PivotTable entry or a spilled result. */
+  const hasData = (c: number, r: number) => {
+    const ref = refOf(c, r);
+    const cell = sheet.cells[ref];
+    const pc = pivotCells[ref];
+    return Boolean((cell && (cell.f || (cell.v !== undefined && cell.v !== ""))) || (pc && pc.v !== null && pc.v !== "") || spill.out[ref] !== undefined);
+  };
+  /** The next visible cell in a direction (hidden rows and columns are skipped), or null at the edge. */
+  const step = (c: number, r: number, dc: number, dr: number): { c: number; r: number } | null => {
+    let nc = c + dc, nr = r + dr;
+    const inside = () => nc >= 1 && nr >= 1 && nc <= nCols && nr <= nRows;
+    while (inside() && (dc ? hiddenCols.has(numToCol(nc)) : hiddenRows.has(nr))) { nc += dc; nr += dr; }
+    return inside() ? { c: nc, r: nr } : null;
+  };
+  /**
+   * Ctrl+Arrow, as in Excel: inside a block of data, to the block's last cell; otherwise to the next
+   * cell that has data; with nothing further, to the edge of the sheet.
+   */
+  const jumpFrom = (c: number, r: number, dc: number, dr: number) => {
+    let cur = { c, r };
+    let next = step(c, r, dc, dr);
+    if (!next) return cur;
+    if (hasData(c, r) && hasData(next.c, next.r)) {
+      while (next && hasData(next.c, next.r)) { cur = next; next = step(cur.c, cur.r, dc, dr); }
+      return cur;
+    }
+    while (next && !hasData(next.c, next.r)) { cur = next; next = step(cur.c, cur.r, dc, dr); }
+    return next ?? cur;
+  };
+  /** Shift+arrow keys extend from this cell (Excel's active cell), which the range string itself doesn't record. */
+  const anchorRef = useRef<{ sel: string; anchor: { c: number; r: number } } | null>(null);
+  /** The cell a keyboard move went to, scrolled into view after the render. */
+  const revealRef = useRef<{ c: number; r: number } | null>(null);
+
+  /** Go to a cell, or with Shift extend the selection from the anchor to it. */
+  const goTo = (t: { c: number; r: number }, extend: boolean) => {
+    revealRef.current = t;
+    if (!extend) {
+      anchorRef.current = null;
+      onSelect({ selection: refOf(t.c, t.r) });
+      return;
+    }
+    const p = parseRef(act)!;
+    const anchor = anchorRef.current?.sel === sel ? anchorRef.current.anchor : { c: p.c, r: p.r };
+    const next = rectToRange({ c1: Math.min(anchor.c, t.c), r1: Math.min(anchor.r, t.r), c2: Math.max(anchor.c, t.c), r2: Math.max(anchor.r, t.r) });
+    anchorRef.current = { sel: next, anchor };
+    onSelect({ selection: next });
+  };
+
   const move = (dc: number, dr: number, extend: boolean, jump: boolean) => {
     const p = parseRef(act)!;
-    let c = p.c + dc, r = p.r + dr;
-    if (jump) {
-      // Jump to the edge of the data region.
-      const has = (cc: number, rr: number) => Boolean(sheet.cells[refOf(cc, rr)]?.v !== undefined || sheet.cells[refOf(cc, rr)]?.f);
-      c = p.c; r = p.r;
-      while (c + dc >= 1 && r + dr >= 1 && c + dc <= nCols && r + dr <= nRows && has(c + dc, r + dr)) { c += dc; r += dr; }
-      if (c === p.c && r === p.r) { c = Math.max(1, Math.min(nCols, p.c + dc)); r = Math.max(1, Math.min(nRows, p.r + dr)); }
-    }
-    c = Math.max(1, Math.min(nCols, c));
-    r = Math.max(1, Math.min(nRows, r));
+    let from = { c: p.c, r: p.r };
     if (extend) {
+      // Shift moves the corner of the selection opposite the anchor.
       const rc = selR ?? { c1: p.c, r1: p.r, c2: p.c, r2: p.r };
-      const r1 = dr < 0 ? Math.max(1, rc.r1 - 1) : rc.r1, r2 = dr > 0 ? rc.r2 + 1 : rc.r2;
-      const c1 = dc < 0 ? Math.max(1, rc.c1 - 1) : rc.c1, c2 = dc > 0 ? rc.c2 + 1 : rc.c2;
-      onSelect({ selection: rectToRange({ c1, r1, c2, r2 }) });
-    } else onSelect({ selection: refOf(c, r) });
+      const anchor = anchorRef.current?.sel === sel ? anchorRef.current.anchor : { c: p.c, r: p.r };
+      from = { c: anchor.c === rc.c1 ? rc.c2 : rc.c1, r: anchor.r === rc.r1 ? rc.r2 : rc.r1 };
+    }
+    goTo(jump ? jumpFrom(from.c, from.r, dc, dr) : step(from.c, from.r, dc, dr) ?? from, extend);
   };
+
+  // Keep the cell a keyboard move went to on screen, clear of the frozen panes.
+  useEffect(() => {
+    const t = revealRef.current;
+    const g = gridRef.current;
+    revealRef.current = null;
+    if (!t || !g || colX[t.c + 1] === undefined || rowY[t.r + 1] === undefined) return;
+    const fx = freeze && freeze.c > 1 ? colX[freeze.c] : headW;
+    const fy = freeze && freeze.r > 1 ? rowY[freeze.r] : HEAD_H;
+    if (!(freeze && t.c < freeze.c)) {
+      if (colX[t.c] - g.scrollLeft < fx) g.scrollLeft = colX[t.c] - fx;
+      else if (colX[t.c + 1] - g.scrollLeft > g.clientWidth) g.scrollLeft = colX[t.c + 1] - g.clientWidth;
+    }
+    if (!(freeze && t.r < freeze.r)) {
+      if (rowY[t.r] - g.scrollTop < fy) g.scrollTop = rowY[t.r] - fy;
+      else if (rowY[t.r + 1] - g.scrollTop > g.clientHeight) g.scrollTop = rowY[t.r + 1] - g.clientHeight;
+    }
+  });
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (edit || renaming) return;
@@ -717,10 +861,26 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       e.preventDefault();
       e.stopPropagation();
       const rc = currentRegion(sheet, act);
-      onSelect({ selection: rc && rectToRange(rc) !== sel ? rectToRange(rc) : `A1:${numToCol(nCols)}${nRows}` });
+      onSelect({ selection: rc && rectToRange(rc) !== sel ? rectToRange(rc) : `A1:${numToCol(dataCols)}${dataRows}` });
       return;
     }
-    if (ctrl && k === "Home") { e.preventDefault(); onSelect({ selection: "A1" }); return; }
+    if (ctrl && k === "Home") {
+      // Ctrl+Home: A1, or the first cell below and right of frozen panes.
+      e.preventDefault();
+      goTo(freeze ? { c: Math.max(1, freeze.c), r: Math.max(1, freeze.r) } : { c: 1, r: 1 }, e.shiftKey);
+      return;
+    }
+    if (ctrl && k === "End") {
+      // Ctrl+End: the last row and last column that hold data (PivotTables and spilled results included).
+      e.preventDefault();
+      let lc = used?.c2 ?? 1, lr = used?.r2 ?? 1;
+      for (const ref of [...Object.keys(pivotCells), ...Object.keys(spill.out)]) {
+        const q = parseRef(ref);
+        if (q) { lc = Math.max(lc, q.c); lr = Math.max(lr, q.r); }
+      }
+      goTo({ c: lc, r: lr }, e.shiftKey);
+      return;
+    }
     if (k.startsWith("Arrow")) {
       e.preventDefault();
       const [dc, dr] = k === "ArrowUp" ? [0, -1] : k === "ArrowDown" ? [0, 1] : k === "ArrowLeft" ? [-1, 0] : [1, 0];
@@ -851,7 +1011,9 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     { label: "Tab Color: No Color", command: "sheet.tabColor", value: "No Color" },
     { separator: true },
     { label: "Hide", command: "sheet.hide" },
-    { label: "Protect Sheet...", icon: "protect", dialog: "protectSheet" },
+    doc.sheets.find((x) => x.name === name)?.protected
+      ? { label: "Unprotect Sheet...", icon: "protect", command: "review.unprotectSheet" }
+      : { label: "Protect Sheet...", icon: "protect", dialog: "protectSheet" },
   ].map((m) => (m.command === "__rename" ? { ...m, command: undefined, dialog: `__rename:${name}` } : m));
 
   const actP = parseRef(act);
@@ -892,7 +1054,9 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       // Center Across Selection: the text in the first cell is centered over the whole range.
       const cas = typeof value === "string" || typeof value === "number" ? casRanges.find((rc) => r >= rc.r1 && r <= rc.r2 && c >= rc.c1 && c <= rc.c2) : undefined;
       const pivotFilterField = sheet.pivot && virtual && c === parseRef(sheet.pivot.at ?? "A3")!.c + 1 && sheet.pivot.filters.includes(String(pivotCells[refOf(c - 1, r)]?.v ?? "")) ? String(pivotCells[refOf(c - 1, r)]?.v) : null;
-      let text = sheet.showFormulas && cell?.f && !formulaHidden(ref) ? cell.f : formatValue(value as Val, fmt);
+      // Show Formulas: formulas as typed (left-aligned), and numbers as stored, without their number format.
+      const showF = Boolean(sheet.showFormulas && cell?.f && !formulaHidden(ref));
+      let text = showF ? cell!.f! : sheet.showFormulas && typeof value === "number" && !cell?.f ? formatValue(value, undefined) : formatValue(value as Val, fmt);
       const isNum = typeof value === "number";
       const isErr = typeof value === "string" && value.startsWith("#");
       // Header/banding for tables
@@ -900,7 +1064,13 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       let color = fmt.color;
       let bold = fmt.bold;
       if (tbl && c >= tbl.c1 && c <= tbl.c2 && r >= tbl.r1 && r <= tbl.r2) {
-        if (r === tbl.r1) { bg = bg ?? tblColor; color = color ?? (tblColor === "#d9d9d9" ? "#000" : "#fff"); bold = true; }
+        if (r === tbl.r1) {
+          // A header cell's own fill stays (as in Excel); its text is dark on a light fill so the header stays readable.
+          const own = bg;
+          bg = bg ?? tblColor;
+          color = color ?? ((own ? isLightFill(own) : tblColor === "#d9d9d9") ? "#000" : "#fff");
+          bold = true;
+        }
         else if (!doc.flags?.["table.bandedRows"] && (r - tbl.r1) % 2 === 0) bg = bg ?? `${tblColor}26`;
       }
       // The Total Row holds real cells (SUBTOTAL formulas); it is styled as part of the table.
@@ -910,13 +1080,13 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
         bg = bg ?? `${tblColor}33`;
       }
       const cfs = cf[ref];
-      const align = fmt.align ?? (isNum ? "right" : isErr || typeof value === "boolean" ? "center" : "left");
+      const align = fmt.align ?? (showF ? "left" : isNum ? "right" : isErr || typeof value === "boolean" ? "center" : "left");
       const w = merge ? colX[merge.c2 + 1] - colX[c] : colW(c);
       const h = merge ? rowY[merge.r2 + 1] - rowY[r] : rowH(r);
       const nextEmpty = !sheet.cells[refOf(c + 1, r)]?.v && !sheet.cells[refOf(c + 1, r)]?.f && !pivotCells[refOf(c + 1, r)];
       const frozenRow = freeze && r < freeze.r;
       const frozenCol = freeze && c < freeze.c;
-      const isEditing = edit?.ref === ref && !edit.bar;
+      const isEditing = edit?.ref === ref && !edit.bar && !awayEdit;
       const hasFilter = filterRect && r === filterRect.r1 && c >= filterRect.c1 && c <= filterRect.c2;
       const spark = sparklineAt(sheet, ref);
       const border = fmt.border;
@@ -966,9 +1136,9 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
           {isEditing ? (
             <CellEditor
               value={edit!.text}
-              onChange={(t) => setEdit({ ref, text: t, typed: true })}
+              onChange={(t) => setEdit({ ...(editRef.current ?? {}), ref, text: t, typed: true })}
               onCommit={(m, full) => commitEdit(m, full)}
-              onCancel={() => { setEdit(null); focus(); }}
+              onCancel={() => { cancelEdit(); focus(); }}
               suggest={(t) => autoComplete(ref, t)}
               suggestNow={edit!.typed}
               maxWidth={colX[nCols + 1] - colX[c] - 4}
@@ -1049,6 +1219,28 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const dialogPane = (x: string) => x.startsWith("Excel Options") || x.startsWith("Function Arguments") || x === "Sort" || x.startsWith("Select Data Source") || x.startsWith("Flash Fill:") || x.startsWith("Location reference");
   const findTerm = doc.pane?.startsWith("Find:") ? doc.pane.slice(5) : null;
 
+  /** One column letter in the header row. */
+  const colHead = (c: number) =>
+    hiddenCols.has(numToCol(c)) ? null : (
+      <div
+        key={c}
+        onMouseDown={(e) => colDown(e, c)}
+        onMouseEnter={() => drag.current?.mode === "col" && onSelect({ selection: `${numToCol(Math.min(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}:${numToCol(Math.max(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}` })}
+        onContextMenu={(e) => cellMenu(e, `${numToCol(c)}1`, "col")}
+        className={`absolute top-0 flex cursor-s-resize select-none items-center justify-center border-b border-r border-gray-300 text-[11px] ${selR && c >= selR.c1 && c <= selR.c2 ? "bg-[#d3e7dc] font-semibold text-[#217346]" : sheetView ? "bg-[#3b3b3b] text-gray-100" : "bg-[#f3f3f3] text-gray-600"}`}
+        style={{ left: colX[c], width: colW(c), height: HEAD_H }}
+      >
+        {r1c1 ? c : numToCol(c)}
+        <span
+          aria-label={`Right border of column ${numToCol(c)}`}
+          title="Double-click to AutoFit"
+          onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); }}
+          onDoubleClick={(e) => { e.stopPropagation(); autoFitAt("col", c); }}
+          className="absolute -right-[3px] top-0 z-[1] h-full w-[6px] cursor-col-resize"
+        />
+      </div>
+    );
+
   return (
     <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex h-full flex-col bg-white outline-none">
       {!doc.flags?.hideFormulaBar && (
@@ -1076,10 +1268,11 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
             className="h-5 w-24 border border-gray-300 px-1"
           />
           <span className="px-1 text-gray-400">⋮</span>
-          <button type="button" aria-label="Cancel" disabled={!edit} onClick={() => setEdit(null)} className="px-1 text-gray-500 disabled:opacity-30">✕</button>
+          <button type="button" aria-label="Cancel" disabled={!edit} onClick={() => cancelEdit()} className="px-1 text-gray-500 disabled:opacity-30">✕</button>
           <button type="button" aria-label="Enter" disabled={!edit} onClick={() => commitEdit("none")} className="px-1 text-gray-500 disabled:opacity-30">✓</button>
           <button type="button" aria-label="Insert Function" onClick={() => openDialog("insertFunction")} className="px-1 italic text-gray-600">fx</button>
           <input
+            ref={formulaBarRef}
             aria-label="Formula Bar"
             value={formulaText}
             onFocus={(e) => {
@@ -1087,12 +1280,12 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
               if (blockedEdit(act)) { e.currentTarget.blur(); return; }
               setEdit({ ref: act, text: formulaHidden(act) ? "" : cellRaw(sheet, act), bar: true });
             }}
-            onChange={(e) => setEdit({ ref: act, text: e.target.value, bar: true })}
+            onChange={(e) => setEdit({ ...(edit ?? {}), ref: edit?.ref ?? act, text: e.target.value, bar: true })}
             onKeyDown={(e) => {
               e.stopPropagation();
-              if (e.key === "F4") { e.preventDefault(); const el = e.currentTarget; const out = cycleRef(el.value, el.selectionStart ?? el.value.length); setEdit({ ref: act, text: out.text, bar: true }); setTimeout(() => el.setSelectionRange(out.caret, out.caret), 0); }
+              if (e.key === "F4") { e.preventDefault(); const el = e.currentTarget; const out = cycleRef(el.value, el.selectionStart ?? el.value.length); setEdit({ ...(edit ?? {}), ref: edit?.ref ?? act, text: out.text, bar: true }); setTimeout(() => el.setSelectionRange(out.caret, out.caret), 0); }
               if (e.key === "Enter") { e.preventDefault(); commitEdit("down"); (e.target as HTMLInputElement).blur(); }
-              if (e.key === "Escape") { setEdit(null); (e.target as HTMLInputElement).blur(); }
+              if (e.key === "Escape") { cancelEdit(); (e.target as HTMLInputElement).blur(); }
             }}
             className="h-5 flex-1 border border-gray-300 px-1 font-mono text-[12px]"
           />
@@ -1128,40 +1321,23 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
           <div className={`relative ${pageLayout ? "mx-auto bg-white shadow" : ""}`} style={{ width: gridW, height: gridH }}>
             {/* column headers */}
             <div className="sticky top-0 z-[6] h-0">
-              {outW > 0 && (
-                <div className="absolute left-0 top-0 flex items-center justify-center gap-px border-b border-r border-gray-300 bg-[#f3f3f3]" style={{ width: outW, height: HEAD_H }}>
-                  {Array.from({ length: doc.flags?.[`outline:${sheet.name}`] ? 3 : 2 }, (_, i) => i + 1).map((lv) => (
-                    <button key={lv} type="button" aria-label={`Outline level ${lv}`} title={`Level ${lv}`} onClick={() => onCommit({ kind: "command", id: "outline.level", value: String(lv) })} className="h-3.5 w-2.5 border border-gray-400 bg-white text-[8px] leading-none text-gray-700 hover:bg-[#e5f1fb]">
-                      {lv}
-                    </button>
-                  ))}
-                </div>
-              )}
-              <div className={`absolute top-0 border-b border-r border-gray-300 ${sheetView ? "bg-[#3b3b3b]" : "bg-[#f3f3f3]"}`} style={{ left: outW, width: HEAD_W, height: HEAD_H }}>
-                <button type="button" aria-label="Select All" onClick={() => onSelect({ selection: `A1:${numToCol(nCols)}${nRows}` })} className="h-full w-full" />
-              </div>
-              {sheet.headings !== false &&
-                Array.from({ length: nCols }, (_, i) => i + 1).map((c) =>
-                  hiddenCols.has(numToCol(c)) ? null : (
-                    <div
-                      key={c}
-                      onMouseDown={(e) => colDown(e, c)}
-                      onMouseEnter={() => drag.current?.mode === "col" && onSelect({ selection: `${numToCol(Math.min(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}:${numToCol(Math.max(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}` })}
-                      onContextMenu={(e) => cellMenu(e, `${numToCol(c)}1`, "col")}
-                      className={`absolute top-0 flex cursor-s-resize select-none items-center justify-center border-b border-r border-gray-300 text-[11px] ${selR && c >= selR.c1 && c <= selR.c2 ? "bg-[#d3e7dc] font-semibold text-[#217346]" : sheetView ? "bg-[#3b3b3b] text-gray-100" : "bg-[#f3f3f3] text-gray-600"}`}
-                      style={{ left: colX[c], width: colW(c), height: HEAD_H }}
-                    >
-                      {r1c1 ? c : numToCol(c)}
-                      <span
-                        aria-label={`Right border of column ${numToCol(c)}`}
-                        title="Double-click to AutoFit"
-                        onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); }}
-                        onDoubleClick={(e) => { e.stopPropagation(); autoFitAt("col", c); }}
-                        className="absolute -right-[3px] top-0 z-[1] h-full w-[6px] cursor-col-resize"
-                      />
-                    </div>
-                  ),
+              {sheet.headings !== false && Array.from({ length: nCols }, (_, i) => i + 1).map((c) => (freeze && c < freeze.c ? null : colHead(c)))}
+              {/* The Select All corner, the outline level buttons and the frozen columns' letters stay put when the grid scrolls sideways. */}
+              <div className="sticky left-0 z-[1] h-0 w-0">
+                {sheet.headings !== false && freeze && freeze.c > 1 && Array.from({ length: freeze.c - 1 }, (_, i) => i + 1).map((c) => colHead(c))}
+                {outW > 0 && (
+                  <div className="absolute left-0 top-0 flex items-center justify-center gap-px border-b border-r border-gray-300 bg-[#f3f3f3]" style={{ width: outW, height: HEAD_H }}>
+                    {Array.from({ length: doc.flags?.[`outline:${sheet.name}`] ? 3 : 2 }, (_, i) => i + 1).map((lv) => (
+                      <button key={lv} type="button" aria-label={`Outline level ${lv}`} title={`Level ${lv}`} onClick={() => onCommit({ kind: "command", id: "outline.level", value: String(lv) })} className="h-3.5 w-2.5 border border-gray-400 bg-white text-[8px] leading-none text-gray-700 hover:bg-[#e5f1fb]">
+                        {lv}
+                      </button>
+                    ))}
+                  </div>
                 )}
+                <div className={`absolute top-0 border-b border-r border-gray-300 ${sheetView ? "bg-[#3b3b3b]" : "bg-[#f3f3f3]"}`} style={{ left: outW, width: HEAD_W, height: HEAD_H }}>
+                  <button type="button" aria-label="Select All" onClick={() => onSelect({ selection: `A1:${numToCol(dataCols)}${dataRows}` })} className="h-full w-full" />
+                </div>
+              </div>
             </div>
             {/* row headers */}
             <div className="sticky left-0 z-[5] w-0">
@@ -1360,6 +1536,13 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
                 return <div key={`circle-${ref}`} aria-label={`Invalid data in ${ref}`} className="pointer-events-none absolute z-[8] rounded-[50%] border-2 border-red-600" style={{ left: colX[p.c] - 3, top: rowY[p.r] - 2, width: colW(p.c) + 6, height: rowH(p.r) + 4 }} />;
               })}
             {actBox && selR && (selR.c1 !== selR.c2 || selR.r1 !== selR.r2) && <div className="pointer-events-none absolute z-[7] bg-white/60" style={{ ...actBox, mixBlendMode: "lighten" }} />}
+            {/* the range a formula is pointing to (Excel's moving border) */}
+            {(() => {
+              const pt = pointRef.current;
+              const rc = edit && pt?.range && pt.sheet === sheet.name && pt.text === edit.text ? parseRange(pt.range) : null;
+              if (!rc) return null;
+              return <div aria-hidden="true" className="pointer-events-none absolute z-[8] border-2 border-dashed border-[#4472C4]" style={{ left: colX[rc.c1], top: rowY[rc.r1], width: colX[Math.min(rc.c2, nCols) + 1] - colX[rc.c1], height: rowY[Math.min(rc.r2, nRows) + 1] - rowY[rc.r1] }} />;
+            })()}
             {fillPreview && <div className="pointer-events-none absolute z-[8] border border-dashed border-gray-700" style={{ left: colX[fillPreview.c1], top: rowY[fillPreview.r1], width: colX[fillPreview.c2 + 1] - colX[fillPreview.c1], height: rowY[fillPreview.r2 + 1] - rowY[fillPreview.r1] }} />}
             {/* charts */}
             {(sheet.charts ?? []).map((ch) => {
@@ -1451,17 +1634,25 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
               onDragStart={(e) => e.dataTransfer.setData("text/sheet", s.name)}
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => { const name = e.dataTransfer.getData("text/sheet"); if (name && name !== s.name) onCommit({ kind: "command", id: "sheet.move", value: `${name}@${i + 1}` }); }}
-              onClick={() => { if (!active) onSelect({ sheet: s.name, selection: "A1" }); }}
+              onMouseDown={(e) => { if (editRef.current && pointing()) e.preventDefault(); }}
+              onClick={() => {
+                // Typing a formula: clicking a tab points to that sheet. Any other entry is entered first, as in Excel.
+                if (editRef.current && pointing()) { pointToSheet(s.name); return; }
+                if (editRef.current) commitEdit("none");
+                if (!active) onSelect({ sheet: s.name, selection: "A1" });
+              }}
               onDoubleClick={() => setRenaming({ name: s.name, text: s.name })}
               onContextMenu={(e) => {
                 e.preventDefault();
+                if (editRef.current) return;
                 if (!active) onSelect({ sheet: s.name, selection: "A1" });
                 const items = tabColorMenu(s.name);
                 onContextMenu(e.clientX, e.clientY - 280, items.map((m) => (m.dialog?.startsWith("__rename:") ? { ...m, dialog: undefined, command: undefined } : m)));
-                // Rename from the menu is handled by double-click; the menu item starts it too:
+                // Rename from the menu is handled by double-click; the menu item starts it too.
+                // Match the item by its label text: the item's own text also holds the icon's glyph.
                 setTimeout(() => {
                   const btns = Array.from(document.querySelectorAll('[role="menuitem"]')) as HTMLElement[];
-                  const rn = btns.find((b) => b.textContent?.trim() === "Rename");
+                  const rn = btns.find((b) => Array.from(b.querySelectorAll("span")).some((x) => x.textContent?.trim() === "Rename"));
                   rn?.addEventListener("click", () => setRenaming({ name: s.name, text: s.name }), { once: true });
                 }, 0);
               }}
@@ -1474,6 +1665,8 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
                 <input
                   autoFocus
                   aria-label="Sheet name"
+                  // Excel selects the whole name, so typing replaces it.
+                  onFocus={(e) => e.currentTarget.select()}
                   value={renaming.text}
                   onChange={(e) => setRenaming({ name: s.name, text: e.target.value })}
                   onKeyDown={(e) => {
@@ -1644,6 +1837,20 @@ function Sparkline({ doc, sheet, sp, w, h }: { doc: ExcelBook; sheet: ExcelSheet
       )}
     </svg>
   );
+}
+
+/** Is a fill color light enough that dark text reads best on it? (#rgb or #rrggbb; anything else counts as light) */
+function isLightFill(color: string): boolean {
+  const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color.trim());
+  if (!m) return true;
+  const h = m[1].length === 3 ? m[1].split("").map((x) => x + x).join("") : m[1];
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+  return 0.299 * r + 0.587 * g + 0.114 * b > 150;
+}
+
+/** How a formula names another sheet: January! or 'Supply Tracker'! (quoted when the name has spaces or symbols). */
+function sheetPrefix(name: string): string {
+  return /^[A-Za-z_][A-Za-z0-9_.]*$/.test(name) && !/^[A-Za-z]{1,3}\d+$/.test(name) ? `${name}!` : `'${name.replace(/'/g, "''")}'!`;
 }
 
 /** F4 while editing a formula: cycle the reference at (or just before) the cursor through $ styles. */

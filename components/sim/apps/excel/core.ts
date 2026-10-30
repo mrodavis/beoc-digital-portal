@@ -1,8 +1,8 @@
 import type { DialogDef, ExcelBook, SimCommit } from "@/types/sim";
 import type { AppCore } from "../../types";
 import { withPivotCaches } from "@/lib/sim/excel";
-import { applyExcel, cfDescribe, chartTemplates, excelContextual, excelDialogDefaults, excelRibbonState, pivotFieldNames, regionHeaders, sheetOf, withTotalRows } from "./model";
-import { excelRibbon, EXCEL_VIEW_ALIASES, SPARKLINE_TYPE_ALIASES } from "./ribbon";
+import { applyExcel, autoFitPivots, cfDescribe, chartTemplates, excelContextual, excelDialogDefaults, excelPrintSettings, excelRibbonState, pivotFieldNames, regionHeaders, sheetOf, withTotalRows } from "./model";
+import { excelRibbon, excelRibbonFor, EXCEL_VIEW_ALIASES, SPARKLINE_TYPE_ALIASES } from "./ribbon";
 import { excelDialogs } from "./dialogs";
 
 /*
@@ -51,6 +51,7 @@ export const excelCore: AppCore<ExcelBook> = {
   name: "Excel",
   accent: "#217346",
   ribbon: excelRibbon,
+  ribbonFor: excelRibbonFor,
   dialogs: excelDialogs,
   backstage: {
     templates: [
@@ -118,6 +119,8 @@ export const excelCore: AppCore<ExcelBook> = {
     "home.insertCut", "spelling.changeAll", "outline.level", "pivot.filter", "pivot.showAs", "options.r1c1", "analyze.insert", "excel.editAnyway",
     // The Total Row drop-down and the PivotTable right-click Sort menu.
     "table.totalFn", "pivot.sort",
+    // Unprotect Sheet replaces Protect Sheet on a protected sheet (Review tab, Home › Format, sheet tab menu).
+    "review.unprotectSheet",
   ],
   // Viewing commands, and commands that only open a place to work (a dialog the canvas draws, the
   // header in Page Layout view) are never a miss: the step they lead to is judged instead.
@@ -131,14 +134,17 @@ export const excelCore: AppCore<ExcelBook> = {
   initialUi: (doc) => ({ selection: "A1", sheet: doc.active ?? doc.sheets[0]?.name }),
   normalize,
   // PivotTables keep a snapshot of their source from before each command, so an edit to the source
-  // shows only after Refresh; tables whose Total Row is on get its cells.
+  // shows only after Refresh; tables whose Total Row is on get its cells. A PivotTable that changed
+  // has its columns fitted (Excel's "Autofit column widths on update").
   apply: (doc, c, ui) => {
-    const r = applyExcel(withTotalRows(withPivotCaches(doc)), c, ui);
-    return { ...r, doc: withPivotCaches(r.doc) };
+    const base = withTotalRows(withPivotCaches(doc));
+    const r = applyExcel(base, c, ui);
+    return { ...r, doc: autoFitPivots(base, withPivotCaches(r.doc)) };
   },
   ribbonState: excelRibbonState,
   contextualTabs: excelContextual,
   dialogDefaults: excelDialogDefaults,
+  printSettings: excelPrintSettings,
   dialogDef: (doc, ui, id): DialogDef | undefined => {
     // Dialogs whose lists come from the data: column headers, rules, PivotTable fields, chart templates.
     const withOptions = (base: DialogDef, opts: Record<string, string[]>): DialogDef => ({

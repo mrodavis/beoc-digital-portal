@@ -310,10 +310,11 @@ function tokenize(src: string): Tok[] {
       i += sheetM[0].length;
       continue;
     }
-    // Structured references: Table[Column], [@Column], Table[@[Column Name]]
+    // Structured references: Table[Column], [@Column], Table[@[Column Name]], and [Column] inside the table
+    // (the Total Row's =SUBTOTAL(109,[Cost])). An apostrophe escapes a special character: [PO '#].
     const srefM = /^([A-Za-z_][A-Za-z0-9_.]*)?\[(@?)(?:\[([^\]]+)\]|([^[\]]+))\]/.exec(src.slice(i));
-    if (srefM && (srefM[1] || srefM[2])) {
-      out.push({ t: "sref", table: srefM[1], col: (srefM[3] ?? srefM[4]).trim(), row: srefM[2] === "@" });
+    if (srefM) {
+      out.push({ t: "sref", table: srefM[1], col: (srefM[3] ?? srefM[4]).trim().replace(/'(.)/g, "$1"), row: srefM[2] === "@" });
       i += srefM[0].length;
       continue;
     }
@@ -1181,7 +1182,11 @@ export function formatValue(v: string | number | boolean | null, fmt?: CellForma
 /* ------------------------------------------------------------------ */
 
 /** A cell format that may carry a custom format code such as "yyyy-mm-dd" or "$"#,##0.00. */
-export type XCellFormat = CellFormat & { custom?: string };
+export type XCellFormat = CellFormat & {
+  custom?: string;
+  /** Typed with a leading apostrophe ('03-4521): Excel's quote prefix, shown in the formula bar but not the cell. */
+  quotePrefix?: boolean;
+};
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -1873,8 +1878,9 @@ export function computePivot(book: ExcelBook, sheet: ExcelSheet): PivotLayout {
     if (showAsOf(i).startsWith("%")) return { numFmt: "Percentage", decimals: 2 };
     if (v.custom) return { custom: v.custom } as XCellFormat;
     if (v.numFmt) return v.decimals === undefined ? { numFmt: v.numFmt } : { numFmt: v.numFmt, decimals: v.decimals };
-    if (v.fn === "Count" || v.fn === "Count Numbers") return undefined;
-    return numberFormatOnly(recs.fmtOf(v.field));
+    // Values start in General, whatever the source column's number format: Excel leaves the format
+    // to Value Field Settings › Number Format (or the Home tab).
+    return undefined;
   };
   const itemsIn = (items: PRec[], ck: CK | null) => (ck ? items.filter((x) => x.col === ck.id) : items);
   const running = new Map<string, number>();

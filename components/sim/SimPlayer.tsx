@@ -492,6 +492,7 @@ export default function SimPlayer({ sim, app }: { sim: SimDefinition; app: AppMo
             fileName={fileName}
             saved={docAny.saved}
             startPage={backstage}
+            printSettings={app.printSettings?.(doc, ui)}
             onCommit={handleCommit}
             onClose={() => setBackstage(null)}
           />

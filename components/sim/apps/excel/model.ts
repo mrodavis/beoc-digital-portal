@@ -235,6 +235,9 @@ function setCellInput(sheet: ExcelSheet, ref: string, raw: string) {
   }
   const parsed = parseInput(raw);
   const fmt: XCellFormat = { ...(prev.fmt ?? {}), ...(parsed.fmt ?? {}) };
+  // A leading apostrophe sets the cell's quote prefix (the formula bar shows it); any other entry clears it.
+  if (raw.startsWith("'")) fmt.quotePrefix = true;
+  else delete fmt.quotePrefix;
   // A number format already on the cell wins over the one implied by what was typed.
   const prevFmt = prev.fmt as XCellFormat | undefined;
   if (parsed.fmt && (prevFmt?.custom || (prevFmt?.numFmt && prevFmt.numFmt !== "General"))) {
@@ -1893,7 +1896,8 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       }
       const head = String(sheet.cells[refOf(p.c, rc.r1)]?.v ?? `Column${p.c - rc.c1 + 1}`);
       const dataFmt = sheet.cells[refOf(p.c, rc.r1 + 1)]?.fmt;
-      const next: ExcelCell = { ...cell, f: `=SUBTOTAL(${code},${sheet.table.name ?? "Table1"}[${head}])`, fmt: code === 103 || code === 102 ? cell.fmt : { ...(dataFmt ?? {}), ...(cell.fmt ?? {}) } };
+      // Inside its own table Excel leaves out the table name: =SUBTOTAL(101,[Unit Cost]).
+      const next: ExcelCell = { ...cell, f: `=SUBTOTAL(${code},[${structuredCol(head)}])`, fmt: code === 103 || code === 102 ? cell.fmt : { ...(dataFmt ?? {}), ...(cell.fmt ?? {}) } };
       delete next.v;
       sheet.cells[act] = next;
       return { doc };
@@ -2503,13 +2507,17 @@ function sparklineCommand(doc: ExcelBook, sheet: ExcelSheet, sel: string, act: s
 export const TOTAL_FN_CODES: Record<string, number> = { Average: 101, Count: 103, "Count Numbers": 102, Max: 104, Min: 105, Sum: 109, StdDev: 107, Var: 110 };
 export const TOTAL_FN_NAMES = ["None", "Average", "Count", "Count Numbers", "Max", "Min", "Sum", "StdDev", "Var", "More Functions..."];
 
-/** The cells Excel puts in a new Total Row: "Total" in the first column, a SUBTOTAL(109) sum under the last numeric column. */
+/** A table column name in a structured reference: Excel puts an apostrophe before ' # [ and ]. */
+function structuredCol(name: string): string {
+  return name.replace(/(['#[\]])/g, "'$1");
+}
+
+/** The cells Excel puts in a new Total Row: "Total" in the first column, =SUBTOTAL(109,[Column]) under the last numeric column. */
 export function totalRowDefaults(doc: ExcelBook, sheet: ExcelSheet): Record<string, ExcelCell> {
   const rc = tableRect(sheet);
   if (!rc || !sheet.table) return {};
   const out: Record<string, ExcelCell> = {};
   const r = rc.r2 + 1;
-  const name = sheet.table.name ?? "Table1";
   let sumCol = 0;
   for (let c = rc.c2; c >= rc.c1 && !sumCol; c--) {
     for (let rr = rc.r1 + 1; rr <= rc.r2; rr++) {
@@ -2523,7 +2531,7 @@ export function totalRowDefaults(doc: ExcelBook, sheet: ExcelSheet): Record<stri
   if (sumCol) {
     const head = String(sheet.cells[refOf(sumCol, rc.r1)]?.v ?? `Column${sumCol - rc.c1 + 1}`);
     const f = sheet.cells[refOf(sumCol, rc.r1 + 1)]?.fmt;
-    out[refOf(sumCol, r)] = { f: `=SUBTOTAL(109,${name}[${head}])`, ...(f ? { fmt: numberOnly(f) } : {}) };
+    out[refOf(sumCol, r)] = { f: `=SUBTOTAL(109,[${structuredCol(head)}])`, ...(f ? { fmt: numberOnly(f) } : {}) };
   }
   return out;
 }
@@ -2598,6 +2606,39 @@ function shownWidth(doc: ExcelBook, sheet: ExcelSheet, ref: string, text?: strin
   const shown = text ?? formatValue(evaluateCell(doc, sheet, ref), f);
   const size = f?.size ?? 11;
   return shown.length * 7 * (size / 11) * (f?.bold ? 1.08 : 1) + 12;
+}
+
+/** What a PivotTable shows, cell by cell (with any number format put on its cells), to tell when it changed. */
+function pivotShown(doc: ExcelBook, sheet: ExcelSheet): string {
+  const lay = sheet.pivot ? pivotLayoutOf(doc, sheet) : null;
+  if (!lay) return "";
+  return Object.entries(lay.cells).map(([ref, pc]) => `${ref}=${formatValue(pc.v, { ...(pc.fmt ?? {}), ...(sheet.cells[ref]?.fmt ?? {}) })}`).join("\u0001");
+}
+
+/**
+ * PivotTable Options › "Autofit column widths on update" (on by default in Excel): whenever a
+ * PivotTable changes, its columns are fitted to what it shows.
+ */
+export function autoFitPivots(prev: ExcelBook, next: ExcelBook): ExcelBook {
+  let out = next;
+  next.sheets.forEach((sheet, i) => {
+    if (!sheet.pivot) return;
+    const shown = pivotShown(next, sheet);
+    const before = prev.sheets.find((s) => s.name === sheet.name);
+    if (!shown || (before?.pivot && pivotShown(prev, before) === shown)) return;
+    const widths: Record<string, number> = {};
+    for (const [ref, pc] of Object.entries(pivotLayoutOf(next, sheet)?.cells ?? {})) {
+      const p = parseRef(ref);
+      if (!p) continue;
+      const fmt = { ...(pc.fmt ?? {}), ...(sheet.cells[ref]?.fmt ?? {}) };
+      const col = numToCol(p.c);
+      widths[col] = Math.max(widths[col] ?? 0, shownWidth(next, sheet, ref, formatValue(pc.v, fmt), fmt) + (fmt.indent ?? 0) * 10);
+    }
+    for (const col of Object.keys(widths)) widths[col] = Math.round(Math.min(400, Math.max(24, widths[col])));
+    if (out === next) out = { ...next, sheets: [...next.sheets] };
+    out.sheets[i] = { ...sheet, colWidths: { ...(sheet.colWidths ?? {}), ...widths } };
+  });
+  return out;
 }
 
 /** Home › Format › AutoFit Column Width (or double-click a column header's right border). */
@@ -2747,6 +2788,7 @@ export function excelRibbonState(doc: ExcelBook, ui: SimUi): Record<string, SimV
     "view.gridlines": sheet.gridlines !== false,
     "view.headings": sheet.headings !== false,
     "view.formulaBar": !doc.flags?.hideFormulaBar,
+    "view.split": Boolean(sheet.split),
     "layout.gridlinesView": sheet.gridlines !== false,
     "layout.headingsView": sheet.headings !== false,
     "layout.gridlinesPrint": Boolean(sheet.printGridlines),
@@ -2775,6 +2817,22 @@ export function excelRibbonState(doc: ExcelBook, ui: SimUi): Record<string, SimV
       };
     })(),
   };
+}
+
+/**
+ * File › Print shows the active sheet's page setup from the Page Layout tab: orientation, margins,
+ * paper size and Scale to Fit (Fit Sheet / All Columns / All Rows on One Page).
+ */
+export function excelPrintSettings(doc: ExcelBook, ui: SimUi): Record<string, SimValue> {
+  const sheet = sheetOf(doc, ui);
+  const out: Record<string, SimValue> = {};
+  if (sheet.orientation) out.orientation = sheet.orientation === "landscape" ? "Landscape Orientation" : "Portrait Orientation";
+  if (sheet.margins && ["Normal", "Wide", "Narrow"].includes(sheet.margins)) out.margins = `${sheet.margins} Margins`;
+  if (doc.flags?.paper && ["Letter", "Legal", "A4"].includes(String(doc.flags.paper))) out.paper = String(doc.flags.paper);
+  const fit = sheet.fitTo ?? "";
+  const wide = /\b1 page wide\b/.test(fit), tall = /\b1 page tall\b/.test(fit);
+  if (wide || tall) out.scaling = wide && tall ? "Fit Sheet on One Page" : wide ? "Fit All Columns on One Page" : "Fit All Rows on One Page";
+  return out;
 }
 
 export function excelContextual(doc: ExcelBook, ui: SimUi): string[] {
