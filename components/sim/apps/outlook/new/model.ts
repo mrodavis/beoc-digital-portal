@@ -429,6 +429,17 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
   if (c.kind !== "command") return undefined;
   const sv = c.value === undefined ? "" : String(c.value);
   switch (c.id) {
+    case "home.report": {
+      // Report junk moves the message to Junk Email and adds the sender to Blocked senders (Microsoft
+      // Learn, "Report phishing and suspicious emails in Outlook"). Report phishing only deletes it.
+      if (sv.toLowerCase() !== "report junk") return undefined;
+      const senders = selMessages(input, ui).map((m) => m.from.email.toLowerCase());
+      const r = applyOutlook(input, c, ui);
+      if (!senders.length) return r;
+      r.doc.blocked = Array.from(new Set([...(r.doc.blocked ?? []), ...senders]));
+      r.doc.safe = (r.doc.safe ?? []).filter((x) => !senders.includes(x.toLowerCase()));
+      return r;
+    }
     case "folder.favorite": {
       // Add to Favorites appends the folder; Remove from Favorites takes only that folder out.
       const doc = clone(input);

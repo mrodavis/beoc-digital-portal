@@ -24,9 +24,10 @@ export type NCtx = Ctx & {
 const e = (label: string, cmd: string, val?: string, icon?: string, onPick?: () => void): NEntry => ({ label, cmd, val, icon, onPick });
 
 /**
- * Report › Report phishing / Report junk: confirm, then report. Reported phishing is deleted and
- * reported junk goes to Junk Email (Microsoft Learn, "Report phishing and suspicious emails in
- * Outlook"); reporting doesn't block the sender. Not junk (in Junk Email) moves the message back to the Inbox at once.
+ * Report › Report phishing / Report junk: confirm, then report. Reported phishing is deleted (the
+ * sender isn't blocked); reported junk goes to Junk Email and its sender to Blocked senders (Microsoft
+ * Learn, "Report phishing and suspicious emails in Outlook"). Not junk (in Junk Email) moves the message
+ * back to the Inbox at once.
  */
 export function reportMessage(ctx: Ctx, value: string) {
   const v = value.toLowerCase();
@@ -36,7 +37,7 @@ export function reportMessage(ctx: Ctx, value: string) {
     title: phish ? "Report as phishing?" : "Report as junk?",
     text: phish
       ? "This message will be reported to Microsoft as phishing and deleted from your mailbox."
-      : "This message will be reported to Microsoft as junk and moved to your Junk Email folder.",
+      : "This message will be reported to Microsoft as junk and moved to your Junk Email folder, and the sender will be added to your Blocked senders list.",
     buttons: [{ label: "Report", primary: true, onClick: () => ctx.cmd("home.report", value) }, { label: "Cancel" }],
   });
 }
