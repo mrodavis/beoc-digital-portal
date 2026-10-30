@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import type { SimCommit } from "@/types/sim";
 import type { SimUi } from "../../types";
 import type { AccessDoc, AccField, AccQuery, AccTab, AccTable, DatasheetView } from "./types";
-import { applyMaskDisplay, checkEntry, displayValue, findField, findQuery, findTable, fitMask, lookupValues, maskSlots, maskTemplate, missingRequired, nextRowId, rowValue, storedToV } from "./data";
+import { MSG, applyMaskDisplay, checkEntry, displayValue, findField, findQuery, findTable, fitMask, lookupValues, maskSlots, maskTemplate, missingRequired, nextRowId, relatedRecordMissing, rowValue, storedToV } from "./data";
 import { runQuery } from "./query";
 import { aggregate, compare, formatDateSerial, formatValue, isDate, serialOf, TODAY, toText, ymd, type V } from "./sql";
 import { newRowDefaults, parseSel } from "./model";
@@ -251,6 +251,12 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
   const [renameCol, setRenameCol] = useState<string | null>(null);
   const [addMenu, setAddMenu] = useState<{ x: number; y: number } | null>(null);
   const [dirtyNew, setDirtyNew] = useState<string | null>(null);
+  /**
+   * A value typed into a foreign key that has no related record. Access takes it when you leave the
+   * field and refuses it only when the record is saved (leaving the row), keeping it so you can fix it:
+   * it stays here, unsaved, until then.
+   */
+  const [held, setHeld] = useState<{ row: string; col: number; text: string; message: string } | null>(null);
   const [search, setSearch] = useState("");
   const [widths, setWidths] = useState<Record<string, number>>({});
   const pendingRename = useRef<number | null>(null);
@@ -278,13 +284,22 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
   }, [table, sel]);
 
   const focus = () => focusRef.current?.focus({ preventScroll: true });
-  /** Leaving a new record checks its required fields; false keeps the learner on it. */
+  /**
+   * Leaving a record saves it: a held foreign key with no related record, then a new record's required
+   * fields. A problem shows Access's message and keeps the learner on the record with the value still
+   * there; false means "stay".
+   */
   const leaveNew = (rowKey: string): boolean => {
+    if (held && rowKey !== held.row && cols[held.col]) {
+      showMsg(held.message, () => focus());
+      onSelect({ selection: `cell:${name}.${held.row}.${cols[held.col].name}` });
+      return false;
+    }
     if (!dirtyNew || rowKey === dirtyNew || !table) return true;
     const r = table.rows.find((x) => x._id === dirtyNew);
     const miss = r ? missingRequired(table, r) : null;
     if (miss) {
-      showMsg(`You must enter a value in the '${table.name}.${miss}' field.`);
+      showMsg(`You must enter a value in the '${table.name}.${miss}' field.`, () => focus());
       onSelect({ selection: `cell:${name}.${dirtyNew}.${miss}` });
       return false;
     }
@@ -323,19 +338,31 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
     if (!tb || !f) return;
     const existing = tb.rows.find((r) => r._id === t.id);
     const before = existing ? canonical(f, existing[f.name]) : "";
+    const wasHeld = held?.row === row.key && held.col === ci;
     if (!(row.isNew && text.trim() === "") && text === before) {
+      if (wasHeld) setHeld(null);
       advance(how);
       return;
     }
     if (row.isNew && text.trim() === "") {
+      if (wasHeld) setHeld(null);
       advance(how);
       return;
     }
-    const res = checkEntry(doc, tb, t.id, f, text);
+    // In a table's datasheet the related-record check waits until the record is saved (leaveNew).
+    const ownTable = Boolean(table) && tb === table;
+    const res = checkEntry(doc, tb, t.id, f, text, !ownTable);
     if (!res.ok) {
       showMsg(res.message, () => setEdit({ row: row.key, col: ci, text }));
       return;
     }
+    const parent = ownTable ? relatedRecordMissing(doc, tb, f, res.value) : null;
+    if (parent) {
+      setHeld({ row: row.key, col: ci, text, message: MSG.related(parent) });
+      advance(how);
+      return;
+    }
+    if (wasHeld) setHeld(null);
     const value = res.value === null ? "" : canonical(f, res.value);
     onCommit({ kind: "type", target: `cell:${tb.name}.${t.id}.${f.name}`, value: value || text });
     if (row.isNew) setDirtyNew(t.id);
@@ -371,7 +398,7 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
       commitValue(row, curCol, cur ? "No" : "Yes", "none");
       return;
     }
-    const existing = c.field ? (row.vals[curCol] === null ? "" : canonical(c.field, toStored(c.field, row.vals[curCol]))) : "";
+    const existing = held?.row === row.key && held.col === curCol ? held.text : c.field ? (row.vals[curCol] === null ? "" : canonical(c.field, toStored(c.field, row.vals[curCol]))) : "";
     setEdit({ row: row.key, col: curCol, text: text ?? existing });
   };
 
@@ -397,10 +424,11 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
     if (k === "Home" && ctrl) { e.preventDefault(); if (displayRows[0]) selectCell(displayRows[0].key, 0); return; }
     if (k === "End" && ctrl) { e.preventDefault(); const last = displayRows[displayRows.length - 1]; if (last) selectCell(last.key, cols.length - 1); return; }
     if (k === "F2") { e.preventDefault(); e.stopPropagation(); startEdit(); return; }
-    if (k === "Escape" && dirtyNew) {
+    if (k === "Escape" && (dirtyNew || held)) {
       e.preventDefault();
-      onCommit(cmd("record.undoNew", `${name}.${dirtyNew}`));
+      if (dirtyNew) onCommit(cmd("record.undoNew", `${name}.${dirtyNew}`));
       setDirtyNew(null);
+      setHeld(null);
       return;
     }
     if (k === "Delete" && sel.k === "row") {
@@ -662,7 +690,7 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
             {displayRows.map((row, ri) => {
               const isCur = row.key === curRow;
               const rowSel = sel.k === "row" && sel.obj === name && sel.row === row.key;
-              const editingRow = edit?.row === row.key || dirtyNew === row.key;
+              const editingRow = edit?.row === row.key || dirtyNew === row.key || held?.row === row.key;
               const bg = view?.altRow && ri % 2 === 1 && !row.isNew ? view.altRow : undefined;
               return (
                 <tr key={row.key} style={{ height: rowH }}>
@@ -687,6 +715,7 @@ export function Datasheet({ doc, ui, tab, onSelect, onCommit, openDialog, showMs
                     const isNum = c.type === "Number" || c.type === "Currency" || c.type === "AutoNumber" || c.type === "Large Number" || (typeof v === "number" && c.type !== "Short Text");
                     let text = c.field ? displayValue(c.field, v) : formatValue(v, c.type);
                     if (row.isNew && c.type === "AutoNumber") text = "(New)";
+                    if (held?.row === row.key && held.col === ci) text = held.text;
                     const look = c.field && table ? lookupValues(doc, c.field) : null;
                     return (
                       <td

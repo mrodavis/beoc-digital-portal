@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { SimCommit } from "@/types/sim";
 import type { AccControl, AccessDoc, AccForm, AccTable } from "./types";
-import { checkEntry, dataSource, displayValue, findField, findForm, findTable, lookupValues, missingRequired, nextRowId, rowValue } from "./data";
+import { MSG, checkEntry, dataSource, displayValue, findField, findForm, findTable, lookupValues, missingRequired, nextRowId, relatedRecordMissing, rowValue } from "./data";
 import { parseSel, newRowDefaults, activeTab } from "./model";
 import { evalExpr, formatValue, parseCriteria, parseExpr, truthy, type V, NeedParam } from "./sql";
 import { THEMES } from "./ribbon";
@@ -111,6 +111,13 @@ export function FormView(props: ViewProps) {
   const [placing, setPlacing] = useState<{ section: string; kind: string } | null>(null);
   const [pendingNew, setPendingNew] = useState<string | null>(null);
   const [editing, setEditing] = useState<string | null>(null);
+  /** A value Access refused when leaving the control: it stays in the box so the learner can fix it. */
+  const [retry, setRetry] = useState<{ id: string; text: string } | null>(null);
+  /**
+   * A foreign key with no related record: Access takes it when you leave the control and refuses it
+   * when the record is saved (moving to another record), keeping it in the box until it's fixed.
+   */
+  const [held0, setHeld] = useState<{ rec: string; id: string; text: string; message: string } | null>(null);
   useEffect(() => setEditLabel(null), [doc]);
   const data = useMemo(() => (f ? sourceRows(doc, f.recordSource, tab.params) : { rows: [], ids: [], fields: [] as string[] }), [doc, f, tab.params]);
   if (!f) return null;
@@ -142,6 +149,8 @@ export function FormView(props: ViewProps) {
   const sectionCtls = (s: string) => f.controls.filter((c) => (c.section ?? "Detail") === s).sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
   const ctlKey = (c: AccControl, label = false) => `ctl:${f.name}.${c.id}${label ? "_Label" : ""}`;
 
+  /** Leaving the record saves it: required fields of a new record, then related records (enforced integrity). */
+  const held = held0 && held0.rec === recordId ? held0 : null;
   const leaveNew = (): boolean => {
     if (pendingRow && table) {
       const miss = missingRequired(table, pendingRow);
@@ -149,6 +158,10 @@ export function FormView(props: ViewProps) {
         showMsg(`You must enter a value in the '${table.name}.${miss}' field.`);
         return false;
       }
+    }
+    if (held) {
+      showMsg(held.message);
+      return false;
     }
     setPendingNew(null);
     return true;
@@ -158,22 +171,40 @@ export function FormView(props: ViewProps) {
     onCommit(cmd("record.nav", how));
   };
 
-  const commitField = (c: AccControl, text: string) => {
+  /** Leaving a control: false when Access refuses the value (the message shows; the value stays in the box). */
+  const commitField = (c: AccControl, text: string): boolean => {
     setEditing(null);
-    if (!table || !c.source || c.source.startsWith("=")) return;
+    setRetry(null);
+    if (!table || !c.source || c.source.startsWith("=")) return true;
     const fld = findField(table, c.source);
-    if (!fld || !recordId) return;
-    if (c.locked || c.enabled === false) return;
+    if (!fld || !recordId) return true;
+    if (c.locked || c.enabled === false) return true;
     const existing = table.rows.find((r) => r._id === recordId);
     const before = existing ? canonical(fld, existing[fld.name]) : "";
-    if (text === before || (!existing && text.trim() === "")) return;
-    const r = checkEntry(doc, table, recordId, fld, text);
-    if (!r.ok) {
-      showMsg(r.message);
-      return;
+    const wasHeld = held?.id === c.id;
+    if (text === before || (!existing && text.trim() === "")) {
+      if (wasHeld) setHeld(null);
+      return true;
     }
+    // The related-record check waits until the record is saved (leaveNew).
+    const r = checkEntry(doc, table, recordId, fld, text, false);
+    if (!r.ok) {
+      const id = c.id;
+      showMsg(r.message, () => {
+        setRetry({ id, text });
+        setEditing(id);
+      });
+      return false;
+    }
+    const parent = relatedRecordMissing(doc, table, fld, r.value);
+    if (parent) {
+      setHeld({ rec: recordId, id: c.id, text, message: MSG.related(parent) });
+      return true;
+    }
+    if (wasHeld) setHeld(null);
     onCommit({ kind: "type", target: `cell:${table.name}.${recordId}.${fld.name}`, value: r.value === null ? "" : canonical(fld, r.value) });
     if (!existing) setPendingNew(recordId);
+    return true;
   };
 
   /** The Detail controls in tab order (the form's Tab Order list, else their layout order). */
@@ -289,7 +320,7 @@ export function FormView(props: ViewProps) {
         </span>
       );
     }
-    const val = value(c);
+    const val = held?.id === c.id ? held.text : value(c);
     const readOnly = !isForm || c.locked || c.enabled === false || !table || (c.source?.startsWith("=") ?? true);
     const fld = table && c.source ? findField(table, c.source) : undefined;
     if (c.kind === "check") {
@@ -336,9 +367,9 @@ export function FormView(props: ViewProps) {
       >
         {editingThis ? (
           fld?.inputMask && fld.type === "Short Text" ? (
-            <MaskedInput mask={fld.inputMask} initial={val} selectAll={Boolean(val)} onCommit={(t, how) => { commitField(c, t); moveFrom(c, how); }} onCancel={() => setEditing(null)} />
+            <MaskedInput mask={fld.inputMask} initial={retry?.id === c.id ? retry.text : val} selectAll={Boolean(val)} onCommit={(t, how) => { if (commitField(c, t)) moveFrom(c, how); }} onCancel={() => { setEditing(null); setRetry(null); }} />
           ) : (
-            <InlineEdit ariaLabel={c.label ?? c.id} value={val} selectAll={false} onCommit={(t, how) => { commitField(c, t); moveFrom(c, how); }} onCancel={() => setEditing(null)} />
+            <InlineEdit ariaLabel={c.label ?? c.id} value={retry?.id === c.id ? retry.text : val} selectAll={false} onCommit={(t, how) => { if (commitField(c, t)) moveFrom(c, how); }} onCancel={() => { setEditing(null); setRetry(null); }} />
           )
         ) : (
           <span className={`block truncate px-1 leading-[20px] ${isDesign ? "text-gray-700" : ""}`} style={style}>{val}</span>
