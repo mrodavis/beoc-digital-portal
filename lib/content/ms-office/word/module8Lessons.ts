@@ -898,7 +898,7 @@ LESSON 5 – ACCESSIBILITY FEATURES
     "Check color contrast and avoid color as the sole carrier of meaning",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/ETSap9J9tTY",
+  videoUrl: "https://www.youtube.com/embed/hgJB0pP1vbY",
 
   sections: [
 
