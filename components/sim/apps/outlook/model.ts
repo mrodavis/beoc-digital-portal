@@ -584,11 +584,18 @@ export function composeFor(doc: OutlookDoc, mode: OlCompose["mode"], m?: OlMessa
       quoted: quoteOf(m), attachments: (m.attachments ?? []).map((a) => ({ ...a })),
     };
   }
-  const to = [m.from.email];
-  const cc =
-    mode === "replyAll"
-      ? [...(m.to ?? []), ...(m.cc ?? [])].map((p) => p.email).filter((e) => e.toLowerCase() !== me && e.toLowerCase() !== m.from.email.toLowerCase())
-      : [];
+  // Reply all keeps the original To recipients on To (after the sender) and the original Cc
+  // recipients on Cc, leaving out your own address.
+  const seen = new Set([me, m.from.email.toLowerCase()]);
+  const others = (list?: { email: string }[]) =>
+    (list ?? []).map((p) => p.email).filter((e) => {
+      const k = e.toLowerCase();
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  const to = [m.from.email, ...(mode === "replyAll" ? others(m.to) : [])];
+  const cc = mode === "replyAll" ? others(m.cc) : [];
   return { id, mode, inline: true, of: m.id, to, cc, bcc: [], subject: prefixed("RE", m.subject), body: startBody(doc, doc.defaultReply), quoted: quoteOf(m), attachments: [] };
 }
 
