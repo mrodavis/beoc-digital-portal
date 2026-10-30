@@ -983,7 +983,9 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     { label: "Tab Color: No Color", command: "sheet.tabColor", value: "No Color" },
     { separator: true },
     { label: "Hide", command: "sheet.hide" },
-    { label: "Protect Sheet...", icon: "protect", dialog: "protectSheet" },
+    doc.sheets.find((x) => x.name === name)?.protected
+      ? { label: "Unprotect Sheet...", icon: "protect", command: "review.unprotectSheet" }
+      : { label: "Protect Sheet...", icon: "protect", dialog: "protectSheet" },
   ].map((m) => (m.command === "__rename" ? { ...m, command: undefined, dialog: `__rename:${name}` } : m));
 
   const actP = parseRef(act);

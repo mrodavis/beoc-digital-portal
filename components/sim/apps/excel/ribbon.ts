@@ -668,15 +668,18 @@ export const EXCEL_VIEW_ALIASES: Record<string, string> = {
 
 /**
  * The Ribbon as Excel shows it for the active sheet: the first Freeze Panes item toggles between
- * Freeze Panes and Unfreeze Panes; with the active cell in a PivotTable, Insert › PivotChart charts
- * that PivotTable.
+ * Freeze Panes and Unfreeze Panes; on a protected sheet Protect Sheet becomes Unprotect Sheet (Review
+ * tab and Home › Format); with the active cell in a PivotTable, Insert › PivotChart charts that PivotTable.
  */
 export function excelRibbonFor(doc: ExcelBook, ui: SimUi): RibbonTab[] {
   const sheet = sheetOf(doc, ui);
   const frozen = Boolean(sheet.freeze);
+  const prot = Boolean(sheet.protected);
   const inPivot = Boolean(sheet.pivot && pivotCellAt(doc, sheet, activeCell(ui)));
   const swap = (c: RibbonControl, tab: string): RibbonControl => {
     if (c.type === "dropdown" && c.id === "view.freeze") return { ...c, options: [frozen ? "Unfreeze Panes" : "Freeze Panes", "Freeze Top Row", "Freeze First Column"].map((v) => ({ value: v, icon: "freeze" })) };
+    if (prot && c.type === "button" && c.id === "review.protectSheet") return { type: "button", id: "review.unprotectSheet", label: "Unprotect Sheet", icon: "protect", size: "large" };
+    if (prot && c.type === "dropdown" && c.id === "home.format") return { ...c, options: c.options.map((o) => (o.value === "Protect Sheet..." ? { value: "Unprotect Sheet...", command: "review.unprotectSheet" } : o)) };
     if (inPivot && tab === "insert" && c.type === "button" && c.id === "insert.pivotChart") return { ...c, dialog: "insertChart" };
     return c;
   };

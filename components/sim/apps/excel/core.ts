@@ -119,6 +119,8 @@ export const excelCore: AppCore<ExcelBook> = {
     "home.insertCut", "spelling.changeAll", "outline.level", "pivot.filter", "pivot.showAs", "options.r1c1", "analyze.insert", "excel.editAnyway",
     // The Total Row drop-down and the PivotTable right-click Sort menu.
     "table.totalFn", "pivot.sort",
+    // Unprotect Sheet replaces Protect Sheet on a protected sheet (Review tab, Home › Format, sheet tab menu).
+    "review.unprotectSheet",
   ],
   // Viewing commands, and commands that only open a place to work (a dialog the canvas draws, the
   // header in Page Layout view) are never a miss: the step they lead to is judged instead.
