@@ -13,7 +13,7 @@ export const wordModule6Lessons: Lesson[] = [
           "Account for binding and hole-punching when setting margins",
         ],
         duration: "12 min",
-        videoUrl: "https://www.youtube.com/embed/Mv8PbGPuelA",
+        videoUrl: "https://www.youtube.com/embed/OH3ZYob9120",
 
         practiceFiles: [
             {
