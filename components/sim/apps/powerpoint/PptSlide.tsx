@@ -771,17 +771,27 @@ export function SlideView(props: SlideViewProps) {
                 onDoubleClick={interactive && (o.kind === "textbox" || o.kind === "shape" || o.kind === "smartart") ? (e) => { e.stopPropagation(); props.onEditStart?.(key); } : undefined}
                 onContextMenu={interactive ? (e) => props.onContext?.(e, Array.from(sel).find((k) => k.startsWith(`${key}.`)) ?? key) : undefined}
                 className={`absolute ${interactive ? "cursor-move" : ""}`}
-                style={{ left: `${o.x}%`, top: `${o.y}%`, width: `${o.w}%`, height: `${o.h}%`, transform: transformOf(o), outline: isSel ? "1.5px solid #6b6b6b" : o.kind === "textbox" && !o.text && interactive ? "1px dashed #bbb" : undefined, outlineOffset: 2, zIndex: isSel ? 5 : undefined }}
+                // Objects keep their stacking order when selected (Send Backward shows at once); the
+                // selection frame is drawn above everything below. Only a box being typed in comes forward.
+                style={{ left: `${o.x}%`, top: `${o.y}%`, width: `${o.w}%`, height: `${o.h}%`, transform: transformOf(o), outline: !isSel && o.kind === "textbox" && !o.text && interactive ? "1px dashed #bbb" : undefined, outlineOffset: 2, zIndex: editing?.key === key ? 5 : undefined }}
               >
                 <ObjectBody o={o} ctx={ctx} onMedia={props.onMedia} />
                 {badge(o.id)}
-                {isSel && o.kind !== "table" && ["-left-1.5 -top-1.5", "-right-1.5 -top-1.5", "-left-1.5 -bottom-1.5", "-right-1.5 -bottom-1.5"].map((c) => <span key={c} className={`pointer-events-none absolute ${c} h-3 w-3 rounded-full border border-gray-500 bg-white`} />)}
-                {isSel && o.kind === "chart" && interactive && (
-                  <button type="button" aria-label="Chart Elements" title="Chart Elements" onMouseDown={(e) => e.stopPropagation()} onClick={(e) => props.onChartButton?.(key, e)} className="absolute -right-10 top-0 flex h-8 w-8 items-center justify-center border border-gray-400 bg-white text-[22px] text-gray-700 shadow hover:bg-gray-50">+</button>
-                )}
               </div>
             );
           })}
+        {interactive && (slide.objects ?? []).map((o) => {
+          const key = `${slide.id}.${o.id}`;
+          if (ox(o).hidden || !visible(o.id) || !(sel.has(key) || Array.from(sel).some((k) => k.startsWith(`${key}.`)))) return null;
+          return (
+            <div key={`sel-${o.id}`} data-sel-frame={key} className="pointer-events-none absolute" style={{ left: `${o.x}%`, top: `${o.y}%`, width: `${o.w}%`, height: `${o.h}%`, transform: transformOf(o), outline: "1.5px solid #6b6b6b", outlineOffset: 2, zIndex: 6 }}>
+              {o.kind !== "table" && ["-left-1.5 -top-1.5", "-right-1.5 -top-1.5", "-left-1.5 -bottom-1.5", "-right-1.5 -bottom-1.5"].map((c) => <span key={c} className={`absolute ${c} h-3 w-3 rounded-full border border-gray-500 bg-white`} />)}
+              {o.kind === "chart" && (
+                <button type="button" aria-label="Chart Elements" title="Chart Elements" onMouseDown={(e) => e.stopPropagation()} onClick={(e) => props.onChartButton?.(key, e)} className="pointer-events-auto absolute -right-10 top-0 flex h-8 w-8 items-center justify-center border border-gray-400 bg-white text-[22px] text-gray-700 shadow hover:bg-gray-50">+</button>
+              )}
+            </div>
+          );
+        })}
         {footer && !hideFooter && (
           <div className="pointer-events-none absolute inset-x-[4%] bottom-[2%] flex items-center justify-between text-[14px]" style={{ color: theme.dark ? "#ddd" : "#7f7f7f", fontFamily: `'${bodyFont}', sans-serif` }}>
             <span>{footer.date ? "10/20/2026" : ""}</span>

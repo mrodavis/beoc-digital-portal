@@ -306,7 +306,8 @@ export function PptPane({ deck, ui, pane, onCommit, openDialog, onSelect, onCont
       </div>
     ) : <p className="text-gray-600">Select a word on the slide, then open the Thesaurus again to see synonyms.</p>;
   } else if (pane === "Selection") {
-    const objs = (slide.objects ?? []).slice().sort((a, b) => (b.z ?? 0) - (a.z ?? 0));
+    // Front to back, like PowerPoint: later objects (and higher z) are in front, so they come first.
+    const objs = (slide.objects ?? []).map((o, i) => ({ o, i })).sort((a, b) => (b.o.z ?? 0) - (a.o.z ?? 0) || b.i - a.i).map((x) => x.o);
     const sel = new Set(ui.selection.split(","));
     body = objs.length ? (
       <div className="space-y-0.5">
