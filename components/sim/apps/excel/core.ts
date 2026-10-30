@@ -2,7 +2,7 @@ import type { DialogDef, ExcelBook, SimCommit } from "@/types/sim";
 import type { AppCore } from "../../types";
 import { withPivotCaches } from "@/lib/sim/excel";
 import { applyExcel, cfDescribe, chartTemplates, excelContextual, excelDialogDefaults, excelRibbonState, pivotFieldNames, regionHeaders, sheetOf, withTotalRows } from "./model";
-import { excelRibbon, EXCEL_VIEW_ALIASES, SPARKLINE_TYPE_ALIASES } from "./ribbon";
+import { excelRibbon, excelRibbonFor, EXCEL_VIEW_ALIASES, SPARKLINE_TYPE_ALIASES } from "./ribbon";
 import { excelDialogs } from "./dialogs";
 
 /*
@@ -51,6 +51,7 @@ export const excelCore: AppCore<ExcelBook> = {
   name: "Excel",
   accent: "#217346",
   ribbon: excelRibbon,
+  ribbonFor: excelRibbonFor,
   dialogs: excelDialogs,
   backstage: {
     templates: [

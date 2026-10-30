@@ -1049,6 +1049,28 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const dialogPane = (x: string) => x.startsWith("Excel Options") || x.startsWith("Function Arguments") || x === "Sort" || x.startsWith("Select Data Source") || x.startsWith("Flash Fill:") || x.startsWith("Location reference");
   const findTerm = doc.pane?.startsWith("Find:") ? doc.pane.slice(5) : null;
 
+  /** One column letter in the header row. */
+  const colHead = (c: number) =>
+    hiddenCols.has(numToCol(c)) ? null : (
+      <div
+        key={c}
+        onMouseDown={(e) => colDown(e, c)}
+        onMouseEnter={() => drag.current?.mode === "col" && onSelect({ selection: `${numToCol(Math.min(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}:${numToCol(Math.max(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}` })}
+        onContextMenu={(e) => cellMenu(e, `${numToCol(c)}1`, "col")}
+        className={`absolute top-0 flex cursor-s-resize select-none items-center justify-center border-b border-r border-gray-300 text-[11px] ${selR && c >= selR.c1 && c <= selR.c2 ? "bg-[#d3e7dc] font-semibold text-[#217346]" : sheetView ? "bg-[#3b3b3b] text-gray-100" : "bg-[#f3f3f3] text-gray-600"}`}
+        style={{ left: colX[c], width: colW(c), height: HEAD_H }}
+      >
+        {r1c1 ? c : numToCol(c)}
+        <span
+          aria-label={`Right border of column ${numToCol(c)}`}
+          title="Double-click to AutoFit"
+          onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); }}
+          onDoubleClick={(e) => { e.stopPropagation(); autoFitAt("col", c); }}
+          className="absolute -right-[3px] top-0 z-[1] h-full w-[6px] cursor-col-resize"
+        />
+      </div>
+    );
+
   return (
     <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex h-full flex-col bg-white outline-none">
       {!doc.flags?.hideFormulaBar && (
@@ -1128,40 +1150,23 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
           <div className={`relative ${pageLayout ? "mx-auto bg-white shadow" : ""}`} style={{ width: gridW, height: gridH }}>
             {/* column headers */}
             <div className="sticky top-0 z-[6] h-0">
-              {outW > 0 && (
-                <div className="absolute left-0 top-0 flex items-center justify-center gap-px border-b border-r border-gray-300 bg-[#f3f3f3]" style={{ width: outW, height: HEAD_H }}>
-                  {Array.from({ length: doc.flags?.[`outline:${sheet.name}`] ? 3 : 2 }, (_, i) => i + 1).map((lv) => (
-                    <button key={lv} type="button" aria-label={`Outline level ${lv}`} title={`Level ${lv}`} onClick={() => onCommit({ kind: "command", id: "outline.level", value: String(lv) })} className="h-3.5 w-2.5 border border-gray-400 bg-white text-[8px] leading-none text-gray-700 hover:bg-[#e5f1fb]">
-                      {lv}
-                    </button>
-                  ))}
-                </div>
-              )}
-              <div className={`absolute top-0 border-b border-r border-gray-300 ${sheetView ? "bg-[#3b3b3b]" : "bg-[#f3f3f3]"}`} style={{ left: outW, width: HEAD_W, height: HEAD_H }}>
-                <button type="button" aria-label="Select All" onClick={() => onSelect({ selection: `A1:${numToCol(nCols)}${nRows}` })} className="h-full w-full" />
-              </div>
-              {sheet.headings !== false &&
-                Array.from({ length: nCols }, (_, i) => i + 1).map((c) =>
-                  hiddenCols.has(numToCol(c)) ? null : (
-                    <div
-                      key={c}
-                      onMouseDown={(e) => colDown(e, c)}
-                      onMouseEnter={() => drag.current?.mode === "col" && onSelect({ selection: `${numToCol(Math.min(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}:${numToCol(Math.max(colToNum(drag.current.anchor.replace(/\d+/, "")), c))}` })}
-                      onContextMenu={(e) => cellMenu(e, `${numToCol(c)}1`, "col")}
-                      className={`absolute top-0 flex cursor-s-resize select-none items-center justify-center border-b border-r border-gray-300 text-[11px] ${selR && c >= selR.c1 && c <= selR.c2 ? "bg-[#d3e7dc] font-semibold text-[#217346]" : sheetView ? "bg-[#3b3b3b] text-gray-100" : "bg-[#f3f3f3] text-gray-600"}`}
-                      style={{ left: colX[c], width: colW(c), height: HEAD_H }}
-                    >
-                      {r1c1 ? c : numToCol(c)}
-                      <span
-                        aria-label={`Right border of column ${numToCol(c)}`}
-                        title="Double-click to AutoFit"
-                        onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); }}
-                        onDoubleClick={(e) => { e.stopPropagation(); autoFitAt("col", c); }}
-                        className="absolute -right-[3px] top-0 z-[1] h-full w-[6px] cursor-col-resize"
-                      />
-                    </div>
-                  ),
+              {sheet.headings !== false && Array.from({ length: nCols }, (_, i) => i + 1).map((c) => (freeze && c < freeze.c ? null : colHead(c)))}
+              {/* The Select All corner, the outline level buttons and the frozen columns' letters stay put when the grid scrolls sideways. */}
+              <div className="sticky left-0 z-[1] h-0 w-0">
+                {sheet.headings !== false && freeze && freeze.c > 1 && Array.from({ length: freeze.c - 1 }, (_, i) => i + 1).map((c) => colHead(c))}
+                {outW > 0 && (
+                  <div className="absolute left-0 top-0 flex items-center justify-center gap-px border-b border-r border-gray-300 bg-[#f3f3f3]" style={{ width: outW, height: HEAD_H }}>
+                    {Array.from({ length: doc.flags?.[`outline:${sheet.name}`] ? 3 : 2 }, (_, i) => i + 1).map((lv) => (
+                      <button key={lv} type="button" aria-label={`Outline level ${lv}`} title={`Level ${lv}`} onClick={() => onCommit({ kind: "command", id: "outline.level", value: String(lv) })} className="h-3.5 w-2.5 border border-gray-400 bg-white text-[8px] leading-none text-gray-700 hover:bg-[#e5f1fb]">
+                        {lv}
+                      </button>
+                    ))}
+                  </div>
                 )}
+                <div className={`absolute top-0 border-b border-r border-gray-300 ${sheetView ? "bg-[#3b3b3b]" : "bg-[#f3f3f3]"}`} style={{ left: outW, width: HEAD_W, height: HEAD_H }}>
+                  <button type="button" aria-label="Select All" onClick={() => onSelect({ selection: `A1:${numToCol(nCols)}${nRows}` })} className="h-full w-full" />
+                </div>
+              </div>
             </div>
             {/* row headers */}
             <div className="sticky left-0 z-[5] w-0">

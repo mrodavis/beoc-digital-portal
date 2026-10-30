@@ -2747,6 +2747,7 @@ export function excelRibbonState(doc: ExcelBook, ui: SimUi): Record<string, SimV
     "view.gridlines": sheet.gridlines !== false,
     "view.headings": sheet.headings !== false,
     "view.formulaBar": !doc.flags?.hideFormulaBar,
+    "view.split": Boolean(sheet.split),
     "layout.gridlinesView": sheet.gridlines !== false,
     "layout.headingsView": sheet.headings !== false,
     "layout.gridlinesPrint": Boolean(sheet.printGridlines),

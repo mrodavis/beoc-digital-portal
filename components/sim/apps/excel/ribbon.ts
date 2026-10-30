@@ -1,6 +1,7 @@
-import type { RibbonOption, RibbonTab } from "@/types/sim";
+import type { ExcelBook, RibbonControl, RibbonOption, RibbonTab } from "@/types/sim";
+import type { SimUi } from "../../types";
 import { THEME_COLORS } from "../../chrome/colors";
-import { SPARKLINE_COLORS, TAB_COLORS } from "./model";
+import { sheetOf, SPARKLINE_COLORS, TAB_COLORS } from "./model";
 
 const FONTS = ["Aptos Narrow", "Aptos", "Calibri", "Arial", "Cambria", "Century Gothic", "Courier New", "Georgia", "Segoe UI", "Tahoma", "Times New Roman", "Verdana"];
 const SIZES = ["8", "9", "10", "11", "12", "14", "16", "18", "20", "24", "28", "36"];
@@ -664,3 +665,20 @@ export const EXCEL_VIEW_ALIASES: Record<string, string> = {
   "view.mode.pageBreak": "Page Break Preview",
   "view.mode.pageLayout": "Page Layout",
 };
+
+/**
+ * The Ribbon as Excel shows it for the active sheet: the first Freeze Panes item toggles between
+ * Freeze Panes and Unfreeze Panes.
+ */
+export function excelRibbonFor(doc: ExcelBook, ui: SimUi): RibbonTab[] {
+  const sheet = sheetOf(doc, ui);
+  const frozen = Boolean(sheet.freeze);
+  const swap = (c: RibbonControl): RibbonControl => {
+    if (c.type === "dropdown" && c.id === "view.freeze") return { ...c, options: [frozen ? "Unfreeze Panes" : "Freeze Panes", "Freeze Top Row", "Freeze First Column"].map((v) => ({ value: v, icon: "freeze" })) };
+    return c;
+  };
+  return excelRibbon.map((t) => ({
+    ...t,
+    groups: t.groups.map((g) => ({ ...g, controls: g.controls.map(swap), ...(g.rows ? { rows: g.rows.map((row) => row.map(swap)) } : {}) })),
+  }));
+}
