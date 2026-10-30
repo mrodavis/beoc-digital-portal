@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import type { OutlookDoc } from "../types";
 import { OIcon } from "../parts";
 import { CATEGORY_COLORS, CATEGORY_SLOTS, serializeAutoReplies, serializeSignatures } from "../model";
@@ -582,7 +582,21 @@ function Page({ ctx, page }: { ctx: NCtx; page: string }) {
       return (
         <>
           <H>About Outlook</H>
-          <P>You&apos;re using the new Outlook for Windows. If your ribbon shows Home, View and Help tabs and a Settings button at the top right, you have the new Outlook. Classic Outlook has a File tab instead.</P>
+          {/* The fields new Outlook lists here (Version, Client Version, WebView2 Version, Session ID); the numbers are made up for the practice mailbox. */}
+          <p className="mb-2 text-[14px] font-semibold">Microsoft Outlook</p>
+          <dl className="grid max-w-[460px] grid-cols-[150px_1fr] gap-x-3 gap-y-1.5 text-[13px]">
+            {[
+              ["Version", "1.2026.1009.100"],
+              ["Client Version", "20261016004.12"],
+              ["WebView2 Version", "153.0.3826.48"],
+              ["Session ID", "4f6b2c1e-8a3d-4e57-9c21-7d0e5b9a6f34"],
+            ].map(([k, v]) => (
+              <Fragment key={k}>
+                <dt className="text-gray-600">{k}</dt>
+                <dd className="select-text font-mono text-[12.5px]">{v}</dd>
+              </Fragment>
+            ))}
+          </dl>
         </>
       );
     case "General/Language and time":
