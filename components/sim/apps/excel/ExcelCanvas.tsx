@@ -689,25 +689,84 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
 
   /* ---------- keyboard ---------- */
 
+  /** A cell holds something Ctrl+Arrow stops at: a value, a formula, a PivotTable entry or a spilled result. */
+  const hasData = (c: number, r: number) => {
+    const ref = refOf(c, r);
+    const cell = sheet.cells[ref];
+    const pc = pivotCells[ref];
+    return Boolean((cell && (cell.f || (cell.v !== undefined && cell.v !== ""))) || (pc && pc.v !== null && pc.v !== "") || spill.out[ref] !== undefined);
+  };
+  /** The next visible cell in a direction (hidden rows and columns are skipped), or null at the edge. */
+  const step = (c: number, r: number, dc: number, dr: number): { c: number; r: number } | null => {
+    let nc = c + dc, nr = r + dr;
+    const inside = () => nc >= 1 && nr >= 1 && nc <= nCols && nr <= nRows;
+    while (inside() && (dc ? hiddenCols.has(numToCol(nc)) : hiddenRows.has(nr))) { nc += dc; nr += dr; }
+    return inside() ? { c: nc, r: nr } : null;
+  };
+  /**
+   * Ctrl+Arrow, as in Excel: inside a block of data, to the block's last cell; otherwise to the next
+   * cell that has data; with nothing further, to the edge of the sheet.
+   */
+  const jumpFrom = (c: number, r: number, dc: number, dr: number) => {
+    let cur = { c, r };
+    let next = step(c, r, dc, dr);
+    if (!next) return cur;
+    if (hasData(c, r) && hasData(next.c, next.r)) {
+      while (next && hasData(next.c, next.r)) { cur = next; next = step(cur.c, cur.r, dc, dr); }
+      return cur;
+    }
+    while (next && !hasData(next.c, next.r)) { cur = next; next = step(cur.c, cur.r, dc, dr); }
+    return next ?? cur;
+  };
+  /** Shift+arrow keys extend from this cell (Excel's active cell), which the range string itself doesn't record. */
+  const anchorRef = useRef<{ sel: string; anchor: { c: number; r: number } } | null>(null);
+  /** The cell a keyboard move went to, scrolled into view after the render. */
+  const revealRef = useRef<{ c: number; r: number } | null>(null);
+
+  /** Go to a cell, or with Shift extend the selection from the anchor to it. */
+  const goTo = (t: { c: number; r: number }, extend: boolean) => {
+    revealRef.current = t;
+    if (!extend) {
+      anchorRef.current = null;
+      onSelect({ selection: refOf(t.c, t.r) });
+      return;
+    }
+    const p = parseRef(act)!;
+    const anchor = anchorRef.current?.sel === sel ? anchorRef.current.anchor : { c: p.c, r: p.r };
+    const next = rectToRange({ c1: Math.min(anchor.c, t.c), r1: Math.min(anchor.r, t.r), c2: Math.max(anchor.c, t.c), r2: Math.max(anchor.r, t.r) });
+    anchorRef.current = { sel: next, anchor };
+    onSelect({ selection: next });
+  };
+
   const move = (dc: number, dr: number, extend: boolean, jump: boolean) => {
     const p = parseRef(act)!;
-    let c = p.c + dc, r = p.r + dr;
-    if (jump) {
-      // Jump to the edge of the data region.
-      const has = (cc: number, rr: number) => Boolean(sheet.cells[refOf(cc, rr)]?.v !== undefined || sheet.cells[refOf(cc, rr)]?.f);
-      c = p.c; r = p.r;
-      while (c + dc >= 1 && r + dr >= 1 && c + dc <= nCols && r + dr <= nRows && has(c + dc, r + dr)) { c += dc; r += dr; }
-      if (c === p.c && r === p.r) { c = Math.max(1, Math.min(nCols, p.c + dc)); r = Math.max(1, Math.min(nRows, p.r + dr)); }
-    }
-    c = Math.max(1, Math.min(nCols, c));
-    r = Math.max(1, Math.min(nRows, r));
+    let from = { c: p.c, r: p.r };
     if (extend) {
+      // Shift moves the corner of the selection opposite the anchor.
       const rc = selR ?? { c1: p.c, r1: p.r, c2: p.c, r2: p.r };
-      const r1 = dr < 0 ? Math.max(1, rc.r1 - 1) : rc.r1, r2 = dr > 0 ? rc.r2 + 1 : rc.r2;
-      const c1 = dc < 0 ? Math.max(1, rc.c1 - 1) : rc.c1, c2 = dc > 0 ? rc.c2 + 1 : rc.c2;
-      onSelect({ selection: rectToRange({ c1, r1, c2, r2 }) });
-    } else onSelect({ selection: refOf(c, r) });
+      const anchor = anchorRef.current?.sel === sel ? anchorRef.current.anchor : { c: p.c, r: p.r };
+      from = { c: anchor.c === rc.c1 ? rc.c2 : rc.c1, r: anchor.r === rc.r1 ? rc.r2 : rc.r1 };
+    }
+    goTo(jump ? jumpFrom(from.c, from.r, dc, dr) : step(from.c, from.r, dc, dr) ?? from, extend);
   };
+
+  // Keep the cell a keyboard move went to on screen, clear of the frozen panes.
+  useEffect(() => {
+    const t = revealRef.current;
+    const g = gridRef.current;
+    revealRef.current = null;
+    if (!t || !g || colX[t.c + 1] === undefined || rowY[t.r + 1] === undefined) return;
+    const fx = freeze && freeze.c > 1 ? colX[freeze.c] : headW;
+    const fy = freeze && freeze.r > 1 ? rowY[freeze.r] : HEAD_H;
+    if (!(freeze && t.c < freeze.c)) {
+      if (colX[t.c] - g.scrollLeft < fx) g.scrollLeft = colX[t.c] - fx;
+      else if (colX[t.c + 1] - g.scrollLeft > g.clientWidth) g.scrollLeft = colX[t.c + 1] - g.clientWidth;
+    }
+    if (!(freeze && t.r < freeze.r)) {
+      if (rowY[t.r] - g.scrollTop < fy) g.scrollTop = rowY[t.r] - fy;
+      else if (rowY[t.r + 1] - g.scrollTop > g.clientHeight) g.scrollTop = rowY[t.r + 1] - g.clientHeight;
+    }
+  });
 
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (edit || renaming) return;
@@ -720,7 +779,23 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       onSelect({ selection: rc && rectToRange(rc) !== sel ? rectToRange(rc) : `A1:${numToCol(nCols)}${nRows}` });
       return;
     }
-    if (ctrl && k === "Home") { e.preventDefault(); onSelect({ selection: "A1" }); return; }
+    if (ctrl && k === "Home") {
+      // Ctrl+Home: A1, or the first cell below and right of frozen panes.
+      e.preventDefault();
+      goTo(freeze ? { c: Math.max(1, freeze.c), r: Math.max(1, freeze.r) } : { c: 1, r: 1 }, e.shiftKey);
+      return;
+    }
+    if (ctrl && k === "End") {
+      // Ctrl+End: the last row and last column that hold data (PivotTables and spilled results included).
+      e.preventDefault();
+      let lc = used?.c2 ?? 1, lr = used?.r2 ?? 1;
+      for (const ref of [...Object.keys(pivotCells), ...Object.keys(spill.out)]) {
+        const q = parseRef(ref);
+        if (q) { lc = Math.max(lc, q.c); lr = Math.max(lr, q.r); }
+      }
+      goTo({ c: lc, r: lr }, e.shiftKey);
+      return;
+    }
     if (k.startsWith("Arrow")) {
       e.preventDefault();
       const [dc, dr] = k === "ArrowUp" ? [0, -1] : k === "ArrowDown" ? [0, 1] : k === "ArrowLeft" ? [-1, 0] : [1, 0];
