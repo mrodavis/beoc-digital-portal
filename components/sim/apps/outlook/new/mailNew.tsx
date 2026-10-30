@@ -11,7 +11,7 @@ import {
   visibleMessages,
 } from "../model";
 import { dateGroup, fmtDate, fmtListDate, fmtLong, fmtTime } from "../dates";
-import { catLabel, isSharedFolder } from "./model";
+import { catLabel, favoritesOf, isSharedFolder } from "./model";
 import { NMenuButton, inputCls, type NEntry } from "./ui";
 
 /** The new Outlook canvas context: the classic Ctx plus Fluent menus and Settings. */
@@ -183,7 +183,7 @@ export function FolderPaneNew({ ctx }: { ctx: NCtx }) {
   const [openShared, setOpenShared] = useState(true);
   const [newIn, setNewIn] = useState<string | null>(null);
   const [renaming, setRenaming] = useState<string | null>(null);
-  const favs = (doc.favorites ?? ["inbox", "sent", "drafts"]).map((id) => folderById(doc, id)).filter(Boolean) as OlFolder[];
+  const favs = favoritesOf(doc).map((id) => folderById(doc, id)).filter(Boolean) as OlFolder[];
   const tree = ownTree(doc);
   const shared = (doc.shared ?? []).filter((s) => s.added);
 
@@ -199,7 +199,7 @@ export function FolderPaneNew({ ctx }: { ctx: NCtx }) {
       { label: "Mark all as read", icon: "mailOpen", cmd: "folder.markAllRead", onPick: () => { ctx.select(`folder:${f.id}`); ctx.cmd("folder.markAllRead"); } },
       ...(f.id === "deleted" ? [{ label: "Empty folder", icon: "trash", cmd: "mail.emptyDeleted", onPick: () => ctx.cmd("mail.emptyDeleted") } as NEntry] : []),
       { separator: true },
-      { label: (doc.favorites ?? ["inbox", "sent", "drafts"]).includes(f.id) ? "Remove from Favorites" : "Add to Favorites", icon: "star", cmd: "folder.favorite", val: f.id, onPick: () => ctx.cmd("folder.favorite", f.id) },
+      { label: favoritesOf(doc).includes(f.id) ? "Remove from Favorites" : "Add to Favorites", icon: "star", cmd: "folder.favorite", val: f.id, onPick: () => ctx.cmd("folder.favorite", f.id) },
     ];
     return (
       <Fragment key={`${keyPrefix}${f.id}`}>

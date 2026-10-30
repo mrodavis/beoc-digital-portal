@@ -63,6 +63,10 @@ export const NEW_REMINDERS = [
 ];
 export const NEW_SHOW_AS = ["Free", "Working elsewhere", "Tentative", "Busy", "Out of office"];
 
+/** New Outlook's Favorites until the learner changes them (classic Outlook's are Inbox, Sent Items, Deleted Items). */
+export const NEW_FAVORITES = ["inbox", "sent", "drafts"];
+export const favoritesOf = (doc: OutlookDoc): string[] => doc.favorites ?? NEW_FAVORITES;
+
 export const TIME_ZONES = [
   "(UTC-10:00) Hawaii",
   "(UTC-08:00) Pacific Time (US & Canada)",
@@ -131,6 +135,7 @@ export function newRibbonState(doc: OutlookDoc, ui: SimUi): Record<string, SimVa
     "compose.encrypt": comp?.encrypt,
     "compose.sensitivity": comp?.sensitivity,
     "cal.view": doc.calView ?? "Work Week",
+    "folder.favorite": favoritesOf(doc).includes(selIds(ui.selection, "folder")[0] ?? currentFolder(doc)),
   };
 }
 
@@ -421,6 +426,14 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
   if (c.kind !== "command") return undefined;
   const sv = c.value === undefined ? "" : String(c.value);
   switch (c.id) {
+    case "folder.favorite": {
+      // Add to Favorites appends the folder; Remove from Favorites takes only that folder out.
+      const doc = clone(input);
+      const fid = sv || selIds(ui.selection, "folder")[0] || currentFolder(doc);
+      const fav = favoritesOf(doc);
+      doc.favorites = fav.includes(fid) ? fav.filter((x) => x !== fid) : [...fav, fid];
+      return { doc };
+    }
     case "mail.snooze": {
       const doc = clone(input);
       const before = visibleMessages(doc);
