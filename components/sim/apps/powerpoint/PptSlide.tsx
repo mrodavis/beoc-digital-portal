@@ -5,6 +5,7 @@ import type { PptDeck, PptObject, PptSlide, SimCommit, TextProps } from "@/types
 import { Icon } from "../../chrome/icons";
 import { ANIMATIONS, EXITS, animSequence, tableStyleColors, themeOf, type PptTheme } from "./model";
 import { bulletGlyph, clock, isContentPart, layoutBoxes, mediaLength, numberMarker, ox, readMaster, sx, type BodyPropsX, type Part } from "./ext";
+import { parseRange, pieces, syncRuns, type CharProps, type Run } from "./runs";
 
 const PLACEHOLDER: Record<Part, string> = { title: "Click to add title", subtitle: "Click to add subtitle", body: "Click to add text", body2: "Click to add text" };
 export const PAL = ["#4472C4", "#ED7D31", "#A5A5A5", "#FFC000", "#5B9BD5", "#70AD47"];
@@ -20,6 +21,39 @@ export function textStyle(p: (TextProps & { align?: string }) | undefined, base:
     textAlign: (p?.align ?? base.align ?? "left") as React.CSSProperties["textAlign"],
     textShadow: (p as { shadow?: boolean } | undefined)?.shadow ? "1px 1px 2px rgba(0,0,0,.4)" : undefined,
   };
+}
+
+/** CSS for a run's own character props (on top of its placeholder's style). */
+function runStyle(p: CharProps): React.CSSProperties | undefined {
+  const css: React.CSSProperties = {};
+  if (p.bold !== undefined) css.fontWeight = p.bold ? 700 : 400;
+  if (p.italic !== undefined) css.fontStyle = p.italic ? "italic" : "normal";
+  if (p.underline !== undefined || p.strike !== undefined) css.textDecoration = [p.underline ? "underline" : "", p.strike ? "line-through" : ""].filter(Boolean).join(" ") || "none";
+  if (p.size !== undefined) css.fontSize = p.size * 1.333;
+  if (p.color !== undefined) css.color = p.color;
+  if (p.font !== undefined) css.fontFamily = `'${p.font}', Aptos, Calibri, 'Segoe UI', sans-serif`;
+  if (p.shadow !== undefined) css.textShadow = p.shadow ? "1px 1px 2px rgba(0,0,0,.4)" : "none";
+  if (p.highlight) css.background = p.highlight;
+  return Object.keys(css).length ? css : undefined;
+}
+
+/** Text selected inside a placeholder or box ("s2.title.t3-8") while it isn't being typed in. */
+const SELECTED_TEXT = "rgba(64,140,230,.35)";
+function selectedRange(sel: Set<string>, key: string): [number, number] | undefined {
+  for (const k of sel) if (k.startsWith(`${key}.t`)) return parseRange(k.slice(key.length + 1));
+  return undefined;
+}
+
+/**
+ * text[from..to) drawn with its runs and the selected range; `plain` draws a piece without runs
+ * (spelling squiggles). With no runs and nothing selected it is just `plain(text)`.
+ */
+function richText(runs: Run[] | undefined, text: string, from: number, to: number, hi: [number, number] | undefined, plain: (t: string) => React.ReactNode): React.ReactNode {
+  if (!runs && (!hi || hi[1] <= from || hi[0] >= to || hi[0] === hi[1])) return plain(text.slice(from, to));
+  return pieces(runs, text, from, to, hi).map((pc, i) => {
+    const st = runStyle(pc.props);
+    return <span key={i} style={pc.hi ? { ...st, background: SELECTED_TEXT } : st}>{plain(pc.text)}</span>;
+  });
 }
 
 /** Clip path or radius for a shape, by its kind and its gallery name. */
@@ -151,7 +185,7 @@ interface ObjectCtx {
   interactive?: boolean;
   slideId: string;
   selection: Set<string>;
-  editing?: { key: string; text: string } | null;
+  editing?: { key: string; text: string; sel?: [number, number] } | null;
   onPart?: (key: string, e: React.MouseEvent) => void;
   onEditStart?: (key: string) => void;
   editor?: (key: string, multiline: boolean, tabMode?: "indent" | "cell") => React.ReactNode;
@@ -488,7 +522,7 @@ export function ObjectBody({ o, ctx, onMedia }: { o: PptObject; ctx: ObjectCtx; 
         ...effectCss(ox(o).effect ?? (/^style:.*Intense/.test(legacy) ? "Shadow" : undefined), theme.accent),
       }}
     >
-      {ctx.editing?.key === key ? ctx.editor?.(key, true) : o.text}
+      {ctx.editing?.key === key ? ctx.editor?.(key, true) : richText(syncRuns(ox(o).runs, o.text ?? ""), o.text ?? "", 0, (o.text ?? "").length, selectedRange(ctx.selection, key), (t) => t)}
     </div>
   );
 }
@@ -504,11 +538,14 @@ export interface SlideViewProps {
   index: number;
   interactive?: boolean;
   selection?: string;
-  editing?: { key: string; text: string } | null;
+  editing?: { key: string; text: string; sel?: [number, number] } | null;
   onPart?: (key: string, e: React.MouseEvent) => void;
   onEditStart?: (key: string) => void;
   onEditChange?: (text: string) => void;
-  onEditCommit?: (next?: "tab" | "shiftTab") => void;
+  /** `range`: the text selection when the box lost focus to the Ribbon or a menu (not Esc/Enter). */
+  onEditCommit?: (next?: "tab" | "shiftTab", range?: [number, number]) => void;
+  /** Ctrl+B / Ctrl+I / Ctrl+U (and grow/shrink) pressed with text selected in the box. */
+  onEditFormat?: (command: string, range: [number, number]) => void;
   onEditCancel?: () => void;
   onContext?: (e: React.MouseEvent, key: string) => void;
   /** Drag a paragraph of a placeholder onto another paragraph. */
@@ -577,7 +614,7 @@ export function SlideView(props: SlideViewProps) {
   };
 
   const editor = (key: string, multiline: boolean, tabMode?: "indent" | "cell") => (
-    <PartEditor multiline={multiline} tabMode={tabMode} value={editing?.key === key ? editing.text : ""} onChange={(t) => props.onEditChange?.(t)} onCommit={(n) => props.onEditCommit?.(n)} onCancel={() => props.onEditCancel?.()} />
+    <PartEditor multiline={multiline} tabMode={tabMode} value={editing?.key === key ? editing.text : ""} initialSel={editing?.key === key ? editing.sel : undefined} onChange={(t) => props.onEditChange?.(t)} onCommit={(n, r) => props.onEditCommit?.(n, r)} onCancel={() => props.onEditCancel?.()} onFormat={props.onEditFormat} />
   );
   const ctx: ObjectCtx = { theme, interactive, slideId: slide.id, selection: sel, editing, onPart: props.onPart, onEditStart: props.onEditStart, editor };
   const taken = (part: string) => (slide.objects ?? []).some((o) => ox(o).placeholder === part);
@@ -607,6 +644,11 @@ export function SlideView(props: SlideViewProps) {
     const numbered = (part === "body" || part === "body2") && bp.numbered;
     const content = (part === "body" || part === "body2") && isContentPart(slide.layout, part);
     const counters: number[] = [];
+    // Character formatting and selected text: offsets run over the body's lines joined with "\n".
+    const flat = Array.isArray(text) ? text.join("\n") : text ?? "";
+    const runs = syncRuns(sx(slide).runs?.[part], flat);
+    const hi = selectedRange(sel, key);
+    let lineAt = 0;
     return (
       <div
         key={part}
@@ -645,6 +687,9 @@ export function SlideView(props: SlideViewProps) {
               counters[lvl] = (counters[lvl] ?? 0) + 1;
               const lk = `${key}.${i + 1}`;
               const lineSelected = sel.has(lk);
+              const start = lineAt;
+              lineAt += line.length + 1;
+              const tabs = /^\t*/.exec(line)?.[0].length ?? 0;
               const marker = numbered ? numberMarker(lvl ? "a. b. c." : bp.numberFormat, counters[lvl] + (lvl ? 0 : (bp.startAt ?? 1) - 1)) : lvl ? "–" : bulletGlyph(bp.bulletStyle);
               return (
                 <li
@@ -659,13 +704,13 @@ export function SlideView(props: SlideViewProps) {
                   style={{ paddingLeft: lvl * 36, fontSize: lvl ? "0.83em" : undefined, marginTop: i ? `${0.35 + (bp.spaceBefore ?? 0) / 24}em` : undefined, marginBottom: bp.spaceAfter ? `${bp.spaceAfter / 24}em` : undefined }}
                 >
                   {bullets && <span style={{ color: bp.bulletColor ?? theme.accent, fontSize: bp.bulletSize ? `${bp.bulletSize}%` : undefined, minWidth: numbered ? "1.4em" : undefined }}>{marker}</span>}
-                  <span>{marked(line.replace(/^\t+/, ""))}</span>
+                  <span>{richText(runs, flat, start + tabs, start + line.length, hi, marked)}</span>
                 </li>
               );
             })}
           </ul>
         ) : (
-          <span>{marked(text)}</span>
+          <span>{richText(runs, flat, 0, flat.length, hi, marked)}</span>
         )}
       </div>
     );
@@ -726,17 +771,27 @@ export function SlideView(props: SlideViewProps) {
                 onDoubleClick={interactive && (o.kind === "textbox" || o.kind === "shape" || o.kind === "smartart") ? (e) => { e.stopPropagation(); props.onEditStart?.(key); } : undefined}
                 onContextMenu={interactive ? (e) => props.onContext?.(e, Array.from(sel).find((k) => k.startsWith(`${key}.`)) ?? key) : undefined}
                 className={`absolute ${interactive ? "cursor-move" : ""}`}
-                style={{ left: `${o.x}%`, top: `${o.y}%`, width: `${o.w}%`, height: `${o.h}%`, transform: transformOf(o), outline: isSel ? "1.5px solid #6b6b6b" : o.kind === "textbox" && !o.text && interactive ? "1px dashed #bbb" : undefined, outlineOffset: 2, zIndex: isSel ? 5 : undefined }}
+                // Objects keep their stacking order when selected (Send Backward shows at once); the
+                // selection frame is drawn above everything below. Only a box being typed in comes forward.
+                style={{ left: `${o.x}%`, top: `${o.y}%`, width: `${o.w}%`, height: `${o.h}%`, transform: transformOf(o), outline: !isSel && o.kind === "textbox" && !o.text && interactive ? "1px dashed #bbb" : undefined, outlineOffset: 2, zIndex: editing?.key === key ? 5 : undefined }}
               >
                 <ObjectBody o={o} ctx={ctx} onMedia={props.onMedia} />
                 {badge(o.id)}
-                {isSel && o.kind !== "table" && ["-left-1.5 -top-1.5", "-right-1.5 -top-1.5", "-left-1.5 -bottom-1.5", "-right-1.5 -bottom-1.5"].map((c) => <span key={c} className={`pointer-events-none absolute ${c} h-3 w-3 rounded-full border border-gray-500 bg-white`} />)}
-                {isSel && o.kind === "chart" && interactive && (
-                  <button type="button" aria-label="Chart Elements" title="Chart Elements" onMouseDown={(e) => e.stopPropagation()} onClick={(e) => props.onChartButton?.(key, e)} className="absolute -right-10 top-0 flex h-8 w-8 items-center justify-center border border-gray-400 bg-white text-[22px] text-gray-700 shadow hover:bg-gray-50">+</button>
-                )}
               </div>
             );
           })}
+        {interactive && (slide.objects ?? []).map((o) => {
+          const key = `${slide.id}.${o.id}`;
+          if (ox(o).hidden || !visible(o.id) || !(sel.has(key) || Array.from(sel).some((k) => k.startsWith(`${key}.`)))) return null;
+          return (
+            <div key={`sel-${o.id}`} data-sel-frame={key} className="pointer-events-none absolute" style={{ left: `${o.x}%`, top: `${o.y}%`, width: `${o.w}%`, height: `${o.h}%`, transform: transformOf(o), outline: "1.5px solid #6b6b6b", outlineOffset: 2, zIndex: 6 }}>
+              {o.kind !== "table" && ["-left-1.5 -top-1.5", "-right-1.5 -top-1.5", "-left-1.5 -bottom-1.5", "-right-1.5 -bottom-1.5"].map((c) => <span key={c} className={`absolute ${c} h-3 w-3 rounded-full border border-gray-500 bg-white`} />)}
+              {o.kind === "chart" && (
+                <button type="button" aria-label="Chart Elements" title="Chart Elements" onMouseDown={(e) => e.stopPropagation()} onClick={(e) => props.onChartButton?.(key, e)} className="pointer-events-auto absolute -right-10 top-0 flex h-8 w-8 items-center justify-center border border-gray-400 bg-white text-[22px] text-gray-700 shadow hover:bg-gray-50">+</button>
+              )}
+            </div>
+          );
+        })}
         {footer && !hideFooter && (
           <div className="pointer-events-none absolute inset-x-[4%] bottom-[2%] flex items-center justify-between text-[14px]" style={{ color: theme.dark ? "#ddd" : "#7f7f7f", fontFamily: `'${bodyFont}', sans-serif` }}>
             <span>{footer.date ? "10/20/2026" : ""}</span>
@@ -758,19 +813,24 @@ export function transformOf(o: PptObject): string | undefined {
   return parts.length ? parts.join(" ") : undefined;
 }
 
-export function PartEditor({ value, onChange, onCommit, onCancel, multiline, tabMode }: { value: string; onChange: (v: string) => void; onCommit: (next?: "tab" | "shiftTab") => void; onCancel: () => void; multiline?: boolean; tabMode?: "indent" | "cell" }) {
+/** Keys that format selected text while you type in a box (they reach the Ribbon's commands). */
+const FORMAT_KEYS: Record<string, string> = { b: "home.bold", i: "home.italic", u: "home.underline", ">": "home.growFont", "<": "home.shrinkFont", "]": "home.growFont", "[": "home.shrinkFont" };
+
+export function PartEditor({ value, onChange, onCommit, onCancel, multiline, tabMode, initialSel, onFormat }: { value: string; onChange: (v: string) => void; onCommit: (next?: "tab" | "shiftTab", range?: [number, number]) => void; onCancel: () => void; multiline?: boolean; tabMode?: "indent" | "cell"; initialSel?: [number, number]; onFormat?: (command: string, range: [number, number]) => void }) {
   const ref = useRef<HTMLTextAreaElement>(null);
   const done = useRef(false);
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return;
     el.focus();
-    el.setSelectionRange(el.value.length, el.value.length);
+    const n = el.value.length;
+    el.setSelectionRange(Math.min(initialSel?.[0] ?? n, n), Math.min(initialSel?.[1] ?? n, n));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const commit = (n?: "tab" | "shiftTab") => {
+  const commit = (n?: "tab" | "shiftTab", range?: [number, number]) => {
     if (done.current) return;
     done.current = true;
-    onCommit(n);
+    onCommit(n, range);
   };
   return (
     <textarea
@@ -781,6 +841,15 @@ export function PartEditor({ value, onChange, onCommit, onCancel, multiline, tab
       onMouseDown={(e) => e.stopPropagation()}
       onKeyDown={(e) => {
         e.stopPropagation();
+        const fk = (e.ctrlKey || e.metaKey) && !e.altKey ? FORMAT_KEYS[e.key.toLowerCase()] : undefined;
+        if (fk && onFormat) {
+          e.preventDefault();
+          const el = e.currentTarget;
+          if (el.selectionStart === el.selectionEnd) return;
+          done.current = true;
+          onFormat(fk, [el.selectionStart, el.selectionEnd]);
+          return;
+        }
         if (e.key === "Enter" && (!multiline || e.ctrlKey)) { e.preventDefault(); commit(); }
         if (e.key === "Escape") { e.preventDefault(); if (e.shiftKey) { done.current = true; onCancel(); } else commit(); }
         if (e.key === "Tab" && tabMode === "cell") { e.preventDefault(); commit(e.shiftKey ? "shiftTab" : "tab"); return; }
@@ -791,7 +860,8 @@ export function PartEditor({ value, onChange, onCommit, onCancel, multiline, tab
           onChange(e.shiftKey ? el.value.slice(0, start) + el.value.slice(start).replace(/^\t/, "") : el.value.slice(0, start) + "\t" + el.value.slice(start));
         }
       }}
-      onBlur={() => commit()}
+      // Clicking the Ribbon or a menu keeps the text you selected (or where the cursor was) for its command.
+      onBlur={(e) => commit(undefined, [e.currentTarget.selectionStart, e.currentTarget.selectionEnd])}
       className="h-full w-full resize-none border-0 bg-white/80 p-0 outline-none"
       style={{ font: "inherit", color: "inherit", textAlign: "inherit", lineHeight: "inherit", tabSize: 2 }}
     />

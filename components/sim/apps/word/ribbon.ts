@@ -510,7 +510,7 @@ export const wordRibbon: RibbonTab[] = [
         label: "Symbols",
         controls: [
           { type: "button", id: "insert.equation", label: "Equation", icon: "equation", size: "large" },
-          { type: "dropdown", id: "insert.symbol", label: "Symbol", icon: "symbol", size: "large", options: ["©", "®", "™", "°", "±", "€", "£", "§", "✓", "More Symbols..."].map((v) => (v === "More Symbols..." ? { value: v, dialog: "symbol" } : { value: v })) },
+          { type: "dropdown", id: "insert.symbol", label: "Symbol", icon: "symbol", size: "large", gallery: "symbols", options: ["©", "®", "™", "°", "±", "€", "£", "§", "✓", "More Symbols..."].map((v) => (v === "More Symbols..." ? { value: v, dialog: "symbol", icon: "symbol" } : { value: v })) },
         ],
       },
     ],

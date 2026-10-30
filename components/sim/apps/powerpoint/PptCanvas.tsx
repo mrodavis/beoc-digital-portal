@@ -3,14 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { PptDeck, PptObject, PptSlide, SimCommit } from "@/types/sim";
-import type { CanvasProps, MenuItem, StatusBarProps } from "../../types";
+import type { CanvasProps, MenuItem, SimUi, StatusBarProps } from "../../types";
 import { Icon } from "../../chrome/icons";
-import { LAYOUTS, activeSlide, layoutName, readClip, themeOf } from "./model";
+import { LAYOUTS, activeSlide, deckLayouts, isFinal, layoutName, readClip, themeOf } from "./model";
 import { flagJson, ox, readMaster } from "./ext";
 import { PartEditor, SlideView } from "./PptSlide";
+import { lineSpan, parseRange } from "./runs";
 import { ChartDataSheet, ClipboardPane, PptPane } from "./PptPanes";
 import { SlideShow } from "./PptShow";
-import { CustomShowsDialog, LinksDialog } from "./PptDialogs";
+import { CustomShowsDialog, LinksDialog, MarkedFinalDialog } from "./PptDialogs";
 
 const TEXT_PARTS = ["title", "subtitle", "body", "body2", "notes"];
 const isCell = (k: string) => /^[^.]+\.o\d+\.r\d+c\d+$/.test(k);
@@ -45,14 +46,24 @@ function simRootOf(el: Element | null): HTMLElement | null {
   return (el?.closest('[aria-label*="practice simulation"]') as HTMLElement | null) ?? null;
 }
 
-export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<PptDeck>) {
+type Editing = { key: string; text: string; sel?: [number, number] };
+
+export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onContextMenu, openDialog }: CanvasProps<PptDeck>) {
   const view = deck.view ?? "normal";
   const slide = activeSlide(deck, ui)!;
   const idx = deck.slides.findIndex((s) => s.id === slide.id);
-  const [editing, setEditingState] = useState<{ key: string; text: string } | null>(null);
-  const editRef = useRef<{ key: string; text: string } | null>(null);
+  const [editing, setEditingState] = useState<Editing | null>(null);
+  const editRef = useRef<Editing | null>(null);
   const keepKey = useRef<string | null>(null);
-  const setEditing = (v: { key: string; text: string } | null) => { editRef.current = v; setEditingState(v); };
+  const setEditing = (v: Editing | null) => { editRef.current = v; setEditingState(v); };
+  // The last selection the canvas made (so a box that loses focus to the Ribbon keeps its text
+  // selection, but not after you clicked something else on the slide). Every selection the canvas
+  // makes also drops the insertion point a box left behind for Paste.
+  const lastSel = useRef<string>(ui.selection);
+  const onSelect = (patch: Partial<SimUi>) => {
+    if (patch.selection !== undefined) lastSel.current = patch.selection;
+    onSelectRaw({ ...patch, caret: undefined } as Partial<SimUi>);
+  };
   const mainRef = useRef<HTMLDivElement>(null);
   const [mainW, setMainW] = useState(640);
   const [mainH, setMainH] = useState(360);
@@ -138,18 +149,48 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     if (sub) return (o.kind === "table" && /^r\d+c\d+$/.test(sub)) || (o.kind === "chart" && sub === "title");
     return o.kind === "textbox" || o.kind === "shape" || o.kind === "smartart";
   };
-  const startEdit = (key: string, text?: string) => {
-    if (!editable(key)) return;
+  const startEdit = (key: string, text?: string, sel?: [number, number]) => {
+    // Marked as final: typing is turned off until Edit Anyway.
+    if (!editable(key) || isFinal(deck)) return;
     onSelect({ selection: key, slide: key.split(".")[0] });
-    setEditing({ key, text: text ?? textOf(key) });
+    setEditing({ key, text: text ?? textOf(key), sel });
   };
 
-  const commitEdit = (next?: "tab" | "shiftTab") => {
+  /** Placeholders and text boxes whose words can be selected and formatted on their own. */
+  const rangeable = (key: string) => {
+    const [sid, part, sub] = key.split(".");
+    if (sub || isMasterScope(sid)) return false;
+    if (["title", "subtitle", "body", "body2"].includes(part)) return true;
+    const o = findObj(sid, part);
+    return o?.kind === "textbox" || o?.kind === "shape";
+  };
+  /**
+   * What stays selected when a box loses focus to the Ribbon or a menu: the selected text
+  * ("s2.title.t4-7"), all of it (the placeholder), one whole bullet ("s2.body.3"), or, with
+   * nothing selected, the placeholder plus the insertion point for Paste.
+   */
+  const keepSelection = (key: string, text: string, [a0, b0]: [number, number]) => {
+    const a = Math.min(a0, b0), b = Math.max(a0, b0);
+    const slideId = key.split(".")[0];
+    if (a === b) { onSelect({ selection: key, slide: slideId }); onSelectRaw({ caret: `${key}@${a}` } as Partial<SimUi>); return; }
+    if (a === 0 && b >= text.length) return onSelect({ selection: key, slide: slideId });
+    const part = key.split(".")[1];
+    if (part === "body" || part === "body2") {
+      const n = text.slice(0, a).split("\n").length;
+      const sp = lineSpan(text, n);
+      if (sp && (a === sp.start || a === sp.textStart) && (b === sp.end || (b === sp.end + 1 && text[sp.end] === "\n")) && sp.end > sp.textStart) return onSelect({ selection: `${key}.${n}`, slide: slideId });
+    }
+    onSelect({ selection: `${key}.t${a}-${b}`, slide: slideId });
+  };
+
+  const commitEdit = (next?: "tab" | "shiftTab", range?: [number, number]) => {
     const e = editRef.current;
     if (!e) return;
     setEditing(null);
     const changed = e.text !== textOf(e.key);
     if (changed) onCommit({ kind: "type", target: e.key, value: e.text });
+    // Focus went to the Ribbon or a menu (not to something else on the slide): keep the text selection.
+    if (range && rangeable(e.key) && lastSel.current === e.key) { keepSelection(e.key, e.text, range); return; }
     if (next && isCell(e.key)) {
       const [sid, oid] = e.key.split(".");
       const t = findObj(sid, oid);
@@ -167,6 +208,8 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
   };
 
   const selectPart = (key: string, e: React.MouseEvent) => {
+    // Right-clicking text you selected inside a box keeps that selection for the menu's commands.
+    if (e.button === 2 && key.includes(".") && !editRef.current && ui.selection.split(",").some((k) => k.startsWith(`${key}.t`) || /\.\d+$/.test(k) && k.startsWith(`${key}.`))) return;
     if (editRef.current && editRef.current.key !== key) commitEdit();
     let next = key;
     const [sid, oid, sub] = key.split(".");
@@ -197,6 +240,22 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (editing || view === "show") return;
     const k = e.key;
+    // Text selected inside a box (after a Ribbon command) or a selected bullet: typing replaces it,
+    // F2 or Enter goes back to editing with it still selected.
+    const rs = /^(.+)\.(t\d+-\d+)$/.exec(ui.selection);
+    const ls = /^([^.]+\.(?:body|body2))\.(\d+)$/.exec(ui.selection);
+    const rbase = rs?.[1] ?? ls?.[1];
+    const lsp = ls ? lineSpan(textOf(ls[1]), Number(ls[2])) : undefined;
+    const rr: [number, number] | undefined = rs ? parseRange(rs[2]) : lsp ? [lsp.textStart, lsp.end] : undefined;
+    if (rbase && rr && rangeable(rbase) && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      if (k === "F2" || k === "Enter") { e.preventDefault(); startEdit(rbase, undefined, rr); return; }
+      if (k.length === 1) {
+        e.preventDefault();
+        const t = textOf(rbase);
+        startEdit(rbase, t.slice(0, rr[0]) + k + t.slice(rr[1]), [rr[0] + 1, rr[0] + 1]);
+        return;
+      }
+    }
     if (view === "reading") {
       if (k === "Escape") { e.preventDefault(); onCommit({ kind: "command", id: "view.mode", value: "Normal" }); return; }
       if (["ArrowRight", "ArrowDown", " ", "Enter", "PageDown"].includes(k)) { e.preventDefault(); nav(1); return; }
@@ -288,7 +347,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
       { label: "Delete Slide", icon: "deleteCells", command: "slides.delete" },
       { label: "Add Section", icon: "section", dialog: "addSection" },
       { separator: true },
-      ...LAYOUTS.map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
+      ...deckLayouts(deck).map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
       { label: "Reset Slide", icon: "reset", command: "slides.reset" },
       { separator: true },
       { label: "Format Background...", icon: "background", dialog: "formatBackground" },
@@ -338,7 +397,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     onContextMenu(e.clientX, e.clientY, [
       ...pasteItems(false),
       { separator: true },
-      ...LAYOUTS.map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
+      ...deckLayouts(deck).map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
       { label: "Reset Slide", icon: "reset", command: "slides.reset" },
       { separator: true },
       { label: "Format Background...", icon: "background", dialog: "formatBackground" },
@@ -457,6 +516,13 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     onEditStart: (key: string) => startEdit(key),
     onEditChange: (t: string) => editRef.current && setEditing({ key: editRef.current.key, text: t }),
     onEditCommit: commitEdit,
+    onEditFormat: (command: string, range: [number, number]) => {
+      const ed = editRef.current;
+      if (!ed) return;
+      if (!rangeable(ed.key)) { commitEdit(); return; }
+      commitEdit(undefined, range);
+      onCommit({ kind: "command", id: command });
+    },
     onEditCancel: () => setEditing(null),
     onContext: partMenu,
     onLineDrop: (from: string, to: number) => onCommit({ kind: "command", id: "text.move", value: `${from}@${to}` }),
@@ -540,8 +606,18 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
   const dlgBody =
     dlg === "customShows" ? <CustomShowsDialog deck={deck} onCommit={dlgCommit} /> :
     dlg === "links" ? <LinksDialog deck={deck} onCommit={dlgCommit} /> :
+    dlg === "markedFinal" ? <MarkedFinalDialog onCommit={dlgCommit} /> :
     null;
   const modal = dlgBody ? (portalRoot ? createPortal(dlgBody, portalRoot) : dlgBody) : null;
+
+  // Mark as Final: the message bar under the Ribbon, with Edit Anyway.
+  const finalBar = isFinal(deck) ? (
+    <div role="status" aria-label="Marked as final" className="flex shrink-0 items-center gap-3 border-b border-[#e1c66b] bg-[#fff4ce] px-3 py-1.5 text-[12px] text-gray-900">
+      <span className="font-semibold">MARKED AS FINAL</span>
+      <span>An author has marked this presentation as final to discourage editing.</span>
+      <button type="button" onClick={() => onCommit({ kind: "command", id: "file.editAnyway" })} className="border border-gray-400 bg-white px-2.5 py-0.5 hover:bg-gray-100">Edit Anyway</button>
+    </div>
+  ) : null;
 
   if (view === "reading") {
     return (
@@ -563,7 +639,9 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
 
   if (view === "sorter") {
     return (
-      <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="h-full overflow-auto bg-[#e7e7e7] p-4 outline-none">
+      <div className="flex h-full flex-col">
+      {finalBar}
+      <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="min-h-0 flex-1 overflow-auto bg-[#e7e7e7] p-4 outline-none">
         {modal}
         <div className="flex flex-wrap gap-4">
           {deck.slides.map((s, i) => {
@@ -602,6 +680,7 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
           })}
         </div>
       </div>
+      </div>
     );
   }
 
@@ -632,7 +711,9 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
   const slideW = fitW(40 + (rulerOn ? 18 : 0), 32 + (rulerOn ? 18 : 0)) * Number(deck.flags?.zoom ?? 100) / 100;
 
   return (
-    <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex h-full outline-none">
+    <div className="flex h-full flex-col">
+    {finalBar}
+    <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex min-h-0 flex-1 outline-none">
       {modal}
       {pane === "Clipboard" && <ClipboardPane deck={deck} onCommit={onCommit} onContextMenu={onContextMenu} />}
       {view === "outline" ? (
@@ -723,10 +804,13 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
 
       {pane && pane !== "Chart Data" && pane !== "Clipboard" && <PptPane deck={deck} ui={ui} pane={pane} onCommit={onCommit} openDialog={openDialog} onSelect={onSelect} onContextMenu={onContextMenu} />}
     </div>
+    </div>
   );
 }
 
 export function PptStatusBar({ doc: deck, ui, onCommit }: StatusBarProps<PptDeck>) {
+  // A slide show (and Presenter View) fills the screen: PowerPoint's window and its status bar are hidden.
+  if (deck.view === "show") return null;
   const slide = activeSlide(deck, ui);
   const idx = deck.slides.findIndex((s) => s.id === slide?.id);
   const zoom = Number(deck.flags?.zoom ?? 100);
@@ -739,6 +823,7 @@ export function PptStatusBar({ doc: deck, ui, onCommit }: StatusBarProps<PptDeck
   return (
     <div className="flex h-6 shrink-0 items-center gap-4 border-t border-gray-300 bg-[#f3f3f3] px-3 text-[11px] text-gray-700">
       <span>{deck.view === "master" ? "Slide Master" : `Slide ${idx + 1} of ${deck.slides.length}`}</span>
+      {isFinal(deck) && <span title="This presentation has been marked as final." aria-label="Marked as Final" className="flex items-center"><Icon name="protect" size={13} /></span>}
       <span className="hidden sm:inline">English (United States)</span>
       {deck.flags?.lastAction && <span className="hidden text-gray-500 sm:inline">Last action: {String(deck.flags.lastAction)}</span>}
       <span className="flex-1" />

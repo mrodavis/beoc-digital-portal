@@ -35,7 +35,7 @@ export function Popover({
 }: {
   anchor: { x: number; y: number };
   items: PopoverItem[];
-  layout?: "list" | "grid" | "swatches";
+  layout?: "list" | "grid" | "swatches" | "symbols";
   onClose: () => void;
   width?: number;
 }) {
@@ -47,6 +47,9 @@ export function Popover({
     if (!el) return;
     const r = el.getBoundingClientRect();
     let { x, y } = anchor;
+    // Keep the menu inside the simulated app window (a menu near its right edge opens leftward, as on screen).
+    const win = el.parentElement?.closest('[aria-label*="practice simulation"]')?.getBoundingClientRect();
+    if (win && x + r.width > win.right - 4) x = Math.max(win.left + 4, win.right - r.width - 4);
     if (x + r.width > window.innerWidth - 8) x = Math.max(8, window.innerWidth - r.width - 8);
     if (y + r.height > window.innerHeight - 8) y = Math.max(8, window.innerHeight - r.height - 8);
     setPos({ x, y });
@@ -75,14 +78,14 @@ export function Popover({
     };
   }, [onClose]);
 
-  const grid = layout === "swatches" || layout === "grid";
+  const grid = layout === "swatches" || layout === "grid" || layout === "symbols";
 
   return (
     <div
       ref={ref}
       role="menu"
       className="fixed z-[200] max-h-[360px] overflow-auto rounded border border-gray-300 bg-white py-1 text-[12px] text-gray-800 shadow-xl"
-      style={{ left: pos.x, top: pos.y, width: width ?? (layout === "swatches" ? 196 : layout === "grid" ? 300 : undefined), minWidth: 160 }}
+      style={{ left: pos.x, top: pos.y, width: width ?? (layout === "swatches" ? 196 : layout === "grid" ? 300 : layout === "symbols" ? 196 : undefined), minWidth: 160 }}
     >
       <div className={grid ? "flex flex-wrap gap-1 px-2 py-1" : ""}>
         {items.map((it) => {
@@ -105,6 +108,28 @@ export function Popover({
                 className="h-5 w-5 border border-gray-300 hover:outline hover:outline-2 hover:outline-orange-400"
                 style={{ background: it.color }}
               />
+            );
+          // Insert › Symbol: a grid of symbols; commands with an icon (More Symbols...) run across below it.
+          if (layout === "symbols" && !it.icon)
+            return (
+              <button
+                key={it.key}
+                type="button"
+                role="menuitem"
+                title={it.label}
+                aria-label={it.label}
+                onClick={() => { it.onPick?.(); onClose(); }}
+                className="flex h-8 w-8 items-center justify-center rounded-sm border border-gray-200 text-[17px] hover:border-orange-300 hover:bg-orange-50"
+              >
+                {it.label}
+              </button>
+            );
+          if (layout === "symbols")
+            return (
+              <button key={it.key} type="button" role="menuitem" onClick={() => { it.onPick?.(); onClose(); }} className="mt-1 flex w-full items-center gap-2 border-t border-gray-200 px-1 pt-1.5 text-left hover:bg-[#e5f1fb]">
+                <Icon name={it.icon} size={16} />
+                {it.label}
+              </button>
             );
           if (layout === "grid")
             return (

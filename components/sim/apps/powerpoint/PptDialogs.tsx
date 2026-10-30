@@ -281,3 +281,25 @@ export function LinksDialog({ deck, onCommit }: { deck: PptDeck; onCommit: Commi
     </Shell>
   );
 }
+
+/**
+ * The message after Protect Presentation › Mark as Final (open while flags.pptDialog is "markedFinal").
+ * Office words it about "document" in every app.
+ */
+export function MarkedFinalDialog({ onCommit }: { onCommit: Commit }) {
+  const [dontShow, setDontShow] = useState(false);
+  const close = () => onCommit({ kind: "command", id: "modal.close", value: dontShow ? "dontShowFinal" : "" });
+  return (
+    <Shell title="Microsoft PowerPoint" width={440} onClose={close} footer={<button type="button" onClick={close} className={primary}>OK</button>}>
+      <div className="flex gap-3">
+        <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#0078d4] text-[18px] font-bold text-white">i</span>
+        <div className="space-y-2">
+          <p>This document has been marked as final to indicate that editing is complete and that this is the final version of the document.</p>
+          <p>When a document is marked as final, the status property is set to &quot;Final&quot; and typing, editing commands, and proofing marks are turned off. You can recognize that a document is marked as final when the Mark As Final icon displays in the status bar.</p>
+          <label className="flex items-center gap-2 pt-1"><input type="checkbox" checked={dontShow} onChange={(e) => setDontShow(e.target.checked)} />Don&apos;t show this message again</label>
+        </div>
+      </div>
+    </Shell>
+  );
+}
+

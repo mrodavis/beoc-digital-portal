@@ -1,7 +1,7 @@
 import type { DialogDef, DialogField, PptDeck, SimCommit, SimValue } from "@/types/sim";
 import type { AppCore, SimUi } from "../../types";
-import { applyPpt, pptContextual, pptDialogDefaults, pptRibbonState, activeSlide, clipHistory, clipLabel, customShows, pasteSpecialInfo, pptSelectionExists, parseSel, animSequence } from "./model";
-import { pptRibbon, pptDialogs, PPT_VIEW_ALIASES } from "./ribbon";
+import { applyPpt, pptContextual, pptDialogDefaults, pptRibbonState, activeSlide, clipHistory, clipLabel, customShows, pasteSpecialInfo, pptSelectionExists, parseSel, animSequence, resyncRuns } from "./model";
+import { pptRibbon, pptDialogs, pptRibbonFor, PPT_VIEW_ALIASES } from "./ribbon";
 import { ICONS } from "./ext";
 
 /** Dialogs whose options come from the presentation (the clipboard, the custom shows, the icon picked). */
@@ -73,8 +73,19 @@ function normalize(c: SimCommit): SimCommit {
   return c;
 }
 
+/**
+ * Title bar text. A new presentation that was never saved (PresentationN, no save location) shows
+ * just its name, as PowerPoint does; a saved file shows where it is saved.
+ */
+function windowTitle(deck: PptDeck, fileName: string): string {
+  const loc = deck.saved?.location;
+  if (!loc && /^Presentation\d+\.pptx$/i.test(fileName)) return fileName.replace(/\.pptx$/i, "");
+  return `${fileName} - Saved to ${loc || "this PC"}`;
+}
+
 export const pptCore: AppCore<PptDeck> = {
   name: "PowerPoint",
+  windowTitle,
   accent: "#b7472a",
   ribbon: pptRibbon,
   dialogs: pptDialogs,
@@ -161,7 +172,7 @@ export const pptCore: AppCore<PptDeck> = {
     "comment.reply", "comment.resolve", "comment.focus", "thesaurus.insert", "inspector.remove", "animation.painter.apply", "table.tabRow", "media.seek",
     // Office Clipboard pane, linked charts (right-click › Update Link / Linked Chart Object › Links...).
     "home.clipboardPane", "clipboard.paste", "clipboard.pasteAll", "clipboard.clear", "clipboard.delete",
-    "links.edit", "links.update", "links.openSource", "links.changeSource", "links.break", "links.mode", "modal.close",
+    "links.edit", "links.update", "links.openSource", "links.changeSource", "links.break", "links.mode", "modal.close", "file.editAnyway",
     // Custom Shows dialog, Animation Pane.
     "slideshow.customShow", "customShow.remove", "customShow.copy", "animation.remove", "animation.playFrom",
   ],
@@ -173,7 +184,7 @@ export const pptCore: AppCore<PptDeck> = {
     "section.toggle", "slideshow.goto", "slideshow.seeAll", "slideshow.pointer", "slideshow.erase", "slideshow.ink", "slideshow.screen", "slideshow.showPresenter", "slideshow.recordTimings",
     "comment.focus", "media.play", "media.seek", "table.tabRow", "slides.move", "home.selectAll",
     // Opening and closing panes and dialogs is free.
-    "home.clipboardPane", "links.edit", "modal.close", "slideshow.custom", "animation.playFrom",
+    "home.clipboardPane", "links.edit", "modal.close", "slideshow.custom", "animation.playFrom", "file.editAnyway",
   ],
   initialUi: (deck) => {
     const s = deck.slides.find((x) => x.id === deck.active) ?? deck.slides[0];
@@ -185,8 +196,15 @@ export const pptCore: AppCore<PptDeck> = {
     // Keep the deck's active slide in step with the UI's slide.
     const slide = r.ui?.slide ?? ui.slide;
     if (slide && r.doc.active !== slide && r.doc.slides.some((s) => s.id === slide)) r.doc = { ...r.doc, active: slide };
+    // Character formatting follows text that the command changed.
+    r.doc = resyncRuns(r.doc);
+    // An insertion point left in a placeholder (for Paste) lasts until the next command.
+    r.ui = { ...(r.ui ?? {}), caret: (r.ui as { caret?: string } | undefined)?.caret } as Partial<SimUi>;
     return r;
   },
+  ribbonFor: pptRibbonFor,
+  // View › Slide Master opens the Slide Master tab (other contextual tabs appear without being opened).
+  autoContextual: ["master"],
   ribbonState: pptRibbonState,
   contextualTabs: pptContextual,
   dialogDef,

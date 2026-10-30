@@ -105,8 +105,11 @@ export interface AppCore<D> {
    * `ribbon`; the validator still walks `ribbon`.
    */
   ribbonFor?(doc: D, ui: SimUi): RibbonTab[];
-  /** Switch to a contextual Ribbon tab when it first appears (Access design views). */
-  autoContextual?: boolean;
+  /**
+   * Switch to a contextual Ribbon tab when it first appears (Access design views). A list names
+   * only the contextual keys that do (PowerPoint's Slide Master tab, not Picture Format).
+   */
+  autoContextual?: boolean | string[];
   /** Dialog ids the canvas opens itself (forms, wizards), for the validator. */
   canvasDialogs?: string[];
   /** Rewrite a raw commit (e.g. three view buttons → one "view.mode" command with a value). */

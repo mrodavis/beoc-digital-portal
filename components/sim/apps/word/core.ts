@@ -1,5 +1,5 @@
 import type { SimCommit, WordDoc } from "@/types/sim";
-import type { AppCore } from "../../types";
+import type { AppCore, SimUi } from "../../types";
 import { applyWord, isBuiltInStyle, notesOf, wordContextual, wordDialogDefaults, wordRibbonState, paraText, parseSel } from "./model";
 import { wordRibbon, wordRibbonFor, VIEW_ALIASES } from "./ribbon";
 import { wordDialogDef, wordDialogs } from "./dialogs";
@@ -48,8 +48,19 @@ function normalize(c: SimCommit): SimCommit {
   return c;
 }
 
+/**
+ * Title bar text. A new document that was never saved (DocumentN, no save location) shows just its
+ * name, as Word does; a saved file shows where it is saved.
+ */
+function windowTitle(doc: WordDoc, fileName: string): string {
+  const loc = doc.saved?.location;
+  if (!loc && /^Document\d+\.docx$/i.test(fileName)) return fileName.replace(/\.docx$/i, "");
+  return `${fileName} - Saved to ${loc || "this PC"}`;
+}
+
 export const wordCore: AppCore<WordDoc> = {
   name: "Word",
+  windowTitle,
   accent: "#2b579a",
   ribbon: wordRibbon,
   ribbonFor: (doc) => wordRibbonFor(doc),
@@ -143,7 +154,11 @@ export const wordCore: AppCore<WordDoc> = {
   ],
   initialUi: (doc) => ({ selection: doc.paragraphs[0]?.id ?? "" }),
   normalize,
-  apply: applyWord,
+  apply: (doc, c, ui) => {
+    const r = applyWord(doc, c, ui);
+    // An insertion point left in a text box (for Insert › Symbol) lasts until the next command.
+    return { ...r, ui: { ...(r.ui ?? {}), caret: undefined } as Partial<SimUi> };
+  },
   ribbonState: wordRibbonState,
   contextualTabs: wordContextual,
   dialogDefaults: wordDialogDefaults,

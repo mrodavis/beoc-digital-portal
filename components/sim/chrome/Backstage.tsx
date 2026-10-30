@@ -35,7 +35,7 @@ export function Backstage({
   accent: string;
   spec: BackstageSpec;
   fileName: string;
-  saved?: { name?: string; location?: string; format?: string };
+  saved?: { name?: string; location?: string; format?: string; final?: boolean };
   startPage?: string;
   onCommit: (c: SimCommit) => void;
   onClose: () => void;
@@ -62,6 +62,8 @@ export function Backstage({
   });
   const [share, setShare] = useState<Record<string, SimValue>>({ email: "", permission: "Can edit", message: "" });
   const [protectOpen, setProtectOpen] = useState(false);
+  // PowerPoint › Protect Presentation › Mark as Final asks first ("…will be marked as final and then saved.").
+  const [confirmFinal, setConfirmFinal] = useState(false);
   const [inspectOpen, setInspectOpen] = useState(false);
 
   const commit = (c: SimCommit) => onCommit(c);
@@ -84,6 +86,18 @@ export function Backstage({
 
   return (
     <div className="absolute inset-0 z-40 flex bg-white text-[13px] text-gray-900">
+      {confirmFinal && (
+        <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/10">
+          <div role="dialog" aria-modal="true" aria-label="Microsoft PowerPoint" className="w-[380px] border border-gray-400 bg-white text-[12px] shadow-2xl">
+            <div className="px-3 py-1.5">Microsoft PowerPoint</div>
+            <p className="px-4 py-4">This presentation will be marked as final and then saved.</p>
+            <div className="flex justify-end gap-2 border-t border-gray-300 bg-[#f0f0f0] px-3 py-2">
+              <button type="button" onClick={() => { setConfirmFinal(false); commit({ kind: "command", id: "file.protect", value: "Mark as Final" }); }} className="min-w-[80px] border border-[#0078d4] bg-[#e5f1fb] px-3 py-1 hover:bg-[#cce4f7]">OK</button>
+              <button type="button" onClick={() => setConfirmFinal(false)} className="min-w-[80px] border border-gray-400 bg-[#e1e1e1] px-3 py-1 hover:bg-[#e5f1fb]">Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
       <nav className="flex w-44 shrink-0 flex-col text-white" style={{ background: accent }}>
         <button type="button" onClick={onClose} aria-label="Back to document" className="m-2 flex h-9 w-9 items-center justify-center rounded-full hover:bg-white/15">
           <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
@@ -167,10 +181,18 @@ export function Backstage({
                   options={
                     app === "Excel"
                       ? ["Always Open Read-Only", "Encrypt with Password", "Protect Current Sheet", "Protect Workbook Structure", "Mark as Final"]
-                      : ["Always Open Read-Only", "Encrypt with Password", "Restrict Editing", "Mark as Final"]
+                      : app === "PowerPoint"
+                        ? ["Always Open Read-Only", "Encrypt with Password", "Restrict Access", "Add a Digital Signature", "Mark as Final"]
+                        : ["Always Open Read-Only", "Encrypt with Password", "Restrict Editing", "Mark as Final"]
                   }
-                  onPick={(v) => commit({ kind: "command", id: "file.protect", value: v })}
+                  onPick={(v) => {
+                    if (app === "PowerPoint" && v === "Mark as Final" && !saved?.final) { setProtectOpen(false); setConfirmFinal(true); return; }
+                    commit({ kind: "command", id: "file.protect", value: v });
+                  }}
                 />
+                {app === "PowerPoint" && saved?.final && (
+                  <p className="-mt-2 ml-28 bg-[#fff4ce] px-2 py-1 text-[12px]">This presentation has been marked as final to discourage editing.</p>
+                )}
                 <InfoRow
                   icon="checkIssues"
                   title={`Inspect ${noun}`}

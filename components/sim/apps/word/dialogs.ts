@@ -9,6 +9,7 @@ import {
   customStyleNames,
   headingsOf,
   mergeFieldNames,
+  parseSel,
   recipientLabel,
   recipientsOf,
   selectionFontInfo,
@@ -579,6 +580,12 @@ export function wordDialogDef(doc: WordDoc, ui: SimUi, id: string): DialogDef | 
   if (!base) return undefined;
   const d = doc as XDoc;
   switch (id) {
+    case "link": {
+      // On an existing hyperlink (right-click › Edit Hyperlink..., or Ctrl+K on it) Word titles the dialog Edit Hyperlink.
+      const s = parseSel(doc, ui.selection);
+      const run = s.run ? doc.paragraphs.find((x) => x.id === s.run!.para)?.runs?.find((x) => x.id === s.run!.run) : undefined;
+      return run?.link ? { ...base, title: "Edit Hyperlink" } : base;
+    }
     case "font": {
       const fi = selectionFontInfo(doc, ui);
       let def = base;

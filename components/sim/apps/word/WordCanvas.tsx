@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { WordDoc, WordPara, WordRun } from "@/types/sim";
-import type { CanvasProps, MenuItem, StatusBarProps } from "../../types";
+import type { CanvasProps, MenuItem, SimUi, StatusBarProps } from "../../types";
 import {
   RESTRICT_TYPES,
   activeRecipients,
@@ -14,6 +14,7 @@ import {
   noteRefs,
   notesOf,
   pagesOf,
+  selectionPage,
   paraLook,
   paraRange,
   paraText,
@@ -150,7 +151,15 @@ const SHAPE_CLIP: Record<string, string> = {
 
 /* ------------------------------------------------------------------ */
 
-export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<WordDoc>) {
+export function WordCanvas({ doc, ui, onSelect: onSelectRaw, onCommit, onContextMenu, openDialog }: CanvasProps<WordDoc>) {
+  // The last selection the canvas made, so a text box that loses focus to the Ribbon can leave its
+  // insertion point behind (for Insert › Symbol) unless you clicked something else first. Every
+  // selection the canvas makes drops that insertion point.
+  const lastSel = useRef(ui.selection);
+  const onSelect = (patch: Partial<SimUi>) => {
+    if (patch.selection !== undefined) lastSel.current = patch.selection;
+    onSelectRaw({ ...patch, caret: undefined } as Partial<SimUi>);
+  };
   const [editing, setEditingState] = useState<Editing | null>(null);
   const editingRef = useRef<Editing | null>(null);
   const setEditing = (v: Editing | null) => {
@@ -172,12 +181,29 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
   const hfSeenRef = useRef(doc.flags?.hfEdit);
   const scrollRef = useRef<HTMLDivElement>(null);
   const focusRef = useRef<HTMLDivElement>(null);
+  /** Ctrl+Click on a contents entry or cross-reference: the paragraph to scroll to once the cursor moves there. */
+  const jumpRef = useRef<string | null>(null);
   const z = (doc.zoom ?? 100) / 100;
   const view = doc.view ?? "print";
   const sel = parseSel(doc, ui.selection);
   const selected = new Set(sel.paras);
   const markup = doc.markup ?? "all";
   const pageBg = doc.pageColor ?? "#fff";
+
+  useEffect(() => {
+    const target = jumpRef.current;
+    if (!target || ui.selection !== target) return;
+    jumpRef.current = null;
+    const sc = scrollRef.current;
+    const el = sc?.querySelector(`[data-para="${CSS.escape(target)}"]`);
+    if (sc && el) sc.scrollTop += el.getBoundingClientRect().top - sc.getBoundingClientRect().top - 24;
+  }, [ui.selection]);
+
+  /** Follow a contents entry or cross-reference (Ctrl+Click): Word moves the cursor to that paragraph and scrolls to it. */
+  const followTo = (pid: string, target: string) => {
+    jumpRef.current = pid;
+    onCommit({ kind: "click", target });
+  };
 
   useEffect(() => {
     const key = ui.selection;
@@ -250,7 +276,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
       placeholder={editing?.ph && !editing.text ? editing.phText : undefined}
       selectAll={editing?.selectAll}
       onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })}
-      onCommit={commitEdit}
+      onCommit={(range) => commitEdit(range)}
       onCancel={() => setEditing(null)}
       onTab={opts.onTab}
       inline={opts.inline}
@@ -258,13 +284,18 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     />
   );
 
-  const commitEdit = () => {
+  /** `range`: where the cursor (or selection) was when the box lost focus to the Ribbon or a menu. */
+  const commitEdit = (range?: [number, number]) => {
     const e = editingRef.current;
     if (!e) return;
     const orig = textAt(doc, e.key);
     setEditing(null);
     if (e.ph && !e.text.trim()) return;
     if (e.text !== orig) onCommit({ kind: "type", target: e.key, value: e.text });
+    // A paragraph or a run: remember the insertion point for commands that insert at it (Symbol).
+    if (range && lastSel.current === e.key && /^[^.,:]+(\.[^.,:]+)?$/.test(e.key) && !/\.r\d+c\d+$/.test(e.key)) {
+      onSelectRaw({ caret: `${e.key}@${Math.min(...range)}-${Math.max(...range)}` } as Partial<SimUi>);
+    }
   };
 
   /** Tab / Shift+Tab inside a table: next or previous cell; Tab in the last cell adds a row. */
@@ -604,14 +635,15 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             ? (e) => {
                 e.stopPropagation();
                 if (r.link && (e.ctrlKey || e.metaKey)) onCommit({ kind: "click", target: `link:${r.link}` });
-                else if (x.xref && (e.ctrlKey || e.metaKey)) onCommit({ kind: "click", target: `goto:${x.xref.target}` });
+                else if (x.xref && (e.ctrlKey || e.metaKey)) { followTo(x.xref.target, `goto:${x.xref.target}`); return; }
                 select(key, e);
               }
             : r.link || x.xref
               ? (e) => {
                   if (e.ctrlKey || e.metaKey) {
                     e.stopPropagation();
-                    onCommit({ kind: "click", target: r.link ? `link:${r.link}` : `goto:${x.xref!.target}` });
+                    if (r.link) onCommit({ kind: "click", target: `link:${r.link}` });
+                    else followTo(x.xref!.target, `goto:${x.xref!.target}`);
                   }
                 }
               : undefined
@@ -762,7 +794,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) {
                 e.stopPropagation();
-                if (doc.paragraphs.some((x) => x.id === h.id)) onCommit({ kind: "click", target: `toc:${h.id}` });
+                if (doc.paragraphs.some((x) => x.id === h.id)) followTo(h.id, `toc:${h.id}`);
               }
             }}
           >
@@ -1053,7 +1085,8 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
 
     if (p.kind === "pageBreak" || p.kind === "sectionBreak" || p.kind === "columnBreak") {
       const label = p.kind === "pageBreak" ? "Page Break" : p.kind === "columnBreak" ? "Column Break" : `Section Break (${p.text || "Next Page"})`;
-      if (!doc.showMarks && p.kind !== "sectionBreak") {
+      // Like page breaks, section and column breaks show only with Show/Hide ¶ on.
+      if (!doc.showMarks) {
         return p.kind === "columnBreak" ? <div key={p.id} style={{ breakAfter: "column" }} /> : null;
       }
       return (
@@ -1860,7 +1893,8 @@ function InlineEditor({
 }: {
   value: string;
   onChange: (v: string) => void;
-  onCommit: () => void;
+  /** `range` is passed when the box loses focus (to the Ribbon, a menu...): the cursor or selection then. */
+  onCommit: (range?: [number, number]) => void;
   onCancel: () => void;
   /** Tab / Shift+Tab (table cells move to the next / previous cell). */
   onTab?: (back: boolean) => void;
@@ -1916,23 +1950,24 @@ function InlineEditor({
         }
         if (e.key === "Escape") onCancel();
       }}
-      onBlur={onCommit}
+      onBlur={(e) => onCommit([e.currentTarget.selectionStart, e.currentTarget.selectionEnd])}
       className={`${inline ? "inline-block min-w-[4ch] align-baseline" : "block w-full"} resize-none overflow-hidden border-0 bg-[#fffbe6] p-0 outline outline-1 outline-[#2b579a]`}
       style={{ font: "inherit", color: "inherit", lineHeight: "inherit", textAlign: "inherit", textIndent: 0, ...(style ?? {}), width: inline ? `${Math.max(4, value.length + 1, (placeholder?.length ?? 0) + 1)}ch` : undefined }}
     />
   );
 }
 
-export function WordStatusBar({ doc, onCommit }: StatusBarProps<WordDoc>) {
+export function WordStatusBar({ doc, ui, onCommit }: StatusBarProps<WordDoc>) {
   const zoom = doc.zoom ?? 100;
   const pages = pagesOf(doc).length;
+  const page = Math.min(pages, selectionPage(doc, ui));
   const sections = 1 + doc.paragraphs.filter((p) => p.kind === "sectionBreak").length;
   const merge = doc.merge;
   const mergeCount = merge?.preview ? activeRecipients(doc).length : 0;
   const protection = (doc as XDoc).protection;
   return (
     <div className="flex h-6 shrink-0 items-center gap-4 border-t border-gray-300 bg-[#f3f3f3] px-3 text-[11px] text-gray-700">
-      <span>Page 1 of {pages}</span>
+      <span>Page {page} of {pages}</span>
       {sections > 1 && <span className="hidden sm:inline">{sections} sections</span>}
       <button type="button" onClick={() => onCommit({ kind: "command", id: "review.wordCount" })} className="hover:bg-gray-200">{wordCount(doc)} words</button>
       <span className="hidden sm:inline">English (United States)</span>

@@ -297,6 +297,28 @@ export function customStyleNames(doc?: WordDoc | null): string[] {
 
 export const STYLE_SETS = ["Default", "Basic (Elegant)", "Basic (Simple)", "Basic (Stylish)", "Casual", "Centered", "Lines (Distinctive)", "Lines (Simple)", "Lines (Stylish)", "Minimalist", "Shaded"];
 
+/**
+ * What each style set does to body text (Normal and List Paragraph): its size, spacing after, line
+ * spacing and color. Word's style sets redefine the styles' paragraph and character properties; the
+ * font face stays the theme's (Design › Fonts). Microsoft doesn't publish each set's numbers, so
+ * these are close approximations that make each set read differently, as it does in Word.
+ * Headings and the title get their treatment in paraLook.
+ */
+export const STYLE_SET_BODY: Record<string, { size?: number; spaceAfter?: number; lineSpacing?: number; color?: string }> = {
+  Default: {},
+  "Basic (Elegant)": { size: 10.5, spaceAfter: 12, lineSpacing: 1.2 },
+  "Basic (Simple)": { spaceAfter: 10, lineSpacing: 1.15 },
+  "Basic (Stylish)": { spaceAfter: 12, lineSpacing: 1.15 },
+  Casual: { spaceAfter: 10, lineSpacing: 1.25 },
+  Centered: { spaceAfter: 10, lineSpacing: 1.15 },
+  "Lines (Distinctive)": { spaceAfter: 10, lineSpacing: 1.15 },
+  "Lines (Simple)": { spaceAfter: 8, lineSpacing: 1.15 },
+  "Lines (Stylish)": { spaceAfter: 12, lineSpacing: 1.15 },
+  Minimalist: { size: 10, spaceAfter: 12, lineSpacing: 1.3, color: "#404040" },
+  Shaded: { spaceAfter: 10, lineSpacing: 1.15 },
+};
+const STYLE_SET_BODY_STYLES = new Set(["Normal", "List Paragraph"]);
+
 export function themeOf(doc: WordDoc): ThemeDef {
   const base = THEMES[doc.theme ?? "Office"] ?? THEMES.Office;
   const colors = doc.flags?.colors !== undefined ? COLOR_SETS[String(doc.flags.colors)] : undefined;
@@ -339,7 +361,10 @@ export function paraLook(doc: WordDoc, p: WordPara) {
   const font =
     p.font ??
     (st.font && st.font !== "@heading" ? st.font : st.font === "@heading" || isHeading ? theme.headingFont : theme.bodyFont);
-  let color = p.color ?? (st.themed ? theme.heading : st.color === "@accent" ? theme.accent : st.color);
+  // Body text takes the style set's size, spacing and color unless the style was modified by hand.
+  const own = xd(doc).styleDefs?.[p.style ?? "Normal"];
+  const body = !isHeading && STYLE_SET_BODY_STYLES.has(p.style ?? "Normal") && !xd(doc).customStyles?.[p.style ?? "Normal"] ? STYLE_SET_BODY[set] : undefined;
+  let color = p.color ?? own?.color ?? body?.color ?? (st.themed ? theme.heading : st.color === "@accent" ? theme.accent : st.color);
   let border = p.border ?? (st.border === "@accent" ? theme.accent : st.border);
   let shading = p.shading ?? st.shading;
   let caps = p.caps;
@@ -356,7 +381,7 @@ export function paraLook(doc: WordDoc, p: WordPara) {
   }
   return {
     font,
-    size: p.size ?? st.size ?? 11,
+    size: p.size ?? own?.size ?? body?.size ?? st.size ?? 11,
     color,
     bold: p.bold ?? st.bold,
     italic: p.italic ?? st.italic,
@@ -366,8 +391,8 @@ export function paraLook(doc: WordDoc, p: WordPara) {
     caps,
     align: align ?? "left",
     spaceBefore: p.spaceBefore ?? st.spaceBefore ?? 0,
-    spaceAfter: p.spaceAfter ?? st.spaceAfter ?? 8,
-    lineSpacing: p.lineSpacing ?? st.lineSpacing ?? 1.08,
+    spaceAfter: p.spaceAfter ?? own?.spaceAfter ?? body?.spaceAfter ?? st.spaceAfter ?? 8,
+    lineSpacing: p.lineSpacing ?? own?.lineSpacing ?? body?.lineSpacing ?? st.lineSpacing ?? 1.08,
     indentLeft: p.indentLeft ?? st.indentLeft ?? 0,
     border,
     shading,
@@ -462,6 +487,12 @@ export function pagesOf(doc: WordDoc): { paras: WordPara[]; section: number }[] 
 /** 0-based page a paragraph is on. */
 export function pageIndexOf(doc: WordDoc, pid: string): number {
   return Math.max(0, pagesOf(doc).findIndex((pg) => pg.paras.some((p) => p.id === pid)));
+}
+
+/** The page the insertion point (or the start of the selection) is on, 1-based: the status bar's "Page 2 of 3". */
+export function selectionPage(doc: WordDoc, ui: SimUi): number {
+  const p = selectedParas(doc, ui)[0];
+  return p ? pageIndexOf(doc, p.id) + 1 : 1;
 }
 
 const ROMAN = ["", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx"];
@@ -984,7 +1015,64 @@ function insertAfterSelection(doc: WordDoc, ui: SimUi, para: WordPara, before = 
 }
 
 /** Insert text at the insertion point: after a selected run, into a cell or header, or at the end of the paragraph. */
+/**
+ * Where the cursor was in a paragraph or run when its text box lost focus to the Ribbon
+ * (ui.caret "p3@12-12", "p7.r1@5-9"), if it is still the selection.
+ */
+function caretIn(ui: SimUi): { key: string; a: number; b: number } | undefined {
+  const m = /^(.+)@(\d+)-(\d+)$/.exec((ui as SimUi & { caret?: string }).caret ?? "");
+  if (!m || m[1] !== ui.selection) return undefined;
+  return { key: m[1], a: Number(m[2]), b: Number(m[3]) };
+}
+
+/**
+ * Insert text at the insertion point (or over the text selected in the box). Returns false when
+ * there is no usable insertion point: the caller then adds the text after the selection.
+ */
+function insertAtCaret(doc: WordDoc, ui: SimUi, text: string): boolean {
+  const c = caretIn(ui);
+  if (!c) return false;
+  const [pid, rid] = c.key.split(".");
+  const p = doc.paragraphs.find((x) => x.id === pid);
+  if (!p || (p.kind && p.kind !== "p")) return false;
+  if (rid) {
+    const r = p.runs?.find((x) => x.id === rid);
+    if (!r || r.field) return false;
+    const a = Math.min(c.a, r.text.length), b = Math.min(c.b, r.text.length);
+    // All of the box's text selected (a double-click selects the whole run here): add after it, as before.
+    if (a === 0 && b === r.text.length && b > 0) return false;
+    r.text = r.text.slice(0, a) + text + r.text.slice(b);
+    return true;
+  }
+  const runs = runsOf(p);
+  if (runs.some((r) => r.field || r.del || r.ins)) return false;
+  const full = runs.map((r) => r.text).join("");
+  const a = Math.min(c.a, full.length), b = Math.min(c.b, full.length);
+  if (a === 0 && b === full.length && b > 0) return false;
+  if (!p.runs?.length) { p.text = full.slice(0, a) + text + full.slice(b); return true; }
+  // Split the run the cursor is in; the inserted text takes that run's formatting.
+  const out: WordRun[] = [];
+  let pos = 0;
+  let done = false;
+  for (const r of p.runs) {
+    const s0 = pos, e0 = pos + r.text.length;
+    pos = e0;
+    const before = r.text.slice(0, Math.max(0, Math.min(r.text.length, a - s0)));
+    const after = r.text.slice(Math.max(0, Math.min(r.text.length, b - s0)));
+    if (!done && a >= s0 && a <= e0) {
+      if (before) out.push({ ...r, text: before });
+      out.push({ ...charProps(r), text });
+      done = true;
+      if (after) out.push({ ...r, ...(before ? { id: undefined } : {}), text: after });
+    } else if (e0 <= a || s0 >= b) out.push(r);
+    else if (after) out.push({ ...r, text: after });
+  }
+  p.runs = out.map((r) => { if (r.id === undefined) { const { id: _drop, ...rest } = r; void _drop; return rest; } return r; });
+  return true;
+}
+
 function insertInline(doc: WordDoc, ui: SimUi, text: string, sep = "") {
+  if (insertAtCaret(doc, ui, text)) return;
   const s = parseSel(doc, ui.selection);
   if (s.header) {
     const cur = s.header === "header" ? doc.header : doc.footer;
@@ -1219,7 +1307,22 @@ function enterHeaderFooter(doc: WordDoc) {
   doc.flags = { ...(doc.flags ?? {}), hfEdit: Number(doc.flags?.hfEdit ?? 0) + 1 };
 }
 
+/**
+ * File › New › Blank document (or Ctrl+N): a new, empty document that has never been saved
+ * (Document2, Document3, …; the title bar shows just that name). The Office Clipboard carries over.
+ */
+function newBlankDocument(prev: WordDoc): { doc: WordDoc; ui: Partial<SimUi> } {
+  const m = /^Document(\d+)\.docx$/i.exec(prev.saved?.name ?? "");
+  const n = Math.max(Number(prev.flags?.newCount ?? 1), m ? Number(m[1]) : 1) + 1;
+  const doc: WordDoc = { paragraphs: [{ id: "p1", text: "" }], saved: { name: `Document${n}.docx` }, flags: { newFrom: "Blank document", newCount: n, lastAction: "new" } };
+  if (prev.clipboard) doc.clipboard = prev.clipboard;
+  if (prev.author) doc.author = prev.author;
+  if (prev.ribbonCollapsed) doc.ribbonCollapsed = prev.ribbonCollapsed;
+  return { doc, ui: { selection: "p1" } };
+}
+
 export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordDoc; ui?: Partial<SimUi> } {
+  if (c.kind === "command" && c.id === "file.new" && (c.value === undefined || String(c.value) === "Blank document")) return newBlankDocument(input);
   const common = applyCommonCommit(input, c, ".docx");
   if (common) {
     // File › Info › Protect Document › Restrict Editing opens the same pane as Review › Restrict Editing.

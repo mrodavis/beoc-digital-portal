@@ -1,7 +1,7 @@
-import type { DialogDef, RibbonOption, RibbonTab } from "@/types/sim";
+import type { DialogDef, PptDeck, RibbonOption, RibbonTab } from "@/types/sim";
 import { THEME_COLORS } from "../../chrome/colors";
-import { ANIMATIONS, EMPHASIS, EXITS, LAYOUTS, PPT_THEMES, PPT_THEME_NAMES, TABLE_STYLES, TRANSITIONS, tableStyleSwatch } from "./model";
-import { AUDIO_FILES, BACKGROUND_STYLES, BULLET_STYLES, COLOR_SETS, EFFECT_SETS, FONT_SETS, GRAPHIC_STYLES, ICONS, NUMBER_FORMATS, ONLINE_PICTURES, PASTE_SPECIAL_FORMATS, PICTURE_FILES, SCREEN_WINDOWS, STOCK_IMAGES, VIDEO_FILES } from "./ext";
+import { ANIMATIONS, EMPHASIS, EXITS, LAYOUTS, PPT_THEMES, PPT_THEME_NAMES, TABLE_STYLES, TRANSITIONS, deckLayouts, layoutName, tableStyleSwatch, variantAccent } from "./model";
+import { readMaster, AUDIO_FILES, BACKGROUND_STYLES, BULLET_STYLES, COLOR_SETS, EFFECT_SETS, FONT_SETS, GRAPHIC_STYLES, ICONS, NUMBER_FORMATS, ONLINE_PICTURES, PASTE_SPECIAL_FORMATS, PICTURE_FILES, SCREEN_WINDOWS, STOCK_IMAGES, VIDEO_FILES } from "./ext";
 
 const FONTS = ["Aptos", "Aptos Display", "Arial", "Calibri", "Calibri Light", "Cambria", "Candara", "Century Gothic", "Corbel", "Franklin Gothic Book", "Garamond", "Georgia", "Gill Sans MT", "Segoe UI", "Tahoma", "Times New Roman", "Trebuchet MS", "Tw Cen MT", "Verdana"];
 const SIZES = ["10", "12", "14", "16", "18", "20", "24", "28", "32", "36", "40", "44", "48", "54", "60", "72", "96"];
@@ -80,11 +80,9 @@ const arrangeGroup: RibbonTab["groups"][number] = {
   ],
 };
 
+// Each Variants thumbnail shows the accent its variant applies (pptRibbonFor redraws them for the theme in use).
 const variantOpts: RibbonOption[] = [
-  { value: "1", label: "Variant 1", color: "#4472C4" },
-  { value: "2", label: "Variant 2", color: "#4472C4" },
-  { value: "3", label: "Variant 3", color: "#70AD47" },
-  { value: "4", label: "Variant 4", color: "#ED7D31" },
+  ...[1, 2, 3, 4].map((v) => ({ value: String(v), label: `Variant ${v}`, color: variantAccent("Office Theme", v) })),
   { value: "Colors", heading: true },
   ...COLOR_SETS.map((c) => ({ value: c.name, label: c.name, color: c.accent, command: "design.colors" })),
   { value: "Customize Colors...", label: "Customize Colors...", icon: "colors", dialog: "customizeColors" },
@@ -841,3 +839,34 @@ export const pptDialogs: Record<string, DialogDef> = {
   trimVideo: { id: "trimVideo", title: "Trim Video", width: 360, fields: [{ type: "note", text: "Drag the green and red markers, or type the start and end times in seconds." }, { type: "number", key: "start", label: "Start Time:", min: 0, step: 1, suffix: "seconds" }, { type: "number", key: "end", label: "End Time:", min: 0, step: 1, suffix: "seconds" }] },
   trimAudio: { id: "trimAudio", title: "Trim Audio", width: 360, fields: [{ type: "note", text: "Drag the green and red markers, or type the start and end times in seconds." }, { type: "number", key: "start", label: "Start Time:", min: 0, step: 1, suffix: "seconds" }, { type: "number", key: "end", label: "End Time:", min: 0, step: 1, suffix: "seconds" }] },
 };
+
+/**
+ * The Ribbon for the presentation in view: the Variants thumbnails take the current theme's colors.
+ * Called as a method of the app module, so a harness that swaps in a patched `ribbon` keeps it.
+ */
+export function pptRibbonFor(this: { ribbon?: RibbonTab[] } | void, deck: PptDeck): RibbonTab[] {
+  const base = (this && this.ribbon) || pptRibbon;
+  // New Slide and Layout list the deck's layouts by their (possibly renamed) names, including
+  // layouts added with Slide Master › Insert Layout.
+  const custom = deckLayouts(deck).filter((l) => !LAYOUTS.includes(l));
+  const renamed = Object.keys(readMaster(deck).layoutNames ?? {}).length > 0;
+  const layoutList = (opts: RibbonOption[]): RibbonOption[] => {
+    const at = opts.findIndex((o) => o.command);
+    const head = (at < 0 ? opts : opts.slice(0, at)).map((o) => (o.icon === "layout" ? { ...o, label: layoutName(deck, o.value) } : o));
+    const extra = custom.map((l) => ({ value: l, label: layoutName(deck, l), icon: "layout" }));
+    return [...head, ...extra, ...(at < 0 ? [] : opts.slice(at))];
+  };
+  return base.map((t) => ({
+    ...t,
+    groups: t.groups.map((g) => ({
+      ...g,
+      controls: g.controls.map((c) => {
+        if (c.type === "gallery" && c.id === "design.variant") {
+          return { ...c, options: c.options.map((o) => (!o.command && !o.dialog && !o.heading && /^[1-4]$/.test(o.value) ? { ...o, color: variantAccent(deck.theme, Number(o.value)) } : o)) };
+        }
+        if ((custom.length || renamed) && c.type === "dropdown" && (c.id === "slides.new" || c.id === "slides.layout")) return { ...c, options: layoutList(c.options) };
+        return c;
+      }),
+    })),
+  }));
+}
