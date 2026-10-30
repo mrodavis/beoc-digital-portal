@@ -671,7 +671,7 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
             <div className={`flex min-h-0 flex-1 flex-col ${card}`}>
               <div className="flex items-center justify-end gap-2 p-1">
                 {m.from.email.toLowerCase() === doc.account.email.toLowerCase() && (m.folder === "sent" || m.folder.endsWith("sent")) && (
-                  <button type="button" data-c="mail.recall" data-v={m.id} onClick={() => setAlert({ title: "Recall this message?", text: "Outlook will try to delete this message from the mailboxes of recipients in your organization who haven't opened it. You'll get a Message Recall Report in your Inbox.", buttons: [{ label: "OK", primary: true, onClick: () => cmd("mail.recall", m.id) }, { label: "Cancel" }] })} className="mr-auto flex items-center gap-1.5 rounded-[4px] border border-gray-300 px-2.5 py-1 text-[13px] hover:bg-gray-50">
+                  <button type="button" data-c="mail.recall" data-v={m.id} onClick={() => setAlert({ title: "Recall this message?", text: "Outlook will try to recall this message from the mailboxes of recipients in your organization, even if they've already opened it, unless your organization has turned off recall for messages that have been read. You'll get a Message Recall Report in your Inbox.", buttons: [{ label: "OK", primary: true, onClick: () => cmd("mail.recall", m.id) }, { label: "Cancel" }] })} className="mr-auto flex items-center gap-1.5 rounded-[4px] border border-gray-300 px-2.5 py-1 text-[13px] hover:bg-gray-50">
                     <OIcon name="undo" size={14} /> Recall Message
                   </button>
                 )}

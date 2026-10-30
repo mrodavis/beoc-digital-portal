@@ -584,7 +584,7 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
         to: [doc.account],
         subject: `Message Recall Report for message: ${m.subject}`,
         body: ok
-          ? `Recall Succeeded. Your request to recall the message "${m.subject}" succeeded for: ${all.map((p) => p.name).join("; ")}. The message was removed before it was read.`
+          ? `Recall Succeeded. Your request to recall the message "${m.subject}" succeeded for: ${all.map((p) => p.name).join("; ")}.`
           : `Recall Failed. The message "${m.subject}" couldn't be recalled for: ${outside.map((p) => p.email).join("; ")}. Recall only works for recipients in your organization.`,
         date: nowOf(doc),
         read: false,
