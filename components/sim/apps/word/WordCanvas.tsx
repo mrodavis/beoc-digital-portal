@@ -173,12 +173,29 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
   const hfSeenRef = useRef(doc.flags?.hfEdit);
   const scrollRef = useRef<HTMLDivElement>(null);
   const focusRef = useRef<HTMLDivElement>(null);
+  /** Ctrl+Click on a contents entry or cross-reference: the paragraph to scroll to once the cursor moves there. */
+  const jumpRef = useRef<string | null>(null);
   const z = (doc.zoom ?? 100) / 100;
   const view = doc.view ?? "print";
   const sel = parseSel(doc, ui.selection);
   const selected = new Set(sel.paras);
   const markup = doc.markup ?? "all";
   const pageBg = doc.pageColor ?? "#fff";
+
+  useEffect(() => {
+    const target = jumpRef.current;
+    if (!target || ui.selection !== target) return;
+    jumpRef.current = null;
+    const sc = scrollRef.current;
+    const el = sc?.querySelector(`[data-para="${CSS.escape(target)}"]`);
+    if (sc && el) sc.scrollTop += el.getBoundingClientRect().top - sc.getBoundingClientRect().top - 24;
+  }, [ui.selection]);
+
+  /** Follow a contents entry or cross-reference (Ctrl+Click): Word moves the cursor to that paragraph and scrolls to it. */
+  const followTo = (pid: string, target: string) => {
+    jumpRef.current = pid;
+    onCommit({ kind: "click", target });
+  };
 
   useEffect(() => {
     const key = ui.selection;
@@ -605,14 +622,15 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             ? (e) => {
                 e.stopPropagation();
                 if (r.link && (e.ctrlKey || e.metaKey)) onCommit({ kind: "click", target: `link:${r.link}` });
-                else if (x.xref && (e.ctrlKey || e.metaKey)) onCommit({ kind: "click", target: `goto:${x.xref.target}` });
+                else if (x.xref && (e.ctrlKey || e.metaKey)) { followTo(x.xref.target, `goto:${x.xref.target}`); return; }
                 select(key, e);
               }
             : r.link || x.xref
               ? (e) => {
                   if (e.ctrlKey || e.metaKey) {
                     e.stopPropagation();
-                    onCommit({ kind: "click", target: r.link ? `link:${r.link}` : `goto:${x.xref!.target}` });
+                    if (r.link) onCommit({ kind: "click", target: `link:${r.link}` });
+                    else followTo(x.xref!.target, `goto:${x.xref!.target}`);
                   }
                 }
               : undefined
@@ -763,7 +781,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) {
                 e.stopPropagation();
-                if (doc.paragraphs.some((x) => x.id === h.id)) onCommit({ kind: "click", target: `toc:${h.id}` });
+                if (doc.paragraphs.some((x) => x.id === h.id)) followTo(h.id, `toc:${h.id}`);
               }
             }}
           >
