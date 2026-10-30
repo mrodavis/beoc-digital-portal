@@ -289,7 +289,7 @@ export const wordModule6Lessons: Lesson[] = [
       "Recognize why spaces are never a substitute for tabs or indents",
     ],
     duration: "8 min",
-    videoUrl: "https://www.youtube.com/embed/52C1SRK-nHU",
+    videoUrl: "https://www.youtube.com/embed/FKD-qL7RyvI",
 
     practiceFiles: [
         {

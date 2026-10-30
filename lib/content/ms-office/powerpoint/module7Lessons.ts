@@ -355,7 +355,7 @@ export const powerpointModule7Lessons: Lesson[] = [
     "Update a chart when the source figures change",
   ],
   duration: "11 min",
-  videoUrl: "https://www.youtube.com/embed/reYio5JyVQY",
+  videoUrl: "https://www.youtube.com/embed/cBpu_mdtu4s",
 
   practiceFiles: [
     {
