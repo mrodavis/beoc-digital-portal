@@ -1902,6 +1902,9 @@ export function applyAccess(doc: AccessDoc, c: SimCommit, ui: SimUi): { doc: Acc
       const i = list.indexOf(ctl);
       const j = c.id === "arrange.moveUp" ? i - 1 : i + 1;
       if (j < 0 || j >= list.length) return out();
+      // Each control keeps its tab position (TabIndex) when it moves, so the tab order stays the
+      // old one until it is fixed in Tab Order (Auto Order). Keep the order from before the move.
+      if (sec === "Detail" && !form.tabOrder?.length) form.tabOrder = list.filter((x) => x.kind !== "label").map((x) => x.id);
       const tmp = list[j].order;
       list[j].order = ctl.order;
       ctl.order = tmp;

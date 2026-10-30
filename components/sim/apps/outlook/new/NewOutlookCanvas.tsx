@@ -8,13 +8,13 @@ import { composeSource, formSource, type ComposeDraft, type Ctx, type FormDraft 
 import { Avatar, ContextMenu, OIcon, type AlertSpec, type MenuEntry } from "../parts";
 import { CalendarView } from "../calendar";
 import { resolveToken } from "../mail";
-import { folderOptions, joinTokens, moduleOf, occurrences, recurrenceText, selEvent, selKeys, selMessage, todayOf } from "../model";
+import { currentFolder, folderOptions, joinTokens, moduleOf, occurrences, recurrenceText, selEvent, selKeys, selMessage, todayOf } from "../model";
 import { fmtDate, fmtTime, parseUsDate } from "../dates";
 import { newOutlookCore } from "./core";
 import { newOutlookRibbon } from "./ribbon";
 import { SWEEP_OPTIONS, catLabel } from "./model";
 import { RibbonBar } from "./RibbonBar";
-import { ComposeNew, FolderPaneNew, MessageListNew, MessageViewNew, ReadingPaneNew, ownTree, signatureInsert, type NCtx } from "./mailNew";
+import { ComposeNew, FolderPaneNew, MessageListNew, MessageViewNew, ReadingPaneNew, ownTree, reportMessage, signatureInsert, type NCtx } from "./mailNew";
 import { CalendarPaneNew, EventFormNew } from "./calendarNew";
 import { ContactDetailsNew, ContactFormNew, GroupFormNew, PeopleListNew, PeoplePaneNew, askDeletePerson } from "./peopleNew";
 import { TodoMainNew, TodoPaneNew } from "./todoNew";
@@ -86,6 +86,8 @@ function tabsFor(doc: OutlookDoc, keys: string[]): RibbonTab[] {
           if (c.id === "mail.move") return { ...c, options: [...moveFolders, ...c.options.filter((o) => o.dialog)] };
           if (c.id === "item.categorize" || c.id === "form.categorize") return { ...c, options: c.options.map(cats) };
           if (c.id === "compose.sensitivity" && doc.sensitivityLabels) return { ...c, options: doc.sensitivityLabels.map((v) => ({ value: v })) };
+          // In Junk Email, Report offers Not junk in place of Report junk.
+          if (c.id === "home.report" && currentFolder(doc) === "junk") return { ...c, options: c.options.map((o) => (o.value === "Report junk" ? { value: "Not junk", icon: "junk" } : o)) };
           return c;
         }),
       })),
@@ -373,6 +375,7 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
         return;
       }
       if (id === "home.quickStep" && value === "Manage quick steps") return openSettings("Mail/Quick steps");
+      if (id === "home.report" && value !== undefined) return reportMessage(ctxRef.current!, String(value));
       if (id === "compose.insertSignature") {
         if (value === "Signatures") return openSettings("Accounts/Signatures");
         const d = cdraftRef.current;
@@ -671,7 +674,7 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
             <div className={`flex min-h-0 flex-1 flex-col ${card}`}>
               <div className="flex items-center justify-end gap-2 p-1">
                 {m.from.email.toLowerCase() === doc.account.email.toLowerCase() && (m.folder === "sent" || m.folder.endsWith("sent")) && (
-                  <button type="button" data-c="mail.recall" data-v={m.id} onClick={() => setAlert({ title: "Recall this message?", text: "Outlook will try to delete this message from the mailboxes of recipients in your organization who haven't opened it. You'll get a Message Recall Report in your Inbox.", buttons: [{ label: "OK", primary: true, onClick: () => cmd("mail.recall", m.id) }, { label: "Cancel" }] })} className="mr-auto flex items-center gap-1.5 rounded-[4px] border border-gray-300 px-2.5 py-1 text-[13px] hover:bg-gray-50">
+                  <button type="button" data-c="mail.recall" data-v={m.id} onClick={() => setAlert({ title: "Recall this message?", text: "Outlook will try to recall this message from the mailboxes of recipients in your organization, even if they've already opened it, unless your organization has turned off recall for messages that have been read. You'll get a Message Recall Report in your Inbox.", buttons: [{ label: "OK", primary: true, onClick: () => cmd("mail.recall", m.id) }, { label: "Cancel" }] })} className="mr-auto flex items-center gap-1.5 rounded-[4px] border border-gray-300 px-2.5 py-1 text-[13px] hover:bg-gray-50">
                     <OIcon name="undo" size={14} /> Recall Message
                   </button>
                 )}

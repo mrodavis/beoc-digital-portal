@@ -64,7 +64,7 @@ export function CalendarPaneNew({ ctx }: { ctx: NCtx }) {
 
 function PeopleField({ ctx, label, tokens, pending, onTokens, onPending, t }: { ctx: NCtx; label: string; tokens: string[]; pending: string; onTokens: (x: string[]) => void; onPending: (s: string) => void; t: string }) {
   const [focus, setFocus] = useState(false);
-  const sugg = focus ? suggestionsFor(ctx, pending) : [];
+  const sugg = focus ? suggestionsFor(ctx, pending, "Contact list") : [];
   const add = (tok: string) => {
     if (!tokens.some((x) => x.toLowerCase() === tok.toLowerCase())) onTokens([...tokens, tok]);
     onPending("");

@@ -1546,6 +1546,11 @@ export interface ResultSet {
   /** For each column, the base table and field it shows (when it is a plain field). */
   origin?: ({ table: string; field: string } | null)[];
   types?: (string | undefined)[];
+  /**
+   * Columns computed from an expression (TotalCost: [Quantity]*[UnitCost]). They don't inherit a
+   * field's Format, so a Currency result shows as a plain number (41.97) until its Format is set.
+   */
+  calc?: boolean[];
 }
 
 export type ActionEffect =
@@ -1746,7 +1751,7 @@ class Exec {
     }
 
     // Column plan.
-    type Col = { name: string; expr?: Expr; key?: string; origin: { table: string; field: string } | null; type?: string };
+    type Col = { name: string; expr?: Expr; key?: string; origin: { table: string; field: string } | null; type?: string; calc?: boolean };
     const cols: Col[] = [];
     let exprN = 1000;
     for (const it of st.items) {
@@ -1775,8 +1780,11 @@ class Exec {
           if (f && ["sum", "min", "max", "first", "last"].includes(it.expr.name.toLowerCase())) type = f.type === "AutoNumber" ? "Number" : f.type;
         }
       }
+      // An aggregate of a plain field (Sum of UnitCost) keeps that field's display; any other expression is calculated.
+      const aggOfField = it.expr.k === "call" && AGGREGATES.has(it.expr.name.toLowerCase()) && it.expr.args[0]?.k === "ref";
+      const calc = it.expr.k !== "ref" && !aggOfField;
       if (!type && it.expr.k !== "ref") type = this.exprType(it.expr);
-      cols.push({ name: name ?? `Expr${exprN++}`, expr: it.expr, origin, type });
+      cols.push({ name: name ?? `Expr${exprN++}`, expr: it.expr, origin, type, calc });
     }
     // Disambiguate duplicate names.
     const seen = new Map<string, number>();
@@ -1893,6 +1901,7 @@ class Exec {
       ids: outRows.map((o) => o.ids),
       origin: isAgg ? cols.map(() => null) : cols.map((c) => c.origin),
       types: cols.map((c) => c.type),
+      calc: cols.map((c) => Boolean(c.calc)),
     };
   }
 

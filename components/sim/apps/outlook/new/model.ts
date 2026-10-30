@@ -63,6 +63,10 @@ export const NEW_REMINDERS = [
 ];
 export const NEW_SHOW_AS = ["Free", "Working elsewhere", "Tentative", "Busy", "Out of office"];
 
+/** New Outlook's Favorites until the learner changes them (classic Outlook's are Inbox, Sent Items, Deleted Items). */
+export const NEW_FAVORITES = ["inbox", "sent", "drafts"];
+export const favoritesOf = (doc: OutlookDoc): string[] => doc.favorites ?? NEW_FAVORITES;
+
 export const TIME_ZONES = [
   "(UTC-10:00) Hawaii",
   "(UTC-08:00) Pacific Time (US & Canada)",
@@ -131,6 +135,7 @@ export function newRibbonState(doc: OutlookDoc, ui: SimUi): Record<string, SimVa
     "compose.encrypt": comp?.encrypt,
     "compose.sensitivity": comp?.sensitivity,
     "cal.view": doc.calView ?? "Work Week",
+    "folder.favorite": favoritesOf(doc).includes(selIds(ui.selection, "folder")[0] ?? currentFolder(doc)),
   };
 }
 
@@ -161,6 +166,9 @@ export function normalizeNew(c: SimCommit, doc?: OutlookDoc): SimCommit {
         return VIEW_MAP[v] ? { ...n, value: VIEW_MAP[v] } : n;
       case "home.report":
         if (v === "not junk") return { kind: "command", id: "home.junk", value: "Not Junk" };
+        // The model's values: reported phishing is deleted, reported junk moves to Junk Email.
+        if (v === "report phishing") return { ...n, value: "Report Phishing" };
+        if (v === "report junk") return { ...n, value: "Report Junk" };
         return n;
       case "home.block":
         return { kind: "command", id: "home.junk", value: "Block Sender" };
@@ -421,6 +429,25 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
   if (c.kind !== "command") return undefined;
   const sv = c.value === undefined ? "" : String(c.value);
   switch (c.id) {
+    case "home.report": {
+      // Report junk moves the message to Junk Email and adds the sender to Blocked senders (Microsoft
+      // Learn, "Report phishing and suspicious emails in Outlook"). Report phishing only deletes it.
+      if (sv.toLowerCase() !== "report junk") return undefined;
+      const senders = selMessages(input, ui).map((m) => m.from.email.toLowerCase());
+      const r = applyOutlook(input, c, ui);
+      if (!senders.length) return r;
+      r.doc.blocked = Array.from(new Set([...(r.doc.blocked ?? []), ...senders]));
+      r.doc.safe = (r.doc.safe ?? []).filter((x) => !senders.includes(x.toLowerCase()));
+      return r;
+    }
+    case "folder.favorite": {
+      // Add to Favorites appends the folder; Remove from Favorites takes only that folder out.
+      const doc = clone(input);
+      const fid = sv || selIds(ui.selection, "folder")[0] || currentFolder(doc);
+      const fav = favoritesOf(doc);
+      doc.favorites = fav.includes(fid) ? fav.filter((x) => x !== fid) : [...fav, fid];
+      return { doc };
+    }
     case "mail.snooze": {
       const doc = clone(input);
       const before = visibleMessages(doc);
@@ -571,7 +598,7 @@ function applyNewOnly(input: OutlookDoc, c: SimCommit, ui: SimUi): Res | undefin
         to: [doc.account],
         subject: `Message Recall Report for message: ${m.subject}`,
         body: ok
-          ? `Recall Succeeded. Your request to recall the message "${m.subject}" succeeded for: ${all.map((p) => p.name).join("; ")}. The message was removed before it was read.`
+          ? `Recall Succeeded. Your request to recall the message "${m.subject}" succeeded for: ${all.map((p) => p.name).join("; ")}.`
           : `Recall Failed. The message "${m.subject}" couldn't be recalled for: ${outside.map((p) => p.email).join("; ")}. Recall only works for recipients in your organization.`,
         date: nowOf(doc),
         read: false,

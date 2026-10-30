@@ -59,6 +59,12 @@ const attachFile = dd("compose.attach", "Attach file", "clip", [
 ]);
 const signature = dd("compose.insertSignature", "Signature", "pen", [{ value: "Signatures", label: "Signatures...", icon: "gear", command: "settings.open" }]);
 
+/**
+ * Drop-downs whose button shows the current choice instead of a fixed label: on the event form,
+ * Show as reads Busy, Free, Tentative... (the "Busy button"). Their aria-label stays the name.
+ */
+export const VALUE_FACE = new Set(["event.showAs"]);
+
 export const newOutlookRibbon: RibbonTab[] = [
   /* ---------------- Mail ---------------- */
   {

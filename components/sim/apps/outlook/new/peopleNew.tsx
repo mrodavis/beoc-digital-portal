@@ -275,7 +275,7 @@ function GroupFormBody({ ctx }: { ctx: NCtx }) {
   const d = ctx.fdraft!;
   const [pending, setPending] = useState("");
   const [focus, setFocus] = useState(false);
-  const sugg = focus ? suggestionsFor(ctx, pending) : [];
+  const sugg = focus ? suggestionsFor(ctx, pending, "Contact list") : [];
   const add = (t: string) => {
     if (!d.members.some((x) => x.toLowerCase() === t.toLowerCase())) ctx.setFdraft({ members: [...d.members, t] });
     setPending("");

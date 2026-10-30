@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import type { OutlookDoc } from "../types";
 import { OIcon } from "../parts";
 import { CATEGORY_COLORS, CATEGORY_SLOTS, serializeAutoReplies, serializeSignatures } from "../model";
@@ -58,19 +58,23 @@ function SignaturesPage({ ctx }: { ctx: NCtx }) {
   const doc = ctx.doc;
   const [sigs, setSigs] = useState(doc.signatures ?? []);
   const [cur, setCur] = useState<number>(sigs.length ? 0 : -1);
-  const [defNew, setDefNew] = useState(doc.defaultNew ?? "");
-  const [defReply, setDefReply] = useState(doc.defaultReply ?? "");
+  // The defaults point at a signature (by position), so renaming one keeps it the default, and a
+  // new signature never becomes a default by itself: the learner picks it under Select default signatures.
+  const idxOf = (name?: string) => (name ? sigs.findIndex((x) => x.name === name) : -1);
+  const [defNew, setDefNew] = useState(() => idxOf(doc.defaultNew));
+  const [defReply, setDefReply] = useState(() => idxOf(doc.defaultReply));
   const s = cur >= 0 ? sigs[cur] : undefined;
   const upd = (patch: Partial<{ name: string; text: string }>) => {
     if (cur < 0) return;
-    const prev = sigs[cur];
-    const next = sigs.map((x, i) => (i === cur ? { ...x, ...patch } : x));
-    setSigs(next);
-    if (patch.name !== undefined) {
-      if (defNew === prev.name) setDefNew(patch.name);
-      if (defReply === prev.name) setDefReply(patch.name);
-    }
+    setSigs(sigs.map((x, i) => (i === cur ? { ...x, ...patch } : x)));
   };
+  const named = (i: number) => (i >= 0 && sigs[i]?.name.trim() ? sigs[i].name : undefined);
+  const pick = (v: number, set: (n: number) => void, label: string) => (
+    <select aria-label={label} data-f={label.includes("new") ? "sigNew" : "sigReply"} value={named(v) ? String(v) : ""} onChange={(e) => set(e.target.value === "" ? -1 : Number(e.target.value))} className={inputCls}>
+      <option value="">(no signature)</option>
+      {sigs.map((x, i) => (x.name.trim() ? <option key={i} value={String(i)}>{x.name}</option> : null))}
+    </select>
+  );
   return (
     <>
       <H>Signatures</H>
@@ -105,23 +109,13 @@ function SignaturesPage({ ctx }: { ctx: NCtx }) {
       <Sub>Select default signatures</Sub>
       <div className="grid max-w-[420px] grid-cols-[150px_1fr] items-center gap-2 text-[13px]">
         <span>New messages</span>
-        <select aria-label="Default signature for new messages" data-f="sigNew" value={defNew} onChange={(e) => setDefNew(e.target.value)} className={inputCls}>
-          <option value="">(no signature)</option>
-          {sigs.filter((x) => x.name.trim()).map((x, i) => (
-            <option key={i} value={x.name}>{x.name}</option>
-          ))}
-        </select>
+        {pick(defNew, setDefNew, "Default signature for new messages")}
         <span>Replies and forwards</span>
-        <select aria-label="Default signature for replies and forwards" data-f="sigReply" value={defReply} onChange={(e) => setDefReply(e.target.value)} className={inputCls}>
-          <option value="">(no signature)</option>
-          {sigs.filter((x) => x.name.trim()).map((x, i) => (
-            <option key={i} value={x.name}>{x.name}</option>
-          ))}
-        </select>
+        {pick(defReply, setDefReply, "Default signature for replies and forwards")}
       </div>
       <Footer
         onSave={() =>
-          ctx.commit({ kind: "type", target: "signatures", value: serializeSignatures(sigs.filter((x) => x.name.trim()), defNew || undefined, defReply || undefined) })
+          ctx.commit({ kind: "type", target: "signatures", value: serializeSignatures(sigs.filter((x) => x.name.trim()), named(defNew), named(defReply)) })
         }
       />
     </>
@@ -298,13 +292,50 @@ function JunkPage({ ctx }: { ctx: NCtx }) {
   const doc = ctx.doc;
   const [b, setB] = useState("");
   const [s, setS] = useState("");
+  // Add and the trash buttons change these lists on the page; nothing is kept until Save
+  // (Microsoft Support: add the address, select Add, then Save). Discard puts back the saved lists.
+  const [blocked, setBlocked] = useState<string[]>(doc.blocked ?? []);
+  const [safe, setSafe] = useState<string[]>(doc.safe ?? []);
+  /** Addresses added on the page since the last Save: Save keeps each one, even one already listed. */
+  const [added, setAdded] = useState<string[]>([]);
+  const savedKey = JSON.stringify([doc.blocked ?? [], doc.safe ?? []]);
+  useEffect(() => {
+    setBlocked(doc.blocked ?? []);
+    setSafe(doc.safe ?? []);
+    setAdded([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savedKey]);
+  const add = (raw: string, toBlocked: boolean) => {
+    const a = raw.trim().toLowerCase();
+    if (!a) return;
+    setAdded((l) => [...l.filter((x) => x !== a), a]);
+    if (toBlocked) {
+      setBlocked((l) => (l.includes(a) ? l : [...l, a]));
+      setSafe((l) => l.filter((x) => x !== a));
+    } else {
+      setSafe((l) => (l.includes(a) ? l : [...l, a]));
+      setBlocked((l) => l.filter((x) => x !== a));
+    }
+  };
+  const remove = (a: string) => {
+    setBlocked((l) => l.filter((x) => x !== a));
+    setSafe((l) => l.filter((x) => x !== a));
+    setAdded((l) => l.filter((x) => x !== a));
+  };
+  const save = () => {
+    const was = { blocked: doc.blocked ?? [], safe: doc.safe ?? [] };
+    for (const a of [...was.blocked, ...was.safe]) if (!blocked.includes(a) && !safe.includes(a)) ctx.cmd("junk.remove", a);
+    for (const a of blocked) if (!was.blocked.includes(a) || added.includes(a)) ctx.cmd("junk.blockAddress", a);
+    for (const a of safe) if (!was.safe.includes(a) || added.includes(a)) ctx.cmd("junk.safeAddress", a);
+    setAdded([]);
+  };
   const list = (items: string[], label: string) => (
     <div className="mb-2 max-h-28 overflow-auto rounded border border-gray-200">
       {items.length ? (
         items.map((x) => (
           <div key={x} className="flex items-center justify-between px-2 py-1 text-[12.5px]">
             {x}
-            <button type="button" aria-label={`Remove ${x}`} data-c="junk.remove" data-v={x} onClick={() => ctx.cmd("junk.remove", x)} className="rounded p-0.5 hover:bg-gray-100">
+            <button type="button" aria-label={`Remove ${x}`} data-v={x} onClick={() => remove(x)} className="rounded p-0.5 hover:bg-gray-100">
               <OIcon name="trash" size={12} />
             </button>
           </div>
@@ -320,17 +351,25 @@ function JunkPage({ ctx }: { ctx: NCtx }) {
       <Sub>Blocked senders and domains</Sub>
       <P>Messages from these senders or domains go straight to your Junk Email folder.</P>
       <div className="mb-2 flex gap-2">
-        <input aria-label="Blocked sender or domain" data-f="blockAddr" placeholder="Example: name@example.com or example.com" value={b} onChange={(e) => setB(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className={inputCls} />
-        <FButton cmd="junk.blockAddress" onClick={() => { if (b.trim()) ctx.cmd("junk.blockAddress", b.trim()); setB(""); }}>Add</FButton>
+        <input aria-label="Blocked sender or domain" data-f="blockAddr" placeholder="Example: name@example.com or example.com" value={b} onChange={(e) => setB(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") { add(b, true); setB(""); } }} className={inputCls} />
+        <FButton onClick={() => { add(b, true); setB(""); }}>Add</FButton>
       </div>
-      {list(doc.blocked ?? [], "blocked senders")}
+      {list(blocked, "blocked senders")}
       <Sub>Safe senders and domains</Sub>
       <P>Don&apos;t move email from these senders or domains to my Junk Email folder.</P>
       <div className="mb-2 flex gap-2">
-        <input aria-label="Safe sender or domain" data-f="safeAddr" placeholder="Example: name@lakesidemed.example.com" value={s} onChange={(e) => setS(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className={inputCls} />
-        <FButton cmd="junk.safeAddress" onClick={() => { if (s.trim()) ctx.cmd("junk.safeAddress", s.trim()); setS(""); }}>Add</FButton>
+        <input aria-label="Safe sender or domain" data-f="safeAddr" placeholder="Example: name@lakesidemed.example.com" value={s} onChange={(e) => setS(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") { add(s, false); setS(""); } }} className={inputCls} />
+        <FButton onClick={() => { add(s, false); setS(""); }}>Add</FButton>
       </div>
-      {list(doc.safe ?? [], "safe senders")}
+      {list(safe, "safe senders")}
+      <Footer
+        onSave={save}
+        onDiscard={() => {
+          setBlocked(doc.blocked ?? []);
+          setSafe(doc.safe ?? []);
+          setAdded([]);
+        }}
+      />
     </>
   );
 }
@@ -543,7 +582,21 @@ function Page({ ctx, page }: { ctx: NCtx; page: string }) {
       return (
         <>
           <H>About Outlook</H>
-          <P>You&apos;re using the new Outlook for Windows. If your ribbon shows Home, View and Help tabs and a Settings button at the top right, you have the new Outlook. Classic Outlook has a File tab instead.</P>
+          {/* The fields new Outlook lists here (Version, Client Version, WebView2 Version, Session ID); the numbers are made up for the practice mailbox. */}
+          <p className="mb-2 text-[14px] font-semibold">Microsoft Outlook</p>
+          <dl className="grid max-w-[460px] grid-cols-[150px_1fr] gap-x-3 gap-y-1.5 text-[13px]">
+            {[
+              ["Version", "1.2026.1009.100"],
+              ["Client Version", "20261016004.12"],
+              ["WebView2 Version", "153.0.3826.48"],
+              ["Session ID", "4f6b2c1e-8a3d-4e57-9c21-7d0e5b9a6f34"],
+            ].map(([k, v]) => (
+              <Fragment key={k}>
+                <dt className="text-gray-600">{k}</dt>
+                <dd className="select-text font-mono text-[12.5px]">{v}</dd>
+              </Fragment>
+            ))}
+          </dl>
         </>
       );
     case "General/Language and time":

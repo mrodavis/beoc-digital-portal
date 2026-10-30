@@ -11,7 +11,7 @@ import {
   visibleMessages,
 } from "../model";
 import { dateGroup, fmtDate, fmtListDate, fmtLong, fmtTime } from "../dates";
-import { catLabel, isSharedFolder } from "./model";
+import { catLabel, favoritesOf, isSharedFolder } from "./model";
 import { NMenuButton, inputCls, type NEntry } from "./ui";
 
 /** The new Outlook canvas context: the classic Ctx plus Fluent menus and Settings. */
@@ -22,6 +22,25 @@ export type NCtx = Ctx & {
 };
 
 const e = (label: string, cmd: string, val?: string, icon?: string, onPick?: () => void): NEntry => ({ label, cmd, val, icon, onPick });
+
+/**
+ * Report › Report phishing / Report junk: confirm, then report. Reported phishing is deleted (the
+ * sender isn't blocked); reported junk goes to Junk Email and its sender to Blocked senders (Microsoft
+ * Learn, "Report phishing and suspicious emails in Outlook"). Not junk (in Junk Email) moves the message
+ * back to the Inbox at once.
+ */
+export function reportMessage(ctx: Ctx, value: string) {
+  const v = value.toLowerCase();
+  if (v !== "report phishing" && v !== "report junk") return ctx.cmd("home.report", value);
+  const phish = v === "report phishing";
+  ctx.alert({
+    title: phish ? "Report as phishing?" : "Report as junk?",
+    text: phish
+      ? "This message will be reported to Microsoft as phishing and deleted from your mailbox."
+      : "This message will be reported to Microsoft as junk and moved to your Junk Email folder, and the sender will be added to your Blocked senders list.",
+    buttons: [{ label: "Report", primary: true, onClick: () => ctx.cmd("home.report", value) }, { label: "Cancel" }],
+  });
+}
 
 /* ------------------------------------------------------------------ */
 /* Menus                                                               */
@@ -100,8 +119,8 @@ export function messageEntries(ctx: NCtx, m: OlMessage): NEntry[] {
       label: "Report",
       icon: "shield",
       sub: [
-        e("Report phishing", "home.report", "Report phishing", "warning", () => ctx.cmd("home.report", "Report phishing")),
-        e(m.folder === "junk" ? "Not junk" : "Report junk", "home.report", m.folder === "junk" ? "Not junk" : "Report junk", "junk", () => ctx.cmd("home.report", m.folder === "junk" ? "Not junk" : "Report junk")),
+        e("Report phishing", "home.report", "Report phishing", "warning", () => reportMessage(ctx, "Report phishing")),
+        e(m.folder === "junk" ? "Not junk" : "Report junk", "home.report", m.folder === "junk" ? "Not junk" : "Report junk", "junk", () => reportMessage(ctx, m.folder === "junk" ? "Not junk" : "Report junk")),
       ],
     },
     { label: "Block", icon: "junk", sub: [e("Block sender", "home.block", "Block sender", "junk", () => ctx.cmd("home.block", "Block sender"))] },
@@ -183,7 +202,7 @@ export function FolderPaneNew({ ctx }: { ctx: NCtx }) {
   const [openShared, setOpenShared] = useState(true);
   const [newIn, setNewIn] = useState<string | null>(null);
   const [renaming, setRenaming] = useState<string | null>(null);
-  const favs = (doc.favorites ?? ["inbox", "sent", "drafts"]).map((id) => folderById(doc, id)).filter(Boolean) as OlFolder[];
+  const favs = favoritesOf(doc).map((id) => folderById(doc, id)).filter(Boolean) as OlFolder[];
   const tree = ownTree(doc);
   const shared = (doc.shared ?? []).filter((s) => s.added);
 
@@ -199,7 +218,7 @@ export function FolderPaneNew({ ctx }: { ctx: NCtx }) {
       { label: "Mark all as read", icon: "mailOpen", cmd: "folder.markAllRead", onPick: () => { ctx.select(`folder:${f.id}`); ctx.cmd("folder.markAllRead"); } },
       ...(f.id === "deleted" ? [{ label: "Empty folder", icon: "trash", cmd: "mail.emptyDeleted", onPick: () => ctx.cmd("mail.emptyDeleted") } as NEntry] : []),
       { separator: true },
-      { label: (doc.favorites ?? ["inbox", "sent", "drafts"]).includes(f.id) ? "Remove from Favorites" : "Add to Favorites", icon: "star", cmd: "folder.favorite", val: f.id, onPick: () => ctx.cmd("folder.favorite", f.id) },
+      { label: favoritesOf(doc).includes(f.id) ? "Remove from Favorites" : "Add to Favorites", icon: "star", cmd: "folder.favorite", val: f.id, onPick: () => ctx.cmd("folder.favorite", f.id) },
     ];
     return (
       <Fragment key={`${keyPrefix}${f.id}`}>
@@ -762,7 +781,7 @@ function RecipientRow({
   const [hi, setHi] = useState(0);
   const [focus, setFocus] = useState(false);
   const ref = useRef<HTMLInputElement>(null);
-  const sugg = focus ? suggestionsFor(ctx, pending) : [];
+  const sugg = focus ? suggestionsFor(ctx, pending, "Contact list") : [];
   const add = (tok: string) => {
     if (!tokens.some((t) => t.toLowerCase() === tok.toLowerCase())) onTokens([...tokens, tok]);
     onPending("");

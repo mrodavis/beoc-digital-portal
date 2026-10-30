@@ -410,8 +410,12 @@ export type EntryResult =
   | { ok: true; value: AccValue; cascade?: { table: string; field: string; ids: string[]; value: AccValue }[] }
   | { ok: false; message: string; title?: string };
 
-/** Everything Access checks when a value is typed into a field and the record is saved. */
-export function checkEntry(doc: AccessDoc, table: AccTable, rowId: string, field: AccField, raw: string): EntryResult {
+/**
+ * Everything Access checks when a value is typed into a field and the record is saved. With
+ * `atSave` false (a datasheet or form leaving the field), the related-record check is left out: the
+ * window runs relatedRecordMissing() when the learner leaves the record, as Access does.
+ */
+export function checkEntry(doc: AccessDoc, table: AccTable, rowId: string, field: AccField, raw: string, atSave = true): EntryResult {
   const p = parseInput(field, raw);
   if (!p.ok) return p;
   let value = p.value;
@@ -445,12 +449,8 @@ export function checkEntry(doc: AccessDoc, table: AccTable, rowId: string, field
     return { ok: false, message: MSG.duplicate };
   }
   // Referential integrity: this field points at a parent.
-  for (const rel of parentRels(doc, table.name, field.name)) {
-    if (value === null) continue;
-    const parent = findTable(doc, rel.table);
-    const pf = findField(parent, rel.field);
-    if (parent && pf && !parent.rows.some((r) => sameValue(pf.type, r[pf.name], value))) return { ok: false, message: MSG.related(parent.name) };
-  }
+  const missing = atSave ? relatedRecordMissing(doc, table, field, value) : null;
+  if (missing) return { ok: false, message: MSG.related(missing) };
   // Referential integrity: this field is a parent key with children.
   const cascade: { table: string; field: string; ids: string[]; value: AccValue }[] = [];
   if (row && !sameValue(field.type, row[field.name], value)) {
@@ -468,6 +468,20 @@ export function checkEntry(doc: AccessDoc, table: AccTable, rowId: string, field
 }
 
 /** Required fields still empty in a record (checked when the record is saved). */
+/**
+ * The parent table a foreign-key value has no match in (enforced relationships only), or null.
+ * Access checks this when the record is saved, not when you leave the field.
+ */
+export function relatedRecordMissing(doc: AccessDoc, table: AccTable, field: AccField, value: AccValue | undefined): string | null {
+  if (value === null || value === undefined || value === "") return null;
+  for (const rel of parentRels(doc, table.name, field.name)) {
+    const parent = findTable(doc, rel.table);
+    const pf = findField(parent, rel.field);
+    if (parent && pf && !parent.rows.some((r) => sameValue(pf.type, r[pf.name], value))) return parent.name;
+  }
+  return null;
+}
+
 export function missingRequired(table: AccTable, row: AccRecord): string | null {
   for (const f of table.fields) {
     if (f.type === "AutoNumber" || f.type === "Calculated") continue;
