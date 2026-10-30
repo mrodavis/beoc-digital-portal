@@ -431,7 +431,7 @@ LESSON 3 – RESEARCHING AND CITING SOURCES
     "Replace a word with a synonym using the Thesaurus",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/QrqpTWivIhc",
+  videoUrl: "https://www.youtube.com/embed/ygVqgnxO4RA",
   slides: [
     { src: "/images/word/citations/slide-01.jpg", alt: "Researching and citing sources in Word: find sources in a browser, judge them, and cite them with the References tab" },
     { src: "/images/word/citations/slide-02.jpg", alt: "What changed: Smart Lookup and Researcher were retired in January 2025; use a web browser to find sources and the References tab to cite them" },
