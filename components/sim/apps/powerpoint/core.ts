@@ -203,6 +203,8 @@ export const pptCore: AppCore<PptDeck> = {
     return r;
   },
   ribbonFor: pptRibbonFor,
+  // View › Slide Master opens the Slide Master tab (other contextual tabs appear without being opened).
+  autoContextual: ["master"],
   ribbonState: pptRibbonState,
   contextualTabs: pptContextual,
   dialogDef,

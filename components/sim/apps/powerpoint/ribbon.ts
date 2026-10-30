@@ -1,7 +1,7 @@
 import type { DialogDef, PptDeck, RibbonOption, RibbonTab } from "@/types/sim";
 import { THEME_COLORS } from "../../chrome/colors";
-import { ANIMATIONS, EMPHASIS, EXITS, LAYOUTS, PPT_THEMES, PPT_THEME_NAMES, TABLE_STYLES, TRANSITIONS, tableStyleSwatch, variantAccent } from "./model";
-import { AUDIO_FILES, BACKGROUND_STYLES, BULLET_STYLES, COLOR_SETS, EFFECT_SETS, FONT_SETS, GRAPHIC_STYLES, ICONS, NUMBER_FORMATS, ONLINE_PICTURES, PASTE_SPECIAL_FORMATS, PICTURE_FILES, SCREEN_WINDOWS, STOCK_IMAGES, VIDEO_FILES } from "./ext";
+import { ANIMATIONS, EMPHASIS, EXITS, LAYOUTS, PPT_THEMES, PPT_THEME_NAMES, TABLE_STYLES, TRANSITIONS, deckLayouts, layoutName, tableStyleSwatch, variantAccent } from "./model";
+import { readMaster, AUDIO_FILES, BACKGROUND_STYLES, BULLET_STYLES, COLOR_SETS, EFFECT_SETS, FONT_SETS, GRAPHIC_STYLES, ICONS, NUMBER_FORMATS, ONLINE_PICTURES, PASTE_SPECIAL_FORMATS, PICTURE_FILES, SCREEN_WINDOWS, STOCK_IMAGES, VIDEO_FILES } from "./ext";
 
 const FONTS = ["Aptos", "Aptos Display", "Arial", "Calibri", "Calibri Light", "Cambria", "Candara", "Century Gothic", "Corbel", "Franklin Gothic Book", "Garamond", "Georgia", "Gill Sans MT", "Segoe UI", "Tahoma", "Times New Roman", "Trebuchet MS", "Tw Cen MT", "Verdana"];
 const SIZES = ["10", "12", "14", "16", "18", "20", "24", "28", "32", "36", "40", "44", "48", "54", "60", "72", "96"];
@@ -846,16 +846,27 @@ export const pptDialogs: Record<string, DialogDef> = {
  */
 export function pptRibbonFor(this: { ribbon?: RibbonTab[] } | void, deck: PptDeck): RibbonTab[] {
   const base = (this && this.ribbon) || pptRibbon;
-  return base.map((t) => {
-    if (t.id !== "design") return t;
-    return {
-      ...t,
-      groups: t.groups.map((g) => ({
-        ...g,
-        controls: g.controls.map((c) => (c.type === "gallery" && c.id === "design.variant"
-          ? { ...c, options: c.options.map((o) => (!o.command && !o.dialog && !o.heading && /^[1-4]$/.test(o.value) ? { ...o, color: variantAccent(deck.theme, Number(o.value)) } : o)) }
-          : c)),
-      })),
-    };
-  });
+  // New Slide and Layout list the deck's layouts by their (possibly renamed) names, including
+  // layouts added with Slide Master › Insert Layout.
+  const custom = deckLayouts(deck).filter((l) => !LAYOUTS.includes(l));
+  const renamed = Object.keys(readMaster(deck).layoutNames ?? {}).length > 0;
+  const layoutList = (opts: RibbonOption[]): RibbonOption[] => {
+    const at = opts.findIndex((o) => o.command);
+    const head = (at < 0 ? opts : opts.slice(0, at)).map((o) => (o.icon === "layout" ? { ...o, label: layoutName(deck, o.value) } : o));
+    const extra = custom.map((l) => ({ value: l, label: layoutName(deck, l), icon: "layout" }));
+    return [...head, ...extra, ...(at < 0 ? [] : opts.slice(at))];
+  };
+  return base.map((t) => ({
+    ...t,
+    groups: t.groups.map((g) => ({
+      ...g,
+      controls: g.controls.map((c) => {
+        if (c.type === "gallery" && c.id === "design.variant") {
+          return { ...c, options: c.options.map((o) => (!o.command && !o.dialog && !o.heading && /^[1-4]$/.test(o.value) ? { ...o, color: variantAccent(deck.theme, Number(o.value)) } : o)) };
+        }
+        if ((custom.length || renamed) && c.type === "dropdown" && (c.id === "slides.new" || c.id === "slides.layout")) return { ...c, options: layoutList(c.options) };
+        return c;
+      }),
+    })),
+  }));
 }

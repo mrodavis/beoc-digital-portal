@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import type { PptDeck, PptObject, PptSlide, SimCommit } from "@/types/sim";
 import type { CanvasProps, MenuItem, SimUi, StatusBarProps } from "../../types";
 import { Icon } from "../../chrome/icons";
-import { LAYOUTS, activeSlide, isFinal, layoutName, readClip, themeOf } from "./model";
+import { LAYOUTS, activeSlide, deckLayouts, isFinal, layoutName, readClip, themeOf } from "./model";
 import { flagJson, ox, readMaster } from "./ext";
 import { PartEditor, SlideView } from "./PptSlide";
 import { lineSpan, parseRange } from "./runs";
@@ -347,7 +347,7 @@ export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onCo
       { label: "Delete Slide", icon: "deleteCells", command: "slides.delete" },
       { label: "Add Section", icon: "section", dialog: "addSection" },
       { separator: true },
-      ...LAYOUTS.map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
+      ...deckLayouts(deck).map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
       { label: "Reset Slide", icon: "reset", command: "slides.reset" },
       { separator: true },
       { label: "Format Background...", icon: "background", dialog: "formatBackground" },
@@ -397,7 +397,7 @@ export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onCo
     onContextMenu(e.clientX, e.clientY, [
       ...pasteItems(false),
       { separator: true },
-      ...LAYOUTS.map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
+      ...deckLayouts(deck).map((l) => ({ label: `Layout: ${layoutName(deck, l)}`, icon: "layout", command: "slides.layout", value: l })),
       { label: "Reset Slide", icon: "reset", command: "slides.reset" },
       { separator: true },
       { label: "Format Background...", icon: "background", dialog: "formatBackground" },

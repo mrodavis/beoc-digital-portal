@@ -337,7 +337,8 @@ export default function SimPlayer({ sim, app }: { sim: SimDefinition; app: AppMo
     const before = prevContextual.current;
     prevContextual.current = contextual;
     if (!app.autoContextual) return;
-    const fresh = contextual.filter((k) => !before.includes(k));
+    const auto = app.autoContextual;
+    const fresh = contextual.filter((k) => !before.includes(k) && (auto === true || auto.includes(k)));
     const tab = tabs.find((t) => t.contextual && !t.plain && fresh.includes(t.contextual));
     if (tab) setActiveTab(tab.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps

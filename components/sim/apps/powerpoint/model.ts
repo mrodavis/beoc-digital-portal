@@ -136,6 +136,11 @@ export function layoutName(deck: PptDeck, layout: string): string {
   return readMaster(deck).layoutNames?.[layout] ?? layout;
 }
 
+/** Every layout a slide can use: the built-in ones, then those added with Slide Master › Insert Layout. */
+export function deckLayouts(deck: PptDeck): string[] {
+  return [...LAYOUTS, ...(readMaster(deck).customLayouts ?? []).filter((l) => !LAYOUTS.includes(l))];
+}
+
 /* ------------------------------------------------------------------ */
 /* Selection                                                           */
 /* ------------------------------------------------------------------ */
