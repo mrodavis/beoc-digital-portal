@@ -240,7 +240,7 @@ LESSON 2 – CO-AUTHORING IN WORD
     "Manage and revoke sharing permissions",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/bAhKW18VaoQ",
+  videoUrl: "https://www.youtube.com/embed/Bp2zsZW4Y14",
 
   sections: [
 
