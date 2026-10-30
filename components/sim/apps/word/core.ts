@@ -48,8 +48,19 @@ function normalize(c: SimCommit): SimCommit {
   return c;
 }
 
+/**
+ * Title bar text. A new document that was never saved (DocumentN, no save location) shows just its
+ * name, as Word does; a saved file shows where it is saved.
+ */
+function windowTitle(doc: WordDoc, fileName: string): string {
+  const loc = doc.saved?.location;
+  if (!loc && /^Document\d+\.docx$/i.test(fileName)) return fileName.replace(/\.docx$/i, "");
+  return `${fileName} - Saved to ${loc || "this PC"}`;
+}
+
 export const wordCore: AppCore<WordDoc> = {
   name: "Word",
+  windowTitle,
   accent: "#2b579a",
   ribbon: wordRibbon,
   ribbonFor: (doc) => wordRibbonFor(doc),

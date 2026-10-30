@@ -1244,7 +1244,22 @@ function enterHeaderFooter(doc: WordDoc) {
   doc.flags = { ...(doc.flags ?? {}), hfEdit: Number(doc.flags?.hfEdit ?? 0) + 1 };
 }
 
+/**
+ * File › New › Blank document (or Ctrl+N): a new, empty document that has never been saved
+ * (Document2, Document3, …; the title bar shows just that name). The Office Clipboard carries over.
+ */
+function newBlankDocument(prev: WordDoc): { doc: WordDoc; ui: Partial<SimUi> } {
+  const m = /^Document(\d+)\.docx$/i.exec(prev.saved?.name ?? "");
+  const n = Math.max(Number(prev.flags?.newCount ?? 1), m ? Number(m[1]) : 1) + 1;
+  const doc: WordDoc = { paragraphs: [{ id: "p1", text: "" }], saved: { name: `Document${n}.docx` }, flags: { newFrom: "Blank document", newCount: n, lastAction: "new" } };
+  if (prev.clipboard) doc.clipboard = prev.clipboard;
+  if (prev.author) doc.author = prev.author;
+  if (prev.ribbonCollapsed) doc.ribbonCollapsed = prev.ribbonCollapsed;
+  return { doc, ui: { selection: "p1" } };
+}
+
 export function applyWord(input: WordDoc, c: SimCommit, ui: SimUi): { doc: WordDoc; ui?: Partial<SimUi> } {
+  if (c.kind === "command" && c.id === "file.new" && (c.value === undefined || String(c.value) === "Blank document")) return newBlankDocument(input);
   const common = applyCommonCommit(input, c, ".docx");
   if (common) {
     // File › Info › Protect Document › Restrict Editing opens the same pane as Review › Restrict Editing.
