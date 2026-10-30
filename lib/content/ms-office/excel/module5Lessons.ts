@@ -1497,7 +1497,7 @@ challenge: [
   ],
   duration: "15 min",
 
-  videoUrl: "https://www.youtube.com/embed/MI1UiBXSa2Y",
+  videoUrl: "https://www.youtube.com/embed/7ydpG1HB68c",
 
   practiceFiles: [
     {

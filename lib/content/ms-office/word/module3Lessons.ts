@@ -1296,7 +1296,7 @@ export const wordModule3Lessons: Lesson[] = [
     "Group objects so they move and scale as a unit",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/Mu3NjPl8Uqg",
+  videoUrl: "https://www.youtube.com/embed/zycZQmSaZH4",
 
   practiceFiles: [
     {
