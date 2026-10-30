@@ -4,6 +4,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import type { RibbonControl, RibbonOption, RibbonTab, SimValue } from "@/types/sim";
 import { OIcon } from "../parts";
 import { NMenuButton, type NEntry } from "./ui";
+import { VALUE_FACE } from "./ribbon";
 
 type Handlers = { onCmd: (id: string, value?: SimValue) => void; onDialog: (id: string) => void };
 
@@ -16,7 +17,7 @@ function optionEntries(c: Extract<RibbonControl, { type: "dropdown" | "gallery" 
           label: o.label ?? o.value,
           icon: o.icon,
           color: o.color,
-          checked: cur !== undefined && String(cur) === o.value,
+          checked: cur !== undefined && String(cur).toLowerCase() === o.value.toLowerCase(),
           cmd: o.dialog ? undefined : o.command ?? c.id,
           val: o.dialog ? undefined : o.value,
           dlg: o.dialog,
@@ -93,10 +94,13 @@ function Control({ c, h, state }: { c: RibbonControl; h: Handlers; state: Record
         </span>
       );
     }
+    const cur = VALUE_FACE.has(c.id) ? state[("stateKey" in c && c.stateKey) || c.id] : undefined;
+    const curOpt = cur === undefined ? undefined : c.options.find((o) => o.value.toLowerCase() === String(cur).toLowerCase());
+    const face = cur === undefined ? c.label : curOpt ? curOpt.label ?? curOpt.value : String(cur);
     return (
       <NMenuButton dd={c.id} ariaLabel={c.label} title={c.label} items={entries} className={base}>
         {icon && <OIcon name={icon} size={17} className="text-[#0f6cbd]" />}
-        <span>{c.label}</span>
+        <span>{face}</span>
         <OIcon name="chevronDown" size={11} className="text-gray-600" />
       </NMenuButton>
     );
