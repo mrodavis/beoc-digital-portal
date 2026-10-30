@@ -489,6 +489,12 @@ export function pageIndexOf(doc: WordDoc, pid: string): number {
   return Math.max(0, pagesOf(doc).findIndex((pg) => pg.paras.some((p) => p.id === pid)));
 }
 
+/** The page the insertion point (or the start of the selection) is on, 1-based: the status bar's "Page 2 of 3". */
+export function selectionPage(doc: WordDoc, ui: SimUi): number {
+  const p = selectedParas(doc, ui)[0];
+  return p ? pageIndexOf(doc, p.id) + 1 : 1;
+}
+
 const ROMAN = ["", "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x", "xi", "xii", "xiii", "xiv", "xv", "xvi", "xvii", "xviii", "xix", "xx"];
 /** Endnote numbers use i, ii, iii like Word. */
 export function noteLabel(kind: "footnote" | "endnote", n: number): string {

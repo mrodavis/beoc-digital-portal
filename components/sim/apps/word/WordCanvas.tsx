@@ -14,6 +14,7 @@ import {
   noteRefs,
   notesOf,
   pagesOf,
+  selectionPage,
   paraLook,
   paraRange,
   paraText,
@@ -1053,7 +1054,8 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
 
     if (p.kind === "pageBreak" || p.kind === "sectionBreak" || p.kind === "columnBreak") {
       const label = p.kind === "pageBreak" ? "Page Break" : p.kind === "columnBreak" ? "Column Break" : `Section Break (${p.text || "Next Page"})`;
-      if (!doc.showMarks && p.kind !== "sectionBreak") {
+      // Like page breaks, section and column breaks show only with Show/Hide ¶ on.
+      if (!doc.showMarks) {
         return p.kind === "columnBreak" ? <div key={p.id} style={{ breakAfter: "column" }} /> : null;
       }
       return (
@@ -1923,16 +1925,17 @@ function InlineEditor({
   );
 }
 
-export function WordStatusBar({ doc, onCommit }: StatusBarProps<WordDoc>) {
+export function WordStatusBar({ doc, ui, onCommit }: StatusBarProps<WordDoc>) {
   const zoom = doc.zoom ?? 100;
   const pages = pagesOf(doc).length;
+  const page = Math.min(pages, selectionPage(doc, ui));
   const sections = 1 + doc.paragraphs.filter((p) => p.kind === "sectionBreak").length;
   const merge = doc.merge;
   const mergeCount = merge?.preview ? activeRecipients(doc).length : 0;
   const protection = (doc as XDoc).protection;
   return (
     <div className="flex h-6 shrink-0 items-center gap-4 border-t border-gray-300 bg-[#f3f3f3] px-3 text-[11px] text-gray-700">
-      <span>Page 1 of {pages}</span>
+      <span>Page {page} of {pages}</span>
       {sections > 1 && <span className="hidden sm:inline">{sections} sections</span>}
       <button type="button" onClick={() => onCommit({ kind: "command", id: "review.wordCount" })} className="hover:bg-gray-200">{wordCount(doc)} words</button>
       <span className="hidden sm:inline">English (United States)</span>
