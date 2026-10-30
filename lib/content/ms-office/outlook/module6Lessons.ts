@@ -342,7 +342,7 @@ export const outlookModule6Lessons: Lesson[] = [
             type: "list",
             items: [
               "Report phishing: select the message, then Report › Report phishing. Reporting tells Microsoft about the sender but doesn't block it.",
-              "Report junk: Report › Report junk for unwanted ads and spam.",
+              "Report junk: Report › Report junk for unwanted ads and spam. It moves the message to Junk Email and adds the sender to your Blocked senders list.",
               "Block a sender: Settings › Mail › Junk email. Under Blocked senders, type the address and select Add (or add a whole domain under Blocked domains), then select Save.",
               "Safe senders: in the same place, add addresses or domains you always want in the Inbox, then select Save.",
               "Rescue real mail: open the Junk Email folder, select the message, and select Not junk. It moves back to the Inbox.",
