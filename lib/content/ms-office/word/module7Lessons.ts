@@ -457,7 +457,7 @@ LESSON 3 – STYLE SETS
     "Save a custom style set for reuse",
   ],
   duration: "7 min",
-  videoUrl: "https://www.youtube.com/embed/YN01xt2daSc",
+  videoUrl: "https://www.youtube.com/embed/MiBMuCTNMes",
 
   practiceFiles: [
     {
