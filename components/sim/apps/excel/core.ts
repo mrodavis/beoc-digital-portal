@@ -1,7 +1,7 @@
 import type { DialogDef, ExcelBook, SimCommit } from "@/types/sim";
 import type { AppCore } from "../../types";
 import { withPivotCaches } from "@/lib/sim/excel";
-import { applyExcel, cfDescribe, chartTemplates, excelContextual, excelDialogDefaults, excelRibbonState, pivotFieldNames, regionHeaders, sheetOf, withTotalRows } from "./model";
+import { applyExcel, autoFitPivots, cfDescribe, chartTemplates, excelContextual, excelDialogDefaults, excelRibbonState, pivotFieldNames, regionHeaders, sheetOf, withTotalRows } from "./model";
 import { excelRibbon, excelRibbonFor, EXCEL_VIEW_ALIASES, SPARKLINE_TYPE_ALIASES } from "./ribbon";
 import { excelDialogs } from "./dialogs";
 
@@ -132,10 +132,12 @@ export const excelCore: AppCore<ExcelBook> = {
   initialUi: (doc) => ({ selection: "A1", sheet: doc.active ?? doc.sheets[0]?.name }),
   normalize,
   // PivotTables keep a snapshot of their source from before each command, so an edit to the source
-  // shows only after Refresh; tables whose Total Row is on get its cells.
+  // shows only after Refresh; tables whose Total Row is on get its cells. A PivotTable that changed
+  // has its columns fitted (Excel's "Autofit column widths on update").
   apply: (doc, c, ui) => {
-    const r = applyExcel(withTotalRows(withPivotCaches(doc)), c, ui);
-    return { ...r, doc: withPivotCaches(r.doc) };
+    const base = withTotalRows(withPivotCaches(doc));
+    const r = applyExcel(base, c, ui);
+    return { ...r, doc: autoFitPivots(base, withPivotCaches(r.doc)) };
   },
   ribbonState: excelRibbonState,
   contextualTabs: excelContextual,

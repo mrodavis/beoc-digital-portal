@@ -2605,6 +2605,39 @@ function shownWidth(doc: ExcelBook, sheet: ExcelSheet, ref: string, text?: strin
   return shown.length * 7 * (size / 11) * (f?.bold ? 1.08 : 1) + 12;
 }
 
+/** What a PivotTable shows, cell by cell (with any number format put on its cells), to tell when it changed. */
+function pivotShown(doc: ExcelBook, sheet: ExcelSheet): string {
+  const lay = sheet.pivot ? pivotLayoutOf(doc, sheet) : null;
+  if (!lay) return "";
+  return Object.entries(lay.cells).map(([ref, pc]) => `${ref}=${formatValue(pc.v, { ...(pc.fmt ?? {}), ...(sheet.cells[ref]?.fmt ?? {}) })}`).join("\u0001");
+}
+
+/**
+ * PivotTable Options › "Autofit column widths on update" (on by default in Excel): whenever a
+ * PivotTable changes, its columns are fitted to what it shows.
+ */
+export function autoFitPivots(prev: ExcelBook, next: ExcelBook): ExcelBook {
+  let out = next;
+  next.sheets.forEach((sheet, i) => {
+    if (!sheet.pivot) return;
+    const shown = pivotShown(next, sheet);
+    const before = prev.sheets.find((s) => s.name === sheet.name);
+    if (!shown || (before?.pivot && pivotShown(prev, before) === shown)) return;
+    const widths: Record<string, number> = {};
+    for (const [ref, pc] of Object.entries(pivotLayoutOf(next, sheet)?.cells ?? {})) {
+      const p = parseRef(ref);
+      if (!p) continue;
+      const fmt = { ...(pc.fmt ?? {}), ...(sheet.cells[ref]?.fmt ?? {}) };
+      const col = numToCol(p.c);
+      widths[col] = Math.max(widths[col] ?? 0, shownWidth(next, sheet, ref, formatValue(pc.v, fmt), fmt) + (fmt.indent ?? 0) * 10);
+    }
+    for (const col of Object.keys(widths)) widths[col] = Math.round(Math.min(400, Math.max(24, widths[col])));
+    if (out === next) out = { ...next, sheets: [...next.sheets] };
+    out.sheets[i] = { ...sheet, colWidths: { ...(sheet.colWidths ?? {}), ...widths } };
+  });
+  return out;
+}
+
 /** Home › Format › AutoFit Column Width (or double-click a column header's right border). */
 function autoFitColumns(doc: ExcelBook, sheet: ExcelSheet, sel: string) {
   const pivotCells = sheet.pivot ? pivotLayoutOf(doc, sheet)?.cells ?? {} : {};

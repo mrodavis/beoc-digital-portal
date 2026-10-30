@@ -1874,8 +1874,9 @@ export function computePivot(book: ExcelBook, sheet: ExcelSheet): PivotLayout {
     if (showAsOf(i).startsWith("%")) return { numFmt: "Percentage", decimals: 2 };
     if (v.custom) return { custom: v.custom } as XCellFormat;
     if (v.numFmt) return v.decimals === undefined ? { numFmt: v.numFmt } : { numFmt: v.numFmt, decimals: v.decimals };
-    if (v.fn === "Count" || v.fn === "Count Numbers") return undefined;
-    return numberFormatOnly(recs.fmtOf(v.field));
+    // Values start in General, whatever the source column's number format: Excel leaves the format
+    // to Value Field Settings › Number Format (or the Home tab).
+    return undefined;
   };
   const itemsIn = (items: PRec[], ck: CK | null) => (ck ? items.filter((x) => x.col === ck.id) : items);
   const running = new Map<string, number>();
