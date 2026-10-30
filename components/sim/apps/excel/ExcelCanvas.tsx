@@ -420,6 +420,18 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const formulaBarRef = useRef<HTMLInputElement>(null);
   /** The reference last put into a formula by pointing, so the next click replaces it, as in Excel. */
   const pointRef = useRef<{ start: number; text: string; sheet?: string; range?: string } | null>(null);
+  /** The grid window's inside size, so the grid can fill it. */
+  const [viewSize, setViewSize] = useState({ w: 0, h: 0 });
+  useLayoutEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    const measure = () => setViewSize((v) => (v.w === el.clientWidth && v.h === el.clientHeight ? v : { w: el.clientWidth, h: el.clientHeight }));
+    measure();
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
 
   useEffect(() => {
     setEdit(null);
@@ -456,8 +468,9 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
 
   const used = usedRect(sheet);
   const spillMax = Object.values(spill.ranges).reduce((m, r) => ({ c: Math.max(m.c, r.c2), r: Math.max(m.r, r.r2) }), { c: 0, r: 0 });
-  const nCols = Math.max(sheet.cols ?? DEFAULT_COLS, (used?.c2 ?? 0) + 2, spillMax.c + 1);
-  const nRows = Math.max(sheet.rows ?? DEFAULT_ROWS, (used?.r2 ?? 0) + 3, spillMax.r + 2);
+  /** The sheet's working size (Select All, Ctrl+A); the grid draws more columns and rows to fill the window. */
+  const dataCols = Math.max(sheet.cols ?? DEFAULT_COLS, (used?.c2 ?? 0) + 2, spillMax.c + 1);
+  const dataRows = Math.max(sheet.rows ?? DEFAULT_ROWS, (used?.r2 ?? 0) + 3, spillMax.r + 2);
   const hiddenRows = new Set(sheet.hiddenRows ?? []);
   const hiddenCols = new Set(sheet.hiddenCols ?? []);
   const filterRect = sheet.filter ? parseRange(sheet.filter) : null;
@@ -490,6 +503,17 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const widen = sheet.showFormulas ? 2 : 1;
   const colW = (c: number) => (hiddenCols.has(numToCol(c)) ? 0 : (sheet.colWidths?.[numToCol(c)] ?? COL_W) * z * widen);
   const rowH = (r: number) => (hiddenRows.has(r) ? 0 : (sheet.rowHeights?.[String(r)] ?? autoH[r] ?? ROW_H) * z);
+  // Like Excel, the grid runs past the data to the window's right and bottom edges (not in Page Layout view).
+  let nCols = dataCols;
+  let nRows = dataRows;
+  if (sheet.view !== "pageLayout" && viewSize.w > 0) {
+    let x = headW;
+    for (let c = 1; c <= nCols; c++) x += colW(c);
+    while (x < viewSize.w && nCols < 200) x += colW(++nCols) || COL_W;
+    let y = HEAD_H;
+    for (let r = 1; r <= nRows; r++) y += rowH(r);
+    while (y < viewSize.h && nRows < 500) y += rowH(++nRows) || ROW_H;
+  }
   const colX: number[] = [0, headW];
   for (let c = 1; c <= nCols; c++) colX[c + 1] = colX[c] + colW(c);
   const rowY: number[] = [0, HEAD_H];
@@ -837,7 +861,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       e.preventDefault();
       e.stopPropagation();
       const rc = currentRegion(sheet, act);
-      onSelect({ selection: rc && rectToRange(rc) !== sel ? rectToRange(rc) : `A1:${numToCol(nCols)}${nRows}` });
+      onSelect({ selection: rc && rectToRange(rc) !== sel ? rectToRange(rc) : `A1:${numToCol(dataCols)}${dataRows}` });
       return;
     }
     if (ctrl && k === "Home") {
@@ -1311,7 +1335,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
                   </div>
                 )}
                 <div className={`absolute top-0 border-b border-r border-gray-300 ${sheetView ? "bg-[#3b3b3b]" : "bg-[#f3f3f3]"}`} style={{ left: outW, width: HEAD_W, height: HEAD_H }}>
-                  <button type="button" aria-label="Select All" onClick={() => onSelect({ selection: `A1:${numToCol(nCols)}${nRows}` })} className="h-full w-full" />
+                  <button type="button" aria-label="Select All" onClick={() => onSelect({ selection: `A1:${numToCol(dataCols)}${dataRows}` })} className="h-full w-full" />
                 </div>
               </div>
             </div>
