@@ -73,8 +73,19 @@ function normalize(c: SimCommit): SimCommit {
   return c;
 }
 
+/**
+ * Title bar text. A new presentation that was never saved (PresentationN, no save location) shows
+ * just its name, as PowerPoint does; a saved file shows where it is saved.
+ */
+function windowTitle(deck: PptDeck, fileName: string): string {
+  const loc = deck.saved?.location;
+  if (!loc && /^Presentation\d+\.pptx$/i.test(fileName)) return fileName.replace(/\.pptx$/i, "");
+  return `${fileName} - Saved to ${loc || "this PC"}`;
+}
+
 export const pptCore: AppCore<PptDeck> = {
   name: "PowerPoint",
+  windowTitle,
   accent: "#b7472a",
   ribbon: pptRibbon,
   dialogs: pptDialogs,
