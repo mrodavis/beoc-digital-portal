@@ -730,7 +730,7 @@ export const wordModule6Lessons: Lesson[] = [
     "Replace repeated Enter presses with a proper page break",
   ],
   duration: "12 min",
-  videoUrl: "https://www.youtube.com/embed/nGIW3cFNW5I",
+  videoUrl: "https://www.youtube.com/embed/YZTZmDnfbzQ",
 
   practiceFiles: [
     {
@@ -1016,7 +1016,7 @@ export const wordModule6Lessons: Lesson[] = [
     "Explain why columns are a readability tool",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/N_pjTI1tOWM",
+  videoUrl: "https://www.youtube.com/embed/wNj9hHE1SrQ",
 
   practiceFiles: [
     {
