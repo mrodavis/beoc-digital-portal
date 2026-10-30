@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { WordDoc, WordPara, WordRun } from "@/types/sim";
-import type { CanvasProps, MenuItem, StatusBarProps } from "../../types";
+import type { CanvasProps, MenuItem, SimUi, StatusBarProps } from "../../types";
 import {
   RESTRICT_TYPES,
   activeRecipients,
@@ -151,7 +151,15 @@ const SHAPE_CLIP: Record<string, string> = {
 
 /* ------------------------------------------------------------------ */
 
-export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<WordDoc>) {
+export function WordCanvas({ doc, ui, onSelect: onSelectRaw, onCommit, onContextMenu, openDialog }: CanvasProps<WordDoc>) {
+  // The last selection the canvas made, so a text box that loses focus to the Ribbon can leave its
+  // insertion point behind (for Insert › Symbol) unless you clicked something else first. Every
+  // selection the canvas makes drops that insertion point.
+  const lastSel = useRef(ui.selection);
+  const onSelect = (patch: Partial<SimUi>) => {
+    if (patch.selection !== undefined) lastSel.current = patch.selection;
+    onSelectRaw({ ...patch, caret: undefined } as Partial<SimUi>);
+  };
   const [editing, setEditingState] = useState<Editing | null>(null);
   const editingRef = useRef<Editing | null>(null);
   const setEditing = (v: Editing | null) => {
@@ -268,7 +276,7 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
       placeholder={editing?.ph && !editing.text ? editing.phText : undefined}
       selectAll={editing?.selectAll}
       onChange={(t) => setEditing({ ...editingRef.current!, key, text: t })}
-      onCommit={commitEdit}
+      onCommit={(range) => commitEdit(range)}
       onCancel={() => setEditing(null)}
       onTab={opts.onTab}
       inline={opts.inline}
@@ -276,13 +284,18 @@ export function WordCanvas({ doc, ui, onSelect, onCommit, onContextMenu, openDia
     />
   );
 
-  const commitEdit = () => {
+  /** `range`: where the cursor (or selection) was when the box lost focus to the Ribbon or a menu. */
+  const commitEdit = (range?: [number, number]) => {
     const e = editingRef.current;
     if (!e) return;
     const orig = textAt(doc, e.key);
     setEditing(null);
     if (e.ph && !e.text.trim()) return;
     if (e.text !== orig) onCommit({ kind: "type", target: e.key, value: e.text });
+    // A paragraph or a run: remember the insertion point for commands that insert at it (Symbol).
+    if (range && lastSel.current === e.key && /^[^.,:]+(\.[^.,:]+)?$/.test(e.key) && !/\.r\d+c\d+$/.test(e.key)) {
+      onSelectRaw({ caret: `${e.key}@${Math.min(...range)}-${Math.max(...range)}` } as Partial<SimUi>);
+    }
   };
 
   /** Tab / Shift+Tab inside a table: next or previous cell; Tab in the last cell adds a row. */
@@ -1880,7 +1893,8 @@ function InlineEditor({
 }: {
   value: string;
   onChange: (v: string) => void;
-  onCommit: () => void;
+  /** `range` is passed when the box loses focus (to the Ribbon, a menu...): the cursor or selection then. */
+  onCommit: (range?: [number, number]) => void;
   onCancel: () => void;
   /** Tab / Shift+Tab (table cells move to the next / previous cell). */
   onTab?: (back: boolean) => void;
@@ -1936,7 +1950,7 @@ function InlineEditor({
         }
         if (e.key === "Escape") onCancel();
       }}
-      onBlur={onCommit}
+      onBlur={(e) => onCommit([e.currentTarget.selectionStart, e.currentTarget.selectionEnd])}
       className={`${inline ? "inline-block min-w-[4ch] align-baseline" : "block w-full"} resize-none overflow-hidden border-0 bg-[#fffbe6] p-0 outline outline-1 outline-[#2b579a]`}
       style={{ font: "inherit", color: "inherit", lineHeight: "inherit", textAlign: "inherit", textIndent: 0, ...(style ?? {}), width: inline ? `${Math.max(4, value.length + 1, (placeholder?.length ?? 0) + 1)}ch` : undefined }}
     />

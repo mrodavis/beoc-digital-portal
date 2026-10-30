@@ -1015,7 +1015,64 @@ function insertAfterSelection(doc: WordDoc, ui: SimUi, para: WordPara, before = 
 }
 
 /** Insert text at the insertion point: after a selected run, into a cell or header, or at the end of the paragraph. */
+/**
+ * Where the cursor was in a paragraph or run when its text box lost focus to the Ribbon
+ * (ui.caret "p3@12-12", "p7.r1@5-9"), if it is still the selection.
+ */
+function caretIn(ui: SimUi): { key: string; a: number; b: number } | undefined {
+  const m = /^(.+)@(\d+)-(\d+)$/.exec((ui as SimUi & { caret?: string }).caret ?? "");
+  if (!m || m[1] !== ui.selection) return undefined;
+  return { key: m[1], a: Number(m[2]), b: Number(m[3]) };
+}
+
+/**
+ * Insert text at the insertion point (or over the text selected in the box). Returns false when
+ * there is no usable insertion point: the caller then adds the text after the selection.
+ */
+function insertAtCaret(doc: WordDoc, ui: SimUi, text: string): boolean {
+  const c = caretIn(ui);
+  if (!c) return false;
+  const [pid, rid] = c.key.split(".");
+  const p = doc.paragraphs.find((x) => x.id === pid);
+  if (!p || (p.kind && p.kind !== "p")) return false;
+  if (rid) {
+    const r = p.runs?.find((x) => x.id === rid);
+    if (!r || r.field) return false;
+    const a = Math.min(c.a, r.text.length), b = Math.min(c.b, r.text.length);
+    // All of the box's text selected (a double-click selects the whole run here): add after it, as before.
+    if (a === 0 && b === r.text.length && b > 0) return false;
+    r.text = r.text.slice(0, a) + text + r.text.slice(b);
+    return true;
+  }
+  const runs = runsOf(p);
+  if (runs.some((r) => r.field || r.del || r.ins)) return false;
+  const full = runs.map((r) => r.text).join("");
+  const a = Math.min(c.a, full.length), b = Math.min(c.b, full.length);
+  if (a === 0 && b === full.length && b > 0) return false;
+  if (!p.runs?.length) { p.text = full.slice(0, a) + text + full.slice(b); return true; }
+  // Split the run the cursor is in; the inserted text takes that run's formatting.
+  const out: WordRun[] = [];
+  let pos = 0;
+  let done = false;
+  for (const r of p.runs) {
+    const s0 = pos, e0 = pos + r.text.length;
+    pos = e0;
+    const before = r.text.slice(0, Math.max(0, Math.min(r.text.length, a - s0)));
+    const after = r.text.slice(Math.max(0, Math.min(r.text.length, b - s0)));
+    if (!done && a >= s0 && a <= e0) {
+      if (before) out.push({ ...r, text: before });
+      out.push({ ...charProps(r), text });
+      done = true;
+      if (after) out.push({ ...r, ...(before ? { id: undefined } : {}), text: after });
+    } else if (e0 <= a || s0 >= b) out.push(r);
+    else if (after) out.push({ ...r, text: after });
+  }
+  p.runs = out.map((r) => { if (r.id === undefined) { const { id: _drop, ...rest } = r; void _drop; return rest; } return r; });
+  return true;
+}
+
 function insertInline(doc: WordDoc, ui: SimUi, text: string, sep = "") {
+  if (insertAtCaret(doc, ui, text)) return;
   const s = parseSel(doc, ui.selection);
   if (s.header) {
     const cur = s.header === "header" ? doc.header : doc.footer;

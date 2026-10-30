@@ -589,7 +589,7 @@ export type RibbonControl =
       split?: boolean;
       faceValue?: string;
       /** Columns for a gallery-style menu (e.g. colors, styles). */
-      gallery?: "list" | "grid" | "swatches";
+      gallery?: "list" | "grid" | "swatches" | "symbols";
     }
   | {
       type: "gallery";

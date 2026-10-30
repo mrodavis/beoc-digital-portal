@@ -1,5 +1,5 @@
 import type { SimCommit, WordDoc } from "@/types/sim";
-import type { AppCore } from "../../types";
+import type { AppCore, SimUi } from "../../types";
 import { applyWord, isBuiltInStyle, notesOf, wordContextual, wordDialogDefaults, wordRibbonState, paraText, parseSel } from "./model";
 import { wordRibbon, wordRibbonFor, VIEW_ALIASES } from "./ribbon";
 import { wordDialogDef, wordDialogs } from "./dialogs";
@@ -154,7 +154,11 @@ export const wordCore: AppCore<WordDoc> = {
   ],
   initialUi: (doc) => ({ selection: doc.paragraphs[0]?.id ?? "" }),
   normalize,
-  apply: applyWord,
+  apply: (doc, c, ui) => {
+    const r = applyWord(doc, c, ui);
+    // An insertion point left in a text box (for Insert › Symbol) lasts until the next command.
+    return { ...r, ui: { ...(r.ui ?? {}), caret: undefined } as Partial<SimUi> };
+  },
   ribbonState: wordRibbonState,
   contextualTabs: wordContextual,
   dialogDefaults: wordDialogDefaults,
