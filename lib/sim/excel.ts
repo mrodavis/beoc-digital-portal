@@ -1182,7 +1182,11 @@ export function formatValue(v: string | number | boolean | null, fmt?: CellForma
 /* ------------------------------------------------------------------ */
 
 /** A cell format that may carry a custom format code such as "yyyy-mm-dd" or "$"#,##0.00. */
-export type XCellFormat = CellFormat & { custom?: string };
+export type XCellFormat = CellFormat & {
+  custom?: string;
+  /** Typed with a leading apostrophe ('03-4521): Excel's quote prefix, shown in the formula bar but not the cell. */
+  quotePrefix?: boolean;
+};
 
 const MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

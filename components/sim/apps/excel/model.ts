@@ -235,6 +235,9 @@ function setCellInput(sheet: ExcelSheet, ref: string, raw: string) {
   }
   const parsed = parseInput(raw);
   const fmt: XCellFormat = { ...(prev.fmt ?? {}), ...(parsed.fmt ?? {}) };
+  // A leading apostrophe sets the cell's quote prefix (the formula bar shows it); any other entry clears it.
+  if (raw.startsWith("'")) fmt.quotePrefix = true;
+  else delete fmt.quotePrefix;
   // A number format already on the cell wins over the one implied by what was typed.
   const prevFmt = prev.fmt as XCellFormat | undefined;
   if (parsed.fmt && (prevFmt?.custom || (prevFmt?.numFmt && prevFmt.numFmt !== "General"))) {

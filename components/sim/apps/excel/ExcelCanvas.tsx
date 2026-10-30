@@ -82,6 +82,8 @@ function cellRaw(sheet: ExcelSheet, ref: string): string {
   if (!c) return "";
   if (c.f) return c.f;
   if (c.v === undefined) return "";
+  // Text typed with a leading apostrophe shows it in the formula bar (not in the cell), as in Excel.
+  if (typeof c.v === "string" && (c.fmt as XCellFormat | undefined)?.quotePrefix) return `'${c.v}`;
   if (typeof c.v === "number") {
     if (c.fmt?.numFmt === "Percentage") return `${Math.round(c.v * 10000) / 100}%`;
     if (c.fmt?.numFmt === "Short Date" || c.fmt?.numFmt === "Long Date") return formatValue(c.v, { numFmt: "Short Date" });
