@@ -532,7 +532,7 @@ export const wordModule6Lessons: Lesson[] = [
       "Use Keep with next to stop headings being stranded at the foot of a page",
     ],
     duration: "10 min",
-    videoUrl: "https://www.youtube.com/embed/bGsx3_gKxvc",
+    videoUrl: "https://www.youtube.com/embed/UjjwvppOzyU",
 
     practiceFiles: [
       {
