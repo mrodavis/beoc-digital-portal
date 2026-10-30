@@ -8,13 +8,13 @@ import { composeSource, formSource, type ComposeDraft, type Ctx, type FormDraft 
 import { Avatar, ContextMenu, OIcon, type AlertSpec, type MenuEntry } from "../parts";
 import { CalendarView } from "../calendar";
 import { resolveToken } from "../mail";
-import { folderOptions, joinTokens, moduleOf, occurrences, recurrenceText, selEvent, selKeys, selMessage, todayOf } from "../model";
+import { currentFolder, folderOptions, joinTokens, moduleOf, occurrences, recurrenceText, selEvent, selKeys, selMessage, todayOf } from "../model";
 import { fmtDate, fmtTime, parseUsDate } from "../dates";
 import { newOutlookCore } from "./core";
 import { newOutlookRibbon } from "./ribbon";
 import { SWEEP_OPTIONS, catLabel } from "./model";
 import { RibbonBar } from "./RibbonBar";
-import { ComposeNew, FolderPaneNew, MessageListNew, MessageViewNew, ReadingPaneNew, ownTree, signatureInsert, type NCtx } from "./mailNew";
+import { ComposeNew, FolderPaneNew, MessageListNew, MessageViewNew, ReadingPaneNew, ownTree, reportMessage, signatureInsert, type NCtx } from "./mailNew";
 import { CalendarPaneNew, EventFormNew } from "./calendarNew";
 import { ContactDetailsNew, ContactFormNew, GroupFormNew, PeopleListNew, PeoplePaneNew, askDeletePerson } from "./peopleNew";
 import { TodoMainNew, TodoPaneNew } from "./todoNew";
@@ -86,6 +86,8 @@ function tabsFor(doc: OutlookDoc, keys: string[]): RibbonTab[] {
           if (c.id === "mail.move") return { ...c, options: [...moveFolders, ...c.options.filter((o) => o.dialog)] };
           if (c.id === "item.categorize" || c.id === "form.categorize") return { ...c, options: c.options.map(cats) };
           if (c.id === "compose.sensitivity" && doc.sensitivityLabels) return { ...c, options: doc.sensitivityLabels.map((v) => ({ value: v })) };
+          // In Junk Email, Report offers Not junk in place of Report junk.
+          if (c.id === "home.report" && currentFolder(doc) === "junk") return { ...c, options: c.options.map((o) => (o.value === "Report junk" ? { value: "Not junk", icon: "junk" } : o)) };
           return c;
         }),
       })),
@@ -373,6 +375,7 @@ export function NewOutlookCanvas({ doc, ui, accent, onSelect, onCommit }: Canvas
         return;
       }
       if (id === "home.quickStep" && value === "Manage quick steps") return openSettings("Mail/Quick steps");
+      if (id === "home.report" && value !== undefined) return reportMessage(ctxRef.current!, String(value));
       if (id === "compose.insertSignature") {
         if (value === "Signatures") return openSettings("Accounts/Signatures");
         const d = cdraftRef.current;

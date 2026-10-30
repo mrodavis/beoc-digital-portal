@@ -166,6 +166,9 @@ export function normalizeNew(c: SimCommit, doc?: OutlookDoc): SimCommit {
         return VIEW_MAP[v] ? { ...n, value: VIEW_MAP[v] } : n;
       case "home.report":
         if (v === "not junk") return { kind: "command", id: "home.junk", value: "Not Junk" };
+        // The model's values: reported phishing is deleted, reported junk moves to Junk Email.
+        if (v === "report phishing") return { ...n, value: "Report Phishing" };
+        if (v === "report junk") return { ...n, value: "Report Junk" };
         return n;
       case "home.block":
         return { kind: "command", id: "home.junk", value: "Block Sender" };

@@ -23,6 +23,24 @@ export type NCtx = Ctx & {
 
 const e = (label: string, cmd: string, val?: string, icon?: string, onPick?: () => void): NEntry => ({ label, cmd, val, icon, onPick });
 
+/**
+ * Report › Report phishing / Report junk: confirm, then report. Reported phishing is deleted and
+ * reported junk goes to Junk Email (Microsoft Learn, "Report phishing and suspicious emails in
+ * Outlook"); reporting doesn't block the sender. Not junk (in Junk Email) moves the message back to the Inbox at once.
+ */
+export function reportMessage(ctx: Ctx, value: string) {
+  const v = value.toLowerCase();
+  if (v !== "report phishing" && v !== "report junk") return ctx.cmd("home.report", value);
+  const phish = v === "report phishing";
+  ctx.alert({
+    title: phish ? "Report as phishing?" : "Report as junk?",
+    text: phish
+      ? "This message will be reported to Microsoft as phishing and deleted from your mailbox."
+      : "This message will be reported to Microsoft as junk and moved to your Junk Email folder.",
+    buttons: [{ label: "Report", primary: true, onClick: () => ctx.cmd("home.report", value) }, { label: "Cancel" }],
+  });
+}
+
 /* ------------------------------------------------------------------ */
 /* Menus                                                               */
 /* ------------------------------------------------------------------ */
@@ -100,8 +118,8 @@ export function messageEntries(ctx: NCtx, m: OlMessage): NEntry[] {
       label: "Report",
       icon: "shield",
       sub: [
-        e("Report phishing", "home.report", "Report phishing", "warning", () => ctx.cmd("home.report", "Report phishing")),
-        e(m.folder === "junk" ? "Not junk" : "Report junk", "home.report", m.folder === "junk" ? "Not junk" : "Report junk", "junk", () => ctx.cmd("home.report", m.folder === "junk" ? "Not junk" : "Report junk")),
+        e("Report phishing", "home.report", "Report phishing", "warning", () => reportMessage(ctx, "Report phishing")),
+        e(m.folder === "junk" ? "Not junk" : "Report junk", "home.report", m.folder === "junk" ? "Not junk" : "Report junk", "junk", () => reportMessage(ctx, m.folder === "junk" ? "Not junk" : "Report junk")),
       ],
     },
     { label: "Block", icon: "junk", sub: [e("Block sender", "home.block", "Block sender", "junk", () => ctx.cmd("home.block", "Block sender"))] },

@@ -292,13 +292,50 @@ function JunkPage({ ctx }: { ctx: NCtx }) {
   const doc = ctx.doc;
   const [b, setB] = useState("");
   const [s, setS] = useState("");
+  // Add and the trash buttons change these lists on the page; nothing is kept until Save
+  // (Microsoft Support: add the address, select Add, then Save). Discard puts back the saved lists.
+  const [blocked, setBlocked] = useState<string[]>(doc.blocked ?? []);
+  const [safe, setSafe] = useState<string[]>(doc.safe ?? []);
+  /** Addresses added on the page since the last Save: Save keeps each one, even one already listed. */
+  const [added, setAdded] = useState<string[]>([]);
+  const savedKey = JSON.stringify([doc.blocked ?? [], doc.safe ?? []]);
+  useEffect(() => {
+    setBlocked(doc.blocked ?? []);
+    setSafe(doc.safe ?? []);
+    setAdded([]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savedKey]);
+  const add = (raw: string, toBlocked: boolean) => {
+    const a = raw.trim().toLowerCase();
+    if (!a) return;
+    setAdded((l) => [...l.filter((x) => x !== a), a]);
+    if (toBlocked) {
+      setBlocked((l) => (l.includes(a) ? l : [...l, a]));
+      setSafe((l) => l.filter((x) => x !== a));
+    } else {
+      setSafe((l) => (l.includes(a) ? l : [...l, a]));
+      setBlocked((l) => l.filter((x) => x !== a));
+    }
+  };
+  const remove = (a: string) => {
+    setBlocked((l) => l.filter((x) => x !== a));
+    setSafe((l) => l.filter((x) => x !== a));
+    setAdded((l) => l.filter((x) => x !== a));
+  };
+  const save = () => {
+    const was = { blocked: doc.blocked ?? [], safe: doc.safe ?? [] };
+    for (const a of [...was.blocked, ...was.safe]) if (!blocked.includes(a) && !safe.includes(a)) ctx.cmd("junk.remove", a);
+    for (const a of blocked) if (!was.blocked.includes(a) || added.includes(a)) ctx.cmd("junk.blockAddress", a);
+    for (const a of safe) if (!was.safe.includes(a) || added.includes(a)) ctx.cmd("junk.safeAddress", a);
+    setAdded([]);
+  };
   const list = (items: string[], label: string) => (
     <div className="mb-2 max-h-28 overflow-auto rounded border border-gray-200">
       {items.length ? (
         items.map((x) => (
           <div key={x} className="flex items-center justify-between px-2 py-1 text-[12.5px]">
             {x}
-            <button type="button" aria-label={`Remove ${x}`} data-c="junk.remove" data-v={x} onClick={() => ctx.cmd("junk.remove", x)} className="rounded p-0.5 hover:bg-gray-100">
+            <button type="button" aria-label={`Remove ${x}`} data-v={x} onClick={() => remove(x)} className="rounded p-0.5 hover:bg-gray-100">
               <OIcon name="trash" size={12} />
             </button>
           </div>
@@ -314,17 +351,25 @@ function JunkPage({ ctx }: { ctx: NCtx }) {
       <Sub>Blocked senders and domains</Sub>
       <P>Messages from these senders or domains go straight to your Junk Email folder.</P>
       <div className="mb-2 flex gap-2">
-        <input aria-label="Blocked sender or domain" data-f="blockAddr" placeholder="Example: name@example.com or example.com" value={b} onChange={(e) => setB(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className={inputCls} />
-        <FButton cmd="junk.blockAddress" onClick={() => { if (b.trim()) ctx.cmd("junk.blockAddress", b.trim()); setB(""); }}>Add</FButton>
+        <input aria-label="Blocked sender or domain" data-f="blockAddr" placeholder="Example: name@example.com or example.com" value={b} onChange={(e) => setB(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") { add(b, true); setB(""); } }} className={inputCls} />
+        <FButton onClick={() => { add(b, true); setB(""); }}>Add</FButton>
       </div>
-      {list(doc.blocked ?? [], "blocked senders")}
+      {list(blocked, "blocked senders")}
       <Sub>Safe senders and domains</Sub>
       <P>Don&apos;t move email from these senders or domains to my Junk Email folder.</P>
       <div className="mb-2 flex gap-2">
-        <input aria-label="Safe sender or domain" data-f="safeAddr" placeholder="Example: name@lakesidemed.example.com" value={s} onChange={(e) => setS(e.target.value)} onKeyDown={(e) => e.stopPropagation()} className={inputCls} />
-        <FButton cmd="junk.safeAddress" onClick={() => { if (s.trim()) ctx.cmd("junk.safeAddress", s.trim()); setS(""); }}>Add</FButton>
+        <input aria-label="Safe sender or domain" data-f="safeAddr" placeholder="Example: name@lakesidemed.example.com" value={s} onChange={(e) => setS(e.target.value)} onKeyDown={(e) => { e.stopPropagation(); if (e.key === "Enter") { add(s, false); setS(""); } }} className={inputCls} />
+        <FButton onClick={() => { add(s, false); setS(""); }}>Add</FButton>
       </div>
-      {list(doc.safe ?? [], "safe senders")}
+      {list(safe, "safe senders")}
+      <Footer
+        onSave={save}
+        onDiscard={() => {
+          setBlocked(doc.blocked ?? []);
+          setSafe(doc.safe ?? []);
+          setAdded([]);
+        }}
+      />
     </>
   );
 }
