@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Popover, type PopoverItem } from "../../chrome/Ribbon";
+import { Icon } from "../../chrome/icons";
 import { AccIcon } from "./icons";
 
 /** The last selection the Access window rendered, for dialogs opened from the Ribbon. */
@@ -92,8 +93,81 @@ export function MsgBox({
   );
 }
 
-export function Menu({ x, y, items, onClose }: { x: number; y: number; items: (Omit<PopoverItem, "key"> & { key?: string })[]; onClose: () => void }) {
+/** A right-click menu item; `sub` makes it open a flyout (Change To ›). */
+export type MenuItemDef = Omit<PopoverItem, "key"> & { key?: string; sub?: MenuItemDef[] };
+
+export function Menu({ x, y, items, onClose }: { x: number; y: number; items: MenuItemDef[]; onClose: () => void }) {
+  if (items.some((it) => it.sub)) return <CascadeMenu x={x} y={y} items={items} onClose={onClose} />;
   return <Popover anchor={{ x, y }} onClose={onClose} items={items.map((it, i) => ({ ...it, key: it.key ?? String(i) }))} />;
+}
+
+/** A shortcut menu with flyout submenus, styled like the shared Popover list. */
+function CascadeMenu({ x, y, items, onClose }: { x: number; y: number; items: MenuItemDef[]; onClose: () => void }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState({ x, y });
+  useLayoutEffect(() => {
+    const el = ref.current?.firstElementChild as HTMLElement | null;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    setPos({ x: x + r.width > window.innerWidth - 8 ? Math.max(8, window.innerWidth - r.width - 8) : x, y: y + r.height > window.innerHeight - 8 ? Math.max(8, window.innerHeight - r.height - 8) : y });
+  }, [x, y]);
+  useEffect(() => {
+    const down = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose();
+    };
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    const t = setTimeout(() => document.addEventListener("mousedown", down), 0);
+    document.addEventListener("keydown", key);
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener("mousedown", down);
+      document.removeEventListener("keydown", key);
+    };
+  }, [onClose]);
+  return (
+    <div ref={ref} className="fixed z-[200]" style={{ left: pos.x, top: pos.y }}>
+      <CascadeList items={items} onClose={onClose} />
+    </div>
+  );
+}
+
+function CascadeList({ items, onClose, style }: { items: MenuItemDef[]; onClose: () => void; style?: CSSProperties }) {
+  const [open, setOpen] = useState<number | null>(null);
+  return (
+    <div role="menu" className="relative min-w-[160px] rounded border border-gray-300 bg-white py-1 text-[12px] text-gray-800 shadow-xl" style={style}>
+      {items.map((it, i) => {
+        if (it.separator) return <div key={it.key ?? i} className="my-1 border-t border-gray-200" />;
+        return (
+          <div key={it.key ?? i} className="relative" onMouseEnter={() => setOpen(it.sub ? i : null)}>
+            <button
+              type="button"
+              role="menuitem"
+              disabled={it.disabled}
+              aria-haspopup={it.sub ? "menu" : undefined}
+              aria-expanded={it.sub ? open === i : undefined}
+              onClick={() => {
+                if (it.sub) return setOpen(i);
+                it.onPick?.();
+                onClose();
+              }}
+              className={`flex w-full items-center gap-2 px-2 py-1 text-left hover:bg-[#e5f1fb] disabled:opacity-40 ${open === i ? "bg-[#e5f1fb]" : ""}`}
+            >
+              {it.icon ? <Icon name={it.icon} size={16} /> : <span className="w-4 shrink-0" />}
+              <span className="flex-1 whitespace-nowrap">{it.label}</span>
+              {it.sub && (
+                <svg width="8" height="8" viewBox="0 0 8 8" aria-hidden="true" className="ml-3 shrink-0">
+                  <path d="M2 1l4 3-4 3z" fill="currentColor" />
+                </svg>
+              )}
+            </button>
+            {it.sub && open === i && <CascadeList items={it.sub} onClose={onClose} style={{ position: "absolute", left: "100%", top: -5 }} />}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 
 /** Text box that commits on Enter or when focus leaves; Escape cancels. */

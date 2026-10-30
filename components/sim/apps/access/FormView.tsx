@@ -8,10 +8,9 @@ import { parseSel, newRowDefaults, activeTab } from "./model";
 import { evalExpr, formatValue, parseCriteria, parseExpr, truthy, type V, NeedParam } from "./sql";
 import { THEMES } from "./ribbon";
 import { AccIcon } from "./icons";
-import { InlineEdit, Menu } from "./ui";
+import { InlineEdit, Menu, type MenuItemDef } from "./ui";
 import { Datasheet, canonical, MaskedInput, type ViewProps } from "./Datasheet";
 import { FieldList, PropertySheet } from "./Panes";
-import type { PopoverItem } from "../../chrome/Ribbon";
 
 const cmd = (id: string, value?: string): SimCommit => ({ kind: "command", id, value });
 const THEME_COLOR: Record<string, string> = Object.fromEntries(THEMES.map((t, i) => [t, ["#2b579a", "#90C226", "#1CADE4", "#B01513", "#2C3C43", "#549E39", "#F07F09", "#4E67C8", "#A53010", "#FFC000", "#A6B727", "#AC3EC1"][i]]));
@@ -107,7 +106,7 @@ export function FormView(props: ViewProps) {
   const f = findForm(doc, tab.name);
   const view = tab.view;
   const sel = parseSel(ui.selection);
-  const [menu, setMenu] = useState<{ x: number; y: number; items: PopoverItem[] } | null>(null);
+  const [menu, setMenu] = useState<{ x: number; y: number; items: MenuItemDef[] } | null>(null);
   const [editLabel, setEditLabel] = useState<string | null>(null);
   const [placing, setPlacing] = useState<{ section: string; kind: string } | null>(null);
   const [pendingNew, setPendingNew] = useState<string | null>(null);
@@ -202,7 +201,7 @@ export function FormView(props: ViewProps) {
     e.stopPropagation();
     if (isForm) return;
     onSelect({ selection: ctlKey(c, label) });
-    const items: PopoverItem[] = [
+    const items: MenuItemDef[] = [
       { key: "x", label: "Cut", icon: "cut", onPick: () => undefined },
       { key: "c", label: "Copy", icon: "copy", onPick: () => undefined },
       { key: "s0", separator: true },
@@ -212,7 +211,15 @@ export function FormView(props: ViewProps) {
       { key: "mu", label: "Move Up", icon: "bringForward", onPick: () => onCommit(cmd("arrange.moveUp")) },
       { key: "md", label: "Move Down", icon: "sendBackward", onPick: () => onCommit(cmd("arrange.moveDown")) },
       { key: "s2", separator: true },
-      ...(label || c.kind === "button" || c.kind === "label" ? [] : ["Text Box", "Label", "List Box", "Combo Box", "Check Box"].filter((k) => k !== (c.kind === "combo" ? "Combo Box" : c.kind === "check" ? "Check Box" : c.kind === "listbox" ? "List Box" : "Text Box")).map((k) => ({ key: `ch-${k}`, label: `Change To ${k}`, onPick: () => onCommit(cmd("form.changeTo", k)) }))),
+      ...(label || c.kind === "button" || c.kind === "label"
+        ? []
+        : [{
+            key: "ch",
+            label: "Change To",
+            sub: ["Text Box", "Label", "List Box", "Combo Box", "Check Box"]
+              .filter((k) => k !== (c.kind === "combo" ? "Combo Box" : c.kind === "check" ? "Check Box" : c.kind === "listbox" ? "List Box" : "Text Box"))
+              .map((k) => ({ key: `ch-${k}`, label: k, onPick: () => onCommit(cmd("form.changeTo", k)) })),
+          }]),
       { key: "s3", separator: true },
       { key: "d", label: "Delete", icon: "deleteCells", onPick: () => onCommit(cmd("form.deleteControl")) },
       { key: "s4", separator: true },
