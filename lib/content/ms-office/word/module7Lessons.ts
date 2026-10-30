@@ -18,7 +18,7 @@ LESSON 1 – WORKING WITH STYLES
     "Describe the three things heading styles enable beyond appearance",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/8Oa3BE6lkPE",
+  videoUrl: "https://www.youtube.com/embed/Z6G9vthWhBw",
 
   practiceFiles: [
     {
@@ -260,7 +260,7 @@ LESSON 2 – MODIFYING STYLES
     "Explain the difference between changing this document and changing the template",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/Md-2m7nbVIQ",
+  videoUrl: "https://www.youtube.com/embed/X14AHCz8Nh4",
 
   practiceFiles: [
     {
