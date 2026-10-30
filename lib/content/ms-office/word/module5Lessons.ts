@@ -462,7 +462,7 @@ LESSON 3 – INSERTING CHARTS
     "Decide when to build the chart in Excel and link it instead",
   ],
   duration: "10 min",
-  videoUrl: "https://www.youtube.com/embed/rldAMMnerSE",
+  videoUrl: "https://www.youtube.com/embed/6FT0vPxPC_c",
 
   practiceFiles: [
     {
