@@ -52,13 +52,13 @@ export const wordModule6Lessons: Lesson[] = [
                  rows: [
                    [
                      "Standard letter or report",
-                     "1 inch all round",
+                     "1 inch on all sides",
                      "Word's default; safe for any printer",
                    ],
                    [
                      "Bound or hole-punched",
                      "Gutter margin 0.5 in, left",
-                     "Page Setup > Margins > Gutter adds space for binding without shifting the text block",
+                     "Page Setup > Margins > Gutter adds extra space on the binding edge, on top of the regular margin",
                    ],
                    [
                      "Double-sided binding",
