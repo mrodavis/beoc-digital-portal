@@ -1893,7 +1893,8 @@ export function applyExcel(input: ExcelBook, c: SimCommit, ui: SimUi): { doc: Ex
       }
       const head = String(sheet.cells[refOf(p.c, rc.r1)]?.v ?? `Column${p.c - rc.c1 + 1}`);
       const dataFmt = sheet.cells[refOf(p.c, rc.r1 + 1)]?.fmt;
-      const next: ExcelCell = { ...cell, f: `=SUBTOTAL(${code},${sheet.table.name ?? "Table1"}[${head}])`, fmt: code === 103 || code === 102 ? cell.fmt : { ...(dataFmt ?? {}), ...(cell.fmt ?? {}) } };
+      // Inside its own table Excel leaves out the table name: =SUBTOTAL(101,[Unit Cost]).
+      const next: ExcelCell = { ...cell, f: `=SUBTOTAL(${code},[${structuredCol(head)}])`, fmt: code === 103 || code === 102 ? cell.fmt : { ...(dataFmt ?? {}), ...(cell.fmt ?? {}) } };
       delete next.v;
       sheet.cells[act] = next;
       return { doc };
@@ -2503,13 +2504,17 @@ function sparklineCommand(doc: ExcelBook, sheet: ExcelSheet, sel: string, act: s
 export const TOTAL_FN_CODES: Record<string, number> = { Average: 101, Count: 103, "Count Numbers": 102, Max: 104, Min: 105, Sum: 109, StdDev: 107, Var: 110 };
 export const TOTAL_FN_NAMES = ["None", "Average", "Count", "Count Numbers", "Max", "Min", "Sum", "StdDev", "Var", "More Functions..."];
 
-/** The cells Excel puts in a new Total Row: "Total" in the first column, a SUBTOTAL(109) sum under the last numeric column. */
+/** A table column name in a structured reference: Excel puts an apostrophe before ' # [ and ]. */
+function structuredCol(name: string): string {
+  return name.replace(/(['#[\]])/g, "'$1");
+}
+
+/** The cells Excel puts in a new Total Row: "Total" in the first column, =SUBTOTAL(109,[Column]) under the last numeric column. */
 export function totalRowDefaults(doc: ExcelBook, sheet: ExcelSheet): Record<string, ExcelCell> {
   const rc = tableRect(sheet);
   if (!rc || !sheet.table) return {};
   const out: Record<string, ExcelCell> = {};
   const r = rc.r2 + 1;
-  const name = sheet.table.name ?? "Table1";
   let sumCol = 0;
   for (let c = rc.c2; c >= rc.c1 && !sumCol; c--) {
     for (let rr = rc.r1 + 1; rr <= rc.r2; rr++) {
@@ -2523,7 +2528,7 @@ export function totalRowDefaults(doc: ExcelBook, sheet: ExcelSheet): Record<stri
   if (sumCol) {
     const head = String(sheet.cells[refOf(sumCol, rc.r1)]?.v ?? `Column${sumCol - rc.c1 + 1}`);
     const f = sheet.cells[refOf(sumCol, rc.r1 + 1)]?.fmt;
-    out[refOf(sumCol, r)] = { f: `=SUBTOTAL(109,${name}[${head}])`, ...(f ? { fmt: numberOnly(f) } : {}) };
+    out[refOf(sumCol, r)] = { f: `=SUBTOTAL(109,[${structuredCol(head)}])`, ...(f ? { fmt: numberOnly(f) } : {}) };
   }
   return out;
 }

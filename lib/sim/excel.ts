@@ -310,10 +310,11 @@ function tokenize(src: string): Tok[] {
       i += sheetM[0].length;
       continue;
     }
-    // Structured references: Table[Column], [@Column], Table[@[Column Name]]
+    // Structured references: Table[Column], [@Column], Table[@[Column Name]], and [Column] inside the table
+    // (the Total Row's =SUBTOTAL(109,[Cost])). An apostrophe escapes a special character: [PO '#].
     const srefM = /^([A-Za-z_][A-Za-z0-9_.]*)?\[(@?)(?:\[([^\]]+)\]|([^[\]]+))\]/.exec(src.slice(i));
-    if (srefM && (srefM[1] || srefM[2])) {
-      out.push({ t: "sref", table: srefM[1], col: (srefM[3] ?? srefM[4]).trim(), row: srefM[2] === "@" });
+    if (srefM) {
+      out.push({ t: "sref", table: srefM[1], col: (srefM[3] ?? srefM[4]).trim().replace(/'(.)/g, "$1"), row: srefM[2] === "@" });
       i += srefM[0].length;
       continue;
     }

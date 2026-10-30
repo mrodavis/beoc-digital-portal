@@ -1032,7 +1032,13 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       let color = fmt.color;
       let bold = fmt.bold;
       if (tbl && c >= tbl.c1 && c <= tbl.c2 && r >= tbl.r1 && r <= tbl.r2) {
-        if (r === tbl.r1) { bg = bg ?? tblColor; color = color ?? (tblColor === "#d9d9d9" ? "#000" : "#fff"); bold = true; }
+        if (r === tbl.r1) {
+          // A header cell's own fill stays (as in Excel); its text is dark on a light fill so the header stays readable.
+          const own = bg;
+          bg = bg ?? tblColor;
+          color = color ?? ((own ? isLightFill(own) : tblColor === "#d9d9d9") ? "#000" : "#fff");
+          bold = true;
+        }
         else if (!doc.flags?.["table.bandedRows"] && (r - tbl.r1) % 2 === 0) bg = bg ?? `${tblColor}26`;
       }
       // The Total Row holds real cells (SUBTOTAL formulas); it is styled as part of the table.
@@ -1799,6 +1805,15 @@ function Sparkline({ doc, sheet, sp, w, h }: { doc: ExcelBook; sheet: ExcelSheet
       )}
     </svg>
   );
+}
+
+/** Is a fill color light enough that dark text reads best on it? (#rgb or #rrggbb; anything else counts as light) */
+function isLightFill(color: string): boolean {
+  const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color.trim());
+  if (!m) return true;
+  const h = m[1].length === 3 ? m[1].split("").map((x) => x + x).join("") : m[1];
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(h.slice(i, i + 2), 16));
+  return 0.299 * r + 0.587 * g + 0.114 * b > 150;
 }
 
 /** How a formula names another sheet: January! or 'Supply Tracker'! (quoted when the name has spaces or symbols). */

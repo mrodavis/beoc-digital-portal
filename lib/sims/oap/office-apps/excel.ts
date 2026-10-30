@@ -1003,7 +1003,7 @@ const m3Sims: Record<string, SimDefinition[]> = {
         },
         {
           instruction: "Use the Total Row drop-down to show the average Unit Cost in F20.",
-          hint: "Click F20 in the Total Row. Click the drop-down arrow that appears beside the cell and pick Average. Excel writes =SUBTOTAL(101,Table1[Unit Cost]).",
+          hint: "Click F20 in the Total Row. Click the drop-down arrow that appears beside the cell and pick Average. Excel writes =SUBTOTAL(101,[Unit Cost]).",
           steps: [{ action: { kind: "command", id: "table.totalFn", value: "Average" }, requires: { selection: "F20" }, selectHint: "Click F20, the Total Row cell under Unit Cost, first." }],
         },
         {
