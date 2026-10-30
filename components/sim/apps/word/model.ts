@@ -297,6 +297,28 @@ export function customStyleNames(doc?: WordDoc | null): string[] {
 
 export const STYLE_SETS = ["Default", "Basic (Elegant)", "Basic (Simple)", "Basic (Stylish)", "Casual", "Centered", "Lines (Distinctive)", "Lines (Simple)", "Lines (Stylish)", "Minimalist", "Shaded"];
 
+/**
+ * What each style set does to body text (Normal and List Paragraph): its size, spacing after, line
+ * spacing and color. Word's style sets redefine the styles' paragraph and character properties; the
+ * font face stays the theme's (Design › Fonts). Microsoft doesn't publish each set's numbers, so
+ * these are close approximations that make each set read differently, as it does in Word.
+ * Headings and the title get their treatment in paraLook.
+ */
+export const STYLE_SET_BODY: Record<string, { size?: number; spaceAfter?: number; lineSpacing?: number; color?: string }> = {
+  Default: {},
+  "Basic (Elegant)": { size: 10.5, spaceAfter: 12, lineSpacing: 1.2 },
+  "Basic (Simple)": { spaceAfter: 10, lineSpacing: 1.15 },
+  "Basic (Stylish)": { spaceAfter: 12, lineSpacing: 1.15 },
+  Casual: { spaceAfter: 10, lineSpacing: 1.25 },
+  Centered: { spaceAfter: 10, lineSpacing: 1.15 },
+  "Lines (Distinctive)": { spaceAfter: 10, lineSpacing: 1.15 },
+  "Lines (Simple)": { spaceAfter: 8, lineSpacing: 1.15 },
+  "Lines (Stylish)": { spaceAfter: 12, lineSpacing: 1.15 },
+  Minimalist: { size: 10, spaceAfter: 12, lineSpacing: 1.3, color: "#404040" },
+  Shaded: { spaceAfter: 10, lineSpacing: 1.15 },
+};
+const STYLE_SET_BODY_STYLES = new Set(["Normal", "List Paragraph"]);
+
 export function themeOf(doc: WordDoc): ThemeDef {
   const base = THEMES[doc.theme ?? "Office"] ?? THEMES.Office;
   const colors = doc.flags?.colors !== undefined ? COLOR_SETS[String(doc.flags.colors)] : undefined;
@@ -339,7 +361,10 @@ export function paraLook(doc: WordDoc, p: WordPara) {
   const font =
     p.font ??
     (st.font && st.font !== "@heading" ? st.font : st.font === "@heading" || isHeading ? theme.headingFont : theme.bodyFont);
-  let color = p.color ?? (st.themed ? theme.heading : st.color === "@accent" ? theme.accent : st.color);
+  // Body text takes the style set's size, spacing and color unless the style was modified by hand.
+  const own = xd(doc).styleDefs?.[p.style ?? "Normal"];
+  const body = !isHeading && STYLE_SET_BODY_STYLES.has(p.style ?? "Normal") && !xd(doc).customStyles?.[p.style ?? "Normal"] ? STYLE_SET_BODY[set] : undefined;
+  let color = p.color ?? own?.color ?? body?.color ?? (st.themed ? theme.heading : st.color === "@accent" ? theme.accent : st.color);
   let border = p.border ?? (st.border === "@accent" ? theme.accent : st.border);
   let shading = p.shading ?? st.shading;
   let caps = p.caps;
@@ -356,7 +381,7 @@ export function paraLook(doc: WordDoc, p: WordPara) {
   }
   return {
     font,
-    size: p.size ?? st.size ?? 11,
+    size: p.size ?? own?.size ?? body?.size ?? st.size ?? 11,
     color,
     bold: p.bold ?? st.bold,
     italic: p.italic ?? st.italic,
@@ -366,8 +391,8 @@ export function paraLook(doc: WordDoc, p: WordPara) {
     caps,
     align: align ?? "left",
     spaceBefore: p.spaceBefore ?? st.spaceBefore ?? 0,
-    spaceAfter: p.spaceAfter ?? st.spaceAfter ?? 8,
-    lineSpacing: p.lineSpacing ?? st.lineSpacing ?? 1.08,
+    spaceAfter: p.spaceAfter ?? own?.spaceAfter ?? body?.spaceAfter ?? st.spaceAfter ?? 8,
+    lineSpacing: p.lineSpacing ?? own?.lineSpacing ?? body?.lineSpacing ?? st.lineSpacing ?? 1.08,
     indentLeft: p.indentLeft ?? st.indentLeft ?? 0,
     border,
     shading,
