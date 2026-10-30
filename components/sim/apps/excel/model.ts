@@ -2819,6 +2819,22 @@ export function excelRibbonState(doc: ExcelBook, ui: SimUi): Record<string, SimV
   };
 }
 
+/**
+ * File › Print shows the active sheet's page setup from the Page Layout tab: orientation, margins,
+ * paper size and Scale to Fit (Fit Sheet / All Columns / All Rows on One Page).
+ */
+export function excelPrintSettings(doc: ExcelBook, ui: SimUi): Record<string, SimValue> {
+  const sheet = sheetOf(doc, ui);
+  const out: Record<string, SimValue> = {};
+  if (sheet.orientation) out.orientation = sheet.orientation === "landscape" ? "Landscape Orientation" : "Portrait Orientation";
+  if (sheet.margins && ["Normal", "Wide", "Narrow"].includes(sheet.margins)) out.margins = `${sheet.margins} Margins`;
+  if (doc.flags?.paper && ["Letter", "Legal", "A4"].includes(String(doc.flags.paper))) out.paper = String(doc.flags.paper);
+  const fit = sheet.fitTo ?? "";
+  const wide = /\b1 page wide\b/.test(fit), tall = /\b1 page tall\b/.test(fit);
+  if (wide || tall) out.scaling = wide && tall ? "Fit Sheet on One Page" : wide ? "Fit All Columns on One Page" : "Fit All Rows on One Page";
+  return out;
+}
+
 export function excelContextual(doc: ExcelBook, ui: SimUi): string[] {
   const sheet = sheetOf(doc, ui);
   const out: string[] = [];

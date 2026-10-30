@@ -27,6 +27,7 @@ export function Backstage({
   fileName,
   saved,
   startPage = "home",
+  printSettings,
   onCommit,
   onClose,
 }: {
@@ -38,6 +39,8 @@ export function Backstage({
   startPage?: string;
   onCommit: (c: SimCommit) => void;
   onClose: () => void;
+  /** Print settings from the document's page setup (Excel's Page Layout tab); they replace the defaults below. */
+  printSettings?: Record<string, SimValue>;
 }) {
   const [page, setPage] = useState<Page>((startPage as Page) ?? "home");
   const baseName = fileName.replace(/\.[^.]+$/, "");
@@ -55,6 +58,7 @@ export function Backstage({
     paper: "Letter",
     margins: "Normal Margins",
     perSheet: "1 Page Per Sheet",
+    ...(printSettings ?? {}),
   });
   const [share, setShare] = useState<Record<string, SimValue>>({ email: "", permission: "Can edit", message: "" });
   const [protectOpen, setProtectOpen] = useState(false);
@@ -304,7 +308,7 @@ export function Backstage({
             </div>
             <div className="flex flex-1 items-start justify-center bg-gray-100 p-6">
               <div className="h-[300px] w-[232px] bg-white shadow-md" style={String(print.orientation).startsWith("Landscape") ? { width: 300, height: 232 } : undefined}>
-                <div className="m-6 space-y-2">
+                <div className="m-6 space-y-2" style={app === "Excel" ? EXCEL_PREVIEW_MARGINS[String(print.margins)] : undefined}>
                   <div className="h-3 w-2/3 bg-gray-300" />
                   {Array.from({ length: 9 }).map((_, i) => <div key={i} className="h-1.5 bg-gray-200" style={{ width: `${90 - (i % 3) * 12}%` }} />)}
                 </div>
@@ -481,6 +485,16 @@ function InfoRow({
     </div>
   );
 }
+
+/**
+ * Excel's margin presets on the print preview's page (8.5 in = 232 px): Normal 0.75 in top and bottom,
+ * 0.7 in left and right; Narrow 0.75 in and 0.25 in; Wide 1 in all round.
+ */
+const EXCEL_PREVIEW_MARGINS: Record<string, { margin: string }> = {
+  "Normal Margins": { margin: "20px 19px" },
+  "Narrow Margins": { margin: "20px 7px" },
+  "Wide Margins": { margin: "27px 27px" },
+};
 
 function PSelect({ value, options, onChange }: { value: SimValue | undefined; options: string[]; onChange: (v: string) => void }) {
   return (

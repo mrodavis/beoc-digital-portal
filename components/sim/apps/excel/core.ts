@@ -1,7 +1,7 @@
 import type { DialogDef, ExcelBook, SimCommit } from "@/types/sim";
 import type { AppCore } from "../../types";
 import { withPivotCaches } from "@/lib/sim/excel";
-import { applyExcel, autoFitPivots, cfDescribe, chartTemplates, excelContextual, excelDialogDefaults, excelRibbonState, pivotFieldNames, regionHeaders, sheetOf, withTotalRows } from "./model";
+import { applyExcel, autoFitPivots, cfDescribe, chartTemplates, excelContextual, excelDialogDefaults, excelPrintSettings, excelRibbonState, pivotFieldNames, regionHeaders, sheetOf, withTotalRows } from "./model";
 import { excelRibbon, excelRibbonFor, EXCEL_VIEW_ALIASES, SPARKLINE_TYPE_ALIASES } from "./ribbon";
 import { excelDialogs } from "./dialogs";
 
@@ -144,6 +144,7 @@ export const excelCore: AppCore<ExcelBook> = {
   ribbonState: excelRibbonState,
   contextualTabs: excelContextual,
   dialogDefaults: excelDialogDefaults,
+  printSettings: excelPrintSettings,
   dialogDef: (doc, ui, id): DialogDef | undefined => {
     // Dialogs whose lists come from the data: column headers, rules, PivotTable fields, chart templates.
     const withOptions = (base: DialogDef, opts: Record<string, string[]>): DialogDef => ({

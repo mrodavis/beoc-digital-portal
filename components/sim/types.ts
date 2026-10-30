@@ -121,6 +121,8 @@ export interface AppCore<D> {
   dialogDef?(doc: D, ui: SimUi, id: string): DialogDef | undefined;
   /** Pre-fill dialog fields from the document. */
   dialogDefaults?(doc: D, ui: SimUi, id: string): Record<string, SimValue>;
+  /** File › Print settings that come from the document's page setup (orientation, margins, paper, scaling). */
+  printSettings?(doc: D, ui: SimUi): Record<string, SimValue>;
   /** Short description of what's selected, for the task bar. */
   describeSelection?(doc: D, ui: SimUi): string;
   /** Used by the validator: does this selection key point at something in the document? */
