@@ -116,7 +116,9 @@ export function datasheetData(doc: AccessDoc, name: string, params?: Record<stri
     const bt = o ? findTable(doc, o.table) : undefined;
     const f = o ? findField(bt, o.field) : undefined;
     const qc = q.cols.find((x) => x.field.split(":")[0].trim().toLowerCase() === c.toLowerCase());
-    return { name: c, caption: qc?.caption || f?.caption || c, field: f ? { ...f, format: qc?.format ?? f.format } : qc?.format ? { name: c, type: (r.types?.[i] as AccField["type"]) ?? "Number", format: qc.format } : undefined, type: r.types?.[i] ?? f?.type, width: 112, editable: Boolean(o && f && f.type !== "AutoNumber" && f.type !== "Calculated" && q.type === "Select" && !q.totals), base: o ?? undefined };
+    // A calculated Currency column has no Format until one is set in its Property Sheet, so it shows as a plain number.
+    const plainCalc = !f && !qc?.format && r.calc?.[i] && r.types?.[i] === "Currency";
+    return { name: c, caption: qc?.caption || f?.caption || c, field: f ? { ...f, format: qc?.format ?? f.format } : qc?.format ? { name: c, type: (r.types?.[i] as AccField["type"]) ?? "Number", format: qc.format } : plainCalc ? { name: c, type: "Currency", format: "General Number" } : undefined, type: r.types?.[i] ?? f?.type, width: 112, editable: Boolean(o && f && f.type !== "AutoNumber" && f.type !== "Calculated" && q.type === "Select" && !q.totals), base: o ?? undefined };
   });
   const all: Row[] = r.rows.map((vals, i) => ({ key: `q${i}`, vals, ids: r.ids?.[i] ?? {} }));
   const rows = sortRows(view, cols, all.filter((x) => matchFilter(view, cols, x)));
