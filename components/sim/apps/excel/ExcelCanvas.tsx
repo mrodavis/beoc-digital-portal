@@ -1458,10 +1458,11 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
                 if (!active) onSelect({ sheet: s.name, selection: "A1" });
                 const items = tabColorMenu(s.name);
                 onContextMenu(e.clientX, e.clientY - 280, items.map((m) => (m.dialog?.startsWith("__rename:") ? { ...m, dialog: undefined, command: undefined } : m)));
-                // Rename from the menu is handled by double-click; the menu item starts it too:
+                // Rename from the menu is handled by double-click; the menu item starts it too.
+                // Match the item by its label text: the item's own text also holds the icon's glyph.
                 setTimeout(() => {
                   const btns = Array.from(document.querySelectorAll('[role="menuitem"]')) as HTMLElement[];
-                  const rn = btns.find((b) => b.textContent?.trim() === "Rename");
+                  const rn = btns.find((b) => Array.from(b.querySelectorAll("span")).some((x) => x.textContent?.trim() === "Rename"));
                   rn?.addEventListener("click", () => setRenaming({ name: s.name, text: s.name }), { once: true });
                 }, 0);
               }}
@@ -1474,6 +1475,8 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
                 <input
                   autoFocus
                   aria-label="Sheet name"
+                  // Excel selects the whole name, so typing replaces it.
+                  onFocus={(e) => e.currentTarget.select()}
                   value={renaming.text}
                   onChange={(e) => setRenaming({ name: s.name, text: e.target.value })}
                   onKeyDown={(e) => {
