@@ -18,7 +18,7 @@ LESSON 1 – USING WORD FOR THE WEB (slug kept from "Word Online")
     "Decide which version to use for a given task",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/67QLky2P5CU",
+  videoUrl: "https://www.youtube.com/embed/Svrpev3NSYQ",
 
   sections: [
 
