@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import type { PptDeck, PptObject, PptSlide, SimCommit } from "@/types/sim";
-import type { CanvasProps, MenuItem, StatusBarProps } from "../../types";
+import type { CanvasProps, MenuItem, SimUi, StatusBarProps } from "../../types";
 import { Icon } from "../../chrome/icons";
 import { LAYOUTS, activeSlide, layoutName, readClip, themeOf } from "./model";
 import { flagJson, ox, readMaster } from "./ext";
 import { PartEditor, SlideView } from "./PptSlide";
+import { lineSpan, parseRange } from "./runs";
 import { ChartDataSheet, ClipboardPane, PptPane } from "./PptPanes";
 import { SlideShow } from "./PptShow";
 import { CustomShowsDialog, LinksDialog } from "./PptDialogs";
@@ -45,14 +46,24 @@ function simRootOf(el: Element | null): HTMLElement | null {
   return (el?.closest('[aria-label*="practice simulation"]') as HTMLElement | null) ?? null;
 }
 
-export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, openDialog }: CanvasProps<PptDeck>) {
+type Editing = { key: string; text: string; sel?: [number, number] };
+
+export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onContextMenu, openDialog }: CanvasProps<PptDeck>) {
   const view = deck.view ?? "normal";
   const slide = activeSlide(deck, ui)!;
   const idx = deck.slides.findIndex((s) => s.id === slide.id);
-  const [editing, setEditingState] = useState<{ key: string; text: string } | null>(null);
-  const editRef = useRef<{ key: string; text: string } | null>(null);
+  const [editing, setEditingState] = useState<Editing | null>(null);
+  const editRef = useRef<Editing | null>(null);
   const keepKey = useRef<string | null>(null);
-  const setEditing = (v: { key: string; text: string } | null) => { editRef.current = v; setEditingState(v); };
+  const setEditing = (v: Editing | null) => { editRef.current = v; setEditingState(v); };
+  // The last selection the canvas made (so a box that loses focus to the Ribbon keeps its text
+  // selection, but not after you clicked something else on the slide). Every selection the canvas
+  // makes also drops the insertion point a box left behind for Paste.
+  const lastSel = useRef<string>(ui.selection);
+  const onSelect = (patch: Partial<SimUi>) => {
+    if (patch.selection !== undefined) lastSel.current = patch.selection;
+    onSelectRaw({ ...patch, caret: undefined } as Partial<SimUi>);
+  };
   const mainRef = useRef<HTMLDivElement>(null);
   const [mainW, setMainW] = useState(640);
   const [mainH, setMainH] = useState(360);
@@ -138,18 +149,47 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     if (sub) return (o.kind === "table" && /^r\d+c\d+$/.test(sub)) || (o.kind === "chart" && sub === "title");
     return o.kind === "textbox" || o.kind === "shape" || o.kind === "smartart";
   };
-  const startEdit = (key: string, text?: string) => {
+  const startEdit = (key: string, text?: string, sel?: [number, number]) => {
     if (!editable(key)) return;
     onSelect({ selection: key, slide: key.split(".")[0] });
-    setEditing({ key, text: text ?? textOf(key) });
+    setEditing({ key, text: text ?? textOf(key), sel });
   };
 
-  const commitEdit = (next?: "tab" | "shiftTab") => {
+  /** Placeholders and text boxes whose words can be selected and formatted on their own. */
+  const rangeable = (key: string) => {
+    const [sid, part, sub] = key.split(".");
+    if (sub || isMasterScope(sid)) return false;
+    if (["title", "subtitle", "body", "body2"].includes(part)) return true;
+    const o = findObj(sid, part);
+    return o?.kind === "textbox" || o?.kind === "shape";
+  };
+  /**
+   * What stays selected when a box loses focus to the Ribbon or a menu: the selected text
+  * ("s2.title.t4-7"), all of it (the placeholder), one whole bullet ("s2.body.3"), or, with
+   * nothing selected, the placeholder plus the insertion point for Paste.
+   */
+  const keepSelection = (key: string, text: string, [a0, b0]: [number, number]) => {
+    const a = Math.min(a0, b0), b = Math.max(a0, b0);
+    const slideId = key.split(".")[0];
+    if (a === b) { onSelect({ selection: key, slide: slideId }); onSelectRaw({ caret: `${key}@${a}` } as Partial<SimUi>); return; }
+    if (a === 0 && b >= text.length) return onSelect({ selection: key, slide: slideId });
+    const part = key.split(".")[1];
+    if (part === "body" || part === "body2") {
+      const n = text.slice(0, a).split("\n").length;
+      const sp = lineSpan(text, n);
+      if (sp && (a === sp.start || a === sp.textStart) && (b === sp.end || (b === sp.end + 1 && text[sp.end] === "\n")) && sp.end > sp.textStart) return onSelect({ selection: `${key}.${n}`, slide: slideId });
+    }
+    onSelect({ selection: `${key}.t${a}-${b}`, slide: slideId });
+  };
+
+  const commitEdit = (next?: "tab" | "shiftTab", range?: [number, number]) => {
     const e = editRef.current;
     if (!e) return;
     setEditing(null);
     const changed = e.text !== textOf(e.key);
     if (changed) onCommit({ kind: "type", target: e.key, value: e.text });
+    // Focus went to the Ribbon or a menu (not to something else on the slide): keep the text selection.
+    if (range && rangeable(e.key) && lastSel.current === e.key) { keepSelection(e.key, e.text, range); return; }
     if (next && isCell(e.key)) {
       const [sid, oid] = e.key.split(".");
       const t = findObj(sid, oid);
@@ -167,6 +207,8 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
   };
 
   const selectPart = (key: string, e: React.MouseEvent) => {
+    // Right-clicking text you selected inside a box keeps that selection for the menu's commands.
+    if (e.button === 2 && key.includes(".") && !editRef.current && ui.selection.split(",").some((k) => k.startsWith(`${key}.t`) || /\.\d+$/.test(k) && k.startsWith(`${key}.`))) return;
     if (editRef.current && editRef.current.key !== key) commitEdit();
     let next = key;
     const [sid, oid, sub] = key.split(".");
@@ -197,6 +239,22 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (editing || view === "show") return;
     const k = e.key;
+    // Text selected inside a box (after a Ribbon command) or a selected bullet: typing replaces it,
+    // F2 or Enter goes back to editing with it still selected.
+    const rs = /^(.+)\.(t\d+-\d+)$/.exec(ui.selection);
+    const ls = /^([^.]+\.(?:body|body2))\.(\d+)$/.exec(ui.selection);
+    const rbase = rs?.[1] ?? ls?.[1];
+    const lsp = ls ? lineSpan(textOf(ls[1]), Number(ls[2])) : undefined;
+    const rr: [number, number] | undefined = rs ? parseRange(rs[2]) : lsp ? [lsp.textStart, lsp.end] : undefined;
+    if (rbase && rr && rangeable(rbase) && !e.ctrlKey && !e.metaKey && !e.altKey) {
+      if (k === "F2" || k === "Enter") { e.preventDefault(); startEdit(rbase, undefined, rr); return; }
+      if (k.length === 1) {
+        e.preventDefault();
+        const t = textOf(rbase);
+        startEdit(rbase, t.slice(0, rr[0]) + k + t.slice(rr[1]), [rr[0] + 1, rr[0] + 1]);
+        return;
+      }
+    }
     if (view === "reading") {
       if (k === "Escape") { e.preventDefault(); onCommit({ kind: "command", id: "view.mode", value: "Normal" }); return; }
       if (["ArrowRight", "ArrowDown", " ", "Enter", "PageDown"].includes(k)) { e.preventDefault(); nav(1); return; }
@@ -457,6 +515,13 @@ export function PptCanvas({ doc: deck, ui, onSelect, onCommit, onContextMenu, op
     onEditStart: (key: string) => startEdit(key),
     onEditChange: (t: string) => editRef.current && setEditing({ key: editRef.current.key, text: t }),
     onEditCommit: commitEdit,
+    onEditFormat: (command: string, range: [number, number]) => {
+      const ed = editRef.current;
+      if (!ed) return;
+      if (!rangeable(ed.key)) { commitEdit(); return; }
+      commitEdit(undefined, range);
+      onCommit({ kind: "command", id: command });
+    },
     onEditCancel: () => setEditing(null),
     onContext: partMenu,
     onLineDrop: (from: string, to: number) => onCommit({ kind: "command", id: "text.move", value: `${from}@${to}` }),

@@ -9,6 +9,7 @@
  * without them behaves exactly as before.
  */
 import type { PptDeck, PptObject, PptSlide } from "@/types/sim";
+import type { Run } from "./runs";
 
 /* ------------------------------------------------------------------ */
 /* Extension fields                                                    */
@@ -143,6 +144,8 @@ export type PptObjX = PptObject & {
   keepSource?: boolean;
   /** Size and Rotation › Lock aspect ratio, when the learner changed it. */
   lockAspect?: boolean;
+  /** Character formatting inside a text box or shape's text (runs.ts). */
+  runs?: Run[];
 };
 
 export type BodyPropsX = NonNullable<PptSlide["bodyProps"]> & {
@@ -172,6 +175,8 @@ export type PptSlideX = PptSlide & {
   comments?: CommentX[];
   hideGraphics?: boolean;
   transitionOptions?: PptSlide["transitionOptions"] & { onClick?: boolean; sound?: string };
+  /** Character formatting inside the title, subtitle or a body placeholder (runs.ts). */
+  runs?: Partial<Record<"title" | "subtitle" | "body" | "body2", Run[]>>;
 };
 
 export type MasterX = NonNullable<PptDeck["master"]> & {

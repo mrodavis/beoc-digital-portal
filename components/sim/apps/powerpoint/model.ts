@@ -36,6 +36,7 @@ import {
   type PptObjX,
   type TableOpts,
 } from "./ext";
+import { CHAR_KEYS, clearKey, clearRange, formatRange, lineSpan, linesIn, overlayRuns, parseRange, rangeFormat, sliceRuns, spliceText, syncRuns, type CharKey, type Run } from "./runs";
 
 /* ------------------------------------------------------------------ */
 /* Themes and layouts                                                  */
@@ -171,6 +172,8 @@ export interface PptSel {
   thumb: boolean;
   /** An Animation Pane item is selected: "title", "body" or an object id. */
   anim?: string;
+  /** Text selected inside a placeholder or text box ("s2.title.t3-8"): character offsets. */
+  range?: [number, number];
 }
 
 export function activeSlide(deck: PptDeck, ui: SimUi): PptSlide | undefined {
@@ -213,12 +216,12 @@ export function parseSel(deck: PptDeck, ui: SimUi): PptSel {
   if (inView && inView.id !== sid && deck.slides.some((s) => s.id === sid)) return { slide: inView, objs: [], thumb: !part };
   if (!part) return { slide: inView ?? deck.slides.find((s) => s.id === sid) ?? activeSlide(deck, ui), objs: [], thumb: true };
   const slide = deck.slides.find((s) => s.id === sid) ?? activeSlide(deck, ui);
-  if ((PARTS as string[]).includes(part)) return { slide, part: part as PartKey, line: sub && /^\d+$/.test(sub) ? Number(sub) : undefined, objs: [], thumb: false, anim: anim ? (part === "title" ? "title" : "body") : undefined };
+  if ((PARTS as string[]).includes(part)) return { slide, part: part as PartKey, line: sub && /^\d+$/.test(sub) ? Number(sub) : undefined, range: parts.length === 1 ? parseRange(sub) : undefined, objs: [], thumb: false, anim: anim ? (part === "title" ? "title" : "body") : undefined };
   // "s4.o1.o2.o3" is shorthand for "s4.o1,s4.o2,s4.o3".
   const ids = parts.length === 1 && segs.length > 2 && segs.slice(1).every((x) => /^o\d+$/.test(x)) ? segs.slice(1) : Array.from(new Set(parts.map((p) => p.split(".")[1])));
   const objs = ids.map((oid) => slide?.objects?.find((o) => o.id === oid)).filter(Boolean) as PptObject[];
   const cells = parts.map((p) => p.split(".")[2]).filter((c): c is string => Boolean(c && /^r\d+c\d+$/.test(c)));
-  return { slide, objs, cells: cells.length ? cells : undefined, thumb: false, anim: anim ? part : undefined };
+  return { slide, objs, cells: cells.length ? cells : undefined, range: parts.length === 1 ? parseRange(sub) : undefined, thumb: false, anim: anim ? part : undefined };
 }
 
 /** Does a selection key point at something in the deck? (Used by the validator.) */
@@ -239,7 +242,7 @@ export function pptSelectionExists(deck: PptDeck, sel: string): boolean {
     const s = deck.slides.find((x) => x.id === sid);
     if (!s) return false;
     if (!rest.length || (PARTS as string[]).includes(rest[0])) return true;
-    const objs = rest.filter((r) => !/^(r\d+c\d+|\d+|[A-Z]{1,2}\d+|title|legend|data|axis|text)$/.test(r));
+    const objs = rest.filter((r) => !/^(r\d+c\d+|\d+|[A-Z]{1,2}\d+|t\d+-\d+|title|legend|data|axis|text)$/.test(r));
     return objs.every((id) => s.objects?.some((o) => o.id === id));
   });
 }
@@ -285,6 +288,143 @@ function nextObjId(list: PptObject[] | undefined): string {
 
 type Target = TextProps & { align?: string };
 
+/* ---------- text inside a placeholder or text box (character formatting, ranges, carets) ---------- */
+
+type RunPart = "title" | "subtitle" | "body" | "body2";
+const RUN_PARTS: RunPart[] = ["title", "subtitle", "body", "body2"];
+
+/** The plain text of a placeholder (a body's lines joined with "\n"). */
+export function partText(slide: PptSlide, part: RunPart): string {
+  return part === "body" || part === "body2" ? lines(slide, part).join("\n") : (part === "title" ? slide.title : slide.subtitle) ?? "";
+}
+
+/** What a character-format, cut/copy or paste command works on: one placeholder or one text box / shape. */
+interface TextTarget {
+  /** Selection key of the whole placeholder or box ("s2.title", "s2.o3"). */
+  key: string;
+  text: string;
+  runs: Run[] | undefined;
+  /** The placeholder's or box's own props. */
+  base: Target;
+  multiline: boolean;
+  /** Body placeholders have numbered lines ("s2.body.3"). */
+  hasLines: boolean;
+  set(text: string, runs: Run[] | undefined): void;
+  setRuns(runs: Run[] | undefined): void;
+}
+
+function textTargetOf(slide: PptSlide | undefined, sel: PptSel): TextTarget | undefined {
+  if (!slide || sel.master || sel.layout || sel.anim) return undefined;
+  const part = sel.part;
+  if (part === "title" || part === "subtitle" || part === "body" || part === "body2") {
+    const x = sx(slide);
+    const isBody = part === "body" || part === "body2";
+    const text = partText(slide, part);
+    const propsKey = part === "title" ? "titleProps" : part === "subtitle" ? "subtitleProps" : "bodyProps";
+    const setRuns = (r: Run[] | undefined) => {
+      const all = { ...(x.runs ?? {}) };
+      if (r) all[part] = r;
+      else delete all[part];
+      if (Object.keys(all).length) x.runs = all;
+      else delete x.runs;
+    };
+    return {
+      key: `${slide.id}.${part}`,
+      text,
+      runs: syncRuns(x.runs?.[part], text),
+      base: (slide[propsKey] ?? {}) as Target,
+      multiline: isBody,
+      hasLines: isBody,
+      set: (t, r) => {
+        if (isBody) setLines(slide, part, t === "" ? [] : t.split("\n"));
+        else if (part === "title") slide.title = t;
+        else slide.subtitle = t;
+        setRuns(r);
+      },
+      setRuns,
+    };
+  }
+  const o = sel.objs.length === 1 && !sel.cells && !part ? sel.objs[0] : undefined;
+  if (o && (o.kind === "textbox" || o.kind === "shape")) {
+    const text = o.text ?? "";
+    const setRuns = (r: Run[] | undefined) => { if (r) ox(o).runs = r; else delete ox(o).runs; };
+    return {
+      key: `${slide.id}.${o.id}`,
+      text,
+      runs: syncRuns(ox(o).runs, text),
+      base: o.props ?? {},
+      multiline: true,
+      hasLines: false,
+      set: (t, r) => { o.text = t; setRuns(r); },
+      setRuns,
+    };
+  }
+  return undefined;
+}
+
+/** The characters a selection covers in its text: a selected range or a selected line (undefined: all of it). */
+function selRange(sel: PptSel, t: TextTarget): [number, number] | undefined {
+  const n = t.text.length;
+  if (sel.range) return [Math.min(sel.range[0], n), Math.min(sel.range[1], n)];
+  if (sel.line && t.hasLines) {
+    const sp = lineSpan(t.text, sel.line);
+    return sp ? [sp.textStart, sp.end] : undefined;
+  }
+  return undefined;
+}
+
+/** The insertion point left in a placeholder or text box when you click out of it to the Ribbon ("s2.title@5"). */
+type CaretUi = SimUi & { caret?: string };
+function caretIn(ui: SimUi, key: string): number | undefined {
+  const c = (ui as CaretUi).caret;
+  if (!c || ui.selection !== key || !c.startsWith(`${key}@`)) return undefined;
+  const n = Number(c.slice(key.length + 1));
+  return Number.isFinite(n) ? n : undefined;
+}
+const caretUi = (key: string, at: number): Partial<SimUi> => ({ selection: key, caret: `${key}@${at}` }) as Partial<SimUi>;
+
+/** Keep stored runs in step with text that a command changed (typing, Replace, a moved line). */
+export function resyncRuns(deck: PptDeck): PptDeck {
+  let changed = false;
+  const slides = deck.slides.map((s) => {
+    let next = s;
+    const runs = sx(s).runs;
+    if (runs) {
+      const out: Partial<Record<RunPart, Run[]>> = {};
+      let diff = false;
+      for (const part of RUN_PARTS) {
+        if (!runs[part]) continue;
+        const r = syncRuns(runs[part], partText(s, part));
+        if (r !== runs[part]) diff = true;
+        if (r) out[part] = r;
+      }
+      if (diff) {
+        next = { ...s };
+        if (Object.keys(out).length) (next as typeof s & { runs?: unknown }).runs = out;
+        else delete (next as typeof s & { runs?: unknown }).runs;
+      }
+    }
+    if (s.objects?.some((o) => ox(o).runs)) {
+      let od = false;
+      const objects = s.objects.map((o) => {
+        const r0 = ox(o).runs;
+        if (!r0) return o;
+        const r = syncRuns(r0, o.text ?? "");
+        if (r === r0) return o;
+        od = true;
+        const c = { ...o } as PptObjX;
+        if (r) c.runs = r;
+        else delete c.runs;
+        return c;
+      });
+      if (od) next = { ...next, objects };
+    }
+    if (next !== s) changed = true;
+    return next;
+  });
+  return changed ? { ...deck, slides } : deck;
+}
+
 /** The text-props bag the current selection formats. */
 function targets(deck: PptDeck, ui: SimUi): Target[] {
   const s = parseSel(deck, ui);
@@ -310,6 +450,18 @@ function setProp(deck: PptDeck, ui: SimUi, key: keyof TextProps | "align", value
     }
     return;
   }
+  if ((CHAR_KEYS as readonly string[]).includes(key)) {
+    const tt = textTargetOf(s.slide, s);
+    const r = tt && selRange(s, tt);
+    // Text selected inside the placeholder or box: format just those characters.
+    if (tt && r && r[1] > r[0]) {
+      tt.setRuns(formatRange(tt.runs, tt.text, r[0], r[1], key as CharKey, value));
+      return;
+    }
+    // The whole placeholder or box: words formatted on their own take the new value too.
+    if (tt?.runs) tt.setRuns(clearKey(tt.runs, tt.text, key as CharKey));
+    if (!tt) for (const o of s.objs) if (ox(o).runs) { const r2 = clearKey(ox(o).runs, o.text ?? "", key as CharKey); if (r2) ox(o).runs = r2; else delete ox(o).runs; }
+  }
   for (const t of targets(deck, ui)) {
     if (value === undefined) delete (t as Record<string, unknown>)[key];
     else (t as Record<string, unknown>)[key] = value;
@@ -317,7 +469,30 @@ function setProp(deck: PptDeck, ui: SimUi, key: keyof TextProps | "align", value
 }
 
 function firstProps(deck: PptDeck, ui: SimUi): Target {
+  return selFormat(deck, ui).props;
+}
+
+/**
+ * The formatting of what is selected, for the Ribbon and toggles. For selected text (or a
+ * placeholder holding words formatted on their own) a prop is set only when every character
+ * shares it; `mixed` names the ones that differ.
+ */
+function selFormat(deck: PptDeck, ui: SimUi): { props: Target; mixed: Set<string> } {
   const s = parseSel(deck, ui);
+  const tt = textTargetOf(s.slide, s);
+  if (tt && tt.text.length) {
+    const r = selRange(s, tt) ?? (tt.runs ? [0, tt.text.length] as [number, number] : undefined);
+    if (r) {
+      const f = rangeFormat(tt.base, tt.runs, tt.text, r[0], r[1]);
+      const props: Target = { ...tt.base, ...f.props };
+      for (const k of f.mixed) delete (props as Record<string, unknown>)[k];
+      return { props, mixed: f.mixed };
+    }
+  }
+  return { props: firstPropsBase(s), mixed: new Set() };
+}
+
+function firstPropsBase(s: PptSel): Target {
   if (s.objs.length) return s.objs[0]?.props ?? {};
   if (!s.slide) return {};
   if (s.part === "title") return s.slide.titleProps ?? {};
@@ -662,7 +837,16 @@ function sectionRange(deck: PptDeck, index: number): [number, number] {
 export type Clip =
   | { kind: "slide"; slides: PptSlide[]; source?: ClipSource; label?: string }
   | { kind: "obj"; objs: PptObject[]; source?: ClipSource; label?: string }
-  | { kind: "text"; lines: string[]; source?: ClipSource; label?: string };
+  | {
+      kind: "text";
+      lines: string[];
+      source?: ClipSource;
+      label?: string;
+      /** Words cut or copied from inside a paragraph (no paragraph mark): they paste in line. */
+      inline?: boolean;
+      /** Character formatting of lines.join("\n"), kept unless pasted with Keep Text Only. */
+      runs?: Run[];
+    };
 
 export function readClip(deck: PptDeck): Clip | null {
   const c = flagJson<Clip | null>(deck, "clip", null);
@@ -843,9 +1027,32 @@ function pasteMode(sv: string): PasteMode {
 }
 
 /** Paste one clipboard item at the selection (a slide, a placeholder, the Notes pane, a text box). */
-function pasteClip(deck: PptDeck, selIn: PptSel, slide: PptSlide, clip: Clip, mode: PasteMode): { doc: PptDeck; ui?: Partial<SimUi> } {
+function pasteClip(deck: PptDeck, selIn: PptSel, slide: PptSlide, clip: Clip, mode: PasteMode, ui?: SimUi): { doc: PptDeck; ui?: Partial<SimUi> } {
   // With an Animation Pane effect selected, the paste lands on the slide, not in that text.
   const sel: PptSel = selIn.anim ? { ...selIn, part: undefined, line: undefined, objs: [], anim: undefined } : selIn;
+  // Text pasted at the insertion point, or over text selected inside a placeholder or text box.
+  const tt = (clip.kind === "text" || mode.as === "text") && mode.as !== "picture" ? textTargetOf(slide, sel) : undefined;
+  const caret = tt && ui ? caretIn(ui, tt.key) : undefined;
+  const textClip = clip.kind === "text" ? clip : undefined;
+  if (tt && (sel.range || caret !== undefined || (sel.line && textClip?.inline))) {
+    const words = textClip ? textClip.lines : clipText(clip);
+    if (!words.length) return { doc: deck };
+    let [a, b] = sel.range ? selRange(sel, tt)! : caret !== undefined ? [Math.min(caret, tt.text.length), Math.min(caret, tt.text.length)] : [0, 0];
+    if (!sel.range && caret === undefined && sel.line) { const sp = lineSpan(tt.text, sel.line); a = b = sp?.textStart ?? 0; }
+    let ins = tt.multiline ? words.join("\n") : words.join(" ");
+    let at = a;
+    // A whole paragraph (copied with its paragraph mark) goes in as its own paragraph.
+    if (!textClip?.inline && tt.multiline && tt.text.length) {
+      const lineStart = a === 0 || tt.text[a - 1] === "\n";
+      if (lineStart) ins = `${ins}\n`;
+      else { ins = `\n${ins}`; at = a + 1; }
+    }
+    // Pasted words keep their own formatting (none if they had none); Keep Text Only takes the formatting where they land.
+    const insRuns = mode.as === "text" ? undefined : textClip?.runs ?? null;
+    const r = spliceText(tt.runs, tt.text, a, b, ins);
+    tt.set(r.text, overlayRuns(r.runs, r.text, at, ins.slice(at - a, at - a + words.join("\n").length), insRuns));
+    return { doc: deck, ui: caretUi(tt.key, a + ins.length) };
+  }
   // The Notes pane takes text only, whatever was copied.
   if (sel.part === "notes") {
     const add = clipText(clip).join("\n").trim();
@@ -877,8 +1084,14 @@ function pasteClip(deck: PptDeck, selIn: PptSel, slide: PptSlide, clip: Clip, mo
     if (sel.part === "body" || sel.part === "body2") {
       const l = lines(slide, sel.part).slice();
       const at = sel.line ? sel.line - 1 : l.length;
+      const before = textTargetOf(slide, { ...sel, line: undefined, range: undefined });
       l.splice(at, 0, ...textLines);
       setLines(slide, sel.part, l);
+      const insRuns = mode.as === "text" ? null : clip.kind === "text" ? clip.runs ?? null : null;
+      if (before && (before.runs || insRuns)) {
+        const now = partText(slide, sel.part);
+        before.setRuns(overlayRuns(syncRuns(before.runs, now), now, lineSpan(now, at + 1)?.start ?? 0, textLines.join("\n"), insRuns));
+      }
       return { doc: deck, ui: { selection: `${slide.id}.${sel.part}.${at + 1}` } };
     }
     if (sel.part === "title") { slide.title = `${slide.title ?? ""}${textLines.join(" ")}`; return { doc: deck }; }
@@ -1428,7 +1641,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     }
     case "slides.layout": if (slide) slide.layout = sv; return { doc: deck };
     case "slides.reset":
-      if (slide) { slide.titleProps = undefined; slide.bodyProps = undefined; slide.subtitleProps = undefined; }
+      if (slide) { slide.titleProps = undefined; slide.bodyProps = undefined; slide.subtitleProps = undefined; delete sx(slide).runs; }
       return { doc: deck };
     case "slides.hide":
     case "slideshow.hideSlide":
@@ -1491,6 +1704,18 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       const cut = c.id === "home.cut";
       // An Animation Pane item is an effect, not content: there is nothing to copy.
       if (sel.anim) return { doc: deck };
+      // Text selected inside a placeholder or text box: just those characters.
+      const tt = textTargetOf(slide, sel);
+      if (tt && sel.range) {
+        const [a, b] = selRange(sel, tt)!;
+        if (b <= a) return { doc: deck };
+        const piece = tt.text.slice(a, b);
+        writeClip(deck, { kind: "text", lines: piece.split("\n"), inline: !piece.endsWith("\n"), runs: sliceRuns(tt.runs, tt.text, a, b) }, cut);
+        if (!cut) return { doc: deck };
+        const r = spliceText(tt.runs, tt.text, a, b, "");
+        tt.set(r.text, r.runs);
+        return { doc: deck, ui: caretUi(tt.key, a) };
+      }
       if (slide && sel.part === "notes") {
         if (!slide.notes) return { doc: deck };
         writeClip(deck, { kind: "text", lines: slide.notes.split("\n") }, cut);
@@ -1514,7 +1739,9 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       if (slide && (sel.part === "body" || sel.part === "body2")) {
         const l = lines(slide, sel.part);
         const taken = sel.line ? l.slice(sel.line - 1, sel.line) : l.slice();
-        writeClip(deck, { kind: "text", lines: taken }, cut);
+        const span = sel.line && tt ? lineSpan(tt.text, sel.line) : undefined;
+        const runs = tt?.runs ? (span ? sliceRuns(tt.runs, tt.text, span.start, span.end) : tt.runs) : undefined;
+        writeClip(deck, { kind: "text", lines: taken, ...(runs ? { runs } : {}) }, cut);
         if (cut) {
           setLines(slide, sel.part, sel.line ? l.filter((_, k) => k !== sel.line! - 1) : []);
           return { doc: deck, ui: { selection: `${slide.id}.${sel.part}` } };
@@ -1522,7 +1749,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
         return { doc: deck };
       }
       if (slide && (sel.part === "title" || sel.part === "subtitle")) {
-        writeClip(deck, { kind: "text", lines: [(sel.part === "title" ? slide.title : slide.subtitle) ?? ""] }, cut);
+        writeClip(deck, { kind: "text", lines: [(sel.part === "title" ? slide.title : slide.subtitle) ?? ""], ...(tt?.runs ? { runs: tt.runs } : {}) }, cut);
         if (cut) sel.part === "title" ? (slide.title = "") : (slide.subtitle = "");
       }
       return { doc: deck };
@@ -1530,7 +1757,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     case "home.paste": {
       const clip = readClip(deck);
       if (!clip || !slide) return { doc: deck };
-      return pasteClip(deck, sel, slide, clip, pasteMode(sv));
+      return pasteClip(deck, sel, slide, clip, pasteMode(sv), ui);
     }
 
     /* -------- Office Clipboard (Home › Clipboard launcher) -------- */
@@ -1612,7 +1839,13 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       return { doc: deck };
     case "home.formatPainter.apply": {
       const p = deck.flags?.painter;
-      if (p) for (const t of targets(deck, ui)) Object.assign(t, JSON.parse(String(p)));
+      if (p) {
+        const props = JSON.parse(String(p)) as Record<string, unknown>;
+        // Character props go to the selected text (or the whole placeholder); the rest to the placeholder.
+        for (const [k, v] of Object.entries(props)) if ((CHAR_KEYS as readonly string[]).includes(k)) setProp(deck, ui, k as keyof TextProps, v);
+        const rest = Object.fromEntries(Object.entries(props).filter(([k]) => !(CHAR_KEYS as readonly string[]).includes(k)));
+        if (Object.keys(rest).length) for (const t of targets(deck, ui)) Object.assign(t, rest);
+      }
       flag({ painter: undefined });
       return { doc: deck };
     }
@@ -1654,11 +1887,29 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       return { doc: deck };
     }
     case "home.fontColor": setProp(deck, ui, "color", sv === "Automatic" ? undefined : sv || "#C00000"); return { doc: deck };
-    case "home.clearFormatting":
+    case "home.clearFormatting": {
+      const tt = textTargetOf(slide, sel);
+      const r = tt && selRange(sel, tt);
+      if (tt && r && r[1] > r[0]) {
+        tt.setRuns(clearRange(tt.runs, tt.text, r[0], r[1], tt.base));
+        const bag = tt.base as Record<string, unknown>;
+        for (const k of CHAR_KEYS) delete bag[k];
+        return { doc: deck };
+      }
+      if (tt) tt.setRuns(undefined);
+      for (const o of sel.objs) delete ox(o).runs;
       for (const t of targets(deck, ui)) for (const k of Object.keys(t)) if (!["bullets", "numbered", "bulletStyle", "numberFormat", "startAt", "lineSpacing"].includes(k)) delete (t as Record<string, unknown>)[k];
       return { doc: deck };
+    }
     case "home.changeCase": {
       const conv = (t?: string) => !t ? t : sv === "UPPERCASE" ? t.toUpperCase() : sv === "lowercase" ? t.toLowerCase() : sv === "Capitalize Each Word" ? t.toLowerCase().replace(/\b\w/g, (x) => x.toUpperCase()) : sv === "Sentence case." ? t.charAt(0).toUpperCase() + t.slice(1).toLowerCase() : sv === "tOGGLE cASE" ? t.replace(/./g, (ch) => (ch === ch.toUpperCase() ? ch.toLowerCase() : ch.toUpperCase())) : t;
+      const tc = textTargetOf(slide, sel);
+      if (tc && sel.range) {
+        const [a, b] = selRange(sel, tc)!;
+        const r = spliceText(tc.runs, tc.text, a, b, conv(tc.text.slice(a, b)) ?? "", sliceRuns(tc.runs, tc.text, a, b) ?? null);
+        tc.set(r.text, r.runs);
+        return { doc: deck };
+      }
       if (slide) {
         if (sel.part === "title") slide.title = conv(slide.title);
         else if (sel.part === "subtitle") slide.subtitle = conv(slide.subtitle);
@@ -1703,7 +1954,9 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       if (!slide || (sel.part !== "body" && sel.part !== "body2")) return { doc: deck };
       const inc = c.id === "home.indentInc";
       const shift = (b: string) => (inc ? (/^\t{4}/.test(b) ? b : `\t${b}`) : b.replace(/^\t/, ""));
-      setLines(slide, sel.part, lines(slide, sel.part).map((b, k) => (!sel.line || k === sel.line - 1 ? shift(b) : b)));
+      const tt = sel.range ? textTargetOf(slide, sel) : undefined;
+      const picked = tt ? linesIn(tt.text, ...selRange(sel, tt)!) : sel.line ? [sel.line] : undefined;
+      setLines(slide, sel.part, lines(slide, sel.part).map((b, k) => (!picked || picked.includes(k + 1) ? shift(b) : b)));
       return { doc: deck };
     }
     case "home.convertSmartArt":
@@ -1920,6 +2173,14 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
           if (next) return { doc: deck, ui: { selection: animKey(next) } };
         }
         return { doc: deck };
+      }
+      // Text selected inside a placeholder or text box: Delete removes just those characters.
+      const tt = textTargetOf(slide, sel);
+      if (tt && sel.range) {
+        const [a, b] = selRange(sel, tt)!;
+        const r = spliceText(tt.runs, tt.text, a, b, "");
+        tt.set(r.text, r.runs);
+        return { doc: deck, ui: caretUi(tt.key, a) };
       }
       if (sel.objs.length) {
         if (sel.cells?.length && sel.objs[0]?.kind === "table") {
@@ -2598,7 +2859,7 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
 /* ------------------------------------------------------------------ */
 
 export function pptRibbonState(deck: PptDeck, ui: SimUi): Record<string, SimValue | undefined> {
-  const p = firstProps(deck, ui);
+  const { props: p, mixed } = selFormat(deck, ui);
   const s = parseSel(deck, ui);
   const slide = s.slide ?? activeSlide(deck, ui);
   const theme = themeOf(deck);
@@ -2609,8 +2870,9 @@ export function pptRibbonState(deck: PptDeck, ui: SimUi): Record<string, SimValu
   const bp = (slide?.bodyProps ?? {}) as ReturnType<typeof bodyX>;
   const m = readMaster(deck);
   return {
-    "home.fontName": p.font ?? (s.part === "title" || s.master === "title" ? m.titleFont ?? theme.titleFont : m.bodyFont ?? theme.font),
-    "home.fontSize": p.size ?? defaultSize(s.part, slide?.layout ?? ""),
+    // Selected text in more than one font or size leaves the box blank, as in PowerPoint.
+    "home.fontName": mixed.has("font") ? "" : p.font ?? (s.part === "title" || s.master === "title" ? m.titleFont ?? theme.titleFont : m.bodyFont ?? theme.font),
+    "home.fontSize": mixed.has("size") ? "" : p.size ?? defaultSize(s.part, slide?.layout ?? ""),
     "home.bold": Boolean(p.bold),
     "home.italic": Boolean(p.italic),
     "home.underline": Boolean(p.underline),

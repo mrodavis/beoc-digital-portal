@@ -1,6 +1,6 @@
 import type { DialogDef, DialogField, PptDeck, SimCommit, SimValue } from "@/types/sim";
 import type { AppCore, SimUi } from "../../types";
-import { applyPpt, pptContextual, pptDialogDefaults, pptRibbonState, activeSlide, clipHistory, clipLabel, customShows, pasteSpecialInfo, pptSelectionExists, parseSel, animSequence } from "./model";
+import { applyPpt, pptContextual, pptDialogDefaults, pptRibbonState, activeSlide, clipHistory, clipLabel, customShows, pasteSpecialInfo, pptSelectionExists, parseSel, animSequence, resyncRuns } from "./model";
 import { pptRibbon, pptDialogs, pptRibbonFor, PPT_VIEW_ALIASES } from "./ribbon";
 import { ICONS } from "./ext";
 
@@ -196,6 +196,10 @@ export const pptCore: AppCore<PptDeck> = {
     // Keep the deck's active slide in step with the UI's slide.
     const slide = r.ui?.slide ?? ui.slide;
     if (slide && r.doc.active !== slide && r.doc.slides.some((s) => s.id === slide)) r.doc = { ...r.doc, active: slide };
+    // Character formatting follows text that the command changed.
+    r.doc = resyncRuns(r.doc);
+    // An insertion point left in a placeholder (for Paste) lasts until the next command.
+    r.ui = { ...(r.ui ?? {}), caret: (r.ui as { caret?: string } | undefined)?.caret } as Partial<SimUi>;
     return r;
   },
   ribbonFor: pptRibbonFor,
