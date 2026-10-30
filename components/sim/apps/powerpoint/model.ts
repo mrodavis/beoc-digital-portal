@@ -976,6 +976,11 @@ function escapeRe(s: string) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+/** File › Info › Protect Presentation › Mark as Final is on (Edit Anyway turns it off). */
+export function isFinal(deck: PptDeck): boolean {
+  return Boolean((deck.saved as { final?: boolean } | undefined)?.final) || deck.flags?.protect === "Mark as Final";
+}
+
 /** New, empty presentation from File › New. */
 function newPresentation(prev: PptDeck, template: string): { doc: PptDeck; ui?: Partial<SimUi> } {
   const theme = PPT_THEMES[template] ? template : "Office Theme";
@@ -1162,6 +1167,17 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
     }
     if (common.pane === "Check Accessibility") common.pane = "Accessibility";
     if (common.pane === "Check Compatibility") common.pane = "Compatibility";
+    // Protect Presentation › Mark as Final (after its "will be marked as final and then saved" prompt):
+    // the file is saved as final, a message says so, and the MARKED AS FINAL bar shows until Edit Anyway.
+    // Choosing it again on a final presentation takes the mark off.
+    if (c.kind === "command" && c.id === "file.protect" && String(c.value) === "Mark as Final") {
+      const wasFinal = isFinal(input);
+      const saved = { ...(common.saved ?? {}), final: !wasFinal } as NonNullable<PptDeck["saved"]>;
+      const flags = { ...(common.flags ?? {}) };
+      if (wasFinal) { delete flags.protect; flags.lastAction = "no longer final"; }
+      else { if (!flags.dontShowFinal) flags.pptDialog = "markedFinal"; flags.lastAction = "marked as final and saved"; }
+      return { doc: { ...common, saved, flags } };
+    }
     return { doc: common };
   }
 
@@ -1816,7 +1832,13 @@ export function applyPpt(input: PptDeck, c: SimCommit, ui: SimUi): { doc: PptDec
       return { doc: deck };
     }
     case "modal.close":
-      flag({ pptDialog: "" });
+      flag({ pptDialog: "", ...(sv === "dontShowFinal" ? { dontShowFinal: true } : {}) });
+      return { doc: deck };
+    case "file.editAnyway":
+      // The MARKED AS FINAL bar's Edit Anyway: the presentation can be edited again.
+      if (deck.saved) deck.saved = { ...deck.saved, final: false } as NonNullable<PptDeck["saved"]>;
+      if (deck.flags) delete deck.flags.protect;
+      flag({ lastAction: "editing turned on" });
       return { doc: deck };
     case "text.move": {
       // "s4.body.3@5": move paragraph 3 so it lands before paragraph 5.

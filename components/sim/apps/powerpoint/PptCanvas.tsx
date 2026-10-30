@@ -5,13 +5,13 @@ import { createPortal } from "react-dom";
 import type { PptDeck, PptObject, PptSlide, SimCommit } from "@/types/sim";
 import type { CanvasProps, MenuItem, SimUi, StatusBarProps } from "../../types";
 import { Icon } from "../../chrome/icons";
-import { LAYOUTS, activeSlide, layoutName, readClip, themeOf } from "./model";
+import { LAYOUTS, activeSlide, isFinal, layoutName, readClip, themeOf } from "./model";
 import { flagJson, ox, readMaster } from "./ext";
 import { PartEditor, SlideView } from "./PptSlide";
 import { lineSpan, parseRange } from "./runs";
 import { ChartDataSheet, ClipboardPane, PptPane } from "./PptPanes";
 import { SlideShow } from "./PptShow";
-import { CustomShowsDialog, LinksDialog } from "./PptDialogs";
+import { CustomShowsDialog, LinksDialog, MarkedFinalDialog } from "./PptDialogs";
 
 const TEXT_PARTS = ["title", "subtitle", "body", "body2", "notes"];
 const isCell = (k: string) => /^[^.]+\.o\d+\.r\d+c\d+$/.test(k);
@@ -150,7 +150,8 @@ export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onCo
     return o.kind === "textbox" || o.kind === "shape" || o.kind === "smartart";
   };
   const startEdit = (key: string, text?: string, sel?: [number, number]) => {
-    if (!editable(key)) return;
+    // Marked as final: typing is turned off until Edit Anyway.
+    if (!editable(key) || isFinal(deck)) return;
     onSelect({ selection: key, slide: key.split(".")[0] });
     setEditing({ key, text: text ?? textOf(key), sel });
   };
@@ -605,8 +606,18 @@ export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onCo
   const dlgBody =
     dlg === "customShows" ? <CustomShowsDialog deck={deck} onCommit={dlgCommit} /> :
     dlg === "links" ? <LinksDialog deck={deck} onCommit={dlgCommit} /> :
+    dlg === "markedFinal" ? <MarkedFinalDialog onCommit={dlgCommit} /> :
     null;
   const modal = dlgBody ? (portalRoot ? createPortal(dlgBody, portalRoot) : dlgBody) : null;
+
+  // Mark as Final: the message bar under the Ribbon, with Edit Anyway.
+  const finalBar = isFinal(deck) ? (
+    <div role="status" aria-label="Marked as final" className="flex shrink-0 items-center gap-3 border-b border-[#e1c66b] bg-[#fff4ce] px-3 py-1.5 text-[12px] text-gray-900">
+      <span className="font-semibold">MARKED AS FINAL</span>
+      <span>An author has marked this presentation as final to discourage editing.</span>
+      <button type="button" onClick={() => onCommit({ kind: "command", id: "file.editAnyway" })} className="border border-gray-400 bg-white px-2.5 py-0.5 hover:bg-gray-100">Edit Anyway</button>
+    </div>
+  ) : null;
 
   if (view === "reading") {
     return (
@@ -628,7 +639,9 @@ export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onCo
 
   if (view === "sorter") {
     return (
-      <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="h-full overflow-auto bg-[#e7e7e7] p-4 outline-none">
+      <div className="flex h-full flex-col">
+      {finalBar}
+      <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="min-h-0 flex-1 overflow-auto bg-[#e7e7e7] p-4 outline-none">
         {modal}
         <div className="flex flex-wrap gap-4">
           {deck.slides.map((s, i) => {
@@ -667,6 +680,7 @@ export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onCo
           })}
         </div>
       </div>
+      </div>
     );
   }
 
@@ -697,7 +711,9 @@ export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onCo
   const slideW = fitW(40 + (rulerOn ? 18 : 0), 32 + (rulerOn ? 18 : 0)) * Number(deck.flags?.zoom ?? 100) / 100;
 
   return (
-    <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex h-full outline-none">
+    <div className="flex h-full flex-col">
+    {finalBar}
+    <div ref={focusRef} tabIndex={0} onKeyDown={onKeyDown} className="flex min-h-0 flex-1 outline-none">
       {modal}
       {pane === "Clipboard" && <ClipboardPane deck={deck} onCommit={onCommit} onContextMenu={onContextMenu} />}
       {view === "outline" ? (
@@ -788,6 +804,7 @@ export function PptCanvas({ doc: deck, ui, onSelect: onSelectRaw, onCommit, onCo
 
       {pane && pane !== "Chart Data" && pane !== "Clipboard" && <PptPane deck={deck} ui={ui} pane={pane} onCommit={onCommit} openDialog={openDialog} onSelect={onSelect} onContextMenu={onContextMenu} />}
     </div>
+    </div>
   );
 }
 
@@ -806,6 +823,7 @@ export function PptStatusBar({ doc: deck, ui, onCommit }: StatusBarProps<PptDeck
   return (
     <div className="flex h-6 shrink-0 items-center gap-4 border-t border-gray-300 bg-[#f3f3f3] px-3 text-[11px] text-gray-700">
       <span>{deck.view === "master" ? "Slide Master" : `Slide ${idx + 1} of ${deck.slides.length}`}</span>
+      {isFinal(deck) && <span title="This presentation has been marked as final." aria-label="Marked as Final" className="flex items-center"><Icon name="protect" size={13} /></span>}
       <span className="hidden sm:inline">English (United States)</span>
       {deck.flags?.lastAction && <span className="hidden text-gray-500 sm:inline">Last action: {String(deck.flags.lastAction)}</span>}
       <span className="flex-1" />
