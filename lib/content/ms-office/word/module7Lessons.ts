@@ -840,7 +840,7 @@ LESSON 5 – TABLE OF CONTENTS
     "Navigate a long document using the Navigation pane",
   ],
   duration: "8 min",
-  videoUrl: "https://www.youtube.com/embed/XqsIOl7_6mM",
+  videoUrl: "https://www.youtube.com/embed/jHjEesAHl1Y",
 
   practiceFiles: [
     {
