@@ -391,8 +391,11 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const z = (sheet.zoom ?? 100) / 100;
   const sel = ui.selection || "A1";
   const act = activeCell(ui);
-  /** The cell being edited; `typed` when editing began with a keystroke (AutoComplete applies). */
-  const [edit, setEdit] = useState<{ ref: string; text: string; bar?: boolean; typed?: boolean } | null>(null);
+  /**
+   * The cell being edited; `typed` when editing began with a keystroke (AutoComplete applies).
+   * `sheet` is set once a formula points to another sheet: the cell being edited stays on this sheet.
+   */
+  const [edit, setEdit] = useState<{ ref: string; text: string; bar?: boolean; typed?: boolean; sheet?: string } | null>(null);
   const editRef = useRef(edit);
   editRef.current = edit;
   const [renaming, setRenaming] = useState<{ name: string; text: string } | null>(null);
@@ -406,12 +409,15 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
   const [unlock, setUnlock] = useState<{ ref: string; text?: string; title: string; password: string; tries: number } | null>(null);
   const [unlocked, setUnlocked] = useState<Set<string>>(new Set());
   const [totalMenu, setTotalMenu] = useState<{ x: number; y: number } | null>(null);
-  const drag = useRef<{ mode: "select" | "fill" | "point" | "col" | "row"; anchor: string; src?: Rect; target?: Rect; pointStart?: number } | null>(null);
+  const drag = useRef<{ mode: "select" | "fill" | "point" | "col" | "row"; anchor: string; src?: Rect; target?: Rect } | null>(null);
   const [fillPreview, setFillPreview] = useState<Rect | null>(null);
   const gridRef = useRef<HTMLDivElement>(null);
   const focusRef = useRef<HTMLDivElement>(null);
   const nameBoxRef = useRef<HTMLInputElement>(null);
   const [nameBox, setNameBox] = useState<string | null>(null);
+  const formulaBarRef = useRef<HTMLInputElement>(null);
+  /** The reference last put into a formula by pointing, so the next click replaces it, as in Excel. */
+  const pointRef = useRef<{ start: number; text: string; sheet?: string; range?: string } | null>(null);
 
   useEffect(() => {
     setEdit(null);
@@ -514,12 +520,16 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     const text = textOverride ?? e.text;
     setEdit(null);
     editRef.current = null;
-    if (blockedEdit(e.ref)) return;
-    const changed = text !== cellRaw(sheet, e.ref);
+    pointRef.current = null;
+    // A formula that pointed to another sheet is entered in its own cell, back on its own sheet.
+    const home = e.sheet && e.sheet !== sheet.name ? doc.sheets.find((x) => x.name === e.sheet) ?? sheet : sheet;
+    if (home !== sheet) onSelect({ sheet: home.name, selection: e.ref });
+    if (blockedEdit(e.ref, undefined, home)) return;
+    const changed = text !== cellRaw(home, e.ref);
     if (changed && /^[A-Z]+\d+$/.test(e.ref)) {
-      const v = validationAt(sheet, e.ref);
+      const v = validationAt(home, e.ref);
       // The Error Alert: Stop rejects the entry, Warning asks, Information only tells.
-      if (v && v.rule.showError !== false && !validationAllows(doc, sheet, v.rule, text)) {
+      if (v && v.rule.showError !== false && !validationAllows(doc, home, v.rule, text)) {
         setAlert({ ref: e.ref, text, rule: v.rule, move });
         return;
       }
@@ -540,15 +550,15 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
    * Ranges (after their password, if they have one); a workbook marked as
    * final allows none.
    */
-  const blockedEdit = (ref: string, text?: string) => {
+  const blockedEdit = (ref: string, text?: string, on: ExcelSheet = sheet) => {
     if (markedFinal && /^[A-Z]+\d+$/.test(ref)) {
       setMessage("An author has marked this workbook as final to discourage editing. Click Edit Anyway on the yellow bar to edit it.");
       return true;
     }
-    if (sheet.protected && /^[A-Z]+\d+$/.test(ref) && !isUnlocked(doc, sheet, ref)) {
-      const range = editRangeAt(doc, sheet, ref);
+    if (on.protected && /^[A-Z]+\d+$/.test(ref) && !isUnlocked(doc, on, ref)) {
+      const range = editRangeAt(doc, on, ref);
       if (range) {
-        if (!range.password || unlocked.has(`${sheet.name}:${range.title}`)) return false;
+        if (!range.password || unlocked.has(`${on.name}:${range.title}`)) return false;
         setUnlock({ ref, text, title: range.title, password: "", tries: 0 });
         return true;
       }
@@ -585,12 +595,62 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     setEdit({ ref: act, text: text ?? cellRaw(sheet, act), typed: text !== undefined && text.length === 1 });
   };
 
-  const insertRef = (ref: string) => {
+  /** Is a formula being typed, so clicking a cell or a sheet tab points to it? */
+  const pointing = () => Boolean(editRef.current?.text.startsWith("="));
+
+  /**
+   * Point to a cell or range while typing a formula: the reference goes in at the end, or replaces
+   * the one put there by the last click. On another sheet it is written Sheet!A1 ('Two Words'!A1).
+   */
+  const insertRef = (ref: string, onSheet: string = sheet.name) => {
     const e = editRef.current;
     if (!e) return;
-    const base = drag.current?.pointStart ?? e.text.length;
-    setEdit({ ...e, text: e.text.slice(0, base) + ref });
+    const p = pointRef.current;
+    const base = p && p.text === e.text ? p.start : e.text.length;
+    const home = e.sheet ?? sheet.name;
+    const text = e.text.slice(0, base) + (onSheet !== home ? sheetPrefix(onSheet) : "") + ref;
+    pointRef.current = { start: base, text, sheet: onSheet, range: ref };
+    const next = { ...e, text };
+    editRef.current = next;
+    setEdit(next);
+    // On another sheet the pointed cell becomes that sheet's selection, as in Excel.
+    if (onSheet !== home) onSelect({ selection: ref });
   };
+
+  /** Click a sheet tab while typing a formula: show that sheet and start a reference to it (=January!). */
+  const pointToSheet = (name: string) => {
+    const e = editRef.current;
+    if (!e) return;
+    const home = e.sheet ?? sheet.name;
+    const p = pointRef.current;
+    const base = p && p.text === e.text ? p.start : e.text.length;
+    const text = e.text.slice(0, base) + (name !== home ? sheetPrefix(name) : "");
+    pointRef.current = { start: base, text };
+    const next = { ...e, text, sheet: home };
+    editRef.current = next;
+    setEdit(next);
+    onSelect({ sheet: name, selection: name === home ? e.ref : "A1" });
+  };
+
+  /** Esc or the Cancel button: drop the entry and go back to the cell's own sheet. */
+  const cancelEdit = () => {
+    const e = editRef.current;
+    setEdit(null);
+    editRef.current = null;
+    pointRef.current = null;
+    if (e?.sheet && e.sheet !== sheet.name) onSelect({ sheet: e.sheet, selection: e.ref });
+  };
+
+  // While a formula points to another sheet, the formula bar holds the entry and takes the typing.
+  const awayEdit = Boolean(edit?.sheet && edit.sheet !== sheet.name);
+  useEffect(() => {
+    if (!awayEdit) return;
+    const el = formulaBarRef.current;
+    if (el && document.activeElement !== el) {
+      el.focus({ preventScroll: true });
+      el.setSelectionRange(el.value.length, el.value.length);
+    }
+  });
 
   /* ---------- mouse ---------- */
 
@@ -618,8 +678,8 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     e.preventDefault();
     setFilterMenu(null);
     setMessage(null);
-    if (edit && edit.text.startsWith("=")) {
-      drag.current = { mode: "point", anchor: ref, pointStart: edit.text.length };
+    if (edit && pointing()) {
+      drag.current = { mode: "point", anchor: ref };
       insertRef(ref);
       return;
     }
@@ -641,10 +701,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
     const a = parseRef(d.anchor)!, b = parseRef(ref)!;
     const rect = { c1: Math.min(a.c, b.c), r1: Math.min(a.r, b.r), c2: Math.max(a.c, b.c), r2: Math.max(a.r, b.r) };
     if (d.mode === "select") onSelect({ selection: rectToRange(rect) });
-    else if (d.mode === "point") {
-      const e = editRef.current;
-      if (e) setEdit({ ...e, text: e.text.slice(0, d.pointStart) + rectToRange(rect) });
-    } else if (d.mode === "fill" && d.src) {
+    else if (d.mode === "point") insertRef(rectToRange(rect)); else if (d.mode === "fill" && d.src) {
       const s = d.src;
       let t: Rect = s;
       if (b.r > s.r2) t = { ...s, r2: b.r };
@@ -991,7 +1048,7 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
       const nextEmpty = !sheet.cells[refOf(c + 1, r)]?.v && !sheet.cells[refOf(c + 1, r)]?.f && !pivotCells[refOf(c + 1, r)];
       const frozenRow = freeze && r < freeze.r;
       const frozenCol = freeze && c < freeze.c;
-      const isEditing = edit?.ref === ref && !edit.bar;
+      const isEditing = edit?.ref === ref && !edit.bar && !awayEdit;
       const hasFilter = filterRect && r === filterRect.r1 && c >= filterRect.c1 && c <= filterRect.c2;
       const spark = sparklineAt(sheet, ref);
       const border = fmt.border;
@@ -1041,9 +1098,9 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
           {isEditing ? (
             <CellEditor
               value={edit!.text}
-              onChange={(t) => setEdit({ ref, text: t, typed: true })}
+              onChange={(t) => setEdit({ ...(editRef.current ?? {}), ref, text: t, typed: true })}
               onCommit={(m, full) => commitEdit(m, full)}
-              onCancel={() => { setEdit(null); focus(); }}
+              onCancel={() => { cancelEdit(); focus(); }}
               suggest={(t) => autoComplete(ref, t)}
               suggestNow={edit!.typed}
               maxWidth={colX[nCols + 1] - colX[c] - 4}
@@ -1173,10 +1230,11 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
             className="h-5 w-24 border border-gray-300 px-1"
           />
           <span className="px-1 text-gray-400">⋮</span>
-          <button type="button" aria-label="Cancel" disabled={!edit} onClick={() => setEdit(null)} className="px-1 text-gray-500 disabled:opacity-30">✕</button>
+          <button type="button" aria-label="Cancel" disabled={!edit} onClick={() => cancelEdit()} className="px-1 text-gray-500 disabled:opacity-30">✕</button>
           <button type="button" aria-label="Enter" disabled={!edit} onClick={() => commitEdit("none")} className="px-1 text-gray-500 disabled:opacity-30">✓</button>
           <button type="button" aria-label="Insert Function" onClick={() => openDialog("insertFunction")} className="px-1 italic text-gray-600">fx</button>
           <input
+            ref={formulaBarRef}
             aria-label="Formula Bar"
             value={formulaText}
             onFocus={(e) => {
@@ -1184,12 +1242,12 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
               if (blockedEdit(act)) { e.currentTarget.blur(); return; }
               setEdit({ ref: act, text: formulaHidden(act) ? "" : cellRaw(sheet, act), bar: true });
             }}
-            onChange={(e) => setEdit({ ref: act, text: e.target.value, bar: true })}
+            onChange={(e) => setEdit({ ...(edit ?? {}), ref: edit?.ref ?? act, text: e.target.value, bar: true })}
             onKeyDown={(e) => {
               e.stopPropagation();
-              if (e.key === "F4") { e.preventDefault(); const el = e.currentTarget; const out = cycleRef(el.value, el.selectionStart ?? el.value.length); setEdit({ ref: act, text: out.text, bar: true }); setTimeout(() => el.setSelectionRange(out.caret, out.caret), 0); }
+              if (e.key === "F4") { e.preventDefault(); const el = e.currentTarget; const out = cycleRef(el.value, el.selectionStart ?? el.value.length); setEdit({ ...(edit ?? {}), ref: edit?.ref ?? act, text: out.text, bar: true }); setTimeout(() => el.setSelectionRange(out.caret, out.caret), 0); }
               if (e.key === "Enter") { e.preventDefault(); commitEdit("down"); (e.target as HTMLInputElement).blur(); }
-              if (e.key === "Escape") { setEdit(null); (e.target as HTMLInputElement).blur(); }
+              if (e.key === "Escape") { cancelEdit(); (e.target as HTMLInputElement).blur(); }
             }}
             className="h-5 flex-1 border border-gray-300 px-1 font-mono text-[12px]"
           />
@@ -1440,6 +1498,13 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
                 return <div key={`circle-${ref}`} aria-label={`Invalid data in ${ref}`} className="pointer-events-none absolute z-[8] rounded-[50%] border-2 border-red-600" style={{ left: colX[p.c] - 3, top: rowY[p.r] - 2, width: colW(p.c) + 6, height: rowH(p.r) + 4 }} />;
               })}
             {actBox && selR && (selR.c1 !== selR.c2 || selR.r1 !== selR.r2) && <div className="pointer-events-none absolute z-[7] bg-white/60" style={{ ...actBox, mixBlendMode: "lighten" }} />}
+            {/* the range a formula is pointing to (Excel's moving border) */}
+            {(() => {
+              const pt = pointRef.current;
+              const rc = edit && pt?.range && pt.sheet === sheet.name && pt.text === edit.text ? parseRange(pt.range) : null;
+              if (!rc) return null;
+              return <div aria-hidden="true" className="pointer-events-none absolute z-[8] border-2 border-dashed border-[#4472C4]" style={{ left: colX[rc.c1], top: rowY[rc.r1], width: colX[Math.min(rc.c2, nCols) + 1] - colX[rc.c1], height: rowY[Math.min(rc.r2, nRows) + 1] - rowY[rc.r1] }} />;
+            })()}
             {fillPreview && <div className="pointer-events-none absolute z-[8] border border-dashed border-gray-700" style={{ left: colX[fillPreview.c1], top: rowY[fillPreview.r1], width: colX[fillPreview.c2 + 1] - colX[fillPreview.c1], height: rowY[fillPreview.r2 + 1] - rowY[fillPreview.r1] }} />}
             {/* charts */}
             {(sheet.charts ?? []).map((ch) => {
@@ -1531,10 +1596,17 @@ export function ExcelCanvas({ doc: rawDoc, ui, onSelect, onCommit, onContextMenu
               onDragStart={(e) => e.dataTransfer.setData("text/sheet", s.name)}
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => { const name = e.dataTransfer.getData("text/sheet"); if (name && name !== s.name) onCommit({ kind: "command", id: "sheet.move", value: `${name}@${i + 1}` }); }}
-              onClick={() => { if (!active) onSelect({ sheet: s.name, selection: "A1" }); }}
+              onMouseDown={(e) => { if (editRef.current && pointing()) e.preventDefault(); }}
+              onClick={() => {
+                // Typing a formula: clicking a tab points to that sheet. Any other entry is entered first, as in Excel.
+                if (editRef.current && pointing()) { pointToSheet(s.name); return; }
+                if (editRef.current) commitEdit("none");
+                if (!active) onSelect({ sheet: s.name, selection: "A1" });
+              }}
               onDoubleClick={() => setRenaming({ name: s.name, text: s.name })}
               onContextMenu={(e) => {
                 e.preventDefault();
+                if (editRef.current) return;
                 if (!active) onSelect({ sheet: s.name, selection: "A1" });
                 const items = tabColorMenu(s.name);
                 onContextMenu(e.clientX, e.clientY - 280, items.map((m) => (m.dialog?.startsWith("__rename:") ? { ...m, dialog: undefined, command: undefined } : m)));
@@ -1727,6 +1799,11 @@ function Sparkline({ doc, sheet, sp, w, h }: { doc: ExcelBook; sheet: ExcelSheet
       )}
     </svg>
   );
+}
+
+/** How a formula names another sheet: January! or 'Supply Tracker'! (quoted when the name has spaces or symbols). */
+function sheetPrefix(name: string): string {
+  return /^[A-Za-z_][A-Za-z0-9_.]*$/.test(name) && !/^[A-Za-z]{1,3}\d+$/.test(name) ? `${name}!` : `'${name.replace(/'/g, "''")}'!`;
 }
 
 /** F4 while editing a formula: cycle the reference at (or just before) the cursor through $ styles. */
