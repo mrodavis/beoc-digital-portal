@@ -457,7 +457,7 @@ LESSON 3 – STYLE SETS
     "Save a custom style set for reuse",
   ],
   duration: "7 min",
-  videoUrl: "https://www.youtube.com/embed/_W7SHuhtr9A",
+  videoUrl: "https://www.youtube.com/embed/YN01xt2daSc",
 
   practiceFiles: [
     {
@@ -634,7 +634,7 @@ LESSON 4 – USING THEMES
     "Explain why theme colors are better than fixed colors",
   ],
   duration: "9 min",
-  videoUrl: "https://www.youtube.com/embed/6LYkwNmmA6s",
+  videoUrl: "https://www.youtube.com/embed/3xfjQouNkWI",
 
   practiceFiles: [
     {
