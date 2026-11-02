@@ -165,6 +165,7 @@ export const module5Lessons: Lesson[] = [
       "Review a chart and its results before deciding what to order",
     ],
     duration: "80 min",
+    videoUrl: "https://www.youtube.com/embed/-LDnAxZvfms",
     sections: [
       {
         heading: "Right patient, right order, every time",
