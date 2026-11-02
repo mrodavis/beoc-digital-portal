@@ -389,6 +389,7 @@ export const module1Lessons: Lesson[] = [
       "Explain what an audit trail records and why it matters",
     ],
     duration: "80 min",
+    videoUrl: "https://www.youtube.com/embed/S8wy6WqFbV8",
     sections: [
       {
         heading: "Practicing in a simulator, working like it is live",
