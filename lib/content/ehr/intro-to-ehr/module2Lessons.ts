@@ -251,6 +251,7 @@ export const module2Lessons: Lesson[] = [
       "Recognize the registration errors that cause downstream denials",
     ],
     duration: "80 min",
+    videoUrl: "https://www.youtube.com/embed/ziTsadsrdN0",
     sections: [
       {
         heading: "Ninety seconds that decide whether the claim pays",
