@@ -13,6 +13,7 @@ export const module3Lessons: Lesson[] = [
       "Link a procedure code to a diagnosis that supports medical necessity",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/1ol64_P4G28",
     sections: [
       {
         heading: "Two code sets, one claim",
@@ -161,6 +162,7 @@ export const module3Lessons: Lesson[] = [
       "Recognize modifier use that crosses into abuse",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/1t3_wqNddAg",
     sections: [
       {
         heading: "Modifiers answer an objection before it is raised",

@@ -13,6 +13,7 @@ export const module4Lessons: Lesson[] = [
       "Describe how HCPCS Level II is maintained",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/QGRc-t-6ERk",
     sections: [
       {
         heading: "The code set for everything CPT does not cover",
