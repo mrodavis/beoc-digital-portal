@@ -291,7 +291,7 @@ export const module3Lessons: Lesson[] = [
       "Post a payment and account for the contractual adjustment",
     ],
     duration: "80 min",
-    videoUrl: "https://www.youtube.com/embed/9brejCeSGTc",
+    videoUrl: "https://www.youtube.com/embed/aJKTW54VKVw",
     sections: [
       {
         heading: "From documentation to posted payment",

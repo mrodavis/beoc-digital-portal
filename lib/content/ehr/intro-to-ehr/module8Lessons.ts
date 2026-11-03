@@ -298,7 +298,7 @@ export const module8Lessons: Lesson[] = [
       "Apply accuracy, privacy, and documentation judgment together",
     ],
     duration: "80 min",
-    videoUrl: "https://www.youtube.com/embed/LFT1BHxCeuA",
+    videoUrl: "https://www.youtube.com/embed/HrscPgiS_Ug",
     sections: [
       {
         heading: "Everything at once",
