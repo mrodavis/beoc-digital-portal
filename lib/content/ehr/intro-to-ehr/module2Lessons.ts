@@ -184,7 +184,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Coding to the highest level of specificity available is required, not optional. A three-character code is only billable when the code set provides no further subdivision for it — and most three-character entries are category headers. Submitting one where subdivisions exist produces an invalid-code rejection. Unspecified codes are valid where the documentation genuinely does not support more detail, but a pattern of them attracts payer attention and often pays less.",
+            text: "Coding to the highest level of specificity available is required, not optional. A three-character code is only billable when the code set provides no further subdivision for it — and most three-character entries are category headers. Submitting one where subdivisions exist produces an invalid-code rejection. Unspecified codes are valid where the documentation genuinely does not support more detail. When the record does give more detail, code it.",
           },
         ],
       },

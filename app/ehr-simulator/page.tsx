@@ -182,6 +182,36 @@ export default function EhrSimulatorGuidePage() {
         </p>
       </section>
 
+      {/* Video tour */}
+      <section className="mb-14" aria-labelledby="tour">
+        <h2 id="tour" className="mb-2 text-3xl font-bold text-gray-900">
+          Take the video tour
+        </h2>
+        <p className="mb-6 max-w-3xl text-gray-600">
+          A four-minute walkthrough of the simulator: Home, the top bar and role selector, finding
+          a patient, and the sections of the chart. It is the orientation lab from Intro to EHR.
+        </p>
+        <div className="aspect-video overflow-hidden rounded-2xl border border-gray-200 bg-gray-900 shadow-lg">
+          <iframe
+            src="https://www.youtube.com/embed/S8wy6WqFbV8"
+            title="EHR Simulator Lab: Orientation & Navigation"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="h-full w-full"
+          />
+        </div>
+        <p className="mt-4 text-sm text-gray-600">
+          Want the written steps too?{" "}
+          <Link
+            href="/learning-paths/ehr/intro-to-ehr/module-1/ehr-go-orientation"
+            className="font-medium text-primary-700 underline-offset-2 hover:underline"
+          >
+            Open the orientation lab lesson
+          </Link>
+          .
+        </p>
+      </section>
+
       {/* What you'll practice */}
       <section className="mb-14" aria-labelledby="practice">
         <h2 id="practice" className="mb-2 text-3xl font-bold text-gray-900">
