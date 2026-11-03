@@ -13,7 +13,7 @@ export const module1Lessons: Lesson[] = [
       "Describe the role an EHR specialist actually performs",
     ],
     duration: "15 min",
-    videoUrl: "https://www.youtube.com/embed/OFvROse3MW4",
+    videoUrl: "https://www.youtube.com/embed/oxkzCEb-Zd4",
     slides: [
       {
         src: "/images/ehr/module-1/course-overview/slide-01.jpg",
@@ -197,6 +197,7 @@ export const module1Lessons: Lesson[] = [
       "Describe what happens to a claim after it leaves the practice",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/idn-5VfXmfQ",
     slides: [
       {
         src: "/images/ehr/module-1/patient-workflow-and-revenue-cycle/slide-01.jpg",

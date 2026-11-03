@@ -13,6 +13,7 @@ export const module2Lessons: Lesson[] = [
       "Describe what happens when authorization is missed",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/8-BxAQap6dc",
     sections: [
       {
         heading: "Approval before the service, not after",
@@ -130,6 +131,7 @@ export const module2Lessons: Lesson[] = [
       "Explain why specificity affects payment",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/6YQ1fSRQ3xg",
     sections: [
       {
         heading: "Codes for why the patient was seen",

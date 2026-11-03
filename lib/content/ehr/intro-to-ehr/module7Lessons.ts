@@ -241,6 +241,7 @@ export const module7Lessons: Lesson[] = [
       "Handle reports containing PHI appropriately",
     ],
     duration: "80 min",
+    videoUrl: "https://www.youtube.com/embed/RAoHK4QktEQ",
     sections: [
       {
         heading: "Reading a report to find the problem",
