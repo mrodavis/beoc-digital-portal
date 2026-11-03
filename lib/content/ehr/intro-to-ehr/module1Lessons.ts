@@ -51,7 +51,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are beginning the Introduction to EHR course.",
-            text: "A patient arrives at a clinic. Over the next hour, roughly a dozen people touch information about that visit — the front desk, the medical assistant, the provider, the coder, the biller, the payer. Every one of them works from the same record. Your job is to make sure that record is accurate, complete, findable, and lawful.",
+            text: "A patient arrives at a clinic. Over the next hour, roughly a dozen people touch information about that visit. The front desk, the medical assistant, the provider, the coder, and the biller all work from the same record. The payer sees the claim that comes from it. Your job is to make sure that record is accurate, complete, findable, and lawful.",
             task: "Understand the whole system before learning any one part of it.",
           },
           {
@@ -75,11 +75,11 @@ export const module1Lessons: Lesson[] = [
               },
               {
                 term: "PHI",
-                definition: "Protected Health Information — health information linked to an identifiable person. Governed by HIPAA.",
+                definition: "Protected Health Information: health information that identifies a person and is held by a provider, a health plan, or their business associate. Governed by HIPAA.",
               },
               {
                 term: "ePHI",
-                definition: "PHI in electronic form, which is what the HIPAA Security Rule specifically governs.",
+                definition: "PHI in electronic form. The Privacy Rule still applies to it, and the HIPAA Security Rule adds protections for ePHI.",
               },
               {
                 term: "Interoperability",
@@ -175,10 +175,10 @@ export const module1Lessons: Lesson[] = [
           "It depends on how many times you sign in",
         ],
         correctIndex: 1,
-        explanation: "The grade has five categories at 20% each: Professionalism, Classwork & Homework, EHR Simulator Labs, the Midterm, and the Final. Brightspace is the authoritative record. The point of knowing it is practical: the labs carry as much weight as an exam, so a skipped lab costs about as much as a weak test.",
+        explanation: "The grade has five categories at 20% each: Professionalism, Classwork & Homework, EHR Simulator Labs, the Midterm, and the Final. Brightspace is the authoritative record. The point of knowing it is practical: the labs, all together, count as much as the midterm or the final. Every lab you skip lowers that 20%.",
         optionRationales: [
           "The labs are graded. Each graded simulation and lab is a grade item in Brightspace.",
-          "Correct. Five categories, 20% each, so the labs weigh the same as the midterm.",
+          "Correct. Five categories, 20% each, so the labs, all together, weigh the same as the midterm.",
           "No single category is worth half. The weight is split evenly across five categories.",
           "Signing in is not scored. The simulator grades the steps you take inside a lab, not how often you log in.",
         ],
@@ -193,7 +193,7 @@ export const module1Lessons: Lesson[] = [
     objectives: [
       "Trace a patient encounter from scheduling through payment",
       "Identify which zone of the practice owns each step",
-      "Explain why most billing problems originate at the front desk",
+      "Explain why many billing problems start at the front desk",
       "Describe what happens to a claim after it leaves the practice",
     ],
     duration: "20 min",
@@ -272,15 +272,15 @@ export const module1Lessons: Lesson[] = [
               ],
               [
                 "6",
-                "Clinical encounter",
+                "Clinical encounter and documentation",
                 "Middle",
-                "Care delivered but not fully documented",
+                "Care delivered but not fully documented, or a note that does not support what will be coded",
               ],
               [
                 "7",
-                "Documentation",
-                "Middle",
-                "Note does not support what will be coded",
+                "Check-out and referrals",
+                "Front",
+                "Referrals or follow-up not arranged, or a balance already due not collected while the patient is still in the building",
               ],
               [
                 "8",
@@ -311,11 +311,11 @@ export const module1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Steps 1 through 5 happen before the patient is ever seen, and they are where the majority of denials originate. A denial that arrives six weeks later for 'coverage terminated' was created in ninety seconds at the front desk. When you are asked to investigate a denial, start by asking what was known at registration.",
+            text: "Steps 1 through 5 happen before the patient is ever seen, and many denials start there. A denial that arrives six weeks later for 'coverage terminated' was created in ninety seconds at the front desk. When you are asked to investigate a denial, start by asking what was known at registration.",
           },
           {
             type: "paragraph",
-            text: "The revenue cycle is the same sequence viewed as money rather than as care. It is usually described in three phases: the front end (patient access — everything before and at check-in), the middle (health information management — documentation and coding), and the back end (patient financial services — claims, payments, denials, and collections).",
+            text: "The revenue cycle is the same sequence viewed as money rather than as care. It is usually described in three phases: the front end (patient access: everything before and at check-in), the middle (health information management: documentation and coding), and the back end (patient financial services: claims, payments, denials, and collections). Careful: in the office, coders sit in the back office. In the revenue cycle, coding is the middle phase.",
           },
         ],
       },
@@ -368,11 +368,11 @@ export const module1Lessons: Lesson[] = [
           "Payment posting",
         ],
         correctIndex: 2,
-        explanation: "Check-out follows the clinical encounter. It is where referrals are arranged, follow-up is scheduled, and any remaining patient responsibility is collected — while the patient is still in the building, which is the only easy time to collect it.",
+        explanation: "Check-out follows the clinical encounter. It is where referrals are arranged, follow-up is scheduled, and any balance already due is collected, while the patient is still in the building.",
         optionRationales: [
           "Claim submission comes later, after the encounter has been documented and coded.",
           "Insurance verification happens before the visit, not after it.",
-          "Correct. Check-out is the step immediately after the encounter, covering referrals, follow-up scheduling, and collection.",
+          "Correct. Check-out is the step immediately after the encounter, covering referrals, follow-up scheduling, and any balance already due.",
           "Payment posting happens after the payer adjudicates the claim, which is several steps later.",
         ],
       },
@@ -450,7 +450,7 @@ export const module1Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Every EHR keeps an audit trail: who opened a record, when, from where, and what they viewed or changed. It cannot be switched off and it is reviewed. This is how organizations detect staff looking up a neighbor, a coworker, or a public figure — which is one of the most common causes of termination in healthcare. Open only the records your work requires, every time, including in the simulator.",
+            text: "Every EHR keeps an audit trail: who opened a record, when, from where, and what they viewed or changed. It cannot be switched off and it is reviewed. This is how organizations detect staff looking up a neighbor, a coworker, or a public figure, which is a common reason people lose their jobs in healthcare. Open only the records your work requires, every time, including in the simulator.",
           },
           {
             type: "tip",
@@ -473,20 +473,20 @@ export const module1Lessons: Lesson[] = [
             steps: [
               "If this is your first time, choose “Join with your class code” below, enter the code, and check that the class shown is yours. Create your account with your name as it appears on the class roster, your email, and a password of at least 10 characters.",
               "You land on Home. Read the top bar from left to right: patient search, your inbox and task counts, your name, and the role you are working as.",
-              "Open the role selector in the top bar. Your class holds four roles — Front Desk, Medical Assistant, Provider, and Billing — and each one unlocks different work. Switch to Front Desk.",
+              "Open the role selector in the top bar. Your class holds four roles: Front Desk / Registration, Medical Assistant, Provider, and Billing / Coding. Each one unlocks different work. A new account in this class starts as Front Desk / Registration, so it may already be selected. If it is not, choose it.",
             ],
-            done: "You are signed in and the top bar shows Front Desk.",
+            done: "You are signed in and the top bar shows Front Desk / Registration.",
           },
           {
             type: "simulator",
             title: "Find a patient and read the chart",
             path: "/ehr/patient-lists",
-            role: "Front Desk",
+            role: "Front Desk / Registration",
             steps: [
               "Open Patient Lists. Notice how the day is organized: work starts from a list, not from a search box.",
               "Press Ctrl + K (Cmd + K on a Mac) to open patient search. Find Emeka Castellanos by name. Then search again by his date of birth, typed as 1954-05-08. Both searches should land on the same MRN.",
               "Open his chart. Before reading anything else, find the patient header: name, MRN, date of birth, age, and any allergy alert. It stays on screen in every section.",
-              "Click through each chart section — Summary, Chart Review, Notes, Flowsheets, MAR, Medications, Med Rec, Orders, Results, Problems, Allergies, Registration, and Billing — and write one thing each one holds. Read only; this chart is shared with your whole class.",
+              "Click through each chart section: Summary, Chart Review, Notes, Flowsheets, MAR, Medications, Med Rec, Orders, Results, Problems, Allergies, Discharge, Registration, and Billing. Write one thing each one holds. If the last tabs are cut off, scroll the tab row. Read only; this chart is shared with your whole class.",
               "Go back to Home and open the Workflow Translation guide. Read the entries for Patient Lists, Persistent Patient Header, and Chart Sections.",
             ],
             done: "You can open any chart with two searches and say what each chart section is for without guessing.",

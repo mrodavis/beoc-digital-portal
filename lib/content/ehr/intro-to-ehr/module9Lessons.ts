@@ -56,7 +56,7 @@ export const module9Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are considering certification.",
-            text: "The Certified Electronic Health Records Specialist credential is awarded by the National Healthcareer Association. It is not required to work in the field, and it is widely recognized by employers — which makes it worth doing if you intend to work in health information.",
+            text: "The Certified Electronic Health Records Specialist credential is awarded by the National Healthcareer Association. It is not required to work in the field. But NHA's exams are nationally accredited (NCCA), so the credential shows employers you have met a recognized standard.",
             task: "Understand the exam's shape so preparation is targeted rather than general.",
           },
           {
@@ -73,7 +73,7 @@ export const module9Lessons: Lesson[] = [
               ],
               [
                 "Format",
-                "100 scored questions plus 25 unscored pretest questions, 125 minutes",
+                "100 scored questions plus 25 unscored pretest questions",
               ],
               [
                 "Scaled score",
@@ -102,35 +102,35 @@ export const module9Lessons: Lesson[] = [
             type: "table",
             caption: "The CEHRS test plan domains, mapped to this course",
             columns: [
-              "Domain (scored questions)",
+              "Domain",
               "Covered in",
             ],
             rows: [
               [
-                "Non-Clinical Operations (28) — scheduling, registration, workflow",
+                "Non-Clinical Operations: scheduling, registration, workflow",
                 "Modules 1, 2, 7",
               ],
               [
-                "Clinical Operations (32) — charting, orders, results",
+                "Clinical Operations: charting, orders, results",
                 "Modules 5, 6",
               ],
               [
-                "Revenue Cycle/Finance (15) — coding, claims, payment",
+                "Revenue Cycle/Finance: coding, claims, payment",
                 "Modules 2, 3, 4, 7, 8",
               ],
               [
-                "Regulatory Compliance (15) — HIPAA, Cures Act, fraud and abuse",
+                "Regulatory Compliance: HIPAA, Cures Act, fraud and abuse",
                 "Modules 6, 8",
               ],
               [
-                "Reporting (10) — data extraction and quality measures",
+                "Reporting: data extraction and quality measures",
                 "Modules 7, 8",
               ],
             ],
           },
           {
             type: "tip",
-            text: "Prepare by retrieval, not rereading. For each domain above, close the material and explain it out loud. Where you hesitate is your study list; where you answer instantly needs no more work, however reassuring rereading feels.",
+            text: "Prepare by retrieval, not rereading. For each domain above, close the material and explain it out loud. Where you hesitate is your study list. What you answer instantly doesn't need more rereading. Just quiz yourself on it again now and then.",
           },
         ],
       },
@@ -144,7 +144,7 @@ export const module9Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Exam format: 125 questions in 125 minutes. 100 are scored and 25 are unscored pretest questions",
+              "Exam format: 125 questions. 100 are scored and 25 are unscored pretest questions",
               "Delivery: computer-based, at your school, at a PSI testing center, or with live remote proctoring",
               "Passing score: a scaled score of 390 or higher, on a scale of 200 to 500",
               "Fee: listed by NHA when you schedule; check it on nhanow.com",
@@ -158,11 +158,11 @@ export const module9Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Clinical Operations: 32 scored questions",
-              "Non-Clinical Operations: 28 scored questions",
-              "Revenue Cycle/Finance: 15 scored questions",
-              "Regulatory Compliance: 15 scored questions",
-              "Reporting: 10 scored questions",
+              "Non-Clinical Operations",
+              "Clinical Operations",
+              "Revenue Cycle/Finance",
+              "Regulatory Compliance",
+              "Reporting",
             ],
           },
           {
@@ -172,7 +172,7 @@ export const module9Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "success",
-            text: "Clinical and non-clinical operations together carry 60 of the 100 scored questions, so the chart, order, scheduling, and registration work you did in the EHR Simulator labs is the heart of the exam. Lay the test plan beside the domain table above and mark any task it lists that this course did not cover. That short list is where to spend extra study time.",
+            text: "The chart, order, scheduling, and registration work you did in the EHR Simulator labs falls under the Clinical Operations and Non-Clinical Operations domains. Lay the test plan beside the domain table above and mark any task it lists that this course did not cover. That short list is where to spend extra study time.",
           },
         ],
       },

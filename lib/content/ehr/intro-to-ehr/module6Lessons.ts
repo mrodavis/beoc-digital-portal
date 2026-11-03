@@ -26,7 +26,7 @@ export const module6Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Clinical decision support is genuinely valuable: it catches allergy conflicts, drug interactions, duplicate orders, and dosing outside expected ranges. But every alert spends a small amount of the user's attention, and attention is finite. When the great majority of alerts are irrelevant, users learn — correctly, in a statistical sense — that dismissing is usually right.",
+            text: "Clinical decision support is genuinely valuable: it can flag allergy conflicts, drug interactions, duplicate orders, and dosing outside expected ranges. But every alert spends a small amount of the user's attention, and attention is finite. When most alerts are irrelevant, users learn that dismissing is usually right.",
           },
           {
             type: "callout",
@@ -35,23 +35,23 @@ export const module6Lessons: Lesson[] = [
           },
           {
             type: "table",
-            caption: "Verbal and telephone orders",
+            caption: "Verbal and telephone orders, step by step (only staff your policy and state law allow may take one)",
             columns: [
               "Requirement",
               "Why",
             ],
             rows: [
               [
-                "Read the order back to the provider",
+                "Write the order down, or enter it, as you hear it",
+                "Memory is not a record",
+              ],
+              [
+                "Read it back, and wait for the provider to confirm it",
                 "Confirms what you heard matches what they said, before anything is acted on",
               ],
               [
-                "Record it immediately",
-                "Memory is not a record, and the order takes effect now",
-              ],
-              [
                 "Note who gave it, and when",
-                "Attribution is what makes the order valid",
+                "Shows who is responsible for the order",
               ],
               [
                 "Obtain the provider's countersignature within the required window",
@@ -70,7 +70,7 @@ export const module6Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Most EHR systems include pre-built order sets — groups of orders commonly used together for specific diagnoses or procedures. Clinical Decision Support (CDS) alerts notify providers of potential drug interactions, allergies, or guideline deviations.",
+            text: "Many EHR systems include pre-built order sets: groups of orders commonly used together for specific diagnoses or procedures. Clinical Decision Support (CDS) alerts notify providers of potential drug interactions, allergies, or guideline deviations.",
           },
           {
             type: "list",
@@ -92,7 +92,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "success",
-            text: "Studies show CPOE reduces serious medication errors by more than 50% compared to handwritten orders.",
+            text: "CPOE reduces medication errors compared with handwritten orders, because there is no handwriting to misread and no transcription step.",
           },
         ],
       },
@@ -113,7 +113,7 @@ export const module6Lessons: Lesson[] = [
           "CDS alerts appear on screen within the EHR. No fax is involved.",
           "Correct. Too many alerts train users to dismiss them, which defeats the purpose of the ones that matter.",
           "CDS is used across inpatient and outpatient EHRs alike.",
-          "Allergy checking is one of the things CDS does most reliably.",
+          "Allergy checking is one of the main things CDS does.",
         ],
       },
     ],
@@ -138,7 +138,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You work with patient records daily.",
-            text: "Almost everything you handle is protected health information: a name attached to a date of service, a diagnosis code, an insurance number. The rules governing it are not a compliance module you complete once — they describe how the job is done.",
+            text: "Almost everything you handle is protected health information: a name attached to a date of service, a diagnosis code in a patient's record, an insurance ID number. The rules governing it are not a compliance module you complete once. They describe how the job is done.",
             task: "Learn which rule governs what, so you know which question you are asking.",
           },
           {
@@ -174,14 +174,14 @@ export const module6Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "The distinction that matters most in practice: the Privacy Rule covers PHI in every form, while the Security Rule is specifically about ePHI and its three safeguard categories. Administrative safeguards are policies, training, and access management. Physical safeguards are facility access, workstation placement, and device control. Technical safeguards are access controls, audit controls, encryption, and transmission security.",
+            text: "The distinction that matters most in practice: the Privacy Rule covers PHI in every form, while the Security Rule is specifically about ePHI and its three safeguard categories. Administrative safeguards include security management, a responsible security official, access management, workforce training, and evaluation. Physical safeguards include facility access controls and workstation and device security. Technical safeguards include access control, audit controls, integrity controls, checking that users are who they say they are, and transmission security.",
           },
           {
             type: "key-terms",
             terms: [
               {
                 term: "Covered entity",
-                definition: "A health plan, healthcare clearinghouse, or provider that transmits health information electronically.",
+                definition: "A health plan, healthcare clearinghouse, or provider that transmits health information electronically in standard transactions.",
               },
               {
                 term: "Business associate",
@@ -193,7 +193,7 @@ export const module6Lessons: Lesson[] = [
               },
               {
                 term: "Minimum necessary",
-                definition: "Disclose only what the purpose requires. It does not apply to treatment disclosures between providers.",
+                definition: "Limit each use or disclosure to the minimum its purpose requires. It does not apply to disclosures to a provider for treatment, to the patient's own request, or to disclosures the patient has authorized.",
               },
               {
                 term: "HITECH Act",
@@ -204,7 +204,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Accessing a record you have no work reason to see is a violation even if you tell nobody and change nothing. Access is logged and audited routinely. Looking up a coworker, a neighbor, a family member, or a public figure is among the most common causes of termination in healthcare, and concern for the person is not an exception in the rule.",
+            text: "Accessing a record you have no work reason to see is a violation even if you tell nobody and change nothing. Access is logged and audited routinely. Looking up a coworker, a neighbor, a family member, or a public figure is a common reason people lose their jobs in healthcare, and concern for the person is not an exception in the rule.",
           },
         ],
       },
@@ -220,7 +220,7 @@ export const module6Lessons: Lesson[] = [
             items: [
               "Privacy Rule: Controls who can access and use PHI (Protected Health Information)",
               "Security Rule: Sets standards for protecting electronic PHI (ePHI)",
-              "Breach Notification Rule: Requires notification of affected patients if PHI is breached",
+              "Breach Notification Rule: Requires notice to affected individuals and to HHS after a breach of unsecured PHI, and to the media when more than 500 people in one state are affected",
             ],
           },
         ],
@@ -231,7 +231,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Civil penalties: four tiers, from violations the organization did not know about up to willful neglect left uncorrected. HHS adjusts the dollar amounts for inflation, normally every year (it made no adjustment for 2026, so the 2025 amounts still apply), so check the current figures rather than memorizing old ones; the yearly cap for repeated violations of one requirement runs into the millions",
+              "Civil penalties: four tiers. The lowest is a violation the organization did not know about and could not have known about with reasonable care. The highest is willful neglect not corrected within 30 days. HHS adjusts the dollar amounts for inflation, normally every year (it made no adjustment for 2026, so the 2025 amounts still apply), so check the current figures rather than memorizing old ones; the yearly cap for repeated violations of one requirement runs into the millions",
               "Criminal penalties: Up to 10 years imprisonment for knowingly obtaining or disclosing PHI with intent to sell it or use it for personal gain or malicious harm",
               "Reputational damage to the healthcare organization",
             ],
@@ -309,8 +309,8 @@ export const module6Lessons: Lesson[] = [
               ],
               [
                 "Family member calls about an adult patient",
-                "Nothing without authorization",
-                "Confirming the patient was even seen",
+                "Nothing unless the patient has agreed, not even that they were seen",
+                "Confirming the patient was even seen, when the patient has not agreed",
               ],
               [
                 "Submitting a claim",
@@ -322,7 +322,7 @@ export const module6Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Report a suspected breach immediately through your organization's process. The Breach Notification Rule carries deadlines, and the clock starts when the breach is discovered — not when someone decides it was serious. Delay makes every outcome worse, and no one has ever been disciplined for reporting something that turned out to be nothing.",
+            text: "Report a suspected breach immediately through your organization's process. The Breach Notification Rule carries deadlines, and the clock starts when the breach is discovered, not when someone decides it was serious. Delay makes every outcome worse. If you're not sure, report it anyway.",
           },
         ],
       },
@@ -342,7 +342,7 @@ export const module6Lessons: Lesson[] = [
             steps: [
               "Switch to Medical Assistant. Open only your practice patient's chart and confirm two identifiers.",
               "Open Notes and start a Medical Assistant Intake Note. Document the reason for today's visit in two or three factual sentences: what was observed and what the patient reported, not opinions.",
-              "Save it as a draft, read it back once for accuracy, then sign it.",
+              "Save it as a draft, read it back once for accuracy, then sign it: on the draft, under Notes on File, click Sign note.",
               "Now look for a way to change the signed note's text. There is none: a signed note is part of the legal record.",
               "Add an addendum that corrects or adds one fact, and say why in the addendum. The original stays visible; the correction is dated and carries your name.",
             ],

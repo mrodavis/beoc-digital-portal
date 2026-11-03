@@ -49,7 +49,7 @@ export const module7Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "Denials surface at the back end and usually originate at the front. When you group a month's denials by the phase that caused them rather than by the department that received them, the picture changes completely — and so does what you would fix.",
+            text: "Denials surface at the back end, and many start at the front. When you group a month's denials by the phase that caused them rather than by the department that received them, the picture can change, and so can what you would fix.",
           },
         ],
       },
@@ -63,9 +63,9 @@ export const module7Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Patient workflow: scheduling → registration → encounter → coding → billing",
+              "Patient workflow: scheduling → registration → encounter → check-out → coding → billing",
               "Revenue cycle: front-end (access) → mid-cycle (coding) → back-end (billing/collections)",
-              "Preauthorization: required for certain procedures, medications, and specialist referrals",
+              "Preauthorization: often required by plans for certain procedures, medications, and medical equipment",
               "CPOE: electronic order entry reducing medication errors and improving communication",
             ],
           },
@@ -123,7 +123,7 @@ export const module7Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "An EHR is a relational database underneath the clinical interface. Patients, encounters, orders, results, and charges are separate tables linked by keys — which is why one patient can have many encounters without their address being stored many times, and why changing a demographic in one place changes it everywhere.",
+            text: "Underneath the screens, an EHR stores its data in a database. Picture it as separate tables (patients, encounters, orders, results, and charges) linked by keys. That is why one patient can have many encounters without their address being stored many times, and why changing a demographic in one place changes it everywhere.",
           },
           {
             type: "table",
@@ -136,7 +136,7 @@ export const module7Lessons: Lesson[] = [
             rows: [
               [
                 "Days in A/R",
-                "Average days from date of service to payment",
+                "An estimate of how many days, on average, it takes to get paid, figured as total A/R divided by average charges per day",
                 "Under 40 days for a physician practice",
               ],
               [
@@ -146,7 +146,7 @@ export const module7Lessons: Lesson[] = [
               ],
               [
                 "Clean claim rate",
-                "Share accepted on first submission with no edits",
+                "Share of claims accepted the first time, with no corrections needed",
                 "95% or better",
               ],
               [
@@ -183,7 +183,7 @@ export const module7Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Patient master index: maintains unique patient identification across the organization",
+              "Master patient index: maintains unique patient identification across the organization",
               "Appointment and scheduling databases: track provider availability and patient visits",
               "Clinical data repositories: store lab results, imaging, and documentation",
               "Financial databases: support charge capture, billing, and accounts receivable",
@@ -201,9 +201,9 @@ export const module7Lessons: Lesson[] = [
           {
             type: "list",
             items: [
-              "Days in A/R: how long it takes to collect payment after a claim is submitted",
+              "Days in A/R: an estimate of how many days, on average, it takes to get paid, figured as total A/R divided by average charges per day",
               "Denial rate: percentage of claims denied by payers",
-              "Clean claim rate: percentage of claims paid on first submission",
+              "Clean claim rate: percentage of claims accepted the first time, with no corrections needed",
             ],
           },
         ],
@@ -215,15 +215,15 @@ export const module7Lessons: Lesson[] = [
         question: "What does 'Days in A/R' measure in healthcare financial management?",
         options: [
           "The number of days a patient waits for an appointment",
-          "How long it takes to collect payment after a claim is submitted",
+          "About how many days, on average, it takes to get paid",
           "The number of days a provider works per week",
           "How many days a claim can be appealed",
         ],
         correctIndex: 1,
-        explanation: "Days in A/R measures the average time from date of service to payment received. It is the clearest single indicator of how quickly a practice converts work into cash, and a rising figure usually means claims are not being worked.",
+        explanation: "Days in A/R is an estimate of how many days, on average, it takes to get paid, figured as total A/R divided by average charges per day. It shows how quickly a practice turns its work into cash, and a rising figure can mean claims are not being worked.",
         optionRationales: [
           "Appointment wait time is a scheduling and access measure, not a financial one.",
-          "Correct. Days in accounts receivable measures how long payment takes after the claim is submitted.",
+          "Correct. Days in accounts receivable estimates how many days, on average, it takes to get paid: total A/R divided by average charges per day.",
           "Provider scheduling is unrelated to accounts receivable.",
           "The appeal window is set by the payer contract and is a different concept entirely.",
         ],
@@ -286,9 +286,10 @@ export const module7Lessons: Lesson[] = [
             type: "simulator",
             title: "Track the visit and the building",
             path: "/ehr/schedule",
-            role: "Front Desk",
+            role: "Front Desk / Registration",
             steps: [
-              "As Front Desk, open Schedule in Day view. Find your practice patient's visit and read its status against the sequence: scheduled, confirmed, arrived, checked in, roomed, in progress, completed.",
+              "As Front Desk / Registration, open Schedule in Day view. Find your practice patient's visit. If it was booked on an earlier day, use Previous day to find it.",
+              "Read the visit's status against the Status sequence shown on the Schedule: scheduled, confirmed, checked-in, roomed, in-progress, completed. Some visits show arrived instead of checked-in. Both come at the same point in the sequence: arrived or checked in means the patient is here.",
               "Switch to the Provider view, then the Location view. Say what question each view answers that the others do not.",
               "Check your practice patient out to close the visit and its encounter.",
               "Open Census & Beds. Find the unit's occupancy and one bed in each status you can see, such as occupied, available, and cleaning.",
@@ -299,9 +300,9 @@ export const module7Lessons: Lesson[] = [
             type: "simulator",
             title: "Work the revenue queue like a manager",
             path: "/ehr/billing",
-            role: "Billing",
+            role: "Billing / Coding",
             steps: [
-              "Switch to Billing and open the revenue work queue.",
+              "Switch to Billing / Coding and open the revenue work queue.",
               "On paper, split the claims into those that need action now and those waiting on someone else.",
               "Find the denied claim. Read its reason code and decide what corrects it, using the denial table from Lab 3. Read only; do not change it.",
               "Apply the worked example above to what you see: deadline first, then value, then pattern.",

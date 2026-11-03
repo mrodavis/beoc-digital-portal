@@ -69,7 +69,7 @@ export const module5Lessons: Lesson[] = [
               },
               {
                 term: "Federally Qualified Health Center (FQHC)",
-                definition: "A community-based provider receiving federal funding to serve underserved populations. FQHCs must offer a sliding fee scale based on income and see patients regardless of ability to pay.",
+                definition: "A community-based provider of primary care in underserved areas. Most get federal grant funding. FQHCs must offer a sliding fee scale based on income and family size, and see patients regardless of ability to pay.",
               },
               {
                 term: "CPOE",
@@ -88,7 +88,7 @@ export const module5Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "CPOE changes what support staff do rather than reducing it. Verbal and telephone orders still occur and still require read-back and provider countersignature. Orders still need tracking to completion — an order placed is not a result received. And when an order is entered against the wrong patient, the audit trail shows who entered it, which is why patient verification before order entry matters as much as it ever did.",
+            text: "CPOE changes the work support staff do. It doesn't remove it. Verbal and telephone orders still occur. They still need to be written down, read back, confirmed by the provider, and countersigned. Orders still need tracking to completion, because an order placed is not a result received. And when an order is entered against the wrong patient, the audit trail shows who entered it, which is why patient verification before order entry matters as much as it ever did.",
           },
         ],
       },
@@ -115,7 +115,7 @@ export const module5Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "FQHCs are community-based healthcare providers that receive federal funding to provide primary care in underserved areas. They follow specific billing rules under Medicare and Medicaid.",
+            text: "FQHCs are community-based healthcare providers of primary care in underserved areas. Most receive federal grant funding. They follow specific billing rules under Medicare and Medicaid.",
           },
         ],
       },
@@ -145,7 +145,7 @@ export const module5Lessons: Lesson[] = [
           "It automates claim submission to insurance companies",
         ],
         correctIndex: 2,
-        explanation: "CPOE eliminates the handwriting and transcription steps where a large share of medication errors originated. The provider enters the order directly, so it is legible by construction and reaches the pharmacy without an intermediate copy.",
+        explanation: "CPOE eliminates the handwriting and transcription steps where many medication errors originated. The provider enters the order directly, so it is legible by construction and reaches the pharmacy without an intermediate copy.",
         optionRationales: [
           "Insurance verification is a separate front-end process and is unaffected by how orders are entered.",
           "Patients do not place their own orders. Patient portals may allow requests, but an order requires a provider.",
@@ -174,7 +174,7 @@ export const module5Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are working the order entry lab in the BEOC EHR Simulator.",
-            text: "Two charts are open in adjacent tabs. This is the single most common way an order reaches the wrong patient, and it happens to careful people working quickly.",
+            text: "Two charts are open in adjacent tabs. This is a common way an order reaches the wrong patient, and it happens to careful people working quickly.",
             task: "Build the verification habit while the patients are fictional.",
           },
           {
@@ -199,11 +199,11 @@ export const module5Lessons: Lesson[] = [
             role: "Provider",
             steps: [
               "Switch to Provider. Search for Tamika Sorensen and open her chart. Read only; her chart is shared with the whole class.",
-              "In Chart Review, read her recent encounters. In Problems, Medications, and Allergies, note what an ordering provider has to know before ordering anything.",
+              "In Chart Review, read her recent encounters. In Problems (hers are listed under Chronic Problems), Medications, and Allergies, note what an ordering provider has to know before ordering anything.",
               "Open Results and read her Complete Blood Count. Check each value against its reference range and note any flag.",
               "Write two sentences: what you would want to know next, and what in the chart supports it.",
             ],
-            done: "You can name her active problems and allergies without looking.",
+            done: "You can name her problems and allergies without looking.",
           },
           {
             type: "simulator",
@@ -215,7 +215,7 @@ export const module5Lessons: Lesson[] = [
               "Open Orders. Search the catalog for Complete Blood Count, select it, and configure it: choose a priority and add a short detail, such as the reason for the order.",
               "Review the order, then sign it. The sequence is the lesson: search, configure, review, sign. An order is not an order until it is signed.",
               "Enter a second order from a different category — Chest X-Ray, 2 Views, or a Cardiology Consultation — and sign it.",
-              "Find both orders on the Orders list and read their status.",
+              "Find both orders under Active and Recent Orders and read their status.",
             ],
             done: "Your practice patient has two signed orders, and you checked the header before each one.",
           },

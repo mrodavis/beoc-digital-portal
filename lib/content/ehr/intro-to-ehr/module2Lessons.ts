@@ -26,7 +26,7 @@ export const module2Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Prior authorization is a payer's advance approval for a specific service, for a specific patient, usually within a specific window. It exists because payers want to review certain expensive or elective services before committing to pay for them. Whether you agree with the practice or not, it is a contractual term, and a service delivered without it is generally not payable.",
+            text: "Prior authorization is a payer's advance approval for a specific service, for a specific patient, usually within a specific window. Plans often require it for certain procedures, medications, and medical equipment, especially expensive or elective services. It is a rule of the patient's plan, and a service delivered without a required authorization is generally not payable. An approval is not a guarantee of payment, though. The claim can still be denied for other reasons, such as medical necessity or a data error.",
           },
           {
             type: "table",
@@ -49,15 +49,15 @@ export const module2Lessons: Lesson[] = [
               ],
               [
                 "Medical necessity",
-                "Does the documentation support that this service was appropriate?",
-                "Judged when the claim is adjudicated",
+                "Does the documentation support that this service was needed?",
+                "The payer can check it during prior authorization, and again when the claim is processed",
               ],
             ],
           },
           {
             type: "callout",
             variant: "warning",
-            text: "These three are independent. A service can be eligible, authorized, and still denied for medical necessity if the documentation does not support it. Confirming one tells you nothing about the other two, and a verification response saying coverage is active is explicitly not a guarantee of payment — payers state this in the response itself.",
+            text: "These are three separate checks, and passing one doesn't guarantee the others. A service can be eligible and authorized, and still be denied for medical necessity if the documentation does not support it. A verification response saying coverage is active is not a guarantee of payment either. Many payers say so in the response itself.",
           },
           {
             type: "paragraph",
@@ -88,7 +88,7 @@ export const module2Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Preauthorization (also called prior authorization) is the process of getting insurance approval before a patient receives certain procedures, medications, or specialist referrals.",
+            text: "Preauthorization (also called prior authorization) is the process of getting insurance approval before a patient receives certain procedures, medications, or medical equipment. A referral to a specialist is a separate thing, not a prior authorization.",
           },
           {
             type: "callout",
@@ -144,7 +144,7 @@ export const module2Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "ICD stands for International Classification of Diseases. The World Health Organization maintains the base classification; the United States uses a clinical modification of the tenth revision, ICD-10-CM, for diagnosis coding in every setting. It is maintained jointly by the CDC's National Center for Health Statistics and CMS. A new code set takes effect every October 1 (the FY 2027 code set took effect October 1, 2026), and some years bring a smaller update on April 1 as well, as April 1, 2026 did. Always code from the set in effect on the date of service.",
+            text: "ICD stands for International Classification of Diseases. The World Health Organization maintains the base classification; the United States uses a clinical modification of the tenth revision, ICD-10-CM, for diagnosis coding in every setting. The CDC's National Center for Health Statistics (NCHS) maintains it. CMS maintains ICD-10-PCS, the inpatient procedure code set. A new code set takes effect every October 1 (the FY 2027 code set took effect October 1, 2026), and some years bring a smaller update on April 1 as well, as April 1, 2026 did. Always code from the set in effect on the date of service. For a hospital stay, use the discharge date.",
           },
           {
             type: "table",
@@ -179,7 +179,7 @@ export const module2Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "An ICD-10-CM code is three to seven characters. The first character is a letter, the second is a number, and the rest may be either. A decimal point follows the third character. Characters beyond the third add specificity — the anatomic site, the severity, the laterality, and for injuries, the encounter type.",
+            text: "An ICD-10-CM code is three to seven characters. The first character is a letter, the second is a number, and the rest may be either. A decimal point follows the third character. Characters beyond the third add specificity: the anatomic site, the severity, the laterality, and for most injuries, the encounter type.",
           },
           {
             type: "callout",
@@ -200,7 +200,7 @@ export const module2Lessons: Lesson[] = [
             items: [
               "ICD-10-CM: Clinical Modification — used by providers to code diagnoses",
               "ICD-10-PCS: Procedure Coding System — used in inpatient hospital settings",
-              "Codes are alphanumeric (e.g., J18.9 = Pneumonia, unspecified)",
+              "Codes are alphanumeric (e.g., J18.9 = Pneumonia, unspecified organism)",
             ],
           },
         ],
@@ -261,7 +261,7 @@ export const module2Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are working registration at Northstar Medical Center.",
-            text: "Registration feels like data entry. It is actually the single highest-leverage step in the revenue cycle: a transposed digit in a member number produces a rejection weeks later, and by then the visit is a memory and the correction takes ten times longer than getting it right would have.",
+            text: "Registration feels like data entry. It is actually the single highest-leverage step in the revenue cycle: a transposed digit in a member number produces a rejection weeks later, and by then the visit is a memory and the correction takes much longer than getting it right would have.",
             task: "Register accurately, and verify rather than assume.",
           },
           {
@@ -328,9 +328,9 @@ export const module2Lessons: Lesson[] = [
             type: "simulator",
             title: "Register your practice patient",
             path: "/ehr/patients/new",
-            role: "Front Desk",
+            role: "Front Desk / Registration",
             steps: [
-              "Switch to Front Desk, then choose Register a patient on Home.",
+              "Work as Front Desk / Registration, then choose Register a patient on Home.",
               "Make up a fictional adult patient. Use your own first name as the patient's family name (if you are Keisha, your patient could be Marcus Keisha) so you can find them in later labs. Never enter information about a real person.",
               "Complete the demographics and save. Work the Registration Checklist down until nothing is missing.",
               "In the patient's Registration section, add primary Insurance Coverage using the practice card in the table below. Enter every value from the card, not from memory, and set the effective date to the first of this year.",
@@ -379,7 +379,7 @@ export const module2Lessons: Lesson[] = [
             type: "simulator",
             title: "Book and check in the visit",
             path: "/ehr/schedule",
-            role: "Front Desk",
+            role: "Front Desk / Registration",
             steps: [
               "Open Schedule and book your patient for a new-patient visit today. Choose any provider and location and an open time. If the schedule reports a conflict, a classmate already holds that slot; pick another, exactly as a real front desk would.",
               "Find the appointment on the schedule and confirm it.",
@@ -392,13 +392,13 @@ export const module2Lessons: Lesson[] = [
             type: "simulator",
             title: "Graded simulation: New Patient Arrival",
             path: "/ehr/assignments",
-            role: "Front Desk",
+            role: "Front Desk / Registration",
             assignment: "New Patient Arrival: Coverage Verification and Check-In",
             steps: [
-              "Open Assignments and start the simulation. It switches you to Front Desk.",
+              "Open Assignments and start the simulation. It switches you to Front Desk / Registration.",
               "Open the assigned patient's chart and confirm identity with two identifiers before you change anything.",
               "Review the registration record with the patient and update anything that has changed.",
-              "Verify the insurance coverage and record it on the Registration tab before check-in. The order is graded: checking in first and verifying afterwards is the most common front-desk error.",
+              "Verify the insurance coverage and record it on the Registration tab before check-in. The order is graded: checking in first and verifying afterwards is a common front-desk error.",
               "Check the patient in from the Schedule. When the visit is over, check them out so the encounter can reach billing.",
               "Complete the simulation and read the debrief.",
             ],

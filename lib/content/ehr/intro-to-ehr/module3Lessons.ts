@@ -21,12 +21,12 @@ export const module3Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are coding an outpatient encounter.",
-            text: "The diagnosis code says why the patient needed care. The procedure code says what was done. A claim carrying only one of them cannot be paid — and a claim where the two do not support each other is denied for medical necessity even though both codes are individually valid.",
+            text: "The diagnosis code says why the patient needed care. The procedure code says what was done. A claim carrying only one of them cannot be paid. And if the two do not support each other, the claim can be denied for medical necessity, even when both codes are valid.",
             task: "Learn to select both, and to link them so the claim tells a coherent story.",
           },
           {
             type: "paragraph",
-            text: "Diagnosis coding requires two steps, always. The Alphabetic Index is organized by condition and points you toward a code. The Tabular List holds the actual code plus the instructional notes that govern its use — and the index never shows those notes. Coding from the index alone is the single most common source of preventable coding error.",
+            text: "Diagnosis coding requires two steps, always. The Alphabetic Index is organized by condition and points you toward a code. The Tabular List holds the full code plus the instructional notes that govern its use. The Index doesn't show the Tabular List's notes, and it doesn't always give the full code. Coding from the Index alone is a common source of preventable coding error.",
           },
           {
             type: "table",
@@ -52,7 +52,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Claim scrubbers and payer edits often catch Excludes1 pairs, so a claim carrying one can be rejected before anyone reviews it. The way to hold the distinction: Excludes1 means mutually exclusive; Excludes2 means not part of this code, so code both if both are present.",
+            text: "Some payers' claim edits check for Excludes1 pairs, and can stop the claim automatically, before anyone reviews it. The way to hold the distinction: Excludes1 means mutually exclusive; Excludes2 means not part of this code, so you can code both if both are documented.",
           },
           {
             type: "table",
@@ -82,12 +82,12 @@ export const module3Lessons: Lesson[] = [
           },
           {
             type: "paragraph",
-            text: "Category I is divided into six sections: Evaluation and Management, Anesthesia, Surgery, Radiology, Pathology and Laboratory, and Medicine. Surgery is by far the largest. Note that the sections are not in strict numeric order — Evaluation and Management codes sit near the end of the number range (the office visit codes most practices use are 99202 to 99215) but appear first in the book, because they are the most frequently used.",
+            text: "Category I is divided into six sections: Evaluation and Management, Anesthesia, Surgery, Radiology, Pathology and Laboratory, and Medicine. Surgery is the largest section. Note that the sections are not in strict numeric order. Evaluation and Management codes sit near the end of the number range (the office visit codes most practices use are 99202 to 99215), but Evaluation and Management comes first in the book.",
           },
           {
             type: "callout",
             variant: "info",
-            text: "Every procedure code on a claim must be linked to at least one diagnosis code that supports medical necessity. On the CMS-1500 this link is made with a diagnosis pointer. A pointer referencing a diagnosis that is not on the claim is one of the most common clearinghouse rejections, and it is entirely preventable at charge entry.",
+            text: "Every procedure code on a claim must be linked to at least one diagnosis code that supports medical necessity. On the CMS-1500 this link is made with a diagnosis pointer. A pointer to a diagnosis that is not on the claim gets the claim rejected, and you can prevent it at charge entry.",
           },
         ],
       },
@@ -104,7 +104,7 @@ export const module3Lessons: Lesson[] = [
               "Characters 1–3: Category (e.g., S52 = Fracture of forearm)",
               "Character 4: Etiology, anatomic site, or severity",
               "Characters 5–6: Further specificity",
-              "Character 7: Extension (A = initial, D = subsequent, S = sequela)",
+              "Character 7: Extension (for most injuries, A = initial, D = subsequent, S = sequela)",
             ],
           },
         ],
@@ -142,7 +142,7 @@ export const module3Lessons: Lesson[] = [
         correctIndex: 2,
         explanation: "CPT is maintained by the American Medical Association and revised annually, with changes effective January 1. CMS maintains HCPCS Level II; the WHO maintains the base ICD classification.",
         optionRationales: [
-          "CMS maintains HCPCS Level II and, with the CDC, ICD-10-CM. It does not own CPT.",
+          "CMS maintains HCPCS Level II and ICD-10-PCS. ICD-10-CM is maintained by the CDC's National Center for Health Statistics. CMS does not own CPT.",
           "The WHO maintains the international ICD classification, not CPT.",
           "Correct. CPT is an AMA code set, updated annually with changes effective January 1.",
           "AHIMA is a professional association that credentials coders. It does not maintain a code set.",
@@ -179,7 +179,7 @@ export const module3Lessons: Lesson[] = [
           },
           {
             type: "table",
-            caption: "The modifiers seen most often, and the two most misused",
+            caption: "Common modifiers",
             columns: [
               "Modifier",
               "Means",
@@ -197,7 +197,7 @@ export const module3Lessons: Lesson[] = [
                 "The procedure code",
               ],
               [
-                "LT / RT",
+                "LT / RT (HCPCS Level II)",
                 "Left side / right side",
                 "The procedure code",
               ],
@@ -216,7 +216,7 @@ export const module3Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Modifiers 25 and 59 are the two most misused codes in the field and both are routinely audited. The distinction is precise: 25 applies to an E/M service performed alongside a procedure; 59 applies to a procedure performed alongside another procedure. Modifier 59 in particular overrides a National Correct Coding Initiative edit, so appending it asserts that this case is a genuine exception. Where a more specific X modifier exists (XE, XS, XP, XU), use it instead — and never append 59 simply to get a denied claim paid, which is unbundling.",
+            text: "Modifiers 25 and 59 are often misused, and both are audited. The distinction is precise: 25 applies to an E/M service performed alongside a procedure; 59 applies to a procedure performed alongside another procedure. Modifier 59 can get a claim past a National Correct Coding Initiative (NCCI) edit, but only when the services really are distinct, so appending it asserts that this case is a genuine exception. Where a more specific X modifier exists (XE, XS, XP, XU), use it instead. Never append 59 simply to get a denied claim paid, which is unbundling. CMS says not to use these modifiers to get past an NCCI edit unless the rules for the modifier are met.",
           },
           {
             type: "callout",
@@ -238,7 +238,7 @@ export const module3Lessons: Lesson[] = [
               "-25: Significant, separately identifiable E/M service on the same day",
               "-51: Multiple procedures",
               "-59: Distinct procedural service",
-              "-RT / -LT: Right side / Left side",
+              "-RT / -LT: Right side / Left side (these two come from HCPCS Level II, not CPT)",
             ],
           },
         ],
@@ -248,7 +248,7 @@ export const module3Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Every CPT code on a claim must be linked to at least one ICD-10-CM diagnosis code that justifies medical necessity. If the diagnosis does not support the procedure, the claim will be denied.",
+            text: "Every CPT code on a claim must be linked to at least one ICD-10-CM diagnosis code that justifies medical necessity. If the diagnosis does not support the procedure, the claim can be denied.",
           },
           {
             type: "callout",
@@ -271,7 +271,7 @@ export const module3Lessons: Lesson[] = [
         correctIndex: 2,
         explanation: "Modifier 25 identifies a significant, separately identifiable evaluation and management service performed on the same day as a procedure, and it attaches to the E/M code rather than to the procedure.",
         optionRationales: [
-          "Laterality is indicated by LT and RT, or by modifier 50 for bilateral procedures.",
+          "Laterality is indicated by the HCPCS Level II modifiers LT and RT, or by modifier 50 for bilateral procedures.",
           "Multiple procedures on the same day are indicated by modifier 51, or distinguished with 59 or an X modifier.",
           "Correct. Modifier 25 marks a separately identifiable E/M service alongside a procedure.",
           "Provider type is indicated by other modifiers and by the rendering provider NPI on the claim, not by modifier 25.",
@@ -341,11 +341,11 @@ export const module3Lessons: Lesson[] = [
             type: "simulator",
             title: "Tour the revenue work queue",
             path: "/ehr/billing",
-            role: "Billing",
+            role: "Billing / Coding",
             steps: [
-              "Switch to Billing and open Billing from the toolbar across the top. This is the revenue work queue: every open claim in the building and where it stands.",
+              "Switch to Billing / Coding and open Billing from the toolbar across the top. This is the revenue work queue: every open claim in the building and where it stands.",
               "Read the statuses a claim moves through: draft, ready, submitted, accepted or denied, paid.",
-              "Open a claim and find its Claim Scrub and Claim History. Read only; these claims belong to the whole class.",
+              "Open a claim and find its Claim Scrub. Claim History appears on a claim only after it has been corrected and resubmitted. Read only; these claims belong to the whole class.",
             ],
             done: "You can say what has to happen to a draft claim before it can be paid.",
           },
@@ -353,7 +353,7 @@ export const module3Lessons: Lesson[] = [
             type: "simulator",
             title: "Graded simulation: Charge Capture and Claim Submission",
             path: "/ehr/assignments",
-            role: "Billing",
+            role: "Billing / Coding",
             assignment: "Charge Capture and Claim Submission",
             steps: [
               "Start the simulation and open the patient's Billing section. Confirm the primary coverage is on file and effective today.",
@@ -367,7 +367,7 @@ export const module3Lessons: Lesson[] = [
           },
           {
             type: "table",
-            caption: "The denials the simulator's payer can return",
+            caption: "The five denials the simulator's payer can return",
             columns: [
               "Code",
               "What it means",
@@ -380,8 +380,13 @@ export const module3Lessons: Lesson[] = [
                 "Every line points to a supporting diagnosis",
               ],
               [
+                "CO-26",
+                "Coverage had not started yet on the date of service",
+                "Verifying eligibility and effective dates at registration",
+              ],
+              [
                 "CO-27",
-                "Coverage was not in effect on the date of service",
+                "Coverage had ended before the date of service",
                 "Verifying eligibility at registration, every visit",
               ],
               [

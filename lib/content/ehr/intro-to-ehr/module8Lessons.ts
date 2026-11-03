@@ -16,7 +16,7 @@ export const module8Lessons: Lesson[] = [
     videoUrl: "https://www.youtube.com/embed/-SQfN9fbR20",
     sections: [
       {
-        heading: "The record belongs to the patient",
+        heading: "Patients have a right to access their record",
         blocks: [
           {
             type: "scenario",
@@ -41,11 +41,11 @@ export const module8Lessons: Lesson[] = [
               },
               {
                 term: "Interoperability",
-                definition: "The ability of systems to exchange information and use what they receive. HL7 and FHIR are the common standards.",
+                definition: "The ability of systems to exchange information and use what they receive. HL7 standards, including FHIR, are common standards for exchanging health data.",
               },
               {
                 term: "De-identified data",
-                definition: "Data with identifiers removed under HIPAA's specified methods, which may then be used for research and analysis without patient authorization.",
+                definition: "Data de-identified by one of HIPAA's two methods, which may then be used for research and analysis without patient authorization. Expert Determination: a qualified expert finds the risk of re-identification very small. Safe Harbor: 18 kinds of identifiers are removed, and you must not know of any way the rest could identify the person.",
               },
             ],
           },
@@ -68,7 +68,7 @@ export const module8Lessons: Lesson[] = [
             items: [
               "HITECH Act: Expanded HIPAA enforcement and introduced Meaningful Use",
               "21st Century Cures Act: Prohibits information blocking and promotes interoperability",
-              "State retention laws: Define how long records must be kept (typically 6–10 years)",
+              "Record retention: How long records must be kept is set by state law and by payer or program rules",
               "Electronic signatures: Legally valid when systems meet specific authentication standards",
             ],
           },
@@ -79,7 +79,7 @@ export const module8Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Healthcare organizations use clinical data to identify trends, improve outcomes, and meet regulatory reporting requirements. EHR systems are the primary source for this data.",
+            text: "Healthcare organizations use clinical data to identify trends, improve outcomes, and meet regulatory reporting requirements. EHR systems are a major source of this data.",
           },
           {
             type: "list",
@@ -139,12 +139,12 @@ export const module8Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are asked to change a code on a claim.",
-            text: "A provider asks you to submit a higher-level code on a note that does not support it, because the practice is behind on revenue. Complying would make you a participant in submitting a false claim, and 'I was told to' has never been a defense.",
+            text: "A provider asks you to submit a higher-level code on a note that does not support it, because the practice is behind on revenue. Complying would make you a participant in submitting a false claim, and being told to doesn't make a false claim legal.",
             task: "Know where the line is, and know the process for what to do when someone asks you to cross it.",
           },
           {
             type: "table",
-            caption: "Error, abuse, and fraud",
+            caption: "Error, abuse, and fraud: intent and knowledge separate them",
             columns: [
               "",
               "Means",
@@ -158,8 +158,8 @@ export const module8Lessons: Lesson[] = [
               ],
               [
                 "Abuse",
-                "Practices inconsistent with sound billing that cause unnecessary cost",
-                "Pattern, without proven intent to deceive",
+                "Practices that go against sound business or medical practice and cause unnecessary cost",
+                "No proof that anyone meant to deceive is needed",
               ],
               [
                 "Fraud",
@@ -186,7 +186,7 @@ export const module8Lessons: Lesson[] = [
               ],
               [
                 "Stark Law",
-                "Certain physician referrals to entities they have a financial relationship with. Strict liability — intent is not required",
+                "Physician referrals of Medicare and Medicaid patients for designated health services to entities the physician, or a close family member, has a financial relationship with, unless an exception applies. Strict liability: intent is not required",
               ],
               [
                 "HIPAA",
@@ -201,7 +201,7 @@ export const module8Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "warning",
-            text: "Undercoding is not the safe alternative to upcoding. It misrepresents the encounter just as surely, it costs the practice revenue it legitimately earned, and a consistent pattern of any single code level attracts attention regardless of which level it is. The goal is never the highest or the lowest code — it is the code the documentation supports.",
+            text: "Undercoding is not the safe alternative to upcoding. It misrepresents the encounter just as surely, and it costs the practice revenue it legitimately earned. Auditors watch coding patterns, like a practice that bills the highest level again and again. The goal is never the highest or the lowest code. It is the code the documentation supports.",
           },
           {
             type: "worked-example",
@@ -214,7 +214,7 @@ export const module8Lessons: Lesson[] = [
               },
               {
                 move: "Offer the proper mechanism: amend the documentation.",
-                why: "If the work occurred, the provider may amend the note through the record's amendment process, dated and attributed. A properly amended note makes the higher code correct. This is the real solution and it is available.",
+                why: "If the work occurred, the provider may amend the note through the record's amendment process, dated and signed, with the original kept. Then code what the amended note supports. This is the real solution and it is available.",
               },
               {
                 move: "If the work did not occur, decline clearly and without hostility.",
@@ -257,12 +257,12 @@ export const module8Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "Billing compliance means that every claim submitted accurately reflects the services documented in the patient record. Upcoding, unbundling, and billing for services not rendered are all forms of fraud.",
+            text: "Billing compliance means that every claim submitted accurately reflects the services documented in the patient record. Upcoding, unbundling, and billing for services not rendered are fraud when they are done knowingly.",
           },
           {
             type: "callout",
             variant: "warning",
-            text: "The False Claims Act allows the government to recover three times the amount of a fraudulent claim plus additional penalties per claim. Healthcare fraud is taken seriously.",
+            text: "Under the False Claims Act, damages can reach three times the government's loss, plus a penalty for each false claim. Healthcare fraud is taken seriously.",
           },
         ],
       },

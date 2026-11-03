@@ -192,6 +192,6 @@ export const introToEHRModules: IntroToEHRModule[] = [
       "Complete a final competency run in the EHR Simulator",
     ],
     scenario:
-      "You have completed Introduction to EHR. You sit for the final exam, then turn your attention to the NHA CEHRS certification — your credential for entering the healthcare workforce as a recognized Electronic Health Records Specialist.",
+      "You are finishing Introduction to EHR. You sit for the final exam and prepare for the NHA CEHRS certification, your credential for entering the healthcare workforce as a recognized Electronic Health Records Specialist. Then you finish with a last hands-on review in the EHR Simulator.",
   },
 ];

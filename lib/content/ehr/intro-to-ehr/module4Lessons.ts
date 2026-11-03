@@ -3,7 +3,7 @@ import { Lesson } from "@/types/lesson";
 export const module4Lessons: Lesson[] = [
   {
     slug: "introduction-to-hcpcs",
-    title: "Introduction to Healthcare Procedure Coding (HCPCS)",
+    title: "Introduction to HCPCS (Healthcare Common Procedure Coding System)",
     description:
       "Learn the HCPCS Level II coding system used for supplies, equipment, medications, and services not covered by CPT.",
     objectives: [
@@ -21,7 +21,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "scenario",
             role: "You are coding a visit where a medication was administered.",
-            text: "The provider gave an injection. CPT has a code for administering it. CPT has no code for the drug itself. Bill only the CPT code and the practice is paid for the work and not for the medication it purchased.",
+            text: "The provider gave an injection. CPT has a code for administering it. For most drugs, like this one, CPT has no code for the drug itself. Bill only the CPT code and the practice is paid for the work and not for the medication it purchased.",
             task: "Learn what the second code set covers, and when you need both.",
           },
           {
@@ -63,7 +63,7 @@ export const module4Lessons: Lesson[] = [
               ],
               [
                 "J",
-                "Drugs administered other than by mouth",
+                "Mostly drugs administered other than by mouth",
                 "Injectable and infused medications",
               ],
               [
@@ -86,7 +86,7 @@ export const module4Lessons: Lesson[] = [
           {
             type: "callout",
             variant: "info",
-            text: "A single encounter often needs codes from both levels. An injection produces a CPT code for the administration and a J code for the drug. Reporting only one is among the most common ways a practice loses revenue through incomplete rather than incorrect coding.",
+            text: "A single encounter often needs codes from both levels. An injection produces a CPT code for the administration and a J code for the drug. Reporting only one of the two codes loses revenue, through incomplete coding rather than incorrect coding.",
           },
         ],
       },
@@ -95,7 +95,7 @@ export const module4Lessons: Lesson[] = [
         blocks: [
           {
             type: "paragraph",
-            text: "HCPCS (Healthcare Common Procedure Coding System) is a standardized coding system maintained by CMS. It has two levels:",
+            text: "HCPCS (Healthcare Common Procedure Coding System) is a standardized coding system with two levels. CMS maintains Level II:",
           },
           {
             type: "list",
@@ -114,7 +114,7 @@ export const module4Lessons: Lesson[] = [
             items: [
               "A codes: Transportation, medical/surgical supplies",
               "E codes: Durable medical equipment (wheelchairs, crutches, oxygen)",
-              "J codes: Drugs administered other than by oral method",
+              "J codes: Mostly drugs administered other than by mouth",
               "L codes: Orthotic and prosthetic procedures",
             ],
           },
@@ -135,7 +135,7 @@ export const module4Lessons: Lesson[] = [
         explanation: "E codes cover durable medical equipment — wheelchairs, walkers, hospital beds, and similar items intended for repeated use.",
         optionRationales: [
           "A codes cover transportation and medical and surgical supplies, such as ambulance service and dressings.",
-          "J codes cover drugs administered other than by mouth, principally injectables.",
+          "J codes mostly cover drugs administered other than by mouth, such as injectables.",
           "Correct. E codes are the durable medical equipment range.",
           "L codes cover orthotics and prosthetics — braces and artificial limbs.",
         ],
@@ -207,7 +207,7 @@ export const module4Lessons: Lesson[] = [
           },
           {
             type: "tip",
-            text: "For each row above, say the answer out loud before checking it. The topics where you hesitate are the entire study list — the ones you answer instantly need no further work, however comfortable rereading them feels.",
+            text: "For each row above, say the answer out loud before checking it. The topics where you hesitate are your study list. The ones you answer instantly don't need more rereading. Just quiz yourself on them again now and then.",
           },
         ],
       },
@@ -272,13 +272,13 @@ export const module4Lessons: Lesson[] = [
             type: "simulator",
             title: "A timed run, no notes",
             path: "/ehr/patients",
-            role: "Front Desk",
+            role: "Front Desk / Registration",
             steps: [
               "Close every lesson tab and give yourself 20 minutes.",
-              "As Front Desk, find your practice patient by name and confirm two identifiers in the header.",
+              "As Front Desk / Registration, find your practice patient by name and confirm two identifiers in the header.",
               "Update one demographic field that “changed” — a new mobile phone number — and save it.",
               "Book a follow-up visit for next week, then switch the Schedule to Week view and find it.",
-              "Switch to Billing, open the revenue work queue, and say each step a claim goes through from capture to paid.",
+              "Switch to Billing / Coding, open the revenue work queue, and say each step a claim goes through from capture to paid.",
               "Write down every place you stopped to think. That list is what you bring to the review.",
             ],
             done: "You have a written list of the steps you could not yet do from memory.",
