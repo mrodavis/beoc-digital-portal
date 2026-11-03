@@ -130,6 +130,7 @@ export const module6Lessons: Lesson[] = [
       "Recognize a breach and describe the reporting obligation",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/6kmsh0Jn4PE",
     sections: [
       {
         heading: "The rules that govern everything you touch",
@@ -276,6 +277,7 @@ export const module6Lessons: Lesson[] = [
       "Recognize a reportable breach",
     ],
     duration: "80 min",
+    videoUrl: "https://www.youtube.com/embed/gDIaLIfXvfs",
     sections: [
       {
         heading: "The situations that actually arise",

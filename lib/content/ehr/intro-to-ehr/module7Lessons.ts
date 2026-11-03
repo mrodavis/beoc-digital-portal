@@ -110,6 +110,7 @@ export const module7Lessons: Lesson[] = [
       "Use a report to find a problem rather than to describe one",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/qEF8uh4uTSY",
     sections: [
       {
         heading: "The reports that tell you what is actually happening",
