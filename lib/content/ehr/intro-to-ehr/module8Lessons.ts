@@ -13,6 +13,7 @@ export const module8Lessons: Lesson[] = [
       "Explain a patient's right of access to their record",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/-SQfN9fbR20",
     sections: [
       {
         heading: "The record belongs to the patient",
@@ -130,6 +131,7 @@ export const module8Lessons: Lesson[] = [
       "Respond appropriately when asked to submit something unsupportable",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/MgfzAjsrj78",
     sections: [
       {
         heading: "Where a mistake becomes something else",
@@ -296,6 +298,7 @@ export const module8Lessons: Lesson[] = [
       "Apply accuracy, privacy, and documentation judgment together",
     ],
     duration: "80 min",
+    videoUrl: "https://www.youtube.com/embed/LFT1BHxCeuA",
     sections: [
       {
         heading: "Everything at once",

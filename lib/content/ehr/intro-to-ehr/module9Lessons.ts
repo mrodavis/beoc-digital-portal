@@ -48,6 +48,7 @@ export const module9Lessons: Lesson[] = [
       "Build a study plan based on retrieval rather than rereading",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/YO9M-XMf0CI",
     sections: [
       {
         heading: "What the CEHRS actually tests",
