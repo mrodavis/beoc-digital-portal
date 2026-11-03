@@ -13,6 +13,7 @@ export const module6Lessons: Lesson[] = [
       "Track an order through to its result",
     ],
     duration: "20 min",
+    videoUrl: "https://www.youtube.com/embed/IijiuQYM3ZA",
     sections: [
       {
         heading: "The alert that stopped working",

@@ -49,6 +49,7 @@ export const module5Lessons: Lesson[] = [
       "Explain how CPOE changes the work of clinical support staff",
     ],
     duration: "25 min",
+    videoUrl: "https://www.youtube.com/embed/3O95PECSC30",
     sections: [
       {
         heading: "Two models and one system",
