@@ -504,17 +504,19 @@ export const wordModule6Lessons: Lesson[] = [
     challenge: [
         {
         type: "paragraph",
-        text: "Using the provided practice file, complete the following tasks:",
+        text: "Practice these steps in the practice file. Nothing here is graded or submitted unless your instructor assigns it in Brightspace.",
         },
         {
         type: "list",
         ordered: true,
         items: [
-            "Enable the ruler.",
-            "Apply a first-line indent to the body paragraph.",
-            "Create a hanging indent for the Works Cited section.",
-            "Use tab stops to align dates to the right margin.",
-            "Adjust left and right indents for the Skills section.",
+            "Download the Word Indents and Tabs Practice File above and open it in Word. Click Enable Editing if you see it.",
+            "Turn on the ruler (View → check Ruler) and formatting marks (Home → ¶ Show/Hide) so you can see each tab as an arrow (→).",
+            "First-line indent: in the cover letter, select the three body paragraphs (they begin I am exceedingly interested, While working toward my degree, and Enclosed is a copy of my resume). Open the Paragraph dialog (the small arrow in the corner of Home → Paragraph). Under Special choose First line, set By to 0.5\", and click OK.",
+            "Left indent: in the resume, select the nine lines under SKILLS (Windows & Mac through Adobe Photoshop). On the Layout tab, set Indent Left to 0.5\".",
+            "Clear and set a tab stop: click in the job title line Executive Assistant II CHICAGO, IL. Open the Paragraph dialog → Tabs. Click Clear All, type 6.5\" in Tab stop position, choose Right, click Set, then OK. Click just before CHICAGO, delete the space and press Tab. The city jumps to the right margin. Repeat for Office Manager SPRINGFIELD, IL and Administrative Assistant SPRINGFIELD, IL.",
+            "Right tab for dates: under TRAINING & EDUCATION, select the three lines that end in a year (Microsoft Certification, University of Illinois at Springfield, and Lincoln Land Community College). Set a Right tab stop at 6.5\" the same way. Then click just before each year, delete the space and press Tab.",
+            "Check your work: the letter paragraphs start 0.5\" in, the skills sit 0.5\" in, and every city and year lines up exactly at the right margin. If something is off, check the ruler: you should see a single right tab marker at 6.5\".",
         ],
         },
     ],
@@ -703,16 +705,19 @@ export const wordModule6Lessons: Lesson[] = [
     challenge: [
       {
         type: "paragraph",
-        text: "Using the provided practice file, complete the following tasks:",
+        text: "Practice these steps in the practice file. Nothing here is graded or submitted unless your instructor assigns it in Brightspace.",
       },
       {
         type: "list",
         ordered: true,
         items: [
-          "Change the body text to 1.5 line spacing.",
-          "Add spacing after each paragraph.",
-          "Remove unnecessary blank lines created using Enter.",
-          "Adjust the document to look professionally formatted.",
+          "Download the Word Line and Paragraph Spacing Practice File above and open it in Word. Click Enable Editing if you see it.",
+          "Turn on Show/Hide (Home → ¶) so you can see every paragraph mark (¶), including empty lines.",
+          "Line spacing: select the three body paragraphs of the cover letter (from I am exceedingly interested through the end of the Enclosed is a copy of my resume paragraph). Click Home → Line and Paragraph Spacing → 1.5.",
+          "Paragraph spacing: with the same three paragraphs selected, go to the Layout tab and set Spacing Before to 0 pt and Spacing After to 12 pt.",
+          "Remove blank lines: in the resume, delete the seven empty ¶ lines between the EMAIL line and the SUMMARY heading. Click on each empty ¶ and press Delete.",
+          "Use spacing instead of Enter: click in the SKILLS heading and set Layout → Spacing Before to 12 pt. Do the same for EXPERIENCE and TRAINING & EDUCATION. Then delete the single empty ¶ line just above SKILLS and the one just above TRAINING & EDUCATION.",
+          "Check your work: the letter paragraphs are 1.5 spaced with a clear gap after each one, and the resume sections are separated by Spacing Before, not by empty ¶ lines.",
         ],
       },
     ],

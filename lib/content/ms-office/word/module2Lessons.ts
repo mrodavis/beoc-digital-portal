@@ -812,18 +812,18 @@ export const wordModule2Lessons: Lesson[] = [
     challenge: [
         {
         type: "paragraph",
-        text: "Using the provided practice file, complete the following tasks:",
+        text: "Practice these steps in the practice file. Nothing here is graded or submitted unless your instructor assigns it in Brightspace.",
         },
         {
         type: "list",
         ordered: true,
         items: [
-            "Use Find to search for the word 'fiction'.",
-            "Navigate through all results using the arrows in the Navigation pane.",
-            "Open Replace (Ctrl + H).",
-            "Replace 'Sewanee Review' with 'SR'.",
-            "Use Replace All to update the entire document.",
-            "Verify that all instances were correctly replaced.",
+            "Download the Word Find and Replace Practice File above and open it in Word. Click Enable Editing if you see it.",
+            "Press Ctrl+F to open the Navigation pane and type fiction in the search box. The pane should show 25 results.",
+            "Jump through the results: click each result in the Navigation pane, or use the up and down arrows next to the search box. Word scrolls to each match and highlights it.",
+            "Press Ctrl+H to open Replace, then click More >> and check Match case. In Find what, type Sewanee Review. In Replace with, type SR.",
+            "Click Find Next two or three times to confirm Word is finding the magazine name, then click Replace All. Word should report 92 replacements. Click OK.",
+            "Check your work: press Ctrl+F and search for Sewanee Review again. The Navigation pane should show no results.",
         ],
         },
     ],
@@ -1075,18 +1075,19 @@ export const wordModule2Lessons: Lesson[] = [
   challenge: [
     {
       type: "paragraph",
-      text: "Using the provided practice file, complete the following tasks:",
+      text: "Practice these steps in the practice file. Nothing here is graded or submitted unless your instructor assigns it in Brightspace.",
     },
     {
       type: "list",
       ordered: true,
       items: [
-        "Create a bulleted list.",
-        "Customize the bullet symbol.",
-        "Change the bullet color.",
-        "Create a numbered list.",
-        "Restart numbering.",
-        "Create a multilevel list with at least two levels.",
+        "Download the Word Lists Practice File above and open it in Word. Click Enable Editing if you see it.",
+        "Numbered list: under Agenda, select the 15 lines from Call to order through Setup podium. Click Home → Numbering. The lines are numbered 1 to 15.",
+        "Multilevel list: click in New TTI Facebook Page and press Tab so it moves under Communications. Select the 8 lines from Book venue (San Francisco Radix Gardens) through Setup podium and press Tab so they move under Farewell dinner preparation. Then select Book San Diego Quintessential Quartet and Book Moment of Melody Children's Choir and press Tab again so they sit under Contact vendors. Do the same for Arrange seating placards and Setup podium so they sit under Approve location set up. (Shift+Tab moves a line back up a level.)",
+        "Bulleted list: under New Members, select the 7 lines from Carolyn Serpinski through Co-Treasurer and click Home → Bullets. Then select each role line (Social Media Marketing, Fundraising, Primarily Europe, Co-Treasurer) and press Tab so it sits under that person's name.",
+        "Custom bullet and color: hold Ctrl and select the three names (Carolyn Serpinski, Jackson Hull, Pablo Moreno). Click the arrow next to Bullets → Define New Bullet → Symbol, choose a check mark (✓) and click OK. Click Font, set Font color to Green, then click OK twice.",
+        "Restart numbering: the Communications Report list continues the Treasurer's Report numbering, so it starts at 4. Right-click the number next to Website overhaul and choose Restart at 1. The list now reads 1 to 4.",
+        "Check your work: the Agenda is numbered with three levels, New Members has green check mark bullets with each role indented under its name, and Communications Report starts at 1.",
       ],
     },
   ],
@@ -1289,7 +1290,7 @@ export const wordModule2Lessons: Lesson[] = [
   challenge: [
     {
       type: "paragraph",
-      text: "Using the provided practice file, complete the following tasks:",
+      text: "Practice these steps in the practice file. Nothing here is graded or submitted unless your instructor assigns it in Brightspace (if it is assigned, follow the submission steps in Brightspace).",
     },
     {
       type: "list",
