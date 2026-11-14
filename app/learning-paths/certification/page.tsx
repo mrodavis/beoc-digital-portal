@@ -25,7 +25,7 @@ export default function CertificationPage() {
 
         <div className="grid md:grid-cols-2 gap-6">
           {/* Word Certification */}
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+          <div className="bg-white rounded-[22px] border border-ink-line p-6">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-2xl">
                 📝
@@ -87,7 +87,7 @@ export default function CertificationPage() {
           </div>
 
           {/* Excel Certification */}
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+          <div className="bg-white rounded-[22px] border border-ink-line p-6">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-2xl">
                 📊
@@ -124,7 +124,7 @@ export default function CertificationPage() {
           </div>
 
           {/* PowerPoint Certification */}
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6">
+          <div className="bg-white rounded-[22px] border border-ink-line p-6">
             <div className="flex items-start gap-4 mb-4">
               <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-2xl">
                 🎨

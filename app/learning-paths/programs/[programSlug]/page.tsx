@@ -53,7 +53,7 @@ export default async function ProgramPage({
       <div
         className={`rounded-2xl bg-gradient-to-r ${program.accent} text-white p-8 md:p-12 mb-10`}
       >
-        <div className="text-5xl mb-4" aria-hidden="true">
+        <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl" aria-hidden="true">
           {program.icon}
         </div>
         <h1 className="text-4xl md:text-5xl font-bold mb-4">{program.title}</h1>

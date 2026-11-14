@@ -1,4 +1,4 @@
-// File: /Users/orvillexdavis/code/beoc-digital-portal/app/learning-paths/office-assistant/office-apps/[moduleSlug]/[slug]/page.tsx
+// File: /home/claude/beoc-digital-portal/app/learning-paths/office-assistant/office-apps/[moduleSlug]/[slug]/page.tsx
 import * as entry from '../../../../../../../../app/learning-paths/office-assistant/office-apps/[moduleSlug]/[slug]/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -1,4 +1,4 @@
-// File: /Users/orvillexdavis/code/beoc-digital-portal/app/eng0300/writing-lab/transitions/page.tsx
+// File: /home/claude/beoc-digital-portal/app/eng0300/writing-lab/transitions/page.tsx
 import * as entry from '../../../../../../app/eng0300/writing-lab/transitions/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

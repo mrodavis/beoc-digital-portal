@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
-import { Merriweather } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
-const merriweather = Merriweather({
-  weight: ['300', '400', '700', '900'],
-  subsets: ["latin"],
-  variable: '--font-display',
-});
 
 export const metadata: Metadata = {
   title: "BEOC Digital Skills Portal",
@@ -22,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${merriweather.variable} antialiased`}>
+      <body className="antialiased">
         <Navbar />
         <main className="min-h-screen">
           {children}

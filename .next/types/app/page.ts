@@ -1,4 +1,4 @@
-// File: /Users/orvillexdavis/code/beoc-digital-portal/app/page.tsx
+// File: /home/claude/beoc-digital-portal/app/page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

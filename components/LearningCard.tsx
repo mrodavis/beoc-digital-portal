@@ -5,78 +5,70 @@ interface LearningCardProps {
   description: string;
   href: string;
   status: "available" | "coming-soon";
-  icon: string;
+  icon?: string;
+  abbr?: string;
+  area?: string;
 }
 
-export default function LearningCard({
-  title,
-  description,
-  href,
-  status,
-  icon,
-}: LearningCardProps) {
+const tints: Record<string, { bg: string; fg: string }> = {
+  Healthcare: { bg: "#E8EDFF", fg: "#2F5BFF" },
+  Business: { bg: "#FFF3DB", fg: "#9A5B00" },
+  Hospitality: { bg: "#FFF3DB", fg: "#9A5B00" },
+  "Public Safety": { bg: "#E3F8EE", fg: "#067647" },
+  Academic: { bg: "#EEEAFF", fg: "#5B3FD9" },
+};
+
+/* Monogram from the title: "Medical Billing and Coding" -> "MBC" */
+function monogram(title: string) {
+  const paren = title.match(/\(([A-Z0-9]{2,5})\)/);
+  if (paren) return paren[1];
+  const code = title.match(/^([A-Z]{3,4}\d{3,4})/);
+  if (code) return code[1].replace(/\d+/, "");
+  return title
+    .replace(/[^A-Za-z0-9 ]/g, " ")
+    .split(/\s+/)
+    .filter((w) => w && !/^(and|of|for|the|w|with|to)$/i.test(w))
+    .slice(0, 3)
+    .map((w) => w[0].toUpperCase())
+    .join("");
+}
+
+export default function LearningCard({ title, description, href, status, abbr, area }: LearningCardProps) {
   const isAvailable = status === "available";
+  const tone = (area && tints[area]) || { bg: "#E8EDFF", fg: "#2F5BFF" };
 
-  const CardContent = () => (
+  const body = (
     <div
-      className={`
-        bg-white rounded-xl shadow-md border border-gray-200 p-6 h-full
-        ${isAvailable ? "card-hover cursor-pointer" : "opacity-75 cursor-not-allowed"}
-      `}
+      className={`flex h-full flex-col gap-3.5 rounded-[22px] border border-ink-line bg-white p-6 ${
+        isAvailable ? "card-hover" : "opacity-75"
+      }`}
     >
-      {/* Icon */}
-      <div className="text-5xl mb-4">{icon}</div>
-
-      {/* Title */}
-      <h3 className="text-xl font-bold text-gray-900 mb-3">{title}</h3>
-
-      {/* Description */}
-      <p className="text-gray-600 mb-4 leading-relaxed">{description}</p>
-
-      {/* Status Badge */}
-      <div className="flex items-center gap-2">
-        {isAvailable ? (
-          <span className="inline-flex items-center gap-1 px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
-            <svg
-              className="w-4 h-4"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Available Now
-          </span>
+      <div className="flex items-center justify-between gap-3">
+        <span
+          className="grid h-12 w-12 place-items-center rounded-[14px] font-display text-[15px] font-bold"
+          style={{ background: tone.bg, color: tone.fg }}
+          aria-hidden="true"
+        >
+          {abbr || monogram(title)}
+        </span>
+        {area ? (
+          <span className="rounded-full bg-[#F2F4F7] px-2.5 py-1 text-xs font-semibold text-ink-soft">{area}</span>
+        ) : isAvailable ? (
+          <span className="rounded-full bg-[#E3F8EE] px-2.5 py-1 text-xs font-semibold text-[#067647]">Available</span>
         ) : (
-          <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 text-amber-700 text-sm font-medium rounded-full">
-            <svg
-              className="w-4 h-4"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Coming Soon
-          </span>
+          <span className="rounded-full bg-accent-100 px-2.5 py-1 text-xs font-semibold text-[#9A5B00]">Coming soon</span>
         )}
       </div>
+      <h3 className="font-display text-xl font-semibold leading-snug tracking-tight text-ink">{title}</h3>
+      <p className="text-[15px] leading-relaxed text-ink-muted">{description}</p>
     </div>
   );
 
-  if (isAvailable) {
-    return (
-      <Link href={href}>
-        <CardContent />
-      </Link>
-    );
-  }
-
-  return <CardContent />;
+  return isAvailable ? (
+    <Link href={href} className="block h-full rounded-[22px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary-600">
+      {body}
+    </Link>
+  ) : (
+    body
+  );
 }

@@ -115,7 +115,7 @@ export default function TechFoundationsClassExercisesPage() {
                   <li key={exercise.slug}>
                     <a
                       href={classExerciseHref("info3020", exercise.slug)}
-                      className="group flex h-full flex-col bg-white rounded-xl shadow-md border border-gray-200 p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
+                      className="group flex h-full flex-col bg-white rounded-[22px] border border-ink-line p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2"
                     >
                       <span
                         className={`self-start rounded-full px-2.5 py-0.5 text-xs font-bold ${kindStyles[exercise.kind]}`}

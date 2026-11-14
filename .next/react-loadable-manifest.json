@@ -1,1 +1,113 @@
-{}
+{
+  "components/sim/SimSlot.tsx -> ./SimPlayer": {
+    "id": 9783,
+    "files": [
+      "static/chunks/8867.759f6514f297f5d7.js",
+      "static/chunks/7909.6d77ddcef2cc8a28.js",
+      "static/chunks/5547.12a246f2c188134b.js",
+      "static/chunks/2164.ae4d1cf3cb78deaf.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./access": {
+    "id": 6050,
+    "files": [
+      "static/chunks/8867.759f6514f297f5d7.js",
+      "static/chunks/5547.12a246f2c188134b.js",
+      "static/chunks/3669.f027b689917413d3.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./assistant": {
+    "id": 9960,
+    "files": [
+      "static/chunks/9960.e7114076963a1b31.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./ehr": {
+    "id": 3554,
+    "files": [
+      "static/chunks/3554.3bdff91dd9a41464.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./excel": {
+    "id": 7172,
+    "files": [
+      "static/chunks/8867.759f6514f297f5d7.js",
+      "static/chunks/7909.6d77ddcef2cc8a28.js",
+      "static/chunks/5547.12a246f2c188134b.js",
+      "static/chunks/2686.0a714147dd7112f5.js",
+      "static/chunks/7172.689483cf6f7cac94.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./gmail": {
+    "id": 8304,
+    "files": [
+      "static/chunks/8304.b27875dc23f0cbd5.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./google": {
+    "id": 5693,
+    "files": [
+      "static/chunks/8867.759f6514f297f5d7.js",
+      "static/chunks/7909.6d77ddcef2cc8a28.js",
+      "static/chunks/9102.acba4a1551388715.js",
+      "static/chunks/2686.0a714147dd7112f5.js",
+      "static/chunks/9227.bbe0da69e8b12c9d.js",
+      "static/chunks/5693.954335d134eff7ed.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./onedrive": {
+    "id": 6516,
+    "files": [
+      "static/chunks/6516.fab647f426df07ad.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./outlook": {
+    "id": 6013,
+    "files": [
+      "static/chunks/8867.759f6514f297f5d7.js",
+      "static/chunks/8439.e5535995f22684c3.js",
+      "static/chunks/6013.13633492568a062d.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./outlook/new": {
+    "id": 4882,
+    "files": [
+      "static/chunks/8439.e5535995f22684c3.js",
+      "static/chunks/4882.2d63f7469a81e8e7.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./powerpoint": {
+    "id": 81,
+    "files": [
+      "static/chunks/8867.759f6514f297f5d7.js",
+      "static/chunks/9102.acba4a1551388715.js",
+      "static/chunks/3774.ee4b1718d4ad7de8.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./teams": {
+    "id": 3661,
+    "files": [
+      "static/chunks/3661.583885af63ac1b52.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./typing": {
+    "id": 4362,
+    "files": [
+      "static/chunks/4362.ee091e490ae86961.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./windows": {
+    "id": 3057,
+    "files": [
+      "static/chunks/3057.dfff63abc6ee747b.js"
+    ]
+  },
+  "components/sim/apps/index.ts -> ./word": {
+    "id": 8594,
+    "files": [
+      "static/chunks/8867.759f6514f297f5d7.js",
+      "static/chunks/9227.bbe0da69e8b12c9d.js",
+      "static/chunks/535.eb27b84022678780.js"
+    ]
+  }
+}

@@ -1,6 +1,60 @@
 {
   "version": 4,
   "routes": {
+    "/icon.svg": {
+      "initialHeaders": {
+        "cache-control": "public, immutable, no-transform, max-age=31536000",
+        "content-type": "image/svg+xml",
+        "x-next-cache-tags": "_N_T_/layout,_N_T_/icon.svg/layout,_N_T_/icon.svg/route,_N_T_/icon.svg"
+      },
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/icon.svg",
+      "dataRoute": null,
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/_not-found": {
+      "initialStatus": 404,
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/_not-found",
+      "dataRoute": "/_not-found.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/certification": {
       "experimentalBypassFor": [
         {
@@ -16,6 +70,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/learning-paths/certification",
       "dataRoute": "/learning-paths/certification.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/ehr/intro-to-ehr": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ehr/intro-to-ehr",
+      "dataRoute": "/learning-paths/ehr/intro-to-ehr.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -97,6 +175,54 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/learning-paths/ms-office/onedrive": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ms-office/onedrive",
+      "dataRoute": "/learning-paths/ms-office/onedrive.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/ms-office/outlook": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/ms-office/outlook",
+      "dataRoute": "/learning-paths/ms-office/outlook.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/learning-paths/ms-office": {
       "experimentalBypassFor": [
         {
@@ -145,7 +271,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/office-assistant/intro-database": {
+    "/learning-paths/ms-office/teams": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -158,8 +284,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant/intro-database",
-      "dataRoute": "/learning-paths/office-assistant/intro-database.rsc",
+      "srcRoute": "/learning-paths/ms-office/teams",
+      "dataRoute": "/learning-paths/ms-office/teams.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -193,12 +319,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/icon.svg": {
-      "initialHeaders": {
-        "cache-control": "public, immutable, no-transform, max-age=31536000",
-        "content-type": "image/svg+xml",
-        "x-next-cache-tags": "_N_T_/layout,_N_T_/icon.svg/layout,_N_T_/icon.svg/route,_N_T_/icon.svg"
-      },
+    "/learning-paths/office-assistant/intro-database": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -211,8 +332,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/icon.svg",
-      "dataRoute": null,
+      "srcRoute": "/learning-paths/office-assistant/intro-database",
+      "dataRoute": "/learning-paths/office-assistant/intro-database.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -270,8 +391,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/_not-found": {
-      "initialStatus": 404,
+    "/learning-paths/office-assistant": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -284,8 +404,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/_not-found",
-      "dataRoute": "/_not-found.rsc",
+      "srcRoute": "/learning-paths/office-assistant",
+      "dataRoute": "/learning-paths/office-assistant.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -319,7 +439,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/office-assistant": {
+    "/learning-paths/office-assistant/tech-foundations/typing-lab": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -332,8 +452,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/office-assistant",
-      "dataRoute": "/learning-paths/office-assistant.rsc",
+      "srcRoute": "/learning-paths/office-assistant/tech-foundations/typing-lab",
+      "dataRoute": "/learning-paths/office-assistant/tech-foundations/typing-lab.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -367,7 +487,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/ehr/intro-to-ehr": {
+    "/ehr-simulator": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -380,8 +500,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/ehr/intro-to-ehr",
-      "dataRoute": "/learning-paths/ehr/intro-to-ehr.rsc",
+      "srcRoute": "/ehr-simulator",
+      "dataRoute": "/ehr-simulator.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -391,7 +511,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/tabe/language": {
+    "/learning-paths/google-workspace/module-1/getting-around-the-apps": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -404,8 +524,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/tabe/language",
-      "dataRoute": "/eng0300/tabe/language.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-1/getting-around-the-apps.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -415,7 +535,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/college-preparation": {
+    "/learning-paths/google-workspace/module-1/signing-in-and-staying-secure": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -428,8 +548,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/college-preparation.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-1/signing-in-and-staying-secure.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -439,7 +559,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/emt": {
+    "/learning-paths/google-workspace/module-1/what-is-google-workspace": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -452,8 +572,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/emt.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-1/what-is-google-workspace.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -463,7 +583,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/esol": {
+    "/learning-paths/google-workspace/module-1/working-with-office-files": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -476,8 +596,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/esol.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-1/working-with-office-files.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -487,7 +607,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/high-school-equivalency": {
+    "/learning-paths/google-workspace/module-2/finding-files-fast": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -500,8 +620,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/high-school-equivalency.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-2/finding-files-fast.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -511,7 +631,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-assisting": {
+    "/learning-paths/google-workspace/module-2/organizing-files-and-folders": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -524,8 +644,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/medical-assisting.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-2/organizing-files-and-folders.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -535,7 +655,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding": {
+    "/learning-paths/google-workspace/module-2/sharing-files-and-folders": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -548,8 +668,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-2/sharing-files-and-folders.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -559,7 +679,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/osha-30": {
+    "/learning-paths/google-workspace/module-2/the-drive-screen-and-uploading": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -572,8 +692,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/osha-30.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-2/the-drive-screen-and-uploading.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -583,7 +703,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/patient-care-technician": {
+    "/learning-paths/google-workspace/module-2/trash-storage-and-recovery": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -596,8 +716,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/patient-care-technician.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-2/trash-storage-and-recovery.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -607,7 +727,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/pharmacy-technician": {
+    "/learning-paths/google-workspace/module-3/comments-suggestions-and-version-history": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -620,8 +740,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/pharmacy-technician.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-3/comments-suggestions-and-version-history.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -631,7 +751,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/security-guard": {
+    "/learning-paths/google-workspace/module-3/creating-and-formatting-documents": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -644,8 +764,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/security-guard.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-3/creating-and-formatting-documents.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -655,7 +775,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/tourism-hospitality": {
+    "/learning-paths/google-workspace/module-3/headings-outline-and-page-setup": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -668,8 +788,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]",
-      "dataRoute": "/learning-paths/programs/tourism-hospitality.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-3/headings-outline-and-page-setup.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -679,7 +799,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300": {
+    "/learning-paths/google-workspace/module-3/proofreading-printing-and-sending": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -692,8 +812,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300",
-      "dataRoute": "/eng0300.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-3/proofreading-printing-and-sending.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -703,7 +823,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/resources": {
+    "/learning-paths/google-workspace/module-3/tables-images-and-smart-chips": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -716,8 +836,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/resources",
-      "dataRoute": "/eng0300/resources.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-3/tables-images-and-smart-chips.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -727,7 +847,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/college-preparation/module-1": {
+    "/learning-paths/google-workspace/module-4/charts-and-pivot-tables": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -740,8 +860,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/college-preparation/module-1.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-4/charts-and-pivot-tables.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -751,7 +871,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/college-preparation/module-2": {
+    "/learning-paths/google-workspace/module-4/dropdowns-protection-and-sharing-sheets": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -764,8 +884,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/college-preparation/module-2.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-4/dropdowns-protection-and-sharing-sheets.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -775,7 +895,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/college-preparation/module-3": {
+    "/learning-paths/google-workspace/module-4/formulas-and-functions": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -788,8 +908,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/college-preparation/module-3.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-4/formulas-and-functions.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -799,7 +919,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/emt/module-1": {
+    "/learning-paths/google-workspace/module-4/sheets-basics-and-formatting": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -812,8 +932,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/emt/module-1.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-4/sheets-basics-and-formatting.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -823,7 +943,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/esol/module-1": {
+    "/learning-paths/google-workspace/module-4/sort-filter-and-conditional-formatting": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -836,8 +956,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/esol/module-1.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-4/sort-filter-and-conditional-formatting.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -847,7 +967,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/esol/module-2": {
+    "/learning-paths/google-workspace/module-5/design-with-images-and-backgrounds": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -860,8 +980,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/esol/module-2.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-5/design-with-images-and-backgrounds.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -871,7 +991,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/high-school-equivalency/module-1": {
+    "/learning-paths/google-workspace/module-5/present-share-and-download": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -884,8 +1004,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/high-school-equivalency/module-1.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-5/present-share-and-download.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -895,7 +1015,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/high-school-equivalency/module-2": {
+    "/learning-paths/google-workspace/module-5/start-a-presentation": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -908,8 +1028,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/high-school-equivalency/module-2.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-5/start-a-presentation.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -919,7 +1039,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/high-school-equivalency/module-3": {
+    "/learning-paths/google-workspace/module-5/transitions-animations-and-notes": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -932,8 +1052,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/high-school-equivalency/module-3.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-5/transitions-animations-and-notes.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -943,7 +1063,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-assisting/module-1": {
+    "/learning-paths/google-workspace/module-6/compose-reply-forward": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -956,8 +1076,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-assisting/module-1.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-6/compose-reply-forward.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -967,7 +1087,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-assisting/module-2": {
+    "/learning-paths/google-workspace/module-6/gmail-inbox-basics": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -980,8 +1100,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-assisting/module-2.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-6/gmail-inbox-basics.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -991,7 +1111,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-assisting/module-3": {
+    "/learning-paths/google-workspace/module-6/organize-labels-filters-search": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1004,8 +1124,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-assisting/module-3.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-6/organize-labels-filters-search.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1015,7 +1135,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-assisting/module-4": {
+    "/learning-paths/google-workspace/module-6/send-later-and-settings": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1028,8 +1148,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-assisting/module-4.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-6/send-later-and-settings.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1039,7 +1159,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-assisting/module-5": {
+    "/learning-paths/google-workspace/module-6/spam-phishing-safety": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1052,8 +1172,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-assisting/module-5.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-6/spam-phishing-safety.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1063,7 +1183,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-assisting/module-6": {
+    "/learning-paths/google-workspace/module-7/calendar-basics": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1076,8 +1196,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-assisting/module-6.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-7/calendar-basics.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1087,7 +1207,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-assisting/module-7": {
+    "/learning-paths/google-workspace/module-7/invite-and-find-a-time": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1100,8 +1220,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-assisting/module-7.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-7/invite-and-find-a-time.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1111,7 +1231,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-assisting/module-8": {
+    "/learning-paths/google-workspace/module-7/join-and-take-part-in-meet": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1124,8 +1244,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-assisting/module-8.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-7/join-and-take-part-in-meet.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1135,7 +1255,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-1": {
+    "/learning-paths/google-workspace/module-7/share-calendars-and-booking": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1148,8 +1268,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-1.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-7/share-calendars-and-booking.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1159,7 +1279,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-2": {
+    "/learning-paths/google-workspace/module-8/comments-and-tasks-in-shared-files": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1172,8 +1292,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-2.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-8/comments-and-tasks-in-shared-files.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1183,7 +1303,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-3": {
+    "/learning-paths/google-workspace/module-8/google-chat-and-spaces": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1196,8 +1316,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-3.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-8/google-chat-and-spaces.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1207,7 +1327,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-4": {
+    "/learning-paths/google-workspace/module-8/run-a-team-project": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1220,8 +1340,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-4.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "dataRoute": "/learning-paths/google-workspace/module-8/run-a-team-project.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1231,7 +1351,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-5": {
+    "/learning-paths/google-workspace/module-1": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1244,8 +1364,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-5.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]",
+      "dataRoute": "/learning-paths/google-workspace/module-1.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1255,7 +1375,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-6": {
+    "/learning-paths/google-workspace/module-2": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1268,8 +1388,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-6.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]",
+      "dataRoute": "/learning-paths/google-workspace/module-2.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1279,7 +1399,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-7": {
+    "/learning-paths/google-workspace/module-3": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1292,8 +1412,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-7.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]",
+      "dataRoute": "/learning-paths/google-workspace/module-3.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1303,7 +1423,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/medical-billing-coding/module-8": {
+    "/learning-paths/google-workspace/module-4": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1316,8 +1436,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-8.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]",
+      "dataRoute": "/learning-paths/google-workspace/module-4.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1327,7 +1447,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/osha-30/module-1": {
+    "/learning-paths/google-workspace/module-5": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1340,8 +1460,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/osha-30/module-1.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]",
+      "dataRoute": "/learning-paths/google-workspace/module-5.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1351,7 +1471,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/osha-30/module-2": {
+    "/learning-paths/google-workspace/module-6": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1364,8 +1484,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/osha-30/module-2.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]",
+      "dataRoute": "/learning-paths/google-workspace/module-6.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1375,7 +1495,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/patient-care-technician/module-1": {
+    "/learning-paths/google-workspace/module-7": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1388,8 +1508,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/patient-care-technician/module-1.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]",
+      "dataRoute": "/learning-paths/google-workspace/module-7.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1399,7 +1519,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/patient-care-technician/module-2": {
+    "/learning-paths/google-workspace/module-8": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1412,8 +1532,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/patient-care-technician/module-2.rsc",
+      "srcRoute": "/learning-paths/google-workspace/[moduleSlug]",
+      "dataRoute": "/learning-paths/google-workspace/module-8.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1423,7 +1543,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/patient-care-technician/module-3": {
+    "/learning-paths/google-workspace": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1436,8 +1556,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/patient-care-technician/module-3.rsc",
+      "srcRoute": "/learning-paths/google-workspace",
+      "dataRoute": "/learning-paths/google-workspace.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -1447,7 +1567,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/patient-care-technician/module-4": {
+    "/learning-paths/office-assistant/tech-foundations/class-exercises": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -1460,176 +1580,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/patient-care-technician/module-4.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/programs/patient-care-technician/module-5": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/patient-care-technician/module-5.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/programs/patient-care-technician/module-6": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/patient-care-technician/module-6.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/programs/pharmacy-technician/module-1": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/pharmacy-technician/module-1.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/programs/pharmacy-technician/module-2": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/pharmacy-technician/module-2.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/programs/pharmacy-technician/module-3": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/pharmacy-technician/module-3.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/programs/security-guard/module-1": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/security-guard/module-1.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/learning-paths/programs/tourism-hospitality/module-1": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
-      "dataRoute": "/learning-paths/programs/tourism-hospitality/module-1.rsc",
+      "srcRoute": "/learning-paths/office-assistant/tech-foundations/class-exercises",
+      "dataRoute": "/learning-paths/office-assistant/tech-foundations/class-exercises.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -3463,7 +3415,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/writing-lab/paragraph": {
+    "/learning-paths/programs/college-preparation/module-1": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -3476,8 +3428,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/writing-lab/[tier]",
-      "dataRoute": "/eng0300/writing-lab/paragraph.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/college-preparation/module-1.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -3487,7 +3439,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/writing-lab/sentence": {
+    "/learning-paths/programs/college-preparation/module-2": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -3500,8 +3452,8 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/writing-lab/[tier]",
-      "dataRoute": "/eng0300/writing-lab/sentence.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/college-preparation/module-2.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -3511,7 +3463,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/writing-lab/short-response": {
+    "/learning-paths/programs/college-preparation/module-3": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -3524,8 +3476,1256 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/writing-lab/[tier]",
-      "dataRoute": "/eng0300/writing-lab/short-response.rsc",
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/college-preparation/module-3.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/emt/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/emt/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/esol/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/esol/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/esol/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/esol/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/high-school-equivalency/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/high-school-equivalency/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/high-school-equivalency/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/high-school-equivalency/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/high-school-equivalency/module-3": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/high-school-equivalency/module-3.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-3": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-3.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-4": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-4.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-5": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-5.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-6": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-6.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-7": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-7.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting/module-8": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting/module-8.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-3": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-3.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-4": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-4.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-5": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-5.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-6": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-6.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-7": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-7.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding/module-8": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding/module-8.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/osha-30/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/osha-30/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/osha-30/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/osha-30/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-3": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-3.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-4": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-4.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-5": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-5.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician/module-6": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician/module-6.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/pharmacy-technician/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/pharmacy-technician/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/pharmacy-technician/module-2": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/pharmacy-technician/module-2.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/pharmacy-technician/module-3": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/pharmacy-technician/module-3.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/security-guard/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/security-guard/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/tourism-hospitality/module-1": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]/[moduleSlug]",
+      "dataRoute": "/learning-paths/programs/tourism-hospitality/module-1.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/progress": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/progress",
+      "dataRoute": "/progress.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/college-preparation": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/college-preparation.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/emt": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/emt.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/esol": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/esol.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/high-school-equivalency": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/high-school-equivalency.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-assisting": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/medical-assisting.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/medical-billing-coding": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/medical-billing-coding.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/osha-30": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/osha-30.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/patient-care-technician": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/patient-care-technician.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/pharmacy-technician": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/pharmacy-technician.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/security-guard": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/security-guard.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/tourism-hospitality": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/learning-paths/programs/[programSlug]",
+      "dataRoute": "/learning-paths/programs/tourism-hospitality.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/class-exercises": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/class-exercises",
+      "dataRoute": "/eng0300/class-exercises.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/resources": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/resources",
+      "dataRoute": "/eng0300/resources.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300",
+      "dataRoute": "/eng0300.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/tabe/language": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/tabe/language",
+      "dataRoute": "/eng0300/tabe/language.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/tabe": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/tabe",
+      "dataRoute": "/eng0300/tabe.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -3703,6 +4903,78 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/eng0300/writing-lab/paragraph": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/writing-lab/[tier]",
+      "dataRoute": "/eng0300/writing-lab/paragraph.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/writing-lab/sentence": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/writing-lab/[tier]",
+      "dataRoute": "/eng0300/writing-lab/sentence.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/eng0300/writing-lab/short-response": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/eng0300/writing-lab/[tier]",
+      "dataRoute": "/eng0300/writing-lab/short-response.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/eng0300/writing-lab": {
       "experimentalBypassFor": [
         {
@@ -3751,30 +5023,6 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/tabe": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/eng0300/tabe",
-      "dataRoute": "/eng0300/tabe.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
     "/engl0150/portfolio": {
       "experimentalBypassFor": [
         {
@@ -3814,30 +5062,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/engl0150",
       "dataRoute": "/engl0150.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/engl0150/word-bank": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/engl0150/word-bank",
-      "dataRoute": "/engl0150/word-bank.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -4183,7 +5407,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/progress": {
+    "/engl0150/word-bank": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -4196,8 +5420,896 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/progress",
-      "dataRoute": "/progress.rsc",
+      "srcRoute": "/engl0150/word-bank",
+      "dataRoute": "/engl0150/word-bank.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/drills/medical-terms": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/drills/medical-terms",
+      "dataRoute": "/typing-lab/drills/medical-terms.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/drills/email": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/drills/email",
+      "dataRoute": "/typing-lab/drills/email.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/drills/data-entry": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/drills/data-entry",
+      "dataRoute": "/typing-lab/drills/data-entry.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/drills": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/drills",
+      "dataRoute": "/typing-lab/drills.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/drills/ten-key": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/drills/ten-key",
+      "dataRoute": "/typing-lab/drills/ten-key.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/games": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/games",
+      "dataRoute": "/typing-lab/games.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons",
+      "dataRoute": "/typing-lab/lessons.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/bottom-bn": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/bottom-bn.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/bottom-c-comma": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/bottom-c-comma.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/bottom-review": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/bottom-review.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/bottom-vm": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/bottom-vm.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/bottom-x-period": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/bottom-x-period.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/bottom-z-slash": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/bottom-z-slash.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/home-a-semicolon": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/home-a-semicolon.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/home-dk": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/home-dk.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/home-fj": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/home-fj.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/home-gh": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/home-gh.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/home-review": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/home-review.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/home-sl": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/home-sl.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/num-10": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/num-10.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/num-29": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/num-29.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/num-38": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/num-38.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/num-4567": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/num-4567.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/num-review": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/num-review.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/shift-capitals": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/shift-capitals.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/shift-colon-hyphen": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/shift-colon-hyphen.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/shift-parens-at": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/shift-parens-at.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/shift-question-apostrophe": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/shift-question-apostrophe.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/shift-review": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/shift-review.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/top-ei": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/top-ei.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/top-qp": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/top-qp.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/top-review": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/top-review.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/top-ru": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/top-ru.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/top-ty": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/top-ty.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/lessons/top-wo": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/lessons/[lessonId]",
+      "dataRoute": "/typing-lab/lessons/top-wo.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab/progress": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab/progress",
+      "dataRoute": "/typing-lab/progress.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/typing-lab": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/typing-lab",
+      "dataRoute": "/typing-lab.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -4209,7 +6321,7 @@
     }
   },
   "dynamicRoutes": {
-    "/learning-paths/programs/[programSlug]": {
+    "/learning-paths/google-workspace/[moduleSlug]/[slug]": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -4221,10 +6333,10 @@
           "value": "multipart/form-data;.*"
         }
       ],
-      "routeRegex": "^/learning\\-paths/programs/([^/]+?)(?:/)?$",
-      "dataRoute": "/learning-paths/programs/[programSlug].rsc",
+      "routeRegex": "^/learning\\-paths/google\\-workspace/([^/]+?)/([^/]+?)(?:/)?$",
+      "dataRoute": "/learning-paths/google-workspace/[moduleSlug]/[slug].rsc",
       "fallback": null,
-      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)\\.rsc$",
+      "dataRouteRegex": "^/learning\\-paths/google\\-workspace/([^/]+?)/([^/]+?)\\.rsc$",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -4234,7 +6346,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/learning-paths/programs/[programSlug]/[moduleSlug]": {
+    "/learning-paths/google-workspace/[moduleSlug]": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -4246,10 +6358,10 @@
           "value": "multipart/form-data;.*"
         }
       ],
-      "routeRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)(?:/)?$",
-      "dataRoute": "/learning-paths/programs/[programSlug]/[moduleSlug].rsc",
+      "routeRegex": "^/learning\\-paths/google\\-workspace/([^/]+?)(?:/)?$",
+      "dataRoute": "/learning-paths/google-workspace/[moduleSlug].rsc",
       "fallback": null,
-      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)\\.rsc$",
+      "dataRouteRegex": "^/learning\\-paths/google\\-workspace/([^/]+?)\\.rsc$",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -4284,7 +6396,7 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/eng0300/writing-lab/[tier]": {
+    "/learning-paths/programs/[programSlug]/[moduleSlug]": {
       "experimentalBypassFor": [
         {
           "type": "header",
@@ -4296,10 +6408,35 @@
           "value": "multipart/form-data;.*"
         }
       ],
-      "routeRegex": "^/eng0300/writing\\-lab/([^/]+?)(?:/)?$",
-      "dataRoute": "/eng0300/writing-lab/[tier].rsc",
+      "routeRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)(?:/)?$",
+      "dataRoute": "/learning-paths/programs/[programSlug]/[moduleSlug].rsc",
       "fallback": null,
-      "dataRouteRegex": "^/eng0300/writing\\-lab/([^/]+?)\\.rsc$",
+      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)/([^/]+?)\\.rsc$",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/learning-paths/programs/[programSlug]": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "routeRegex": "^/learning\\-paths/programs/([^/]+?)(?:/)?$",
+      "dataRoute": "/learning-paths/programs/[programSlug].rsc",
+      "fallback": null,
+      "dataRouteRegex": "^/learning\\-paths/programs/([^/]+?)\\.rsc$",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -4334,6 +6471,31 @@
         "x-next-revalidate-tag-token"
       ]
     },
+    "/eng0300/writing-lab/[tier]": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "routeRegex": "^/eng0300/writing\\-lab/([^/]+?)(?:/)?$",
+      "dataRoute": "/eng0300/writing-lab/[tier].rsc",
+      "fallback": null,
+      "dataRouteRegex": "^/eng0300/writing\\-lab/([^/]+?)\\.rsc$",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
     "/engl0150/topics/[number]": {
       "experimentalBypassFor": [
         {
@@ -4358,12 +6520,37 @@
         "x-next-revalidated-tags",
         "x-next-revalidate-tag-token"
       ]
+    },
+    "/typing-lab/lessons/[lessonId]": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "routeRegex": "^/typing\\-lab/lessons/([^/]+?)(?:/)?$",
+      "dataRoute": "/typing-lab/lessons/[lessonId].rsc",
+      "fallback": null,
+      "dataRouteRegex": "^/typing\\-lab/lessons/([^/]+?)\\.rsc$",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
     }
   },
   "notFoundRoutes": [],
   "preview": {
-    "previewModeId": "1b6bfacf9d4ef3619e6373c3108700a3",
-    "previewModeSigningKey": "3af5fdf2f65dbf4209ebf94871be024dd7c02d6718e304e883e113e940121878",
-    "previewModeEncryptionKey": "a73dbb4f62399353aed8a118a2ef6cd525c579ef47ad232943f7788f3ee4ec96"
+    "previewModeId": "6fabab0d24df2c1c5669a9543f7b0ee5",
+    "previewModeSigningKey": "84a57e7c5e7017247149bab08d032e91e77b9c55c8bd3b04dde31ea384621502",
+    "previewModeEncryptionKey": "8034503d414499d351f3a5b2632674321955f2576da3ae608beb5e0fb9d34ebd"
   }
 }

@@ -62,7 +62,7 @@ export default function OfficeAssistantPage() {
       </div>
 
       {/* Career Path Flow */}
-      <div className="bg-white rounded-xl shadow-md border border-gray-200 p-8 mb-12">
+      <div className="bg-white rounded-[22px] border border-ink-line p-8 mb-12">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Career Path</h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
           {[
@@ -104,8 +104,8 @@ export default function OfficeAssistantPage() {
 
         {/* Technology Foundations */}
         <Link href="/learning-paths/office-assistant/tech-foundations">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-            <div className="text-5xl mb-4">💻</div>
+          <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">💻</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Technology Foundations
             </h3>
@@ -125,8 +125,8 @@ export default function OfficeAssistantPage() {
 
         {/* Office Productivity Applications */}
         <Link href="/learning-paths/office-assistant/office-apps">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-            <div className="text-5xl mb-4">📊</div>
+          <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📊</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Office Productivity Applications
             </h3>
@@ -146,8 +146,8 @@ export default function OfficeAssistantPage() {
 
         {/* Managing Office Data */}
         <Link href="/learning-paths/office-assistant/intro-database">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-            <div className="text-5xl mb-4">🗃️</div>
+          <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🗃️</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Managing Office Data
             </h3>
@@ -167,8 +167,8 @@ export default function OfficeAssistantPage() {
 
         {/* Modern Office Operations */}
         <Link href="/learning-paths/office-assistant/modern-office">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-            <div className="text-5xl mb-4">🏢</div>
+          <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🏢</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Cloud Technology with AI
             </h3>
@@ -189,8 +189,8 @@ export default function OfficeAssistantPage() {
 
         {/* Certification & Career Prep */}
         <Link href="/learning-paths/certification">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-            <div className="text-5xl mb-4">🎓</div>
+          <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🎓</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Certification & Career Prep
             </h3>
@@ -211,7 +211,7 @@ export default function OfficeAssistantPage() {
       </div>
 
       {/* Recommended Path */}
-      <div className="bg-white rounded-xl shadow-md border border-gray-200 p-8">
+      <div className="bg-white rounded-[22px] border border-ink-line p-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">
           Recommended Learning Path
         </h2>

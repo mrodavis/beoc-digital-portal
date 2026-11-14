@@ -68,7 +68,7 @@
     },
     "onDemandEntries": {
       "maxInactiveAge": 60000,
-      "pagesBufferLength": 5
+      "pagesBufferLength": 4
     },
     "amp": {
       "canonicalBase": ""
@@ -99,7 +99,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/Users/orvillexdavis/code/beoc-digital-portal",
+    "outputFileTracingRoot": "/home/claude/beoc-digital-portal",
     "experimental": {
       "useSkewCookie": false,
       "cacheLife": {
@@ -158,7 +158,7 @@
       "middlewarePrefetch": "flexible",
       "optimisticClientCache": true,
       "manualClientBasePath": false,
-      "cpus": 7,
+      "cpus": 1,
       "memoryBasedWorkersCount": false,
       "imgOptConcurrency": null,
       "imgOptTimeoutInSeconds": 7,
@@ -289,10 +289,22 @@
     "bundlePagesRouterDependencies": false,
     "configFileName": "next.config.js",
     "turbopack": {
-      "root": "/Users/orvillexdavis/code/beoc-digital-portal"
-    }
+      "root": "/home/claude/beoc-digital-portal"
+    },
+    "_originalRedirects": [
+      {
+        "source": "/ehr",
+        "destination": "/ehr-simulator",
+        "permanent": false
+      },
+      {
+        "source": "/simulator",
+        "destination": "/ehr-simulator",
+        "permanent": false
+      }
+    ]
   },
-  "appDir": "/Users/orvillexdavis/code/beoc-digital-portal",
+  "appDir": "/home/claude/beoc-digital-portal",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",

@@ -84,7 +84,7 @@ export default function TeamsPage() {
       </div>
 
       {/* Requirements */}
-      <div className="bg-white rounded-xl shadow-md border border-gray-200 p-8">
+      <div className="bg-white rounded-[22px] border border-ink-line p-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">What You&apos;ll Need</h2>
         <ul className="space-y-2 text-gray-700">
           <li>• A computer with a web browser (the simulations run in the browser)</li>

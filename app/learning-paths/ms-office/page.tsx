@@ -20,53 +20,32 @@ export default function MicrosoftOfficePage() {
     <div className="container mx-auto px-4 py-12 max-w-7xl">
 
       {/* Header */}
-      <div className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          Microsoft Office
-        </h1>
-        <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
-          Master the essential productivity tools used in modern workplaces.
-          Structured workforce-ready curriculum covering Word, Excel,
-          PowerPoint, Access, Outlook, Teams, and OneDrive, from beginner
-          to certification level.
-        </p>
-      </div>
-
-      {/* Course Overview */}
-      <div className="mb-12 bg-primary-50 border border-primary-200 rounded-xl p-8">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Program Overview
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-6 text-gray-700">
-          <div>
-            <div className="text-3xl font-bold text-primary-600 mb-2">
-              {totalModules}
-            </div>
-            <div className="font-semibold">Structured Modules</div>
-            <div className="text-sm text-gray-600">
-              Across Word, Excel, PowerPoint, Access, Outlook, Teams & OneDrive
-            </div>
+      <p className="mb-5 text-sm text-ink-muted">
+        <Link href="/#programs" className="hover:text-ink">Programs</Link>
+        <span className="mx-2">/</span>Business &amp; Office<span className="mx-2">/</span>
+        <span className="font-semibold text-ink">Microsoft Office</span>
+      </p>
+      <div className="mb-12 flex flex-col gap-8 rounded-[28px] bg-ink p-8 text-white sm:p-10 lg:flex-row lg:items-end lg:justify-between">
+        <div className="max-w-2xl">
+          <p className="text-[13px] font-semibold uppercase tracking-[0.12em] text-primary-300">Learning path</p>
+          <h1 className="mt-3 font-display text-5xl font-bold leading-none tracking-[-0.035em] sm:text-[56px]">Microsoft Office</h1>
+          <p className="mt-4 text-[17px] leading-relaxed text-[#B9C3D6]">
+            Master the essential productivity tools used in modern workplaces. Workforce-ready curriculum covering Word,
+            Excel, PowerPoint, Access, Outlook, Teams, and OneDrive, from beginner to certification level.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <div className="min-w-[120px] rounded-[18px] bg-white/[0.07] px-5 py-4">
+            <p className="font-display text-[32px] font-bold">{totalModules}</p>
+            <p className="mt-1 text-[13px] text-[#B9C3D6]">Modules</p>
           </div>
-
-          <div>
-            <div className="text-3xl font-bold text-primary-600 mb-2">
-              20+
-            </div>
-            <div className="font-semibold">Hours of Content</div>
-            <div className="text-sm text-gray-600">
-              Video lessons & practice projects
-            </div>
+          <div className="min-w-[120px] rounded-[18px] bg-white/[0.07] px-5 py-4">
+            <p className="font-display text-[32px] font-bold">20+</p>
+            <p className="mt-1 text-[13px] text-[#B9C3D6]">Hours</p>
           </div>
-
-          <div>
-            <div className="text-3xl font-bold text-primary-600 mb-2">
-              MOS
-            </div>
-            <div className="font-semibold">Certification Focused</div>
-            <div className="text-sm text-gray-600">
-              Designed for official exam prep
-            </div>
+          <div className="min-w-[120px] rounded-[18px] bg-primary-600 px-5 py-4">
+            <p className="font-display text-[32px] font-bold">MOS</p>
+            <p className="mt-1 text-[13px] text-primary-100">Exam focused</p>
           </div>
         </div>
       </div>
@@ -81,8 +60,8 @@ export default function MicrosoftOfficePage() {
 
         {/* WORD */}
         <Link href="/learning-paths/ms-office/word">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-            <div className="text-5xl mb-4">📝</div>
+          <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📝</div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Microsoft Word
@@ -105,8 +84,8 @@ export default function MicrosoftOfficePage() {
 
         {/* EXCEL */}
         <Link href="/learning-paths/ms-office/excel">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-            <div className="text-5xl mb-4">📊</div>
+          <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📊</div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Microsoft Excel
@@ -129,8 +108,8 @@ export default function MicrosoftOfficePage() {
 
         {/* ACCESS */}
         <Link href="/learning-paths/ms-office/access">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-            <div className="text-5xl mb-4">🗄️</div>
+          <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🗄️</div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Microsoft Access
@@ -153,8 +132,8 @@ export default function MicrosoftOfficePage() {
 
         {/* POWERPOINT */}
         <Link href="/learning-paths/ms-office/powerpoint">
-          <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-            <div className="text-5xl mb-4">🎨</div>
+          <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🎨</div>
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Microsoft PowerPoint
@@ -178,8 +157,8 @@ export default function MicrosoftOfficePage() {
         {/* OUTLOOK */}
         {counts.outlook > 0 ? (
           <Link href="/learning-paths/ms-office/outlook">
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-              <div className="text-5xl mb-4">📧</div>
+            <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+              <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📧</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Outlook</h3>
               <p className="text-gray-600 mb-4 leading-relaxed">Professional email, calendar and scheduling, contacts, tasks, and keeping a busy inbox under control.</p>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -191,7 +170,7 @@ export default function MicrosoftOfficePage() {
           </Link>
         ) : (
           <div className="bg-white rounded-xl shadow-md border border-dashed border-gray-300 p-6 h-full opacity-80">
-            <div className="text-5xl mb-4">📧</div>
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📧</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Outlook</h3>
             <p className="text-gray-600 mb-4 leading-relaxed">Professional email, calendar and scheduling, contacts, tasks, and keeping a busy inbox under control.</p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -203,8 +182,8 @@ export default function MicrosoftOfficePage() {
         {/* TEAMS */}
         {counts.teams > 0 ? (
           <Link href="/learning-paths/ms-office/teams">
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-              <div className="text-5xl mb-4">💬</div>
+            <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+              <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">💬</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Teams</h3>
               <p className="text-gray-600 mb-4 leading-relaxed">Chats, channels, meetings, shared files, and working with a team in one place.</p>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -216,7 +195,7 @@ export default function MicrosoftOfficePage() {
           </Link>
         ) : (
           <div className="bg-white rounded-xl shadow-md border border-dashed border-gray-300 p-6 h-full opacity-80">
-            <div className="text-5xl mb-4">💬</div>
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">💬</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Teams</h3>
             <p className="text-gray-600 mb-4 leading-relaxed">Chats, channels, meetings, shared files, and working with a team in one place.</p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -228,8 +207,8 @@ export default function MicrosoftOfficePage() {
         {/* ONEDRIVE */}
         {counts.onedrive > 0 ? (
           <Link href="/learning-paths/ms-office/onedrive">
-            <div className="bg-white rounded-xl shadow-md border border-gray-200 p-6 card-hover h-full">
-              <div className="text-5xl mb-4">☁️</div>
+            <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
+              <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">☁️</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft OneDrive</h3>
               <p className="text-gray-600 mb-4 leading-relaxed">Cloud storage, syncing, sharing with the right permissions, version history, and recovering files.</p>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -241,7 +220,7 @@ export default function MicrosoftOfficePage() {
           </Link>
         ) : (
           <div className="bg-white rounded-xl shadow-md border border-dashed border-gray-300 p-6 h-full opacity-80">
-            <div className="text-5xl mb-4">☁️</div>
+            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">☁️</div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft OneDrive</h3>
             <p className="text-gray-600 mb-4 leading-relaxed">Cloud storage, syncing, sharing with the right permissions, version history, and recovering files.</p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -253,7 +232,7 @@ export default function MicrosoftOfficePage() {
       </div>
 
       {/* Recommended Path */}
-      <div className="bg-white rounded-xl shadow-md border border-gray-200 p-8">
+      <div className="bg-white rounded-[22px] border border-ink-line p-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-6">
           Recommended Learning Path
         </h2>

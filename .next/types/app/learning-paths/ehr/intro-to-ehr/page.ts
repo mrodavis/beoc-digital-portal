@@ -1,4 +1,4 @@
-// File: /Users/orvillexdavis/code/beoc-digital-portal/app/learning-paths/ehr/intro-to-ehr/page.tsx
+// File: /home/claude/beoc-digital-portal/app/learning-paths/ehr/intro-to-ehr/page.tsx
 import * as entry from '../../../../../../app/learning-paths/ehr/intro-to-ehr/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

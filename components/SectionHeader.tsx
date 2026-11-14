@@ -6,12 +6,8 @@ interface SectionHeaderProps {
 export default function SectionHeader({ title, description }: SectionHeaderProps) {
   return (
     <div className="mb-8">
-      <h2 className="text-3xl font-bold text-gray-900 mb-3">{title}</h2>
-      {description && (
-        <p className="text-lg text-gray-600 leading-relaxed max-w-3xl">
-          {description}
-        </p>
-      )}
+      <h2 className="font-display text-3xl font-bold tracking-tight text-ink sm:text-[40px] sm:leading-[1.05]">{title}</h2>
+      {description && <p className="mt-3 max-w-3xl text-lg leading-relaxed text-ink-soft">{description}</p>}
     </div>
   );
 }

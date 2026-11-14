@@ -1,0 +1,9 @@
+{
+  "status": 307,
+  "headers": {
+    "location": "/typing-lab",
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/learning-paths/layout,_N_T_/learning-paths/office-assistant/layout,_N_T_/learning-paths/office-assistant/tech-foundations/layout,_N_T_/learning-paths/office-assistant/tech-foundations/typing-lab/layout,_N_T_/learning-paths/office-assistant/tech-foundations/typing-lab/page,_N_T_/learning-paths/office-assistant/tech-foundations/typing-lab"
+  }
+}

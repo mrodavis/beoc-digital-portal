@@ -10,6 +10,18 @@
       "internal": true,
       "statusCode": 308,
       "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    },
+    {
+      "source": "/ehr",
+      "destination": "/ehr-simulator",
+      "statusCode": 307,
+      "regex": "^(?!/_next)/ehr(?:/)?$"
+    },
+    {
+      "source": "/simulator",
+      "destination": "/ehr-simulator",
+      "statusCode": 307,
+      "regex": "^(?!/_next)/simulator(?:/)?$"
     }
   ],
   "headers": [
@@ -70,6 +82,23 @@
         "nxtPslug": "nxtPslug"
       },
       "namedRegex": "^/learning\\-paths/ehr/intro\\-to\\-ehr/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/google-workspace/[moduleSlug]",
+      "regex": "^/learning\\-paths/google\\-workspace/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug"
+      },
+      "namedRegex": "^/learning\\-paths/google\\-workspace/(?<nxtPmoduleSlug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/google-workspace/[moduleSlug]/[slug]",
+      "regex": "^/learning\\-paths/google\\-workspace/([^/]+?)/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPmoduleSlug": "nxtPmoduleSlug",
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/learning\\-paths/google\\-workspace/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
     },
     {
       "page": "/learning-paths/ms-office/[appSlug]/[moduleSlug]",
@@ -184,6 +213,14 @@
         "nxtPslug": "nxtPslug"
       },
       "namedRegex": "^/learning\\-paths/programs/(?<nxtPprogramSlug>[^/]+?)/(?<nxtPmoduleSlug>[^/]+?)/(?<nxtPslug>[^/]+?)(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/lessons/[lessonId]",
+      "regex": "^/typing\\-lab/lessons/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPlessonId": "nxtPlessonId"
+      },
+      "namedRegex": "^/typing\\-lab/lessons/(?<nxtPlessonId>[^/]+?)(?:/)?$"
     }
   ],
   "staticRoutes": [
@@ -200,10 +237,22 @@
       "namedRegex": "^/_not\\-found(?:/)?$"
     },
     {
+      "page": "/ehr-simulator",
+      "regex": "^/ehr\\-simulator(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/ehr\\-simulator(?:/)?$"
+    },
+    {
       "page": "/eng0300",
       "regex": "^/eng0300(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/eng0300(?:/)?$"
+    },
+    {
+      "page": "/eng0300/class-exercises",
+      "regex": "^/eng0300/class\\-exercises(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/eng0300/class\\-exercises(?:/)?$"
     },
     {
       "page": "/eng0300/practice",
@@ -296,6 +345,12 @@
       "namedRegex": "^/learning\\-paths/ehr/intro\\-to\\-ehr(?:/)?$"
     },
     {
+      "page": "/learning-paths/google-workspace",
+      "regex": "^/learning\\-paths/google\\-workspace(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/google\\-workspace(?:/)?$"
+    },
+    {
       "page": "/learning-paths/ms-office",
       "regex": "^/learning\\-paths/ms\\-office(?:/)?$",
       "routeKeys": {},
@@ -314,10 +369,28 @@
       "namedRegex": "^/learning\\-paths/ms\\-office/excel(?:/)?$"
     },
     {
+      "page": "/learning-paths/ms-office/onedrive",
+      "regex": "^/learning\\-paths/ms\\-office/onedrive(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ms\\-office/onedrive(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ms-office/outlook",
+      "regex": "^/learning\\-paths/ms\\-office/outlook(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ms\\-office/outlook(?:/)?$"
+    },
+    {
       "page": "/learning-paths/ms-office/powerpoint",
       "regex": "^/learning\\-paths/ms\\-office/powerpoint(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/learning\\-paths/ms\\-office/powerpoint(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/ms-office/teams",
+      "regex": "^/learning\\-paths/ms\\-office/teams(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/ms\\-office/teams(?:/)?$"
     },
     {
       "page": "/learning-paths/ms-office/word",
@@ -356,10 +429,82 @@
       "namedRegex": "^/learning\\-paths/office\\-assistant/tech\\-foundations(?:/)?$"
     },
     {
+      "page": "/learning-paths/office-assistant/tech-foundations/class-exercises",
+      "regex": "^/learning\\-paths/office\\-assistant/tech\\-foundations/class\\-exercises(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/office\\-assistant/tech\\-foundations/class\\-exercises(?:/)?$"
+    },
+    {
+      "page": "/learning-paths/office-assistant/tech-foundations/typing-lab",
+      "regex": "^/learning\\-paths/office\\-assistant/tech\\-foundations/typing\\-lab(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/learning\\-paths/office\\-assistant/tech\\-foundations/typing\\-lab(?:/)?$"
+    },
+    {
       "page": "/progress",
       "regex": "^/progress(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/progress(?:/)?$"
+    },
+    {
+      "page": "/typing-lab",
+      "regex": "^/typing\\-lab(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/drills",
+      "regex": "^/typing\\-lab/drills(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab/drills(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/drills/data-entry",
+      "regex": "^/typing\\-lab/drills/data\\-entry(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab/drills/data\\-entry(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/drills/email",
+      "regex": "^/typing\\-lab/drills/email(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab/drills/email(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/drills/medical-terms",
+      "regex": "^/typing\\-lab/drills/medical\\-terms(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab/drills/medical\\-terms(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/drills/ten-key",
+      "regex": "^/typing\\-lab/drills/ten\\-key(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab/drills/ten\\-key(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/games",
+      "regex": "^/typing\\-lab/games(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab/games(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/lessons",
+      "regex": "^/typing\\-lab/lessons(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab/lessons(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/progress",
+      "regex": "^/typing\\-lab/progress(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab/progress(?:/)?$"
+    },
+    {
+      "page": "/typing-lab/tests",
+      "regex": "^/typing\\-lab/tests(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/typing\\-lab/tests(?:/)?$"
     }
   ],
   "dataRoutes": [],

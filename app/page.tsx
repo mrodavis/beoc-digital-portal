@@ -1,286 +1,121 @@
-import LearningCard from "@/components/LearningCard";
-
-type LearningPath = {
-  title: string;
-  description: string;
-  href: string;
-  status: "available" | "coming-soon";
-  icon: string;
-};
+import Link from "next/link";
+import HomeCatalog from "@/components/HomeCatalog";
+import { officeApps } from "@/lib/content/ms-office";
+import {
+  msOfficePath,
+  googleWorkspacePath,
+  ehrSimulatorPath,
+  academicPrograms,
+  technicalPrograms,
+} from "@/lib/content/catalog";
 
 export default function Home() {
-  const msOfficePath: LearningPath = {
-    title: "Microsoft Office",
-    description:
-      "Master Word, Excel, and PowerPoint with comprehensive modules covering essential skills for professional productivity.",
-    href: "/learning-paths/ms-office",
-    status: "available",
-    icon: "📊",
-  };
-
-  const googleWorkspacePath: LearningPath = {
-    title: "Google Workspace",
-    description:
-      "Work in Drive, Docs, Sheets, Slides, Gmail, Calendar, and Meet the way offices use them, with practice simulations and side-by-side notes for Microsoft 365 users.",
-    href: "/learning-paths/google-workspace",
-    status: "available",
-    icon: "🧭",
-  };
-
-  const ehrSimulatorPath: LearningPath = {
-    title: "BEOC EHR Simulator",
-    description:
-      "Work real clinical-software workflows in a training hospital with fictional patients: charts, vitals, orders, results, scheduling, and billing. Join with your class code.",
-    href: "/ehr-simulator",
-    status: "available",
-    icon: "🖥️",
-  };
-
-  const academicPrograms: LearningPath[] = [
-    {
-      title: "ENG0300 Reading for Academics",
-      description:
-        "Academic Bridge Reading Lab. Build the reading comprehension skills measured by the TABE: main ideas, inferences, vocabulary, text structure, point of view, evidence, and data.",
-      href: "/eng0300",
-      status: "available",
-      icon: "📖",
-    },
-    {
-      title: "ENGL0150 Writing for the Workplace",
-      description:
-        "Healthcare workplace writing for MA, PCT, and Medical Billing students. Grammar and sentence clarity, objective documentation, SOAP notes, patient instructions, professional email, and using AI as a writing coach.",
-      href: "/engl0150",
-      status: "available",
-      icon: "✍️",
-    },
-    {
-      title: "College Preparation",
-      description:
-        "Build the academic skills and strategies needed to succeed in college-level coursework and higher education environments.",
-      href: "/learning-paths/programs/college-preparation",
-      status: "available",
-      icon: "🎓",
-    },
-    {
-      title: "English Speakers of Other Languages (ESOL)",
-      description:
-        "Develop English language proficiency for non-native speakers through reading, writing, speaking, and listening instruction.",
-      href: "/learning-paths/programs/esol",
-      status: "available",
-      icon: "🌐",
-    },
-    {
-      title: "High School Equivalency Preparation (HSE)",
-      description:
-        "Prepare for the High School Equivalency exam with instruction in math, reading, writing, science, and social studies.",
-      href: "/learning-paths/programs/high-school-equivalency",
-      status: "available",
-      icon: "📚",
-    },
-  ];
-
-  const technicalPrograms: LearningPath[] = [
-    {
-      title: "Office Administrative Professional (OAP)",
-      description:
-        "Become a job-ready office professional by mastering communication, Microsoft Office, cloud tools, scheduling, CRM systems, and AI-powered workflows.",
-      href: "/learning-paths/office-assistant",
-      status: "available",
-      icon: "💼",
-    },
-    {
-      title: "Electronic Health Records",
-      description:
-        "Learn to manage healthcare documentation and navigate EHR systems used in medical offices and clinical environments.",
-      href: "/learning-paths/ehr",
-      status: "available",
-      icon: "🏥",
-    },
-    {
-      title: "Medical Assisting Training (MA)",
-      description:
-        "Scope of practice, infection control, vital signs, documentation, assisting with procedures, medication safety, phlebotomy, and emergency response for the ambulatory care team.",
-      href: "/learning-paths/programs/medical-assisting",
-      status: "available",
-      icon: "🩺",
-    },
-    {
-      title: "Medical Billing and Coding",
-      description:
-        "Follow a clinical encounter through to a paid claim: the revenue cycle, medical terminology, ICD-10-CM and CPT coding, claim submission, denials and appeals, and the compliance rules governing all of it.",
-      href: "/learning-paths/programs/medical-billing-coding",
-      status: "available",
-      icon: "🗂️",
-    },
-    {
-      title: "OSHA 30 w/ Site Safety and Flagging",
-      description:
-        "Prepare for the OSHA 30-Hour Construction course and card: worker rights, the Focus Four hazards, hazard communication, PPE, and work zone flagging.",
-      href: "/learning-paths/programs/osha-30",
-      status: "available",
-      icon: "🦺",
-    },
-    {
-      title: "Patient Care Technician (PCT)",
-      description:
-        "Frontline bedside care: the PCT role, infection control, safe patient handling, vital signs and EKG, personal care, specimen collection, and recognizing a deteriorating patient.",
-      href: "/learning-paths/programs/patient-care-technician",
-      status: "available",
-      icon: "🧑‍⚕️",
-    },
-    {
-      title: "Security Guard Training (SGT)",
-      description:
-        "Prepare for NYS security guard licensing with training in safety procedures, conflict management, and legal responsibilities.",
-      href: "/learning-paths/programs/security-guard",
-      status: "available",
-      icon: "🛡️",
-    },
-    {
-      title: "Pharmacy Technician Training",
-      description:
-        "Learn pharmacy operations, medication dispensing, and regulatory compliance to support licensed pharmacists.",
-      href: "/learning-paths/programs/pharmacy-technician",
-      status: "available",
-      icon: "💊",
-    },
-    {
-      title: "Emergency Medical Technician (EMT)",
-      description:
-        "Train for EMT certification with instruction in emergency response, patient assessment, and pre-hospital care.",
-      href: "/learning-paths/programs/emt",
-      status: "available",
-      icon: "🚑",
-    },
-    {
-      title: "Tourism and Hospitality Operations",
-      description:
-        "Develop customer service, front desk, and hospitality management skills for careers in hotels, tourism, and events.",
-      href: "/learning-paths/programs/tourism-hospitality",
-      status: "available",
-      icon: "🏨",
-    },
-  ];
+  const officeModules = Object.values(officeApps).reduce((n, mods) => n + mods.length, 0);
 
   return (
-    <div className="container mx-auto px-4 py-12 max-w-7xl">
-      {/* Hero Section */}
-      <div className="text-center mb-16 py-12">
-        <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-          BEOC Digital Skills Portal
-        </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-          Build essential digital and professional skills for the modern workplace.
-          Explore academic programs, technical certifications, and career-ready
-          pathways across healthcare, business, and public safety.
-        </p>
-      </div>
-
-      {/* Featured */}
-      <div className="mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">Featured</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[msOfficePath, googleWorkspacePath, ehrSimulatorPath].map((path) => (
-            <LearningCard
-              key={path.title}
-              title={path.title}
-              description={path.description}
-              href={path.href}
-              status={path.status}
-              icon={path.icon}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Academic Programs */}
-      <div id="academic" className="mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">
-          Academic Programs
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {academicPrograms.map((path) => (
-            <LearningCard
-              key={path.title}
-              title={path.title}
-              description={path.description}
-              href={path.href}
-              status={path.status}
-              icon={path.icon}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Technical Programs */}
-      <div id="career" className="mb-12">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">
-          Technical Programs
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {technicalPrograms.map((path) => (
-            <LearningCard
-              key={path.title}
-              title={path.title}
-              description={path.description}
-              href={path.href}
-              status={path.status}
-              icon={path.icon}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Quick Start Guide */}
-      <div className="bg-white rounded-xl shadow-md p-8 border border-gray-200">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          Getting Started
-        </h2>
-
-        <div className="space-y-6 text-gray-700">
-          <div className="flex items-start gap-4">
-            <span className="flex-shrink-0 w-8 h-8 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold">
-              1
-            </span>
-            <div>
-              <h3 className="font-semibold mb-1">
-                Choose Your Learning Path
-              </h3>
-              <p className="text-gray-600">
-                Select a course that aligns with your career goals and current skill level.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <span className="flex-shrink-0 w-8 h-8 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold">
-              2
-            </span>
-            <div>
-              <h3 className="font-semibold mb-1">
-                Work Through Modules
-              </h3>
-              <p className="text-gray-600">
-                Work at your own pace. Modules combine lessons, worked examples, and practice, with videos and simulations where a course has them.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-start gap-4">
-            <span className="flex-shrink-0 w-8 h-8 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold">
-              3
-            </span>
-            <div>
-              <h3 className="font-semibold mb-1">
-                Practice & Apply
-              </h3>
-              <p className="text-gray-600">
-                Download practice files and complete hands-on exercises to reinforce your learning.
-              </p>
-            </div>
+    <div className="pb-4">
+      {/* Hero */}
+      <section className="container-x flex flex-col gap-12 pb-10 pt-14 lg:flex-row lg:items-center lg:pt-20">
+        <div className="min-w-0 flex-1">
+          <p className="inline-flex items-center gap-2 rounded-full border border-ink-line bg-white px-3 py-1.5 text-[13px] font-semibold text-ink-soft">
+            <span className="h-2 w-2 rounded-full bg-[#12B76A]" />
+            SUNY Brooklyn Educational Opportunity Center
+          </p>
+          <h1 className="mt-5 font-display text-5xl font-bold leading-[1.0] tracking-[-0.035em] text-ink sm:text-6xl lg:text-[68px]">
+            Learn the skills
+            <br />
+            employers <span className="text-primary-600">ask for.</span>
+          </h1>
+          <p className="mt-6 max-w-[540px] text-lg leading-relaxed text-ink-soft sm:text-[19px]">
+            Academic programs, technical certifications, and career-ready pathways across healthcare, business, and
+            public safety. Practice in real tools, at your own pace.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a href="#programs" className="rounded-[14px] bg-ink px-6 py-4 font-semibold text-white transition-colors hover:bg-[#162a4a]">
+              Explore programs
+            </a>
+            <Link href="/ehr-simulator" className="rounded-[14px] border border-[#D0D5DD] bg-white px-6 py-4 font-semibold text-ink transition-colors hover:border-ink/40">
+              Open the EHR Simulator
+            </Link>
           </div>
         </div>
-      </div>
+
+        <div className="grid min-w-0 flex-1 grid-cols-2 gap-4">
+          <Link href="/ehr-simulator" className="col-span-2 rounded-[24px] bg-ink p-6 text-white transition-transform hover:-translate-y-0.5">
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-xs font-semibold uppercase tracking-[0.12em] text-primary-300">EHR Simulator · Training hospital</span>
+              <span className="rounded-full bg-white/10 px-2.5 py-1 text-xs">Fictional patients</span>
+            </div>
+            <div className="mt-5 flex items-center gap-4">
+              <span className="grid h-[52px] w-[52px] place-items-center rounded-2xl bg-primary-600 font-display text-xl font-bold">EHR</span>
+              <div>
+                <p className="font-display text-[22px] font-semibold">Patient chart</p>
+                <p className="mt-1 text-sm text-[#B9C3D6]">Vitals · Orders · Results · Scheduling · Billing</p>
+              </div>
+            </div>
+            <div className="mt-5 grid grid-cols-3 gap-2.5">
+              {[
+                ["BP", "118/76"],
+                ["Pulse", "72"],
+                ["Temp", "98.4°"],
+              ].map(([k, v]) => (
+                <div key={k} className="rounded-[14px] bg-white/[0.06] p-3.5">
+                  <p className="text-xs text-[#B9C3D6]">{k}</p>
+                  <p className="mt-1.5 text-xl font-semibold">{v}</p>
+                </div>
+              ))}
+            </div>
+          </Link>
+          <Link href="/typing-lab" className="surface p-5 transition-transform hover:-translate-y-0.5">
+            <p className="text-[13px] font-semibold text-ink-soft">Typing Lab</p>
+            <p className="mt-2.5 font-display text-[28px] font-bold leading-tight tracking-tight text-ink">Speed + accuracy drills</p>
+            <div className="mt-4 h-2 rounded-full bg-[#EEF1F6]">
+              <div className="h-2 w-[70%] rounded-full bg-accent-400" />
+            </div>
+          </Link>
+          <Link href="/learning-paths/ms-office" className="surface p-5 transition-transform hover:-translate-y-0.5">
+            <p className="text-[13px] font-semibold text-ink-soft">Microsoft Office</p>
+            <p className="mt-2.5 font-display text-[44px] font-bold leading-none tracking-tight text-ink">
+              {officeModules}
+              <span className="text-lg text-ink-soft"> modules</span>
+            </p>
+            <p className="mt-3 text-[13px] text-ink-muted">Word, Excel, PowerPoint, Access, Outlook, Teams, OneDrive</p>
+          </Link>
+        </div>
+      </section>
+
+      <HomeCatalog technical={technicalPrograms} academic={academicPrograms} />
+
+      {/* Featured tools */}
+      <section className="container-x pt-16">
+        <h2 className="font-display text-4xl font-bold tracking-tight text-ink">Practice tools</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {[msOfficePath, googleWorkspacePath, ehrSimulatorPath].map((p) => (
+            <Link key={p.title} href={p.href} className="surface card-hover block p-6">
+              <p className="font-display text-[22px] font-semibold tracking-tight text-ink">{p.title}</p>
+              <p className="mt-2 text-[15px] leading-relaxed text-ink-muted">{p.description}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="container-x pt-16">
+        <h2 className="font-display text-4xl font-bold tracking-tight text-ink">How it works</h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {[
+            ["01", "Choose your path", "Pick the program that matches your class and your career goals."],
+            ["02", "Practice in real tools", "Simulations of the software offices and clinics actually use, from Excel to patient charts."],
+            ["03", "Track every step", "See your progress across every path, and know exactly what to review before the exam."],
+          ].map(([n, t, d]) => (
+            <div key={n} className="surface p-6">
+              <p className="font-display text-[15px] font-bold text-primary-600">{n}</p>
+              <p className="mt-3.5 font-display text-[22px] font-semibold tracking-tight text-ink">{t}</p>
+              <p className="mt-2 leading-relaxed text-ink-muted">{d}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
