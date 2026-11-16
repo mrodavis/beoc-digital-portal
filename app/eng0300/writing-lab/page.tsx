@@ -12,6 +12,7 @@ import {
 } from "@/lib/content/eng0300/writing/weeklyFocus";
 import { writingRubric, writingRubricTotal } from "@/lib/content/eng0300/writing/rubric";
 import BrightspaceReturn from "@/components/eng0300/BrightspaceReturn";
+import Monogram from "@/components/Monogram";
 
 export const metadata: Metadata = {
   title: "Writing Lab | ENG0300",
@@ -102,9 +103,7 @@ export default function WritingLabPage() {
                   href={`/eng0300/writing-lab/${tier.slug}`}
                   className="group flex h-full flex-col rounded-2xl border border-eng-navy-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-teal-600 focus-visible:ring-offset-2"
                 >
-                  <span className="text-4xl" aria-hidden="true">
-                    {tier.icon}
-                  </span>
+                  <Monogram text={`T${tier.tier}`} tone="blue" />
                   <span className="mt-3 text-xs font-bold uppercase tracking-widest text-eng-navy-400">
                     Tier {tier.tier}
                   </span>

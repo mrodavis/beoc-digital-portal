@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { officeAppsModules } from "@/lib/content/office-assistant/office-apps";
+import Monogram from "@/components/Monogram";
 
 export default function OfficeAppsPage() {
   // Derived from the module data so the landing page cannot drift out of step
@@ -28,7 +29,7 @@ export default function OfficeAppsPage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl">📊</span>
+          <Monogram text="OA" tone="green" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Office Productivity Applications

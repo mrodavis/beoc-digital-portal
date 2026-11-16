@@ -8,6 +8,7 @@ import AnswerReviewBlock from "./AnswerReviewBlock";
 import PendingContent from "./PendingContent";
 import SkillProgressControl from "./SkillProgressControl";
 import WriteItBlock from "./WriteItBlock";
+import Monogram from "@/components/Monogram";
 import {
   classExerciseHref,
   eng0300ExercisesForSkill,
@@ -58,9 +59,7 @@ export default function SkillPageTemplate({
           </nav>
 
           <div className="flex items-start gap-4">
-            <span className="text-5xl sm:text-6xl" aria-hidden="true">
-              {skill.icon}
-            </span>
+            <Monogram text={`S${skill.week}`} tone="white" size="lg" />
             <div>
               <p className="mb-2 text-sm font-bold uppercase tracking-widest text-white/70">
                 Skill {skill.week} of 7 · Skill Lab

@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { wordModules } from "@/lib/content/ms-office/word/modules";
+import Monogram from "@/components/Monogram";
 
 export default function WordPage() {
   // Derived from the module data so these figures cannot drift out of
@@ -26,7 +27,7 @@ export default function WordPage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl">📝</span>
+          <Monogram text="W" tone="blue" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Microsoft Word
@@ -83,7 +84,7 @@ export default function WordPage() {
 
       {/* Workforce Assessment */}
       <div className="bg-gradient-to-r from-green-50 to-green-100 border border-green-200 rounded-xl p-6 mb-12">
-        <h3 className="text-xl font-bold mb-2">🧪 Workforce Assessment</h3>
+        <h3 className="text-xl font-bold mb-2">Workforce Assessment</h3>
         <p className="text-gray-700">Covers Modules 1–5. Demonstrate job-ready proficiency in Word.</p>
       </div>
 
@@ -101,7 +102,7 @@ export default function WordPage() {
 
       {/* Advanced Assessment */}
       <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6 mb-12">
-        <h3 className="text-xl font-bold mb-2">🏆 Advanced Assessment</h3>
+        <h3 className="text-xl font-bold mb-2">Advanced Assessment</h3>
         <p className="text-gray-700">Covers Modules 1–8. Certification-level simulation exam.</p>
       </div>
 

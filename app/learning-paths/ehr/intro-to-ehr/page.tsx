@@ -4,6 +4,7 @@ import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { introToEHRModules } from "@/lib/content/ehr/intro-to-ehr";
 import EhrSimulatorCallout from "@/components/EhrSimulatorCallout";
+import Monogram from "@/components/Monogram";
 
 export default function IntroToEHRPage() {
   // Derived from the module data so these figures cannot drift out of
@@ -27,7 +28,7 @@ export default function IntroToEHRPage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl">🏥</span>
+          <Monogram text="EHR" tone="blue" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Introduction to Electronic Health Records

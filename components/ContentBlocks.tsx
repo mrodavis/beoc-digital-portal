@@ -69,7 +69,7 @@ export function Block({ block }: { block: ContentBlock }) {
     case "tip":
       return (
         <div className="bg-green-50 border-l-4 border-green-400 p-4 rounded-xl text-gray-800 leading-relaxed">
-          <span aria-hidden="true">💡 </span>
+          {!/^[A-Z][\w ]{1,18}:/.test(block.text) && <span className="font-semibold text-green-800">Tip: </span>}
           {block.text}
         </div>
       );
@@ -149,7 +149,7 @@ export function Block({ block }: { block: ContentBlock }) {
           </p>
           {block.takeaway && (
             <p className="mt-2 text-gray-900 font-medium">
-              <span aria-hidden="true">🔑 </span>
+              <span className="font-semibold">Key takeaway: </span>
               {block.takeaway}
             </p>
           )}

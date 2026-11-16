@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Skill } from "@/types/eng0300";
 import { statusLabels, useSkillProgress } from "@/lib/eng0300/useProgress";
+import Monogram from "@/components/Monogram";
 
 const statusStyles = {
   "not-started": "bg-eng-navy-100 text-eng-navy-600",
@@ -22,9 +23,7 @@ export default function SkillCard({ skill }: { skill: Skill }) {
       <div
         className={`bg-gradient-to-br ${skill.accent} flex items-start justify-between p-5`}
       >
-        <span className="text-4xl" aria-hidden="true">
-          {skill.icon}
-        </span>
+        <Monogram text={`S${skill.week}`} tone="white" />
         <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
           Skill {skill.week}
         </span>

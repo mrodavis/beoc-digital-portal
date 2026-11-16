@@ -5,6 +5,7 @@ import { techFoundationsModules } from "@/lib/content/office-assistant/tech-foun
 import { officeAppsModules } from "@/lib/content/office-assistant/office-apps/modules";
 import { introDatabaseModules } from "@/lib/content/office-assistant/intro-database/modules";
 import { modernOfficeModules } from "@/lib/content/office-assistant/modern-office/modules";
+import Monogram from "@/components/Monogram";
 
 export default function OfficeAssistantPage() {
   return (
@@ -66,14 +67,14 @@ export default function OfficeAssistantPage() {
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Career Path</h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
           {[
-            { step: "Foundations", icon: "💻" },
-            { step: "Core Skills", icon: "📊" },
-            { step: "Data & Systems", icon: "🗃️" },
-            { step: "Real-World Operations", icon: "🏢" },
-            { step: "Job Ready", icon: "🎓" },
+            { step: "Foundations" },
+            { step: "Core Skills" },
+            { step: "Data & Systems" },
+            { step: "Real-World Operations" },
+            { step: "Job Ready" },
           ].map((item, i) => (
             <div key={i} className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-              <div className="text-2xl mb-2">{item.icon}</div>
+              <Monogram text={String(i + 1)} size="sm" className="mx-auto mb-2" />
               <p className="font-semibold text-gray-800 text-sm">{item.step}</p>
             </div>
           ))}
@@ -105,7 +106,7 @@ export default function OfficeAssistantPage() {
         {/* Technology Foundations */}
         <Link href="/learning-paths/office-assistant/tech-foundations">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">💻</div>
+            <Monogram text="TF" tone="blue" className="mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Technology Foundations
             </h3>
@@ -126,7 +127,7 @@ export default function OfficeAssistantPage() {
         {/* Office Productivity Applications */}
         <Link href="/learning-paths/office-assistant/office-apps">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📊</div>
+            <Monogram text="OA" tone="green" className="mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Office Productivity Applications
             </h3>
@@ -147,7 +148,7 @@ export default function OfficeAssistantPage() {
         {/* Managing Office Data */}
         <Link href="/learning-paths/office-assistant/intro-database">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🗃️</div>
+            <Monogram text="DB" tone="amber" className="mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Managing Office Data
             </h3>
@@ -168,7 +169,7 @@ export default function OfficeAssistantPage() {
         {/* Modern Office Operations */}
         <Link href="/learning-paths/office-assistant/modern-office">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🏢</div>
+            <Monogram text="AI" tone="violet" className="mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Cloud Technology with AI
             </h3>
@@ -190,7 +191,7 @@ export default function OfficeAssistantPage() {
         {/* Certification & Career Prep */}
         <Link href="/learning-paths/certification">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🎓</div>
+            <Monogram text="CP" tone="blue" className="mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Certification & Career Prep
             </h3>

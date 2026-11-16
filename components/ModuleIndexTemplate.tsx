@@ -3,6 +3,9 @@ import SectionHeader from "@/components/SectionHeader";
 import { Lesson } from "@/types/lesson";
 import { ReactNode } from "react";
 import ModuleLessonProgress from "@/components/progress/ModuleLessonProgress";
+import Monogram, { MonogramTone } from "@/components/Monogram";
+
+const LESSON_TONES: MonogramTone[] = ["blue", "green", "amber", "violet"];
 
 
 interface ModuleIndexTemplateProps {
@@ -12,7 +15,8 @@ interface ModuleIndexTemplateProps {
   courseTitle: string;
   moduleNumber: number;
   title: string;
-  emoji: string;
+  /** Kept for older callers; no longer shown. */
+  emoji?: string;
   description: string;
   lessons: Lesson[];
   level: string;
@@ -34,7 +38,6 @@ export default function ModuleIndexTemplate({
   courseTitle,
   moduleNumber,
   title,
-  emoji,
   description,
   lessons,
   level,
@@ -72,7 +75,7 @@ export default function ModuleIndexTemplate({
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-5xl">{emoji}</span>
+          <Monogram text={`M${moduleNumber}`} size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Module {moduleNumber}: {title}
@@ -138,38 +141,27 @@ export default function ModuleIndexTemplate({
             href={`/learning-paths/${basePath}/${courseSlug}/module-${moduleNumber}/${lesson.slug}`}
             className="block h-full"
           >
-            <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden h-full flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
-
-              {/* Gradient Header */}
-              <div className="bg-gradient-to-br from-primary-600 to-indigo-700 p-5 flex flex-col justify-between min-h-[140px]">
-                <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 bg-white/20 text-white text-sm font-bold rounded-full backdrop-blur-sm">
-                    Lesson {index + 1}
-                  </span>
-                  {lesson.duration && (
-                    <span className="text-white/80 text-sm">
-                      ⏱ {lesson.duration}
-                    </span>
+            <div className="flex h-full cursor-pointer flex-col rounded-[22px] border border-ink-line bg-white p-6 card-hover">
+              <div className="flex items-center justify-between gap-3">
+                <Monogram text={`L${index + 1}`} tone={LESSON_TONES[index % LESSON_TONES.length]} />
+                <span className="rounded-full bg-[#F2F4F7] px-2.5 py-1 text-xs font-semibold text-ink-soft">
+                  Lesson {index + 1}
+                </span>
+              </div>
+              <h3 className="mt-5 line-clamp-2 font-display text-lg font-semibold leading-snug tracking-tight text-ink">
+                {lesson.title}
+              </h3>
+              <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink-muted">
+                {lesson.description}
+              </p>
+              {(lesson.duration || (lesson.practiceFiles && lesson.practiceFiles.length > 0)) && (
+                <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-ink-line pt-4 text-xs font-medium text-ink-soft">
+                  {lesson.duration && <span className="rounded-full bg-ink-canvas px-2.5 py-1">{lesson.duration}</span>}
+                  {lesson.practiceFiles && lesson.practiceFiles.length > 0 && (
+                    <span className="rounded-full bg-[#E3F8EE] px-2.5 py-1 text-[#067647]">Practice file included</span>
                   )}
                 </div>
-                <span className="text-4xl mt-3 drop-shadow-sm">{emoji}</span>
-              </div>
-
-              {/* Content */}
-              <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-2 leading-snug">
-                  {lesson.title}
-                </h3>
-                <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed flex-1">
-                  {lesson.description}
-                </p>
-                {lesson.practiceFiles && lesson.practiceFiles.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-gray-100 text-xs text-green-600 font-medium">
-                    ✔ Includes Practice File
-                  </div>
-                )}
-              </div>
-
+              )}
             </div>
           </Link>
         ))}

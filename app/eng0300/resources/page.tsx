@@ -5,6 +5,7 @@ import {
   withheldMaterials,
 } from "@/lib/content/eng0300/resources";
 import { brightspaceRelationship } from "@/lib/content/eng0300/course";
+import Monogram, { monogram } from "@/components/Monogram";
 
 export const metadata: Metadata = {
   title: "Resources | ENG0300 Reading Lab",
@@ -46,9 +47,7 @@ export default function ResourcesPage() {
         {eng0300ResourceCategories.map((category) => (
           <section key={category.id} id={category.id} className="scroll-mt-32">
             <div className="mb-5 flex items-start gap-3">
-              <span className="text-3xl" aria-hidden="true">
-                {category.icon}
-              </span>
+              <Monogram text={monogram(category.title)} tone="green" size="sm" />
               <div>
                 <h2 className="font-display text-2xl font-bold text-eng-navy-900">
                   {category.title}

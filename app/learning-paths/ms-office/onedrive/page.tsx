@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { onedriveModules } from "@/lib/content/ms-office/onedrive/modules";
+import Monogram from "@/components/Monogram";
 
 export default function OneDrivePage() {
   // Derived from the module data so the figures can't drift from the course.
@@ -25,7 +26,7 @@ export default function OneDrivePage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl">☁️</span>
+          <Monogram text="OD" tone="blue" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Microsoft OneDrive</h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">

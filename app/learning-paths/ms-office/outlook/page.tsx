@@ -4,6 +4,7 @@ import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { outlookModules } from "@/lib/content/ms-office/outlook/modules";
 import { simCount } from "@/lib/sims";
+import Monogram from "@/components/Monogram";
 
 export default function OutlookPage() {
   // Derived from the module data so the figures stay in step with the course.
@@ -26,9 +27,7 @@ export default function OutlookPage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl" aria-hidden="true">
-            📧
-          </span>
+          <Monogram text="O" tone="blue" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Microsoft Outlook</h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">

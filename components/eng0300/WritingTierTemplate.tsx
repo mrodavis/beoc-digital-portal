@@ -7,6 +7,7 @@ import WritingSelfCheck from "./WritingSelfCheck";
 import WriteItBlock from "./WriteItBlock";
 import BrightspaceReturn from "./BrightspaceReturn";
 import { sentenceSkills } from "@/lib/content/eng0300/writing/sentence-skills";
+import Monogram from "@/components/Monogram";
 
 /**
  * The shared template behind all three Writing Lab tiers.
@@ -42,9 +43,7 @@ export default function WritingTierTemplate({
           </nav>
 
           <div className="flex items-start gap-4">
-            <span className="text-5xl sm:text-6xl" aria-hidden="true">
-              {tier.icon}
-            </span>
+            <Monogram text={`T${tier.tier}`} tone="white" size="lg" />
             <div>
               <p className="mb-2 text-sm font-bold uppercase tracking-widest text-white/70">
                 Tier {tier.tier} · Writing Lab

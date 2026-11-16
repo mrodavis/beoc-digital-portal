@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { accessModules } from "@/lib/content/ms-office/access/modules";
+import Monogram from "@/components/Monogram";
 
 export default function AccessPage() {
   const moduleCount = accessModules.length;
@@ -28,9 +29,7 @@ export default function AccessPage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl" aria-hidden="true">
-            🗄️
-          </span>
+          <Monogram text="A" tone="violet" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Microsoft Access

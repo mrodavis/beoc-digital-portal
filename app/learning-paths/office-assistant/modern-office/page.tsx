@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { modernOfficeModules } from "@/lib/content/office-assistant/modern-office";
+import Monogram from "@/components/Monogram";
 
 export default function ModernOfficePage() {
   // Derived from the module data so these figures cannot drift out of step
@@ -28,7 +29,7 @@ export default function ModernOfficePage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl">🏢</span>
+          <Monogram text="AI" tone="violet" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Cloud Technology with AI

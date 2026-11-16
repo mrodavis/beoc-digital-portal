@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
+import Monogram from "@/components/Monogram";
 
 export default function CertificationPage() {
   return (
@@ -27,9 +28,7 @@ export default function CertificationPage() {
           {/* Word Certification */}
           <div className="bg-white rounded-[22px] border border-ink-line p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-2xl">
-                📝
-              </div>
+              <Monogram text="W" tone="blue" />
               <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-1">
                   MOS: Word (Microsoft 365 Apps)
@@ -89,9 +88,7 @@ export default function CertificationPage() {
           {/* Excel Certification */}
           <div className="bg-white rounded-[22px] border border-ink-line p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-2xl">
-                📊
-              </div>
+              <Monogram text="X" tone="green" />
               <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-1">
                   MOS: Excel (Microsoft 365 Apps)
@@ -126,9 +123,7 @@ export default function CertificationPage() {
           {/* PowerPoint Certification */}
           <div className="bg-white rounded-[22px] border border-ink-line p-6">
             <div className="flex items-start gap-4 mb-4">
-              <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-2xl">
-                🎨
-              </div>
+              <Monogram text="P" tone="amber" />
               <div>
                 <h3 className="text-xl font-bold text-gray-900 mb-1">
                   MOS: PowerPoint (Microsoft 365 Apps)

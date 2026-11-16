@@ -4,6 +4,7 @@ import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { techFoundationsModules } from "@/lib/content/office-assistant/tech-foundations";
 import { techFoundationsClassExerciseCount } from "@/lib/content/class-exercises";
+import Monogram from "@/components/Monogram";
 
 export default function TechFoundationsPage() {
   // Derived from the module data so these figures cannot drift out of
@@ -27,7 +28,7 @@ export default function TechFoundationsPage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl">💻</span>
+          <Monogram text="TF" tone="blue" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Technology Foundations
@@ -78,9 +79,7 @@ export default function TechFoundationsPage() {
         href="/learning-paths/office-assistant/tech-foundations/class-exercises"
         className="group mb-12 flex flex-col gap-4 rounded-xl border-2 border-primary-200 bg-primary-50 p-6 transition-all hover:border-primary-400 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 sm:flex-row sm:items-center"
       >
-        <span className="text-4xl" aria-hidden="true">
-          🧪
-        </span>
+        <Monogram text="CE" tone="amber" />
         <span className="flex-1">
           <span className="block text-xl font-bold text-gray-900 group-hover:text-primary-700">
             Class Exercises
@@ -100,9 +99,7 @@ export default function TechFoundationsPage() {
         href="/typing-lab"
         className="group -mt-8 mb-12 flex flex-col gap-4 rounded-xl border-2 border-primary-200 bg-white p-6 transition-all hover:border-primary-400 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 sm:flex-row sm:items-center"
       >
-        <span className="text-4xl" aria-hidden="true">
-          ⌨️
-        </span>
+        <Monogram text="CE" tone="amber" />
         <span className="flex-1">
           <span className="block text-xl font-bold text-gray-900 group-hover:text-primary-700">
             Typing Lab

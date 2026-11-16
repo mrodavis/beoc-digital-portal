@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { excelModules } from "@/lib/content/ms-office/excel/modules";
+import Monogram from "@/components/Monogram";
 
 export default function ExcelPage() {
   // Derived from the module data so these figures cannot drift out of
@@ -26,7 +27,7 @@ export default function ExcelPage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl">📊</span>
+          <Monogram text="X" tone="green" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Microsoft Excel
@@ -95,7 +96,7 @@ export default function ExcelPage() {
       {/* Assessment */}
       <div className="bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 rounded-xl p-6 mb-8">
         <h3 className="text-xl font-bold mb-2">
-          🏆 Excel Certification Assessment
+          Excel Certification Assessment
         </h3>
         <p className="text-gray-700">
           Covers Modules 1–7. MOS-style simulation and project-based evaluation.

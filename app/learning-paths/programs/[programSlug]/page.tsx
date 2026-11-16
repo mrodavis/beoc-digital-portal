@@ -6,6 +6,7 @@ import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import EhrSimulatorCallout from "@/components/EhrSimulatorCallout";
 import TabeRequirementBox from "@/components/TabeRequirementBox";
+import Monogram, { monogram } from "@/components/Monogram";
 
 /** Programs whose students have a track in the BEOC EHR Simulator. */
 const SIMULATOR_PROGRAMS: Record<string, string> = {
@@ -53,9 +54,7 @@ export default async function ProgramPage({
       <div
         className={`rounded-2xl bg-gradient-to-r ${program.accent} text-white p-8 md:p-12 mb-10`}
       >
-        <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl" aria-hidden="true">
-          {program.icon}
-        </div>
+        <Monogram text={monogram(program.title)} tone="white" className="mb-4" />
         <h1 className="text-4xl md:text-5xl font-bold mb-4">{program.title}</h1>
         <p className="text-lg md:text-xl leading-relaxed max-w-3xl text-white/90">
           {program.description}

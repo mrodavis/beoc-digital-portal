@@ -17,7 +17,7 @@ interface ModuleTemplateProps {
   title: string;
   description: string;
 
-  appSlug: string;          // 👈 dynamic (word, excel, etc.)
+  appSlug: string;          // dynamic (word, excel, etc.)
   moduleSlug: string;
   /** The lesson's own slug — the stable half of its progress key. */
   lessonSlug: string;
@@ -38,7 +38,7 @@ interface ModuleTemplateProps {
   objectives?: string[];
   duration?: string;
 
-  videoUrl?: string;        // 👈 optional now
+  videoUrl?: string;        // optional
   videoUrls?: string[];
   slides?: { src: string; alt: string }[];
 
@@ -216,7 +216,7 @@ export default function ModuleTemplate({
     {!videoUrl && !(videoUrls && videoUrls.length > 0) && !(slides && slides.length > 0) && (
       <div className="mb-12">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 border border-blue-200 rounded-full text-blue-700 font-medium text-sm">
-          📘 Reading Lesson
+          Reading lesson
         </div>
       </div>
     )}

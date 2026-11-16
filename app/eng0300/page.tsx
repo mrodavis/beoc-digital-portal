@@ -6,6 +6,7 @@ import { practiceStats } from "@/lib/content/eng0300/practice";
 import { writingTiers } from "@/lib/content/eng0300/writing/tiers";
 import { sentenceBankTotal } from "@/lib/content/eng0300/writing/sentence-skills";
 import { eng0300ClassExerciseCount } from "@/lib/content/class-exercises";
+import Monogram, { monogram } from "@/components/Monogram";
 import {
   brightspaceRelationship,
   eng0300Course,
@@ -206,9 +207,7 @@ export default function Eng0300Dashboard() {
                 href={`/eng0300/writing-lab/${tier.slug}`}
                 className="group flex h-full flex-col rounded-2xl border border-eng-navy-200 bg-white p-5 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-teal-600 focus-visible:ring-offset-2"
               >
-                <span className="text-4xl" aria-hidden="true">
-                  {tier.icon}
-                </span>
+                <Monogram text={`T${tier.tier}`} tone="blue" />
                 <span className="mt-3 text-xs font-bold uppercase tracking-widest text-eng-navy-400">
                   Tier {tier.tier}
                 </span>
@@ -260,9 +259,7 @@ export default function Eng0300Dashboard() {
                 href={center.href}
                 className="group flex h-full flex-col rounded-2xl border border-eng-navy-200 bg-white p-6 shadow-sm transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-eng-teal-600 focus-visible:ring-offset-2"
               >
-                <span className="text-4xl" aria-hidden="true">
-                  {center.icon}
-                </span>
+                <Monogram text={monogram(center.title)} tone="green" />
                 <h3 className="mt-4 font-display text-xl font-bold text-eng-navy-900">
                   {center.title}
                 </h3>

@@ -4,6 +4,7 @@ import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { googleWorkspaceModules } from "@/lib/content/google-workspace/modules";
 import { simCount } from "@/lib/sims";
+import Monogram from "@/components/Monogram";
 
 export const metadata = {
   title: "Google Workspace | BEOC Digital",
@@ -65,9 +66,7 @@ export default function GoogleWorkspacePage() {
       {/* Header */}
       <div className="mb-10">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl" aria-hidden="true">
-            🟦
-          </span>
+          <Monogram text="GW" tone="green" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Google Workspace</h1>
             <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">

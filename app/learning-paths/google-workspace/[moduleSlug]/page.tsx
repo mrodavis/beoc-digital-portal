@@ -4,6 +4,9 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleLessonProgress from "@/components/progress/ModuleLessonProgress";
 import { googleWorkspaceModules } from "@/lib/content/google-workspace/modules";
 import { simsFor } from "@/lib/sims";
+import Monogram, { MonogramTone } from "@/components/Monogram";
+
+const LESSON_TONES: MonogramTone[] = ["blue", "green", "amber", "violet"];
 
 /*
  * Module index for the Google Workspace course. It draws the same layout as
@@ -54,7 +57,7 @@ export default async function GoogleWorkspaceModulePage({
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-5xl">{module.emoji}</span>
+          <Monogram text={`M${module.moduleNumber}`} tone="green" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Module {module.moduleNumber}: {module.title}
@@ -116,20 +119,18 @@ export default async function GoogleWorkspaceModulePage({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
         {module.lessons.map((lesson, i) => (
           <Link key={lesson.slug} href={`${COURSE}/${module.moduleSlug}/${lesson.slug}`} className="block h-full">
-            <div className="bg-white rounded-2xl shadow-md border border-gray-100 overflow-hidden h-full flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer">
-              <div className="bg-gradient-to-br from-primary-600 to-indigo-700 p-5 flex flex-col justify-between min-h-[140px]">
-                <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 bg-white/20 text-white text-sm font-bold rounded-full backdrop-blur-sm">
-                    Lesson {i + 1}
-                  </span>
-                  {lesson.duration && <span className="text-white/80 text-sm">⏱ {lesson.duration}</span>}
+            <div className="flex h-full cursor-pointer flex-col rounded-[22px] border border-ink-line bg-white p-6 card-hover">
+              <div className="flex items-center justify-between gap-3">
+                <Monogram text={`L${i + 1}`} tone={LESSON_TONES[i % LESSON_TONES.length]} />
+                <span className="rounded-full bg-[#F2F4F7] px-2.5 py-1 text-xs font-semibold text-ink-soft">Lesson {i + 1}</span>
+              </div>
+              <h3 className="mt-5 line-clamp-2 font-display text-lg font-semibold leading-snug tracking-tight text-ink">{lesson.title}</h3>
+              <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-ink-muted">{lesson.description}</p>
+              {lesson.duration && (
+                <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-ink-line pt-4 text-xs font-medium text-ink-soft">
+                  <span className="rounded-full bg-ink-canvas px-2.5 py-1">{lesson.duration}</span>
                 </div>
-                <span className="text-4xl mt-3 drop-shadow-sm">{module.emoji}</span>
-              </div>
-              <div className="p-5 flex flex-col flex-1">
-                <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-2 leading-snug">{lesson.title}</h3>
-                <p className="text-sm text-gray-600 line-clamp-3 leading-relaxed flex-1">{lesson.description}</p>
-              </div>
+              )}
             </div>
           </Link>
         ))}

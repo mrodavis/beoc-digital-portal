@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import EhrSimulatorCallout from "@/components/EhrSimulatorCallout";
+import Monogram from "@/components/Monogram";
 
 export default function EHRProgramPage() {
   return (
@@ -56,13 +57,13 @@ export default function EHRProgramPage() {
         <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Learning Journey</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
           {[
-            { step: "EHR Foundations", icon: "🏥" },
-            { step: "Coding & Compliance", icon: "🗂️" },
-            { step: "Hands-On Simulation", icon: "💻" },
-            { step: "CEHRS Certified", icon: "🎓" },
+            { step: "EHR Foundations" },
+            { step: "Coding & Compliance" },
+            { step: "Hands-On Simulation" },
+            { step: "CEHRS Certified" },
           ].map((item, i) => (
             <div key={i} className="p-4 rounded-lg bg-gray-50 border border-gray-100">
-              <div className="text-2xl mb-2">{item.icon}</div>
+              <Monogram text={String(i + 1)} size="sm" className="mx-auto mb-2" />
               <p className="font-semibold text-gray-800 text-sm">{item.step}</p>
             </div>
           ))}
@@ -92,7 +93,7 @@ export default function EHRProgramPage() {
         {/* Intro to EHR */}
         <Link href="/learning-paths/ehr/intro-to-ehr">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🏥</div>
+            <Monogram text="EHR" tone="blue" className="mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Introduction to Electronic Health Records
             </h3>
@@ -113,7 +114,7 @@ export default function EHRProgramPage() {
         {/* EHR Simulator */}
         <Link href="/ehr-simulator">
           <div className="bg-slate-900 rounded-xl shadow-md border border-slate-700 p-6 card-hover h-full text-white">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🖥️</div>
+            <Monogram text="SIM" tone="green" className="mb-4" />
             <h3 className="text-2xl font-bold mb-3">
               BEOC EHR Simulator
             </h3>

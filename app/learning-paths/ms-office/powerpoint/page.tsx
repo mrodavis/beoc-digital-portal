@@ -3,6 +3,7 @@ import SectionHeader from "@/components/SectionHeader";
 import ModuleCard from "@/components/ModuleCard";
 import CourseProgress from "@/components/progress/CourseProgress";
 import { powerpointModules } from "@/lib/content/ms-office/powerpoint/modules";
+import Monogram from "@/components/Monogram";
 
 export default function PowerPointPage() {
   // Derived from the module data so these figures cannot drift out of
@@ -26,7 +27,7 @@ export default function PowerPointPage() {
       {/* Header */}
       <div className="mb-12">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl">🎨</span>
+          <Monogram text="P" tone="amber" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Microsoft PowerPoint

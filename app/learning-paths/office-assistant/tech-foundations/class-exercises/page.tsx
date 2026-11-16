@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { techFoundationsModules } from "@/lib/content/office-assistant/tech-foundations";
+import Monogram from "@/components/Monogram";
 import {
   classExerciseHref,
   techFoundationsClassExerciseCount,
@@ -43,9 +44,7 @@ export default function TechFoundationsClassExercisesPage() {
       {/* Header */}
       <div className="mb-10">
         <div className="flex items-start gap-4 mb-4">
-          <span className="text-6xl" aria-hidden="true">
-            🧪
-          </span>
+          <Monogram text="CE" tone="amber" size="lg" />
           <div>
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Class Exercises

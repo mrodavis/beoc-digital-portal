@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import CommunicationCheck from "@/components/engl0150/CommunicationCheck";
+import Monogram, { monogram } from "@/components/Monogram";
 import {
   engl0150Course,
   portfolioOutcomes,
@@ -66,9 +67,7 @@ export default function PortfolioPage() {
               className="rounded-2xl border border-engl-ink-200 bg-white p-5"
             >
               <div className="flex items-start gap-4">
-                <span className="text-3xl" aria-hidden="true">
-                  {piece.icon}
-                </span>
+                <Monogram text={monogram(piece.title)} tone="violet" size="sm" />
                 <div className="flex-1">
                   <h3 className="font-display text-lg font-bold text-engl-ink-900">
                     {piece.title}

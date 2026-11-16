@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SectionHeader from "@/components/SectionHeader";
 import { officeApps } from "@/lib/content/ms-office";
+import Monogram from "@/components/Monogram";
 
 export default function MicrosoftOfficePage() {
   // Derived from the module data. These were hardcoded and had drifted — the
@@ -61,7 +62,7 @@ export default function MicrosoftOfficePage() {
         {/* WORD */}
         <Link href="/learning-paths/ms-office/word">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📝</div>
+            <Monogram text="W" tone="blue" className="mb-4" />
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Microsoft Word
@@ -85,7 +86,7 @@ export default function MicrosoftOfficePage() {
         {/* EXCEL */}
         <Link href="/learning-paths/ms-office/excel">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📊</div>
+            <Monogram text="X" tone="green" className="mb-4" />
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Microsoft Excel
@@ -109,7 +110,7 @@ export default function MicrosoftOfficePage() {
         {/* ACCESS */}
         <Link href="/learning-paths/ms-office/access">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🗄️</div>
+            <Monogram text="A" tone="violet" className="mb-4" />
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Microsoft Access
@@ -133,7 +134,7 @@ export default function MicrosoftOfficePage() {
         {/* POWERPOINT */}
         <Link href="/learning-paths/ms-office/powerpoint">
           <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">🎨</div>
+            <Monogram text="P" tone="amber" className="mb-4" />
 
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Microsoft PowerPoint
@@ -158,7 +159,7 @@ export default function MicrosoftOfficePage() {
         {counts.outlook > 0 ? (
           <Link href="/learning-paths/ms-office/outlook">
             <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-              <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📧</div>
+              <Monogram text="O" tone="blue" className="mb-4" />
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Outlook</h3>
               <p className="text-gray-600 mb-4 leading-relaxed">Professional email, calendar and scheduling, contacts, tasks, and keeping a busy inbox under control.</p>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -170,7 +171,7 @@ export default function MicrosoftOfficePage() {
           </Link>
         ) : (
           <div className="bg-white rounded-xl shadow-md border border-dashed border-gray-300 p-6 h-full opacity-80">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">📧</div>
+            <Monogram text="O" tone="blue" className="mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Outlook</h3>
             <p className="text-gray-600 mb-4 leading-relaxed">Professional email, calendar and scheduling, contacts, tasks, and keeping a busy inbox under control.</p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -183,7 +184,7 @@ export default function MicrosoftOfficePage() {
         {counts.teams > 0 ? (
           <Link href="/learning-paths/ms-office/teams">
             <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-              <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">💬</div>
+              <Monogram text="T" tone="violet" className="mb-4" />
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Teams</h3>
               <p className="text-gray-600 mb-4 leading-relaxed">Chats, channels, meetings, shared files, and working with a team in one place.</p>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -195,7 +196,7 @@ export default function MicrosoftOfficePage() {
           </Link>
         ) : (
           <div className="bg-white rounded-xl shadow-md border border-dashed border-gray-300 p-6 h-full opacity-80">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">💬</div>
+            <Monogram text="T" tone="violet" className="mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft Teams</h3>
             <p className="text-gray-600 mb-4 leading-relaxed">Chats, channels, meetings, shared files, and working with a team in one place.</p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -208,7 +209,7 @@ export default function MicrosoftOfficePage() {
         {counts.onedrive > 0 ? (
           <Link href="/learning-paths/ms-office/onedrive">
             <div className="bg-white rounded-[22px] border border-ink-line p-6 card-hover h-full">
-              <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">☁️</div>
+              <Monogram text="OD" tone="blue" className="mb-4" />
               <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft OneDrive</h3>
               <p className="text-gray-600 mb-4 leading-relaxed">Cloud storage, syncing, sharing with the right permissions, version history, and recovering files.</p>
               <div className="flex items-center gap-2 text-sm text-gray-500">
@@ -220,7 +221,7 @@ export default function MicrosoftOfficePage() {
           </Link>
         ) : (
           <div className="bg-white rounded-xl shadow-md border border-dashed border-gray-300 p-6 h-full opacity-80">
-            <div className="mb-4 grid h-12 w-12 place-items-center rounded-[14px] bg-primary-50 text-2xl">☁️</div>
+            <Monogram text="OD" tone="blue" className="mb-4" />
             <h3 className="text-2xl font-bold text-gray-900 mb-3">Microsoft OneDrive</h3>
             <p className="text-gray-600 mb-4 leading-relaxed">Cloud storage, syncing, sharing with the right permissions, version history, and recovering files.</p>
             <div className="flex items-center gap-2 text-sm text-gray-500">
